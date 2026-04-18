@@ -12,24 +12,44 @@ export default function Intake() {
         Intake
       </h1>
 
-      <form style={{ maxWidth: "400px" }}>
+      <form 
+  style={{ maxWidth: "400px" }}
+  onSubmit={(e) => {
+    e.preventDefault();
 
-        <input placeholder="Full Name" style={inputStyle} />
-        <input placeholder="Email" style={inputStyle} />
-        <input placeholder="Phone" style={inputStyle} />
-        <input placeholder="Date of Birth" style={inputStyle} />
+    const data = {
+      name: e.target[0].value,
+      email: e.target[1].value,
+      phone: e.target[2].value,
+      dob: e.target[3].value,
+      height: e.target[4].value,
+      weight: e.target[5].value,
+      conditions: e.target[6].value,
+      meds: e.target[7].value,
+    };
 
-        <input placeholder="Height" style={inputStyle} />
-        <input placeholder="Weight" style={inputStyle} />
+    console.log("INTAKE DATA:", data);
 
-        <textarea placeholder="Medical Conditions" style={inputStyle} />
-        <textarea placeholder="Current Medications" style={inputStyle} />
+    alert("Submitted. Check console.");
+  }}
+>
 
-        <button style={buttonStyle}>
-          Continue
-        </button>
+  <input placeholder="Full Name" style={inputStyle} />
+  <input placeholder="Email" style={inputStyle} />
+  <input placeholder="Phone" style={inputStyle} />
+  <input placeholder="Date of Birth" style={inputStyle} />
 
-      </form>
+  <input placeholder="Height" style={inputStyle} />
+  <input placeholder="Weight" style={inputStyle} />
+
+  <textarea placeholder="Medical Conditions" style={inputStyle} />
+  <textarea placeholder="Current Medications" style={inputStyle} />
+
+  <button style={buttonStyle}>
+    Continue
+  </button>
+
+</form>
     </main>
   );
 }
