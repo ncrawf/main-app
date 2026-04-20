@@ -113,17 +113,32 @@ export async function POST(request: Request) {
   }
 
   const bodyText = `Patient check-in submitted for ${treatment.display_name}.`
-  const { error: iErr } = await admin.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    treatment_item_id: treatment.id,
-    event_type: 'patient_treatment_checkin_submitted',
-    body: bodyText,
-    actor_user_id: null,
-    payload,
-  })
+  const { data: inserted, error: iErr } = await admin
+    .from('patient_timeline_events')
+    .insert({
+      patient_id: patientId,
+      treatment_item_id: treatment.id,
+      event_type: 'patient_treatment_checkin_submitted',
+      body: bodyText,
+      actor_user_id: null,
+      payload,
+    })
+    .select('id')
+    .maybeSingle()
   if (iErr) {
     console.error('treatment-checkin: timeline', iErr)
     return NextResponse.json({ error: 'Could not save check-in.' }, { status: 500 })
+  }
+  if (inserted?.id) {
+    const { error: cErr } = await admin.from('patient_treatment_checkins').insert({
+      patient_id: patientId,
+      treatment_item_id: treatment.id,
+      source_timeline_event_id: inserted.id,
+      treatment_key: treatment.treatment_key,
+      display_name: treatment.display_name,
+      checkin: payload.checkin,
+    })
+    if (cErr) console.error('treatment-checkin: ops row', cErr)
   }
 
   const priorMetadata = ((treatment.metadata as Record<string, unknown>) ?? {}) as Record<string, unknown>
