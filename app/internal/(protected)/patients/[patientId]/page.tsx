@@ -7,6 +7,10 @@ import {
   allowedNextSupplementFulfillmentStatuses,
   labelSupplementFulfillmentStatus,
 } from '@/lib/supplement/fulfillment'
+import {
+  loadSupportRequestOpsBySourceEventId,
+  loadTreatmentCheckinReviewMetaBySourceId,
+} from '@/lib/ops/patientCaseOps'
 import { listTimelineEvents } from '@/lib/timeline/listTimelineEvents'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -205,6 +209,19 @@ function supportStatusFromPayload(payload: Record<string, unknown>): SupportRequ
     return status
   }
   return 'new'
+}
+
+function resolveSupportRequestStatus(
+  eventId: string,
+  payload: Record<string, unknown>,
+  ops: Awaited<ReturnType<typeof loadSupportRequestOpsBySourceEventId>>
+): SupportRequestStatus {
+  const row = ops.get(eventId)
+  if (row) {
+    const s = row.status
+    if (s === 'new' || s === 'acknowledged' || s === 'call_completed' || s === 'resolved') return s
+  }
+  return supportStatusFromPayload(payload)
 }
 
 function firstLicenseNumber(licenses: Array<Record<string, unknown>>): string | null {
@@ -492,20 +509,35 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
   }
   if (!patient) notFound()
 
-  const [{ data: stateRow }, { data: staffRows }, events, care, transitions, refills, supplements, intake, labOrders, clinical, providers] =
-    await Promise.all([
-      supabase.from('patient_states').select('assigned_to').eq('patient_id', patientId).maybeSingle(),
-      supabase.from('staff_profiles').select('id, display_name').order('display_name', { ascending: true }),
-      listTimelineEvents(supabase, patientId),
-      loadCareProgramsSnapshot(supabase, patientId),
-      loadTransitionRows(supabase),
-      loadRefillRequests(supabase, patientId),
-      loadSupplementFulfillmentOrders(supabase, patientId),
-      loadLatestIntakeSnapshot(supabase, patientId),
-      loadLabOrders(supabase, patientId),
-      loadClinicalVisits(supabase, patientId),
-      listProviders(supabase),
-    ])
+  const [
+    { data: stateRow },
+    { data: staffRows },
+    events,
+    care,
+    transitions,
+    refills,
+    supplements,
+    intake,
+    labOrders,
+    clinical,
+    providers,
+    supportOpsMap,
+    checkinReviewMetaFromOps,
+  ] = await Promise.all([
+    supabase.from('patient_states').select('assigned_to').eq('patient_id', patientId).maybeSingle(),
+    supabase.from('staff_profiles').select('id, display_name').order('display_name', { ascending: true }),
+    listTimelineEvents(supabase, patientId),
+    loadCareProgramsSnapshot(supabase, patientId),
+    loadTransitionRows(supabase),
+    loadRefillRequests(supabase, patientId),
+    loadSupplementFulfillmentOrders(supabase, patientId),
+    loadLatestIntakeSnapshot(supabase, patientId),
+    loadLabOrders(supabase, patientId),
+    loadClinicalVisits(supabase, patientId),
+    listProviders(supabase),
+    loadSupportRequestOpsBySourceEventId(supabase, patientId),
+    loadTreatmentCheckinReviewMetaBySourceId(supabase, patientId),
+  ])
 
   const catalogProgramPicks = care.programs.map((p) => ({
     id: p.id,
@@ -559,7 +591,7 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
     if (ev.event_type !== 'patient_message_submitted' && ev.event_type !== 'patient_callback_requested') {
       return false
     }
-    return supportStatusFromPayload(ev.payload) !== 'resolved'
+    return resolveSupportRequestStatus(ev.id, ev.payload, supportOpsMap) !== 'resolved'
   })
   const checkinReviewedMetaBySourceId = new Map<
     string,
@@ -574,6 +606,18 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
       reviewer: ev.actor_display_name ?? 'Staff',
       reviewedAt: ev.created_at,
     })
+  }
+  const staffNameById = new Map(
+    ((staffRows ?? []) as Array<{ id: string; display_name: string | null }>).map((s) => [
+      s.id,
+      s.display_name?.trim() || null,
+    ])
+  )
+  for (const [sourceId, meta] of checkinReviewMetaFromOps) {
+    if (checkinReviewedMetaBySourceId.has(sourceId)) continue
+    const reviewer =
+      (meta.reviewerStaffId && staffNameById.get(meta.reviewerStaffId)) || 'Staff'
+    checkinReviewedMetaBySourceId.set(sourceId, { reviewer, reviewedAt: meta.reviewedAt })
   }
   const paymentHistory = events
     .filter((ev) => ev.event_type === 'stripe_checkout_completed')
@@ -1023,7 +1067,7 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
         ) : (
           <ul className="mt-4 space-y-3">
             {openSupportRequests.map((ev) => {
-              const currentStatus = supportStatusFromPayload(ev.payload)
+              const currentStatus = resolveSupportRequestStatus(ev.id, ev.payload, supportOpsMap)
               const eventType =
                 ev.event_type === 'patient_callback_requested'
                   ? 'patient_callback_requested'

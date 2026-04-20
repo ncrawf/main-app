@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { MarkCheckinReviewedButton } from './MarkCheckinReviewedButton'
 import { formatE164UsDisplay } from '@/lib/admin/format'
+import { loadTreatmentCheckinReviewedSourceIds } from '@/lib/ops/patientCaseOps'
 import { listPatientsWithState } from '@/lib/patients/listMerged'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -253,6 +254,7 @@ async function listCheckinAlerts(
 ): Promise<CheckinAlert[]> {
   if (patientIds.length === 0) return []
   const cutoff = new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString()
+  const reviewedFromOps = await loadTreatmentCheckinReviewedSourceIds(supabase, patientIds)
   const { data, error } = await supabase
     .from('patient_timeline_events')
     .select('id, patient_id, created_at, payload, event_type')
@@ -273,6 +275,9 @@ async function listCheckinAlerts(
     const payload = ((row.payload as Record<string, unknown>) ?? {}) as Record<string, unknown>
     const sourceEventId = typeof payload.source_event_id === 'string' ? payload.source_event_id : null
     if (sourceEventId) reviewedSourceEventIds.add(sourceEventId)
+  }
+  if (reviewedFromOps) {
+    for (const id of reviewedFromOps) reviewedSourceEventIds.add(id)
   }
 
   const alerts: CheckinAlert[] = []

@@ -7,6 +7,7 @@ export function isMissingRelationError(err: unknown): boolean {
   return code === '42P01' || msg.includes('does not exist')
 }
 
+/** App-layer guard; Postgres also enforces via triggers on `care_programs` / `treatment_items` (see 20260425100000 migration). */
 export async function isWorkflowTransitionAllowed(
   supabase: SupabaseClient,
   entityType: 'care_program' | 'treatment_item',
