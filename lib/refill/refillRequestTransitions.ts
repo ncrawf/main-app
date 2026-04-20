@@ -1,4 +1,8 @@
-/** Matches Postgres enum `public.refill_request_status`. */
+/**
+ * Matches Postgres enum `public.refill_request_status`.
+ * DB trigger matrix: `refill_request_status_transitions` in
+ * `20260425100000_enforce_status_transition_triggers.sql` (keep in sync).
+ */
 export const REFILL_REQUEST_STATUS_VALUES = [
   'requested',
   'under_review',
