@@ -20,7 +20,7 @@ export default function Home() {
       </p>
 
       <a 
-        href="/intake"
+        href="/forms/glp1-intake"
         style={{
           padding: "12px 24px",
           backgroundColor: "#fff",
