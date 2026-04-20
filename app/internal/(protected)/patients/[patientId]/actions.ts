@@ -214,9 +214,6 @@ export async function addStaffNote(patientId: string, rawText: string): Promise<
   if (isPharmacyOpsOnly(profile.role)) {
     return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
   }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
 
   const { data: patient, error: pErr } = await supabase.from('patients').select('id').eq('id', patientId).maybeSingle()
   if (pErr || !patient) return { ok: false, error: 'Patient not found.' }
@@ -1967,7 +1964,16 @@ export async function generateRxPdfForTreatment(
 
   const rx = md.rx_supply as { duration_days?: unknown; refills_authorized?: unknown } | undefined
   const prescriber = md.prescriber as
-    | { display_name?: unknown; npi?: unknown; phone?: unknown; organization_phone?: unknown }
+    | {
+        display_name?: unknown
+        npi?: unknown
+        phone?: unknown
+        organization_phone?: unknown
+        credentials?: unknown
+        state_license_number?: unknown
+        prescription_license_number?: unknown
+        dea_number?: unknown
+      }
     | undefined
 
   const patientName = [patient.first_name, patient.last_name].filter(Boolean).join(' ').trim() || patient.id
