@@ -75,19 +75,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Message must be 5-2000 characters.' }, { status: 400 })
     }
 
-    const { error } = await admin.from('patient_timeline_events').insert({
-      patient_id: patientId,
-      event_type: 'patient_message_submitted',
-      body: message,
-      actor_user_id: null,
-      payload: {
-        recipient,
-        submitted_at: now,
-      },
-    })
+    const portalPayload = { recipient, submitted_at: now }
+    const { data: inserted, error } = await admin
+      .from('patient_timeline_events')
+      .insert({
+        patient_id: patientId,
+        event_type: 'patient_message_submitted',
+        body: message,
+        actor_user_id: null,
+        payload: portalPayload,
+      })
+      .select('id')
+      .maybeSingle()
     if (error) {
       console.error('support-request: message insert', error)
       return NextResponse.json({ error: 'Could not submit your message right now.' }, { status: 500 })
+    }
+    if (inserted?.id) {
+      const { error: sopErr } = await admin.from('patient_support_requests').insert({
+        patient_id: patientId,
+        source_timeline_event_id: inserted.id,
+        request_kind: 'message',
+        status: 'new',
+        portal_payload: portalPayload,
+      })
+      if (sopErr) console.error('support-request: message ops row', sopErr)
     }
     return NextResponse.json({ ok: true })
   }
@@ -109,22 +121,37 @@ export async function POST(request: Request) {
         ? `Requested ${medium} callback from ${callbackFrom} (${timing}).\n\n${note}`
         : `Requested ${medium} callback from ${callbackFrom} (${timing}).`
 
-    const { error } = await admin.from('patient_timeline_events').insert({
-      patient_id: patientId,
-      event_type: 'patient_callback_requested',
-      body: bodyText,
-      actor_user_id: null,
-      payload: {
-        callback_from: callbackFrom,
-        timing,
-        medium,
-        note: note || null,
-        submitted_at: now,
-      },
-    })
+    const portalPayload = {
+      callback_from: callbackFrom,
+      timing,
+      medium,
+      note: note || null,
+      submitted_at: now,
+    }
+    const { data: inserted, error } = await admin
+      .from('patient_timeline_events')
+      .insert({
+        patient_id: patientId,
+        event_type: 'patient_callback_requested',
+        body: bodyText,
+        actor_user_id: null,
+        payload: portalPayload,
+      })
+      .select('id')
+      .maybeSingle()
     if (error) {
       console.error('support-request: callback insert', error)
       return NextResponse.json({ error: 'Could not submit your callback request right now.' }, { status: 500 })
+    }
+    if (inserted?.id) {
+      const { error: sopErr } = await admin.from('patient_support_requests').insert({
+        patient_id: patientId,
+        source_timeline_event_id: inserted.id,
+        request_kind: 'callback',
+        status: 'new',
+        portal_payload: portalPayload,
+      })
+      if (sopErr) console.error('support-request: callback ops row', sopErr)
     }
     return NextResponse.json({ ok: true })
   }

@@ -49,7 +49,19 @@ create table if not exists public.patient_states (
   constraint patient_states_patient_unique unique (patient_id)
 );
 
-create index if not exists patient_states_glp1_status_idx on public.patient_states (glp1_status);
+-- Index only if legacy column exists (fresh DBs have it; production may have dropped it before re-running this file).
+do $$
+begin
+  if exists (
+    select 1
+    from information_schema.columns c
+    where c.table_schema = 'public'
+      and c.table_name = 'patient_states'
+      and c.column_name = 'glp1_status'
+  ) then
+    execute 'create index if not exists patient_states_glp1_status_idx on public.patient_states (glp1_status)';
+  end if;
+end$$;
 
 -- Seed canonical form row for the app registry key `glp1-intake`
 insert into public.forms (key, version, label)

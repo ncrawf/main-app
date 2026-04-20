@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { isMissingRelationError } from '@/lib/care/workflowTransition'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
@@ -37,7 +38,7 @@ export async function POST(request: Request) {
 
   const { data: source, error: sourceErr } = await supabase
     .from('patient_timeline_events')
-    .select('id, patient_id, event_type')
+    .select('id, patient_id, event_type, payload, treatment_item_id')
     .eq('id', sourceEventId)
     .maybeSingle()
   if (sourceErr || !source) {
@@ -56,6 +57,53 @@ export async function POST(request: Request) {
     .maybeSingle()
   if (existing) return NextResponse.json({ ok: true })
 
+  const reviewedAt = new Date().toISOString()
+  const sourcePayload = ((source.payload as Record<string, unknown>) ?? {}) as Record<string, unknown>
+  const treatmentItemIdRaw =
+    (source.treatment_item_id as string | null) ??
+    (typeof sourcePayload.treatment_item_id === 'string' ? sourcePayload.treatment_item_id : null)
+  const treatmentItemId =
+    treatmentItemIdRaw && UUID_RE.test(treatmentItemIdRaw) ? treatmentItemIdRaw : null
+
+  const { data: existingOp, error: opSelErr } = await supabase
+    .from('patient_treatment_checkins')
+    .select('id')
+    .eq('source_timeline_event_id', sourceEventId)
+    .maybeSingle()
+
+  const opsTableMissing = Boolean(opSelErr && isMissingRelationError(opSelErr))
+  if (opSelErr && !opsTableMissing) {
+    console.error('checkin-review.ops_select', opSelErr)
+  }
+  if (!opsTableMissing) {
+    if (!existingOp && treatmentItemId) {
+      const { error: lazyInsErr } = await supabase.from('patient_treatment_checkins').insert({
+        patient_id: patientId,
+        treatment_item_id: treatmentItemId,
+        source_timeline_event_id: sourceEventId,
+        treatment_key: typeof sourcePayload.treatment_key === 'string' ? sourcePayload.treatment_key : null,
+        display_name: typeof sourcePayload.display_name === 'string' ? sourcePayload.display_name : null,
+        checkin:
+          sourcePayload.checkin && typeof sourcePayload.checkin === 'object'
+            ? (sourcePayload.checkin as Record<string, unknown>)
+            : {},
+      })
+      if (lazyInsErr && lazyInsErr.code !== '23505') {
+        console.error('checkin-review.ops_lazy_insert', lazyInsErr)
+      }
+    }
+    const { error: opUpdErr } = await supabase
+      .from('patient_treatment_checkins')
+      .update({
+        reviewed_at: reviewedAt,
+        reviewed_by_staff_id: user.id,
+      })
+      .eq('source_timeline_event_id', sourceEventId)
+    if (opUpdErr) {
+      console.error('checkin-review.ops_update', opUpdErr)
+    }
+  }
+
   const { error: insErr } = await supabase.from('patient_timeline_events').insert({
     patient_id: patientId,
     event_type: 'patient_treatment_checkin_reviewed',
@@ -63,7 +111,7 @@ export async function POST(request: Request) {
     actor_user_id: user.id,
     payload: {
       source_event_id: sourceEventId,
-      reviewed_at: new Date().toISOString(),
+      reviewed_at: reviewedAt,
       reviewed_by: user.id,
     },
   })

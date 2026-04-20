@@ -33,6 +33,8 @@ import {
   OPEN_REFILL_REQUEST_STATUSES,
   type RefillRequestStatus,
 } from '@/lib/refill/refillRequestTransitions'
+import { enqueueOutboundJob } from '@/lib/jobs/enqueueOutboundJob'
+import { OUTBOUND_JOB_TYPES } from '@/lib/jobs/outboundJobTypes'
 import { buildPatientPortalExchangeUrl } from '@/lib/patient-portal/exchangeUrl'
 import {
   allowedNextSupplementFulfillmentStatuses,
@@ -2487,6 +2489,31 @@ function supportActionLabel(action: SupportRequestAction): string {
   }
 }
 
+const SUPPORT_WORKFLOW_PAYLOAD_KEYS = [
+  'support_status',
+  'support_status_history',
+  'support_last_action',
+  'support_last_action_at',
+  'support_last_action_by',
+  'support_last_note',
+] as const
+
+function supportPortalPayloadStrip(payload: Record<string, unknown>): Record<string, unknown> {
+  const next: Record<string, unknown> = { ...payload }
+  for (const k of SUPPORT_WORKFLOW_PAYLOAD_KEYS) delete next[k]
+  return next
+}
+
+function normalizeSupportRequestStatusRaw(raw: string | undefined): SupportRequestStatus {
+  if (raw === 'new' || raw === 'acknowledged' || raw === 'call_completed' || raw === 'resolved') return raw
+  return 'new'
+}
+
+function supportStatusFromTimelinePayload(payload: Record<string, unknown>): SupportRequestStatus {
+  const currentStatusRaw = typeof payload.support_status === 'string' ? payload.support_status : 'new'
+  return normalizeSupportRequestStatusRaw(currentStatusRaw)
+}
+
 export async function updatePatientSupportRequestStatus(
   patientId: string,
   timelineEventId: string,
@@ -2520,15 +2547,58 @@ export async function updatePatientSupportRequestStatus(
   if (!isSupportEventType(ev.event_type)) return { ok: false, error: 'Event is not a support request.' }
 
   const payload = ((ev.payload as Record<string, unknown>) ?? {}) as Record<string, unknown>
-  const currentStatusRaw =
-    typeof payload.support_status === 'string' ? (payload.support_status as SupportRequestStatus) : 'new'
-  const currentStatus: SupportRequestStatus =
-    currentStatusRaw === 'new' ||
-    currentStatusRaw === 'acknowledged' ||
-    currentStatusRaw === 'call_completed' ||
-    currentStatusRaw === 'resolved'
-      ? currentStatusRaw
-      : 'new'
+
+  const { data: opRow, error: opSelErr } = await supabase
+    .from('patient_support_requests')
+    .select('id, status, status_history')
+    .eq('source_timeline_event_id', timelineEventId)
+    .maybeSingle()
+
+  const opsTableMissing = Boolean(opSelErr && isMissingRelationError(opSelErr))
+  if (opSelErr && !opsTableMissing) {
+    console.error('updatePatientSupportRequestStatus.ops_select', opSelErr)
+    return { ok: false, error: 'Could not load support request.' }
+  }
+
+  let opFresh: { id: string; status: string; status_history: unknown } | null = opRow
+  if (!opsTableMissing && !opFresh) {
+    const initialStatus = supportStatusFromTimelinePayload(payload)
+    const initialHistory = Array.isArray(payload.support_status_history)
+      ? (payload.support_status_history as unknown[])
+      : []
+    const lastAtRaw = typeof payload.support_last_action_at === 'string' ? payload.support_last_action_at : null
+    const lastByRaw = typeof payload.support_last_action_by === 'string' ? payload.support_last_action_by : null
+    const { error: lazyErr } = await supabase.from('patient_support_requests').insert({
+      patient_id: patientId,
+      source_timeline_event_id: timelineEventId,
+      request_kind: ev.event_type === 'patient_callback_requested' ? 'callback' : 'message',
+      status: initialStatus,
+      portal_payload: supportPortalPayloadStrip(payload),
+      status_history: initialHistory,
+      last_staff_note: typeof payload.support_last_note === 'string' ? payload.support_last_note : null,
+      last_action_at: lastAtRaw,
+      last_action_by_staff_id:
+        lastByRaw && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(lastByRaw) ? lastByRaw : null,
+    })
+    if (lazyErr) {
+      console.error('updatePatientSupportRequestStatus.ops_lazy_insert', lazyErr)
+      return { ok: false, error: 'Could not sync support request record.' }
+    }
+    const { data: reloaded, error: reloadErr } = await supabase
+      .from('patient_support_requests')
+      .select('id, status, status_history')
+      .eq('source_timeline_event_id', timelineEventId)
+      .maybeSingle()
+    if (reloadErr || !reloaded) {
+      console.error('updatePatientSupportRequestStatus.ops_reload', reloadErr)
+      return { ok: false, error: 'Could not load support request.' }
+    }
+    opFresh = reloaded
+  }
+
+  const currentStatus: SupportRequestStatus = opsTableMissing
+    ? supportStatusFromTimelinePayload(payload)
+    : normalizeSupportRequestStatusRaw(String(opFresh?.status ?? 'new'))
 
   const allowed = supportAllowedNext(ev.event_type, currentStatus)
   if (!allowed.includes(action)) {
@@ -2541,33 +2611,47 @@ export async function updatePatientSupportRequestStatus(
     }
   }
 
-  const statusHistory = Array.isArray(payload.support_status_history) ? (payload.support_status_history as unknown[]) : []
-  const nextPayload: Record<string, unknown> = {
-    ...payload,
-    support_status: action,
-    support_last_action: action,
-    support_last_action_at: new Date().toISOString(),
-    support_last_action_by: user.id,
-    support_last_note: staffNote || null,
-    support_status_history: [
-      ...statusHistory,
-      {
-        from_status: currentStatus,
-        to_status: action,
-        by_user_id: user.id,
-        note: staffNote || null,
-        at: new Date().toISOString(),
-      },
-    ],
+  const atIso = new Date().toISOString()
+  const historyEntry = {
+    from_status: currentStatus,
+    to_status: action,
+    by_user_id: user.id,
+    note: staffNote || null,
+    at: atIso,
   }
 
-  const { error: updErr } = await supabase
-    .from('patient_timeline_events')
-    .update({ payload: nextPayload })
-    .eq('id', timelineEventId)
-  if (updErr) {
-    console.error('updatePatientSupportRequestStatus.update_event', updErr)
-    return { ok: false, error: 'Could not update support request status.' }
+  if (opsTableMissing) {
+    const statusHistory = Array.isArray(payload.support_status_history) ? (payload.support_status_history as unknown[]) : []
+    const nextPayload: Record<string, unknown> = {
+      ...payload,
+      support_status: action,
+      support_last_action: action,
+      support_last_action_at: atIso,
+      support_last_action_by: user.id,
+      support_last_note: staffNote || null,
+      support_status_history: [...statusHistory, historyEntry],
+    }
+    const { error: updErr } = await supabase.from('patient_timeline_events').update({ payload: nextPayload }).eq('id', timelineEventId)
+    if (updErr) {
+      console.error('updatePatientSupportRequestStatus.update_event', updErr)
+      return { ok: false, error: 'Could not update support request status.' }
+    }
+  } else if (opFresh) {
+    const prior = Array.isArray(opFresh.status_history) ? (opFresh.status_history as unknown[]) : []
+    const { error: updErr } = await supabase
+      .from('patient_support_requests')
+      .update({
+        status: action,
+        status_history: [...prior, historyEntry],
+        last_staff_note: staffNote || null,
+        last_action_at: atIso,
+        last_action_by_staff_id: user.id,
+      })
+      .eq('id', opFresh.id)
+    if (updErr) {
+      console.error('updatePatientSupportRequestStatus.ops_update', updErr)
+      return { ok: false, error: 'Could not update support request status.' }
+    }
   }
 
   const sourceLabel = ev.event_type === 'patient_callback_requested' ? 'Patient callback request' : 'Patient message'
@@ -2620,24 +2704,16 @@ export async function updatePatientSupportRequestStatus(
             firstName: patient.first_name,
             patientPortalUrl,
           })
-          const sent = await sendTransactionalEmail({
+          await enqueueOutboundJob(admin, OUTBOUND_JOB_TYPES.emailTransactional, {
+            patient_id: patientId,
+            dedupe_key: dedupeKey,
+            template_key: 'support_callback_completed',
             to: patient.email,
             subject: email.subject,
             html: email.html,
             text: email.text,
+            insert_timeline_email_sent: false,
           })
-          if (sent.ok) {
-            const { error: dErr } = await admin.from('patient_notification_deliveries').insert({
-              patient_id: patientId,
-              channel: 'email',
-              dedupe_key: dedupeKey,
-              template_key: 'support_callback_completed',
-              provider_message_id: sent.id,
-            })
-            if (dErr) console.error('updatePatientSupportRequestStatus.delivery', dErr)
-          } else if (!('skipped' in sent && sent.skipped)) {
-            console.error('updatePatientSupportRequestStatus.email', sent.error)
-          }
         }
       }
     } catch (err) {
