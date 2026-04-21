@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getLatestFormId } from '@/lib/forms/resolveFormId'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
 
 export const runtime = 'nodejs'
 
@@ -118,6 +119,12 @@ export async function POST(request: Request, context: { params: Promise<{ formKe
     console.error('forms attachments: submission update', updErr)
     return NextResponse.json({ error: 'File uploaded, but failed to attach metadata.' }, { status: 500 })
   }
+
+  await enqueueChartAiReview(admin, {
+    patientId,
+    triggerEventType: 'intake_attachment_uploaded',
+    triggerRef: objectPath,
+  })
 
   return NextResponse.json({ ok: true, attachment: metadata })
 }

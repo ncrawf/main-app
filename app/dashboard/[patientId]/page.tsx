@@ -2,24 +2,39 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import { PatientPortalSignOut } from '@/components/dashboard/PatientPortalSignOut'
+import { PatientPortalDocumentUploadPanel } from '@/components/dashboard/PatientPortalDocumentUploadPanel'
 import { PatientRefillRequestPanel } from '@/components/dashboard/PatientRefillRequestPanel'
 import { PatientTreatmentCheckinPanel } from '@/components/dashboard/PatientTreatmentCheckinPanel'
 import { PatientHistoryTabs } from '@/components/dashboard/PatientHistoryTabs'
 import { PayForVisitButton } from '@/components/dashboard/PayForVisitButton'
 import { PatientSupportPanel } from '@/components/dashboard/PatientSupportPanel'
 import { Glp1Pipeline } from '@/components/dashboard/Glp1Pipeline'
+import { PathwayDecisionCardView } from '@/components/dashboard/PathwayDecisionCardView'
+import { PatientDashboardAlertCenter } from '@/components/dashboard/PatientDashboardAlertCenter'
+import { PatientReorderReadinessStrip } from '@/components/dashboard/PatientReorderReadinessStrip'
+import { PatientUpcomingSection } from '@/components/dashboard/PatientUpcomingSection'
+import {
+  PatientContinuationStateBlock,
+  pickVisibleContinuationStatus,
+} from '@/components/dashboard/PatientContinuationStateBlock'
 import { getGlp1DashboardCopy } from '@/lib/dashboard/glp1StatusCopy'
 import { deriveWorkflowStatusFromCare } from '@/lib/dashboard/deriveWorkflowStatusFromCare'
 import { getPatientRefillEligibleTreatments } from '@/lib/dashboard/getPatientRefillEligibleTreatments'
 import { getPatientTreatmentCheckinPrompts } from '@/lib/dashboard/getPatientTreatmentCheckinPrompts'
 import { getPatientCommerceHistory } from '@/lib/dashboard/getPatientCommerceHistory'
 import { PatientCareProgramCards } from '@/components/dashboard/PatientCareProgramCards'
+import { buildPatientDashboardAlerts } from '@/lib/dashboard/buildPatientDashboardAlerts'
+import { buildPatientUpcomingEvents } from '@/lib/dashboard/buildPatientUpcomingEvents'
+import { buildPatientReorderReadinessSnapshot } from '@/lib/dashboard/patientReorderReadinessContract'
+import { getPatientDashboardAlertDismissals } from '@/lib/dashboard/getPatientDashboardAlertDismissals'
 import { getPatientCareOverview } from '@/lib/dashboard/getPatientCareOverview'
 import { getPatientDashboard } from '@/lib/dashboard/getPatientDashboard'
 import { getPatientRefillHistory } from '@/lib/dashboard/getPatientRefillHistory'
 import { formatAddressBlock, formatDobUs, patientDisplayName } from '@/lib/dashboard/formatPatientDisplay'
 import { maskEmail, maskPhoneE164 } from '@/lib/dashboard/maskContact'
 import { labelLabTest } from '@/lib/labs/catalog'
+import { parsePathwayDecisionCardsFromPayload, type PathwayDecisionCard } from '@/lib/pathways/decisionContract'
+import { AI_GOVERNANCE_POLICY } from '@/lib/ai/governancePolicy'
 import { assertPatientDashboardAccess, assertPatientPortalSessionOnly } from '@/lib/patient-portal/assertAccess'
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -58,7 +73,7 @@ const CARE_PATHWAYS: Array<{ id: string; title: string; blurb: string }> = [
 
 type Props = {
   params: Promise<{ patientId: string }>
-  searchParams: Promise<{ welcome?: string; paid?: string }>
+  searchParams: Promise<{ welcome?: string; paid?: string; intake?: string }>
 }
 
 type IntakeAttachmentView = {
@@ -105,6 +120,12 @@ type ClinicalVisitPortalView = {
   visitAt: string
   diagnosisCodes: string[]
   signedUrl: string | null
+}
+
+type ApprovedPathwayPlan = {
+  reviewedAt: string | null
+  reviewedBy: string | null
+  cards: PathwayDecisionCard[]
 }
 
 function asTokenLabel(value: string): string {
@@ -295,6 +316,52 @@ async function getPatientClinicalVisitNotes(patientId: string): Promise<Clinical
   return out
 }
 
+async function getApprovedPathwayPlan(patientId: string): Promise<ApprovedPathwayPlan | null> {
+  let admin
+  try {
+    admin = createAdminClient()
+  } catch {
+    return null
+  }
+
+  const { data: review, error } = await admin
+    .from('patient_chart_ai_reviews')
+    .select('id, output_payload, reviewed_at, reviewed_by_staff_id')
+    .eq('patient_id', patientId)
+    .eq(
+      'status',
+      AI_GOVERNANCE_POLICY.patientVisibilityRequiresReviewedAccepted ? 'reviewed_accepted' : 'draft'
+    )
+    .order('reviewed_at', { ascending: false })
+    .limit(1)
+    .maybeSingle()
+  if (error || !review) return null
+
+  let reviewedBy: string | null = null
+  if (typeof review.reviewed_by_staff_id === 'string') {
+    const { data: staff } = await admin
+      .from('staff_profiles')
+      .select('display_name')
+      .eq('id', review.reviewed_by_staff_id)
+      .maybeSingle()
+    reviewedBy = staff?.display_name?.trim() || null
+  }
+
+  const cards = parsePathwayDecisionCardsFromPayload(
+    review.output_payload,
+    'reviewed_accepted',
+    reviewedBy,
+    typeof review.reviewed_at === 'string' ? review.reviewed_at : null
+  )
+  if (cards.length === 0) return null
+
+  return {
+    reviewedAt: typeof review.reviewed_at === 'string' ? review.reviewed_at : null,
+    reviewedBy,
+    cards,
+  }
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   await params
   return {
@@ -307,6 +374,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function PatientDashboardPage({ params, searchParams }: Props) {
   const { patientId } = await params
   const sp = await searchParams
+  const intakeJustSubmitted = sp.intake === '1' || sp.intake === 'submitted'
 
   if (!UUID_RE.test(patientId)) {
     notFound()
@@ -344,10 +412,46 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
   const copy = getGlp1DashboardCopy(statusKey)
   const refillHistory = await getPatientRefillHistory(patientId)
   const intakeSummary = await getPatientIntakeSummary(patientId)
-  const labOrders = await getPatientLabOrders(patientId)
+  const [labOrders, dismissedAlertKeys] = await Promise.all([
+    getPatientLabOrders(patientId),
+    getPatientDashboardAlertDismissals(patientId),
+  ])
+  const upcomingEvents = buildPatientUpcomingEvents({
+    patientId,
+    treatmentsByProgramId: careOverview.treatmentsByProgramId,
+    refillEligible,
+    checkinPrompts,
+    labOrders: labOrders.map((o) => ({ id: o.id, orderDate: o.orderDate, tests: o.tests })),
+    programs: careOverview.programs,
+    showPortalLabUploadHint: portalSession && careOverview.available,
+  })
+  const reorderSnapshot = buildPatientReorderReadinessSnapshot({
+    patientId,
+    careOverview,
+    portalSession,
+    refillEligible,
+    checkinPrompts,
+  })
+  const reorderReadinessRows = reorderSnapshot.treatments
+  const dashboardAlerts = buildPatientDashboardAlerts({
+    reorderRows: reorderReadinessRows,
+    upcomingEvents,
+    labOrders: labOrders.map((o) => ({ id: o.id, orderDate: o.orderDate, tests: o.tests })),
+    dismissedKeys: dismissedAlertKeys,
+    dashboardHref: `/dashboard/${patientId}`,
+  })
   const clinicalVisitNotes = await getPatientClinicalVisitNotes(patientId)
+  const approvedPathwayPlan = await getApprovedPathwayPlan(patientId)
   const currentPathway = intakeSummary?.primaryPathway ?? null
   const additionalPathways = CARE_PATHWAYS.filter((pathway) => pathway.id !== currentPathway)
+
+  const documentUploadTreatmentOptions =
+    portalSession && careOverview.available
+      ? Object.values(careOverview.treatmentsByProgramId)
+          .flat()
+          .filter((t) => t.status !== 'stopped')
+          .map((t) => ({ id: t.id, display_name: t.display_name }))
+      : []
 
   const hasConsultPayment = commerceHistory.payments.some(
     (payment) => payment.checkoutType === 'consult' || payment.checkoutType === 'mixed'
@@ -370,6 +474,35 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
         timeStyle: 'short',
       }).format(new Date(careOverview.programs[0].updated_at))
     : null
+  const continuationVisibilityStatus = pickVisibleContinuationStatus(
+    Object.values(careOverview.treatmentsByProgramId)
+      .flat()
+      .map((t) => t.latest_refill_status)
+  )
+  const continuationInsights: string[] = []
+  if (continuationVisibilityStatus) {
+    const latestRefillForVisibleState = refillHistory.find(
+      (item) => item.status === continuationVisibilityStatus
+    )
+    if (latestRefillForVisibleState) {
+      continuationInsights.push(
+        `Most recent update: ${latestRefillForVisibleState.treatmentName} on ${new Intl.DateTimeFormat('en-US', {
+          month: 'short',
+          day: 'numeric',
+        }).format(new Date(latestRefillForVisibleState.requestedAt))}.`
+      )
+    }
+    const activeTreatmentCount = Object.values(careOverview.treatmentsByProgramId)
+      .flat()
+      .filter((t) => t.status === 'active').length
+    if (activeTreatmentCount > 0) {
+      continuationInsights.push(
+        activeTreatmentCount === 1
+          ? 'Your treatment routine is staying on track.'
+          : `${activeTreatmentCount} treatments are currently staying on track.`
+      )
+    }
+  }
 
   const toneStyles = {
     neutral: 'border-neutral-200 bg-white',
@@ -385,6 +518,12 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">MAIN</p>
             <h1 className="text-xl font-semibold tracking-tight">Your care</h1>
+            {portalSession ? (
+              <p className="mt-1.5 max-w-xl text-sm text-neutral-600">
+                <span className="font-medium text-neutral-800">Reorders and renewals come first</span> here—the same
+                priority we&apos;ll use in a mobile app: sign in, see what&apos;s ready for each medication, then act.
+              </p>
+            ) : null}
           </div>
           <Link
             href="/"
@@ -402,9 +541,16 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
           </p>
         ) : null}
 
+        {intakeJustSubmitted ? (
+          <p className="rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-950">
+            Intake received. Your <strong>Updates</strong> and reorder status below will fill in as the team processes
+            your information—refresh if you don’t see changes right away.
+          </p>
+        ) : null}
+
         {sp.paid === '1' ? (
           <p className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
-            Payment submitted. This page will update after we confirm your payment — refresh in a moment if needed.
+            Checkout complete. Your plan is now in clinician review, and this page will update with the next decision.
           </p>
         ) : null}
 
@@ -420,11 +566,43 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
           </section>
         ) : null}
 
-        {portalSession && refillEligible.length > 0 ? (
-          <PatientRefillRequestPanel patientId={patientId} items={refillEligible} />
+        <PatientContinuationStateBlock status={continuationVisibilityStatus} insights={continuationInsights} />
+
+        {dashboardAlerts.length > 0 ? (
+          <PatientDashboardAlertCenter
+            patientId={patientId}
+            alerts={dashboardAlerts}
+            allowDismiss={portalSession}
+          />
         ) : null}
-        {portalSession && checkinPrompts.length > 0 ? (
-          <PatientTreatmentCheckinPanel patientId={patientId} prompts={checkinPrompts} />
+
+        {portalSession &&
+        reorderReadinessRows.length > 0 &&
+        !dashboardAlerts.some((a) => a.key.startsWith('readiness:')) ? (
+          <PatientReorderReadinessStrip rows={reorderReadinessRows} />
+        ) : null}
+
+        <PatientUpcomingSection
+          events={upcomingEvents}
+          reorderStripAbove={portalSession && reorderReadinessRows.length > 0}
+        />
+
+        <div id="refill-request" className="scroll-mt-6">
+          {portalSession && refillEligible.length > 0 ? (
+            <PatientRefillRequestPanel patientId={patientId} items={refillEligible} />
+          ) : null}
+        </div>
+        <div id="treatment-checkin" className="scroll-mt-6">
+          {portalSession && checkinPrompts.length > 0 ? (
+            <PatientTreatmentCheckinPanel patientId={patientId} prompts={checkinPrompts} />
+          ) : null}
+        </div>
+
+        {portalSession && careOverview.available ? (
+          <PatientPortalDocumentUploadPanel
+            patientId={patientId}
+            treatmentOptions={documentUploadTreatmentOptions}
+          />
         ) : null}
 
         <PatientCareProgramCards
@@ -432,6 +610,32 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
           programs={careOverview.programs}
           careTablesAvailable={careOverview.available}
         />
+
+        {approvedPathwayPlan ? (
+          <section className="space-y-4 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
+            <div>
+              <h3 className="text-sm font-semibold text-neutral-900">Your pathway plan</h3>
+              <p className="mt-1 text-sm text-neutral-600">
+                Clinician-approved summary and next steps. This updates after each chart review.
+              </p>
+              <p className="mt-2 text-xs text-neutral-500">
+                Reviewed{' '}
+                {approvedPathwayPlan.reviewedAt
+                  ? new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(
+                      new Date(approvedPathwayPlan.reviewedAt)
+                    )
+                  : 'recently'}
+                {approvedPathwayPlan.reviewedBy ? ` · by ${approvedPathwayPlan.reviewedBy}` : ''}
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {approvedPathwayPlan.cards.map((card) => (
+                <PathwayDecisionCardView key={card.pathway_id} decision={card} />
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
           <h3 className="text-sm font-semibold text-neutral-900">Explore more care options</h3>
@@ -495,7 +699,9 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
           </ul>
         </section>
 
-        <PatientSupportPanel patientId={patientId} />
+        <div id="patient-support" className="scroll-mt-6">
+          <PatientSupportPanel patientId={patientId} />
+        </div>
 
         <PatientHistoryTabs
           payments={commerceHistory.payments}
@@ -648,7 +854,7 @@ export default async function PatientDashboardPage({ params, searchParams }: Pro
           )}
         </section>
 
-        <section className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
+        <section id="lab-requisitions" className="scroll-mt-6 rounded-xl border border-neutral-200 bg-white p-6 shadow-sm">
           <h3 className="text-sm font-semibold text-neutral-900">Lab requisitions</h3>
           <p className="mt-1 text-xs text-neutral-500">
             Orders from your care team. Bring these PDFs to the lab if needed.

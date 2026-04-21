@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import { toast } from 'sonner'
 
 type SupportAction =
   | {
@@ -85,10 +86,12 @@ export function PatientSupportPanel({ patientId }: { patientId: string }) {
                 })
                 if (!res.ok) {
                   setMsgState(res.error)
+                  toast.error(res.error)
                   return
                 }
                 setMessage('')
                 setMsgState('Message sent. Your team will reply with an update in your dashboard.')
+                toast.success('Message sent')
               })
             }
             className="rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60"
@@ -166,10 +169,12 @@ export function PatientSupportPanel({ patientId }: { patientId: string }) {
                 })
                 if (!res.ok) {
                   setCallState(res.error)
+                  toast.error(res.error)
                   return
                 }
                 setNote('')
                 setCallState('Callback request submitted. Your team will follow up.')
+                toast.success('Callback requested')
               })
             }
             className="rounded-md bg-neutral-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60"

@@ -6,6 +6,7 @@ import { deriveCanonicalState } from '@/lib/protocol/derive'
 import { resolvePatientFromAnswers } from '@/lib/patients/resolvePatient'
 import { signPatientPortalBootstrapToken } from '@/lib/patient-portal/tokens'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
 
 type PostBody = {
   answers?: Record<string, unknown>
@@ -62,6 +63,12 @@ export async function POST(request: Request, context: { params: Promise<{ formKe
       formKey,
       patientId,
       answers: sanitizedAnswers,
+    })
+
+    await enqueueChartAiReview(supabase, {
+      patientId,
+      triggerEventType: 'intake_submitted',
+      triggerRef: submission.id,
     })
 
     let portalToken: string | null = null

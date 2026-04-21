@@ -56,6 +56,12 @@ export default async function InternalProtectedLayout({ children }: { children: 
             <Link href="/internal/patients" className="text-neutral-600 hover:text-neutral-900">
               Patients
             </Link>
+            <Link href="/internal/queues" className="text-neutral-600 hover:text-neutral-900">
+              Queues
+            </Link>
+            <Link href="/internal/rx-presets" className="text-neutral-600 hover:text-neutral-900">
+              Rx presets
+            </Link>
             <Link href="/internal/search" className="text-neutral-600 hover:text-neutral-900">
               Search config
             </Link>

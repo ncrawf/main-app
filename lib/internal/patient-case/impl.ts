@@ -35,6 +35,7 @@ import {
 } from '@/lib/refill/refillRequestTransitions'
 import { enqueueOutboundJob } from '@/lib/jobs/enqueueOutboundJob'
 import { OUTBOUND_JOB_TYPES } from '@/lib/jobs/outboundJobTypes'
+import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
 import { buildPatientPortalExchangeUrl } from '@/lib/patient-portal/exchangeUrl'
 import {
   allowedNextSupplementFulfillmentStatuses,
@@ -426,6 +427,18 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  let openDiagnosticTasks: OpenDiagnosticActionTask[] = []
+  if (nextStatus === 'active') {
+    const gate = await assertDiagnosticActionTasksSatisfied(
+      supabase,
+      patientId,
+      'treatment_activated',
+      'before_treatment_action'
+    )
+    if (!gate.ok) return { ok: false, error: gate.error }
+    openDiagnosticTasks = gate.openTasks
+  }
+
   const { error: updErr } = await supabase
     .from('treatment_items')
     .update({ status: nextStatus, updated_at: new Date().toISOString() })
@@ -451,6 +464,10 @@ export async function updateTreatmentItemStatus(
     },
   })
   if (tErr) console.error(tErr)
+
+  if (nextStatus === 'active') {
+    await completeDiagnosticActionTasks(supabase, patientId, user.id, 'treatment_activated', openDiagnosticTasks)
+  }
 
   // Workflow notifications follow canonical treatment status transitions.
   if (item.treatment_key === 'glp1_primary') {
@@ -740,6 +757,152 @@ function labelRefillStatus(value: string): string {
     .join(' ')
 }
 
+type OpenDiagnosticActionTask = {
+  reviewId: string
+  taskId: string
+  title: string
+  reason: string
+  requiredOwner: 'provider' | 'care_team'
+  requiredDueState: 'before_treatment_action' | 'before_fulfillment'
+  allowedCompletionActions: string[]
+}
+
+function asRecord(v: unknown): Record<string, unknown> | null {
+  return v && typeof v === 'object' && !Array.isArray(v) ? (v as Record<string, unknown>) : null
+}
+
+function parseOpenDiagnosticTaskPayload(payload: unknown): OpenDiagnosticActionTask | null {
+  const p = asRecord(payload)
+  if (!p) return null
+  if (p.source !== 'chart_ai_action_plan') return null
+  const reviewId = typeof p.review_id === 'string' ? p.review_id : null
+  const taskId = typeof p.task_id === 'string' ? p.task_id : null
+  const title = typeof p.task_title === 'string' ? p.task_title : null
+  const reason = typeof p.task_reason === 'string' ? p.task_reason : null
+  const requiredOwner = p.required_owner === 'provider' || p.required_owner === 'care_team' ? p.required_owner : null
+  const requiredDueState =
+    p.required_due_state === 'before_treatment_action' || p.required_due_state === 'before_fulfillment'
+      ? p.required_due_state
+      : null
+  const allowedCompletionActions = Array.isArray(p.allowed_completion_actions)
+    ? p.allowed_completion_actions.filter((v): v is string => typeof v === 'string' && v.trim().length > 0)
+    : []
+  if (
+    !reviewId ||
+    !taskId ||
+    !title ||
+    !reason ||
+    !requiredOwner ||
+    !requiredDueState ||
+    allowedCompletionActions.length === 0
+  ) {
+    return null
+  }
+  return {
+    reviewId,
+    taskId,
+    title,
+    reason,
+    requiredOwner,
+    requiredDueState,
+    allowedCompletionActions,
+  }
+}
+
+async function getOpenDiagnosticActionTasks(
+  supabase: SupabaseClient,
+  patientId: string
+): Promise<OpenDiagnosticActionTask[]> {
+  const [createdRows, completedRows] = await Promise.all([
+    supabase
+      .from('patient_timeline_events')
+      .select('payload')
+      .eq('patient_id', patientId)
+      .eq('event_type', 'clinical_action_task_created')
+      .limit(200),
+    supabase
+      .from('patient_timeline_events')
+      .select('payload')
+      .eq('patient_id', patientId)
+      .eq('event_type', 'clinical_action_task_completed')
+      .limit(200),
+  ])
+  if (createdRows.error && !isMissingRelationError(createdRows.error)) {
+    console.error('getOpenDiagnosticActionTasks.createdRows', createdRows.error)
+    return []
+  }
+  if (completedRows.error && !isMissingRelationError(completedRows.error)) {
+    console.error('getOpenDiagnosticActionTasks.completedRows', completedRows.error)
+    return []
+  }
+  const completedKeys = new Set<string>()
+  for (const row of completedRows.data ?? []) {
+    const p = asRecord(row.payload)
+    const reviewId = typeof p?.review_id === 'string' ? p.review_id : null
+    const taskId = typeof p?.task_id === 'string' ? p.task_id : null
+    if (reviewId && taskId) completedKeys.add(`${reviewId}:${taskId}`)
+  }
+  const open: OpenDiagnosticActionTask[] = []
+  for (const row of createdRows.data ?? []) {
+    const parsed = parseOpenDiagnosticTaskPayload(row.payload)
+    if (!parsed) continue
+    const key = `${parsed.reviewId}:${parsed.taskId}`
+    if (completedKeys.has(key)) continue
+    open.push(parsed)
+  }
+  return open
+}
+
+async function assertDiagnosticActionTasksSatisfied(
+  supabase: SupabaseClient,
+  patientId: string,
+  completionAction: string,
+  dueState: 'before_treatment_action' | 'before_fulfillment'
+): Promise<{ ok: true; openTasks: OpenDiagnosticActionTask[] } | { ok: false; error: string }> {
+  const openTasks = await getOpenDiagnosticActionTasks(supabase, patientId)
+  const blocking = openTasks.filter(
+    (task) =>
+      task.requiredOwner === 'provider' &&
+      task.requiredDueState === dueState &&
+      !task.allowedCompletionActions.includes(completionAction)
+  )
+  if (blocking.length > 0) {
+    return {
+      ok: false,
+      error: `Complete required provider task first: ${blocking[0]?.title ?? 'diagnostic follow-up task'}.`,
+    }
+  }
+  return { ok: true, openTasks }
+}
+
+async function completeDiagnosticActionTasks(
+  supabase: SupabaseClient,
+  patientId: string,
+  actorUserId: string,
+  completionAction: string,
+  openTasks: OpenDiagnosticActionTask[]
+): Promise<void> {
+  const toClose = openTasks.filter((task) => task.allowedCompletionActions.includes(completionAction))
+  if (toClose.length === 0) return
+  const rows = toClose.map((task) => ({
+    patient_id: patientId,
+    event_type: 'clinical_action_task_completed',
+    body: `Completed action task: ${task.title}`,
+    actor_user_id: actorUserId,
+    payload: {
+      source: 'chart_ai_action_plan',
+      review_id: task.reviewId,
+      task_id: task.taskId,
+      completion_action: completionAction,
+      task_status: 'completed',
+    },
+  }))
+  const { error } = await supabase.from('patient_timeline_events').insert(rows)
+  if (error) {
+    console.error('completeDiagnosticActionTasks', error)
+  }
+}
+
 export async function updateRefillRequestStatus(
   patientId: string,
   refillRequestId: string,
@@ -786,6 +949,22 @@ export async function updateRefillRequestStatus(
       ok: false,
       error: `Invalid transition: ${labelRefillStatus(prev)} → ${labelRefillStatus(next)}.`,
     }
+  }
+
+  let openDiagnosticTasks: OpenDiagnosticActionTask[] = []
+  if (next === 'approved') {
+    const gate = await assertDiagnosticActionTasksSatisfied(
+      supabase,
+      patientId,
+      'refill_approved',
+      'before_treatment_action'
+    )
+    if (!gate.ok) return { ok: false, error: gate.error }
+    openDiagnosticTasks = gate.openTasks
+  } else if (next === 'fulfilled') {
+    const gate = await assertDiagnosticActionTasksSatisfied(supabase, patientId, 'refill_fulfilled', 'before_fulfillment')
+    if (!gate.ok) return { ok: false, error: gate.error }
+    openDiagnosticTasks = gate.openTasks
   }
 
   const { data: treatment, error: tiErr } = await supabase
@@ -858,6 +1037,12 @@ export async function updateRefillRequestStatus(
     },
   })
   if (tErr) console.error(tErr)
+
+  if (next === 'approved') {
+    await completeDiagnosticActionTasks(supabase, patientId, user.id, 'refill_approved', openDiagnosticTasks)
+  } else if (next === 'fulfilled') {
+    await completeDiagnosticActionTasks(supabase, patientId, user.id, 'refill_fulfilled', openDiagnosticTasks)
+  }
 
   await logAuditEvent({
     actorUserId: user.id,
@@ -1291,6 +1476,7 @@ export async function createClinicalVisitNote(
     counseling: string
     followUpPlan: string
     treatmentItemIds: string[]
+    sourceRefillRequestId?: string | null
   }
 ): Promise<CreateClinicalVisitNoteResult> {
   const supabase = await createSupabaseServerClient()
@@ -1319,6 +1505,7 @@ export async function createClinicalVisitNote(
   const counseling = input.counseling.trim()
   const followUpPlan = input.followUpPlan.trim()
   const diagnosisCodes = [...new Set(input.diagnosisCodes.map((v) => v.trim().toUpperCase()).filter(Boolean))].slice(0, 20)
+  const sourceRefillRequestId = input.sourceRefillRequestId?.trim() || null
 
   if (!chiefConcern) return { ok: false, error: 'Chief concern is required.' }
   if (!assessment) return { ok: false, error: 'Assessment is required.' }
@@ -1403,6 +1590,36 @@ export async function createClinicalVisitNote(
     currentSupplements,
     selectedRxSafetyLines,
   })
+  let sourceRefillSummary: string | null = null
+  let sourceRefillProfile: string | null = null
+  let sourceRefillCheckIn: unknown = null
+  if (sourceRefillRequestId) {
+    const { data: refillRow, error: refillErr } = await supabase
+      .from('refill_requests')
+      .select('id, patient_id, patient_note, metadata')
+      .eq('id', sourceRefillRequestId)
+      .maybeSingle()
+    if (refillErr) {
+      console.error('createClinicalVisitNote.source_refill', refillErr)
+    } else if (refillRow && refillRow.patient_id === patientId) {
+      sourceRefillSummary =
+        typeof refillRow.patient_note === 'string' ? refillRow.patient_note.trim().slice(0, 4000) : null
+      if (
+        refillRow.metadata &&
+        typeof refillRow.metadata === 'object' &&
+        !Array.isArray(refillRow.metadata)
+      ) {
+        const refillMeta = refillRow.metadata as Record<string, unknown>
+        sourceRefillProfile =
+          typeof refillMeta.refill_check_in_profile === 'string' ? refillMeta.refill_check_in_profile : null
+        sourceRefillCheckIn = refillMeta.refill_check_in ?? null
+      }
+    }
+  }
+  const noteTextWithRefill =
+    sourceRefillSummary && sourceRefillSummary.length > 0
+      ? `${noteText}\n\n---\nRefill check-in summary:\n${sourceRefillSummary}`
+      : noteText
 
   const { data: insertedVisit, error: insErr } = await supabase
     .from('clinical_visits')
@@ -1416,7 +1633,7 @@ export async function createClinicalVisitNote(
       plan,
       counseling,
       follow_up_plan: followUpPlan,
-      note_text: noteText,
+      note_text: noteTextWithRefill,
       metadata: {
         chief_concern: chiefConcern,
         linked_treatment_item_ids: selectedTreatments.map((row) => row.id),
@@ -1426,6 +1643,9 @@ export async function createClinicalVisitNote(
         signing_provider_state_license: selectedProvider?.stateLicenseNumber ?? null,
         signing_provider_prescription_license: selectedProvider?.prescriptionLicenseNumber ?? null,
         signing_provider_dea: selectedProvider?.deaNumber ?? null,
+        source_refill_request_id: sourceRefillRequestId,
+        source_refill_check_in_profile: sourceRefillProfile,
+        source_refill_check_in: sourceRefillCheckIn,
       },
       signed_by_staff_id: selectedProvider?.id ?? user.id,
       signed_at: nowIso,
@@ -1468,6 +1688,7 @@ export async function createClinicalVisitNote(
       clinical_visit_id: insertedVisit.id,
       diagnosis_codes: diagnosisCodes,
       linked_treatment_item_ids: selectedTreatments.map((row) => row.id),
+      source_refill_request_id: sourceRefillRequestId,
     },
   })
   if (timelineErr) console.error('createClinicalVisitNote.timeline', timelineErr)
@@ -1482,6 +1703,7 @@ export async function createClinicalVisitNote(
       visit_type: visitType,
       diagnosis_codes: diagnosisCodes,
       linked_treatment_item_ids: selectedTreatments.map((row) => row.id),
+      source_refill_request_id: sourceRefillRequestId,
     },
   })
 
@@ -2451,6 +2673,17 @@ export async function updateSupplementFulfillmentStatus(
     },
   })
 
+  try {
+    const admin = createAdminClient()
+    await enqueueChartAiReview(admin, {
+      patientId,
+      triggerEventType: 'supplement_fulfillment_status_updated',
+      triggerRef: order.id,
+    })
+  } catch (e) {
+    console.error('updateSupplementFulfillmentStatus.ai_review_enqueue', e)
+  }
+
   revalidatePath(`/internal/patients/${patientId}`)
   return { ok: true }
 }
@@ -2734,6 +2967,17 @@ export async function updatePatientSupportRequestStatus(
       staff_note: staffNote || null,
     },
   })
+
+  try {
+    const admin = createAdminClient()
+    await enqueueChartAiReview(admin, {
+      patientId,
+      triggerEventType: 'support_request_status_updated',
+      triggerRef: timelineEventId,
+    })
+  } catch (e) {
+    console.error('updatePatientSupportRequestStatus.ai_review_enqueue', e)
+  }
 
   revalidatePath(`/internal/patients/${patientId}`)
   return { ok: true }

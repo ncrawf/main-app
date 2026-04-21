@@ -2,6 +2,7 @@
 export const OUTBOUND_JOB_TYPES = {
   emailTransactional: 'email.transactional',
   smsTransactional: 'sms.transactional',
+  chartAiReview: 'chart.ai_review',
 } as const
 
 export type OutboundJobType = (typeof OUTBOUND_JOB_TYPES)[keyof typeof OUTBOUND_JOB_TYPES]
@@ -26,4 +27,11 @@ export type SmsTransactionalPayload = {
   to_e164: string
   body: string
   workflow_source?: string | null
+}
+
+export type ChartAiReviewPayload = {
+  patient_id: string
+  trigger_event_type: string
+  trigger_ref?: string | null
+  requested_at?: string
 }

@@ -12,6 +12,8 @@ type Body = {
   patientId?: string
   treatmentItemId?: string
   note?: string | null
+  /** Structured check-in (required for GLP-1 / Rx profiles); validated server-side */
+  questionnaire?: unknown
 }
 
 export async function POST(request: Request) {
@@ -44,7 +46,13 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Server misconfiguration' }, { status: 500 })
   }
 
-  const result = await submitPatientRefillRequest(admin, patientId, treatmentItemId, body.note ?? null)
+  const result = await submitPatientRefillRequest(
+    admin,
+    patientId,
+    treatmentItemId,
+    body.note ?? null,
+    body.questionnaire
+  )
   if (!result.ok) {
     return NextResponse.json({ error: result.error }, { status: result.status })
   }

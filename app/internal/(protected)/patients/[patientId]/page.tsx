@@ -33,9 +33,17 @@ import { SupportRequestActionsForm } from './SupportRequestActionsForm'
 import { SupplementFulfillmentActionsForm } from './SupplementFulfillmentActionsForm'
 import { UpdateCareProgramStatusForm } from './UpdateCareProgramStatusForm'
 import { UpdateTreatmentStatusForm } from './UpdateTreatmentStatusForm'
+import { InternalPatientUpcomingStrip } from '@/components/dashboard/InternalPatientUpcomingStrip'
+import { loadPatientUpcomingEvents } from '@/lib/dashboard/buildPatientUpcomingEvents'
+import { ChartAiReviewListItem } from './ChartAiReviewListItem'
+import { InlineTaskActions, type InlineTaskActionCandidate } from './InlineTaskActions'
 import { formatDosageSummary } from '@/lib/care/medicationCatalog'
+import { listOrgRxPresets, type OrgRxPresetForCatalogForm } from '@/lib/care/orgRxPresets'
 import { labelLabTest } from '@/lib/labs/catalog'
 import { listProviders } from '@/lib/staff/listProviders'
+import { parsePathwayDecisionCardsFromPayload } from '@/lib/pathways/decisionContract'
+import { AI_GOVERNANCE_POLICY } from '@/lib/ai/governancePolicy'
+import { buildClinicianRefillDraftSeed } from '@/lib/refill/clinicalRefillDraft'
 
 export const dynamic = 'force-dynamic'
 
@@ -79,6 +87,7 @@ type RefillRequestRow = {
   status: string
   patient_note: string | null
   staff_note: string | null
+  metadata: unknown
   created_at: string
   updated_at: string
 }
@@ -163,6 +172,61 @@ type IntakeSnapshot = {
   attachments: Array<IntakeAttachment & { signed_url: string | null }>
 }
 
+type ChartAiReviewRow = {
+  id: string
+  trigger_event_type: string
+  trigger_ref: string | null
+  status: string
+  output_summary: string
+  recommendation_draft: string | null
+  output_payload: unknown
+  reviewed_by_staff_id: string | null
+  reviewed_at: string | null
+  review_note: string | null
+  created_at: string
+}
+
+type LabObservationRow = {
+  id: string
+  test_name: string
+  observed_value: string | null
+  unit: string | null
+  observed_at: string | null
+  abnormal_flag: string
+  confidence: number | null
+  extracted_at: string
+}
+
+type DiagnosticReportRow = {
+  id: string
+  diagnostic_kind: string
+  modality: string | null
+  title: string
+  body_site: string | null
+  performed_at: string | null
+  status: string
+  result_text: string | null
+  impression_text: string | null
+  confidence: number | null
+  extracted_at: string
+  metadata: Record<string, unknown> | null
+  signed_file_url: string | null
+}
+
+type ClinicalActionTaskRow = {
+  eventId: string
+  reviewId: string
+  taskId: string
+  title: string
+  reason: string
+  requiredOwner: 'provider' | 'care_team'
+  requiredDueState: 'before_treatment_action' | 'before_fulfillment'
+  allowedCompletionActions: string[]
+  createdAt: string
+  refillRequestId: string | null
+  treatmentItemId: string | null
+}
+
 function formatDob(iso: string | null): string {
   if (!iso) return '—'
   const [y, m, d] = iso.split('-')
@@ -189,6 +253,104 @@ function humanizeToken(v: string | null | undefined): string {
 function amountLabel(amountTotal: unknown, currency: unknown): string | null {
   if (typeof amountTotal !== 'number' || typeof currency !== 'string' || !currency) return null
   return `${(amountTotal / 100).toFixed(2)} ${currency.toUpperCase()}`
+}
+
+function parseClinicalActionTaskPayload(payload: Record<string, unknown>): Omit<ClinicalActionTaskRow, 'eventId' | 'createdAt'> | null {
+  if (payload.source !== 'chart_ai_action_plan') return null
+  const reviewId = typeof payload.review_id === 'string' ? payload.review_id : null
+  const taskId = typeof payload.task_id === 'string' ? payload.task_id : null
+  const title = typeof payload.task_title === 'string' ? payload.task_title : null
+  const reason = typeof payload.task_reason === 'string' ? payload.task_reason : null
+  const requiredOwner =
+    payload.required_owner === 'provider' || payload.required_owner === 'care_team' ? payload.required_owner : null
+  const requiredDueState =
+    payload.required_due_state === 'before_treatment_action' || payload.required_due_state === 'before_fulfillment'
+      ? payload.required_due_state
+      : null
+  const allowedCompletionActions = Array.isArray(payload.allowed_completion_actions)
+    ? payload.allowed_completion_actions.filter((v): v is string => typeof v === 'string' && v.trim().length > 0)
+    : []
+  if (
+    !reviewId ||
+    !taskId ||
+    !title ||
+    !reason ||
+    !requiredOwner ||
+    !requiredDueState ||
+    allowedCompletionActions.length === 0
+  ) {
+    return null
+  }
+  return {
+    reviewId,
+    taskId,
+    title,
+    reason,
+    requiredOwner,
+    requiredDueState,
+    allowedCompletionActions,
+    refillRequestId: typeof payload.refill_request_id === 'string' ? payload.refill_request_id : null,
+    treatmentItemId: typeof payload.treatment_item_id === 'string' ? payload.treatment_item_id : null,
+  }
+}
+
+function completionActionLabel(action: string): string {
+  switch (action) {
+    case 'refill_approved':
+      return 'Refill approved'
+    case 'treatment_activated':
+      return 'Treatment activated'
+    case 'refill_fulfilled':
+      return 'Refill fulfilled'
+    default:
+      return humanizeToken(action)
+  }
+}
+
+function dueStateLabel(v: ClinicalActionTaskRow['requiredDueState']): string {
+  return v === 'before_treatment_action' ? 'Blocks treatment/refill progression' : 'Blocks fulfillment'
+}
+
+function ownerLabel(v: ClinicalActionTaskRow['requiredOwner']): string {
+  return v === 'provider' ? 'Provider required' : 'Care team required'
+}
+
+function actionHref(action: string): string {
+  switch (action) {
+    case 'treatment_activated':
+      return '#care-programs'
+    case 'refill_approved':
+    case 'refill_fulfilled':
+      return '#refill-requests'
+    default:
+      return '#timeline'
+  }
+}
+
+function actionPrompt(action: string): string {
+  switch (action) {
+    case 'treatment_activated':
+      return 'Go to treatment statuses'
+    case 'refill_approved':
+      return 'Go to refill queue'
+    case 'refill_fulfilled':
+      return 'Mark refill fulfilled'
+    default:
+      return `Complete: ${completionActionLabel(action)}`
+  }
+}
+
+function buttonLabelForAction(action: string): string {
+  switch (action) {
+    case 'refill_approved':
+      return 'Approve refill'
+    case 'refill_fulfilled':
+      return 'Mark fulfilled'
+    case 'treatment_activated':
+      return 'Set active'
+    default:
+      return completionActionLabel(action)
+  }
 }
 
 function extractSupplyDurationDays(metadata: unknown): number | null {
@@ -304,7 +466,7 @@ async function loadRefillRequests(
 ): Promise<{ available: boolean; rows: RefillRequestRow[] }> {
   const { data, error } = await supabase
     .from('refill_requests')
-    .select('id, treatment_item_id, care_program_id, status, patient_note, staff_note, created_at, updated_at')
+    .select('id, treatment_item_id, care_program_id, status, patient_note, staff_note, metadata, created_at, updated_at')
     .eq('patient_id', patientId)
     .order('created_at', { ascending: false })
 
@@ -493,6 +655,86 @@ async function loadClinicalVisits(
   }
 }
 
+async function loadChartAiReviews(
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  patientId: string
+): Promise<{ available: boolean; rows: ChartAiReviewRow[] }> {
+  const { data, error } = await supabase
+    .from('patient_chart_ai_reviews')
+    .select(
+      'id, trigger_event_type, trigger_ref, status, output_summary, recommendation_draft, output_payload, reviewed_by_staff_id, reviewed_at, review_note, created_at'
+    )
+    .eq('patient_id', patientId)
+    .order('created_at', { ascending: false })
+    .limit(8)
+
+  if (error) {
+    if (isMissingRelationError(error)) return { available: false, rows: [] }
+    console.error('loadChartAiReviews', error)
+    return { available: true, rows: [] }
+  }
+  return { available: true, rows: (data ?? []) as ChartAiReviewRow[] }
+}
+
+async function loadLabObservations(
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  patientId: string
+): Promise<{ available: boolean; rows: LabObservationRow[] }> {
+  const { data, error } = await supabase
+    .from('patient_lab_observations')
+    .select('id, test_name, observed_value, unit, observed_at, abnormal_flag, confidence, extracted_at')
+    .eq('patient_id', patientId)
+    .order('observed_at', { ascending: false, nullsFirst: false })
+    .order('extracted_at', { ascending: false })
+    .limit(30)
+
+  if (error) {
+    if (isMissingRelationError(error)) return { available: false, rows: [] }
+    console.error('loadLabObservations', error)
+    return { available: true, rows: [] }
+  }
+  return { available: true, rows: (data ?? []) as LabObservationRow[] }
+}
+
+async function loadDiagnosticReports(
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  patientId: string
+): Promise<{ available: boolean; rows: DiagnosticReportRow[] }> {
+  const { data, error } = await supabase
+    .from('patient_diagnostic_reports')
+    .select(
+      'id, diagnostic_kind, modality, title, body_site, performed_at, status, result_text, impression_text, confidence, extracted_at, metadata'
+    )
+    .eq('patient_id', patientId)
+    .order('performed_at', { ascending: false, nullsFirst: false })
+    .order('extracted_at', { ascending: false })
+    .limit(30)
+
+  if (error) {
+    if (isMissingRelationError(error)) return { available: false, rows: [] }
+    console.error('loadDiagnosticReports', error)
+    return { available: true, rows: [] }
+  }
+
+  const admin = createAdminClient()
+  const baseRows = (data ?? []) as Array<
+    Omit<DiagnosticReportRow, 'signed_file_url'> & { metadata: Record<string, unknown> | null }
+  >
+  const rows: DiagnosticReportRow[] = await Promise.all(
+    baseRows.map(async (r) => {
+      const md = (r.metadata ?? {}) as Record<string, unknown>
+      const up = md.upload as Record<string, unknown> | undefined
+      if (up && typeof up.bucket === 'string' && typeof up.object_path === 'string') {
+        const { data: signed } = await admin.storage.from(up.bucket).createSignedUrl(up.object_path, 3600)
+        return { ...r, signed_file_url: signed?.signedUrl ?? null }
+      }
+      return { ...r, signed_file_url: null }
+    })
+  )
+
+  return { available: true, rows }
+}
+
 export default async function InternalPatientCasePage({ params }: { params: Promise<{ patientId: string }> }) {
   const { patientId } = await params
   const supabase = await createSupabaseServerClient()
@@ -520,9 +762,14 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
     intake,
     labOrders,
     clinical,
+    chartAiReviews,
+    labObservations,
+    diagnosticReports,
     providers,
     supportOpsMap,
     checkinReviewMetaFromOps,
+    upcomingPortalEvents,
+    orgRxPresetRows,
   ] = await Promise.all([
     supabase.from('patient_states').select('assigned_to').eq('patient_id', patientId).maybeSingle(),
     supabase.from('staff_profiles').select('id, display_name').order('display_name', { ascending: true }),
@@ -534,10 +781,23 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
     loadLatestIntakeSnapshot(supabase, patientId),
     loadLabOrders(supabase, patientId),
     loadClinicalVisits(supabase, patientId),
+    loadChartAiReviews(supabase, patientId),
+    loadLabObservations(supabase, patientId),
+    loadDiagnosticReports(supabase, patientId),
     listProviders(supabase),
     loadSupportRequestOpsBySourceEventId(supabase, patientId),
     loadTreatmentCheckinReviewMetaBySourceId(supabase, patientId),
+    loadPatientUpcomingEvents(patientId),
+    listOrgRxPresets(supabase),
   ])
+
+  const orgRxPresetsForForm: OrgRxPresetForCatalogForm[] = orgRxPresetRows.map((p) => ({
+    id: p.id,
+    slug: p.slug,
+    label: p.label,
+    treatment_key: p.treatment_key,
+    dosage: p.dosage,
+  }))
 
   const catalogProgramPicks = care.programs.map((p) => ({
     id: p.id,
@@ -575,6 +835,18 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
     : []
 
   const treatmentNameById = new Map(care.treatmentItems.map((i) => [i.id, i.display_name]))
+  const refillDraftSeed =
+    refills.rows
+      .map((row) =>
+        buildClinicianRefillDraftSeed({
+          refillRequestId: row.id,
+          treatmentLabel: treatmentNameById.get(row.treatment_item_id) ?? 'Treatment',
+          createdAt: row.created_at,
+          patientNote: row.patient_note,
+          metadata: row.metadata,
+        })
+      )
+      .find((seed) => !!seed) ?? null
   const rxReviewsByVisitId = new Map<string, ClinicalVisitRxReviewRow[]>()
   for (const review of clinical.reviews) {
     const list = rxReviewsByVisitId.get(review.clinical_visit_id) ?? []
@@ -658,6 +930,126 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
     status: row.status,
     supplyDurationDays: refillDurationByTreatment.get(row.treatment_item_id) ?? null,
   }))
+  const draftReviewCount = chartAiReviews.rows.filter((r) => r.status === 'draft').length
+  const acceptedReview = chartAiReviews.rows.find((r) => r.status === 'reviewed_accepted') ?? null
+  const acceptedPathwayDecisions = acceptedReview
+    ? parsePathwayDecisionCardsFromPayload(
+        acceptedReview.output_payload,
+        'reviewed_accepted',
+        null,
+        acceptedReview.reviewed_at
+      )
+    : []
+  const latestDraftReview = chartAiReviews.rows.find((r) => r.status === 'draft') ?? null
+  const latestDraftPathwayDecisions = latestDraftReview
+    ? parsePathwayDecisionCardsFromPayload(latestDraftReview.output_payload, 'draft', null, null)
+    : []
+  const unresolvedTaskCount =
+    openSupportRequests.length +
+    refills.rows.filter((r) => r.status !== 'fulfilled' && r.status !== 'cancelled' && r.status !== 'denied').length
+  const completedClinicalTaskKeys = new Set(
+    events
+      .filter((ev) => ev.event_type === 'clinical_action_task_completed')
+      .map((ev) => {
+        const reviewId = typeof ev.payload.review_id === 'string' ? ev.payload.review_id : null
+        const taskId = typeof ev.payload.task_id === 'string' ? ev.payload.task_id : null
+        return reviewId && taskId ? `${reviewId}:${taskId}` : null
+      })
+      .filter((v): v is string => !!v)
+  )
+  const openClinicalActionTasks: ClinicalActionTaskRow[] = events
+    .filter((ev) => ev.event_type === 'clinical_action_task_created')
+    .map((ev) => {
+      const parsed = parseClinicalActionTaskPayload(ev.payload)
+      if (!parsed) return null
+      const key = `${parsed.reviewId}:${parsed.taskId}`
+      if (completedClinicalTaskKeys.has(key)) return null
+      return {
+        eventId: ev.id,
+        createdAt: ev.created_at,
+        ...parsed,
+      }
+    })
+    .filter((row): row is ClinicalActionTaskRow => !!row)
+  const openTasksBlockingTreatmentState = openClinicalActionTasks.filter(
+    (task) => task.requiredDueState === 'before_treatment_action'
+  )
+  const openTasksBlockingFulfillment = openClinicalActionTasks.filter((task) => task.requiredDueState === 'before_fulfillment')
+  const openProviderOwnedTasks = openClinicalActionTasks.filter((task) => task.requiredOwner === 'provider')
+  const openCareTeamOwnedTasks = openClinicalActionTasks.filter((task) => task.requiredOwner === 'care_team')
+  const prioritizedOpenClinicalTasks = [...openClinicalActionTasks].sort((a, b) => {
+    const stageWeight = (task: ClinicalActionTaskRow) => (task.requiredDueState === 'before_treatment_action' ? 0 : 1)
+    const ownerWeight = (task: ClinicalActionTaskRow) => (task.requiredOwner === 'provider' ? 0 : 1)
+    return (
+      stageWeight(a) - stageWeight(b) ||
+      ownerWeight(a) - ownerWeight(b) ||
+      new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    )
+  })
+  const inlineCandidatesByTaskEventId = new Map<string, InlineTaskActionCandidate[]>()
+  for (const task of prioritizedOpenClinicalTasks) {
+    const uniqueActions = [...new Set(task.allowedCompletionActions)]
+    const candidates: InlineTaskActionCandidate[] = uniqueActions.map((action) => {
+      if (action === 'refill_approved' || action === 'refill_fulfilled') {
+        const desired = action === 'refill_approved' ? 'approved' : 'fulfilled'
+        const target = task.refillRequestId
+          ? refills.rows.find((row) => row.id === task.refillRequestId) ?? null
+          : null
+        const targetCanTransition =
+          !!target &&
+          isValidRefillRequestStatus(target.status) &&
+          allowedNextRefillRequestStatuses(target.status).includes(desired)
+        return {
+          action,
+          buttonLabel: buttonLabelForAction(action),
+          targetKind: 'refill',
+          targetId: target?.id ?? null,
+          targetLabel:
+            target && (treatmentNameById.get(target.treatment_item_id) ?? `Refill ${target.id.slice(0, 8)}…`) ? (
+              treatmentNameById.get(target.treatment_item_id) ?? `Refill ${target.id.slice(0, 8)}…`
+            ) : null,
+          nextStatus: desired,
+          blockedReason: targetCanTransition
+            ? null
+            : !task.refillRequestId
+              ? 'Task target is missing `refill_request_id`.'
+              : action === 'refill_approved'
+                ? 'Target refill is not currently eligible for approval.'
+                : 'Target refill is not currently eligible to be marked fulfilled.',
+        }
+      }
+      if (action === 'treatment_activated') {
+        const target = task.treatmentItemId
+          ? care.treatmentItems.find((item) => item.id === task.treatmentItemId) ?? null
+          : null
+        const targetCanTransition =
+          !!target && allowedNextStatuses(transitions, 'treatment_item', target.status).includes('active')
+        return {
+          action,
+          buttonLabel: buttonLabelForAction(action),
+          targetKind: 'treatment',
+          targetId: target?.id ?? null,
+          targetLabel: target?.display_name ?? null,
+          nextStatus: 'active',
+          blockedReason: targetCanTransition
+            ? null
+            : !task.treatmentItemId
+              ? 'Task target is missing `treatment_item_id`.'
+              : 'Target treatment is not currently eligible to activate.',
+        }
+      }
+      return {
+        action,
+        buttonLabel: buttonLabelForAction(action),
+        targetKind: 'refill',
+        targetId: null,
+        targetLabel: null,
+        nextStatus: '',
+        blockedReason: 'No inline handler configured for this action yet.',
+      }
+    })
+    inlineCandidatesByTaskEventId.set(task.eventId, candidates)
+  }
 
   let patientViewHref = `/dashboard/${patient.id}`
   try {
@@ -713,6 +1105,72 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
         <SendTemplateTestForm patientId={patientId} />
       </section>
 
+      <section className="mt-8 grid gap-4 lg:grid-cols-12">
+        <aside className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm lg:col-span-3">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Navigation + unresolved</h2>
+          <p className="mt-2 text-sm font-medium text-neutral-900">Active pathways</p>
+          {care.programs.length === 0 ? (
+            <p className="mt-1 text-xs text-neutral-500">No pathway rows yet.</p>
+          ) : (
+            <ul className="mt-2 space-y-1 text-sm text-neutral-700">
+              {care.programs.slice(0, 6).map((p) => (
+                <li key={p.id} className="rounded bg-neutral-50 px-2 py-1">
+                  {p.title?.trim() || humanizeToken(p.program_type)}
+                </li>
+              ))}
+            </ul>
+          )}
+          <div className="mt-4 space-y-1 text-xs text-neutral-600">
+            <p>Open support: {openSupportRequests.length}</p>
+            <p>Open refill queue: {refills.rows.length}</p>
+            <p>Pending AI drafts: {draftReviewCount}</p>
+            <p className="font-medium text-neutral-800">Unresolved total: {unresolvedTaskCount}</p>
+          </div>
+          <InternalPatientUpcomingStrip events={upcomingPortalEvents} portalHref={patientViewHref} />
+        </aside>
+
+        <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm lg:col-span-6">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Clinical context + current plan</h2>
+          <p className="mt-2 text-sm text-neutral-700">
+            Timeline events: {events.length} · Structured labs: {labObservations.rows.length} · Diagnostics:{' '}
+            {diagnosticReports.rows.length}
+          </p>
+          {acceptedPathwayDecisions.length > 0 ? (
+            <div className="mt-3 space-y-2">
+              {acceptedPathwayDecisions.slice(0, 2).map((card) => (
+                <div key={card.pathway_id} className="rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2">
+                  <p className="text-sm font-medium text-neutral-900">
+                    {humanizeToken(card.pathway_id)} · {humanizeToken(card.state)}
+                  </p>
+                  <p className="mt-1 text-xs text-neutral-700">{card.summary_readout}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-3 text-xs text-neutral-500">No clinician-approved pathway summary yet.</p>
+          )}
+        </div>
+
+        <aside className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm lg:col-span-3">
+          <h2 className="text-xs font-semibold uppercase tracking-wide text-neutral-500">Interpretation workspace</h2>
+          <p className="mt-2 text-xs text-neutral-600">
+            AI drafts are internal-only. Patient visibility requires status{' '}
+            <span className="font-mono">reviewed_accepted</span>.
+          </p>
+          <p className="mt-2 text-xs text-neutral-600">
+            Governance: autonomous treatment changes {AI_GOVERNANCE_POLICY.allowAutonomousTreatmentChanges ? 'enabled' : 'disabled'}.
+          </p>
+          {latestDraftPathwayDecisions.length > 0 ? (
+            <div className="mt-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2">
+              <p className="text-xs font-medium text-amber-900">Latest draft recommendation</p>
+              <p className="mt-1 text-xs text-amber-900">{latestDraftPathwayDecisions[0].summary_readout}</p>
+            </div>
+          ) : (
+            <p className="mt-3 text-xs text-neutral-500">No pending draft recommendation.</p>
+          )}
+        </aside>
+      </section>
+
       <section className="mt-10">
         <h2 className="text-sm font-semibold text-neutral-900">Latest intake</h2>
         {!intake.available ? (
@@ -764,6 +1222,258 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
         )}
       </section>
 
+      <section className="mt-10">
+        <h2 className="text-sm font-semibold text-neutral-900">Diagnostic action tasks</h2>
+        <p className="mt-1 text-xs text-neutral-500">
+          Open tasks created from accepted diagnostic decisions (`clinical_action_task_created` events).
+        </p>
+        <div className="mt-3 rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+          <div className="grid gap-2 sm:grid-cols-2">
+            <div className="rounded-md border border-rose-200 bg-rose-50 px-3 py-2">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-rose-900">Hard block now</p>
+              <p className="mt-1 text-sm font-medium text-rose-900">
+                {openTasksBlockingTreatmentState.length} task(s) block treatment/refill progression
+              </p>
+            </div>
+            <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2">
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-amber-900">Next block</p>
+              <p className="mt-1 text-sm font-medium text-amber-900">
+                {openTasksBlockingFulfillment.length} task(s) block fulfillment
+              </p>
+            </div>
+          </div>
+          <p className="mt-2 text-xs text-neutral-600">
+            Open owner load: {openProviderOwnedTasks.length} provider task(s), {openCareTeamOwnedTasks.length} care team task(s).
+          </p>
+          {openClinicalActionTasks.length === 0 ? (
+            <p className="mt-3 text-sm text-neutral-600">No open diagnostic action tasks.</p>
+          ) : (
+            <ul className="mt-3 space-y-3">
+              {prioritizedOpenClinicalTasks.map((task) => (
+                <li key={task.eventId} className="rounded-md border border-neutral-200 bg-neutral-50 p-3">
+                  <div className="flex flex-wrap items-start justify-between gap-2">
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-neutral-900">{task.title}</p>
+                      <p className="mt-1 text-xs text-neutral-700">{task.reason}</p>
+                    </div>
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                        task.requiredDueState === 'before_treatment_action'
+                          ? 'bg-rose-100 text-rose-900'
+                          : 'bg-amber-100 text-amber-900'
+                      }`}
+                    >
+                      {task.requiredDueState === 'before_treatment_action' ? 'Blocking now' : 'Blocking later'}
+                    </span>
+                  </div>
+                  <div className="mt-2 flex flex-wrap gap-1.5 text-[11px]">
+                    <span className="rounded-full bg-neutral-200 px-2 py-0.5 text-neutral-800">
+                      {dueStateLabel(task.requiredDueState)}
+                    </span>
+                    <span className="rounded-full bg-neutral-200 px-2 py-0.5 text-neutral-800">
+                      {ownerLabel(task.requiredOwner)}
+                    </span>
+                  </div>
+                  <InlineTaskActions
+                    patientId={patientId}
+                    candidates={inlineCandidatesByTaskEventId.get(task.eventId) ?? []}
+                  />
+                  {task.allowedCompletionActions.some((action) =>
+                    !['refill_approved', 'refill_fulfilled', 'treatment_activated'].includes(action)
+                  ) ? (
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {task.allowedCompletionActions
+                        .filter((action) => !['refill_approved', 'refill_fulfilled', 'treatment_activated'].includes(action))
+                        .map((action) => (
+                          <Link
+                            key={action}
+                            href={actionHref(action)}
+                            className="rounded-md border border-neutral-300 bg-white px-2.5 py-1 text-xs font-medium text-neutral-700 hover:bg-neutral-100"
+                          >
+                            {actionPrompt(action)}
+                          </Link>
+                        ))}
+                    </div>
+                  ) : null}
+                  <p className="mt-1 text-[11px] text-neutral-500">
+                    Source review {task.reviewId.slice(0, 8)}… · Created{' '}
+                    {new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(
+                      new Date(task.createdAt)
+                    )}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-sm font-semibold text-neutral-900">AI chart review drafts</h2>
+        <p className="mt-1 text-xs text-neutral-500">
+          Auto-generated on material chart changes. Draft output must be accepted/rejected by a clinician.
+        </p>
+        {!chartAiReviews.available ? (
+          <p className="mt-4 rounded-lg border border-dashed border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            AI chart review tables are not available yet. Run migration{' '}
+            <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">
+              20260426100000_chart_ai_reviews_and_lab_observations.sql
+            </code>
+            .
+          </p>
+        ) : chartAiReviews.rows.length === 0 ? (
+          <p className="mt-4 rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-8 text-center text-sm text-neutral-500">
+            No AI chart review drafts yet.
+          </p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {chartAiReviews.rows.map((review) => {
+              const payload =
+                review.output_payload && typeof review.output_payload === 'object' && !Array.isArray(review.output_payload)
+                  ? (review.output_payload as Record<string, unknown>)
+                  : {}
+              const findings = Array.isArray(payload.findings)
+                ? (payload.findings as unknown[]).filter((x): x is string => typeof x === 'string')
+                : []
+              const riskFlags = Array.isArray(payload.risk_flags)
+                ? (payload.risk_flags as unknown[]).filter((x): x is string => typeof x === 'string')
+                : []
+              const pathwayCards = parsePathwayDecisionCardsFromPayload(
+                review.output_payload,
+                review.status === 'reviewed_accepted'
+                  ? 'reviewed_accepted'
+                  : review.status === 'reviewed_rejected'
+                    ? 'reviewed_rejected'
+                    : review.status === 'superseded'
+                      ? 'superseded'
+                      : 'draft',
+                null,
+                review.reviewed_at
+              )
+              return (
+                <ChartAiReviewListItem
+                  key={review.id}
+                  patientId={patientId}
+                  review={review}
+                  findings={findings}
+                  riskFlags={riskFlags}
+                  pathwayCards={pathwayCards}
+                />
+              )
+            })}
+          </ul>
+        )}
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-sm font-semibold text-neutral-900">Structured lab observations</h2>
+        <p className="mt-1 text-xs text-neutral-500">
+          Normalized per-analyte values extracted into chart data for timeline and treatment context.
+        </p>
+        {!labObservations.available ? (
+          <p className="mt-4 rounded-lg border border-dashed border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            Structured lab observation table is not available yet. Run migration{' '}
+            <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">
+              20260426100000_chart_ai_reviews_and_lab_observations.sql
+            </code>
+            .
+          </p>
+        ) : labObservations.rows.length === 0 ? (
+          <p className="mt-4 rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-8 text-center text-sm text-neutral-500">
+            No normalized lab observations yet.
+          </p>
+        ) : (
+          <div className="mt-4 overflow-x-auto rounded-lg border border-neutral-200 bg-white">
+            <table className="min-w-full divide-y divide-neutral-200 text-sm">
+              <thead className="bg-neutral-50 text-left text-xs uppercase tracking-wide text-neutral-500">
+                <tr>
+                  <th className="px-3 py-2">Test</th>
+                  <th className="px-3 py-2">Value</th>
+                  <th className="px-3 py-2">Observed date</th>
+                  <th className="px-3 py-2">Flag</th>
+                  <th className="px-3 py-2">Confidence</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-100">
+                {labObservations.rows.map((obs) => (
+                  <tr key={obs.id}>
+                    <td className="px-3 py-2 text-neutral-900">{obs.test_name}</td>
+                    <td className="px-3 py-2 text-neutral-700">
+                      {[obs.observed_value, obs.unit].filter(Boolean).join(' ') || '—'}
+                    </td>
+                    <td className="px-3 py-2 text-neutral-700">{obs.observed_at || '—'}</td>
+                    <td className="px-3 py-2 text-neutral-700">{humanizeToken(obs.abnormal_flag)}</td>
+                    <td className="px-3 py-2 text-neutral-700">
+                      {typeof obs.confidence === 'number' ? `${Math.round(obs.confidence * 100)}%` : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section className="mt-10">
+        <h2 className="text-sm font-semibold text-neutral-900">Structured diagnostic reports</h2>
+        <p className="mt-1 text-xs text-neutral-500">
+          Normalized report-level diagnostics across labs, imaging (X-ray/CT/MRI/DEXA), infectious testing, and pathology.
+        </p>
+        {!diagnosticReports.available ? (
+          <p className="mt-4 rounded-lg border border-dashed border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            Structured diagnostic report table is not available yet. Run migration{' '}
+            <code className="rounded bg-amber-100 px-1 py-0.5 text-xs">
+              20260426100000_chart_ai_reviews_and_lab_observations.sql
+            </code>
+            .
+          </p>
+        ) : diagnosticReports.rows.length === 0 ? (
+          <p className="mt-4 rounded-lg border border-dashed border-neutral-200 bg-neutral-50 px-4 py-8 text-center text-sm text-neutral-500">
+            No normalized diagnostic reports yet.
+          </p>
+        ) : (
+          <ul className="mt-4 space-y-3">
+            {diagnosticReports.rows.map((report) => (
+              <li key={report.id} className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
+                <div className="flex flex-wrap items-baseline justify-between gap-2 text-xs text-neutral-500">
+                  <span className="font-medium text-neutral-800">
+                    {humanizeToken(report.diagnostic_kind)}
+                    {report.modality ? ` · ${humanizeToken(report.modality)}` : ''}
+                    {' · '}
+                    {humanizeToken(report.status)}
+                  </span>
+                  <span>{report.performed_at || 'Date unknown'}</span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-neutral-900">{report.title}</p>
+                {report.body_site ? <p className="mt-1 text-xs text-neutral-600">Body site: {report.body_site}</p> : null}
+                {report.result_text ? <p className="mt-1 whitespace-pre-wrap text-xs text-neutral-700">{report.result_text}</p> : null}
+                {report.impression_text ? (
+                  <p className="mt-1 whitespace-pre-wrap text-xs text-neutral-700">
+                    <span className="font-medium text-neutral-800">Impression:</span> {report.impression_text}
+                  </p>
+                ) : null}
+                <p className="mt-1 text-xs text-neutral-500">
+                  Confidence: {typeof report.confidence === 'number' ? `${Math.round(report.confidence * 100)}%` : '—'}
+                </p>
+                {report.signed_file_url ? (
+                  <p className="mt-2">
+                    <a
+                      href={report.signed_file_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs font-semibold text-emerald-800 underline hover:text-emerald-900"
+                    >
+                      Open uploaded file
+                    </a>
+                    <span className="ml-2 text-[11px] text-neutral-500">(link expires in about an hour)</span>
+                  </p>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
       <AdminHistoryPanel
         payments={paymentHistory}
         orders={orderHistory}
@@ -771,7 +1481,7 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
         nowIso={new Date().toISOString()}
       />
 
-      <section className="mt-10">
+      <section id="care-programs" className="mt-10 scroll-mt-20">
         <h2 className="text-sm font-semibold text-neutral-900">Care programs</h2>
         <p className="mt-1 text-xs text-neutral-500">
           Program and treatment tracks for this patient.
@@ -876,6 +1586,7 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
         programs={catalogProgramPicks}
         treatmentItems={catalogTreatmentPicks}
         providerOptions={providerOptions}
+        rxPresets={orgRxPresetsForForm}
         disabled={!care.available}
       />
 
@@ -887,6 +1598,7 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
           status: item.status,
         }))}
         providerOptions={providerOptions}
+        refillDraftSeed={refillDraftSeed}
       />
 
       <section className="mt-10">
@@ -1099,7 +1811,7 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
         )}
       </section>
 
-      <section className="mt-10">
+      <section id="refill-requests" className="mt-10 scroll-mt-20">
         <h2 className="text-sm font-semibold text-neutral-900">Refill requests</h2>
         <p className="mt-1 text-xs text-neutral-500">
           Queue for this patient. Approving keeps the treatment in refill pending until fulfilled (pharmacy/shipment).
@@ -1229,7 +1941,7 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
         )}
       </section>
 
-      <section className="mt-10">
+      <section id="timeline" className="mt-10 scroll-mt-20">
         <h2 className="text-sm font-semibold text-neutral-900">Timeline</h2>
         <p className="mt-1 text-xs text-neutral-500">
           Status changes, notes, and assignment updates appear newest first.
@@ -1291,6 +2003,8 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
                                         ? 'Lab requisition dispatch updated'
                                       : ev.event_type === 'pharmacy_dispatch_prepared'
                                         ? 'Pharmacy dispatch prepared'
+                                    : ev.event_type === 'patient_document_uploaded'
+                                      ? 'Patient document upload'
                                     : ev.event_type}
                       {ev.actor_display_name ? (
                         <span className="font-normal text-neutral-500"> · {ev.actor_display_name}</span>

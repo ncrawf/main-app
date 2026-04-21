@@ -2,6 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { OUTBOUND_JOB_TYPES, type EmailTransactionalPayload, type SmsTransactionalPayload } from '@/lib/jobs/outboundJobTypes'
 import { sendTransactionalEmail } from '@/lib/notifications/emailResend'
 import { sendPatientSms } from '@/lib/notifications/smsTwilio'
+import { processChartAiReviewJob } from '@/lib/ai/processChartAiReviewJob'
 
 export type DispatchOutcome = 'completed' | 'retry' | 'dead'
 
@@ -162,6 +163,15 @@ export async function dispatchOutboundJob(
     if (tErr) console.error('dispatchOutboundJob: timeline sms_sent', tErr)
 
     return { outcome: 'completed' }
+  }
+
+  if (jobType === OUTBOUND_JOB_TYPES.chartAiReview) {
+    const result = await processChartAiReviewJob(admin, payload)
+    if (result.ok) return { outcome: 'completed' }
+    return {
+      outcome: result.retryable ? 'retry' : 'dead',
+      detail: result.error,
+    }
   }
 
   return { outcome: 'dead', detail: `unknown job_type: ${jobType}` }

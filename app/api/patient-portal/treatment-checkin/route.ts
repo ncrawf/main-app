@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { assertPatientPortalSessionOnly } from '@/lib/patient-portal/assertAccess'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
 
 export const runtime = 'nodejs'
 
@@ -162,6 +163,12 @@ export async function POST(request: Request) {
     })
     .eq('id', treatment.id)
   if (mErr) console.error('treatment-checkin: metadata', mErr)
+
+  await enqueueChartAiReview(admin, {
+    patientId,
+    triggerEventType: 'treatment_checkin_submitted',
+    triggerRef: inserted?.id ?? treatment.id,
+  })
 
   return NextResponse.json({ ok: true })
 }
