@@ -3,6 +3,9 @@ import { isWorkflowTransitionAllowed } from '@/lib/care/workflowTransition'
 import { logAuditEvent } from '@/lib/audit/logAuditEvent'
 import { OPEN_REFILL_REQUEST_STATUSES } from '@/lib/refill/refillRequestTransitions'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
+import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
+import { buildPortalRefillNotes } from '@/lib/refill/portalRefillQuestionnaire'
+import { resolveRefillCheckInProfile } from '@/lib/refill/refillCheckInProfile'
 
 const MAX_NOTE = 8000
 
@@ -52,16 +55,12 @@ export async function submitPatientRefillRequest(
   admin: SupabaseClient,
   patientId: string,
   treatmentItemId: string,
-  rawNote?: string | null
+  rawNote?: string | null,
+  questionnaireRaw?: unknown
 ): Promise<SubmitPatientRefillRequestResult> {
-  const note = (rawNote ?? '').trim()
-  if (note.length > MAX_NOTE) {
-    return { ok: false, error: `Note must be ${MAX_NOTE} characters or less.`, status: 400 }
-  }
-
   const { data: item, error: itemErr } = await admin
     .from('treatment_items')
-    .select('id, patient_id, care_program_id, treatment_key, display_name, status')
+    .select('id, patient_id, care_program_id, treatment_key, display_name, status, category')
     .eq('id', treatmentItemId)
     .maybeSingle()
 
@@ -75,10 +74,24 @@ export async function submitPatientRefillRequest(
     return { ok: false, error: 'Refill can only be requested when your treatment is due for refill.', status: 409 }
   }
 
+  const profile = resolveRefillCheckInProfile(
+    item.treatment_key as string,
+    item.display_name as string,
+    (item.category as string | null) ?? null
+  )
+  const built = buildPortalRefillNotes(profile, questionnaireRaw, rawNote ?? '')
+  if (!built.ok) {
+    return { ok: false, error: built.error, status: 400 }
+  }
+  const patientNote = built.patientNote
+  if (patientNote && patientNote.length > MAX_NOTE) {
+    return { ok: false, error: `Note must be ${MAX_NOTE} characters or less.`, status: 400 }
+  }
+
   const open = await hasOpenRefillRequest(admin, patientId, treatmentItemId)
   if (!open.ok) return { ok: false, error: open.error, status: 500 }
   if (open.open) {
-    return { ok: false, error: 'A refill request is already in progress for this treatment.', status: 409 }
+    return { ok: false, error: 'A continuation is already in progress for this treatment.', status: 409 }
   }
 
   const allowed = await isWorkflowTransitionAllowed(admin, 'treatment_item', item.status, 'refill_pending')
@@ -144,8 +157,15 @@ export async function submitPatientRefillRequest(
       treatment_item_id: treatmentItemId,
       status: 'requested',
       requested_by_staff_id: null,
-      patient_note: note.length > 0 ? note : null,
-      metadata: { source: 'patient_portal' },
+      patient_note: patientNote,
+      metadata: {
+        source: 'patient_portal',
+        refill_check_in: built.refillCheckIn,
+        refill_check_in_profile: profile,
+        continuation_phase: 'post_submit_pre_payment',
+        continuation_payment_state: 'unpaid',
+        continuation_review_state: 'not_started',
+      },
     })
     .select('id')
     .maybeSingle()
@@ -160,7 +180,7 @@ export async function submitPatientRefillRequest(
     return { ok: false, error: 'Could not record refill request. Your treatment status was reverted.', status: 500 }
   }
 
-  const refillBody = `Refill requested for ${item.display_name}`
+  const refillBody = `Continue plan started for ${item.display_name}. Checkout is required before clinician review.`
   const { error: refillTlErr } = await admin.from('patient_timeline_events').insert({
     patient_id: patientId,
     care_program_id: item.care_program_id,
@@ -171,8 +191,10 @@ export async function submitPatientRefillRequest(
     payload: {
       refill_request_id: inserted.id,
       treatment_key: item.treatment_key,
-      patient_note: note.length > 0 ? note : null,
+      patient_note: patientNote,
+      refill_check_in_profile: profile,
       source: 'patient_portal',
+      continuation_phase: 'post_submit_pre_payment',
     },
   })
   if (refillTlErr) console.error(refillTlErr)
@@ -184,6 +206,12 @@ export async function submitPatientRefillRequest(
     resourceId: inserted.id,
     patientId,
     metadata: { treatment_item_id: treatmentItemId, treatment_key: item.treatment_key },
+  })
+
+  await enqueueChartAiReview(admin, {
+    patientId,
+    triggerEventType: 'refill_requested',
+    triggerRef: inserted.id,
   })
 
   return { ok: true, refillRequestId: inserted.id }

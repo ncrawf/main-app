@@ -6,6 +6,8 @@ import {
   formatCatalogStrengthOption,
   getMedicationCatalogEntry,
 } from '@/lib/care/medicationCatalog'
+import type { OrgRxPresetForCatalogForm } from '@/lib/care/orgRxPresets'
+import { parseOrgRxPresetDosage } from '@/lib/care/orgRxPresets'
 import commonCatalogConfig from '@/lib/care/formularyCommon.json'
 import { addCatalogTreatmentItem } from './actions'
 
@@ -38,12 +40,15 @@ export function AddCatalogTreatmentForm({
   programs,
   treatmentItems,
   providerOptions,
+  rxPresets = [],
   disabled,
 }: {
   patientId: string
   programs: ProgramPick[]
   treatmentItems: TreatmentPick[]
   providerOptions: ProviderPick[]
+  /** Org-level dose/sig templates; `treatment_key` must match a catalog medication id. */
+  rxPresets?: OrgRxPresetForCatalogForm[]
   disabled?: boolean
 }) {
   const [programId, setProgramId] = useState(programs[0]?.id ?? '')
@@ -64,6 +69,10 @@ export function AddCatalogTreatmentForm({
   const [sig, setSig] = useState('')
   const [cycling, setCycling] = useState('')
   const [holdIf, setHoldIf] = useState('')
+  const [durationDays, setDurationDays] = useState('90')
+  const [refillsAuthorized, setRefillsAuthorized] = useState('0')
+  const [fulfillmentChannel, setFulfillmentChannel] = useState('503a_partner')
+  const [presetSelection, setPresetSelection] = useState('')
   const [msg, setMsg] = useState('')
   const [pending, start] = useTransition()
 
@@ -111,6 +120,30 @@ export function AddCatalogTreatmentForm({
     () => providerOptions.find((provider) => provider.id === providerId) ?? null,
     [providerOptions, providerId]
   )
+
+  const applyOrgPreset = (preset: OrgRxPresetForCatalogForm) => {
+    const catalogEntry = getMedicationCatalogEntry(preset.treatment_key)
+    if (!catalogEntry) {
+      setMsg(`Unknown catalog id in preset: ${preset.treatment_key}`)
+      return
+    }
+    setCatalogId(preset.treatment_key)
+    const d = parseOrgRxPresetDosage(preset.dosage)
+    if (d.strengthMode) setStrengthMode(d.strengthMode)
+    if (d.customAmount !== undefined) setCustomAmount(d.customAmount)
+    if (d.customUnit) setCustomUnit(d.customUnit)
+    if (d.route && catalogEntry.routes.includes(d.route)) setRoute(d.route)
+    if (d.frequency && catalogEntry.frequencies.includes(d.frequency)) setFrequency(d.frequency)
+    if (d.sig !== undefined) setSig(d.sig)
+    if (d.dispenseQuantity !== undefined) setDispenseQuantity(d.dispenseQuantity)
+    else setDispenseQuantity(catalogEntry.defaultDispenseQuantity ?? '')
+    if (d.cycling !== undefined) setCycling(d.cycling)
+    if (d.holdIf !== undefined) setHoldIf(d.holdIf)
+    if (d.initialStatus) setInitialStatus(d.initialStatus)
+    if (d.durationDays) setDurationDays(d.durationDays)
+    if (d.refillsAuthorized !== undefined) setRefillsAuthorized(d.refillsAuthorized)
+    if (d.fulfillmentChannel) setFulfillmentChannel(d.fulfillmentChannel)
+  }
 
   const strengthSelectOptions = useMemo(() => {
     if (!entry) return []
@@ -161,6 +194,39 @@ export function AddCatalogTreatmentForm({
         <strong>mcg</strong> (e.g. 88 mcg vs 137 mcg), not mg.
       </p>
 
+      {rxPresets.length > 0 ? (
+        <div className="mt-4 rounded-md border border-sky-200 bg-sky-50/70 px-3 py-3">
+          <label className="block text-xs font-medium text-neutral-800">
+            Apply org preset
+            <select
+              className="mt-1 w-full max-w-lg rounded-md border border-neutral-300 bg-white px-2 py-2 text-sm"
+              value={presetSelection}
+              onChange={(e) => {
+                const id = e.target.value
+                setPresetSelection('')
+                if (!id) return
+                const preset = rxPresets.find((p) => p.id === id)
+                if (!preset) return
+                setMsg('')
+                applyOrgPreset(preset)
+                setMsg(`Applied preset “${preset.label}”. Review signing provider and submit.`)
+              }}
+              disabled={pending}
+            >
+              <option value="">— Choose preset —</option>
+              {rxPresets.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p className="mt-2 text-[11px] text-neutral-600">
+            Preset <code className="rounded bg-white/80 px-1">treatment_key</code> must match a catalog medication id.
+          </p>
+        </div>
+      ) : null}
+
       <form
         className="mt-4 space-y-4"
         onSubmit={(e) => {
@@ -180,6 +246,9 @@ export function AddCatalogTreatmentForm({
             setSig('')
             setCycling('')
             setHoldIf('')
+            setDurationDays('90')
+            setRefillsAuthorized('0')
+            setFulfillmentChannel('503a_partner')
           })
         }}
       >
@@ -425,7 +494,8 @@ export function AddCatalogTreatmentForm({
                   <select
                     name="durationDays"
                     className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-2 py-2 text-sm"
-                    defaultValue={90}
+                    value={durationDays}
+                    onChange={(e) => setDurationDays(e.target.value)}
                     disabled={pending}
                   >
                     <option value={30}>30 days</option>
@@ -438,7 +508,8 @@ export function AddCatalogTreatmentForm({
                   <select
                     name="refillsAuthorized"
                     className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-2 py-2 text-sm"
-                    defaultValue={0}
+                    value={refillsAuthorized}
+                    onChange={(e) => setRefillsAuthorized(e.target.value)}
                     disabled={pending}
                   >
                     {Array.from({ length: 12 }, (_, i) => (
@@ -453,7 +524,8 @@ export function AddCatalogTreatmentForm({
                   <select
                     name="fulfillmentChannel"
                     className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-2 py-2 text-sm"
-                    defaultValue="503a_partner"
+                    value={fulfillmentChannel}
+                    onChange={(e) => setFulfillmentChannel(e.target.value)}
                     disabled={pending}
                   >
                     <option value="503a_partner">503A compounding partner (default)</option>

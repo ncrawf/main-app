@@ -75,6 +75,18 @@ export default async function InternalHomePage() {
           Patient queue
         </Link>
         <Link
+          href="/internal/queues"
+          className="rounded-md border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold hover:bg-neutral-50"
+        >
+          Operational queues
+        </Link>
+        <Link
+          href="/internal/rx-presets"
+          className="rounded-md border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold hover:bg-neutral-50"
+        >
+          Rx presets
+        </Link>
+        <Link
           href="/internal/search"
           className="rounded-md border border-neutral-300 bg-white px-5 py-2.5 text-sm font-semibold hover:bg-neutral-50"
         >

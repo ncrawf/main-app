@@ -2,7 +2,13 @@
 
 import { useState } from 'react'
 
-export function PayForVisitButton({ patientId }: { patientId: string }) {
+export function PayForVisitButton({
+  patientId,
+  refillRequestId,
+}: {
+  patientId: string
+  refillRequestId?: string
+}) {
   const [pending, setPending] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -13,7 +19,10 @@ export function PayForVisitButton({ patientId }: { patientId: string }) {
       const res = await fetch('/api/stripe/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ patientId }),
+        body: JSON.stringify({
+          patientId,
+          refillRequestId: refillRequestId ?? undefined,
+        }),
       })
       const data = (await res.json()) as { url?: string; error?: string }
       if (!res.ok) {
@@ -40,10 +49,12 @@ export function PayForVisitButton({ patientId }: { patientId: string }) {
         disabled={pending}
         className="rounded-lg bg-neutral-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 disabled:opacity-60"
       >
-        {pending ? 'Redirecting…' : 'Pay for visit'}
+        {pending ? 'Opening checkout…' : 'Complete checkout'}
       </button>
       {error ? <p className="text-sm text-red-600">{error}</p> : null}
-      <p className="text-xs text-neutral-500">Secure checkout powered by Stripe. You’ll return here after paying.</p>
+      <p className="text-xs text-neutral-500">
+        Secure checkout powered by Stripe. Clinician review follows checkout.
+      </p>
     </div>
   )
 }

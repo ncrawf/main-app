@@ -5,6 +5,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { buildPatientEmail, buildPatientSmsPreview, type PatientMessageContext } from '@/lib/notifications/patientMessages'
 import { resolvePatientNotifications } from '@/lib/workflows/notificationRules'
 import type { PatientWorkflowEvent } from '@/lib/workflows/types'
+import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
 
 /**
  * Central hook: after canonical workflow status is committed, enqueue outbound
@@ -24,6 +25,12 @@ export async function onPatientWorkflowEvent(ev: PatientWorkflowEvent): Promise<
     console.error('onPatientWorkflowEvent: admin client', e)
     return
   }
+
+  await enqueueChartAiReview(admin, {
+    patientId: ev.patientId,
+    triggerEventType: 'workflow_status_changed',
+    triggerRef: `${ev.fromWorkflowStatus}->${ev.toWorkflowStatus}:${ev.source}`,
+  })
 
   const actions = resolvePatientNotifications(ev)
   if (actions.length === 0) return

@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { useMemo, useState, useTransition } from 'react'
 import type { TreatmentCheckinPrompt } from '@/lib/dashboard/getPatientTreatmentCheckinPrompts'
 
@@ -228,13 +229,16 @@ export function PatientTreatmentCheckinPanel({
               })
               const json: { ok?: boolean; error?: string } = await res.json().catch(() => ({}))
               if (!res.ok || !json.ok) {
-                setMsg(json.error || 'Could not submit check-in.')
+                const err = json.error || 'Could not submit check-in.'
+                setMsg(err)
+                toast.error(err)
                 return
               }
               setMsg('Check-in submitted. Thank you.')
               setSideEffects('')
               setProgressNotes('')
               setWeightLb('')
+              toast.success('Check-in saved')
               router.refresh()
             })
           }

@@ -271,11 +271,11 @@ export function DynamicForm({ definition, initialValues }: Props) {
       }
       if (json.patientId) {
         if (json.portalToken) {
-          const next = encodeURIComponent(`/dashboard/${json.patientId}?welcome=1`)
+          const next = encodeURIComponent(`/dashboard/${json.patientId}?welcome=1&intake=1`)
           router.push(`/api/patient-portal/session?token=${encodeURIComponent(json.portalToken)}&next=${next}`)
           return
         }
-        router.push(`/dashboard/${json.patientId}?welcome=1`)
+        router.push(`/dashboard/${json.patientId}?welcome=1&intake=1`)
         return
       }
       setMessage('Saved.')

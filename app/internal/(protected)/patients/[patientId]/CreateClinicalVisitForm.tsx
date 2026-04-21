@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition } from 'react'
 import { createClinicalVisitNote } from './actions'
+import type { ClinicianRefillDraftSeed } from '@/lib/refill/clinicalRefillDraft'
 
 type TreatmentOption = {
   id: string
@@ -20,26 +21,43 @@ type ProviderOption = {
   deaNumber: string | null
 }
 
+function humanizeRefillProfile(profile: ClinicianRefillDraftSeed['refillCheckInProfile']): string {
+  if (profile === 'glp1_weight_loss') return 'GLP-1 check-in'
+  if (profile === 'generic_rx') return 'Rx check-in'
+  return 'Check-in'
+}
+
+function formatSubmittedAt(value: string): string {
+  const date = new Date(value)
+  if (Number.isNaN(date.valueOf())) return 'recently'
+  return new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(date)
+}
+
 export function CreateClinicalVisitForm({
   patientId,
   treatmentOptions,
   providerOptions,
+  refillDraftSeed,
 }: {
   patientId: string
   treatmentOptions: TreatmentOption[]
   providerOptions: ProviderOption[]
+  refillDraftSeed?: ClinicianRefillDraftSeed | null
 }) {
   const [pending, start] = useTransition()
   const [visitType, setVisitType] = useState('async_intake_review')
   const [providerId, setProviderId] = useState(providerOptions[0]?.id ?? '')
-  const [chiefConcern, setChiefConcern] = useState('')
+  const [chiefConcern, setChiefConcern] = useState(refillDraftSeed?.chiefConcern ?? '')
   const [diagnosisCodesInput, setDiagnosisCodesInput] = useState('')
-  const [assessment, setAssessment] = useState('')
-  const [plan, setPlan] = useState('')
+  const [assessment, setAssessment] = useState(refillDraftSeed?.assessment ?? '')
+  const [plan, setPlan] = useState(refillDraftSeed?.plan ?? '')
   const [counseling, setCounseling] = useState(
-    'Reviewed contraindications/interactions, discussed risks/benefits, and confirmed patient understanding.'
+    refillDraftSeed?.counseling ??
+      'Reviewed contraindications/interactions, discussed risks/benefits, and confirmed patient understanding.'
   )
-  const [followUpPlan, setFollowUpPlan] = useState('Follow up in 2-4 weeks or sooner for adverse effects/concerns.')
+  const [followUpPlan, setFollowUpPlan] = useState(
+    refillDraftSeed?.followUpPlan ?? 'Follow up in 2-4 weeks or sooner for adverse effects/concerns.'
+  )
   const [selectedTreatmentIds, setSelectedTreatmentIds] = useState<string[]>([])
   const [msg, setMsg] = useState('')
 
@@ -63,6 +81,22 @@ export function CreateClinicalVisitForm({
       <p className="mt-1 text-xs text-neutral-500">
         Visit-centric clinical note with optional Rx-by-Rx safety addenda.
       </p>
+      {refillDraftSeed ? (
+        <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
+          <span className="rounded-full border border-sky-300 bg-sky-50 px-2 py-0.5 text-sky-800">
+            Prefilled from refill request {refillDraftSeed.sourceRefillRequestId.slice(0, 8)}...
+          </span>
+          <span className="rounded-full border border-neutral-300 bg-neutral-50 px-2 py-0.5 text-neutral-700">
+            {refillDraftSeed.treatmentLabel}
+          </span>
+          <span className="rounded-full border border-neutral-300 bg-neutral-50 px-2 py-0.5 text-neutral-700">
+            {humanizeRefillProfile(refillDraftSeed.refillCheckInProfile)}
+          </span>
+          <span className="rounded-full border border-neutral-300 bg-neutral-50 px-2 py-0.5 text-neutral-700">
+            Submitted {formatSubmittedAt(refillDraftSeed.submittedAt)}
+          </span>
+        </div>
+      ) : null}
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <label className="text-xs font-medium text-neutral-700">
@@ -215,8 +249,16 @@ export function CreateClinicalVisitForm({
                 counseling,
                 followUpPlan,
                 treatmentItemIds: selectedTreatmentIds,
+                sourceRefillRequestId: refillDraftSeed?.sourceRefillRequestId ?? null,
               })
-              setMsg(res.ok ? 'Progress note saved and signed.' : res.error)
+              if (!res.ok) {
+                setMsg(res.error)
+                return
+              }
+              const refillSourceMsg = refillDraftSeed
+                ? ` Source refill: ${refillDraftSeed.sourceRefillRequestId.slice(0, 8)}... (${refillDraftSeed.treatmentLabel}).`
+                : ''
+              setMsg(`Progress note saved and signed.${refillSourceMsg}`)
             })
           }
           className="rounded-md border border-neutral-300 bg-neutral-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-neutral-800 disabled:opacity-60"

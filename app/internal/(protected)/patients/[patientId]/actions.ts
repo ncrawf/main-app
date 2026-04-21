@@ -2,6 +2,11 @@
 
 import type { NotificationTemplateKey } from '@/lib/workflows/notificationRules'
 import * as patientCase from '@/lib/internal/patient-case/impl'
+import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { getStaffProfile } from '@/lib/staff/getStaffProfile'
+import { parseActionPlanTasksFromPayload } from '@/lib/pathways/decisionContract'
+import { allowedNextRefillRequestStatuses, isValidRefillRequestStatus } from '@/lib/refill/refillRequestTransitions'
+import { revalidatePath } from 'next/cache'
 
 export type {
   AddStaffNoteResult,
@@ -23,6 +28,82 @@ export type {
   UpdateSupplementFulfillmentStatusResult,
   UpdateTreatmentItemStatusResult,
 } from '@/lib/internal/patient-case/impl'
+
+export type ReviewChartAiDraftResult = { ok: true } | { ok: false; error: string }
+
+type RefillTaskTargetRow = {
+  id: string
+  status: string
+  treatment_item_id: string
+  created_at: string
+}
+
+async function resolveTaskTargets(
+  supabase: Awaited<ReturnType<typeof createSupabaseServerClient>>,
+  patientId: string,
+  allowedActions: string[]
+): Promise<{ refillRequestId: string | null; treatmentItemId: string | null }> {
+  const needsRefillTarget =
+    allowedActions.includes('refill_approved') || allowedActions.includes('refill_fulfilled')
+  const needsTreatmentTarget = allowedActions.includes('treatment_activated')
+
+  let refillRows: RefillTaskTargetRow[] = []
+  if (needsRefillTarget) {
+    const { data } = await supabase
+      .from('refill_requests')
+      .select('id, status, treatment_item_id, created_at')
+      .eq('patient_id', patientId)
+      .order('created_at', { ascending: false })
+      .limit(25)
+    refillRows = (data ?? []) as RefillTaskTargetRow[]
+  }
+
+  const nextRefillStatus =
+    allowedActions.includes('refill_fulfilled')
+      ? 'fulfilled'
+      : allowedActions.includes('refill_approved')
+        ? 'approved'
+        : null
+
+  let refillTarget: RefillTaskTargetRow | null = null
+  if (nextRefillStatus) {
+    refillTarget =
+      refillRows.find((row) => {
+        if (!isValidRefillRequestStatus(row.status)) return false
+        return allowedNextRefillRequestStatuses(row.status).includes(nextRefillStatus)
+      }) ?? null
+  }
+
+  if (needsTreatmentTarget) {
+    if (refillTarget?.treatment_item_id) {
+      return {
+        refillRequestId: refillTarget.id,
+        treatmentItemId: refillTarget.treatment_item_id,
+      }
+    }
+    const { data: treatmentRows } = await supabase
+      .from('treatment_items')
+      .select('id, status, updated_at')
+      .eq('patient_id', patientId)
+      .order('updated_at', { ascending: false })
+      .limit(25)
+    const treatmentTarget =
+      (treatmentRows as Array<{ id: string; status: string; updated_at: string }> | null)?.find(
+        (row) => row.status === 'refill_pending' || row.status === 'approved'
+      ) ??
+      (treatmentRows as Array<{ id: string; status: string; updated_at: string }> | null)?.[0] ??
+      null
+    return {
+      refillRequestId: refillTarget?.id ?? null,
+      treatmentItemId: treatmentTarget?.id ?? null,
+    }
+  }
+
+  return {
+    refillRequestId: refillTarget?.id ?? null,
+    treatmentItemId: refillTarget?.treatment_item_id ?? null,
+  }
+}
 
 export async function addStaffNote(patientId: string, rawText: string) {
   return patientCase.addStaffNote(patientId, rawText)
@@ -146,4 +227,99 @@ export async function updatePatientSupportRequestStatus(
   staffNoteRaw?: string
 ) {
   return patientCase.updatePatientSupportRequestStatus(patientId, timelineEventId, actionRaw, staffNoteRaw)
+}
+
+export async function reviewChartAiDraft(
+  patientId: string,
+  reviewId: string,
+  decision: 'reviewed_accepted' | 'reviewed_rejected',
+  reviewNoteRaw?: string
+): Promise<ReviewChartAiDraftResult> {
+  const supabase = await createSupabaseServerClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { ok: false, error: 'Not signed in.' }
+
+  const profile = await getStaffProfile(supabase, user.id)
+  if (!profile) return { ok: false, error: 'No staff profile.' }
+
+  const reviewNote = (reviewNoteRaw ?? '').trim().slice(0, 4000)
+  const { data: reviewRow, error: reviewLookupErr } = await supabase
+    .from('patient_chart_ai_reviews')
+    .select('id, output_payload, status')
+    .eq('id', reviewId)
+    .eq('patient_id', patientId)
+    .maybeSingle()
+  if (reviewLookupErr || !reviewRow) {
+    return { ok: false, error: 'AI review not found.' }
+  }
+  if (reviewRow.status !== 'draft') {
+    return { ok: false, error: 'AI review is no longer in draft status.' }
+  }
+
+  const { error } = await supabase
+    .from('patient_chart_ai_reviews')
+    .update({
+      status: decision,
+      reviewed_by_staff_id: user.id,
+      reviewed_at: new Date().toISOString(),
+      review_note: reviewNote.length > 0 ? reviewNote : null,
+    })
+    .eq('id', reviewId)
+    .eq('patient_id', patientId)
+    .eq('status', 'draft')
+
+  if (error) {
+    console.error('reviewChartAiDraft', error)
+    return { ok: false, error: 'Could not update AI review.' }
+  }
+
+  if (decision === 'reviewed_accepted') {
+    const actionPlanTasks = parseActionPlanTasksFromPayload(reviewRow.output_payload)
+    if (actionPlanTasks.length > 0) {
+      const taskRows = await Promise.all(
+        actionPlanTasks.map(async (task) => {
+          const targets = await resolveTaskTargets(supabase, patientId, task.allowed_completion_actions)
+          return {
+            patient_id: patientId,
+            event_type: 'clinical_action_task_created',
+            body: `Action required: ${task.title}`,
+            actor_user_id: user.id,
+            payload: {
+              source: 'chart_ai_action_plan',
+              review_id: reviewId,
+              task_id: task.task_id,
+              task_title: task.title,
+              task_reason: task.reason,
+              required_owner: task.required_owner,
+              required_due_state: task.required_due_state,
+              allowed_completion_actions: task.allowed_completion_actions,
+              refill_request_id: targets.refillRequestId,
+              treatment_item_id: targets.treatmentItemId,
+              task_status: 'open',
+            },
+          }
+        })
+      )
+      const { error: taskErr } = await supabase.from('patient_timeline_events').insert(taskRows)
+      if (taskErr) {
+        console.error('reviewChartAiDraft.taskRows', taskErr)
+      }
+    }
+
+    const { error: supersedeErr } = await supabase
+      .from('patient_chart_ai_reviews')
+      .update({ status: 'superseded' })
+      .eq('patient_id', patientId)
+      .eq('status', 'reviewed_accepted')
+      .neq('id', reviewId)
+    if (supersedeErr) {
+      console.error('reviewChartAiDraft.supersede', supersedeErr)
+    }
+  }
+
+  revalidatePath(`/internal/patients/${patientId}`)
+  revalidatePath(`/dashboard/${patientId}`)
+  return { ok: true }
 }

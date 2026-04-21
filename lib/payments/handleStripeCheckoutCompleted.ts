@@ -54,6 +54,8 @@ export async function handleStripeCheckoutSessionCompleted(session: Stripe.Check
     : []
   const hasConsult = manifestItems.length > 0 ? manifestItems.some((i) => i.kind === 'consult_fee') : true
   const hasSupplement = manifestItems.some((i) => i.kind === 'supplement')
+  const refillRequestIdRaw = session.metadata?.refill_request_id
+  const refillRequestId = typeof refillRequestIdRaw === 'string' && refillRequestIdRaw.trim() ? refillRequestIdRaw.trim() : null
 
   let statusChanged = false
   let careSync: CareSyncResult = { available: false, careProgramId: null, treatmentItemId: null }
@@ -99,6 +101,69 @@ export async function handleStripeCheckoutSessionCompleted(session: Stripe.Check
     const { error: tErr } = await admin.from('patient_timeline_events').insert(timelineRow)
     if (tErr) {
       console.error('stripe checkout: timeline insert', tErr)
+    }
+  }
+
+  if (refillRequestId) {
+    const { data: refillRow, error: refillErr } = await admin
+      .from('refill_requests')
+      .select('id, patient_id, status, metadata')
+      .eq('id', refillRequestId)
+      .maybeSingle()
+
+    if (refillErr) {
+      console.error('stripe checkout: refill lookup failed', refillErr)
+    } else if (!refillRow) {
+      console.warn('stripe checkout: refill not found for payment', refillRequestId)
+    } else if (refillRow.patient_id !== patientId) {
+      console.warn('stripe checkout: refill patient mismatch', {
+        refillRequestId,
+        sessionPatientId: patientId,
+        refillPatientId: refillRow.patient_id,
+      })
+    } else if (refillRow.status === 'requested') {
+      const existingMeta =
+        refillRow.metadata && typeof refillRow.metadata === 'object' && !Array.isArray(refillRow.metadata)
+          ? (refillRow.metadata as Record<string, unknown>)
+          : {}
+      const nextMeta = {
+        ...existingMeta,
+        continuation_phase: 'post_payment_pre_review',
+        continuation_payment_state: 'paid',
+        continuation_review_state: 'not_started',
+        continuation_paid_at: new Date().toISOString(),
+        continuation_paid_checkout_session_id: session.id,
+      }
+      const { error: promoteErr } = await admin
+        .from('refill_requests')
+        .update({
+          status: 'under_review',
+          metadata: nextMeta,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', refillRequestId)
+        .eq('status', 'requested')
+      if (promoteErr) {
+        console.error('stripe checkout: refill promote to under_review failed', promoteErr)
+      } else if (!already) {
+        const { error: continuationEvtErr } = await admin.from('patient_timeline_events').insert({
+          patient_id: patientId,
+          event_type: 'refill_request_status_changed',
+          body: 'Continue plan payment received. Clinician review starts now.',
+          actor_user_id: null,
+          payload: {
+            refill_request_id: refillRequestId,
+            from: 'requested',
+            to: 'under_review',
+            source: 'stripe_webhook',
+            continuation_phase: 'active_review',
+            stripe_checkout_session_id: session.id,
+          },
+        })
+        if (continuationEvtErr) {
+          console.error('stripe checkout: continuation timeline insert', continuationEvtErr)
+        }
+      }
     }
   }
 

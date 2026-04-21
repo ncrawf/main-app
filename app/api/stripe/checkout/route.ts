@@ -15,12 +15,56 @@ type CheckoutItemInput = {
   displayName?: string
 }
 
+type RefillCheckoutGateResult =
+  | { ok: true }
+  | { ok: false; status: number; error: string }
+
 type NormalizedCheckoutItem = {
   kind: 'consult_fee' | 'supplement'
   priceId: string
   quantity: number
   catalogMedicationId: string | null
   displayName: string | null
+}
+
+function hasRefillCheckInForPayment(metadata: unknown): boolean {
+  if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) return false
+  const m = metadata as Record<string, unknown>
+  const profile = typeof m.refill_check_in_profile === 'string' ? m.refill_check_in_profile : null
+  if (!profile || profile === 'none') return true
+  const checkIn = m.refill_check_in
+  return !!checkIn && typeof checkIn === 'object' && !Array.isArray(checkIn)
+}
+
+async function gateRefillCheckout(
+  admin: ReturnType<typeof createAdminClient>,
+  patientId: string,
+  refillRequestId: string
+): Promise<RefillCheckoutGateResult> {
+  const { data: refill, error: refillErr } = await admin
+    .from('refill_requests')
+    .select('id, patient_id, status, metadata')
+    .eq('id', refillRequestId)
+    .maybeSingle()
+
+  if (refillErr || !refill) {
+    return { ok: false, status: 404, error: 'Refill request not found.' }
+  }
+  if (refill.patient_id !== patientId) {
+    return { ok: false, status: 403, error: 'Refill request does not match this patient.' }
+  }
+  if (!['requested', 'under_review', 'approved'].includes(refill.status)) {
+    return { ok: false, status: 409, error: 'Refill is not in a payable state yet.' }
+  }
+  if (!hasRefillCheckInForPayment(refill.metadata)) {
+    return {
+      ok: false,
+      status: 409,
+      error:
+        'Please complete your refill check-in questionnaire before checkout. Refresh and submit your refill request again if needed.',
+    }
+  }
+  return { ok: true }
 }
 
 /**
@@ -33,7 +77,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'STRIPE_PRICE_ID is not configured' }, { status: 500 })
   }
 
-  let body: { patientId?: string; items?: CheckoutItemInput[] }
+  let body: { patientId?: string; items?: CheckoutItemInput[]; refillRequestId?: string }
   try {
     body = await request.json()
   } catch {
@@ -44,11 +88,21 @@ export async function POST(request: Request) {
   if (!patientId || !UUID_RE.test(patientId)) {
     return NextResponse.json({ error: 'Invalid patientId' }, { status: 400 })
   }
+  const refillRequestId = body.refillRequestId?.trim() || null
+  if (refillRequestId && !UUID_RE.test(refillRequestId)) {
+    return NextResponse.json({ error: 'Invalid refillRequestId' }, { status: 400 })
+  }
 
   const admin = createAdminClient()
   const { data: patient, error: pErr } = await admin.from('patients').select('id').eq('id', patientId).maybeSingle()
   if (pErr || !patient) {
     return NextResponse.json({ error: 'Patient not found' }, { status: 404 })
+  }
+  if (refillRequestId) {
+    const gate = await gateRefillCheckout(admin, patientId, refillRequestId)
+    if (!gate.ok) {
+      return NextResponse.json({ error: gate.error }, { status: gate.status })
+    }
   }
 
   const base = getAppBaseUrl()
@@ -113,12 +167,14 @@ export async function POST(request: Request) {
         patient_id: patientId,
         has_consult: hasConsult ? '1' : '0',
         has_supplement: hasSupplement ? '1' : '0',
+        refill_request_id: refillRequestId ?? '',
       },
       payment_intent_data: {
         metadata: {
           patient_id: patientId,
           has_consult: hasConsult ? '1' : '0',
           has_supplement: hasSupplement ? '1' : '0',
+          refill_request_id: refillRequestId ?? '',
         },
       },
     })
@@ -140,6 +196,7 @@ export async function POST(request: Request) {
         })),
         has_consult: hasConsult,
         has_supplement: hasSupplement,
+        refill_request_id: refillRequestId,
         source: 'api_stripe_checkout_v2',
       },
     })
