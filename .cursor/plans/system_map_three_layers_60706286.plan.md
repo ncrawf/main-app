@@ -9,6 +9,7 @@
 - **Layer 1 — Platform / compliance:** auth, RLS, capabilities (`lib/auth/capabilities.ts`, staff RLS, patient portal access), **`requireCapability` on sensitive staff paths**, and **`SensitiveAccessReason` on map-listed high-risk reads** (export, impersonation, cross-patient, bulk)—**stored and queryable** on `audit_events` next to the action, not a second story. **Minimum necessary in practice:** “any `staff_profile` can read the whole `patients` set in SQL” is an **unacceptable** steady state for real PHI; **tighten over time** via **assignment/queue, care relationship, or role-scoped read paths** so ops stay fast (assigned work, not census browsing). **Service-role API routes** are the **larger** bypass than RLS: every handler must **bind** identity + **one patient (or org rule) before** reads/writes. **One production staff identity** path; **no** parallel “admin” login that uses the **service role** for **human** browsing. For **material** **mutations and map-listed** **reads**, **failed** `audit_events` / capability audit = **block** the operation **or** **page**—not **log-only** silence. **Defensibility, not click-tax:** require **reason** on **map-listed** **sensitive** **reads** and **break-glass**; do **not** add **reason** to **every** **routine** chart open.
 - **Layer 1 (money + events):** **Payment** **adapters** (per **1I.4–1I.5,** the **capability** **matrix** and **adapter** **layer**) are **idempotent** at the **integration** **boundary**; **verify** **inbound** **signatures** **/ auth** per **active** **PSP**; keep **metadata** to **ids** and **flags**, not **narrative** **PHI**. **`treatment_orders` and 1E retail order types** must support **queryable** lifecycle for **succeeded, failed, cancelled, and refunded** (or equivalent) so money state is not “success-only” in the schema; every **material** money or consent transition that affects the patient should be **recoverable** from `audit_events` and/or **append-only** `patient_timeline_events` (patient **clinical memory** and ops truth share this spine). For the **regulated** / **clinical** **DTC** product path, the default economic model is: **payment capture** for a **`treatment_order`** (or the clinical line on a **compositional** session) **after** **provider** (or org-policy) **approval** of the charge (common async-care pattern: pay only after approval). The design **rejects** “patient paid, clinically blocked for **standard** approval” as the **default** state machine; **exceptions** (refund, void, support override) remain **first-class** **states**, not the main story. **Internal** **financial** **semantics** **+** **payment** **rails** **+** **provider** **mappings** — **Section 1I** (not **a** **single** **vendor**’s **object** **model**).
 - **Layer 1 (audit evidence):** `SensitiveAccessReason` on **gated** access must, when the map calls for it, be **storable and queryable** on the **same** `audit_events` the capability layer already writes so **defensibility** is **not** split between “feature worked” and “compliance said why.” **Read-side** (who opened chart / export / impersonation) is **as important** as **mutations** for “who touched PHI”; wire **sparingly** to **high** **signal** only.
+- **Layer 1 (data architecture discipline — what lives where; foundational):** **Domain tables** are the **source of truth** for their concern: `patients` and chart fields (identity, allergies, conditions, medications, surgical history) per `1J / 1J.10`; `care_program`, `treatment_items`, `treatment_orders` (clinical case + Rx state); `commerce_orders` and 1I rows (money / subscriptions / refunds / disputes); `clinical_visits` (provider decisions, signoffs, progress notes); `patient_diagnostic_reports` + `patient_lab_observations` (vendor-issued lab data per Section 1L); **`patient_state_observations`** (longitudinal trackables — weight, BP, symptom scores, dose tolerance, sleep, side effects — per **Section 1M**); `messages` / `message_thread` (conversation transcript per Section 1G); `outbound_jobs` (notifications, kit shipments, vendor calls). **`patient_timeline_events` is the narrative / event layer ONLY** — typed pointers to meaningful lifecycle events with minimal context (ids + flags); **never** the storage layer for billing, orders, notifications, clinical decisions, lab values, longitudinal trackables, or any domain truth. Payload carries ids and minimal context, **never authoritative values**. **`audit_events` is the accountability layer ONLY** — actor, capability, reason, prior/new state pointers; not a metric store, not a notification log. **Hard rule:** rules, gates, dashboards, AI inputs, and reports read from **domain tables**, not from timeline payload text. Adding a domain concept means a domain table (or named additive metadata on an existing one), not a new `event_type` on the timeline.
 - **Layer 1 (oversight, QA, leadership):** CMO, clinical leadership, QA/compliance, and operational leadership are **governed** by the same `requireCapability` + `audit_events` + `SensitiveAccessReason` (on map-listed broad/sensitive reads) model as other privileged access. They are **not** a `responsible_party` on the case (Section 1G); they **view** / **advise** / **escalate** only through that model — see **Section 1G (Oversight, not owners).**
 - **Layer 2 (clinical signoff, lab, and therapy decisions):** **Defensible** “we acted on this lab” and “we changed therapy” may involve **`patient_diagnostic_reports` (§11)**, **`clinical_visits`**, and **`patient_chart_ai_reviews`**; the architecture **rejects** **inconsistent** **ownership** and **rejects** **treatment** **state** changes **by** ad-hoc SQL, one-off scripts, or **routes** that **skip** the **same** **server** **functions** the product uses. **Precedence (guardrail):** For **dosing, continuation, or new Rx** driven by a lab, **at least one** of: (1) a **`clinical_visits`** row (or **addendum**) that **references** the relevant **`diagnostic_report_id`**, with **prescriber** identity, **or** (2) a **treatment** / **`treatment_items`** state transition that is **valid only** when the **same** `patient_diagnostic_report` for that lab context has `reviewed_at` set and **applies to** the **intended** `treatment_item` / program **per product rules**. **1G.2** (clinical safety **enforcement,** not a CDSS) **requires** **active** **asserts** (contra-/dup-therapy/allergy/dosing **as** **the** **product** **defines) **in **the ** **same** **server** **path** **as ** **therapy** **authorization, **complementing **`loadPatientCaseSafetySnapshot` (1J.10) **—** **storing** **safety** **- ** **relevant** **data** **is** **necessary** ** and ** not **sufficient. ** **AI** (`patient_chart_ai_reviews` and related jobs) is **recommendation / draft** only; **it does not replace** (1) or (2) for **authorizing** therapy, **does not** **by** **itself** **clear** **Section 1G** **clinical** **blockers,** and **does not** **bypass** **permit** **asserts** — **see Section 1G** **(AI layer).** **`released_to_patient_at`** (Lab appendix) controls **what the patient can see**; it is **not** a substitute for **(1) or (2)** when the question is **“who medicinally authorized the care step.”**
 - **Layer 2 (protocol gates, e.g. baseline lab before status):** **Gating invariants** (e.g. “cannot approve until baseline lab **reviewed**”) must use the **same** **audited** **mutation** surface (`requireCapability`, `audit_events`, patient case **actions**) as other clinical moves—**not** ad-hoc **DB** or **script** `UPDATE` that **bypasses** the gate. The map **allows** optional **DB** constraints **later**; the **architectural** bar is **one** **enforcement** path for **material** **treatment** transitions.
@@ -59,6 +60,7 @@
 | **Provider workspace v1 (live operational; not analytics)** | **Section 1G.8** — My Queue / My Status / same-day My Performance + patient context drawer, clinical messages inbox, lab review drawer, ops/staff messaging channel, grouped views, notifications via `1G.3`; derived from existing rows; PHI-minimum, capability-gated, all actions audited |
 | **Clinician continuity, follow-up ownership, and rerouting (CoR per `care_program`; no work trapping)** | **Section 1G.9** — clinician-of-record vs task owner, continuity policy by item type, lab/refill/message follow-up routing, SLA fallback (continuity never traps), admin transfer + provider obligations; additive metadata on `care_program` and event payloads; controlled provider dimension via `1H.7.2`; reuses `1G.7` eligibility + `1G.7.5b` SLA enforcement |
 | **Intake architecture (multi-pathway; deterministic, versioned, composable; no separate form builder)** | **Section 1K** — entry pathways (ED / TRT / GLP-1 / peptides / labs-only / supplements-only / wellness), layered modules, canonical question bank with versioning, answer reuse + freshness, contraindication screening, lab + at-home kit flows, deterministic scoring, provisional `treatment_plan_candidate`, today vs if-prescribed payment, deterministic provider submission packet, abuse/gaming detection; reuses `intake`, `care_program`, `treatment_items`, `treatment_orders`, `patient_diagnostic_reports`, 1I subscription/payment, `audit_events`, `patient_timeline_events`; additive schema only when reuse is insufficient |
+| **Patient state observations (longitudinal trackables — first-class; not timeline-stored)** | **Section 1M** — append-only `patient_state_observations` table for living, time-aware patient signals (weight, BP, symptom scores, dose tolerance, sleep, side effects, etc.); intake / check-in / provider-prompt / message-input write here, never to `patient_timeline_events`; provider corrections append rather than overwrite; reads feed provider workspace, continuation gating, reporting, AI assist; **`patient_timeline_events` carries narrative pointers only — never values** |
 | **Diagnostics + lab testing (foundation; not appendix)** | **Section 1L** — labs as core loop substrate (intake → commerce → fulfillment → result → review → release → display → care-program → retest → reporting); structured + semi-structured model (`patient_lab_observations` + `patient_diagnostic_reports.report_payload`); formal `lab_orders.status` state machine + substates; deterministic report→order binding with first-class orphan workflow; observation normalization; explicit ownership (`responsible_provider_id` / `queue_owner`); expiration + no-completion logic; hard retest loop; vendor partner adapter contract; patient-facing tone discipline; continuation gating tie-in; `diagnostic_source_type` extensibility for future imaging / external uploads / device data — Lab Appendix §1–§31 retained as implementation reference |
 | **Money: refunds, disputes, subscriptions, reconciliation** | **Section 1I** — internal **financial** **state** + **adapters**; **PSP** **ledger** **for** **settled** **funds**; timeline + audit |
 | **Multi-rail financial recon (not Stripe-only; no silent money drift)** | **Section 1I.9** with **1I.0–1I.6,** **1H.3,** `metadata.payment_rail.<provider>,` **1I.1** **vocabulary** (not vendor class names in routing) |
@@ -608,8 +610,9 @@ The **map** already **requires** server **permit** assert on approve/prescribe (
 - **Patient truthfulness and timing:** patient-impact incidents receive timely status communication through approved classes; no “resolved internally” without patient-facing closure when impact is patient-visible.
 - **No silent correction:** corrective edits route through audited mutations; timeline captures patient-facing state transitions.
 - **Platform/system incidents:** handled through 1H.2 ownership and runbook actions, with patient-case linkage in 1H.1/1G when impact exists.
+- **Patient-state-trend incidents:** abnormal trackable trends from `Section 1M` (sudden weight drop on GLP-1, sustained high BP on home cuff readings, severe side-effect score escalation, dose intolerance pattern) may trigger `1G.5` exceptions in the **clinical_safety** category; severity per `1H.6.1D`; classification per `1H.6.1E` (typically `provider_decision_quality` for trend-driven escalation). Read source: `patient_state_observations` per `1M.8`.
 
-*Cross-links:* **1G** ownership tuple, **1G.1** SLA/escalation, **1H.1** trace reconstruction, **1H.2** platform-owner intervention, **1I** payment correction/reconciliation, **1J** safety/identity/compliance-sensitive controls, `audit_events`, `patient_timeline_events`, `outbound_jobs`.
+*Cross-links:* **1G** ownership tuple, **1G.1** SLA/escalation, **1H.1** trace reconstruction, **1H.2** platform-owner intervention, **1I** payment correction/reconciliation, **1J** safety/identity/compliance-sensitive controls, **Section 1M** (patient-state observations as a trigger source for trend-driven exceptions), `audit_events`, `patient_timeline_events`, `outbound_jobs`.
 
 ### 1G.6 Provider workspace + admin/clinical leadership overlay (live operational queue, not a report)
 
@@ -2269,9 +2272,13 @@ A standard report slice over `1G.9` data so admins can monitor whether continuit
 
 *Operator read:* if CoR transfer rate or % SLA-driven transfers spikes — especially with `sla_fallback_reassignment` or `provider_unavailable` dominating the top-3 reason codes — continuity is breaking and the system should escalate per `1G.5` and review provider capacity / availability per `1G.7`.
 
+#### 1H.7.6b Trackable-derived metrics (read from `Section 1M`, not timeline scans)
+
+Aggregate signals derived from longitudinal patient-state trackables — median weight delta by pathway, % of patients reporting side effects per cohort, symptom-score trajectories, dose-tolerance distributions, home-BP out-of-range rates — query `patient_state_observations` per `Section 1M` directly via safe dimensions per `1H.7.2` (aggregate-only, small-cell suppression per `1H.4.1`, capability-gated per `1H.7.4`). **Hard rule:** trackable-derived metrics never scan `patient_timeline_events` payload text for values; the timeline carries narrative pointers only per the Layer 1 data architecture rule. Vendor-issued lab signals continue to query `patient_lab_observations` per `Section 1L`; patient-reported counterparts query `patient_state_observations` and may be displayed alongside via `field_name` join.
+
 #### 1H.7.7 Cross-links
 
-**1H.6** (metrics + dashboard), **1H.6.1B–H** (severity / status / classification / correlation), **1H.4 / 1H.4.1 / 1H.4.2** (growth surface and hard output constraints), **1H.5 / 1H.5.1** (audit-class queries and capabilities), **1D / 1D.1** (capability + reason discipline), **1I / 1I.1** (financial outcomes), **1G / 1G.1 / 1G.4 / 1G.5 / 1G.9** (ownership, SLA, routing, exception classifications, clinician continuity used in reports), **Intent** (RLS, service-role discipline, audit, optional warehouse path).
+**1H.6** (metrics + dashboard), **1H.6.1B–H** (severity / status / classification / correlation), **1H.4 / 1H.4.1 / 1H.4.2** (growth surface and hard output constraints), **1H.5 / 1H.5.1** (audit-class queries and capabilities), **1D / 1D.1** (capability + reason discipline), **1I / 1I.1** (financial outcomes), **1G / 1G.1 / 1G.4 / 1G.5 / 1G.9** (ownership, SLA, routing, exception classifications, clinician continuity used in reports), **Section 1L** (lab observations source), **Section 1M** (patient-state observations source for trackable-derived metrics), **Intent** (RLS, service-role discipline, audit, optional warehouse path; **Layer 1 data architecture discipline** — domain tables are SoT, timeline is narrative-only).
 
 ---
 
@@ -2630,17 +2637,20 @@ Use **this** order when two sources assert different **core identity** (legal na
 
 *Reuse first:* `intake` (existing forms/responses), `patient_timeline_events`, `care_program`, `treatment_items`, `treatment_orders`, `clinical_visits`, `patient_diagnostic_reports` (per Lab appendix §11–§16), `patients` / `staff_profiles`, 1I subscription/payment rows, `outbound_jobs`, `audit_events`, `Capability`. Add minimal new objects only where existing ones cannot represent the concept (see `1K.14`).
 
-### 1K.1 Intent and scope
+### 1K.1 Intent and scope (longitudinal-state framing)
 
-- **Intake = the structured, deterministic capture of patient data needed to evaluate eligibility, safety, and care-program fit before provider review.** It is **not** a marketing funnel, a CRM, or a free-form chat.
-- **Belongs in intake:** module engine, question bank, eligibility gates, safety/contraindication modules, lab requirement modules, identity verification gates, intake-time payment authorization, the submission packet to provider review.
+- **Intake is the entry point into a continuous care system**, not a session, form, checkout step, or one-time interaction. It initializes — and continues to write into — a **persistent, time-aware patient state** that messaging, provider workflows, system check-ins, and longitudinal care loops continue to read and append to.
+- **One intake spine, many entry moments:** the same module/question/version + audit discipline (`1K.4`) applies whether the input is captured at onboarding, during a provider-triggered follow-up, or during a system-triggered check-in (per `1K.6`). Subsequent entry moments **re-enter at the relevant module layer** (per `1K.3`); they do **not** restart intake.
+- **Intake writes into the right domain** (per the Layer 1 data architecture rule in Intent): static clinical memory → existing chart spine (`patients` chart fields, `1J.10` snapshot reads); **trackable measurements** → `patient_state_observations` per **Section 1M** (append-only, controlled vocabulary, source-tagged); labs → `patient_lab_observations` per Section 1L; provider decisions → `clinical_visits`; narrative milestones → `patient_timeline_events` (pointers only, never authoritative values); accountability → `audit_events`. Intake never overloads `patient_timeline_events` with longitudinal data.
+- **Belongs in intake:** module engine, question bank (`1K.4`), eligibility gates, safety/contraindication modules, lab requirement modules, identity verification gates, intake-time payment authorization, the submission packet to provider review (`1K.12`), the **first writes** to chart memory and `patient_state_observations`.
 - **Belongs elsewhere:**
   - Product-plan presentation (recommendation candidate) → `1K.10`, surfaced to patient as provisional only.
   - Provider review and decisioning → `Section 1G` (case ownership, permits, AI assist) and `1K.12` (the submission packet).
   - Subscriptions/payment outcomes → `Section 1I`.
-  - Lab order/result flow → Lab Appendix (§11–§16).
+  - Lab order/result flow → `Section 1L` (Lab Appendix §11–§16 for detailed mechanics).
   - Marketing pre-account personalization → `1H.4` (acquisition/attribution; pre-account data is **not** clinical record unless converted per `1K.13`).
-- **Hard rule:** intake is deterministic and reconstructable. Every patient must be able to answer "exactly what was shown and what did I answer" via `audit_events` + `patient_timeline_events`.
+  - Longitudinal trackable storage → `Section 1M`; intake writes here, then progressive intake (`1K.6`), provider workflows, and reporting continue to read/append.
+- **Hard rule:** intake is deterministic and reconstructable across **all** entry moments (onboarding, provider follow-up, system check-in). Every patient must be able to answer "exactly what was shown and what did I answer" via `audit_events` + `patient_timeline_events` (narrative pointers) + `patient_state_observations` (longitudinal values) + the existing `intake_response` storage per `1K.4` / `1K.14`. **Intake is never a one-time event.**
 
 ### 1K.2 Entry pathways and intent mapping (no per-product silos)
 
@@ -2674,6 +2684,18 @@ Intake is layered modules; the same module can appear in many pathways. Each mod
 
 Each module must declare: `module_id`, `module_version`, `kind` (clinical | non-clinical), `pathways` it serves, `required_for` (eligibility, safety, lab, fulfillment, identity, payment, submission), and ordering hints (server policy controls actual order).
 
+**Static vs trackable inputs (clinical modules — applies to layers 4 and 5):**
+
+- **Static inputs** (e.g., DOB, sex assigned at birth, surgical history, "have you ever been diagnosed with X") are captured once and refreshed only when freshness expires per `1K.5`. They write to existing chart fields / `intake_response` per `1K.4` / `1K.14`.
+- **Trackable inputs** (weight, BP, symptom scores, dose tolerance, sleep, mood, side-effect severity) are captured during intake in a form that supports **future appends** per **`Section 1M`** — same `field_name` is appended to over time, never overwritten. The intake write is the **first row** in the patient-state spine for that field; subsequent intake moments (provider follow-up, system check-in per `1K.6`) append additional rows to the same `field_name`.
+- The question bank (`1K.4`) controls which `question_id`s correspond to trackable `field_name`s in `patient_state_observations`; trackable questions carry an explicit `is_trackable: true` declaration and an associated canonical `field_name`.
+
+**Re-entry semantics (intake never restarts):**
+
+- The 11-layer order remains the structural model for an **onboarding** session. Subsequent intake moments (provider follow-up, system check-in, additional pathway addition per `1K.6`) **re-enter at the relevant layer** — typically layer 4 (reusable health history with freshness re-prompt) or layer 5 (program-specific symptom modules) — without restarting from layer 1.
+- No silent re-prompting of static inputs unless freshness has expired per `1K.5`.
+- Re-entered modules use the **same module/question/version + audit discipline** as the initial onboarding session.
+
 ### 1K.4 Question bank, versioning, and module architecture
 
 - **Question bank (canonical):** every question has a stable `question_id` (e.g., `qb.allergies.list_v3`), an `answer_type` (single-select, multi-select, free-text-bounded, numeric, date, etc.), and a controlled vocabulary for choices where applicable. **Free-text fields are bounded** (length cap, no PHI in module ids/labels); long-form is captured as a controlled note tied to a question.
@@ -2701,6 +2723,22 @@ Each module must declare: `module_id`, `module_version`, `kind` (clinical | non-
   - `answered_at` (timestamp), `question_version`, `module_version`, `source_module_id`, `intake_session_id`, `pathway_context`, `reuse_policy` (`global` | `program_scoped` | `context_sensitive`), and a `reused_from_response_id` pointer when the answer was carried forward.
   - Reuse events are logged in `audit_events` (and a typed `patient_timeline_events` pointer when a reused answer materially affected eligibility/recommendation).
 
+**Patient-state spine (longitudinal trackables — defers to `Section 1M`):**
+
+- Trackable measurements (per `1K.3` static-vs-trackable distinction) write to **`patient_state_observations`** per `Section 1M` — the v1 first-class table for living, time-aware patient signals.
+- Append-only; never overwrite. Multi-entry per `field_name` is the default. Trends (weight over time, symptom-score trajectories, side-effect severity over a course) are queryable directly from the spine — not from `patient_timeline_events` payload scans.
+- The intake write carries `source_type = intake`, `source_id = intake_session_id`, `authored_by = patient` (or `system` for derived values like BMI). Subsequent provider-prompt or check-in writes append additional rows under the same `field_name` (per `1K.6`).
+- `patient_timeline_events` may carry a typed pointer (`state.observation.recorded`) **only** when the observation is narrative-meaningful (significant delta, severe side-effect, threshold crossing per `1M.6`); routine intake/check-in writes do not flood the timeline.
+- Static answers (allergies, conditions, surgical history) continue to follow existing `intake_response` storage per `1K.4` / `1K.14`; they do **not** write to `patient_state_observations`.
+
+**Data ownership matrix (mandatory; mirrors `1J.9`):**
+
+- **Patient writes:** subjective inputs (symptoms, weight, mood, lifestyle, dose-taken confirmation), confirmations/updates of prior global answers, explicit consent acceptances. Patient writes are **immutable historical records** once written; "updates" are new appended rows on the spine, not overwrites.
+- **System writes:** `timestamp`, `source`, `session_id`, derived values (e.g., BMI from height + weight, `intake_derived_score` per `1K.9`). System never authors clinical content.
+- **Provider writes:** clinical interpretation (notes, structured follow-up requests via `1G` `clinical_required` per `1K.6`), explicit clarification requests. Providers must **NOT silently overwrite** original patient inputs; clarifications append a new row tagged `authored_by = provider` + `correction_reason = provider_clarification` per `1M.3`. Same authority discipline as `1J.9`.
+- **Ops writes:** rare; privileged manual entry per `1M.5` with reason code + audit; requires `can_manual_record_state_observation` capability.
+- **Forbidden:** silent overwrites by any actor; ad-hoc SQL; UI-only writes that bypass capability + audit. Same enforcement as `1L.18` #1 and `1M.4` hard rules.
+
 ### 1K.6 Multi-pathway and bundled treatment composition
 
 - **Pathway addition during a session:** when a patient picks up an additional concern mid-flow (e.g., adds ED while in TRT intake), the engine **adds the additional pathway's modules** to the same `intake_session`. No duplicate session, no separate intake silo.
@@ -2708,6 +2746,14 @@ Each module must declare: `module_id`, `module_version`, `kind` (clinical | non-
 - **Bundled treatment fit:** the post-intake `treatment_plan_candidate` (`1K.10`) may include multi-product bundles (Rx + supplements, Rx + labs, Rx + coaching/instructions); each line maps to an existing `treatment_items` / catalog entry.
 - **Existing patients adding a new concern later:** create a **new `intake_session`** scoped to the new pathway, reuse global answers per `1K.5`, and link to a new `care_program` (concurrent programs per Section 1G rules).
 - **Existing supplement-only patients converting to Rx:** the engine adds the Rx pathway modules and required labs/identity modules; identity/eligibility gates re-run as needed (do not assume past identity confidence is sufficient if the new action requires higher per `1J.4`).
+
+**Progressive intake (longitudinal — intake never ends):**
+
+Additional structured inputs are collected after onboarding via two existing mechanisms — **no new system, no new "intake extension" record type**:
+
+- **System-triggered check-ins:** scheduled per pathway/condition policy (e.g., GLP-1 weight check at 4/8/12 weeks; menopause symptom score quarterly; HRT side-effect tolerance at week 2 + week 6). System emits a typed `patient_timeline_events` event (e.g., `intake.checkin.requested`) carrying minimal context only; the prompt renders a **structured-input module** drawn from the same question bank (`1K.4`); patient answers append to `patient_state_observations` per `Section 1M` (trackables) and/or `intake_response` (static updates) per `1K.5`.
+- **Provider-triggered follow-ups:** provider raises a `clinical_required` turn per `Section 1G` with a structured-input attachment ("Your care team needs a bit more information") referencing one or more `question_id`s from the question bank; patient response writes through the same response model (`1K.5`/`1K.14` for static; `Section 1M` for trackables) and clears the `clinical_required` turn per `1G` rules.
+- **Hard rule:** all post-onboarding inputs follow the **same data model**, write to the **same domain tables** (chart, `patient_state_observations`, `intake_response`), and respect the same versioning, reuse, freshness, ownership, and audit rules. **No separate "intake extension" record type or product.** Provider-triggered follow-ups never overwrite patient-authored values; corrections per `1K.5` ownership matrix and `1M.4` append-superseding-row rule.
 
 ### 1K.7 Clinical safety and contraindication screening
 
@@ -2831,8 +2877,9 @@ Be explicit about exists / partial / target / non-optional. Prefer reusing exist
 | `treatment_plan_candidate` | not modeled | `intake.metadata.treatment_plan_candidate` referencing existing `treatment_items` | dedicated table once candidates carry richer state across sessions | candidate object per session with claim version + `treatment_items` refs |
 | `intake_submission_for_provider` | submission implied | typed `patient_timeline_events` event with packet pointers | dedicated submission table only if needed | typed event + packet reconstructable from existing rows |
 | `intake_safety_flag` / `intake_eligibility_blocker` | not modeled | typed `patient_timeline_events` payloads with stable reason codes | dedicated table only if reporting volume demands it | typed events with stable reason codes |
+| **`patient_state_observations` (longitudinal trackables)** | **not previously modeled in 1K** | **not applicable — see Section 1M** | **shipped in v1 as a dedicated first-class table per `Section 1M`** (append-only, controlled vocabulary, source-tagged, per-actor authority); intake writes the **first row** per trackable `field_name`; subsequent intake moments (provider follow-up, system check-in per `1K.6`) append additional rows. **Not deferred.** | **Mandatory in v1**: append-only multi-entry storage with controlled `field_name` vocabulary per `1K.4`; provider corrections never overwrite patient-authored values |
 
-**Hard rule:** do not create a new table when an existing one + additive metadata works; promote to a dedicated table only when reuse can no longer represent the concept clearly. Either way, the architecture stays one source of truth (no duplicate intake silos).
+**Hard rule:** do not create a new table when an existing one + additive metadata works; promote to a dedicated table only when reuse can no longer represent the concept clearly. **Exception:** `patient_state_observations` ships as a v1 dedicated table per `Section 1M` because timeline payload + metadata cannot represent multi-entry trackable trends queryably at scale. Either way, the architecture stays one source of truth (no duplicate intake silos, no longitudinal trackables crammed into `patient_timeline_events`).
 
 ### 1K.15 Audit, compliance, and privacy
 
@@ -2863,7 +2910,7 @@ Be explicit about exists / partial / target / non-optional. Prefer reusing exist
 
 ### 1K.17 Cross-links
 
-**Intent** (jurisdiction-of-care, audit, service-role discipline), **1D / 1D.1** (capabilities including future `can_view_intake_session` / `can_view_intake_submission` if added), **Section 1E** (commerce/catalog used by `treatment_plan_candidate`), **Section 1F** (scheduled visits when intake routes to live encounter), **Section 1G** (case ownership, permits, AI assist, exception handling for intake stalls), **1G.4 / 1G.4.1** (jurisdiction routing + multi-state runtime), **1G.5** (exception classification), **1G.6 / 1G.7 / 1G.8** (provider workspace + routing where intake submissions land), **1G.9** (continuity preferences after first prescribing decision), **Section 1H** (analytics/funnel), **1H.4 / 1H.4.1 / 1H.4.2** (acquisition + growth surface; pre-account funnel boundary), **1H.6 / 1H.7** (intake-related metrics + reporting), **Section 1I / 1I.1 / 1I.2 / 1I.4 / 1I.7** (kit fee, if-prescribed authorization, subscription terms, refunds/disputes), **Section 1J / 1J.1 / 1J.4 / 1J.10 / 1J.11** (identity precedence/confidence, safety preflight, fraud/abuse), **Section 1L** (diagnostics + lab testing — order, result, review, retest), **Section 1N** (AI assistive layer for packet summarization).
+**Intent** (jurisdiction-of-care, audit, service-role discipline, **Layer 1 data architecture discipline**), **1D / 1D.1** (capabilities including future `can_view_intake_session` / `can_view_intake_submission` / `can_manual_record_state_observation` if added), **Section 1E** (commerce/catalog used by `treatment_plan_candidate`), **Section 1F** (scheduled visits when intake routes to live encounter), **Section 1G** (case ownership, permits, AI assist, exception handling for intake stalls; `clinical_required` is the messaging spine for provider-triggered follow-ups per `1K.6`), **1G.4 / 1G.4.1** (jurisdiction routing + multi-state runtime), **1G.5** (exception classification), **1G.6 / 1G.7 / 1G.8** (provider workspace + routing where intake submissions land), **1G.9** (continuity preferences after first prescribing decision), **Section 1H** (analytics/funnel), **1H.4 / 1H.4.1 / 1H.4.2** (acquisition + growth surface; pre-account funnel boundary), **1H.6 / 1H.7** (intake-related metrics + reporting; trackable trends queried from `Section 1M`, not timeline payload scans), **Section 1I / 1I.1 / 1I.2 / 1I.4 / 1I.7** (kit fee, if-prescribed authorization, subscription terms, refunds/disputes), **Section 1J / 1J.1 / 1J.4 / 1J.10 / 1J.11** (identity precedence/confidence, safety preflight, fraud/abuse; static chart memory boundary), **Section 1L** (diagnostics + lab testing — order, result, review, retest; vendor-issued labs stay in `patient_lab_observations`), **Section 1M** (longitudinal trackables — `patient_state_observations` is the v1 dedicated store for living, time-aware patient signals; intake writes the first row, progressive intake appends), **Section 1N** (AI assistive layer for packet summarization + trend interpretation; never writes to `patient_state_observations`).
 
 ---
 
@@ -3297,6 +3344,7 @@ Refill / dose / continuation decisions on `treatment_items` cannot bypass the la
 - **Override:** documented override per `1G.7.3` admin override discipline + `reasonCode` + audit; never silent. Override is allowed only for the operational state of the gate, **never** for clinical eligibility (consistent with `1G.7.3`).
 - **Patient-visible surfacing:** when continuation is blocked by lab gate, patient communication uses approved templates per `1L.15` ("Your care team needs an updated lab before continuing your plan.") — never internal codes.
 - **Reporting:** lab-gate breach attempts (denied mutations) feed `1H.7` queries and `1H.6.1E` classification (`provider_decision_quality` if recurring; `compliance_or_policy_change` if policy update needed).
+- **Patient-state-observation gate (parallel to lab-gate):** when continuation policy depends on a recent **patient-reported trackable** (e.g., a recent weight for GLP-1 dose adjustment, a recent symptom score for HRT continuation, dose-tolerance confirmation for ongoing therapy), the same gate also reads the latest non-superseded `patient_state_observations` row for the relevant `field_name` within the cadence freshness window. Stable reason codes mirror the lab-gate format (e.g., `state_gate_unmet_weight_stale`, `state_gate_unmet_symptom_score_missing`). Read source: `loadPatientCaseSafetySnapshot` per `1J.10` includes patient-state context per `Section 1M.8`.
 
 ### 1L.17 Cross-links (foundation contract)
 
@@ -4046,6 +4094,112 @@ These flow through normal idempotent adapter callbacks (per `1L.23.3` / `1L.14`)
 `Section 1L` foundation (`1L.0`, `1L.4`, `1L.4a`, `1L.5`, `1L.6`, `1L.7`, `1L.8`, `1L.11`, `1L.13`, `1L.14`, `1L.15`, `1L.18`, `1L.20`, `1L.21`, `1L.22`); `Section 1G` (`1G.5` exception classification, `1G.7.6` queue events, `1G.10.2` admin overlay extension, `1G.10.3` fulfillment surface, `1G.10.6` daily lab ops review); `Section 1H` (`1H.1` operational trace, `1H.2` platform ownership for carrier outages, `1H.3` reconciliation/drift, `1H.5.1` audit operations, `1H.6.1D / 1H.6.1F / 1H.6.1G / 1H.6.1H` severity / status / stale-critical / correlation, `1H.7` reporting); `1D / 1D.1` capabilities (incl. new `can_correct_kit_logistics` per `1L.23.8`); `1J / 1J.7` patient merge boundary; `1J.10` PHI gating; `1I` commerce/payment when refund or shipping cost recovery applies; existing tables: `lab_orders` (additive `metadata.kit_logistics`), `patient_diagnostic_reports`, `patient_lab_observations`, `outbound_jobs`, `audit_events`, `patient_timeline_events`.
 
 **Distinctness reminder (per `1L.23.1`):** diagnostic kit logistics is **separate** from supplement and Rx outbound shipping abstractions because of the return leg + chain-of-custody. Shared shipping primitives (carrier adapters, tracking-number storage shapes) MAY be reused as utility code, but the **`lab_orders.metadata.kit_logistics`** namespace and the round-trip + reconciliation rules above are diagnostic-specific and live here.
+
+---
+
+## Section 1M: Patient State Observations (longitudinal trackables; first-class)
+
+*Foundation status:* `patient_state_observations` is a **v1 foundation table** for living, time-aware patient signals — not deferred. It is required to make longitudinal care coherent: weight trends, BP, symptom scores (ED IIEF-5, low-T ADAM/AMS, menopause symptom scales, GLP-1 tolerance), dose tolerance/adherence confirmation, sleep, energy, libido, mood, side-effect markers. This table is the **source of truth** for patient-reported and patient-context measurements; **`patient_timeline_events`** carries narrative pointers only — never the values themselves. **No new parallel system; this section formally binds intake (`Section 1K`), provider workflows (`Section 1G`), continuation gating (`1L.16`), reporting (`Section 1H`), and AI assist (`Section 1N`) to a typed, append-only longitudinal store.**
+
+### 1M.1 Purpose and scope
+
+`patient_state_observations` is the first-class store for **living, time-aware patient signals** captured from intake (`Section 1K`), system check-ins, message-input flows (`Section 1G`), provider prompts (`1G` `clinical_required` per `1K.6`), manual ops entry (rare; audited), and (future) device data. Examples (org-extensible per the question-bank vocabulary `1K.4`):
+
+- **Anthropometrics:** weight, height (when re-measured), BMI (derived), waist circumference.
+- **Vitals (patient-reported / home):** BP (systolic/diastolic), heart rate, temperature, oxygen saturation.
+- **Symptom scales:** IIEF-5 (ED), ADAM/AMS (low-T), menopause symptom scales, depression/anxiety scales, fatigue scales.
+- **Therapy tolerance + adherence:** dose-taken confirmation, side-effect severity, GLP-1 tolerance signals (nausea, GI symptoms), Rx adherence proxies.
+- **Lifestyle / context:** sleep duration/quality, energy, libido, mood, exercise frequency.
+
+### 1M.2 Scope boundaries (what this is NOT)
+
+- **Not chart static memory.** Allergies, conditions, surgical history, current medication list stay where they live today (`patients` chart fields, `1J.10` snapshot reads). `patient_state_observations` does not duplicate them.
+- **Not vendor-issued lab data.** `patient_lab_observations` per `Section 1L` remains the SoT for analytes returned by labs. `patient_state_observations` may carry a **patient-reported counterpart** (e.g., a home-cuff BP reading, a home glucose finger-stick) — distinct rows, distinct provenance, both queryable on the same `field_name` for combined trend display. Vendor labs are never duplicated here.
+- **Not clinical decisions / interpretation.** Provider notes, signoffs, and clinical reasoning stay in `clinical_visits`. Provider-prompt observations write to `patient_state_observations`; the provider's interpretation lives in the visit.
+- **Not billing, orders, or notifications.** Money domain (`Section 1I`), order domain (`treatment_orders` / `commerce_orders`), and send domain (`outbound_jobs`) are unchanged.
+- **Not narrative/event flow.** `patient_timeline_events` may carry a typed pointer (e.g., `state.observation.recorded`) **only when the observation is narrative-meaningful** (clinically significant delta, severe side effect, threshold crossing). Routine intake/check-in writes do not flood the timeline. The timeline payload references `patient_state_observation_id` + minimal context (`field_name`, optional severity flag) — **never the value itself**. Authoritative value lives on `patient_state_observations`.
+
+### 1M.3 Schema (additive; new table, append-only; ships v1)
+
+Required columns (final names per repo conventions during implementation; field shapes below):
+
+- `id` — UUID, app-generated.
+- `patient_id` — FK to `patients`; required.
+- `care_program_id` — FK to `care_program`; required when scoped (e.g., GLP-1 weight, menopause symptom score). Nullable for global trackables (e.g., generic sleep tracking before any program).
+- `pathway_code` — string, optional; for cross-program analysis when `care_program_id` is null.
+- `condition` — string, optional; controlled vocabulary when applicable.
+- `field_name` — string, required; **controlled by the question-bank vocabulary per `1K.4`** — e.g., `weight_kg`, `bp_systolic_mmhg`, `bp_diastolic_mmhg`, `ed_iief5_score`, `glp1_nausea_severity`. **No ad-hoc field names.** New fields require a question-bank entry + version + governance review.
+- `value_numeric` — numeric, nullable; for numeric measurements (weight, BP, scores).
+- `value_text` — string, nullable; bounded length; for short categorical values (e.g., `mild | moderate | severe`).
+- `value_boolean` — boolean, nullable; for yes/no measurements (e.g., dose_taken_today).
+- `value_json` — JSON, nullable; **only** for structured composites where decomposing into multiple `field_name` rows is awkward; default to multiple rows over JSON whenever possible.
+- `unit` — string, nullable; canonical units per `1L.6` discipline where applicable (e.g., `kg`, `mmHg`, `mg/dL`).
+- `observed_at` — timestamp, required; when the patient/system actually observed the value (not when the row was inserted).
+- `recorded_at` — timestamp, required; system insert time.
+- `source_type` — enum, required: `intake`, `check_in`, `message_input`, `provider_prompt`, `manual_ops_entry`, `device` (future), `lab_derived` (when a lab value is mirrored as a trackable for trend display alongside patient inputs).
+- `source_id` — string, required when `source_type` has a referent (`intake_session_id`, `message_id`, `clinical_visit_id`, `lab_order_id`, `outbound_jobs.id`, etc.).
+- `authored_by` — enum, required: `patient`, `provider`, `system`, `ops`, `device` (future). Mirrors `1J.9` authority discipline.
+- `authored_by_staff_id` — FK to `staff_profiles`; required when `authored_by ∈ provider | ops`; null otherwise.
+- `supersedes_observation_id` — FK to same table, nullable; for **append-superseding-row** corrections (never overwrite).
+- `superseded_by_observation_id` — FK to same table, nullable; back-reference set when a later row supersedes this one.
+- `correction_reason` — string, nullable; required when `supersedes_observation_id` is set; controlled vocabulary (e.g., `patient_correction`, `provider_clarification`, `transcription_error`, `unit_misentry`, `device_recalibration`).
+- `metadata` — JSON, optional; for adapter-specific or device-specific provenance (partner namespace, raw_value retention per `1L.6` pattern, device firmware version when applicable).
+
+**Indexes (operational):**
+
+- `(patient_id, field_name, observed_at DESC)` — primary trend query path.
+- `(care_program_id, field_name, observed_at DESC)` — program-scoped trend.
+- `(source_type, source_id)` — provenance lookups.
+- `(patient_id, recorded_at DESC)` — recent-activity feeds.
+- `(field_name, observed_at DESC)` — cross-patient cohort trend (for `1H.7` reporting; aggregate-only).
+
+### 1M.4 Hard rules (mandatory; runtime + CI enforced)
+
+- **Append-only.** No in-place updates to value/units/observed_at on a written row. Corrections write a **new row** with `supersedes_observation_id` set + `correction_reason` populated; original is retained.
+- **Provider cannot overwrite patient-authored values.** A provider correction is always a new row authored by `provider` with `supersedes_observation_id` pointing at the patient row; the patient row stays as authored. Same discipline as `1J.9` authority boundaries.
+- **Field vocabulary controlled by `1K.4` question bank.** No ad-hoc `field_name`s — any new field requires a question-bank entry, a version, and governance review (same governance as `Capability` and `1H.6.1E` classifications).
+- **Source provenance required.** Every row carries `source_type`, `source_id` (when applicable), and `authored_by` — same provenance discipline as `1L.6` raw retention.
+- **Reads prefer the latest non-superseded row** for "current value"; trend queries use the full append history.
+- **No PHI in `field_name` or controlled labels.** Free text only in `value_text` (bounded) per `1K.4` discipline.
+- **No silent backfill.** Bulk loads (e.g., importing historical patient-reported weights from a legacy source) require capability + reason code + audit, mirroring `1L.18` #3 observation write gate.
+- **Patient-reported home measurements are distinct from vendor labs.** Even when `field_name` overlaps (e.g., `bp_systolic_mmhg`), `source_type` and `authored_by` keep them distinguishable; vendor labs continue to live in `patient_lab_observations` per `Section 1L`.
+
+### 1M.5 Mutation discipline (mirrors `1L.18`)
+
+- All writes through a **named server function** (e.g., `recordPatientStateObservation`) with `requireCapability` + `audit_events` + (when narrative-meaningful) `patient_timeline_events` pointer.
+- **Allowed actors per `authored_by`:**
+  - **`patient`** — via intake module (`Section 1K`), check-in flow, or structured message-input response (`1G` `clinical_required` per `1K.6`).
+  - **`system`** — via scheduled check-in jobs, derived computations (e.g., BMI from height + weight, derived scores per `1K.9`); system never authors clinical content.
+  - **`provider`** — via provider-prompt flow per `1K.6`; may correct (append superseding row), never overwrite.
+  - **`ops`** — via privileged manual entry with reason code + audit (rare; e.g., transcription of a faxed home reading); requires `can_manual_record_state_observation` capability per `1D / 1D.1`.
+  - **`device`** — **future**, not v1 runtime; would arrive via vetted device adapter following the same dedupe + provenance discipline as `1L.14` carrier/vendor adapters. v1 reserves the enum value but does not implement device ingestion.
+- **Forbidden:** ad-hoc SQL, scripts, UI-only writes, or any path that skips capability + audit. Same enforcement as `1L.18` #1.
+
+### 1M.6 Relation to `patient_timeline_events` (narrative pointer only)
+
+- Timeline carries a typed pointer (e.g., `state.observation.recorded`) **only** when the observation is narrative-meaningful (clinically significant delta, side-effect entry, dose-tolerance flag, abnormal trend crossing a threshold). Routine intake/check-in writes do not flood the timeline.
+- Timeline payload carries `patient_state_observation_id` + minimal context (`field_name`, `pathway_code`, optional severity flag) — **never the value itself**. The value lives on `patient_state_observations`.
+- Severity / threshold logic that decides "is this narrative-meaningful" lives in code/policy and is versioned alongside the question bank (`1K.4`). System never auto-mints clinical interpretation.
+
+### 1M.7 Relation to other domain tables (boundary discipline)
+
+- **Labs:** `patient_lab_observations` remains the SoT for vendor-issued analytes per `Section 1L`. `patient_state_observations` may carry **patient-reported counterparts** for combined trend display; both are queryable on the same `field_name` (e.g., `bp_systolic_mmhg` from a home cuff vs from a clinic draw); never duplicated.
+- **Static chart memory:** allergies, conditions, surgical history, current medications stay where they live today (`patients` chart fields, `1J.10` snapshot reads); not duplicated here.
+- **Clinical visits:** provider notes, decisions, signoffs stay in `clinical_visits`. Provider-prompt observations write to `patient_state_observations`; the provider's interpretation lives in the visit.
+- **Billing/orders/notifications:** unchanged; never stores money or fulfillment data.
+- **Intake responses:** answers that are **not** trackable (e.g., "have you ever had surgery?") follow existing `intake_response` discipline per `1K.4` / `1K.5`. Trackables write to `patient_state_observations`. The same `intake_session_id` is the `source_id` linking both stores back to the same intake moment.
+
+### 1M.8 Reads + downstream consumers
+
+- **Provider workspace** (`Section 1G.8`): trend graphs and current-value reads pull directly from `patient_state_observations`, not from timeline scans. Provider lab review drawer (`1G.8.7`) may overlay patient-reported counterparts when relevant.
+- **Continuation gating** (`1L.16`): when refill/continuation policy depends on a recent measurement (e.g., a recent weight for GLP-1 dose adjustment, a recent symptom score for HRT continuation), the gate reads `patient_state_observations` for freshness — same pattern as the lab-gate read in `1L.16`, applied to patient-reported trackables.
+- **Reporting** (`Section 1H.6` / `1H.7`): aggregate signals (median weight delta by pathway, % of patients reporting side effects per cohort, symptom-score trajectories) query `patient_state_observations` directly via safe dimensions per `1H.7.2`; small-cell suppression applies; aggregate-only.
+- **Exception handling** (`1G.5`): abnormal trackable trends (sudden weight drop, sustained high BP, severe side-effect score) may trigger `1G.5` exceptions with classification per `1H.6.1E` (typically `provider_decision_quality` for trend-driven escalation).
+- **AI assistive layer** (`Section 1N`): may read structured observations for summarization, draft notes, and trend interpretation per `1N` discipline; never authority. AI never writes to `patient_state_observations` directly — provider/system/patient remains the author.
+
+### 1M.9 Cross-links
+
+`Section 1J` (chart memory boundary), `1J.9` (authority discipline), `1J.10` (safety preflight reads `patient_state_observations` when continuation depends on it), `Section 1G` (provider workspace, messaging follow-ups), `1G.5` exception classification (abnormal trackable trend triggering exception), `1G.8.7` (provider lab/state review drawer), `Section 1H` (metrics + reporting), `1H.6.1D` (severity/baseline framework reused for trackable trend interpretation), `1H.7.2` (safe reporting dimensions), `Section 1K` (intake writes pathway trackables here), `1K.4` (question bank vocabulary controls `field_name`), `1K.5` (storage discipline complement), `1K.6` (progressive intake re-uses the same write path), `1K.14` (schema discipline; `patient_state_observations` is the v1 dedicated table for trackables), `Section 1L` (lab observations vs patient-state observations boundary), `1L.16` (continuation gating reads patient-reported trackables alongside lab values), `Section 1N` (AI assistive reads — never authority, never writes), `Section 1I` (no overlap; financial state stays in 1I), `outbound_jobs` (no overlap; sends stay in outbound_jobs), `audit_events`, `patient_timeline_events`.
 
 ---
 
