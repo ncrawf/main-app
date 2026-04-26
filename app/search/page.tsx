@@ -39,7 +39,9 @@ export default async function SearchPage({
         <p className="mt-4 text-sm text-neutral-600">Search for a treatment, program, or intake option.</p>
       ) : results.length === 0 ? (
         <div className="mt-5 rounded-lg border border-neutral-200 bg-white p-4">
-          <p className="text-sm text-neutral-700">No exact match for "{query}".</p>
+          <p className="text-sm text-neutral-700">
+            No exact match for <span className="font-medium">&quot;{query}&quot;</span>.
+          </p>
           <p className="mt-1 text-xs text-neutral-500">Try terms like sermorelin, weight loss, GLP1, or ED.</p>
         </div>
       ) : (

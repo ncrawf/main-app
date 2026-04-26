@@ -96,6 +96,6 @@ Typed helpers: `lib/care/rxArtifact.ts` (`RxPdfArtifactMetadata`, `buildRxPdfArt
 - Internal case page now has **Generate Rx PDF** per treatment item (staff only).
 - Temporary default fax destination is **`248-934-1307`** (`DEFAULT_TEMP_FAX_NUMBER`) and is stamped in artifact metadata until partner routing is finalized.
 - Internal case page also has **Prepare send payload** per treatment item:
-  - creates a `treatment_orders` row with `status=payload_ready`
+  - creates a `treatment_orders` row with `status=preparing` under the lifecycle enum introduced in `20260428100000_orders_lifecycle_v1.sql` (legacy `payload_ready` was folded into `preparing`)
   - snapshots shipping from `patients` (no confirmation step)
   - stores dispatch metadata (`dispatch_mode=fax_pdf`, temporary fax number) and logs timeline/audit.

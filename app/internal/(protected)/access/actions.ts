@@ -1,16 +1,13 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { requireCapability } from '@/lib/auth/capabilities'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { STAFF_ROLES, type StaffRole } from '@/lib/staff/roles'
 
 export type CreateStaffAccountResult = { ok: true; userId: string } | { ok: false; error: string }
-
-function canManageStaff(role: string): boolean {
-  return role === 'ops_admin' || role === 'super_admin'
-}
 
 function isStaffRole(role: string): role is StaffRole {
   return (STAFF_ROLES as readonly string[]).includes(role)
@@ -48,8 +45,13 @@ export async function createStaffOrProviderAccount(formData: FormData): Promise<
   if (!user) return { ok: false, error: 'Not signed in.' }
 
   const actor = await getStaffProfile(supabase, user.id)
-  if (!actor || !canManageStaff(actor.role)) {
-    return { ok: false, error: 'Only ops admin or super admin can create staff/provider accounts.' }
+  const cap = await requireCapability(user, actor, 'can_manage_staff', {
+    objectType: 'staff_account',
+    workspace: 'admin',
+    extraMetadata: { action: 'createStaffOrProviderAccount' },
+  })
+  if (!cap.ok) {
+    return { ok: false, error: cap.error }
   }
 
   const email = String(formData.get('email') ?? '').trim().toLowerCase()

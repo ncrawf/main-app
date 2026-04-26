@@ -6,10 +6,11 @@ export type SendSmsResult =
  * Twilio outbound SMS — placeholder until `TWILIO_*` env vars are set and numbers are verified.
  * When wired: use `twilio` SDK, `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_FROM_NUMBER`, patient `phone` E.164.
  */
-export async function sendPatientSms(_params: {
+export async function sendPatientSms(params: {
   toE164: string
   body: string
 }): Promise<SendSmsResult> {
+  void params
   const sid = process.env.TWILIO_ACCOUNT_SID?.trim()
   const token = process.env.TWILIO_AUTH_TOKEN?.trim()
   const from = process.env.TWILIO_FROM_NUMBER?.trim()

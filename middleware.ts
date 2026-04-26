@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { type NextRequest, NextResponse } from 'next/server'
 import { PATIENT_PORTAL_COOKIE_NAME } from '@/lib/patient-portal/constants'
+import { isPatientPortalGateRelaxed } from '@/lib/patient-portal/isPatientPortalGateRelaxed'
 import { verifySessionCookieForPatientId } from '@/lib/patient-portal/tokens'
 import { updateSession } from '@/lib/supabase/session'
 
@@ -9,11 +10,11 @@ const DASHBOARD_PATIENT_RE =
   /^\/dashboard\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\/|$)/i
 
 export async function middleware(request: NextRequest) {
-  let response = await updateSession(request)
+  const response = await updateSession(request)
   const pathname = request.nextUrl.pathname
 
   const match = pathname.match(DASHBOARD_PATIENT_RE)
-  if (match) {
+  if (match && !isPatientPortalGateRelaxed()) {
     const patientId = match[1]
 
     const supabase = createServerClient(

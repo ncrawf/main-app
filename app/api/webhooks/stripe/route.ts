@@ -1,6 +1,11 @@
 import { NextResponse } from 'next/server'
 import type Stripe from 'stripe'
 import { handleStripeCheckoutSessionCompleted } from '@/lib/payments/handleStripeCheckoutCompleted'
+import {
+  handleSetupIntentCheckoutCompleted,
+  handleTreatmentOrderPaymentFailed,
+  handleTreatmentOrderPaymentSucceeded,
+} from '@/lib/payments/handleTreatmentOrderPayment'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStripe } from '@/lib/stripe/server'
 
@@ -47,8 +52,21 @@ export async function POST(request: Request) {
   try {
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object as Stripe.Checkout.Session
-      if (session.payment_status === 'paid') {
+      if (session.mode === 'setup') {
+        // Patient finished adding a payment method (SetupIntent flow).
+        await handleSetupIntentCheckoutCompleted(session)
+      } else if (session.payment_status === 'paid') {
         await handleStripeCheckoutSessionCompleted(session)
+      }
+    } else if (event.type === 'payment_intent.succeeded') {
+      const pi = event.data.object as Stripe.PaymentIntent
+      if (pi.metadata?.purpose === 'treatment_order_capture_on_approval') {
+        await handleTreatmentOrderPaymentSucceeded(pi)
+      }
+    } else if (event.type === 'payment_intent.payment_failed') {
+      const pi = event.data.object as Stripe.PaymentIntent
+      if (pi.metadata?.purpose === 'treatment_order_capture_on_approval') {
+        await handleTreatmentOrderPaymentFailed(pi)
       }
     }
   } catch (e) {

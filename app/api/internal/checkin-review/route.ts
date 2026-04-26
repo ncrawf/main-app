@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { requireCapability } from '@/lib/auth/capabilities'
 import { isMissingRelationError } from '@/lib/care/workflowTransition'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -34,7 +35,19 @@ export async function POST(request: Request) {
   if (!user) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 })
 
   const staff = await getStaffProfile(supabase, user.id)
-  if (!staff) return NextResponse.json({ error: 'Staff access required.' }, { status: 403 })
+
+  const capabilityCheck = await requireCapability(user, staff, 'can_resolve_support_request', {
+    objectType: 'checkin_review',
+    objectId: sourceEventId,
+    patientId,
+    workspace: 'staff',
+    extraMetadata: {
+      route: '/api/internal/checkin-review',
+    },
+  })
+  if (!capabilityCheck.ok) {
+    return NextResponse.json({ error: capabilityCheck.error }, { status: capabilityCheck.status })
+  }
 
   const { data: source, error: sourceErr } = await supabase
     .from('patient_timeline_events')

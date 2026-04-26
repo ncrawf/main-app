@@ -76,8 +76,6 @@ export function AddCatalogTreatmentForm({
   const [msg, setMsg] = useState('')
   const [pending, start] = useTransition()
 
-  const entry = useMemo(() => getMedicationCatalogEntry(catalogId), [catalogId])
-
   const categoryOptions = useMemo(() => {
     const values = [...new Set(catalogSorted.map((m) => m.category))].sort((a, b) => a.localeCompare(b))
     return values
@@ -104,12 +102,15 @@ export function AddCatalogTreatmentForm({
     })
   }, [catalogTypeFilter, categoryFilter, searchText, commonFirst])
 
-  useEffect(() => {
-    if (filteredCatalog.length === 0) return
+  const resolvedCatalogId = useMemo(() => {
+    if (filteredCatalog.length === 0) return catalogId
     if (!filteredCatalog.some((m) => m.id === catalogId)) {
-      setCatalogId(filteredCatalog[0]!.id)
+      return filteredCatalog[0]!.id
     }
-  }, [catalogId, filteredCatalog])
+    return catalogId
+  }, [filteredCatalog, catalogId])
+
+  const entry = useMemo(() => getMedicationCatalogEntry(resolvedCatalogId), [resolvedCatalogId])
 
   const supersedeOptions = useMemo(
     () =>
@@ -157,6 +158,8 @@ export function AddCatalogTreatmentForm({
     return opts
   }, [entry])
 
+  /* When the selected catalog entry changes, reset strength/route/frequency fields to that entry’s defaults. */
+  /* eslint-disable react-hooks/set-state-in-effect -- legitimate form reset on catalog `entry` identity change */
   useEffect(() => {
     if (!entry) return
     const first = strengthSelectOptions[0]?.value ?? 'custom'
@@ -168,6 +171,7 @@ export function AddCatalogTreatmentForm({
       setCustomUnit(entry.defaultCustomUnit)
     }
   }, [entry, strengthSelectOptions])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   if (disabled || programs.length === 0) {
     return (
@@ -336,7 +340,7 @@ export function AddCatalogTreatmentForm({
             Medication (catalog)
             <select
               className="mt-1 w-full rounded-md border border-neutral-300 bg-white px-2 py-2 text-sm"
-              value={catalogId}
+              value={resolvedCatalogId}
               onChange={(e) => setCatalogId(e.target.value)}
               disabled={pending || filteredCatalog.length === 0}
             >
@@ -663,7 +667,7 @@ export function AddCatalogTreatmentForm({
 
         <FormHiddenSync
           programId={programId}
-          catalogId={catalogId}
+          catalogId={resolvedCatalogId}
           route={route}
           frequency={frequency}
           initialStatus={initialStatus}

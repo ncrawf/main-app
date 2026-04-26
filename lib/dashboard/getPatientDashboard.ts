@@ -24,7 +24,13 @@ export type PatientStateRow = {
 export async function getPatientDashboard(patientId: string): Promise<{
   patient: PatientRow
 } | null> {
-  const supabase = createAdminClient()
+  let supabase
+  try {
+    supabase = createAdminClient()
+  } catch (e) {
+    console.error('getPatientDashboard: admin client unavailable', e)
+    return null
+  }
 
   const { data: patient, error: pErr } = await supabase
     .from('patients')
@@ -35,8 +41,8 @@ export async function getPatientDashboard(patientId: string): Promise<{
     .maybeSingle()
 
   if (pErr) {
-    console.error(pErr)
-    throw new Error('Could not load patient')
+    console.error('getPatientDashboard: patients query failed', pErr)
+    return null
   }
   if (!patient) return null
 

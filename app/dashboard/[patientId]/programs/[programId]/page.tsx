@@ -225,6 +225,39 @@ function directionalStatusCopy(status: string): { state: string; expected: strin
   }
 }
 
+function treatmentLaneGuidance(status: string, latestRefillStatus: string | null): {
+  needsAttentionNow: boolean
+  nextAction: string
+  laneTone: 'attention' | 'progress' | 'steady'
+} {
+  if (status === 'refill_due') {
+    return {
+      needsAttentionNow: true,
+      nextAction: 'Continue plan for this treatment',
+      laneTone: 'attention',
+    }
+  }
+  if (latestRefillStatus === 'requested' || latestRefillStatus === 'under_review' || status === 'refill_pending') {
+    return {
+      needsAttentionNow: true,
+      nextAction: 'Review is in progress',
+      laneTone: 'progress',
+    }
+  }
+  if (status === 'pending_approval' || status === 'under_review') {
+    return {
+      needsAttentionNow: true,
+      nextAction: 'Waiting for clinician review',
+      laneTone: 'progress',
+    }
+  }
+  return {
+    needsAttentionNow: false,
+    nextAction: 'Stay on routine and watch upcoming prompts',
+    laneTone: 'steady',
+  }
+}
+
 async function getProgramPathwayDecisionHistory(
   patientId: string,
   pathwayId: string
@@ -378,27 +411,23 @@ export default async function PatientProgramDetailPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-neutral-50 text-neutral-900">
-      <div className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-4 px-6 py-5">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">MAIN</p>
-            <h1 className="text-xl font-semibold tracking-tight">{programTitle}</h1>
-            <p className="mt-1 text-sm text-neutral-600">
-              {humanizeToken(program.program_type)} · {humanizeToken(program.status)}
-            </p>
-          </div>
+    <div className="space-y-8">
+      <div className="border-b border-neutral-200 pb-4">
+        <h1 className="text-xl font-semibold tracking-tight text-neutral-900">{programTitle}</h1>
+        <p className="mt-1 text-sm text-neutral-600">
+          {humanizeToken(program.program_type)} · {humanizeToken(program.status)}
+        </p>
+        <p className="mt-3">
           <Link
-            href={`/dashboard/${patientId}`}
+            href={`/dashboard/${patientId}/programs`}
             className="text-sm font-medium text-neutral-600 underline-offset-4 hover:text-neutral-900 hover:underline"
           >
-            ← Back to dashboard
+            ← All programs
           </Link>
-        </div>
+        </p>
       </div>
 
-      <div className="mx-auto max-w-3xl space-y-8 px-6 py-10">
-        <section
+      <section
           id="program-action"
           className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-6 shadow-sm"
         >
@@ -535,6 +564,7 @@ export default async function PatientProgramDetailPage({ params }: Props) {
                 const scheduleHints = formatSchedulingHintsFromMetadata(t.metadata)
                 const refillLine = formatLatestRefillRequestStatus(t.latest_refill_status)
                 const directional = directionalStatusCopy(t.status)
+                const lane = treatmentLaneGuidance(t.status, t.latest_refill_status)
                 const hasExactDosage =
                   !(
                     dosage.lines.length === 1 &&
@@ -547,12 +577,32 @@ export default async function PatientProgramDetailPage({ params }: Props) {
                   >
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <h3 className="text-lg font-semibold text-neutral-900">{t.display_name}</h3>
-                      <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700">
-                        {directional.state}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700">
+                          {directional.state}
+                        </span>
+                        {lane.needsAttentionNow ? (
+                          <span
+                            className={`rounded-full px-3 py-1 text-xs font-medium ${
+                              lane.laneTone === 'attention'
+                                ? 'bg-rose-100 text-rose-900'
+                                : 'bg-amber-100 text-amber-900'
+                            }`}
+                          >
+                            Attention now
+                          </span>
+                        ) : (
+                          <span className="rounded-full bg-sky-100 px-3 py-1 text-xs font-medium text-sky-900">
+                            On track
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <p className="mt-1 font-mono text-xs text-neutral-500">{t.treatment_key}</p>
                     {tenure ? <p className="mt-3 text-sm text-neutral-700">{tenure}</p> : null}
+                    <p className="mt-3 text-sm text-neutral-800">
+                      <span className="font-medium">Next action:</span> {lane.nextAction}
+                    </p>
                     <p className="mt-3 text-sm text-neutral-700">{directional.expected}</p>
                     <p className="mt-1 text-sm text-neutral-600">{directional.next}</p>
                     <p className="mt-2 text-sm text-neutral-700">{t.tracking_hint}</p>
@@ -662,7 +712,7 @@ export default async function PatientProgramDetailPage({ params }: Props) {
                 DEXA/body-composition scans are optional. Upload reports here if your clinician requests them.
               </p>
               <Link
-                href={`/dashboard/${patientId}#lab-document-upload`}
+                href={`/dashboard/${patientId}/upload#lab-document-upload`}
                 className="mt-2 inline-block text-xs font-medium text-neutral-700 underline"
               >
                 Upload DEXA or imaging
@@ -674,7 +724,7 @@ export default async function PatientProgramDetailPage({ params }: Props) {
                 Watch for persistent nausea, vomiting, dehydration, or severe abdominal pain — message early, not late.
               </p>
               <Link
-                href={`/dashboard/${patientId}#patient-support`}
+                href={`/dashboard/${patientId}/messages#patient-support`}
                 className="mt-2 inline-block text-xs font-medium text-neutral-700 underline"
               >
                 Report an issue
@@ -696,7 +746,6 @@ export default async function PatientProgramDetailPage({ params }: Props) {
           </p>
           <PatientSupportPanel patientId={patientId} />
         </section>
-      </div>
-    </main>
+    </div>
   )
 }

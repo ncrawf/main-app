@@ -18,6 +18,9 @@ export type PatientCareProgramCard = {
   updated_at: string
   subtitle: string
   tracking_hint: string | null
+  treatment_count: number
+  needs_attention_now: boolean
+  next_action_summary: string
 }
 
 export type PatientCareTreatmentDetail = {
@@ -60,6 +63,40 @@ function buildProgramHint(items: PatientCareTreatmentDetail[]): string | null {
     return 'A treatment is awaiting clinician approval.'
   }
   return null
+}
+
+function buildProgramActionSummary(items: PatientCareTreatmentDetail[]): {
+  needsAttentionNow: boolean
+  nextActionSummary: string
+} {
+  if (items.some((i) => i.status === 'refill_due')) {
+    return {
+      needsAttentionNow: true,
+      nextActionSummary: 'Continue plan for refill-due treatment',
+    }
+  }
+  if (items.some((i) => i.status === 'refill_pending')) {
+    return {
+      needsAttentionNow: true,
+      nextActionSummary: 'Review in progress for a continuation step',
+    }
+  }
+  if (items.some((i) => i.status === 'pending_approval')) {
+    return {
+      needsAttentionNow: true,
+      nextActionSummary: 'Waiting on clinician review',
+    }
+  }
+  if (items.some((i) => i.status === 'active')) {
+    return {
+      needsAttentionNow: false,
+      nextActionSummary: 'Stay on plan and watch next prompts',
+    }
+  }
+  return {
+    needsAttentionNow: false,
+    nextActionSummary: 'No immediate action',
+  }
 }
 
 export async function getPatientCareOverview(patientId: string): Promise<PatientCareOverview> {
@@ -134,6 +171,7 @@ export async function getPatientCareOverview(patientId: string): Promise<Patient
 
   const cards: PatientCareProgramCard[] = programRows.map((p) => {
     const items = byProgram[p.id] ?? []
+    const action = buildProgramActionSummary(items)
     return {
       id: p.id,
       program_type: p.program_type,
@@ -144,6 +182,9 @@ export async function getPatientCareOverview(patientId: string): Promise<Patient
       updated_at: p.updated_at,
       subtitle: buildSubtitle(items),
       tracking_hint: buildProgramHint(items),
+      treatment_count: items.length,
+      needs_attention_now: action.needsAttentionNow,
+      next_action_summary: action.nextActionSummary,
     }
   })
 

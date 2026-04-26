@@ -74,11 +74,16 @@ export function buildPatientUpcomingEvents(input: {
   programs?: PatientCareProgramCard[]
   /** Defaults to `/dashboard/{patientId}`; use for tests or alternate bases */
   dashboardHrefBase?: string
+  /** Base URL for lab-related anchors (defaults to `/dashboard/{patientId}/labs`). */
+  labsHrefBase?: string
   /** When true (portal session + care tables), add a low-priority row linking to the document upload card */
   showPortalLabUploadHint?: boolean
 }): PatientUpcomingEvent[] {
   const { patientId, treatmentsByProgramId, refillEligible, checkinPrompts, labOrders } = input
-  const base = (input.dashboardHrefBase ?? `/dashboard/${patientId}`).replace(/\/$/, '')
+  const accountRoot = (input.dashboardHrefBase ?? `/dashboard/${patientId}`).replace(/\/$/, '')
+  const programsHub = `${accountRoot}/programs`
+  const messagesHub = `${accountRoot}/messages`
+  const labsHub = (input.labsHrefBase ?? `${accountRoot}/labs`).replace(/\/$/, '')
   const events: PatientUpcomingEvent[] = []
   const refillDueIds = new Set(refillEligible.map((r) => r.id))
   const treatments = flattenTreatments(treatmentsByProgramId)
@@ -96,7 +101,7 @@ export function buildPatientUpcomingEvents(input: {
       subtitle: copy.subtitle,
       due_at: null,
       urgency: 'action',
-      deepLinkHref: `${base}#refill-request`,
+      deepLinkHref: `${programsHub}#refill-request`,
     })
   }
 
@@ -108,13 +113,13 @@ export function buildPatientUpcomingEvents(input: {
       subtitle: p.promptDescription,
       due_at: null,
       urgency: 'action',
-      deepLinkHref: `${base}#treatment-checkin`,
+      deepLinkHref: `${programsHub}#treatment-checkin`,
     })
   }
 
   for (const t of treatments) {
     const md = (t.metadata ?? {}) as Record<string, unknown>
-    const programHref = `${base}/programs/${t.care_program_id}`
+    const programHref = `${programsHub}/${t.care_program_id}`
     const programType = ptMap.get(t.care_program_id) ?? null
 
     const refillAt = typeof md.next_refill_due_at === 'string' ? md.next_refill_due_at.trim() : ''
@@ -153,7 +158,7 @@ export function buildPatientUpcomingEvents(input: {
         subtitle: 'Complete when you can; message your team if you need help scheduling.',
         due_at: parseIsoDate(visitAt),
         urgency: urgencyForDate(visitAt),
-        deepLinkHref: `${base}#patient-support`,
+        deepLinkHref: `${messagesHub}#patient-support`,
       })
     }
 
@@ -177,7 +182,7 @@ export function buildPatientUpcomingEvents(input: {
         subtitle: 'Share progress and side effects so your team can fine-tune your plan.',
         due_at: parseIsoDate(checkinAt),
         urgency: urgencyForDate(checkinAt),
-        deepLinkHref: `${base}#treatment-checkin`,
+        deepLinkHref: `${programsHub}#treatment-checkin`,
       })
     }
   }
@@ -194,7 +199,7 @@ export function buildPatientUpcomingEvents(input: {
         : 'Lab requisition available in your dashboard.',
       due_at: anchor,
       urgency: 'info',
-      deepLinkHref: `${base}#lab-requisitions`,
+      deepLinkHref: `${labsHub}#lab-requisitions`,
     })
   }
 
@@ -206,7 +211,7 @@ export function buildPatientUpcomingEvents(input: {
       subtitle: 'PDF or photos from another lab or hospital — we will attach them to your chart.',
       due_at: '2099-12-31',
       urgency: 'info',
-      deepLinkHref: `${base}#lab-document-upload`,
+      deepLinkHref: `${labsHub}#lab-document-upload`,
     })
   }
 
@@ -232,7 +237,8 @@ function isMissingRelationError(err: unknown): boolean {
   return code === '42P01' || msg.includes('does not exist')
 }
 
-async function fetchPublishedLabOrderSummaries(patientId: string): Promise<LabOrderInput[]> {
+/** Published lab requisitions visible to the patient (existing `lab_orders` query). */
+export async function getPublishedLabOrderSummariesForPatient(patientId: string): Promise<LabOrderInput[]> {
   try {
     const admin = createAdminClient()
     const { data, error } = await admin
@@ -273,7 +279,7 @@ export async function loadPatientUpcomingEvents(patientId: string): Promise<Pati
     getPatientCareOverview(patientId),
     getPatientRefillEligibleTreatments(patientId),
     getPatientTreatmentCheckinPrompts(patientId),
-    fetchPublishedLabOrderSummaries(patientId),
+    getPublishedLabOrderSummariesForPatient(patientId),
   ])
   return buildPatientUpcomingEvents({
     patientId,

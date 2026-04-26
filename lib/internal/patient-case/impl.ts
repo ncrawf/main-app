@@ -1,5 +1,14 @@
-/** Patient case workspace mutations (internal staff). Bound via `app/.../patients/[patientId]/actions.ts`. */
-
+/**
+ * Patient case workspace mutations (internal staff). Import only from
+ * `app/internal/(protected)/patients/[patientId]/actions.ts`, which is the
+ * **only** place capability enforcement (`requireCapability` / `requirePatientCaseCapability`)
+ * must run. Calling these functions from new routes, clients, or tests without
+ * the same gate bypasses policy.
+ *
+ * In a few areas this module still loads `getStaffProfile` for PDF/note content
+ * (e.g. “Prepared by,” author display name) — that is not an authorization
+ * check; the actions layer owns access control.
+ */
 
 import { createHash } from 'crypto'
 import { revalidatePath } from 'next/cache'
@@ -43,8 +52,8 @@ import {
   isSupplementFulfillmentTransitionAllowed,
   labelSupplementFulfillmentStatus,
 } from '@/lib/supplement/fulfillment'
-import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
 import type { NotificationTemplateKey } from '@/lib/workflows/notificationRules'
@@ -89,22 +98,6 @@ type ProviderSigner = {
   stateLicenseNumber: string | null
   prescriptionLicenseNumber: string | null
   deaNumber: string | null
-}
-
-function isAdminOverrideRole(role: string): boolean {
-  return role === 'ops_admin' || role === 'super_admin'
-}
-
-function canProviderSign(role: string): boolean {
-  return role === 'prescriber' || isAdminOverrideRole(role)
-}
-
-function canManageOrderStatus(role: string): boolean {
-  return role === 'pharmacy_ops' || isAdminOverrideRole(role)
-}
-
-function isPharmacyOpsOnly(role: string): boolean {
-  return role === 'pharmacy_ops'
 }
 
 const PROGRAM_STATUS_VALUES = new Set([
@@ -213,12 +206,6 @@ export async function addStaffNote(patientId: string, rawText: string): Promise<
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
-
   const { data: patient, error: pErr } = await supabase.from('patients').select('id').eq('id', patientId).maybeSingle()
   if (pErr || !patient) return { ok: false, error: 'Patient not found.' }
 
@@ -254,12 +241,6 @@ export async function applyCaseUpdates(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
 
   const { data: patient, error: pErr } = await supabase.from('patients').select('id').eq('id', patientId).maybeSingle()
   if (pErr || !patient) return { ok: false, error: 'Patient not found.' }
@@ -336,12 +317,6 @@ export async function sendTemplateTestEmail(
   } = await supabase.auth.getUser()
   if (!user?.email) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
-
   const { data: patient, error: pErr } = await supabase
     .from('patients')
     .select('id, first_name')
@@ -397,12 +372,6 @@ export async function updateTreatmentItemStatus(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
 
   if (!TREATMENT_STATUS_VALUES.has(nextStatus)) {
     return { ok: false, error: 'Invalid treatment status.' }
@@ -510,12 +479,6 @@ export async function updateCareProgramStatus(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
 
   if (!PROGRAM_STATUS_VALUES.has(nextStatus)) {
     return { ok: false, error: 'Invalid program status.' }
@@ -629,12 +592,6 @@ export async function requestRefillForTreatmentItem(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
 
   const { data: item, error: itemErr } = await supabase
     .from('treatment_items')
@@ -923,12 +880,6 @@ export async function updateRefillRequestStatus(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
-
   const { data: row, error: rowErr } = await supabase
     .from('refill_requests')
     .select('id, patient_id, treatment_item_id, care_program_id, status, staff_note')
@@ -1073,12 +1024,6 @@ export async function addCatalogTreatmentItem(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canProviderSign(profile.role)) {
-    return { ok: false, error: 'Only prescribers (or admin override) can create signed Rx treatment rows.' }
-  }
-
   const careProgramId = String(formData.get('careProgramId') ?? '').trim()
   const catalogMedicationId = String(formData.get('catalogMedicationId') ?? '').trim()
   const route = String(formData.get('route') ?? '').trim()
@@ -1200,12 +1145,6 @@ export async function createAndPublishLabOrder(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canProviderSign(profile.role)) {
-    return { ok: false, error: 'Only prescribers (or admin override) can sign and publish lab requisitions.' }
-  }
-
   const selectedProvider = input.orderingProviderStaffId
     ? await loadProviderSignerById(supabase, input.orderingProviderStaffId)
     : null
@@ -1254,6 +1193,7 @@ export async function createAndPublishLabOrder(
   const patientName = [patient.first_name, patient.last_name].filter(Boolean).join(' ').trim() || patient.id
   const cityStateZip = [patient.city, patient.state, patient.postal_code].filter(Boolean).join(', ')
   const generatedAt = new Date().toISOString()
+  const preparedByStaff = await getStaffProfile(supabase, user.id)
 
   const { data: inserted, error: insErr } = await supabase
     .from('lab_orders')
@@ -1323,7 +1263,7 @@ export async function createAndPublishLabOrder(
     'LAB INSTRUCTIONS',
     ...(instructions ? instructions.split('\n') : ['—']),
     '',
-    `Prepared by: ${profile.display_name?.trim() || user.id}`,
+    `Prepared by: ${preparedByStaff?.display_name?.trim() || user.id}`,
     'Document type: patient hand-carry lab requisition',
   ]
   const pdfBytes = buildSimpleRxPdf(lines)
@@ -1485,12 +1425,6 @@ export async function createClinicalVisitNote(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canProviderSign(profile.role)) {
-    return { ok: false, error: 'Only prescribers (or admin override) can document signed clinical visits.' }
-  }
-
   const selectedProvider = input.signingProviderStaffId
     ? await loadProviderSignerById(supabase, input.signingProviderStaffId)
     : null
@@ -1523,6 +1457,7 @@ export async function createClinicalVisitNote(
 
   const patientName = [patient.first_name, patient.last_name].filter(Boolean).join(' ').trim() || patient.id
   const nowIso = new Date().toISOString()
+  const authorStaff = await getStaffProfile(supabase, user.id)
 
   const { data: latestForm } = await supabase
     .from('forms')
@@ -1575,8 +1510,8 @@ export async function createClinicalVisitNote(
   const noteText = buildClinicalProgressNote({
     visitType,
     visitAtIso: nowIso,
-    providerDisplayName: selectedProvider?.displayName ?? profile.display_name?.trim() ?? user.id,
-    providerRole: selectedProvider ? 'prescriber' : profile.role,
+    providerDisplayName: selectedProvider?.displayName ?? authorStaff?.display_name?.trim() ?? user.id,
+    providerRole: selectedProvider ? 'prescriber' : authorStaff?.role ?? 'staff',
     patientName,
     patientDob: patient.dob,
     chiefConcern,
@@ -1722,12 +1657,6 @@ export async function publishClinicalVisitPdf(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canProviderSign(profile.role)) {
-    return { ok: false, error: 'Only prescribers (or admin override) can publish signed clinical visit PDFs.' }
-  }
-
   const { data: visit, error: visitErr } = await supabase
     .from('clinical_visits')
     .select(
@@ -1738,6 +1667,7 @@ export async function publishClinicalVisitPdf(
   if (visitErr || !visit) return { ok: false, error: 'Clinical visit not found.' }
   if (visit.patient_id !== patientId) return { ok: false, error: 'Clinical visit does not match patient.' }
 
+  const actorStaff = await getStaffProfile(supabase, user.id)
   const { data: patient, error: pErr } = await supabase
     .from('patients')
     .select('id, first_name, last_name, dob, email')
@@ -1786,9 +1716,10 @@ export async function publishClinicalVisitPdf(
   const signedProviderName =
     signedProvider?.display_name?.trim() ||
     [signedProvider?.first_name, signedProvider?.last_name].filter(Boolean).join(' ').trim() ||
-    profile.display_name?.trim() ||
+    actorStaff?.display_name?.trim() ||
     user.id
-  const signedProviderRole = typeof signedProvider?.role === 'string' ? signedProvider.role : profile.role
+  const signedProviderRole =
+    typeof signedProvider?.role === 'string' ? signedProvider.role : actorStaff?.role ?? 'staff'
   const signedProviderNpi =
     typeof signedProvider?.npi === 'string' && signedProvider.npi.trim().length > 0
       ? normalizeNpi(signedProvider.npi)
@@ -1991,12 +1922,6 @@ export async function createClinicalVisitAddendum(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canProviderSign(profile.role)) {
-    return { ok: false, error: 'Only prescribers (or admin override) can add signed clinical addenda.' }
-  }
-
   const { data: visit, error: visitErr } = await supabase
     .from('clinical_visits')
     .select('id, patient_id, status')
@@ -2068,12 +1993,6 @@ export async function markLabOrderDispatched(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canManageOrderStatus(profile.role)) {
-    return { ok: false, error: 'Only pharmacy_ops or admin roles can update lab dispatch statuses.' }
-  }
 
   const { data: order, error } = await supabase
     .from('lab_orders')
@@ -2153,12 +2072,6 @@ export async function generateRxPdfForTreatment(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canProviderSign(profile.role)) {
-    return { ok: false, error: 'Only prescribers (or admin override) can generate signed Rx PDFs.' }
-  }
 
   const { data: item, error: iErr } = await supabase
     .from('treatment_items')
@@ -2334,12 +2247,6 @@ export async function prepareTreatmentForPharmacyDispatch(
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
 
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canManageOrderStatus(profile.role)) {
-    return { ok: false, error: 'Only pharmacy_ops or admin roles can prepare pharmacy dispatch orders.' }
-  }
-
   const { data: treatment, error: tiErr } = await supabase
     .from('treatment_items')
     .select('id, patient_id, care_program_id, treatment_key, display_name, status, dosage, metadata')
@@ -2410,14 +2317,18 @@ export async function prepareTreatmentForPharmacyDispatch(
     prepared_at: new Date().toISOString(),
   }
 
+  // Legacy pharmacy-dispatch flow: by the time staff is preparing a dispatch payload
+  // the treatment is already approved and (historically) paid. Create the order row
+  // directly in `preparing` under the new lifecycle enum (see 20260428100000_orders_lifecycle_v1.sql).
   const { data: inserted, error: insErr } = await supabase
     .from('treatment_orders')
     .insert({
       patient_id: patientId,
       care_program_id: treatment.care_program_id,
       treatment_item_id: treatment.id,
-      status: 'payload_ready',
+      status: 'preparing',
       metadata: payload,
+      shipping_snapshot: shippingSnapshot,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     })
@@ -2514,12 +2425,6 @@ export async function updateSupplementFulfillmentStatus(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (!canManageOrderStatus(profile.role)) {
-    return { ok: false, error: 'Only pharmacy_ops or admin roles can update supplement fulfillment statuses.' }
-  }
 
   const { data: order, error: orderErr } = await supabase
     .from('supplement_fulfillment_orders')
@@ -2763,12 +2668,6 @@ export async function updatePatientSupportRequestStatus(
     data: { user },
   } = await supabase.auth.getUser()
   if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-  if (isPharmacyOpsOnly(profile.role)) {
-    return { ok: false, error: 'pharmacy_ops access is limited to fulfillment/order status actions.' }
-  }
 
   const { data: ev, error: evErr } = await supabase
     .from('patient_timeline_events')

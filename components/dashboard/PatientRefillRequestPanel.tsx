@@ -40,6 +40,8 @@ export function PatientRefillRequestPanel({ patientId, items }: { patientId: str
     return resolveRefillCheckInProfile(selected.treatment_key, selected.display_name, selected.category)
   }, [selected])
 
+  /* Reset questionnaire + draft message when a different treatment is selected. */
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     setGlp1(emptyGlp1RefillQuestionnaire())
     setGeneric(emptyGenericRefillQuestionnaire())
@@ -48,6 +50,7 @@ export function PatientRefillRequestPanel({ patientId, items }: { patientId: str
     setLastRefillRequestId(null)
     setLastTreatmentLabel(null)
   }, [treatmentItemId])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     if (!lastRefillRequestId) return

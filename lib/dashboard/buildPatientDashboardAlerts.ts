@@ -74,9 +74,11 @@ export function buildPatientDashboardAlerts(input: {
   dismissedKeys: Set<string>
   /** e.g. `/dashboard/{patientId}` for fragment links */
   dashboardHref: string
+  /** When set, lab requisition alerts use this base for `#lab-requisitions` (defaults to `dashboardHref`). */
+  labRequisitionsHrefBase?: string
 }): PatientDashboardAlert[] {
   const { reorderRows, upcomingEvents, labOrders, dismissedKeys } = input
-  const base = input.dashboardHref.replace(/#$/, '').replace(/\/$/, '')
+  const labBase = (input.labRequisitionsHrefBase ?? input.dashboardHref).replace(/#$/, '').replace(/\/$/, '')
   const out: PatientDashboardAlert[] = []
   const coveredTreatments = new Set<string>()
 
@@ -109,7 +111,7 @@ export function buildPatientDashboardAlerts(input: {
       kind: 'lab',
       title: 'New lab requisition',
       body: `${tests}${lab.orderDate ? ` · order dated ${lab.orderDate}` : ''}.`,
-      href: `${base}#lab-requisitions`,
+      href: `${labBase}#lab-requisitions`,
       priority: KIND_PRIORITY.lab * 10,
       tone: 'info',
     })

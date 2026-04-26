@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
 import { PATIENT_PORTAL_COOKIE_NAME } from '@/lib/patient-portal/constants'
+import { isPatientPortalGateRelaxed } from '@/lib/patient-portal/isPatientPortalGateRelaxed'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { verifySessionCookieForPatientId } from '@/lib/patient-portal/tokens'
@@ -11,6 +12,7 @@ import { verifySessionCookieForPatientId } from '@/lib/patient-portal/tokens'
  */
 /** True only when the httpOnly patient portal session cookie matches this patient (not staff preview). */
 export async function assertPatientPortalSessionOnly(patientId: string): Promise<boolean> {
+  if (isPatientPortalGateRelaxed()) return true
   const jar = await cookies()
   const raw = jar.get(PATIENT_PORTAL_COOKIE_NAME)?.value
   try {
@@ -21,6 +23,7 @@ export async function assertPatientPortalSessionOnly(patientId: string): Promise
 }
 
 export async function assertPatientDashboardAccess(patientId: string): Promise<boolean> {
+  if (isPatientPortalGateRelaxed()) return true
   const jar = await cookies()
   const raw = jar.get(PATIENT_PORTAL_COOKIE_NAME)?.value
   try {

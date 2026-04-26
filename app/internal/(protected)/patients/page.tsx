@@ -337,7 +337,7 @@ export default async function InternalPatientsPage({
   const selectedSort = resolveUserSortKey(sortKeyRaw)
   const selectedDir = resolveSortDirection(sortDirRaw)
   const selectedOrderStatus = (orderStatusKeyRaw ?? 'all').trim() || 'all'
-  const nowMs = Date.now()
+  const nowMs = new Date().getTime()
   const cutoffMs = nowMs - selectedWindow.hours * 60 * 60 * 1000
   const cutoffIso = new Date(cutoffMs).toISOString()
 

@@ -32,8 +32,13 @@ export async function listPatientsWithState(supabase: SupabaseClient): Promise<P
     .order('created_at', { ascending: false })
 
   if (pErr) {
-    console.error(pErr)
-    throw new Error('Failed to load patients')
+    const code = 'code' in pErr && typeof (pErr as { code?: unknown }).code === 'string' ? (pErr as { code: string }).code : ''
+    const message =
+      'message' in pErr && typeof (pErr as { message?: unknown }).message === 'string'
+        ? (pErr as { message: string }).message
+        : JSON.stringify(pErr)
+    console.warn('listPatientsWithState: patients query failed', code || '(no code)', message)
+    return []
   }
 
   if (!patients?.length) return []
@@ -45,16 +50,21 @@ export async function listPatientsWithState(supabase: SupabaseClient): Promise<P
     .in('patient_id', ids)
 
   if (sErr) {
-    console.error(sErr)
-    throw new Error('Failed to load patient states')
+    const code = 'code' in sErr && typeof (sErr as { code?: unknown }).code === 'string' ? (sErr as { code: string }).code : ''
+    const message =
+      'message' in sErr && typeof (sErr as { message?: unknown }).message === 'string'
+        ? (sErr as { message: string }).message
+        : JSON.stringify(sErr)
+    console.warn('listPatientsWithState: patient_states query failed', code || '(no code)', message)
   }
+  const stateRows = sErr ? [] : (states ?? [])
 
   const assigneeIds = new Set<string>()
   const byPatient = new Map<
     string,
     { updated_at: string; assigned_to: string | null }
   >()
-  for (const s of states ?? []) {
+  for (const s of stateRows) {
     byPatient.set(s.patient_id, {
       updated_at: s.updated_at,
       assigned_to: s.assigned_to ?? null,

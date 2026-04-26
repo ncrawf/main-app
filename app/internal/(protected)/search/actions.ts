@@ -1,6 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { requireCapability } from '@/lib/auth/capabilities'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 
@@ -18,9 +19,17 @@ export async function upsertSiteSearchEntry(formData: FormData): Promise<SearchC
   if (!user) return { ok: false, error: 'Not signed in.' }
 
   const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
-
   const id = String(formData.get('id') ?? '').trim().toLowerCase()
+  const cap = await requireCapability(user, profile, 'can_manage_system_settings', {
+    objectType: 'site_search_entry',
+    objectId: id || null,
+    workspace: 'admin',
+    extraMetadata: { action: 'upsertSiteSearchEntry' },
+  })
+  if (!cap.ok) {
+    return { ok: false, error: cap.error }
+  }
+
   const title = String(formData.get('title') ?? '').trim()
   const href = String(formData.get('href') ?? '').trim()
   const description = String(formData.get('description') ?? '').trim()
@@ -80,7 +89,15 @@ export async function deleteSiteSearchEntry(formData: FormData): Promise<SearchC
   if (!user) return { ok: false, error: 'Not signed in.' }
 
   const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
+  const cap = await requireCapability(user, profile, 'can_manage_system_settings', {
+    objectType: 'site_search_entry',
+    objectId: String(formData.get('id') ?? '').trim().toLowerCase() || undefined,
+    workspace: 'admin',
+    extraMetadata: { action: 'deleteSiteSearchEntry' },
+  })
+  if (!cap.ok) {
+    return { ok: false, error: cap.error }
+  }
 
   const id = String(formData.get('id') ?? '').trim().toLowerCase()
   if (!id) return { ok: false, error: 'ID is required.' }

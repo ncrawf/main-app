@@ -1,6 +1,7 @@
 'use server'
 
 import type { NotificationTemplateKey } from '@/lib/workflows/notificationRules'
+import { requireCapability, type Capability, type RequireCapabilityOptions } from '@/lib/auth/capabilities'
 import * as patientCase from '@/lib/internal/patient-case/impl'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
@@ -30,6 +31,34 @@ export type {
 } from '@/lib/internal/patient-case/impl'
 
 export type ReviewChartAiDraftResult = { ok: true } | { ok: false; error: string }
+
+type ServerClient = Awaited<ReturnType<typeof createSupabaseServerClient>>
+type ActionGateError = { ok: false; error: string }
+type ActionGateOk = { ok: true; user: { id: string }; supabase: ServerClient }
+
+/**
+ * Authoritative `requireCapability` for patient-scoped server actions. Impl layer
+ * trusts the session user id; authz is enforced here only (Phase 0k / D2).
+ */
+async function requirePatientCaseCapability(
+  capability: Capability,
+  patientId: string,
+  options: Omit<RequireCapabilityOptions, 'patientId'> = {}
+): Promise<ActionGateError | ActionGateOk> {
+  const supabase = await createSupabaseServerClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { ok: false, error: 'Not signed in.' }
+  const profile = await getStaffProfile(supabase, user.id)
+  const cap = await requireCapability(user, profile, capability, {
+    patientId,
+    workspace: options.workspace ?? 'staff',
+    ...options,
+  })
+  if (!cap.ok) return { ok: false, error: cap.error }
+  return { ok: true, user, supabase }
+}
 
 type RefillTaskTargetRow = {
   id: string
@@ -106,26 +135,59 @@ async function resolveTaskTargets(
 }
 
 export async function addStaffNote(patientId: string, rawText: string) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'patient_case',
+    extraMetadata: { action: 'addStaffNote' },
+  })
+  if (!g.ok) return g
   return patientCase.addStaffNote(patientId, rawText)
 }
 
 export async function applyCaseUpdates(patientId: string, nextAssignedTo: string | null) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'patient_state',
+    extraMetadata: { action: 'applyCaseUpdates' },
+  })
+  if (!g.ok) return g
   return patientCase.applyCaseUpdates(patientId, nextAssignedTo)
 }
 
 export async function sendTemplateTestEmail(patientId: string, templateKey: NotificationTemplateKey) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'email_preview',
+    extraMetadata: { action: 'sendTemplateTestEmail', templateKey },
+  })
+  if (!g.ok) return g
   return patientCase.sendTemplateTestEmail(patientId, templateKey)
 }
 
 export async function updateTreatmentItemStatus(patientId: string, treatmentItemId: string, nextStatus: string) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'treatment_item',
+    objectId: treatmentItemId,
+    extraMetadata: { action: 'updateTreatmentItemStatus' },
+  })
+  if (!g.ok) return g
   return patientCase.updateTreatmentItemStatus(patientId, treatmentItemId, nextStatus)
 }
 
 export async function updateCareProgramStatus(patientId: string, careProgramId: string, nextStatus: string) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'care_program',
+    objectId: careProgramId,
+    extraMetadata: { action: 'updateCareProgramStatus' },
+  })
+  if (!g.ok) return g
   return patientCase.updateCareProgramStatus(patientId, careProgramId, nextStatus)
 }
 
 export async function requestRefillForTreatmentItem(patientId: string, treatmentItemId: string, rawNote?: string) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'treatment_item',
+    objectId: treatmentItemId,
+    extraMetadata: { action: 'requestRefillForTreatmentItem' },
+  })
+  if (!g.ok) return g
   return patientCase.requestRefillForTreatmentItem(patientId, treatmentItemId, rawNote)
 }
 
@@ -134,6 +196,11 @@ export async function requestRefillsForTreatmentItemsBulk(
   treatmentItemIds: string[],
   rawSharedNote?: string
 ) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'refill_request',
+    extraMetadata: { action: 'requestRefillsForTreatmentItemsBulk' },
+  })
+  if (!g.ok) return g
   return patientCase.requestRefillsForTreatmentItemsBulk(patientId, treatmentItemIds, rawSharedNote)
 }
 
@@ -143,10 +210,22 @@ export async function updateRefillRequestStatus(
   nextStatus: string,
   rawStaffNote?: string
 ) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'refill_request',
+    objectId: refillRequestId,
+    extraMetadata: { action: 'updateRefillRequestStatus' },
+  })
+  if (!g.ok) return g
   return patientCase.updateRefillRequestStatus(patientId, refillRequestId, nextStatus, rawStaffNote)
 }
 
 export async function addCatalogTreatmentItem(patientId: string, formData: FormData) {
+  const g = await requirePatientCaseCapability('can_clinical_treatment_authoring', patientId, {
+    objectType: 'treatment_item',
+    workspace: 'provider',
+    extraMetadata: { action: 'addCatalogTreatmentItem' },
+  })
+  if (!g.ok) return g
   return patientCase.addCatalogTreatmentItem(patientId, formData)
 }
 
@@ -154,6 +233,12 @@ export async function createAndPublishLabOrder(
   patientId: string,
   input: Parameters<typeof patientCase.createAndPublishLabOrder>[1]
 ) {
+  const g = await requirePatientCaseCapability('can_clinical_treatment_authoring', patientId, {
+    objectType: 'lab_order',
+    workspace: 'provider',
+    extraMetadata: { action: 'createAndPublishLabOrder' },
+  })
+  if (!g.ok) return g
   return patientCase.createAndPublishLabOrder(patientId, input)
 }
 
@@ -161,6 +246,12 @@ export async function createClinicalVisitNote(
   patientId: string,
   input: Parameters<typeof patientCase.createClinicalVisitNote>[1]
 ) {
+  const g = await requirePatientCaseCapability('can_clinical_treatment_authoring', patientId, {
+    objectType: 'clinical_visit',
+    workspace: 'provider',
+    extraMetadata: { action: 'createClinicalVisitNote' },
+  })
+  if (!g.ok) return g
   return patientCase.createClinicalVisitNote(patientId, input)
 }
 
@@ -169,6 +260,13 @@ export async function publishClinicalVisitPdf(
   clinicalVisitId: string,
   notifyPatientByEmail = true
 ) {
+  const g = await requirePatientCaseCapability('can_clinical_treatment_authoring', patientId, {
+    objectType: 'clinical_visit',
+    objectId: clinicalVisitId,
+    workspace: 'provider',
+    extraMetadata: { action: 'publishClinicalVisitPdf' },
+  })
+  if (!g.ok) return g
   return patientCase.publishClinicalVisitPdf(patientId, clinicalVisitId, notifyPatientByEmail)
 }
 
@@ -177,6 +275,13 @@ export async function createClinicalVisitAddendum(
   clinicalVisitId: string,
   rawAddendumText: string
 ) {
+  const g = await requirePatientCaseCapability('can_clinical_treatment_authoring', patientId, {
+    objectType: 'clinical_visit',
+    objectId: clinicalVisitId,
+    workspace: 'provider',
+    extraMetadata: { action: 'createClinicalVisitAddendum' },
+  })
+  if (!g.ok) return g
   return patientCase.createClinicalVisitAddendum(patientId, clinicalVisitId, rawAddendumText)
 }
 
@@ -187,10 +292,23 @@ export async function markLabOrderDispatched(
   destinationRaw?: string,
   noteRaw?: string
 ) {
+  const g = await requirePatientCaseCapability('can_advance_fulfillment', patientId, {
+    objectType: 'lab_order',
+    objectId: labOrderId,
+    extraMetadata: { action: 'markLabOrderDispatched' },
+  })
+  if (!g.ok) return g
   return patientCase.markLabOrderDispatched(patientId, labOrderId, dispatchModeRaw, destinationRaw, noteRaw)
 }
 
 export async function generateRxPdfForTreatment(patientId: string, treatmentItemId: string) {
+  const g = await requirePatientCaseCapability('can_clinical_treatment_authoring', patientId, {
+    objectType: 'treatment_item',
+    objectId: treatmentItemId,
+    workspace: 'provider',
+    extraMetadata: { action: 'generateRxPdfForTreatment' },
+  })
+  if (!g.ok) return g
   return patientCase.generateRxPdfForTreatment(patientId, treatmentItemId)
 }
 
@@ -199,6 +317,12 @@ export async function prepareTreatmentForPharmacyDispatch(
   treatmentItemId: string,
   rawPartnerNote?: string
 ) {
+  const g = await requirePatientCaseCapability('can_advance_fulfillment', patientId, {
+    objectType: 'treatment_item',
+    objectId: treatmentItemId,
+    extraMetadata: { action: 'prepareTreatmentForPharmacyDispatch' },
+  })
+  if (!g.ok) return g
   return patientCase.prepareTreatmentForPharmacyDispatch(patientId, treatmentItemId, rawPartnerNote)
 }
 
@@ -210,6 +334,12 @@ export async function updateSupplementFulfillmentStatus(
   trackingUrlRaw?: string,
   staffNoteRaw?: string
 ) {
+  const g = await requirePatientCaseCapability('can_advance_fulfillment', patientId, {
+    objectType: 'supplement_fulfillment_order',
+    objectId: fulfillmentOrderId,
+    extraMetadata: { action: 'updateSupplementFulfillmentStatus' },
+  })
+  if (!g.ok) return g
   return patientCase.updateSupplementFulfillmentStatus(
     patientId,
     fulfillmentOrderId,
@@ -226,6 +356,12 @@ export async function updatePatientSupportRequestStatus(
   actionRaw: string,
   staffNoteRaw?: string
 ) {
+  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
+    objectType: 'support_request',
+    objectId: timelineEventId,
+    extraMetadata: { action: 'updatePatientSupportRequestStatus' },
+  })
+  if (!g.ok) return g
   return patientCase.updatePatientSupportRequestStatus(patientId, timelineEventId, actionRaw, staffNoteRaw)
 }
 
@@ -235,14 +371,14 @@ export async function reviewChartAiDraft(
   decision: 'reviewed_accepted' | 'reviewed_rejected',
   reviewNoteRaw?: string
 ): Promise<ReviewChartAiDraftResult> {
-  const supabase = await createSupabaseServerClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user) return { ok: false, error: 'Not signed in.' }
-
-  const profile = await getStaffProfile(supabase, user.id)
-  if (!profile) return { ok: false, error: 'No staff profile.' }
+  const g = await requirePatientCaseCapability('can_use_chart_ai_review', patientId, {
+    objectType: 'patient_chart_ai_review',
+    objectId: reviewId,
+    workspace: 'provider',
+    extraMetadata: { action: 'reviewChartAiDraft' },
+  })
+  if (!g.ok) return g
+  const { user, supabase } = g
 
   const reviewNote = (reviewNoteRaw ?? '').trim().slice(0, 4000)
   const { data: reviewRow, error: reviewLookupErr } = await supabase

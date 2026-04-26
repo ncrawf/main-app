@@ -103,6 +103,7 @@ export function computeTreatmentReorderReadinessRows(input: {
 }): TreatmentReorderReadinessRow[] {
   const { patientId, treatmentsByProgramId, programs, checkinPrompts, refillEligible } = input
   const base = `/dashboard/${patientId}`.replace(/\/$/, '')
+  const programsHub = `${base}/programs`
   const ptMap = programTypeByCareProgramId(programs)
   const checkinIds = new Set(checkinPrompts.map((p) => p.treatmentItemId))
   const refillEligibleIds = new Set(refillEligible.map((r) => r.id))
@@ -167,9 +168,9 @@ export function computeTreatmentReorderReadinessRows(input: {
 
     const hrefForRow =
       state === 'reorder_ready' || state === 'in_refill_review'
-        ? `${base}#refill-request`
+        ? `${programsHub}#refill-request`
         : state === 'needs_checkin'
-          ? `${base}#treatment-checkin`
+          ? `${programsHub}#treatment-checkin`
           : href
 
     rows.push({
