@@ -9,10 +9,12 @@
 - **Layer 1 — Platform / compliance:** auth, RLS, capabilities (`lib/auth/capabilities.ts`, staff RLS, patient portal access), **`requireCapability` on sensitive staff paths**, and **`SensitiveAccessReason` on map-listed high-risk reads** (export, impersonation, cross-patient, bulk)—**stored and queryable** on `audit_events` next to the action, not a second story. **Minimum necessary in practice:** “any `staff_profile` can read the whole `patients` set in SQL” is an **unacceptable** steady state for real PHI; **tighten over time** via **assignment/queue, care relationship, or role-scoped read paths** so ops stay fast (assigned work, not census browsing). **Service-role API routes** are the **larger** bypass than RLS: every handler must **bind** identity + **one patient (or org rule) before** reads/writes. **One production staff identity** path; **no** parallel “admin” login that uses the **service role** for **human** browsing. For **material** **mutations and map-listed** **reads**, **failed** `audit_events` / capability audit = **block** the operation **or** **page**—not **log-only** silence. **Defensibility, not click-tax:** require **reason** on **map-listed** **sensitive** **reads** and **break-glass**; do **not** add **reason** to **every** **routine** chart open.
 - **Layer 1 (money + events):** **Payment** **adapters** (per **1I.4–1I.5,** the **capability** **matrix** and **adapter** **layer**) are **idempotent** at the **integration** **boundary**; **verify** **inbound** **signatures** **/ auth** per **active** **PSP**; keep **metadata** to **ids** and **flags**, not **narrative** **PHI**. **`treatment_orders` and 1E retail order types** must support **queryable** lifecycle for **succeeded, failed, cancelled, and refunded** (or equivalent) so money state is not “success-only” in the schema; every **material** money or consent transition that affects the patient should be **recoverable** from `audit_events` and/or **append-only** `patient_timeline_events` (patient **clinical memory** and ops truth share this spine). For the **regulated** / **clinical** **DTC** product path, the default economic model is: **payment capture** for a **`treatment_order`** (or the clinical line on a **compositional** session) **after** **provider** (or org-policy) **approval** of the charge (common async-care pattern: pay only after approval). The design **rejects** “patient paid, clinically blocked for **standard** approval” as the **default** state machine; **exceptions** (refund, void, support override) remain **first-class** **states**, not the main story. **Internal** **financial** **semantics** **+** **payment** **rails** **+** **provider** **mappings** — **Section 1I** (not **a** **single** **vendor**’s **object** **model**).
 - **Layer 1 (audit evidence):** `SensitiveAccessReason` on **gated** access must, when the map calls for it, be **storable and queryable** on the **same** `audit_events` the capability layer already writes so **defensibility** is **not** split between “feature worked” and “compliance said why.” **Read-side** (who opened chart / export / impersonation) is **as important** as **mutations** for “who touched PHI”; wire **sparingly** to **high** **signal** only.
-- **Layer 1 (data architecture discipline — what lives where; foundational):** **Domain tables** are the **source of truth** for their concern: `patients` and chart fields (identity, allergies, conditions, medications, surgical history) per `1J / 1J.10`; `care_program`, `treatment_items`, `treatment_orders` (clinical case + Rx state); `commerce_orders` and 1I rows (money / subscriptions / refunds / disputes); `clinical_visits` (provider decisions, signoffs, progress notes); `patient_diagnostic_reports` + `patient_lab_observations` (vendor-issued lab data per Section 1L); **`patient_state_observations`** (longitudinal trackables — weight, BP, symptom scores, dose tolerance, sleep, side effects — per **Section 1M**); `messages` / `message_thread` (conversation transcript per Section 1G); `outbound_jobs` (notifications, kit shipments, vendor calls). **`patient_timeline_events` is the narrative / event layer ONLY** — typed pointers to meaningful lifecycle events with minimal context (ids + flags); **never** the storage layer for billing, orders, notifications, clinical decisions, lab values, longitudinal trackables, or any domain truth. Payload carries ids and minimal context, **never authoritative values**. **`audit_events` is the accountability layer ONLY** — actor, capability, reason, prior/new state pointers; not a metric store, not a notification log. **Hard rule:** rules, gates, dashboards, AI inputs, and reports read from **domain tables**, not from timeline payload text. Adding a domain concept means a domain table (or named additive metadata on an existing one), not a new `event_type` on the timeline.
+- **Layer 1 (data architecture discipline — what lives where; foundational):** **Domain tables** are the **source of truth** for their concern: `patients` and chart fields (identity, allergies, conditions, medications, surgical history) per `1J / 1J.10`; `care_program`, `treatment_items`, `treatment_orders` (clinical case + Rx state); `commerce_orders` and 1I rows (money / subscriptions / refunds / disputes); `clinical_visits` (provider decisions, signoffs, progress notes); `patient_diagnostic_reports` + `patient_lab_observations` (vendor-issued lab data per Section 1L); **`patient_state_observations`** (longitudinal trackables — weight, BP, symptom scores, dose tolerance, sleep, side effects — per **Section 1M**); **`patient_document_routing`** (thin routing manifest for uploaded artifacts — IDs, insurance cards, lab PDFs, medication photos, clinical media, prior medical records — per **Section 1O**; actual artifact data lives on the targeted domain row, not on the manifest); `messages` / `message_thread` (conversation transcript per Section 1G); `outbound_jobs` (notifications, kit shipments, vendor calls). **`patient_timeline_events` is the narrative / event layer ONLY** — typed pointers to meaningful lifecycle events with minimal context (ids + flags); **never** the storage layer for billing, orders, notifications, clinical decisions, lab values, longitudinal trackables, or any domain truth. Payload carries ids and minimal context, **never authoritative values**. **`audit_events` is the accountability layer ONLY** — actor, capability, reason, prior/new state pointers; not a metric store, not a notification log. **Hard rule:** rules, gates, dashboards, AI inputs, and reports read from **domain tables**, not from timeline payload text. Adding a domain concept means a domain table (or named additive metadata on an existing one), not a new `event_type` on the timeline.
+- **Layer 1 (clinical content discipline — code-as-config, never DB-driven):** Clinical content — the question bank (`1K.4`), branching rules, mapping rules (e.g., observation `field_name` → category per appendix §24), scoring rules (`1K.9`, `1L.20` `triage_version`), and safety asserts (`1G.2`) — **lives in the repo as code-as-config, versioned via PR, reviewed via CI, audited via git history**. Same governance as `Capability` and `1H.6.1E` classifications. **DB-config tables for clinical content (`intake_questions`, `intake_branches`, `intake_alert_rules`, etc.) are an architectural anti-pattern** in this product because they invite CMS-style ad-hoc edits, defeat replayability, fragment safety logic across rows, and bypass code review. DB content is restricted to genuinely runtime-mutable per-session state (sessions, response rows with version captures, candidate plans, consent acceptances, manifest ids) — never the clinical logic itself. Any future "intake engine" or onboarding mechanism MUST (a) read its question bank + branching from code-as-config, and (b) write through domain APIs (`recordPatientStateObservation` per `1M`, `routePatientDocument` per `1O`, the chart-update path with `1J.10` safety preflight, `recordIntakeResponse` per `1K.4`/`1K.14`, etc.) — never reach into domain tables directly. A "destination" hint on a question is a hint to which API to call, **not** a literal SQL target.
 - **Layer 1 (oversight, QA, leadership):** CMO, clinical leadership, QA/compliance, and operational leadership are **governed** by the same `requireCapability` + `audit_events` + `SensitiveAccessReason` (on map-listed broad/sensitive reads) model as other privileged access. They are **not** a `responsible_party` on the case (Section 1G); they **view** / **advise** / **escalate** only through that model — see **Section 1G (Oversight, not owners).**
 - **Layer 2 (clinical signoff, lab, and therapy decisions):** **Defensible** “we acted on this lab” and “we changed therapy” may involve **`patient_diagnostic_reports` (§11)**, **`clinical_visits`**, and **`patient_chart_ai_reviews`**; the architecture **rejects** **inconsistent** **ownership** and **rejects** **treatment** **state** changes **by** ad-hoc SQL, one-off scripts, or **routes** that **skip** the **same** **server** **functions** the product uses. **Precedence (guardrail):** For **dosing, continuation, or new Rx** driven by a lab, **at least one** of: (1) a **`clinical_visits`** row (or **addendum**) that **references** the relevant **`diagnostic_report_id`**, with **prescriber** identity, **or** (2) a **treatment** / **`treatment_items`** state transition that is **valid only** when the **same** `patient_diagnostic_report` for that lab context has `reviewed_at` set and **applies to** the **intended** `treatment_item` / program **per product rules**. **1G.2** (clinical safety **enforcement,** not a CDSS) **requires** **active** **asserts** (contra-/dup-therapy/allergy/dosing **as** **the** **product** **defines) **in **the ** **same** **server** **path** **as ** **therapy** **authorization, **complementing **`loadPatientCaseSafetySnapshot` (1J.10) **—** **storing** **safety** **- ** **relevant** **data** **is** **necessary** ** and ** not **sufficient. ** **AI** (`patient_chart_ai_reviews` and related jobs) is **recommendation / draft** only; **it does not replace** (1) or (2) for **authorizing** therapy, **does not** **by** **itself** **clear** **Section 1G** **clinical** **blockers,** and **does not** **bypass** **permit** **asserts** — **see Section 1G** **(AI layer).** **`released_to_patient_at`** (Lab appendix) controls **what the patient can see**; it is **not** a substitute for **(1) or (2)** when the question is **“who medicinally authorized the care step.”**
 - **Layer 2 (protocol gates, e.g. baseline lab before status):** **Gating invariants** (e.g. “cannot approve until baseline lab **reviewed**”) must use the **same** **audited** **mutation** surface (`requireCapability`, `audit_events`, patient case **actions**) as other clinical moves—**not** ad-hoc **DB** or **script** `UPDATE` that **bypasses** the gate. The map **allows** optional **DB** constraints **later**; the **architectural** bar is **one** **enforcement** path for **material** **treatment** transitions.
+- **Layer 2 (messaging — attachments):** message attachments (patient or provider) route through **Section 1O** (`patient_document_routing`); the `messages` row carries the manifest id, **never** the file blob or extracted contents. Provider sees the document via the appropriate domain surface (lab review drawer, identity drawer, chart) per `1O.10`.
 - **Layer 2 (messaging):** **Persistent** `message_thread` (**one** per `care_program` / health **category**), `message` (bidirectional **transcript**), `message_thread_participant` (patient, provider, staff; join/leave, **same** thread). **Source of truth** for the conversation: **`message_thread` + `message`**. **`patient_timeline_events`**: **projection** of chat activity (pointer-style `event_type` + `payload` with `message_id` / `message_thread_id` as needed), **not** a **second** **copy** of the **transcript,** and **not** a **rehydration** path for the thread. **Rejects** body-prefix routing, threads inferred only from `care_program` without a `message_thread` id, and timeline/support-queue-only as the full chat model. **Authorship vs gate:** **Rx, prescribe, and `treatment_items` state** still pass through **`clinical_visits` / `requireCapability` / case actions**; **a chat line does not create a valid Rx**. **`clinical_required`** (§1G) may **withhold the permit** to run those **actions** until a **turn** is **satisfied**—that is a **gating** rule on **the** **decision** **engine**, not **authority in free text**. **Assistive** **AI** (draft, triage) must **not** be treated as satisfying that turn or clearing a **permit** without the same human/audited **paths** in **1G** (see **Section 1G — AI layer**). **`audit_events`:** same `requireCapability` / Layer 1 pattern for staff- and provider-side messaging **actions.** **Detail:** **Section 1G.**
 - **Layer 2 (continuation, adherence, re-engagement — no CRM product):** **Stage 6** and **1G** nudges are **not** a substitute for **adherence** and **dropout** signals. **1G.3** **names** proxy **adherence,** time/event **at-risk,** and **re-engagement** via the **same** rows (**`treatment_items.metadata`,** `stale,` **`clinical_required`,** **`outbound_jobs`,** **`patient_timeline_events`**) and **1G** worklist filters, **plus** **1G.3(i)** (**interaction → behavior / eligibility → next action,** not **send-only**); **1I** (subscriptions, cadence) **informs** billing and dunning, **not** “clinical **success = still paying**.”
 - **Layer 2 (re-engagement discipline + AI, no second engine):** **Non-negotiable** (clinical / safety) vs **negotiable** (adherence, education, nudges) **is** a **separate** axis from 1G message **classification;** system **rules** in the **`outbound_jobs` / send** path **govern** frequency, suppression, and disengaged **state.** **AI** (same **1G AI layer** philosophy, same single engine in **Section 1N**) is **state interpretation** + **draft** outreach + **prioritization** **candidates**—**not** a standalone sender, **not** a throttle **bypass** (see **1G.3 (a)–(i)** in Section 1G, including **1G.3(i)** post-interaction **closed** **loop**).
@@ -60,6 +62,7 @@
 | **Provider workspace v1 (live operational; not analytics)** | **Section 1G.8** — My Queue / My Status / same-day My Performance + patient context drawer, clinical messages inbox, lab review drawer, ops/staff messaging channel, grouped views, notifications via `1G.3`; derived from existing rows; PHI-minimum, capability-gated, all actions audited |
 | **Clinician continuity, follow-up ownership, and rerouting (CoR per `care_program`; no work trapping)** | **Section 1G.9** — clinician-of-record vs task owner, continuity policy by item type, lab/refill/message follow-up routing, SLA fallback (continuity never traps), admin transfer + provider obligations; additive metadata on `care_program` and event payloads; controlled provider dimension via `1H.7.2`; reuses `1G.7` eligibility + `1G.7.5b` SLA enforcement |
 | **Intake architecture (multi-pathway; deterministic, versioned, composable; no separate form builder)** | **Section 1K** — entry pathways (ED / TRT / GLP-1 / peptides / labs-only / supplements-only / wellness), layered modules, canonical question bank with versioning, answer reuse + freshness, contraindication screening, lab + at-home kit flows, deterministic scoring, provisional `treatment_plan_candidate`, today vs if-prescribed payment, deterministic provider submission packet, abuse/gaming detection; reuses `intake`, `care_program`, `treatment_items`, `treatment_orders`, `patient_diagnostic_reports`, 1I subscription/payment, `audit_events`, `patient_timeline_events`; additive schema only when reuse is insufficient |
+| **Patient document & attachment routing (capture → classify → route; first-class)** | **Section 1O** — thin `patient_document_routing` manifest routes uploaded artifacts (lab PDFs, IDs, insurance cards, medication photos, clinical media, prior medical records) to the correct domain table; same routing API for intake / messaging / action items / ops upload / partner integration; staff-only reclassification per `1O.9`; extraction (OCR, lab parsing) is out of scope and lives in assistive jobs per Section 1G AI / Section 1N |
 | **Patient state observations (longitudinal trackables — first-class; not timeline-stored)** | **Section 1M** — append-only `patient_state_observations` table for living, time-aware patient signals (weight, BP, symptom scores, dose tolerance, sleep, side effects, etc.); intake / check-in / provider-prompt / message-input write here, never to `patient_timeline_events`; provider corrections append rather than overwrite; reads feed provider workspace, continuation gating, reporting, AI assist; **`patient_timeline_events` carries narrative pointers only — never values** |
 | **Diagnostics + lab testing (foundation; not appendix)** | **Section 1L** — labs as core loop substrate (intake → commerce → fulfillment → result → review → release → display → care-program → retest → reporting); structured + semi-structured model (`patient_lab_observations` + `patient_diagnostic_reports.report_payload`); formal `lab_orders.status` state machine + substates; deterministic report→order binding with first-class orphan workflow; observation normalization; explicit ownership (`responsible_provider_id` / `queue_owner`); expiration + no-completion logic; hard retest loop; vendor partner adapter contract; patient-facing tone discipline; continuation gating tie-in; `diagnostic_source_type` extensibility for future imaging / external uploads / device data — Lab Appendix §1–§31 retained as implementation reference |
 | **Money: refunds, disputes, subscriptions, reconciliation** | **Section 1I** — internal **financial** **state** + **adapters**; **PSP** **ledger** **for** **settled** **funds**; timeline + audit |
@@ -2435,6 +2438,8 @@ Use **this** order when two sources assert different **core identity** (legal na
 
 (Exact L–→ **product** **gate** may **tighten**; **this** table is **architectural** **minimum** **bars**.)
 
+**ID-document source:** the source for ID/selfie/insurance verification artifacts is the **`Section 1O`** routing layer. ID-verification status surfaces here from the identity-verification table per `1O.4.1`; insurance-eligibility status surfaces from the insurance-eligibility table per `1O.4.2`. `loadPatientCaseSafetySnapshot` per `1J.10` reads ID-verification status from `Section 1O` for high-risk mutations that require verified identity.
+
 ### 1J.5 Cross-program identity
 
 - **One** **canonical** **`patients` row** per person; `care_programs` **do** **not** **own** a **separate** **legal** **identity** — at most `care_program` **metadata** for **program-specific** **eligibility** **(weight** class, **cohort)**, not **a** **second** **DOB**.
@@ -2634,14 +2639,84 @@ Use **this** order when two sources assert different **core identity** (legal na
 - Marketing-funnel content treated as clinical record (or vice versa).
 - Recommendation outputs treated as prescribing decisions.
 - Payment authorization and prescribing approval being the same step.
+- **DB-driven clinical content** (questions/branches/alerts/scoring rules in DB tables) — see Intent Layer 1 clinical-content-discipline rule. Clinical content lives in code-as-config; only per-session runtime state lives in DB.
+- **Intake engine writing directly to domain tables** — the engine MUST delegate writes to domain APIs that enforce capability + audit + safety per `1G.2` / `1J.10` / `1L.18` / `1M.4` / `1O.7`. A "destination" hint on a question is a hint to which API to call, never a literal SQL target.
+- **Hard-wiring "create care_program" or "trigger provider review" as post-intake hooks** — care_program lifecycle is canonical (`Section 1G`); provider review routing is the responsibility of `Section 1G.7`. Intake submits; routing decides.
+- **"Alert rules tied to questions"** — clinical safety logic lives in `1G.2` active enforcement reading from chart + `patient_state_observations` + `patient_lab_observations`, called via `loadPatientCaseSafetySnapshot` (`1J.10`). Intake captures answers; the safety layer asserts at decision-time.
 
 *Reuse first:* `intake` (existing forms/responses), `patient_timeline_events`, `care_program`, `treatment_items`, `treatment_orders`, `clinical_visits`, `patient_diagnostic_reports` (per Lab appendix §11–§16), `patients` / `staff_profiles`, 1I subscription/payment rows, `outbound_jobs`, `audit_events`, `Capability`. Add minimal new objects only where existing ones cannot represent the concept (see `1K.14`).
+
+### 1K.0 Engine architecture (server-side resolver + write API + thin UI clients)
+
+The intake engine is **not** a frontend wizard backed by config. It is a **server-side state-machine resolver + write API**, with UI as a thin client. This separation is mandatory; without it, intake becomes the second place clinical safety logic lives, and it drifts from `1G.2` / `1J.10` / `1L.18` / `1M.4` / `1O.7` enforcement at scale.
+
+**Three layers (clean boundaries):**
+
+- **(a) Question bank + rules — code-as-config (in repo).** Question definitions, branching rules, mapping rules, scoring rules, pathway → module assignments per `1K.4`. Versioned via PR; reviewed via CI; auditable via git history. Same governance as `Capability`, `1H.6.1E` classifications, `1L.6` mappings, `1L.20` `triage_version`, appendix §24 category mappings.
+- **(b) Resolver service — server-side, stateless pure function.** Given session state (prior answers + pathway + jurisdiction + identity status + payment status + care-program context), returns `{ next_required_input | done | blocked, reason_codes }`. Pure function; testable; replayable; version-pinnable. Drives both onboarding sessions and progressive intake moments per `1K.6` (provider follow-ups, system check-ins) — same resolver, same write API.
+- **(c) Write API — delegates to domain functions.** Each answer routes through the named server function for the appropriate domain: `recordPatientStateObservation` per `Section 1M`, `routePatientDocument` per `Section 1O`, the chart-update path with `1J.10` safety preflight, `recordIntakeResponse` per `1K.4`/`1K.14`, lab order creation per `Section 1L` Scenario A path. The intake engine **never** reaches into domain tables; the "destination" declared on a question identifies which domain API to call.
+
+**UI clients (thin):** the resolver + write API are consumable by multiple clients — web (Next.js), mobile, ops admin tools, partner kiosks, future voice intake. UI navigation (which step is shown, transitions, animations) is a presentation concern; **engine state** (which step is required next) is a domain concern. Routes like `/intake/[session]` are fine; routes like `/intake/[pathway]/[session]/[step]` couple URL structure to engine internals and break when side-tasks (insurance upload, ID verification) interrupt linear flow or when patients re-enter weeks later for a follow-up. The resolver tells the UI what to render next.
+
+**Hard rules (mandatory):**
+
+- **No clinical content in DB.** Question bank, branching, mapping, scoring, safety asserts live in code-as-config (per Intent Layer 1 clinical-content discipline). DB stores only per-session runtime state.
+- **No direct domain-table writes.** Engine delegates to domain APIs; never bypasses safety/audit gates per `1L.18 #1` / `1M.4` / `1O.7`.
+- **Resolver is a pure function** of session state — no hidden globals, no side effects, no AI generation at runtime per `1K.4`.
+- **Replayability:** any session's exact path through the engine must be reproducible from `(question_bank_version, branching_rule_version, mapping_version, jurisdiction, identity_state, payment_state, prior_responses)` captured per response per `1K.4` versioning.
+- **One engine, all entry moments.** Onboarding intake, progressive intake (`1K.6`), provider-triggered follow-ups, system-triggered check-ins all consume the **same** resolver + write API. No "intake v2" engine for follow-ups.
+
+**What the engine does NOT do:**
+
+- Does not decide who reviews the case (that's `Section 1G.7` provider routing reading from intake outputs + payment + identity + lab status + jurisdiction).
+- Does not create `care_program` as an automatic side effect (care_program lifecycle is canonical per `Section 1G`; intake contributes to creation/update, never owns it).
+- Does not run safety asserts itself (those live in `1G.2` and run at the same server path as therapy authorization, reading from chart + observations + labs).
+- Does not extract data from uploaded documents (extraction is assistive per `Section 1G` AI / `Section 1N`; intake captures, `Section 1O` routes, extraction runs as a separate job).
+- Does not own patient-facing notification copy (templates per `1L.15` discipline, send policy per `1G.3`).
+
+**Resolver structure (composable; no nested-switch sprawl):**
+
+- **Eligibility predicates** — small, named, pure functions (e.g., `isJurisdictionEligibleForPathway`, `hasFreshAllergyAnswer`, `isIdentityVerifiedAtL3`, `isPaymentMethodOnFile`). Composable; testable; reusable across pathways.
+- **Step requirement declarations** — each step in the question bank declares its **prerequisites** (predicates that must be true to ask) and its **postconditions** (predicates that should become true after the answer is captured). Resolver computes "next required" by walking the topological order of unmet prerequisites.
+- **Pathway templates** — each pathway is a **declarative composition** of modules + ordering hints + per-pathway override rules. The resolver does not contain pathway-specific code; it contains pathway-specific **data** consumed by a single resolver function.
+- **Decision tables for high-fanout safety logic** — for cases like `jurisdiction × pathway × medication-class × dose`, use **declarative decision tables** (CSV-like data files in repo) rather than nested if/else. Same governance, much more readable, easier to audit.
+- **Predicate-extraction rule:** any predicate used in 2+ pathways MUST be extracted to a shared module. Copy-paste of similar branching is rejected in code review.
+- **Resolver test harness (CI requirement):** every pathway has a suite of "given these inputs → expected next step" tests; CI runs them on every change. Without this, the resolver becomes a pile of "trust me" logic. Tests must include the safety-block, reuse-skip, and concurrent-session edge cases.
+
+**Performance pattern (server-of-truth, optimistic mini-batches on the client):**
+
+- Pure server-side resolver consulted on every "next" click would feel sluggish. The fix: resolver returns a **planned mini-batch** of the next 3–5 candidate steps + the contingency tree, not just one step.
+- Client renders the next 3–5 questions optimistically and only re-consults the server on:
+  - **branch divergence** (an answer changes the predicted next step),
+  - **eligibility events** (state, identity, payment status changes),
+  - **every N answers** for a sanity check.
+- Server stays the source of truth; UX feels instant.
+- Resolver bundle to the client is **only the active pathway's question subset** (lazy-loaded), not the whole question bank. Question bank streams in mini-batches per module.
+- **Performance target (hard rule):** P95 question-to-question UX latency ≤ 250ms perceived. If the engine architecture cannot meet this, the architecture is wrong, not the network.
+
+**Failure-mode hardening (idempotency, durability, transaction boundaries):**
+
+- **Answer submission idempotency** keyed on `(session_id, question_id, question_version, client_idempotency_key)`. Network retries and double-submits are no-ops.
+- **Durability before "success":** the patient never sees a "success" UI for a clinically-relevant write until the response row is durably persisted **AND** the downstream domain API call has either succeeded or been durably enqueued for retry. Per Intent: "failed audit / capability audit = block, not log-only silence."
+- **Cross-domain write failures:** if the response row writes successfully but the downstream domain API call fails durably, the response row is flagged `domain_write_failed` with reason; surfaces in ops triage queue per `1L.18` enforcement-summary discipline; user-visible state reflects the unresolved condition.
+- **Analytics event failures are non-blocking:** retry the event; never block clinical flow on analytics.
+- **Session state corruption detection:** session row carries a `state_hash` computed from response history; on resume, hash is re-derived and compared; mismatch → session marked `corrupted` and a recovery flow re-derives state from response history (responses are durable; session state is reconstructable).
+- **Network-drop mid-answer:** client retries with idempotency key; on resume, resolver returns "you were on question X" with last-saved state; never lose an answered question.
+
+**Internal editing discipline (no production-edit admin UI for clinical content):**
+
+- **No production-edit admin UI for clinical content.** Editing wording, branching, mapping, safety, or scoring is a **PR** — period. Same governance as `Capability` and `1H.6.1E` classifications.
+- **Read-only admin UI** for inspection: view active version, browse question bank, view past versions, simulate resolver responses for given inputs. For ops/clinical to **understand** the system, not edit it.
+- **Preview environment** for clinical/product to see proposed changes via PR preview deploys. Reviewers approve in PR; no separate approval workflow.
+- **Editorial workflow lives in PR review.** Clinical reviewer is a required reviewer (CODEOWNERS) for any change to safety logic, contraindication branches, or scoring per `1J.10d` discipline.
+- **Wording-only changes are fast** because they're tiny PRs with auditable diffs; reviewer approves in minutes.
+- **Narrow CMS exception (acceptable):** non-clinical interstitial copy (education, trust messages) and patient-facing notification template wording per `1L.15` discipline MAY have a CMS-style admin UI with version capture + audit. **Anything that could change which questions a patient sees or which safety asserts fire goes through PR. No exceptions.**
 
 ### 1K.1 Intent and scope (longitudinal-state framing)
 
 - **Intake is the entry point into a continuous care system**, not a session, form, checkout step, or one-time interaction. It initializes — and continues to write into — a **persistent, time-aware patient state** that messaging, provider workflows, system check-ins, and longitudinal care loops continue to read and append to.
 - **One intake spine, many entry moments:** the same module/question/version + audit discipline (`1K.4`) applies whether the input is captured at onboarding, during a provider-triggered follow-up, or during a system-triggered check-in (per `1K.6`). Subsequent entry moments **re-enter at the relevant module layer** (per `1K.3`); they do **not** restart intake.
-- **Intake writes into the right domain** (per the Layer 1 data architecture rule in Intent): static clinical memory → existing chart spine (`patients` chart fields, `1J.10` snapshot reads); **trackable measurements** → `patient_state_observations` per **Section 1M** (append-only, controlled vocabulary, source-tagged); labs → `patient_lab_observations` per Section 1L; provider decisions → `clinical_visits`; narrative milestones → `patient_timeline_events` (pointers only, never authoritative values); accountability → `audit_events`. Intake never overloads `patient_timeline_events` with longitudinal data.
+- **Intake writes into the right domain** (per the Layer 1 data architecture rule in Intent): static clinical memory → existing chart spine (`patients` chart fields, `1J.10` snapshot reads); **trackable measurements** → `patient_state_observations` per **Section 1M** (append-only, controlled vocabulary, source-tagged); labs → `patient_lab_observations` per Section 1L; provider decisions → `clinical_visits`; narrative milestones → `patient_timeline_events` (pointers only, never authoritative values); accountability → `audit_events`; **uploaded supporting documents** (lab PDFs, IDs, insurance cards, medication photos, clinical media, prior medical records) → `patient_document_routing` manifest + the targeted domain row per **Section 1O** (intake never stores files or domain artifacts). Intake never overloads `patient_timeline_events` with longitudinal data.
 - **Belongs in intake:** module engine, question bank (`1K.4`), eligibility gates, safety/contraindication modules, lab requirement modules, identity verification gates, intake-time payment authorization, the submission packet to provider review (`1K.12`), the **first writes** to chart memory and `patient_state_observations`.
 - **Belongs elsewhere:**
   - Product-plan presentation (recommendation candidate) → `1K.10`, surfaced to patient as provisional only.
@@ -2710,6 +2785,21 @@ Each module must declare: `module_id`, `module_version`, `kind` (clinical | non-
 - **Retirement / deprecation:** questions can be retired; retired questions remain readable for historical reconstruction but cannot be added to new modules.
 - **Auditability:** for every session, the system can reconstruct **exactly which question_version was shown, in which module_version, with what branching context, and what the patient answered**. Stored on `audit_events` + `intake_response` (additive concept; see `1K.14`).
 
+**Mandatory version capture on every write (defensive default):**
+
+- Every `intake_response` row written by the resolver MUST carry, at minimum: `question_id`, `question_version`, `module_id`, `module_version`, `engine_version` (semver of the resolver), `branch_path_token` (deterministic hash of the question path that produced this answer, per `1K.4`), `entry_moment` (`onboarding | follow_up | check_in | provider_request`, per `1K.6`), `pathway_id` (which care_program/treatment composition this is feeding), `submitted_at`, `actor_user_id`.
+- **Versions are required at write-time, not derived later.** The resolver fails closed if any of these are missing — the write API rejects the row. This makes "what did the patient see when they answered Q14?" reconstructable from `intake_response` alone, without joining live module config (which may have moved on).
+- `branch_path_token` is the canonical way to compare "did patient A see the same path as patient B?" without serializing the entire decision tree per row.
+
+**Hotfix migration discipline (adverse-event response):**
+
+- When clinical operations declares a hotfix (e.g., "we missed pregnancy screening on this pathway"), the workflow is:
+  1. PR adds the missing question/branch with a new `question_id` and bumps `module_version` (per `1K.4`).
+  2. PR adds a one-shot **backfill check-in** (per `1K.6` progressive intake) that targets all in-flight patients on the affected pathway whose `module_version` is below the new threshold AND whose case is in a state where the answer still matters (e.g., not yet shipped, not yet completed).
+  3. The backfill check-in is delivered through normal messaging (`clinical_required` per Section 1G), captures the answer through the same resolver + write API, and writes to `patient_state_observations` / chart fields exactly like onboarding intake would have.
+  4. Patients whose case has already moved past the gate where the answer would have changed the decision are routed to provider re-review (a queue item per `1G.7`), with the gap and reason captured in `audit_events`.
+- **Never retro-write answers patients didn't give.** A backfill is a re-prompt, not an inferred value. If the patient doesn't respond within SLA, the case enters the standard exception flow (`1G.5`), not a "best-guess fill."
+
 ### 1K.5 Answer reuse, freshness, and re-prompting policy
 
 - **Reuse principle:** a global health-history answer (e.g., known drug allergies) can be **silently reused** in subsequent sessions when valid; the patient sees a "confirm / update" affordance for clinical safety.
@@ -2755,6 +2845,13 @@ Additional structured inputs are collected after onboarding via two existing mec
 - **Provider-triggered follow-ups:** provider raises a `clinical_required` turn per `Section 1G` with a structured-input attachment ("Your care team needs a bit more information") referencing one or more `question_id`s from the question bank; patient response writes through the same response model (`1K.5`/`1K.14` for static; `Section 1M` for trackables) and clears the `clinical_required` turn per `1G` rules.
 - **Hard rule:** all post-onboarding inputs follow the **same data model**, write to the **same domain tables** (chart, `patient_state_observations`, `intake_response`), and respect the same versioning, reuse, freshness, ownership, and audit rules. **No separate "intake extension" record type or product.** Provider-triggered follow-ups never overwrite patient-authored values; corrections per `1K.5` ownership matrix and `1M.4` append-superseding-row rule.
 
+**Provider-side authoring of follow-up prompts (no ad-hoc forms):**
+
+- When a provider raises a `clinical_required` turn that needs a structured patient response (per `Section 1G`), the provider does **not** type a freeform question into chat. The provider workspace surfaces a **picker over the same question bank** (`1K.4`) plus a small set of approved short-form trackable prompts (e.g., "rate side effect 0–10", "current weight"). The provider selects one or more `question_id`s; the resolver builds the prompt and ships it through messaging.
+- The patient's response writes through the same resolver + write API into `intake_response` and/or `patient_state_observations`, with full version capture (per `1K.4` mandatory version capture rule), the same code-as-config branching (no new branches invented at runtime), and the same data ownership matrix (`1K.5`).
+- **The only freeform option is plain message text** (clinical conversation, not a structured input). If the provider needs a question that doesn't exist in the bank, that's a content gap → goes through PR (per `1K.0` internal editing discipline), not a hand-typed form.
+- **Why:** prevents provider-by-provider question drift, prevents structured patient answers from accumulating in messages instead of the chart, and preserves intake's reconstruct-everything-from-versions guarantee for follow-up data.
+
 ### 1K.7 Clinical safety and contraindication screening
 
 Deterministic safety gates exist at intake-time so the patient is screened **before** they reach provider review for an obviously ineligible request.
@@ -2772,6 +2869,14 @@ Deterministic safety gates exist at intake-time so the patient is screened **bef
   - Soft flags are surfaced as `intake_safety_flag` payloads (severity, source question_version, module_version) for provider review.
 - **Lab prerequisites:** when a pathway requires labs (e.g., baseline TRT panel), the intake engine routes the patient into the lab module (`1K.8`) rather than presenting a Rx product candidate that cannot be approved.
 - **Hard rule:** safety screening at intake **does not replace** `1G.2` active safety enforcement at decision time — it is a deterministic pre-screen so that obviously ineligible patients are blocked early and provider time is preserved.
+
+**Engine-version pin and re-evaluation policy (no silent re-decisions on upgrade):**
+
+- The resolver tags each in-flight session with the `engine_version` and `safety_ruleset_version` it was started under (per `1K.4` mandatory version capture). When the engine upgrades mid-session:
+  - **Hard gates** (state, age, sex, absolute contraindications) are **always re-evaluated** under the **latest** ruleset on every server roundtrip. If a new gate fires that the patient previously passed, the session pauses and routes to provider review (or hard-blocks per code), with `audit_events` capturing both old and new ruleset versions and the reason for the change. **Patient safety wins; pinning never overrides a new hard block.**
+  - **Soft flags and scoring** are computed under the **session-pinned** ruleset for the duration of the session, then re-evaluated under the latest ruleset at the next entry moment (per `1K.6` progressive intake) or at provider review (provider sees both: "computed under v1.4.2; current ruleset is v1.5.0; deltas: …"). This avoids spooky changes to scoring mid-flow while still surfacing drift to the provider.
+  - **Already-submitted cases** (in provider review queue) are **never** silently re-decided by an engine upgrade. The provider sees the case under the ruleset it was submitted under, plus a banner if the current ruleset would now fire a new hard block — in which case the case is rerouted (per `1G.7` and `1G.5` exception handling), not auto-rejected.
+- Same discipline applies to `score_version` and `triage_class_version` (per `1H.6.1E`): pinned at session start for stability, re-evaluated at next entry moment or provider review, never silently re-decided on already-submitted cases.
 
 ### 1K.8 Labs and at-home test kit flows
 
@@ -2910,7 +3015,26 @@ Be explicit about exists / partial / target / non-optional. Prefer reusing exist
 
 ### 1K.17 Cross-links
 
-**Intent** (jurisdiction-of-care, audit, service-role discipline, **Layer 1 data architecture discipline**), **1D / 1D.1** (capabilities including future `can_view_intake_session` / `can_view_intake_submission` / `can_manual_record_state_observation` if added), **Section 1E** (commerce/catalog used by `treatment_plan_candidate`), **Section 1F** (scheduled visits when intake routes to live encounter), **Section 1G** (case ownership, permits, AI assist, exception handling for intake stalls; `clinical_required` is the messaging spine for provider-triggered follow-ups per `1K.6`), **1G.4 / 1G.4.1** (jurisdiction routing + multi-state runtime), **1G.5** (exception classification), **1G.6 / 1G.7 / 1G.8** (provider workspace + routing where intake submissions land), **1G.9** (continuity preferences after first prescribing decision), **Section 1H** (analytics/funnel), **1H.4 / 1H.4.1 / 1H.4.2** (acquisition + growth surface; pre-account funnel boundary), **1H.6 / 1H.7** (intake-related metrics + reporting; trackable trends queried from `Section 1M`, not timeline payload scans), **Section 1I / 1I.1 / 1I.2 / 1I.4 / 1I.7** (kit fee, if-prescribed authorization, subscription terms, refunds/disputes), **Section 1J / 1J.1 / 1J.4 / 1J.10 / 1J.11** (identity precedence/confidence, safety preflight, fraud/abuse; static chart memory boundary), **Section 1L** (diagnostics + lab testing — order, result, review, retest; vendor-issued labs stay in `patient_lab_observations`), **Section 1M** (longitudinal trackables — `patient_state_observations` is the v1 dedicated store for living, time-aware patient signals; intake writes the first row, progressive intake appends), **Section 1N** (AI assistive layer for packet summarization + trend interpretation; never writes to `patient_state_observations`).
+**Intent** (jurisdiction-of-care, audit, service-role discipline, **Layer 1 data architecture discipline**), **1D / 1D.1** (capabilities including future `can_view_intake_session` / `can_view_intake_submission` / `can_manual_record_state_observation` if added), **Section 1E** (commerce/catalog used by `treatment_plan_candidate`), **Section 1F** (scheduled visits when intake routes to live encounter), **Section 1G** (case ownership, permits, AI assist, exception handling for intake stalls; `clinical_required` is the messaging spine for provider-triggered follow-ups per `1K.6`), **1G.4 / 1G.4.1** (jurisdiction routing + multi-state runtime), **1G.5** (exception classification), **1G.6 / 1G.7 / 1G.8** (provider workspace + routing where intake submissions land), **1G.9** (continuity preferences after first prescribing decision), **Section 1H** (analytics/funnel), **1H.4 / 1H.4.1 / 1H.4.2** (acquisition + growth surface; pre-account funnel boundary), **1H.6 / 1H.7** (intake-related metrics + reporting; trackable trends queried from `Section 1M`, not timeline payload scans), **Section 1I / 1I.1 / 1I.2 / 1I.4 / 1I.7** (kit fee, if-prescribed authorization, subscription terms, refunds/disputes), **Section 1J / 1J.1 / 1J.4 / 1J.10 / 1J.11** (identity precedence/confidence, safety preflight, fraud/abuse; static chart memory boundary), **Section 1L** (diagnostics + lab testing — order, result, review, retest; vendor-issued labs stay in `patient_lab_observations`; intake creates lab orders via `Section 1L` Scenario A path, never directly), **Section 1M** (longitudinal trackables — `patient_state_observations` is the v1 dedicated store for living, time-aware patient signals; intake writes the first row via `recordPatientStateObservation` per `1K.0`, progressive intake appends), **Section 1N** (AI assistive layer for packet summarization + trend interpretation; never writes to `patient_state_observations`), **Section 1O** (patient document & attachment routing — intake-captured uploads route through `routePatientDocument` per `1K.0` to the `patient_document_routing` manifest; intake never stores files or duplicates domain data), **Intent — Layer 1 clinical content discipline** (clinical content is code-as-config in repo; DB-config for clinical content is an architectural anti-pattern; `1K.0` engine MUST follow this rule).
+
+### 1K.18 Out-of-scope guardrails (what intake will not become)
+
+These are explicit non-goals so the intake architecture doesn't drift into the surrounding systems it depends on. Each one has a "right home" elsewhere; intake **integrates with** these, it does not **become** them.
+
+- **Intake is not a CMS.** Clinical content (questions, branches, safety logic, scoring, mappings, triage) is **code-as-config** per `1K.0` and the Intent Layer 1 clinical-content discipline. There is no production-edit admin UI for clinical content; editing is a PR (per `1K.0` internal editing discipline). The narrow CMS exception is non-clinical interstitial copy and patient-facing notification template wording per `1L.15` — and those still cannot change which questions a patient sees or which safety asserts fire.
+- **Intake is not a clinical decision-maker.** Intake screens and pre-routes per `1K.7`; it does not diagnose, prescribe, or set `reviewed_at` on labs. Provider remains the decision-maker (`Section 1G`, `1J.10d`); scoring (`1K.9`) and `treatment_plan_candidate` (`1K.10`) are provisional inputs to provider review, never approvals.
+- **Intake is not the chart.** Intake initializes and updates chart fields via the same domain APIs as everything else (`1J / 1J.10`); it does not own a parallel chart or a parallel allergy/condition/medication list. Static clinical memory lives on `patients` chart fields per the Layer 1 rule.
+- **Intake is not the trackables store.** Longitudinal measurements live in `patient_state_observations` per `Section 1M`. Intake is one of several writers (alongside provider workspace, system check-ins, integrated devices in future). Intake does not invent a parallel time series.
+- **Intake is not the lab system.** Lab orders, vendor results, retest loops, and result interpretation live in `Section 1L`. Intake creates lab orders only via `Section 1L` Scenario A; intake does not store lab values, render lab result detail, or own the result-review UX.
+- **Intake is not the messaging system.** Patient ↔ care team conversation lives in `Section 1G` (`messages`, `message_thread`). Intake delivers prompts and consumes structured replies, but threaded conversation, `clinical_required` lifecycle, ops/staff routing, and AI message-assist all live in 1G.
+- **Intake is not the orders/payments system.** Subscription terms, charges, captures, refunds, and disputes live in `Section 1I`. Intake captures consent + authorization terms (per `1K.11`) and emits to 1I; it does not maintain its own ledger or its own refund logic.
+- **Intake is not the AI layer.** Pattern recognition, packet summarization, and trend interpretation live in `Section 1N` and write to `patient_chart_ai_reviews` (or equivalent) — never to `patient_state_observations`, `intake_response`, `chart fields`, or `clinical_visits`. The intake resolver is **deterministic**: same inputs → same outputs, replayable per `1K.0`. AI is invoked outside the resolver, on the staff side.
+- **Intake is not a behavioral coaching surface.** Patient-facing education, lifestyle nudges, content drips, and adherence coaching live in product surfaces (some inside `Section 1G` messaging, some in patient-app modules) and operate over the trackable signal in `Section 1M`. Intake captures the measurement; it does not own the longitudinal coaching loop.
+- **Intake is not an analytics warehouse.** Funnel, retention, and operational metrics live in `Section 1H` and read from domain tables (per the Layer 1 rule), not from intake-internal payloads or timeline payload scans. Intake exposes the structured rows; reporting consumes them.
+- **Intake is not a marketing personalization engine.** Pre-account marketing/quiz funnels (per `1H.4.1 / 1H.4.2`) are explicitly **outside** the authenticated intake spine; they cross into intake only after account creation and identity confidence per `1J.4`. Intake does not read marketing attribution data to alter clinical questions.
+- **Intake is not a vendor integration layer.** Eligibility checks against external services (e.g., insurance verification, PDMP lookups), pharmacy submission, fulfillment, shipping, lab vendor APIs all live in their respective sections (`Section 1L` lab vendors, future fulfillment section, etc.); intake calls these via existing service interfaces, not by absorbing their logic.
+
+**Acceptance test for any future "could intake do this?" proposal:** if the answer requires intake to (a) own a new domain concept, (b) duplicate a value already authoritative on a domain table, (c) introduce a clinical-content admin UI, (d) make an autonomous clinical decision, or (e) embed AI in the resolver — the answer is **no**, and the proposal belongs in the right adjacent section. Intake stays small on purpose so the rest of the system can be trusted as the source of truth.
 
 ---
 
@@ -3095,6 +3219,8 @@ Every top-level `lab_orders.status` transition has a **defined actor** and a **d
 ### 1L.5 Diagnostic report → lab_order binding rules
 
 `patient_diagnostic_reports.lab_order_id` may be **null** at ingest (orphan path). Once linked, the binding is **immutable** except via privileged correction with audit per `1J.10` rules.
+
+**Patient-uploaded lab documents (via `Section 1O`):** when a lab arrives via `Section 1O` patient upload (`input_type ∈ lab_document | prior_lab_report`), it lands in `patient_diagnostic_reports` and follows the same orphan-binding workflow defined below (priority 1: vendor_order_id match → priority 2: patient + panel + date window → priority 3: manual reconciliation queue). The `Section 1O` manifest carries `domain_target = patient_diagnostic_reports` + `source_object_id = <new report id>`; the report row carries `metadata.origin = patient_uploaded_via_1O`.
 
 **Binding priority (deterministic; tried in order):**
 
@@ -4200,6 +4326,212 @@ Required columns (final names per repo conventions during implementation; field 
 ### 1M.9 Cross-links
 
 `Section 1J` (chart memory boundary), `1J.9` (authority discipline), `1J.10` (safety preflight reads `patient_state_observations` when continuation depends on it), `Section 1G` (provider workspace, messaging follow-ups), `1G.5` exception classification (abnormal trackable trend triggering exception), `1G.8.7` (provider lab/state review drawer), `Section 1H` (metrics + reporting), `1H.6.1D` (severity/baseline framework reused for trackable trend interpretation), `1H.7.2` (safe reporting dimensions), `Section 1K` (intake writes pathway trackables here), `1K.4` (question bank vocabulary controls `field_name`), `1K.5` (storage discipline complement), `1K.6` (progressive intake re-uses the same write path), `1K.14` (schema discipline; `patient_state_observations` is the v1 dedicated table for trackables), `Section 1L` (lab observations vs patient-state observations boundary), `1L.16` (continuation gating reads patient-reported trackables alongside lab values), `Section 1N` (AI assistive reads — never authority, never writes), `Section 1I` (no overlap; financial state stays in 1I), `outbound_jobs` (no overlap; sends stay in outbound_jobs), `audit_events`, `patient_timeline_events`.
+
+---
+
+## Section 1O: Patient Document & Attachment Routing (capture → classify → route; first-class)
+
+*Foundation status:* `Section 1O` is the **document routing layer** — a first-class foundation alongside `Section 1L` (labs) and `Section 1M` (state observations). It owns capture, classification, and routing of supporting artifacts (lab PDFs, IDs, insurance cards, medication photos, clinical media, prior medical records) to the **right domain table**. **It is not a generic file system, not a parallel document store, and not a replacement for any domain table.** Files live in object storage; the routing manifest lives on `patient_document_routing`; actual artifact data lives on the domain row (lab → `patient_diagnostic_reports`, ID → identity-verification table, insurance → insurance-eligibility table, medication/clinical-media/medical-records → external clinical document table). Extraction (OCR, lab parsing) is **out of scope here** — `Section 1O` handles capture/classify/route only; extraction lives in assistive jobs governed by Section 1G AI and `Section 1N`.
+
+### 1O.1 Purpose and scope
+
+`Section 1O` defines a **routing manifest** (`patient_document_routing`) and the **capture → classify → route** contract that all supporting artifacts follow regardless of where they enter. The same contract applies whether a document arrives via intake (`Section 1K`), a message (`Section 1G`), an action item, ops manual upload, or a partner integration. The manifest is **thin**: it records what was captured, what type it is, and where the actual artifact landed in its domain table. It does **not** duplicate domain data, store extracted contents, or replace domain tables.
+
+**Belongs in `Section 1O`:** capture surface contract, input-type vocabulary, domain routing matrix, routing manifest schema, storage discipline, hard rules, capture-surface contracts, reclassification + ownership, provider/system usage, HIPAA/privacy guardrails, timeline integration, reporting.
+
+**Belongs elsewhere:** actual lab data → `patient_diagnostic_reports` + `patient_lab_observations` per `Section 1L`; identity-verification fields → identity-verification table per `1J / 1J.4` (minimal target shape defined in `1O.4` for routing only); insurance-eligibility fields → insurance-eligibility table (minimal target shape defined in `1O.4` for routing only); medication / clinical media / general medical records → external clinical document table; extraction (OCR, lab parsing, ID OCR) → assistive jobs per Section 1G AI + `Section 1N`; conversation transcripts → `messages` per `Section 1G`; longitudinal trackables (e.g., a weight value) → `patient_state_observations` per `Section 1M` even when arriving via document upload.
+
+### 1O.2 Capture surfaces (entry points)
+
+All capture surfaces use the **same routing API** (`routePatientDocument`, per `1O.5` mutation discipline). Surfaces differ only in how the user presents the upload affordance and what `capture_surface` value the manifest records.
+
+- **Intake (`Section 1K`):** intake modules may include attachment inputs alongside structured questions. Intake hands the upload to the routing API; intake stores **only** `patient_document_routing.id` references in its session metadata, never the file. `capture_surface = intake`.
+- **Messaging (`Section 1G`):** patient/provider message attachments route through `Section 1O`; the `messages` row carries a thin reference (`patient_document_routing.id`) — not the file blob. `capture_surface = messaging`.
+- **Action items (patient portal):** ops requests like "please upload your insurance card" route the response through `Section 1O`; the action item closes when the manifest reaches its terminal verified status (per `1O.5`). `capture_surface = action_item`.
+- **Ops manual upload:** ops staff uploading a faxed lab/record use the same routing API with capability + audit; never bypass into raw domain writes. `capture_surface = ops_manual_upload`.
+- **Partner integrations:** partner-returned artifacts (e.g., insurance verification API returning a card image) route through `Section 1O` with the partner-source id retained. `capture_surface = partner_integration`.
+
+### 1O.3 Input-type vocabulary (controlled enum; org-extensible only via map/repo review)
+
+Every captured artifact carries a typed `input_type` from this controlled vocabulary. New types are added through map/repo review (same governance as `Capability`, `1H.6.1E` classifications, and `1L.6` mappings) — never invented per upload.
+
+**v1 enum:**
+
+- **Diagnostics / labs:** `lab_document` (vendor lab PDF/image), `prior_lab_report` (patient-uploaded historical lab), `lab_intent_to_order` (patient-stated intent flag — no file), `lab_completion_evidence` (kit return confirmation, requisition pickup confirmation).
+- **Identity verification:** `government_id_front`, `government_id_back`, `drivers_license_front`, `drivers_license_back`, `selfie_face_verification`.
+- **Insurance:** `insurance_card_front`, `insurance_card_back`, `payer_eligibility_document`.
+- **Medication / supplement evidence:** `current_medication_photo`, `supplement_stack_photo`.
+- **Clinical / symptom media:** `clinical_media_photo` (with subtype hint in metadata: `hair`, `skin`, `body_composition`, etc.).
+- **General medical records:** `general_medical_record` (PDFs of prior visits, prior lab panels, outside reports).
+- **Miscellaneous (explicit; not silent):** `unclassified_pending_review` — used when the user uploaded something the surface couldn't classify; routes to ops triage queue per `1O.9`. **Never** used to silently dump unrouted files.
+
+**Hard rule:** the `unclassified_pending_review` bucket exists only as a triage entry point. It is **not** a permanent destination — every `unclassified_pending_review` row must be reclassified by ops within an org-policy SLA (per `1O.13` reporting + `1G.5` exception when sustained).
+
+### 1O.4 Domain routing matrix
+
+For each `input_type`, the routing layer creates the appropriate domain row and stores the file in object storage. The manifest carries `domain_target` + `source_object_id` pointing to the domain row.
+
+| `input_type` | `domain_target` | Domain action | Notes |
+|---|---|---|---|
+| `lab_document` | `patient_diagnostic_reports` | Insert report row per appendix §11; orphan-binding rules per `1L.5` apply when no `lab_order_id` is known | Extraction (PDF parse → `patient_lab_observations`) is a **separate** assistive job per Section 1G AI / `Section 1N` |
+| `prior_lab_report` | `patient_diagnostic_reports` | Same as `lab_document` with `metadata.origin = patient_uploaded_historical` | Treated as patient-uploaded reference; never displaces vendor-issued labs |
+| `lab_intent_to_order` | `patient_state_observations` (event-shaped) **or** `intake_response` | Records patient's stated intent — no file; structured signal only | Not an order; downstream lab ordering follows `Section 1L` |
+| `lab_completion_evidence` | `patient_diagnostic_reports.metadata` (or `lab_orders.metadata.kit_logistics` when applicable per `1L.23`) | Marks completion confirmation evidence | Logistics evidence routes per `1L.23` |
+| `government_id_front` / `government_id_back` / `drivers_license_front` / `drivers_license_back` | identity-verification table (per `1J / 1J.4`; minimal target shape per `1O.4.1` below) | Insert identity-document row referencing the file in object storage | Verification status writes back to `patients.identity_confidence` per `1J.4` |
+| `selfie_face_verification` | identity-verification table (per `1J / 1J.4`; same as IDs) | Insert face-verification row | Pair with `government_id_*` for L4 confidence per `1J.4` |
+| `insurance_card_front` / `insurance_card_back` / `payer_eligibility_document` | insurance-eligibility table (minimal target shape per `1O.4.2` below) | Insert insurance-eligibility row referencing the file | Even when v1 doesn't run eligibility checks, the routing target exists |
+| `current_medication_photo` / `supplement_stack_photo` | external clinical document table (per existing chart upload pattern) | Insert chart document with `kind = medication_evidence` / `supplement_evidence` | May feed assistive extraction into chart medication list per Section 1G AI; never authoritative without provider review |
+| `clinical_media_photo` | external clinical document table | Insert chart document with `kind = clinical_media` and subtype in metadata (`hair`, `skin`, `body_composition`, etc.) | Provider sees in chart context with sensitivity flag per `1O.11` |
+| `general_medical_record` | external clinical document table | Insert chart document with `kind = external_medical_record` | Optional structured extraction is a separate assistive job |
+| `unclassified_pending_review` | none yet — manifest only | Triage queue for ops reclassification per `1O.9` | Not a permanent state |
+
+**`1O.4.1` Minimal identity-verification target (routing-only; not full identity domain design):** a row keyed `(patient_id, document_kind, document_side)` with `id`, `patient_id`, `document_kind` (`government_id`, `drivers_license`, `selfie`), `document_side` (`front`, `back`, `n/a`), `storage_path`, `verification_status` (`pending`, `verified`, `rejected`, `expired`), `verified_by_staff_id` (nullable), `verified_at` (nullable), `expires_at` (nullable), `metadata`. Fuller identity-domain design is deferred to future `1J.x`; this shape is enough for `Section 1O` to route correctly and for `1J.4` confidence to read.
+
+**`1O.4.2` Minimal insurance-eligibility target (routing-only; not full insurance domain design):** a row keyed `(patient_id, payer_id, plan_id_when_known)` with `id`, `patient_id`, `payer_name` (string; payer_id is future), `plan_id` (nullable), `member_id` (nullable; PHI), `card_front_storage_path`, `card_back_storage_path`, `eligibility_status` (`uploaded`, `pending_verification`, `verified`, `rejected`, `expired`), `verified_at` (nullable), `metadata`. Fuller insurance-domain design (eligibility checks, claims, prior auth) is deferred to a future section; this shape is enough for `Section 1O` to route correctly.
+
+### 1O.5 Routing manifest schema (`patient_document_routing`; thin manifest, append-only)
+
+The routing manifest is a thin record of capture, classification, and routing — it does **not** store the file or the domain data.
+
+**Required columns:**
+
+- `id` — UUID, app-generated.
+- `patient_id` — FK to `patients`; required.
+- `input_type` — enum from `1O.3` vocabulary; required.
+- `domain_target` — enum naming the destination domain (`patient_diagnostic_reports`, `identity_verification`, `insurance_eligibility`, `external_clinical_document`, `none_pending_triage`); required.
+- `source_object_id` — id of the created domain row (nullable for `unclassified_pending_review` and for failed routing).
+- `capture_surface` — enum from `1O.2` (`intake`, `messaging`, `action_item`, `ops_manual_upload`, `partner_integration`); required.
+- `capture_source_id` — string referencing the originating context (`intake_session_id`, `message_id`, `action_item_id`, `outbound_jobs.id` for partner integrations, etc.); required when applicable.
+- `capture_source_module_id` — string; the specific module/prompt within intake or action-item flow that asked for the upload; nullable when not applicable.
+- `storage_path` — string; the object-storage path for the file; nullable for non-file routings (e.g., `lab_intent_to_order`).
+- `mime_type` — string; nullable when no file.
+- `size_bytes` — integer; nullable when no file.
+- `status` — enum: `captured`, `routed`, `verified`, `failed`, `reclassified`, `superseded`. Required.
+- `failure_reason` — string; required when `status = failed`; controlled vocabulary.
+- `uploaded_by` — enum: `patient`, `staff`, `system`, `partner`; required.
+- `uploaded_by_staff_id` — FK to `staff_profiles`; required when `uploaded_by = staff`.
+- `uploaded_at` — timestamp; required.
+- `routed_at` — timestamp; set when `status` reaches `routed` (domain row created).
+- `verified_at` — timestamp; set when domain-side verification completes (e.g., ID verified, insurance eligibility confirmed); nullable for input types that don't require verification.
+- `supersedes_routing_id` — FK to same table; nullable; set on reclassification per `1O.9`.
+- `superseded_by_routing_id` — FK to same table; nullable; back-reference set when a later row supersedes this one.
+- `correction_reason` — string; required when `supersedes_routing_id` is set; controlled vocabulary per `1O.9`.
+- `metadata` — JSON; for partner-specific provenance, subtype hints (e.g., `clinical_media_photo` subtype = `hair`), retention policy hints, sensitivity flags.
+
+**Indexes:**
+
+- `(patient_id, input_type, uploaded_at DESC)` — patient-scoped retrieval by type.
+- `(domain_target, source_object_id)` — back-reference from a domain row to its routing manifest.
+- `(capture_surface, capture_source_id)` — provenance lookups (e.g., "all docs uploaded in this intake session").
+- `(status, uploaded_at DESC)` — triage queues for `unclassified_pending_review` and `failed`.
+
+### 1O.6 Storage discipline
+
+- Files live in **object storage** (Supabase Storage or equivalent); the manifest carries `storage_path` only.
+- **No PHI in object keys, paths, or filenames.** Object paths use opaque ids (e.g., `documents/<routing_id>/<file_uuid>.<ext>`); never patient names, DOB, or other identifying detail.
+- **Encryption at rest** per platform default; **signed URLs** for time-limited access.
+- **Files are never inlined as base64 in `intake_response`, `messages`, or `patient_timeline_events` payloads.** Same discipline as Lab Appendix `source_attachment_path`.
+- **MIME validation** at upload to reject obviously unsafe types; further classification (e.g., is this actually a lab PDF or actually a photo of a license) is human-verified per `1O.9`.
+
+### 1O.7 Hard rules (mandatory; runtime + CI enforced; mirrors `1L.18` / `1M.4`)
+
+- **No file storage in non-domain rows.** `intake_response`, `messages`, and `patient_timeline_events` may carry `patient_document_routing.id` references but **never** the file content, base64, or extracted text.
+- **All routing writes through a named server function** (e.g., `routePatientDocument`) with `requireCapability` + `audit_events` + (when patient-impacting) `patient_timeline_events` pointer per `1O.12`.
+- **Atomic capture + routing where possible.** On failure, the manifest carries `status = failed` with `failure_reason` from controlled vocabulary; no orphan files; no silent partial state. Retry uses a new manifest row with `supersedes_routing_id` pointing at the failed entry.
+- **Append-only on the manifest.** Reclassification appends a superseding row pointing at the prior `id` (per `1O.9`); the original row is never deleted or silently re-routed.
+- **No silent domain mutation outside the routing API.** Direct DB writes to identity-verification, insurance-eligibility, `patient_diagnostic_reports`, or external clinical document tables that bypass `routePatientDocument` are forbidden per `1L.18` #1 / Intent service-role discipline.
+- **PHI minimization in surfaces.** File names, captions, and previews surfaced in non-clinical contexts strip identifying detail; ID images and selfies render with stricter access per `1O.11`.
+- **No silent format coercion.** A document captured as a JPG is stored as a JPG; transformations (e.g., PDF rendering of an image) live in extraction jobs (out of scope per `1O.1`), not in the routing layer.
+
+### 1O.8 Capture-surface contract (per-surface clarifications)
+
+Each surface uses the same routing API but has surface-specific obligations:
+
+- **Intake (`Section 1K`):** modules with attachment inputs declare the expected `input_type` for each attachment slot (e.g., the "upload prior labs" prompt declares `prior_lab_report`). Patient may upload a different type — the routing layer accepts it (records the declared `input_type` plus the actual MIME) and surfaces any mismatch to ops triage per `1O.9`. Intake never stores files; only `patient_document_routing.id` references in session metadata per `1K.5`.
+- **Messaging (`Section 1G`):** patient/provider message attachments declare `input_type` based on context (e.g., a provider asking "send a photo of your current bottle" declares `current_medication_photo`). The `messages` row carries `patient_document_routing.id`; the file is **never** stored on the message row. Provider sees the document via the appropriate domain surface (lab review drawer for labs, identity drawer for IDs, chart for clinical media), not as a raw inline attachment in the thread.
+- **Action items:** ops requests carry `input_type` in the action-item definition (e.g., "please upload your insurance card front" declares `insurance_card_front`). The action item closes when the manifest reaches `status = verified` (or org-defined terminal state per type).
+- **Ops manual upload:** ops staff explicitly select `input_type` at upload time; capability + audit required; never silent. Used for faxed records, mailed documents, or partner data delivered out-of-band.
+- **Partner integrations:** partner adapter declares `input_type` per partner contract; partner-source id retained in `metadata.partner_source_id`; same idempotency discipline as `1L.14` / `1L.23.3`.
+
+### 1O.9 Reclassification + ownership (staff-only; no auto-routing)
+
+Real-world example: a patient uploads their driver's license to the "upload prior lab report" prompt. The routing layer does **not** auto-detect or auto-reclassify. The misroute is corrected by ops/clinical leadership through a structured path.
+
+- **Patient cannot reclassify.** Patient may re-upload to a different prompt; the original misrouted artifact stays until ops reclassifies it.
+- **System does not auto-reclassify.** No auto-detection acts on its own. v1 may **flag** suspected misuploads (e.g., a face image uploaded to a lab prompt) for ops triage, but takes **no automatic action**. Auto-reclassification is explicitly out of scope.
+- **Reclassification requires capability:** **`can_reclassify_patient_document`** (additive per `1D / 1D.1`); typical holders: `ops_admin`, clinical leadership per `Section 1G` Oversight, `compliance_auditor`.
+- **Reclassification mechanics:**
+  - Append a new manifest row with `supersedes_routing_id = <prior id>`, new `input_type`, new `domain_target`, and `correction_reason` from the controlled vocabulary below.
+  - Original manifest row transitions to `status = reclassified` (terminal per `1O.5`).
+  - **Original domain row is not silently deleted.** It is flagged on its own table per the `1L.5` privileged-correction discipline (e.g., orphan `patient_diagnostic_reports` row marked `voided_via_reclassification` with pointer to the new manifest); the new domain row is created via the normal domain-routing path.
+- **Allowed `correction_reason` values (controlled vocabulary):**
+  - `patient_misuploaded_to_wrong_prompt` — patient uploaded the wrong document type (the driver's-license-to-lab-prompt case).
+  - `staff_misclassified_at_capture` — ops staff selected the wrong `input_type` during manual upload.
+  - `partner_metadata_wrong` — partner integration delivered an artifact with the wrong declared type.
+  - `data_quality_remediation` — backfill of historical bad data.
+
+- **Audit + visibility:** every reclassification writes `audit_events` (actor, capability used, prior `input_type`, new `input_type`, prior `domain_target`, new `domain_target`, reason, prior + new manifest ids) and a `patient_timeline_events` pointer (`document.reclassified`) when the misroute had patient-facing impact (e.g., a stalled action item). Sustained reclassification rates surface in `1O.13` reporting + `1G.5` exception per `1H.6.1E` (typically `system_bug_or_defect` for adapter misclassification or `compliance_or_policy_change` for policy drift).
+
+- **Patient-facing communication on reclassification:** if the misroute affects a patient-visible step (e.g., "we still need your insurance card because the document you uploaded was not an insurance card"), an `1L.15`-style approved template fires through `1G.3` send policy. **Never internal jargon** (no "reclassified", no "wrong input_type", no internal codes).
+
+### 1O.10 Provider + system usage
+
+- **Provider review surfaces:**
+  - **Lab documents** surface in the lab review drawer (`1G.8.7`) via the `patient_diagnostic_reports` row; orphan-binding workflow per `1L.5` applies for patient-uploaded labs without a matching `lab_orders` row.
+  - **ID + selfie documents** surface in an identity drawer gated by clinical/compliance capability + `SensitiveAccessReason` per `1O.11`.
+  - **Insurance documents** surface in a billing/eligibility context gated by billing capability.
+  - **Medication / supplement / clinical media / general medical records** surface in the chart context per provider capability with sensitivity flags.
+- **System extraction (out of scope here, governed elsewhere):** documents with structured-data potential flow through assistive extraction jobs per Section 1G AI / `Section 1N`. Extraction is **assistive only** — never authoritative without human review. Extraction jobs read from `Section 1O` manifests and write structured data to the appropriate domain table (`patient_lab_observations` for labs per `1L.6`; identity fields for IDs; insurance metadata for cards). The routing layer does not perform extraction.
+- **Compliance gating:** prescribing and high-risk mutations consult `loadPatientCaseSafetySnapshot` per `1J.10`, which now reads ID-verification status from `Section 1O` (per `1J.4` confidence integration) for actions where ID verification is required.
+- **Fulfillment gating:** address + ID verification required before shipment per existing `Section 1L` / `Section 1G` fulfillment discipline; the gate reads `Section 1O` manifest status, not raw document presence.
+
+### 1O.11 HIPAA / privacy guardrails
+
+- **Access tiering by `input_type`:**
+  - **Strictest:** `government_id_*`, `drivers_license_*`, `selfie_face_verification` — access limited to compliance + identity-verification capabilities; broad reads write `SensitiveAccessReason` per Intent.
+  - **Strict:** `insurance_card_front`, `insurance_card_back`, `payer_eligibility_document`, `member_id` field — billing/eligibility roles only.
+  - **Standard clinical:** `lab_document`, `prior_lab_report`, `current_medication_photo`, `clinical_media_photo`, `general_medical_record` — provider + ops capabilities per existing chart access discipline (`1J / 1J.10`).
+- **Sensitive read logging:** broad/sensitive document access writes `SensitiveAccessReason` per Intent + `1H.5.1` audit operations.
+- **Subprocessor / log minimization:** document URLs and any extracted text are not exposed to external LLMs without explicit policy + capability per Intent + `1H.4.2` discipline.
+- **Patient self-export:** patient may request copies of their own documents via existing patient-portal export mechanisms; staff cannot export patient ID images outside compliance-bound paths.
+- **Retention:** per org policy and document type — ID images may have shorter retention than lab PDFs; insurance cards expire when policies change. Retention enforcement lives in storage policy + scheduled jobs; the manifest carries `expires_at` (nullable) when applicable.
+- **Audit on every access:** read access to ID/selfie/insurance documents writes `audit_events` per Intent read-side discipline.
+
+### 1O.12 Timeline integration (narrative pointers only; never values, never files)
+
+`patient_timeline_events` carries narrative pointers for meaningful document lifecycle moments. The timeline is **not** a copy of the document or its contents.
+
+- **Event types (canonical; org-extensible only via map/repo review):**
+  - `document.lab_report.uploaded`
+  - `document.lab_report.routed`
+  - `document.identity.uploaded`
+  - `document.identity.verified`
+  - `document.identity.rejected`
+  - `document.insurance.uploaded`
+  - `document.insurance.verified`
+  - `document.medical_record.uploaded`
+  - `document.clinical_media.uploaded`
+  - `document.medication_evidence.uploaded`
+  - `document.reclassified`
+  - `document.expired`
+- **Payload (minimal):** `patient_document_routing.id`, `domain_target`, `source_object_id`, `input_type`, optional severity flag for clinically meaningful items. **Never** carries `storage_path`, file content, OCR text, or domain-specific values.
+- **Suppression:** routine bulk uploads (e.g., a patient uploading 10 historical lab PDFs at once) collapse into one timeline pointer per session per `input_type` to avoid timeline noise; per-document detail stays on the manifest.
+
+### 1O.13 Reporting (extends `1H.7`)
+
+Aggregate signals queryable via `1H.7` using safe dimensions per `1H.7.2`; aggregate-only; small-cell suppression applies.
+
+- Upload volume by `input_type` and `capture_surface` per window.
+- Verification success rate by `input_type` (e.g., % of `government_id_*` reaching `verified` within SLA).
+- Reclassification rate per `correction_reason` per `capture_surface` (high `patient_misuploaded_to_wrong_prompt` may indicate intake UX issues; high `partner_metadata_wrong` may indicate adapter drift).
+- Failed-routing rate per `input_type` per `capture_surface` (high values per partner may indicate partner-integration drift).
+- `unclassified_pending_review` queue depth + age (sustained > org-policy SLA triggers `1G.5` exception per `1H.6.1E` `system_bug_or_defect` or `compliance_or_policy_change`).
+
+Sustained Action-needed/Critical on these signals trigger `1G.5` exception with classification per `1H.6.1E`.
+
+### 1O.14 Cross-links
+
+`Section 1J` (identity confidence consumes ID-verification status from `Section 1O`), `1J.4` (confidence levels), `1J.10` (safety preflight reads ID-verification status), `Section 1G` (messaging attachments route through `Section 1O`; `1G.5` exception classification for stuck routing; `1G.8.7` provider lab/state review drawer; `Section 1G` AI layer for assistive extraction), `Section 1H` (`1H.7` reporting; `1H.6.1D / 1H.6.1F / 1H.6.1G / 1H.6.1H` severity / status / stale-critical / correlation framework reused), `Section 1K` (intake captures supporting documents via `Section 1O`; intake never stores files; per `1K.1`, `1K.3`, `1K.5`, `1K.14`), `Section 1L` (lab documents arriving via `Section 1O` follow `1L.5` orphan-binding; `1L.18` mutation discipline mirror), `1L.23` (kit logistics evidence routing parallel pattern), `Section 1M` (when a document upload yields a trackable value, e.g., a home BP reading attached as a photo, the structured value writes to `patient_state_observations` via the appropriate extraction job; the document itself routes via `Section 1O`), `Section 1N` (AI assistive extraction reads from `Section 1O` manifests, never authoritative), `1D / 1D.1` (capabilities incl. `can_reclassify_patient_document`), Intent (Layer 1 data architecture rule; service-role discipline; `SensitiveAccessReason`), existing tables: `patient_document_routing` (new manifest), `patient_diagnostic_reports`, `patient_lab_observations`, identity-verification table (per `1O.4.1`), insurance-eligibility table (per `1O.4.2`), external clinical document table, `audit_events`, `patient_timeline_events`, object storage.
 
 ---
 
