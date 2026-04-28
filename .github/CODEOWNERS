@@ -1,0 +1,53 @@
+# CODEOWNERS for main-app
+# https://docs.github.com/en/repositories/managing-your-repositories-settings-and-features/customizing-your-repository/about-code-owners
+#
+# Per .cursor/plans/system_map_three_layers_60706286.plan.md `1K.5.A`:
+# Concept additions / changes require clinical CODEOWNER review.
+# Per `1K.4`: concept_mapping references in question-bank entries also require clinical CODEOWNER review.
+# Per `1K.0` Layer 1: clinical content (questions, branches, mappings, scoring, safety asserts) is code-as-config and requires PR + CODEOWNERS.
+#
+# v1: solo clinical CODEOWNER (founder, board-certified MD).
+# Engineering co-reviewer added when first hire lands.
+
+# ---------- Clinical content (PR + CODEOWNERS required per 1K.0 Layer 1) ----------
+
+# Clinical concept registry — the source of truth for normalized clinical concepts per 1K.5.A
+/repo/clinical-concepts/                                    @ncrawf
+
+# Question bank — concept_mapping references must be clinically reviewed per 1K.4
+/repo/intake/question-bank/                                 @ncrawf
+
+# Predicate library — branching logic that affects which questions a patient sees
+/repo/intake/predicates/                                    @ncrawf
+
+# Pathway files — module composition + identity floor + jurisdiction policy + payment model
+/repo/intake/pathways/                                      @ncrawf
+
+# Module catalog — module composition over questions
+/repo/intake/modules/                                       @ncrawf
+
+# Lab interpretation rules per 1L.20 (drives lab-derived assertion emission)
+/lib/labs/category-mappings/                                @ncrawf
+/lib/labs/insights/                                         @ncrawf
+/lib/labs/triage/                                           @ncrawf
+
+# Safety asserts per 1G.2 (active checks at decision time)
+/lib/safety/                                                @ncrawf
+
+# ---------- Architecture / system-map content ----------
+
+# System map — the canonical architecture document
+/.cursor/plans/system_map_three_layers_60706286.plan.md     @ncrawf
+
+# Audits — the durable record of design decisions
+/.cursor/plans/audits/                                      @ncrawf
+
+# Designs — design proposals before patches
+/.cursor/plans/designs/                                     @ncrawf
+
+# Ingestion captures — competitor / reference flow data
+/.cursor/plans/ingestion/                                   @ncrawf
+
+# ---------- This file (CODEOWNERS itself) ----------
+
+/.github/CODEOWNERS                                         @ncrawf
