@@ -443,6 +443,8 @@ The **map** already **requires** server **permit** assert on approve/prescribe (
 
 *Active continuation:* **(a)** time- and event-based miss detection (not only when the patient returns); **(b)** nudges via in-app, `outbound_jobs`, and `patient_timeline_events` (1H dedup); **(c)** saved filters for at-risk / not-progressing on canonical tuples + age—not a separate metrics product; **(d)** a **closed loop** after outbound: track interaction → update behavior slice / eligibility → next action (not send-only)—see **1G.3(i).**
 
+*Cross-link to `Section 1Q` rules + templates engine (binding):* `notification` domain rules per `Section 1Q.1` consume the `1G.3` send-policy gating (rate limits, fatigue, suppression, channel selection) at stage 7 of the `Section 1Q.6` execution order. Every `notification`-domain rule firing references an approved `Template` per `Section 1Q.5`; **automated patient-facing notifications MUST use approved templates** per `Section 1Q.0` invariant 9. Human-authored provider/staff freehand sends (provider via `clinical_visits` addenda or outbound `messages`; staff via approved staff-outbound paths) are NOT `Section 1Q.1` `notification` rules — they ride existing `requireCapability` per `1D.1` + audit per `Section 1P.6` freehand carve-out, with AI drafting assistance allowed only after human approval per `Section 1Q.0` invariant 9.
+
 | # | **Theme** | **Exists (typical / map-honest)** | **Partial** | **Target (same model — no CRM)** | **Non-optional before Hims-style scale** |
 |---|-----------|----------------------------------|------------|-----------------------------------|----------------------------------------|
 | (1) **Adherence (signal, not only subscription)** | Stage 6; `treatment_items.metadata` due dates; check-ins as structured capture; `clinical_required` when the org *asks* | Medication *taking* is **not** persistently named as its own “adherence” row; often inferred from orders shipped + patient messages + forms | **Proxy signals** in one vocabulary: (i) *due check-in* submitted on time or overdue via metadata policy; (ii) *missed `next_checkin_at`* / *refill* *request* *window*; (iii) *last patient activity* on thread or portal; (iv) optional *patient-reported* *“taking* *as* *directed*”* in *check* *- *in *schema *where *it *exists *; *emit *typed *`*patient_timeline_events`* (e.g. `adherence_checkin_submitted` | `adherence_suspect`) *without* *a* *separate* *adherence* *engine* | *At* *least* *two* *kinds* *of* *proxy* *: * (a) *missed* *or* *late* *check* *- *in *; * (b) *overdue* *metadata* *continuation* *or* *stale* *1G* *turn* *—* *not* *1I* *`*active`* *alone* |
@@ -1667,7 +1669,7 @@ Schema (additive-only; no PHI in payload beyond ids; type-gated text is template
 - `deep_link` — stable route descriptor (not a URL) that binds to the resolver's current required step per `1K.0` (for `incomplete_visit`), to the thread per `1G.3` (for `provider_message`), to the lab drawer per `1L.12` (for `lab_result_ready`), etc. Never a raw literal URL couples to engine internals per `1K.0`; surfaces derive URLs from the descriptor.
 - `origin_event_id` — pointer to the `patient_timeline_events` row that caused the item to be created (replayable provenance).
 - `origin_domain_ref?` — optional pointer to the specific domain row (e.g., `intake_session_id`, `message_id`, `patient_diagnostic_reports.id`, `treatment_plan_candidate_id`, `lab_orders.id`).
-- `title_template_id` + `body_template_id` — per `1L.15` template discipline; copy is rendered from the template + item state, not stored verbatim.
+- `title_template_id` + `body_template_id` — per `1L.15` template discipline; copy is rendered from the template + item state, not stored verbatim. **Resolves through `Section 1Q` template registry** per the unified rules + templates framework: action item titles/bodies are `internal_task` domain templates per `Section 1Q.2` (and `staff_internal` allowed_use); patient-facing action item copy renders through the appropriate patient-facing template domain (`patient_clarification`, `lab_reminder`, etc.) per `Section 1Q.5` template object shape with strict `prohibited_claims` + tone constraints; CI lint enforces template-key resolution against the `Section 1Q` registry at action-item-creation time.
 - `created_at`, `last_surfaced_at`, `completed_at?`, `expires_at?`, `dismissed_reason_code?`.
 
 **Single API:** `recordPatientActionItem(patientId, type, origin_event_id, ...)` and `resolvePatientActionItem(itemId, resolution)` are the only paths; emitters across the system (1K.13 on incomplete-visit resume eligibility, 1G.3 on message receipt, 1L.12/`1L.15` on lab release, 1K.11 on consent or payment gating, 1I on failed charge, 1J.10 on identity L-step-up need) call these APIs. No domain writes action items by direct INSERT.
@@ -2719,6 +2721,8 @@ A determined abuser can create account A on a GLP-1 pathway, answer "yes" to a c
 
 *Not a second identity model. It names what 1J.1–1J.8 do not by themselves guarantee in code or product. **The shared clinical safety preflight (`loadPatientCaseSafetySnapshot`) is a foundational requirement, not an aspiration** — every high-risk mutation on the patient-case spine (prescribe, treatment approve, refill approve, visit sign, lab authorize, identity override, duplicate dismissal / merge, fraud-hold override) must call it before doing work. **Enforcement is not optional for any Rx pathway** (GLP-1, TRT, HRT, propranolol, controlled substances, any other Rx line). The "**Current operational state + enforcement plan**" subsection below records what exists today and the hard gate: **no first Rx pathway ships without preflight + capability + assert + audit on all listed high-risk mutations**.*
 
+*Cross-link to `Section 1Q` rules + templates engine (binding):* the `1J.10` safety preflight (`loadPatientCaseSafetySnapshot`) is **stage 2 of the `Section 1Q.6` seven-stage rule execution order**. Every `clinical_safety` domain rule per `Section 1Q.1` consults the preflight at stage 2; preflight failures emit `block` rule actions per `Section 1Q.4` rule object shape with reason codes (`paused_needs_<field_name>_refresh`, `paused_pending_narrative_safety_review`, `paused_active_disease_state_<concept_id>`, `paused_needs_provider_reconciliation_<concept_id>`, `paused_pending_provider_call_pregnancy_recon`, etc.) per the existing taxonomy below. Every preflight-driven block links back to (rule_id, rule_version, evidence_refs, audit_event_type) per `Section 1Q.0` invariant 8.
+
 #### Current operational state + enforcement plan (what exists today, what must be true before the first Rx pathway ships)
 
 - **Current state (honest):** no universal joined patient-case "safety read" runs before every prescribe / approve / refill **staff** approval / clinical visit **signing** in a **single** **shared** function. Today behavior is fragmented: per-function `select`s in `lib/internal/patient-case/impl.ts` and peer libs, plus **`requirePatientCaseCapability`** in `app/internal/(protected)/patients/[patientId]/actions.ts` — not one **named** **snapshot** of 1J + 1I + 1G context.
@@ -3568,6 +3572,8 @@ Intake captures both today's commerce and the conditional Rx terms; payment even
 
 When intake completes (or reaches submission), the system assembles a **deterministic, reconstructable submission packet** for provider review per `Section 1G`. The provider sees one packet, not a forensic trail.
 
+*Cross-link to `Section 1Q` rules + templates engine (binding):* packet rendering uses `provider_packet` domain templates per `Section 1Q.2`. AI summary in the packet (when present) runs with strict `ai_refinement_constraints` per `Section 1Q.5` template object shape — AI may refine summary phrasing within `ai_refinement_constraints.may_change` fields but cannot change `prohibited_claims` (e.g., `must_not_diagnose`, `must_not_quote_lab_value_without_provider_review`), `required_variables`, or `tone_class`. Packet templates require clinical CODEOWNER approval at PR time per `Section 1Q.0` invariant 6 (template governance — does NOT imply per-message provider approval at runtime; the packet IS the runtime per-message provider review surface). Every packet render emits typed `audit_events` row per `Section 1Q.7` audit trail with full provenance (rule_id, template_key, evidence_refs, ai_refinement_log if applicable).
+
 - **Packet contents (server-assembled; no LLM rewriting of factual fields):**
   - Intake summary: pathway(s), modules completed, `intake_session_id`, `module_version`s, `question_version`s.
   - Risk flags + contraindication flags (per `1K.7`), including soft flags.
@@ -3775,6 +3781,8 @@ Be explicit about exists / partial / target / non-optional. Prefer reusing exist
 | **`inbound_narrative_review_role_assignments` (companion table)** | not modeled | **Required alongside `inbound_narrative_reviews` per `Section 1P.3` + `1P.5` parallel role-scoped reviewer model.** One row per role with atoms in this batch (a batch with clinical + ops + billing atoms creates 3 role-assignment rows: provider, ops, billing). Carries `(id, review_id, role ENUM[provider, ops, billing, support, compliance], assigned_to_user_id?, status ENUM[pending, reviewing, reviewed, deferred], sla_due_at, reviewed_at?, reviewed_by_user_id?, audit_metadata jsonb)`. Per-role SLA per `1G.1` SLA discipline + `1G.7` routing. Indexes on `(assigned_to_user_id, status, sla_due_at)` and `(role, status, sla_due_at)`. The parent batch's `status` transitions to `fully_reviewed` only when all role-assignment rows reach `reviewed` or `deferred` (or all atoms are deterministically reconciled per `Section 1P` invariant 8). | Same trigger as `inbound_narrative_reviews` above. | Per-role SLA + assignment + audit per `Section 1P.5` |
 
 **Hard rule:** do not create a new table when an existing one + additive metadata works; promote to a dedicated table only when reuse can no longer represent the concept clearly. **Exceptions (required as real tables, not metadata):** `patient_state_observations` (per `Section 1M`), `intake_sessions` and `treatment_plan_candidate` (before program #2), `patient_consents` (before first Rx pathway with gating consents), `patient_action_items` and `pending_patient_input_tasks` (before first Rx pathway). Either way, the architecture stays one source of truth (no duplicate intake silos, no longitudinal trackables crammed into `patient_timeline_events`, no partial-session state trapped in opaque JSON).
+
+**Section 1Q rules + templates carve-out (binding):** rules + templates per `Section 1Q` live as **code-as-config** in `repo/rules/` and `repo/templates/` (parallel to `repo/clinical-concepts/`) per Layer 1 clinical-content discipline at the file head. **No DB-driven rules engine.** No `intake_rules`, `intake_templates`, `clinical_rules`, `notification_templates`, or equivalent DB tables. DB content for rule/template firings is restricted to (a) typed `audit_events` rows pinning `rule_version` + `template_version` per `Section 1Q.7`, and (b) per-firing instance state on existing operational tables (`patient_action_items`, `clinical_required` turns, `commerce_exception_requests`, etc.). CI lint forbids new tables matching `*_rules`, `*_templates`, `notification_*`, or rule-engine-config patterns.
 
 ### 1K.15 Audit, compliance, and privacy
 
@@ -4237,6 +4245,8 @@ Adding a new lab vendor stays uniform. Each adapter satisfies a minimum contract
 ### 1L.15 Patient-facing lab communications (formerly §33)
 
 Apply the same tone/template discipline as `1G.9.14a` (CoR comms) to lab-specific patient messaging.
+
+*Cross-link to `Section 1Q` rules + templates engine (binding):* lab reminder templates listed below are `Section 1Q.2` `lab_reminder` domain templates with `allowed_use = patient_facing`. Template definitions require **clinical CODEOWNER approval at PR time** per `Section 1Q.0` invariant 6 (template governance) — once approved, **automated sends fire on schedule without per-message provider approval** subject only to `1G.3` send-policy gating per `Section 1Q.3` boundary table. Per-message provider review applies only when a separate rule action explicitly routes to provider (e.g., `clinical_safety_escalation` rule action firing on the same patient's abnormal result). `ai_refinement_allowed` defaults to `false` for lab reminder templates (byte-equivalent strict render); opt-in per template at PR time with rationale per `Section 1Q.0` invariant 5.
 
 - **Approved templates (versioned, content-managed, clinical/compliance-reviewed):**
   - "Your kit is on the way." / "Your kit has been delivered." / "We've received your sample."
@@ -5753,6 +5763,296 @@ Future modifications to inbound narrative atomization MUST go INTO Section 1P or
 ### 1P.13 Cross-links
 
 **Section 1G** (messaging SoT, AI layer per line 365, ops/exception per `1G.5`, action items per `1G.11`, workspace panel per `1G.8.5`, queue priority per `1G.7.6`), **Section 1H** (`1H.6.1E` exception classification for safety-miss; `1H.7` analytics; future rollup views), **Section 1I** (subscription change atoms, refund flow per `1I.4`, payment events per `1I.5`, vendor billing reconciliation), **Section 1J** (`1J.10` safety preflight reads safety-scan turns + authority floor enforcement on extracted assertions), **Section 1K** (`1K.4` question-bank `narrative_intent` + `safety_scan` + `free_text_long` answer_type; `1K.5` raw evidence; **`1K.5.A`** intake-channel narrative-evidence specialization + clinical assertion layer + `third_party_reported` authority enum; `1K.12` provider packet rendering of inbound atoms; `1K.13` Mode J supersession; `1K.14` schema list), **Section 1L** (structured lab carve-out; `lab_derived` reserved for deterministic pipeline), **Section 1N** (AI training labeled features; correction feedback loop), **Section 1O** (structured document carve-out per `1O.14`; free-form document narrative rides 1P), **Intent** (RLS, append-only, audit, replayability, capability discipline).
+
+---
+
+## Section 1Q: Rules + Templates engine (foundational; code-as-config; deterministic decisions + constrained communications)
+
+*Per `2026-04-30_rules_templates_framework.md`.* This section defines how the now-locked intake / atomization architecture (sections 1G/1H/1I/1J/1K/1K.5.A/1L/1M/1N/1O/1P) becomes actions and communications without chaos. Rules + templates live as code-as-config in `repo/rules/` and `repo/templates/` per Layer 1 clinical-content discipline at the file head. Section 1Q is foundational cross-cutting parallel to `Section 1P`; rules+templates references in existing sections (1G.3 send policy, 1G.5 exception classification, 1G.9.14 CoR notification templates, 1G.11 action item title/body templates, 1J.10 safety preflight rules, 1K.4 question bank, 1K.7 eligibility blockers, 1K.12 packet rendering, 1L.15 lab reminder templates, etc.) become specializations of the general framework defined here.
+
+### 1Q.0 Core principle, mantra, hard invariants
+
+**Core principle (binding; the four-layer separation of concerns):**
+
+```
+Rules decide WHAT.
+Templates define WHAT IS ALLOWED TO BE SAID/DONE.
+AI decides HOW to phrase/refine within constraints.
+Humans/providers decide clinical truth.
+```
+
+Every rule firing maps to exactly one of these four layers; CI lint enforces. No rule may decide HOW (that's AI's job within template constraints). No template may decide WHAT (that's the rule's job). No AI output may decide WHAT or WHAT-CAN-BE-SAID. No human override may bypass safety rules without audited break-glass per `1J.9`.
+
+**Three governance dimensions (locked separately for unambiguous semantics):**
+
+| Dimension | Field | What it controls | Owner | When |
+|---|---|---|---|---|
+| Template governance (definition-time) | `template.clinical_review_required: boolean` | Template definition content | Clinical CODEOWNER (clinical content) / ops CODEOWNER (operational content) | PR time |
+| Runtime per-message authority (firing-time) | `rule.action.authority_floor` + `rule.action.escalation_owner_role` | Whether a specific firing requires human approval before send | Rule's action declaration | Rule-firing time per case |
+| AI refinement enablement (definition-time) | `template.ai_refinement_allowed: boolean` | Whether AI may adjust phrasing within `ai_refinement_constraints` at runtime | Clinical CODEOWNER (safety/clinical) / ops CODEOWNER (non-clinical) at PR time | PR time; orthogonal to patient consent (which lives at `1K.11`) |
+
+**Hard invariants (12; binding; embedded verbatim):**
+
+1. **Rules decide WHAT.** Templates define WHAT-CAN-BE-SAID. AI decides HOW-WITHIN-CONSTRAINTS. Humans/providers decide clinical truth. (Core principle.)
+2. **Rules must be deterministic and auditable.** Every rule firing is reconstructable from `rule_version` + inputs.
+3. **Templates must constrain permissible communication.** Variable substitution + `prohibited_claims` are enforced at render time; missing variables = render error, not silent fallback.
+4. **AI cannot invent clinical recommendations.** AI never decides WHAT; only refines within template constraints when explicitly allowed.
+5. **AI cannot bypass templates.** `ai_refinement_allowed` is a **template governance setting**, system-controlled by clinical / ops CODEOWNER at the template definition level — **NOT a patient consent toggle, NOT a runtime per-patient flag, NOT a provider per-message override**. Defaults to `false`; opt-in per template at PR time with rationale. When `false`: the approved strict template renders byte-equivalent unchanged; AI refinement is disallowed at runtime; render output is byte-equivalent to the template's static rendering. When `true`: AI may adjust ONLY the explicitly enumerated `ai_refinement_constraints.may_change` phrasing fields within template constraints; AI changes to `prohibited_claims` / `required_variables` / `tone_class` / channel-specific format are forbidden by CI lint and rejected at refinement validation time. Patient consent for AI in clinical communication (a separate concern) is governed by `1K.11` `patient_consents` and is orthogonal to this template-governance flag.
+6. **Clinical templates require clinical CODEOWNER approval at PR time** (template governance). No exceptions; CI lint enforces via `.github/CODEOWNERS`. This does NOT imply per-message provider approval at runtime — runtime per-message authority is a separate concern controlled by the firing rule's `action.authority_floor`.
+7. **Safety rules require clinical CODEOWNER + compliance approval.** No exceptions.
+8. **Every rule firing must be explainable.** `rationale_note` required at PR time; replayable from `rule_version`.
+9. **Templated vs. human-authored patient-facing communication discipline (binding):** **automated patient-facing messages MUST use approved templates** — every system-initiated, rule-fired, scheduled, or AI-emitted patient-facing message links back to (rule_id, template_key, evidence_refs); no untraceable automated patient communications; CI lint forbids automated send paths that bypass the template registry. **Human-authored provider/staff messages to patients MAY be freehand** when sent under appropriate role authority via `requireCapability` per `1D.1` (provider via `clinical_visits` addenda or outbound `messages`; staff via approved staff-outbound paths) — provider IS authority per `Section 1P.6` freehand carve-out; staff freehand is gated by ops CODEOWNER capability + audit. **AI drafting assistance for human-authored freehand is allowed but the human MUST approve before send** — the AI-drafted text never auto-sends; the human reviewer reads, edits, accepts, and only then the send fires; the audit row carries `ai_drafting_assist = true` + `ai_model_version` + `ai_prompt_id` + draft-vs-sent diff per `Section 1P.11` correction discipline. Every patient-facing message — automated OR human-authored — emits an `audit_events` row carrying authorship lineage (rule + template + evidence_refs for automated; capability + actor_user_id + ai_drafting_assist? for human-authored).
+10. **Rules must operate on structured state, not raw free text alone.** Predicates reference typed fields; AI extraction outputs are typed atoms; raw narrative never directly fires a rule (it goes through `Section 1P` atomization first).
+11. **Missing data triggers clarification, not unsafe inference.** When a rule's `required_inputs` are unavailable, fire a `patient_clarification` rule via Mode F bridge per `Section 1P.4` Patch B; never proceed with assumed defaults for safety-critical paths.
+12. **Section 1Q consolidation discipline (forward rule).** Future rules+templates additions go INTO Section 1Q or its declared cross-link sections (`1G.3`, `1G.5`, `1G.11`, `1J.10`, `1K.7`, `1K.12`, `1L.15`); CI lint forbids inbound rules+templates rules introduced in unrelated sections. No second rules engine. No parallel template registry. No drift toward fragmented per-section rule libraries.
+
+### 1Q.1 Rule categories (13; binding)
+
+| Domain | Description | Authority owner |
+|---|---|---|
+| `clinical_safety` | Safety preflight rules; contraindication enforcement; pregnancy/lactation gating; allergy gating | clinical CODEOWNER + compliance |
+| `eligibility` | Pathway eligibility (age, jurisdiction, identity L-level, BMI thresholds) | clinical + ops CODEOWNER |
+| `clinical_routing` | Provider assignment by jurisdiction + capacity + specialty per `1G.4` | ops CODEOWNER |
+| `patient_clarification` | When patient narrative is incomplete or ambiguous; triggers Mode F follow-up per `Section 1P.4` Patch B | clinical CODEOWNER |
+| `lab_requirement` | When labs are required for prescribe / refill / continuation per `1L.16` | clinical CODEOWNER |
+| `refill_renewal` | Refill cadence + lab freshness + clinical reassessment requirements | clinical CODEOWNER |
+| `dose_escalation` | Dose-titration rules; safety re-checks at escalation; check-in cadence | clinical CODEOWNER |
+| `adverse_event` | Side-effect routing + provider notification + 1H.6.1E classification | clinical CODEOWNER |
+| `fulfillment_exception` | Shipping / dispense / order failures; vendor reconciliation per `Section 1P` invariant 8 | ops CODEOWNER |
+| `billing_subscription` | Refund / cancel / pause flows per `1I.4`; subscription change rules | ops CODEOWNER |
+| `vendor_exception` | Vendor accountability rules; deterministic reconciliation outcomes | ops CODEOWNER |
+| `notification` | Send policy / fatigue per `1G.3`; rate limits; channel selection | ops CODEOWNER |
+| `provider_review` | Batch review SLA per `Section 1P.5`; provider workspace queue rules | clinical CODEOWNER |
+
+### 1Q.2 Template categories (10; binding)
+
+**Note on `Clinical CODEOWNER approval required at PR time` column:** this column refers to **template-governance approval at PR time** (clinical CODEOWNER must review the template definition). It does NOT mean every send of an already-approved template requires per-message provider review at runtime. Per-message provider review at runtime is a separate concern controlled by the firing rule's `action.kind = 'route'` with `authority_floor` + `escalation_owner_role` per `1Q.4` rule object shape. Lab reminder example: template definition requires clinical CODEOWNER approval to ship; once approved, automated sends of that template fire on schedule without per-message provider approval (subject only to `1G.3` send-policy gating). A separate `clinical_safety_escalation` rule action firing on the same patient may, separately, require provider review before send — that's a rule-level decision, not a template-level one.
+
+| Domain | Description | Allowed use | Clinical CODEOWNER approval required at PR time |
+|---|---|---|---|
+| `patient_clarification` | Mode F follow-up prompts; "we need more info about X" | patient_facing | yes |
+| `clinical_safety_escalation` | Urgent contact required; safety alerts; potential adverse events | patient_facing + provider_facing | yes |
+| `denial_not_eligible` | Pathway denial reasons; jurisdiction blocks; clinical contraindication | patient_facing | yes |
+| `provider_packet` | Submission packet rendering per `1K.12`; chart panel per `1G.8.5` | provider_facing | yes |
+| `staff_support_response` | Support team response templates; ops triage replies | patient_facing + staff_internal | no (ops CODEOWNER) |
+| `subscription_cancellation` | Cancellation confirmations; refund notifications | patient_facing | no (ops CODEOWNER) |
+| `lab_reminder` | Lab kit shipped; lab kit return reminder; lab result released per `1L.15` | patient_facing | yes |
+| `fulfillment_exception` | Shipping delay / wrong item / out of stock | patient_facing | no (ops CODEOWNER) |
+| `vendor_communication` | Vendor inquiry / dispute / data correction request | vendor_facing | no (ops CODEOWNER) |
+| `internal_task` | Provider/ops/billing task descriptions; action item titles + bodies | staff_internal | depends on domain (clinical content = clinical CODEOWNER; ops content = ops CODEOWNER) |
+
+### 1Q.3 Boundary: deterministic / AI / human (per category)
+
+For each category, what's deterministic, what AI may assist with (within template constraints), what requires CODEOWNER approval at definition time vs. runtime per-message authority, what may be fully automatic, what must be logged/audited. **Two distinct columns separate template-governance approval (PR-time, by CODEOWNER) from runtime per-message authority (rule-action-time, by provider/staff/system):**
+
+| Category | Deterministic | AI may assist (within template constraints) | CODEOWNER approval at PR time | Runtime per-message authority | May be fully automatic at runtime | Always audited |
+|---|---|---|---|---|---|---|
+| `clinical_safety` | Rule firing + block decision + reason code | When `ai_refinement_allowed = true`, draft concise patient-facing message within strict constraints; suggest next steps for provider review | Clinical CODEOWNER + compliance | Provider review required when rule action explicitly routes to provider; otherwise automated block + clinical_required turn fires without per-message approval | Block + clinical_required turn opening + queue priority elevation | Yes; rule_version + evidence_refs + audit_event_type |
+| `eligibility` | Rule firing + eligibility decision | Draft patient-facing denial/explanation message within template constraints | Clinical + ops CODEOWNER | Automated denial of an already-approved denial template fires automatically; appeals route to provider per rule action | Block + decision + reason code + send approved denial template | Yes |
+| `clinical_routing` | Provider assignment per `1G.4` policy | Suggest backup providers; surface CoR continuity hints | Ops CODEOWNER | Automated routing per policy; deviation requires ops capability | Assignment | Yes |
+| `patient_clarification` | Mode F trigger decision; module selection | Refine clarification copy within template constraints when `ai_refinement_allowed = true` | Clinical CODEOWNER | Automated Mode F enqueue + send approved clarification template fires without per-message provider approval | Mode F enqueue + clarification send subject to `1G.3` send-policy gating | Yes |
+| `lab_requirement` | Lab gate decision per `1L.16` | Draft lab kit instructions / return reminders within template constraints | Clinical CODEOWNER | **Automated send of already-approved lab reminder templates fires on schedule without per-message provider approval** (subject only to `1G.3` send-policy gating); provider review applies only when rule action explicitly routes to provider | Lab kit shipment notification; return reminder; result-released notification | Yes |
+| `refill_renewal` | Refill eligibility + lab freshness + clinical reassessment | Draft refill reminder copy within template constraints | Clinical CODEOWNER | Automated refill task + reminder send for in-policy refills; clinical reassessment routes to provider | Refill reminder send; refill task creation | Yes |
+| `dose_escalation` | Titration step firing; safety re-check requirements | Draft dose-change explanation within template constraints | Clinical CODEOWNER | Provider authorizes titration step; approved patient-facing notification fires after authorization | Check-in scheduling around titration; post-authorization patient notification | Yes |
+| `adverse_event` | Routing per `1H.6.1E`; provider notification | Draft concise event summary for provider | Clinical CODEOWNER | Provider review of severity decision; automated routing fires | Routing + notification of provider | Yes |
+| `fulfillment_exception` | Exception classification per `1G.5`; deterministic reconciliation | Draft patient-facing apology/update within template constraints | Ops CODEOWNER | Automated send of approved exception templates; ops review only on `vendor_state_conflict` | Auto-resolve when reconciliation passes; auto-send approved exception template | Yes |
+| `billing_subscription` | Refund eligibility per `1I.4`; cancellation rules | Draft cancellation/refund confirmation within template constraints | Ops CODEOWNER | Automated processing when eligible; non-standard refund routes to billing | Auto-process when eligible + send approved confirmation template | Yes |
+| `vendor_exception` | Reconciliation outcome; conflict detection | Draft vendor inquiry copy within template constraints | Ops CODEOWNER | Automated send of approved vendor templates; ops review on conflict | Auto-route on conflict; auto-send approved vendor templates | Yes |
+| `notification` | Send-policy gating per `1G.3`; rate limit + suppression | Draft copy variants when `ai_refinement_allowed = true` | Ops CODEOWNER | Automated send within send-policy + budget guards; manual sends use freehand path under role authority | Send within send-policy + budget guards | Yes |
+| `provider_review` | SLA + queue priority per `Section 1P.5` | Suggest batch ordering; surface pattern banners | Clinical CODEOWNER (SLA changes affecting safety); ops CODEOWNER (operational SLA) | Provider review IS the runtime authority for clinical batch atoms | Queue ordering | Yes |
+
+### 1Q.4 Rule object shape (TypeScript discriminated union)
+
+```typescript
+interface Rule {
+  rule_id: string;                          // stable; e.g., "rule.glp1.refill_approve.pregnancy_status_freshness_v3"
+  rule_version: string;                     // semver; pinned at every firing
+  domain: RuleDomain;                       // 13-value enum per 1Q.1
+  trigger: RuleTrigger;                     // event-driven discriminated union over event_type
+  preconditions: Predicate[];               // structured-data predicates only; NEVER free-text; CI lint enforces typed-field references
+  required_inputs: InputRef[];              // typed pointers to data sources (assertions, observations, action items, lab results, payment events)
+  authority_floor?: AuthorityFloor;         // optional; who must own the resulting action: provider | ops | billing | support | compliance | system
+  action: RuleAction;                       // discriminated union: {kind: 'block', reason_code} | {kind: 'clarify', module_ids, follow_up_kind} | {kind: 'route', queue_role, priority_hint} | {kind: 'notify', channels, send_policy_class} | {kind: 'escalate', escalation_owner_role, sla_minutes} | {kind: 'gate', allow_when_resolved}
+  priority: 'urgent_clinical' | 'urgent_ops' | 'standard' | 'low';
+  blocking: boolean;                        // true = mutation halts; false = side effect / signal only
+  template_key?: TemplateKey;               // when action emits a patient-facing or staff-facing message
+  escalation_owner_role?: EscalationOwnerRole;
+  evidence_refs_required: EvidenceRefSpec[]; // declares what evidence the rule firing must cite
+  audit_event_type: AuditEventType;         // typed event_type emitted on firing (e.g., 'rule.fired.refill_approve.pregnancy_status_freshness')
+  pathway_scope?: PathwayCode[];            // null = all pathways; explicit list = scoped
+  jurisdiction_scope?: JurisdictionCode[];  // null = all
+  status: 'draft' | 'active' | 'deprecated' | 'retired';
+  effective_at: timestamptz;
+  retired_at?: timestamptz;
+  test_fixtures: TestFixtureRef[];          // sandbox test cases; clinical_safety = 5+; ops = 2+
+  rationale_note: string;                   // required; clinical/business intent
+  retiring_supersedes_rule_id?: string;
+  retiring_replaced_by_rule_id?: string;
+}
+```
+
+### 1Q.5 Template object shape (TypeScript discriminated union)
+
+```typescript
+interface Template {
+  template_key: string;                     // stable; e.g., "tmpl.patient.clarification.pregnancy_status_refresh_v2"
+  template_version: string;
+  domain: TemplateDomain;                   // 10-value enum per 1Q.2
+  allowed_use: 'patient_facing' | 'provider_facing' | 'staff_internal' | 'vendor_facing';
+  channels: Channel[];                      // sms | email | in_app | push | print | phone_script
+  required_variables: TemplateVariable[];   // typed; missing variable at render time = render error (not silent fallback)
+  optional_variables?: TemplateVariable[];
+  prohibited_claims: ProhibitedClaimSpec[]; // structured constraints — e.g., {kind: 'must_not_promise_outcome'}, {kind: 'must_not_diagnose'}, {kind: 'must_not_quote_lab_value_without_provider_review'}
+  tone_constraints: ToneConstraint[];       // typed enum: warm_direct | clinical_formal | empathetic_concerned | factual_only | celebratory_brief
+  clinical_review_required: boolean;        // template GOVERNANCE flag (PR-time, CODEOWNER); does NOT imply per-message provider approval at runtime; runtime per-message authority controlled by firing rule's action.authority_floor + escalation_owner_role
+  ai_refinement_allowed: boolean;           // DEFAULT FALSE; template-governance setting (system-controlled at CODEOWNER PR time, NOT patient consent, NOT runtime override); when false: byte-equivalent strict render; when true: AI may adjust ONLY ai_refinement_constraints.may_change phrasing fields within template constraints
+  ai_refinement_constraints?: AIRefinementConstraints; // when allowed: {may_change: ['phrasing', 'sentence_order'], must_not_change: ['variables', 'prohibited_claims', 'tone_class', 'channel_specific_format']}
+  evidence_required: EvidenceRefSpec[];     // e.g., must cite intake_response_id when explaining a denial
+  jurisdiction_variants?: JurisdictionVariants; // when wording differs by state/country
+  status: 'draft' | 'active' | 'deprecated' | 'retired';
+  effective_at: timestamptz;
+  retired_at?: timestamptz;
+  test_renders: TestRenderRef[];            // sample renders that must pass review
+  rationale_note: string;                   // required
+  retiring_supersedes_template_key?: string;
+  retiring_replaced_by_template_key?: string;
+}
+```
+
+### 1Q.6 Seven-stage execution order
+
+Deterministic pipeline (binding):
+
+1. **Pre-conditions** — data freshness checks per `1K.5` `time_sensitive_30d`; identity L-level per `1J.4`; capability + reason per `1D.1`. Fail → emit clarification request via `Section 1P.4` Patch B Mode F bridge per invariant 11.
+2. **Safety preflight** — `1J.10` `loadPatientCaseSafetySnapshot` read; authority-floor enforcement; conflict detection. Fail → block + open `clinical_required` turn + queue priority elevation per `1G.7.6`.
+3. **Eligibility / gating** — concept-specific gates (jurisdiction, age, clinical contraindication). Fail → render denial template + record `decision_outcome_reason` per `1K.12`.
+4. **Authority floor check** — does the actor (provider / ops / billing / system / AI) have authority to take the action? AI never has clinical authority; system-derived has lowest authority for clinical writes. Fail → escalate to authority owner per rule action.
+5. **Action selection** — rule → template lookup via `template_key`; render template with `required_variables`; on missing variable, render error (not silent fallback) per invariant 3.
+6. **AI refinement (if allowed)** — when template's `ai_refinement_allowed = true`, AI may refine within `ai_refinement_constraints`; CI lint forbids AI changes to `prohibited_claims` / `required_variables` / `tone_class` / channel-specific format. Refinement output is itself audit-logged with `ai_model_version` + `ai_prompt_id` per `Section 1P.11` correction discipline.
+7. **Audit + side effects** — emit typed `audit_events` row with `rule_id`, `rule_version`, `template_key`, `template_version`, `evidence_refs`, `ai_refinement_log?`, `decision_outcome_reason`, `actor_user_id`, `pathway_code`, `jurisdiction`. Side effects (Mode F enqueue, action item creation, send-policy-gated message) fire here.
+
+### 1Q.7 Three-tier governance + versioning + audit
+
+| Tier | Owns | Approval required for |
+|---|---|---|
+| **Clinical CODEOWNER** | Clinical concepts (`1K.5.A`); clinical safety rules; clinical templates; safety-relevant prompt/rule changes | All `clinical_safety`, `patient_clarification`, `lab_requirement`, `refill_renewal`, `dose_escalation`, `adverse_event`, `provider_review` rules + templates; concept registry changes |
+| **Ops CODEOWNER** | Operational rules; non-clinical templates | All `clinical_routing`, `fulfillment_exception`, `billing_subscription`, `vendor_exception`, `notification` rules + ops templates |
+| **Admin** | Org policy; legal review (HIPAA + state regulations); FDA / DEA / regulatory submissions | Cross-domain policy changes; new pathway launches; new jurisdictions; partner contracts |
+
+**Version control:**
+
+- Rules + templates live as code-as-config in `repo/rules/` and `repo/templates/` (parallel to `repo/clinical-concepts/`); versioned via PR; CODEOWNER-gated per `.github/CODEOWNERS`.
+- Every PR to clinical rules/templates requires (a) explicit clinical CODEOWNER approval; (b) sandbox test fixtures pass; (c) `rationale_note` populated; (d) `effective_at` + `retired_at` set with reason on retirement.
+- Activation: rule/template `status = active` only after sandbox test fixtures pass + CODEOWNER approval + 24-hour review window for safety-critical changes.
+- Rollback: every rule/template carries `supersedes_*` chain; rollback is a forward-action that supersedes the buggy version with a recall (per 1Q.10 below).
+
+**Audit trail:**
+
+- Every rule firing emits typed `audit_events` row with `rule_version` pinned.
+- Every template render emits typed `audit_events` row with `template_version` pinned + variable values + AI refinement log if applicable.
+- Audit logs are reconstructable: given any past patient-facing message, the team can reproduce (rule_version, template_version, variables, evidence_refs, ai_refinement_log) and replay if needed.
+
+### 1Q.8 MVP scope (must / deferred / forbidden)
+
+**Must exist before first Rx pathway ships:**
+
+- 1Q.0–1Q.6 sections fully landed (scope, mantra, invariants, schemas, execution order, governance).
+- `repo/rules/` directory with the schema TypeScript definitions + sandbox test harness skeleton; first 5–10 rules for GLP-1 (safety preflight, eligibility, lab requirement, dose escalation, adverse event).
+- `repo/templates/` directory with first 8–12 templates (denial, clarification, lab kit reminder, refill reminder, support response, cancellation, fulfillment exception, escalation).
+- CI lint enforcing rule + template invariants (CODEOWNER gating, missing variable = error, `ai_refinement_allowed` defaults, `prohibited_claims` enforcement, `rationale_note` required).
+- Audit event taxonomy: `rule.fired.<domain>.<rule_id>` + `template.rendered.<domain>.<template_key>` + `template.refined_by_ai.<template_key>` event types.
+- Three-tier governance wired in `.github/CODEOWNERS`.
+
+**Deferred (post-launch):**
+
+- Full rule library across all 13 domains for all pathways (incremental as pathways ship).
+- A/B testing framework for non-clinical templates.
+- Advanced AI refinement (only opt-in templates that need it; v1 ships strict templates).
+- Cross-pathway rule reuse + composition primitives.
+- Sandbox UI for non-engineers to test rules.
+- Performance optimization (rule evaluation caching).
+- `rule_correction_patterns_rollup` view (deferred; same v1.1 timeline as `ai_correction_patterns_rollup` per `Section 1P.11`).
+
+**Explicitly forbidden in v1:**
+
+- Free-text rule definitions (rules MUST be structured TypeScript code-as-config).
+- Free-text template content without typed `required_variables`.
+- AI generating rule logic at runtime.
+- AI bypassing template constraints.
+- **Untemplated automated patient-facing messages** (system-initiated, rule-fired, scheduled, or AI-emitted sends MUST use approved templates per invariant 9). **Human-authored provider/staff freehand to patients is permitted** when sent under appropriate role authority via `requireCapability` per `1D.1` + audit; AI drafting assistance for freehand is allowed only when the human approves the draft before send (no auto-send of AI-drafted text under human's capability).
+- Per-section rule libraries (everything goes through Section 1Q or its declared cross-link sections per consolidation discipline per invariant 12).
+- Direct DB writes for rule/template firing without `audit_events` + version pinning.
+- Soft-deletion of rules/templates without `supersedes_*` chain.
+- New top-level domains in `rule_domain` or `template_domain` enums without clinical + ops CODEOWNER + admin approval.
+
+### 1Q.9 Failure modes + mitigations (10 named)
+
+| # | Failure mode | Mitigation |
+|---|---|---|
+| 1 | Conflicting rules fire on same trigger | Deterministic priority + ordering: `urgent_clinical > urgent_ops > standard > low`; ties broken by rule_id alphabetic; CI lint forbids same rule_id at same priority for overlapping triggers |
+| 2 | Missing template variable at render time | Render error (not silent fallback); `audit_events` row `template.render_failed`; falls back to a generic safe template `tmpl.system.render_error_safe_fallback`; ops alerted via `1H.6.1E` `system_bug_or_defect` |
+| 3 | AI attempts to say something outside template constraints | AI refinement output validated against `ai_refinement_constraints`; violations rejected at validation time; original strict template renders; correction event with `correction_reason = ai_refinement_constraint_violation` per `Section 1P.11` |
+| 4 | Rule fires without enough evidence | `evidence_refs_required` declares minimums; rule firing without satisfying evidence raises `audit_events` row `rule.fired.evidence_insufficient`; rule recall via 1Q.10 below |
+| 5 | Outdated rule version still firing | `effective_at` + `retired_at` enforce time bounds; CI lint forbids unbounded rules; rule firing past `retired_at` is rejected at firing time |
+| 6 | Patient receives wrong tone / message | Tone constraints enforced at render time; clinical templates locked to `tone_constraints` enum; AI refinement cannot change `tone_class`; CI lint forbids tone mismatch |
+| 7 | Support sends clinical advice | Template `allowed_use = staff_internal` cannot be sent to patient; ops-CODEOWNER-approved support templates (`clinical_review_required = false`) cannot include clinical claims (CI lint enforces `prohibited_claims` at template-definition time); **staff freehand to patient under role authority is permitted but constrained** — staff capability per `1D.1` + audit + AI drafting assistance only after human approval per invariant 9 + structured warning surface ("you wrote 'this means you have X' — that's a clinical claim outside your role; consider routing to provider via `1G` queue") at composer time |
+| 8 | Provider packet displays unsupported claim | `prohibited_claims` enforced at packet rendering time; packet rendering rules per `1K.12` extend Section 1Q template framework; AI summary in packet runs with strict `ai_refinement_constraints` |
+| 9 | Rule recall doesn't propagate to in-flight messages | Generalize `Section 1P.11` `model_recall` pattern to `rule_recall` + `template_recall` per 1Q.10 below |
+| 10 | Rule logic error not caught by sandbox tests | Required test fixtures (5+ for clinical_safety; 2+ for ops); CI gate forbids activation without passing tests; post-activation monitoring via `audit_events` rule firing rate alarms; `1H.6.1E` `system_bug_or_defect` classification on anomaly |
+
+### 1Q.10 Rule recall + template recall (extends Section 1P.11 model_recall pattern)
+
+The `Section 1P.11` `model_recall` pattern generalizes to `rule_recall` and `template_recall` via the same `audit_events` mechanism. When a rule or template version is found systematically wrong (logic error, content error, regulatory non-compliance discovered post-activation), an append-only `audit_events` row with `event_type ∈ {rule.recall_issued, template.recall_issued}` carries the recall. Payload structure mirrors `Section 1P.11` with rule-specific or template-specific fields:
+
+```jsonc
+{
+  recall_id: uuid,
+  recall_kind: 'rule' | 'template',
+  affected_rule_id?: string,                // when recall_kind = 'rule'
+  affected_rule_version?: string,
+  affected_template_key?: string,           // when recall_kind = 'template'
+  affected_template_version?: string,
+  affected_firing_window_start: timestamptz,
+  affected_firing_window_end: timestamptz,
+  recall_severity: 'safety_critical' | 'clinical' | 'operational' | 'cosmetic',
+  recall_action: 'mass_supersede' | 'flag_for_re_review' | 'flag_informational',
+  issued_by_user_id: uuid,
+  issued_by_role: text,                     // clinical_codeowner | ops_codeowner | compliance | admin
+  rationale_note: text,                     // required
+  related_failure_count: int,
+  issued_at: timestamptz
+}
+```
+
+**Recall actions:**
+
+- `mass_supersede` (safety-critical only; requires clinical CODEOWNER + compliance approval): for every patient-facing message rendered with the affected rule/template version, fire a system-authored corrective communication using a pre-approved correction template; reopen any `clinical_required` turns where the affected rule action contributed.
+- `flag_for_re_review` (default for clinical recalls): every affected firing gets a `recall_flag_<recall_id>` annotation in `audit_events`; affected rule/template version is marked `status = retired` with `retiring_replaced_by_rule_id` / `retiring_replaced_by_template_key` set to the corrected version.
+- `flag_informational` (cosmetic / operational): annotates `audit_events` only; no patient-facing correction.
+
+**FDA AI/ML SaMD compliance:** rule_recall + template_recall events satisfy the post-market monitoring evidence trail for clinical decision-support changes; reconstructable from `audit_events` with full provenance.
+
+### 1Q.11 CI lint + governance forbidden patterns
+
+CI lint enforces:
+
+- **Rule definitions in any form other than typed TypeScript** (per code-as-config Layer 1 discipline at file head).
+- **Template definitions without typed `required_variables`** (free-text-only templates forbidden).
+- **AI refinement of `prohibited_claims` / `required_variables` / `tone_class` / channel-specific format** (per invariant 5).
+- **Automated patient-facing send paths that bypass the template registry** (per invariant 9).
+- **Auto-send of AI-drafted text under a human's capability without explicit human approval** (per invariant 9; the human reviewer must read-edit-accept before send fires).
+- **Rule definitions without `rationale_note`** (per invariant 8).
+- **Rule definitions without `effective_at`** (unbounded rules forbidden per failure mode 5).
+- **Rule firing past `retired_at`** (rejected at firing time per failure mode 5).
+- **Same `rule_id` at same priority for overlapping triggers** (per failure mode 1).
+- **Inbound rules+templates rules introduced outside Section 1Q or its declared cross-link sections** (consolidation discipline per invariant 12).
+- **Defaulting `ai_refinement_allowed = true` without rationale** (opt-in is required to be explicit).
+- **Soft-deletion of rules/templates without `supersedes_*` chain** (replayability per invariant 2).
+- **`mass_supersede` recall action without `recall_severity = safety_critical` + clinical CODEOWNER + compliance approval** (per 1Q.10).
+
+### 1Q.12 Cross-links
+
+**Section 1G** (messaging SoT, AI layer per line 365, action items per `1G.11`, exception classification per `1G.5`, send policy per `1G.3`, queue priority per `1G.7.6`, workspace panel per `1G.8.5`, CoR notification templates per `1G.9.14`), **Section 1H** (`1H.6.1E` exception classification for safety-miss + recall events; `1H.7` analytics; future `rule_correction_patterns_rollup` view), **Section 1I** (subscription change + refund + payment events as billing/subscription rule destinations), **Section 1J** (`1J.10` safety preflight is stage 2 of 1Q execution order; `1J.4` identity L-level for stage 1 pre-conditions), **Section 1K** (`1K.4` question bank patterns parallel to template patterns; `1K.5` raw evidence; **`1K.5.A`** clinical assertion layer drives clinical rule predicates; `1K.7` eligibility blockers feed eligibility rules; `1K.11` patient_consents (orthogonal to template-governance `ai_refinement_allowed`); `1K.12` packet rendering uses Section 1Q templates with strict `ai_refinement_constraints`; `1K.14` schema list cross-link), **Section 1L** (`1L.15` lab reminder templates are Section 1Q `lab_requirement` domain templates; `1L.16` lab gate decision is `lab_requirement` rule), **Section 1M** (`patient_state_observations` are typed inputs for rule predicates per invariant 10), **Section 1N** (AI training labeled features include rule firing + correction events; AI refinement audit log feeds Section 1N feedback loop), **Section 1O** (document extraction is structured-first per `Section 1P` invariant 10; rule predicates may reference document_extracted assertions), **`Section 1P`** (inbound narrative atomization is the upstream pipeline that feeds typed atoms into rule predicates; `Section 1P.11` model_recall pattern generalized in 1Q.10 to rule_recall + template_recall), **Intent** (RLS, append-only, audit, replayability, capability discipline, code-as-config Layer 1).
 
 ---
 
