@@ -453,6 +453,24 @@ The **map** already **requires** server **permit** assert on approve/prescribe (
 - **Sequencing rule:** when notifications are scheduled within the same window, send order is by `priority` (`urgent_clinical → urgent_ops → standard → low`) regardless of trigger order; ties broken by clinical relevance (clinical > operational > marketing).
 - **Marketing always last:** `marketing_lifecycle` notifications always defer to transactional notifications in the same window; never preempt account/clinical/billing comms; `marketing_lifecycle` send budget is separate from `notification` send budget per `Section 1Q.13` marketing carve-out enforcement.
 
+*Privacy + communication governance enforcement (binding; per `2026-04-30_privacy_communication_governance.md` + `Section 1Q.17`):* every outbound_jobs dispatch decision passes through a deterministic 5-step privacy gate before send:
+
+1. **Action-template alignment check:** verify `template.privacy_exposure_level <= action.intended_privacy_exposure_level` AND `template.message_intent === action.message_intent` per `Section 1Q.4` action-level enforcement. Mismatch = `notification.action_template_intent_mismatch` audit event + reject (failsafe; CI lint should prevent at PR time).
+2. **Per-channel max-allowed-exposure compute:** `channel_max = compute(channel_default_ceiling, pathway_sensitivity, message_intent, patient_consents, patient_channel_preferences)`. Pathway sensitivity (`Section 1K.2` `pathway_sensitivity ∈ {low, moderate, high, extreme}`) is the HARDEST CAP — `extreme` blocks tier_3 outside-secure regardless of consent (no "your testosterone refill" SMS ever, even with `pathway_named_outside_secure_comm` consent). Patient channel preference can only TIGHTEN the computed cap (e.g., `sensitive_pathway_communication_tier_preference: 'minimal_outside_secure'`); never loosens.
+3. **Decision:** if `template.privacy_exposure_level <= channel_max` → render + dispatch + audit `notification.privacy_exposure_check { decision: 'pass' }`. If `> channel_max` AND `template.safety_critical_override_allowed` → render `template.safety_vague_companion_template_key` at tier_2 + dispatch + audit `notification.emergency_vague_override_fired`. If `> channel_max` AND consent uplift available (template needs `pathway_named_outside_secure_comm` patient lacks; `marketing_personalization_with_phi` for tier_3 marketing; etc.) → block dispatch + audit `notification.consent_uplift_required` + create `patient_action_items` of type `consent_uplift_offered` so patient can opt-in if they want. Else → BLOCK dispatch + audit `notification.dispatch_blocked_by_privacy_check` + create `patient_action_items` of type `secure_message_waiting` so patient is still routed in-app.
+4. **Emergency orchestration (`message_intent: safety`):** 6-step deterministic flow:
+   1. SMS fires `safety_vague_companion_template_key` at tier_2 ("URGENT: please call our care team or open Bloom now") regardless of patient SMS preference;
+   2. Push notification fires header-only ("Urgent provider message") if app installed (parallel with step 1);
+   3. Provider/staff phone outreach SLA starts (default 15-min for tier_5 urgent symptoms; 30-min for tier_4 critical-lab) — audit `safety.phone_outreach_initiated`;
+   4. Email vague follow-up fires ONLY if SMS bounced or no patient action in 30 min;
+   5. Routine notifications (`message_intent ∈ {marketing, billing, education, operational}`) SUPPRESSED for the patient during active safety window (default 24h) — audit `notification.suppressed_during_safety_window` per suppressed message;
+   6. Safety window closes when provider documents resolution OR 24h elapses with no further safety event → audit `safety.window_closed`; routine notifications resume.
+5. **Audit:** every dispatch decision (pass / fallback_vague / consent_uplift / block / suppress) emits typed `notification.privacy_exposure_check` audit row per `Section 1Q.7` extended audit shapes — never silent.
+
+**Crisis carveout (future):** when `pathway_crisis_carveout: true` is declared on a pathway file per `Section 1K.2` (sleep/depression/mental health when scoped), the safety orchestration replaces step 1 SMS-vague with crisis-specific routing: phone-first + 988 hotline reference + on-call clinician escalation; bypasses the standard 6-step flow for suicide ideation / self-harm signals. Out-of-scope for V1.
+
+CI lint forbids: (a) outbound dispatch paths that bypass this 5-step privacy gate; (b) `safety_critical_override_allowed = true` without registered `safety_vague_companion_template_key` of `privacy_exposure_level: 2` and `message_intent: safety`; (c) routine notifications dispatched within an active safety window without suppression check; (d) any code path that mutates `pathway_sensitivity` cap based on patient preference (preference TIGHTENS only).
+
 `1G.3` outbound_jobs orchestrator computes the per-patient pending-notification queue at scheduled-send time, applies digest + sequencing, then dispatches per channel-specific rendering rules per `Section 1Q.13`. CI lint forbids `notification` or `marketing_lifecycle` send paths that bypass `1G.3` outbound_jobs gate.
 
 | # | **Theme** | **Exists (typical / map-honest)** | **Partial** | **Target (same model — no CRM)** | **Non-optional before Hims-style scale** |
@@ -2984,7 +3002,7 @@ The intake engine is **not** a frontend wizard backed by config. It is a **serve
 
 Patients may enter through any of: "I have ED", "Low T symptoms", "GLP-1 / weight loss", "peptides", "labs", "supplements", "I'm not sure / anti-aging / wellness". Each entry **maps to one or more intake modules** from a shared module set; modules are reused across pathways.
 
-- **Entry intent → pathway record:** stored as an `intake_pathway_selection` (additive concept; can live in `intake` metadata in v1) with `selected_intent`, `selected_at`, `entry_source` (per `1H.4` acquisition fields when present), and `pathway_codes` (one or more, e.g., `ed`, `trt`, `glp1`, `peptides`, `labs_only`, `supplements_only`, `wellness`). **Pathway file shape (binding):** each pathway is a declarative file (`repo/intake/pathways/<pathway>.ts`) that pins, per `pathway_version`, the exact `(module_id, module_version)` pairs it includes, the `layer_position` overrides per module, the `l_gate` per `1J.4`, the `jurisdiction_eligibility` policy per `1G.4.1`, the `payment_model` per `1K.11`, and the `intent_codes[]` that map to it. **Bumping any module_version pinned by a pathway bumps the pathway_version**; the pin is recorded on `intake_sessions.pathway_version_pins` (jsonb map of `{pathway_code: pathway_version}`, parallel to `pathway_codes[]` per `1K.14` schema row) at session creation per `1K.4` mandatory version capture so reconstruction is deterministic.
+- **Entry intent → pathway record:** stored as an `intake_pathway_selection` (additive concept; can live in `intake` metadata in v1) with `selected_intent`, `selected_at`, `entry_source` (per `1H.4` acquisition fields when present), and `pathway_codes` (one or more, e.g., `ed`, `trt`, `glp1`, `peptides`, `labs_only`, `supplements_only`, `wellness`). **Pathway file shape (binding):** each pathway is a declarative file (`repo/intake/pathways/<pathway>.ts`) that pins, per `pathway_version`, the exact `(module_id, module_version)` pairs it includes, the `layer_position` overrides per module, the `l_gate` per `1J.4`, the `jurisdiction_eligibility` policy per `1G.4.1`, the `payment_model` per `1K.11`, the `intent_codes[]` that map to it, and the **`pathway_sensitivity` enum** (NEW per `2026-04-30_privacy_communication_governance.md`; per `Section 1Q.17` triple-axis taxonomy; REQUIRED on every pathway file): `'low' | 'moderate' | 'high' | 'extreme'`. **`pathway_sensitivity` is intrinsic to the pathway** — it does NOT mean "every message at tier_5"; it caps the OUTSIDE-SECURE ceiling per the 5-condition rule in `Section 1Q.17`. **Mapping (binding):** wellness / supplements / cold acquisition = `low`; GLP-1 / metabolic / weight loss = `moderate`; Female HRT = `high`; TRT / Testosterone = `extreme`; ED = `extreme`; peptides (muscle / antiaging) = `extreme`; sleep / depression / mental health (future) = `extreme` + `pathway_crisis_carveout: true` (NEW optional flag; routes urgent comms to phone-first + 988 + on-call clinician escalation per `Section 1G.3` emergency orchestration crisis carveout). Send-policy `1G.3` reads `pathway_sensitivity` (NOT a numeric tier) at outbound dispatch and applies the 4-bucket conditional outside-secure rules: `low`/`moderate` may unlock tier_3 outside-secure with `pathway_named_outside_secure_comm` consent; `high` requires per-template explicit opt-in at PR time with clinical CODEOWNER approval; `extreme` BLOCKS tier_3 outside-secure regardless of consent (the hardest cap — patient consent cannot override regulatory/clinical-safety floors). CI lint forbids: (a) pathway files without declared `pathway_sensitivity`; (b) any code path that mutates `pathway_sensitivity` cap based on patient preference (preference TIGHTENS only). **Bumping any module_version pinned by a pathway bumps the pathway_version**; the pin is recorded on `intake_sessions.pathway_version_pins` (jsonb map of `{pathway_code: pathway_version}`, parallel to `pathway_codes[]` per `1K.14` schema row) at session creation per `1K.4` mandatory version capture so reconstruction is deterministic.
 - **Mapping policy (deterministic):** a server-side policy file (versioned, reviewed; **not** AI-generated at runtime) maps intent codes to ordered module sets. `wellness` maps to a baseline assessment + recommendation logic that may surface eligibility for additional pathways.
 - **Cross-sell:** adding a pathway during a session adds modules to the same `intake_session` (no second intake silo); see `1K.6`.
 - **Anonymous vs authenticated entry:** see `1K.13`.
@@ -3564,7 +3582,15 @@ Intake captures both today's commerce and the conditional Rx terms; payment even
 - **No charge for Rx unless eligibility satisfied:** absolute rule. Provider approval (per `1G`) plus any required lab review (per Lab Appendix) must complete before the if-prescribed charge fires.
 - **Audit trail of consent + payment terms — first-class `patient_consents` object (required):**
   - **Object:** `patient_consents` is a first-class table with `(id, patient_id, type, version_hash, legal_text_snapshot_id, accepted_at, source_surface, captured_intake_response_id?, captured_session_id?, ip_address?, device_context?, revoked_at?, revoked_reason?, supersedes_consent_id?)`. Not implied as a derivative of `intake_response`; it is the source of truth for "what consent did this patient accept, to what exact legal text, when, on what surface."
-  - **Controlled `type` enum:** `telehealth_consent`, `terms_and_conditions`, `privacy_policy_acknowledgment`, `off_label_rx_acknowledgment`, `sms_marketing_opt_in`, `subscription_auto_renew`, `identity_verification_biometric`, `research_or_deidentified_data`, `prescription_order_acceptance`, **`marketing_sms`** (NEW; per `Section 1Q.13` Module 15 marketing carve-out; TCPA-compliant SMS marketing opt-in; supersedes the legacy `sms_marketing_opt_in` on new accounts post-`Section 1Q.13` ship date with a 90-day migration window during which both are accepted), **`marketing_email`** (NEW; CASL/CAN-SPAM-compliant email marketing opt-in), **`marketing_personalization_with_phi`** (NEW; HIPAA marketing authorization for marketing communications that personalize using `patient_clinical_assertions` / `patient_lab_observations` / `patient_diagnostic_reports` / any clinical chart row — required by `Section 1Q.1` `marketing_lifecycle` rule domain CI lint; informational consent without this means marketing comms use ONLY non-PHI patient attributes per `Section 1Q.13` marketing carve-out enforcement). Org-extensible only via map/repo review. Each type declares whether it is **gating** (mutation blocks without it) or **informational** (recorded but non-blocking). All three new marketing consent types are **informational** (their absence does NOT block clinical care; their presence GATES specific marketing communication paths per `Section 1Q.1` `marketing_lifecycle` rules). **Notification channel preferences (NEW per `2026-04-30_glp1_first_slice.md` Refinement 5):** patient_consents type enum extended with three preference rows per patient — `marketing_sms_preferred_channels` (typed Channel[] enum: `sms | email | in_app | push`), `transactional_preferred_channels` (typed Channel[]), `urgent_safety_preferred_channels` (typed Channel[]). These are per-event-class channel allowlists honored by `1G.3` send-policy cross-channel deduplication per Refinement 5. **Defaults (when patient hasn't customized):** SMS for `urgent_clinical` priority + email for `standard` / `low` priority + in_app push for action-item-driven notifications when patient has the app installed. **Override (binding):** safety-critical messages (`priority_hint = urgent_clinical`; Module 9 per `Section 1Q.13`) ALWAYS fire on SMS regardless of patient preference (TCPA-compliant emergency exception); patient can opt out of routine SMS but cannot opt out of safety SMS while enrolled in clinical care. Preference changes write new `patient_consents` rows superseding prior via `supersedes_consent_id` chain; revocation honored at next send-gate per `1G.3(b)`.
+  - **Controlled `type` enum:** `telehealth_consent`, `terms_and_conditions`, `privacy_policy_acknowledgment`, `off_label_rx_acknowledgment`, `sms_marketing_opt_in`, `subscription_auto_renew`, `identity_verification_biometric`, `research_or_deidentified_data`, `prescription_order_acceptance`, **`marketing_sms`** (NEW; per `Section 1Q.13` Module 15 marketing carve-out; TCPA-compliant SMS marketing opt-in; supersedes the legacy `sms_marketing_opt_in` on new accounts post-`Section 1Q.13` ship date with a 90-day migration window during which both are accepted), **`marketing_email`** (NEW; CASL/CAN-SPAM-compliant email marketing opt-in), **`marketing_personalization_with_phi`** (NEW; HIPAA marketing authorization for marketing communications that personalize using `patient_clinical_assertions` / `patient_lab_observations` / `patient_diagnostic_reports` / any clinical chart row — required by `Section 1Q.1` `marketing_lifecycle` rule domain CI lint; informational consent without this means marketing comms use ONLY non-PHI patient attributes per `Section 1Q.13` marketing carve-out enforcement). Org-extensible only via map/repo review. Each type declares whether it is **gating** (mutation blocks without it) or **informational** (recorded but non-blocking). All three new marketing consent types are **informational** (their absence does NOT block clinical care; their presence GATES specific marketing communication paths per `Section 1Q.1` `marketing_lifecycle` rules). **Notification channel preferences (NEW per `2026-04-30_glp1_first_slice.md` Refinement 5):** patient_consents type enum extended with three preference rows per patient — `marketing_sms_preferred_channels` (typed Channel[] enum: `sms | email | in_app | push`), `transactional_preferred_channels` (typed Channel[]), `urgent_safety_preferred_channels` (typed Channel[]). These are per-event-class channel allowlists honored by `1G.3` send-policy cross-channel deduplication per Refinement 5. **Defaults (when patient hasn't customized):** SMS for `urgent_clinical` priority + email for `standard` / `low` priority + in_app push for action-item-driven notifications when patient has the app installed. **Override (binding):** safety-critical messages (`priority_hint = urgent_clinical`; Module 9 per `Section 1Q.13`) ALWAYS fire on SMS regardless of patient preference (TCPA-compliant emergency exception); patient can opt out of routine SMS but cannot opt out of safety SMS while enrolled in clinical care. Preference changes write new `patient_consents` rows superseding prior via `supersedes_consent_id` chain; revocation honored at next send-gate per `1G.3(b)`. **Privacy + communication governance consent additions (NEW per `2026-04-30_privacy_communication_governance.md`; per `Section 1Q.17` triple-axis taxonomy):** four additional consent types extend the enum — **`pathway_named_outside_secure_comm`** (informational; uplift required to render tier_3 outside-secure messages on `low`/`moderate` `pathway_sensitivity` pathways per `Section 1K.2`; ignored on `high`/`extreme` pathways which BLOCK tier_3 outside-secure regardless of consent), **`clinical_detail_in_email_comm`** (informational; rare; for patients who explicitly request tier_4 lab values via email; never enables `marketing` intent at tier_4), **`phone_call_clinical_outreach_consent`** (informational; default-ON at L3+ identity per `1J.4`; revocable except for safety-emergency where provider duty-to-warn supersedes), **`mail_paper_clinical_outreach_consent`** (informational; legal/regulatory paper mail with sealed clinical content; rare). Notification channel preferences extended with **`sensitive_pathway_communication_tier_preference`** typed enum (`'minimal_outside_secure' | 'pathway_named_outside_secure' | 'clinical_detail_outside_secure'`; default = `minimal_outside_secure`; patient-controlled TIGHTENING per `Section 1Q.17` invariant 6 — never loosens above template/channel/pathway cap).
+  - **Patient-facing 6-toggle preference UI (binding; per `2026-04-30_privacy_communication_governance.md` Part 9; Apple/Hims-style settings page):** the patient settings UI exposes 6 human-readable toggles mapping to typed `patient_consents` rows + `notification_channel_preferences` fields. **Toggles are UI surface; consents are legal/audit truth (HIPAA / TCPA / CASL).** Toggle-to-consent mapping (binding):
+    1. **"Send me useful care updates by text and email"** (default ON) — sets `notification_channel_preferences.transactional_preferred_channels[] = [sms, email, in_app]` and `clinical_low_context_preferred_channels[] = [sms, email, in_app]`; OFF tightens to in-app only.
+    2. **"Allow detailed clinical updates by email"** (default OFF) — `clinical_detail_in_email_comm` consent; when ON enables tier_4 in email for `clinical` and `education` intents; never for `marketing`.
+    3. **"Allow phone calls from your care team"** (default ON) — `phone_call_clinical_outreach_consent`; when OFF only safety-emergency phone outreach allowed (NOT revocable for emergency).
+    4. **"Allow treatment-specific wording outside the app"** (default OFF) — `pathway_named_outside_secure_comm`; when ON enables tier_3 in SMS/email for `low`/`moderate` `pathway_sensitivity` pathways; ignored for `high`/`extreme` pathways (UI hides toggle for patients enrolled only in extreme pathways since toggle is inert).
+    5. **"Send me marketing and offers"** (default OFF) — `marketing_sms` + `marketing_email` consents; when ON enables `marketing` intent on SMS/email at tier_1 default.
+    6. **"Personalize offers based on my care context"** (default OFF) — `marketing_personalization_with_phi`; when ON enables tier_3 marketing referencing pathway names (still bound by `pathway_sensitivity` per Section 1K.2).
+  - **Discipline (binding):** UI toggle changes go through a consent-write API that creates appropriate `patient_consents` rows with audit + revocation semantics; reads compose typed consents into UI state. Patient never sees `marketing_personalization_with_phi` legalese — they see plain language. Settings UI shows only relevant toggles per pathway (sensitivity-aware UI; extreme pathways hide Toggle 4 because it's inert). Patient can revoke any consent at any time (except `phone_call_clinical_outreach_consent` for safety-emergency). CI lint forbids: (a) UI toggle paths that bypass typed `patient_consents` write; (b) any code that reads UI toggle state instead of querying `patient_consents` for consent verification at send-gate; (c) patient preferences that LOOSEN above template/channel/pathway cap (preference TIGHTENS only).
   - **`legal_text_snapshot_id`** pins the exact rendered legal text shown to the patient at acceptance time (stored once, pointed to by all acceptances of that version). Version-pin discipline identical to `1K.4` (no silent legal-text edits; material changes create a new version_hash and a new snapshot). Captures TCPA short-code text, off-label copy, subscription renewal terms, telehealth-consent jurisdiction text exactly as shown.
   - **Provenance on every acceptance:** `accepted_at` timestamp, `source_surface` (`intake_account_creation | intake_state_gate | intake_submit_to_provider | checkout_subscription | account_settings_sms | account_settings_research | provider_message | ops_manual_capture`), IP + device context per Intent, and a back-pointer to the `intake_response` row that captured the checkbox (so the response row and the consent row are joined, but the consent row is the queryable source of truth).
   - **Gating consents block the action:** the safety preflight per `1J.10` reads `patient_consents` for any `actionContext` that requires a gating consent (e.g., `prescribe_catalog` on an off-label pathway requires a valid, non-revoked `off_label_rx_acknowledgment` for that specific pathway/medication class; `subscribe_plan` requires a valid `subscription_auto_renew` pinned to the plan version). Missing or revoked gating consent → block or escalate, not best-effort proceed.
@@ -5652,6 +5678,28 @@ On send/save: atoms write directly with `authored_by = provider_assessed` or `pr
 
 **Vendor accountability rollup (deferred to v1.1):** `vendor_partner_incidents_rollup` view keyed on `(vendor_id, atom_kind, time_window)` surfaces patterns ("vendor X has N billing errors over 90 days") for compliance/partnerships review. v1 captures the data via `vendor_id` on atoms; v1.1 builds the view when usage demands.
 
+**Vendor minimum-necessary outbound discipline + redact-then-retry fallback (binding; per `2026-04-30_privacy_communication_governance.md` Part 13; per `Section 1Q.17` invariant 10):** every vendor-facing template (intent=`vendor` per `Section 1Q.5` template object shape) MUST declare a typed `vendor_minimum_necessary_scope: text[]` field listing the typed payload field names the vendor needs for the action. CI lint forbids vendor templates lacking this declaration at PR time. The deterministic handler at outbound dispatch verifies the outbound payload against the declared scope and applies a 5-step redact-then-retry fallback to avoid operational deadlock:
+
+| Step | Action | Outcome | Audit |
+|---|---|---|---|
+| 1 | Verify outbound payload against `vendor_minimum_necessary_scope` declared on the template | Pass / mismatch | none on pass |
+| 2 (mismatch) | Block unsafe payload | Halted | `vendor.payload_blocked_unsafe { vendor_id, template_key, exceeded_fields[] }` |
+| 3 | Attempt redaction to allowed subset (drop excess fields beyond declared scope; minimum necessary) | Redacted payload | `vendor.payload_redaction_attempted` |
+| 4 | Retry with safe subset against the vendor endpoint | Pass / vendor-rejected | `vendor.payload_redacted_to_scope { vendor_id, dropped_fields[] }` |
+| 5 | If safe subset CANNOT satisfy vendor action (vendor strictly requires the over-scope field): block + alert owner per `1G.5` exception classification taxonomy | Final block | `vendor.payload_blocked_redaction_insufficient { vendor_id, template_key, required_field_unsupplied }` |
+
+**Discipline (binding):**
+- **Never deadlock fulfillment** when redaction is feasible. Step 5 (final block + owner alert) only fires when the vendor strictly requires the over-scope field for action completion AND no redacted-subset approach succeeds.
+- **Marketing tools** (Klaviyo, etc.) NEVER receive PHI directly — only **opaque cohort IDs** computed in-house from consented patients per `marketing_personalization_with_phi`. The cohort ID resolution table stays on internal infrastructure; the marketing tool sees only the ID + non-PHI lifecycle event.
+- **Vendor type-specific scope examples (illustrative; per-vendor scope declared in `repo/templates/vendor/<vendor>/<template>.ts`):**
+  - **Pharmacy:** Rx + dose + patient demographics + shipping address + clinician identifier — NEVER diagnosis narrative, full clinical chart, unrelated medications.
+  - **Lab:** Lab order + patient demographics + specimen requirements + clinician identifier — NEVER diagnosis, other meds, full chart.
+  - **Fulfillment partner:** Shipping address + package SKU + brand name — NEVER indication, medication name on label, clinical chart.
+  - **Payment processor:** Amount + payer info + opaque SKU IDs — NEVER medication name on metadata, indication, full chart.
+  - **Support vendor (HIPAA-BAA):** full case detail.
+  - **Support vendor (non-BAA):** tier_2 max — case ID + opaque session reference; NEVER PHI.
+- **CI lint enforcement:** vendor templates without `vendor_minimum_necessary_scope` are rejected at PR time. Marketing-tool integration code paths attempting to send PHI fields (any `patient_clinical_assertions`/`patient_lab_observations`/`patient_diagnostic_reports` field beyond opaque cohort ID) are rejected at PR time + runtime.
+
 ### 1P.8 Cross-source redundancy + reconciliation
 
 Same `(concept_id, context_key)` from patient + vendor + repeated check-in dedupe per `1K.5.A` reconciliation policies (`auto_dedupe`, `context_distinct`, `requires_provider_review_on_conflict`). **Never per-channel deduplication.** CI lint forbids per-channel dedupe.
@@ -5922,8 +5970,21 @@ interface Rule {
   rationale_note: string;                   // required; clinical/business intent
   retiring_supersedes_rule_id?: string;
   retiring_replaced_by_rule_id?: string;
+  // Privacy + communication governance — action-level enforcement (NEW per `2026-04-30_privacy_communication_governance.md`):
+  intended_privacy_exposure_level?: 0 | 1 | 2 | 3 | 4 | 5; // REQUIRED for actions with kind ∈ {'notify', 'escalate', 'clarify'} that produce an outbound communication; declares the maximum PHI exposure the action intends. Template's `privacy_exposure_level` MUST NOT exceed this cap; CI lint enforces `template.privacy_exposure_level <= action.intended_privacy_exposure_level` at PR time and runtime. Catches "developer picked a tier_4 template for a tier_2 action." When omitted on `notify`/`escalate`/`clarify` actions: CI lint failure.
+  message_intent?: 'account' | 'operational' | 'clinical' | 'safety' | 'billing' | 'support' | 'marketing' | 'education' | 'vendor' | 'internal'; // REQUIRED for actions with kind ∈ {'notify', 'escalate', 'clarify'}; MUST equal `template.message_intent` (CI lint failure on mismatch). Drives consent path lookup at send time per `Section 1Q.17` triple-axis governance — different intents have different consent paths even at the same exposure tier (e.g., tier_2 + intent=`account` is universally allowed; tier_2 + intent=`marketing` still requires `marketing_sms` consent for SMS).
 }
 ```
+
+**Action-template enforcement chain (binding; per `2026-04-30_privacy_communication_governance.md`):** the privacy + communication governance enforcement at outbound dispatch (per `Section 1G.3` + `Section 1Q.17`) operates as a 5-step deterministic chain:
+
+1. **Action-template alignment:** `template.privacy_exposure_level <= action.intended_privacy_exposure_level` AND `template.message_intent === action.message_intent`. Mismatch = CI lint failure at PR time; runtime mismatch (failsafe) = `notification.action_template_intent_mismatch` audit event + reject.
+2. **Channel max compute:** per-channel max-allowed-exposure computed from (channel_default_ceiling, `pathway_sensitivity` per `Section 1K.2`, `message_intent`, patient consents per `1K.11`, patient channel preferences).
+3. **Decision:** pass / fallback_vague_safety (when `safety_critical_override_allowed`) / consent_uplift_required (when consent gap is closeable) / block.
+4. **Emergency orchestration:** safety intent triggers 6-step flow (SMS-vague-first + push-header + provider-phone-SLA + email-on-bounce + 24h routine-suppression-window + window-close).
+5. **Audit:** every dispatch decision emits `notification.privacy_exposure_check` per `Section 1Q.7` extended audit events.
+
+CI lint forbids: (a) RuleAction with `kind ∈ {notify, escalate, clarify}` lacking `intended_privacy_exposure_level` or `message_intent`; (b) any rule whose action's intended_privacy_exposure_level exceeds the action.template's declared `privacy_exposure_level` floor for the channel set declared on the rule.
 
 ### 1Q.5 Template object shape (TypeScript discriminated union)
 
@@ -5950,6 +6011,15 @@ interface Template {
   rationale_note: string;                   // required
   retiring_supersedes_template_key?: string;
   retiring_replaced_by_template_key?: string;
+  // Privacy + communication governance (NEW per `2026-04-30_privacy_communication_governance.md`):
+  privacy_exposure_level: 0 | 1 | 2 | 3 | 4 | 5;       // REQUIRED — per Section 1Q.17 6-tier taxonomy: 0=no_phi, 1=existence_only, 2=low_context_phi, 3=pathway_named_phi, 4=clinical_detail_phi, 5=sensitive_clinical_phi; CI lint forbids templates without declared tier
+  message_intent: 'account' | 'operational' | 'clinical' | 'safety' | 'billing' | 'support' | 'marketing' | 'education' | 'vendor' | 'internal'; // REQUIRED — drives consent path lookup at send time per Section 1Q.17 message intent enum; CI lint forbids templates without declared intent; intent MUST equal RuleAction.message_intent at runtime per Section 1Q.4 action-template intent match
+  outside_secure_render_strategy: 'omit_pathway_name' | 'mention_pathway_name_with_consent' | 'header_only_for_push' | 'mention_brand_only';  // declares how the template renders to outside-secure channels (SMS / email / push / paper); does NOT override pathway_sensitivity hard caps per Section 1K.2
+  secure_view_render_strategy: 'full_detail_default';   // always full detail in secure view (in-app + provider phone); declared for completeness
+  requires_consent_for_exposure_level?: ConsentType[];  // patient_consents.type values that MUST be valid + non-revoked for the template to render at its declared exposure level (e.g., tier_3 marketing requires `marketing_personalization_with_phi`; tier_3 clinical requires `pathway_named_outside_secure_comm`); when missing → send-policy decision = `consent_uplift_required` per `1G.3`
+  requires_consent_for_intent?: ConsentType[];          // patient_consents.type values required by intent (e.g., `marketing` intent requires `marketing_sms` for SMS channel; `marketing_email` for email channel); CI lint enforces declaration when intent ∈ {marketing, education-with-marketing-tone}
+  safety_critical_override_allowed: boolean;            // DEFAULT FALSE; when TRUE: template may fire over patient channel preferences per existing `1G.3` safety override; MUST also declare `safety_vague_companion_template_key`; CI lint forbids `true` on non-`safety` intent templates
+  safety_vague_companion_template_key?: string;          // REQUIRED when `safety_critical_override_allowed = true`; points at a tier_2 vague template (intent=`safety`) that fires on outside channels (SMS / email / push) while the tier_4/5 detailed version stays in-app + phone; CI lint validates the companion exists, is `privacy_exposure_level: 2`, and is registered as `intent: safety`
 }
 ```
 
@@ -6019,6 +6089,91 @@ Deterministic pipeline (binding):
 - **`can_authorize_billing_override`** — enables scoped override of billing rules' blocks (e.g., refund-policy edge cases); billing CODEOWNER + ops CODEOWNER decide jointly.
 
 **Foundational because** real clinical workflow has routine clinical-judgment overrides (bridge supplies; known-patient low-risk windows; verbal-confirmation alternative evidence) that don't fit truth-update OR break-glass patterns. Without scoped override as first-class concept: providers corrupt truth by writing fake updates, OR invoke break-glass for routine cases (devaluing the safety signal), OR refuse legitimate care. Override pattern parallels FDA "physician override" patterns in clinical decision support systems — the override is a sanctioned departure from the ruleset, fully audited, scope-limited, and reviewable.
+
+**Privacy + communication governance audit events (binding; per `2026-04-30_privacy_communication_governance.md`; per `Section 1Q.17` triple-axis taxonomy):** the privacy gate at outbound dispatch (per `Section 1G.3` 5-step enforcement chain) emits typed `audit_events` rows for every dispatch decision. Six new `event_type` values + payload shapes:
+
+```jsonc
+// notification.privacy_exposure_check — every dispatch decision (pass / fallback / consent_uplift / block / suppress)
+{
+  event_type: 'notification.privacy_exposure_check',
+  payload: {
+    rule_id: string,
+    rule_version: string,
+    template_key: string,
+    template_version: string,
+    intended_privacy_exposure_level: 0 | 1 | 2 | 3 | 4 | 5,    // from RuleAction per Section 1Q.4
+    declared_privacy_exposure_level: 0 | 1 | 2 | 3 | 4 | 5,    // from Template per Section 1Q.5
+    message_intent: 'account' | 'operational' | 'clinical' | 'safety' | 'billing' | 'support' | 'marketing' | 'education' | 'vendor' | 'internal',
+    channel: 'sms' | 'email' | 'push' | 'in_app' | 'phone' | 'mail' | 'staff_baa' | 'staff_non_baa' | 'vendor',
+    pathway_id: string,
+    pathway_sensitivity: 'low' | 'moderate' | 'high' | 'extreme',
+    patient_id: uuid,
+    consents_present: ConsentType[],                            // patient_consents.type values that are valid + non-revoked at decision time
+    computed_channel_max: 0 | 1 | 2 | 3 | 4 | 5,                // from 5-step enforcement chain per Section 1G.3
+    decision: 'pass' | 'fallback_vague' | 'consent_uplift' | 'block' | 'suppress',
+    fail_reason_code?: 'pathway_sensitivity_block' | 'channel_ceiling_exceeded' | 'missing_consent' | 'patient_preference_tightened' | 'safety_window_active'
+  }
+}
+
+// notification.dispatch_blocked_by_privacy_check — when block fires
+{
+  event_type: 'notification.dispatch_blocked_by_privacy_check',
+  payload: {
+    template_key: string, channel: Channel, declared_privacy_exposure_level: int, computed_channel_max: int,
+    pathway_sensitivity: PathwaySensitivity, fail_reason_code: text,
+    action_item_created_id: uuid                                // patient_action_items row of type 'secure_message_waiting' so patient is still routed in-app
+  }
+}
+
+// notification.consent_uplift_required — when template needs consent the patient lacks
+{
+  event_type: 'notification.consent_uplift_required',
+  payload: {
+    template_key: string, missing_consent_types: ConsentType[],
+    offered_uplift_at_action_item_id: uuid                      // patient_action_items row of type 'consent_uplift_offered' with deep-link to settings
+  }
+}
+
+// notification.emergency_vague_override_fired — when safety override fired companion template
+{
+  event_type: 'notification.emergency_vague_override_fired',
+  payload: {
+    primary_template_key: string,                                // the tier_4/5 detailed template (in-app + phone)
+    vague_template_key: string,                                  // the safety_vague_companion_template_key fired on outside channels
+    channel: Channel, priority_hint: 'urgent_clinical',
+    audit_chain_to_clinical_event: uuid                          // pointer to the underlying clinical safety event (assertion / concern_topic / lab_result)
+  }
+}
+
+// notification.suppressed_during_safety_window — routine notifications suppressed during active safety window per Section 1G.3 emergency orchestration step 5
+{
+  event_type: 'notification.suppressed_during_safety_window',
+  payload: {
+    template_key: string, message_intent: MessageIntent,         // suppressed intent (marketing | billing | education | operational)
+    safety_window_id: uuid,                                      // pointer to active safety window
+    suppression_reason: 'active_safety_window' | 'crisis_carveout',
+    will_resume_at?: timestamptz                                 // window close ETA (24h default)
+  }
+}
+
+// notification.action_template_intent_mismatch — failsafe when CI lint missed an action-template mismatch
+{
+  event_type: 'notification.action_template_intent_mismatch',
+  payload: {
+    rule_id: string, rule_version: string, template_key: string, template_version: string,
+    mismatch_kind: 'exposure_level_exceeded' | 'intent_mismatch',
+    action_intended_exposure_level: int, template_declared_exposure_level: int,
+    action_intent: MessageIntent, template_intent: MessageIntent
+  }
+}
+```
+
+**Discipline (binding):**
+
+- Every outbound dispatch decision (pass / fallback / consent_uplift / block / suppress) MUST emit `notification.privacy_exposure_check` — never silent. CI lint forbids dispatch paths that bypass this audit.
+- Audit row creation MUST precede actual SMS/email/push/etc. dispatch (audit-write-then-dispatch ordering; reuses `Section 1Q.0` invariant 8 audit-on-firing pattern).
+- `notification.action_template_intent_mismatch` is a failsafe; CI lint at PR time should prevent it from ever firing at runtime. When it fires, it triggers automatic alert to AI engineering + clinical CODEOWNER per `Section 1P.11` correction-loop pattern.
+- Aggregate stats per `(template_key, decision, fail_reason_code)` and per `(rule_id, decision)` feed quality monitoring; high `consent_uplift_required` rates may indicate too-aggressive default exposure tier (should be lower). High `block` rates may indicate template-channel-pathway misalignment (should fix).
 
 **`ai_draft_vs_sent_diff` audit shape (binding; per `2026-04-30_glp1_first_slice.md` Refinement 6):** for human-authored freehand sends with `ai_drafting_assist = true` per `Section 1Q.0` invariant 9, the `audit_events.payload.ai_draft_vs_sent_diff` field carries the explicit shape `{ ai_draft_text: string, sent_text: string, char_diff: int (positive if human added; negative if removed; zero if no change), semantic_change_classification: 'no_change' | 'minor_phrasing' | 'substantive_edit' | 'replaced_completely' }`. The `semantic_change_classification` is computed by a **deterministic diff classifier** (NOT AI-dependent — code-as-config rules per `1K.0` Layer 1 discipline; e.g., `no_change` if char_diff = 0; `minor_phrasing` if char_diff < 10% AND no full-sentence replacement; `substantive_edit` if 10-50% char change OR provider added structured-action equivalents; `replaced_completely` if >50% char change). The classification is queryable for analytics (`how often does provider accept AI draft as-is vs substantively edit?`) and for AI training feedback per `Section 1N.6a`. CI lint enforces presence on every `ai_drafting_assist = true` send: missing `ai_draft_vs_sent_diff` payload rejects the audit-write at firing time, blocking the send (consistent with `Section 1Q.0` invariant 9 "human MUST approve before send" — the audit row is the artifact of approval).
 
@@ -6147,6 +6302,36 @@ This subsection defines the platform-level communication + action module taxonom
 
 **V1 vs later (binding; per user instruction "address the large majority in V1"):** modules 1-14 fully V1 + Module 14.5 V1 at MVP + Module 15 V1 partial. **13 of 15 modules fully V1.** The architecture launches with the full communication surface, not phased.
 
+**Per-module privacy + communication governance defaults (binding; per `2026-04-30_privacy_communication_governance.md`; per `Section 1Q.17` triple-axis taxonomy):** every module declares default `privacy_exposure_level` + default `message_intent` for templates registered to that module. CI lint validates that templates' declared `privacy_exposure_level` + `message_intent` match the module defaults UNLESS the template registers an explicit override with rationale_note + clinical/ops CODEOWNER approval at PR time. Module defaults table:
+
+| Module # | Module name | Default `privacy_exposure_level` (outside-secure / secure-view) | Default `message_intent` |
+|---|---|---|---|
+| 1 | Account / onboarding | 1 / 2 | `account` |
+| 2 | Clinical intake | 2 / 4 | `clinical` |
+| 3 | Eligibility | 2 / 4 | `clinical` |
+| 4 | Provider review | 2 / 4-5 (secure view) | `clinical` |
+| 5 | Lab orchestration | 2 (kit ship) / 4 (results in secure view) | `clinical` |
+| 6 | Medication workflow | 2 (Rx ready) / 4 (dose/name in secure view) | `clinical` |
+| 7 | Fulfillment / shipping | 2 (never name medication in body) / 2 | `operational` |
+| 8 | Subscription + billing | 2 (amount + card OK; never med line item in SMS) / 2 | `billing` |
+| 9 | Safety / urgent escalation | 2 outside (vague urgent) / 5 secure + phone | `safety` |
+| 10 | Support inbox / threads | 2 / 2 (mirror inside thread) | `support` |
+| 11 | Vendor / partner I/O | structured-only (n/a tier) / structured-only | `vendor` |
+| 12 | Internal staff notifications | 5 in BAA workspace / 2 in non-BAA Slack | `internal` |
+| 13 | Patient education | 2-3 (med category may name with consent on `low`/`moderate` pathway_sensitivity) / 4 | `education` |
+| 14 | Compliance / legal | 2 outside / 4 secure | `account` |
+| 14.5 | Admin-level internal notifications | 4 intra-org HIPAA-BAA / 4 | `internal` |
+| 15 | Marketing suite | 1 default / 3 with `marketing_personalization_with_phi` consent + `low`/`moderate` `pathway_sensitivity`; **NEVER tier_4+** regardless of consent / 1 | `marketing` |
+
+**Discipline (binding):**
+
+- Modules 6 (medication workflow) and 9 (safety escalation) MUST register `safety_critical_override_allowed = true` templates with `safety_vague_companion_template_key` for any tier_4/5 outside-secure scenario per `Section 1Q.5` template object shape.
+- Module 7 (fulfillment) NEVER names medication in SMS/email body — package contents reference brand-only or SKU-opaque even when the medication is the package contents (vendor minimum-necessary discipline per `Section 1P`).
+- Module 8 (billing) amount + card method OK in tier_2 outside-secure; medication line item names NEVER in SMS body; receipt PDFs sit in secure view + `billing_receipt_email_attachment` opt-in for paper-mailed receipts.
+- Module 11 (vendor) bound by `vendor_minimum_necessary_scope` per `Section 1P` redact-then-retry fallback discipline; CI lint forbids vendor templates without scope declaration.
+- Module 12 (internal staff) tier_3+ requires HIPAA-BAA workspace; non-BAA Slack capped at tier_2 max regardless of staff role; CI lint forbids tier_3+ template registration on `non_baa_workspace` channel.
+- Module 15 (marketing) consumes tier_0/tier_1/tier_3 ONLY — NEVER tier_4+ even with consent; `marketing_personalization_with_phi` unlocks tier_3 ONLY for `low`/`moderate` `pathway_sensitivity` pathways per `Section 1K.2` cap; CI lint forbids marketing templates with declared `privacy_exposure_level >= 4`.
+
 **Strict-template vs AI-refinement classification (binding):**
 
 - **Strict locked templates (`ai_refinement_allowed = false` by default):** Modules 1 (consent + identity), 3 (denial), 4 (clinical decisions), 5 (clinical results), 6 (clinical content), 9 (safety — highest stakes), 14 (compliance — legal precision), 14.5 (admin escalations).
@@ -6214,16 +6399,18 @@ The first end-to-end vertical slice scope is GLP-1 program: account onboarding t
 - `marketing_lifecycle`: `rule.glp1.marketing.signup_incomplete_drip`, `rule.glp1.marketing.post_purchase_supplement_cross_sell`
 - `compliance_audit`: `rule.glp1.compliance.adverse_event_documentation`
 
-**25 templates (organized by `Section 1Q.2` template domain):**
-- `account_lifecycle`: `tmpl.glp1.account.welcome_v1`, `tmpl.glp1.account.identity_verification_prompt_v1`
-- `patient_clarification`: `tmpl.glp1.clarification.intake_completion_v1`, `tmpl.glp1.clarification.external_glp1_use_v1`
-- `denial_not_eligible`: `tmpl.glp1.denial.bmi_below_threshold_v1`, `tmpl.glp1.denial.contraindication_v1`, `tmpl.glp1.denial.jurisdiction_v1`, `tmpl.glp1.denial.pregnancy_status_v1`
-- `lab_reminder`: `tmpl.glp1.lab.kit_shipped_v1`, `tmpl.glp1.lab.kit_return_reminder_v1`, `tmpl.glp1.lab.results_released_v1`
-- `medication_workflow`: `tmpl.glp1.rx.approved_v1`, `tmpl.glp1.rx.dose_escalation_v1`, `tmpl.glp1.rx.refill_blocked_lab_freshness_v1`
-- `fulfillment_exception`: `tmpl.glp1.fulfillment.shipped_v1`, `tmpl.glp1.fulfillment.delay_v1`, `tmpl.glp1.fulfillment.cold_chain_replacement_v1`
-- `clinical_safety_escalation`: `tmpl.glp1.safety.urgent_seek_care_v1`, `tmpl.glp1.safety.urgent_provider_alert_v1`
-- `patient_education`: `tmpl.glp1.followup.week_2_titration_v1`, `tmpl.glp1.followup.week_4_side_effect_v1`, `tmpl.glp1.education.titration_schedule_v1`, `tmpl.glp1.education.side_effect_expectations_v1`
-- `marketing_lifecycle`: `tmpl.glp1.marketing.signup_incomplete_drip_v1`, `tmpl.glp1.marketing.supplement_cross_sell_v1`
+**25 templates (organized by `Section 1Q.2` template domain; per-template `privacy_exposure_level` + `message_intent` declared per `Section 1Q.5` template object shape and `Section 1Q.17` triple-axis taxonomy; safety_critical_override_allowed templates declare `safety_vague_companion_template_key` per `2026-04-30_privacy_communication_governance.md`; full per-template wording examples in audit file Part 14):**
+- `account_lifecycle`: `tmpl.glp1.account.welcome_v1` (tier_1, intent=`account`), `tmpl.glp1.account.identity_verification_prompt_v1` (tier_1, intent=`account`)
+- `patient_clarification`: `tmpl.glp1.clarification.intake_completion_v1` (tier_2, intent=`clinical`), `tmpl.glp1.clarification.external_glp1_use_v1` (tier_2 outside / tier_4 secure-view, intent=`clinical`)
+- `denial_not_eligible`: `tmpl.glp1.denial.bmi_below_threshold_v1` (tier_2 outside / tier_4 secure-view, intent=`clinical`), `tmpl.glp1.denial.contraindication_v1` (tier_2 outside / tier_5 secure-view, intent=`clinical`), `tmpl.glp1.denial.jurisdiction_v1` (tier_2, intent=`clinical`), `tmpl.glp1.denial.pregnancy_status_v1` (tier_2 outside / tier_5 secure-view, intent=`clinical`)
+- `lab_reminder`: `tmpl.glp1.lab.kit_shipped_v1` (tier_2, intent=`clinical`), `tmpl.glp1.lab.kit_return_reminder_v1` (tier_2, intent=`clinical`), `tmpl.glp1.lab.results_released_v1` (tier_2 outside / tier_4 secure-view, intent=`clinical`)
+- `medication_workflow`: `tmpl.glp1.rx.approved_v1` (tier_2 outside / tier_4 secure-view, intent=`clinical`; vague companion `tmpl.glp1.rx.approved_outside_secure_v1` at tier_2), `tmpl.glp1.rx.dose_escalation_v1` (tier_2 outside / tier_4 secure-view, intent=`clinical`; vague companion `tmpl.glp1.rx.dose_escalation_outside_secure_v1` at tier_2), `tmpl.glp1.rx.refill_blocked_lab_freshness_v1` (tier_2 outside / tier_4 secure-view, intent=`clinical`)
+- `fulfillment_exception`: `tmpl.glp1.fulfillment.shipped_v1` (tier_2, intent=`operational`; never names medication in body per `Section 1Q.13` Module 7 discipline), `tmpl.glp1.fulfillment.delay_v1` (tier_2, intent=`operational`), `tmpl.glp1.fulfillment.cold_chain_replacement_v1` (tier_2, intent=`operational`)
+- `clinical_safety_escalation`: `tmpl.glp1.safety.urgent_seek_care_v1` (tier_5 secure-view + phone, intent=`safety`, **`safety_critical_override_allowed: true`**, companion `tmpl.glp1.safety.urgent_seek_care_vague_outside_v1` at tier_2), `tmpl.glp1.safety.urgent_provider_alert_v1` (tier_5, intent=`safety`, **`safety_critical_override_allowed: true`**, companion `tmpl.glp1.safety.urgent_provider_alert_vague_outside_v1` at tier_2)
+- `patient_education`: `tmpl.glp1.followup.week_2_titration_v1` (tier_2 outside / tier_4 secure-view, intent=`education`), `tmpl.glp1.followup.week_4_side_effect_v1` (tier_2 outside / tier_4 secure-view, intent=`education`), `tmpl.glp1.education.titration_schedule_v1` (tier_2 outside / tier_4 secure-view, intent=`education`), `tmpl.glp1.education.side_effect_expectations_v1` (tier_2 outside / tier_4 secure-view, intent=`education`)
+- `marketing_lifecycle`: `tmpl.glp1.marketing.signup_incomplete_drip_v1` (tier_3 with `marketing_personalization_with_phi` consent + `pathway_sensitivity: moderate` for GLP-1, ELSE tier_1 fallback variant `tmpl.glp1.marketing.signup_incomplete_drip_no_phi_v1`; intent=`marketing`), `tmpl.glp1.marketing.supplement_cross_sell_v1` (tier_3 with consent OR tier_1 without; intent=`marketing`)
+
+**GLP-1 pathway file declaration (per `Section 1K.2`):** `pathway_sensitivity: 'moderate'` (weight-loss is socially less sensitive; medication CLASS may be referenced with consent; specific dose / labs always tier_4+ in secure view). With `pathway_named_outside_secure_comm` consent, tier_3 outside-secure templates may reference "weight-loss plan" / "metabolic kit" but NEVER specific medication name + dose in SMS / email body.
 
 **Implementation sequencing (post-checkpoint):**
 1. Scaffold `repo/rules/glp1/` with 23 rules as TypeScript code-as-config files organized by domain subdirectory per `1K.14` module-organized layout.
@@ -6263,6 +6450,63 @@ Pre-runtime adversarial test ran 4 targeted scenarios against the locked archite
 7. Parallel pathway work begins for ED + TRT + HRT (subset of devs/clinicians per `1G.4` provider eligibility); peptide pathways deferred pending separate compliance review.
 
 This subsection serves as the **pre-runtime gate** — runtime implementation MUST NOT begin until the 4 refinements (this checkpoint) are landed and the GLP-1 slice + ED/TRT/HRT pathway scopes are confirmed.
+
+### 1Q.17 Privacy + communication governance gate (binding; per `2026-04-30_privacy_communication_governance.md`)
+
+This subsection LOCKS the privacy + communication governance layer that governs every patient-facing send across SMS / email / in-app / push / phone / mail / internal-staff / vendor channels. **Mantra:** "High-signal outside, full detail inside." Outside channels carry enough info to drive action; full clinical detail lives behind authenticated secure view + provider phone outreach. Pattern reference: Apple ("You have a notification" + open device for content), Amazon ("Your package shipped" + tap for tracking), Hims ("Your provider has an update" + open app for clinical detail). Never financial-institution friction.
+
+**Triple-axis taxonomy (orthogonal axes evaluated in order at send time):**
+
+| Axis | Where declared | What it measures | Drives |
+|---|---|---|---|
+| `privacy_exposure_level` (0-5) | Template (`Section 1Q.5`) + RuleAction (`Section 1Q.4`) | How much PHI the message reveals (intrinsic to message content) | Per-message render strategy |
+| `pathway_sensitivity` (`low` / `moderate` / `high` / `extreme`) | Pathway file (`Section 1K.2`) | How socially / regulatorily sensitive the treatment area is (intrinsic to pathway) | Outside-secure ceiling cap (HARDEST CAP) |
+| `message_intent` (10-value enum) | Template + RuleAction | What kind of communication this is | Consent path lookup, send policy class |
+
+**6-tier privacy exposure taxonomy:** 0=`no_phi` | 1=`existence_only` | 2=`low_context_phi` | 3=`pathway_named_phi` | 4=`clinical_detail_phi` | 5=`sensitive_clinical_phi`. Marketing is a USE CASE that consumes tiers 0/1/3 with appropriate consents — not a separate tier.
+
+**4-bucket pathway sensitivity:** `low` (wellness/supplements) | `moderate` (GLP-1/metabolic) | `high` (Female HRT) | `extreme` (TRT, ED, peptides, mental-health-future). `extreme` BLOCKS tier_3 outside-secure regardless of consent.
+
+**10-value message intent enum:** `account` | `operational` | `clinical` | `safety` | `billing` | `support` | `marketing` | `education` | `vendor` | `internal`.
+
+**Channel matrix summary** (full matrix in audit file Part 6):
+- **SMS / email default max:** tier_2; tier_3 with `pathway_named_outside_secure_comm` consent on `low`/`moderate` pathways only; BLOCKED tier_3 on `high`/`extreme` regardless of consent
+- **Push (lockscreen body):** tier_2 max; never raised; sensitive = header-only
+- **In-app secure view:** tier_5 always
+- **Phone (human-conducted):** tier_5 with `phone_call_clinical_outreach_consent` (default-ON; revocable except for safety-emergency)
+- **Vendor:** structured-only; bound by `vendor_minimum_necessary_scope` per `Section 1P` redact-then-retry
+- **Internal staff non-BAA:** tier_2 max regardless of role; tier_3+ requires HIPAA-BAA workspace
+
+**Patient-facing 6-toggle preference UI** (per `Section 1K.11` patient-facing preference UI; Apple/Hims-style):
+1. "Send me useful care updates by text and email" (default ON)
+2. "Allow detailed clinical updates by email" (default OFF)
+3. "Allow phone calls from your care team" (default ON)
+4. "Allow treatment-specific wording outside the app" (default OFF; inert on extreme pathways)
+5. "Send me marketing and offers" (default OFF)
+6. "Personalize offers based on my care context" (default OFF)
+
+Toggles are UI surface; `patient_consents` rows are legal/audit truth (HIPAA / TCPA / CASL).
+
+**Emergency / safety 6-step orchestration** (per `Section 1G.3` send-policy emergency orchestration block): SMS-vague-first → push-header-only → provider-phone-SLA (15-min tier_5 / 30-min tier_4) → email-on-bounce-only-after-30min → routine-suppression-during-active-safety-window-24h-default → window-close-event-resumes-routine.
+
+**12 hard invariants (binding):**
+
+1. Every template declares `privacy_exposure_level` + `message_intent`; CI lint forbids templates without both per `Section 1Q.5`.
+2. Every RuleAction with `kind ∈ {notify, escalate, clarify}` declares `intended_privacy_exposure_level` + `message_intent`; CI lint enforces per `Section 1Q.4`.
+3. `template.privacy_exposure_level <= action.intended_privacy_exposure_level` — template can't exceed action cap (CI lint at PR + runtime; failsafe = `notification.action_template_intent_mismatch`).
+4. `template.message_intent === action.message_intent` — intent must match (CI lint at PR + runtime).
+5. `pathway_sensitivity ∈ {high, extreme}` BLOCKS tier_3 outside-secure regardless of consent — pathway sensitivity is the HARDEST CAP. Patient consent cannot override regulatory/clinical-safety floors.
+6. Patient channel preference TIGHTENS only — never loosens above template/channel/pathway cap. CI lint forbids any code path that loosens via preference.
+7. Marketing rule firings cannot reference clinical chart rows without `marketing_personalization_with_phi` consent. Marketing tools (Klaviyo etc.) NEVER receive PHI — opaque cohort IDs only.
+8. Marketing templates NEVER declare `privacy_exposure_level >= 4` — even with all consents, marketing is capped at tier_3.
+9. Safety-critical override fires `safety_vague_companion_template_key` at tier_2 on outside channels — never raises channel ceiling. CI lint forbids `safety_critical_override_allowed = true` without registered companion.
+10. Vendor outbound payload bound by `vendor_minimum_necessary_scope` per `Section 1P` with redact-then-retry fallback; never deadlock fulfillment when safe subset suffices.
+11. `notification.privacy_exposure_check` audit row required on every dispatch decision (pass / fallback / consent_uplift / block / suppress) per `Section 1Q.7` — never silent.
+12. Internal staff comms in non-BAA channels (e.g., non-BAA Slack) capped at tier_2; tier_3+ requires HIPAA-BAA workspace per `Section 1Q.13` Module 12.
+
+**Pre-runtime gate (binding):** runtime implementation MUST NOT begin until: (a) the privacy + communication governance layer (this section + Patches per the audit file's Part 16) lands; (b) GLP-1 slice templates inline-declare `privacy_exposure_level` + `message_intent` per `Section 1Q.15`; (c) ED/TRT/HRT pathway files declare `pathway_sensitivity` per `Section 1K.2`; (d) the 6-toggle patient settings UI is scoped for runtime work. After this checkpoint lands, runtime authoring of GLP-1 + ED + TRT + HRT rules + templates may proceed in parallel per `Section 1Q.16` adversarial scenarios pre-runtime gate.
+
+This subsection serves as the **second pre-runtime gate** alongside `Section 1Q.16`.
 
 ---
 
