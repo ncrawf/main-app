@@ -471,6 +471,22 @@ The **map** already **requires** server **permit** assert on approve/prescribe (
 
 CI lint forbids: (a) outbound dispatch paths that bypass this 5-step privacy gate; (b) `safety_critical_override_allowed = true` without registered `safety_vague_companion_template_key` of `privacy_exposure_level: 2` and `message_intent: safety`; (c) routine notifications dispatched within an active safety window without suppression check; (d) any code path that mutates `pathway_sensitivity` cap based on patient preference (preference TIGHTENS only).
 
+*Pre-send revalidation (binding; per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 2):* every queued `outbound_jobs` row MUST pass a final revalidation check at dispatch time, AFTER the 5-step privacy gate, BEFORE the actual SMS/email/push send. Revalidation verifies that the underlying rule firing's evidence is still current — preventing race conditions where new evidence arrives between rule firing and dispatch (typical window: rate-limit delay + cross-channel dedup window + digest window = up to ~4h). The revalidation gate verifies, for each pending dispatch:
+
+1. **Evidence freshness:** every `evidence_ref` cited at firing time still resolves to a non-superseded `patient_clinical_assertions` / `patient_lab_observations` / `patient_diagnostic_reports` / `intake_response` row. If ANY cited evidence row has been superseded (e.g., `patient_clinical_assertions.supersedes_assertion_id` chain advanced) → revalidation FAILS.
+2. **No contradicting newer assertion:** for each rule precondition that depended on a structured field (e.g., "patient has no prostate cancer history"), check that no newer assertion contradicts the precondition (e.g., new `condition.prostate_cancer_personal_history = true` patient_reported atom landed). If contradicting evidence exists → revalidation FAILS.
+3. **Provider decision freshness:** if the firing's evidence_refs cite a `clinical_visits` row or `provider_confirmed` clinical assertion (i.e., the rule fired BECAUSE provider made a decision), verify the provider decision has not been superseded by a newer provider assertion. If superseded → revalidation FAILS.
+
+**On revalidation failure:**
+- Cancel send (do not dispatch).
+- Audit `notification.cancelled_pre_send_stale_evidence` per `Section 1Q.7` extended audit shapes with full payload: `{rule_id, rule_version, template_key, template_version, evidence_refs_at_firing[], superseded_evidence_refs[], contradicting_evidence_refs[], cancellation_reason: 'evidence_superseded' | 'contradicting_assertion' | 'provider_decision_superseded'}`.
+- Create `patient_action_items` row of type `secure_message_waiting` so patient is still routed in-app to see the latest provider/system response.
+- Reroute to provider review queue with `stale_decision_flag = true` per `Section 1G.5` stale-pending-review pattern (Patch 3 below) so provider sees the new evidence + their prior decision in one batch context.
+
+**Audit ordering (binding):** the revalidation audit row writes BEFORE the cancellation; if revalidation passes, no audit row fires (silent pass — the existing `notification.privacy_exposure_check { decision: 'pass' }` audit already covers successful dispatch). CI lint enforces: every `outbound_jobs.dispatch()` code path MUST invoke the revalidation gate; bypassing it is a CI lint violation.
+
+**Foundational because** without this, race conditions between rule firing and SMS/email dispatch can cause patients to receive guidance based on stale or contradicted evidence (e.g., approval message sent AFTER patient reported critical safety information; cold-chain "shipped successfully" sent AFTER vendor reported failure). The pattern reuses existing `Section 1Q.7` audit infrastructure + `patient_action_items` re-entry surface; no new primitives.
+
 `1G.3` outbound_jobs orchestrator computes the per-patient pending-notification queue at scheduled-send time, applies digest + sequencing, then dispatches per channel-specific rendering rules per `Section 1Q.13`. CI lint forbids `notification` or `marketing_lifecycle` send paths that bypass `1G.3` outbound_jobs gate.
 
 | # | **Theme** | **Exists (typical / map-honest)** | **Partial** | **Target (same model — no CRM)** | **Non-optional before Hims-style scale** |
@@ -643,6 +659,54 @@ CI lint forbids: (a) outbound dispatch paths that bypass this 5-step privacy gat
 - **Contain before optimize:** stop additional harm (pause sends, hold fulfillment leg, block unsafe decision path) before deeper analysis.
 - **Patient truthfulness and timing:** patient-impact incidents receive timely status communication through approved classes; no “resolved internally” without patient-facing closure when impact is patient-visible.
 - **No silent correction:** corrective edits route through audited mutations; timeline captures patient-facing state transitions.
+
+*Cross-owner clinical context banner (binding; inverse of `Section 1P.5` adversarial Refinement 2; per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 6):* when ops or billing or support staff handle a task that has clinical context (e.g., refund where the underlying issue was a clinical safety event; cancellation handling where the patient cited adverse symptoms; pharmacy partner exception where the underlying medication is on a contraindication-flagged pathway), the staff workspace MUST render a **clinical context banner** alongside the task — read-only summary of associated clinical events without exposing PHI beyond the staff role's authorization per `Section 1D.1` capabilities. Banner content (binding):
+
+- **Inclusion criteria (when banner renders):** the task originated from an `inbound_narrative_review` row that produced atoms across MULTIPLE domains (clinical + ops/billing/support); OR the task is linked via foreign key to a `treatment_orders` / `treatment_items` row that is in `clinical_pending` / `safety_paused` / `safety_window_active` state; OR the patient has an open `clinical_required` turn per `Section 1G.3` at the time the task lands.
+- **Banner content tier (binding):** banner detail tier respects the staff role's `Section 1D.1` capability — staff with `can_view_phi_full` see tier_4 summary (e.g., "Patient has reported nausea + concern about pancreatitis on GLP-1 pathway; provider review pending"); staff with `can_view_phi_minimum_necessary_only` see tier_2 summary (e.g., "Patient has open clinical concern; provider-handled"); staff WITHOUT clinical PHI capability see ONLY a flag ("Clinical context exists; route to provider workspace if needed") with no detail.
+- **Click-through:** banner provides a click-through to the relevant `inbound_narrative_review` source narrative AND/OR the clinical timeline event — both subject to capability gate per `Section 1D.1`.
+- **Dynamic suppression:** when the underlying clinical context resolves (provider closes the `clinical_required` turn), the banner auto-clears on subsequent task views; existing tasks retain banner provenance via `audit_events` row of type `task.clinical_context_banner_rendered` per `Section 1Q.7` for reconstructability.
+- **Forbidden patterns:** the banner MUST NOT bypass `Section 1D.1` capability gating; the banner MUST NOT expose PHI beyond the role's authorization tier; the banner MUST NOT enable ops/billing/support staff to make clinical decisions (it is informational only — clinical decisions remain provider-owned per existing authority discipline).
+
+**Discipline (binding):**
+- Pattern is the INVERSE of the existing `Section 1P.5` clinical-relevance-of-ops-events banner (which surfaces ops events to providers when temporally correlated with clinical symptoms); together the two banners ensure bidirectional cross-owner context — clinical staff see relevant ops events; ops/billing/support staff see relevant clinical context (capability-bound).
+- CI lint forbids: (a) any task creation path that lands on ops/billing/support staff workspace without checking for cross-owner clinical context applicability; (b) any banner rendering that bypasses `Section 1D.1` capability check.
+
+**Foundational because** without this, ops/billing/support staff handling tasks with clinical origin lack visibility into patient state — leading to (a) inappropriate handling, (b) duplicate provider outreach, (c) tone mismatches in patient communication. Pattern reuses existing `Section 1D.1` capability framework + `Section 1G.5` task ownership + audit infrastructure; no new primitives.
+
+*Stale-pending-review pattern for provider decisions (binding; per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 3):* when new evidence arrives on a patient AFTER a `provider_confirmed` clinical assertion has been written but BEFORE the decision's downstream actions complete (Rx authorization, lab order dispatch, fulfillment dispatch, refill release), the affected decision is auto-flagged `stale_pending_review`. **Trigger conditions (binding):**
+- A newer assertion contradicts a structured field cited in the prior decision's `evidence_refs[]` (e.g., decision was based on `condition.prostate_cancer_personal_history = false`; patient self-corrects to `true` via portal message)
+- A safety event opens an active safety window per `Section 1G.3` step 5 within the decision-action window
+- A `lab_derived` assertion lands with a value that contradicts the decision's preconditions (e.g., decision approved TRT; subsequent lab shows HCT 56% — outside safe range)
+- AI atomization emitter detects a `patient_self_correction` authored_by atom that supersedes a `patient_reported` atom cited in the decision
+
+**On stale-pending-review trigger:**
+- Audit `provider_decision.flagged_stale_pending_review` per `Section 1Q.7` extended audit shapes with full payload (provider_assertion_id + decided_at + flagged_at + contradicting_evidence_refs + affected_downstream_actions + provider_user_id + flag_reason + provider_banner_state).
+- Pause downstream action execution: queued `outbound_jobs` rows are HELD per `Section 1G.3` pre-send revalidation (Patch 2 above) which independently catches stale evidence at dispatch time; `treatment_orders` waiting for fulfillment hold per `Section 1G.5` contain discipline; lab orders pending dispatch hold per `Section 1L`.
+- Surface stale-decision banner on provider's next batch review per `Section 1P.5` cross-batch concept-aware review surfacing — banner reads "Prior decision flagged stale pending review: [decision summary] superseded by [new evidence summary]; please acknowledge and decide."
+- Provider acknowledges via batch review affordance: keep prior decision (with new note) / modify decision / reverse decision. Acknowledgment writes a new `provider_confirmed` assertion that supersedes (or confirms) the prior one + emits `provider_decision.stale_pending_review_acknowledged` audit event.
+
+**Discipline (binding):**
+- Stale-pending-review is a SEPARATE state from override per `Section 1Q.4` — override is provider-initiated authorization to bypass a block; stale-pending-review is system-initiated flag that NEW evidence may invalidate a prior decision. Both feed quality monitoring per `Section 1Q.10` rule_recall.
+- Aggregate stats per `(rule_id, rule_version, flag_reason)` and per `(provider_user_id, flag_reason)` feed `rule_correction_patterns_rollup` per `Section 1P.11` to detect patterns (e.g., rule X consistently flagged stale → rule preconditions need revision; provider Y's decisions consistently flagged stale → workflow review).
+- CI lint forbids: (a) any `provider_confirmed` assertion write that does not register the decision in the stale-pending-review eligibility window (window default: until all downstream actions complete OR 7 days, whichever first); (b) any code path that completes a downstream action without checking for stale_pending_review flag.
+
+**Foundational because** without this, providers may make decisions based on now-superseded evidence and downstream actions execute against stale truth. Pattern parallels `Section 1Q.4` scoped clinical override + `Section 1Q.7` audit chain; no new primitives.
+
+*Clarification retry limits + escalation (binding; per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 7):* when a `pending_patient_input_task` of `task_kind: clarification` (per `Section 1G.11`) has been outstanding without patient response for N consecutive scheduled re-prompts, the next outbound rule firing escalates the channel + ownership instead of repeating the same in-app/email reminder. **Retry limit defaults (binding; pathway-configurable):**
+
+- **Non-safety clarifications** (e.g., "did you mean A or B?"; benign disambiguation; lifestyle reminders): default N=3 consecutive ignored re-prompts → escalate to phone outreach by ops staff per `Section 1G.4`; after 2 phone-outreach attempts unanswered → close the related `treatment_plan_candidate` / `intake_sessions` row with `closed_clarification_unanswered` reason code per `1K.13`; preserve all source evidence; allow patient-initiated reopen.
+- **Safety-adjacent clarifications** (e.g., "have you had abdominal pain this week?" pre-refill on GLP-1; "are you currently using nitrates?" pre-Rx on ED): default N=2 consecutive ignored re-prompts → escalate to phone outreach by provider per `Section 1G.4` provider eligibility; after 2 phone-outreach attempts unanswered → pathway close with `closed_safety_clarification_unanswered` reason code; provider documents in `clinical_visits`.
+- **Hard-stop safety questions** (e.g., suicidality screening on mental health pathway when scoped): default N=1 → IMMEDIATE phone outreach within SLA per `Section 1G.3` emergency orchestration; pathway pauses pending live human contact; never silent close.
+
+**Discipline (binding):**
+- Each retry counts toward the hard-cap; CI lint forbids `marketing_lifecycle` re-engagement cadence per Patch 5 from "rescuing" a clarification retry by piggybacking on a marketing send (clarifications are clinical/operational; marketing is separate).
+- Phone outreach attempts emit `notification.clarification_escalated_to_phone` audit row per `Section 1Q.7` extended audit shapes with full provenance (clarification_task_id, attempt_number, outreach_user_id, outreach_outcome ∈ {`reached`, `voicemail_left`, `no_answer`, `wrong_number`, `patient_declined_to_engage`}).
+- Pathway close emits `pathway.closed_clarification_unanswered` audit row + creates a `patient_action_items` row of type `pathway_reopen_eligible` per `1G.11` so patient can reopen by initiating new contact (e.g., new portal message or new intake session). Reopen criteria documented per `1K.13` Mode D pattern.
+- Aggregate stats per `(pathway_code, clarification_template_key, retry_outcome)` feed quality monitoring per `Section 1Q.10` rule_recall — high abandon-vs-resolve rates on a specific clarification template signal that the question may need rewording or simplification.
+- Patient-frustration mitigation: at retry N-1 (one before escalation), the system MAY render a softer fallback template (`tmpl.system.clarification.last_call_v1` at `tier_2` outside / tier_4 in-secure; intent=`clinical`) that explicitly tells the patient "we'll move on if you don't respond — please tap [link] or we'll call you" — reduces surprise when phone outreach lands.
+
+**Foundational because** without retry limits, pathways sit in `pending_clinical_blockers` indefinitely — patient ignores 5+ re-prompts → degrades trust + creates ghost-patient state in operational metrics + leaves real safety questions unanswered. Pattern reuses existing `Section 1G.4` ownership + `1K.13` pathway-close semantics + `Section 1Q.7` audit chain; no new primitives.
 - **Platform/system incidents:** handled through 1H.2 ownership and runbook actions, with patient-case linkage in 1H.1/1G when impact exists.
 - **Patient-state-trend incidents:** abnormal trackable trends from `Section 1M` (sudden weight drop on GLP-1, sustained high BP on home cuff readings, severe side-effect score escalation, dose intolerance pattern) may trigger `1G.5` exceptions in the **clinical_safety** category; severity per `1H.6.1D`; classification per `1H.6.1E` (typically `provider_decision_quality` for trend-driven escalation). Read source: `patient_state_observations` per `1M.8`.
 
@@ -5912,7 +5976,7 @@ Every rule firing maps to exactly one of these four layers; CI lint enforces. No
 | **`account_lifecycle`** (NEW; per `Section 1Q.13` Module 1) | Account creation, identity verification request, intake start, intake incomplete, intake submitted, consent needed, payment method needed; transactional patient-facing onboarding rules | ops CODEOWNER + compliance CODEOWNER (consent + identity templates) |
 | **`patient_education`** (NEW; per `Section 1Q.13` Module 13) | Onboarding education sequences, medication instructions on Rx fill, side-effect expectations on dose change, lifestyle guidance per pathway, lab preparation, refill expectations, longitudinal care reminders, supplement/add-on suggestions. **Distinct from `notification`** (transactional) and **distinct from `marketing_lifecycle`** (promotional/brand). | clinical CODEOWNER (medication-related) + ops CODEOWNER (lifestyle/operational) |
 | **`support_communication`** (NEW; per `Section 1Q.13` Module 10) | Support ticket lifecycle; routing to clinical / billing / fulfillment per `Section 1P.4`; mixed support+clinical issue handling; staff response templates | ops CODEOWNER |
-| **`marketing_lifecycle`** (NEW; per `Section 1Q.13` Module 15; **hard carve-out**) | Drip funnels, retention, win-back, signup-incomplete re-engagement, post-purchase cross-sell, seasonal/promotional campaigns. **HARD carve-out from clinical:** separate repo dir (`repo/templates/marketing/`); `prohibited_claims` floor includes `must_not_imply_clinical_outcome`, `must_not_diagnose`, `must_not_promote_off_label`, `must_not_quote_efficacy_without_FDA_approval`, `must_not_imply_FDA_approval_unless_FDA_approved`; cannot reference `patient_clinical_assertions` / `patient_lab_observations` / `patient_diagnostic_reports` / any clinical chart row UNLESS patient has valid `1K.11` `marketing_personalization_with_phi` consent AND rule action declares `consent_required = 'marketing_personalization_with_phi'`; opt-in required (TCPA / CASL / GDPR per `1K.11`); opt-out instantly honored; separate send budget from `notification`. | ops CODEOWNER + compliance CODEOWNER (clinical CODEOWNER NOT involved by default; pulled in only on clinical-adjacent claims) |
+| **`marketing_lifecycle`** (NEW; per `Section 1Q.13` Module 15; **hard carve-out**) | Drip funnels, retention, win-back, signup-incomplete re-engagement, post-purchase cross-sell, seasonal/promotional campaigns. **HARD carve-out from clinical:** separate repo dir (`repo/templates/marketing/`); `prohibited_claims` floor includes `must_not_imply_clinical_outcome`, `must_not_diagnose`, `must_not_promote_off_label`, `must_not_quote_efficacy_without_FDA_approval`, `must_not_imply_FDA_approval_unless_FDA_approved`; cannot reference `patient_clinical_assertions` / `patient_lab_observations` / `patient_diagnostic_reports` / any clinical chart row UNLESS patient has valid `1K.11` `marketing_personalization_with_phi` consent AND rule action declares `consent_required = 'marketing_personalization_with_phi'`; opt-in required (TCPA / CASL / GDPR per `1K.11`); opt-out instantly honored; separate send budget from `notification`. **Marketing exclusion windows (binding; per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 4):** in addition to existing safety-window suppression per `Section 1G.3` step 5, `marketing_lifecycle` rule firings MUST also suppress for the patient during the following exclusion windows — (a) **30-day post-denial exclusion** after a `treatment_plan_candidate` close-event with `closed_eligibility_reason_code` set (any denial/ineligibility); (b) **7-day post-deferral exclusion** after a `treatment_plan_candidate` deferred-pending-resolution event; (c) **7-day open-clinical-concern exclusion** while any `inbound_narrative_review` of `source_kind ∈ {patient_message, patient_email, intake_response_free_text}` AND `classification_status` indicating `clinical` content is open (atoms not all reviewed/resolved by provider); (d) **active-safety-window exclusion** already covered by `Section 1G.3` step 5 (24h default). All exclusion windows are pathway-configurable via the pathway file `marketing_exclusion_windows` field (clinical CODEOWNER + compliance CODEOWNER PR review). Suppression emits `notification.suppressed_during_safety_window` audit row (extending the existing event_type to also cover non-safety-window exclusions per the `suppression_reason` enum in `Section 1Q.7` audit shape). **Transactional-critical billing carve-out (binding; per Patch 4 additive):** `Section 1Q.5` template object shape extended with optional `transactional_critical: boolean` flag (default `false`); when `true`, suppression checks (safety window AND marketing exclusion windows) are bypassed for the template's specific dispatch — used for billing TRANSACTIONAL communications (e.g., "your card will be charged in 3 days") that must reach the patient regardless of clinical events. Privacy gate still applies in full; exclusion bypass does NOT raise channel ceiling. CI lint forbids: `transactional_critical = true` on templates with `message_intent ∈ {marketing, education}` (only `billing` / `account` / `safety` may declare `transactional_critical`); ops CODEOWNER + compliance CODEOWNER co-approval required at PR time. | ops CODEOWNER + compliance CODEOWNER (clinical CODEOWNER NOT involved by default; pulled in only on clinical-adjacent claims) |
 | **`compliance_audit`** (NEW; per `Section 1Q.13` Module 14) | Consent updates required, privacy requests (CCPA/GDPR/state), records requests (HIPAA right of access), adverse event documentation, escalation audit, AI correction / model_recall internal notice (per `Section 1Q.10`), policy update notifications, regulatory filings. Most are staff-internal; patient-facing privacy/records responses also covered here. | compliance CODEOWNER + admin |
 
 ### 1Q.2 Template categories (16; binding; per `Section 1Q.13` module taxonomy)
@@ -6171,6 +6235,64 @@ Deterministic pipeline (binding):
   }
 }
 
+// notification.clarification_escalated_to_phone — clarification retry limit reached → phone outreach escalation (per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 7)
+{
+  event_type: 'notification.clarification_escalated_to_phone',
+  payload: {
+    clarification_task_id: uuid,                                 // pending_patient_input_task row
+    pathway_code: text,
+    template_key_at_escalation: string,                          // typically tmpl.system.clarification.last_call_v1 OR pathway-specific equivalent
+    attempt_number: int,                                         // total retry count including escalation
+    safety_class: 'non_safety' | 'safety_adjacent' | 'hard_stop_safety',
+    outreach_user_id?: uuid,                                     // staff/provider making the call
+    outreach_outcome: 'reached' | 'voicemail_left' | 'no_answer' | 'wrong_number' | 'patient_declined_to_engage',
+    next_action_if_unanswered: 'pathway_close' | 'second_phone_attempt' | 'continue_pathway_paused' // depends on safety_class
+  }
+}
+
+// pathway.closed_clarification_unanswered — pathway closed after retry limit + phone escalation exhausted (per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 7)
+{
+  event_type: 'pathway.closed_clarification_unanswered',
+  payload: {
+    pathway_code: text,
+    intake_session_id?: uuid,
+    treatment_plan_candidate_id?: uuid,
+    closed_reason_code: 'closed_clarification_unanswered' | 'closed_safety_clarification_unanswered',
+    consecutive_ignored_reprompts: int,
+    phone_outreach_attempts: int,
+    reopen_eligibility_action_item_id: uuid                      // patient_action_items row of type 'pathway_reopen_eligible'
+  }
+}
+
+// provider_decision.flagged_stale_pending_review — provider decision auto-flagged when contradicting evidence arrives during decision-action window (per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 3)
+{
+  event_type: 'provider_decision.flagged_stale_pending_review',
+  payload: {
+    provider_assertion_id: uuid,                                 // the provider_confirmed assertion being flagged
+    decided_at: timestamptz,
+    flagged_at: timestamptz,
+    contradicting_evidence_refs: EvidenceRef[],                  // newer evidence that contradicts the prior decision
+    affected_downstream_actions: text[],                         // e.g., ['rx_authorization_pending', 'lab_order_queued', 'fulfillment_dispatch_scheduled']
+    provider_user_id: uuid,
+    flag_reason: 'contradicting_assertion' | 'safety_event_in_window' | 'lab_result_superseded' | 'patient_self_correction',
+    provider_banner_state: 'pending_provider_acknowledgment'     // banner renders on next batch review per Section 1G.5; provider must acknowledge + decide whether to keep, modify, or reverse the prior decision
+  }
+}
+
+// notification.cancelled_pre_send_stale_evidence — pre-send revalidation gate cancelled dispatch (per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 2)
+{
+  event_type: 'notification.cancelled_pre_send_stale_evidence',
+  payload: {
+    rule_id: string, rule_version: string, template_key: string, template_version: string,
+    evidence_refs_at_firing: EvidenceRef[],
+    superseded_evidence_refs: EvidenceRef[],                    // subset that was superseded between firing and dispatch
+    contradicting_evidence_refs?: EvidenceRef[],                // newer evidence that contradicts a precondition
+    cancellation_reason: 'evidence_superseded' | 'contradicting_assertion' | 'provider_decision_superseded',
+    rerouted_to_provider_review_id?: uuid,                       // pointer to provider review batch with stale-decision flag
+    secure_message_action_item_id: uuid                          // patient_action_items row created so patient is still routed in-app
+  }
+}
+
 // notification.action_template_intent_mismatch — failsafe when CI lint missed an action-template mismatch
 {
   event_type: 'notification.action_template_intent_mismatch',
@@ -6316,6 +6438,29 @@ This subsection defines the platform-level communication + action module taxonom
 | 15 | Marketing suite | patient / lead | `marketing_lifecycle` (HARD carve-out) | `marketing_lifecycle` (HARD carve-out) | ops + compliance (clinical NOT involved by default) | ON (designed for AI refinement; A/B variants + personalization within carve-out) | NO (template governance) — exception: clinical-adjacent claims | PARTIAL (V1: signup-incomplete drip + post-purchase onboarding cross-sell only; full retention/win-back/A/B engine V1.5+) |
 
 **V1 vs later (binding; per user instruction "address the large majority in V1"):** modules 1-14 fully V1 + Module 14.5 V1 at MVP + Module 15 V1 partial. **13 of 15 modules fully V1.** The architecture launches with the full communication surface, not phased.
+
+**Module 15 long-term re-engagement cadence discipline (binding; per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 5):** marketing re-engagement messaging across abandoned signup, abandoned intake, denied pathway, and cancelled subscription scenarios MUST follow a deterministic T1→T2→T3 cadence with hard caps, eligibility-event resets, and reason-code-aware variation. Cadence patterns (binding defaults; pathway-configurable via pathway file `re_engagement_cadence` field; ops CODEOWNER + compliance CODEOWNER PR review):
+
+| Trigger event | T1 (first contact) | T2 (second contact) | T3 (third contact) | Hard cap | Reset on |
+|---|---|---|---|---|---|
+| Abandoned at Stage 0/0.5 (pre-account) | 24h | 3d | 7d | 3 contacts; END | New session start by same fingerprint per `1J.6` |
+| Abandoned at Stage 1 (incomplete intake; account exists) | 48h | 7d | 30d | 3 contacts; END | Mode B resume per `1K.13` |
+| Denied with reason `eligibility_below_threshold` (e.g., BMI / lab threshold) | 90d ("re-evaluate?") | none | none | 1 contact; END unless patient initiates | New eligibility event (e.g., new lab ordered) |
+| Denied with reason `contraindication` (e.g., MEN-2, prostate cancer history) | none — **provider-initiated only** | n/a | n/a | 0 automated contacts | Provider-initiated only |
+| Denied with reason `jurisdiction_not_allowed` | 180d ("we may have expanded?") if jurisdiction has expanded; ELSE none | none | none | 1 contact OR 0 if no expansion | Pathway jurisdiction expansion event |
+| Subscription cancelled — user-initiated | 7d ("anything we could improve?") | 30d ("we'd love to have you back") | 365d ("annual check-in") | 3 contacts; END | Patient-initiated re-subscribe |
+| Subscription lapsed — payment failure unresolved | 24h (payment retry) | 3d (payment fix help) | 7d ("we'll pause your plan if no fix") | 3 contacts; pathway pauses; END | Patient updates payment method |
+
+**Discipline (binding):**
+- Each cadence stage emits a `marketing_lifecycle` rule firing per `Section 1Q.1` with `cadence_stage: 'T1' | 'T2' | 'T3'` declared on the rule action; CI lint validates that no `marketing_lifecycle` rule fires for the same patient + trigger event combination beyond the declared hard cap.
+- **Eligibility-event reset (binding):** when a configured reset event fires (per the table column above), the cadence counter resets to 0 — the patient may receive a fresh T1→T2→T3 sequence from the new trigger event. Reset events emit `marketing_lifecycle.cadence_reset` audit row per `Section 1Q.7` with full provenance (prior_trigger_event, reset_trigger_event, cadence_stage_at_reset).
+- **Suppression interaction:** marketing exclusion windows per Patch 4 above ALWAYS apply on top of cadence; if cadence T2 is scheduled but patient is in active safety window OR open clinical concern, the cadence stage is DEFERRED (not skipped — paused until exclusion window closes).
+- **Hard cap enforcement (binding):** beyond declared hard cap (default 3 contacts per trigger event), NO automated `marketing_lifecycle` rule may fire for that patient + trigger event combination unless an eligibility-event reset occurs. "Send forever in a new channel" is FORBIDDEN per the existing `Section 1G.3` re-engagement ladder discipline.
+- **Reason-code-aware variation:** denied-with-contraindication patients are EXCLUDED from ALL automated marketing re-engagement (provider-initiated outreach only); denied-with-eligibility-below-threshold patients receive 1 contact at T1 (90d re-evaluate?) and STOP unless patient initiates; denied-with-jurisdiction patients receive 1 contact at T1 only IF jurisdiction has expanded (no automated send if jurisdiction is still restricted).
+- Aggregate stats per `(trigger_event, cadence_stage, conversion_outcome)` feed marketing analytics per `1H.4` discipline (no PHI in aggregates per existing carve-out).
+- CI lint forbids: (a) `marketing_lifecycle` rules without declared `trigger_event` + `cadence_stage`; (b) any code path that fires marketing for `denied_with_contraindication` patients automatically; (c) `marketing_lifecycle` rules with `cadence_stage` exceeding the trigger event's hard cap.
+
+**Foundational because** without explicit re-engagement cadence discipline, the system can over-message abandoned/denied/lapsed patients indefinitely — degrading trust + violating TCPA/CASL "reasonable cessation" expectations + producing patient frustration. Pattern reuses existing `Section 1G.3` re-engagement ladder framing (T1→T2→T3) + `Section 1Q.1` rule firing infrastructure; no new primitives.
 
 **Per-module privacy + communication governance defaults (binding; per `2026-04-30_privacy_communication_governance.md`; per `Section 1Q.17` triple-axis taxonomy):** every module declares default `privacy_exposure_level` + default `message_intent` for templates registered to that module. CI lint validates that templates' declared `privacy_exposure_level` + `message_intent` match the module defaults UNLESS the template registers an explicit override with rationale_note + clinical/ops CODEOWNER approval at PR time. Module defaults table:
 
@@ -6573,6 +6718,53 @@ Second pathway slice after GLP-1 (`Section 1Q.15`). Validates pathway-agnostic a
 7. Sibling pathway `gender_affirming_masculinizing_hrt` deferred to a future slice with its own clinical CODEOWNER review.
 
 **Architecture verdict per `2026-04-30_trt_first_slice.md`:** architecture HOLDS for a Schedule III controlled-substance pathway with longitudinal lab monitoring, fertility implications, and sibling identity-care routing. 4 small in-place patches (none introduce new primitives). Pathway-agnostic claim VALIDATED.
+
+### 1Q.19 Dynamic behavior pre-runtime gate (binding; per `2026-04-30_dynamic_behavior_pre_runtime.md`)
+
+THIRD pre-runtime gate alongside `Section 1Q.16` (adversarial scenarios) and `Section 1Q.17` (privacy + communication governance). Stress-tests the locked architecture against dynamic behavior over time across 7 categories × 35 scenarios. Identifies whether the system fails, annoys users, confuses providers, over-messages patients, sequences poorly, or behaves badly when multiple events stack over time.
+
+**Verdict:** MOSTLY READY. 6 foundational patches landed in this checkpoint addressing 7 foundational gaps; 8 MVP-polish refinements deferred to runtime authoring + integration test fixtures; 12 runtime-only observations captured for pre-runtime test harness. Recommend re-running this stress test ONCE after patches land per the user's hard-stop rule before runtime green-light.
+
+**7-category summary table:**
+
+| Category | Scenarios | Foundational gaps | MVP-polish | No-issue |
+|---|---|---|---|---|
+| Cat 1 — Temporal orchestration | 5 | 2 (pre-send revalidation; transactional billing carve-out) | 2 | 1 |
+| Cat 2 — Provider cognitive load | 5 | 1 (cross-owner banner inverse) | 1 | 3 |
+| Cat 3 — Edge-case stacking | 4 | 0 | 2 | 2 |
+| Cat 4 — User behavior vs system intent | 6 | 1 (clarification retry limits) | 2 | 3 |
+| Cat 5 — Communication perception + over-messaging | 5 | 2 (marketing exclusion windows; covered by pre-send revalidation) | 2 | 0 |
+| Cat 6 — Stale state + race conditions | 5 | 3 (covered by pre-send revalidation + stale-pending-review) | 0 | 2 |
+| Cat 7 — Internal ownership + handoff | 5 | 1 (covered by cross-owner banner) | 1 | 3 |
+| **Total** | **35** | **7 (closed by 6 patches)** | **8** | **14** |
+
+**Foundational patches landed in this checkpoint (6 patches, ~150 lines net):**
+
+1. **Pre-send revalidation pattern** (`Section 1G.3` + `Section 1Q.7`) — every queued `outbound_jobs` row revalidates evidence freshness at dispatch time after the privacy gate; cancels send if evidence superseded / contradicting assertion landed / provider decision superseded; reroutes to provider review with stale-decision flag. Closes Scenarios 1.4, 5.5, 6.1, 6.2.
+2. **Stale-pending-review pattern** (`Section 1G.5` + `Section 1Q.7`) — provider decisions auto-flagged when contradicting evidence arrives during decision-action window; provider sees banner on next batch review with options (keep / modify / reverse). Closes Scenario 6.3.
+3. **Marketing exclusion windows + transactional-critical billing carve-out** (`Section 1Q.1` + `Section 1Q.5`) — 30-day post-denial / 7-day post-deferral / 7-day open-clinical-concern exclusion windows for `marketing_lifecycle` rule firings; `transactional_critical: boolean` flag on templates allows transactional billing to bypass exclusions. Closes Scenarios 1.2, 5.3, 5.4.
+4. **Long-term re-engagement cadence discipline** (`Section 1Q.13` Module 15) — T1→T2→T3 cadence with hard caps (3 contacts), reason-code-aware variation (denied-with-contraindication = no automated re-engagement), eligibility-event reset semantics. Closes the long-term marketing concern raised in user prompt.
+5. **Cross-owner clinical context banner** (`Section 1G.5` + `Section 1Q.13`) — inverse of existing `Section 1P.5` ops-to-clinical banner; ops/billing/support staff see clinical context summary on handoff tasks; capability-bound per `Section 1D.1`. Closes Scenarios 2.3, 7.4.
+6. **Clarification retry limits + escalation** (`Section 1G.5`) — N=3 non-safety / N=2 safety-adjacent / N=1 hard-stop-safety retry limits before phone escalation; pathway closure after 2 phone attempts unanswered with reopen eligibility. Closes Scenario 4.1.
+
+**12 hard invariants (binding):**
+
+1. Every queued `outbound_jobs` row passes pre-send revalidation gate at dispatch time before SMS/email/push send; CI lint forbids dispatch paths that bypass.
+2. Provider decisions auto-flag `stale_pending_review` when contradicting evidence arrives during decision-action window (until all downstream actions complete OR 7 days, whichever first).
+3. Marketing exclusion windows fire after denial (30d), deferral (7d), open clinical concern (7d), active safety window (existing 24h via `Section 1G.3` step 5); pathway-configurable.
+4. T1→T2→T3 re-engagement cadence caps at 3 contacts per trigger event; eligibility-event reset only.
+5. `denied_with_contraindication` patients are EXCLUDED from automated marketing re-engagement (provider-initiated only).
+6. Cross-owner clinical context banner renders bidirectionally (clinical→ops/billing/support; ops/billing/support→clinical via existing `Section 1P.5` Refinement 2); both subject to `Section 1D.1` capability gating.
+7. Clarification retry limits enforce: N=3 non-safety / N=2 safety-adjacent / N=1 hard-stop-safety; escalate to phone outreach; close pathway with reopen-eligibility after 2 phone attempts unanswered.
+8. `transactional_critical: boolean` flag bypasses exclusion windows AND safety window suppression for billing/account/safety intents only; never `marketing` or `education`.
+9. Aggregate stats per (rule_id, override_reason_code), (rule_id, stale_pending_review_flag_reason), (template_key, exclusion_window_suppression_reason), (clarification_template_key, retry_outcome) feed `rule_correction_patterns_rollup` for quality monitoring.
+10. Audit rows for every dispatch decision (pass / fallback / consent_uplift / block / suppress / cancel_pre_send_stale_evidence / clarification_escalated_to_phone / pathway_closed_clarification_unanswered / provider_decision_flagged_stale) per `Section 1Q.7` extended audit shapes — never silent.
+11. Wrong-channel safety capture works because `Section 1P` deterministic safety scan applies UNIFORMLY to all inbound channels regardless of source (verified at this gate).
+12. Patient-frustration mitigation: at retry N-1 (one before phone escalation), softer fallback template renders ("we'll move on if you don't respond — please tap [link] or we'll call you").
+
+**Hard-stop rule applied (per user's instruction):** 6 foundational gaps closed in this checkpoint. Re-run this dynamic behavior pressure test ONCE after patches land before runtime green-light. If verdict reaches READY, runtime authoring (`repo/rules/glp1/` + `repo/templates/glp1/` per `Section 1Q.16` pre-runtime gate) begins. If verdict still MOSTLY READY with new foundational gaps, the architecture has a deeper issue worth structural rework before runtime.
+
+This subsection serves as the **third pre-runtime gate** alongside `Section 1Q.16` and `Section 1Q.17`.
 
 ---
 
