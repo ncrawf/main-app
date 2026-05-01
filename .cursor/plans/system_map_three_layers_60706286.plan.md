@@ -6766,6 +6766,55 @@ THIRD pre-runtime gate alongside `Section 1Q.16` (adversarial scenarios) and `Se
 
 This subsection serves as the **third pre-runtime gate** alongside `Section 1Q.16` and `Section 1Q.17`.
 
+**Verification pass result (binding; per `2026-05-01_dynamic_behavior_verification_pass.md`):** verification re-run of the 7-category × 35-scenario stress test against the architecture as patched (commit `fecab3c`). All 6 prior foundational gaps RESOLVED by their respective patches (P2 pre-send revalidation, P3 stale-pending-review, P4 marketing exclusion + transactional_critical, P5 re-engagement cadence, P6 cross-owner banner, P7 clarification retry limits). All 12 invariants HOLD (12/12). Zero regressions introduced. Zero new foundational gaps. 4/4 patch interaction edge cases verified clean (transactional_critical carve-out for billing; marketing exclusion × cadence deferral semantics; clarification-to-phone × cross-owner banner availability; pre-send revalidation × stale-pending-review concurrent firing). 8 MVP-polish refinements + 12 runtime-only observations remain unchanged from prior pass; deferred to runtime authoring + integration test fixtures per hard-stop rule. **Verdict: READY FOR RUNTIME** — see `Section 1Q.20` runtime green-light declaration.
+
+### 1Q.20 Runtime green-light declaration (binding; per `2026-05-01_dynamic_behavior_verification_pass.md`)
+
+**STATUS: PRE-RUNTIME GATE SEQUENCE COMPLETE.** Architecture is locked, hardened across foundational + privacy + adversarial + temporal-orchestration concerns, and validated against 75+ scenarios (5 GLP-1 + 5 TRT + 4 adversarial + 35 dynamic behavior + 26+ from prior pressure tests). Runtime authoring may begin.
+
+**Three pre-runtime gates passed (all VERIFIED):**
+
+| Gate | Audit pointer | Status |
+|---|---|---|
+| `Section 1Q.16` Adversarial pre-runtime gate | `2026-04-30_adversarial_slice_pre_runtime.md` | VERIFIED |
+| `Section 1Q.17` Privacy + communication governance | `2026-04-30_privacy_communication_governance.md` | VERIFIED |
+| `Section 1Q.19` Dynamic behavior pre-runtime gate | `2026-04-30_dynamic_behavior_pre_runtime.md` + `2026-05-01_dynamic_behavior_verification_pass.md` | VERIFIED (re-run) |
+
+**Two clinical pathway slices BUILT and VALIDATED:**
+
+| Slice | Audit pointer | Pathway sensitivity | Rules + Templates |
+|---|---|---|---|
+| `Section 1Q.15` GLP-1 first vertical slice | `2026-04-30_glp1_first_slice.md` | `moderate` | 24 rules + 25 templates |
+| `Section 1Q.18` TRT first vertical slice | `2026-04-30_trt_first_slice.md` | `extreme` (Schedule III) | 28 rules + 28 templates |
+
+**Sibling pathway STUBBED:**
+
+| Pathway | Status | Where |
+|---|---|---|
+| `gender_affirming_masculinizing_hrt` | STUB ONLY (full library deferred) | `Section 1K.2` sibling pathway pattern |
+
+**7 runtime-readiness invariants (binding):**
+
+1. All foundational architectural patterns LOCKED across all sections (1A–1Q + appendices); Section 1Q rules + templates engine is the single deterministic decision + communication backbone; `Section 1P` is the single inbound atomization spine.
+2. All in-place patches LANDED across pre-runtime checkpoints — total ~75 patches across ~20 audit files; no new architectural primitives; all extensions integrate into existing sections per consolidation discipline.
+3. Three-tier governance dimension in place: clinical CODEOWNER (clinical safety + clinical CODEOWNER), ops CODEOWNER (operational + send-policy + ops workflow), compliance CODEOWNER (legal + regulatory + privacy + marketing). `.github/CODEOWNERS` enforces.
+4. Marketing carve-out enforced per `Section 1Q.13` Module 15 + `Section 1Q.17` triple-axis taxonomy + `Section 1Q.19` exclusion windows + cadence cap.
+5. Privacy + temporal-orchestration + adversarial gates passed: pre-send revalidation; stale-pending-review; safety-window suppression; cross-owner banners (bidirectional); clarification retry limits + phone escalation; pathway_sensitivity outside-secure ceiling caps; `transactional_critical` carve-out.
+6. Pathway parallelism: GLP-1 + ED + TRT + Female HRT may proceed in PARALLEL with subset of devs/clinicians per `Section 1G.4` provider eligibility; peptide pathways remain compliance-BLOCKED per `Section 1Q.16` (org policy review prerequisite); gender-affirming masculinizing HT deferred to future slice with distinct clinical CODEOWNER scope per `Section 1K.2`.
+7. Hard-stop rule from `Section 1Q.19` SATISFIED — no further pre-runtime stress tests required; MVP-polish refinements + runtime-only observations deferred to runtime fixture work.
+
+**Implementation sequencing (post-greenlight; binding):**
+
+1. Scaffold `repo/rules/glp1/` + `repo/templates/glp1/` per `Section 1Q.16` + `Section 1Q.15` discipline; module-organized subdirectories per `1K.14` carve-out; `repo/templates/glp1/marketing/` physically separated per `Section 1Q.13` Module 15 hard carve-out.
+2. Author 24 GLP-1 rules + 25 GLP-1 templates as TypeScript code-as-config files with `privacy_exposure_level` + `message_intent` + `transactional_critical` (where applicable) declarations per `Section 1Q.5` + `1Q.17` + `1Q.19` discipline. Clinical CODEOWNER reviews each at PR time per `.github/CODEOWNERS`.
+3. Build sandbox test harness covering 5+ test fixtures per `clinical_safety` domain rule per `Section 1Q.4` rule shape; integration test fixtures cover (a) the 5 GLP-1 patient scenarios from `Section 1Q.15`, (b) the 4 adversarial scenarios from `Section 1Q.16`, (c) the 35 dynamic behavior scenarios from `Section 1Q.19`, (d) the 6 TRT patient scenarios from `Section 1Q.18` once parallel TRT authoring begins.
+4. Parallel pathway authoring: TRT begins concurrently with GLP-1; ED + Female HRT begin when their respective slices land. Each gets its own `repo/rules/<pathway>/` + `repo/templates/<pathway>/` directory; shared concept registry per `1K.5.A`.
+5. Per-pathway integration tests run end-to-end through the locked pipeline before pathway is enabled in production runtime.
+6. Sibling pathway `gender_affirming_masculinizing_hrt` deferred to a future slice with its own clinical CODEOWNER review.
+7. Peptide pathways remain compliance-blocked pending separate org policy + compliance review.
+
+**Pre-runtime gate sequence COMPLETE.** Runtime implementation begins.
+
 ---
 
 ## Appendix: Injectable / peptide treatment requirements (pressure-test)
