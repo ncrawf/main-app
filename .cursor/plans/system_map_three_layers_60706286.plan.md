@@ -453,6 +453,28 @@ The **map** already **requires** server **permit** assert on approve/prescribe (
 - **Sequencing rule:** when notifications are scheduled within the same window, send order is by `priority` (`urgent_clinical → urgent_ops → standard → low`) regardless of trigger order; ties broken by clinical relevance (clinical > operational > marketing).
 - **Marketing always last:** `marketing_lifecycle` notifications always defer to transactional notifications in the same window; never preempt account/clinical/billing comms; `marketing_lifecycle` send budget is separate from `notification` send budget per `Section 1Q.13` marketing carve-out enforcement.
 
+*11-tier campaign priority hierarchy (binding; per `2026-05-01_marketing_lifecycle_growth_orchestration.md` + `Section 1Q.21` Part 7):* when multiple campaigns + notifications target the same patient within a collision window, the dispatch decision uses an explicit 11-tier priority hierarchy. Higher tiers preempt lower tiers; same-tier collisions resolve via the existing `Section 1G.3` digest rule (≥3 in 4h → digest) + cross-channel dedup (per Refinement 5).
+
+| Tier | Domain | Examples | Collision behavior vs lower tiers |
+|---|---|---|---|
+| 1 | safety / urgent clinical | `safety_window_open`, `urgent_provider_alert`, `contraindication_review` | Always send; suppresses ALL lower tiers within 24h safety window per existing emergency orchestration step 5 |
+| 2 | required clinical next step | `pending_clarification`, `lab_kit_required`, `provider_review_response` | Send; suppresses tiers 6-11 within conflict window |
+| 3 | billing/account critical | `payment_failed`, `subscription_renewal_3day_warning` (declared `transactional_critical: true` per `Section 1Q.5` extension) | Send; bypasses safety-window suppression per Patch 4 of `2026-04-30_dynamic_behavior_pre_runtime.md` |
+| 4 | fulfillment/order issue | `shipment_delay`, `cold_chain_replacement` | Send; provider sees clinical context banner if applicable per `Section 1G.5` cross-owner banner |
+| 5 | active treatment lifecycle | `refill_reminder`, `dose_change`, `week_4_check_in` | Send; respect cadence caps per `Section 1Q.21` Part 8 |
+| 6 | retention/reorder | `subscription_retention`, `supplement_reorder` | Digest if ≥3 in 4h; respect cooldowns |
+| 7 | approved-not-purchased | conversion campaign | Digest; suppress during exclusion windows per Patch 4 of dynamic behavior |
+| 8 | abandoned intake | T1/T2/T3 cadence (3-cap per Patch 5 of dynamic behavior) | Digest; suppress during exclusion windows |
+| 9 | cross-sell | pathway-adjacent offers per `Section 1Q.21` Part 10 | Digest; rare frequency; respect consents (`marketing_supplement_adjacent` for in-program; `marketing_personalization_with_phi` for tier_3 cross-sell) |
+| 10 | general promo | seasonal | Digest; rare frequency |
+| 11 | holiday/birthday/content | birthday, anniversary | Digest; respect Toggle 5 (`marketing_seasonal_holidays`) |
+
+**Collision resolution actions (binding):** per `Section 1Q.21` Part 7 — `suppress` (lower-tier dropped + audit `campaign.step_suppressed`); `delay` (lower-tier rescheduled past window + audit `campaign.step_rescheduled`); `bundle` (digest message via `account_lifecycle` template domain when ≥3 in 4h per existing rule); `replace` (incoming higher-tier replaces queued lower-tier); `allow` (both fire; rare; e.g., transactional_critical bypasses suppression); `digest` (automatic per existing digest rule).
+
+**Incompatible campaigns MUST EXIT (binding per `Section 1Q.21` Invariant 23):** when a patient enters a campaign that lists prior campaigns as `incompatible_campaign_types[]` per `Section 1Q.21` Part 5 declaration, those prior campaigns auto-exit with reason `incompatible_campaign_entered` + audit `campaign.exit_due_to_conversion` (or `campaign.exit` with appropriate reason). No duplicate enrollment: CI lint enforces UNIQUE `(patient_id, campaign_id, status='active')`. All collision decisions audited per Section 1Q.7 marketing event types extension.
+
+**Patient-history-aware priority adjustment:** priority hierarchy is base-cased; adjustment factors per `Section 1Q.21` Part 7 — recent unsubscribe events tighten cadence + escalate suppression; recent complaints trigger immediate marketing suspension; active subscriber + good engagement may receive cross-sell tier with normal frequency; dormant / churned receive marketing rare with tighter cadence caps.
+
 *Privacy + communication governance enforcement (binding; per `2026-04-30_privacy_communication_governance.md` + `Section 1Q.17`):* every outbound_jobs dispatch decision passes through a deterministic 5-step privacy gate before send:
 
 1. **Action-template alignment check:** verify `template.privacy_exposure_level <= action.intended_privacy_exposure_level` AND `template.message_intent === action.message_intent` per `Section 1Q.4` action-level enforcement. Mismatch = `notification.action_template_intent_mismatch` audit event + reject (failsafe; CI lint should prevent at PR time).
@@ -3669,6 +3691,11 @@ Intake captures both today's commerce and the conditional Rx terms; payment even
     4. **"Allow treatment-specific wording outside the app"** (default OFF) — `pathway_named_outside_secure_comm`; when ON enables tier_3 in SMS/email for `low`/`moderate` `pathway_sensitivity` pathways; ignored for `high`/`extreme` pathways (UI hides toggle for patients enrolled only in extreme pathways since toggle is inert).
     5. **"Send me marketing and offers"** (default OFF) — `marketing_sms` + `marketing_email` consents; when ON enables `marketing` intent on SMS/email at tier_1 default.
     6. **"Personalize offers based on my care context"** (default OFF) — `marketing_personalization_with_phi`; when ON enables tier_3 marketing referencing pathway names (still bound by `pathway_sensitivity` per Section 1K.2).
+  - **Marketing Lifecycle + Growth Orchestration Suite consent extensions (NEW per `2026-05-01_marketing_lifecycle_growth_orchestration.md` + `Section 1Q.21`):**
+    - **`marketing_seasonal_holidays`** (informational; opt-out only — patient is opted-in by default after marketing_email or marketing_sms consent; can revoke independently) — gates `birthday / signup_anniversary / first_purchase_anniversary / holiday / seasonal / launch / drop / BFCM` campaign types per `Section 1Q.21` campaign taxonomy. Distinct from general `marketing_email` / `marketing_sms` so patient who wants transactional + clinical-adjacent marketing but no holiday/birthday content can revoke this without revoking primary marketing.
+    - **`marketing_supplement_adjacent`** (informational; tied to active subscription only — auto-revokes on subscription cancellation; auto-grants on subscription start with patient's explicit acknowledgment in onboarding) — gates `supplement_adjunct` campaign types per `Section 1Q.21` for patients with active clinical pathway subscriptions. Allows post-Rx supplement onboarding + reorder cadence; does NOT grant standalone supplement marketing (that uses `marketing_email` / `marketing_sms`).
+    - Patient-facing 6-toggle UI per `1K.11` Toggle 5 (general marketing) + Toggle 6 (PHI personalization) covers the core; `marketing_seasonal_holidays` and `marketing_supplement_adjacent` are exposed in advanced settings (Toggle 7+ — sub-section under Toggle 5) per `Section 1Q.21` Part 19 staff usability + patient settings UI design.
+    - All marketing consent revocations propagate immediately per Invariant 19 (system is source of truth for consent — external platforms NEVER source). Provider webhook unsubscribe events trigger `patient_consents` revocation row + eligibility recompute on next campaign step per `Section 1Q.21` Part 22 safety rules.
   - **Discipline (binding):** UI toggle changes go through a consent-write API that creates appropriate `patient_consents` rows with audit + revocation semantics; reads compose typed consents into UI state. Patient never sees `marketing_personalization_with_phi` legalese — they see plain language. Settings UI shows only relevant toggles per pathway (sensitivity-aware UI; extreme pathways hide Toggle 4 because it's inert). Patient can revoke any consent at any time (except `phone_call_clinical_outreach_consent` for safety-emergency). CI lint forbids: (a) UI toggle paths that bypass typed `patient_consents` write; (b) any code that reads UI toggle state instead of querying `patient_consents` for consent verification at send-gate; (c) patient preferences that LOOSEN above template/channel/pathway cap (preference TIGHTENS only).
   - **`legal_text_snapshot_id`** pins the exact rendered legal text shown to the patient at acceptance time (stored once, pointed to by all acceptances of that version). Version-pin discipline identical to `1K.4` (no silent legal-text edits; material changes create a new version_hash and a new snapshot). Captures TCPA short-code text, off-label copy, subscription renewal terms, telehealth-consent jurisdiction text exactly as shown.
   - **Provenance on every acceptance:** `accepted_at` timestamp, `source_surface` (`intake_account_creation | intake_state_gate | intake_submit_to_provider | checkout_subscription | account_settings_sms | account_settings_research | provider_message | ops_manual_capture`), IP + device context per Intent, and a back-pointer to the `intake_response` row that captured the checkbox (so the response row and the consent row are joined, but the consent row is the queryable source of truth).
@@ -6099,6 +6126,12 @@ interface Template {
   requires_consent_for_intent?: ConsentType[];          // patient_consents.type values required by intent (e.g., `marketing` intent requires `marketing_sms` for SMS channel; `marketing_email` for email channel); CI lint enforces declaration when intent ∈ {marketing, education-with-marketing-tone}
   safety_critical_override_allowed: boolean;            // DEFAULT FALSE; when TRUE: template may fire over patient channel preferences per existing `1G.3` safety override; MUST also declare `safety_vague_companion_template_key`; CI lint forbids `true` on non-`safety` intent templates
   safety_vague_companion_template_key?: string;          // REQUIRED when `safety_critical_override_allowed = true`; points at a tier_2 vague template (intent=`safety`) that fires on outside channels (SMS / email / push) while the tier_4/5 detailed version stays in-app + phone; CI lint validates the companion exists, is `privacy_exposure_level: 2`, and is registered as `intent: safety`
+  // Marketing Lifecycle + Growth Orchestration Suite extensions (NEW per `2026-05-01_marketing_lifecycle_growth_orchestration.md` + `Section 1Q.21`):
+  campaign_type?: CampaignType;                           // 18-value enum per `Section 1Q.21` Part 5 campaign taxonomy; REQUIRED for templates with `domain: marketing_lifecycle`; CI lint enforces declaration on marketing_lifecycle domain templates; allowed values: lead_nurture | abandoned_intake | abandoned_checkout | lab_completion_reminder | approved_not_purchased | first_purchase_onboarding | refill_reorder_reminder | subscription_retention | winback | post_cancel_feedback | post_denial_re_evaluation | birthday_anniversary_holiday | seasonal_promotion | pathway_education | supplement_standalone | supplement_adjunct | cross_sell | upsell | referral_loyalty | reactivation | launch_drop
+  personalization_level: 'none' | 'basic' | 'contextual' | 'behavioral' | 'sensitive_restricted';  // REQUIRED on every template; default 'none'; per `Section 1Q.21` 5-level taxonomy; AI refinement may NOT escalate beyond declared level; sensitive_restricted only allowed for non-extreme pathway_sensitivity templates
+  provider_template_registration_id?: string;             // when external marketing platform mirrors the template (V2+ only per `Section 1Q.21` template ownership models; e.g., Klaviyo / Customer.io / Braze / Iterable); CI lint enforces external_id matches internal `template_version`; external platforms NEVER source of truth per Invariant 19
+  pathway_sensitivity_compatibility: PathwaySensitivity[]; // which pathway sensitivities the template can fire on; default = all `low` / `moderate` allowed; explicit allowlist required for `high` / `extreme`; CI lint validates against template's `prohibited_claims` floor + privacy_exposure_level + outside_secure_render_strategy
+  transactional_critical?: boolean;                       // per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 4 marketing exclusion windows + `Section 1Q.21` cadence rules; default false; when true: bypasses safety-window suppression AND marketing-exclusion-window suppression for billing/account/safety intents; CI lint forbids `transactional_critical = true` on `marketing` or `education` intents (only `billing` / `account` / `safety` may declare this)
 }
 ```
 
@@ -6293,6 +6326,128 @@ Deterministic pipeline (binding):
   }
 }
 
+// MARKETING audit event types — extended per `2026-05-01_marketing_lifecycle_growth_orchestration.md` + `Section 1Q.21` Marketing Lifecycle + Growth Orchestration Suite (12 NEW + 8 from prior pressure-test corrections; 20 total marketing event types)
+
+// campaign.enrollment — patient enters campaign
+{
+  event_type: 'campaign.enrollment',
+  payload: { enrollment_id: uuid, patient_id: uuid, campaign_id: string, campaign_version: string, audience_match_evidence_refs: EvidenceRef[], started_at: timestamptz }
+}
+
+// campaign.enrollment_attempt_blocked — audience matched but eligibility failed (per pressure-test correction; auditability of considered-but-not-enrolled)
+{
+  event_type: 'campaign.enrollment_attempt_blocked',
+  payload: { campaign_id: string, campaign_version: string, patient_id: uuid, audience_match: true, block_reason_code: text, block_evidence_refs: EvidenceRef[] }
+}
+
+// campaign.step_dispatched — step's outbound_job sent
+{
+  event_type: 'campaign.step_dispatched',
+  payload: { enrollment_id: uuid, step_id: text, channel: text, template_key: string, template_version: string, dispatched_at: timestamptz }
+}
+
+// campaign.step_suppressed — suppression with reason code (consent / privacy / safety_window / exclusion_window / cadence_cap / collision / jurisdiction / pathway_sensitivity)
+{
+  event_type: 'campaign.step_suppressed',
+  payload: { enrollment_id: uuid, step_id: text, suppression_reason_code: text, template_key_attempted: string, channel_attempted: text, will_retry_at?: timestamptz }
+}
+
+// campaign.step_delayed — deferred per orchestration (next_step_eligible_at updated)
+{
+  event_type: 'campaign.step_delayed',
+  payload: { enrollment_id: uuid, step_id: text, old_eligible_at: timestamptz, new_eligible_at: timestamptz, delay_reason: text }
+}
+
+// campaign.conversion — attribution chain (multi-touch capable)
+{
+  event_type: 'campaign.conversion',
+  payload: { conversion_event_id: uuid, conversion_type: text, campaign_id: string, campaign_version: string, enrollment_id: uuid, attribution_chain: uuid[], revenue_amount?: decimal, revenue_currency?: text, evidence_refs: EvidenceRef[] }
+}
+
+// campaign.exit — patient exits campaign with reason
+{
+  event_type: 'campaign.exit',
+  payload: { enrollment_id: uuid, exit_reason_code: text, exited_at: timestamptz }
+}
+
+// campaign.delivery_outcome — provider webhook event landing back in our system (per pressure-test correction)
+{
+  event_type: 'campaign.delivery_outcome',
+  payload: { outbound_job_id: uuid, campaign_id: string, campaign_version: string, enrollment_id: uuid, step_id: text, channel: text, provider_id: text, provider_event_kind: 'delivered'|'bounced_hard'|'bounced_soft'|'complained'|'unsubscribed'|'opened'|'clicked'|'delivery_failed', provider_event_id: text, provider_event_timestamp: timestamptz, raw_provider_payload: jsonb (PHI-redacted snapshot) }
+}
+
+// campaign.branch_evaluated — every branch evaluation per state-machine model (per `Section 1Q.21` Invariant 22)
+{
+  event_type: 'campaign.branch_evaluated',
+  payload: { enrollment_id: uuid, step_id: text, candidate_branches: BranchSpec[], evaluation_window: Duration, system_observed_events: text[], provider_observed_events: text[], matched_branch_id?: text, no_match_fallthrough?: boolean }
+}
+
+// campaign.branch_taken — branch action chosen
+{
+  event_type: 'campaign.branch_taken',
+  payload: { enrollment_id: uuid, step_id: text, branch_id: text, action: 'next_step'|'exit_campaign'|'enter_campaign_id'|'suppress_until', action_target?: string, audit_reason_code: text }
+}
+
+// campaign.step_rescheduled — step's `next_step_eligible_at` updated due to suppression / delay / cadence / safety_window
+{
+  event_type: 'campaign.step_rescheduled',
+  payload: { enrollment_id: uuid, step_id: text, old_eligible_at: timestamptz, new_eligible_at: timestamptz, reschedule_reason: text }
+}
+
+// campaign.step_cancelled_due_to_conversion — queued step cancelled because conversion fired transitioning patient out of this campaign (per `Section 1Q.21` Invariant 23)
+{
+  event_type: 'campaign.step_cancelled_due_to_conversion',
+  payload: { enrollment_id: uuid, step_id: text, conversion_event_id: uuid, conversion_type: text }
+}
+
+// campaign.exit_due_to_conversion — paired with `entered_due_to_conversion` (per `Section 1Q.21` Invariant 23)
+{
+  event_type: 'campaign.exit_due_to_conversion',
+  payload: { exiting_enrollment_id: uuid, conversion_event_id: uuid, conversion_type: text, prior_lifecycle_stage: text, new_lifecycle_stage: text }
+}
+
+// campaign.entered_due_to_conversion — paired with `exit_due_to_conversion`
+{
+  event_type: 'campaign.entered_due_to_conversion',
+  payload: { entering_enrollment_id: uuid, prior_enrollment_id: uuid, conversion_event_id: uuid, transition_reason: text }
+}
+
+// tracking_link.created — at template render time (per `Section 1Q.21` Invariant 20 Marketing Attribution + Link Tracking Architecture)
+{
+  event_type: 'tracking_link.created',
+  payload: { tracking_link_id: uuid, tracking_id_opaque: text, campaign_id?: string, enrollment_id?: uuid, step_id?: text, outbound_job_id: uuid, channel: text, destination_url_hash: text /* NOT raw URL — privacy */, utm_campaign: text /* privacy-safe per Invariant 21 lint */ }
+}
+
+// tracking_link.clicked — click landed on `/r/:tracking_id`
+{
+  event_type: 'tracking_link.clicked',
+  payload: { tracking_link_id: uuid, tracking_id: text, click_timestamp: timestamptz, user_agent_hash: text, ip_address_hash: text, referrer_url?: text, redirect_destination: text }
+}
+
+// attribution_event.created — every attribution_event row creation (first-touch / last-touch / interaction / click_through / view_through)
+{
+  event_type: 'attribution_event.created',
+  payload: { attribution_event_id: uuid, attribution_kind: text, patient_id?: uuid, session_cookie_id?: text, utms: jsonb, click_ids: jsonb /* gclid/fbclid/ttclid/external_click_id_normalized */ }
+}
+
+// campaign.resend_scheduled — resend of step scheduled (max ONE per step per `Section 1Q.21` Invariant 24)
+{
+  event_type: 'campaign.resend_scheduled',
+  payload: { enrollment_id: uuid, step_id: text, original_dispatch_at: timestamptz, resend_scheduled_for_at: timestamptz, resend_template_key: string /* subject variant */, resend_reason: 'not_opened'|'not_clicked' /* after window */ }
+}
+
+// campaign.resend_suppressed — resend cancelled by cadence cap / suppression / opt-out / fatigue
+{
+  event_type: 'campaign.resend_suppressed',
+  payload: { enrollment_id: uuid, step_id: text, suppression_reason: text }
+}
+
+// campaign.fatigue_suppressed — burnout signal suppression fired (per `Section 1Q.21` cadence + burnout discipline)
+{
+  event_type: 'campaign.fatigue_suppressed',
+  payload: { enrollment_id: uuid, step_id: text, signal_type: 'consecutive_no_opens'|'consecutive_no_clicks'|'high_complaint_rate'|'unsubscribe_signal'|'frequency_threshold', threshold_breached_value: jsonb, suppress_until_at: timestamptz }
+}
+
 // notification.action_template_intent_mismatch — failsafe when CI lint missed an action-template mismatch
 {
   event_type: 'notification.action_template_intent_mismatch',
@@ -6435,7 +6590,7 @@ This subsection defines the platform-level communication + action module taxonom
 | 13 | Patient education / lifecycle | patient | `patient_education` | `patient_education` | clinical (medication-related) + ops (lifestyle/operational) | ON (opt-in) for personalization within constraints | YES for medication/clinical-adjacent | YES (V1 scope: onboarding + medication instructions + side-effect expectations on dose change) |
 | 14 | Compliance / audit | staff (compliance, clinical, admin); patient (privacy/records responses) | `compliance_audit` | `compliance_audit` (staff_internal) + `account_lifecycle` (patient-facing privacy/records responses) | compliance + admin | OFF (legal precision) | YES for adverse event docs; NO for general (legal review instead) | YES (V1 scope: consent capture, adverse event docs, model recall internal notice, privacy/records response templates) |
 | 14.5 | Admin-level internal notifications | admin (founder, leadership, on-call) | `compliance_audit` (some) + `vendor_exception` (some) | `admin_internal_notification` | admin + compliance (regulatory) | OFF for incidents; ON for routine digests | NO | YES at MVP (on-call escalation + safety-miss threshold + outage alerts) |
-| 15 | Marketing suite | patient / lead | `marketing_lifecycle` (HARD carve-out) | `marketing_lifecycle` (HARD carve-out) | ops + compliance (clinical NOT involved by default) | ON (designed for AI refinement; A/B variants + personalization within carve-out) | NO (template governance) — exception: clinical-adjacent claims | PARTIAL (V1: signup-incomplete drip + post-purchase onboarding cross-sell only; full retention/win-back/A/B engine V1.5+) |
+| 15 | Marketing suite | patient / lead | `marketing_lifecycle` (HARD carve-out) | `marketing_lifecycle` (HARD carve-out) | ops + compliance (clinical NOT involved by default) | ON (designed for AI refinement; A/B variants + personalization within carve-out) | NO (template governance) — exception: clinical-adjacent claims | **FULL V1 per `Section 1Q.21` Marketing Lifecycle + Growth Orchestration Suite** (state-machine campaign engine; 13 foundational primitives; 11-tier collision priority; conversion-driven transitions; redirect-based link tracking via `/r/:tracking_id`; ad-platform pixel compatibility; 100K emails/week scale target). See `Section 1Q.21` for full architecture. |
 
 **V1 vs later (binding; per user instruction "address the large majority in V1"):** modules 1-14 fully V1 + Module 14.5 V1 at MVP + Module 15 V1 partial. **13 of 15 modules fully V1.** The architecture launches with the full communication surface, not phased.
 
@@ -6814,6 +6969,248 @@ This subsection serves as the **third pre-runtime gate** alongside `Section 1Q.1
 7. Peptide pathways remain compliance-blocked pending separate org policy + compliance review.
 
 **Pre-runtime gate sequence COMPLETE.** Runtime implementation begins.
+
+### 1Q.21 Marketing Lifecycle + Growth Orchestration Suite (binding; per `2026-05-01_marketing_lifecycle_growth_orchestration.md`)
+
+Comprehensive marketing brain + delivery architecture + attribution + link tracking + state-machine campaign engine + conversion-driven transitions. NOT a separate spam engine — governed lifecycle layer integrated into the locked clinical/operational/privacy spine via `Section 1Q` rules + templates engine, `Section 1Q.13` Module 15 marketing carve-out, `Section 1Q.17` privacy governance, `Section 1Q.19` dynamic behavior gates, `Section 1Q.20` runtime green-light. Campaigns are GOVERNED STATE MACHINES with conversion-driven transitions, not linear blasts.
+
+**Architecture overview:** lead → marketing_profile → segmentation → eligibility → campaign_enrollment → step evaluation (state machine) → branch evaluation → SIX-gate enforcement (consent + privacy + temporal + suppression + jurisdiction + send-policy) → template render with personalization (level-bounded) → tracking_link rows created → provider adapter (Resend/Twilio/push/in_app) → outbound_jobs dispatch → patient receives → click on `/r/:tracking_id` → audit + attribution_event → conversion-driven transition (paired exit/enter audit) → lifecycle_stage + next_best_action recompute.
+
+**13 foundational primitives (binding):**
+
+```typescript
+// PRIMITIVE 1: marketing_profile (table; durable marketing-domain truth ONLY per Invariant 16)
+interface MarketingProfile {
+  id: uuid; patient_id: uuid;                                       // FK to patients
+  // First-touch attribution snapshot (immutable)
+  first_touch_recorded_at: timestamptz;
+  first_touch_utm_source?: string; first_touch_utm_medium?: string; first_touch_utm_campaign?: string; first_touch_utm_content?: string;
+  first_touch_referrer_url?: string; first_touch_landing_page_url?: string;
+  first_touch_attribution_event_id?: uuid; first_touch_pathway_interest?: PathwayCode;
+  // Last-touch attribution snapshot (rolling)
+  last_touch_recorded_at: timestamptz;
+  last_touch_utm_source?: string; last_touch_utm_medium?: string; last_touch_utm_campaign?: string; last_touch_utm_content?: string;
+  last_touch_referrer_url?: string; last_touch_landing_page_url?: string; last_touch_attribution_event_id?: uuid;
+  // Engagement metrics — denormalized read-model from audit_events.campaign.delivery_outcome (async refresh; NEVER direct DB writes from webhooks per Invariant 18 sub-rule)
+  open_count_30d: integer; open_count_90d: integer; click_count_30d: integer; click_count_90d: integer;
+  bounce_count_lifetime: integer; complaint_count_lifetime: integer; unsubscribe_count_lifetime: integer;
+  last_engaged_at?: timestamptz; last_email_dispatched_at?: timestamptz; last_sms_dispatched_at?: timestamptz; last_push_dispatched_at?: timestamptz;
+  engagement_metrics_refreshed_at: timestamptz;
+  // Marketing-domain pathway interest signals (NOT clinical truth per `1K.5.A` distinction)
+  pathway_interest_signals: PathwayInterestSignal[];                // [{pathway_code, signal_kind, signal_at, source}]
+  // External platform mirrors (V2+)
+  external_marketing_platform_id?: string; external_marketing_platform_synced_at?: timestamptz;
+  created_at: timestamptz; updated_at: timestamptz;
+  // REMOVED per Invariant 16 (these are derived elsewhere):
+  // - lifecycle_stage (derived view from purchase + subscription + abandonment + intake state)
+  // - suppression_flags (derived from active safety windows + active marketing exclusion windows + consent state)
+  // - next_best_action (primitive #12; derived view; never stored)
+  // - consent_snapshot (`1K.11` patient_consents is source of truth; read directly)
+}
+
+// PRIMITIVE 2: campaign_definition (code-as-config in repo/campaigns/; NOT a database table)
+interface CampaignDefinition {
+  campaign_id: string; campaign_version: string;                     // semver
+  campaign_type: CampaignType;                                       // 18-value enum per Section 1Q.21 Part 5 taxonomy
+  pathway_scope: PathwayCode[]; pathway_sensitivity_compatibility: PathwaySensitivity[];
+  jurisdiction_eligibility: JurisdictionEligibilityPolicy;
+  audience_query: AudienceQuery;                                     // declarative; deterministic
+  trigger_event: TriggerEventSpec;                                   // {kind: 'lifecycle_event_emitted', event_type: 'lifecycle.intake_abandoned_stage_1'}
+  start_delay: Duration;
+  steps: CampaignStep[];                                             // ordered nested array (PRIMITIVE 4; NOT runtime table)
+  exit_conditions: ExitCondition[]; suppression_windows: Duration[]; cooldown_rules: CooldownRule[]; conversion_goal: ConversionGoalSpec;
+  auto_exit_on_higher_lifecycle_state: boolean;                      // default true for lead-stage; false for retention/education
+  incompatible_campaign_types: CampaignType[];                       // exit-on-enroll list
+  transition_targets: CampaignTargetSpec[];                          // next campaigns on conversion
+  priority_tier: 1|2|3|4|5|6|7|8|9|10|11;                            // per 11-tier hierarchy (Part 7)
+  consent_required: ConsentType[]; max_contacts_per_window: { window: Duration; max: int };
+  ab_test_arms?: AbTestArm[];                                        // V1.5+
+  status: 'draft'|'active'|'deprecated'|'retired'; effective_at: timestamptz; retired_at?: timestamptz;
+  rationale_note: string;                                            // required
+}
+
+// PRIMITIVE 3: campaign_enrollment (runtime table)
+interface CampaignEnrollment {
+  id: uuid; patient_id: uuid; campaign_id: string; campaign_version: string;       // pinned at enrollment time
+  current_step_index: int;                                                          // NOT step_id; positional in campaign_definition.steps[]
+  status: 'active'|'paused'|'completed'|'exited_unsubscribed'|'exited_eligibility_lost'|'exited_safety_window'|'exited_cap_reached'|'exited_converted'|'exited_incompatible_campaign_entered';
+  started_at: timestamptz; last_step_dispatched_at?: timestamptz; next_step_eligible_at?: timestamptz;
+  exited_at?: timestamptz; exit_reason_code?: string;
+  enrolled_via_transition_from_enrollment_id?: uuid;                                // when conversion-driven transition created this enrollment
+  enrollment_evidence_refs: EvidenceRef[];                                          // pointer to triggering events
+  // Indexed on (patient_id, campaign_id, status) UNIQUE WHERE status='active' per Invariant 23 sub-rule
+  // Indexed on (next_step_eligible_at, status) for orchestrator queries
+}
+
+// PRIMITIVE 4: campaign_step (NESTED-FIELD shape inside campaign_definition.steps[]; NOT runtime table per Invariant 4 sub-rule)
+interface CampaignStep {
+  step_id: string;                                                                  // positional + unique within campaign
+  step_kind: 'send_message'|'check_condition'|'wait'|'branch'|'exit';
+  delay_from_previous?: Duration;
+  channel?: 'email'|'sms'|'in_app'|'push';                                         // when send_message
+  template_key?: string;                                                            // when send_message
+  message_intent: MessageIntent;                                                    // 10-value enum per Section 1Q.5
+  privacy_exposure_level: 0|1|2|3|4|5;                                              // per Section 1Q.17
+  expected_event_window?: Duration;                                                 // window for branch evaluation; default 72h for clicks, 7d for purchases
+  branches?: CampaignBranch[];                                                      // ordered; first matching condition wins; default-fallthrough to next sequential step
+  wait_until?: WaitUntilSpec;                                                       // when wait
+  exit_reason_code?: string;                                                        // when exit
+}
+
+// PRIMITIVE 4 sub-shape: CampaignBranch (18 typed conditions per state-machine model)
+interface CampaignBranch {
+  branch_id: string;
+  condition: 'opened'|'not_opened'|'clicked'|'not_clicked'                          // engagement (system-observed PRIMARY for clicks; provider-observed SECONDARY for opens)
+           |'cart_started'|'cart_abandoned'|'checkout_started'|'checkout_abandoned'|'purchase_completed'|'subscription_started'|'reorder_completed'  // commerce (system-observed PRIMARY)
+           |'intake_started'|'intake_abandoned'|'intake_completed'|'account_created'|'clinical_workflow_started'|'safety_window_opened'              // clinical (system-observed PRIMARY)
+           |'no_response'|'opted_out'|'cadence_cap_reached';                                                                                          // lifecycle
+  within?: Duration;                                                                // override step's expected_event_window
+  // Branch action — exactly one of:
+  next_step_id?: string;                                                            // transition to step within this campaign
+  exit_campaign?: boolean;                                                          // exit campaign with reason
+  enter_campaign_id?: string;                                                       // transition to different campaign (conversion-driven)
+  suppress_until?: Duration;                                                        // suppress this campaign for window
+  audit_reason_code: string;                                                        // typed reason code for audit + analytics
+}
+
+// PRIMITIVE 5: campaign_suppression_event (audit_events row; NOT separate table)
+// event_type = 'campaign.step_suppressed' per Section 1Q.7 extended audit shapes; payload includes suppression_reason_code
+
+// PRIMITIVE 6: campaign_conversion_event (audit_events row + attribution chain)
+// event_type = 'campaign.conversion'; payload: {conversion_event_id, conversion_type (10 values), campaign_id, campaign_step_id, enrollment_id, attribution_chain[], revenue_amount?, revenue_currency?, evidence_refs[], timestamp}
+
+// PRIMITIVE 7: offer_definition (code-as-config in repo/offers/; NOT a database table)
+interface OfferDefinition {
+  offer_id: string; offer_version: string;
+  offer_kind: 'percent_discount'|'dollar_discount'|'free_shipping'|'bundle_discount'|'first_month_discount'|'subscription_discount'|'limited_time_offer'|'holiday_offer'|'birthday_offer'|'anniversary_offer'|'referral_credit'|'loyalty_credit'|'reactivation_offer'|'abandoned_checkout_offer';
+  eligibility_predicate: EligibilityPredicate; pathway_restrictions: PathwayCode[]; pathway_sensitivity_compatibility: PathwaySensitivity[];
+  amount: OfferAmount; stacking_rules: StackingRule[]; expiration_policy: ExpirationPolicy;
+  margin_guardrails: MarginGuardrail[]; abuse_prevention_rules: AbuseRule[];
+  patient_visible_copy_template_key: TemplateKey; prohibited_claims_floor: ProhibitedClaim[];
+  effective_at: timestamptz; retired_at?: timestamptz; rationale_note: string;
+}
+
+// PRIMITIVE 8: promo_code (runtime table)
+interface PromoCode {
+  id: uuid; code: text;                                                             // unique
+  offer_definition_id: string; offer_version: string;                               // pinned at issuance
+  issued_at: timestamptz; issued_to_patient_id?: uuid;
+  max_uses: int; used_count: int; expires_at: timestamptz;
+  revoked_at?: timestamptz; revoked_reason?: text;
+}
+
+// PRIMITIVE 9: product_adjacency (code-as-config in repo/product-adjacency/; NOT a database table)
+// per-pathway file declaring adjacent products + claim restrictions + clinical_review_required + template_key_for_offer + prohibited_in_pathway_sensitivity[]
+
+// PRIMITIVE 10: lifecycle_event (patient_timeline_events.event_type subset; NOT separate table per Invariant 4 sub-rule)
+// event_type values: 'lifecycle.birthday' | 'lifecycle.signup_anniversary' | 'lifecycle.first_purchase_anniversary_<N>y' | 'lifecycle.treatment_milestone_<context>' (consent-gated) | 'lifecycle.lab_anniversary_<N>y' | 'lifecycle.subscription_anniversary_<N>y' | 'lifecycle.refill_anniversary_<N>' | 'lifecycle.intake_started' | 'lifecycle.intake_completed' | 'lifecycle.purchase_completed' | 'lifecycle.subscription_cancelled' | etc.
+
+// PRIMITIVE 11: attribution_event (table; extended schema)
+interface AttributionEvent {
+  id: uuid; patient_id?: uuid;                                                      // null if pre-account
+  session_cookie_id?: string;
+  attribution_kind: 'first_touch'|'last_touch'|'interaction'|'click_through'|'view_through';
+  utm_source?: string; utm_medium?: string; utm_campaign?: string; utm_content?: string; utm_term?: string;
+  // External platform click IDs (per Marketing Attribution + Link Tracking Architecture)
+  gclid?: string; fbclid?: string; ttclid?: string; external_click_id_normalized?: string;
+  referrer_url?: string; landing_page_url: string; entry_pathway_interest?: PathwayCode;
+  staff_entered: boolean; staff_user_id?: uuid;
+  linked_intake_response_id?: uuid; linked_campaign_enrollment_id?: uuid; linked_tracking_link_id?: uuid;
+  attribution_chain?: uuid[];                                                       // ordered array of prior attribution_event ids; populated at conversion time; immutable after
+  recorded_at: timestamptz; created_at: timestamptz;
+  // Click IDs are opaque tokens — CAPTURE allowed; PAIRING with PHI when forwarded to external platforms FORBIDDEN per Invariant 21
+}
+
+// PRIMITIVE 12: next_best_action (DERIVED VIEW; never stored truth per Invariant 16)
+// VIEW DEFINITION: next_best_action(patient_id) AS SELECT compute_nba(marketing_profile, active_enrollments, eligibility_state, lifecycle_flags, pathway_eligibility, segments)
+// Computed at READ TIME from current state; NEVER stored; NEVER overrides clinical authority; CI lint forbids materialization
+
+// PRIMITIVE 13: tracking_link (table; NEW per Marketing Attribution + Link Tracking Architecture)
+interface TrackingLink {
+  id: uuid; tracking_id: text;                                                      // opaque short URL-safe token; indexed UNIQUE
+  patient_id?: uuid;                                                                // null if pre-account or anonymous campaign
+  campaign_id?: string; campaign_version?: string; enrollment_id?: uuid; step_index?: int;
+  outbound_job_id: uuid;
+  channel: 'sms'|'email'|'push'|'in_app';
+  destination_url: string;                                                          // final URL after redirect; with UTM params injected; NO PHI in path/query
+  utm_source: string; utm_medium: string; utm_campaign: string;                     // PRIVACY-SAFE NAME per Invariant 21
+  utm_content?: string; utm_term?: string;
+  created_at: timestamptz;                                                          // creation = template render time (PRE-rendered before send)
+  expires_at?: timestamptz;                                                         // optional; default null = never expires
+  // Click events on /r/:tracking_id endpoint write attribution_event of click_through + patient_timeline_events row 'campaign.link_clicked' BEFORE 302 redirect
+  // CI lint forbids: marketing email/SMS templates rendering raw outbound URLs without tracking_link wrapping; tracking_link rows with destination_url containing PHI / pathway names for extreme sensitivity pathways; UTM campaign names violating privacy-safe naming for the source pathway_sensitivity
+}
+```
+
+**11-tier campaign priority hierarchy (binding):**
+
+| Tier | Domain | Examples |
+|---|---|---|
+| 1 | safety / urgent clinical | safety_window, urgent_provider_alert, contraindication_review |
+| 2 | required clinical next step | pending_clarification, lab_kit_required, provider_review_response |
+| 3 | billing/account critical | payment_failed, subscription_renewal_3day_warning (transactional_critical) |
+| 4 | fulfillment/order issue | shipment_delay, cold_chain_replacement |
+| 5 | active treatment lifecycle | refill_reminder, dose_change, week_4_check_in |
+| 6 | retention/reorder | subscription_retention, supplement_reorder |
+| 7 | approved-not-purchased | conversion campaign |
+| 8 | abandoned intake | T1/T2/T3 cadence |
+| 9 | cross-sell | pathway-adjacent offers |
+| 10 | general promo | seasonal |
+| 11 | holiday/birthday/content | birthday, anniversary |
+
+Collision actions: **suppress / delay / bundle / replace / allow / digest** per `Section 1G.3` send-policy collision discipline + Patch extension below.
+
+**Cadence hard caps (binding defaults; pathway-configurable):** daily 3 / weekly 7 / monthly 20 / max active campaigns per patient 5 / max marketing SMS per week 2 / max marketing email per week 3 / max push per day 2.
+
+**Cooldown matrix (binding):** post-purchase 14d marketing cooldown / post-denial 30d / post-deferral 7d / post-safety 24+h full safety window / post-cancellation 7d / post-refund 7d / post-no-response 30d + reduce future cadence / open clinical concern 7d.
+
+**Resend logic (binding per Invariant 24):** maximum ONE resend per `campaign_step`; subject line MUST differ; same core body content; allowed ONLY for `marketing` / `education` intents; FORBIDDEN for `clinical` / `safety` / `billing` / `operational` intents; respects all caps + suppression.
+
+**Communication eligibility evaluated at every step (binding):** SIX-gate enforcement per Invariant 18 — consent / privacy / temporal / suppression / jurisdiction / send-policy. NOT precomputed.
+
+**Personalization 5-level taxonomy (binding):** `none` (static) / `basic` (name only) / `contextual` (lifecycle-aware) / `behavioral` (engagement-based) / `sensitive` (RESTRICTED — clinical-context, requires consent + non-extreme sensitivity). Personalization MUST NOT increase `privacy_exposure_level`. AI cannot escalate beyond template constraints. Templates declare `allowed_personalization_level` per `Section 1Q.5`.
+
+**Marketing delivery architecture invariants (binding):**
+- System-owned campaign brain (enrollment / eligibility / consent / privacy / suppression / temporal / template selection / personalization / audit / timeline / analytics)
+- Repo-owned templates V1; external platform templates V2+ ONLY with strict registration (`provider_template_registration_id` on internal template; CI lint validates external_id matches `template_version`)
+- Provider adapters (Resend/Postmark/SendGrid for email; Twilio for SMS; in_app/push services) handle send + webhook events; FORBIDDEN to choose eligibility / change privacy exposure / send without `outbound_job` approval
+- MVP stack: Resend (email) + Twilio (SMS) + repo-owned `/r/:tracking_id` redirect endpoint + repo-owned templates as React Email / MJML
+
+**25 hard invariants (binding):**
+
+(15 original from `Section 1Q.19` + 3 from pressure-test corrections + 3 from attribution architecture + 4 from branching/conversion architecture)
+
+1-15. (See `Section 1Q.19` 12 invariants + 3 pressure-test corrections — abridged: pre-send revalidation; stale-pending-review; marketing exclusion windows; T1→T2→T3 cadence cap; cross-owner banner; clarification retry; transactional_critical carve-out; aggregate stats; audit on every dispatch; wrong-channel safety; patient-frustration mitigation; provider authority; jurisdiction respect; pathway sensitivity cap; consent before send.)
+
+**16 — `marketing_profile` not-junk-drawer:** stores ONLY durable marketing-domain truth that does not exist elsewhere. Derived state (lifecycle_stage, suppression_flags, next_best_action, consent_snapshot) lives in derived views. CI lint enforces — adding a field requires rationale + clinical/ops/compliance CODEOWNER co-review.
+
+**17 — Marketing lifecycle flags are DERIVED:** flags like `lead_glp1`, `abandoned_intake_stage_1`, `purchased_trt`, `supplement_only`, `churned`, `high_engagement`, `low_engagement` are computed from system state (campaign_enrollment + commerce_orders + treatment_orders + audit_events). Manual flag assignment FORBIDDEN. CI lint forbids any mutation path that writes flags without traversal of declared derivation rules. No "tag" tables.
+
+**18 — Six-gate enforcement on all campaign execution:** every campaign step dispatch MUST flow through `outbound_jobs` orchestrator + pass SIX gates: (a) consent (`1K.11`), (b) privacy (`1Q.17` triple-axis), (c) temporal orchestration (`1G.3`), (d) suppression (`1Q.19` exclusion windows + cadence caps + safety windows), (e) jurisdiction (`1K.2` pathway file + jurisdiction_profile), (f) send-policy 5-step (`1G.3`). CI lint forbids any direct provider-adapter call from campaign execution code paths that bypasses `outbound_jobs` + six-gate enforcement.
+
+**19 — System is the SOURCE OF TRUTH for attribution:** `attribution_event` (system-owned table) is canonical. External platforms (Google Ads / Meta / TikTok / Klaviyo / Customer.io / etc.) are OBSERVERS only — they may receive signals but they do NOT control campaign logic, do NOT store authoritative attribution, do NOT decide eligibility. CI lint forbids: (a) any code path that reads attribution from external platforms as ground truth; (b) any campaign decision (enrollment, suppression, send) that depends on third-party tool state; (c) any architecture that requires migration to a third-party marketing tool to preserve attribution.
+
+**20 — All marketing outbound links MUST be tracking-wrapped via `/r/:tracking_id`:** every marketing email / SMS / push / in_app message rendered for dispatch MUST resolve URLs through `tracking_link` rows + the `/r/:tracking_id` redirect endpoint owned by repo. Untracked outbound links in marketing channels are FORBIDDEN — CI lint enforces at template render time. Transactional / clinical / safety templates MAY use tracking_link wrapping for engagement analytics (configurable per template) but it is OPTIONAL for non-marketing intents.
+
+**21 — Privacy-safe URL/UTM/external-platform discipline:** PHI / clinical specifics / pathway names for `pathway_sensitivity ∈ {high, extreme}` MUST NOT appear in URL paths, URL query strings, UTM parameters, or any data forwarded to external ad platforms. CI lint validates UTM campaign values against `pathway_sensitivity_compatibility` declared on the underlying campaign_definition + flags forbidden patterns.
+
+**22 — Campaigns are STATE MACHINES, not linear blasts:** every `campaign_step` may declare `branches: CampaignBranch[]` (18 typed conditions across engagement / commerce / clinical / lifecycle); branches evaluated against system-observed events (PRIMARY); provider-observed events (email opens, provider-tracked clicks) are SECONDARY signals — confirmed by system tracking via `/r/:tracking_id` before driving CRITICAL transitions; every branch decision emits paired audit events `campaign.branch_evaluated` + `campaign.branch_taken`; branches do NOT bypass the SIX gates.
+
+**23 — Conversion events MUST trigger transitions:** `campaign_conversion_event` (10 conversion types) updates `campaign_enrollment.status` of the source campaign + cancels stale queued steps via pre-send revalidation + emits paired `campaign.exit_due_to_conversion` + `campaign.entered_due_to_conversion` audit rows + recomputes `marketing_profile.lifecycle_stage` + recomputes `next_best_action` + writes `lifecycle_event` row. **Lead-nurture campaigns MUST auto-exit on higher lifecycle state.** CI lint forbids any campaign without declared `auto_exit_on_higher_lifecycle_state` for lead-stage campaign types. CI lint enforces UNIQUE `(patient_id, campaign_id, status='active')` to prevent duplicate enrollment.
+
+**24 — Resend logic discipline:** maximum ONE resend per `campaign_step`; subject line MUST differ from original (deterministic variant declared on template); same core body content; allowed ONLY for `marketing` / `education` intents; FORBIDDEN for `clinical` / `safety` / `billing` / `operational` intents; respects cadence caps + burnout suppression + safety window suppression. CI lint forbids resend declarations on non-marketing/non-education templates.
+
+**25 — Supplement commerce vs clinical pathway lifecycles MUST NOT collapse:** distinct `campaign_definition` trees + distinct `lifecycle_event` types + distinct conversion event types (`purchase_completed` for supplements ≠ `Rx_purchased` for clinical post-approval). CI lint forbids: (a) supplement abandoned-cart campaigns auto-transitioning to clinical-pathway intake campaigns; (b) clinical purchase events triggering supplement reorder campaign exits; (c) `campaign_conversion_event` payloads conflating commerce + clinical purchase types.
+
+**Implicit sub-invariants:** campaign_step is nested-field-only (not runtime table); lifecycle_event is timeline-subset (not separate table); next_best_action is derived view (never stored); provider webhook outcomes audited via `campaign.delivery_outcome` (engagement metrics NEVER written directly to marketing_profile from webhooks); tracking_link is created at render time NOT at click time (pre-rendering enables auditability of every link before send); branch evaluation is system-observed-event-primary with provider-observed-event-secondary.
+
+**Cross-links:** `Section 1Q.13` Module 15 (marketing_lifecycle hard carve-out); `Section 1Q.17` (privacy + communication governance); `Section 1Q.19` (dynamic behavior gates); `Section 1G.3` (send-policy + collision); `Section 1K.11` (consent + 6-toggle UI); `Section 1Q.7` (audit trail extended with 20 marketing event types); `Section 1K.2` (pathway file + jurisdiction_eligibility + jurisdiction_profile).
+
+**MVP scope:** V1 enables all 13 primitives + state-machine engine + branching + conversion-driven transitions + redirect-based link tracking + ad-platform pixel compatibility (consent-mode-only); V1.5+ adds A/B testing + ML next_best_action + server-side conversion API; V2+ adds external marketing platform integration + lookalike audiences + advanced funnel analytics. **Scale targets V1: 100K emails / week; every click tracked; full attribution chain queryable; system never requires migration to a third-party marketing tool.**
+
+**Implementation sequencing (post-checkpoint):** scaffold `repo/campaigns/` + `repo/templates/marketing/` (separated from `repo/templates/clinical/` per Module 15 carve-out) + `repo/offers/` + `repo/product-adjacency/`; author MVP campaigns for GLP-1 first (lead_nurture, abandoned_intake, abandoned_checkout, approved_not_purchased, first_purchase_onboarding, refill_reorder, winback); build provider adapter layer (Resend + Twilio + redirect endpoint); build attribution + tracking + analytics layers; integration tests for state machine + conversion transitions + SIX-gate enforcement + burnout + collision; parallel pathway authoring TRT/ED/Female HRT after GLP-1 ships; peptide pathway compliance-blocked.
+
+**Marketing Lifecycle + Growth Orchestration Suite ready for runtime authoring.** Code-as-config implementation can proceed in parallel with clinical pathway runtime authoring per `Section 1Q.20` runtime green-light.
 
 ---
 
