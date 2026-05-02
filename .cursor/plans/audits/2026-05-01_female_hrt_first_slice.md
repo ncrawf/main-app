@@ -414,7 +414,7 @@ Stage 7 (audit): typed `audit_events` row pinning rule_version + template_versio
 
 ## Scenario 7 — Follow-up case with external OB/GYN conflict
 
-**Patient:** Helen, 54F. On Bloom-prescribed Climara patch 0.05mg + Prometrium 100mg for 6 months. Original Rx via Bloom GLP-1-qualified provider. Reports mixed labs (estradiol 65 pg/mL — therapeutic range; FSH suppressed; lipids stable). Still has mild residual symptoms (occasional hot flashes 1-2/week, libido improved but not full). Saw her own OB/GYN last week who said "stop the HRT immediately, it's dangerous after 5 years" (mis-stated; OB/GYN was thinking of older WHI data). Patient is confused — should she titrate up, switch, or stop?
+**Patient:** Helen, 54F. On MAIN-prescribed Climara patch 0.05mg + Prometrium 100mg for 6 months. Original Rx via MAIN GLP-1-qualified provider. Reports mixed labs (estradiol 65 pg/mL — therapeutic range; FSH suppressed; lipids stable). Still has mild residual symptoms (occasional hot flashes 1-2/week, libido improved but not full). Saw her own OB/GYN last week who said "stop the HRT immediately, it's dangerous after 5 years" (mis-stated; OB/GYN was thinking of older WHI data). Patient is confused — should she titrate up, switch, or stop?
 
 **1. Source input:** Patient sends portal message: "My OB/GYN said I should stop HRT but I feel like the symptoms are still there a bit. What should I do?" + uploads recent labs.
 
@@ -434,7 +434,7 @@ Stage 7 (audit): typed `audit_events` row pinning rule_version + template_versio
 - `provider_external_recommendation = 'stop_hrt_per_obgyn'` clinical assertion (authored_by=`third_party_reported` rank 30; existing 9-value `authored_by` enum from adversarial slice)
 - Lab-derived: `lab.estradiol = 65 pg/mL` (therapeutic; goal achieved), `lab.fsh = suppressed`
 - Symptom atoms: residual mild symptoms (1-2 hot flashes/week)
-- Existing meds: `medication.climara_0.05mg_2x_weekly` + `medication.prometrium_100mg_nightly` (both authored_by=`provider_confirmed`; original Bloom Rx)
+- Existing meds: `medication.climara_0.05mg_2x_weekly` + `medication.prometrium_100mg_nightly` (both authored_by=`provider_confirmed`; original MAIN Rx)
 
 **5. Routing:** Mode E (provider follow-up) per `1K.13` Mode E (no new intake_sessions row; stage-agnostic write through resolver). Routes to original prescribing provider OR HRT-qualified provider in queue.
 
@@ -442,9 +442,9 @@ Stage 7 (audit): typed `audit_events` row pinning rule_version + template_versio
 - Stage 2 safety preflight: existing Rx active; no contraindication; no urgent symptom
 - Stage 3 eligibility: not at this turn (continuation review, not new prescription)
 - Stage 5 action selection (NEW PATTERN — `external_provider_conflict_disclosure` rule pattern; per Refinement):
-  - `rule.female_hrt.clarification.external_provider_conflict_disclosure` fires when AI classifier flags `external_provider_conflict_disclosed = true` on a patient with active Bloom Rx
+  - `rule.female_hrt.clarification.external_provider_conflict_disclosure` fires when AI classifier flags `external_provider_conflict_disclosed = true` on a patient with active MAIN Rx
   - `kind: 'route'` action with decision_support_payload:
-    - rationale_summary: "Patient on Bloom Climara 0.05 + Prometrium 100 x 6 months. Therapeutic estradiol 65 pg/mL. Mild residual symptoms 1-2 HF/week. External OB/GYN advised stopping (per patient report). Patient seeking guidance."
+    - rationale_summary: "Patient on MAIN Climara 0.05 + Prometrium 100 x 6 months. Therapeutic estradiol 65 pg/mL. Mild residual symptoms 1-2 HF/week. External OB/GYN advised stopping (per patient report). Patient seeking guidance."
     - evidence_summary: "Patient message [...]; medication.climara_0.05mg_2x_weekly (provider_confirmed); medication.prometrium_100mg_nightly (provider_confirmed); recent labs estradiol 65 + FSH suppressed; symptom severity ordinals"
     - suggested_options:
       - `acknowledge_titrate_up_to_climara_0.075mg`: option_rationale "Mild residual symptoms suggest underdosing; can titrate up at 8-12 week steady-state interval (now 24 weeks, well within); minimal added risk at moderate dose; clinical guidelines support symptom-driven dosing"
@@ -462,21 +462,21 @@ Stage 7 (audit): typed `audit_events` row pinning rule_version + template_versio
 **8. Actions:**
 - Provider review with decision_support_payload
 - Provider chooses `request_lab_confirmation_estradiol_recheck` to confirm current dose adequacy first; provider documents rationale
-- Lab order generated via Section 1L: estradiol + FSH repeat panel; **lab Rx generated via existing `1L` lab order primitive** — when patient self-pay vs insurance: lab order fulfilled as Bloom-managed test kit (mailed) OR Bloom-issued lab Rx PDF for in-person LabCorp/Quest collection
+- Lab order generated via Section 1L: estradiol + FSH repeat panel; **lab Rx generated via existing `1L` lab order primitive** — when patient self-pay vs insurance: lab order fulfilled as MAIN-managed test kit (mailed) OR MAIN-issued lab Rx PDF for in-person LabCorp/Quest collection
 - New `pending_patient_input_tasks` of type `lab_result_return`
 - Next follow-up: 2 weeks after lab return for titration decision discussion (typical decision cycle)
 - Patient receives clarification message + provider commits to discussion call after lab returns
 - Patient may choose to call OB/GYN for joint discussion if she prefers
 
 **9. Provider workspace:**
-- Batch review UI shows: external-provider-conflict banner; existing Bloom Rx context (6-month history); recent lab data inline; patient narrative quote; decision_support_payload with 6 typed options
+- Batch review UI shows: external-provider-conflict banner; existing MAIN Rx context (6-month history); recent lab data inline; patient narrative quote; decision_support_payload with 6 typed options
 - Cross-batch concept-aware review surfacing per `Section 1P.5` shows prior provider's original Rx assertion → consistency context
 - Provider authority floor: existing Rx provider has continuation authority; new HRT-qualified provider can review if original unavailable
 - Cognitive load: medium — 1 patient + history + decision; surfacing tier discipline keeps focus
 
 **10. Architecture verdict:**
-- HOLDS. NEW pattern surfaced: `external_provider_conflict_disclosure` rule pattern. Architecturally this is a `clarification` rule type per `Section 1Q.1` rule domain. Lives within existing rule domain — NOT a new primitive. Implementation: rule fires when AI classifier flags `intent.external_provider_conflict_disclosed = true` on a patient with active Bloom Rx in any pathway. PR-time CI lint enforces clinical CODEOWNER review when external provider recommendations are surfaced via decision_support_payload (because it touches multi-provider judgment).
-- Lab Rx generation works via existing `Section 1L` lab order primitive — provider chooses lab kit OR Bloom-issued lab Rx PDF for external collection; both pathways audited.
+- HOLDS. NEW pattern surfaced: `external_provider_conflict_disclosure` rule pattern. Architecturally this is a `clarification` rule type per `Section 1Q.1` rule domain. Lives within existing rule domain — NOT a new primitive. Implementation: rule fires when AI classifier flags `intent.external_provider_conflict_disclosed = true` on a patient with active MAIN Rx in any pathway. PR-time CI lint enforces clinical CODEOWNER review when external provider recommendations are surfaced via decision_support_payload (because it touches multi-provider judgment).
+- Lab Rx generation works via existing `Section 1L` lab order primitive — provider chooses lab kit OR MAIN-issued lab Rx PDF for external collection; both pathways audited.
 - Mode E (provider follow-up) per `1K.13` correctly handles the no-new-intake-session continuation case.
 - Follow-up cadence: 2 weeks post-lab is standard titration decision interval; aligns with cadence rules in `Section 1Q.21` Part 8.
 

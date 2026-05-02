@@ -393,7 +393,7 @@
 
 ## Scenario 5.2 — Privacy-safe messages are too vague to be useful
 
-**Example:** "Your provider has an update. Open Bloom." — patient doesn't know if it's urgent, routine, or what action.
+**Example:** "Your provider has an update. Open MAIN." — patient doesn't know if it's urgent, routine, or what action.
 
 **How current architecture handles:**
 - `Section 1Q.17` privacy-safe useful outside-secure examples discipline (Part 12 of privacy audit)

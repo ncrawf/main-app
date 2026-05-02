@@ -149,7 +149,7 @@ Stage 7 (audit): typed `audit_events` row pinning rule_version + template_versio
 
 **10. Architecture verdict:**
 - HOLDS. Fail-closed safety per `1K.5.A` correctly blocks Rx authorization on UNKNOWN lab. Provider does not see Rx-approve option until evidence is sufficient — prevents premature decision.
-- Patient communication is tier_2 outside-secure: "We need a baseline lab kit before your provider can move forward. Open Bloom to schedule." NEVER names "testosterone" in SMS body per `pathway_sensitivity: extreme` + `Section 1Q.17` rules.
+- Patient communication is tier_2 outside-secure: "We need a baseline lab kit before your provider can move forward. Open MAIN to schedule." NEVER names "testosterone" in SMS body per `pathway_sensitivity: extreme` + `Section 1Q.17` rules.
 
 ---
 
@@ -253,7 +253,7 @@ Stage 7 (audit): typed `audit_events` row pinning rule_version + template_versio
 
 ## Scenario 5 — Existing outside TRT use
 
-**Patient:** Daniel, 41M. Currently on testosterone cypionate 200mg/week IM from a men's health spa for ~18 months. Wants to transfer care to Bloom for cost reasons. Uploaded current labs: total T 950 (supraphysiologic), HCT 53%, PSA 1.2.
+**Patient:** Daniel, 41M. Currently on testosterone cypionate 200mg/week IM from a men's health spa for ~18 months. Wants to transfer care to MAIN for cost reasons. Uploaded current labs: total T 950 (supraphysiologic), HCT 53%, PSA 1.2.
 
 **1. Source input:** Stage 1 intake; uploads outside-spa labs + outside-spa Rx label photo.
 
@@ -373,7 +373,7 @@ Stage 7 (audit): typed `audit_events` row pinning rule_version + template_versio
 **Compliance Audit (1):**
 - `rule.trt.compliance.controlled_substance_prescription_audit` — DEA + state PDMP audit row on every Rx authorization per `1J.6`
 
-**Marketing Lifecycle (n/a):** TRT is `pathway_sensitivity: extreme` — `Section 1Q.17` invariant 5 BLOCKS tier_3 marketing regardless of consent. Tier_1/tier_2 only ("Welcome back to Bloom" generic messaging). No `marketing.signup_incomplete_drip` or `supplement_cross_sell` for TRT pathway.
+**Marketing Lifecycle (n/a):** TRT is `pathway_sensitivity: extreme` — `Section 1Q.17` invariant 5 BLOCKS tier_3 marketing regardless of consent. Tier_1/tier_2 only ("Welcome back to MAIN" generic messaging). No `marketing.signup_incomplete_drip` or `supplement_cross_sell` for TRT pathway.
 
 ---
 
@@ -427,7 +427,7 @@ All templates declare `privacy_exposure_level` + `message_intent` per `Section 1
 - `tmpl.trt.education.injection_self_administration_v1` — tier_4 in-secure, intent=`education`
 - `tmpl.trt.education.topical_gel_transfer_safety_v1` — tier_4 in-secure, intent=`education` (transfer-risk to women + children messaging)
 
-**Marketing Lifecycle (n/a — extreme pathway blocks tier_3):** No marketing templates for TRT pathway. Patient sees only generic Bloom branding ("Welcome back to Bloom" tier_1 fallback variant).
+**Marketing Lifecycle (n/a — extreme pathway blocks tier_3):** No marketing templates for TRT pathway. Patient sees only generic MAIN branding ("Welcome back to MAIN" tier_1 fallback variant).
 
 ---
 

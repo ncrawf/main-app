@@ -716,7 +716,7 @@ interface OfferDefinition {
 - **Human:** "We thought you'd find this helpful"
 - **Specific enough to drive action:** "One quick step to continue your care"
 - **Privacy-safe:** "Your provider has an update — review when you can"
-- **Not creepy:** "Welcome back to Bloom"
+- **Not creepy:** "Welcome back to MAIN"
 
 ### Bad copy patterns
 
@@ -745,7 +745,7 @@ interface OfferDefinition {
 #### ED (`pathway_sensitivity: extreme`)
 
 - **Bad:** "Your sildenafil 50mg prescription is approved"
-- **Acceptable outside-secure:** "Your prescription has been approved. Track shipment in Bloom"
+- **Acceptable outside-secure:** "Your prescription has been approved. Track shipment in MAIN"
 
 #### Female HRT (`pathway_sensitivity: high`)
 
@@ -821,10 +821,10 @@ All campaign sends pass through SIX-gate enforcement (per Invariant 18):
 ### B. Welcome / nurture (per pathway)
 
 - `tmpl.marketing.welcome_glp1_v1` (tier_2 outside / tier_3 with Toggle 4+6; marketing intent; pathway_sensitivity: moderate)
-  - Example email subject: "Welcome — your weight-loss journey starts here" (with consent) OR "Welcome to Bloom" (without)
-  - Example SMS: "Welcome to Bloom! Tap [link] to start your consultation."
+  - Example email subject: "Welcome — your weight-loss journey starts here" (with consent) OR "Welcome to MAIN" (without)
+  - Example SMS: "Welcome to MAIN! Tap [link] to start your consultation."
 - `tmpl.marketing.welcome_trt_v1` (tier_2 always; pathway_sensitivity: extreme — no tier_3)
-  - Example: "Welcome to Bloom. Sign in to start your consultation."
+  - Example: "Welcome to MAIN. Sign in to start your consultation."
 - `tmpl.marketing.welcome_ed_v1` (tier_2 always; extreme)
   - Example: "Welcome — your consultation is ready. Sign in to begin."
 - `tmpl.marketing.welcome_female_hrt_v1` (tier_2 outside / tier_3 with select consent; pathway_sensitivity: high)
@@ -981,7 +981,7 @@ interface AttributionEvent {
 Capture UTMs + click IDs from ads landing on our domain → store in `attribution_event` row at landing-page-load time.
 
 ```
-Patient clicks Google Ad → lands on https://bloom.health/glp1?utm_source=google&utm_medium=cpc&utm_campaign=metabolic_program&gclid=abc123 →
+Patient clicks Google Ad → lands on https://main.health/glp1?utm_source=google&utm_medium=cpc&utm_campaign=metabolic_program&gclid=abc123 →
   Frontend extracts UTMs + gclid + fbclid + ttclid from URL params
   Backend writes attribution_event row at session start
 ```

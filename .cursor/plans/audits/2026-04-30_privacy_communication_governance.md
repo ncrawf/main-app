@@ -87,7 +87,7 @@ Marketing is a USE CASE that consumes tiers 0/1/3 with appropriate consents — 
 | `account` | Sign-in, password reset, account changes, security | Implicit (account creation T&C) | "Your password was changed" |
 | `operational` | Shipment, scheduling, routine non-clinical status | Implicit (transactional) | "Your shipment is on the way" |
 | `clinical` | Provider review update, lab kit, refill request review, dose change | Implicit (telehealth_consent) | "Your provider has an update" |
-| `safety` | Urgent / emergency clinical | Implicit + safety_critical_override_allowed; bypasses preference | "URGENT: please call our care team or open Bloom now" |
+| `safety` | Urgent / emergency clinical | Implicit + safety_critical_override_allowed; bypasses preference | "URGENT: please call our care team or open MAIN now" |
 | `billing` | Payment, refund, subscription | Implicit (subscription/order) | "Your payment failed", "your invoice is ready" |
 | `support` | Patient-initiated thread; support staff response | Implicit (mirror patient context) | "Re: your question about your shipment" |
 | `marketing` | Promotional, retention, win-back, signup-incomplete | Explicit (`marketing_sms` / `marketing_email`); + `marketing_personalization_with_phi` for tier_3 | "Pick up where you left off" |
@@ -137,7 +137,7 @@ Safety messages (`message_intent: safety`) follow a deterministic 6-step orchest
 
 | Step | Action | Timing | Audit |
 |---|---|---|---|
-| 1 | SMS fires vague companion at tier_2 ("URGENT: please call our care team or open Bloom now") regardless of patient SMS preference | Immediate | `notification.emergency_vague_override_fired` |
+| 1 | SMS fires vague companion at tier_2 ("URGENT: please call our care team or open MAIN now") regardless of patient SMS preference | Immediate | `notification.emergency_vague_override_fired` |
 | 2 | Push notification fires header-only ("Urgent provider message") if app installed | Immediate (parallel with step 1) | standard `notification.dispatched` |
 | 3 | Provider/staff phone outreach SLA starts (default 15-min for tier_5 urgent symptoms, 30-min for tier_4 critical-lab) | Within SLA | `safety.phone_outreach_initiated` |
 | 4 | Email vague follow-up fires ONLY if SMS bounced or no patient action in 30 min | Conditional | `notification.email_safety_follow_up` |
@@ -231,7 +231,7 @@ Regardless of consent, these are NEVER permitted in SMS / email / push / non-BAA
 - "Your refill request needs a quick review." (Module 6)
 - "Your lab kit ships tomorrow." (Module 5)
 - "Important care update — please check your account." (Module 4 fallback when clinical detail required)
-- "URGENT: please call our care team now or open Bloom." (Module 9 safety vague)
+- "URGENT: please call our care team now or open MAIN." (Module 9 safety vague)
 
 **Pattern:** name the ACTION needed + WHERE to act. Do not name PHI.
 
@@ -281,17 +281,17 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 
 ### Lab reminder
 - **Bad:** "Complete your A1c lab kit before semaglutide refill."
-- **Acceptable outside-secure:** "A quick lab step is waiting — open Bloom to continue."
+- **Acceptable outside-secure:** "A quick lab step is waiting — open MAIN to continue."
 - **Full in-app:** "Your provider has requested an A1c update before your next semaglutide refill. Lab kit ships in 24 hours."
 
 ### Refill approved
 - **Bad:** "Your semaglutide 1.0mg is approved. Ships tomorrow."
-- **Acceptable outside-secure:** "Your prescription has been approved by your provider. Track shipment in Bloom."
+- **Acceptable outside-secure:** "Your prescription has been approved by your provider. Track shipment in MAIN."
 - **Full in-app:** medication name + dose + ship date + lab freshness summary.
 
 ### Dose change
 - **Bad:** "Your semaglutide is increasing to 1.7mg next week."
-- **Acceptable outside-secure:** "Your provider has an update on your treatment plan. Open Bloom to review."
+- **Acceptable outside-secure:** "Your provider has an update on your treatment plan. Open MAIN to review."
 - **Full in-app:** dose change rationale + titration schedule + side-effect expectations.
 
 ### Adverse event (nausea reported)
@@ -301,12 +301,12 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 
 ### Fulfillment update
 - **Bad:** "Your warm semaglutide shipment is being replaced."
-- **Acceptable outside-secure:** "We're sending a replacement for your recent order. Tracking in Bloom."
+- **Acceptable outside-secure:** "We're sending a replacement for your recent order. Tracking in MAIN."
 - **Full in-app:** cold-chain failure detail + replacement ETA.
 
 ### Billing
 - **Bad:** "Your $399 semaglutide subscription failed to charge."
-- **Acceptable outside-secure:** "We weren't able to process your latest payment. Update payment method in Bloom."
+- **Acceptable outside-secure:** "We weren't able to process your latest payment. Update payment method in MAIN."
 - **Full in-app:** invoice detail + retry options.
 
 ### Marketing — abandoned intake
@@ -323,12 +323,12 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 
 ### Lab reminder
 - **Bad:** "Hematocrit and PSA labs needed before testosterone refill."
-- **Acceptable outside-secure:** "A quick lab step is waiting — open Bloom to continue."
+- **Acceptable outside-secure:** "A quick lab step is waiting — open MAIN to continue."
 - **Full in-app:** specific labs + rationale.
 
 ### Refill (sensitive)
 - **Bad:** "Your testosterone refill is ready."
-- **Acceptable outside-secure:** "Your prescription has been approved. Open Bloom for details."
+- **Acceptable outside-secure:** "Your prescription has been approved. Open MAIN for details."
 - **Full in-app:** medication name + dose + refill schedule.
 
 ### Dose change
@@ -338,18 +338,18 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 
 ### Adverse event (hematocrit elevated)
 - **Bad:** "Your hematocrit is 54%. Hold off on next testosterone dose."
-- **Acceptable outside-secure (safety-vague):** "URGENT: please open Bloom or call (555) 555-1212."
+- **Acceptable outside-secure (safety-vague):** "URGENT: please open MAIN or call (555) 555-1212."
 - **Phone outreach by provider** within 30-min SLA.
 - **Full in-app:** specific lab + provider hold instruction.
 
 ### Fulfillment update
 - **Bad:** "Your testosterone shipment is delayed."
-- **Acceptable outside-secure:** "Your shipment is delayed by 2 days. Open Bloom for tracking."
+- **Acceptable outside-secure:** "Your shipment is delayed by 2 days. Open MAIN for tracking."
 - **Full in-app:** medication name + delay reason + new ETA.
 
 ### Billing
 - **Bad:** "Your $200 testosterone subscription is renewing."
-- **Acceptable outside-secure:** "Your subscription renews tomorrow. View detail in Bloom."
+- **Acceptable outside-secure:** "Your subscription renews tomorrow. View detail in MAIN."
 - **Full in-app:** plan name + amount.
 
 ### Marketing — reactivation
@@ -364,11 +364,11 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 
 ### Prescription approved
 - **Bad:** "Your sildenafil 50mg prescription is approved."
-- **Acceptable outside-secure:** "Your prescription has been approved. Track shipment in Bloom."
+- **Acceptable outside-secure:** "Your prescription has been approved. Track shipment in MAIN."
 
 ### Contraindication clarification
 - **Bad:** "We need to confirm you're not on nitrates before approving your ED prescription."
-- **Acceptable outside-secure:** "Your provider has a quick clarification question. Open Bloom to respond."
+- **Acceptable outside-secure:** "Your provider has a quick clarification question. Open MAIN to respond."
 
 ### Sensitive refill reminder
 - **Bad:** "Time to refill your ED medication."
@@ -382,11 +382,11 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 
 ### Pregnancy-status clarification
 - **Bad:** "Please confirm pregnancy status before HRT prescription."
-- **Acceptable outside-secure:** "Your provider has a quick question — please respond in Bloom."
+- **Acceptable outside-secure:** "Your provider has a quick question — please respond in MAIN."
 
 ### Lab/mammogram reminder
 - **Bad:** "Mammogram due before continuing HRT."
-- **Acceptable outside-secure:** "A quick health check is needed. Open Bloom for details."
+- **Acceptable outside-secure:** "A quick health check is needed. Open MAIN for details."
 
 ### Dose adjustment
 - **Bad:** "Your estradiol is increasing to 1mg."
@@ -394,12 +394,12 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 
 ### Contraindication review
 - **Bad:** "Clotting risk requires review before HRT continuation."
-- **Acceptable outside-secure:** "Your provider needs to review something with you. Open Bloom."
+- **Acceptable outside-secure:** "Your provider needs to review something with you. Open MAIN."
 
 ### Education message
 - **Bad:** "How to take your hormone replacement therapy"
 - **Acceptable outside-secure (with Toggle 6 + sensitivity: high allows tier_3 in select per-template opt-in):** "How to get the most out of your treatment plan" (per-template explicit opt-in only)
-- **Default (no per-template opt-in):** "We have a quick care tip for you. Open Bloom to read."
+- **Default (no per-template opt-in):** "We have a quick care tip for you. Open MAIN to read."
 
 ---
 
@@ -425,7 +425,7 @@ For each cell: bad version / acceptable outside-secure / full in-app secure view
 | "Your weight loss plan is waiting" (without consent) | "Your account is ready when you are" |
 | "Time to refill your prescription" (any sensitive pathway) | "Your refill request needs a quick review" |
 | "Try our latest GLP-1 offering" (in marketing email) | "We have new options available — check your account" |
-| "Don't forget your dose tonight" | "We have a care tip for you. Open Bloom to read." |
+| "Don't forget your dose tonight" | "We have a care tip for you. Open MAIN to read." |
 
 ---
 

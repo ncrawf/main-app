@@ -155,9 +155,9 @@ Tier_3 still BLOCKED for extreme sensitivity. Tier_2 outside-secure works ("pick
 
 **System behavior:**
 - All three campaigns at tier_2 max outside-secure per Invariant 21 (extreme pathway sensitivity + tier_3 BLOCKED)
-- Birthday template renders generic ("Happy birthday from Bloom!" — no pathway naming)
+- Birthday template renders generic ("Happy birthday from MAIN!" — no pathway naming)
 - Cross-sell template uses neutral language ("we have new options for your wellness routine" — no "testosterone" outside-secure)
-- subscription_retention uses tier_2 ("your subscription continues — manage in Bloom")
+- subscription_retention uses tier_2 ("your subscription continues — manage in MAIN")
 - UTM campaigns privacy-safe: `utm_campaign=birthday_celebration`, `utm_campaign=wellness_followup`, `utm_campaign=subscription_retention` — no pathway hints
 
 **Failure mode:** none — extreme pathway sensitivity discipline correctly enforced.
@@ -199,7 +199,7 @@ Tier_3 still BLOCKED for extreme sensitivity. Tier_2 outside-secure works ("pick
 **Fix lives in:** Section 1G.3 send-policy pre-send revalidation extension (Patch 2 below) + Section 1Q.7 audit event `notification.cancelled_pre_send_jurisdiction_changed` (Patch 3 below).
 
 ## 4.2 — Ads driving traffic from restricted region
-**Setup:** Bloom runs Google Ad for ED (allowed in CA only). Patient in TX clicks the ad and lands on `https://bloom.health/ed?utm_source=google&gclid=abc123`. Patient goes through signup; patient's IP geolocates to TX.
+**Setup:** MAIN runs Google Ad for ED (allowed in CA only). Patient in TX clicks the ad and lands on `https://main.health/ed?utm_source=google&gclid=abc123`. Patient goes through signup; patient's IP geolocates to TX.
 
 **System behavior:**
 - Frontend signup flow detects patient state at `Section 1J.6` jurisdiction check
