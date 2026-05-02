@@ -2036,6 +2036,8 @@ The "go get your BP reading and come back" pattern (Menopause-style blocking req
 
 *Scope:* The org may optimize **paid and organic** acquisition, but the **map** does **not** add a **marketing OS,** **campaign orchestrator,** or **attribution product** as a second **source of truth** for clinical, billing, or 1G decisions. External ad networks, pixels, and MMPs are **I/O at the boundary;** the **app DB** and **1H** read models are **authoritative** for in-product fact once a `patient_id` exists. This subsection **refines** using **intake** and early **`patients` / `care_program` / session** `metadata`, `patient_timeline_events` (intake and commerce milestones), **`treatment_orders`** and **1E** (compositional checkout), **1I** (subscriptions, cadence), and **`outbound_jobs`** (first-party nudges — *not* ad-campaign state machines).
 
+*Cross-link to intake funnel concept (binding):* the FUNNEL primitive per `Section 1K.19.7` BINDS acquisition source → intake composition → cross-sell behavior. Funnel resolution at intake start (per `Section 1K.13` Stage 0/0.5 + `Section 1K.19.7`) reads the same UTM/referrer/landing-page acquisition fields described in this section and matches them against `repo/intake/funnels/<funnel_slug>.ts` declarations; first matching funnel wins (tie-break by `priority: int`); resolved funnel pinned on `intake_sessions.metadata.funnel_slug` + `funnel_version`. Different funnels can compose different pathways + different end-of-intake cross-sell offers (e.g., paid-meta-weight-loss-only vs paid-google-weight-loss+supplements vs organic-supplements-only), enabling the org to A/B-test acquisition + composition variants without forking the intake engine. `Section 1H.4` attribution remains the SoT for "did this source produce paying/retained care"; `Section 1K.19.7` funnel is the runtime composition primitive that consumes the same acquisition data.
+
 *Reject / forbid (architecture):* (i) first-class **bids, audience graphs,** or ad-network **campaign** objects as **clinical SoT;** (ii) **wiring** **1G** **permit,** **`impl`**, or **1I** **money** transitions to **ad APIs** (including “optimize by spend” in core); (iii) **sending** **PHI,** clinical narrative, or **identifying** outbound payloads to vendors or LLM APIs as the **default** for growth analytics.
 
 *Cross-link to `Section 1Q` rules + templates engine — marketing carve-out (binding; per `Section 1Q.13` Module 15):* outbound marketing communications (drip funnels, retention, win-back, signup-incomplete re-engagement, post-purchase cross-sell, seasonal/promotional) ride **`Section 1Q` rules + templates engine** — same template versioning, same audit infrastructure, same code-as-config Layer 1 discipline as clinical comms — but with **HARD carve-out** from clinical: distinct rule domain `marketing_lifecycle` per `1Q.1`; distinct template domain `marketing_lifecycle` per `1Q.2`; distinct repo directory `repo/templates/marketing/` (physically separated from `repo/templates/clinical/`); ops CODEOWNER + compliance CODEOWNER (clinical CODEOWNER NOT involved by default; pulled in only on clinical-adjacent claims); `prohibited_claims` floor = `[must_not_imply_clinical_outcome, must_not_diagnose, must_not_promote_off_label, must_not_quote_efficacy_without_FDA_approval, must_not_imply_FDA_approval_unless_FDA_approved]`; `tone_constraints = ['marketing_brand_voice']`. **Hard CI lint:** marketing templates CANNOT reference `patient_clinical_assertions` / `patient_lab_observations` / `patient_diagnostic_reports` / any clinical chart row UNLESS patient has valid `1K.11` `marketing_personalization_with_phi` consent AND rule action declares `consent_required = 'marketing_personalization_with_phi'`; default marketing path uses ONLY non-PHI patient attributes (name, signup date, generic engagement state). Send-policy stricter: marketing sends gated by **separate budget** from operational `notification` per `1G.3`; opt-in required (TCPA / CASL / GDPR per `1K.11` `marketing_sms` / `marketing_email` consent types); opt-out instantly honored. Marketing templates can opt in to `ai_refinement_allowed = true` for A/B test variants + personalization within carve-out constraints (one of the few domains explicitly designed for AI refinement). The `1H.4` attribution + cohort framework remains the SoT for "did this source produce paying/retained/on-path care" analysis; marketing-lifecycle communications are a separate concern — `1H.4` measures source quality (read model), `Section 1Q` `marketing_lifecycle` is the outbound communication engine (write path).
@@ -3164,6 +3166,7 @@ Future ED / Female HRT / GAH-feminizing slices may use the sibling pathway patte
 - **Mapping policy (deterministic):** a server-side policy file (versioned, reviewed; **not** AI-generated at runtime) maps intent codes to ordered module sets. `wellness` maps to a baseline assessment + recommendation logic that may surface eligibility for additional pathways.
 - **Cross-sell:** adding a pathway during a session adds modules to the same `intake_session` (no second intake silo); see `1K.6`.
 - **Anonymous vs authenticated entry:** see `1K.13`.
+- **Multi-traffic-source acquisition + funnel composition:** the FUNNEL concept per `1K.19.7` binds traffic source / acquisition channel to a specific intake composition + cross-sell behavior. Funnels are NOT pathways; they are entry-point overlays at `repo/intake/funnels/<funnel_slug>.ts` that compose one or more pathways + add traffic-source-specific pre-intake copy + cross-sell offers. Examples: `paid_meta_weight_loss_solo` (GLP-1 only) vs `paid_google_weight_loss_supplements` (GLP-1 + supplement cross-sell at end-of-intake) vs `organic_supplements_only` (supplements-only short intake). Funnel resolution happens at session creation via UTM/referrer/landing-page match per `Section 1H.4`; resolved funnel recorded as `intake_sessions.metadata.funnel_slug` + `funnel_version` per `1K.14`.
 
 ### 1K.3 Layered intake module model
 
@@ -3199,6 +3202,48 @@ Each module must declare: `module_id`, `module_version`, `kind` (clinical | non-
 - The 11-layer order remains the structural model for an **onboarding** session. Subsequent intake moments (provider follow-up, system check-in, additional pathway addition per `1K.6`) **re-enter at the relevant layer** — typically layer 4 (reusable health history with freshness re-prompt) or layer 5 (program-specific symptom modules) — without restarting from layer 1.
 - No silent re-prompting of static inputs unless freshness has expired per `1K.5`.
 - Re-entered modules use the **same module/question/version + audit discipline** as the initial onboarding session.
+
+**Atomization principle (binding; per `2026-05-02_intake_repository_control_model_v1` Stage 1 architecture):** atoms (clinical concepts per `Section 1K.5.A`) are the durable truth layer. Modules are COLLECTION SURFACES that produce atoms. Pathways INTERPRET atoms via rules per `Section 1Q`; pathways do NOT own underlying clinical facts. The question is not the truth — the atom is closer to truth. Atoms are pathway-agnostic; the same atom (`condition.hypertension_history`, `procedure.gastric_bypass_history`, `condition.pregnancy_active`) is consumed by every pathway whose safety preflight needs it. Pathway context only determines how the rules engine INTERPRETS the atom; concept_ids never carry pathway prefix.
+
+**Four-layer module taxonomy (binding):** modules are organized into four namespaces based on reuse scope. The pathway file `repo/intake/pathways/<pathway>.ts` COMPOSES modules from all four layers in declared order. Pathway files NEVER clone universal / clinical_core / domain modules under their own namespace.
+
+| Layer | Namespace | Role | Examples (atoms emitted) |
+|---|---|---|---|
+| **A. Universal** | `mod.universal.*` | Platform identity / logistics / payment facts. Stable everywhere. | `atom.universal.dob`, `atom.universal.residence_state`, `atom.universal.identity_verified`, `consent.telehealth_v1_signed` |
+| **B. Clinical core** | `mod.clinical_core.*` | Pan-domain clinical baselines that apply regardless of medical specialty. | `medication.current_use`, `allergy.medication_allergy`, `procedure.has_any_surgery_history` |
+| **C. Domain** | `mod.domain.<domain>.*` | Reusable within a broad medical domain. Domains match `repo/clinical-concepts/<domain>.ts` per `Section 1K.5.A`. | `condition.hypertension_history` (`cardiometabolic`), `condition.pregnancy_active` (`reproductive`), `condition.gerd_history` (`gastrointestinal`), `condition.depression_diagnosed` (`mental_health`), `social_history.alcohol_frequency` (`lifestyle`) |
+| **D. Pathway** | `mod.pathway.<pathway>.*` (e.g., `mod.pathway.glp1.*`, `mod.pathway.trt.*`) | Pathway-specific contextual collection: extensions to clinical_core / domain modules + pathway-unique facts (e.g., GLP-1 goal weight, MEN-2 family history). Atoms emitted STILL live in domain registry files; the MODULE is pathway-owned because the question context is pathway-specific. | `atom.pathway.glp1.weight_goal_target`, `condition.medullary_thyroid_carcinoma_personal_history` (lives in `endocrine` domain registry; gathered via GLP-1 module) |
+
+**Composition principle (binding):** pathway file COMPOSES modules from all four layers in declared order. Reuse of universal / clinical_core / domain modules is "across future pathways where clinically appropriate" — NOT a claim of universal applicability; each future pathway makes its own composition decision.
+
+**Contextual extension principle (binding):** same underlying fact = same shared question = same atomic concept assertion. Pathway-specific modules add CONTEXTUAL FOLLOW-UPS, not duplicate baseline screens. Example — surgery: `mod.clinical_core.surgery_history_v1` asks "Have you ever had surgery?" once → emits `procedure.has_any_surgery_history` + free-text dates/reasons (atomized via `Section 1P`); `mod.pathway.glp1.bariatric_surgery_extended_v1` extends with bariatric-specific multi-select → emits `procedure.gastric_bypass_history`, etc.; future `mod.pathway.female_hrt.gyn_surgery_extended_v1` → emits `procedure.hysterectomy_history`, `procedure.oophorectomy_history`. All pathway extensions REUSE the same `clinical_core` baseline; none re-asks "have you had surgery."
+
+**Progressive disclosure discipline (binding):** the intake is an intelligent clinical conversation, NOT a static questionnaire. Follow-up questions render ONLY when the prior answer creates meaningful clinical / behavioral / adherence / personalization / provider-decision context. **Default behavior rule (most important):** ask the minimum required to make a safe and informed decision — then stop. Do NOT pursue completeness for its own sake. Optimize for fast, human-feeling intake — not a perfect structured intake engine.
+
+**Branch tier classification (binding; required on every conditional branch):** every branch family declares `tier: 1 | 2 | 3` + `decision_impact: <text>` + `primary_consumer: provider | system | personalization`. Tier 1 = MUST ask (safety, contraindications, prior treatment context); Tier 2 = SHOULD ask (important but controlled); Tier 3 = NICE TO HAVE (optional / A-B testable).
+
+**Branch sizing caps (binding hard limits):** prior-treatment branches max 5-6 follow-ups; weight-loss-attempt-style branches max 4-5; lifestyle (per category) max 2-3; all other branches max 3-6. **Stop-early principle:** when sufficient signal gathered for the safety / provider / personalization outcome, branch terminates EARLY before reaching the cap.
+
+**Multi-instance entity modeling (binding):** distinguish single-value atoms (`condition.pregnancy_active`, `vital.height_cm`) from multi-instance entities (surgeries, medications, prior treatments, allergies, mental-health diagnoses, GI conditions, eating-disorder behaviors). Multi-instance entities use `(concept_id, context_key)` tuple per existing `Section 1K.5.A` `context_key` discipline; instance attributes attach to the SPECIFIC instance via `metadata`. Follow-up questions are SCOPED per-instance (`instance_scope: 'per_instance' | 'aggregate'`), not aggregate.
+
+**`hard_stop` semantics (binding clarification):** `downstream_effect: hard_stop` does **NOT terminate the intake session.** Intake ALWAYS proceeds to completion regardless of any `hard_stop` flags raised mid-flow. The flag is a **case-level blocker** surfaced to provider review at Stage 2 → Stage 3 transition per `Section 1J.10` safety preflight; rule action per `Section 1Q.4` `kind: 'block'` fires WITH `override_capability_required` set; provider can override per `Section 1Q.7` `rule.firing_overridden` audit pattern, clarify via Mode F messaging follow-up per `Section 1P.4`, deny with reason via `closed_ineligible` reopen-criteria per `1K.13` Mode D, or refer to alternative pathway. Self-harm-positive triggers PARALLEL emergency orchestration per `Section 1Q.13` Module 9 (crisis resources banner + urgent_clinical priority) — session does NOT terminate; depth gathered via clarification messaging post-submission to avoid retraumatization.
+
+**Per-question schema (binding):** every question MUST declare `atom_kind: safety | clinical_history | preference_motivation | lifestyle_behavior | operational | consent | identity` + `downstream_effect: hard_stop | provider_review | context_only | personalization` + `entity_kind: single_value | multi_instance` + `instance_scope?: per_instance | aggregate` (REQUIRED on multi-instance follow-ups) + `render_when?: Predicate` (REQUIRED on conditional follow-ups; null on baseline) + `emits_atoms[]` + `required: true | false | Predicate`. Branch-level fields (`tier`, `decision_impact`, `primary_consumer`) inherited from branch declaration unless explicitly overridden.
+
+**CI lint floor (binding):**
+- Forbid pathway-specific modules from re-implementing shared baseline screens (CI scans for `mod.pathway.<pathway>.*` modules whose questions duplicate `qb.clinical_core.*` or `qb.domain.<domain>.*` or `qb.universal.*` topics)
+- Question IDs MUST use the matching layer namespace (`qb.universal.*` inside `mod.universal.*`; same for clinical_core / domain / pathway)
+- Pathway file `repo/intake/pathways/<pathway>.ts` MUST compose at minimum the universal modules `demographics_v1` + `base_consents_v1` + `identity_verification_v1` (CI lint enforces; required floor for any clinical pathway)
+- Atoms emitted from any layer MUST be pathway-agnostic concept_ids per `Section 1K.5.A` (atoms live in `repo/clinical-concepts/<domain>.ts`; pathway capture context recorded as `metadata.captured_via_pathway` for analytics only — NOT part of atom identity)
+- Every question MUST declare `atom_kind` + `downstream_effect`; CI lint blocks PRs that omit either declaration
+- Every conditional branch MUST declare `tier` + `decision_impact` + `primary_consumer`; CI lint blocks PRs that omit any
+- Every branch MUST stay within its declared follow-up cap; CI lint counts follow-ups per branch and blocks PRs over cap
+- Tier 3 branches that always render (not A/B-testable) are flagged for clinical CODEOWNER review
+- Tier 1 branches whose `primary_consumer: system | personalization` are flagged as misclassified
+- Conditional follow-up questions MUST declare `render_when`; CI lint flags follow-ups with no `render_when` predicate
+- Multi-instance trigger questions MUST declare `entity_kind: 'multi_instance'`; their follow-ups MUST declare `instance_scope`
+- `downstream_effect: hard_stop` may only appear on `atom_kind: safety` questions (CI lint enforces; prevents accidental hard-blocks on non-safety atoms)
+- `downstream_effect: hard_stop` does NOT terminate intake — runtime resolver continues per `Section 1K.0` "intake never restarts" + this section's hard_stop semantics; CI lint validates orchestration discipline (no early-termination code paths on hard_stop atoms in `repo/intake/resolver/`)
 
 ### 1K.4 Question bank, versioning, and module architecture
 
@@ -3814,6 +3859,8 @@ Every terminal clinical decision on a submission packet — whether made by a pr
 
 **Entry + identity-commit staging (foundational; all pathways):**
 
+*Cross-link (binding):* repository + control architecture for intake (file structure, versioning, change control, branch lifecycle, environments, historical integrity, funnel concept, runtime model, analytics, continuous-context integration) is consolidated in `Section 1K.19`. This section (1K.13) is the canonical home for stage transitions + re-entry mode semantics; 1K.19 cross-references the re-entry modes here for funnel binding (any new-session mode — A/B/C/H — resolves a `funnel_slug` at session creation per `1K.19.7` + `Section 1H.4` acquisition match).
+
 Intake entry is modeled as four ordered stages plus one explicit sub-stage. Every pathway MUST declare where each of its capture steps lands. The stages are architectural (what data exists where, when is it committed, what transitions trigger the next stage) — they are not a UI model. The staging pattern is informed by the Hims GLP-1 new-patient flow (see ingested captures at `.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md`, Steps 01–78), which demonstrates a clean, low-friction sequence: marketing-intent capture → jurisdiction + age pre-screen + telehealth consent → email/account creation → clinical intake + eligibility decision → legal-name/address + identity uplift (hard commit) → Rx decision → payment.
 
 **Stage 0 — anonymous / marketing intent (no PHI, no jurisdiction, no age):**
@@ -3962,7 +4009,7 @@ Be explicit about exists / partial / target / non-optional. Prefer reusing exist
 
 | Concept | **Exists** | **Allowed shape now** | **Promotion trigger** | **Non-optional before scale** |
 |---|---|---|---|---|
-| **`intake_sessions` (dedicated table; required before program #2)** | session-like state in existing intake | dedicated table with `(id, patient_id, care_program_id?, pathway_codes[], pathway_version_pins jsonb, closed_eligibility_pathway_codes[]?, status ENUM[in_progress, submitted, closed_ineligible, abandoned, superseded, identity_uplift_in_progress, identity_uplift_pending_retry, identity_uplift_cancelled, identity_uplift_refreshed, identity_uplift_stale_refresh, progressive_intake_long_running], started_at, last_activity_at, submitted_at?, closed_at?, closed_reason_code?, reopen_eligibility_criteria?, prior_closed_session_id?, prior_cancelled_session_id?, refreshes_identity_from_session_id?, engine_version, safety_ruleset_version, last_resolver_step_id)`. **`metadata.interaction_context` REQUIRED (binding; per `2026-05-02_hybrid_care_delivery_stress_test.md` Patch G3 + `Section 1Q.23` Invariant 3):** every `intake_sessions` row MUST carry `metadata.interaction_context` per the `InteractionContext` typed shape declared in `Section 1Q.23` (`{ mode: 'in_person' | 'remote', assisted: boolean, location_id?, appointment_id?, staff_user_id?, source: 'patient_self' | 'staff_assisted' | 'kiosk' | 'tablet', initiated_at, mode_transitioned_at? }`). CI lint enforces presence at intake start. **Mode transitions mid-session (binding):** when an in-progress session changes mode (e.g., remote intake started Day 0, completed in-person Day 1 at the clinic per Hybrid Scenario 8), the resolver UPDATES `metadata.interaction_context.mode_transitioned_at` and emits an audit row `intake_sessions.interaction_context_transitioned` per `Section 1Q.7` — does NOT fork the session into a new row. Per `1K.13` Mode A re-entry pattern + this clarification: in-progress sessions can RESUME under different `interaction_context.mode` (mode is a context tag, not a session-fork trigger). **Assisted variant:** `assisted: true` + `staff_user_id` populated; `authored_by` on intake_response rows STAYS `patient_reported` (the patient is the source of truth for their own answers; staff is just keying); `staff_user_id` preserved on intake_response.metadata for audit + provability of who keyed; `intake.metadata` fallback is **not acceptable** for a pathway that may be concurrent with another pathway. **`care_program_id`** is null until the Stage 2→3 transition per `1K.13` (the provider mutation that mints the `care_program` row populates it in the same transaction); always-null on `progressive_intake_long_running` rows would be wrong — those rows ARE the per-care_program persistent session and carry the `care_program_id` from creation. **`closed_eligibility_pathway_codes[]`** records per-pathway closures in multi-pathway sessions per `1K.13` multi-pathway rule. **`pathway_version_pins`** is a `{pathway_code: pathway_version}` jsonb map captured at session creation; required for `1K.4` mandatory version capture so `intake_response.metadata` can record `pathway_version` per row without re-resolving live config (per `1K.2` pathway-file shape declaration). The `progressive_intake_long_running` status row has no `last_resolver_step_id` (no flow), no `closed_*` lifecycle, and is the addressable surface for stage-agnostic Modes E/F/J writes per `1K.13`. | **Required before any second therapeutic pathway ships.** The fallback to `intake.metadata` was acceptable for a first single-pathway pilot only; cross-program concurrent sessions, resumption queries, `patient_action_items` joins, and `1H` funnel observability all require a real table. | Dedicated table + all listed fields + `closed_reason_code` vocabulary tied to `1K.7` / `1K.12` + `care_program_id` back-pointer + status enum including identity-uplift + `progressive_intake_long_running` + cross-session pointers |
+| **`intake_sessions` (dedicated table; required before program #2)** | session-like state in existing intake | dedicated table with `(id, patient_id, care_program_id?, pathway_codes[], pathway_version_pins jsonb, closed_eligibility_pathway_codes[]?, status ENUM[in_progress, submitted, closed_ineligible, abandoned, superseded, identity_uplift_in_progress, identity_uplift_pending_retry, identity_uplift_cancelled, identity_uplift_refreshed, identity_uplift_stale_refresh, progressive_intake_long_running], started_at, last_activity_at, submitted_at?, closed_at?, closed_reason_code?, reopen_eligibility_criteria?, prior_closed_session_id?, prior_cancelled_session_id?, refreshes_identity_from_session_id?, engine_version, safety_ruleset_version, last_resolver_step_id)`. **`metadata.funnel_slug` + `metadata.funnel_version` REQUIRED (binding; per `Section 1K.19.7` funnel concept):** every `intake_sessions` row MUST carry `metadata.funnel_slug` + `metadata.funnel_version` resolved at session creation from acquisition source match per `Section 1H.4`; default funnel `default_organic_v1` applies when no funnel matches. **`metadata.interaction_context` REQUIRED (binding; per `2026-05-02_hybrid_care_delivery_stress_test.md` Patch G3 + `Section 1Q.23` Invariant 3):** every `intake_sessions` row MUST carry `metadata.interaction_context` per the `InteractionContext` typed shape declared in `Section 1Q.23` (`{ mode: 'in_person' | 'remote', assisted: boolean, location_id?, appointment_id?, staff_user_id?, source: 'patient_self' | 'staff_assisted' | 'kiosk' | 'tablet', initiated_at, mode_transitioned_at? }`). CI lint enforces presence at intake start. **Mode transitions mid-session (binding):** when an in-progress session changes mode (e.g., remote intake started Day 0, completed in-person Day 1 at the clinic per Hybrid Scenario 8), the resolver UPDATES `metadata.interaction_context.mode_transitioned_at` and emits an audit row `intake_sessions.interaction_context_transitioned` per `Section 1Q.7` — does NOT fork the session into a new row. Per `1K.13` Mode A re-entry pattern + this clarification: in-progress sessions can RESUME under different `interaction_context.mode` (mode is a context tag, not a session-fork trigger). **Assisted variant:** `assisted: true` + `staff_user_id` populated; `authored_by` on intake_response rows STAYS `patient_reported` (the patient is the source of truth for their own answers; staff is just keying); `staff_user_id` preserved on intake_response.metadata for audit + provability of who keyed; `intake.metadata` fallback is **not acceptable** for a pathway that may be concurrent with another pathway. **`care_program_id`** is null until the Stage 2→3 transition per `1K.13` (the provider mutation that mints the `care_program` row populates it in the same transaction); always-null on `progressive_intake_long_running` rows would be wrong — those rows ARE the per-care_program persistent session and carry the `care_program_id` from creation. **`closed_eligibility_pathway_codes[]`** records per-pathway closures in multi-pathway sessions per `1K.13` multi-pathway rule. **`pathway_version_pins`** is a `{pathway_code: pathway_version}` jsonb map captured at session creation; required for `1K.4` mandatory version capture so `intake_response.metadata` can record `pathway_version` per row without re-resolving live config (per `1K.2` pathway-file shape declaration). The `progressive_intake_long_running` status row has no `last_resolver_step_id` (no flow), no `closed_*` lifecycle, and is the addressable surface for stage-agnostic Modes E/F/J writes per `1K.13`. | **Required before any second therapeutic pathway ships.** The fallback to `intake.metadata` was acceptable for a first single-pathway pilot only; cross-program concurrent sessions, resumption queries, `patient_action_items` joins, and `1H` funnel observability all require a real table. | Dedicated table + all listed fields + `closed_reason_code` vocabulary tied to `1K.7` / `1K.12` + `care_program_id` back-pointer + status enum including identity-uplift + `progressive_intake_long_running` + cross-session pointers |
 | `intake_module` | module concept implicit in current forms | module catalog in code/policy file (versioned) | dedicated catalog table only if org later wants read-only admin inspection UI per `1K.0` | versioned module catalog (code-as-config) |
 | `intake_question_version` | questions exist in code/forms | `question_id` + `question_version` recorded on each response | dedicated `question_versions` table only if versions per question multiply | `question_id` + `question_version` on every response |
 | `intake_response` | answers persisted today (legacy storage in `form_submissions` for the existing TRT-style flow per Lab Appendix §15) | response row with `module_version`, `question_version`, `engine_version`, `branch_path_token`, `entry_moment`, `pathway_id`, `pathway_context`, `reuse_policy`, `reused_from_response_id`, `answered_at`, `authored_by ENUM[patient, provider, system, ops]` (mirrors `1M.3` `authored_by` minus `device`; `intake_response` has no device source), `correction_reason?` (controlled vocabulary per `1K.5` including `provider_clarification` and `patient_self_correction` for Mode J; **REQUIRED when `supersedes_response_id IS NOT NULL`** — schema-nullable for first-time answers, application-required on every supersession write), `supersedes_response_id?`, `clinical_note_id?` (per `1K.4` version-capture rule and `1K.5` provider-clarification + Mode J self-correction discipline). **Legacy `form_submissions` discipline (binding):** `form_submissions` (the existing table referenced in the Lab Appendix flow) is **read-only post-migration**; new pathway intake answers MUST write to `intake_response`. Legacy `form_submissions` rows remain queryable for historical reconstruction but are not the source of truth for new writes; provider packet rendering for legacy patients reads both stores during the migration window with `form_submissions` flagged `legacy_origin = true` in the packet for defensibility. No new code path may INSERT into `form_submissions`. | dedicated rich response table at scale | rich response payload including provider-clarification + Mode J self-correction append chain per `1K.5`; legacy `form_submissions` read-only |
@@ -4034,6 +4081,394 @@ These are explicit non-goals so the intake architecture doesn't drift into the s
 - **Intake is not a vendor integration layer.** Eligibility checks against external services (e.g., insurance verification, PDMP lookups), pharmacy submission, fulfillment, shipping, lab vendor APIs all live in their respective sections (`Section 1L` lab vendors, future fulfillment section, etc.); intake calls these via existing service interfaces, not by absorbing their logic.
 
 **Acceptance test for any future "could intake do this?" proposal:** if the answer requires intake to (a) own a new domain concept, (b) duplicate a value already authoritative on a domain table, (c) introduce a clinical-content admin UI, (d) make an autonomous clinical decision, or (e) embed AI in the resolver — the answer is **no**, and the proposal belongs in the right adjacent section. Intake stays small on purpose so the rest of the system can be trusted as the source of truth.
+
+### 1K.19 Intake Repository and Control Model (binding; per `2026-05-02_intake_repository_control_model_v1` Stage 1 architecture)
+
+This section consolidates and extends what `Section 1K.0` (engine architecture), `Section 1K.4` (versioning), `Section 1K.13` (re-entry modes), `Section 1K.14` (schema refinements), and `Section 1Q.7` (governance) already declare into a single binding architectural specification for HOW intake definitions live, version, control, toggle, separate environments, preserve historical integrity, run, and instrument. Adds the FUNNEL concept (NEW; multi-traffic-source acquisition + composition), the ANALYTICS + INSTRUMENTATION specification (NEW; 12 typed audit_events event types), and the CONTINUOUS CONTEXT integration points (NEW; consolidates the closed-loop ethos across messaging / longitudinal / re-intake / provider feedback).
+
+#### 1K.19.1 Source of truth + file structure (binding)
+
+**Spec layer (human-readable; clinical CODEOWNER review surface):**
+- `.cursor/plans/specs/<pathway>_intake_questions_v<n>.md` — pathway-specific spec; markdown; primary review surface for clinical wording, answer choices, branching, atom mappings; one per pathway version
+- `.cursor/plans/specs/clinical_core_modules_v<n>.md` — pan-domain shared modules spec
+- `.cursor/plans/specs/domain_<domain>_modules_v<n>.md` — domain-organized modules spec (one per domain when needed)
+- `.cursor/plans/audits/<date>_<topic>.md` — pressure-test + audit deliverables; supplement to specs
+
+**Runtime layer (TS code-as-config; per `Section 1K.0` no-DB-clinical-content discipline):**
+
+```
+repo/intake/
+├── modules/
+│   ├── universal/
+│   │   ├── demographics_v1.ts
+│   │   ├── base_consents_v1.ts
+│   │   ├── identity_verification_v1.ts
+│   │   └── insurance_payment_readiness_v1.ts
+│   ├── clinical_core/
+│   │   ├── medication_history_v1.ts
+│   │   ├── allergy_history_v1.ts
+│   │   └── surgery_history_v1.ts
+│   ├── domain/
+│   │   ├── cardiometabolic/baseline_history_v1.ts
+│   │   ├── gastrointestinal/baseline_history_v1.ts
+│   │   ├── reproductive/pregnancy_status_baseline_v1.ts
+│   │   ├── mental_health/baseline_v1.ts
+│   │   └── lifestyle/standard_baseline_v1.ts
+│   └── pathway/
+│       ├── glp1/
+│       │   ├── intent_motivation_v1.ts
+│       │   ├── measurements_v1.ts
+│       │   ├── weight_history_v1.ts
+│       │   ├── diabetes_a1c_v1.ts
+│       │   ├── cv_safety_extended_v1.ts
+│       │   ├── gi_safety_extended_v1.ts
+│       │   ├── bariatric_surgery_extended_v1.ts
+│       │   ├── eating_disorder_screen_v1.ts
+│       │   └── acknowledgments_v1.ts
+│       └── trt/, female_hrt/, ed/, ...                       # future pathways
+├── branches/                                                 # branch family declarations (tier + decision_impact + primary_consumer + cap)
+│   ├── prior_glp1_use_v1.ts
+│   ├── prior_weight_loss_attempts_v1.ts
+│   ├── lifestyle_depth_v1.ts
+│   ├── exercise_goals_depth_v1.ts
+│   ├── gi_side_effects_depth_v1.ts
+│   ├── mental_health_followup_v1.ts                          # Trigger A + B + C combined
+│   └── pregnancy_reproductive_v1.ts
+├── pathways/
+│   ├── glp1.ts                                               # composes modules + branches in declared order; pins all (id, version) pairs
+│   ├── trt.ts, female_hrt.ts, ed.ts, ...                     # future
+├── funnels/                                                  # NEW per 1K.19.7: traffic-source-bound composition overlay
+│   ├── paid_meta_weight_loss_solo_v1.ts                      # Meta paid-ad → GLP-1 only
+│   ├── paid_google_weight_loss_supplements_v1.ts             # Google paid-ad → GLP-1 + supplement cross-sell
+│   ├── organic_supplements_only_v1.ts                        # organic landing → supplement-only intake (no Rx)
+│   ├── default_organic_v1.ts                                 # fallback when no funnel matches
+│   └── ...
+├── resolver/                                                 # per Section 1K.0 server-side state-machine resolver
+│   ├── evaluate.ts                                           # pure function: (session_state) → (next_step | done | blocked)
+│   ├── render_when.ts                                        # predicate evaluator
+│   ├── multi_instance.ts                                     # multi-instance entity helpers per Section 1K.5.A context_key discipline
+│   └── tests/                                                # resolver test fixtures per Section 1K.0
+├── lib/
+│   └── types.ts                                              # canonical TypeScript types per Section 1K.4 schema
+└── test-fixtures/                                            # CI sandbox fixtures per Section 1Q.7 governance
+    └── glp1/
+        ├── scenario_1_clean_eligibility.test.ts
+        ├── scenario_2_men2_blocker.test.ts
+        └── ...
+
+repo/clinical-concepts/                                       # ALREADY DECLARED per Section 1K.5.A
+├── cardiovascular.ts, endocrine.ts, gastrointestinal.ts, reproductive.ts,
+├── mental_health.ts, medications.ts, surgeries.ts, allergies.ts,
+└── symptoms.ts, labs.ts, scores.ts, lifestyle.ts             # add lifestyle.ts for social_history concepts
+```
+
+**Stored data (runtime patient responses):** `intake_sessions` + `intake_response` per `Section 1K.14`; `patient_clinical_assertions` per `Section 1K.5.A`. Storage shape unchanged from existing architecture; this section only refines authoring layout.
+
+**Spec → Runtime translation (binding):** spec markdown is human-readable + CODEOWNER-reviewed; once locked via `status: 'active'` in spec, mechanical translation to `repo/intake/*` TS files (no semantic transformation; just shape change). CI lint enforces spec ↔ TS parity (every spec question has a corresponding TS question definition with matching version).
+
+#### 1K.19.2 Versioning strategy (binding; consolidates 1K.4 + 1K.5.A)
+
+Every primitive carries semver:
+
+| Primitive | Version field | Pinned at |
+|---|---|---|
+| Module | `module_version` | `intake_response.module_version` per response row + `pathway.modules[].module_version` |
+| Question | `question_version` | `intake_response.question_version` per response row |
+| Branch family | `branch_version` | `intake_response.branch_path_token` (encodes branch path + version) |
+| Pathway | `pathway_version` | `intake_sessions.pathway_version_pins` jsonb |
+| Funnel | `funnel_version` | `intake_sessions.metadata.funnel_slug` + `funnel_version` (NEW) |
+| Atom (concept) | `concept_version` | `patient_clinical_assertions.metadata.concept_version_pin` per `Section 1K.5.A` |
+| Engine | `engine_version` | `intake_response.engine_version` per response row |
+| Safety ruleset | `safety_ruleset_version` | `intake_sessions.safety_ruleset_version` |
+
+**Semver bump policy (binding):**
+- **PATCH** (`v1.0.0` → `v1.0.1`): typo fixes, copy improvements, clarifying micro-copy; NO semantic change. Reviewer: Ops CODEOWNER for non-clinical; Clinical CODEOWNER for clinical content.
+- **MINOR** (`v1.0.0` → `v1.1.0`): new optional answer choices added; new optional follow-up questions added; new optional `render_when` branches; improvements that DO NOT break historical interpretation.
+- **MAJOR** (`v1.0.0` → `v2.0.0`): breaking changes — changed answer semantics; removed answer choices; changed atom mapping (an answer that previously emitted `condition.X` now emits `condition.Y`); question removed entirely. Reviewer: ALWAYS Clinical CODEOWNER + (when atom mapping changes) requires clinical-concepts version bump per `Section 1K.5.A`.
+
+**Pathway pin discipline (binding):** pathway file pins `(module_id, module_version)` + `(branch_id, branch_version)`. When a module bumps MINOR, pathway can choose to upgrade in next pathway version OR stay pinned. When a module bumps MAJOR, pathway MUST explicitly review + accept the breaking change in the pathway's next version bump (CI lint blocks pathway upgrade across module-major-version unless `accept_breaking_change: true` declared in pathway file with rationale).
+
+**No silent changes (binding):** every change requires PR + version bump + CODEOWNER review + git commit. Direct DB edits forbidden per `Section 1K.0` "No production-edit admin UI for clinical content."
+
+#### 1K.19.3 Change control matrix (extends Section 1Q.7 three-tier governance)
+
+| Change kind | Approval required |
+|---|---|
+| Question wording (copy-only patch in `prompt_text` / `helper_text`) — non-clinical content | Ops CODEOWNER |
+| Question wording — clinical content (e.g., MEN-2 BLACK BOX phrasing; pregnancy questions; eating disorder framing) | Clinical CODEOWNER |
+| Answer choices — controlled vocabulary additions (clinical interpretation affected) | Clinical CODEOWNER |
+| Answer choices — cosmetic re-ordering or label refinement (no semantic change) | Ops CODEOWNER |
+| Branching logic (`render_when` predicates) — affecting safety/eligibility flow | Clinical CODEOWNER |
+| Branching logic — affecting nice-to-have / Tier 3 flow | Ops CODEOWNER |
+| Atom mappings (`emits_atoms[]`) — ANY change | Clinical CODEOWNER REQUIRED (always; atoms are clinical truth) |
+| Tier classification (1 / 2 / 3) | Clinical CODEOWNER (clinical priority decision) |
+| Branch caps + stop-early discipline | Clinical CODEOWNER (clinical priority decision) |
+| Module composition (pathway file changes — adding/removing/reordering modules) | Clinical CODEOWNER (clinical sequencing decision) |
+| Funnel composition (entry-source binding; cross-sell offer changes) | Ops CODEOWNER + product team (acquisition decision) |
+| New pathway launch | Clinical CODEOWNER + Admin (per `Section 1Q.7`) |
+| Atom (concept) addition / version bump | Clinical CODEOWNER + clinical-concepts file PR per `Section 1K.5.A` |
+| Engine version bump (resolver code change) | Clinical CODEOWNER + Engineering CODEOWNER (resolver is safety-critical infrastructure) |
+
+CI lint enforces CODEOWNER-required-reviewers per `.github/CODEOWNERS` based on changed file paths. PR checks block merge until required reviewer approves.
+
+#### 1K.19.4 Branch lifecycle states + toggling (binding)
+
+Every branch family + module + question carries `status: 'draft' | 'shadow' | 'active' | 'deprecated' | 'retired'`:
+
+| Status | Semantics |
+|---|---|
+| `draft` | Authored but not yet active; visible in repo for review; resolver does NOT consult. Only available in `dev` environment. |
+| `shadow` | Branch FIRES at runtime in `production` but emits atoms with `metadata.shadow: true` flag; rules engine does NOT consume shadow atoms for clinical decisions. Used to validate new branches without affecting clinical decisions. Provider workspace shows shadow atoms in a separate "experimental" panel for clinical-CODEOWNER feedback. CI lint forbids `status: 'shadow'` without an associated A/B test plan. |
+| `active` | Branch fires normally; atoms emitted with full authority; rules engine consumes for decisions. Default state after CODEOWNER approval + sandbox tests pass + 24h review window per `Section 1Q.7`. |
+| `deprecated` | Branch stops firing for NEW sessions; existing in-progress sessions complete with old branch evaluated; no new atoms emitted from new sessions; historical responses still readable. |
+| `retired` | Branch removed from active pathway compositions; historical responses still interpretable via `branch_version` pin; atoms emitted prior to retirement still readable. CI lint enforces no `retired` branch is referenced by an `active` pathway. |
+
+**A/B testing (binding for Tier 3):** Tier 3 branches are CANDIDATES for A/B testability post-launch. A/B variants assigned via patient cohort assignment per `Section 1H.4` acquisition tracking; cohort assignment recorded as `intake_sessions.metadata.ab_test_assignments[]`; branches conditionally render per cohort assignment. CI lint enforces `tier: 3` branches with `status: 'active'` declare an A/B-testability plan in their TS file (`ab_test_eligible: true | false` + rationale).
+
+**Rollback (binding):** if a branch is `active` but causes safety/quality issues, fast rollback path: bump branch to `deprecated` via PR + revert pathway pin in pathway file. Existing patients in mid-flow finish their session with the deprecated branch; new patients use the prior version. Per `Section 1Q.10` rule_recall pattern.
+
+#### 1K.19.5 Environment separation (binding)
+
+| Environment | Purpose | Default `status` allowed |
+|---|---|---|
+| `dev` | Local development; engineering iteration | `draft` + `active` (sandbox patients only) |
+| `staging` | Pre-prod CODEOWNER review; preview deploy per `Section 1K.0` | `draft` + `active` |
+| `production` | Live patient traffic | `active` + `shadow` + `deprecated` (no `draft`); CI gate enforces |
+| `shadow_in_production` | Branches/questions running in production but emitting only shadow atoms | declared via `status: 'shadow'`; subset of production |
+
+**Promotion path (binding):** `draft` (dev) → `draft` (staging) → CODEOWNER review + sandbox tests pass + 24h review window → `active` (staging) → smoke tests → `active` (production). For Tier 3 branches with A/B testability, promotion goes via `shadow` first (production traffic; emit shadow atoms; clinical validation) → `active` (production with A/B cohort assignment) per `Section 1Q.7`.
+
+**Test fixtures (binding):** `repo/intake/test-fixtures/<pathway>/<scenario>.test.ts` per `Section 1Q.7` test-fixture discipline. CI runs all fixtures on every change. Without sandbox test fixtures passing, no branch can move from `draft` → `active`.
+
+#### 1K.19.6 Historical integrity (binding; consolidates 1K.4 row pinning)
+
+**Reconstructability guarantee (binding):** any past patient response remains interpretable even after question changes / answer-set changes / atom mapping updates / version bumps. Mechanism:
+- Every `intake_response` row pins `question_id` + `question_version` + `module_id` + `module_version` + `engine_version` + `branch_path_token` + `pathway_id` + `pathway_version` per `Section 1K.4` (already required)
+- Atom assertions also pin `concept_id` + `concept_version` per `Section 1K.5.A`
+- TS module/question files for older versions are NOT deleted; renamed to `<question>.v1.0.0.ts` (or kept under git history with version-archived directory layout); active version is the highest semver of `status: 'active'`
+- Historical rendering UI (provider workspace per `Section 1G.8.5` patient context drawer) reconstructs the question text + answer choices AS THEY EXISTED at submission time using the pinned versions
+- CI lint forbids deleting old version files; archival via `_archive/` subdirectory with retention per regulatory requirements (HIPAA 6-year minimum)
+
+**Atom mapping changes (binding):** when a question's `emits_atoms[]` mapping changes (MAJOR version bump), historical responses retain their original atom mapping per `intake_response.metadata.atom_emission_pinned`. Provider workspace clearly labels older assertions with their version of authority + capture time. New rules consuming the atom may apply migration logic if needed (e.g., "treat `condition.diabetes` v1 assertions as `condition.diabetes_t2_history` v2 for backward-compat") — migrations are explicit + auditable per `Section 1Q.10` rule_recall pattern.
+
+#### 1K.19.7 Funnel concept (NEW; binding multi-traffic-source primitive)
+
+A FUNNEL is a typed composition that BINDS a traffic source / acquisition channel to a specific intake composition + cross-sell behavior. Funnels are NOT pathways; they are entry-point overlays that COMPOSE one or more pathways + add traffic-source-specific behavior.
+
+**Funnel file shape (binding):**
+
+```typescript
+// repo/intake/funnels/<funnel_slug>.ts
+{
+  funnel_slug: string;                              // e.g., 'paid_meta_weight_loss_solo'
+  funnel_version: string;                           // semver
+  pathway_codes: PathwayCode[];                     // which clinical pathways this funnel includes
+  entry_intent_codes: IntentCode[];                 // acquisition intent codes per Section 1K.2
+  acquisition_source_match: {                       // per Section 1H.4 acquisition tracking
+    utm_source?: string;
+    utm_medium?: string;
+    utm_campaign?: string;
+    landing_page_path?: string;
+    referrer_pattern?: RegExp;
+  };
+  pre_intake_copy_overrides?: {                     // hero / value prop / CTA per funnel; default falls back to pathway defaults
+    hero_headline?: string;
+    hero_subheadline?: string;
+    cta_label?: string;
+    trust_messages?: string[];
+  };
+  cross_sell_offers?: CrossSellOffer[];             // end-of-intake cross-sell modules to inject (e.g., weight-loss funnel offers supplements; supplement funnel offers weight-loss intake)
+  status: 'draft' | 'shadow' | 'active' | 'deprecated' | 'retired';
+  effective_at: timestamptz;
+  ab_test_eligible?: boolean;
+  priority: number;                                 // tie-breaking when multiple funnels match
+  rationale_note: string;                           // required
+}
+```
+
+**Funnel addresses the multi-traffic-source case:**
+- Paid-ad-weight-loss-only → `funnels/paid_meta_weight_loss_solo_v1.ts` (`pathway_codes: ['glp1']`; no cross-sell)
+- Paid-ad-weight-loss+supplements → `funnels/paid_google_weight_loss_supplements_v1.ts` (`pathway_codes: ['glp1']`; `cross_sell_offers: [supplements_general]` injected at end of intake)
+- Paid-ad-supplements-only → `funnels/paid_meta_supplements_solo_v1.ts` (`pathway_codes: ['supplements_general']`; no clinical L3 required; shorter intake)
+
+**Cross-sell offers (binding):** end-of-intake cross-sell ("are you interested in any of these other peptides or supplements?") is NOT a clinical question — it's a marketing offer driven by the funnel composition. Cross-sell modules live in `repo/intake/modules/universal/cross_sell_invitation_v1.ts` (Tier 3) and are conditionally injected by funnel files. Atoms emitted: `intent.interested_in_<offer_kind>` (consumed by `Section 1Q.21` marketing rules for post-submission campaign enrollment + by personalization for in-session UX). Provider does NOT see cross-sell-offer atoms in clinical decision_support_payload (filtered out per `Section 1Q.5` template `interaction_context_compatibility`).
+
+**Distinction (binding):** clinical history about supplements (e.g., "have you been on fat-burning supplements?") is CLINICAL CONTENT belonging in `mod.clinical_core.medication_history_v1` baseline OR a pathway-specific extension `mod.pathway.glp1.weight_loss_supplements_history_v1` (deferred to clinical CODEOWNER review per Stage 2 spec; clinical-history is NOT cross-sell; atom emitted is `medication.weight_loss_supplement_instance` (multi-instance) for safety/interaction screening).
+
+**Funnel resolution at intake start (binding):**
+1. Patient lands on entry URL with UTM params
+2. `Section 1H.4` acquisition handler matches UTM/referrer/landing-page against `funnels/*.ts` `acquisition_source_match` predicates
+3. First matching funnel wins; tie-breakers per `priority: int` field in funnel file declarations
+4. `intake_sessions.metadata.funnel_slug` + `funnel_version` recorded; funnel composition applied (pathway_codes added; cross_sell_offers injected at end-of-intake)
+5. If no funnel matches, default funnel (`default_organic_v1`) applies (pathway_codes derived from intent selection at Stage 1)
+
+CI lint enforces: every active funnel has `acquisition_source_match` predicates; default funnel is always present; cross-sell offers reference modules that exist + are status `active`.
+
+#### 1K.19.8 Runtime model (binding; consolidates Section 1K.0 resolver)
+
+Per `Section 1K.0` resolver architecture (already declared): server-side stateless pure function; pathway file + branch declarations + funnel overlay = declarative input; resolver returns next required step.
+
+**Render_when evaluation (binding):** predicate is a typed object referencing prior question_ids + atom values:
+```typescript
+type Predicate =
+  | { question_id: string; equals: AnswerValue }
+  | { question_id: string; in: AnswerValue[] }
+  | { atom: string; equals: AtomValue }
+  | { atom: string; in: AtomValue[] }
+  | { all_of: Predicate[] }
+  | { any_of: Predicate[] }
+  | { not: Predicate };
+```
+
+Resolver evaluates predicates by looking up the most recent `intake_response` for the referenced `question_id` OR most recent active `patient_clinical_assertions` for the referenced atom. Predicates are deterministic + replayable per `Section 1K.0` replayability requirement.
+
+**Multi-instance follow-up scoping (binding):** when a multi-instance trigger question creates N instances (e.g., patient selected 3 surgeries), the resolver opens N parallel sub-flows — one per instance. Each sub-flow's questions reference the specific instance via `instance_scope: 'per_instance'` declaration. Per-instance answers create separate `patient_clinical_assertions` rows with distinct `context_key`. Multi-instance helpers in `repo/intake/resolver/multi_instance.ts` per file structure above.
+
+**Mini-batch resolver (binding per Section 1K.0):** resolver returns a planned mini-batch of next 3-5 candidate steps + contingency tree. Client renders optimistically; re-consults server on branch divergence / eligibility events / every N answers. Performance target: P95 question-to-question UX latency ≤ 250ms.
+
+#### 1K.19.9 Analytics + instrumentation (binding; event-capture specification)
+
+This is **NOT** an analytics dashboard build — it is the EVENT CAPTURE specification for intake telemetry. Captured events live in `audit_events` (typed `event_type` per `Section 1Q.7`) + `patient_timeline_events` for patient-visible milestones (per `Section 1H.1` projection rule). Read by `Section 1H.6` daily metrics, ad-hoc analytics queries, ML models for friction analysis, and clinical CODEOWNER review of branch performance.
+
+**Goals supported (binding; what we MUST be able to compute later from raw events):**
+- Completion rate (sessions started → submitted, per funnel/pathway)
+- Friction (time per question; questions with high `response_time_ms` or high abandonment rate)
+- Branch usefulness (branch triggered → does it yield `provider_review` / `hard_stop` atoms? If never → candidate for removal/Tier 3 demotion)
+- Question usefulness (atom emitted → consumed by downstream rule? If never → candidate for removal)
+- Provider usefulness (provider viewed/used the atom in `decision_support_payload`? Per `Section 1G.8.5` patient context drawer instrumentation)
+- Safety flag yield (rate of `hard_stop` atoms per pathway / per funnel; helps tune contraindication screen sensitivity)
+- Conversion by funnel (funnel_slug → intake submitted → treatment_order placed → continuation per `Section 1H.4`)
+- Downstream adherence/personalization impact (atoms emitted at intake → personalization rules fired → adherence metrics + retention)
+
+**Event types (binding; 12 typed `event_type` values per `Section 1Q.7` audit_events shape):**
+
+| Event type | When fires | Required payload fields |
+|---|---|---|
+| `intake.session.started` | session creation (pre-account or post-account) | `session_id`, `pre_account_session_id?`, `funnel_slug`, `funnel_version`, `pathway_codes[]`, `pathway_versions{}`, `engine_version`, `safety_ruleset_version`, `interaction_context` per `Section 1Q.23`, `started_at`, `cohort_assignments[]?`, `acquisition_source` |
+| `intake.question.rendered` | resolver presents question to UI client | `session_id`, `question_id`, `question_version`, `module_id`, `module_version`, `branch_id?`, `branch_version?`, `branch_path_token`, `rendered_at`, `server_compute_time_ms` |
+| `intake.question.answered` | answer submitted via write API | `session_id`, `question_id`, `question_version`, `answer_value` (PHI), `answered_at`, `response_time_ms` (rendered → answered delta), `branch_path_token`, `intake_response_id`, `client_idempotency_key` |
+| `intake.question.skipped` | question NOT rendered when expected | `session_id`, `question_id`, `question_version`, `skipped_at`, `skipped_reason: 'predicate_false' \| 'branch_cap' \| 'stop_early' \| 'disabled' \| 'shadow_only' \| 'pathway_branch_unmatched' \| 'render_when_atom_missing'`, `skipped_reason_detail` |
+| `intake.branch.triggered` | branch trigger predicate fires (first follow-up will render) | `session_id`, `branch_id`, `branch_version`, `branch_tier: 1 \| 2 \| 3`, `trigger_question_id`, `trigger_question_version`, `triggering_answer_value`, `triggered_at` |
+| `intake.branch.completed` | all required follow-ups in branch answered | `session_id`, `branch_id`, `branch_version`, `completed_at`, `follow_ups_asked_count`, `follow_ups_answered_count`, `time_to_complete_ms` |
+| `intake.branch.capped` | branch hit configured follow-up cap | `session_id`, `branch_id`, `branch_version`, `capped_at`, `cap_value`, `follow_ups_asked_count` (= cap_value) |
+| `intake.branch.stop_early` | branch terminated early (sufficient signal gathered before cap) | `session_id`, `branch_id`, `branch_version`, `stop_early_at`, `follow_ups_asked_count`, `signal_sufficient_reason` |
+| `intake.session.abandoned` | inactivity threshold exceeded (background job) | `session_id`, `last_activity_at`, `abandoned_at`, `last_question_id`, `last_module_id`, `total_questions_answered`, `total_questions_rendered`, `completion_pct` |
+| `intake.session.submitted` | submission to provider review (Stage 2 → Stage 3 transition per `Section 1K.13`) | `session_id`, `submitted_at`, `total_questions_answered`, `total_branches_triggered`, `total_atoms_emitted`, `total_hard_stop_atoms`, `total_provider_review_atoms`, `time_to_complete_ms`, `cross_sell_offers_shown[]`, `cross_sell_offers_accepted[]` |
+| `intake.atom.emitted` | clinical assertion written from intake response (Stage 1 emitter per `Section 1K.5.A`) | `session_id`, `intake_response_id`, `concept_id`, `concept_version`, `context_key?`, `atom_kind`, `downstream_effect`, `authored_by`, `emitted_at`, `atom_mapping_version` |
+| `intake.atom.consumed` | downstream rule reads atom for decision (per `Section 1Q.4` rule firing) | `atom_assertion_id`, `consumed_by_rule_id`, `consumed_by_rule_version`, `consumed_at`, `decision_outcome`, `consumed_in_provider_workspace_session_id?` |
+
+**Privacy + retention (binding):**
+- Events stored in append-only `audit_events` per `Section 1Q.7`; same access controls as other audit events; RLS policy per `Section 1J`
+- Pre-account events use `pre_account_session_id` only; no `patient_id` association until account creation per `Section 1J.6` pre-account fingerprint discipline
+- Some events contain PHI (`answer_value` field on `intake.question.answered`; subject to standard PHI access controls)
+- Retention per HIPAA + jurisdiction-specific: minimum 6 years per `Section 1H.5`; events never deleted, only archived
+- Event-stream cross-link: feeds `Section 1H.6` daily metrics + `Section 1H.4` acquisition tracking + `Section 1H.7` continuity-health slice + `Section 1Q.21` marketing campaign attribution
+
+**CI lint (binding):**
+- Every state-mutating resolver code path MUST emit the corresponding audit_events row (CI lint scans `repo/intake/resolver/` for state mutations without paired event emission)
+- `audit_events` row payload MUST contain all REQUIRED fields per event type (CI lint validates schema against the event-type table above)
+- No raw PHI in `event_type` or in non-payload metadata fields; PHI only in payload fields explicitly typed for it
+- Event emission MUST be in same DB transaction as the underlying write (e.g., `intake_response` insert + `intake.question.answered` audit_events row in same transaction); no events without underlying writes; no writes without events
+- Forbid silent metric calculations off raw event streams without traceback; all derived metrics declare their event-stream sources
+
+**Aggregation derivations (binding; for `Section 1H.6` daily metrics consumers; documented for future use):**
+- `funnel_completion_rate = count(intake.session.submitted WHERE funnel_slug=X) / count(intake.session.started WHERE funnel_slug=X)` per day
+- `branch_yield_rate = count(intake.branch.triggered WHERE branch_id=X AND yields hard_stop OR provider_review atoms) / count(intake.branch.triggered WHERE branch_id=X)` per week
+- `question_friction_score = avg(response_time_ms) per question_id` per day; outlier questions (top 10% by friction) flagged for clinical CODEOWNER review
+- `branch_drop_off_rate = count(intake.branch.triggered WHERE NOT subsequent intake.branch.completed) / count(intake.branch.triggered)` per week per branch
+- `safety_flag_yield = count(intake.atom.emitted WHERE downstream_effect = 'hard_stop') / count(intake.session.submitted)` per pathway per day
+- `atom_consumption_rate = count(intake.atom.consumed WHERE concept_id=X) / count(intake.atom.emitted WHERE concept_id=X)` per concept per week (atoms with consumption_rate near 0 are candidates for question removal)
+- `provider_useful_atom_rate = count(intake.atom.consumed WHERE consumed_in_provider_workspace_session_id IS NOT NULL) / count(intake.atom.emitted)` per concept per week
+
+**These derivations are NOT pre-computed materialized views in V1.** They are query patterns documented for ad-hoc analytics + future `Section 1H.6` daily dashboard wiring. The RAW event capture is the V1 commitment.
+
+#### 1K.19.10 Intake as continuous context — integration points + data flow (binding)
+
+The intake system is the entry point into a continuous patient context and feedback loop — NOT a one-time questionnaire. Atoms emitted during intake persist beyond intake; are accessible to messaging, provider workflows, future decision-making, AI extraction, and longitudinal continuation; and are UPDATABLE through future interactions via the supersession-aware write model declared in `Section 1K.5.A`.
+
+This subsection is a **CONSOLIDATION** of the continuous-context ethos already declared across `Section 1K.1` (longitudinal-state framing), `Section 1K.5.A` (atom assertion layer + authority taxonomy + supersession), `Section 1K.6` (multi-pathway composition + entry moments), `Section 1K.13` (re-entry Modes A-J), `Section 1P` (inbound narrative atomization), `Section 1G.11` (patient_action_items), `Section 1Q.4` (decision_support_payload + override_capability_required), `Section 1Q.7` (audit + reconstructability), `Section 1Q.10` (rule_recall + model_recall + correction discipline). Made explicit + binding here for cross-system traceability.
+
+##### 1K.19.10.a Intake → messaging integration (binding)
+
+**Atoms persist past intake; messaging consumes + updates them.**
+
+- **Read path (atoms → messaging):** every messaging rule firing per `Section 1Q.1` `notification` domain reads patient atoms via `Section 1J.10` `loadPatientCaseSafetySnapshot` + per-rule `required_inputs` declarations per `Section 1Q.4`. Messaging composes responses based on current atom state. Cross-link: `Section 1G.3` send-policy + `Section 1Q.5` template variables.
+- **Write path (messaging → atoms):** patient narrative inbound (portal messages, SMS replies, email replies) flows through `Section 1P` inbound narrative atomization pipeline. AI atomizer + deterministic safety scan extract candidate atoms; `Section 1P.4 Patch B` Mode F clarification turns generate targeted patient prompts; answers populate `intake_response` rows via `recordIntakeResponse` per `Section 1K.4`; `Section 1K.5.A` two-stage trigger pipeline emits new clinical assertions (or supersedes existing ones via `supersedes_assertion_id` chain). The intake engine is REUSED for clarification — no separate "messaging Q&A" engine per `Section 1K.0` "one engine, all entry moments."
+- **Closed loop (binding):** every messaging interaction that captures clinical content MUST emit atoms via `Section 1K.5.A`; CI lint forbids messaging code paths that write to `messages` table without atomization-pipeline route per `Section 1P` invariants 1-15.
+
+##### 1K.19.10.b Intake → longitudinal context (binding)
+
+**Patient context is cumulative, not reset per intake.** `Section 1K.1` is unambiguous: "Intake is the entry point into a continuous care system, not a session, form, checkout step, or one-time interaction. It initializes — and continues to write into — a persistent, time-aware patient state."
+
+- **Single canonical patient state:** one `patients` row per person per `Section 1J.5`; clinical state lives in `patient_clinical_assertions` (atoms) per `Section 1K.5.A`, `patient_state_observations` (trackable measurements) per `Section 1M`, `patient_lab_observations` per `Section 1L`, `clinical_visits` (provider documentation) per `Section 1F`, `patient_diagnostic_reports` per `Section 1L.16a`. Intake writes INTO this state; never owns a separate intake-only data store.
+- **No reset per intake:** subsequent intake sessions (re-entry per `Section 1K.13` Modes A-J; multi-pathway concurrent sessions per `Section 1K.6`; system-triggered check-ins per `Section 1K.6`) APPEND to existing atoms via supersession; never wipe + recreate.
+- **Cross-pathway readability:** atoms emitted by GLP-1 intake are readable by future TRT / Female HRT / mental-health pathways (per `Section 1J.10` + `Section 1K.5.A` cross-pathway concept-aware safety preflight). Patient does not re-answer "have you had a heart attack?" when starting a second pathway — `Section 1K.5` answer-reuse + freshness policy reads existing atoms + only re-prompts when stale per `time_sensitive_30d` profile.
+- **Future pathways build on existing atoms:** when patient enters a new pathway, the pathway file's `repo/intake/pathways/<new_pathway>.ts` composes universal + clinical_core + domain modules already populated with the patient's prior answers. The resolver per `Section 1K.0` skips questions whose atoms are already on file with sufficient freshness; only asks net-new questions specific to the new pathway.
+
+##### 1K.19.10.c Re-intake / update model (binding)
+
+**Re-entry updates atoms; never duplicates.**
+
+- **Re-entry modes (existing per `Section 1K.13`):** Mode A (resume in-progress session) / Mode B (start new session, prior closed) / Mode C (multi-pathway concurrent) / Mode D (closed_ineligible re-evaluation; reopen criteria) / Mode E (provider-triggered follow-up; no new session row) / Mode F (clarification turn from messaging; no new session row) / Mode G (L_stale identity refresh; targeted module only) / Mode H (post-denial retry; new session with `prior_closed_session_id` pointer) / Mode I (legacy import) / Mode J (free-text correction). **Funnel binding** (per `1K.19.7`) happens at SESSION CREATION (any mode that creates a new session row — A entry, B, C, H) via `intake_sessions.metadata.funnel_slug` + `funnel_version` resolution from acquisition source per `Section 1H.4`; not tied to a specific re-entry mode.
+- **Update model — supersession (existing per `Section 1K.5.A`):** when a new answer contradicts an existing atom (e.g., patient previously reported `condition.hypertension_history = false`, now reports = true), the new assertion is written with `supersedes_assertion_id` pointing at the prior; both rows preserved (immutable history); current-state read returns the most recent active assertion per `(patient_id, concept_id, context_key)` tuple.
+- **No duplication (binding):** CI lint forbids creating a new `patient_clinical_assertions` row for the same `(patient_id, concept_id, context_key)` without populating `supersedes_assertion_id`; CI lint validates supersession chain integrity (no orphans; no loops).
+- **Mode J self-correction (existing per `Section 1K.4` `correction_reason`):** patient says "actually, I made a mistake on a prior answer" → new `intake_response` row with `supersedes_response_id` + `correction_reason: 'patient_self_correction'`; downstream atom emitter writes superseding clinical assertion; original response preserved per immutability discipline.
+
+##### 1K.19.10.d Provider feedback loop (binding)
+
+**Provider actions feed back into patient context; can trigger messaging or additional intake-like questions.**
+
+- **Provider write paths (existing per `Section 1G` + `Section 1K.5.A`):** provider review of intake submission generates (a) `clinical_visits` row documenting the decision; (b) `provider_confirmed` clinical assertion for any provider-judged-true atoms (highest authority tier per `Section 1K.5.A` 9-value `authored_by` enum); (c) optional `provider_rejected` assertion for atoms the provider does NOT believe; (d) `treatment_orders` / `lab_orders` / Rx authorization per `Section 1G.4` + `Section 1L`; (e) `audit_events` row per `Section 1Q.7` audit chain.
+- **Provider-confirmed atoms supersede patient_reported (existing per `Section 1K.5.A` authority taxonomy):** when provider confirms or rejects, their assertion has higher authority than patient_reported / lab_derived (per the rank ordering: `provider_confirmed (rank 90) > provider_assessed (80) > lab_derived (50) > document_extracted (40) > third_party_reported (30) > patient_reported (20)`). `Section 1J.10` safety preflight reads the highest-authority active assertion.
+- **Provider clarification → patient (existing per `Section 1P.4` Patch B Mode F bridge):** when provider needs additional info to make a decision, the rule action `kind: 'clarify'` per `Section 1Q.4` triggers a Mode F clarification turn; patient receives a targeted prompt via messaging; patient's reply flows back through atomization pipeline → updates atoms → safety preflight re-runs → provider review reopens. **The same intake engine handles the clarification** per `Section 1K.0` "one engine, all entry moments."
+- **Provider override → audit + recall (existing per `Section 1Q.4` `override_capability_required` + `Section 1Q.7` `rule.firing_overridden` audit + `Section 1Q.10` rule_recall):** provider can override a `hard_stop` blocker; override is audited per `Section 1Q.7` `rule.firing_overridden` shape (with `override_reason_code`, `override_evidence_note`, scope). Override does NOT modify the underlying assertion — it authorizes a specific action despite the block. If provider wants to update the truth, they write a separate `provider_assessed` / `provider_confirmed` assertion via `recordClinicalAssertion`; that assertion supersedes any patient-reported assertion of the same concept.
+- **Provider correction triggers downstream review (existing per `Section 1Q.10` rule_recall):** when provider rejects an AI-emitted atom (e.g., AI extracted `condition.pregnancy_active = true` from narrative but provider clarifies the patient actually said "I'm not pregnant"), the rejection feeds the AI correction loop per `Section 1P.11` AI output correction discipline; aggregate corrections trigger `model_recall` review per `Section 1Q.10`.
+- **Provider action → system-triggered patient communication:** provider decisions emit `audit_events` rows that the messaging rules engine `Section 1Q.1` `notification` domain consumes; patient receives templated communication per `Section 1Q.5`. The patient may reply with questions; reply flows through `Section 1P` atomization → updates atoms → potentially triggers another rule firing. The loop continues.
+
+##### Data flow diagram (binding visual + integration trace)
+
+```mermaid
+flowchart TD
+  Patient["Patient (intake / messaging / portal / SMS / email)"] -->|writes via recordIntakeResponse| IntakeResponses["intake_response (Section 1K.4)"]
+  IntakeResponses -->|Stage 1 trigger pipeline| Atoms["patient_clinical_assertions (Section 1K.5.A; durable truth layer)"]
+  ProviderActions["Provider (review / approval / clarification / override)"] -->|recordClinicalAssertion| Atoms
+  Provider2["Provider documentation"] -->|writes| ClinicalVisits["clinical_visits (Section 1F)"]
+  ClinicalVisits -->|provider_confirmed atoms| Atoms
+  Lab["Lab partner (HL7/FHIR/structured webhook)"] -->|Section 1L deterministic handler| LabObs["patient_lab_observations + patient_diagnostic_reports"]
+  LabObs -->|lab_derived atoms| Atoms
+  Documents["Documents (uploaded; Section 1O)"] -->|AI extraction per Section 1L.16a| Atoms
+  AI["AI atomizer (Section 1P narrative)"] -->|document_extracted / patient_reported atoms| Atoms
+  Messages["Patient inbound messages"] -->|Section 1P atomization| Atoms
+
+  Atoms -->|read by| SafetyPreflight["Section 1J.10 loadPatientCaseSafetySnapshot"]
+  SafetyPreflight -->|inputs to| Rules["Section 1Q rules engine"]
+  Rules -->|fire actions| RuleActions["RuleAction kind: block / clarify / route / notify / escalate / gate"]
+  RuleActions -->|kind=clarify| ModeF["Mode F clarification → targeted patient prompt"]
+  ModeF -->|reuses intake engine per Section 1K.0| Patient
+  RuleActions -->|kind=notify| Outbound["Section 1G.3 send-policy + outbound_jobs"]
+  Outbound -->|delivers| Patient
+  RuleActions -->|kind=route| ProviderQueue["Section 1G provider review queue"]
+  ProviderQueue --> ProviderActions
+
+  Atoms -->|read by| ProviderWorkspace["Section 1G.8.5 patient context drawer"]
+  ProviderWorkspace --> ProviderActions
+
+  Atoms -->|read by| Personalization["Section 1Q.21 marketing + personalization rules"]
+  Personalization -->|drives messaging cadence + content| Outbound
+
+  Atoms -->|append-only history; supersession chain| HistoricalReconstruction["Reconstructable past state (Section 1K.19.6)"]
+```
+
+##### Closed-loop invariants (binding; CI lint enforces)
+
+1. **Atoms persist beyond intake** — clinical atoms emitted during intake live in `patient_clinical_assertions` per `Section 1K.5.A`; never deleted; queryable indefinitely (subject to retention).
+2. **Messaging reads atoms** — every `notification`-domain rule firing reads atoms via `Section 1J.10`; CI lint forbids `notification` rules whose `required_inputs` is empty.
+3. **Messaging writes atoms** — every patient inbound (message / SMS / email reply) routes through `Section 1P` atomization; CI lint forbids inbound message storage paths that bypass atomization.
+4. **Re-intake updates via supersession** — every new assertion contradicting an existing atom MUST set `supersedes_assertion_id`; CI lint enforces.
+5. **Provider actions feed back** — every provider clinical decision emits `provider_confirmed` / `provider_rejected` / `provider_assessed` assertion + `clinical_visits` row + `audit_events` row; CI lint enforces (no clinical decision without all three).
+6. **One engine, all entry moments** — re-entry / clarification / system check-ins reuse the SAME `Section 1K.0` resolver + `recordIntakeResponse` write API; CI lint forbids parallel "messaging Q&A engines" or "follow-up forms" with their own state machines.
+
+**This is the operating-system commitment: intake is the FIRST step, not the only step. Atoms are the durable truth layer that every subsequent interaction reads + updates.**
 
 ---
 
