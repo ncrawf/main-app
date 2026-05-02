@@ -757,6 +757,20 @@ CI lint forbids: (a) outbound dispatch paths that bypass this 5-step privacy gat
 - Patient-frustration mitigation: at retry N-1 (one before escalation), the system MAY render a softer fallback template (`tmpl.system.clarification.last_call_v1` at `tier_2` outside / tier_4 in-secure; intent=`clinical`) that explicitly tells the patient "we'll move on if you don't respond — please tap [link] or we'll call you" — reduces surprise when phone outreach lands.
 
 **Foundational because** without retry limits, pathways sit in `pending_clinical_blockers` indefinitely — patient ignores 5+ re-prompts → degrades trust + creates ghost-patient state in operational metrics + leaves real safety questions unanswered. Pattern reuses existing `Section 1G.4` ownership + `1K.13` pathway-close semantics + `Section 1Q.7` audit chain; no new primitives.
+
+*Free-text-reply-to-structured-clarification rule (binding; per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 4.4 polish-now fix):* when an inbound message is classified as a REPLY to an open `pending_patient_input_task` of `task_kind: clarification` AND the message is unstructured free-text (NOT structured form data submission), a new `patient_clarification` rule pattern fires per `Section 1Q.1` rule domain:
+- Rule action: dispatch `tmpl.clarification.free_text_reply_redirect_v1` (NEW template family in `Section 1Q.13` Module 2 patient_clarification domain) — soft redirect copy: "Thanks for replying! We need a quick structured answer to keep your care moving — please tap [link] to continue."
+- DO NOT auto-resolve the open clarification task (the structured answer is still required)
+- DO NOT increment the retry counter — the patient engaged, just in the wrong format; this redirect is a one-time soft prompt
+- Audit `audit_events.clarification.free_text_reply_redirect_fired` per `Section 1Q.7` extended audit shapes with payload `{clarification_task_id, inbound_message_id, redirect_template_key, redirect_dispatched_at}`
+- AI atomization on the free-text reply still runs per `Section 1P` — if the atom matches the clarification's expected concept_id (e.g., reply contained the structured-answer-equivalent semantically), provider can resolve manually via batch review
+
+**Discipline (binding):**
+- Rule fires AT MOST ONCE per `(clarification_task_id, patient_id)` — repeated free-text replies on the same task escalate the retry counter normally (per Patch 7 of dynamic behavior)
+- CI lint forbids: `tmpl.clarification.free_text_reply_redirect_v1` with `privacy_exposure_level > 2` (must remain low-context per `Section 1Q.17`); message_intent must be `clinical` (it IS a clinical clarification redirect)
+- Failure mode prevented: patient replies "yes" to email needing structured data → without this rule, task remains open indefinitely → patient frustration → eventually pathway closes per clarification retry limits without ever getting the actual structured data
+
+Pattern reuses existing `pending_patient_input_tasks` + `Section 1P` AI atomization + `Section 1Q.1` patient_clarification rule domain; no new primitives.
 - **Platform/system incidents:** handled through 1H.2 ownership and runbook actions, with patient-case linkage in 1H.1/1G when impact exists.
 - **Patient-state-trend incidents:** abnormal trackable trends from `Section 1M` (sudden weight drop on GLP-1, sustained high BP on home cuff readings, severe side-effect score escalation, dose intolerance pattern) may trigger `1G.5` exceptions in the **clinical_safety** category; severity per `1H.6.1D`; classification per `1H.6.1E` (typically `provider_decision_quality` for trend-driven escalation). Read source: `patient_state_observations` per `1M.8`.
 
@@ -5773,6 +5787,18 @@ Each atom carries `metadata.inbound_narrative_review_id` (FK to `inbound_narrati
 
 **Foundational because** this closes the loop on the "flexible input → rigid decision layer" architecture — without this bridge, vague concerns produce candidates that rot in queue or require provider manual scheduling at every turn. Auto-scheduling Mode F follow-ups is the architectural mechanism that converts unstructured patient narrative into structured queryable assertions safely (no AI authority leakage; AI extraction routes to a structured re-prompt; structured answers write `patient_reported` assertions per existing `1K.5.A` Stage 1 emitter; provider authority floors per `1J.10` still gate any high-risk decision). **CI lint enforces:** any concept with `default_authority_floor = provider_confirmed` AND a known `follow_up_module_ids[]` MUST declare a `concern_to_follow_up_policy`; missing declaration is rejected at concept-registry PR time. **Concept-registry retirement migration:** retiring a `follow_up_module_ids[]` reference triggers re-validation per `1K.5.A` retirement migration discipline.
 
+**Patient self-correction emitter discipline (binding; per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 4.3 polish-now fix):** when the AI atomization emitter produces a candidate atom for `(patient_id, concept_id)` AND a prior `patient_clinical_assertions` row exists for the same `(patient_id, concept_id)` with `authored_by: patient_reported` (rank 50) AND the new claim CONTRADICTS the prior assertion (e.g., new "I have peanut allergy" vs prior `condition.allergy_peanut = false`), the emitter MUST:
+- Assign `authored_by: patient_self_correction` (rank 80; existing enum value declared in `Section 1K.5.A` `authored_by` enum) on the new atom — NOT plain `patient_reported` (rank 50)
+- Write `evidence_refs[]` linking BOTH the new source narrative AND the prior contradicted assertion's `intake_response_id` (for audit reconstructability)
+- Trigger automatic supersession via existing `1K.5.A` supersession mechanism — patient_self_correction (rank 80) > patient_reported (rank 50) per `Section 1P.0` invariant 9 authority taxonomy
+- The provider review batch surfaces the supersession + the contradiction context via `Section 1P.5` cross-batch concept-aware review surfacing rule (already exists)
+
+**CI lint enforces:** every AI atomization emitter implementation MUST include test fixtures covering the contradiction-detection case with at least 3 examples per pathway; emitter outputs that produce a `patient_reported` atom for a `(patient_id, concept_id)` where a contradicting prior `patient_reported` assertion exists are flagged as test failures.
+
+**Failure mode prevented:** patient says "no allergies" in intake then later messages "I'm allergic to peanuts" → without this discipline, both atoms get rank-50 patient_reported → no automatic supersession → conflict persists in chart until manual provider reconciliation. With this discipline, the new claim correctly assigns rank-80 patient_self_correction authority + auto-supersedes the prior assertion + provider sees the supersession context for review.
+
+Pattern reuses existing `Section 1K.5.A` `authored_by` enum + supersession mechanism; no new primitives.
+
 **Mode F consolidation rule (binding; per `2026-04-30_glp1_first_slice.md` Refinement 1):** when MULTIPLE `patient_clarification` rules with `concern_to_follow_up_policy = auto_schedule_mode_f` (OR multiple rules of any clarification type targeting Mode F) fire on the same `inbound_narrative_review_id` OR within a short window for the same patient (default: 1 hour configurable per rule registry), the Mode F bridge **consolidates all required modules into a SINGLE Mode F session per `1K.6`** rather than spawning multiple parallel Mode F sessions. The consolidated session combines all `follow_up_module_ids[]` from all firing rules into one ordered module sequence; resulting `intake_response` rows back-link to ALL originating rule firings via `evidence_refs[]` (each response row carries the full list of rule_id values that contributed to triggering its parent module). Patient sees ONE clarification message (`tmpl.*.clarification.intake_completion_v1` or pathway-specific equivalent) listing the consolidated set of missing items, NOT N separate clarification messages. CI lint forbids Mode F session creation that bypasses consolidation when consolidation criteria are met. Outgoing collision discipline per `1G.3` digest rule per `Section 1Q.13` is the secondary backstop if consolidation is missed for any reason; consolidation is preferred because it produces ONE coherent patient experience instead of a digest of fragmented prompts.
 
 ### 1P.5 Parallel role-scoped reviewer model
@@ -6088,7 +6114,7 @@ interface Rule {
   preconditions: Predicate[];               // structured-data predicates only; NEVER free-text; CI lint enforces typed-field references
   required_inputs: InputRef[];              // typed pointers to data sources (assertions, observations, action items, lab results, payment events)
   authority_floor?: AuthorityFloor;         // optional; who must own the resulting action: provider | ops | billing | support | compliance | system
-  action: RuleAction;                       // discriminated union: {kind: 'block', reason_code, override_capability_required?: CapabilityCode} | {kind: 'clarify', module_ids, follow_up_kind} | {kind: 'route', queue_role, priority_hint, decision_support_payload?: {suggested_options: TypedActionOption[], rationale_summary: string, evidence_summary: string}} | {kind: 'notify', channels, send_policy_class} | {kind: 'escalate', escalation_owner_role, sla_minutes} | {kind: 'gate', allow_when_resolved, override_capability_required?: CapabilityCode}. **override_capability_required (NEW; optional on kind='block' and kind='gate'; per `2026-04-30_adversarial_slice_pre_runtime.md` Refinement 3):** when set, the firing of this rule may be **scoped-overridden** by an actor holding the named capability (typically `can_authorize_clinical_override` for clinical rules; `can_authorize_ops_override` for operational rules; `can_authorize_billing_override` for billing rules per `1D.1`). When OMITTED, the rule firing is non-overridable (reserved for safety-critical rules where override would be inappropriate — e.g., absolute contraindication contraindication_men2; pregnancy_block on GLP-1 active). Override is a SCOPED authorization of a specific firing — it does NOT modify underlying assertions or truth; it authorizes a single action despite the block. Audit per `Section 1Q.7` `rule.firing_overridden` event below. CI lint forbids: (a) override_capability_required on a `clinical_safety` domain rule without explicit clinical CODEOWNER + compliance approval recorded in the rule's `rationale_note`; (b) override_capability_required on rules with `recall_severity = safety_critical` per `Section 1Q.10`. **decision_support_payload (NEW; optional on kind='route'; per `2026-04-30_glp1_first_slice.md` Refinement 4):** when a non-blocking routing rule needs to surface decision-support to the assigned reviewer (e.g., external GLP-1 use rule routes to provider with substitute / co-manage / refuse options + clinical context summary), the payload carries TypedActionOption[] (each option is a typed enum with declared semantics — no free-text option labels), rationale_summary (factual context summary; not editorialized), evidence_summary (pointers to relevant evidence_refs). Batch review UI per `Section 1P.5` renders the payload as decision-support UI; reviewer selects an option which triggers the corresponding follow-on rule action (substitute → provider writes provider_confirmed assertion + Rx authorization; refuse → provider writes provider_rejected + denial template; etc.). CI lint enforces: decision_support_payload.suggested_options MUST be typed enum values declared in the rule's TypeScript definition (no free-text); rationale_summary + evidence_summary MUST be string-typed (no AI-generated content at runtime — pre-computed at rule-firing time from typed inputs).
+  action: RuleAction;                       // discriminated union: {kind: 'block', reason_code, override_capability_required?: CapabilityCode} | {kind: 'clarify', module_ids, follow_up_kind} | {kind: 'route', queue_role, priority_hint, decision_support_payload?: {suggested_options: TypedActionOption[], rationale_summary: string (REQUIRED min 80 chars), evidence_summary: string (REQUIRED min 80 chars + cites >= 1 evidence_refs[] entry)}} | {kind: 'notify', channels, send_policy_class} | {kind: 'escalate', escalation_owner_role, sla_minutes} | {kind: 'gate', allow_when_resolved, override_capability_required?: CapabilityCode}. **decision_support_payload minimum-content discipline (binding; per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 2.4 polish-now fix):** when `kind: 'route'` declares `decision_support_payload`, CI lint at PR time enforces: (a) `rationale_summary` MUST be >= 80 characters of substantive prose (not "Patient on outside TRT" stub); (b) `evidence_summary` MUST be >= 80 characters AND MUST reference at least 1 entry from rule's `evidence_refs[]`; (c) every `suggested_options[]` entry MUST declare `option_kind` (typed enum) + `option_rationale` (REQUIRED min 50 chars; explains WHY this option is offered + when provider should choose it) + `option_evidence_refs?` (optional; cites option-specific evidence) + `option_default?` (boolean; pre-selected option for provider workspace UX); CI lint validates all minimums + flags decision_support_payloads that give provider "options without context" (rubber-stamp risk per Cat 2.5 of dynamic behavior pressure test). Failure mode prevented: provider sees decision_support_payload with several options but no clarity on WHY each option is offered → rubber-stamps → bad clinical decision. Pattern reuses existing `Section 1Q.4` audit + decision_support_payload primitive; no new primitives. **override_capability_required (NEW; optional on kind='block' and kind='gate'; per `2026-04-30_adversarial_slice_pre_runtime.md` Refinement 3):** when set, the firing of this rule may be **scoped-overridden** by an actor holding the named capability (typically `can_authorize_clinical_override` for clinical rules; `can_authorize_ops_override` for operational rules; `can_authorize_billing_override` for billing rules per `1D.1`). When OMITTED, the rule firing is non-overridable (reserved for safety-critical rules where override would be inappropriate — e.g., absolute contraindication contraindication_men2; pregnancy_block on GLP-1 active). Override is a SCOPED authorization of a specific firing — it does NOT modify underlying assertions or truth; it authorizes a single action despite the block. Audit per `Section 1Q.7` `rule.firing_overridden` event below. CI lint forbids: (a) override_capability_required on a `clinical_safety` domain rule without explicit clinical CODEOWNER + compliance approval recorded in the rule's `rationale_note`; (b) override_capability_required on rules with `recall_severity = safety_critical` per `Section 1Q.10`. **decision_support_payload (NEW; optional on kind='route'; per `2026-04-30_glp1_first_slice.md` Refinement 4):** when a non-blocking routing rule needs to surface decision-support to the assigned reviewer (e.g., external GLP-1 use rule routes to provider with substitute / co-manage / refuse options + clinical context summary), the payload carries TypedActionOption[] (each option is a typed enum with declared semantics — no free-text option labels), rationale_summary (factual context summary; not editorialized), evidence_summary (pointers to relevant evidence_refs). Batch review UI per `Section 1P.5` renders the payload as decision-support UI; reviewer selects an option which triggers the corresponding follow-on rule action (substitute → provider writes provider_confirmed assertion + Rx authorization; refuse → provider writes provider_rejected + denial template; etc.). CI lint enforces: decision_support_payload.suggested_options MUST be typed enum values declared in the rule's TypeScript definition (no free-text); rationale_summary + evidence_summary MUST be string-typed (no AI-generated content at runtime — pre-computed at rule-firing time from typed inputs).
   priority: 'urgent_clinical' | 'urgent_ops' | 'standard' | 'low';
   blocking: boolean;                        // true = mutation halts; false = side effect / signal only
   template_key?: TemplateKey;               // when action emits a patient-facing or staff-facing message
@@ -6154,6 +6180,7 @@ interface Template {
   requires_consent_for_intent?: ConsentType[];          // patient_consents.type values required by intent (e.g., `marketing` intent requires `marketing_sms` for SMS channel; `marketing_email` for email channel); CI lint enforces declaration when intent ∈ {marketing, education-with-marketing-tone}
   safety_critical_override_allowed: boolean;            // DEFAULT FALSE; when TRUE: template may fire over patient channel preferences per existing `1G.3` safety override; MUST also declare `safety_vague_companion_template_key`; CI lint forbids `true` on non-`safety` intent templates
   safety_vague_companion_template_key?: string;          // REQUIRED when `safety_critical_override_allowed = true`; points at a tier_2 vague template (intent=`safety`) that fires on outside channels (SMS / email / push) while the tier_4/5 detailed version stays in-app + phone; CI lint validates the companion exists, is `privacy_exposure_level: 2`, and is registered as `intent: safety`
+  action_context_required: boolean;                       // NEW per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 5.2 polish-now fix; defaults TRUE for templates with `privacy_exposure_level <= 2` AND `outside_secure_render_strategy != 'header_only_for_push'`; CI lint at PR time validates template body contains at least one verb-driven actionable cue (e.g., "complete one quick step", "your provider has an update", "your refill request needs review", "your shipment is on the way", "we need one more detail to continue your request"); CI lint FLAGS templates whose body contains ONLY portal-redirect copy without action context (FORBIDDEN patterns: "You have a notification" alone, "Open the app" alone, "Important account notice" alone, "Notification available" alone — all examples of vague-portal-only that drive disengagement); when `action_context_required: false` is declared, `rationale_note` MUST justify the exception (rare cases like push lockscreen header where character limit precludes action-context cue; or pure brand-content emails for tier_0 cold acquisition). Failure mode prevented: privacy-safe vague messages that feel useless and degrade engagement; reduces unsubscribes; matches the user-facing copy patterns documented in `Section 1Q.17` Privacy useful-outside-secure pattern. Pattern reuses existing `Section 1Q.5` template object shape + CI lint discipline; no new primitives.
   // Marketing Lifecycle + Growth Orchestration Suite extensions (NEW per `2026-05-01_marketing_lifecycle_growth_orchestration.md` + `Section 1Q.21`):
   campaign_type?: CampaignType;                           // 18-value enum per `Section 1Q.21` Part 5 campaign taxonomy; REQUIRED for templates with `domain: marketing_lifecycle`; CI lint enforces declaration on marketing_lifecycle domain templates; allowed values: lead_nurture | abandoned_intake | abandoned_checkout | lab_completion_reminder | approved_not_purchased | first_purchase_onboarding | refill_reorder_reminder | subscription_retention | winback | post_cancel_feedback | post_denial_re_evaluation | birthday_anniversary_holiday | seasonal_promotion | pathway_education | supplement_standalone | supplement_adjunct | cross_sell | upsell | referral_loyalty | reactivation | launch_drop
   personalization_level: 'none' | 'basic' | 'contextual' | 'behavioral' | 'sensitive_restricted';  // REQUIRED on every template; default 'none'; per `Section 1Q.21` 5-level taxonomy; AI refinement may NOT escalate beyond declared level; sensitive_restricted only allowed for non-extreme pathway_sensitivity templates
@@ -6337,6 +6364,43 @@ Deterministic pipeline (binding):
     provider_user_id: uuid,
     flag_reason: 'contradicting_assertion' | 'safety_event_in_window' | 'lab_result_superseded' | 'patient_self_correction',
     provider_banner_state: 'pending_provider_acknowledgment'     // banner renders on next batch review per Section 1G.5; provider must acknowledge + decide whether to keep, modify, or reverse the prior decision
+  }
+}
+
+// campaign_recall_issued — campaign discovered bug post-deploy; recall mechanism cancels in-flight enrollments per recall_severity (per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 6.5)
+{
+  event_type: 'campaign_recall_issued',
+  payload: {
+    recall_id: uuid,
+    affected_campaign_id: string,
+    affected_campaign_version: string,
+    affected_firing_window_start: timestamptz,
+    affected_firing_window_end: timestamptz,
+    recall_severity: 'safety_critical' | 'clinical' | 'operational' | 'cosmetic',
+    recall_action: 'mass_supersede' | 'flag_for_re_review' | 'flag_informational' | 'mass_unenroll',
+    recall_reason_code: text,                                   // typed; e.g., 'privacy_leak_extreme_pathway' | 'wrong_audience_query' | 'faulty_branch_logic' | 'missing_consent_gate' | 'typo_cosmetic'
+    affected_enrollment_count: int,                             // count of in-flight campaign_enrollment rows pinned to affected_campaign_version at recall time
+    retroactive_correction_required: boolean,                   // true for safety_critical; triggers patient-facing corrective comm
+    retroactive_correction_template_key?: string,               // when retroactive_correction_required = true; pre-approved correction template
+    issued_by_user_id: uuid,
+    issued_by_role: 'clinical_codeowner' | 'ops_codeowner' | 'compliance' | 'admin' | 'growth_codeowner',
+    rationale_note: text                                        // REQUIRED; explains the bug + why recall is being issued
+  }
+}
+
+// campaign.exit_due_to_recall — per-enrollment audit row when campaign_recall_issued cancels in-flight enrollments (per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 6.5)
+{
+  event_type: 'campaign.exit_due_to_recall',
+  payload: {
+    enrollment_id: uuid,
+    campaign_id: string,
+    affected_campaign_version: string,
+    recall_id: uuid,
+    recall_severity: 'safety_critical' | 'clinical' | 'operational' | 'cosmetic',
+    recall_reason_code: text,
+    queued_outbound_jobs_cancelled_count: int,                  // count of queued outbound_jobs cancelled for this enrollment
+    patient_id: uuid,
+    exited_at: timestamptz
   }
 }
 
@@ -6590,37 +6654,52 @@ Deterministic pipeline (binding):
 | 9 | Rule recall doesn't propagate to in-flight messages | Generalize `Section 1P.11` `model_recall` pattern to `rule_recall` + `template_recall` per 1Q.10 below |
 | 10 | Rule logic error not caught by sandbox tests | Required test fixtures (5+ for clinical_safety; 2+ for ops); CI gate forbids activation without passing tests; post-activation monitoring via `audit_events` rule firing rate alarms; `1H.6.1E` `system_bug_or_defect` classification on anomaly |
 
-### 1Q.10 Rule recall + template recall (extends Section 1P.11 model_recall pattern)
+### 1Q.10 Rule recall + template recall + campaign recall (extends Section 1P.11 model_recall pattern)
 
-The `Section 1P.11` `model_recall` pattern generalizes to `rule_recall` and `template_recall` via the same `audit_events` mechanism. When a rule or template version is found systematically wrong (logic error, content error, regulatory non-compliance discovered post-activation), an append-only `audit_events` row with `event_type ∈ {rule.recall_issued, template.recall_issued}` carries the recall. Payload structure mirrors `Section 1P.11` with rule-specific or template-specific fields:
+The `Section 1P.11` `model_recall` pattern generalizes to `rule_recall`, `template_recall`, and **`campaign_recall`** (NEW per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 6.5 foundational fix) via the same `audit_events` mechanism. When a rule, template, or campaign version is found systematically wrong (logic error, content error, regulatory non-compliance, privacy leak discovered post-activation), an append-only `audit_events` row with `event_type ∈ {rule.recall_issued, template.recall_issued, campaign_recall_issued}` carries the recall. Payload structure mirrors `Section 1P.11` with kind-specific fields:
 
 ```jsonc
 {
   recall_id: uuid,
-  recall_kind: 'rule' | 'template',
+  recall_kind: 'rule' | 'template' | 'campaign',
   affected_rule_id?: string,                // when recall_kind = 'rule'
   affected_rule_version?: string,
   affected_template_key?: string,           // when recall_kind = 'template'
   affected_template_version?: string,
+  affected_campaign_id?: string,            // when recall_kind = 'campaign'
+  affected_campaign_version?: string,
   affected_firing_window_start: timestamptz,
   affected_firing_window_end: timestamptz,
   recall_severity: 'safety_critical' | 'clinical' | 'operational' | 'cosmetic',
-  recall_action: 'mass_supersede' | 'flag_for_re_review' | 'flag_informational' | 're_extract_with_new_model',  // re_extract_with_new_model NEW per `2026-04-30_adversarial_slice_pre_runtime.md` Refinement 4 — applies to model_recall events with recall_kind = 'model_recall' (per Section 1P.11; not directly applicable to rule_recall or template_recall in this section, but the action name is shared across recall mechanisms for consistency)
+  recall_action: 'mass_supersede' | 'flag_for_re_review' | 'flag_informational' | 're_extract_with_new_model' | 'mass_unenroll',  // mass_unenroll NEW for campaign_recall (per Cat 6.5 fix); applies to operational-severity campaign recalls where in-flight enrollments should auto-exit + cancel queued steps without provider notification
   issued_by_user_id: uuid,
-  issued_by_role: text,                     // clinical_codeowner | ops_codeowner | compliance | admin
+  issued_by_role: text,                     // clinical_codeowner | ops_codeowner | compliance | admin | growth_codeowner
   rationale_note: text,                     // required
-  related_failure_count: int,
+  related_failure_count: int,               // count of affected firings/enrollments
+  affected_enrollment_count?: int,          // when recall_kind = 'campaign'; count of in-flight campaign_enrollment rows pinned to the bad campaign_version
+  retroactive_correction_required?: boolean, // when recall_kind = 'campaign' AND recall_severity = 'safety_critical'; true means corrective patient-facing comm required
   issued_at: timestamptz
 }
 ```
 
 **Recall actions:**
 
-- `mass_supersede` (safety-critical only; requires clinical CODEOWNER + compliance approval): for every patient-facing message rendered with the affected rule/template version, fire a system-authored corrective communication using a pre-approved correction template; reopen any `clinical_required` turns where the affected rule action contributed.
-- `flag_for_re_review` (default for clinical recalls): every affected firing gets a `recall_flag_<recall_id>` annotation in `audit_events`; affected rule/template version is marked `status = retired` with `retiring_replaced_by_rule_id` / `retiring_replaced_by_template_key` set to the corrected version.
-- `flag_informational` (cosmetic / operational): annotates `audit_events` only; no patient-facing correction.
+- `mass_supersede` (safety-critical only; requires clinical CODEOWNER + compliance approval): for every patient-facing message rendered with the affected rule/template/campaign version, fire a system-authored corrective communication using a pre-approved correction template; reopen any `clinical_required` turns where the affected rule/campaign action contributed; for `campaign_recall`, also cancel in-flight `campaign_enrollment` rows pinned to the affected version + emit per-enrollment `campaign.exit_due_to_recall` audit row.
+- `flag_for_re_review` (default for clinical recalls): every affected firing gets a `recall_flag_<recall_id>` annotation in `audit_events`; affected rule/template/campaign version is marked `status = retired` with `retiring_replaced_by_rule_id` / `retiring_replaced_by_template_key` / `retiring_replaced_by_campaign_id` set to the corrected version. For `campaign_recall` clinical severity, in-flight enrollments are paused (status=`paused_recall_pending_review`) until growth+clinical CODEOWNER decide per-cohort action.
+- `flag_informational` (cosmetic / operational): annotates `audit_events` only; no patient-facing correction; in-flight enrollments continue with old version (e.g., typo in template body that doesn't cause functional harm).
+- `mass_unenroll` (NEW; campaign_recall operational severity only; per Cat 6.5 fix): for operational-severity campaign bugs (e.g., wrong audience query enrolling ineligible patients; faulty branch logic causing inappropriate cadence), in-flight `campaign_enrollment` rows pinned to the affected `campaign_version` are bulk-exited with `status = 'exited_campaign_recalled'` + per-enrollment audit row `campaign.exit_due_to_recall { recall_id, recall_severity: 'operational', recall_reason }`. Stale queued steps cancelled via existing pre-send revalidation (per Patch 2 of dynamic behavior). NO patient-facing corrective communication (operational severity = silent unenroll).
+- `re_extract_with_new_model` (per `2026-04-30_adversarial_slice_pre_runtime.md` Refinement 4): applies to model_recall only.
 
-**FDA AI/ML SaMD compliance:** rule_recall + template_recall events satisfy the post-market monitoring evidence trail for clinical decision-support changes; reconstructable from `audit_events` with full provenance.
+**Campaign recall discipline (binding; per Cat 6.5 of `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md`):**
+- A campaign with a discovered bug post-deploy MUST be retired via `campaign.recall_issued` audit event — manually retiring the `campaign_definition` file alone is INSUFFICIENT (existing in-flight enrollments would continue on the bad version)
+- `safety_critical` campaign recall (e.g., privacy leak; tier-3 marketing on extreme-sensitivity pathway) requires clinical CODEOWNER + compliance CODEOWNER co-approval + retroactive corrective patient comm
+- `clinical` campaign recall pauses enrollments pending review (no automatic cancellation; growth+clinical decide per-cohort)
+- `operational` campaign recall mass_unenroll (silent; no patient comm; e.g., audience_query that was supposed to target abandoned-intake patients but accidentally caught all patients)
+- `cosmetic` campaign recall is informational only (e.g., typo; existing enrollments continue with old version until natural exit/completion)
+- CI lint enforces: `campaign_definition` files with `status = retired` AND `retired_at IS NOT NULL` MUST have a corresponding `audit_events.campaign_recall_issued` row; orphan retired campaigns without recall events are rejected at PR time
+- All campaign recalls feed `rule_correction_patterns_rollup` per `Section 1P.11` for ongoing growth team quality monitoring
+
+**FDA AI/ML SaMD compliance:** rule_recall + template_recall + campaign_recall events satisfy the post-market monitoring evidence trail for clinical decision-support changes + marketing communication compliance; reconstructable from `audit_events` with full provenance.
 
 ### 1Q.11 CI lint + governance forbidden patterns
 
@@ -6702,6 +6781,7 @@ This subsection defines the platform-level communication + action module taxonom
 | 6 | Medication workflow | 2 (Rx ready) / 4 (dose/name in secure view) | `clinical` |
 | 7 | Fulfillment / shipping | 2 (never name medication in body) / 2 | `operational` |
 | 8 | Subscription + billing | 2 (amount + card OK; never med line item in SMS) / 2 | `billing` |
+**Module 8 refund-subscription-clarity discipline (binding; per `2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` Cat 7.3 polish-now fix):** refund-domain templates (e.g., `tmpl.billing.refund_*` family) MUST clarify subscription status alongside refund amount to prevent patient confusion about whether subscription continues after a refund. New canonical template family declared: `tmpl.billing.refund_with_subscription_status_v1` with REQUIRED variables `refund_amount: decimal` + `refund_reason: text` + **`subscription_status_summary: text`** (derived at template render time from current subscription state per `1I.7`; rendered as e.g., "Your subscription remains active and renews on [date]" OR "Your subscription was cancelled on [date]" OR "You don't currently have an active subscription") + `subscription_action_link: text` (link to manage subscription if active; null if no active subscription). CI lint enforces: refund-domain templates (templates declaring `campaign_type ∈ {refund_*}` OR template_key matching `tmpl.billing.refund_*` pattern) MUST include `subscription_status_summary` in `required_variables[]` per `Section 1Q.5` template object shape — OR explicitly declare `transactional_critical: true` with `rationale_note` justifying the bypass (e.g., refund-only-no-subscription-context cases where patient has no active subscription). Failure mode prevented: patient receives refund → wonders if subscription continues → support ticket → wasted ops time + patient frustration. Pattern reuses existing `Section 1Q.5` template object shape + `Section 1I.7` subscription state read; no new primitives.
 | 9 | Safety / urgent escalation | 2 outside (vague urgent) / 5 secure + phone | `safety` |
 | 10 | Support inbox / threads | 2 / 2 (mirror inside thread) | `support` |
 | 11 | Vendor / partner I/O | structured-only (n/a tier) / structured-only | `vendor` |
