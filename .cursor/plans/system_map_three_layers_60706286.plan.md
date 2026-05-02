@@ -509,6 +509,34 @@ CI lint forbids: (a) outbound dispatch paths that bypass this 5-step privacy gat
 
 **Foundational because** without this, race conditions between rule firing and SMS/email dispatch can cause patients to receive guidance based on stale or contradicted evidence (e.g., approval message sent AFTER patient reported critical safety information; cold-chain "shipped successfully" sent AFTER vendor reported failure). The pattern reuses existing `Section 1Q.7` audit infrastructure + `patient_action_items` re-entry surface; no new primitives.
 
+**Pre-send revalidation EXTENSION — contact info + jurisdiction freshness (binding; per `2026-05-01_marketing_system_pressure_test.md` Gaps A + B):** the revalidation gate at dispatch time MUST also verify, in addition to the 3 evidence/assertion/decision checks above:
+
+4. **Contact info freshness:** verify `patients.email` (for email channel) / `patients.phone` (for SMS channel) / `patients.shipping_address` (for fulfillment-tied marketing references) for the dispatch channel matches the contact target captured on the `outbound_jobs` row at queue time. If contact info changed between queue time and dispatch (e.g., patient updated email Tuesday at 2pm; outbound_job queued Tuesday at 10am for Wednesday dispatch — Tuesday-10am snapshot is now stale) → revalidation FAILS.
+
+5. **Jurisdiction freshness:** verify `patients.state` matches `campaign_definition.jurisdiction_eligibility` policy at dispatch time. If patient moved to a state where the campaign's pathway is no longer available → revalidation FAILS.
+
+**On contact-info-stale failure:**
+- Cancel send (do not dispatch to old contact).
+- Audit `notification.cancelled_pre_send_contact_info_changed` per `Section 1Q.7` extended audit shapes with full payload: `{outbound_job_id, campaign_id, channel, old_contact_target_hash, new_contact_target_hash, patient_id, contact_change_event_id, action_item_id}`.
+- The marketing engine's contact-change handler (see proactive rebind below) should already have re-rendered + re-queued for the new contact; if not (race), reroute via `patient_action_items` of type `secure_message_waiting`.
+
+**On jurisdiction-stale failure:**
+- Cancel send (do not dispatch jurisdictionally-restricted marketing).
+- Audit `notification.cancelled_pre_send_jurisdiction_changed` per `Section 1Q.7` extended audit shapes with full payload: `{outbound_job_id, campaign_id, patient_id, old_state, new_state, prior_jurisdiction_eligibility, action_item_id}`.
+- Create `patient_action_items` row of type `pathway_unavailable_in_new_jurisdiction` so patient is informed in-app about pathway availability change.
+- Per `Section 1G.4.1` jurisdiction routing, the patient's clinical pathway state may also need to enter `paused_jurisdiction_unavailable` per pathway file declaration; that's downstream from this revalidation gate.
+
+**Proactive rebind (binding; complementary to reactive revalidation):** when `patients.email` / `patients.phone` / `patients.shipping_address` mutates via account settings or admin update, the system fires a `patient_contact_info_changed` event per `Section 1Q.7` audit shapes that triggers a backlog scan of queued outbound_jobs for that patient. For each queued outbound_job:
+- (a) **Re-render + re-route at same step + same campaign:** if the new contact info simply replaces the old target on the same channel (email→email; phone→phone), re-render the template against new contact + re-queue with same scheduled_for time. Preserves cadence semantics.
+- (b) **Cancel + audit if rebinding ambiguous:** if re-rendering would change the message in semantically meaningful ways (e.g., shipping-address-dependent template content), cancel the queued send + audit + create action item.
+- All decisions logged in the `patient_contact_info_changed` audit row counters: `queued_outbound_jobs_rebound_count` + `queued_outbound_jobs_cancelled_count`.
+
+**CI lint enforcement:**
+- Forbids dispatch paths that bypass the contact-info + jurisdiction freshness checks (extends existing CI lint that forbids dispatch paths bypassing privacy gate)
+- Forbids `patients.email` / `patients.phone` / `patients.shipping_address` mutation paths that bypass the proactive rebind handler (no silent contact updates)
+
+**Foundational because** without contact-info freshness, queued marketing emails dispatch to OLD email addresses after patient updates — patient confusion + missed engagement + privacy violation if old phone number reassigned. Without jurisdiction freshness, marketing for jurisdictionally-restricted pathways can dispatch to patients who moved to non-permissive states — direct compliance violation. Both reuse existing pre-send revalidation infrastructure + `Section 1Q.7` audit chain; no new primitives.
+
 `1G.3` outbound_jobs orchestrator computes the per-patient pending-notification queue at scheduled-send time, applies digest + sequencing, then dispatches per channel-specific rendering rules per `Section 1Q.13`. CI lint forbids `notification` or `marketing_lifecycle` send paths that bypass `1G.3` outbound_jobs gate.
 
 | # | **Theme** | **Exists (typical / map-honest)** | **Partial** | **Target (same model — no CRM)** | **Non-optional before Hims-style scale** |
@@ -6130,7 +6158,7 @@ interface Template {
   campaign_type?: CampaignType;                           // 18-value enum per `Section 1Q.21` Part 5 campaign taxonomy; REQUIRED for templates with `domain: marketing_lifecycle`; CI lint enforces declaration on marketing_lifecycle domain templates; allowed values: lead_nurture | abandoned_intake | abandoned_checkout | lab_completion_reminder | approved_not_purchased | first_purchase_onboarding | refill_reorder_reminder | subscription_retention | winback | post_cancel_feedback | post_denial_re_evaluation | birthday_anniversary_holiday | seasonal_promotion | pathway_education | supplement_standalone | supplement_adjunct | cross_sell | upsell | referral_loyalty | reactivation | launch_drop
   personalization_level: 'none' | 'basic' | 'contextual' | 'behavioral' | 'sensitive_restricted';  // REQUIRED on every template; default 'none'; per `Section 1Q.21` 5-level taxonomy; AI refinement may NOT escalate beyond declared level; sensitive_restricted only allowed for non-extreme pathway_sensitivity templates
   provider_template_registration_id?: string;             // when external marketing platform mirrors the template (V2+ only per `Section 1Q.21` template ownership models; e.g., Klaviyo / Customer.io / Braze / Iterable); CI lint enforces external_id matches internal `template_version`; external platforms NEVER source of truth per Invariant 19
-  pathway_sensitivity_compatibility: PathwaySensitivity[]; // which pathway sensitivities the template can fire on; default = all `low` / `moderate` allowed; explicit allowlist required for `high` / `extreme`; CI lint validates against template's `prohibited_claims` floor + privacy_exposure_level + outside_secure_render_strategy
+  pathway_sensitivity_compatibility: PathwaySensitivity[]; // which pathway sensitivities the template can fire on; default = all `low` / `moderate` allowed; explicit allowlist required for `high` / `extreme`; CI lint validates against template's `prohibited_claims` floor + privacy_exposure_level + outside_secure_render_strategy. **Dual-CODEOWNER co-sign rule (binding; per `2026-05-01_marketing_system_pressure_test.md` Gap C):** CI lint REQUIRES dual clinical CODEOWNER + compliance CODEOWNER PR co-sign + non-empty `rationale_note` explaining the per-template opt-in justification when ALL FOUR of the following are true on a template: (a) `privacy_exposure_level: 3`, (b) `outside_secure_render_strategy: 'mention_pathway_name_with_consent'`, (c) `pathway_sensitivity_compatibility` includes `'high'` (Female HRT and equivalent high-sensitivity pathways), (d) `domain: 'marketing_lifecycle'`. Fails PR if either CODEOWNER missing OR rationale_note is empty/generic. Recorded in `.github/CODEOWNERS` ruleset. Distinct from the `clinical_review_required` boolean which governs runtime per-message authority — this is a PR-time governance gate ensuring that high-sensitivity pathway-named outside-secure marketing templates cannot ship without dual review. Without this rule: HRT (high sensitivity) tier_3 outside-secure marketing templates could ship with single-CODEOWNER approval if the reviewer doesn't catch the high-sensitivity-tier_3 combination. CI lint also extends the same dual-CODEOWNER co-sign requirement to any `extreme` pathway template attempting `privacy_exposure_level >= 3` (which should be impossible per Invariant 5 — extreme blocks tier_3 regardless of consent — but this is a defense-in-depth measure)
   transactional_critical?: boolean;                       // per `2026-04-30_dynamic_behavior_pre_runtime.md` Patch 4 marketing exclusion windows + `Section 1Q.21` cadence rules; default false; when true: bypasses safety-window suppression AND marketing-exclusion-window suppression for billing/account/safety intents; CI lint forbids `transactional_critical = true` on `marketing` or `education` intents (only `billing` / `account` / `safety` may declare this)
 }
 ```
@@ -6309,6 +6337,51 @@ Deterministic pipeline (binding):
     provider_user_id: uuid,
     flag_reason: 'contradicting_assertion' | 'safety_event_in_window' | 'lab_result_superseded' | 'patient_self_correction',
     provider_banner_state: 'pending_provider_acknowledgment'     // banner renders on next batch review per Section 1G.5; provider must acknowledge + decide whether to keep, modify, or reverse the prior decision
+  }
+}
+
+// notification.cancelled_pre_send_contact_info_changed — pre-send revalidation cancelled dispatch because contact target stale (per `2026-05-01_marketing_system_pressure_test.md` Gap A)
+{
+  event_type: 'notification.cancelled_pre_send_contact_info_changed',
+  payload: {
+    outbound_job_id: uuid,
+    campaign_id?: string,                                       // when from marketing_lifecycle
+    template_key: string, template_version: string,
+    channel: 'email' | 'sms' | 'push' | 'in_app',
+    patient_id: uuid,
+    old_contact_target_hash: text,                              // hashed snapshot of contact target at queue time
+    new_contact_target_hash: text,                              // hashed snapshot of current patient contact target
+    contact_change_event_id?: uuid,                             // pointer to patient_contact_info_changed event that triggered the rebind/cancel
+    action_item_id?: uuid                                       // patient_action_items row created (secure_message_waiting) when rebinding ambiguous
+  }
+}
+
+// notification.cancelled_pre_send_jurisdiction_changed — pre-send revalidation cancelled dispatch because patient jurisdiction changed and pathway no longer available (per `2026-05-01_marketing_system_pressure_test.md` Gap B)
+{
+  event_type: 'notification.cancelled_pre_send_jurisdiction_changed',
+  payload: {
+    outbound_job_id: uuid,
+    campaign_id?: string,
+    template_key: string, template_version: string,
+    patient_id: uuid,
+    old_state: text, new_state: text,                            // ISO state codes; e.g., 'CA' / 'TX'
+    prior_jurisdiction_eligibility: text[],                     // campaign_definition.jurisdiction_eligibility at queue time
+    action_item_id: uuid                                         // patient_action_items row of type 'pathway_unavailable_in_new_jurisdiction'
+  }
+}
+
+// patient_contact_info_changed — patient contact info mutation event (per `2026-05-01_marketing_system_pressure_test.md` Gap A); triggers proactive rebind/cancel of queued outbound_jobs
+{
+  event_type: 'patient_contact_info_changed',
+  payload: {
+    patient_id: uuid,
+    contact_field: 'email' | 'phone' | 'shipping_address',
+    changed_at: timestamptz,
+    old_value_hash: text, new_value_hash: text,                 // hashed; never raw PHI in audit_events
+    queued_outbound_jobs_rebound_count: int,                    // count of queued outbound_jobs successfully re-rendered + re-queued for new contact
+    queued_outbound_jobs_cancelled_count: int,                  // count of queued outbound_jobs cancelled because rebinding was ambiguous
+    triggered_by_actor_user_id: uuid,                           // patient (self-update via account settings) or admin/staff (capability-gated mutation)
+    triggered_by_capability: text                               // e.g., 'self_update_via_account_settings' | 'staff_admin_mutation_with_audit'
   }
 }
 
