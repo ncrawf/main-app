@@ -1,9 +1,9 @@
 # Domain modules — Layer C spec v1
 
-**Date:** 2026-05-02
+**Date:** 2026-05-02 (revised after demographic over-collection fix + pathway override architectural rule)
 **Stage:** 2 Phase 1 — Layer C authoring (5 modules; 17 questions)
 **Clinical CODEOWNER:** founder (board-certified MD)
-**Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; concept registry organized by domain) + `Section 1K.19` (intake repository + control model)
+**Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics + pathway override pattern + directly-answered-fields rule) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; concept registry organized by domain) + `Section 1K.19` (intake repository + control model)
 **Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md)
 
 ## Scope
@@ -13,7 +13,7 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 **5 modules in this file:**
 1. `mod.domain.cardiometabolic.baseline_history_v1` — 3 questions (cardiovascular + endocrine + renal/hepatic + cancer multi-select)
 2. `mod.domain.gastrointestinal.baseline_history_v1` — 1 question (GI conditions multi-select)
-3. `mod.domain.reproductive.pregnancy_status_baseline_v1` — 5 questions (rendered when biological_sex_at_birth ∈ {female, intersex})
+3. `mod.domain.reproductive.pregnancy_status_baseline_v1` — 5 questions (rendered when biological_sex_at_birth = female)
 4. `mod.domain.mental_health.baseline_v1` — 3 questions (diagnosis + meds + safety screen)
 5. `mod.domain.lifestyle.standard_baseline_v1` — 5 questions (activity / alcohol / drugs / nicotine / sleep)
 
@@ -178,7 +178,7 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 **`required_for`:** safety
 **`assertion_group_emit_trigger`:** `module_complete`
 **Atom domain:** `obstetric`
-**Render policy:** module ONLY renders when `qb.universal.demographics.biological_sex_at_birth_v1 ∈ {female, intersex}` per `Section 1Q.23` interaction_context conditional rendering
+**Render policy:** module ONLY renders when `qb.universal.demographics.biological_sex_at_birth_v1 = female` per `Section 1K.3` directly-answered-fields rule (biological_sex_at_birth is a directly answered demographic fact and MAY drive pregnancy-possibility screening logic; intersex / declined-to-answer patients handled via downstream Mode F clarification per `Section 1P.4` and/or pathway-specific anatomy questions per `Section 1K.3` directly-answered vs inferred clinical facts rule)
 
 ### Q10.1 — Currently pregnant?
 
@@ -192,7 +192,7 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 - `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
 - `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
 - `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `hard_stop` (active pregnancy = absolute contraindication for many pathways)
-- `render_when`: `{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', in: ['female', 'intersex']}`
+- `render_when`: `{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', equals: 'female'}`
 
 **Choices:** Yes | No | Not sure
 **`choice_values`:** `yes | no | unsure`
@@ -220,7 +220,7 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 - `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
 - `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
 - `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `provider_review` (TTC affects medication washout planning)
-- `render_when`: `{all_of: [{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', in: ['female', 'intersex']}, {question_id: 'qb.domain.reproductive.pregnancy_status.currently_pregnant_v1', in: ['no', 'unsure']}]}`
+- `render_when`: `{all_of: [{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', equals: 'female'}, {question_id: 'qb.domain.reproductive.pregnancy_status.currently_pregnant_v1', in: ['no', 'unsure']}]}`
 
 **Choices:** Yes | No | Considering it within next 12 months
 **`choice_values`:** `yes | no | considering`
@@ -248,7 +248,7 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 - `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
 - `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
 - `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `hard_stop` (many pathways contraindicated during breastfeeding)
-- `render_when`: `{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', in: ['female', 'intersex']}`
+- `render_when`: `{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', equals: 'female'}`
 
 **Choices:** Yes | No
 **`choice_values`:** `yes | no`
@@ -275,7 +275,7 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 - `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
 - `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
 - `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
-- `render_when`: `{all_of: [{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', in: ['female', 'intersex']}, {question_id: 'qb.domain.reproductive.pregnancy_status.trying_to_conceive_v1', equals: 'no'}]}`
+- `render_when`: `{all_of: [{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', equals: 'female'}, {question_id: 'qb.domain.reproductive.pregnancy_status.trying_to_conceive_v1', equals: 'no'}]}`
 
 **Choices:** Yes | No
 **`choice_values`:** `yes | no`
@@ -425,6 +425,18 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 **`assertion_group_emit_trigger`:** `module_complete`
 **Atom domain:** `social_history`
 
+### Architectural note — Pathway-specific drug screen extensibility (binding per `Section 1K.3` `question_overrides` pattern)
+
+Q12.3 recreational drugs is the **universal baseline** (5 Hims-equivalent substances: cocaine / methamphetamine / opioids / kratom / cannabis). Pathways requiring deeper or differently-scoped substance screening declare a `question_override` per `Section 1K.3` pathway override pattern. The override REPLACES Q12.3 at render time within this module's composition; the override MAY emit MORE atoms than the baseline (richer signal) but MUST NOT emit FEWER atoms (CI lint enforces atom-output-cannot-decrease rule). All overrides preserve the 5 baseline substance atoms (`social_history.recreational_drug_cocaine_6mo` / `_methamphetamine_6mo` / `_opioids_6mo` / `_kratom_6mo` / `_cannabis_6mo`) so downstream rules consuming the baseline atoms continue to work; overrides ADD pathway-specific substance atoms in the same `social_history.*` namespace.
+
+**Worked extensibility examples (binding intent; Phase 2+ scope marker):**
+
+- **`mod.pathway.mental_health_ssri.recreational_drugs_extended_v1`** — 12-substance high-resolution variant for SSRI / SNRI / MAOI pathways. Adds: hallucinogens (LSD / psilocybin / ayahuasca) + MDMA / ecstasy + ketamine / dissociatives + GHB + novel synthetic drugs + DXM (dextromethorphan misuse). Rationale: serotonergic substances cause serotonin syndrome with SSRIs/SNRIs/MAOIs; MAOIs interact with multiple substances. CI lint: emits all 5 baseline atoms PLUS 7 additional substance atoms (`social_history.recreational_drug_hallucinogens_6mo`, etc.). Clinical CODEOWNER ack required at PR per `Section 1K.3` override-pattern rationale_note.
+- **`mod.pathway.cardiology.recreational_drugs_cocaine_focused_v1`** — 1-question targeted variant for beta-blocker / antihypertensive pathways. Asks "Have you used cocaine in the last 30 days?" with shorter recall window. Rationale: cocaine + non-selective beta-blocker = unopposed alpha-adrenergic stimulation → hypertensive emergency; 30-day recall is clinically critical (vs 6-month baseline). CI lint: enriched cocaine atom `social_history.recreational_drug_cocaine_30d` (more recent timeframe; clinically critical) — atom semantic differs from baseline, requires explicit clinical CODEOWNER ack in `rationale_note` per `Section 1K.3` override-pattern CI lint failure mode (b). Other 4 baseline atoms continue emitting from the override (renders the baseline question + the 30d-targeted question; preserves baseline coverage).
+- **`mod.pathway.ed.recreational_drugs_extended_v1`** — adds poppers / amyl nitrites / inhaled nitrates to baseline list. Rationale: PDE5 inhibitors + nitrates = absolute contraindication; poppers are a common recreational use. CI lint: emits all 5 baseline atoms PLUS `social_history.recreational_drug_poppers_6mo`. Clinical CODEOWNER ack at PR.
+
+**Pattern reuse:** Q12.4 nicotine + Q12.2 alcohol may also be candidates for pathway override (Q12.4 may need vape-specific depth for cardiology; Q12.2 may need detailed CAGE-style depth for ED with hepatic clearance considerations). Architecture is the same; specific overrides authored when pathways author Phase 2+ pathway-specific modules.
+
 ### Q12.1 — Activity level
 
 **Hims source:** Step 31 "How would you describe your typical daily activity level? 5 - I'm very active (i.e. exercise 6-7 days per week) / 4 / 3 - I'm moderately active (i.e. exercise 3-5 days per week) / 2 / 1 - I'm not very active (i.e. don't usually exercise during the week)"
@@ -483,7 +495,7 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 **Downstream effect:** `provider_review` (high-frequency drinking + GLP-1 = pancreatitis caution).
 **Final decision:** **Modify** (warmer helper).
 
-### Q12.3 — Recreational drugs in last 6 months
+### Q12.3 — Recreational drugs in last 6 months (universal baseline; pathway-overrideable per `Section 1K.3` question_override pattern)
 
 **Hims source:** Step 63 "Have you taken any of the following recreational drugs in the past 6 months? We ask this question so your provider can have a complete picture of your current health and determine which treatment might be right for you. Cocaine / Kratom / Opiates/opioids / Methamphetamine (crystal meth) / Cannabis / No, none of these"
 **MAIN voice:**
@@ -497,20 +509,21 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 - `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
 - `render_when`: null
 
-**Choices:** Cocaine | Methamphetamine | Opioids (heroin, fentanyl, prescription misuse) | Kratom | Cannabis | Hallucinogens (LSD, psilocybin, etc.) | MDMA / ecstasy | Ketamine | None of these
-**`choice_values`:** `cocaine | methamphetamine | opioids | kratom | cannabis | hallucinogens | mdma | ketamine | none_of_these`
+**Choices:** Cocaine | Methamphetamine (crystal meth) | Opioids (heroin, fentanyl, prescription misuse) | Kratom | Cannabis | None of these
+**`choice_values`:** `cocaine | methamphetamine | opioids | kratom | cannabis | none_of_these`
 
 **`none_logic`:** `{mode: 'exclusive_with_other_choices', none_choice_value: 'none_of_these'}`
 
 **Atoms emitted:**
 - Per selected: `social_history.recreational_drug_<kind>_6mo = true`
-- "None of these" → all denied at intake
+- "None of these" → all denied at intake (`status: 'denied_at_intake'`)
 
-**Issues found:** Hims's list omits common substances (hallucinogens, MDMA, ketamine, all of which are increasingly common). MAIN expands. Helper actively reassures honesty.
-**Recommended rewrite:** Expand to 9-option set; warm helper.
+**bloom_rewrite_note:** "Earlier draft expanded to 9 substances (added hallucinogens, MDMA, ketamine, plus split methamphetamine + opioids). User correction: keep the Hims 5-substance baseline at the universal Layer C level. Funnel parity + low-friction discipline. Pathways requiring deeper substance screening (mental_health_ssri for serotonergic interactions; cardiology_beta_blocker for cocaine focus; ED for poppers/inhalants) declare a `question_override` per `Section 1K.3` pathway override pattern — see `mod.domain.lifestyle.standard_baseline_v1` preamble for the worked extensibility examples. Atom output is preserved at universal baseline (5 substances atoms remain emittable by every override per CI lint atom-output-cannot-decrease rule); overrides MAY emit additional substance atoms in their own pathway namespaces."
+**Issues found:** Earlier 9-option list was over-collection at the funnel layer. Hims's 5-option set is the correct universal baseline; pathway-specific depth is the architectural pattern (see `Section 1K.3` `question_overrides`).
+**Recommended rewrite:** Adopt Hims 5-option baseline; depth via pathway override pattern.
 **Branching adjustments:** Daily cannabis triggers `Section 1K.3` Branch 3 lifestyle_depth follow-up (Phase 2; Tier 2). Other substances → provider_review at safety preflight.
 **Downstream effect:** `provider_review` (substance use affects medication selection).
-**Final decision:** **Modify** (expand list; warm helper).
+**Final decision:** **Modify** (Hims 5-option parity; pathway depth via `Section 1K.3` `question_overrides`; warm helper).
 
 ### Q12.4 — Nicotine use
 
@@ -609,14 +622,18 @@ Layer C domain modules — single-domain clinical baselines. Each module's atoms
 
 ## Phase 1 audit summary (across Layer A + B + C)
 
-| Layer | Modules | Questions | Decision |
+| Layer | Modules | Questions defined | Decision |
 |---|---|---|---|
-| A — Universal | 4 | 12 | 1 Keep + 11 Modify |
+| A — Universal | 4 | 14 | 2 Keep + 12 Modify (Q1.3 split into Q1.3a/b/c — 2 conditional follow-ups added; Q1.2 returns to Hims binary parity) |
 | B — Clinical core | 3 | 8 | 0 Keep + 8 Modify |
 | C — Domain | 5 | 17 | 0 Keep + 17 Modify |
-| **Total** | **12** | **37** | **1 Keep + 36 Modify** |
+| **Total** | **12** | **39** | **2 Keep + 37 Modify** |
 
-Net: spec is largely a Hims-cadence rewrite in MAIN voice with structural improvements (atomization + multi-instance modeling + tier classification + expanded inclusivity + warmer trust-building). Preserves Hims's brevity + sequencing while adopting MAIN architecture.
+**Per-patient render counts:**
+- Cis patient: ~37 questions rendered (Q1.3b + Q1.3c skipped)
+- Non-cis patient: ~39 questions rendered (full Q1.3 sequence)
+
+Net: spec is a Hims-cadence rewrite in MAIN voice with structural improvements (atomization + multi-instance modeling + tier classification + warmer trust-building). Demographic over-collection corrected per `Section 1K.3` directly-answered-fields rule + pathway override pattern: (a) Q1.2 biological sex Male/Female binary matching Hims (rare cases handled via downstream Mode F + pathway-specific anatomy questions); (b) Q1.3 redesigned as two-question alignment + asymmetric conditional deeper branch + optional pronouns (low-friction for cis; respectful for non-cis; clinically safe per architectural rule); (c) Q1.6 ethnicity 9 Hims-equivalent options; (d) Q12.3 recreational drugs 5 Hims-equivalent substances baseline + pathway-specific extensions per `Section 1K.3` `question_overrides` (mental_health_ssri 12-substance; cardiology cocaine-focused 30d; ED poppers extension). Preserves Hims's brevity + sequencing while adopting MAIN architecture.
 
 ## Next deliverable
 

@@ -3218,6 +3218,126 @@ Each module must declare: `module_id`, `module_version`, `kind` (clinical | non-
 
 **Contextual extension principle (binding):** same underlying fact = same shared question = same atomic concept assertion. Pathway-specific modules add CONTEXTUAL FOLLOW-UPS, not duplicate baseline screens. Example — surgery: `mod.clinical_core.surgery_history_v1` asks "Have you ever had surgery?" once → emits `procedure.has_any_surgery_history` + free-text dates/reasons (atomized via `Section 1P`); `mod.pathway.glp1.bariatric_surgery_extended_v1` extends with bariatric-specific multi-select → emits `procedure.gastric_bypass_history`, etc.; future `mod.pathway.female_hrt.gyn_surgery_extended_v1` → emits `procedure.hysterectomy_history`, `procedure.oophorectomy_history`. All pathway extensions REUSE the same `clinical_core` baseline; none re-asks "have you had surgery."
 
+**Pathway question_override + module_override pattern (binding):** the 4-layer module taxonomy + composition principle establishes the DEFAULT pattern: pathway file composes universal / clinical_core / domain modules unchanged + adds pathway-specific extension modules per the contextual extension principle. When a pathway needs a DIFFERENT QUESTION IMPLEMENTATION for a universal/clinical_core/domain question (not just additional follow-ups; an actual question swap), the pathway file may declare:
+
+**Pattern A — `question_overrides` (per-question swap):**
+
+```typescript
+{
+  pathway_id: 'mental_health_ssri',
+  modules: [..., 'mod.domain.lifestyle.standard_baseline_v1', ...],
+  question_overrides: {
+    'qb.domain.lifestyle.recreational_drugs_6mo_v1': 'qb.pathway.mental_health_ssri.recreational_drugs_extended_v1'
+  }
+}
+```
+
+The named universal question is suppressed at render time; the pathway-specific question renders in its place inside the composed module. Rest of the module's questions render unchanged.
+
+**Pattern B — `module_overrides` (whole-module swap; rare):**
+
+```typescript
+{
+  pathway_id: 'gah_feminizing',
+  modules: [..., 'mod.domain.reproductive.pregnancy_status_baseline_v1', ...],
+  module_overrides: {
+    'mod.domain.reproductive.pregnancy_status_baseline_v1': 'mod.pathway.gah_feminizing.reproductive_baseline_v1'
+  }
+}
+```
+
+The named module is replaced wholesale; the pathway-specific module renders in its slot in the composition order. Use only when MOST questions in the baseline differ; otherwise prefer per-question override.
+
+**When to use override vs extension:**
+
+| Need | Pattern | Reason |
+|---|---|---|
+| ADD follow-up questions when baseline answer triggers them | Contextual extension (existing) | Baseline question stays unchanged; pathway adds depth |
+| REPLACE baseline question with pathway-specific variant | `question_overrides` | Different resolution / framing required for clinical context |
+| REPLACE entire baseline module | `module_overrides` | Most questions differ; rebuilding baseline is cleaner than per-question overrides |
+| Compose unchanged baseline | Default composition | Most pathways for most modules |
+
+**CI lint rule (binding; atom output cannot decrease):** a pathway override MAY emit MORE atoms than the baseline question (richer signal) but MUST NOT emit FEWER atoms or DIFFERENT atoms incompatible with downstream consumers. CI lint validates: every atom emitted by the baseline question (per its `concept_mapping.assertion_template`) MUST also be emittable by the override question. Failure modes blocked: (a) override drops a baseline atom that downstream rules require → BLOCKED; (b) override changes atom concept_id semantically (e.g., baseline emits `social_history.recreational_drug_cocaine_6mo` but override emits `condition.cocaine_use_disorder_history`) without explicit clinical CODEOWNER ack in `rationale_note` → BLOCKED; (c) override silently omits a safety atom → BLOCKED. The override may add MORE atoms (e.g., extended substance list adds atoms for psychedelics) — that is the legitimate use case.
+
+**Worked example — substance use across 3 pathways:**
+
+- **GLP-1 baseline** (universal `mod.domain.lifestyle.standard_baseline_v1` Q12.3): 5-substance Hims-style list (cocaine / methamphetamine / opioids / kratom / cannabis) → emits `social_history.recreational_drug_<kind>_6mo` for selected; "None of these" denies all 5.
+- **Mental_health_ssri pathway** (`question_overrides` swaps Q12.3 with `mod.pathway.mental_health_ssri.recreational_drugs_extended_v1`): 12-substance high-resolution list (adds psychedelics, MDMA, ketamine, hallucinogens, GHB, dissociatives, novel synthetics) → emits same baseline 5 atoms PLUS 7 additional substance atoms; rationale: SSRIs interact with serotonergic substances (MDMA, psychedelics) — high-resolution screen is clinically required.
+- **Cardiology_beta_blocker pathway** (`question_overrides` swaps Q12.3 with `mod.pathway.cardiology.recreational_drugs_cocaine_focused_v1`): 1-question targeted variant ("Have you used cocaine in the last 30 days?") with shorter recall window → emits ENRICHED `social_history.recreational_drug_cocaine_30d` atom (more recent timeframe; clinically critical for beta-blocker contraindication). CI lint requires explicit clinical CODEOWNER ack because the atom semantic differs from baseline (30d vs 6mo) — recorded in `rationale_note` per pathway file.
+
+**Future patterns this enables:** hormone status (`mod.pathway.<pathway>.current_hormone_use_v1` overrides baseline medication question with hormone-specific variant); pregnancy depth (Female HRT requires deeper pregnancy/fertility capture than GLP-1 baseline pregnancy module); gender-affirming surgery history (pathway-specific surgery module overrides clinical_core surgery baseline for GAH-feminizing / GAH-masculinizing pathways); ED-specific cardiovascular screen overrides (more granular nitrate-use screening than baseline cardiometabolic module).
+
+#### Directly answered sex/gender fields vs inferred clinical facts (binding clinical-discipline rule)
+
+**Use directly answered sex/gender fields for their stated purpose, but do not infer unstated anatomy, hormone use, fertility status, or surgical history from identity alone.**
+
+The rule targets *unsafe inference of unstated facts*, not *use of stated facts*. Three directly answered universal atoms exist; each has a valid scope of use; each has limits.
+
+**`atom.universal.biological_sex_at_birth`** is a directly answered demographic + clinically-relevant fact. It MAY drive:
+
+- Persistence in chart for downstream reference
+- Clinical routing (e.g., reproductive module gating)
+- **Clinical safety logic where biological sex at birth is a directly relevant input** (e.g., pregnancy-possibility screening trigger when `biological_sex_at_birth = female`; certain dose ranges; certain lab reference ranges; certain cancer screening eligibility)
+- Pathway eligibility (e.g., GLP-1 pathway gates `mod.domain.reproductive.pregnancy_status_baseline_v1` for `biological_sex_at_birth ∈ {female, intersex}`)
+
+**`atom.universal.gender_identity`** is a directly answered identity fact. It MAY drive:
+
+- Persistence in chart (identity)
+- Respectful language + communication tone
+- Patient experience personalization
+- Pathway routing where appropriate (e.g., trans woman with HRT intent → GAH-feminizing pathway sibling vs cis-female HRT pathway per `Section 1K.2` sibling pattern)
+
+**`atom.universal.pronouns`** is a directly answered communication preference. It MAY drive:
+
+- Patient-facing language in messages, portal copy, provider-facing UI
+- **Pronouns MUST NOT be inferred from biological_sex_at_birth or gender_identity** — they must be explicitly answered (Q1.3c is the explicit pronouns question) or left null (downstream messaging falls back to first-name + neutral phrasing)
+
+**Clinical attributes that MUST be asked separately when clinically relevant** (NEVER inferred from biological_sex_at_birth, gender_identity, OR any combination of identity fields alone):
+
+- uterus status (intact / hysterectomy / partial)
+- ovaries status (intact / oophorectomy / partial)
+- testes status (intact / surgically removed / atrophied)
+- prostate status (intact / partial / surgically removed)
+- current hormone use (testosterone / estrogen / progestin / aromatase inhibitor / etc.)
+- fertility goals + fertility status
+- gender-affirming surgery history (specific procedures)
+- `condition.pregnancy_active` (the actual pregnancy state — distinct from `pregnancy_possibility` screening which MAY be triggered for screening based on `biological_sex_at_birth ∈ {female, intersex}`)
+
+**Rationale:** identity is not a reliable proxy for anatomy. A trans woman may have a prostate. A trans man may have ovaries. A non-binary patient may have any combination. A cis woman with a hysterectomy doesn't have a uterus despite `biological_sex_at_birth = female`. A cis man with bilateral orchiectomy doesn't have testes despite `biological_sex_at_birth = male`. Inferring anatomy from EITHER identity OR biological sex at birth creates clinical safety risks (missed contraindications, inappropriate dose calculations, missed cancer screenings, incorrect drug interactions). Capturing the clinical fact directly (when clinically relevant) is the only safe pattern.
+
+**Pathway-specific clinical capture pattern (binding intent; Phase 2+ scope marker):** when a pathway needs anatomy-dependent / hormone-dependent / surgical-history-dependent clinical decisions, the pathway authors its own clinical questions (in `mod.pathway.<pathway>.*` modules) emitting clinical atoms. Examples (Phase 2+ scope; not authored here):
+
+- **TRT pathway:** `mod.pathway.trt.current_hormone_use_v1` (asks current testosterone / anabolic steroid / aromatase inhibitor use); `mod.pathway.trt.testes_status_v1` (asks intact / surgically removed / atrophied for cardiology + dose decisions); emits `clinical.testes_status` + `medication.exogenous_testosterone_use` atoms.
+- **Female HRT pathway:** `mod.pathway.female_hrt.uterus_status_v1` (asks intact / hysterectomy / partial); `mod.pathway.female_hrt.ovary_status_v1` (asks intact / oophorectomy / partial); `mod.pathway.female_hrt.fertility_goals_v1`; `mod.pathway.female_hrt.pregnancy_possibility_v1`; emits `clinical.uterus_status`, `clinical.ovary_status`, `intent.fertility_goals`, `condition.pregnancy_possibility` atoms.
+- **GAH-feminizing pathway:** `mod.pathway.gah_feminizing.prior_gender_affirming_surgery_history_v1` (asks orchiectomy / vaginoplasty / breast augmentation / facial feminization / etc.); emits `procedure.gender_affirming_surgery_<kind>_history` atoms.
+- **GAH-masculinizing pathway:** `mod.pathway.gah_masculinizing.prior_gender_affirming_surgery_history_v1` (asks chest surgery / hysterectomy-oophorectomy / phalloplasty / metoidioplasty / etc.); emits same-namespace surgery atoms.
+- **ED pathway:** `mod.pathway.ed.prostate_status_v1` (asks intact / partial / surgically removed); `mod.pathway.ed.testes_status_v1` (when relevant for hormone-related ED).
+- **GLP-1 pathway:** `mod.pathway.glp1.pregnancy_possibility_check_v1` (renders for `biological_sex_at_birth ∈ {female, intersex}` AND when `condition.pregnancy_active` is unknown / not_tested AND when patient is in reproductive age range; biological_sex_at_birth as trigger is the ALLOWED pattern — biological_sex_at_birth is a directly answered demographic fact and may drive screening logic; it does NOT infer that the patient IS pregnant, only that screening is relevant).
+
+**CI lint floor (binding; narrowed scope):** the lint targets *unsafe inference of unstated clinical facts from identity alone*. Specifically:
+
+- **`gender_identity` MAY NOT be used ALONE as a proxy for anatomy / hormone use / fertility / surgical status in any clinical-decision rule.** A rule whose `domain` is `clinical_safety | dose_escalation | refill_renewal | adverse_event` AND whose CLINICAL DECISION depends on anatomy/hormone-use/fertility/surgical-status MUST include the corresponding clinical fact atom (e.g., `clinical.uterus_status`, `medication.exogenous_testosterone_use`, `procedure.gender_affirming_surgery_*_history`) in `required_inputs`. Using `gender_identity` alone as the only sex/anatomy-relevant input → BLOCKED.
+- **`biological_sex_at_birth` MAY be used in clinical-safety rules as a directly relevant input** when the clinical logic genuinely depends on biological sex at birth (e.g., pregnancy-possibility screening trigger; lab reference ranges; certain dose ranges that vary by birth sex). It is NOT restricted.
+- **`pronouns` MAY NOT be inferred from biological_sex_at_birth or gender_identity in any rule.** If a rule needs pronouns and the patient hasn't provided them, the rule renders neutral phrasing or first-name-only language (no inference).
+
+Forbidden patterns (CI blocks PR):
+
+- `domain: 'clinical_safety'` + decision logic dependent on uterus presence + `required_inputs: [gender_identity]` only (no `clinical.uterus_status` atom) → BLOCKED
+- `domain: 'dose_escalation'` + decision logic dependent on testes/prostate + `required_inputs: [gender_identity]` only → BLOCKED
+- `domain: 'refill_renewal'` + decision logic dependent on hormone use + `required_inputs: [gender_identity]` only → BLOCKED
+- Any rule that derives pronouns from `biological_sex_at_birth` or `gender_identity` → BLOCKED (use neutral fallback if `atom.universal.pronouns` is null)
+
+Permitted patterns (explicitly):
+
+- `domain: 'clinical_safety'` + `required_inputs: [biological_sex_at_birth]` for pregnancy-possibility screening trigger → ALLOWED (biological_sex_at_birth is a directly answered demographic fact)
+- `domain: 'clinical_safety'` + `required_inputs: [biological_sex_at_birth, clinical.uterus_status]` (full picture) → ALLOWED
+- `domain: 'dose_escalation'` + `required_inputs: [biological_sex_at_birth, lab.testosterone_total]` for sex-specific lab reference ranges → ALLOWED
+- `domain: 'notification'` + `required_inputs: [gender_identity, pronouns]` (messaging tone + pronoun usage) → ALLOWED
+- `domain: 'patient_clarification'` + `required_inputs: [gender_identity]` (sibling-pathway routing intent capture) → ALLOWED
+- `domain: 'pathway_routing'` + `required_inputs: [gender_identity, biological_sex_at_birth]` (e.g., trans woman intent disclosed → GAH-feminizing sibling) → ALLOWED
+
+**Goal:** do not re-ask information already directly answered; do not ignore valid declared demographic facts; only prevent unsafe hidden assumptions about unstated anatomy/hormone/fertility/surgical facts.
+
 **Progressive disclosure discipline (binding):** the intake is an intelligent clinical conversation, NOT a static questionnaire. Follow-up questions render ONLY when the prior answer creates meaningful clinical / behavioral / adherence / personalization / provider-decision context. **Default behavior rule (most important):** ask the minimum required to make a safe and informed decision — then stop. Do NOT pursue completeness for its own sake. Optimize for fast, human-feeling intake — not a perfect structured intake engine.
 
 **Branch tier classification (binding; required on every conditional branch):** every branch family declares `tier: 1 | 2 | 3` + `decision_impact: <text>` + `primary_consumer: provider | system | personalization`. Tier 1 = MUST ask (safety, contraindications, prior treatment context); Tier 2 = SHOULD ask (important but controlled); Tier 3 = NICE TO HAVE (optional / A-B testable).

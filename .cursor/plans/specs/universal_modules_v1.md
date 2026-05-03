@@ -1,9 +1,9 @@
 # Universal modules — Layer A spec v1
 
-**Date:** 2026-05-02
-**Stage:** 2 Phase 1 — Layer A authoring (4 modules; 12 questions)
+**Date:** 2026-05-02 (revised after demographic over-collection fix + pathway override architectural rule)
+**Stage:** 2 Phase 1 — Layer A authoring (4 modules; 14 questions defined; per-patient render varies — cis ~12, non-cis ~14)
 **Clinical CODEOWNER:** founder (board-certified MD)
-**Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics) + `Section 1K.4` (question bank + versioning) + `Section 1K.19` (intake repository + control model)
+**Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics + pathway override pattern + directly-answered-fields rule) + `Section 1K.4` (question bank + versioning) + `Section 1K.19` (intake repository + control model)
 **Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md) (verbatim Hims weight-loss new-patient funnel; cadence reference)
 
 ## Scope
@@ -11,12 +11,16 @@
 Layer A universal modules — platform identity / logistics / payment facts. Stable everywhere; reused by every clinical pathway with no modification. Per `Section 1K.19.7` CI lint enforces every pathway file MUST compose at minimum `mod.universal.demographics_v1` + `mod.universal.base_consents_v1` + `mod.universal.identity_verification_v1`.
 
 **4 modules in this file:**
-1. `mod.universal.demographics_v1` — 6 questions
+1. `mod.universal.demographics_v1` — 8 questions defined (Q1.1 DOB; Q1.2 biological sex; Q1.3a alignment; Q1.3b deeper identity (conditional); Q1.3c pronouns (conditional); Q1.4 residence state; Q1.5 shipping state; Q1.6 ethnicity)
 2. `mod.universal.base_consents_v1` — 1 question (emits 3 consent atoms)
 3. `mod.universal.identity_verification_v1` — 2 questions
 4. `mod.universal.insurance_payment_readiness_v1` — 3 questions
 
-**Total: 12 questions / 14 atoms emitted (1 ack emits 3; staff-witnessed L3 emits compound).**
+**Total: 14 questions defined / 16 atoms emitted (1 ack emits 3; staff-witnessed L3 emits compound).**
+
+**Per-patient render counts:**
+- Cis patient (alignment = Yes): ~12 questions rendered (Q1.3b + Q1.3c skipped)
+- Non-cis patient (alignment = No): ~14 questions rendered (full Q1.3 sequence)
 
 ## MAIN voice principles (binding)
 
@@ -68,7 +72,7 @@ Layer A universal modules — platform identity / logistics / payment facts. Sta
 **Hims source:** Step 28 "What was your sex assigned at birth? Male / Female"
 **MAIN voice:**
 - prompt: "What was your biological sex assigned at birth?"
-- helper: "This is asked separately from gender identity. It helps us screen for conditions safely (some treatments depend on biology)."
+- helper: "We ask this separately from gender identity. Some clinical decisions depend on biology."
 
 **Schema:**
 - `question_id`: `qb.universal.demographics.biological_sex_at_birth_v1` | `tier`: 1
@@ -77,45 +81,134 @@ Layer A universal modules — platform identity / logistics / payment facts. Sta
 - `entity_kind`: `single_value` | `atom_kind`: `clinical_history` | `downstream_effect`: `provider_review`
 - `render_when`: null (baseline)
 
-**Choices:** Male | Female | Intersex | Prefer not to answer
-**`choice_values`:** `male | female | intersex | prefer_not_to_answer`
+**Choices:** Male | Female
+**`choice_values`:** `male | female`
 
 **Atoms emitted:**
 - Positive: `atom.universal.biological_sex_at_birth` (metadata: `{value}`)
 - Denied: n/a
 
-**Issues found:** Hims offers only Male/Female. Adding `intersex` + `prefer_not_to_answer` is more inclusive AND clinically correct (intersex patients exist; clinical decisions need the truth). `prefer_not_to_answer` triggers downstream provider clarification request rather than hard_stop.
-**Recommended rewrite:** Adopt 4-option set per above.
-**Branching adjustments:** This question is the trigger for `mod.domain.reproductive.pregnancy_status_baseline_v1` rendering when `value = female | intersex` (intersex patients may need pregnancy/contraception screening; provider clinical judgment).
-**Downstream effect:** `provider_review` (`prefer_not_to_answer` opens Mode F clarification per `Section 1P.4`).
-**Final decision:** **Modify** (expand from 2 to 4 options vs Hims).
+**Issues found:** Earlier draft expanded to 4 options (intersex + prefer_not_to_answer). User correction (per `Section 1K.3` directly-answered-fields rule + Hims funnel parity): keep as Male/Female binary at the funnel layer. Rare intersex patients (estimated ~0.018% of births per medical literature) are handled via downstream Mode F clarification per `Section 1P.4` AND/OR via pathway-specific anatomy questions per `Section 1K.3` directly-answered vs inferred clinical facts rule (uterus / ovary / testes / prostate captured separately when clinically relevant; never inferred from biological_sex_at_birth alone). Patients who decline to answer are extremely rare in registration funnels; declined answer is captured via patient-portal Mode J self-correction post-registration if patient initiates. Funnel-layer simplicity dominates: binary matches Hims, reduces friction, and the architectural rule preserves clinical safety regardless.
+**Recommended rewrite:** Adopt Male/Female binary per Hims; rely on `Section 1K.3` directly-answered-fields rule + pathway-specific anatomy capture to cover rare cases.
+**Branching adjustments:** This question is the trigger for `mod.domain.reproductive.pregnancy_status_baseline_v1` rendering when `value = female` (per `Section 1K.3` directly-answered-fields rule: `biological_sex_at_birth` MAY drive pregnancy-possibility screening since it is a directly answered demographic fact).
+**Downstream effect:** `provider_review` (clinical context recorded; downstream anatomy questions handled in pathway-specific modules per `Section 1K.3` directly-answered vs inferred clinical facts rule).
+**Final decision:** **Keep** (binary Male/Female matches Hims funnel parity; the architectural rule in `Section 1K.3` preserves clinical safety).
 
-### Q1.3 — Gender identity
+### Q1.3 — Gender identity (two-question alignment + asymmetric conditional deeper branch + optional pronouns)
 
-**Hims source:** Step 29 "Do you identify as a man? Yes / No" (rendered after biological sex)
+**Pattern overview (binding per user direction + `Section 1K.3` directly-answered-fields rule):** Q1.3 is implemented as THREE sub-questions following Hims's low-friction pattern. Cis patients answer ONE question (Q1.3a alignment = Yes) and continue. Non-cis / non-binary patients see Q1.3a + Q1.3b deeper identity (asymmetric answer set per biological sex at birth) + Q1.3c optional pronouns. **Atom values are universal concept_id enum**; only the rendered subset varies per biological_sex_at_birth.
+
+**Hims source:** Step 29 "Do you identify as a man? Yes / No" (rendered after biological sex; one binary question; we extend with conditional depth for non-cis patients).
+
+**Why this pattern (per user direction + `Section 1K.3` clinical-discipline rule):**
+- Low-friction for cis patients (one question; matches Hims).
+- Respectful + clear for non-cis patients (asymmetric answer set respects that male-at-birth person can't be a "trans man" semantically; female-at-birth can't be a "trans woman").
+- Clinically safe because anatomy/hormone/fertility/surgical assumptions are NEVER inferred from identity alone — those are captured via pathway-specific clinical questions per `Section 1K.3` directly-answered-fields rule (TRT testes_status; Female HRT uterus/ovary; GAH-feminizing/masculinizing surgery history; ED prostate/testes; GLP-1 pregnancy_possibility_check).
+
+---
+
+**Q1.3a — Gender alignment with biological sex at birth (universal Tier 2):**
+
 **MAIN voice:**
-- prompt: "What's your gender identity?"
-- helper: "Optional. We ask so we can use the right pronouns and care framing for you."
+- prompt (dynamic per Q1.2):
+  - If `biological_sex_at_birth = male`: "Do you identify as a man?"
+  - If `biological_sex_at_birth = female`: "Do you identify as a woman?"
+- helper: "Most people identify with the sex assigned at birth. If you don't, that's fine — we'll ask a couple of follow-up questions next."
 
 **Schema:**
-- `question_id`: `qb.universal.demographics.gender_identity_v1` | `tier`: 1
+- `question_id`: `qb.universal.demographics.gender_alignment_with_birth_sex_v1` | `tier`: 2
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
+- `answer_role`: `preference` | `intent_of_answer_set`: `forced_classification`
+- `entity_kind`: `single_value` | `atom_kind`: `identity` | `downstream_effect`: `personalization`
+- `render_when`: `{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', in: ['male', 'female']}` (renders after biological sex captured)
+- `prompt_template_refs`: `[{ref: 'biological_sex_at_birth', resolves_to: 'man' | 'woman'}]` (dynamic prompt resolved by resolver per `Section 1K.4` `patient_label_template_refs`)
+
+**Choices:** Yes | No
+**`choice_values`:** `yes | no`
+
+**Atoms emitted:**
+- Positive: `atom.universal.gender_alignment_with_birth_sex` (metadata: `{value: 'aligned' | 'not_aligned'}`)
+- `Yes` → `value: 'aligned'`; `No` → `value: 'not_aligned'`
+
+**bloom_rewrite_note:** "Two-question alignment + conditional deeper branch matches Hims Step 29 cadence (binary alignment binary), then extends with asymmetric depth ONLY when alignment = No. Cis patients answer ONE question; non-cis patients see depth. Atom value enum (`aligned` / `not_aligned`) is canonical; binary Yes/No is the patient-facing surface. Tier 2 (SHOULD ASK; not safety-gating). Universal pattern; not duplicated per pathway."
+
+---
+
+**Q1.3b — Deeper gender identity (conditional Tier 3; ASYMMETRIC answer sets per biological sex at birth):**
+
+The deeper question is one logical question with TWO answer-set variants resolved at render time based on `biological_sex_at_birth`. A male-at-birth person who says alignment = No cannot semantically be a "trans man" (that's a female-at-birth person); the answer set respects that. Same logic inverse.
+
+**MAIN voice:**
+- prompt: "How do you identify?"
+- helper: "Pick the closest match. Optional."
+
+**Schema:**
+- `question_id`: `qb.universal.demographics.gender_identity_explicit_v1` | `tier`: 3
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue` (when render_when fires; can be skipped via `prefer_not_to_say`)
+- `answer_role`: `preference` | `intent_of_answer_set`: `preference_capture`
+- `entity_kind`: `single_value` | `atom_kind`: `identity` | `downstream_effect`: `personalization`
+- `render_when`: `{question_id: 'qb.universal.demographics.gender_alignment_with_birth_sex_v1', equals: 'no'}` (renders only when patient declines alignment)
+
+**Choices (ASYMMETRIC; resolved at render time):**
+
+If `biological_sex_at_birth = male`:
+- Woman
+- Trans woman
+- Non-binary
+- Another identity
+- Prefer not to say
+
+`choice_values` (male-at-birth path): `woman | trans_woman | non_binary | another | prefer_not_to_say`
+
+If `biological_sex_at_birth = female`:
+- Man
+- Trans man
+- Non-binary
+- Another identity
+- Prefer not to say
+
+`choice_values` (female-at-birth path): `man | trans_man | non_binary | another | prefer_not_to_say`
+
+The "Woman" and "Trans woman" options on the male-at-birth path (and "Man" / "Trans man" on the female-at-birth path) capture patient self-identification preference. Some trans patients prefer the bare label without the "trans" qualifier; others embrace it. Both options respect that.
+
+**Concept registry alignment:** `atom.universal.gender_identity` lives in `repo/clinical-concepts/identity.ts` (or `social_history.ts` per registry organization); single canonical concept_id; values enum allows all 7 listed (`woman` / `man` / `trans_woman` / `trans_man` / `non_binary` / `another` / `prefer_not_to_say`). Asymmetric answer SETS at the question layer don't affect concept registry — the registry knows all values; the question rendering shows the appropriate subset based on `biological_sex_at_birth`. CI lint validates: rendered `choice_values` are a SUBSET of the registered concept enum; no orphan values; no duplicates.
+
+**Atoms emitted:**
+- Per selection: `atom.universal.gender_identity = <choice_value>` (only populated when this question is answered; cis patients leave this null at storage; downstream rules can derive cis gender_identity from `biological_sex_at_birth + alignment` if needed for messaging tone)
+- `prefer_not_to_say` selected: `atom.universal.gender_identity = 'prefer_not_to_say'` (records explicit decline; not null)
+- Skipped (not rendered): no atom (alignment = aligned for cis patients)
+
+**bloom_rewrite_note:** "Deeper gender identity question fires only when alignment = No. ASYMMETRIC answer sets per biological_sex_at_birth: male-at-birth path offers Woman / Trans woman / Non-binary / Another / Prefer not to say; female-at-birth path offers Man / Trans man / Non-binary / Another / Prefer not to say. Both label options (e.g., 'Woman' AND 'Trans woman' on the male-at-birth path) respect patient self-identification preference. Atom values are universal concept_id enum; only the rendered subset varies. Tier 3 NICE TO HAVE; A/B-testable. Universal pattern; not duplicated per pathway. **CRITICAL CLINICAL DISCIPLINE per `Section 1K.3` directly-answered-fields rule (binding):** use directly answered sex/gender fields for their stated purpose, but do not infer unstated anatomy, hormone use, fertility status, or surgical history from identity alone. atom.universal.gender_identity drives messaging tone + patient-facing communication + sibling-pathway routing where appropriate. atom.universal.biological_sex_at_birth (directly answered) MAY drive clinical-safety logic where directly relevant (e.g., pregnancy-possibility screening trigger). Pronouns MUST NOT be inferred from either; ask explicitly (Q1.3c) or fall back to neutral phrasing. Anatomy / hormone-use / fertility / surgical-history are captured via pathway-specific clinical questions when clinically relevant."
+
+---
+
+**Q1.3c — Pronouns (conditional Tier 3; optional):**
+
+**MAIN voice:**
+- prompt: "What pronouns should we use?"
+- helper: "Optional. We use this in messages and visit notes."
+
+**Schema:**
+- `question_id`: `qb.universal.demographics.pronouns_v1` | `tier`: 3
 - `answer_type`: `single_select` | `selection_cardinality`: `optional_blank_allowed` | `requiredness`: `optional`
 - `answer_role`: `preference` | `intent_of_answer_set`: `preference_capture`
 - `entity_kind`: `single_value` | `atom_kind`: `identity` | `downstream_effect`: `personalization`
-- `render_when`: `{question_id: 'qb.universal.demographics.biological_sex_at_birth_v1', equals: any}` (renders after biological sex captured; nullable answer)
+- `render_when`: `{question_id: 'qb.universal.demographics.gender_alignment_with_birth_sex_v1', equals: 'no'}` (renders only after Q1.3b)
 
-**Choices:** Man | Woman | Non-binary | Trans man | Trans woman | Prefer to self-describe (free-text) | Prefer not to answer
-**`choice_values`:** `man | woman | non_binary | trans_man | trans_woman | self_describe | prefer_not_to_answer`
+**Choices:** he/him | she/her | they/them | other (free-text) | prefer not to say
+**`choice_values`:** `he_him | she_her | they_them | other | prefer_not_to_say`
 
 **Atoms emitted:**
-- Positive: `atom.universal.gender_identity` (metadata: `{value, self_describe_text?}`)
-- Denied: n/a
+- Positive: `atom.universal.pronouns = <choice_value>` (with optional `metadata.other_text` when `other` selected)
+- Skipped: no atom (downstream messaging falls back to first-name + neutral phrasing per `Section 1K.3` directly-answered-fields rule — pronouns are NEVER inferred from biological_sex_at_birth or gender_identity)
 
-**Issues found:** Hims's binary "Do you identify as a man? Yes/No" is reductive. MAIN expands to inclusive 7-option set. This is `answer_role: preference` (not clinical safety) — it shapes pronouns + care framing, not clinical decisions.
-**Recommended rewrite:** Adopt 7-option set; keep optional.
-**Branching adjustments:** Gender identity ≠ biological sex AT birth signals potential gender-affirming care interest; downstream system MAY surface optional `intent.gender_affirming_care_interest` ack on a future TRT or female_hrt sibling pathway (per `Section 1K.2` sibling pattern). NOT in V1.
-**Downstream effect:** `personalization` (drives messaging tone + pronoun usage).
-**Final decision:** **Modify** (expand from binary to inclusive set).
+**bloom_rewrite_note:** "Optional pronouns question. Renders only when alignment = No (cis patients implicitly use pronouns matching biological_sex_at_birth at messaging layer; downstream messaging code MAY render he/she based on biological_sex_at_birth for cis patients but MUST NOT for any patient who has answered Q1.3a = No without explicit Q1.3c value). Tier 3 NICE TO HAVE. Per `Section 1K.3` directly-answered-fields rule: pronouns MUST NOT be inferred from biological_sex_at_birth or gender_identity for non-cis patients; ask explicitly here or fall back to neutral phrasing."
+
+---
+
+**Q1.3 (overall) Branching adjustments:** alignment = No signals potential gender-affirming care interest; downstream system MAY surface optional `intent.gender_affirming_care_interest` ack on a future TRT or female_hrt sibling pathway (per `Section 1K.2` sibling pattern). NOT in V1.
+**Q1.3 (overall) Downstream effect:** `personalization` (drives messaging tone + pronoun usage + sibling-pathway routing intent).
+**Q1.3 (overall) Final decision:** **Modify** (redesign from single-question 7-option to three-question alignment + asymmetric conditional deeper branch + optional pronouns; per user direction + `Section 1K.3` directly-answered-fields rule).
 
 ### Q1.4 — Residence state
 
@@ -185,20 +278,19 @@ Layer A universal modules — platform identity / logistics / payment facts. Sta
 - `atom_kind`: `clinical_history` | `downstream_effect`: `personalization`
 - `render_when`: null (baseline)
 
-**Choices:** Asian (combined) | East Asian (Japanese, Chinese, Korean) | South Asian | Southeast Asian | Black or African American | Hispanic or Latino | Native American or Alaska Native | Pacific Islander | White or Caucasian | Middle Eastern or North African | Other (free-text) | Prefer not to answer
-**`choice_values`:** `asian | east_asian | south_asian | southeast_asian | black_african_american | hispanic_latino | native_american | pacific_islander | white_caucasian | mena | other | prefer_not_to_answer`
-
-**`none_logic`:** `{mode: 'optional_choice', none_choice_value: 'prefer_not_to_answer'}` (patient may decline; not a clinical denial; just opts out)
+**Choices:** Asian (combined) | East Asian (Japanese, Chinese, Korean) | South Asian | Black or African American | Hispanic or Latino | Native American or Alaska Native | Pacific Islander | White or Caucasian | Other (free-text)
+**`choice_values`:** `asian | east_asian | south_asian | black_african_american | hispanic_latino | native_american | pacific_islander | white_caucasian | other`
 
 **Atoms emitted:**
 - Positive: `atom.universal.ethnicity` (metadata: `{values: string[], other_text?: string}`)
-- Denied: n/a (`prefer_not_to_answer` records the decline; not a clinical denial)
+- Denied: n/a (multi_select; blank submission acceptable since `requiredness: optional`)
 
-**Issues found:** Hims has 8 options; MAIN expands to 12 to be more inclusive (adds Southeast Asian, MENA, Prefer not to answer). Helper text explains relevance ("treatments and lab references vary by ethnicity") which is honest + factual.
-**Recommended rewrite:** Adopt 12-option set + warmer helper.
+**bloom_rewrite_note:** "Earlier draft expanded to 12 options (added Southeast Asian, MENA, Prefer not to answer). User correction: keep 9 Hims-equivalent options for funnel parity + low-friction. Patients who decline simply leave the multi-select blank (`requiredness: optional` + `selection_cardinality: zero_or_more` allows blank submission). 'Other (free-text)' covers Southeast Asian, MENA, mixed identities, and any other ethnicity the patient wants to specify — captured via the `other_text` metadata field. The combined `asian` option remains for patients who prefer not to disambiguate; East Asian / South Asian remain as separate options for patients who want more specificity. Net: 9 options matches Hims's funnel structure exactly."
+**Issues found:** Earlier expansion to 12 options was over-inclusion at the funnel layer. Hims's 9-option set is the correct discipline for an early-funnel optional question.
+**Recommended rewrite:** Adopt Hims 9-option set; drop none_logic block (multi_select with `zero_or_more` cardinality + `optional` requiredness already supports blank submission).
 **Branching adjustments:** None.
 **Downstream effect:** `personalization` (drives lab reference range selection in `Section 1L`; drives coaching content selection).
-**Final decision:** **Modify** (expand options; adopt MAIN voice).
+**Final decision:** **Modify** (Hims 9-option parity; drop none_logic; warmer helper).
 
 ---
 
@@ -398,8 +490,10 @@ Layer A universal modules — platform identity / logistics / payment facts. Sta
 | Question | Tier | answer_role | atom_kind | downstream_effect | Decision |
 |---|---|---|---|---|---|
 | Q1.1 DOB | 1 | operational | identity | personalization | Keep |
-| Q1.2 Biological sex | 1 | clinical_context | clinical_history | provider_review | Modify |
-| Q1.3 Gender identity | 1 | preference | identity | personalization | Modify |
+| Q1.2 Biological sex | 1 | clinical_context | clinical_history | provider_review | Keep (Hims binary parity) |
+| Q1.3a Gender alignment | 2 | preference | identity | personalization | Modify |
+| Q1.3b Deeper gender identity (conditional; asymmetric) | 3 | preference | identity | personalization | Modify |
+| Q1.3c Pronouns (conditional; optional) | 3 | preference | identity | personalization | Modify |
 | Q1.4 Residence state | 1 | operational | identity | hard_stop | Modify |
 | Q1.5 Shipping state | 1 | operational | operational | hard_stop | Modify |
 | Q1.6 Ethnicity | 1 | clinical_context | clinical_history | personalization | Modify |
@@ -410,7 +504,7 @@ Layer A universal modules — platform identity / logistics / payment facts. Sta
 | Q4.2 Carrier | 2 | operational | operational | personalization | Modify |
 | Q4.3 Self-pay | 2 | commercial_confidence | operational | personalization | Modify |
 
-**Verdict:** 1 Keep + 11 Modify. No Remove. Net: spec is largely a Hims-cadence rewrite in MAIN voice with 3 expansions (gender identity inclusivity; ethnicity expansion; upfront insurance ask). Preserves Hims's brevity + sequencing while adopting MAIN voice + atomization architecture.
+**Verdict:** 2 Keep + 12 Modify across 14 defined questions (per-patient render varies: cis ~12, non-cis ~14). No Remove. Net: spec is a Hims-cadence rewrite in MAIN voice with: (a) Q1.2 biological sex Male/Female binary matching Hims (Hims funnel parity per `Section 1K.3` directly-answered-fields rule); (b) Q1.3 redesigned as two-question alignment + asymmetric conditional deeper branch + optional pronouns (low-friction for cis patients; respectful for non-cis; clinically safe because anatomy/hormone/fertility/surgical-history captured via pathway-specific clinical questions per architectural rule); (c) Q1.6 ethnicity 9 Hims-equivalent options (parity); (d) upfront insurance ask. Preserves Hims's brevity + sequencing while adopting MAIN voice + atomization architecture.
 
 ## Cross-pathway reuse projection
 
