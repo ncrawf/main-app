@@ -1,46 +1,37 @@
 # GLP-1 Pathway-specific modules — Layer D spec v1
 
 **Date:** 2026-05-03
-**Stage:** 2 Phase 2.1 — Layer D authoring (first 3 of ~9 modules)
+**Stage:** 2 Phase 2.2.1 — Layer D authoring (4 of ~9 modules; Module 16 motivation_and_goals added in this checkpoint)
 **Clinical CODEOWNER:** founder (board-certified MD)
 **Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics + pathway override + directly-answered-fields rule) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; concept registry organized by domain) + `Section 1K.19` (intake repository + control model) + `Section 1Q.15` (GLP-1 vertical slice; 24 rules / 25 templates) + `Section 1Q.16` (adversarial pre-runtime gate)
 **Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md)
 
 ## Scope
 
-Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept).
+Layer D pathway-specific GLP-1 modules — Phase 2.2.1 (4 of ~9 total; Module 16 motivation_and_goals added). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept). Module 16's motivation + commercial + educational atoms live in `repo/clinical-concepts/intent.ts` under `intent.weight_loss_*` and `intent.treatment_*` namespaces.
 
-**3 modules in this file:**
+**4 modules in this file:**
 1. `mod.pathway.glp1.weight_history_v1` — 5 questions (height + current weight + weight loss goal band + max-weight Y/N + max-weight value if not current)
 2. `mod.pathway.glp1.weight_loss_attempts_v1` — 2 questions (prior attempts Y/N + methods multi-select)
 3. `mod.pathway.glp1.prior_glp1_use_v1` — 8 questions (status + which GLP-1 + dose + duration + weight lost + side effects + when stopped + why stopped)
+4. `mod.pathway.glp1.motivation_and_goals_v1` — 8 questions (primary motivation + treatment priority + 4 educational screens + treatment-in-mind preference + goal benefits multi-select; mix of motivation / commercial_confidence / educational_trust answer_roles)
 
-**Total: 15 questions defined.**
+**Total: 23 questions defined.**
 
 **Per-patient render counts (varies by branch):**
-- GLP-1-naive patient with no prior weight-loss attempts: ~7 questions rendered (Q13.1 + Q13.2 + Q13.3 + Q13.4 + Q14.1 + Q15.1; Q13.5 skipped if `current = max ever`; Q14.2 + Q15.2-Q15.8 skipped)
-- GLP-1-naive patient with prior diet attempts: ~8 questions rendered (above + Q14.2)
-- Current GLP-1 patient (Q15.1 = currently): ~12 questions rendered (Q15.2 + Q15.3 + Q15.4 + Q15.5 + Q15.6; Q15.7 + Q15.8 skipped)
-- Past GLP-1 patient (Q15.1 = past): ~14 questions rendered (full cascade including Q15.7 + Q15.8)
+- GLP-1-naive patient with no prior weight-loss attempts: ~15 questions rendered (Q13.1-Q13.4 + Q14.1 + Q15.1 + 8 Module 16 baseline; Q13.5 skipped; Q14.2 + Q15.2-Q15.8 skipped)
+- GLP-1-naive patient with prior diet attempts: ~16 questions rendered (above + Q14.2)
+- Current GLP-1 patient (Q15.1 = currently): ~20 questions rendered (Q15.2 + Q15.3 + Q15.4 + Q15.5 + Q15.6; Q15.7 + Q15.8 skipped)
+- Past GLP-1 patient (Q15.1 = past): ~22 questions rendered (full cascade including Q15.7 + Q15.8)
+- Module 16 (motivation + educational + commercial_confidence) renders for all patients regardless of GLP-1 history; positioned in pathway file AFTER Module 13 weight history (so BMI personalized Q16.7 has the prior atoms it needs)
 
 ## MAIN voice principles (binding; reused from Phase 1)
 
-### Tone lock (binding)
+**Tone direction:** clinical product with subtle warmth. Apply judgment.
 
-**Clinical product with subtle warmth. NOT a human product with clinical constraints.**
+**Anchoring rule (binding):** in multi-step cascades, follow-up question prompts MUST anchor to a meaningful noun, not "it" or other unanchored pronouns. Three valid anchoring patterns: (a) drug-class anchor (default; `"your GLP-1"`); (b) specific-drug anchor when single drug confirmed and single follow-up (`"your Wegovy"` via `patient_label_template_refs` per `Section 1K.4`); (c) most-recent-instance anchor when multi-drug (`"your most recent GLP-1"`).
 
-What this means in practice:
-- Direct prompts (Hims-direct cadence). No emotional framing in the prompt itself.
-- Helper text explains WHY when sensitive — never adds hype or feeling-y tone.
-- Permission-to-estimate, permission-to-skip-via-explicit-option — these warm gestures preserve autonomy without selling.
-- No transformation hype. No "amazing journey." No "we're so excited."
-- No clinical jargon the patient won't recognize.
-- No internal-system narration in patient-facing UI ("provider will follow up", "system flags this for review", etc.). The system handles its own wiring.
-- When in doubt: tighter is better.
-
-**Tone-lock corollary (binding):** don't make a funnel question `optional` if you actually want the data. Use an answer option for the don't-know case (`"I don't have a specific number"`, `"I don't remember"`, `"I'm not sure"`). This preserves data completeness without forcing fake content and without leaking optionality into the funnel. Per-question `requiredness` should be `required_to_continue` or `conditionally_required` for any data the system cares about; `optional` is reserved for genuinely-low-priority signal (e.g., narrative free-text patient could skip with no clinical loss).
-
-**Anchoring rule (binding):** in multi-step cascades, follow-up question prompts MUST anchor to a meaningful noun, not "it" or other unanchored pronouns. Three valid anchoring patterns: (a) drug-class anchor (default; `"your GLP-1"`); (b) specific-drug anchor when single drug confirmed and single follow-up (`"your Wegovy"` via `patient_label_template_refs` per `Section 1K.4`); (c) most-recent-instance anchor when multi-drug (`"your most recent GLP-1"`). For Module 15 in this checkpoint, all follow-ups anchor to `"your GLP-1"` for consistency.
+**Required vs answer-option discipline:** don't make a question `optional` if you want the data. If patients might genuinely not know, give them an answer option (`"I don't have a specific number"`, `"I don't remember"`, `"I'm not sure"`) and keep `requiredness: required_to_continue`. `optional` is reserved for genuinely-low-priority signal (e.g., narrative free-text patient could skip with no clinical loss).
 
 ### Voice principles
 
@@ -583,6 +574,272 @@ Plus: None of these (with binding `exclusive_with_other_choices` none_logic).
 
 ---
 
+## Module 16 — `mod.pathway.glp1.motivation_and_goals_v1`
+
+**`module_id`:** `mod.pathway.glp1.motivation_and_goals_v1`
+**`module_version`:** `1.0.0`
+**`kind`:** non-clinical (motivation framing + commercial confidence + patient education; no clinical safety atoms emitted)
+**`pathways`:** `glp1` only (Layer D pathway-specific; mechanism reusable as template for future TRT / Female HRT motivation modules)
+**`required_for`:** motivation framing, commercial confidence, patient education
+**`assertion_group_emit_trigger`:** `module_complete` (intent atoms emit composite)
+**Atom domain:** `intent` (`intent.weight_loss_*` + `intent.treatment_*` live in `repo/clinical-concepts/intent.ts`); educational_screens emit non-clinical analytics events only per `Section 1K.19.9` (no clinical atoms)
+**Composition position:** pathway file `repo/intake/pathways/glp1.ts` inserts this module AFTER Layer A demographics + AFTER Module 13 weight history (Q16.7 BMI personalized depends on height + weight atoms) but BEFORE Layer B/C clinical screens. This matches Hims funnel cadence: motivation + trust + commercial confidence build BEFORE clinical safety screening begins.
+
+### Q16.1 — Primary motivation
+
+**Hims source:** Step 5 "Why do you want to lose weight? / Improve my health / Gain confidence / Feel better in my clothes / Something else"
+**MAIN voice:**
+- prompt: "What's your main reason for wanting to lose weight?"
+- helper: "Pick the closest match."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.primary_motivation_v1` | `tier`: 3 (motivation; A/B-testable)
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
+- `answer_role`: `motivation` | `intent_of_answer_set`: `motivation_priming`
+- `entity_kind`: `single_value` | `atom_kind`: `preference_motivation` | `downstream_effect`: `personalization`
+- `render_when`: null (baseline)
+
+**Choices:** Improve my health | Feel more confident | Feel better in my clothes | Something else
+**`choice_values`:** `improve_health | feel_more_confident | feel_better_in_clothes | something_else`
+
+**Atoms emitted:**
+- Positive: `intent.weight_loss_primary_motivation` (metadata: `{value: <choice_value>}`)
+- Denied: n/a (required; no don't-know option needed — patients always have a primary reason)
+
+**Issues found:** Hims uses identical 4-option set; MAIN keeps the same. Tier 3 because motivation is signal for personalization + visit framing, not a clinical safety floor. `single_select` (not multi) is intentional — forcing a primary captures funnel-clarity intent (per Hims pattern); patient picks the closest match.
+**Recommended rewrite:** Adopt Hims 4-option set with MAIN voice tightening.
+**Branching adjustments:** `improve_health` → consumed by personalization rules per `Section 1Q.15` for clinical-tone messaging; `feel_more_confident` / `feel_better_in_clothes` → emotional-tone messaging cohort; `something_else` → provider Mode F clarification at visit if clinically relevant.
+**Downstream effect:** `personalization` (drives motivation-priming template selection per `Section 1Q.15`).
+**Final decision:** **Modify** (preserve Hims 4-option semantics; tighten voice).
+
+### Q16.2 — Treatment priority
+
+**Hims source:** Step 7 "What matters most to you about your treatment? / FDA-approved medications / Affordability / Results that last / Support from licensed providers"
+**MAIN voice:**
+- prompt: "What matters most to you about treatment?"
+- helper: none (clean direct)
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.treatment_priority_v1` | `tier`: 3
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
+- `answer_role`: `commercial_confidence` | `intent_of_answer_set`: `conversion_support`
+- `entity_kind`: `single_value` | `atom_kind`: `operational` | `downstream_effect`: `personalization`
+- `render_when`: null (baseline)
+
+**Choices:** FDA-approved medications | Affordability | Results that last | Support from licensed providers
+**`choice_values`:** `fda_approved | affordability | lasting_results | provider_support`
+
+**Atoms emitted:**
+- Positive: `intent.treatment_priority` (metadata: `{value: <choice_value>}`)
+- Denied: n/a
+
+**Issues found:** Hims uses identical 4-option set; MAIN keeps. `answer_role: commercial_confidence` because this drives conversion / commercial messaging (which factor matters most), not clinical decisions. Helper omitted because the question is self-explanatory at this funnel position.
+**Recommended rewrite:** Adopt Hims 4-option set; preserve voice.
+**Branching adjustments:** Drives downstream commercial messaging per `Section 1Q.21` marketing cohort segmentation (with appropriate consents); e.g., `affordability` → pricing-focused follow-up cadence; `lasting_results` → outcome-focused content; `provider_support` → care-team-emphasized messaging.
+**Downstream effect:** `personalization` (commercial messaging cohort).
+**Final decision:** **Modify** (preserve Hims 4-option semantics).
+
+### Q16.3 — Educational: 83% stat
+
+**Hims source:** Step 10-11 "83% of Americans are not the weight they'd like to be / Data based on a nationally representative survey of 5,000 American adults. Hims & Hers, The Shape of America Report, December 2024."
+**MAIN voice:**
+
+Body text:
+> 83% of Americans aren't at the weight they'd like to be.
+>
+> You're not alone. Most people who try to lose weight need more than diet and exercise alone.
+
+Source citation (inline; binding):
+> *Hims & Hers, The Shape of America Report, December 2024. Survey of 5,000 American adults.*
+
+When MAIN has its own data, swap citation. For V1 spec, Hims-cited stat is the binding template content.
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.educational_stat_v1` | `tier`: 3
+- `answer_type`: `educational_screen` | `selection_cardinality`: `none_applicable` | `requiredness`: `required_to_continue` (continue button required to proceed)
+- `answer_role`: `educational_trust` | `intent_of_answer_set`: `education`
+- `entity_kind`: `single_value` (one screen) | `atom_kind`: n/a | `downstream_effect`: `personalization`
+- `render_when`: null (baseline; renders right after Q16.2)
+- Continue button label: `"Continue"`
+
+**Atoms emitted:**
+- `emits_atoms`: `[]` (binding empty per `Section 1K.3` Stage 1.5 educational_screen rule)
+- Analytics-only event per `Section 1K.19.9`: `intake.educational_screen.continued` with `metadata: {question_id: 'qb.pathway.glp1.motivation_and_goals.educational_stat_v1', dwell_time_ms?, continued: true}`
+
+**Issues found:** Hims uses this stat as social proof + emotional anchor before clinical questions. MAIN preserves the stat with proper inline citation per evidence-based-content discipline. The "you're not alone" framing is factual reassurance, not hype.
+**Recommended rewrite:** Adopt Hims stat with inline citation; tone-direction-compliant.
+**Branching adjustments:** None.
+**Downstream effect:** `personalization` (analytics on engagement; A/B-testable for funnel completion).
+**Final decision:** **Modify** (Hims stat preserved; binding inline citation).
+
+### Q16.4 — Treatment-in-mind preference
+
+**Hims source:** Step 12 "Do you have a specific weight loss medication in mind? / No, I'd like a provider recommendation / Yes, I already have something in mind"
+**MAIN voice:**
+- prompt: "Do you have a specific medication in mind?"
+- helper: "We can recommend something, or work with what you'd like to try."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.treatment_in_mind_v1` | `tier`: 3
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
+- `answer_role`: `preference` | `intent_of_answer_set`: `preference_capture`
+- `entity_kind`: `single_value` | `atom_kind`: `preference_motivation` | `downstream_effect`: `personalization`
+- `render_when`: null (baseline; renders right after Q16.3 educational stat)
+
+**Choices:** I'd like a recommendation | I have something in mind | I'm not sure yet
+**`choice_values`:** `recommendation | have_in_mind | not_sure`
+
+**Atoms emitted:**
+- Positive: `intent.treatment_selection_preference` (metadata: `{value: <choice_value>}`)
+- Denied: n/a (required; "I'm not sure yet" is the don't-know answer option per required-vs-answer-option discipline)
+
+**Issues found:** Hims uses 2-option binary (recommendation / have in mind). MAIN adds "I'm not sure yet" as a 3rd option — many patients haven't decided yet at this funnel position; forcing a binary feels overcommitting. Helper sets the autonomy expectation ("we can recommend, or work with what you'd like to try") which Hims doesn't include explicitly.
+**Recommended rewrite:** Adopt 3-option set with autonomy-respecting helper.
+**Branching adjustments:** `have_in_mind` → downstream commercial flow may surface `Section 1Q.15` Q15-style "which medication?" early commercial preference (DEFERRED to Phase 2.2.X if needed; not in V1). `recommendation` → standard provider-led flow. `not_sure` → standard provider-led flow + provider visit framing emphasizes options education.
+**Downstream effect:** `personalization` (commercial flow + provider visit framing).
+**Final decision:** **Modify** (3-option vs Hims 2-option; permission-to-defer).
+
+### Q16.5 — Goal benefits multi-select
+
+**Hims source:** Step 17 "What would reaching your goal weight mean for you? Select all that apply. / Having more energy / Feeling more confident / Improving overall health / Feeling better in my body / Feeling good in clothes"
+**MAIN voice:**
+- prompt: "What would reaching your goal mean to you?"
+- helper: "Select all that apply."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.goal_benefits_v1` | `tier`: 3 (motivation; A/B-testable)
+- `answer_type`: `multi_select` | `selection_cardinality`: `one_or_more` | `requiredness`: `required_to_continue`
+- `answer_role`: `motivation` | `intent_of_answer_set`: `motivation_priming`
+- `entity_kind`: `multi_instance` | `instance_scope`: `aggregate` (per-benefit follow-ups not used; aggregate atom emitted per benefit)
+- `atom_kind`: `preference_motivation` | `downstream_effect`: `personalization`
+- `render_when`: null (baseline; renders right after Q16.4)
+
+**Choices:** More energy | More confident | Better overall health | Better in my body | Better in clothes
+**`choice_values`:** `more_energy | more_confident | better_health | better_in_body | better_in_clothes`
+
+**Atoms emitted:**
+- Per selected: `intent.weight_loss_benefit_<kind>` (e.g., `intent.weight_loss_benefit_more_energy`, `intent.weight_loss_benefit_more_confident`, `intent.weight_loss_benefit_better_health`, `intent.weight_loss_benefit_better_in_body`, `intent.weight_loss_benefit_better_in_clothes`; metadata: `{kind, context_key: <kind>}` per multi-instance discipline)
+- Denied: n/a (`one_or_more` cardinality required when rendered)
+
+**Issues found:** Hims uses identical 5-option multi-select; MAIN keeps. Multi-select (not single) is correct because patients legitimately have multiple motivations — forcing one would lose richness. No "None of these" option because Q16.5 is motivation-priming (patient self-reflection on benefits), not a safety screen — there's no clinically-meaningful "none" answer; patient who sees this question has already affirmed weight-loss goal in Q16.1.
+**Recommended rewrite:** Adopt Hims 5-option multi-select.
+**Branching adjustments:** Multiple benefit atoms drive personalization template selection per `Section 1Q.15` (e.g., `better_health` selected → clinical-outcome-emphasized messaging; `more_confident` + `better_in_clothes` → appearance-emphasized; multi-benefit selection → multi-emphasis content).
+**Downstream effect:** `personalization` (drives motivation-priming template per `Section 1Q.15`).
+**Final decision:** **Modify** (preserve Hims 5-option multi-select).
+
+### Q16.6 — Patient testimonials (educational + social proof)
+
+**Hims source:** Step 18-19 testimonials "Verified customers / Real results start here / Chance, 30. Lost 16 pounds in 4 months. Hims customer. / Jonathan, 42. Lost 17 pounds in 3 months. Hims customer." + standard FDA disclaimer
+**MAIN voice:**
+
+Body content (Hims-pattern testimonial cards; for V1 spec, Hims pattern is the binding template content; real MAIN customer data swapped in when available):
+
+> *Verified customers — real results*
+>
+> **Chance, 30.** Lost 16 pounds in 4 months. Hims customer.
+>
+> **Jonathan, 42.** Lost 17 pounds in 3 months. Hims customer.
+>
+> **Zachary, 43.** Lost 119 pounds in 9 months. Hims customer.
+
+Inline FDA-compliant disclaimer (binding; required on this question's body):
+
+> *Medications are part of a weight loss program that includes a reduced-calorie diet and increased physical activity. Customers were compensated for their opinion. Results shared by customers who have purchased varying products. Customers' results have not been independently verified. Individual results will vary.*
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.testimonials_v1` | `tier`: 3 (A/B-testable conversion driver; can be removed if conversion data shows otherwise)
+- `answer_type`: `educational_screen` | `selection_cardinality`: `none_applicable` | `requiredness`: `required_to_continue`
+- `answer_role`: `commercial_confidence` | `intent_of_answer_set`: `conversion_support`
+- `entity_kind`: `single_value` | `atom_kind`: n/a | `downstream_effect`: `personalization`
+- `render_when`: null (baseline; renders right after Q16.5)
+- Continue button label: `"Continue"`
+
+**Atoms emitted:**
+- `emits_atoms`: `[]` (binding empty)
+- Analytics-only event per `Section 1K.19.9`: `intake.educational_screen.continued` with `metadata: {question_id: 'qb.pathway.glp1.motivation_and_goals.testimonials_v1', testimonial_set_id, dwell_time_ms?, continued: true}`
+
+**Issues found:** Earlier draft considered dropping testimonials entirely as "transformation hype." Reversed per user direction: testimonials with real patient data + FDA-compliant disclaimers are standard healthcare commercial pattern, not transformation hype. The disclaimer + factual format (name + age + lbs lost + timeframe + customer label) is industry-standard and legally compliant. For V1 spec, Hims-pattern customer data is the binding template; production deploy swaps in MAIN's own customer data. Testimonial set rotation + A/B testing are runtime concerns; spec captures the structural pattern + disclaimer requirement.
+**Recommended rewrite:** Adopt Hims testimonial pattern with binding inline disclaimer.
+**Branching adjustments:** None at intake; analytics-only.
+**Downstream effect:** `personalization` (A/B-testable conversion driver; analytics on engagement).
+**Final decision:** **Modify** (Hims testimonial pattern preserved; binding inline FDA-compliant disclaimer).
+
+### Q16.7 — BMI personalized educational (derived_display)
+
+**Hims source:** Step 25 "Your current BMI falls within a range that may qualify you for weight loss medication / Your BMI 24 / 170 lbs 5'11" / Current BMI / Medication zone / 18.5 25.7 32.8 40 / Your current BMI falls in the range for men who typically qualify for weight loss. / Your goal 15 lbs / 24 Current BMI / 22 Goal BMI / Why does BMI matter? It's a key data point that doctors use to assess your overall health as well as any health risks. / Rest assured, a licensed provider will thoroughly review your full profile to ensure you're getting a treatment that's right for you."
+**MAIN voice:**
+
+Body template (rendered with `patient_label_template_refs` per `Section 1K.4`; values resolved from prior atoms):
+
+> Your BMI is **{bmi}**.
+>
+> That's **{bmi_eligibility_status}** for typical GLP-1 treatment ranges.
+>
+> *A licensed provider will review your full health profile to confirm what's right for you.*
+
+Where:
+- `{bmi}` = `intake_derived_score.bmi` per `Section 1K.9` (computed from `vital.height_cm` + `vital.weight_kg`)
+- `{bmi_eligibility_status}` = derived band: `"in the range"` (BMI ≥ 27) / `"above the range"` (BMI ≥ 40) / `"below the range"` (BMI < 27)
+
+Helper text: none (the body is the educational content)
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.bmi_personalized_v1` | `tier`: 3 (high-signal — patient sees their eligibility framing)
+- `answer_type`: `educational_screen` (renders as `derived_display` per `Section 1K.4` `module_step.kind: 'derived_display'`) | `selection_cardinality`: `none_applicable` | `requiredness`: `required_to_continue`
+- `answer_role`: `educational_trust` | `intent_of_answer_set`: `education`
+- `entity_kind`: `single_value` | `atom_kind`: n/a | `downstream_effect`: `personalization`
+- `render_when`: `{all_of: [{question_id: 'qb.pathway.glp1.weight_history.height_v1', captured: true}, {question_id: 'qb.pathway.glp1.weight_history.current_weight_v1', captured: true}]}` (depends on Q13.1 + Q13.2 atoms; will not render if either is missing)
+- `derived_value_id`: `intake_derived_score.bmi` per `Section 1K.9`
+- `computation`: `sync` (computed at render time; no async lab fetch required)
+- Continue button label: `"Continue"`
+
+**Atoms emitted:**
+- `emits_atoms`: `[]` (binding empty; this is a pure display screen)
+- Analytics-only event per `Section 1K.19.9`: `intake.educational_screen.continued` with `metadata: {question_id: 'qb.pathway.glp1.motivation_and_goals.bmi_personalized_v1', derived_bmi_band: <eligibility_status>, dwell_time_ms?, continued: true}`
+
+**Issues found:** Hims uses a rich BMI visualization (graph with medication zone) + photographer headshot + comparison block (current BMI vs goal BMI). MAIN simplifies to text-based body template for V1 (visualization layer is runtime UI concern, not spec concern). The "licensed provider will review" line is factual reassurance, not hype — preserves clinical authority. For below-range BMI patients (BMI < 27), the body honestly says "below the range" — this is more honest than Hims's gentle handling and protects against patient confusion later if ineligible. Actual provider-eligibility decision is downstream; this screen is informational.
+**Recommended rewrite:** Adopt text-based template with derived BMI + eligibility band; reserve visualization for future runtime UI work.
+**Branching adjustments:** Below-range BMI (< 27) → patient sees "below the range" framing; downstream provider review at safety preflight may decline GLP-1 prescription per `Section 1Q.15` `rule.glp1.eligibility.bmi_threshold` (not blocked at intake; intake completes per `Section 1K.3` `hard_stop` semantics).
+**Downstream effect:** `personalization` (educational + eligibility-framing context).
+**Final decision:** **Modify** (Hims pattern simplified to text-based template; visualization deferred to runtime UI).
+
+### Q16.8 — Educational treatment mechanism
+
+**Hims source:** Step 26 "Ways a treatment plan may help with weight loss / Improves eating habits / Active ingredients in weight loss treatments work by making you feel fuller longer, so you don't have to rely on restrictive diets. / Targets the source of cravings / Active ingredients in weight loss treatments work on the appetite center of the brain, helping you control cravings and suppress appetite."
+**MAIN voice:**
+
+Body content:
+
+> *How GLP-1 medications work*
+>
+> GLP-1 medications mimic a hormone your body already makes (GLP-1) that helps regulate appetite and slows how fast your stomach empties.
+>
+> The result: you feel fuller longer, with fewer cravings.
+>
+> *Effects vary by individual. Best results pair medication with diet and lifestyle changes.*
+
+Helper text: none
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.treatment_mechanism_v1` | `tier`: 3
+- `answer_type`: `educational_screen` | `selection_cardinality`: `none_applicable` | `requiredness`: `required_to_continue`
+- `answer_role`: `educational_trust` | `intent_of_answer_set`: `education`
+- `entity_kind`: `single_value` | `atom_kind`: n/a | `downstream_effect`: `personalization`
+- `render_when`: null (baseline; renders right after Q16.7 BMI personalized)
+- Continue button label: `"Continue"`
+
+**Atoms emitted:**
+- `emits_atoms`: `[]` (binding empty)
+- Analytics-only event per `Section 1K.19.9`: `intake.educational_screen.continued` with `metadata: {question_id: 'qb.pathway.glp1.motivation_and_goals.treatment_mechanism_v1', dwell_time_ms?, continued: true}`
+
+**Issues found:** Hims uses 2-card layout ("Improves eating habits" + "Targets the source of cravings"). MAIN consolidates to single body block with factual mechanism + honest "effects vary" caveat. The mechanism explanation (GLP-1 hormone mimicry + appetite regulation + delayed gastric emptying) is medically accurate per FDA labels and reduces patient confusion later about how the medication works. The "best results pair with diet and lifestyle" line aligns with FDA-required messaging that GLP-1 indications include reduced-calorie diet + increased physical activity.
+**Recommended rewrite:** Adopt consolidated factual body with mechanism explanation + honest caveat.
+**Branching adjustments:** None.
+**Downstream effect:** `personalization` (analytics on engagement; informs provider visit framing — patient who scrolled through mechanism vs skipped immediately may benefit from different visit emphasis).
+**Final decision:** **Modify** (Hims 2-card → consolidated factual body; mechanism preserved; FDA-aligned caveat).
+
+---
+
 ## Layer D Phase 2.1 audit summary
 
 | Question | Tier | answer_role | atom_kind | downstream_effect | none_logic? | Decision |
@@ -602,8 +859,16 @@ Plus: None of these (with binding `exclusive_with_other_choices` none_logic).
 | Q15.6 Side effects on your GLP-1 (conditional; grouped) | 2 | clinical_safety | safety | provider_review | exclusive_with_other_choices | Modify |
 | Q15.7 When did you stop (past only) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
 | Q15.8 Why did you stop (past only) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
+| Q16.1 Primary motivation | 3 | motivation | preference_motivation | personalization | n/a | Modify |
+| Q16.2 Treatment priority | 3 | commercial_confidence | operational | personalization | n/a | Modify |
+| Q16.3 Educational 83% stat | 3 | educational_trust | n/a (educational_screen) | personalization | n/a | Modify |
+| Q16.4 Treatment-in-mind preference | 3 | preference | preference_motivation | personalization | n/a | Modify |
+| Q16.5 Goal benefits multi-select | 3 | motivation | preference_motivation | personalization | n/a | Modify |
+| Q16.6 Patient testimonials | 3 | commercial_confidence | n/a (educational_screen) | personalization | n/a | Modify |
+| Q16.7 BMI personalized (derived_display) | 3 | educational_trust | n/a (educational_screen) | personalization | n/a | Modify |
+| Q16.8 Treatment mechanism | 3 | educational_trust | n/a (educational_screen) | personalization | n/a | Modify |
 
-**Verdict:** 0 Keep + 15 Modify. Net: spec introduces 15 net GLP-1-pathway-specific questions across 3 modules (Module 14 reduced from 3 → 2 by removing Q14.3 free-text; Module 15 grew from 7 → 8 by splitting old composite Q15.5 into Q15.7 + Q15.8 — net unchanged). All in MAIN voice with full `Section 1K.3` + Stage 1.5 schema discipline + binding tone lock + binding banded-numeric atom architecture. ~11 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details). 4 closely mirror Hims (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status). All emit atoms in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact).
+**Verdict:** 0 Keep + 23 Modify. Net: spec introduces 23 GLP-1-pathway-specific questions across 4 modules. ~12 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template). ~11 closely mirror Hims (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact).
 
 ## Cross-pathway reuse projection
 
@@ -611,39 +876,36 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 - **Q13.1 + Q13.2** (height + current weight) atoms (`vital.height_cm` + `vital.weight_kg`) are CONSUMED by every pathway whose safety preflight needs BMI (cardiometabolic / TRT / Female HRT / GAH / hair loss minoxidil contraindication). Future pathway-specific weight-history modules (e.g., `mod.pathway.trt.weight_baseline_v1`) would author DIFFERENT pathway questions to capture the same atoms (or reuse this module's questions via composition if clinically appropriate).
 - **Q15.1 GLP-1 status** atom (`medication.glp1_use_status`) is CONSUMED by future TRT pathway (TRT + GLP-1 combination is common; provider reviews concurrent therapy) and Female HRT pathway (some GLP-1 + HRT combinations require cardiovascular monitoring). Future pathways would compose `mod.clinical_core.medication_history_v1` for general medication history; THIS module's GLP-1 specifics are GLP-1-pathway-only.
 - **Q14 weight loss attempts** (Q14.1 has-attempted + Q14.2 methods multi-select) is GLP-1-specific framing; future bariatric or mental-health-eating-disorder pathways would author their own attempt-history modules with pathway-appropriate framing.
+- **Module 16 motivation_and_goals** is GLP-1-specific in CONTENT but the STRUCTURE (motivation primer → treatment priority → educational stat → treatment-in-mind → goal benefits → testimonials → personalized derived_display → mechanism explanation) is reusable as a TEMPLATE for future TRT / Female HRT / ED / hair loss motivation modules. Atoms (`intent.weight_loss_*`, `intent.treatment_*`) are pathway-named in the metadata-namespace; future pathways author parallel `intent.testosterone_therapy_*`, `intent.female_hrt_*`, etc. atoms with the same structural pattern.
 
 ## Architectural patterns applied (binding; per Section 1K.3)
 
 1. **Atomization principle:** all atoms live in `repo/clinical-concepts/<domain>.ts` (vitals.ts / medications.ts / intent.ts / cardiometabolic.ts / gastrointestinal.ts) per `Section 1K.3`. Pathway-unique facts (Q13.3 weight loss goal band) carry the `atom.pathway.glp1.*` namespace per Layer D row of the 4-layer taxonomy table.
-2. **Banded-numeric atoms — band is source of truth; derived numeric is display-only (binding):** when a question captures a numeric quantity that doesn't require precision (weight loss goal, weight lost, dose, duration, stop date), the BAND is the source-of-truth atom emitted by the question. Any derived numeric value (e.g., midpoint-of-band-converted-to-kg) is computed at display time per `Section 1K.9` `intake_derived_score` and is NOT stored as a primary atom.
-   - **Forbidden patterns:**
-     - Introducing a parallel numeric atom alongside a band atom for the same fact → BLOCKED at code review unless overwhelming clinical justification + clinical CODEOWNER ack
-     - Storing the derived numeric value in `intake_response` or `patient_state_observations` → BLOCKED (it's a derived value, not a clinical observation)
-   - **Applies to:** Q13.3 weight loss goal (`atom.pathway.glp1.weight_loss_goal_band`); Q15.3 dose (`medication.glp1_dose_recent_band`); Q15.4 duration (`medication.glp1_duration_band`); Q15.5 weight lost (`medication.glp1_weight_lost_band`); Q15.7 stop date (`medication.glp1_stop_date_band`).
+2. **Banded numerics:** for Q13.3 / Q15.3 / Q15.4 / Q15.5 / Q15.7, the band is the atom. Derived numeric values (e.g., midpoint-converted-to-kg) are computed at display time per `Section 1K.9` `intake_derived_score`, not stored as primary atoms.
 3. **Multi-instance discipline (`Section 1K.5.A`):** Q14.2 method-tried-multi-select uses `(concept_id, context_key)` tuple where `context_key = method_kind`; per-method follow-ups deferred to Phase 2.2. Q15.2 prior GLP-1 use is multi-instance-aggregated for V1 (per-drug timeline + per-drug Q15.3-Q15.5 cascade deferred to Phase 2.2 for patients who used multiple GLP-1s).
 4. **`hard_stop` semantics:** none of these 3 modules emit hard_stop atoms directly. `Section 1Q.16` GLP-1 contraindication checks fire DOWNSTREAM from Q15.6 atoms (e.g., severe abdominal pain → safety preflight reviews for pancreatitis confirmation; if confirmed via clinical history elsewhere → `rule.glp1.safety.contraindication_pancreatitis_personal_history` BLOCK fires per `Section 1Q.15`). Module-layer atoms are clinical_history / safety classification but not hard-blocking themselves.
 5. **Concept naming rule (`Section 1K.5.A`):** lifecycle in assertion fields. Q15.6 side effects use `condition.glp1_side_effect_<kind>_history` with `assertion_type: history_of` and `metadata.disease_state: side_effect_course_resolved`. Q15.1 status uses `medication.glp1_use_status` with metadata value (`currently | past | never`); the concept_id names the entity (GLP-1 use), the value names the lifecycle.
 6. **Pathway-specific clinical capture (`Section 1K.3` directly-answered-fields rule):** Q15.5 weight-lost + Q15.6 side effects + Q15.8 stop reason are CLINICAL FACTS asked DIRECTLY; never inferred from gender_identity, biological_sex_at_birth, or any other identity atom. The directly-answered-fields rule is preserved.
-7. **Hims source ref discipline:** every question carries explicit reference to Hims source step (or "Implicit" when MAIN adds beyond Hims). Net `Implicit` count: 11 of 15 (Q13.3 partially + Q13.5 + Q14.1-Q14.2 + Q15.2-Q15.8) — most of the cascade depth is MAIN-additive beyond Hims's funnel.
+7. **Hims source ref discipline:** every question carries explicit reference to Hims source step (or "Implicit" when MAIN adds beyond Hims). Net `Implicit` count: 11 of 23 (Q13.3 partially + Q13.5 + Q14.1-Q14.2 + Q15.2-Q15.8) — most of the cascade depth is MAIN-additive beyond Hims's funnel; Module 16 questions (Q16.1-Q16.8) all map directly to Hims Steps 5, 7, 10-11, 12, 17, 18-19, 25, 26.
 8. **Anchoring rule applied:** all Module 15 follow-up prompts anchor to `"your GLP-1"` (drug-class anchor); Q15.4 uses dynamic past-vs-present-tense via `patient_label_template_refs`. No unanchored "it" references in any prompt per the binding anchoring rule in MAIN voice principles.
-9. **Tone-lock corollary applied:** Q13.3 weight-loss-goal moved from `requiredness: optional` (data leak) to `requiredness: required_to_continue` with `"I don't have a specific number"` as the don't-know answer option. Pattern preserved in Q15.5 weight-lost (`"I don't remember"` + `"I didn't lose weight (or gained)"` as structured options) and Q15.7 / Q15.8 (`"I don't remember"` / `"Other"`).
+9. **Required vs answer-option discipline applied:** Q13.3 weight-loss-goal is `requiredness: required_to_continue` with `"I don't have a specific number"` as the don't-know answer option. Pattern preserved in Q15.5 weight-lost (`"I don't remember"` + `"I didn't lose weight (or gained)"` as structured options) and Q15.7 / Q15.8 (`"I don't remember"` / `"Other"`). Q16.4 treatment-in-mind also uses this pattern (`"I'm not sure yet"` answer option vs making the question optional).
+10. **Educational_screen pattern (Module 16):** 4 questions in Module 16 (Q16.3 / Q16.6 / Q16.7 / Q16.8) use `answer_type: educational_screen` per `Section 1K.3` Stage 1.5. These emit ZERO clinical atoms (`emits_atoms: []` binding); they emit non-clinical analytics events (`intake.educational_screen.continued`) per `Section 1K.19.9` ONLY. Q16.7 is a `derived_display` per `Section 1K.4` — body template renders derived BMI from prior atoms (Q13.1 + Q13.2). Q16.6 testimonials carry inline FDA-compliant disclaimer copy in body block; clinical CODEOWNER reviews testimonial content + disclaimer at PR.
 
 ## Counts (after this checkpoint)
 
-- Layer D Phase 2.1: 3 modules / 15 questions defined (net unchanged after polish: Q14.3 removed + old Q15.5 split into Q15.7 + Q15.8 = -1 + 1 = 0 net change)
-- Stage 2 grand total so far (Phase 1 + Phase 2.1): 15 modules / 54 questions defined
-- Per-patient render varies: GLP-1-naive ~7-8 questions; current GLP-1 patient ~12 questions; past GLP-1 patient ~14 questions (full cascade including Q15.7 + Q15.8)
-- Remaining for Phase 2.2: ~6 modules / ~35-40 questions
+- Layer D Phase 2.2.1: 4 modules / 23 questions defined (Module 16 motivation_and_goals added with 8 questions in this checkpoint)
+- Stage 2 grand total so far (Phase 1 + Phase 2.2.1): 16 modules / 62 questions defined
+- Per-patient render varies: GLP-1-naive ~15-16 questions; current GLP-1 patient ~20 questions; past GLP-1 patient ~22 questions (Module 16's 8 questions render for all patients)
+- Remaining for Phase 2.2.2: ~5 modules / ~25-32 questions
 
 ## Next deliverable
 
-Phase 2.2 (DEFERRED to next checkpoint): remaining 6 Layer D modules:
+Phase 2.2.2 (DEFERRED to next checkpoint): remaining 5 Layer D modules:
 
-1. `mod.pathway.glp1.cv_safety_extended_v1` — extends `mod.domain.cardiometabolic.baseline_history_v1` (Phase 1 Module 8) with MEN-2 / medullary thyroid cancer family + personal history (per Hims Step 47-51); ~6-8 questions
-2. `mod.pathway.glp1.gi_safety_extended_v1` — extends `mod.domain.gastrointestinal.baseline_history_v1` (Phase 1 Module 9) with pancreatitis / gallbladder / gastroparesis / diabetic retinopathy specifics; ~5-7 questions
-3. `mod.pathway.glp1.eating_disorder_screen_v1` — extends `mod.domain.mental_health.baseline_v1` (Phase 1 Module 11) with anorexia / bulimia / BED screen (per Hims Step 32); ~3-4 questions
-4. `mod.pathway.glp1.bariatric_surgery_extended_v1` — extends `mod.clinical_core.surgery_history_v1` (Phase 1 Layer B) with gastric bypass / sleeve / lap band / duodenal switch (per Hims Step 53); ~2-3 questions
+1. `mod.pathway.glp1.eating_disorder_screen_v1` — extends `mod.domain.mental_health.baseline_v1` (Phase 1 Module 11) with anorexia / bulimia / BED screen (per Hims Step 32); ~3-4 questions
+2. `mod.pathway.glp1.cv_safety_extended_v1` — extends `mod.domain.cardiometabolic.baseline_history_v1` (Phase 1 Module 8) with MEN-2 / medullary thyroid cancer family + personal history (per Hims Step 47-51); ~6-8 questions
+3. `mod.pathway.glp1.bariatric_surgery_extended_v1` — extends `mod.clinical_core.surgery_history_v1` (Phase 1 Layer B) with gastric bypass / sleeve / lap band / duodenal switch (per Hims Step 53); ~2-3 questions
+4. `mod.pathway.glp1.gi_safety_extended_v1` — extends `mod.domain.gastrointestinal.baseline_history_v1` (Phase 1 Module 9) with pancreatitis / gallbladder / gastroparesis / diabetic retinopathy specifics; ~5-7 questions
 5. `mod.pathway.glp1.contraindication_acknowledgments_v1` — MEN-2 BLACK BOX acknowledgment + off-label disclosure consents (`acknowledgment` answer_type; emits `consent.*` atoms per `Section 1K.5.A` + `Section 1K.11`); ~3-4 questions
-6. `mod.pathway.glp1.motivation_and_goals_v1` — Hims-style motivation primer (Hims Step 5 "Why do you want to lose weight?" + Step 17 "What would reaching your goal weight mean for you?") + educational screens (Hims Step 10-11 "83% of Americans" + Step 18-19 testimonials); ~5-8 questions including educational_screen + motivation_priming + commercial_confidence answer_roles
 
-After Phase 2.2: 9 GLP-1 Layer D modules complete; ~50-55 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
+After Phase 2.2.2: 9 GLP-1 Layer D modules complete; ~50-55 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
