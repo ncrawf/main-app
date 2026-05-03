@@ -8,21 +8,41 @@
 
 ## Scope
 
-Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_goal_target_kg` (a pathway-unique fact; not a clinical concept).
+Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept).
 
 **3 modules in this file:**
-1. `mod.pathway.glp1.weight_history_v1` — 5 questions (height + current weight + goal weight + max-weight Y/N + max-weight value if not current)
-2. `mod.pathway.glp1.weight_loss_attempts_v1` — 3 questions (prior attempts Y/N + methods multi-select + free-text what-worked)
-3. `mod.pathway.glp1.prior_glp1_use_v1` — 7 questions (status + which GLP-1 + dose + duration + when-stopped/why + side effects + weight lost while on it)
+1. `mod.pathway.glp1.weight_history_v1` — 5 questions (height + current weight + weight loss goal band + max-weight Y/N + max-weight value if not current)
+2. `mod.pathway.glp1.weight_loss_attempts_v1` — 2 questions (prior attempts Y/N + methods multi-select)
+3. `mod.pathway.glp1.prior_glp1_use_v1` — 8 questions (status + which GLP-1 + dose + duration + weight lost + side effects + when stopped + why stopped)
 
 **Total: 15 questions defined.**
 
 **Per-patient render counts (varies by branch):**
-- GLP-1-naive patient with no prior weight-loss attempts: ~7 questions rendered (Q13.1 + Q13.2 + Q13.3 + Q13.4 + Q14.1 + Q15.1; Q13.5 skipped if `current = max ever`; Q14.2/Q14.3 + Q15.2-Q15.7 skipped)
-- GLP-1-naive patient with prior diet attempts: ~9-10 questions rendered (above + Q14.2 + Q14.3)
-- Returning GLP-1 patient (Q15.1 ∈ {currently, past}): ~13-15 questions rendered (full cascade Q15.2 - Q15.7)
+- GLP-1-naive patient with no prior weight-loss attempts: ~7 questions rendered (Q13.1 + Q13.2 + Q13.3 + Q13.4 + Q14.1 + Q15.1; Q13.5 skipped if `current = max ever`; Q14.2 + Q15.2-Q15.8 skipped)
+- GLP-1-naive patient with prior diet attempts: ~8 questions rendered (above + Q14.2)
+- Current GLP-1 patient (Q15.1 = currently): ~12 questions rendered (Q15.2 + Q15.3 + Q15.4 + Q15.5 + Q15.6; Q15.7 + Q15.8 skipped)
+- Past GLP-1 patient (Q15.1 = past): ~14 questions rendered (full cascade including Q15.7 + Q15.8)
 
 ## MAIN voice principles (binding; reused from Phase 1)
+
+### Tone lock (binding)
+
+**Clinical product with subtle warmth. NOT a human product with clinical constraints.**
+
+What this means in practice:
+- Direct prompts (Hims-direct cadence). No emotional framing in the prompt itself.
+- Helper text explains WHY when sensitive — never adds hype or feeling-y tone.
+- Permission-to-estimate, permission-to-skip-via-explicit-option — these warm gestures preserve autonomy without selling.
+- No transformation hype. No "amazing journey." No "we're so excited."
+- No clinical jargon the patient won't recognize.
+- No internal-system narration in patient-facing UI ("provider will follow up", "system flags this for review", etc.). The system handles its own wiring.
+- When in doubt: tighter is better.
+
+**Tone-lock corollary (binding):** don't make a funnel question `optional` if you actually want the data. Use an answer option for the don't-know case (`"I don't have a specific number"`, `"I don't remember"`, `"I'm not sure"`). This preserves data completeness without forcing fake content and without leaking optionality into the funnel. Per-question `requiredness` should be `required_to_continue` or `conditionally_required` for any data the system cares about; `optional` is reserved for genuinely-low-priority signal (e.g., narrative free-text patient could skip with no clinical loss).
+
+**Anchoring rule (binding):** in multi-step cascades, follow-up question prompts MUST anchor to a meaningful noun, not "it" or other unanchored pronouns. Three valid anchoring patterns: (a) drug-class anchor (default; `"your GLP-1"`); (b) specific-drug anchor when single drug confirmed and single follow-up (`"your Wegovy"` via `patient_label_template_refs` per `Section 1K.4`); (c) most-recent-instance anchor when multi-drug (`"your most recent GLP-1"`). For Module 15 in this checkpoint, all follow-ups anchor to `"your GLP-1"` for consistency.
+
+### Voice principles
 
 - Direct over pretty. Short sentences.
 - Warm not saccharine. "Thanks for sharing — this helps us tailor your care" not "We're SO excited!"
@@ -42,14 +62,14 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 **`pathways`:** `glp1` only (Layer D pathway-specific; not reused across non-weight-management pathways)
 **`required_for`:** eligibility, safety, dose calibration
 **`assertion_group_emit_trigger`:** `module_complete` (composite emission of trackable vitals + intent atoms in same DB transaction)
-**Atom domain:** `vitals` (height + weight measurements live in `repo/clinical-concepts/vitals.ts`) + `intent` (`atom.pathway.glp1.weight_goal_target_kg` lives in `repo/clinical-concepts/intent.ts` under `intent.pathway_glp1_*` prefix per `Section 1K.3` Layer D atom-namespace exception)
+**Atom domain:** `vitals` (height + weight measurements live in `repo/clinical-concepts/vitals.ts`) + `intent` (`atom.pathway.glp1.weight_loss_goal_band` lives in `repo/clinical-concepts/intent.ts` under `intent.pathway_glp1_*` prefix per `Section 1K.3` Layer D atom-namespace exception)
 
 ### Q13.1 — Height
 
 **Hims source:** Step 22-23 "What is your height? Please enter your height in feet and inches. Feet 5 / Inches 11"
 **MAIN voice:**
 - prompt: "What's your height?"
-- helper: "We use this with your weight to calculate BMI."
+- helper: "We use this to calculate BMI."
 
 **Schema:**
 - `question_id`: `qb.pathway.glp1.weight_history.height_v1` | `tier`: 1
@@ -74,7 +94,7 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 **Hims source:** Step 22-23 "What is your current weight? Please enter your current weight in pounds (lbs). Pounds 170"
 **MAIN voice:**
 - prompt: "What's your current weight?"
-- helper: "Your best estimate is fine. We'll track this over time."
+- helper: "Best estimate is fine. We'll track this over time."
 
 **Schema:**
 - `question_id`: `qb.pathway.glp1.weight_history.current_weight_v1` | `tier`: 1
@@ -95,30 +115,34 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 **Downstream effect:** `provider_review` (BMI eligibility floor; dose calibration per Endocrine Society guidance).
 **Final decision:** **Modify** (permission-to-estimate helper; preserve Hims composite-form UX).
 
-### Q13.3 — Goal weight
+### Q13.3 — Weight loss goal (delta band; required)
 
-**Hims source:** Step 24 "What is your goal weight? Please enter your desired weight in pounds (lbs). Pounds 155"
+**Hims source:** Step 24 "What is your goal weight? Please enter your desired weight in pounds (lbs). Pounds 155" + Step 09 "What's your weight loss goal? Losing 1-15 lbs / Losing 16-50 lbs / Losing 51+ lbs / Not sure, I just need to lose weight" — MAIN merges the two patterns: delta-banded framing (Step 09) + post-account clinical placement (Step 24).
 **MAIN voice:**
-- prompt: "What's your goal weight?"
-- helper: "Optional but helpful for personalizing your plan. You can change this later."
+- prompt: "How much do you want to lose?"
+- helper: "Best estimate is fine."
 
 **Schema:**
-- `question_id`: `qb.pathway.glp1.weight_history.goal_weight_v1` | `tier`: 2
-- `answer_type`: `numeric` (lbs integer; resolver normalizes to kg) | `selection_cardinality`: `optional_blank_allowed` | `requiredness`: `optional`
+- `question_id`: `qb.pathway.glp1.weight_history.weight_loss_goal_v1` | `tier`: 2
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
 - `answer_role`: `preference` | `intent_of_answer_set`: `motivation_priming`
 - `entity_kind`: `single_value` | `atom_kind`: `preference_motivation` | `downstream_effect`: `personalization`
 - `render_when`: null (baseline; renders right after Q13.2)
 - `is_trackable`: false (goal is intent, not measurement; appended via `intake_response` only)
 
-**Atoms emitted:**
-- Positive: `atom.pathway.glp1.weight_goal_target_kg` (metadata: `{value_kg: number, source_unit: 'lbs', source_value: lbs}`)
-- Denied: blank acceptable (`requiredness: optional`); patient can skip without penalty
+**Choices:** Up to 10 lbs | 10-20 lbs | 20-40 lbs | 40-80 lbs | More than 80 lbs | I don't have a specific number
+**`choice_values`:** `up_to_10 | 10_to_20 | 20_to_40 | 40_to_80 | more_than_80 | no_specific_number`
 
-**Issues found:** Hims requires goal weight; MAIN softens to optional with motivation-priming framing. Some patients genuinely don't have a number in mind — forcing one creates anchoring bias and patient frustration. Helper acknowledges that goals can change ("You can change this later"). Per `Section 1K.3` Stage 1.5 anti-pattern guard: `answer_role: preference` is correct (this is patient preference / motivation, not clinical safety) — provider does NOT prescribe to a specific goal weight; clinical decisions use BMI + comorbidities, not patient goal.
-**Recommended rewrite:** Adopt optional + motivation-priming framing.
-**Branching adjustments:** `Section 1K.9` `intake_derived_score.glp1_weight_loss_target_pct = (current_weight - goal_weight) / current_weight` computed when both populated; consumed by motivation rules in `Section 1Q.15` for personalization (e.g., "you're aiming for a 9% loss — most patients see results in the 5-15% range" personalized template).
+**Atoms emitted:**
+- Source-of-truth atom: `atom.pathway.glp1.weight_loss_goal_band` (metadata: `{band: <choice_value>, source_unit: 'lbs'}`)
+- Derived value (display only; computed at read time per `Section 1K.9` `intake_derived_score`; NOT stored as primary atom): `intake_derived_score.glp1_estimated_goal_weight_kg = current_weight_kg - midpoint_of_band_kg` where midpoints are `up_to_10` → 5 lbs (2.27 kg); `10_to_20` → 15 lbs (6.80 kg); `20_to_40` → 30 lbs (13.61 kg); `40_to_80` → 60 lbs (27.22 kg); `more_than_80` → 100 lbs (45.36 kg) conservative; `no_specific_number` → not computed (downstream display falls back to "patient hasn't set a specific goal")
+- Denied: n/a (`required_to_continue`; "I don't have a specific number" is the don't-know answer option, not a skip)
+
+**Issues found:** Original draft used numeric absolute goal weight + optional. Two product-feel problems: (a) absolute target forces patients to do mental math ("I'm 200, I want to lose 25, so... 175") when they actually think in delta terms ("I want to lose 25 lbs"); (b) `requiredness: optional` leaks optionality into the funnel — if we're asking, we want the data. Banded delta + required + don't-know answer option fixes both. Hims validates the delta-banded pattern at Step 09. Banding by doubling-pattern (10/20/40/80) clusters similar magnitudes naturally — patients say "I want to lose 30 lbs" or "50 lbs", not "25" — so band edges at round 10s read more naturally than at 25s. Atom architecture: band is source of truth (binding per spec's banded-numeric atom rule); derived numeric goal weight computed at display time only, never stored as primary atom.
+**Recommended rewrite:** Adopt delta-banded single_select with 6 options (5 magnitude bands + don't-know); required; banded source-of-truth atom; derived numeric for display only.
+**Branching adjustments:** `Section 1K.9` `intake_derived_score.glp1_estimated_goal_weight_kg` + `intake_derived_score.glp1_weight_loss_target_pct = midpoint_of_band / current_weight` computed when band is concrete (skipped for `no_specific_number`); consumed by motivation rules in `Section 1Q.15` for personalization (e.g., "you're aiming for ~10% loss — most patients see 5-15% over a year" personalized template).
 **Downstream effect:** `personalization` (drives BMI-comparison display per Hims Step 25 + content selection in Hims-style educational screens).
-**Final decision:** **Modify** (optional + motivation-priming framing; permission-to-skip).
+**Final decision:** **Modify** (delta-banded + required + banded-atom architecture; replaces numeric absolute target).
 
 ### Q13.4 — Is current weight your highest ever?
 
@@ -182,7 +206,7 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 **`pathways`:** `glp1` only (Layer D pathway-specific; some elements may be reused for future bariatric / mental-health-eating-disorder pathways but not in V1)
 **`required_for`:** clinical context, motivation framing, payer documentation
 **`assertion_group_emit_trigger`:** `module_complete`
-**Atom domain:** `intent` (`intent.prior_weight_loss_*`) + `narrative` (Q14.3 free-text post-atomization via `Section 1P`)
+**Atom domain:** `intent` (`intent.prior_weight_loss_*`)
 
 ### Q14.1 — Have you tried to lose weight in the past 5 years?
 
@@ -227,7 +251,7 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 - `render_when`: `{question_id: 'qb.pathway.glp1.weight_loss_attempts.has_attempted_v1', equals: 'yes'}`
 - `required` (resolver): `<Predicate>` (required when render_when fires)
 
-**Choices:** Diet (eating differently or restricting) | Exercise (regular activity / gym / classes) | Prescription weight-loss medication | Bariatric surgery or weight-loss procedure | Commercial program (Weight Watchers, Noom, Jenny Craig, etc.) | Supplements or OTC products | Other (free-text in Q14.3)
+**Choices:** Diet (eating differently or restricting) | Exercise (regular activity / gym / classes) | Prescription weight-loss medication | Bariatric surgery or weight-loss procedure | Commercial program (Weight Watchers, Noom, Jenny Craig, etc.) | Supplements or OTC products | Other
 **`choice_values`:** `diet | exercise | rx | bariatric_surgery | commercial_program | supplement_otc | other`
 
 **Atoms emitted:**
@@ -236,36 +260,9 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 
 **Issues found:** No `none_logic` because cardinality is `one_or_more` (patient can't reach this question without saying yes to Q14.1 — at least one positive selection is implied); the absence of "None of these" is intentional (would be self-contradictory with Q14.1 = yes). The `bariatric_surgery` choice CROSS-REFERENCES the `mod.clinical_core.surgery_history_v1` baseline (Phase 1) per `Section 1K.3` contextual extension principle — bariatric surgery selection here flags clinical-history context, but the surgery atom emission lives in clinical_core (this question records the WEIGHT-LOSS-ATTEMPT FRAMING; surgery atoms live in `procedure.gastric_bypass_history` etc. emitted by Phase 2.2 `mod.pathway.glp1.bariatric_surgery_extended_v1` per Section 1K.3 contextual extension).
 **Recommended rewrite:** Adopt as new Tier 2 conditional with 7-option multi-select; `instance_scope: aggregate` for V1 (per-method depth deferred).
-**Branching adjustments:** Selection of `bariatric_surgery` cross-references downstream `mod.pathway.glp1.bariatric_surgery_extended_v1` (Phase 2.2). Selection of `rx` cross-references downstream `mod.pathway.glp1.prior_glp1_use_v1` (this module — patient who selects `rx` here may or may not have used GLP-1; Q15.1 captures that distinction directly). Selection of `other` triggers Q14.3 free-text (free-text is `optional` regardless; selecting `other` strongly suggests Q14.3 will be populated).
+**Branching adjustments:** Selection of `bariatric_surgery` cross-references downstream `mod.pathway.glp1.bariatric_surgery_extended_v1` (Phase 2.2). Selection of `rx` cross-references downstream `mod.pathway.glp1.prior_glp1_use_v1` (this module — patient who selects `rx` here may or may not have used GLP-1; Q15.1 captures that distinction directly).
 **Downstream effect:** `provider_review` (multi-method context informs visit framing + provider personalization).
 **Final decision:** **Modify** (new Tier 2 conditional with multi-instance discipline; per-method depth deferred to Phase 2.2).
-
-### Q14.3 — What worked or didn't? (free-text; optional)
-
-**Hims source:** Implicit (Hims doesn't ask narrative reflection on prior attempts; MAIN adds Tier 3 free-text for richer provider context per `Section 1P` narrative atomization).
-**MAIN voice:**
-- prompt: "Anything specific that worked or didn't?"
-- helper: "Optional. Helps your provider personalize your plan. Or skip if there's nothing to add."
-
-**Schema:**
-- `question_id`: `qb.pathway.glp1.weight_loss_attempts.what_worked_freetext_v1` | `tier`: 3
-- `answer_type`: `free_text_bounded` | `selection_cardinality`: `optional_blank_allowed` | `requiredness`: `skippable_blank`
-- `answer_role`: `clinical_context` | `intent_of_answer_set`: `clinical_history`
-- `entity_kind`: `single_value` | `atom_kind`: `clinical_history` | `downstream_effect`: `provider_review`
-- `render_when`: `{question_id: 'qb.pathway.glp1.weight_loss_attempts.has_attempted_v1', equals: 'yes'}`
-
-**`free_text_rules`:** `{allow_blank: true, explicit_no_value: 'Nothing specific to add', safety_scan: true, do_not_force_fake_content: true}`
-**`narrative_intent`:** `patient_concern`
-
-**Atoms emitted:**
-- At intake: `narrative.weight_loss_attempt_freetext` (raw stored)
-- Post-submit (via `Section 1P` AI atomization): `intent.prior_weight_loss_method_<kind>_outcome_<positive|negative|neutral>` per detected method-outcome pair; OR `narrative.weight_loss_concern_*` for patient concerns (e.g., "I plateaued after 3 months on Wegovy" extracts to outcome + duration atoms)
-
-**Issues found:** Tier 3 (NICE TO HAVE; A/B-testable). Honors patient time when there's nothing meaningful to add (`do_not_force_fake_content: true` + explicit-no-value checkbox). Per `Section 1P` narrative atomization: AI extracts structured atoms from patient narrative (provider sees raw text + atomized facts in workspace per `Section 1P.4`).
-**Recommended rewrite:** Adopt as Tier 3 free-text with skippable_blank pattern.
-**Branching adjustments:** None at intake; AI atomization runs post-submit per `Section 1P`.
-**Downstream effect:** `provider_review` (raw narrative + atomized outcomes surface in provider workspace per `Section 1G.8.5`).
-**Final decision:** **Modify** (new Tier 3 free-text; skippable_blank).
 
 ---
 
@@ -277,7 +274,7 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 **`pathways`:** `glp1` only (Layer D pathway-specific; not reused — TRT/HRT/ED have their own prior-Rx-use modules)
 **`required_for`:** safety, dose calibration, eligibility (some payers exclude patients currently on a GLP-1 from new GLP-1 PA; some pathways restart-only after washout)
 **`assertion_group_emit_trigger`:** `module_complete` (composite emission of medication + side-effect atoms in same DB transaction)
-**Atom domain:** `medications` (drug-use atoms live in `repo/clinical-concepts/medications.ts`) + `gastrointestinal` / `endocrine` (side-effect condition atoms live in respective domain registries) + `vitals` (Q15.7 weight-lost outcome lives in `vitals.ts`)
+**Atom domain:** `medications` (drug-use + dose-band + duration-band + weight-lost-band + stop-date-band + stop-reason atoms live in `repo/clinical-concepts/medications.ts`) + `gastrointestinal` / `endocrine` (side-effect condition atoms live in respective domain registries per `Section 1K.5.A`)
 
 ### Q15.1 — Current/past/never GLP-1 use
 
@@ -302,39 +299,49 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 
 **Issues found:** Hims tightened wording is fine but verbose. MAIN trims helper while keeping the brand-name examples (patients recognize Ozempic/Wegovy/Mounjaro/Zepbound; clinical names alone wouldn't be self-evident). 3-option set is the same as Hims (currently / past / never) — no need to expand or restructure; this is the canonical Tier 1 safety screen.
 **Recommended rewrite:** Tighter MAIN voice; preserve Hims 3-option semantics.
-**Branching adjustments:** `currently` OR `past` → render Q15.2 + Q15.3 + Q15.4 + Q15.6 + Q15.7 (and Q15.5 if `past`). `never` → skip all follow-ups; provider sees "GLP-1 naive" flag.
+**Branching adjustments:** `currently` OR `past` → render Q15.2 + Q15.3 + Q15.4 + Q15.5 + Q15.6 (and Q15.7 + Q15.8 if `past`). `never` → skip all follow-ups; provider sees "GLP-1 naive" flag.
 **Downstream effect:** `provider_review` (returning patient → adherence-aware dose decision per `Section 1Q.16` Refinement 1 `rule.glp1.rx.adherence_gap_dose_decision`; naive patient → standard starting dose).
 **Final decision:** **Modify** (tighter helper; preserve Hims 3-option semantics).
 
 ### Q15.2 — Which GLP-1(s) (conditional; renders when Q15.1 ∈ {currently, past})
 
-**Hims source:** Implicit (Hims captures specific drug via medications list at Step 57; MAIN asks directly here for cleaner cascade + specific brand-name capture).
+**Hims source:** Implicit (Hims captures specific drug via medications list at Step 57; MAIN asks directly here for cleaner cascade + brand-recognition capture).
 **MAIN voice:**
-- prompt: "Which one(s)?"
-- helper: "Select all that apply. If you've switched, pick everything you've used."
+- prompt: "Which of these have you taken?"
+- helper: "Select all that apply."
 
 **Schema:**
 - `question_id`: `qb.pathway.glp1.prior_glp1_use.which_v1` | `tier`: 1
 - `answer_type`: `multi_select` | `selection_cardinality`: `one_or_more` | `requiredness`: `conditionally_required`
 - `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
-- `entity_kind`: `multi_instance` | `instance_scope`: `aggregate` (per-drug follow-ups deferred to Phase 2.2; aggregate atom emitted per drug in V1; Q15.3-Q15.7 capture details for the MOST RECENT drug only in V1 per per-instance discipline below)
+- `entity_kind`: `multi_instance` | `instance_scope`: `aggregate` (per-drug follow-ups deferred to Phase 2.2; aggregate atom emitted per drug in V1; Q15.3-Q15.6 capture details for the MOST RECENT drug only in V1 per per-instance discipline below)
 - `atom_kind`: `safety` | `downstream_effect`: `provider_review`
 - `render_when`: `{question_id: 'qb.pathway.glp1.prior_glp1_use.status_v1', in: ['currently', 'past']}`
 - `required` (resolver): `<Predicate>` (required when render_when fires)
 
-**Choices:** Compounded semaglutide | Compounded tirzepatide | Ozempic (semaglutide) | Wegovy (semaglutide) | Mounjaro (tirzepatide) | Zepbound (tirzepatide) | Other GLP-1 (specify) | I don't remember the name
-**`choice_values`:** `compounded_semaglutide | compounded_tirzepatide | ozempic | wegovy | mounjaro | zepbound | other | dont_remember`
+**Choices** (7 flat options; ordered by patient brand recognition; NO visual grouping headers per tone-lock + Section 1K.3 directly-answered patient UX):
+1. Ozempic
+2. Wegovy
+3. Mounjaro
+4. Zepbound
+5. Compounded semaglutide or tirzepatide
+6. Other or newer medication
+7. I don't remember
+
+**`choice_values`:** `ozempic | wegovy | mounjaro | zepbound | compounded | other_or_newer | dont_remember`
 
 **Atoms emitted:**
-- Per selected: `medication.glp1_<drug>_use` (e.g., `medication.glp1_semaglutide_compounded_use`, `medication.glp1_ozempic_use`, `medication.glp1_zepbound_use`, etc.; metadata: `{drug_kind, brand_name, generic_name, context_key: <drug>}` per multi-instance discipline)
-- `dont_remember` selected → `medication.glp1_unknown_drug_use = true`; provider follow-up Mode F per `Section 1P.4` to clarify
+- Per selected (brand-specific): `medication.glp1_<drug>_use` (e.g., `medication.glp1_ozempic_use`, `medication.glp1_wegovy_use`, `medication.glp1_mounjaro_use`, `medication.glp1_zepbound_use`; metadata: `{drug_kind: 'glp1', brand_name, generic_name, context_key: <drug>}` per multi-instance discipline)
+- `compounded` selected → `medication.glp1_compounded_use = true` (metadata: `{generic_name_pending_clarification: true}`); drug class (sema vs tirze) derived from Q15.3 dose band OR provider Mode F clarification per `Section 1P.4` — clinically sufficient because compounded dosing varies by compounder anyway
+- `other_or_newer` selected → `medication.glp1_other_specified = true`; provider Mode F clarification opens at safety preflight (catches Saxenda / Rybelsus / future approvals like retatrutide without spec churn)
+- `dont_remember` selected → `medication.glp1_unknown_drug_use = true`; provider Mode F per `Section 1P.4` to clarify (many patients used a service-name like Hims / Sequence / Ro without knowing the underlying compound)
 - Denied: n/a (`one_or_more` cardinality; required when rendered)
 
-**Issues found:** Compounded semaglutide / tirzepatide are common (some retail compounders + telehealth providers prescribed compounded versions during the FDA shortage 2022-2024). Including them as separate choices captures the compounding flag (patient may not know batch consistency or shared-active-ingredient safety profile). "I don't remember" is real and clinically valid — many patients used a service-name (Hims, Sequence, Ro) without knowing the underlying compound.
-**Recommended rewrite:** Adopt 8-option multi-select with brand + generic dual labels.
-**Branching adjustments:** `dont_remember` → provider Mode F clarification opens at safety preflight (provider may request prior chart records from previous clinic per `Section 1G.7.6` clinical_required follow-up). Multiple selections (e.g., started Wegovy, switched to Zepbound) → V1 captures aggregate atoms; per-drug timeline (when started/stopped each) deferred to Phase 2.2 multi-instance follow-up.
+**Issues found:** Original draft (round 1) had 8 options + 3-header visual grouping (FDA-approved / off-label / compounded / other). Patient-think pushback (round 2): patients don't think "was my medication FDA-approved for weight loss?" — they think "I took Ozempic." Visual grouping was clinical taxonomy creep into patient UX. Round 3 reduction: drop visual grouping entirely; reduce to 7 flat options ordered by patient brand recognition (Ozempic > Wegovy > Mounjaro > Zepbound is the cultural awareness order; flat list scans faster than grouped). Compounded sema and compounded tirze combined into one line — UX simpler; clinical signal preserved via Q15.3 dose band disambiguation OR provider Mode F if needed. Saxenda dropped from explicit list — rare for weight loss now (Wegovy supplanted); folds into "Other or newer medication" which future-proofs for retatrutide / oral semaglutide / future approvals without spec maintenance churn. Generic names dropped from top 4 brand labels — informational noise for the patient; brand recognition is the scan target.
+**Recommended rewrite:** 7 flat options ordered by patient recognition; brand-only labels for top 4; no visual grouping; combined compounded line; "Other or newer medication" catch-all (future-proofed); "I don't remember" honest catch-all.
+**Branching adjustments:** `compounded` or `other_or_newer` or `dont_remember` → provider Mode F clarification opens at safety preflight (provider may request prior chart records per `Section 1G.7.6` clinical_required follow-up). Multiple selections (e.g., started Wegovy, switched to Zepbound) → V1 captures aggregate atoms; per-drug timeline (when started/stopped each) deferred to Phase 2.2 multi-instance follow-up.
 **Downstream effect:** `provider_review` (specific drug informs starting dose + lockout rules — e.g., GLP-1 → DPP-4 inhibitor combination is a known adverse-event flag per FDA labels).
-**Final decision:** **Modify** (new explicit question; preserve Hims's brand-list examples as choices).
+**Final decision:** **Modify** (7-option flat list; brand-recognition ordering; no visual grouping; future-proofed catch-all).
 
 ### Q15.3 — Most recent dose (conditional; renders when Q15.1 ∈ {currently, past})
 
@@ -370,12 +377,12 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 **Downstream effect:** `provider_review` (starting dose calibration per Endocrine Society + FDA labels per `Section 1Q.15`).
 **Final decision:** **Modify** (new banded dose question; not in Hims; clinically critical for dose calibration).
 
-### Q15.4 — Duration on it (conditional; renders when Q15.1 ∈ {currently, past})
+### Q15.4 — Duration on your GLP-1 (conditional; renders when Q15.1 ∈ {currently, past})
 
 **Hims source:** Implicit (Hims doesn't capture; MAIN adds for adherence-aware dose decision per Section 1Q.16 Refinement 1).
 **MAIN voice:**
-- prompt: "How long have you been on it (or were you on it)?"
-- helper: "Best estimate. We're checking if you've been on it long enough to justify continuing at your current dose."
+- prompt: dynamic per Q15.1 status — `"How long have you been taking your GLP-1?"` (when `currently`) / `"How long were you on your GLP-1?"` (when `past`); resolved via `patient_label_template_refs` per `Section 1K.4`
+- helper: "Best estimate. Helps us decide whether to continue your current dose or restart titration."
 
 **Schema:**
 - `question_id`: `qb.pathway.glp1.prior_glp1_use.duration_v1` | `tier`: 2
@@ -399,50 +406,58 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 - Positive: `medication.glp1_duration_band` (metadata: `{band: <choice>, drug_context: from_q15_2}`)
 - Denied: n/a (conditionally required)
 
-**Issues found:** Banded duration (rather than weeks integer) is intentional — patients don't reliably remember exact start dates; bands cover the clinically-meaningful adherence-decision thresholds (4-week titration window per FDA labels; 8-week minimum for dose-stability claim per Endocrine Society guidance). Helper sets honest expectation about why duration matters (no false claim that we'll just continue prescribing — provider confirms).
-**Recommended rewrite:** Adopt 6-option banded set.
+**Issues found:** Original prompt `"How long have you been on it (or were you on it)?"` had unanchored "it" — sloppy in a multi-step cascade per the `Section 1K.3` anchoring rule. Replaced with dynamic per-status anchoring: `"your GLP-1"` is the universal anchor that scales when patient used multiple drugs; resolver picks past vs present tense per Q15.1 answer. Banded duration (rather than weeks integer) is intentional — patients don't reliably remember exact start dates; bands cover the clinically-meaningful adherence-decision thresholds (4-week titration window per FDA labels; 8-week minimum for dose-stability claim per Endocrine Society guidance). Helper anchors WHY without leaking system narration.
+**Recommended rewrite:** Adopt 6-option banded set with dynamic anchored prompt.
 **Branching adjustments:** Q15.4 + Q15.3 + Q15.1 jointly feed `Section 1Q.16` Refinement 1 `rule.glp1.rx.adherence_gap_dose_decision`. Example: Q15.1 = `currently` + Q15.3 = `mid_maintenance` + Q15.4 = `more_than_8mo` → continue at current dose without re-titration.
 **Downstream effect:** `provider_review` (adherence-aware dose decision per Section 1Q.16 Refinement 1).
 **Final decision:** **Modify** (new banded duration question; clinically critical for adherence-aware dose decision).
 
-### Q15.5 — When did you stop and why? (conditional; renders only when Q15.1 = past)
+### Q15.5 — Weight lost on your GLP-1 (conditional; renders when Q15.1 ∈ {currently, past}) — REPOSITIONED
 
-**Hims source:** Implicit (Hims doesn't capture; MAIN adds for re-treatment context).
+**Cascade reordering rationale:** Outcome first, then details. Did the GLP-1 work? matters more than when/why the patient stopped, so weight-lost moves earlier in the cascade. New order: status → which → dose → duration → **weight lost** → side effects → (past only) when stopped → why stopped.
+
+**Hims source:** Implicit (Hims doesn't capture; MAIN adds for restart-plan motivation framing + non-responder flag).
 **MAIN voice:**
-- prompt: "When did you stop, and why?"
-- helper: "Best estimate is fine. We ask so we can pick the right restart plan."
+- prompt: "How much weight did you lose on your GLP-1?"
+- helper: "Best estimate. Helps your provider set realistic expectations."
 
 **Schema:**
-- `question_id`: `qb.pathway.glp1.prior_glp1_use.stop_when_why_v1` | `tier`: 2
-- `answer_type`: `mixed` (composite: date-band single_select + free-text reason); resolver writes 2 atoms per `Section 1K.0` composite-question pattern | `selection_cardinality`: `exactly_one` (date band) + `optional_blank_allowed` (reason) | `requiredness`: `conditionally_required` (date band) + `optional` (reason)
+- `question_id`: `qb.pathway.glp1.prior_glp1_use.weight_lost_v1` | `tier`: 2
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `conditionally_required`
 - `answer_role`: `clinical_context` | `intent_of_answer_set`: `clinical_history`
 - `entity_kind`: `single_value` | `atom_kind`: `clinical_history` | `downstream_effect`: `provider_review`
-- `render_when`: `{question_id: 'qb.pathway.glp1.prior_glp1_use.status_v1', equals: 'past'}`
-- `required` (resolver): `<Predicate>` (date band required when render_when fires; reason optional)
+- `render_when`: `{question_id: 'qb.pathway.glp1.prior_glp1_use.status_v1', in: ['currently', 'past']}`
+- `required` (resolver): `<Predicate>` (required when render_when fires)
 
-**Date band choices:** Less than 1 month ago | 1-3 months ago | 3-6 months ago | 6-12 months ago | More than 1 year ago | I don't remember
-**Date band `choice_values`:** `less_than_1mo | 1_to_3mo | 3_to_6mo | 6_to_12mo | more_than_1y | dont_remember`
+**Choices** (7 doubling-pattern bands + outcome flag + don't-know):
+- Less than 5 lbs
+- 5-10 lbs
+- 10-20 lbs
+- 20-40 lbs
+- More than 40 lbs
+- I didn't lose weight (or gained)
+- I don't remember
 
-**Reason `free_text_rules`:** `{allow_blank: true, explicit_no_value: 'Skip', safety_scan: true, do_not_force_fake_content: true}`
-**Reason `narrative_intent`:** `patient_concern`
+**`choice_values`:** `less_than_5 | 5_to_10 | 10_to_20 | 20_to_40 | more_than_40 | none_or_gained | dont_remember`
 
 **Atoms emitted:**
-- Positive (date band): `medication.glp1_stop_date_band` (metadata: `{band: <choice>}`)
-- Positive (reason free-text): `narrative.glp1_stop_reason_freetext` (raw stored); post-submit AI atomization extracts structured atoms (e.g., `condition.glp1_side_effect_severe_history`, `intent.cost_concern_disclosed`, `intent.weight_loss_plateau_disclosed`, etc.) per `Section 1P`
-- Denied: n/a (date band required)
+- Source-of-truth atom: `medication.glp1_weight_lost_band` (metadata: `{band: <choice_value>, source_unit: 'lbs', drug_context: from_q15_2, duration_band: from_q15_4}`)
+- `none_or_gained` selected → flags non-responder / rebounder cohort for provider review (clinically critical: motivation framing differs vs partial-responder)
+- Derived value (display only; computed at read time per `Section 1K.9`; NOT stored as primary atom): `intake_derived_score.glp1_estimated_weight_lost_kg = midpoint_of_band_kg` where midpoints are `less_than_5` → 2.5 lbs (1.13 kg); `5_to_10` → 7.5 lbs (3.40 kg); `10_to_20` → 15 lbs (6.80 kg); `20_to_40` → 30 lbs (13.61 kg); `more_than_40` → 60 lbs (27.22 kg) conservative; `none_or_gained` / `dont_remember` → not computed
+- Denied: n/a (`conditionally_required`; "I don't remember" is the don't-know answer option)
 
-**Issues found:** Reason is intentionally optional + free-text — closed-list reasons (cost / side effects / no-results / lifestyle / pregnancy / other) reduce richness; AI atomization extracts structured signals from narrative per `Section 1P`. Common stop reasons (cost, side effects, plateau) all surface clinically distinct decisions (cost → discuss alternative pricing; side effects → discuss titration; plateau → discuss escalation or different drug).
-**Recommended rewrite:** Adopt composite (date band required + reason optional).
-**Branching adjustments:** `more_than_1y` ago → considered washout-complete; restart at starter dose by default. `less_than_1mo` ago → potential drug-interaction concern if patient on alternate Rx in interim; provider review at safety preflight.
-**Downstream effect:** `provider_review` (re-treatment plan + provider visit framing).
-**Final decision:** **Modify** (new composite question for past-users only; clinically additive).
+**Issues found:** Original draft used numeric input + Tier 3 optional. Two problems: (a) numeric input is friction and forces precision patients don't have; (b) "I didn't lose weight or gained" is clinically critical signal that numeric input misses (patient typing "0" without context conflates "I'm not sure" with "I genuinely didn't lose"). Also: position was last in cascade — wrong, because did-it-work is the most important question and should come right after duration. Reposition + replace numeric with banded single_select. The "I didn't lose weight (or gained)" option flags non-responders + rebounders — important cohort for provider visit framing (don't celebrate prior response; consider drug switch or dose escalation). Atom architecture: band is source of truth (binding per spec's banded-numeric atom rule); derived numeric for display only.
+**Recommended rewrite:** Reposition to Q15.5 (was Q15.7); replace numeric with 7-band single_select; add non-responder option; required.
+**Branching adjustments:** `none_or_gained` → provider visit framing flagged as non-responder/rebounder; `Section 1Q.15` `template.glp1.personalization.prior_response_celebration` SKIPS for this cohort.
+**Downstream effect:** `provider_review` (drives motivation-priming template selection + visit framing per `Section 1Q.15`).
+**Final decision:** **Modify** (repositioned + reformatted from numeric Tier 3 to banded Tier 2 with non-responder flag).
 
-### Q15.6 — Side effects experienced (conditional; renders when Q15.1 ∈ {currently, past})
+### Q15.6 — Side effects on your GLP-1 (conditional; renders when Q15.1 ∈ {currently, past})
 
 **Hims source:** Implicit (Hims captures via medications list "report side effects" free-text post-Rx; MAIN asks directly upfront for cleaner restart-plan signal).
 **MAIN voice:**
-- prompt: "Did you experience any of these while on it?"
-- helper: "Select all that apply. Honest answers help your provider tailor your plan."
+- prompt: "Did you have any side effects on your GLP-1?"
+- helper: "Most patients experience at least some — usually mild. Honest answers help us tailor your plan."
 
 **Schema:**
 - `question_id`: `qb.pathway.glp1.prior_glp1_use.side_effects_v1` | `tier`: 2
@@ -451,45 +466,120 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 - `entity_kind`: `single_value` (multi-select; composite atom emitted with structured value array) | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
 - `render_when`: `{question_id: 'qb.pathway.glp1.prior_glp1_use.status_v1', in: ['currently', 'past']}`
 
-**Choices:** Nausea | Vomiting | Diarrhea | Constipation | Heartburn or acid reflux | Severe abdominal pain | Gallbladder issues (gallstones, cholecystitis, cholecystectomy) | Severe injection-site reaction | Hair loss | None of these | Other (free-text in follow-up)
-**`choice_values`:** `nausea | vomiting | diarrhea | constipation | heartburn | severe_abdominal_pain | gallbladder | injection_site_reaction | hair_loss | none_of_these | other`
+**Choices** (10 options; UI render directive groups them visually for patient clarity but `choice_values` stay flat):
+
+*Common (most patients have some):*
+- Nausea
+- Vomiting
+- Diarrhea
+- Constipation
+- Heartburn or acid reflux
+
+*More serious:*
+- Severe abdominal pain
+- Gallbladder issues (gallstones, cholecystitis, cholecystectomy)
+
+*Other:*
+- Severe injection-site reaction
+- Hair loss
+- Something else
+
+Plus: None of these (with binding `exclusive_with_other_choices` none_logic).
+
+**`choice_values`:** `nausea | vomiting | diarrhea | constipation | heartburn | severe_abdominal_pain | gallbladder | injection_site_reaction | hair_loss | something_else | none_of_these`
 
 **`none_logic`:** `{mode: 'exclusive_with_other_choices', none_choice_value: 'none_of_these'}` (binding for safety screen per `Section 1K.3` Stage 1.5 anti-pattern guard)
 
 **Atoms emitted:**
 - Per selected: typed atom `condition.glp1_side_effect_<kind>_history` (e.g., `condition.glp1_side_effect_nausea_history`, `condition.glp1_side_effect_severe_abdominal_pain_history`, `condition.glp1_side_effect_gallbladder_history`); `assertion_type: history_of`; `metadata.disease_state: side_effect_course_resolved` per `Section 1K.5.A` concept naming rule
-- "None of these" selected → all 9 side-effect atoms emitted as DENIED (`status: 'denied_at_intake'`; provider sees explicit denial)
-- Severe abdominal pain → CRITICAL: provider safety preflight reviews for prior pancreatitis flag per `Section 1Q.15` `rule.glp1.safety.contraindication_pancreatitis_personal_history`; if confirmed, contraindication BLOCK (per FDA black box for semaglutide / tirzepatide pancreatitis history)
+- `something_else` selected → `condition.glp1_side_effect_other_history = true`; provider Mode F clarification at safety preflight per `Section 1P.4` if clinically relevant
+- "None of these" selected → all 9 specific side-effect atoms emitted as DENIED (`status: 'denied_at_intake'`; provider sees explicit denial)
+- `severe_abdominal_pain` selected → CRITICAL: provider safety preflight reviews for prior pancreatitis flag per `Section 1Q.15` `rule.glp1.safety.contraindication_pancreatitis_personal_history`; if confirmed, contraindication BLOCK (per FDA black box for semaglutide / tirzepatide pancreatitis history)
 
-**Issues found:** Per `Section 1K.3` Stage 1.5 anti-pattern guard: safety multi_select with "None of these" MUST use `exclusive_with_other_choices` (binding). Severe abdominal pain is the pancreatitis flag — must surface to provider review per FDA labels. Gallbladder issues (cholelithiasis / cholecystitis) are a known GLP-1 side effect; clinically critical to capture for restart decisions.
-**Recommended rewrite:** Adopt 11-option set (9 specific side effects + None of these + Other) with `exclusive_with_other_choices` none_logic.
-**Branching adjustments:** `severe_abdominal_pain` selected → safety preflight reviews for pancreatitis confirmation (provider Mode F clarification per `Section 1P.4` if not already captured). `gallbladder` selected → provider review for cholecystectomy status + active gallbladder disease. `other` selected → optional Q15.6b free-text follow-up (deferred to Phase 2.2).
+**Issues found:** Original draft had: (a) unanchored "while on it" in prompt; (b) abrupt tone for a cohort that may have had real adverse events; (c) helper that didn't normalize side effects (which causes UNDER-reporting — patients fearful of being denied prescription minimize their report); (d) free-text "Other" option (friction; low-signal). Patient-think pushback: side effects are normal on GLP-1s — telling patients that REDUCES under-reporting and improves clinical signal. "Something else" replaces "Other (free-text)" — no text input; no internal-system narration like "(provider will follow up)" which breaks immersion + creates trust risk if provider doesn't actually ask. Visual grouping (Common / More serious / Other) is a UI render directive for patient clarity; choice_values stay flat (no semantic schema impact). Per `Section 1K.3` Stage 1.5 anti-pattern guard: safety multi_select with "None of these" MUST use `exclusive_with_other_choices` (binding) — preserved.
+**Recommended rewrite:** Anchor with "your GLP-1"; soften prompt + helper to normalize side effects (reduces under-reporting); visual grouping for clarity; replace free-text "Other" with non-text "Something else" (no system narration); preserve binding `exclusive_with_other_choices` none_logic.
+**Branching adjustments:** `severe_abdominal_pain` selected → safety preflight reviews for pancreatitis confirmation. `gallbladder` selected → provider review for cholecystectomy status + active gallbladder disease. `something_else` selected → Mode F clarification at safety preflight if clinically relevant.
 **Downstream effect:** `provider_review` (multiple side effects flag pattern of intolerance → provider may consider lower restart dose or alternate drug class).
-**Final decision:** **Modify** (new explicit safety question with 11-option set + binding `exclusive_with_other_choices` none_logic).
+**Final decision:** **Modify** (anchored prompt; normalizing helper; visual grouping; non-narrating "Something else"; preserved exclusive none_logic).
 
-### Q15.7 — Weight lost while on it (conditional; renders when Q15.1 ∈ {currently, past})
+### Q15.7 — When did you stop? (conditional; renders only when Q15.1 = past) — SPLIT FROM OLD Q15.5
 
-**Hims source:** Implicit (Hims doesn't capture; MAIN adds Tier 3 for restart-plan motivation framing).
+**Hims source:** Implicit (Hims doesn't capture; MAIN adds for re-treatment context).
 **MAIN voice:**
-- prompt: "How much weight did you lose while on it?"
-- helper: "Optional. Best estimate. Helps your provider set realistic expectations."
+- prompt: "When did you stop?"
+- helper: "Best estimate is fine."
 
 **Schema:**
-- `question_id`: `qb.pathway.glp1.prior_glp1_use.weight_lost_v1` | `tier`: 3
-- `answer_type`: `numeric` (lbs integer; resolver normalizes to kg) | `selection_cardinality`: `optional_blank_allowed` | `requiredness`: `optional`
+- `question_id`: `qb.pathway.glp1.prior_glp1_use.stop_when_v1` | `tier`: 2
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `conditionally_required`
 - `answer_role`: `clinical_context` | `intent_of_answer_set`: `clinical_history`
-- `entity_kind`: `single_value` | `atom_kind`: `clinical_history` | `downstream_effect`: `personalization`
-- `render_when`: `{question_id: 'qb.pathway.glp1.prior_glp1_use.status_v1', in: ['currently', 'past']}`
+- `entity_kind`: `single_value` | `atom_kind`: `clinical_history` | `downstream_effect`: `provider_review`
+- `render_when`: `{question_id: 'qb.pathway.glp1.prior_glp1_use.status_v1', equals: 'past'}`
+- `required` (resolver): `<Predicate>` (required when render_when fires)
+
+**Choices** (6 date bands):
+- Less than 1 month ago
+- 1-3 months ago
+- 3-6 months ago
+- 6-12 months ago
+- More than 1 year ago
+- I don't remember
+
+**`choice_values`:** `less_than_1mo | 1_to_3mo | 3_to_6mo | 6_to_12mo | more_than_1y | dont_remember`
 
 **Atoms emitted:**
-- Positive: `vital.weight_kg_glp1_response` (metadata: `{value_kg_lost: number, source_unit: 'lbs', drug_context: from_q15_2, duration_band: from_q15_4}`)
-- Denied: blank acceptable
+- Source-of-truth atom: `medication.glp1_stop_date_band` (metadata: `{band: <choice_value>}`)
+- Derived value (display only per `Section 1K.9`; NOT stored as primary atom): washout-status flag computed from band (`more_than_1y` → washout-complete; `less_than_1mo` → potential drug-interaction concern in interim period)
+- Denied: n/a (conditionally required)
 
-**Issues found:** Tier 3 (NICE TO HAVE; A/B-testable). Provides motivation framing for returning patients ("you lost 12 lbs last time on Wegovy 1.0 mg over 4 months — let's see if we can do that again"). Optional because patients don't always remember precisely.
-**Recommended rewrite:** Adopt as Tier 3 optional numeric.
-**Branching adjustments:** None at intake; downstream personalization only.
-**Downstream effect:** `personalization` (drives motivation-priming template per `Section 1Q.15` `template.glp1.personalization.prior_response_celebration`).
-**Final decision:** **Modify** (new Tier 3 optional question; A/B-testable).
+**Issues found:** Original Q15.5 was a composite question (date band + free-text reason). User pushback: composite is two-questions-in-one, free-text for reason is high-friction, poor UX. Split into 2 sequential questions: Q15.7 (when) + Q15.8 (why structured). Both inherit `render_when` from Q15.1 = past. Banded date (rather than exact date) is intentional — patients don't reliably remember exact stop dates; bands cover the clinically-meaningful washout-decision thresholds.
+**Recommended rewrite:** Split composite into Q15.7 (when) + Q15.8 (why); date band as before; required.
+**Branching adjustments:** `more_than_1y` ago → considered washout-complete; restart at starter dose by default per `Section 1Q.15` rule logic. `less_than_1mo` ago → potential drug-interaction concern if patient on alternate Rx in interim; provider review at safety preflight.
+**Downstream effect:** `provider_review` (re-treatment plan + washout status).
+**Final decision:** **Modify** (split from old composite; banded date single_select; required).
+
+### Q15.8 — Why did you stop? (conditional; renders only when Q15.1 = past) — SPLIT FROM OLD Q15.5
+
+**Hims source:** Implicit (Hims doesn't capture; MAIN adds for re-treatment context).
+**MAIN voice:**
+- prompt: "Why did you stop?"
+- helper: "Pick the main reason."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.prior_glp1_use.stop_why_v1` | `tier`: 2
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `conditionally_required`
+- `answer_role`: `clinical_context` | `intent_of_answer_set`: `clinical_history`
+- `entity_kind`: `single_value` | `atom_kind`: `clinical_history` | `downstream_effect`: `provider_review`
+- `render_when`: `{question_id: 'qb.pathway.glp1.prior_glp1_use.status_v1', equals: 'past'}`
+- `required` (resolver): `<Predicate>` (required when render_when fires)
+
+**Choices** (8 structured options; primary reason `single_select`):
+- Side effects
+- Cost or insurance
+- Wasn't working / hit a plateau
+- Pregnancy or trying to conceive
+- Provider stopped it
+- Switched to a different medication
+- Lifestyle change
+- Other
+
+**`choice_values`:** `side_effects | cost_or_insurance | not_working | pregnancy_ttc | provider_stopped | switched_medication | lifestyle_change | other`
+
+**Atoms emitted:**
+- Positive: `medication.glp1_stop_reason` (metadata: `{value: <choice_value>}`)
+- `side_effects` selected → cross-references Q15.6 side-effect atoms; provider visit framing emphasizes tolerability
+- `cost_or_insurance` selected → marketing + commercial team gets `intent.cost_concern_disclosed = true` per `Section 1Q.21` marketing personalization (with appropriate consents)
+- `not_working` selected → provider visit framing emphasizes drug switch / dose escalation discussion
+- `pregnancy_ttc` selected → CRITICAL: cross-references reproductive module per `Section 1Q.15` `rule.glp1.safety.contraindication_pregnancy_active`; if currently pregnant or TTC, provider review at safety preflight
+- `provider_stopped` selected → provider Mode F clarification at safety preflight to obtain prior provider's reasoning
+- `other` selected → provider Mode F clarification at visit (no free-text required at intake)
+- Denied: n/a (conditionally required)
+
+**Issues found:** Original Q15.5 used free-text for reason. User pushback: free-text is high-friction + closed-list reasons cover the clinically-distinct decisions cleanly. 8 structured options capture the meaningful clinical distinctions: cost (alternative pricing discussion); side effects (titration / drug switch); plateau (escalation / drug switch); pregnancy (absolute contraindication); provider-stopped (need their reasoning); switched (clinical context); lifestyle (informational); other (rare). `single_select` (primary reason) NOT `multi_select` — primary reason captures intent cleanly; multi adds noise. `Other` requires no free-text input; flags for provider Mode F clarification at visit per `Section 1P.4` (does not narrate this in UI per tone-lock).
+**Recommended rewrite:** Adopt 8-option structured single_select; required; no free-text default.
+**Branching adjustments:** `pregnancy_ttc` triggers reproductive module render check per `Section 1Q.15` safety preflight. `cost_or_insurance` feeds marketing personalization per `Section 1Q.21` (with consent).
+**Downstream effect:** `provider_review` (re-treatment plan + visit framing differs by stop reason).
+**Final decision:** **Modify** (split from old composite; structured single_select; required; no free-text).
 
 ---
 
@@ -499,44 +589,50 @@ Layer D pathway-specific GLP-1 modules — Phase 2.1 (first 3 of ~9 total). Laye
 |---|---|---|---|---|---|---|
 | Q13.1 Height | 1 | clinical_context | clinical_history | provider_review | n/a | Modify |
 | Q13.2 Current weight | 1 | clinical_context | clinical_history | provider_review | n/a | Modify |
-| Q13.3 Goal weight | 2 | preference | preference_motivation | personalization | n/a | Modify |
+| Q13.3 Weight loss goal (delta band) | 2 | preference | preference_motivation | personalization | n/a | Modify |
 | Q13.4 Max weight is current Y/N | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
 | Q13.5 Max weight value (conditional) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
 | Q14.1 Has attempted (5y) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
 | Q14.2 Methods tried (conditional; multi-instance) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
-| Q14.3 What worked freetext (conditional) | 3 | clinical_context | clinical_history | provider_review | n/a | Modify |
 | Q15.1 GLP-1 status | 1 | clinical_safety | safety | provider_review | n/a | Modify |
 | Q15.2 Which GLP-1 (conditional; multi-instance) | 1 | clinical_safety | safety | provider_review | n/a | Modify |
 | Q15.3 Dose recent (conditional) | 2 | clinical_safety | safety | provider_review | n/a | Modify |
-| Q15.4 Duration (conditional) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
-| Q15.5 Stop when/why (past only; composite) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
-| Q15.6 Side effects (conditional) | 2 | clinical_safety | safety | provider_review | exclusive_with_other_choices | Modify |
-| Q15.7 Weight lost (conditional; optional) | 3 | clinical_context | clinical_history | personalization | n/a | Modify |
+| Q15.4 Duration on your GLP-1 (conditional) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
+| Q15.5 Weight lost on your GLP-1 (conditional; banded) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
+| Q15.6 Side effects on your GLP-1 (conditional; grouped) | 2 | clinical_safety | safety | provider_review | exclusive_with_other_choices | Modify |
+| Q15.7 When did you stop (past only) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
+| Q15.8 Why did you stop (past only) | 2 | clinical_context | clinical_history | provider_review | n/a | Modify |
 
-**Verdict:** 0 Keep + 15 Modify. Net: spec introduces 15 new GLP-1-pathway-specific questions across 3 modules, all in MAIN voice with full Section 1K.3 + Stage 1.5 schema discipline. ~10 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.3 weight loss attempts; Q15.2-Q15.7 prior GLP-1 details). 5 closely mirror Hims (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status). All emit atoms in pathway-agnostic concept registry per Section 1K.3 atomization principle (only Q13.3 weight goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact).
+**Verdict:** 0 Keep + 15 Modify. Net: spec introduces 15 net GLP-1-pathway-specific questions across 3 modules (Module 14 reduced from 3 → 2 by removing Q14.3 free-text; Module 15 grew from 7 → 8 by splitting old composite Q15.5 into Q15.7 + Q15.8 — net unchanged). All in MAIN voice with full `Section 1K.3` + Stage 1.5 schema discipline + binding tone lock + binding banded-numeric atom architecture. ~11 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details). 4 closely mirror Hims (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status). All emit atoms in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact).
 
 ## Cross-pathway reuse projection
 
 Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. However:
 - **Q13.1 + Q13.2** (height + current weight) atoms (`vital.height_cm` + `vital.weight_kg`) are CONSUMED by every pathway whose safety preflight needs BMI (cardiometabolic / TRT / Female HRT / GAH / hair loss minoxidil contraindication). Future pathway-specific weight-history modules (e.g., `mod.pathway.trt.weight_baseline_v1`) would author DIFFERENT pathway questions to capture the same atoms (or reuse this module's questions via composition if clinically appropriate).
 - **Q15.1 GLP-1 status** atom (`medication.glp1_use_status`) is CONSUMED by future TRT pathway (TRT + GLP-1 combination is common; provider reviews concurrent therapy) and Female HRT pathway (some GLP-1 + HRT combinations require cardiovascular monitoring). Future pathways would compose `mod.clinical_core.medication_history_v1` for general medication history; THIS module's GLP-1 specifics are GLP-1-pathway-only.
-- **Q14 weight loss attempts** is GLP-1-specific framing; future bariatric or mental-health-eating-disorder pathways would author their own attempt-history modules with pathway-appropriate framing.
+- **Q14 weight loss attempts** (Q14.1 has-attempted + Q14.2 methods multi-select) is GLP-1-specific framing; future bariatric or mental-health-eating-disorder pathways would author their own attempt-history modules with pathway-appropriate framing.
 
 ## Architectural patterns applied (binding; per Section 1K.3)
 
-1. **Atomization principle:** all atoms live in `repo/clinical-concepts/<domain>.ts` (vitals.ts / medications.ts / intent.ts / cardiometabolic.ts / gastrointestinal.ts) per `Section 1K.3`. Only `atom.pathway.glp1.weight_goal_target_kg` carries the `atom.pathway.glp1.*` namespace per Layer D row of the 4-layer taxonomy table (pathway-unique fact; not a clinical concept).
-2. **Multi-instance discipline (`Section 1K.5.A`):** Q14.2 method-tried-multi-select uses `(concept_id, context_key)` tuple where `context_key = method_kind`; per-method follow-ups deferred to Phase 2.2. Q15.2 prior GLP-1 use is multi-instance-aggregated for V1 (per-drug timeline + per-drug Q15.3-Q15.7 cascade deferred to Phase 2.2 for patients who used multiple GLP-1s).
-3. **`hard_stop` semantics:** none of these 3 modules emit hard_stop atoms directly. `Section 1Q.16` GLP-1 contraindication checks fire DOWNSTREAM from Q15.6 atoms (e.g., severe abdominal pain → safety preflight reviews for pancreatitis confirmation; if confirmed via clinical history elsewhere → `rule.glp1.safety.contraindication_pancreatitis_personal_history` BLOCK fires per `Section 1Q.15`). Module-layer atoms are clinical_history / safety classification but not hard-blocking themselves.
-4. **Concept naming rule (`Section 1K.5.A`):** lifecycle in assertion fields. Q15.6 side effects use `condition.glp1_side_effect_<kind>_history` with `assertion_type: history_of` and `metadata.disease_state: side_effect_course_resolved`. Q15.1 status uses `medication.glp1_use_status` with metadata value (`currently | past | never`); the concept_id names the entity (GLP-1 use), the value names the lifecycle.
-5. **Pathway-specific clinical capture (`Section 1K.3` directly-answered-fields rule):** Q15.6 side effects + Q15.7 weight-lost are CLINICAL FACTS asked DIRECTLY; never inferred from gender_identity, biological_sex_at_birth, or any other identity atom. The directly-answered-fields rule is preserved.
-6. **Hims source ref discipline:** every question carries explicit reference to Hims source step (or "Implicit" when MAIN adds beyond Hims). Net `Implicit` count: 9 of 15 (Q13.5 + Q14.1-Q14.3 + Q15.2-Q15.7) — most of the cascade depth is MAIN-additive beyond Hims's funnel.
-7. **Composite question pattern (`Section 1K.0`):** Q15.5 stop-when-why is a `mixed` answer_type with date-band single_select + free-text reason; resolver writes 2 atoms in same DB transaction per composite-question discipline.
+1. **Atomization principle:** all atoms live in `repo/clinical-concepts/<domain>.ts` (vitals.ts / medications.ts / intent.ts / cardiometabolic.ts / gastrointestinal.ts) per `Section 1K.3`. Pathway-unique facts (Q13.3 weight loss goal band) carry the `atom.pathway.glp1.*` namespace per Layer D row of the 4-layer taxonomy table.
+2. **Banded-numeric atoms — band is source of truth; derived numeric is display-only (binding):** when a question captures a numeric quantity that doesn't require precision (weight loss goal, weight lost, dose, duration, stop date), the BAND is the source-of-truth atom emitted by the question. Any derived numeric value (e.g., midpoint-of-band-converted-to-kg) is computed at display time per `Section 1K.9` `intake_derived_score` and is NOT stored as a primary atom.
+   - **Forbidden patterns:**
+     - Introducing a parallel numeric atom alongside a band atom for the same fact → BLOCKED at code review unless overwhelming clinical justification + clinical CODEOWNER ack
+     - Storing the derived numeric value in `intake_response` or `patient_state_observations` → BLOCKED (it's a derived value, not a clinical observation)
+   - **Applies to:** Q13.3 weight loss goal (`atom.pathway.glp1.weight_loss_goal_band`); Q15.3 dose (`medication.glp1_dose_recent_band`); Q15.4 duration (`medication.glp1_duration_band`); Q15.5 weight lost (`medication.glp1_weight_lost_band`); Q15.7 stop date (`medication.glp1_stop_date_band`).
+3. **Multi-instance discipline (`Section 1K.5.A`):** Q14.2 method-tried-multi-select uses `(concept_id, context_key)` tuple where `context_key = method_kind`; per-method follow-ups deferred to Phase 2.2. Q15.2 prior GLP-1 use is multi-instance-aggregated for V1 (per-drug timeline + per-drug Q15.3-Q15.5 cascade deferred to Phase 2.2 for patients who used multiple GLP-1s).
+4. **`hard_stop` semantics:** none of these 3 modules emit hard_stop atoms directly. `Section 1Q.16` GLP-1 contraindication checks fire DOWNSTREAM from Q15.6 atoms (e.g., severe abdominal pain → safety preflight reviews for pancreatitis confirmation; if confirmed via clinical history elsewhere → `rule.glp1.safety.contraindication_pancreatitis_personal_history` BLOCK fires per `Section 1Q.15`). Module-layer atoms are clinical_history / safety classification but not hard-blocking themselves.
+5. **Concept naming rule (`Section 1K.5.A`):** lifecycle in assertion fields. Q15.6 side effects use `condition.glp1_side_effect_<kind>_history` with `assertion_type: history_of` and `metadata.disease_state: side_effect_course_resolved`. Q15.1 status uses `medication.glp1_use_status` with metadata value (`currently | past | never`); the concept_id names the entity (GLP-1 use), the value names the lifecycle.
+6. **Pathway-specific clinical capture (`Section 1K.3` directly-answered-fields rule):** Q15.5 weight-lost + Q15.6 side effects + Q15.8 stop reason are CLINICAL FACTS asked DIRECTLY; never inferred from gender_identity, biological_sex_at_birth, or any other identity atom. The directly-answered-fields rule is preserved.
+7. **Hims source ref discipline:** every question carries explicit reference to Hims source step (or "Implicit" when MAIN adds beyond Hims). Net `Implicit` count: 11 of 15 (Q13.3 partially + Q13.5 + Q14.1-Q14.2 + Q15.2-Q15.8) — most of the cascade depth is MAIN-additive beyond Hims's funnel.
+8. **Anchoring rule applied:** all Module 15 follow-up prompts anchor to `"your GLP-1"` (drug-class anchor); Q15.4 uses dynamic past-vs-present-tense via `patient_label_template_refs`. No unanchored "it" references in any prompt per the binding anchoring rule in MAIN voice principles.
+9. **Tone-lock corollary applied:** Q13.3 weight-loss-goal moved from `requiredness: optional` (data leak) to `requiredness: required_to_continue` with `"I don't have a specific number"` as the don't-know answer option. Pattern preserved in Q15.5 weight-lost (`"I don't remember"` + `"I didn't lose weight (or gained)"` as structured options) and Q15.7 / Q15.8 (`"I don't remember"` / `"Other"`).
 
 ## Counts (after this checkpoint)
 
-- Layer D Phase 2.1: 3 modules / 15 questions defined
+- Layer D Phase 2.1: 3 modules / 15 questions defined (net unchanged after polish: Q14.3 removed + old Q15.5 split into Q15.7 + Q15.8 = -1 + 1 = 0 net change)
 - Stage 2 grand total so far (Phase 1 + Phase 2.1): 15 modules / 54 questions defined
-- Per-patient render varies (cis GLP-1-naive ~7, cis returning ~13-15)
+- Per-patient render varies: GLP-1-naive ~7-8 questions; current GLP-1 patient ~12 questions; past GLP-1 patient ~14 questions (full cascade including Q15.7 + Q15.8)
 - Remaining for Phase 2.2: ~6 modules / ~35-40 questions
 
 ## Next deliverable
