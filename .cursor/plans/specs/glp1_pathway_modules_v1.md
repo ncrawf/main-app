@@ -1,16 +1,16 @@
 # GLP-1 Pathway-specific modules — Layer D spec v1
 
 **Date:** 2026-05-03
-**Stage:** 2 Phase 2.2.2 — Layer D authoring (7 of ~9 modules; Module 19 bariatric_surgery_extended added in this checkpoint)
+**Stage:** 2 Phase 2.2.2 — Layer D authoring (8 of ~9 modules; Module 20 gi_safety_extended added in this checkpoint)
 **Clinical CODEOWNER:** founder (board-certified MD)
 **Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics + pathway override + directly-answered-fields rule) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; concept registry organized by domain) + `Section 1K.19` (intake repository + control model) + `Section 1Q.15` (GLP-1 vertical slice; 24 rules / 25 templates) + `Section 1Q.16` (adversarial pre-runtime gate)
 **Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md)
 
 ## Scope
 
-Layer D pathway-specific GLP-1 modules — Phase 2.2.2 (7 of ~9 total; Module 19 bariatric_surgery_extended added). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept). Module 16's motivation + commercial + educational atoms live in `repo/clinical-concepts/intent.ts` under `intent.weight_loss_*` and `intent.treatment_*` namespaces. Module 17's eating disorder atoms live in `repo/clinical-concepts/mental_health.ts` (extends `mod.domain.mental_health.baseline_v1` Phase 1 Module 11 per `Section 1K.3` contextual extension). Module 18's thyroid/endocrine/cardiac atoms live in `repo/clinical-concepts/endocrine.ts` + `repo/clinical-concepts/cardiovascular.ts` + `repo/clinical-concepts/family_history.ts` (extends `mod.domain.cardiometabolic.baseline_history_v1` Phase 1 Module 8 per `Section 1K.3` contextual extension; adds GLP-1-specific FDA-boxed conditions that aren't worth asking in general-population baseline). Module 19's bariatric procedure atoms live in `repo/clinical-concepts/gastrointestinal.ts` under `procedure.*` namespace (extends `mod.clinical_core.surgery_history_v1` Phase 1 Module 7 per `Section 1K.3` contextual extension; deepens Module 7's any-surgery Y/N + free-text with structured weight-loss-surgery specifics that affect GLP-1 drug choice and dose).
+Layer D pathway-specific GLP-1 modules — Phase 2.2.2 (8 of ~9 total; Module 20 gi_safety_extended added). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept). Module 16's motivation + commercial + educational atoms live in `repo/clinical-concepts/intent.ts` under `intent.weight_loss_*` and `intent.treatment_*` namespaces. Module 17's eating disorder atoms live in `repo/clinical-concepts/mental_health.ts` (extends `mod.domain.mental_health.baseline_v1` Phase 1 Module 11 per `Section 1K.3` contextual extension). Module 18's thyroid/endocrine/cardiac atoms live in `repo/clinical-concepts/endocrine.ts` + `repo/clinical-concepts/cardiovascular.ts` + `repo/clinical-concepts/family_history.ts` (extends `mod.domain.cardiometabolic.baseline_history_v1` Phase 1 Module 8 per `Section 1K.3` contextual extension; adds GLP-1-specific FDA-boxed conditions that aren't worth asking in general-population baseline). Module 19's bariatric procedure atoms live in `repo/clinical-concepts/gastrointestinal.ts` under `procedure.*` namespace (extends `mod.clinical_core.surgery_history_v1` Phase 1 Module 7 per `Section 1K.3` contextual extension; deepens Module 7's any-surgery Y/N + free-text with structured weight-loss-surgery specifics that affect GLP-1 drug choice and dose). Module 20's pancreatitis + gallbladder + gastroparesis atoms live in `repo/clinical-concepts/gastrointestinal.ts` under `condition.*` namespace; diabetic retinopathy atom lives in `repo/clinical-concepts/endocrine.ts` (extends `mod.domain.gastrointestinal.baseline_history_v1` Phase 1 Module 9 per `Section 1K.3` contextual extension; adds the FDA-relevant hard-stop and caution conditions that Module 9 baseline explicitly defers to this pathway-specific extension).
 
-**7 modules in this file:**
+**8 modules in this file:**
 1. `mod.pathway.glp1.weight_history_v1` — 5 questions (height + current weight + weight loss goal band + max-weight Y/N + max-weight value if not current)
 2. `mod.pathway.glp1.weight_loss_attempts_v1` — 2 questions (prior attempts Y/N + methods multi-select)
 3. `mod.pathway.glp1.prior_glp1_use_v1` — 8 questions (status + which GLP-1 + dose + duration + weight lost + side effects + when stopped + why stopped)
@@ -18,19 +18,22 @@ Layer D pathway-specific GLP-1 modules — Phase 2.2.2 (7 of ~9 total; Module 19
 5. `mod.pathway.glp1.eating_disorder_screen_v1` — 4 questions (symptom screen + diagnosis history + diagnosis subtype + current treatment)
 6. `mod.pathway.glp1.cv_safety_extended_v1` — 4 questions (personal history of MTC/MEN-2/Long QT + family history of same + family sudden death under 40 Y/N + cause of death conditional)
 7. `mod.pathway.glp1.bariatric_surgery_extended_v1` — 1 question (weight-loss surgery multi-select: gastric bypass / duodenal switch / lap band / gastric sleeve / intestinal surgery)
+8. `mod.pathway.glp1.gi_safety_extended_v1` — 3 questions (personal pancreatitis / gallbladder / gastroparesis multi-select + gallbladder anatomy conditional on gallbladder_disease selection + diabetic retinopathy conditional on T2D)
 
-**Total: 32 questions defined.**
+**Total: 35 questions defined.**
 
 **Per-patient render counts (varies by branch):**
-- GLP-1-naive patient with no prior weight-loss attempts + no ED history + no family sudden death + no bariatric surgery: ~21 questions rendered (Q13.1-Q13.4 + Q14.1 + Q15.1 + 8 Module 16 baseline + Q17.1 + Q17.2 + Q18.1 + Q18.2 + Q18.3 + Q19.1; Q13.5 / Q14.2 / Q15.2-Q15.8 / Q17.3 / Q17.4 / Q18.4 skipped)
-- GLP-1-naive patient with prior diet attempts + no ED history + no family sudden death + no bariatric surgery: ~22 questions (above + Q14.2)
-- Current GLP-1 patient (Q15.1 = currently) + no ED history + no family sudden death + no bariatric surgery: ~26 questions (Q15.2-Q15.6 added; Q15.7 + Q15.8 skipped)
-- Past GLP-1 patient (Q15.1 = past) + no ED history + no family sudden death + no bariatric surgery: ~28 questions (full Module 15 cascade)
+- GLP-1-naive non-diabetic patient with no prior weight-loss attempts + no ED history + no family sudden death + no bariatric surgery + no GI conditions: ~22 questions rendered (Q13.1-Q13.4 + Q14.1 + Q15.1 + 8 Module 16 baseline + Q17.1 + Q17.2 + Q18.1 + Q18.2 + Q18.3 + Q19.1 + Q20.1; Q13.5 / Q14.2 / Q15.2-Q15.8 / Q17.3 / Q17.4 / Q18.4 / Q20.2 skipped)
+- GLP-1-naive non-diabetic with prior diet attempts: ~23 questions (above + Q14.2)
+- Current GLP-1 non-diabetic patient (Q15.1 = currently): ~27 questions (Q15.2-Q15.6 added; Q15.7 + Q15.8 skipped)
+- Past GLP-1 non-diabetic patient (Q15.1 = past): ~29 questions (full Module 15 cascade)
+- Any patient selecting gallbladder disease in Q20.1: add 1 question (Q20.2 gallbladder anatomy — still have it vs removed)
+- Any patient with T2D from Module 8 baseline: add 1 question (Q20.3 diabetic retinopathy)
 - Any patient with ED diagnosis history: add 2 questions (Q17.3 diagnosis subtype + Q17.4 current treatment)
 - Any patient with family sudden death under 40: add 1 question (Q18.4 heart-related conditional)
-- Post-bariatric patients: Q19.1 renders for all; no additional conditional Qs in Module 19
-- Any patient with MTC or MEN-2 personal OR family history: session closes with `denied_contraindication_absolute` per `Section 1Q.15` — downstream modules (19, 20, 21) don't render; see `Section 1J` Stage 1 hard-stop semantics
-- Module 16 (motivation + educational + commercial_confidence) renders for all patients regardless of GLP-1 history; positioned in pathway file AFTER Module 13 weight history (so BMI personalized Q16.7 has the prior atoms it needs). Module 17 (eating disorder screen) renders for all patients; positioned AFTER Module 15. Module 18 (cv_safety_extended) renders for all patients; positioned AFTER Module 17 and BEFORE Modules 19-21 so thyroid/MEN-2 hard-stop fires before downstream surgery/GI/consent modules are wasted work. Module 19 (bariatric_surgery_extended) renders for all patients who clear the Module 18 hard-stop; positioned AFTER Module 18 and BEFORE Module 20 so the bariatric-surgery signal is available when Module 20 screens for GI-adjacent conditions (post-bariatric alters the baseline risk profile for pancreatitis and gastroparesis).
+- Any patient with MTC or MEN-2 personal OR family history: session closes with `denied_contraindication_absolute` per `Section 1Q.15` — downstream modules (19, 20, 21) don't render
+- Any patient with pancreatitis history: session closes with `denied_contraindication_absolute` per `Section 1Q.15` — downstream Module 21 does not render
+- Module 16 (motivation + educational + commercial_confidence) renders for all patients regardless of GLP-1 history; positioned in pathway file AFTER Module 13 weight history. Module 17 (eating disorder screen) renders for all patients; positioned AFTER Module 15. Module 18 (cv_safety_extended) renders for all patients; positioned AFTER Module 17 and BEFORE Modules 19-21 so thyroid/MEN-2 hard-stop fires before downstream modules are wasted work. Module 19 (bariatric_surgery_extended) renders for all patients who clear the Module 18 hard-stop; positioned AFTER Module 18 and BEFORE Module 20. Module 20 (gi_safety_extended) renders for all patients who clear Module 18; positioned AFTER Module 19 (so the bariatric-surgery signal is available when the provider interprets gastroparesis and gallbladder atoms) and BEFORE Module 21 (so the pancreatitis hard-stop fires before the patient reaches the consent module).
 
 ## MAIN voice principles (binding; reused from Phase 1)
 
@@ -1181,6 +1184,114 @@ Helper text: none
 
 ---
 
+## Module 20 — `mod.pathway.glp1.gi_safety_extended_v1`
+
+**`module_id`:** `mod.pathway.glp1.gi_safety_extended_v1`
+**`module_version`:** `1.0.0`
+**`kind`:** clinical (safety — pancreatitis history is an FDA hard-stop contraindication for semaglutide and tirzepatide per `Section 1Q.15` `rule.glp1.eligibility.contraindication_pancreatitis_history`; gallbladder disease and gastroparesis are FDA-label cautions that route to flag cohorts; diabetic retinopathy is a semaglutide-specific caution for patients with T2D)
+**`pathways`:** `glp1` only (Layer D pathway-specific extension of Phase 1 Module 9 `mod.domain.gastrointestinal.baseline_history_v1`; Module 9 Q9.1 captures general GI conditions multi-select but explicitly defers pancreatitis + gallbladder + gastroparesis to this module — rare-but-critical conditions that aren't worth asking every patient but are mandatory for GLP-1)
+**`required_for`:** eligibility (pancreatitis hard-stop), safety, provider review
+**`assertion_group_emit_trigger`:** `module_complete`
+**Atom domain:** `gastrointestinal` (pancreatitis + gallbladder + gastroparesis atoms live in `repo/clinical-concepts/gastrointestinal.ts`) + `endocrine` (diabetic retinopathy lives in `repo/clinical-concepts/endocrine.ts` since it's a diabetes complication; no existing `ophthalmologic` registry)
+
+**Composition position:** pathway file `repo/intake/pathways/glp1.ts` inserts this module after Module 19 (bariatric surgery extended) and before Module 21 (contraindication acknowledgments). Runs in the Stage 1 safety cascade per `Section 1J` — atoms here gate eligibility for pancreatitis history before the patient reaches the consent module. Placed after Module 19 so the post-bariatric signal is available when the provider reviews gastroparesis or gallbladder atoms (post-bariatric anatomy alters the baseline interpretation).
+
+**Hims surface covered:** Hims Step 47 pancreatitis + gastroparesis checkboxes (deferred from Module 18 scope per architecture). Gallbladder is a MAIN addition (FDA-label caution that Hims doesn't explicitly ask about). Diabetic retinopathy is a MAIN addition specific to semaglutide + T2D per FDA label — Hims doesn't ask.
+
+### Q20.1 — Personal history of GI/pancreatic conditions
+
+**Hims source:** Step 47/48 — Hims combines these with MTC/MEN-2/Long QT/T2D in a single combined personal+family multi-select. Module 18 extracted the cardiac/thyroid conditions; Module 20 extracts the GI-adjacent conditions and asks personal-history-only (family history of these isn't FDA-boxed for GLP-1, unlike MEN-2/MTC).
+**MAIN voice:**
+- prompt: "Have you been diagnosed with any of these digestive problems?"
+- helper: "This helps our providers understand if GLP-1 is safe for you."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.gi_safety_extended.personal_history_v1` | `tier`: 1 (clinical safety — pancreatitis history is an FDA hard-stop)
+- `answer_type`: `multi_select` | `selection_cardinality`: `one_or_more` | `requiredness`: `required_to_continue`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` (multi-select; composite atom emission with structured value array) | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
+- `render_when`: null (baseline)
+- `none_logic`: `{mode: 'exclusive_with_other_choices', none_choice_value: 'none_of_these'}`
+
+**Choices:**
+- Pancreatitis
+- Gallstones or gallbladder disease
+- Gastroparesis (delayed stomach emptying)
+- No, none of these
+
+**`choice_values`:** `pancreatitis | gallbladder_disease | gastroparesis | none_of_these`
+
+**Atoms emitted:**
+- `pancreatitis` selected → `condition.pancreatitis_history` with `assertion_type: 'history_of'`; lives in `repo/clinical-concepts/gastrointestinal.ts`. CRITICAL: feeds `rule.glp1.eligibility.contraindication_pancreatitis_history` per `Section 1Q.15` — absolute contraindication BLOCK; session closure `closed_reason_code: denied_contraindication_absolute` per `Section 1K.12`; `reopen_eligibility_criteria: none` per `Section 1J.14` (pancreatitis history is permanent; patient not nudged to return)
+- `gallbladder_disease` selected → `condition.gallbladder_disease_history` with `assertion_type: 'history_of'`; lives in `repo/clinical-concepts/gastrointestinal.ts`. Flag cohort — provider review at safety preflight. Anatomical distinction (still-have-it vs removed) captured in Q20.2 follow-up; provider reads both atoms together. Active disease + intact gallbladder is the GLP-1-risk cohort (rapid weight loss + GLP-1 may trigger acute cholecystitis); post-cholecystectomy is low-risk informational
+- `gastroparesis` selected → `condition.gastroparesis_history` with `assertion_type: 'history_of'`; lives in `repo/clinical-concepts/gastrointestinal.ts`. Flag cohort — severe gastroparesis may escalate to near-hard-stop at provider review since GLP-1 mechanism further slows gastric emptying; provider may decline or closely monitor
+- `none_of_these` selected → all 3 condition atoms emitted DENIED (`status: 'denied_at_intake'`)
+
+**Issues found:** Hims Step 47's combined multi-select packages all these conditions with MTC/MEN-2/Long QT/T2D and with family history. MAIN splits by pathway-extension architecture: Module 18 handles cardiac/thyroid personal+family; Module 20 handles GI personal-only. Family history of pancreatitis is rare (hereditary pancreatitis from PRSS1 mutations exists but is extremely uncommon) and not FDA-boxed — asking family pancreatitis history would be high-friction, low-signal. Gallbladder option intentionally labeled "Gallstones or gallbladder disease" to focus on the active-disease signal we actually care about for GLP-1 (rapid weight loss + GLP-1 can trigger acute cholecystitis in patients with existing gallstones/disease); the anatomical distinction (still has gallbladder vs post-cholecystectomy) is captured in Q20.2 branching follow-up rather than lumped into this option — a previous draft lumped "disease or surgery" into one option, which conflated high-risk active disease with low-risk post-cholecystectomy status. Gastroparesis includes the "(delayed stomach emptying)" gloss because patients who have been diagnosed with it often remember the plain-language description rather than the clinical name. Pancreatitis gets no parenthetical because patients who have had it know the name (acute pancreatitis is a hospitalization event; chronic pancreatitis comes with sustained medical management). No `not_sure` option because these are conditions patients reliably know about; false negatives via `not_sure` would be clinically problematic for the pancreatitis hard-stop. Prompt says "digestive problems" rather than "conditions" because the option list mixes acute events (pancreatitis hospitalization), physical findings (gallstones), and chronic conditions (gastroparesis) — "problems" fits the mixed nature more honestly than "conditions" which implies chronic ongoing disease. Also signals the GI topic explicitly after the patient has just cleared a cardiac screen (Module 18) and a bariatric surgery screen (Module 19). Helper is short and direct ("This helps our providers understand if GLP-1 is safe for you.") — names the WHY in pathway-specific terms rather than using generic "some medications" framing. Pancreatitis and gallbladder flare-ups are the dominant expected safety signal at scale for GLP-1 prescribing; honest framing reduces patient cognitive load about why the question matters and builds trust.
+**Recommended rewrite:** New Tier 1 baseline multi_select; 3 conditions + none; pathway-agnostic atoms; differentiated downstream routing per selection (pancreatitis hard-stop vs gallbladder/gastroparesis flag); gallbladder anatomy captured via Q20.2 branching follow-up; prompt names the topic ("digestive problems"); helper names the WHY (GLP-1 safety).
+**Branching adjustments:** `pancreatitis` selected → absolute contraindication BLOCK fires at safety preflight per `Section 1Q.15`; downstream modules (21) do not render. `gallbladder_disease` selected → Q20.2 renders (anatomical follow-up); also routes to flag cohort. `gastroparesis` selected → flag cohort. Q20.3 renders independently based on T2D status from Module 8, not based on Q20.1 selections.
+**Downstream effect:** `provider_review` (differentiated per selection — pancreatitis routes to absolute contraindication block; gallbladder_disease routes to flag cohort with Q20.2 disambiguating active-disease-with-intact-anatomy vs post-cholecystectomy; gastroparesis routes to flag cohort with severity assessment).
+**Final decision:** **Modify** (new Tier 1 baseline; extracted from Hims Step 47 personal-history subset; pathway-specific atomization; gallbladder branching added for cleaner risk stratification).
+
+### Q20.2 — Have you had your gallbladder removed? (conditional; renders only if Q20.1 includes `gallbladder_disease`)
+
+**Hims source:** Implicit (Hims doesn't branch; MAIN adds to disambiguate active gallbladder disease in an intact gallbladder — the GLP-1 risk cohort — vs post-cholecystectomy history, which is low-risk informational).
+**MAIN voice:**
+- prompt: "Have you had your gallbladder removed?"
+- helper: none (self-explanatory)
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.gi_safety_extended.gallbladder_anatomy_v1` | `tier`: 2 (clinical context — disambiguates active-risk-cohort from post-cholecystectomy-informational)
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `conditionally_required`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
+- `render_when`: `{question_id: 'qb.pathway.glp1.gi_safety_extended.personal_history_v1', contains: 'gallbladder_disease'}`
+- `required` (resolver): `<Predicate>` (required when render_when fires)
+
+**Choices:** Yes | No
+**`choice_values`:** `yes | no`
+
+**Atoms emitted:**
+- `yes` (gallbladder removed) → `procedure.cholecystectomy_history` with `assertion_type: 'history_of'`; lives in `repo/clinical-concepts/gastrointestinal.ts`. Combined with Q20.1 gallbladder_disease selection, provider reads patient as **post-cholecystectomy cohort** — low GLP-1 risk for gallbladder-specific adverse events (cannot get cholecystitis without a gallbladder); informational chart context only
+- `no` (still have gallbladder) → `procedure.cholecystectomy_history` emitted DENIED (`status: 'denied_at_intake'`); combined with Q20.1 gallbladder_disease selection, provider reads patient as **active-risk cohort** — intact gallbladder with disease history; rapid weight loss + GLP-1 may precipitate acute cholecystitis
+
+**Issues found:** Simple Y/N branching question that solves the conflation problem in a prior draft of Q20.1. By splitting the clinical signal into two distinct atoms (`condition.gallbladder_disease_history` + `procedure.cholecystectomy_history`), the downstream rule layer can route cleanly: intact + active disease = flag cohort with GLP-1 risk; post-cholecystectomy = low-risk informational. Only patients who selected `gallbladder_disease` in Q20.1 see this question, so non-affected patients have zero additional friction. No `not_sure` option — cholecystectomy is a major surgical event that patients reliably know about. Prompt explicitly re-names the organ ("Have you had your gallbladder removed?") rather than using anchored "it" because Q20.1 is framed as a GLP-1 safety/contraindications screen (pancreatitis + gallbladder_disease + gastroparesis grouped together), not a gallbladder-specific question — the patient's mental anchor at Q20.2 is "I'm answering safety checks," not "I'm talking about my gallbladder." Explicit re-naming avoids the backtrack cost and kills the inventory-check feel of earlier drafts ("Do you still have your gallbladder?") which read as surgical brutality. Asking about the *event* (surgery happened) rather than the *current state* (presence/absence of organ) is also more conversational — matches how patients naturally describe this ("yeah, had mine out a few years ago"). Atom mapping aligns cleanly with the prompt semantic: Yes (had it removed) → `procedure.cholecystectomy_history` TRUE; No (still have it) → DENIED. No mental inversion for downstream readers.
+**Recommended rewrite:** New Tier 2 conditional single_select; 2 options; emits `procedure.cholecystectomy_history` atom (or denial) that combines with Q20.1 `condition.gallbladder_disease_history` for provider cohort determination.
+**Branching adjustments:** `yes` → active-risk cohort for GLP-1 (provider may recommend pre-treatment cholecystectomy or decline GLP-1 until gallstones resolved). `no` → post-cholecystectomy informational; patient still carries history of gallbladder disease but no longer at risk for cholecystitis under GLP-1. Q20.3 (retinopathy) renders independently based on T2D; not affected by Q20.2.
+**Downstream effect:** `provider_review` (disambiguates the two gallbladder cohorts with distinct GLP-1 risk profiles).
+**Final decision:** **Modify** (new Tier 2 conditional; resolves gallbladder signal conflation cleanly).
+
+### Q20.3 — Diabetic retinopathy (conditional; renders only if patient has T2D from Module 8 baseline)
+
+**Hims source:** Implicit — Hims doesn't explicitly screen for retinopathy. MAIN adds per FDA semaglutide label caution: rapid improvement of glycemic control in patients with existing retinopathy has been associated with rapid worsening of retinopathy.
+**MAIN voice:**
+- prompt: "Have you been diagnosed with diabetic retinopathy?"
+- helper: "Diabetic retinopathy is eye damage caused by diabetes. Semaglutide can affect existing retinopathy."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.gi_safety_extended.diabetic_retinopathy_v1` | `tier`: 2 (clinical safety — semaglutide-specific caution; not a hard-stop, affects drug choice and monitoring)
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `conditionally_required`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
+- `render_when`: `{question_id: 'qb.domain.cardiometabolic.baseline_history.conditions_v1', contains: 'diabetes_t2'}` (renders only when patient selected Type 2 diabetes in Module 8 baseline; non-diabetic patients skip this question since retinopathy is almost exclusively a diabetes complication)
+- `required` (resolver): `<Predicate>` (required when render_when fires)
+
+**Choices:** Yes | No | I'm not sure
+**`choice_values`:** `yes | no | not_sure`
+
+**Atoms emitted:**
+- `yes` → `condition.diabetic_retinopathy_history` with `assertion_type: 'history_of'`; lives in `repo/clinical-concepts/endocrine.ts`. Provider review flag — affects GLP-1 drug choice (tirzepatide vs semaglutide) and may require ophthalmology baseline before starting therapy
+- `no` → `condition.diabetic_retinopathy_history` emitted DENIED
+- `not_sure` → atom left UNCAPTURED; provider follow-up clarification per `Section 1P.4` — clinician may recommend eye exam baseline given T2D + unknown retinopathy status
+
+**Issues found:** Conditional on T2D from Module 8 because retinopathy is almost exclusively a diabetes complication — asking non-diabetic patients would be irrelevant noise. Helper is two short sentences: first defines the term plainly for patients who may have eye issues without recognizing the clinical name ("eye damage caused by diabetes"); second explains the WHY in pathway-specific terms. Helper mentions semaglutide specifically because the FDA caution is semaglutide-label-specific (tirzepatide label does not carry the same retinopathy warning) — provider factors this into drug choice. `not_sure` treated as non-assertion (not as denial) because a T2D patient who hasn't had a recent dilated eye exam genuinely may not know their retinopathy status; provider review can recommend ophthalmology baseline.
+**Recommended rewrite:** New Tier 2 conditional single_select; 3 options (Yes/No/I'm not sure); renders only for T2D patients; helper defines the term plainly and grounds the why in the specific clinical concern.
+**Branching adjustments:** `yes` → provider review flag with drug-choice implications (tirzepatide often preferred over semaglutide for retinopathy patients); may trigger ophthalmology referral recommendation. `no` → cleared. `not_sure` → provider follow-up.
+**Downstream effect:** `provider_review` (informs GLP-1 drug choice + may trigger ophthalmology baseline recommendation).
+**Final decision:** **Modify** (new Tier 2 conditional; not in Hims; MAIN-added per FDA semaglutide label; conditional on T2D to keep low-friction for non-diabetic patients).
+
+---
+
 ## Layer D Phase 2.2.2 audit summary
 
 | Question | Tier | answer_role | atom_kind | downstream_effect | none_logic? | Decision |
@@ -1217,8 +1328,11 @@ Helper text: none
 | Q18.3 Family sudden death under 40 | 2 | clinical_safety | safety | provider_review | n/a | Modify |
 | Q18.4 Heart-related? (conditional; Y/N/I'm not sure) | 2 | clinical_safety | safety | provider_review | n/a | Modify |
 | Q19.1 Weight-loss surgery history (multi-select) | 2 | clinical_safety | safety | provider_review | exclusive_with_other_choices | Modify |
+| Q20.1 Personal pancreatitis/gallbladder/gastroparesis (multi-select; pancreatitis hard-stop) | 1 | clinical_safety | safety | provider_review | exclusive_with_other_choices | Modify |
+| Q20.2 Gallbladder removed? (conditional on Q20.1 gallbladder_disease; Y/N) | 2 | clinical_safety | safety | provider_review | n/a | Modify |
+| Q20.3 Diabetic retinopathy (conditional on T2D; Y/N/I'm not sure) | 2 | clinical_safety | safety | provider_review | n/a | Modify |
 
-**Verdict:** 0 Keep + 32 Modify. Net: spec introduces 32 GLP-1-pathway-specific questions across 7 modules. ~15 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template; Q17.2-Q17.4 ED diagnosis + diagnosis subtype + current treatment). ~17 closely mirror Hims with structural refactors (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence; Q17.1 ED symptom screen; Q18.1-Q18.4 personal/family thyroid-endocrine-cardiac screen split from Hims's combined multi-select + Q18.4 reframed from Hims free-text cause-of-death to heart-related Y/N/I'm not sure; Q19.1 bariatric surgery multi-select with sentence-case normalization and prompt tightening). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact). Module 17 atoms live in `mental_health` domain (extends Phase 1 Module 11 baseline); Q17.3 specifically produces differentiated subtype atoms (`condition.anorexia_nervosa_history` / `condition.bulimia_nervosa_history` / `condition.binge_eating_disorder_history`) that drive differentiated rule routing per `Section 1Q.15` — AN as hard stop, BN as flag cohort, BED as distinct flag cohort with emerging positive-indication evidence. Module 18 atoms span `endocrine` (MTC, MEN-2) + `cardiovascular` (long QT) + `family_history` (sudden death under 40) domains; Q18.1/Q18.2 produce personal + family history atoms that feed `rule.glp1.eligibility.contraindication_men2` and `rule.glp1.eligibility.contraindication_thyroid_cancer` per `Section 1Q.15` — both fire `denied_contraindication_absolute` closure with `reopen_eligibility_criteria: none` per `Section 1J.14`.
+**Verdict:** 0 Keep + 35 Modify. Net: spec introduces 35 GLP-1-pathway-specific questions across 8 modules. ~17 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template; Q17.2-Q17.4 ED diagnosis + diagnosis subtype + current treatment; Q20.2 gallbladder anatomy branching follow-up; Q20.3 diabetic retinopathy per FDA semaglutide label caution). ~18 closely mirror Hims with structural refactors (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence; Q17.1 ED symptom screen; Q18.1-Q18.4 personal/family thyroid-endocrine-cardiac screen split from Hims's combined multi-select + Q18.4 reframed from Hims free-text cause-of-death to heart-related Y/N/I'm not sure; Q19.1 bariatric surgery multi-select with sentence-case normalization; Q20.1 personal pancreatitis/gallbladder/gastroparesis extracted from Hims Step 47 GI subset with gallbladder option refined to focus on active-disease signal). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact). Module 17 atoms live in `mental_health` domain (extends Phase 1 Module 11 baseline); Q17.3 specifically produces differentiated subtype atoms (`condition.anorexia_nervosa_history` / `condition.bulimia_nervosa_history` / `condition.binge_eating_disorder_history`) that drive differentiated rule routing per `Section 1Q.15` — AN as hard stop, BN as flag cohort, BED as distinct flag cohort with emerging positive-indication evidence. Module 18 atoms span `endocrine` (MTC, MEN-2) + `cardiovascular` (long QT) + `family_history` (sudden death under 40) domains; Q18.1/Q18.2 produce personal + family history atoms that feed `rule.glp1.eligibility.contraindication_men2` and `rule.glp1.eligibility.contraindication_thyroid_cancer` per `Section 1Q.15` — both fire `denied_contraindication_absolute` closure with `reopen_eligibility_criteria: none` per `Section 1J.14`.
 
 ## Cross-pathway reuse projection
 
@@ -1230,6 +1344,7 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 - **Module 17 eating_disorder_screen** is GLP-1-specific in composition position (runs in the safety cascade of the GLP-1 pathway) but the atoms (`condition.eating_disorder_*`, `condition.anorexia_nervosa_history`, `condition.bulimia_nervosa_history`, `condition.binge_eating_disorder_history` in `repo/clinical-concepts/mental_health.ts`) are pathway-agnostic. A future psychiatry pathway or a bariatric pathway can CONSUME these atoms if the patient has completed intake on any pathway that rendered Module 17, without re-asking the questions. The question bank (Q17.1 Hims-verbatim symptom screen; Q17.2 diagnosis history; Q17.3 diagnosis subtype; Q17.4 current treatment) is reusable via `module_composition` references per `Section 1K.3` if a future non-GLP-1 pathway needs the same ED safety screen. Note: the AN-hard-stop rule is GLP-1-specific (driven by appetite-suppression + restriction-driven-pathology incompatibility); other pathways would author their own AN-routing rules appropriate to their treatment mechanism.
 - **Module 18 cv_safety_extended** is GLP-1-specific in composition position but the atoms (`condition.medullary_thyroid_carcinoma_history`, `condition.men2_history` + their `_family_history` counterparts in `repo/clinical-concepts/endocrine.ts`; `condition.long_qt_syndrome_history` / `_family_history` in `repo/clinical-concepts/cardiovascular.ts`; `family_history.sudden_death_under_40_history` + `family_history.sudden_death_under_40_cardiac_related` in `repo/clinical-concepts/family_history.ts`) are pathway-agnostic. The MTC + MEN-2 hard-stop rules are GLP-1-specific (FDA boxed warning for semaglutide + tirzepatide only); Long QT + family-death-under-40 atoms are broadly reusable — any future pathway whose safety preflight needs to know about hereditary cardiac conditions (e.g., TRT + cardiovascular risk; stimulants for ADHD) can CONSUME these atoms without re-asking. The question bank (Q18.1 personal + Q18.2 family + Q18.3 sudden-death Y/N + Q18.4 heart-related Y/N/unsure) is reusable via `module_composition` if a future pathway needs the same screens, though the condition-specific answer options (MTC + MEN-2) would likely be swapped for pathway-relevant conditions. Note: MTC/MEN-2 are FDA-boxed specifically for incretin-based therapies (GLP-1 agonists + GIP/GLP-1 dual agonists); other pathways have different absolute contraindication sets.
 - **Module 19 bariatric_surgery_extended** is GLP-1-specific in composition position but the atoms (`procedure.gastric_bypass_rygb_history`, `procedure.duodenal_switch_history`, `procedure.lap_band_history`, `procedure.gastric_sleeve_history`, `procedure.intestinal_surgery_history` in `repo/clinical-concepts/gastrointestinal.ts`) are pathway-agnostic. A future bariatric-aftercare pathway, a general endocrinology pathway, or a nutrition/micronutrient pathway could CONSUME these atoms without re-asking if the patient has completed intake on any pathway that rendered Module 19. The question bank (Q19.1 single multi-select) is reusable via `module_composition` if a future pathway needs structured bariatric specificity beyond what Module 7 baseline free-text captures. Note: the provider-review flags (drug choice + dose considerations for post-bariatric anatomy) are GLP-1-specific; other pathways would author their own routing rules appropriate to their treatment mechanism. Cross-references: `intent.prior_weight_loss_method_bariatric_surgery` atom from Module 14 Q14.2 is a category-level signal; Module 19 deepens to specific surgery type — both atoms coexist in the patient record without conflict.
+- **Module 20 gi_safety_extended** is GLP-1-specific in composition position but the atoms (`condition.pancreatitis_history`, `condition.gallbladder_disease_history`, `condition.gastroparesis_history` in `repo/clinical-concepts/gastrointestinal.ts`; `condition.diabetic_retinopathy_history` in `repo/clinical-concepts/endocrine.ts`) are pathway-agnostic. Pancreatitis + gallbladder + gastroparesis atoms are broadly reusable — a future general gastroenterology pathway, a pancreatic enzyme replacement pathway, or any pathway with altered-GI-motility drug interactions could CONSUME these atoms without re-asking. Diabetic retinopathy atom is relevant to any pathway involving rapid glucose change (e.g., insulin intensification, bariatric aftercare, other antidiabetic therapies). The pancreatitis hard-stop rule is GLP-1-specific (FDA boxed/warning for incretin-based therapies); other pathways have different pancreatitis-risk calculi. The retinopathy caution is semaglutide-label-specific; tirzepatide and other GLP-1 formulations may interpret differently. Q20.1 multi-select is reusable via `module_composition` for any pathway needing the personal-history GI cluster; Q20.2 is intrinsically diabetes-gated and reusable for any pathway treating T2D patients.
 
 ## Architectural patterns applied (binding; per Section 1K.3)
 
@@ -1246,20 +1361,20 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 
 ## Counts (after this checkpoint)
 
-- Layer D Phase 2.2.2 (in-progress): 7 modules / 32 questions defined (Module 19 bariatric_surgery_extended added with 1 question in this checkpoint: weight-loss surgery multi-select)
-- Stage 2 grand total so far (Phase 1 + Phase 2.2.2 in-progress): 19 modules / 71 questions defined
-- Per-patient render varies: GLP-1-naive ~21-22 questions; current GLP-1 patient ~26 questions; past GLP-1 patient ~28 questions; add 2 more for patients with ED diagnosis history; add 1 more for patients reporting family sudden death under 40
-- Hard-stop early-exit: patients asserting MTC or MEN-2 personal or family history exit intake at Module 18 with `denied_contraindication_absolute` closure; downstream Modules 19-21 do not render for these patients
-- Remaining for Phase 2.2.2: 2 more modules / ~8-11 more questions (GI safety extended + contraindication acknowledgments)
+- Layer D Phase 2.2.2 (in-progress): 8 modules / 35 questions defined (Module 20 gi_safety_extended updated to 3 questions: personal pancreatitis/gallbladder/gastroparesis multi-select + gallbladder anatomy conditional branch + diabetic retinopathy conditional on T2D)
+- Stage 2 grand total so far (Phase 1 + Phase 2.2.2 in-progress): 20 modules / 74 questions defined
+- Per-patient render varies: GLP-1-naive non-diabetic ~22-23 questions; current GLP-1 non-diabetic ~27 questions; past GLP-1 non-diabetic ~29 questions; add 2 more for patients with ED diagnosis history; add 1 more for patients reporting family sudden death under 40; add 1 more for T2D patients (retinopathy question)
+- Hard-stop early-exit: patients asserting MTC or MEN-2 (Module 18) or pancreatitis (Module 20) exit intake with `denied_contraindication_absolute` closure; downstream modules do not render for these patients
+- Remaining for Phase 2.2.2: 1 more module / ~3-4 more questions (contraindication acknowledgments)
 
 ## Next deliverable
 
-Phase 2.2.2 (in-progress; this checkpoint added Module 19): remaining 2 Layer D modules:
+Phase 2.2.2 (in-progress; this checkpoint added Module 20): remaining 1 Layer D module:
 
 1. ~~`mod.pathway.glp1.eating_disorder_screen_v1`~~ — **COMPLETE prior checkpoint** (4 questions: symptom screen + diagnosis history + diagnosis subtype + current treatment; Q17.3 subtype drives differentiated routing — AN hard stop, BN flag, BED distinct flag cohort)
 2. ~~`mod.pathway.glp1.cv_safety_extended_v1`~~ — **COMPLETE prior checkpoint** (4 questions: personal history + family history of MTC/MEN-2/Long QT + family sudden death under 40 Y/N + heart-related Y/N/unsure conditional; MTC + MEN-2 personal OR family history fire `denied_contraindication_absolute` hard stop per `Section 1Q.15`)
-3. ~~`mod.pathway.glp1.bariatric_surgery_extended_v1`~~ — **COMPLETE this checkpoint** (1 question: weight-loss surgery multi-select with 5 options + none; extends Module 7 baseline; flag cohort for drug choice + dose considerations)
-4. `mod.pathway.glp1.gi_safety_extended_v1` — extends `mod.domain.gastrointestinal.baseline_history_v1` (Phase 1 Module 9) with pancreatitis / gallbladder / gastroparesis / diabetic retinopathy specifics; ~5-7 questions
+3. ~~`mod.pathway.glp1.bariatric_surgery_extended_v1`~~ — **COMPLETE prior checkpoint** (1 question: weight-loss surgery multi-select with 5 options + none; extends Module 7 baseline; flag cohort for drug choice + dose considerations)
+4. ~~`mod.pathway.glp1.gi_safety_extended_v1`~~ — **COMPLETE this checkpoint** (2 questions: personal pancreatitis/gallbladder/gastroparesis multi-select + diabetic retinopathy conditional on T2D; pancreatitis personal history fires `denied_contraindication_absolute` hard stop per `Section 1Q.15`)
 5. `mod.pathway.glp1.contraindication_acknowledgments_v1` — MEN-2 BLACK BOX acknowledgment + off-label disclosure consents (`acknowledgment` answer_type; emits `consent.*` atoms per `Section 1K.5.A` + `Section 1K.11`); ~3-4 questions
 
-After Phase 2.2.2: 9 GLP-1 Layer D modules complete; ~40-45 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
+After Phase 2.2.2: 9 GLP-1 Layer D modules complete; ~37-38 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
