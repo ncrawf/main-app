@@ -1381,21 +1381,27 @@ Phase 2.2.2 COMPLETE (this checkpoint: Modules 17-20 safety extensions; Module 2
 
 ## Phase 3 next: GLP-1 pathway composition file
 
-Next deliverable is `repo/intake/pathways/glp1.ts` — wires all four layers into the runtime pathway definition:
+Phase 2.3 (conversion funnel spec `.cursor/plans/specs/conversion_funnel_modules_v1.md`) is the prerequisite for Phase 3. With both Layer D and the conversion funnel specced, the next deliverable is `repo/intake/pathways/glp1.ts` — wires all four clinical layers AND the conversion funnel into the runtime pathway definition:
+
 - **Layer A (Universal):** demographics + Terms/Privacy/Telehealth consent from `mod.universal.*`
 - **Layer B (Clinical Core):** medication history + allergies + surgery history from `mod.clinical_core.*`
 - **Layer C (Domain Baselines):** `mod.domain.cardiometabolic.baseline_history_v1` + `mod.domain.gastrointestinal.baseline_history_v1` + `mod.domain.reproductive.pregnancy_status_baseline_v1` (female-only) + `mod.domain.mental_health.baseline_v1` + Module 12 lifestyle/substance use
 - **Layer D (Pathway-Specific):** Modules 13-20 in ordering: 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20 (pharmacologic consent acknowledgments deferred; see **Deferred scope**)
+- **Conversion funnel (post-clinical; spec `conversion_funnel_modules_v1.md`):** Module 22 smart_loading → Module 23 candidacy_result → Module 24 treatment_preview (pathway-scoped; GLP-1 instance) → Module 25 profile_hard_commit → Module 3 identity_verification (existing; re-used) → Module 26 membership_checkout. Dual-mode (online + in-office) via `interaction_context.mode` branches inside each module; in-office adds a provider-encounter interstitial between Module 3 and Module 26 with two checkout paths (deep-link to app vs staff-captured at front desk per `Section 1Q.23` Patch G5).
 
 Composition file responsibilities:
-- Order modules per the render_count rationale notes (safety hard-stops before lower-priority modules; BMI-dependent questions after height+weight; ED screen early in safety block)
+- Order modules per the render_count rationale notes (safety hard-stops before lower-priority modules; BMI-dependent questions after height+weight; ED screen early in safety block; conversion funnel last)
 - Declare pathway-level metadata per `Section 1K.2` (pathway ID, sensitivity level, jurisdiction_eligibility)
-- Reference the 24 `rule.glp1.*` rules per `Section 1Q.15` that consume intake atoms (pancreatitis + MEN-2 + MTC hard-stops; adherence-aware dose decision; BMI threshold; pregnancy block; etc.)
+- Reference the 24 `rule.glp1.*` rules per `Section 1Q.15` that consume intake atoms (pancreatitis + MEN-2 + MTC hard-stops; adherence-aware dose decision; BMI threshold; pregnancy block; etc.) — outputs consumed by `mod.universal.candidacy_result_v1`
 - Reference the 25 `template.glp1.*` content templates per `Section 1Q.15` that personalize patient-facing content using intake atoms
+- Bind the GLP-1 V1 `membership_pricing_profile_v1` instance (Hims-placeholder values; see `conversion_funnel_modules_v1.md` for full declaration) for Module 24 indicative pricing preview + Module 26 pricing/payment screens
+- Wire the three new consent atoms + four new commerce atoms into `repo/clinical-concepts/consent.ts` + `repo/clinical-concepts/commerce.ts` (new file) per `conversion_funnel_modules_v1.md` atom declarations
 
 ## Deferred scope (Module 21 / pharmacologic acknowledgments)
 
 **Decision:** A dedicated Layer D intake module for FDA-label and compounded-medication acknowledgments (`mod.pathway.glp1.contraindication_acknowledgments_v1`) is **not** specified here. **Rationale:** Hims-style weight-loss intake does not run a stack of pharmacologic consent screens after safety questions; matching that cadence keeps Stage 1 friction low. Clinical and regulatory disclosures still belong in product — they are **deferred** to a separate **Rx Confirmation** flow (timing and UX TBD: e.g. immediately before payment, at prescription issuance, or async attestation), not to this Layer D question bank.
+
+**Cross-pathway evidence supporting deferral (added post-initial-decision):** examination of the Hims checkout evidence across pathways corroborates this architectural call. `hims_weight_loss.md` Steps 43-44 (lines 1191-1196) shows the dense legal block at "Submit to provider" is scoped to **subscription T&C + auto-renewal + membership-vs-medication-plan separation + pharmacy direction** — no MEN-2 / off-label / compounded / pregnancy ack screens at intake. `hims_trt.md` lines 1642-1683 shows the same pattern at TRT checkout (subscription legal block only; no pharmacologic intake acks). `hims_anxiety.md` and `hims_labs.md` follow suit. Conclusion: Hims handles pharmacologic attestations either in async provider review or in a post-approval medication-plan confirmation step — consistent with our deferral to the future Rx Confirmation flow.
 
 **Intended content when that flow is authored:** acknowledgments aligned with `Section 1K.11` consent architecture, emitting versioned atoms in `repo/clinical-concepts/consent.ts` under `consent.glp1_*_v1_signed` (or successor naming), including as applicable: MEN-2 / personal or family MTC boxed-warning attestation (clinical context may already be captured by Module 18 atoms), off-label use disclosure for relevant formulations, compounded-product disclosure, and pregnancy / reproductive-potential contraindication where Layer C reproductive baseline applies.
 

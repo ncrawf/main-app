@@ -343,6 +343,8 @@ The "Woman" and "Trans woman" options on the male-at-birth path (and "Man" / "Tr
 **`required_for`:** identity (L3 per `Section 1J.4`)
 **`assertion_group_emit_trigger`:** `module_complete` (composite identity atom)
 
+**Composition position in conversion funnel:** this module renders between Module 25 `profile_hard_commit_v1` and Module 26 `membership_checkout_v1` in the conversion funnel ordering (online mode), and between Module 25 and the provider-encounter interstitial in in-office mode (where the staff-witnessed path per `Section 1Q.23` Patch G4 replaces the photo-upload UX). Full conversion-funnel flow definition lives in `.cursor/plans/specs/conversion_funnel_modules_v1.md`.
+
 ### Q3.1 — Government ID upload
 
 **Hims source:** Step 77 "Please provide the last 4 digits of your social security number ... Don't want to provide this? You can upload a photo of your ID instead." Step 78 "Upload a photo of yourself ... To verify your identity, we need a clear photo of your face."
@@ -512,4 +514,10 @@ All 4 universal modules are CANDIDATES for reuse across every future MAIN clinic
 
 ## Next deliverable
 
-`.cursor/plans/specs/clinical_core_modules_v1.md` — Layer B (3 modules; medication_history, allergy_history, surgery_history; ~8 questions).
+Phase 1 + Phase 2.2.2 + Phase 2.3 are all complete:
+- `.cursor/plans/specs/clinical_core_modules_v1.md` — Layer B (3 modules; medication_history, allergy_history, surgery_history; ~8 questions) — **COMPLETE**.
+- `.cursor/plans/specs/domain_modules_v1.md` — Layer C (5 modules; ~17 questions) — **COMPLETE**.
+- `.cursor/plans/specs/glp1_pathway_modules_v1.md` — Layer D (8 modules; 35 questions; pharmacologic acks deferred) — **COMPLETE**.
+- `.cursor/plans/specs/conversion_funnel_modules_v1.md` — post-clinical conversion funnel (5 modules: smart_loading, candidacy_result, treatment_preview, profile_hard_commit, membership_checkout; + `membership_pricing_profile_v1` schema + GLP-1 V1 Hims-placeholder instance; online + in-office dual-mode via `interaction_context.mode` per `Section 1Q.23`) — **COMPLETE**. **Adds 4 additional universal modules (22, 23, 25, 26) authored under the conversion funnel label; Module 24 is pathway-scoped (GLP-1).**
+
+Next: Phase 3 runtime — `repo/intake/pathways/glp1.ts` pathway composition file wires all layers A + B + C + D + conversion funnel into the runtime definition per `conversion_funnel_modules_v1.md` composition ordering.
