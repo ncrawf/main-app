@@ -589,8 +589,8 @@ Plus: None of these (with binding `exclusive_with_other_choices` none_logic).
 
 **Hims source:** Step 5 "Why do you want to lose weight? / Improve my health / Gain confidence / Feel better in my clothes / Something else"
 **MAIN voice:**
-- prompt: "What's your main reason for wanting to lose weight?"
-- helper: "Pick the closest match."
+- prompt: "Why do you want to lose weight?"
+- helper: none
 
 **Schema:**
 - `question_id`: `qb.pathway.glp1.motivation_and_goals.primary_motivation_v1` | `tier`: 3 (motivation; A/B-testable)
@@ -599,25 +599,25 @@ Plus: None of these (with binding `exclusive_with_other_choices` none_logic).
 - `entity_kind`: `single_value` | `atom_kind`: `preference_motivation` | `downstream_effect`: `personalization`
 - `render_when`: null (baseline)
 
-**Choices:** Improve my health | Feel more confident | Feel better in my clothes | Something else
-**`choice_values`:** `improve_health | feel_more_confident | feel_better_in_clothes | something_else`
+**Choices:** Improve my health | Gain confidence | Feel better in my clothes or feel better about how I look | Something else
+**`choice_values`:** `improve_health | gain_confidence | feel_better_appearance | something_else`
 
 **Atoms emitted:**
 - Positive: `intent.weight_loss_primary_motivation` (metadata: `{value: <choice_value>}`)
 - Denied: n/a (required; no don't-know option needed — patients always have a primary reason)
 
-**Issues found:** Hims uses identical 4-option set; MAIN keeps the same. Tier 3 because motivation is signal for personalization + visit framing, not a clinical safety floor. `single_select` (not multi) is intentional — forcing a primary captures funnel-clarity intent (per Hims pattern); patient picks the closest match.
-**Recommended rewrite:** Adopt Hims 4-option set with MAIN voice tightening.
-**Branching adjustments:** `improve_health` → consumed by personalization rules per `Section 1Q.15` for clinical-tone messaging; `feel_more_confident` / `feel_better_in_clothes` → emotional-tone messaging cohort; `something_else` → provider Mode F clarification at visit if clinically relevant.
+**Issues found:** Adopt Hims prompt verbatim. Drop helper (question is self-explanatory). Drop unnecessary "I" expansion in answers. Expanded option 3 to capture both clothing-fit and general-appearance motivations (single bucket for the "I want to look better" cohort; reduces "Something else" usage by patients whose motivation is appearance-but-not-specifically-clothes).
+**Recommended rewrite:** Hims-faithful prompt + 4-option set with expanded option 3.
+**Branching adjustments:** `improve_health` → personalization rules per `Section 1Q.15` for clinical-tone messaging cohort; `gain_confidence` / `feel_better_appearance` → emotional-tone messaging cohort; `something_else` → provider Mode F clarification at visit if clinically relevant.
 **Downstream effect:** `personalization` (drives motivation-priming template selection per `Section 1Q.15`).
-**Final decision:** **Modify** (preserve Hims 4-option semantics; tighten voice).
+**Final decision:** **Modify** (Hims-faithful with one expanded option).
 
 ### Q16.2 — Treatment priority
 
 **Hims source:** Step 7 "What matters most to you about your treatment? / FDA-approved medications / Affordability / Results that last / Support from licensed providers"
 **MAIN voice:**
-- prompt: "What matters most to you about treatment?"
-- helper: none (clean direct)
+- prompt: "What matters most to you about your treatment?"
+- helper: none (Hims-faithful)
 
 **Schema:**
 - `question_id`: `qb.pathway.glp1.motivation_and_goals.treatment_priority_v1` | `tier`: 3
@@ -645,9 +645,9 @@ Plus: None of these (with binding `exclusive_with_other_choices` none_logic).
 **MAIN voice:**
 
 Body text:
-> 83% of Americans aren't at the weight they'd like to be.
+> 83% of Americans are not at the weight they'd like to be.
 >
-> You're not alone. Most people who try to lose weight need more than diet and exercise alone.
+> You're not alone. Most people need more than diet and exercise alone.
 
 Source citation (inline; binding):
 > *Hims & Hers, The Shape of America Report, December 2024. Survey of 5,000 American adults.*
@@ -676,34 +676,34 @@ When MAIN has its own data, swap citation. For V1 spec, Hims-cited stat is the b
 
 **Hims source:** Step 12 "Do you have a specific weight loss medication in mind? / No, I'd like a provider recommendation / Yes, I already have something in mind"
 **MAIN voice:**
-- prompt: "Do you have a specific medication in mind?"
-- helper: "We can recommend something, or work with what you'd like to try."
+- prompt: "Do you have a specific weight loss treatment in mind?"
+- helper: none
 
 **Schema:**
-- `question_id`: `qb.pathway.glp1.motivation_and_goals.treatment_in_mind_v1` | `tier`: 3
+- `question_id`: `qb.pathway.glp1.motivation_and_goals.treatment_in_mind_v1` | `tier`: 3 (drop-eligible if commercial nurture flows aren't V1 scope; A/B-testable)
 - `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
 - `answer_role`: `preference` | `intent_of_answer_set`: `preference_capture`
 - `entity_kind`: `single_value` | `atom_kind`: `preference_motivation` | `downstream_effect`: `personalization`
 - `render_when`: null (baseline; renders right after Q16.3 educational stat)
 
-**Choices:** I'd like a recommendation | I have something in mind | I'm not sure yet
-**`choice_values`:** `recommendation | have_in_mind | not_sure`
+**Choices:** No, I'd like a provider recommendation | Yes, I already have something in mind
+**`choice_values`:** `recommendation | have_in_mind`
 
 **Atoms emitted:**
 - Positive: `intent.treatment_selection_preference` (metadata: `{value: <choice_value>}`)
-- Denied: n/a (required; "I'm not sure yet" is the don't-know answer option per required-vs-answer-option discipline)
+- Denied: n/a (required)
 
-**Issues found:** Hims uses 2-option binary (recommendation / have in mind). MAIN adds "I'm not sure yet" as a 3rd option — many patients haven't decided yet at this funnel position; forcing a binary feels overcommitting. Helper sets the autonomy expectation ("we can recommend, or work with what you'd like to try") which Hims doesn't include explicitly.
-**Recommended rewrite:** Adopt 3-option set with autonomy-respecting helper.
-**Branching adjustments:** `have_in_mind` → downstream commercial flow may surface `Section 1Q.15` Q15-style "which medication?" early commercial preference (DEFERRED to Phase 2.2.X if needed; not in V1). `recommendation` → standard provider-led flow. `not_sure` → standard provider-led flow + provider visit framing emphasizes options education.
-**Downstream effect:** `personalization` (commercial flow + provider visit framing).
-**Final decision:** **Modify** (3-option vs Hims 2-option; permission-to-defer).
+**Issues found:** Hims-faithful 2-option binary; no helper; "weight loss" preserved in prompt for clarity (vs vague "treatment" alone).
+**Recommended rewrite:** Hims-faithful prompt + 2-option set; no helper.
+**Branching adjustments:** Does not branch in V1. `have_in_mind` → downstream commercial cohort signal per `Section 1Q.21` (more conversion-likely; nurture flow shorter); `recommendation` → standard provider-led flow with options-education emphasis. If commercial nurture flows aren't V1 scope, this question can be dropped via flag without clinical loss.
+**Downstream effect:** `personalization` (commercial cohort signal for `Section 1Q.21`).
+**Final decision:** **Modify** (Hims-faithful 2-option; drop-eligible Tier 3 — keep for commercial signal; remove if commercial nurture flows defer).
 
 ### Q16.5 — Goal benefits multi-select
 
 **Hims source:** Step 17 "What would reaching your goal weight mean for you? Select all that apply. / Having more energy / Feeling more confident / Improving overall health / Feeling better in my body / Feeling good in clothes"
 **MAIN voice:**
-- prompt: "What would reaching your goal mean to you?"
+- prompt: "What would reaching your goal weight mean for you?"
 - helper: "Select all that apply."
 
 **Schema:**
@@ -714,35 +714,33 @@ When MAIN has its own data, swap citation. For V1 spec, Hims-cited stat is the b
 - `atom_kind`: `preference_motivation` | `downstream_effect`: `personalization`
 - `render_when`: null (baseline; renders right after Q16.4)
 
-**Choices:** More energy | More confident | Better overall health | Better in my body | Better in clothes
+**Choices:** Having more energy | Feeling more confident | Improving overall health | Feeling better in my body | Feeling good in clothes
 **`choice_values`:** `more_energy | more_confident | better_health | better_in_body | better_in_clothes`
 
 **Atoms emitted:**
 - Per selected: `intent.weight_loss_benefit_<kind>` (e.g., `intent.weight_loss_benefit_more_energy`, `intent.weight_loss_benefit_more_confident`, `intent.weight_loss_benefit_better_health`, `intent.weight_loss_benefit_better_in_body`, `intent.weight_loss_benefit_better_in_clothes`; metadata: `{kind, context_key: <kind>}` per multi-instance discipline)
 - Denied: n/a (`one_or_more` cardinality required when rendered)
 
-**Issues found:** Hims uses identical 5-option multi-select; MAIN keeps. Multi-select (not single) is correct because patients legitimately have multiple motivations — forcing one would lose richness. No "None of these" option because Q16.5 is motivation-priming (patient self-reflection on benefits), not a safety screen — there's no clinically-meaningful "none" answer; patient who sees this question has already affirmed weight-loss goal in Q16.1.
-**Recommended rewrite:** Adopt Hims 5-option multi-select.
+**Issues found:** Hims-faithful prompt + 5-option set with Hims gerund phrasing ("Having" / "Feeling" / "Improving") — gerunds are scannable and convey personal experience without "I" friction. Multi-select (not single) is correct because patients legitimately have multiple motivations — forcing one would lose richness. No "None of these" option because Q16.5 is motivation-priming (patient self-reflection on benefits), not a safety screen.
+**Recommended rewrite:** Hims-faithful prompt + 5-option set with Hims gerund phrasing.
 **Branching adjustments:** Multiple benefit atoms drive personalization template selection per `Section 1Q.15` (e.g., `better_health` selected → clinical-outcome-emphasized messaging; `more_confident` + `better_in_clothes` → appearance-emphasized; multi-benefit selection → multi-emphasis content).
 **Downstream effect:** `personalization` (drives motivation-priming template per `Section 1Q.15`).
-**Final decision:** **Modify** (preserve Hims 5-option multi-select).
+**Final decision:** **Modify** (Hims-faithful 5-option multi-select with gerund phrasing).
 
 ### Q16.6 — Patient testimonials (educational + social proof)
 
 **Hims source:** Step 18-19 testimonials "Verified customers / Real results start here / Chance, 30. Lost 16 pounds in 4 months. Hims customer. / Jonathan, 42. Lost 17 pounds in 3 months. Hims customer." + standard FDA disclaimer
 **MAIN voice:**
 
-Body content (Hims-pattern testimonial cards; for V1 spec, Hims pattern is the binding template content; real MAIN customer data swapped in when available):
+Body content (Hims-pattern testimonial cards; em-dash one-liner format; for V1 spec, Hims customer data is binding template content; real MAIN customer data swapped in when available):
 
-> *Verified customers — real results*
+> Chance, 30 — lost 16 pounds in 4 months
 >
-> **Chance, 30.** Lost 16 pounds in 4 months. Hims customer.
+> Jonathan, 42 — lost 17 pounds in 3 months
 >
-> **Jonathan, 42.** Lost 17 pounds in 3 months. Hims customer.
->
-> **Zachary, 43.** Lost 119 pounds in 9 months. Hims customer.
+> Zachary, 43 — lost 119 pounds in 9 months
 
-Inline FDA-compliant disclaimer (binding; required on this question's body):
+Inline FDA-compliant disclaimer (required on this question's body; provides source attribution):
 
 > *Medications are part of a weight loss program that includes a reduced-calorie diet and increased physical activity. Customers were compensated for their opinion. Results shared by customers who have purchased varying products. Customers' results have not been independently verified. Individual results will vary.*
 
@@ -771,15 +769,13 @@ Inline FDA-compliant disclaimer (binding; required on this question's body):
 
 Body template (rendered with `patient_label_template_refs` per `Section 1K.4`; values resolved from prior atoms):
 
-> Your BMI is **{bmi}**.
+> Your BMI falls within a range that may qualify you for treatment.
 >
-> That's **{bmi_eligibility_status}** for typical GLP-1 treatment ranges.
->
-> *A licensed provider will review your full health profile to confirm what's right for you.*
+> BMI: **{bmi}**
 
 Where:
 - `{bmi}` = `intake_derived_score.bmi` per `Section 1K.9` (computed from `vital.height_cm` + `vital.weight_kg`)
-- `{bmi_eligibility_status}` = derived band: `"in the range"` (BMI ≥ 27) / `"above the range"` (BMI ≥ 40) / `"below the range"` (BMI < 27)
+- Body copy above renders for BMI ≥ 27 (typical GLP-1 eligibility floor); for BMI < 27, body renders alternate copy (`"Your BMI is below the typical GLP-1 treatment range. Your provider will review your full profile to confirm what's right for you."`) — alternate copy is a runtime UI conditional based on derived `bmi_eligibility_band`
 
 Helper text: none (the body is the educational content)
 
@@ -795,13 +791,13 @@ Helper text: none (the body is the educational content)
 
 **Atoms emitted:**
 - `emits_atoms`: `[]` (binding empty; this is a pure display screen)
-- Analytics-only event per `Section 1K.19.9`: `intake.educational_screen.continued` with `metadata: {question_id: 'qb.pathway.glp1.motivation_and_goals.bmi_personalized_v1', derived_bmi_band: <eligibility_status>, dwell_time_ms?, continued: true}`
+- Analytics-only event per `Section 1K.19.9`: `intake.educational_screen.continued` with `metadata: {question_id: 'qb.pathway.glp1.motivation_and_goals.bmi_personalized_v1', derived_bmi_band: <may_qualify | above_range | below_range>, dwell_time_ms?, continued: true}`
 
-**Issues found:** Hims uses a rich BMI visualization (graph with medication zone) + photographer headshot + comparison block (current BMI vs goal BMI). MAIN simplifies to text-based body template for V1 (visualization layer is runtime UI concern, not spec concern). The "licensed provider will review" line is factual reassurance, not hype — preserves clinical authority. For below-range BMI patients (BMI < 27), the body honestly says "below the range" — this is more honest than Hims's gentle handling and protects against patient confusion later if ineligible. Actual provider-eligibility decision is downstream; this screen is informational.
-**Recommended rewrite:** Adopt text-based template with derived BMI + eligibility band; reserve visualization for future runtime UI work.
-**Branching adjustments:** Below-range BMI (< 27) → patient sees "below the range" framing; downstream provider review at safety preflight may decline GLP-1 prescription per `Section 1Q.15` `rule.glp1.eligibility.bmi_threshold` (not blocked at intake; intake completes per `Section 1K.3` `hard_stop` semantics).
+**Issues found:** Hims uses a rich BMI visualization (graph with medication zone) + comparison block. MAIN simplifies to a 2-line text-based template for V1 — clarity, not explanation. The visualization layer is a runtime UI concern, not a spec concern. For BMI ≥ 27, body copy reads "Your BMI falls within a range that may qualify you for treatment" + the BMI value. For BMI < 27, alternate copy is rendered (runtime UI conditional). Actual provider-eligibility decision is downstream.
+**Recommended rewrite:** 2-line template with derived BMI; runtime UI handles eligibility-band conditional copy + future visualization.
+**Branching adjustments:** Below-range BMI (< 27) → alternate body copy renders at runtime; downstream provider review at safety preflight may decline GLP-1 prescription per `Section 1Q.15` `rule.glp1.eligibility.bmi_threshold` (not blocked at intake; intake completes per `Section 1K.3` `hard_stop` semantics).
 **Downstream effect:** `personalization` (educational + eligibility-framing context).
-**Final decision:** **Modify** (Hims pattern simplified to text-based template; visualization deferred to runtime UI).
+**Final decision:** **Modify** (Hims pattern simplified to 2-line text template).
 
 ### Q16.8 — Educational treatment mechanism
 
@@ -888,7 +884,7 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 6. **Pathway-specific clinical capture (`Section 1K.3` directly-answered-fields rule):** Q15.5 weight-lost + Q15.6 side effects + Q15.8 stop reason are CLINICAL FACTS asked DIRECTLY; never inferred from gender_identity, biological_sex_at_birth, or any other identity atom. The directly-answered-fields rule is preserved.
 7. **Hims source ref discipline:** every question carries explicit reference to Hims source step (or "Implicit" when MAIN adds beyond Hims). Net `Implicit` count: 11 of 23 (Q13.3 partially + Q13.5 + Q14.1-Q14.2 + Q15.2-Q15.8) — most of the cascade depth is MAIN-additive beyond Hims's funnel; Module 16 questions (Q16.1-Q16.8) all map directly to Hims Steps 5, 7, 10-11, 12, 17, 18-19, 25, 26.
 8. **Anchoring rule applied:** all Module 15 follow-up prompts anchor to `"your GLP-1"` (drug-class anchor); Q15.4 uses dynamic past-vs-present-tense via `patient_label_template_refs`. No unanchored "it" references in any prompt per the binding anchoring rule in MAIN voice principles.
-9. **Required vs answer-option discipline applied:** Q13.3 weight-loss-goal is `requiredness: required_to_continue` with `"I don't have a specific number"` as the don't-know answer option. Pattern preserved in Q15.5 weight-lost (`"I don't remember"` + `"I didn't lose weight (or gained)"` as structured options) and Q15.7 / Q15.8 (`"I don't remember"` / `"Other"`). Q16.4 treatment-in-mind also uses this pattern (`"I'm not sure yet"` answer option vs making the question optional).
+9. **Required vs answer-option discipline applied:** Q13.3 weight-loss-goal is `requiredness: required_to_continue` with `"I don't have a specific number"` as the don't-know answer option. Pattern preserved in Q15.5 weight-lost (`"I don't remember"` + `"I didn't lose weight (or gained)"` as structured options) and Q15.7 / Q15.8 (`"I don't remember"` / `"Other"`).
 10. **Educational_screen pattern (Module 16):** 4 questions in Module 16 (Q16.3 / Q16.6 / Q16.7 / Q16.8) use `answer_type: educational_screen` per `Section 1K.3` Stage 1.5. These emit ZERO clinical atoms (`emits_atoms: []` binding); they emit non-clinical analytics events (`intake.educational_screen.continued`) per `Section 1K.19.9` ONLY. Q16.7 is a `derived_display` per `Section 1K.4` — body template renders derived BMI from prior atoms (Q13.1 + Q13.2). Q16.6 testimonials carry inline FDA-compliant disclaimer copy in body block; clinical CODEOWNER reviews testimonial content + disclaimer at PR.
 
 ## Counts (after this checkpoint)
