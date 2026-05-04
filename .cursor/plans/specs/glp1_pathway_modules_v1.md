@@ -1,29 +1,31 @@
 # GLP-1 Pathway-specific modules — Layer D spec v1
 
 **Date:** 2026-05-03
-**Stage:** 2 Phase 2.2.1 — Layer D authoring (4 of ~9 modules; Module 16 motivation_and_goals added in this checkpoint)
+**Stage:** 2 Phase 2.2.2 — Layer D authoring (5 of ~9 modules; Module 17 eating_disorder_screen added in this checkpoint)
 **Clinical CODEOWNER:** founder (board-certified MD)
 **Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics + pathway override + directly-answered-fields rule) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; concept registry organized by domain) + `Section 1K.19` (intake repository + control model) + `Section 1Q.15` (GLP-1 vertical slice; 24 rules / 25 templates) + `Section 1Q.16` (adversarial pre-runtime gate)
 **Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md)
 
 ## Scope
 
-Layer D pathway-specific GLP-1 modules — Phase 2.2.1 (4 of ~9 total; Module 16 motivation_and_goals added). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept). Module 16's motivation + commercial + educational atoms live in `repo/clinical-concepts/intent.ts` under `intent.weight_loss_*` and `intent.treatment_*` namespaces.
+Layer D pathway-specific GLP-1 modules — Phase 2.2.2 (5 of ~9 total; Module 17 eating_disorder_screen added). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept). Module 16's motivation + commercial + educational atoms live in `repo/clinical-concepts/intent.ts` under `intent.weight_loss_*` and `intent.treatment_*` namespaces. Module 17's eating disorder atoms live in `repo/clinical-concepts/mental_health.ts` (extends `mod.domain.mental_health.baseline_v1` Phase 1 Module 11 per `Section 1K.3` contextual extension).
 
-**4 modules in this file:**
+**5 modules in this file:**
 1. `mod.pathway.glp1.weight_history_v1` — 5 questions (height + current weight + weight loss goal band + max-weight Y/N + max-weight value if not current)
 2. `mod.pathway.glp1.weight_loss_attempts_v1` — 2 questions (prior attempts Y/N + methods multi-select)
 3. `mod.pathway.glp1.prior_glp1_use_v1` — 8 questions (status + which GLP-1 + dose + duration + weight lost + side effects + when stopped + why stopped)
 4. `mod.pathway.glp1.motivation_and_goals_v1` — 8 questions (primary motivation + treatment priority + 4 educational screens + treatment-in-mind preference + goal benefits multi-select; mix of motivation / commercial_confidence / educational_trust answer_roles)
+5. `mod.pathway.glp1.eating_disorder_screen_v1` — 4 questions (symptom screen + diagnosis history + diagnosis subtype + current treatment)
 
-**Total: 23 questions defined.**
+**Total: 27 questions defined.**
 
 **Per-patient render counts (varies by branch):**
-- GLP-1-naive patient with no prior weight-loss attempts: ~15 questions rendered (Q13.1-Q13.4 + Q14.1 + Q15.1 + 8 Module 16 baseline; Q13.5 skipped; Q14.2 + Q15.2-Q15.8 skipped)
-- GLP-1-naive patient with prior diet attempts: ~16 questions rendered (above + Q14.2)
-- Current GLP-1 patient (Q15.1 = currently): ~20 questions rendered (Q15.2 + Q15.3 + Q15.4 + Q15.5 + Q15.6; Q15.7 + Q15.8 skipped)
-- Past GLP-1 patient (Q15.1 = past): ~22 questions rendered (full cascade including Q15.7 + Q15.8)
-- Module 16 (motivation + educational + commercial_confidence) renders for all patients regardless of GLP-1 history; positioned in pathway file AFTER Module 13 weight history (so BMI personalized Q16.7 has the prior atoms it needs)
+- GLP-1-naive patient with no prior weight-loss attempts + no ED history: ~17 questions rendered (Q13.1-Q13.4 + Q14.1 + Q15.1 + 8 Module 16 baseline + Q17.1 + Q17.2; Q13.5 / Q14.2 / Q15.2-Q15.8 / Q17.3 / Q17.4 skipped)
+- GLP-1-naive patient with prior diet attempts + no ED history: ~18 questions rendered (above + Q14.2)
+- Current GLP-1 patient (Q15.1 = currently) + no ED history: ~22 questions rendered (Q15.2 + Q15.3 + Q15.4 + Q15.5 + Q15.6; Q15.7 + Q15.8 skipped)
+- Past GLP-1 patient (Q15.1 = past) + no ED history: ~24 questions rendered (full Module 15 cascade including Q15.7 + Q15.8)
+- Any patient with ED diagnosis history: add 2 questions (Q17.3 diagnosis subtype + Q17.4 current treatment)
+- Module 16 (motivation + educational + commercial_confidence) renders for all patients regardless of GLP-1 history; positioned in pathway file AFTER Module 13 weight history (so BMI personalized Q16.7 has the prior atoms it needs). Module 17 (eating disorder screen) renders for all patients; positioned in pathway file AFTER Module 15 and BEFORE the remaining clinical safety cascades (CV, GI) so downstream provider visit framing can factor ED signal in early.
 
 ## MAIN voice principles (binding; reused from Phase 1)
 
@@ -836,7 +838,149 @@ Helper text: none
 
 ---
 
-## Layer D Phase 2.1 audit summary
+## Module 17 — `mod.pathway.glp1.eating_disorder_screen_v1`
+
+**`module_id`:** `mod.pathway.glp1.eating_disorder_screen_v1`
+**`module_version`:** `1.0.0`
+**`kind`:** clinical (safety — active eating disorder patterns are a provider-review flag; anorexia-pattern food restriction in particular is a relative contraindication for GLP-1s since appetite suppression in a restriction-driven patient compounds medical risk)
+**`pathways`:** `glp1` only (Layer D pathway-specific extension of Phase 1 Module 11 `mod.domain.mental_health.baseline_v1`; mental-health baseline screens depression / anxiety / suicidal ideation but not ED patterns — GLP-1 is the pathway where ED-pattern screening is clinically load-bearing)
+**`required_for`:** safety, provider review
+**`assertion_group_emit_trigger`:** `module_complete`
+**Atom domain:** `mental_health` (eating disorder concept atoms live in `repo/clinical-concepts/mental_health.ts` under `condition.eating_disorder_*` namespace per `Section 1K.3` atomization principle; extends Module 11 rather than re-authoring)
+
+**Composition position:** pathway file `repo/intake/pathways/glp1.ts` inserts this module after Module 15 (prior GLP-1 use) and before Modules 18-20 (CV / GI / bariatric safety cascades). Runs early in the safety block so ED signal reaches provider visit framing before the rest of the clinical cascades compose.
+
+### Q17.1 — Eating pattern symptom screen
+
+**Hims source:** Step 32 "Have you ever experienced any of these symptoms? This helps your provider better understand your current health so they can recommend the best treatment for you. / Causing yourself to vomit in order to lose weight / Frequently eating very large amounts of food and feeling like you can't stop eating / Severely limiting the amount of food you eat due to an intense fear of gaining weight / No, I have not experienced any of these"
+**MAIN voice:**
+- prompt: "Have you ever experienced any of these symptoms?"
+- helper: "This helps your provider recommend the right treatment."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.eating_disorder_screen.symptoms_v1` | `tier`: 1
+- `answer_type`: `multi_select` | `selection_cardinality`: `one_or_more` | `requiredness`: `required_to_continue`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` (multi-select; composite atom emission with structured value array) | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
+- `render_when`: null (baseline)
+- `none_logic`: `{mode: 'exclusive_with_other_choices', none_choice_value: 'none_of_these'}`
+
+**Choices** (Hims option wording preserved verbatim — the symptom-based phrasing is clinically sophisticated; patients with undiagnosed patterns won't self-identify with "bulimia" / "anorexia" but will identify with behavior descriptions):
+- Causing yourself to vomit in order to lose weight
+- Frequently eating very large amounts of food and feeling like you can't stop eating
+- Severely limiting the amount of food you eat due to an intense fear of gaining weight
+- No, I have not experienced any of these
+
+**`choice_values`:** `purging | binge_eating | severe_restriction | none_of_these`
+
+**Atoms emitted:**
+- Per symptom selected: typed atom `condition.eating_disorder_<pattern>_history` (e.g., `condition.eating_disorder_purging_history`, `condition.eating_disorder_binge_history`, `condition.eating_disorder_restriction_history`); `assertion_type: history_of`; `metadata.disease_state: symptom_endorsed_lifetime` per `Section 1K.5.A` concept naming rule
+- "None of these" selected → all 3 pattern atoms emitted DENIED (`status: 'denied_at_intake'`; provider sees explicit denial)
+- `severe_restriction` selected → provider safety preflight flag for anorexia-pattern review per `Section 1Q.15` (GLP-1 + restriction pattern is high-risk; may be a contraindication depending on severity + active/historical)
+
+**Issues found:** Hims's symptom-based phrasing is the right approach — catches patterns in patients who've never been formally diagnosed and who wouldn't self-identify with diagnostic labels. MAIN trims prompt slightly ("Have you ever experienced any of these symptoms?" keeps Hims's meaningful "symptoms" word — frames as clinical, not lifestyle) and tightens helper (Hims's full version "This helps your provider better understand your current health so they can recommend the best treatment for you" is long for a sensitive question; shorter helper reduces hesitation without losing the explanatory WHY). Preserves Hims's 3-symptom + none structure verbatim in answer options. `exclusive_with_other_choices` none_logic matches the safety-screen pattern used in Q15.6 for GLP-1 side effects.
+**Recommended rewrite:** Tighter helper; preserve Hims's 4-option structure and option wording verbatim.
+**Branching adjustments:** Q17.2 renders regardless of Q17.1 answer — some patients with prior ED diagnosis are in remission and will truthfully answer "none" to Q17.1 but still have a diagnosis that matters for GLP-1 safety review.
+**Downstream effect:** `provider_review` (any symptom → provider visit framing flags ED pattern review; `severe_restriction` specifically → safety preflight reviews per `Section 1Q.15` for anorexia-pattern contraindication).
+**Final decision:** **Modify** (Hims-faithful option text; tighter helper).
+
+### Q17.2 — Eating disorder diagnosis history
+
+**Hims source:** Implicit (Hims screens symptoms only; MAIN adds diagnosis capture to distinguish currently-symptomatic patients from diagnosed-in-remission patients — these are clinically distinct populations for GLP-1 decision).
+**MAIN voice:**
+- prompt: "Have you ever been diagnosed with an eating disorder?"
+- helper: none
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.eating_disorder_screen.diagnosis_v1` | `tier`: 2
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `required_to_continue`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
+- `render_when`: null (baseline; renders regardless of Q17.1)
+
+**Choices:** Yes | No | Prefer not to say
+**`choice_values`:** `yes | no | prefer_not_to_say`
+
+**Atoms emitted:**
+- `yes` → `condition.eating_disorder_diagnosis_history = true` (metadata: `{disease_state: 'history_of'}`)
+- `no` → `condition.eating_disorder_diagnosis_history` emitted DENIED (`status: 'denied_at_intake'`)
+- `prefer_not_to_say` → `condition.eating_disorder_diagnosis_history` left UNCAPTURED; provider Mode F clarification opens at safety preflight per `Section 1P.4` (sensitive; clinician can ask in-person at visit)
+
+**Issues found:** Distinct question from Q17.1 — a symptom screen captures "what has this patient experienced?" while a diagnosis question captures "has a clinician ever named this?" Some patients in stable remission haven't had active symptoms in the Q17.1 timeframe but carry a diagnosis that affects GLP-1 risk assessment. "Prefer not to say" is appropriate for this sensitive question; respecting opt-out reduces under-reporting from patients who'd otherwise abandon the funnel or lie. Provider clarifies at visit.
+**Recommended rewrite:** New Tier 2 baseline 3-option single_select with opt-out.
+**Branching adjustments:** `yes` → BOTH Q17.3 (diagnosis subtype) AND Q17.4 (current treatment) render. `no` or `prefer_not_to_say` → skip both Q17.3 and Q17.4. Q17.3 and Q17.4 are independent follow-ups to Q17.2 (not nested under each other) — a patient who answers Q17.2 = yes sees both downstream questions regardless of how they answer Q17.3.
+**Downstream effect:** `provider_review` (diagnosis history in provider workspace; Q17.3 subtype drives differentiated routing per `Section 1Q.15` — AN = hard stop, BN = flag, BED = distinct flag cohort; Q17.4 adds care coordination signal).
+**Final decision:** **Modify** (new Tier 2 diagnosis capture; not in Hims funnel; clinically additive).
+
+### Q17.3 — Which eating disorder(s) were you diagnosed with? (conditional; renders only when Q17.2 = yes)
+
+**Hims source:** Implicit (Hims has no diagnosis-subtype question; MAIN adds because AN / BN / BED produce meaningfully different prescribing decisions — AN is a hard-stop cohort even in remission; BN is a flag cohort with significant caution; BED is a distinct cohort with emerging evidence as a positive indication for GLP-1).
+**MAIN voice:**
+- prompt: "Which eating disorder(s) were you diagnosed with?"
+- helper: "Select all that apply."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.eating_disorder_screen.diagnosis_subtype_v1` | `tier`: 1 (clinical safety — anorexia nervosa history is a hard-stop gate; warrants Tier 1)
+- `answer_type`: `multi_select` | `selection_cardinality`: `one_or_more` | `requiredness`: `conditionally_required`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` (multi-select; composite atom emission with structured value array) | `atom_kind`: `safety` | `downstream_effect`: `provider_review` (differentiated per selection — see atom notes below)
+- `render_when`: `{question_id: 'qb.pathway.glp1.eating_disorder_screen.diagnosis_v1', equals: 'yes'}`
+- `required` (resolver): `<Predicate>` (required when render_when fires)
+- `none_logic`: `{mode: 'exclusive_with_other_choices', none_choice_value: 'not_sure'}` — "I'm not sure which one" cannot coexist with a specific diagnosis label; "Another eating disorder" CAN coexist with specific labels (comorbidity is valid — e.g., AN history that transitioned to BN, or BN + BED overlap)
+
+**Choices:**
+- Anorexia nervosa
+- Bulimia nervosa
+- Binge eating disorder
+- Another eating disorder
+- I'm not sure which one
+
+**`choice_values`:** `anorexia_nervosa | bulimia_nervosa | binge_eating_disorder | another_ed | not_sure`
+
+**Atoms emitted** (all live in `repo/clinical-concepts/mental_health.ts`):
+- `anorexia_nervosa` selected → `condition.anorexia_nervosa_history` with `assertion_type: history_of`; metadata: `{disease_state: 'history_of'}`. CRITICAL: feeds `rule.glp1.safety.contraindication_anorexia_nervosa_history` per `Section 1Q.15` — hard stop cohort (BLOCK fires even in remission; provider exception pathway exists but default is decline because appetite suppression + restriction-driven pathology is a high-risk combination)
+- `bulimia_nervosa` selected → `condition.bulimia_nervosa_history` with `assertion_type: history_of`. Feeds flag cohort rule — provider review at safety preflight; GLP-1 GI side effects (nausea, delayed gastric emptying) can trigger purging cycles, so caution is significant but not an automatic block
+- `binge_eating_disorder` selected → `condition.binge_eating_disorder_history` with `assertion_type: history_of`. Feeds distinct flag cohort — provider review at safety preflight with a DIFFERENT risk profile: emerging evidence (semaglutide + BED trials) shows reduction in binge frequency, so provider may proceed with monitoring rather than decline
+- `another_ed` selected → `condition.eating_disorder_other_history` with `assertion_type: history_of`; metadata: `{disease_state: 'history_of', subtype_unspecified: true}`. Provider Mode F clarification at safety preflight per `Section 1P.4` — could be atypical anorexia (OSFED; hard-stop-equivalent risk), purging disorder (BN-like risk), ARFID, UFED, etc. Clinician clarifies at visit
+- `not_sure` selected → no subtype atom emitted; umbrella atom from Q17.2 (`condition.eating_disorder_diagnosis_history = true`) persists. Provider Mode F clarification at safety preflight per `Section 1P.4`
+
+**Issues found:** This is the most clinically load-bearing question in the module. A single coarse "has ED history = yes" atom would blur three meaningfully different prescribing decisions into one. Splitting AN / BN / BED by subtype lets the rule layer produce differentiated routing: AN → hard stop cohort; BN → flag with significant caution; BED → flag with a potentially positive clinical rationale. `multi_select` is the correct cardinality because ED comorbidity is clinically real — AN can transition to BN over time (well-documented longitudinal pattern); BN + BED diagnosis overlap is common in clinical populations. Forcing single-select would lose this signal. "I'm not sure which one" is kept separate from "Another eating disorder" to preserve the distinction between *patient doesn't remember the specific label* and *patient knows it was a non-standard diagnosis* — both need provider follow-up but the clinical interpretation differs. DSM-5 subtypes beyond AN/BN/BED (OSFED, ARFID, atypical AN, purging disorder, UFED) fold into "Another eating disorder" because their labels are clinical jargon patients generally won't self-identify with; provider Mode F at visit clarifies. ARFID specifically is rare in weight-loss-seeking adults and the restriction is not weight-motivated, so its distinct risk profile can be resolved at visit without spec complexity. Tier 1 (not Tier 2) because AN history triggers a hard-stop BLOCK gate — Tier 1 questions carry BLOCK gates per the established tier convention.
+**Recommended rewrite:** New Tier 1 conditional multi_select with 5 options; exclusive_with_other_choices none_logic on `not_sure` only.
+**Branching adjustments:** `anorexia_nervosa` atom → hard stop rule fires per `Section 1Q.15`. `bulimia_nervosa` atom → flag cohort rule. `binge_eating_disorder` atom → distinct flag cohort rule with differentiated visit framing. `another_ed` or `not_sure` → provider Mode F clarification at safety preflight. Q17.4 (current treatment) renders independently based on Q17.2 = yes, not dependent on Q17.3 subtype selection.
+**Downstream effect:** `provider_review` (differentiated per selection — AN routes to hard-stop cohort; BN to flag/caution; BED to flag/potentially-proceed; unknown/other to Mode F clarification).
+**Final decision:** **Modify** (new Tier 1 conditional; clinically critical for differentiated prescribing logic).
+
+### Q17.4 — Current eating disorder treatment (conditional; renders only when Q17.2 = yes)
+
+**Hims source:** Implicit (MAIN adds for care coordination — active treatment vs long-term remission is a meaningful clinical distinction for GLP-1 prescribing decision).
+**MAIN voice:**
+- prompt: "Are you currently in treatment for it?"
+- helper: "Therapy, medication, nutrition support — anything counts."
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.eating_disorder_screen.current_treatment_v1` | `tier`: 2
+- `answer_type`: `single_select` | `selection_cardinality`: `exactly_one` | `requiredness`: `conditionally_required`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
+- `render_when`: `{question_id: 'qb.pathway.glp1.eating_disorder_screen.diagnosis_v1', equals: 'yes'}`
+- `required` (resolver): `<Predicate>` (required when render_when fires)
+
+**Choices:** Yes, currently in treatment | No, I was treated in the past | No, I've never been treated
+**`choice_values`:** `currently | past_only | never`
+
+**Atoms emitted:**
+- Positive: `condition.eating_disorder_treatment_status` (metadata: `{value: <choice_value>}`)
+- Denied: n/a (conditionally required)
+
+**Issues found:** "It" in the prompt is acceptable here — Q17.4 fires as a follow-up to Q17.2 (and renders alongside Q17.3 for patients with diagnosis history), so the referent (eating disorder diagnosis) is already established in the cascade and unambiguous. Using "it" rather than naming the diagnosis is intentionally softer — some patients with a diagnosis don't emotionally identify with the label, so repeating it question-after-question can feel pressuring. Helper enumerates treatment types because "treatment" can mean different things to different patients (some don't count therapy; some don't count nutrition work). "Never been treated" with a diagnosis history is unusual but possible (self-managed recovery, diagnosis declined formal treatment, etc.); provider reviews at visit.
+**Recommended rewrite:** New Tier 2 conditional 3-option single_select.
+**Branching adjustments:** `currently` → provider visit framing flags active care coordination (consider consulting with patient's ED care team before prescribing GLP-1). `past_only` → provider confirms stability at visit. `never` → provider reviews at visit for context.
+**Downstream effect:** `provider_review` (care coordination signal; not a hard contraindication on its own).
+**Final decision:** **Modify** (new Tier 2 conditional).
+
+---
+
+## Layer D Phase 2.2.2 audit summary
 
 | Question | Tier | answer_role | atom_kind | downstream_effect | none_logic? | Decision |
 |---|---|---|---|---|---|---|
@@ -863,8 +1007,12 @@ Helper text: none
 | Q16.6 Patient testimonials | 3 | commercial_confidence | n/a (educational_screen) | personalization | n/a | Modify |
 | Q16.7 BMI personalized (derived_display) | 3 | educational_trust | n/a (educational_screen) | personalization | n/a | Modify |
 | Q16.8 Treatment mechanism | 3 | educational_trust | n/a (educational_screen) | personalization | n/a | Modify |
+| Q17.1 ED symptom screen | 1 | clinical_safety | safety | provider_review | exclusive_with_other_choices | Modify |
+| Q17.2 ED diagnosis history | 2 | clinical_safety | safety | provider_review | n/a | Modify |
+| Q17.3 ED diagnosis subtype (conditional; multi-select; AN hard-stop) | 1 | clinical_safety | safety | provider_review | exclusive_with_other_choices (on not_sure) | Modify |
+| Q17.4 ED current treatment (conditional) | 2 | clinical_safety | safety | provider_review | n/a | Modify |
 
-**Verdict:** 0 Keep + 23 Modify. Net: spec introduces 23 GLP-1-pathway-specific questions across 4 modules. ~12 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template). ~11 closely mirror Hims (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact).
+**Verdict:** 0 Keep + 27 Modify. Net: spec introduces 27 GLP-1-pathway-specific questions across 5 modules. ~15 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template; Q17.2-Q17.4 ED diagnosis + diagnosis subtype + current treatment). ~12 closely mirror Hims (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence; Q17.1 ED symptom screen). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact). Module 17 atoms live in `mental_health` domain (extends Phase 1 Module 11 baseline); Q17.3 specifically produces differentiated subtype atoms (`condition.anorexia_nervosa_history` / `condition.bulimia_nervosa_history` / `condition.binge_eating_disorder_history`) that drive differentiated rule routing per `Section 1Q.15` — AN as hard stop, BN as flag cohort, BED as distinct flag cohort with emerging positive-indication evidence.
 
 ## Cross-pathway reuse projection
 
@@ -873,6 +1021,7 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 - **Q15.1 GLP-1 status** atom (`medication.glp1_use_status`) is CONSUMED by future TRT pathway (TRT + GLP-1 combination is common; provider reviews concurrent therapy) and Female HRT pathway (some GLP-1 + HRT combinations require cardiovascular monitoring). Future pathways would compose `mod.clinical_core.medication_history_v1` for general medication history; THIS module's GLP-1 specifics are GLP-1-pathway-only.
 - **Q14 weight loss attempts** (Q14.1 has-attempted + Q14.2 methods multi-select) is GLP-1-specific framing; future bariatric or mental-health-eating-disorder pathways would author their own attempt-history modules with pathway-appropriate framing.
 - **Module 16 motivation_and_goals** is GLP-1-specific in CONTENT but the STRUCTURE (motivation primer → treatment priority → educational stat → treatment-in-mind → goal benefits → testimonials → personalized derived_display → mechanism explanation) is reusable as a TEMPLATE for future TRT / Female HRT / ED / hair loss motivation modules. Atoms (`intent.weight_loss_*`, `intent.treatment_*`) are pathway-named in the metadata-namespace; future pathways author parallel `intent.testosterone_therapy_*`, `intent.female_hrt_*`, etc. atoms with the same structural pattern.
+- **Module 17 eating_disorder_screen** is GLP-1-specific in composition position (runs in the safety cascade of the GLP-1 pathway) but the atoms (`condition.eating_disorder_*`, `condition.anorexia_nervosa_history`, `condition.bulimia_nervosa_history`, `condition.binge_eating_disorder_history` in `repo/clinical-concepts/mental_health.ts`) are pathway-agnostic. A future psychiatry pathway or a bariatric pathway can CONSUME these atoms if the patient has completed intake on any pathway that rendered Module 17, without re-asking the questions. The question bank (Q17.1 Hims-verbatim symptom screen; Q17.2 diagnosis history; Q17.3 diagnosis subtype; Q17.4 current treatment) is reusable via `module_composition` references per `Section 1K.3` if a future non-GLP-1 pathway needs the same ED safety screen. Note: the AN-hard-stop rule is GLP-1-specific (driven by appetite-suppression + restriction-driven-pathology incompatibility); other pathways would author their own AN-routing rules appropriate to their treatment mechanism.
 
 ## Architectural patterns applied (binding; per Section 1K.3)
 
@@ -889,19 +1038,19 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 
 ## Counts (after this checkpoint)
 
-- Layer D Phase 2.2.1: 4 modules / 23 questions defined (Module 16 motivation_and_goals added with 8 questions in this checkpoint)
-- Stage 2 grand total so far (Phase 1 + Phase 2.2.1): 16 modules / 62 questions defined
-- Per-patient render varies: GLP-1-naive ~15-16 questions; current GLP-1 patient ~20 questions; past GLP-1 patient ~22 questions (Module 16's 8 questions render for all patients)
-- Remaining for Phase 2.2.2: ~5 modules / ~25-32 questions
+- Layer D Phase 2.2.2 (in-progress): 5 modules / 27 questions defined (Module 17 eating_disorder_screen added with 4 questions in this checkpoint: symptom screen + diagnosis history + diagnosis subtype + current treatment)
+- Stage 2 grand total so far (Phase 1 + Phase 2.2.2 in-progress): 17 modules / 66 questions defined
+- Per-patient render varies: GLP-1-naive ~17-18 questions; current GLP-1 patient ~22 questions; past GLP-1 patient ~24 questions; add 2 more for any patient with an ED diagnosis history (Q17.3 diagnosis subtype + Q17.4 current treatment)
+- Remaining for Phase 2.2.2: 4 more modules / ~17-22 more questions (CV safety extended + bariatric surgery extended + GI safety extended + contraindication acknowledgments)
 
 ## Next deliverable
 
-Phase 2.2.2 (DEFERRED to next checkpoint): remaining 5 Layer D modules:
+Phase 2.2.2 (in-progress; this checkpoint added Module 17): remaining 4 Layer D modules:
 
-1. `mod.pathway.glp1.eating_disorder_screen_v1` — extends `mod.domain.mental_health.baseline_v1` (Phase 1 Module 11) with anorexia / bulimia / BED screen (per Hims Step 32); ~3-4 questions
+1. ~~`mod.pathway.glp1.eating_disorder_screen_v1`~~ — **COMPLETE this checkpoint** (4 questions: symptom screen + diagnosis history + diagnosis subtype + current treatment; Q17.3 subtype drives differentiated routing — AN hard stop, BN flag, BED distinct flag cohort)
 2. `mod.pathway.glp1.cv_safety_extended_v1` — extends `mod.domain.cardiometabolic.baseline_history_v1` (Phase 1 Module 8) with MEN-2 / medullary thyroid cancer family + personal history (per Hims Step 47-51); ~6-8 questions
 3. `mod.pathway.glp1.bariatric_surgery_extended_v1` — extends `mod.clinical_core.surgery_history_v1` (Phase 1 Layer B) with gastric bypass / sleeve / lap band / duodenal switch (per Hims Step 53); ~2-3 questions
 4. `mod.pathway.glp1.gi_safety_extended_v1` — extends `mod.domain.gastrointestinal.baseline_history_v1` (Phase 1 Module 9) with pancreatitis / gallbladder / gastroparesis / diabetic retinopathy specifics; ~5-7 questions
 5. `mod.pathway.glp1.contraindication_acknowledgments_v1` — MEN-2 BLACK BOX acknowledgment + off-label disclosure consents (`acknowledgment` answer_type; emits `consent.*` atoms per `Section 1K.5.A` + `Section 1K.11`); ~3-4 questions
 
-After Phase 2.2.2: 9 GLP-1 Layer D modules complete; ~50-55 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
+After Phase 2.2.2: 9 GLP-1 Layer D modules complete; ~45-50 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
