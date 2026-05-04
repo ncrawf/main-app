@@ -1,34 +1,36 @@
 # GLP-1 Pathway-specific modules — Layer D spec v1
 
 **Date:** 2026-05-03
-**Stage:** 2 Phase 2.2.2 — Layer D authoring (6 of ~9 modules; Module 18 cv_safety_extended added in this checkpoint)
+**Stage:** 2 Phase 2.2.2 — Layer D authoring (7 of ~9 modules; Module 19 bariatric_surgery_extended added in this checkpoint)
 **Clinical CODEOWNER:** founder (board-certified MD)
 **Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics + pathway override + directly-answered-fields rule) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; concept registry organized by domain) + `Section 1K.19` (intake repository + control model) + `Section 1Q.15` (GLP-1 vertical slice; 24 rules / 25 templates) + `Section 1Q.16` (adversarial pre-runtime gate)
 **Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md)
 
 ## Scope
 
-Layer D pathway-specific GLP-1 modules — Phase 2.2.2 (6 of ~9 total; Module 18 cv_safety_extended added). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept). Module 16's motivation + commercial + educational atoms live in `repo/clinical-concepts/intent.ts` under `intent.weight_loss_*` and `intent.treatment_*` namespaces. Module 17's eating disorder atoms live in `repo/clinical-concepts/mental_health.ts` (extends `mod.domain.mental_health.baseline_v1` Phase 1 Module 11 per `Section 1K.3` contextual extension). Module 18's thyroid/endocrine/cardiac atoms live in `repo/clinical-concepts/endocrine.ts` + `repo/clinical-concepts/cardiovascular.ts` + `repo/clinical-concepts/family_history.ts` (extends `mod.domain.cardiometabolic.baseline_history_v1` Phase 1 Module 8 per `Section 1K.3` contextual extension; adds GLP-1-specific FDA-boxed conditions that aren't worth asking in general-population baseline).
+Layer D pathway-specific GLP-1 modules — Phase 2.2.2 (7 of ~9 total; Module 19 bariatric_surgery_extended added). Layer D modules collect pathway-specific facts that extend Layer A/B/C baselines OR capture pathway-unique data (per `Section 1K.3` 4-layer taxonomy). Atoms emitted by Layer D STILL live in domain registry files (`repo/clinical-concepts/<domain>.ts`) per `Section 1K.3` atomization principle; the MODULE is pathway-owned because the question context is pathway-specific. The only `atom.pathway.glp1.*` namespace atom in this checkpoint is `atom.pathway.glp1.weight_loss_goal_band` (a pathway-unique fact; not a clinical concept). Module 16's motivation + commercial + educational atoms live in `repo/clinical-concepts/intent.ts` under `intent.weight_loss_*` and `intent.treatment_*` namespaces. Module 17's eating disorder atoms live in `repo/clinical-concepts/mental_health.ts` (extends `mod.domain.mental_health.baseline_v1` Phase 1 Module 11 per `Section 1K.3` contextual extension). Module 18's thyroid/endocrine/cardiac atoms live in `repo/clinical-concepts/endocrine.ts` + `repo/clinical-concepts/cardiovascular.ts` + `repo/clinical-concepts/family_history.ts` (extends `mod.domain.cardiometabolic.baseline_history_v1` Phase 1 Module 8 per `Section 1K.3` contextual extension; adds GLP-1-specific FDA-boxed conditions that aren't worth asking in general-population baseline). Module 19's bariatric procedure atoms live in `repo/clinical-concepts/gastrointestinal.ts` under `procedure.*` namespace (extends `mod.clinical_core.surgery_history_v1` Phase 1 Module 7 per `Section 1K.3` contextual extension; deepens Module 7's any-surgery Y/N + free-text with structured weight-loss-surgery specifics that affect GLP-1 drug choice and dose).
 
-**6 modules in this file:**
+**7 modules in this file:**
 1. `mod.pathway.glp1.weight_history_v1` — 5 questions (height + current weight + weight loss goal band + max-weight Y/N + max-weight value if not current)
 2. `mod.pathway.glp1.weight_loss_attempts_v1` — 2 questions (prior attempts Y/N + methods multi-select)
 3. `mod.pathway.glp1.prior_glp1_use_v1` — 8 questions (status + which GLP-1 + dose + duration + weight lost + side effects + when stopped + why stopped)
 4. `mod.pathway.glp1.motivation_and_goals_v1` — 8 questions (primary motivation + treatment priority + 4 educational screens + treatment-in-mind preference + goal benefits multi-select; mix of motivation / commercial_confidence / educational_trust answer_roles)
 5. `mod.pathway.glp1.eating_disorder_screen_v1` — 4 questions (symptom screen + diagnosis history + diagnosis subtype + current treatment)
 6. `mod.pathway.glp1.cv_safety_extended_v1` — 4 questions (personal history of MTC/MEN-2/Long QT + family history of same + family sudden death under 40 Y/N + cause of death conditional)
+7. `mod.pathway.glp1.bariatric_surgery_extended_v1` — 1 question (weight-loss surgery multi-select: gastric bypass / duodenal switch / lap band / gastric sleeve / intestinal surgery)
 
-**Total: 31 questions defined.**
+**Total: 32 questions defined.**
 
 **Per-patient render counts (varies by branch):**
-- GLP-1-naive patient with no prior weight-loss attempts + no ED history + no family sudden death: ~20 questions rendered (Q13.1-Q13.4 + Q14.1 + Q15.1 + 8 Module 16 baseline + Q17.1 + Q17.2 + Q18.1 + Q18.2 + Q18.3; Q13.5 / Q14.2 / Q15.2-Q15.8 / Q17.3 / Q17.4 / Q18.4 skipped)
-- GLP-1-naive patient with prior diet attempts + no ED history + no family sudden death: ~21 questions (above + Q14.2)
-- Current GLP-1 patient (Q15.1 = currently) + no ED history + no family sudden death: ~25 questions (Q15.2-Q15.6 added; Q15.7 + Q15.8 skipped)
-- Past GLP-1 patient (Q15.1 = past) + no ED history + no family sudden death: ~27 questions (full Module 15 cascade)
+- GLP-1-naive patient with no prior weight-loss attempts + no ED history + no family sudden death + no bariatric surgery: ~21 questions rendered (Q13.1-Q13.4 + Q14.1 + Q15.1 + 8 Module 16 baseline + Q17.1 + Q17.2 + Q18.1 + Q18.2 + Q18.3 + Q19.1; Q13.5 / Q14.2 / Q15.2-Q15.8 / Q17.3 / Q17.4 / Q18.4 skipped)
+- GLP-1-naive patient with prior diet attempts + no ED history + no family sudden death + no bariatric surgery: ~22 questions (above + Q14.2)
+- Current GLP-1 patient (Q15.1 = currently) + no ED history + no family sudden death + no bariatric surgery: ~26 questions (Q15.2-Q15.6 added; Q15.7 + Q15.8 skipped)
+- Past GLP-1 patient (Q15.1 = past) + no ED history + no family sudden death + no bariatric surgery: ~28 questions (full Module 15 cascade)
 - Any patient with ED diagnosis history: add 2 questions (Q17.3 diagnosis subtype + Q17.4 current treatment)
-- Any patient with family sudden death under 40: add 1 question (Q18.4 cause of death)
+- Any patient with family sudden death under 40: add 1 question (Q18.4 heart-related conditional)
+- Post-bariatric patients: Q19.1 renders for all; no additional conditional Qs in Module 19
 - Any patient with MTC or MEN-2 personal OR family history: session closes with `denied_contraindication_absolute` per `Section 1Q.15` — downstream modules (19, 20, 21) don't render; see `Section 1J` Stage 1 hard-stop semantics
-- Module 16 (motivation + educational + commercial_confidence) renders for all patients regardless of GLP-1 history; positioned in pathway file AFTER Module 13 weight history (so BMI personalized Q16.7 has the prior atoms it needs). Module 17 (eating disorder screen) renders for all patients; positioned AFTER Module 15. Module 18 (cv_safety_extended) renders for all patients; positioned AFTER Module 17 and BEFORE Modules 19-21 so thyroid/MEN-2 hard-stop fires before downstream surgery/GI/consent modules are wasted work.
+- Module 16 (motivation + educational + commercial_confidence) renders for all patients regardless of GLP-1 history; positioned in pathway file AFTER Module 13 weight history (so BMI personalized Q16.7 has the prior atoms it needs). Module 17 (eating disorder screen) renders for all patients; positioned AFTER Module 15. Module 18 (cv_safety_extended) renders for all patients; positioned AFTER Module 17 and BEFORE Modules 19-21 so thyroid/MEN-2 hard-stop fires before downstream surgery/GI/consent modules are wasted work. Module 19 (bariatric_surgery_extended) renders for all patients who clear the Module 18 hard-stop; positioned AFTER Module 18 and BEFORE Module 20 so the bariatric-surgery signal is available when Module 20 screens for GI-adjacent conditions (post-bariatric alters the baseline risk profile for pancreatitis and gastroparesis).
 
 ## MAIN voice principles (binding; reused from Phase 1)
 
@@ -1130,6 +1132,55 @@ Helper text: none
 
 ---
 
+## Module 19 — `mod.pathway.glp1.bariatric_surgery_extended_v1`
+
+**`module_id`:** `mod.pathway.glp1.bariatric_surgery_extended_v1`
+**`module_version`:** `1.0.0`
+**`kind`:** clinical (safety/context — post-bariatric anatomy alters GLP-1 efficacy and side-effect profile; informs drug choice, dose, and safety monitoring; not a hard-stop FDA contraindication but a material provider review signal)
+**`pathways`:** `glp1` only (Layer D pathway-specific extension of Phase 1 Module 7 `mod.clinical_core.surgery_history_v1`; Module 7 Q7.1 captures any-surgery Y/N and Q7.2 captures free-text dates/reasons with AI atomization per `Section 1P` — Module 19 adds structured specificity for weight-loss surgery types that affect GLP-1 prescribing decisions)
+**`required_for`:** provider review, drug choice, dose calibration
+**`assertion_group_emit_trigger`:** `module_complete`
+**Atom domain:** `gastrointestinal` (bariatric procedure atoms live in `repo/clinical-concepts/gastrointestinal.ts` under `procedure.*` namespace per `Section 1K.5.A`)
+
+**Composition position:** pathway file `repo/intake/pathways/glp1.ts` inserts this module after Module 18 (CV safety extended) and before Module 20 (GI safety extended). Renders for all patients — baseline, not conditional on Q7.1 = yes — because some patients don't categorize Lap Band as "surgery" (minimally invasive) or don't think of decades-old bariatric procedures as relevant to the surgery question. Matches Hims's cascade: Step 52 (any surgery Y/N) and Step 53 (weight-loss-specific multi-select) render as independent steps.
+
+### Q19.1 — Weight-loss surgery history
+
+**Hims source:** Step 53 "Have you had any of the following weight loss surgeries or procedures? / Gastric bypass (Roux-en-Y) / Duodenal switch / Lap band / Gastric Sleeve / Intestinal surgery / No, none of these"
+**MAIN voice:**
+- prompt: "Have you had any of these weight-loss surgeries or procedures?"
+- helper: none (options are self-explanatory; Hims doesn't use one either)
+
+**Schema:**
+- `question_id`: `qb.pathway.glp1.bariatric_surgery_extended.history_v1` | `tier`: 2 (clinical safety/context — materially affects drug choice and dose but not a hard-stop FDA contraindication)
+- `answer_type`: `multi_select` | `selection_cardinality`: `one_or_more` | `requiredness`: `required_to_continue`
+- `answer_role`: `clinical_safety` | `intent_of_answer_set`: `safety_screening`
+- `entity_kind`: `single_value` (multi-select; composite atom emission with structured value array) | `atom_kind`: `safety` | `downstream_effect`: `provider_review`
+- `render_when`: null (baseline)
+- `none_logic`: `{mode: 'exclusive_with_other_choices', none_choice_value: 'none_of_these'}`
+
+**Choices:**
+- Gastric bypass (Roux-en-Y)
+- Duodenal switch
+- Lap band
+- Gastric sleeve
+- Intestinal surgery
+- No, none of these
+
+**`choice_values`:** `gastric_bypass_rygb | duodenal_switch | lap_band | gastric_sleeve | intestinal_surgery | none_of_these`
+
+**Atoms emitted:**
+- Per selected: typed atom `procedure.<surgery>_history` (e.g., `procedure.gastric_bypass_rygb_history`, `procedure.duodenal_switch_history`, `procedure.lap_band_history`, `procedure.gastric_sleeve_history`, `procedure.intestinal_surgery_history`); `assertion_type: 'history_of'`; lives in `repo/clinical-concepts/gastrointestinal.ts`
+- `none_of_these` selected → all 5 procedure atoms emitted DENIED (`status: 'denied_at_intake'`)
+
+**Issues found:** Hims's question is clean; MAIN stays faithful with minor cleanups. Normalized "Gastric Sleeve" (title case in Hims) to "Gastric sleeve" for consistency with the rest of the options. Kept the "(Roux-en-Y)" parenthetical on gastric bypass because patients who had this surgery commonly hear both names. Module renders baseline (not conditional on Q7.1 = yes) because Lap Band is minimally invasive and some patients don't categorize it as "surgery," and older bariatric procedures may not be top-of-mind when patients answer a generic surgery-history question. 1 question is sufficient for V1 signal: the specific surgery type is the clinically decision-changing fact (Roux-en-Y and duodenal switch have the most anatomic alteration and affect GLP-1 gut hormone signaling; lap band and gastric sleeve have less alteration). Timing ("when was the surgery") and complications can come through provider review if needed — adding questions beyond Q19.1 would add friction without changing the primary drug-choice decision for most patients. Cross-references Q14.2 `bariatric_surgery` category-level atom from Module 14 weight-loss-attempts — Q19.1 deepens that signal to specific surgery type; the two are complementary, not redundant.
+**Recommended rewrite:** Adopt Hims Step 53 prompt (keeping "surgeries or procedures") with sentence-case normalization on gastric sleeve.
+**Branching adjustments:** Any surgery selected → flag cohort for provider review; post-bariatric anatomy signal feeds drug choice + dose decisions at safety preflight. Consistency check: if `intent.prior_weight_loss_method_bariatric_surgery` from Q14.2 is positive but Q19.1 returns `none_of_these`, provider follow-up resolves the discrepancy (patient may have interpreted Q14.2 differently or may not recognize their procedure as bariatric).
+**Downstream effect:** `provider_review` (specific bariatric surgery type affects which GLP-1 to prescribe, dose titration, safety monitoring for dumping syndrome / nutrient absorption / altered gastric emptying).
+**Final decision:** **Modify** (Hims-faithful with tighter prompt and sentence-case normalization).
+
+---
+
 ## Layer D Phase 2.2.2 audit summary
 
 | Question | Tier | answer_role | atom_kind | downstream_effect | none_logic? | Decision |
@@ -1165,8 +1216,9 @@ Helper text: none
 | Q18.2 Family history MTC/MEN-2/Long QT (multi-select; MTC+MEN-2 hard-stop) | 1 | clinical_safety | safety | provider_review | exclusive_with_other_choices (on none_of_these only) | Modify |
 | Q18.3 Family sudden death under 40 | 2 | clinical_safety | safety | provider_review | n/a | Modify |
 | Q18.4 Heart-related? (conditional; Y/N/I'm not sure) | 2 | clinical_safety | safety | provider_review | n/a | Modify |
+| Q19.1 Weight-loss surgery history (multi-select) | 2 | clinical_safety | safety | provider_review | exclusive_with_other_choices | Modify |
 
-**Verdict:** 0 Keep + 31 Modify. Net: spec introduces 31 GLP-1-pathway-specific questions across 6 modules. ~15 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template; Q17.2-Q17.4 ED diagnosis + diagnosis subtype + current treatment). ~16 closely mirror Hims with structural refactors (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence; Q17.1 ED symptom screen; Q18.1-Q18.4 personal/family thyroid-endocrine-cardiac screen split from Hims's combined multi-select + Q18.4 reframed from Hims free-text cause-of-death to heart-related Y/N/I'm not sure — captures the clinical signal directly with Hims-style deftness for a sensitive family-death context). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact). Module 17 atoms live in `mental_health` domain (extends Phase 1 Module 11 baseline); Q17.3 specifically produces differentiated subtype atoms (`condition.anorexia_nervosa_history` / `condition.bulimia_nervosa_history` / `condition.binge_eating_disorder_history`) that drive differentiated rule routing per `Section 1Q.15` — AN as hard stop, BN as flag cohort, BED as distinct flag cohort with emerging positive-indication evidence. Module 18 atoms span `endocrine` (MTC, MEN-2) + `cardiovascular` (long QT) + `family_history` (sudden death under 40) domains; Q18.1/Q18.2 produce personal + family history atoms that feed `rule.glp1.eligibility.contraindication_men2` and `rule.glp1.eligibility.contraindication_thyroid_cancer` per `Section 1Q.15` — both fire `denied_contraindication_absolute` closure with `reopen_eligibility_criteria: none` per `Section 1J.14`.
+**Verdict:** 0 Keep + 32 Modify. Net: spec introduces 32 GLP-1-pathway-specific questions across 7 modules. ~15 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template; Q17.2-Q17.4 ED diagnosis + diagnosis subtype + current treatment). ~17 closely mirror Hims with structural refactors (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence; Q17.1 ED symptom screen; Q18.1-Q18.4 personal/family thyroid-endocrine-cardiac screen split from Hims's combined multi-select + Q18.4 reframed from Hims free-text cause-of-death to heart-related Y/N/I'm not sure; Q19.1 bariatric surgery multi-select with sentence-case normalization and prompt tightening). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact). Module 17 atoms live in `mental_health` domain (extends Phase 1 Module 11 baseline); Q17.3 specifically produces differentiated subtype atoms (`condition.anorexia_nervosa_history` / `condition.bulimia_nervosa_history` / `condition.binge_eating_disorder_history`) that drive differentiated rule routing per `Section 1Q.15` — AN as hard stop, BN as flag cohort, BED as distinct flag cohort with emerging positive-indication evidence. Module 18 atoms span `endocrine` (MTC, MEN-2) + `cardiovascular` (long QT) + `family_history` (sudden death under 40) domains; Q18.1/Q18.2 produce personal + family history atoms that feed `rule.glp1.eligibility.contraindication_men2` and `rule.glp1.eligibility.contraindication_thyroid_cancer` per `Section 1Q.15` — both fire `denied_contraindication_absolute` closure with `reopen_eligibility_criteria: none` per `Section 1J.14`.
 
 ## Cross-pathway reuse projection
 
@@ -1177,6 +1229,7 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 - **Module 16 motivation_and_goals** is GLP-1-specific in CONTENT but the STRUCTURE (motivation primer → treatment priority → educational stat → treatment-in-mind → goal benefits → testimonials → personalized derived_display → mechanism explanation) is reusable as a TEMPLATE for future TRT / Female HRT / ED / hair loss motivation modules. Atoms (`intent.weight_loss_*`, `intent.treatment_*`) are pathway-named in the metadata-namespace; future pathways author parallel `intent.testosterone_therapy_*`, `intent.female_hrt_*`, etc. atoms with the same structural pattern.
 - **Module 17 eating_disorder_screen** is GLP-1-specific in composition position (runs in the safety cascade of the GLP-1 pathway) but the atoms (`condition.eating_disorder_*`, `condition.anorexia_nervosa_history`, `condition.bulimia_nervosa_history`, `condition.binge_eating_disorder_history` in `repo/clinical-concepts/mental_health.ts`) are pathway-agnostic. A future psychiatry pathway or a bariatric pathway can CONSUME these atoms if the patient has completed intake on any pathway that rendered Module 17, without re-asking the questions. The question bank (Q17.1 Hims-verbatim symptom screen; Q17.2 diagnosis history; Q17.3 diagnosis subtype; Q17.4 current treatment) is reusable via `module_composition` references per `Section 1K.3` if a future non-GLP-1 pathway needs the same ED safety screen. Note: the AN-hard-stop rule is GLP-1-specific (driven by appetite-suppression + restriction-driven-pathology incompatibility); other pathways would author their own AN-routing rules appropriate to their treatment mechanism.
 - **Module 18 cv_safety_extended** is GLP-1-specific in composition position but the atoms (`condition.medullary_thyroid_carcinoma_history`, `condition.men2_history` + their `_family_history` counterparts in `repo/clinical-concepts/endocrine.ts`; `condition.long_qt_syndrome_history` / `_family_history` in `repo/clinical-concepts/cardiovascular.ts`; `family_history.sudden_death_under_40_history` + `family_history.sudden_death_under_40_cardiac_related` in `repo/clinical-concepts/family_history.ts`) are pathway-agnostic. The MTC + MEN-2 hard-stop rules are GLP-1-specific (FDA boxed warning for semaglutide + tirzepatide only); Long QT + family-death-under-40 atoms are broadly reusable — any future pathway whose safety preflight needs to know about hereditary cardiac conditions (e.g., TRT + cardiovascular risk; stimulants for ADHD) can CONSUME these atoms without re-asking. The question bank (Q18.1 personal + Q18.2 family + Q18.3 sudden-death Y/N + Q18.4 heart-related Y/N/unsure) is reusable via `module_composition` if a future pathway needs the same screens, though the condition-specific answer options (MTC + MEN-2) would likely be swapped for pathway-relevant conditions. Note: MTC/MEN-2 are FDA-boxed specifically for incretin-based therapies (GLP-1 agonists + GIP/GLP-1 dual agonists); other pathways have different absolute contraindication sets.
+- **Module 19 bariatric_surgery_extended** is GLP-1-specific in composition position but the atoms (`procedure.gastric_bypass_rygb_history`, `procedure.duodenal_switch_history`, `procedure.lap_band_history`, `procedure.gastric_sleeve_history`, `procedure.intestinal_surgery_history` in `repo/clinical-concepts/gastrointestinal.ts`) are pathway-agnostic. A future bariatric-aftercare pathway, a general endocrinology pathway, or a nutrition/micronutrient pathway could CONSUME these atoms without re-asking if the patient has completed intake on any pathway that rendered Module 19. The question bank (Q19.1 single multi-select) is reusable via `module_composition` if a future pathway needs structured bariatric specificity beyond what Module 7 baseline free-text captures. Note: the provider-review flags (drug choice + dose considerations for post-bariatric anatomy) are GLP-1-specific; other pathways would author their own routing rules appropriate to their treatment mechanism. Cross-references: `intent.prior_weight_loss_method_bariatric_surgery` atom from Module 14 Q14.2 is a category-level signal; Module 19 deepens to specific surgery type — both atoms coexist in the patient record without conflict.
 
 ## Architectural patterns applied (binding; per Section 1K.3)
 
@@ -1193,20 +1246,20 @@ Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. 
 
 ## Counts (after this checkpoint)
 
-- Layer D Phase 2.2.2 (in-progress): 6 modules / 31 questions defined (Module 18 cv_safety_extended added with 4 questions in this checkpoint: personal history + family history + family sudden death Y/N + cause of death conditional)
-- Stage 2 grand total so far (Phase 1 + Phase 2.2.2 in-progress): 18 modules / 70 questions defined
-- Per-patient render varies: GLP-1-naive ~20-21 questions; current GLP-1 patient ~25 questions; past GLP-1 patient ~27 questions; add 2 more for patients with ED diagnosis history; add 1 more for patients reporting family sudden death under 40
+- Layer D Phase 2.2.2 (in-progress): 7 modules / 32 questions defined (Module 19 bariatric_surgery_extended added with 1 question in this checkpoint: weight-loss surgery multi-select)
+- Stage 2 grand total so far (Phase 1 + Phase 2.2.2 in-progress): 19 modules / 71 questions defined
+- Per-patient render varies: GLP-1-naive ~21-22 questions; current GLP-1 patient ~26 questions; past GLP-1 patient ~28 questions; add 2 more for patients with ED diagnosis history; add 1 more for patients reporting family sudden death under 40
 - Hard-stop early-exit: patients asserting MTC or MEN-2 personal or family history exit intake at Module 18 with `denied_contraindication_absolute` closure; downstream Modules 19-21 do not render for these patients
-- Remaining for Phase 2.2.2: 3 more modules / ~10-14 more questions (bariatric surgery extended + GI safety extended + contraindication acknowledgments)
+- Remaining for Phase 2.2.2: 2 more modules / ~8-11 more questions (GI safety extended + contraindication acknowledgments)
 
 ## Next deliverable
 
-Phase 2.2.2 (in-progress; this checkpoint added Module 18): remaining 3 Layer D modules:
+Phase 2.2.2 (in-progress; this checkpoint added Module 19): remaining 2 Layer D modules:
 
 1. ~~`mod.pathway.glp1.eating_disorder_screen_v1`~~ — **COMPLETE prior checkpoint** (4 questions: symptom screen + diagnosis history + diagnosis subtype + current treatment; Q17.3 subtype drives differentiated routing — AN hard stop, BN flag, BED distinct flag cohort)
-2. ~~`mod.pathway.glp1.cv_safety_extended_v1`~~ — **COMPLETE this checkpoint** (4 questions: personal history + family history of MTC/MEN-2/Long QT + family sudden death under 40 Y/N + structured cause of death; MTC + MEN-2 personal OR family history fire `denied_contraindication_absolute` hard stop per `Section 1Q.15`)
-3. `mod.pathway.glp1.bariatric_surgery_extended_v1` — extends `mod.clinical_core.surgery_history_v1` (Phase 1 Layer B) with gastric bypass / sleeve / lap band / duodenal switch (per Hims Step 53); ~2-3 questions
+2. ~~`mod.pathway.glp1.cv_safety_extended_v1`~~ — **COMPLETE prior checkpoint** (4 questions: personal history + family history of MTC/MEN-2/Long QT + family sudden death under 40 Y/N + heart-related Y/N/unsure conditional; MTC + MEN-2 personal OR family history fire `denied_contraindication_absolute` hard stop per `Section 1Q.15`)
+3. ~~`mod.pathway.glp1.bariatric_surgery_extended_v1`~~ — **COMPLETE this checkpoint** (1 question: weight-loss surgery multi-select with 5 options + none; extends Module 7 baseline; flag cohort for drug choice + dose considerations)
 4. `mod.pathway.glp1.gi_safety_extended_v1` — extends `mod.domain.gastrointestinal.baseline_history_v1` (Phase 1 Module 9) with pancreatitis / gallbladder / gastroparesis / diabetic retinopathy specifics; ~5-7 questions
 5. `mod.pathway.glp1.contraindication_acknowledgments_v1` — MEN-2 BLACK BOX acknowledgment + off-label disclosure consents (`acknowledgment` answer_type; emits `consent.*` atoms per `Section 1K.5.A` + `Section 1K.11`); ~3-4 questions
 
-After Phase 2.2.2: 9 GLP-1 Layer D modules complete; ~45-50 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
+After Phase 2.2.2: 9 GLP-1 Layer D modules complete; ~40-45 total Layer D questions; followed by Phase 3 GLP-1 pathway composition file (`repo/intake/pathways/glp1.ts`) wiring all layers.
