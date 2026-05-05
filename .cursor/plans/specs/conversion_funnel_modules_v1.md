@@ -671,6 +671,33 @@ Already-landed consent atoms not re-emitted here (referenced only):
 
 ---
 
+## Atomization boundary (per system map Section 1K.0.5)
+
+This spec's emissions follow the canonical-homes routing discipline established in `Section 1K.0.5`. Conversion funnel modules span identity/contact updates, consent capture, candidacy decision recording, commerce commit, and audit telemetry — multiple canonical homes per the routing matrix.
+
+| Module | Emission target(s) | Canonical home + notes |
+|---|---|---|
+| Module 22 smart_loading | `audit_event_only` | `audit_events` (`action: 'intake.smart_loading.shown'` / `'.completed'` / `'.timeout_fallback'`); zero clinical atoms (educational screen) |
+| Module 23 candidacy_result | `eligibility_decision` | `eligibility_decisions` (rule_id + rule_version + result + reasons + input_refs + inputs_hash + optional input_snapshot); NOT a clinical assertion |
+| Module 24 treatment_preview (all screens) | `audit_event_only` | `audit_events` (`action: 'intake.educational_screen.continued'`); zero clinical atoms (educational carousel) |
+| Module 25 Q25.1-25.2 legal name | `patient_column` | `patients.legal_first_name` + `patients.legal_last_name` |
+| Module 25 Q25.3-25.7 shipping address fields + validator | `patient_address` | `patient_addresses` row (validated via USPS sub-step) |
+| Module 25 Q25.8 phone_mobile | `patient_contact` | `patient_contacts` row (E.164 normalized) |
+| Module 25 Q25.9 SMS promotional opt-in (TCPA) | `consent` | `patient_consents` (type='marketing_sms', conditional on checkbox) |
+| Module 26 Screen 1 plan picker | `subscription` (in transaction with Screen 2 emissions) | `subscriptions` row staged with selected plan_id, pricing_profile_version |
+| Module 26 Screen 2 Submit (composite emission, ONE patient action, MULTIPLE rows) | `subscription` (commit) + `treatment_order` (in pending_clinical_review) + `consent` × 3 (membership_service_agreement + subscription_auto_renew + prescription_order_acceptance) + `audit_event_only` (commerce.submit_to_provider_triggered) | `subscriptions` (status='pending'); `treatment_orders` (status='pending_clinical_review'); `patient_consents` × 3 rows fired in same DB transaction via `assertion_group_id: 'universal.membership_checkout_composite'`; `audit_events` row pairs each write per Section 1Q.7 |
+| Module 26 in-office Path A (deep-link) | `audit_event_only` (initially) → patient completes Module 26 in app, same emission set as online | `audit_events` (`action: 'commerce.checkout_link_sent'` initially; full Module 26 emission set when patient completes in app) |
+| Module 26 in-office Path B (staff-captured at front desk) | `subscription` + `treatment_order` + `consent` × 3 + `audit_event_only` (same set as online; metadata.captured_by='staff_witnessed_in_person' + verifying_staff_user_id + location_id) | Same canonical homes as online; provider workspace UI handles writes (NOT Module 26 frontend); CI lint enforces uniqueness per `(session_id, encounter_id)` to prevent double-capture |
+
+**Three-row consent emit (binding):** Module 26 Submit click fires THREE distinct `patient_consents` rows in one DB transaction:
+1. `type: 'membership_service_agreement'` (the plan acceptance; metadata pins subscription_plan_id + pricing_profile_version + legal_text_snapshot_id)
+2. `type: 'subscription_auto_renew'` (auto-renewal authorization; independently revokable per TCPA)
+3. `type: 'prescription_order_acceptance'` (Rx-acceptance for the created `treatment_order`)
+
+All three carry `assertion_group_id: 'universal.membership_checkout_composite'`. Failure of any rolls back all. See Section 1K.0.5 + Section 1K.11 for full enum + supersession discipline. The `membership_service_agreement` enum value was added to Section 1K.11 in Phase A as the 13th value.
+
+**Three-screen Module 24 in-office variant** emits exclusively `audit_event_only` per screen — no clinical atoms, no entity rows. Pricing preview (Screen C in-office only) reads from pricing profile registry; does not write any state.
+
 ## Cross-pathway reuse projection
 
 - **Module 22 smart_loading_v1** — fully universal; every pathway composes unchanged. Content (derived stat in Screen B) is pathway-config-driven, not module-fork.

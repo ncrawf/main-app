@@ -508,6 +508,29 @@ The "Woman" and "Trans woman" options on the male-at-birth path (and "Man" / "Tr
 
 **Verdict:** 2 Keep + 12 Modify across 14 defined questions (per-patient render varies: cis ~12, non-cis ~14). No Remove. Net: spec is a Hims-cadence rewrite in MAIN voice with: (a) Q1.2 biological sex Male/Female binary matching Hims (Hims funnel parity per `Section 1K.3` directly-answered-fields rule); (b) Q1.3 redesigned as two-question alignment + asymmetric conditional deeper branch + optional pronouns (low-friction for cis patients; respectful for non-cis; clinically safe because anatomy/hormone/fertility/surgical-history captured via pathway-specific clinical questions per architectural rule); (c) Q1.6 ethnicity 9 Hims-equivalent options (parity); (d) upfront insurance ask. Preserves Hims's brevity + sequencing while adopting MAIN voice + atomization architecture.
 
+## Atomization boundary (per system map Section 1K.0.5)
+
+This spec's emissions follow the canonical-homes routing discipline established in `Section 1K.0.5` of the system map. Identity / contact / consent / commerce / observation / decision / telemetry data each have their own canonical home — they do NOT all live in `patient_clinical_assertions`. Per-question routing target declared below.
+
+| Question | Emission target | Canonical home |
+|---|---|---|
+| Q1.1 DOB | `patient_column` | `patients.date_of_birth` |
+| Q1.2 Biological sex at birth | `patient_column` | `patients.biological_sex_at_birth` |
+| Q1.3a Gender alignment | `patient_column` | `patients.gender_alignment_with_birth_sex` |
+| Q1.3b Deeper gender identity (conditional) | `patient_column` | `patients.gender_identity` |
+| Q1.3c Pronouns (conditional) | `patient_column` | `patients.pronouns` |
+| Q1.4 Residence state | `patient_column` | `patients.residence_state` |
+| Q1.5 Shipping state | `patient_address` | `patient_addresses` (initial row) |
+| Q1.6 Ethnicity | `patient_column` | `patients.ethnicity` |
+| Q2.1 Telehealth + Terms + Privacy (composite) | `consent` × 3 | `patient_consents` rows: `telehealth_consent`, `terms_and_conditions`, `privacy_policy_acknowledgment` (composite via `assertion_group_id: 'universal.base_consents_composite'`) |
+| Q3.1 Government ID upload | `patient_column` (storage pointer) + future `patient_identity_verifications` row | `patients.id_artifact_storage_id` (initial); `patient_identity_verifications` (richer; per Section 1J.4) |
+| Q3.2 Selfie upload | same as Q3.1 | `patient_identity_verifications.selfie_artifact_storage_id` |
+| Q4.1 Has insurance | `patient_column` | `patients.has_insurance` (initial); future `patient_insurance_details` row when richer fields captured |
+| Q4.2 Insurance carrier (conditional) | `patient_column` (initial) + `insurance_details` (richer) | `patients.insurance_carrier` (initial); `patient_insurance_details.carrier_name` (full record) |
+| Q4.3 Self-pay willingness | `patient_column` | `patients.self_pay_willingness` |
+
+**No `clinical_assertion` emissions in this spec.** Layer A modules capture identity / contact / consent / payment readiness — none are clinical claims about the patient. Concept_id prefix `atom.universal.*` from earlier draft is **DROPPED** per Section 1K.0.5 anti-patterns; canonical naming uses table-natural keys (column names, consent type enum values) rather than concept_id strings.
+
 ## Cross-pathway reuse projection
 
 All 4 universal modules are CANDIDATES for reuse across every future MAIN clinical pathway (TRT, Female HRT, ED, mental health, hair loss, labs subscription) where clinically appropriate. Future pathway authoring composes these modules unchanged via `repo/intake/pathways/<pathway>.ts`. ~12 questions saved per future pathway slice.

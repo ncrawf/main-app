@@ -1334,6 +1334,37 @@ Helper text: none
 
 **Verdict:** 0 Keep + 35 Modify. Net: spec introduces 35 GLP-1-pathway-specific questions across 8 modules. ~17 are net-new clinical signal beyond Hims's funnel (Q13.5 max weight value; Q14.1-Q14.2 weight loss attempts; Q15.2-Q15.8 prior GLP-1 details; Q16.4 treatment-in-mind 3rd option; Q16.7 BMI personalized text-based template; Q17.2-Q17.4 ED diagnosis + diagnosis subtype + current treatment; Q20.2 gallbladder anatomy branching follow-up; Q20.3 diabetic retinopathy per FDA semaglutide label caution). Pharmacologic intake acknowledgments that would have been Module 21 (MEN-2 black box, off-label, compounded, pregnancy) are deferred to a future Rx Confirmation flow spec for Hims-parity — see **Deferred scope** (end of document). ~18 closely mirror Hims with structural refactors (Q13.1-Q13.4 weight history; Q15.1 GLP-1 status; Q16.1-Q16.3 + Q16.5 + Q16.6 + Q16.8 motivation/commercial/educational sequence; Q17.1 ED symptom screen; Q18.1-Q18.4 personal/family thyroid-endocrine-cardiac screen split from Hims's combined multi-select + Q18.4 reframed from Hims free-text cause-of-death to heart-related Y/N/I'm not sure; Q19.1 bariatric surgery multi-select with sentence-case normalization; Q20.1 personal pancreatitis/gallbladder/gastroparesis extracted from Hims Step 47 GI subset with gallbladder option refined to focus on active-disease signal). Module 16 introduces 4 educational_screen questions (Q16.3 / Q16.6 / Q16.7 / Q16.8) emitting only non-clinical analytics events per `Section 1K.19.9`; no clinical atoms from educational screens. All clinical/preference/intent atoms emit in pathway-agnostic concept registry per `Section 1K.3` atomization principle (only Q13.3 weight loss goal carries `atom.pathway.glp1.*` namespace as Layer D pathway-unique fact). Module 17 atoms live in `mental_health` domain (extends Phase 1 Module 11 baseline); Q17.3 specifically produces differentiated subtype atoms (`condition.anorexia_nervosa_history` / `condition.bulimia_nervosa_history` / `condition.binge_eating_disorder_history`) that drive differentiated rule routing per `Section 1Q.15` — AN as hard stop, BN as flag cohort, BED as distinct flag cohort with emerging positive-indication evidence. Module 18 atoms span `endocrine` (MTC, MEN-2) + `cardiovascular` (long QT) + `family_history` (sudden death under 40) domains; Q18.1/Q18.2 produce personal + family history atoms that feed `rule.glp1.eligibility.contraindication_men2` and `rule.glp1.eligibility.contraindication_thyroid_cancer` per `Section 1Q.15` — both fire `denied_contraindication_absolute` closure with `reopen_eligibility_criteria: none` per `Section 1J.14`.
 
+## Atomization boundary (per system map Section 1K.0.5)
+
+This spec's emissions follow the canonical-homes routing discipline established in `Section 1K.0.5`. The earlier `atom.universal.*` and `atom.pathway.glp1.*` prefix conventions are **DROPPED** per Section 1K.0.5 anti-patterns; canonical concept_id naming is `<domain>.<name>` where `<domain>` ∈ {condition, medication, procedure, family_history, intent, treatment_target, symptom, allergy, finding, vital}. Commerce events live in `treatment_orders` / `subscriptions`; consents live in `patient_consents`; vitals live in `patient_state_observations`; not in `patient_clinical_assertions`.
+
+| Question / module | Emission target(s) | Canonical home + concept_id |
+|---|---|---|
+| Q13.1 height | `observation` | `patient_state_observations` (`field_name: 'vital.height_cm'`) |
+| Q13.2 current weight | `observation` | `patient_state_observations` (`field_name: 'vital.weight_kg'`) |
+| Q13.3 weight loss goal band | `clinical_assertion` | `patient_clinical_assertions` (concept_id: `intent.glp1_weight_loss_goal_band`; `atom.pathway.glp1.*` prefix dropped) |
+| Q13.4 max weight (Y/N) | `clinical_assertion` (categorical) | `patient_clinical_assertions` (concept_id: `intent.has_higher_max_weight_history`) |
+| Q13.5 max weight value | `observation` | `patient_state_observations` (`field_name: 'vital.weight_max_kg'`) |
+| Q14.1 prior weight loss attempts (Y/N) | `clinical_assertion` | `patient_clinical_assertions` (concept_id: `intent.has_prior_weight_loss_attempts`) |
+| Q14.2 methods tried (multi-select) | `clinical_assertion` per method (multi-instance per Section 1K.5.A) | `patient_clinical_assertions` (concept_id: `intent.prior_weight_loss_method_<kind>`, multi-instance via `context_key`) |
+| Q15.1 GLP-1 use status | `clinical_assertion` | `patient_clinical_assertions` (concept_id: `medication.glp1_use_status`) |
+| Q15.2-15.8 prior GLP-1 details (which / dose / duration / weight lost / side effects / when stopped / why stopped) | `clinical_assertion` + `medication` (DUAL EMISSION per Section 1K.0.5.4) | `patient_clinical_assertions` (concept_id: `medication.glp1_<drug>`, authored_by='patient_reported') + `patient_medications` (reconciliation_status='unreconciled', source_assertion_id back-pointer; metadata captures dose/duration/side_effects/stop_reason from intake) |
+| Q16.1 motivation | `clinical_assertion` | `patient_clinical_assertions` (concept_id: `intent.weight_loss_motivation`) |
+| Q16.2 treatment priority | `clinical_assertion` | `patient_clinical_assertions` (concept_id: `intent.treatment_priority`) |
+| Q16.3, Q16.6, Q16.7, Q16.8 educational screens | `audit_event_only` | `audit_events` (`action: 'intake.educational_screen.continued'`) |
+| Q16.4 treatment-in-mind | `clinical_assertion` | `patient_clinical_assertions` (concept_id: `intent.glp1_treatment_preference`) |
+| Q16.5 goal benefits multi-select | `clinical_assertion` per benefit | `patient_clinical_assertions` (concept_id: `intent.weight_loss_goal_benefit_<kind>`, multi-instance) |
+| Q17.1-17.4 ED screen | `clinical_assertion` per emitted concept | `patient_clinical_assertions` (concept_types: `condition` for AN/BN/BED diagnoses; `symptom` for ED symptoms; `condition` for current treatment) |
+| Q18.1-18.4 CV safety | `clinical_assertion` per emitted concept | `patient_clinical_assertions` (concept_types: `condition` for personal MTC/MEN-2/long QT; `family_history` for family hx; `family_history` for sudden death under 40) |
+| Q19.1 bariatric surgery (multi-select) | `clinical_assertion` per surgery | `patient_clinical_assertions` (concept_type: `procedure`, assertion_type: `history_of`). Stays in claim ledger; no `patient_surgical_history` entity in Phase 3. |
+| Q20.1-20.3 GI safety | `clinical_assertion` per concept | `patient_clinical_assertions` (concept_type: `condition` for pancreatitis/gallbladder/gastroparesis/diabetic retinopathy; concept_type: `procedure` for cholecystectomy if applicable) |
+
+**Concept_id normalization (binding; replaces prior draft prefixes):**
+
+- `atom.universal.*` → DROPPED entirely (universal modules emit to `patient_column` / `patient_address` / `consent` targets, not concept_id-keyed claim ledger rows; see `universal_modules_v1.md` Atomization boundary section).
+- `atom.pathway.glp1.weight_loss_goal_band` → `intent.glp1_weight_loss_goal_band` (drop `pathway.` infix; Layer D taxonomy already names module pathway-scoped).
+- `atom.universal.candidacy_result` → does NOT live in claim ledger; lives in `eligibility_decisions` table per Section 1K.0.5.
+
 ## Cross-pathway reuse projection
 
 Layer D modules are pathway-specific by definition; cross-pathway reuse is N/A. However:

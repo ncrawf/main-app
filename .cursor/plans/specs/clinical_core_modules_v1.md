@@ -289,6 +289,18 @@ Per `Section 1K.5.A` `context_key` discipline + `Section 1K.3` Stage 1 multi-ins
 
 **Verdict:** 0 Keep + 8 Modify. No Remove. Net: spec adopts Hims's question structure but adds multi-instance discipline + per-instance follow-ups + AI atomization for free-text. Cleaner clinical signal; richer provider context; same patient experience as Hims.
 
+## Atomization boundary (per system map Section 1K.0.5)
+
+This spec's emissions follow the canonical-homes routing discipline established in `Section 1K.0.5`. Layer B modules (medications, allergies, surgery history) capture **claim-shaped** clinical data with multi-claimant reconciliation semantics. Medications and allergies follow the **two-stage claim → reconciliation → entity flow** per `Section 1K.0.5.4` — every emission is a multi-target write (claim ledger + reconciled entity in one DB transaction).
+
+| Module / question | Emission targets | Canonical homes |
+|---|---|---|
+| Module 5 medication_history (each med item) | `clinical_assertion` + `medication` | `patient_clinical_assertions` (concept_type='medication', authored_by='patient_reported', status='unconfirmed') + `patient_medications` (reconciliation_status='unreconciled', source_assertion_id back-pointer; rich fields populated by reconciliation workflow downstream) |
+| Module 6 allergy_history (each allergy item) | `clinical_assertion` + `allergy` | `patient_clinical_assertions` (concept_type='allergy', authored_by='patient_reported') + `patient_allergies` (reconciliation_status='unreconciled', source_assertion_id back-pointer) |
+| Module 7 surgery_history (each surgery item) | `clinical_assertion` only | `patient_clinical_assertions` (concept_type='procedure', assertion_type='history_of'). No dedicated `patient_surgical_history` entity in Phase 3 — surgery hx stays in claim ledger. Future promotion candidate per Section 1K.14 if surgical workflows require structured rich fields (specific surgeon, complications, etc.). |
+
+**Multi-target emission pattern (binding):** Module 5 + 6 questions emit BOTH a claim ledger row AND a reconciled entity row in one DB transaction per `Section 1K.0.5.4`. Failure of either rolls back both. Entity row's `source_assertion_id` is populated from claim row's id post-insert. The patient's original imprecise statement is preserved in the claim ledger forever; the reconciled entity reflects the staff/provider-verified current truth.
+
 ## Cross-pathway reuse projection
 
 All 3 clinical_core modules are CANDIDATES for reuse across every future MAIN clinical pathway where clinically appropriate. Pathway-specific extensions (bariatric / orthopedic / gyn surgery; psychotropic medication detail; specific allergy follow-ups) live in `mod.pathway.<pathway>.*` and EXTEND these baselines rather than cloning them.

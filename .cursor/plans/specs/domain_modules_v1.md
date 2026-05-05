@@ -609,6 +609,22 @@ Q12.3 recreational drugs is the **universal baseline** (5 Hims-equivalent substa
 
 **Verdict:** 0 Keep + 17 Modify. No Remove. Net: spec rewrites Hims's domain-baseline questions in MAIN voice with: warmer reassurance helpers (especially MH/safety questions); expanded inclusivity (gender, ethnicity, recreational drugs); structural improvements (anaphylaxis severity options; nicotine broad-vs-narrow); 3-tier classification applied; multi-instance discipline applied where appropriate; `exclusive_with_other_choices` `none_logic` enforced on safety multi-selects.
 
+## Atomization boundary (per system map Section 1K.0.5)
+
+This spec's emissions follow the canonical-homes routing discipline established in `Section 1K.0.5`. Layer C domain baseline modules capture **claim-shaped** clinical history per domain (cardiometabolic, GI, reproductive, mental health, lifestyle / substance use). Most emissions are claim ledger only; medication / allergy / immunization / vital captures from these modules follow the dual claim+entity pattern per `Section 1K.0.5.4`.
+
+| Module | Primary emission target | Secondary emission target (if any) | Notes |
+|---|---|---|---|
+| Module 8 cardiometabolic.baseline_history | `clinical_assertion` (concept_type='condition') | n/a | Conditions stay in claim ledger; problem list is derived view |
+| Module 9 gastrointestinal.baseline_history | `clinical_assertion` (concept_type='condition') | n/a | same |
+| Module 10 reproductive.pregnancy_status_baseline (female-only) | `clinical_assertion` (concept_type='condition' for pregnancy/lactation status; concept_type='intent' for contraception goals) | n/a | Pregnancy status is a claim with supersession (status changes over time) |
+| Module 11 mental_health.baseline | `clinical_assertion` (concept_type='condition' for diagnoses; concept_type='symptom' for current symptoms) | n/a | ED diagnoses + symptom history; standard claim ledger |
+| Module 12 lifestyle.substance_use | `clinical_assertion` (concept_type='use' / 'exposure' for smoking, alcohol, recreational drugs) + `observation` for quantified measurements (e.g., pack-years, drinks-per-week) | n/a | Categorical use = assertion; quantified frequency = observation |
+| Any allergy claim arising in domain modules | `clinical_assertion` + `allergy` (multi-target) | per Module 6 pattern | Dual emission per Section 1K.0.5.4 |
+| Any medication claim arising in domain modules | `clinical_assertion` + `medication` (multi-target) | per Module 5 pattern | Dual emission per Section 1K.0.5.4 |
+
+**No identity/contact, consent, commerce, decision, or telemetry-only emissions in Layer C.** Layer C is purely clinical claim/observation capture.
+
 ## Cross-pathway reuse projection
 
 5 domain modules CANDIDATES for reuse across future MAIN clinical pathways where clinically appropriate:
