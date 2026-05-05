@@ -1,0 +1,35 @@
+import type { Question } from '../../../types';
+
+export const motivationAndGoalsQuestions: Question[] = [
+  {
+    question_id: 'qb.pathway.glp1.motivation_and_goals.primary_motivation_v1',
+    question_version: '1.0.0',
+    tier: 2,
+    answer_type: 'single_select',
+    selection_cardinality: 'exactly_one',
+    requiredness: 'required_to_continue',
+    answer_role: 'preference',
+    intent_of_answer_set: 'preference_capture',
+    entity_kind: 'single_value',
+    atom_kind: 'clinical_history',
+    downstream_effect: 'personalization',
+    render_when: null,
+    prompt: 'What is your primary motivation for weight loss?',
+    emissions: [{ target: 'clinical_assertion', payload: { concept_id: 'intent.weight_loss_motivation', concept_version: '1.0.0', assertion_type: 'selected', status: 'unconfirmed', authored_by: 'patient_reported', confidence: 'definitive', evidence_refs: [], context: {}, context_key: '' } }],
+    consumed_by_templates: ['template.glp1.personalization_motivation'],
+  },
+  {
+    question_id: 'qb.pathway.glp1.motivation_and_goals.educational_screen_v1',
+    question_version: '1.0.0',
+    tier: 3,
+    answer_type: 'educational_screen',
+    requiredness: 'not_applicable',
+    answer_role: 'educational_trust',
+    intent_of_answer_set: 'trust_building',
+    entity_kind: 'single_value',
+    downstream_effect: 'none',
+    render_when: null,
+    prompt: 'You are not alone — many patients lose weight on GLP-1 medications.',
+    emissions: [{ target: 'audit_event_only', payload: { action: 'intake.educational_screen.continued', resource_type: 'intake_session' } }],
+  },
+];

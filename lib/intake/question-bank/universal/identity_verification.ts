@@ -1,0 +1,38 @@
+import type { Question } from '../../types';
+
+export const identityVerificationQuestions: Question[] = [
+  {
+    question_id: 'qb.universal.identity_verification.gov_id_upload_v1',
+    question_version: '1.0.0',
+    tier: 1,
+    answer_type: 'photo_upload',
+    selection_cardinality: 'required_blank_not_allowed',
+    requiredness: 'required_to_continue',
+    answer_role: 'clinical_safety',
+    intent_of_answer_set: 'safety_screening',
+    entity_kind: 'single_value',
+    atom_kind: 'identity',
+    downstream_effect: 'provider_review',
+    render_when: null,
+    prompt: 'Upload a photo of your government ID.',
+    helper: "Driver's license, passport, or state ID. Required for telehealth identity verification.",
+    emissions: [{ target: 'patient_column', payload: { column: 'id_artifact_storage_id', value: null } }],
+  },
+  {
+    question_id: 'qb.universal.identity_verification.selfie_upload_v1',
+    question_version: '1.0.0',
+    tier: 1,
+    answer_type: 'photo_upload',
+    selection_cardinality: 'required_blank_not_allowed',
+    requiredness: 'required_to_continue',
+    answer_role: 'clinical_safety',
+    intent_of_answer_set: 'safety_screening',
+    entity_kind: 'single_value',
+    atom_kind: 'identity',
+    downstream_effect: 'provider_review',
+    render_when: { kind: 'response', question_id: 'qb.universal.identity_verification.gov_id_upload_v1', operator: 'present' },
+    prompt: 'Take a quick selfie.',
+    helper: 'We match this to your ID photo to confirm identity.',
+    emissions: [{ target: 'patient_column', payload: { column: 'selfie_artifact_storage_id', value: null } }],
+  },
+];
