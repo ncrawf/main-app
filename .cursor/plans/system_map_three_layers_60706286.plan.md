@@ -3128,6 +3128,256 @@ The intake engine is **not** a frontend wizard backed by config. It is a **serve
 - **Wording-only changes are fast** because they're tiny PRs with auditable diffs; reviewer approves in minutes.
 - **Narrow CMS exception (acceptable):** non-clinical interstitial copy (education, trust messages) and patient-facing notification template wording per `1L.15` discipline MAY have a CMS-style admin UI with version capture + audit. **Anything that could change which questions a patient sees or which safety asserts fire goes through PR. No exceptions.**
 
+### 1K.0.5 Data routing + atomization boundary + claim-ledger-vs-reconciled-entity discipline (binding; foundational; precedes all of `1K.1` onward)
+
+This section establishes how every piece of incoming clinical data is routed to its canonical home, what the boundary of "atom" / clinical assertion actually is, and why the platform maintains a two-layer architecture (claim ledger + reconciled entities) rather than collapsing into a single store. **It is the entry principle for Section 1K — read this before any subsection below.** Without this discipline, the system drifts into either over-atomization (everything stuffed into `patient_clinical_assertions`) or under-atomization (no canonical clinical claim ledger, lost provenance, fragmented domain stores). Both failure modes have been seen during spec authoring; this section prevents recurrence.
+
+**Companion sections (cross-links):** `1K.1` (longitudinal-state framing — what intake writes into), `1K.3` (4-layer module taxonomy), `1K.5.A` (clinical assertion canonical table — scope constrained per this section), `1K.11` (consent architecture; `patient_consents` enum), `1L` / `1L.16a` (labs + diagnostic reports), `1M` (trackable observations), `1I` / `1I.4-1I.5` (commerce + PSP), `1Q.7` (audit_events; telemetry layer), `1Q.15` (rules + templates; consumers of intent + treatment_target), `1Q.23` (interaction_context).
+
+#### 1K.0.5.1 Principle
+
+Atomization into `patient_clinical_assertions` is for **clinical claims with authority + provenance + supersession semantics**. It is NOT the universal storage layer for all intake-derived or system-observed data. Other categories of data — identity, contact, consent, commerce, telemetry, observation, derived decision, reconciled clinical entity, administrative entity — have their own canonical homes. Intake (and messaging ingestion, lab feeds, document extraction, AI atomization, device feeds) emit **routed writes** — each write lands at its canonical table per the routing discipline declared below. There is NO universal "thing" table; there IS a canonical clinical claim ledger sitting alongside other typed homes.
+
+#### 1K.0.5.2 Classification of canonical data homes (descriptive, not a rigid tier hierarchy)
+
+This is a **classification model** for where different kinds of information live. It is NOT a dependency graph or a layered architecture where "Tier N can only write to Tier N+1". Any write handler can write to any home per its declared `target:`. The numbering is for reference only; there is no ordering rule, no tier-crossing discipline, no enforcement of "Tier 3 cannot read from Tier 6". Engineers should NOT litigate "is this Tier 7 or Tier 8" — if a given fact has a canonical home declared below, write it there. If it doesn't, the classification is missing a category and should be extended here.
+
+```mermaid
+flowchart TD
+  Input["Raw input<br/>intake_responses + inbound messages<br/>+ lab feeds + patient_documents<br/>+ device streams + AI extraction"]
+  Emitter["Emitter / router<br/>per Section 1K.5.A pipeline + this section"]
+  Identity["Identity + contact<br/>patients, patient_addresses,<br/>patient_contacts"]
+  ClaimLedger["Clinical claim ledger<br/>patient_clinical_assertions<br/>(Section 1K.5.A)"]
+  Entities["Reconciled clinical entities<br/>patient_medications,<br/>patient_allergies,<br/>patient_immunizations,<br/>patient_exam_findings"]
+  Obs["Trackable observations<br/>patient_state_observations<br/>(Section 1M)"]
+  Diagnostics["Diagnostic artifacts<br/>patient_lab_observations,<br/>patient_diagnostic_reports<br/>(Section 1L / 1L.16a)"]
+  Consents["Consents<br/>patient_consents<br/>(Section 1K.11)"]
+  Commerce["Commerce<br/>treatment_orders, commerce_orders,<br/>subscriptions (Section 1I)"]
+  Admin["Administrative entities<br/>patient_external_providers,<br/>patient_preferred_pharmacies,<br/>patient_emergency_contacts,<br/>patient_advance_directives,<br/>patient_insurance_details"]
+  Process["Process state<br/>intake_sessions, clinical_visits,<br/>message_threads, appointments"]
+  Decisions["Derived decisions<br/>eligibility_decisions"]
+  Telemetry["Telemetry<br/>audit_events (Section 1Q.7)"]
+
+  Input --> Emitter
+  Emitter --> Identity
+  Emitter --> ClaimLedger
+  Emitter --> Entities
+  Emitter --> Obs
+  Emitter --> Diagnostics
+  Emitter --> Consents
+  Emitter --> Commerce
+  Emitter --> Admin
+  Emitter --> Process
+  Emitter --> Decisions
+  Emitter --> Telemetry
+  ClaimLedger -->|"feeds reconciliation workflow"| Entities
+  Diagnostics -->|"derives claims"| ClaimLedger
+  Commerce -->|"lifecycle events"| Telemetry
+  Consents -->|"acceptance events"| Telemetry
+```
+
+#### 1K.0.5.3 Canonical homes + when each applies
+
+- **Identity + contact:** one authoritative source (the patient). No authority reconciliation. Changes via simple update + audit log. Examples: DOB, legal name, biological sex at birth, gender identity, shipping address, phone. Home: `patients`, `patient_addresses`, `patient_contacts`.
+- **Clinical claim ledger:** multi-claimant claims about the patient. Authority-ranked (9 `authored_by` values). Supersedable. Append-only. Home: `patient_clinical_assertions` (Section 1K.5.A). Scope of the claim ledger: conditions, symptoms, family history, social history (use, exposure), intent, ROS denials. Also: the FIRST-CONTACT claim row for medications / allergies / immunizations / procedures (e.g., "patient says they take metformin") which subsequently feeds the reconciled-entity flow per `1K.0.5.4`.
+- **Reconciled clinical entities:** rich domain-specific tables for clinical data with structured schema beyond what a claim ledger fits cleanly. Each has its own table, schema, and `reconciliation_status` enum.
+  - `patient_medications` — reconciled med list (dose, frequency, route, prescriber, start/end, status, reconciliation_status). Source: claim ledger row + reconciliation workflow (or direct provider authorship in a visit).
+  - `patient_allergies` — reconciled allergy list (allergen, reaction_type, severity, onset, last_reaction). Source: claim ledger row + reconciliation workflow.
+  - `patient_immunizations` — CVX-coded immunization record (vaccine, lot, site, route, administering_user). Source: claim ledger row OR direct in-house administration (provider authors entity row directly with `source: 'in_house_administration'`).
+  - `patient_exam_findings` — provider-observed signs (finding_concept_id, severity, location jsonb anatomic-site, laterality, observed_by_provider_user_id, clinical_visit_id NOT NULL). Provider workflow only; no patient self-report path.
+- **Trackable observations:** time-series measurements. Coexist; no supersession. Examples: height, weight, BP, HbA1c self-report, mood scores. Home: `patient_state_observations` (Section 1M). Each row carries `field_name` (controlled vocabulary in `lib/clinical-concepts/vital-field-names.ts`) bridging to clinical concepts when needed.
+- **Diagnostic artifacts:** raw lab values, imaging, extracted documents. These DERIVE claim ledger rows (LDL=180 → assertion `condition.hyperlipidemia` with `authored_by: 'lab_derived'`) and may feed reconciled entities (extracted med list from discharge summary → claim ledger + `patient_medications` unreconciled). Home: `patient_lab_observations`, `patient_diagnostic_reports` (Section 1L / 1L.16a).
+- **Consents:** legal-audit requirements differ from clinical (legal_text_snapshot, TCPA/HIPAA/CASL specifics, source_surface, revocation chain). Home: `patient_consents` (Section 1K.11). 13-value `type` enum (telehealth_consent, terms_and_conditions, privacy_policy_acknowledgment, off_label_rx_acknowledgment, sms_marketing_opt_in, subscription_auto_renew, identity_verification_biometric, research_or_deidentified_data, prescription_order_acceptance, marketing_sms, marketing_email, marketing_personalization_with_phi, **membership_service_agreement**).
+- **Commerce:** orders, subscriptions, payments. Strong relational schema (line items, taxes, fulfillment, PSP integration). Home: `treatment_orders`, `commerce_orders`, `subscriptions` (Section 1I).
+- **Administrative entities:** structured records about the patient's care network and operational data — not clinical claims, not commerce, but foundational for clinical workflows (referrals, fulfillment, OR clearance, billing). Each has its own table.
+  - `patient_external_providers` — PCP, referring providers, specialty consultants, prior providers (relationship_type enum + name + practice + NPI + contact info + verification status).
+  - `patient_preferred_pharmacies` — patient's preferred dispensing pharmacy(ies); multi-row (mail-order + retail + specialty).
+  - `patient_emergency_contacts` — emergency contact(s) with HIPAA authorization flag; multi-row.
+  - `patient_advance_directives` — DNR/DNI/POLST/healthcare proxy with document_storage_id pointer; is_active flag.
+  - `patient_insurance_details` — full insurance records (richer than `patients.has_insurance` boolean); multi-row (primary + secondary + Rx + dental + vision).
+- **Process state:** intake sessions, encounters, message threads, appointments. Process records, not claims about the patient. Home: `intake_sessions`, `clinical_visits`, `message_threads`, `appointments`.
+- **Derived decisions:** rule outputs. Re-derivable from inputs. Home: `eligibility_decisions` (dedicated table with `input_refs` + `inputs_hash` + optional `input_snapshot` for defensibility-critical results).
+- **Telemetry:** append-only event log. Home: `audit_events` (Section 1Q.7; already exists per `20260419210000_staff_audit_rls.sql`).
+
+#### 1K.0.5.4 Two-stage flow: claim → reconciliation → entity (binding for medications, allergies, immunizations, exam findings)
+
+Claim-shaped data (conditions, symptoms, family history, social history, intent, ROS denials) lands in `patient_clinical_assertions` and STAYS there — the assertion chain IS the entity. No domain table for these.
+
+Entity-shaped data (medications, allergies, immunizations, exam findings) follows a TWO-STAGE FLOW:
+
+```mermaid
+flowchart LR
+  Claim["Stage 1 — Claim<br/>'patient says they take metformin'<br/>writes to patient_clinical_assertions<br/>concept_type='medication'<br/>authored_by='patient_reported'<br/>status='unconfirmed'"]
+  Reconcile["Stage 2 — Reconciliation workflow<br/>staff / provider / AI-assisted<br/>verifies, adds dose/frequency/route/<br/>prescriber/start_date/etc."]
+  Entity["Stage 3 — Reconciled entity<br/>writes to patient_medications<br/>reconciliation_status='reconciled'<br/>source_assertion_id back-pointer<br/>full structured schema"]
+  ClaimChain["Original assertion<br/>preserved forever<br/>append-only"]
+
+  Claim -->|"feeds"| Reconcile
+  Reconcile -->|"creates / updates"| Entity
+  Claim -->|"never deleted"| ClaimChain
+  Entity -.->|"links back via<br/>source_assertion_id"| ClaimChain
+```
+
+- **Both rows preserved indefinitely.** The claim records "what was said by whom when." The entity records "the reconciled current truth."
+- **Reconciliation_status** on the entity row tracks: `unreconciled` (auto-created from claim, awaiting workflow), `reconciled` (verified by staff/provider), `conflict` (multiple claims disagree; provider review needed), `declined_to_reconcile` (e.g., patient declined to confirm details), `superseded` (replaced by a new entity row via dose change, name correction).
+- **Source attribution preserved:** `source_assertion_id` on the entity row points back to the originating claim. Multi-source claims feeding one entity (e.g., patient self-report + document extraction confirmed) preserve all source pointers via metadata array (`metadata.source_assertion_ids: [<id_1>, <id_2>, ...]`).
+- **Entity supersession:** dose changes, name corrections, etc. write a NEW entity row with `supersedes_entity_id` pointing at the prior. Append-only — same discipline as claim ledger.
+- **AI / document extraction sources:** AI extraction of meds from a discharge summary writes a claim ledger row (authored_by='document_extracted' or 'ai_suggested') AND can auto-propose an entity row (status='unreconciled') for staff to verify. Provenance preserved at both layers.
+- **Provider direct authorship in a visit:** for findings + immunizations administered in-house, the provider may write the entity row directly with `source: 'in_house_administration'` + `clinical_visit_id` populated. No claim ledger row required in this case (the act of administration is the source).
+
+#### 1K.0.5.5 Promotion criteria — when does a concept_type leave the claim ledger and get its own entity table?
+
+Most concept_types stay in the claim ledger forever (conditions, symptoms, family history, etc.). A concept_type gets promoted to a dedicated entity table when ALL THREE of the following hold:
+
+1. It has rich domain-specific schema beyond what metadata jsonb conveys clearly (dose/frequency/route, reaction_type/severity, CVX/lot, severity/location/laterality, etc.).
+2. It has type-specific operations that are first-class workflows (refill, dose change, allergy reaction logging, vaccine administration recording, exam finding observation events).
+3. It supports cross-system integrations that need structured columns (RxNorm/NDC, SNOMED, ICD-10, CVX/MVX, etc.).
+
+**Phase 3 promotes:** medications, allergies, immunizations, exam findings.
+
+**Stays in claim ledger:** conditions (problem list = derived view), symptoms, family history, social history, intent, treatment_target, ROS denials.
+
+**Future promotion candidates (per Section 1K.14 promotion-trigger discipline):** patient_problems (ICD-10 coded problem list with billing integration); patient_genomics; patient_genetic_tests; patient_signs_and_symptoms (if the symptom workflow becomes complex enough to need first-class shape).
+
+#### 1K.0.5.6 Event-sourcing framing — why claim ledger AND reconciled entities, not one or the other (binding; pressure-tested)
+
+The claim-ledger-vs-reconciled-entity architecture is the same shape **Tesla autonomy + Amazon order pipelines** use. Documented here so the question "should we just collapse these?" has a permanent answer.
+
+**Tesla autonomy stack:**
+
+- Raw camera frames + radar returns + IMU + GPS readings: preserved in immutable logs (replay buffer for debugging + re-training).
+- Perception layer fuses raw signals into tracked objects with state (vehicle position/velocity/predicted trajectory; pedestrian; lane line; traffic sign).
+- World model: typed entities with current state, materialized for performance (planner doesn't re-fuse from raw on every read).
+- Planner reads world-model entities, NOT raw sensor data.
+- Tesla **explicitly separates** raw sensor logs (immutable) from world-model entities (stateful + updated by perception).
+- Replay capability: any historical world-model state can be reconstructed by re-running perception over the raw log.
+
+**Amazon order pipeline (event sourcing):**
+
+- Raw events: `OrderPlaced`, `PaymentAuthorized`, `ItemPicked`, `ItemPacked`, `ShipmentDispatched`, `Delivered`, `Refunded` — append-only event log.
+- `Order` entity: stateful aggregate with `status`, `line_items`, `total_charged`, etc. — materialized from events but with denormalized state for query performance.
+- Current state queries (`order.status = 'shipped'`) hit the entity, not the event log.
+- Replayable: any historical Order state reconstructable by replaying events up to a timestamp.
+- Amazon **explicitly separates** event log from entity state.
+
+**Our system (same pattern):**
+
+- **Raw sources** (intake responses, message threads, lab feeds, document extractions, AI outputs, device data): preserved in their domain tables (`intake_responses`, `messages`, `patient_lab_observations`, `patient_diagnostic_reports`, etc.) — immutable.
+- **Claim ledger** (`patient_clinical_assertions`): the canonical clinical event log. Append-only. Each row records "X said Y about the patient at time T" with full provenance + supersession chain. This is the immutable trace of clinical claims.
+- **Reconciled entities** (`patient_medications`, `patient_allergies`, `patient_immunizations`, `patient_exam_findings`): materialized aggregates with reconciliation-added state (dose, frequency, route, prescriber, severity, location, laterality — fields not present in any single claim). Append-only via supersession chain. These are the queryable current state.
+- **Derived views** (problem list, allergy list, med list, facesheet, care-plan): composed reads over claims + entities. No storage of their own.
+- **Replay capability:** entity history can be audited against claim history. Reconciliation events are reconstructable. Audit replay is supported by design.
+
+**Why we cannot collapse to one layer:**
+
+- Reconciliation is a **non-deterministic workflow with human judgment**, not a pure projection from claims. The entity carries state added by reconciliation that is NOT present in any single claim (dose, prescriber, structured reaction_type, etc.).
+- Claim-shaped data (conditions, symptoms, family history, intent, ROS denials) has NO domain workflow and stays in the claim ledger only — collapsing would force inventing entity tables for these.
+- Entity-shaped data (meds, allergies, immunizations, exam findings) has rich domain workflows that benefit from typed schemas + first-class operations — collapsing into the claim ledger would push everything into metadata jsonb and lose the domain semantics.
+- Both layers are necessary; they capture different things.
+
+**What this discipline buys us:**
+
+- "What did the patient say?" — read claim ledger.
+- "What's the reconciled current truth?" — read entity table.
+- "How did we arrive at this med record?" — follow `source_assertion_id` from entity to claim chain.
+- "Has there been under- or over-reconciliation?" — audit entity history against claim history (entities lagging behind claims = unreconciled queue).
+- "Replay this patient's clinical history as of date X" — read claim ledger up to date X + replay reconciliation events.
+- "AI extraction confidence on this fact?" — claim ledger's `authored_by: 'ai_suggested'` + `confidence_score` field.
+
+#### 1K.0.5.7 Per-source clinical-data routing matrix (binding)
+
+Every clinical data source has a defined raw artifact + structured candidates + canonical destination + reconciliation rule + provenance link. New sources follow this same shape.
+
+| Source | Raw artifact preserved | Structured candidates extracted | Canonical destination | Reconciliation needed? | Provenance link |
+|---|---|---|---|---|---|
+| Intake responses | `intake_responses.raw_value jsonb` | Per-question emissions per Section 1K.4 | claim ledger + entity tables (multi-target dual emission for meds/allergies/immunizations) | Yes for entities; no for claim-only concepts | `source_intake_response_id` on assertion + `source_assertion_id` on entity |
+| Patient messages | `messages.body_text` (full preserved) | Atomization pipeline (Section 1P) extracts clinical content | claim ledger (`authored_by: 'patient_reported'` + `source: 'message'`) | Yes if entity-shaped (med mention, new allergy, etc.) | `source_message_id` on assertion |
+| Provider notes | `clinical_visits.note` (raw narrative preserved) | Provider-authored assertions during/after visit | claim ledger (`authored_by: 'provider_assessed'`) + entity tables (provider IS reconciler when authoring directly) | No — provider authors entity rows directly with structured fields | `source_clinical_visit_id` on both layers |
+| External PDFs / scanned records | `patient_diagnostic_reports` row + storage object | AI extraction yields candidate atoms | claim ledger (`authored_by: 'document_extracted'`) + reconciliation queue for human verification | Yes always — extraction is unverified until human review | `source_diagnostic_report_id` on assertion |
+| Lab feeds | `patient_lab_observations` row (raw lab values + reference ranges) | Derived condition assertions (LDL=180 → `condition.hyperlipidemia`) | observations land directly; derived assertions in claim ledger (`authored_by: 'lab_derived'`) | Lab observations: no. Derived assertions: optional provider confirmation | `source_lab_observation_id` on derived assertion |
+| Pharmacy / Rx list imports | imported list artifact (PDF or structured feed) preserved as artifact | Med entries | claim ledger (`authored_by: 'document_extracted'` or `'third_party_reported'`) + `patient_medications` (reconciliation_status: 'unreconciled') | Yes — staff/provider reconciles dose/duration/etc. | `source_assertion_id` on med entity |
+| Device / wearable data | streaming feed; raw values preserved as observation rows | Each measurement | `patient_state_observations` (with `source: 'wearable'`) | No reconciliation; time-series append-only | `source_device_session_id` |
+| Uploaded images | storage object + `patient_documents` (or similar) metadata row | If clinically relevant: AI/provider extraction → candidate atoms | claim ledger (`authored_by` varies by extractor) + reconciliation queue | Yes if extraction occurs | `source_document_id` |
+| Staff-entered corrections | direct write via SECURITY DEFINER wrapper | Correction itself is a new row in supersession chain | wherever original lives (claim ledger OR entity OR consent ledger) | The correction IS the reconciliation act | `supersedes_assertion_id` / `supersedes_entity_id` / `supersedes_consent_id` |
+| AI extraction outputs | AI run trace + model invocation log preserved | Candidate atoms | claim ledger (`authored_by: 'ai_suggested'`, `confidence_score` populated) + reconciliation queue for human review | Yes always — AI requires human verification before treated as confirmed | `source_ai_run_id` on assertion |
+
+**What should NEVER be atomized (binding):**
+
+- Raw images / PDFs / audio: artifacts go in storage; metadata about them in `patient_documents` / `patient_diagnostic_reports`. Not "atoms."
+- Free-text patient messages: preserved as-is in `messages`; clinical content extracted as atoms but the message itself is NOT an atom.
+- Provider narrative notes: preserved as text in `clinical_visits.note`; structured data extracted separately as assertions.
+- Raw audit_events: append-only log of system activity, not "claims" about the patient.
+- Non-clinical operational data (commerce, identity, contact, telemetry): excluded per anti-patterns below.
+- Streaming time-series data (wearables, continuous monitoring): observations, not assertions.
+
+#### 1K.0.5.8 Anti-patterns (binding; CI-lintable)
+
+- DO NOT put identity or contact data in `patient_clinical_assertions`. Update `patients` / `patient_addresses` / `patient_contacts` + emit `audit_events` row.
+- DO NOT put consent acceptances in `patient_clinical_assertions`. They live in `patient_consents` only.
+- DO NOT put commerce events in `patient_clinical_assertions`. They live in `treatment_orders` / `subscriptions` / `commerce_orders`.
+- DO NOT put trackable measurements (vitals, scores) in `patient_clinical_assertions`. They live in `patient_state_observations`; `field_name` bridge column links an observation to a concept when needed.
+- DO NOT put rule-output decisions in `patient_clinical_assertions`. Decisions are derived, not claimed. They live in `eligibility_decisions`.
+- DO NOT put telemetry events in `patient_clinical_assertions`. They live in `audit_events`.
+- DO NOT put operational preferences (pronouns, language, scheduling windows, UI theme) in `patient_clinical_assertions`. They live on `patients` columns. DO NOT put marketing / notification / channel preferences in `patient_clinical_assertions`; those live in `patient_consents` per Section 1K.11.
+- DO NOT skip the claim ledger when writing to a reconciled entity. Every medication / allergy / immunization / exam finding row MUST carry a `source_assertion_id` (or `source: 'in_house_administration'` for in-clinic immunizations / exam findings authored directly by provider in a visit, with `source_clinical_visit_id` instead). The claim ledger is the provenance layer; the entity is the reconciled state.
+- DO NOT use `atom.*` as a concept_id prefix. Canonical prefix is `<domain>.<name>` where `<domain>` ∈ {condition, medication, procedure, family_history, intent, treatment_target, symptom, allergy, finding, vital}. (Consent types use the `patient_consents.type` enum; they are not `concept_id`-keyed.)
+
+#### 1K.0.5.9 Intent vs treatment_target vs operational preference discipline (binding)
+
+Three distinct concept domains, three distinct authorship/authority models. None override each other; rules read all three and reconcile per shared-decision-making logic.
+
+**Intent** (`concept_type = 'intent'`) = patient-stated goals, motivations, or preferences about their own care that **inform clinical decision-making**. Home: `patient_clinical_assertions`. Authority: **patient is the authority on their own intent.** Provider does NOT use `provider_rejected` status on intent rows (nonsensical — provider can't overrule patient on their own values). When provider counsels patient and patient revises, the new row is `authored_by: 'patient_self_correction'` with `metadata.counseled_by_provider_user_id` capturing the influence. Supersession chain preserves the journey.
+
+**Treatment_target** (`concept_type = 'treatment_target'`) = provider-stated clinical targets (weight loss target in clinical terms, BP systolic target, A1c target). Home: `patient_clinical_assertions`. Authority: **provider authored.** Coexists with patient `intent.*` rows on the same patient — both are valid simultaneously; rules read both for shared-decision-making logic. Examples: `treatment_target.weight_loss_target` (provider sets clinical target) lives alongside `intent.glp1_weight_loss_goal_band` (patient's stated goal); rule engines compute the GAP between them and may surface counseling prompts.
+
+**Operational preference** = patient-stated preference that shapes system interaction (UX, comms, identity presentation) but does NOT inform clinical decisions. Home: `patients` columns (single-valued UX prefs like pronouns / language / scheduling windows); `patient_consents` (legal/marketing/notification prefs per Section 1K.11); future `patient_preferences` table if a pathway requires first-class preference rows with versioning.
+
+**"Both" is forbidden.** A concept has ONE canonical home; UX-facing views of intent are filtered reads of `patient_clinical_assertions`, not duplicated rows elsewhere.
+
+**CI-lintable rule (binding):** every `concept_type = 'intent'` OR `concept_type = 'treatment_target'` concept declared in `lib/clinical-concepts/{intent,treatment-target}.ts` MUST be referenced by at least one `rule.*.required_inputs` OR `template.*.variables` declaration per Section 1Q.15. Orphan concepts trigger CI warning; either a consumer is declared or the concept is reclassified. Prevents creep ("captured but not used") and catches misclassification.
+
+#### 1K.0.5.10 Claim ledger vs reconciled entity authority (binding)
+
+The 9 `authored_by` values + `authority_rank` operate on the CLAIM LEDGER (`patient_clinical_assertions`) — they tell a rule "given multiple claimants on the same fact, who's the authority?" Authority_rank does NOT apply to reconciled entity rows; entity rows are the reconciled current state, with their own `reconciliation_status` enum tracking workflow.
+
+Patient's original claim is preserved forever via the assertion chain. If the patient said "I take metformin" and the provider's reconciliation shows "actually it's metformin XR 500mg BID, prescribed by Dr. Smith 2024-03-01," BOTH the original `patient_reported` claim AND the reconciled `patient_medications` entity row coexist. Rules can read either layer — the claim ledger for "what did the patient say in their own words?", the entity for "what's the reconciled current med?".
+
+#### 1K.0.5.11 Routing at the question layer + write handler discipline (binding)
+
+Every intake question's declared emissions carry an explicit `target:` per emission. **Target enum (21 values):**
+
+- `'clinical_assertion'` — claim ledger row in `patient_clinical_assertions`
+- `'observation'` — `patient_state_observations` row
+- `'medication'` — `patient_medications` reconciled entity (auto-created with `reconciliation_status: 'unreconciled'` from intake claims)
+- `'allergy'` — `patient_allergies` reconciled entity (same pattern)
+- `'immunization'` — `patient_immunizations` reconciled entity
+- `'exam_finding'` — `patient_exam_findings` (provider-only path; not an intake target but listed for full enum)
+- `'consent'` — `patient_consents` row
+- `'patient_column'` — direct column update on `patients` (with `audit_events` row)
+- `'patient_address'` — `patient_addresses` row
+- `'patient_contact'` — `patient_contacts` row
+- `'external_provider'` — `patient_external_providers` row
+- `'preferred_pharmacy'` — `patient_preferred_pharmacies` row
+- `'emergency_contact'` — `patient_emergency_contacts` row
+- `'advance_directive'` — `patient_advance_directives` row
+- `'insurance_details'` — `patient_insurance_details` row
+- `'subscription'` — `subscriptions` row
+- `'treatment_order'` — `treatment_orders` row
+- `'commerce_order'` — `commerce_orders` row
+- `'session_metadata'` — `intake_sessions.metadata` field update
+- `'eligibility_decision'` — `eligibility_decisions` row
+- `'audit_event_only'` — only an `audit_events` row; no other write
+
+Spec-level discipline per Section 1K.4: every emission declares one of these. CI lint enforces per-question target declaration. Multi-target emissions (e.g., medication claim writes BOTH `clinical_assertion` AND `medication` entity in one transaction) are declared as `emissions: Emission[]` with one Emission per target; the runtime executes them sequentially in one DB transaction.
+
+**Router shape (binding; keep declarative and boring):** there is NO universal switch/dispatch function. Instead, runtime provides one **typed write handler per target** in `lib/intake/write/<target>.ts` (e.g., `write/clinical_assertion.ts`, `write/medication.ts`, `write/external_provider.ts`). Each handler takes the typed emission payload for its target only, performs the canonical write, and emits the paired `audit_events` row in the same DB transaction per Section 1Q.7. The target enum above maps 1:1 to a handler file (21 files). No magical multi-target dispatcher; no metaprogramming; no runtime type switching beyond "select the handler whose name matches the target string." Adding a new category means: (a) extend `1K.0.5.3` with a new canonical home, (b) extend the target enum, (c) add one new handler file. That is the full discipline.
+
+**Multi-target emission pattern (claim + entity):** when an intake question emits BOTH a claim ledger row AND a reconciled entity row (e.g., "have you been on semaglutide before?" → claim assertion + unreconciled medication entity), the question's `emissions` array contains two Emission objects, one per target. The runtime executes both in the same DB transaction; failure of either rolls back both. Entity row's `source_assertion_id` is populated from the claim row's id post-insert. Pattern applies to: medication claims, allergy claims, immunization claims (plus procedure claims when they involve immunizations).
+
+#### 1K.0.5.12 AI consumption pattern (non-prescriptive guidance)
+
+AI context assembly typically SHOULD draw from multiple canonical homes rather than a single mega-table. A patient snapshot typically benefits from: demographics (identity), active clinical assertions (non-superseded), reconciled active meds + allergies + immunizations (entity tables), recent observations (last N or trend window), abnormal labs (flagged), active consents (non-revoked), active orders (subs + in-flight Rx), administrative entities (PCP, pharmacy, emergency contact, advance directives, insurance), current session context, recent decisions, and recent telemetry. The specific composition is a product/ML decision and may evolve; this section only asserts that **flattening all information into a single store would destroy the semantic distinctions between homes that prompts exploit**. AI layers are free to select which homes to read, in what order, with what windowing — the system map does not dictate the composition.
+
 ### 1K.1 Intent and scope (longitudinal-state framing)
 
 - **Intake is the entry point into a continuous care system**, not a session, form, checkout step, or one-time interaction. It initializes — and continues to write into — a **persistent, time-aware patient state** that messaging, provider workflows, system check-ins, and longitudinal care loops continue to read and append to.
@@ -3532,6 +3782,8 @@ Permitted patterns (explicitly):
 - **Forbidden:** silent overwrites by any actor; ad-hoc SQL; UI-only writes that bypass capability + audit. Same enforcement as `1L.18` #1 and `1M.4` hard rules.
 
 ### 1K.5.A Clinical concept + assertion layer (foundational; required before first Rx pathway ships)
+
+**Scope per Section 1K.0.5 (binding):** this table is the canonical **clinical claim ledger** for claim-shaped data only — conditions, symptoms, family history, social history, intent, treatment_target, ROS denials, plus the first-contact claim row for medications / allergies / immunizations / procedures (which then feed reconciled entity tables per `1K.0.5.4`). Identity / contact data lives in `patients` / `patient_addresses` / `patient_contacts`. Consents live in `patient_consents` (Section 1K.11). Commerce events live in `treatment_orders` / `subscriptions` / `commerce_orders`. Trackable measurements live in `patient_state_observations` (Section 1M). Diagnostic artifacts live in `patient_lab_observations` + `patient_diagnostic_reports` (Section 1L / 1L.16a). Reconciled clinical entities (rich domain workflows) live in `patient_medications` / `patient_allergies` / `patient_immunizations` / `patient_exam_findings`. Derived rule outputs live in `eligibility_decisions`. Telemetry lives in `audit_events` (Section 1Q.7). See Section 1K.0.5 for the full canonical-homes classification and routing discipline.
 
 *Layer 1+2 architectural rule. The intake response log per `1K.5` is authoritative for the **patient's literal answer**. This subsection adds the **clinical assertion layer** that sits between raw evidence (intake / labs / docs / visits / AI) and clinical memory consumed by the safety preflight per `1J.10`, the provider workspace per `1G.8.5`, packet rendering per `1K.12`, and AI summary per `Section 1N`. Without this layer, providers, labs, documents, and AI sources have no clean way to claim the same clinical concept the patient claimed; cross-pathway concept normalization breaks; AI consumes flattened data with no labels. **Build minimal: realistic v1 sizing is ~95 concepts for the first Rx pathway (e.g., GLP-1) and ~150-200 across the first 4-5 pathways combined, with ~50 SHARED CORE concepts reused by every Rx funnel (cardiovascular / metabolic / mental health / common allergies / common medications / common labs); no SNOMED/ICD/RxNorm/LOINC on day one; no separate problem-list / allergy-list / medication-list tables (filter views over this layer). The earlier "~50 starter concepts" estimate underestimated clinical breadth — keep registry growth tied to real pathway needs (see `2026-04-27_glp1_concept_registry_analysis.md` for the GLP-1 extraction).**
 
@@ -3990,6 +4242,7 @@ Intake captures both today's commerce and the conditional Rx terms; payment even
 - **Audit trail of consent + payment terms — first-class `patient_consents` object (required):**
   - **Object:** `patient_consents` is a first-class table with `(id, patient_id, type, version_hash, legal_text_snapshot_id, accepted_at, source_surface, captured_intake_response_id?, captured_session_id?, ip_address?, device_context?, revoked_at?, revoked_reason?, supersedes_consent_id?)`. Not implied as a derivative of `intake_response`; it is the source of truth for "what consent did this patient accept, to what exact legal text, when, on what surface."
   - **Controlled `type` enum:** `telehealth_consent`, `terms_and_conditions`, `privacy_policy_acknowledgment`, `off_label_rx_acknowledgment`, `sms_marketing_opt_in`, `subscription_auto_renew`, `identity_verification_biometric`, `research_or_deidentified_data`, `prescription_order_acceptance`, **`marketing_sms`** (NEW; per `Section 1Q.13` Module 15 marketing carve-out; TCPA-compliant SMS marketing opt-in; supersedes the legacy `sms_marketing_opt_in` on new accounts post-`Section 1Q.13` ship date with a 90-day migration window during which both are accepted), **`marketing_email`** (NEW; CASL/CAN-SPAM-compliant email marketing opt-in), **`marketing_personalization_with_phi`** (NEW; HIPAA marketing authorization for marketing communications that personalize using `patient_clinical_assertions` / `patient_lab_observations` / `patient_diagnostic_reports` / any clinical chart row — required by `Section 1Q.1` `marketing_lifecycle` rule domain CI lint; informational consent without this means marketing comms use ONLY non-PHI patient attributes per `Section 1Q.13` marketing carve-out enforcement). Org-extensible only via map/repo review. Each type declares whether it is **gating** (mutation blocks without it) or **informational** (recorded but non-blocking). All three new marketing consent types are **informational** (their absence does NOT block clinical care; their presence GATES specific marketing communication paths per `Section 1Q.1` `marketing_lifecycle` rules). **Notification channel preferences (NEW per `2026-04-30_glp1_first_slice.md` Refinement 5):** patient_consents type enum extended with three preference rows per patient — `marketing_sms_preferred_channels` (typed Channel[] enum: `sms | email | in_app | push`), `transactional_preferred_channels` (typed Channel[]), `urgent_safety_preferred_channels` (typed Channel[]). These are per-event-class channel allowlists honored by `1G.3` send-policy cross-channel deduplication per Refinement 5. **Defaults (when patient hasn't customized):** SMS for `urgent_clinical` priority + email for `standard` / `low` priority + in_app push for action-item-driven notifications when patient has the app installed. **Override (binding):** safety-critical messages (`priority_hint = urgent_clinical`; Module 9 per `Section 1Q.13`) ALWAYS fire on SMS regardless of patient preference (TCPA-compliant emergency exception); patient can opt out of routine SMS but cannot opt out of safety SMS while enrolled in clinical care. Preference changes write new `patient_consents` rows superseding prior via `supersedes_consent_id` chain; revocation honored at next send-gate per `1G.3(b)`. **Privacy + communication governance consent additions (NEW per `2026-04-30_privacy_communication_governance.md`; per `Section 1Q.17` triple-axis taxonomy):** four additional consent types extend the enum — **`pathway_named_outside_secure_comm`** (informational; uplift required to render tier_3 outside-secure messages on `low`/`moderate` `pathway_sensitivity` pathways per `Section 1K.2`; ignored on `high`/`extreme` pathways which BLOCK tier_3 outside-secure regardless of consent), **`clinical_detail_in_email_comm`** (informational; rare; for patients who explicitly request tier_4 lab values via email; never enables `marketing` intent at tier_4), **`phone_call_clinical_outreach_consent`** (informational; default-ON at L3+ identity per `1J.4`; revocable except for safety-emergency where provider duty-to-warn supersedes), **`mail_paper_clinical_outreach_consent`** (informational; legal/regulatory paper mail with sealed clinical content; rare). Notification channel preferences extended with **`sensitive_pathway_communication_tier_preference`** typed enum (`'minimal_outside_secure' | 'pathway_named_outside_secure' | 'clinical_detail_outside_secure'`; default = `minimal_outside_secure`; patient-controlled TIGHTENING per `Section 1Q.17` invariant 6 — never loosens above template/channel/pathway cap).
+  - **Membership service agreement consent type (NEW per Section 1K.0.5 + `intake_atomization_reconciliation_55836f91.plan.md`):** `patient_consents.type` enum extended with **`membership_service_agreement`** — informational; binds the patient's acceptance of a specific subscription plan's full membership terms (inclusions, scope, refund policy, plan-tier-specific provisions). Distinct from `subscription_auto_renew` (auto-renewal authorization, separately revokable per TCPA), `prescription_order_acceptance` (per-Rx acceptance, re-signed each new order), and `terms_and_conditions` (platform-wide T&C). Metadata pins `subscription_plan_id` + `subscription_tier` + `pricing_profile_version` + `legal_text_snapshot_id` so multi-subscription / multi-tier futures (one patient with active GLP-1 + TRT memberships) carry one queryable `membership_service_agreement` row per active subscription. Query "did the patient accept their current membership agreement?" becomes `SELECT ... WHERE type = 'membership_service_agreement' AND patient_id = X AND metadata->>'subscription_id' = Y AND revoked_at IS NULL` — one query, one row, unambiguous. Composite emit pattern: at intake conversion-funnel checkout, Module 26 Submit fires THREE consent rows in one DB transaction via `assertion_group_id: 'universal.membership_checkout_composite'` — `membership_service_agreement` (the plan acceptance) + `subscription_auto_renew` (auto-renewal authorization) + `prescription_order_acceptance` (Rx-acceptance for the created `treatment_order`). Each row independently revokable.
   - **Patient-facing 6-toggle preference UI (binding; per `2026-04-30_privacy_communication_governance.md` Part 9; Apple/Hims-style settings page):** the patient settings UI exposes 6 human-readable toggles mapping to typed `patient_consents` rows + `notification_channel_preferences` fields. **Toggles are UI surface; consents are legal/audit truth (HIPAA / TCPA / CASL).** Toggle-to-consent mapping (binding):
     1. **"Send me useful care updates by text and email"** (default ON) — sets `notification_channel_preferences.transactional_preferred_channels[] = [sms, email, in_app]` and `clinical_low_context_preferred_channels[] = [sms, email, in_app]`; OFF tightens to in-app only.
     2. **"Allow detailed clinical updates by email"** (default OFF) — `clinical_detail_in_email_comm` consent; when ON enables tier_4 in email for `clinical` and `education` intents; never for `marketing`.
