@@ -1,3 +1,19 @@
+/**
+ * LEGACY — superseded by lib/intake/modules/** + lib/intake/pathways/glp1.ts.
+ *
+ * Per system map Section 1K.0.5 + the typed Module/Question/Pathway/Emission
+ * architecture established in `intake_atomization_reconciliation_55836f91.plan.md`,
+ * intake is now driven by code-as-config in lib/intake/, NOT by this FormDefinition.
+ *
+ * Do NOT extend this file. Do NOT add new fields, conditional rendering, or
+ * validation here. New clinical-data capture work belongs in lib/intake/.
+ *
+ * Kept temporarily only to avoid breaking app boot for routes that still import
+ * `glp1IntakeForm`. Phase 4 work will migrate and delete this file.
+ *
+ * See lib/forms/README.md and lib/intake/README.md for architecture context.
+ */
+
 import type { FormDefinition } from '@/lib/forms/types'
 
 export const glp1IntakeForm: FormDefinition = {

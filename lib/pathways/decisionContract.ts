@@ -1,3 +1,18 @@
+/**
+ * NOTE — directory naming clarification per system map Section 1K.0.5.
+ *
+ * `lib/pathways/` here refers to POST-CLINICAL-REVIEW DECISION CARDS rendered
+ * to staff/providers (PathwayDecisionCard, PathwayActionCard, etc.). It is NOT
+ * the intake pathway composition layer.
+ *
+ * Intake pathway composition lives at `lib/intake/pathways/` — e.g.,
+ * `lib/intake/pathways/glp1.ts` composes universal + clinical_core + domain +
+ * pathway-specific modules + conversion funnel into a runtime pathway definition.
+ *
+ * This file remains valid for its current purpose (decision cards). Do NOT
+ * conflate with intake pathway composition.
+ */
+
 export type PathwayActionCard = {
   id: string
   title: string
