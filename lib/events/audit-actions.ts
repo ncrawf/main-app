@@ -1,0 +1,163 @@
+/**
+ * Phase 4F — canonical `audit_events.action` registry per Section 1H.5 + 1Q.7
+ * + system primitives addendum #6 (enum-as-code-as-config).
+ *
+ * Every value written to `audit_events.action` MUST exist here. CI lint
+ * (`scripts/lint-event-types.ts`) refuses inline string literals at write
+ * sites — call sites pass `AUDIT_ACTIONS.x` or use `insertAuditEvent` from
+ * `lib/events/index.ts` which is statically typed against this catalog.
+ *
+ * Adding a new action: add it under the right domain group below, then run
+ * `npx tsx scripts/test-events-registry.ts` and `npx tsx scripts/lint-event-types.ts`.
+ *
+ * Domain grouping mirrors the Sections of the system map. Keep alphabetical
+ * within each group so diffs are reviewable. Never delete an entry that has
+ * shipped to production — append `__deprecated` suffix instead so the
+ * historical audit trail still parses.
+ */
+
+import { z } from 'zod'
+
+/**
+ * Phase 4A intake runtime + commerce decisions per Section 1K.0.5.11 +
+ * 1K.19.9. Locked since Phase 3; the orchestrator emits these inside
+ * `record_intake_emissions_batch`.
+ *
+ * Source-of-truth mirror: `lib/intake/events.ts` `INTAKE_EVENT_ACTIONS`.
+ * The two arrays MUST stay in sync — verified by
+ * `scripts/test-events-registry.ts`.
+ */
+export const INTAKE_AUDIT_ACTIONS = [
+  'commerce.checkout_link_sent',
+  'commerce.membership_plan_selected',
+  'commerce.payment_method_added',
+  'commerce.submit_to_provider_triggered',
+  'intake.atom.consumed',
+  'intake.atom.emitted',
+  'intake.branch.capped',
+  'intake.branch.completed',
+  'intake.branch.stop_early',
+  'intake.branch.triggered',
+  'intake.candidacy_result.continued',
+  'intake.candidacy_result.rendered',
+  'intake.candidacy_result.session_closed',
+  'intake.educational_screen.continued',
+  'intake.in_office_handoff_ready',
+  'intake.question.answered',
+  'intake.question.rendered',
+  'intake.question.skipped',
+  'intake.session.abandoned',
+  'intake.session.started',
+  'intake.session.submitted',
+  'intake.smart_loading.completed',
+  'intake.smart_loading.shown',
+  'intake.smart_loading.staff_skipped',
+  'intake.smart_loading.timeout_fallback',
+] as const
+
+/**
+ * Patient-case mutations per Section 1G (treatment_items, care_programs,
+ * refill_requests, lab_orders, clinical_visits) — written by
+ * `lib/internal/patient-case/impl.ts` and downstream helpers.
+ */
+export const PATIENT_CASE_AUDIT_ACTIONS = [
+  'care_program.status_changed',
+  'clinical_visit.addendum_created',
+  'clinical_visit.documented',
+  'clinical_visit.pdf_published',
+  'lab_order.dispatch_updated',
+  'lab_order.published',
+  'patient_diagnostic.portal_upload',
+  'patient_state.assignee_changed',
+  'patient_support_request.status_updated',
+  'refill_request.status_changed',
+  'refill_request.submitted',
+  'refill_request.submitted_patient_portal',
+  'supplement_fulfillment_order.status_updated',
+  'treatment_item.catalog_prescribe',
+  'treatment_item.rx_pdf_generated',
+  'treatment_item.status_changed',
+  'treatment_order.payload_prepared',
+] as const
+
+/**
+ * External rail interactions per primitives addendum #3 (Stripe / Twilio /
+ * Resend / partner pharmacy / lab vendor adapters). Each adapter MUST
+ * declare its outbound + inbound audit actions here. Stripe is canonical
+ * via Section 1I.6.
+ */
+export const EXTERNAL_RAIL_AUDIT_ACTIONS = [
+  'stripe.checkout.session_completed',
+] as const
+
+/**
+ * Capability-gated staff actions per Section 1D + AGENTS.md
+ * `requireCapability` discipline. Written by `logCapabilityUsage` in
+ * `lib/auth/capabilities.ts` after every gated mutation attempt.
+ *
+ * NOTE: capability.exercised is dual-written — once to audit_events
+ * (this registry), and once to patient_timeline_events.staff_capability_exercised
+ * for patient-visible surfaces (see TIMELINE_EVENT_TYPES).
+ */
+export const CAPABILITY_AUDIT_ACTIONS = [
+  'capability.denied',
+  'capability.exercised',
+] as const
+
+/**
+ * Section 1Q.7 privacy gate + rule firing audit actions. Reserved
+ * directional vocabulary — runtime lands in Phase 4H. Listed here so
+ * intent surfaces consume from the typed catalog rather than introducing
+ * inline strings during 4H implementation.
+ */
+export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
+  'campaign.exit',
+  'campaign.exit_due_to_conversion',
+  'campaign.exit_due_to_recall',
+  'campaign_recall_issued',
+  'notification.action_template_intent_mismatch',
+  'notification.cancelled_pre_send_contact_info_changed',
+  'notification.cancelled_pre_send_jurisdiction_changed',
+  'notification.cancelled_pre_send_stale_evidence',
+  'notification.clarification_escalated_to_phone',
+  'notification.consent_uplift_required',
+  'notification.dispatch_blocked_by_privacy_check',
+  'notification.emergency_vague_override_fired',
+  'notification.privacy_exposure_check',
+  'notification.suppressed_during_safety_window',
+  'pathway.closed_clarification_unanswered',
+  'provider_decision.flagged_stale_pending_review',
+  'rule.firing_overridden',
+] as const
+
+/**
+ * Union of every domain. Single ordered authoritative list for runtime
+ * validation, Zod enums, and CI lint.
+ */
+export const AUDIT_ACTIONS = [
+  ...INTAKE_AUDIT_ACTIONS,
+  ...PATIENT_CASE_AUDIT_ACTIONS,
+  ...EXTERNAL_RAIL_AUDIT_ACTIONS,
+  ...CAPABILITY_AUDIT_ACTIONS,
+  ...RULE_AND_NOTIFICATION_AUDIT_ACTIONS,
+] as const
+
+export type AuditAction = (typeof AUDIT_ACTIONS)[number]
+
+export const AuditActionSchema = z.enum(AUDIT_ACTIONS)
+
+const AUDIT_ACTION_SET: ReadonlySet<string> = new Set<string>(AUDIT_ACTIONS)
+
+/** Type guard: `value` is a known `audit_events.action`. */
+export function isKnownAuditAction(value: string): value is AuditAction {
+  return AUDIT_ACTION_SET.has(value)
+}
+
+/** Throws if `value` is not in the registry. Use at the boundary of routes that accept user-supplied action strings. */
+export function assertKnownAuditAction(value: string): asserts value is AuditAction {
+  if (!AUDIT_ACTION_SET.has(value)) {
+    throw new Error(
+      `Unknown audit_events.action "${value}". Register it in lib/events/audit-actions.ts before writing.`,
+    )
+  }
+}
