@@ -220,6 +220,27 @@ function validateEmissionPayload(emission: Emission): void {
 }
 
 /**
+ * Convenience: run writeEmissions with a single emission and return the
+ * single result row. Used by the 21 per-target write handlers as their
+ * common delegation path.
+ */
+export async function writeSingleEmission<T extends EmissionTarget>(
+  emission: Emission & { target: T },
+  context: Omit<WriteEmissionsArgs, 'emissions'>
+): Promise<WriteEmissionResult> {
+  const { results } = await writeEmissions({
+    emissions: [emission],
+    ...context,
+  });
+  if (results.length !== 1) {
+    throw new Error(
+      `writeSingleEmission(target=${emission.target}): orchestrator returned ${results.length} results, expected 1.`
+    );
+  }
+  return results[0];
+}
+
+/**
  * Stable-sort emissions so that clinical_assertion entries appear before any
  * entity emission (medication / allergy / immunization / exam_finding) per
  * Section 1K.0.5.4 two-stage-flow ordering. Within each tier, original

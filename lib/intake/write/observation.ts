@@ -1,37 +1,45 @@
 /**
- * Write handler stub for target='observation'.
+ * Write handler for target='observation'.
  *
- * Canonical destination: patient_state_observations row per Section 1M.
+ * Canonical destination: patient_state_observations per Section 1M.
  *
- * Phase 3 ships the type contract only. Phase 4 runtime fills the body with
- * the canonical write + paired audit_events row in the same DB transaction
- * per Section 1Q.7 same-transaction discipline.
+ * Phase 4A: thin delegation to the writeEmissions orchestrator.
  */
 
 import type { z } from 'zod';
 import type { ObservationEmissionPayload } from '../targets';
 import type { InteractionContext } from '../interaction-context';
+import { writeSingleEmission } from './orchestrator';
 
 export interface WriteObservationArgs {
   payload: z.infer<typeof ObservationEmissionPayload>;
   session_id: string;
   patient_id?: string;
+  intake_response_id?: string;
   interaction_context: InteractionContext;
-  /** For multi-target emissions, the assertion_group_id binding all rows in one logical action. */
   assertion_group_id?: string;
 }
 
 export interface WriteObservationResult {
-  /** Primary key of the row written (or undefined if target='audit_event_only'). */
   id?: string;
-  /** audit_events row id (always emitted in same transaction per Section 1Q.7). */
   audit_event_id: string;
 }
 
-/**
- * Phase 4: implement transactional write + audit emission.
- * Phase 3 stub: throws to make missing implementations obvious in tests + dev.
- */
-export async function writeObservation(_args: WriteObservationArgs): Promise<WriteObservationResult> {
-  throw new Error("lib/intake/write/observation.ts not implemented; Phase 4 runtime fills this in per Section 1Q.7 same-transaction discipline.");
+export async function writeObservation(
+  args: WriteObservationArgs
+): Promise<WriteObservationResult> {
+  const result = await writeSingleEmission(
+    { target: 'observation', payload: args.payload },
+    {
+      session_id: args.session_id,
+      patient_id: args.patient_id,
+      intake_response_id: args.intake_response_id,
+      interaction_context: args.interaction_context,
+      assertion_group_id: args.assertion_group_id,
+    }
+  );
+  return {
+    id: result.id ?? undefined,
+    audit_event_id: result.audit_event_id,
+  };
 }
