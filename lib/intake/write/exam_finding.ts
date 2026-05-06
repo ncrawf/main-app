@@ -1,37 +1,41 @@
 /**
- * Write handler stub for target='exam_finding'.
+ * Write handler for target='exam_finding'.
  *
- * Canonical destination: patient_exam_findings provider-only path with clinical_visit_id NOT NULL.
+ * Canonical destination: patient_exam_findings per Section 1K.0.5.4 (provider
+ * exam path; clinical_visit_id required, observed_by_provider_user_id required).
  *
- * Phase 3 ships the type contract only. Phase 4 runtime fills the body with
- * the canonical write + paired audit_events row in the same DB transaction
- * per Section 1Q.7 same-transaction discipline.
+ * Not used by the patient-facing intake path; reserved for provider exam UIs.
  */
 
 import type { z } from 'zod';
 import type { ExamFindingEmissionPayload } from '../targets';
 import type { InteractionContext } from '../interaction-context';
+import { writeSingleEmission } from './orchestrator';
 
 export interface WriteExamFindingArgs {
   payload: z.infer<typeof ExamFindingEmissionPayload>;
   session_id: string;
   patient_id?: string;
+  intake_response_id?: string;
   interaction_context: InteractionContext;
-  /** For multi-target emissions, the assertion_group_id binding all rows in one logical action. */
   assertion_group_id?: string;
 }
 
 export interface WriteExamFindingResult {
-  /** Primary key of the row written (or undefined if target='audit_event_only'). */
   id?: string;
-  /** audit_events row id (always emitted in same transaction per Section 1Q.7). */
   audit_event_id: string;
 }
 
-/**
- * Phase 4: implement transactional write + audit emission.
- * Phase 3 stub: throws to make missing implementations obvious in tests + dev.
- */
-export async function writeExamFinding(_args: WriteExamFindingArgs): Promise<WriteExamFindingResult> {
-  throw new Error("lib/intake/write/exam_finding.ts not implemented; Phase 4 runtime fills this in per Section 1Q.7 same-transaction discipline.");
+export async function writeExamFinding(args: WriteExamFindingArgs): Promise<WriteExamFindingResult> {
+  const result = await writeSingleEmission(
+    { target: 'exam_finding', payload: args.payload },
+    {
+      session_id: args.session_id,
+      patient_id: args.patient_id,
+      intake_response_id: args.intake_response_id,
+      interaction_context: args.interaction_context,
+      assertion_group_id: args.assertion_group_id,
+    }
+  );
+  return { id: result.id ?? undefined, audit_event_id: result.audit_event_id };
 }
