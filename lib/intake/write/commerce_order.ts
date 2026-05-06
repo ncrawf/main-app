@@ -1,37 +1,48 @@
 /**
- * Write handler stub for target='commerce_order'.
+ * Write handler for target='commerce_order'.
  *
- * Canonical destination: commerce_orders row retail rail per Section 1Q.23 Patch G5.
+ * NOT IMPLEMENTED in Phase 4A: the commerce_orders table is not yet created
+ * (out of scope for V1 GLP-1 single-rail flow per Section 1Q.23 Patch G5
+ * retail rail). The orchestrator (record_intake_emissions_batch) raises an
+ * exception with a clear hint when this target is encountered.
  *
- * Phase 3 ships the type contract only. Phase 4 runtime fills the body with
- * the canonical write + paired audit_events row in the same DB transaction
- * per Section 1Q.7 same-transaction discipline.
+ * This typed entry point is preserved so future code can compile cleanly;
+ * any caller invoking it will receive the orchestrator's exception at
+ * runtime until the commerce_orders table + handler body land in a future
+ * migration.
  */
 
 import type { z } from 'zod';
 import type { CommerceOrderEmissionPayload } from '../targets';
 import type { InteractionContext } from '../interaction-context';
+import { writeSingleEmission } from './orchestrator';
 
 export interface WriteCommerceOrderArgs {
   payload: z.infer<typeof CommerceOrderEmissionPayload>;
   session_id: string;
-  patient_id?: string;
+  patient_id: string;
+  intake_response_id?: string;
   interaction_context: InteractionContext;
-  /** For multi-target emissions, the assertion_group_id binding all rows in one logical action. */
   assertion_group_id?: string;
 }
 
 export interface WriteCommerceOrderResult {
-  /** Primary key of the row written (or undefined if target='audit_event_only'). */
   id?: string;
-  /** audit_events row id (always emitted in same transaction per Section 1Q.7). */
   audit_event_id: string;
 }
 
-/**
- * Phase 4: implement transactional write + audit emission.
- * Phase 3 stub: throws to make missing implementations obvious in tests + dev.
- */
-export async function writeCommerceOrder(_args: WriteCommerceOrderArgs): Promise<WriteCommerceOrderResult> {
-  throw new Error("lib/intake/write/commerce_order.ts not implemented; Phase 4 runtime fills this in per Section 1Q.7 same-transaction discipline.");
+export async function writeCommerceOrder(
+  args: WriteCommerceOrderArgs
+): Promise<WriteCommerceOrderResult> {
+  const result = await writeSingleEmission(
+    { target: 'commerce_order', payload: args.payload },
+    {
+      session_id: args.session_id,
+      patient_id: args.patient_id,
+      intake_response_id: args.intake_response_id,
+      interaction_context: args.interaction_context,
+      assertion_group_id: args.assertion_group_id,
+    }
+  );
+  return { id: result.id ?? undefined, audit_event_id: result.audit_event_id };
 }

@@ -1,37 +1,43 @@
 /**
- * Write handler stub for target='eligibility_decision'.
+ * Write handler for target='eligibility_decision'.
+ * Canonical destination: eligibility_decisions per Phase 3 Commit 8 migration
+ * (rule_id + rule_version + result + reasons + input_refs + inputs_hash +
+ * input_snapshot for replay/debug).
  *
- * Canonical destination: eligibility_decisions row rule-output dedicated table.
- *
- * Phase 3 ships the type contract only. Phase 4 runtime fills the body with
- * the canonical write + paired audit_events row in the same DB transaction
- * per Section 1Q.7 same-transaction discipline.
+ * Used by Module 23 candidacy_result and any future rule-engine output.
  */
 
 import type { z } from 'zod';
 import type { EligibilityDecisionEmissionPayload } from '../targets';
 import type { InteractionContext } from '../interaction-context';
+import { writeSingleEmission } from './orchestrator';
 
 export interface WriteEligibilityDecisionArgs {
   payload: z.infer<typeof EligibilityDecisionEmissionPayload>;
   session_id: string;
   patient_id?: string;
+  intake_response_id?: string;
   interaction_context: InteractionContext;
-  /** For multi-target emissions, the assertion_group_id binding all rows in one logical action. */
   assertion_group_id?: string;
 }
 
 export interface WriteEligibilityDecisionResult {
-  /** Primary key of the row written (or undefined if target='audit_event_only'). */
   id?: string;
-  /** audit_events row id (always emitted in same transaction per Section 1Q.7). */
   audit_event_id: string;
 }
 
-/**
- * Phase 4: implement transactional write + audit emission.
- * Phase 3 stub: throws to make missing implementations obvious in tests + dev.
- */
-export async function writeEligibilityDecision(_args: WriteEligibilityDecisionArgs): Promise<WriteEligibilityDecisionResult> {
-  throw new Error("lib/intake/write/eligibility_decision.ts not implemented; Phase 4 runtime fills this in per Section 1Q.7 same-transaction discipline.");
+export async function writeEligibilityDecision(
+  args: WriteEligibilityDecisionArgs
+): Promise<WriteEligibilityDecisionResult> {
+  const result = await writeSingleEmission(
+    { target: 'eligibility_decision', payload: args.payload },
+    {
+      session_id: args.session_id,
+      patient_id: args.patient_id,
+      intake_response_id: args.intake_response_id,
+      interaction_context: args.interaction_context,
+      assertion_group_id: args.assertion_group_id,
+    }
+  );
+  return { id: result.id ?? undefined, audit_event_id: result.audit_event_id };
 }

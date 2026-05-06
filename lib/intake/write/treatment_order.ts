@@ -1,37 +1,44 @@
 /**
- * Write handler stub for target='treatment_order'.
+ * Write handler for target='treatment_order'.
+ * Canonical destination: treatment_orders (existing table; Phase 4A Commit 2
+ * adds intake_session_id + pathway_code + interaction_context columns).
  *
- * Canonical destination: treatment_orders row existing table ALTERed in Phase 3 if needed.
- *
- * Phase 3 ships the type contract only. Phase 4 runtime fills the body with
- * the canonical write + paired audit_events row in the same DB transaction
- * per Section 1Q.7 same-transaction discipline.
+ * Used by Module 26 (membership_checkout submit) within the composite emit
+ * to create the pending_clinical_review order that triggers the provider
+ * review queue.
  */
 
 import type { z } from 'zod';
 import type { TreatmentOrderEmissionPayload } from '../targets';
 import type { InteractionContext } from '../interaction-context';
+import { writeSingleEmission } from './orchestrator';
 
 export interface WriteTreatmentOrderArgs {
   payload: z.infer<typeof TreatmentOrderEmissionPayload>;
   session_id: string;
-  patient_id?: string;
+  patient_id: string;
+  intake_response_id?: string;
   interaction_context: InteractionContext;
-  /** For multi-target emissions, the assertion_group_id binding all rows in one logical action. */
   assertion_group_id?: string;
 }
 
 export interface WriteTreatmentOrderResult {
-  /** Primary key of the row written (or undefined if target='audit_event_only'). */
   id?: string;
-  /** audit_events row id (always emitted in same transaction per Section 1Q.7). */
   audit_event_id: string;
 }
 
-/**
- * Phase 4: implement transactional write + audit emission.
- * Phase 3 stub: throws to make missing implementations obvious in tests + dev.
- */
-export async function writeTreatmentOrder(_args: WriteTreatmentOrderArgs): Promise<WriteTreatmentOrderResult> {
-  throw new Error("lib/intake/write/treatment_order.ts not implemented; Phase 4 runtime fills this in per Section 1Q.7 same-transaction discipline.");
+export async function writeTreatmentOrder(
+  args: WriteTreatmentOrderArgs
+): Promise<WriteTreatmentOrderResult> {
+  const result = await writeSingleEmission(
+    { target: 'treatment_order', payload: args.payload },
+    {
+      session_id: args.session_id,
+      patient_id: args.patient_id,
+      intake_response_id: args.intake_response_id,
+      interaction_context: args.interaction_context,
+      assertion_group_id: args.assertion_group_id,
+    }
+  );
+  return { id: result.id ?? undefined, audit_event_id: result.audit_event_id };
 }
