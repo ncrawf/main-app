@@ -1,37 +1,47 @@
 /**
- * Write handler stub for target='patient_column'.
+ * Write handler for target='patient_column'.
  *
- * Canonical destination: direct column update on patients table plus audit_events row.
+ * Canonical destination: UPDATE on the patients row identified by patient_id,
+ * setting the named column. Used for identity columns (legal_first_name,
+ * legal_last_name, dob, sex_assigned_at_birth, gender_identity, etc.) and
+ * for operational preferences (preferred_communication_channel, etc.).
  *
- * Phase 3 ships the type contract only. Phase 4 runtime fills the body with
- * the canonical write + paired audit_events row in the same DB transaction
- * per Section 1Q.7 same-transaction discipline.
+ * Per Section 1K.0.5.2 anti-pattern: identity must NOT live in
+ * patient_clinical_assertions. This handler is the canonical write path
+ * for those columns.
  */
 
 import type { z } from 'zod';
 import type { PatientColumnEmissionPayload } from '../targets';
 import type { InteractionContext } from '../interaction-context';
+import { writeSingleEmission } from './orchestrator';
 
 export interface WritePatientColumnArgs {
   payload: z.infer<typeof PatientColumnEmissionPayload>;
   session_id: string;
-  patient_id?: string;
+  patient_id: string;
+  intake_response_id?: string;
   interaction_context: InteractionContext;
-  /** For multi-target emissions, the assertion_group_id binding all rows in one logical action. */
   assertion_group_id?: string;
 }
 
 export interface WritePatientColumnResult {
-  /** Primary key of the row written (or undefined if target='audit_event_only'). */
   id?: string;
-  /** audit_events row id (always emitted in same transaction per Section 1Q.7). */
   audit_event_id: string;
 }
 
-/**
- * Phase 4: implement transactional write + audit emission.
- * Phase 3 stub: throws to make missing implementations obvious in tests + dev.
- */
-export async function writePatientColumn(_args: WritePatientColumnArgs): Promise<WritePatientColumnResult> {
-  throw new Error("lib/intake/write/patient_column.ts not implemented; Phase 4 runtime fills this in per Section 1Q.7 same-transaction discipline.");
+export async function writePatientColumn(
+  args: WritePatientColumnArgs
+): Promise<WritePatientColumnResult> {
+  const result = await writeSingleEmission(
+    { target: 'patient_column', payload: args.payload },
+    {
+      session_id: args.session_id,
+      patient_id: args.patient_id,
+      intake_response_id: args.intake_response_id,
+      interaction_context: args.interaction_context,
+      assertion_group_id: args.assertion_group_id,
+    }
+  );
+  return { id: result.id ?? undefined, audit_event_id: result.audit_event_id };
 }
