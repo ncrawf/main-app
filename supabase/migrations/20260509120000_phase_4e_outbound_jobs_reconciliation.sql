@@ -437,11 +437,11 @@ begin
 end;
 $$;
 
-comment on function public.enqueue_outbound_job(text, jsonb, uuid, text, text, text, text, text, text, text, text, text, text, text, text, text, text, int, timestamptz, timestamptz, int, text, text, text, uuid, text, text, jsonb) is
+comment on function public.enqueue_outbound_job(text, jsonb, uuid, text, text, text, text, text, text, text, text, text, text, text, text, text, int, timestamptz, timestamptz, int, text, text, text, uuid, text, text, jsonb) is
   'Phase 4E canonical enqueue entry for outbound work. Atomic outbound_jobs INSERT + audit_events row. Idempotent on idempotency_key. Cross-org rejection per Section 1U. Caller (lib/outbound/enqueue.ts) handles Zod validation + capability gating before invoking.';
 
-grant execute on function public.enqueue_outbound_job(text, jsonb, uuid, text, text, text, text, text, text, text, text, text, text, text, text, text, text, int, timestamptz, timestamptz, int, text, text, text, uuid, text, text, jsonb) to authenticated;
-grant execute on function public.enqueue_outbound_job(text, jsonb, uuid, text, text, text, text, text, text, text, text, text, text, text, text, text, text, int, timestamptz, timestamptz, int, text, text, text, uuid, text, text, jsonb) to service_role;
+grant execute on function public.enqueue_outbound_job(text, jsonb, uuid, text, text, text, text, text, text, text, text, text, text, text, text, text, int, timestamptz, timestamptz, int, text, text, text, uuid, text, text, jsonb) to authenticated;
+grant execute on function public.enqueue_outbound_job(text, jsonb, uuid, text, text, text, text, text, text, text, text, text, text, text, text, text, int, timestamptz, timestamptz, int, text, text, text, uuid, text, text, jsonb) to service_role;
 
 -- ---------------------------------------------------------------------
 -- 7. Dispatch helpers — pickNextOutboundJob + markDispatchResult
