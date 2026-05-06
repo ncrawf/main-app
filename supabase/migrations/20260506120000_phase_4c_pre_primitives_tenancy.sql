@@ -626,7 +626,7 @@ begin
         coalesce(payload->>'country', 'US'),
         nullif(payload->>'validated_by', ''),
         coalesce((payload->>'is_default')::boolean, false),
-        payload->'metadata'
+        coalesce(payload->'metadata', '{}'::jsonb)
       ) returning id into inserted_id;
 
       insert into audit_events (action, resource_type, resource_id, patient_id, actor_kind, org_id, metadata)
@@ -647,7 +647,7 @@ begin
         payload->>'value',
         coalesce((payload->>'is_default')::boolean, false),
         nullif(payload->>'verified_at', '')::timestamptz,
-        payload->'metadata'
+        coalesce(payload->'metadata', '{}'::jsonb)
       ) returning id into inserted_id;
 
       insert into audit_events (action, resource_type, resource_id, patient_id, actor_kind, org_id, metadata)

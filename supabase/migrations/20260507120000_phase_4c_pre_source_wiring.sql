@@ -381,7 +381,7 @@ begin
         coalesce(payload->>'country', 'US'),
         nullif(payload->>'validated_by', ''),
         coalesce((payload->>'is_default')::boolean, false),
-        payload->'metadata',
+        coalesce(payload->'metadata', '{}'::jsonb),
         coalesce(nullif(payload->>'source_kind', ''), v_default_source_kind),
         coalesce(nullif(payload->>'source_id', ''), v_default_source_id)
       ) returning id into inserted_id;
@@ -405,7 +405,7 @@ begin
         payload->>'value',
         coalesce((payload->>'is_default')::boolean, false),
         nullif(payload->>'verified_at', '')::timestamptz,
-        payload->'metadata',
+        coalesce(payload->'metadata', '{}'::jsonb),
         coalesce(nullif(payload->>'source_kind', ''), v_default_source_kind),
         coalesce(nullif(payload->>'source_id', ''), v_default_source_id)
       ) returning id into inserted_id;
