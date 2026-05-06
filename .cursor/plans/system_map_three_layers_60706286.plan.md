@@ -34,6 +34,137 @@
 - **Layer 1 (capabilities at scale, one login, many domains):** **Roles** in [`lib/auth/capabilities.ts`](../../lib/auth/capabilities.ts) are **coarse** bundles; **`ops_admin`** and **`super_admin`** aggregate **many** **risk** **domains** by design. **Model C** does **not** add a new auth system: **keep** `Capability` + `requireCapability` + `audit_events` + `SensitiveAccessReason` — see **Section 1D.1** and **1D.2** for **multi-capability** **users,** **2–3**-**person** **ops** **vs** **scale,** **time-** **boxed** **elevation** with **reason + audit,** and **what** is **non-optional** before broad **staff** / **multi-** **provider** / **cross-** **domain** **work** is **normal.**
 - **Layer 3 — Deferred / later:** full LIMS-level lab coding, EHR **network** parity, class scheduling, waitlist engines, inventory POs to vendors—**named** in this map and **not** required for the core to stay coherent; a future **dedicated** warehouse/ETL is an **optional** **copy** **pipeline** and **must** **not** replace **Section 1H** as the **definition** of what may be counted and from which sources; not all items need to live in this repo.
 
+---
+
+## System primitives (binding invariants — Layer 1 foundation; precedes Section 1A)
+
+*Per `.cursor/plans/data_layer_reconciliation_e525e9c9.plan.md` (Phase 4B-arch). These are the universal disciplines that travel with every Section. Companion doc: [`.cursor/plans/data_layers_reconciliation_v1.md`](data_layers_reconciliation_v1.md). Implementation lands in **Phase 4C-pre** (single migration adds the missing columns + Zod schema extensions + orchestrator gate).*
+
+### Top-line invariant
+
+**No row enters any canonical table through any path other than the orchestrator boundary.** The orchestrator (Phase 4A `record_intake_emissions_batch` SECURITY DEFINER + `writeEmissions` Zod schemas in `lib/intake/targets.ts`) refuses any row missing the seven primitives below. Direct `INSERT` from app code is forbidden by RLS + capability discipline per `1J.10`. CI lint catches developers who try to bypass the orchestrator.
+
+### Source-of-truth hierarchy (one-line summary)
+
+> **Claims** (`patient_clinical_assertions`) = raw truth; **reconciled entities** (`patient_medications`, `patient_allergies`, `patient_immunizations`, `patient_exam_findings`) = current truth; **observations** (`patient_state_observations`) = measured truth; **decisions** (`eligibility_decisions`) = derived truth.
+
+Per `1K.0.5.4` two-stage flow + `1K.0.5.10` authority + `1M` observation discipline + `1Q` rules-engine outputs.
+
+### Write-authority hierarchy (one-line summary)
+
+> Providers **confirm** (rank 100); providers **assess** (90); labs **derive** (70); documents **extract** (60); patients **self-correct** (50); patients **report** (40); third parties **report** (30); AI **suggests** (20, never authoritative); system **derives** (10).
+
+Pinned in `patient_clinical_assertions.authority_rank` per `1K.0.5.10`. AI never authorizes therapy / clears safety gates / mutates state per `1N`. Read authority is a separate axis governed by RLS + capability + `1J.10` `SensitiveAccessReason`.
+
+### The seven primitives
+
+Every meaningful write through the orchestrator declares all seven (with documented carve-outs). CI lint enforces; orchestrator + Zod + RLS reject violations at runtime.
+
+#### 1. `authored_by` (actor declaration)
+
+Every meaningful write declares its actor. Canonical reference: `patient_clinical_assertions.authored_by` 9-value enum per `1K.0.5.4`:
+
+`patient_reported | patient_self_correction | provider_assessed | provider_confirmed | document_extracted | lab_derived | third_party_reported | ai_suggested | system_derived`
+
+Sibling tables reconcile to compatible vocabularies (not always the same set, but always SOME actor declaration):
+
+- `audit_events.actor_kind` ⊆ `{patient, staff_user, provider_user, system, cron, webhook, partner_adapter, ai_engine}`.
+- `patient_state_observations.source` ⊆ `{patient_self_reported, staff_measured, wearable, lab_derived, document_extracted}` (already locked in Phase 3 schema).
+- `patient_consents.captured_by` ∈ `{patient, staff_witnessed_in_person}` (already locked).
+- `patient_immunizations.source` ∈ `{in_house_administration, external_record_imported, patient_self_reported}` (already locked).
+- `messages.author_role` (already exists in early migration; reconcile to compatible enum during Phase 4D).
+- `outbound_jobs.queued_by_kind` ⊆ `{rule_engine, staff_user, system_cron, ai_assistant_with_human_approval}` (introduce during 1G.3 reconciliation).
+
+CI lint: every new domain table reviewed in PR must declare an actor column or justify its absence in the PR description.
+
+#### 2. source / provenance back-pointer
+
+Every domain row points to where it came from. Two patterns coexist:
+
+- **Clinical claims**: `evidence_refs[]` (jsonb array of `{kind, id, ...}`) per `1K.5.A` — richer; supports multi-source evidence.
+- **Non-clinical rows**: simpler `source_kind + source_id` columns. `source_kind` ∈ `{intake, message, webhook, partner_adapter, document_extraction, provider_decision, system_inference, staff_manual, patient_self, lab_feed}`; `source_id` is the PK of the originating row.
+
+Phase 4A orchestrator already provides `source_intake_response_id` back-pointer for intake-derived writes; Phase 4D-4F extends to provider mutations + partner ingest + system-derived rows.
+
+CI lint: every emission target's payload declares either `evidence_refs[]` or `source_kind + source_id`.
+
+#### 3. `external_id` + `idempotency_key`
+
+Every external-rail interaction declares its keys.
+
+- **Outbound** (we call them): `(external_system_name, external_system_id, idempotency_key)` — replay safe.
+- **Inbound** (they call us): `(external_system_name, external_inbound_event_id)` — dedupe safe.
+
+Already canonical for Stripe via `1I.6` + `stripe_webhook_events`. Pattern extended via `1L.14` / `1L.23.3` adapter contract shape to:
+
+- Twilio (`twilio_message_sid` outbound; inbound message SID).
+- Resend (`resend_email_id` outbound; webhook receipt id inbound).
+- Partner pharmacy (vendor order id; delivery webhook id).
+- Lab vendor (sample id; result webhook id).
+- Identity-verification provider (verification job id; webhook id).
+
+CI lint: every adapter declares its three keys per the `1L.14` / `1L.23.3` contract shape.
+
+#### 4. `data_environment` (test-vs-prod isolation)
+
+Every `patients` row declares its environment. Enum: `production | staging | internal_qa | synthetic`. FK propagation: every child row inherits the patient's environment via `patient_id`.
+
+**Suppression rules (binding)**:
+
+- `outbound_jobs` checks the patient's `data_environment` before dispatching; non-`production` patients route to a sandbox or are dropped per env.
+- Metrics + dashboards (`1H.6`) filter to `production` by default.
+- Search (`1R`) filters to `production` by default; non-`production` only visible to staff with `can_see_test_data` capability.
+- AI training (`1N`) excludes non-`production` rows.
+
+**Why structural, not policy**: every developer / QA / synthetic pattern goes through ONE column check; you cannot accidentally text a real Twilio number for a synthetic patient. The test environment is structurally safe, not policy-only.
+
+CI lint: any code path that calls Stripe / Twilio / Resend / pharmacy / lab outbound MUST gate on `data_environment === 'production'` or carry an explicit override.
+
+#### 5. temporal truth (`effective_at` + `recorded_at`)
+
+Every clinical / observation / decision row distinguishes **when it was true** (effective) from **when it was said** (recorded). Real-world example: patient says today *"I stopped metformin 3 weeks ago"* → `recorded_at = today`, `effective_at = 3 weeks ago`. Without this, timelines are wrong and rules engine makes wrong decisions.
+
+Already partly locked:
+
+- `patient_clinical_assertions.onset_at` + `resolved_at` (effective) + row `created_at` (recorded).
+- `patient_state_observations.observed_at` (effective) + row `created_at` (recorded).
+- `eligibility_decisions.decided_at` (effective) + row `created_at` (recorded).
+- `audit_events.created_at` (occurred).
+
+CI lint: every new clinical / observation / decision table declares both axes.
+
+#### 6. enums as code-as-config
+
+All enums are centrally defined in TypeScript (`lib/intake/*.ts` registries) + versioned + reviewed via PR. No ad-hoc string literals invented inline at write sites. Phase 3 + 4A already established the pattern (`AUTHORED_BY_VALUES`, `ASSERTION_TYPE_VALUES`, `ASSERTION_STATUS_VALUES`, `ANSWER_TYPES`, `CONCEPT_TYPES`, `ConsentType`, `EmissionTarget`, `INTAKE_EVENT_ACTIONS`, ~12 enums currently).
+
+CI lint: new enums must live in `lib/` typed registries; DB CHECK constraints reference the registry vocabulary, never invented per-row.
+
+#### 7. named-read-function discipline
+
+App code reading clinical / observation / decision data goes through named functions in `lib/intake/views/*` or `1H` read models. Direct `SELECT * FROM patient_clinical_assertions WHERE...` from app code is forbidden (carve-out for the views file itself). Named reads are **pure functions of canonical state** — they MUST NOT contain business logic, rule firings, or AI inference. Business logic lives in `1Q` rules engine; AI inference lives in `1N`.
+
+This is the WRITE-path resolver vs READ-path views distinction:
+
+- **WRITE-path resolver** (Phase 4C-runtime): translates intake `Question.emissions` templates + `raw_value` into resolved `Emission[]`.
+- **READ-path views** (`lib/intake/views/*`): pure projections of canonical state for dashboards / UI / AI input.
+
+CI lint: direct table reads from app code outside `lib/intake/views/*` flagged.
+
+### Four-tier enforcement (binding)
+
+The seven primitives are enforced at four tiers; each tier catches violations the next tier might miss:
+
+1. **Zod schemas** (`lib/intake/targets.ts`) refuse incomplete payloads at the runtime boundary.
+2. **`record_intake_emissions_batch`** (Phase 4A SECURITY DEFINER function) rejects rows missing required columns at the DB transaction boundary.
+3. **RLS + capability** discipline blocks non-orchestrator writes per `1J.10` mutation discipline + `Section 1D` capability gates.
+4. **CI lint** catches developers who try to bypass the orchestrator.
+
+### Cross-link
+
+Companion doc `data_layers_reconciliation_v1.md` Section 7 has the full CI lint catalog (15 lint rules) implied by these primitives. Phase 4C-pre adds the columns + Zod extensions + orchestrator gate. All later phases (4C-runtime resolver, 4D artifacts, 4E outbound jobs, 4F event catalog, 4G search, 4H rules + governance) write rows that already satisfy the primitives.
+
+---
+
 ## Repo anchors
 
 | Area | Where to look |
@@ -76,6 +207,13 @@
 | **Inbound attribution, source→outcome, external ad conversion I/O, marketing read access (no CRM/growth product in core)** | **Section 1H.4** — intake/`patients`·`metadata`, `care_program`·`metadata`, `patient_timeline_events`, `treatment_orders`, 1E sessions, 1I, **1G.3**; **optional** edge/adapter to ad networks; **AI** = **internal** analysis on **aggregates** only (not execution, not PHI export) |
 | **Marketing / growth staff surface (the “where do I go?”)** | **Section 1H.4.1** — internal route under `app/internal/(protected)/growth/**` + **`can_view_growth_aggregates`** in `lib/auth/capabilities.ts` + **view contract** (aggregates over 1H, stratified by **1H.4** keys, small-cell suppression); **no** raw DB / `super_admin` shortcut |
 | **Third-party verification readiness (LegitScript-style auditability posture)** | **Section 1H.5** — provider-decision attribution, intake-to-decision linkage, active 1G.2 safety-check evidence, Rx→fulfillment traceability, and role-gated audit operations using `audit_events` + `patient_timeline_events` + 1G.1 / 1H.1 (no separate compliance module) |
+| **System primitives (binding invariants — top-of-map addendum)** | **System primitives addendum** (above Section 1A) — seven universal invariants (authored_by, source/provenance, external_id+idempotency_key, data_environment, temporal truth, enum-as-config, named-read-function); top-line "no row enters except through orchestrator boundary"; four-tier enforcement (Zod / orchestrator / RLS / CI lint); source-of-truth + write-authority one-line summaries |
+| **Search & lookup (pg_trgm + GIN now, adapter for Elastic later)** | **Section 1R** — `searchEntities()` adapter; named indexed entities (patients / orders / messages / documents / labs / subs / actions); capability-gated reads; `data_environment` + `org_id` filter baked in; reconcile or deprecate `site_search_entries` early migration in Phase 4G |
+| **Event-stream readiness (Kafka-shaped, but not Kafka)** | **Section 1S** — design-now, defer-runtime; spine tables (`audit_events`, `patient_timeline_events`, `outbound_jobs`, `domain_events`) carry stable versioned `event_type` + partition keys (`patient_id`, `org_id`) + idempotency keys + append-only; future `eventStreamPublisher` adapter; explicit no-Kafka-now |
+| **Vector / ML / embedding readiness** | **Section 1T** — design-now, defer-runtime; future `*_embeddings` tables joined by stable entity ids (`concept_id`, `patient_document_routing.id`, `inbound_narrative_reviews.id`, `messages.id`, `patient_clinical_assertions.id`); pgvector default; PHI / de-identification posture; AI engine `1N` is the only consumer |
+| **Multi-org / multi-tenant partition discipline (org_id everywhere)** | **Section 1U** — `org_id` on every patient-scoped row (default `'main'` v1); RLS forbids cross-org reads; capability `org_scope`; partition-key alignment with Section 1S; one paragraph future host-org / tenant-org model; mechanical `org_id` add in Phase 4C-pre |
+| **Data governance — retention, deletion, RTBF, lifecycle** | **Section 1V** — six retention classes (Clinical / Identity / Insurance / Messages / Audit / Marketing); soft-vs-hard delete per class; uniform `active → inactive → archived → retention-expired → deleted` lifecycle; SAR + RTBF as future rules-engine outputs; backfill / migration discipline addendum (1V.7); `audit_events` on every deletion |
+| **Data layers reconciliation (companion strategy doc)** | [`.cursor/plans/data_layers_reconciliation_v1.md`](data_layers_reconciliation_v1.md) — Phase 4B-arch readable strategy: 11 layers + per-layer table + early migration audit + integrated runtime diagram + Phase 4C-H roadmap + 15-rule CI lint catalog + misread citations |
 
 When you add a **new** staff mutation path, default to `requireCapability` and document the capability in `capabilities.ts`. **Subprocessors** (host, DB, email/SMS, payments, storage) that touch PHI or PHI-adjacent payloads: **signed** **vendor** terms and **data-minimization** in **logs** and **integrator** **dashboards** are a **Layer 1** **operational** **requirement**, not **optional** if you want a **defensible** posture.
 
@@ -442,6 +580,8 @@ The **map** already **requires** server **permit** assert on approve/prescribe (
 ### 1G.3 Continuation, adherence, re-engagement, and notification discipline (not subscription-only; pressure test)
 
 *Assumptions: **1G.2** (clinical safety at decision time) is in place; this subsection is about **engagement and retention mechanics**, not additional clinical decision safety. **No** CRM, growth stack, or parallel engagement product. **Reuse** only: 1G/messaging, 1H notifications, `outbound_jobs`, `patient_timeline_events`, `treatment_items.metadata` (continuation and due policies), check-ins (1F), 1I as **money + cadence**—not as the sole proxy for “doing well.”*
+
+**Reconciliation pointer (Phase 4B-arch; per `.cursor/plans/data_layer_reconciliation_e525e9c9.plan.md`)**: `outbound_jobs` is the SINGLE canonical durable-job queue. The early `patient_notification_deliveries` table (from `20260421120000_patient_notification_deliveries.sql`) is a LEGACY-RECONCILE candidate: a delivery-receipt sub-pattern is fine but should reference `outbound_jobs.id`, not be parallel. Phase 4E consolidates. `outbound_jobs` shape MUST extend to declare `queued_by_kind` (per system primitives addendum #1: `rule_engine | staff_user | system_cron | ai_assistant_with_human_approval`) AND `data_environment` (per primitives addendum #4) gate before dispatch. Synthetic / non-`production` patients are dropped or sandboxed at dispatch — structurally impossible to text a real Twilio number for a synthetic patient. Companion doc: [`data_layers_reconciliation_v1.md`](data_layers_reconciliation_v1.md) Section 6 phase 4E.
 
 *Pressure* *-* *test* *: * the map centers continuation on **Stage 6,** `next_checkin_at` / `next_refill_due_at` / `next_visit_at`, **1G** *stale* *+* *T1* *–* *T3* *,* *and* *`clinical_required` *as* *the* *gating* *messaging* *turn* *—* *strong* *on* *“*what* *next* *clinically* *and* *by* *whom* *”* *and* *weaker* *on* *explicit* **adherence,** *lightweight* **outcome* */* *progress* **(beyond* *billing)**, *and* *a* *unified* **at-risk** *lens* *for* *paid* *but* *static* */* *dropping* *patients* *—* *addressed* *by* *deriving* *signals* *below* *and* *surfacing* *in* *provider* */* *ops* *rosters* *(*1G* *+ *1H) *.*
 
@@ -2094,6 +2234,8 @@ The product may use the same **1G / 1H / 1N** assistive pattern to **rank,** **s
 
 ### 1H.5 Third-party verification readiness (audit posture; no new compliance product)
 
+**Reconciliation pointer (Phase 4B-arch; per `.cursor/plans/data_layer_reconciliation_e525e9c9.plan.md`)**: the canonical event-action catalog is **code-as-config typed registry** (mirrors `lib/intake/events.ts` Phase 4A pattern). Every `audit_events.action` value AND every `patient_timeline_events.event_type` value MUST exist in the typed registry — never invented inline at write sites (per system primitives addendum #6 enum-as-config). `audit_events` carries `actor_kind` consistent with the AUTHORED_BY enum per primitives addendum #1. Phase 4F completes the catalog; CI lint enforces. Both early-migration tables align canonically; needs catalog audit not redesign. Companion doc: [`data_layers_reconciliation_v1.md`](data_layers_reconciliation_v1.md) Section 6 phase 4F.
+
 *Pressure-test:* External certification bodies (e.g. **LegitScript-** or **HITRUST-**class reviewers, state pharmacy boards, payer audits, partner due-diligence) ask provable, repeatable questions: *"Show every Rx written this week with the prescriber identity, intake basis, safety check, and fulfillment chain. Prove no automated prescribing path. Prove marketing did not influence clinical decisions. Show your audit trail and access logs."* The map's **already-named** spines — **1G** (case ownership, permit, classification), **1G.2** (active safety enforcement at decision time), **1H.1** (operational trace), **1I** (money state + reconciliation), **1J** (identity, merge, gaps) and **1J.10** (safety preflight), **1D** (capabilities + audit) — supply the **ingredients.** **1H.5** names the **verification posture** that makes those ingredients **provable** to an external reviewer **without** a separate compliance app, parallel "audit DB," or duplicated vendor product.
 
 *Reject:* A "compliance module" that re-stores the same facts in its own tables; ad-hoc CSVs assembled per audit; "trust us, we have a policy" as a substitute for a queryable trail.
@@ -3240,6 +3382,8 @@ Most concept_types stay in the claim ledger forever (conditions, symptoms, famil
 **Future promotion candidates (per Section 1K.14 promotion-trigger discipline):** patient_problems (ICD-10 coded problem list with billing integration); patient_genomics; patient_genetic_tests; patient_signs_and_symptoms (if the symptom workflow becomes complex enough to need first-class shape).
 
 #### 1K.0.5.6 Event-sourcing framing — why claim ledger AND reconciled entities, not one or the other (binding; pressure-tested)
+
+**Replayability invariant (binding; per Phase 4B-arch system primitives addendum)**: reconciled entities must always be derivable from the claim ledger. No write may break replayability. Any new reconciled-entity table MUST include a `source_assertion_id` back-pointer to the originating claim row. Any reconciliation logic MUST be deterministic and re-runnable: given the same claim ledger + reconciliation rules, the entity state must be reproducible. CI lint enforces.
 
 The claim-ledger-vs-reconciled-entity architecture is the same shape **Tesla autonomy + Amazon order pipelines** use. Documented here so the question "should we just collapse these?" has a permanent answer.
 
@@ -5384,6 +5528,15 @@ CI lint enforces presence of `provenance` on every `patient_diagnostic_reports` 
 
 **Section 1E** (commerce/catalog), **Section 1F** (provider-collected encounters when applicable), **Section 1G** (case ownership, permits, AI assist, exception handling, oversight), **1G.4 / 1G.4.1** (jurisdiction routing + multi-state runtime), **1G.5** (exception handling for lab failures), **1G.6 / 1G.6.2** (workspace + admin overlay), **1G.7 / 1G.7.5b / 1G.7.6 / 1G.7.7a** (routing, SLA enforcement, queue lifecycle, coverage-gap view), **1G.8 / 1G.8.7** (provider workspace + lab review drawer), **1G.9 / 1G.9.4 / 1G.9.13** (CoR continuity, lab follow-up routing, transfer reason codes), **1H.1** (operational trace), **1H.2** (platform ownership for vendor outages), **1H.3** (reconciliation, drift), **1H.6 / 1H.6.1D** (daily metrics + baseline severity), **1H.7 / 1H.7.6a** (reporting + continuity-health slice), **1I / 1I.1 / 1I.2 / 1I.4 / 1I.6 / 1I.7** (kit fee, if-prescribed authorization, subscription rails, reconciliation, refunds), **1J / 1J.10 / 1J.11** (identity, safety preflight, abuse), **1K / 1K.7 / 1K.8 / 1K.10** (intake routing to labs, lab requirement modules, treatment_plan_candidate), **`1K.5.A`** (lab-derived clinical assertion emitter — when interpretation per `1L.20` triage flags a result `abnormal`/`critical` against a concept that has a `default_authority_floor` declared, an internal emitter calls `recordClinicalAssertion` with **`authored_by` derived from the source quality of the `patient_diagnostic_report` (binding):** (a) `vendor ∈ {lab_partner, at_home_kit, device}` AND `lab_order_id IS NOT NULL` (we ordered through our partner) → `authored_by = lab_derived` + `confidence = high` (highest lab-tier authority; satisfies concept `default_authority_floor = lab_derived` per `1J.10` gate policy); (b) `vendor = lab_partner` AND `lab_order_id IS NULL` (cross-vendor feed for an outside-ordered lab) → `authored_by = lab_derived` + `confidence = moderate` (still vendor-issued and structured but outside-ordered; concept-specific policy may require provider review for full satisfaction); (c) `vendor = external_upload` AND values extracted via AI/OCR from a PDF (raw_* metadata indicates extraction) → `authored_by = document_extracted` + `confidence = moderate` (cannot satisfy `default_authority_floor = lab_derived` until a provider supersedes via `recordClinicalAssertion` with `authored_by = provider_assessed`); (d) `vendor = external_upload` AND values manually entered by ops/provider from a paper record → `authored_by = provider_assessed` + `confidence = high` + `status = provider_confirmed` (provider validated by entering); `evidence_refs = [{kind: 'patient_lab_observation', id, loinc_code} or {kind: 'patient_diagnostic_report', id, report_kind}]`; provider review per `1G.7` / `1G.10.1` results in a `provider_confirmed` or `provider_rejected` supersession that can elevate any outside-source lab to gate-satisfying authority. **Patient-reported lab values without a document or vendor feed** (e.g., "my A1c was 7.0 last year, no paperwork") create an assertion ONLY (no `patient_lab_observations` row, no `patient_diagnostic_reports`) with `authored_by = patient_reported`, `metadata.value`, `metadata.units`, `metadata.observation_date_estimated`, `metadata.value_source = 'patient_self_report'` — these never satisfy lab-tier authority floors per the existing assertion authority discipline), **Section 1N** (AI assistive layer for ingest summarization + provider drafting), **Lab Appendix §1–§31** (detailed mechanics retained as the implementation reference), `lab_orders`, `patient_diagnostic_reports`, `patient_lab_observations`, `patient_clinical_assertions` (per `1K.5.A`), `commerce_orders` / `treatment_orders`, `outbound_jobs`, `patient_timeline_events`, `audit_events`, `staff_profiles`.
 
+### 1L.17a Reconciliation pointer (Phase 4B-arch; per `.cursor/plans/data_layer_reconciliation_e525e9c9.plan.md`)
+
+Two pre-map lab-related migrations are KEEP-WITH-AUDIT (alignment with canonical 1L.3-1L.18 confirmed in Phase 4F):
+
+- `lab_orders_and_storage` (from `20260423150000_lab_orders_and_storage.sql`) → `lab_orders` table + storage canonical per Section 1L; Phase 4F audit confirms `lab_orders.status` state machine matches `1L.4`; vendor adapter shape matches `1L.14`; carries `external_id + idempotency_key` per system primitives addendum #3.
+- `chart_ai_reviews_and_lab_observations` (from `20260426100000_chart_ai_reviews_and_lab_observations.sql`) → `patient_lab_observations` + AI review hooks canonical per Section 1L + 1N; Phase 4F audit confirms observation normalization (`1L.6`) + AI assistive discipline (`1N.4 output discipline; never authoritative`).
+
+No reshape needed; columns extend additively to carry primitives addendum invariants (`authored_by`, `data_environment`, `org_id`) in Phase 4C-pre. Companion doc: [`data_layers_reconciliation_v1.md`](data_layers_reconciliation_v1.md) Section 4 early migration audit.
+
 ### 1L.18 Implementation guardrails (enforced; non-optional)
 
 These are **not guidelines**. These are **hard system constraints** for the diagnostics + lab testing layer. Each guardrail is enforced server-side at the named mutation surface; violations block deployment or runtime, not warnings.
@@ -6441,6 +6594,16 @@ Sustained Action-needed/Critical on these signals trigger `1G.5` exception with 
 
 **Structured document extraction (typed schema, OCR with field-level extraction, partner-supplied structured exports of medical history) ALWAYS rides `1O.14` document-extracted emitter** → `recordClinicalAssertion` with `authored_by = document_extracted`, `confidence = moderate`, `status = unconfirmed`. **Free-form document narrative without structure** (e.g., a patient pastes a long medical history with no schema, or a PDF chart-summary narrative without typed fields) flows through **`Section 1P` inbound narrative atomization pipeline** like other narrative — produces atoms with `authored_by = ai_suggested` (clinical) + `evidence_refs.kind = patient_document_routing` back to the routing manifest. Mixed documents (typed-schema fields + free-form narrative sections) produce **two emitter streams sharing one `inbound_narrative_review_id`**: structured stream rides `1O.14` (writes `document_extracted`); narrative stream rides `Section 1P`. **CI lint enforces:** `document_extracted` authority is reserved exclusively for structured-extraction outputs (typed schema, OCR with field-level extraction, partner-supplied structured exports); free-form document narrative without typed-schema extraction uses `ai_suggested` authority via `Section 1P` — never `document_extracted`.
 
+### 1O.13b Reconciliation pointer (Phase 4B-arch; per `.cursor/plans/data_layer_reconciliation_e525e9c9.plan.md`)
+
+Three pre-map exploratory upload tables from the early-build era are LEGACY-RECONCILE candidates that converge on the canonical `patient_document_routing` manifest in Phase 4D:
+
+- `intake_uploads_storage` (from `20260423120000_intake_uploads_storage.sql`) → intake-side capture flows MUST route through `routePatientDocument` per `1O.5`; `patient_document_routing.id` references replace direct row writes; existing blobs in storage stay in place.
+- `rx_artifacts_storage` (from `20260422110000_rx_artifacts_storage.sql`) → Rx-specific artifact storage migrates to `external_clinical_documents` target row + `patient_document_routing` manifest; blobs preserved.
+- `clinical_visit_pdf_artifacts` (from `20260423173000_clinical_visit_pdf_artifacts.sql`) → clinical-visit PDFs route through canonical manifest with `domain_target = external_clinical_document` + `metadata.kind = 'clinical_visit_summary'`; blobs preserved.
+
+The user's seven artifact categories (identity / clinical / patient photos / consent legal / insurance admin / message attachments / provider docs) map directly to the `1O.3` input-type vocabulary cell-by-cell — no new categories needed. File-list reads filter on `data_environment` per system primitives addendum #4 (synthetic patients invisible by default). Companion doc: [`data_layers_reconciliation_v1.md`](data_layers_reconciliation_v1.md) Section 6 phase 4D.
+
 ### 1O.14 Cross-links
 
 `Section 1J` (identity confidence consumes ID-verification status from `Section 1O`), `1J.4` (confidence levels), `1J.10` (safety preflight reads ID-verification status), `Section 1G` (messaging attachments route through `Section 1O`; `1G.5` exception classification for stuck routing; `1G.8.7` provider lab/state review drawer; `Section 1G` AI layer for assistive extraction), `Section 1H` (`1H.7` reporting; `1H.6.1D / 1H.6.1F / 1H.6.1G / 1H.6.1H` severity / status / stale-critical / correlation framework reused), `Section 1K` (intake captures supporting documents via `Section 1O`; intake never stores files; per `1K.1`, `1K.3`, `1K.5`, `1K.14`), **`1K.5.A`** (document-extracted clinical assertion emitter — when AI extraction against an outside-records PDF or transferred chart produces a structured clinical claim mapped to a registered `concept_id`, an internal emitter calls `recordClinicalAssertion` with `authored_by = document_extracted`, `confidence = moderate`, `status = unconfirmed`, `evidence_refs = [{kind: 'patient_document_routing', id, document_kind, page}]`; `Section 1O` never writes to `patient_clinical_assertions` or `patients.*` chart columns directly), `Section 1L` (lab documents arriving via `Section 1O` follow `1L.5` orphan-binding; `1L.18` mutation discipline mirror), `1L.23` (kit logistics evidence routing parallel pattern), `Section 1M` (when a document upload yields a trackable value, e.g., a home BP reading attached as a photo, the structured value writes to `patient_state_observations` via the appropriate extraction job; the document itself routes via `Section 1O`), `Section 1N` (AI assistive extraction reads from `Section 1O` manifests, never authoritative), `1D / 1D.1` (capabilities incl. `can_reclassify_patient_document`), Intent (Layer 1 data architecture rule; service-role discipline; `SensitiveAccessReason`), existing tables: `patient_document_routing` (new manifest), `patient_diagnostic_reports`, `patient_lab_observations`, identity-verification table (per `1O.4.1`), insurance-eligibility table (per `1O.4.2`), external clinical document table, `audit_events`, `patient_timeline_events`, object storage.
@@ -7125,6 +7288,8 @@ Deterministic pipeline (binding):
 7. **Audit + side effects** — emit typed `audit_events` row with `rule_id`, `rule_version`, `template_key`, `template_version`, `evidence_refs`, `ai_refinement_log?`, `decision_outcome_reason`, `actor_user_id`, `pathway_code`, `jurisdiction`. Side effects (Mode F enqueue, action item creation, send-policy-gated message) fire here.
 
 ### 1Q.7 Three-tier governance + versioning + audit
+
+**Reconciliation pointer (Phase 4B-arch)**: the privacy-gate event_type vocabulary defined in this section (`notification.privacy_exposure_check`, `notification.dispatch_blocked_by_privacy_check`, `notification.consent_uplift_required`, `notification.emergency_vague_override_fired`, `notification.suppressed_during_safety_window`, `notification.clarification_escalated_to_phone`, `pathway.closed_clarification_unanswered`, `provider_decision.flagged_stale_pending_review`, `campaign_recall_issued`, `campaign.exit_due_to_recall`, `notification.cancelled_pre_send_contact_info_changed`, `notification.cancelled_pre_send_jurisdiction_changed`, `rule.firing_overridden`) is part of the typed code-as-config registry per system primitives addendum #6 + 1H.5 reconciliation pointer. Every event_type fires through the registry, never inline. Actor declaration on every audit row per primitives addendum #1.
 
 | Tier | Owns | Approval required for |
 |---|---|---|
@@ -9139,3 +9304,355 @@ The admin overlay (`1G.6.2`) gains a small set of lab-specific saved views so op
 ---
 
 *End of lab appendix — “no parallel lab system”; chain is raw → report → observation → review → patient → next action.*
+
+---
+
+## Section 1R: Search & lookup (foundational; pg_trgm + GIN now, adapter pattern for Elastic later)
+
+*Layer 2 architectural rule: search is a **named adapter** (`searchEntities`), never direct LIKE queries against domain tables. Section 1R defines the binding contract; v1 implementation is Postgres trigram + GIN; future swap to Elastic / OpenSearch happens behind the same adapter without callers changing. Per Phase 4B-arch: directional posture only; runtime ships in Phase 4G after artifacts (4D), outbound jobs (4E), and event catalog (4F).*
+
+### 1R.1 Scope and non-goals
+
+- **In scope:** patient lookup (name / email / phone / DOB), order lookup (Rx number / order id), message search, document lookup, lab-order lookup, action-item lookup, subscription lookup. Capability-gated reads.
+- **Out of scope:** AI semantic search (lives in `1N` + `1T` future vector layer); analytics/funnel queries (live in `1H`); cross-org search (forbidden by `1U`).
+- **No external search engine in v1.** Everything is Postgres pg_trgm + GIN. The map explicitly rejects Elasticsearch / Algolia / Typesense as v1 dependencies.
+
+### 1R.2 Binding contract: `searchEntities()`
+
+All staff-facing search goes through one named function:
+
+```ts
+searchEntities({
+  query: string,
+  scope: 'patients' | 'orders' | 'messages' | 'documents' | 'lab_orders' | 'subscriptions' | 'action_items' | 'all',
+  capability: Capability,
+  org_id: string,                            // required; per Section 1U
+  data_environment?: 'production' | 'all',   // default 'production'; non-prod requires can_see_test_data
+  limit?: number,
+  offset?: number,
+}): Promise<SearchResult[]>
+```
+
+Direct `SELECT ... LIKE '%query%' FROM patients` is forbidden (CI lint). Every search call site goes through `searchEntities`.
+
+### 1R.3 Indexed entities (named, not built)
+
+| Entity | Indexed columns | Notes |
+|---|---|---|
+| `patients` | `legal_first_name`, `legal_last_name`, `email`, `phone`, `dob` | trigram on names; B-tree on email + phone + dob |
+| `treatment_orders` | `id`, `metadata.rx_number` (when present), `pathway_code` | exact match preferred |
+| `messages` | `body` (trigram + GIN); `message_thread_id` | capability-gated; sensitive-access-reason logged |
+| `patient_document_routing` | `id`, `input_type`, `metadata.partner_source_id` | capability-gated |
+| `lab_orders` | `id`, `panel_type`, `vendor_order_id` | per `1L.14` |
+| `subscriptions` | `id`, `pricing_profile_id`, `pathway_code`, `stripe_subscription_id` | per `1I` |
+| `patient_action_items` | `id`, `kind`, `state` | per `1G.11.2` |
+
+### 1R.4 Capability-gated reads
+
+- **Provider** can search patients in their queue (`care_program.responsible_user_id = me` or `clinical_visits.prescriber_id = me`); cross-patient global search requires `can_search_globally` + `SensitiveAccessReason` per `1J.10` discipline.
+- **Ops** can search globally with audit per `Section 1D`.
+- **Patient** can search their own data only (RLS enforces `patient_id = current_user_patient_id()`).
+- **Marketing** has no search access to PHI; aggregate-only reads via `1H.4.1`.
+
+### 1R.5 Adapter pattern (future swap)
+
+`searchEntities` is the only call site. Today it executes pg_trgm + GIN against the canonical tables. Tomorrow it can route to Elasticsearch / OpenSearch / Typesense without callers changing. The decision to swap depends on:
+
+- p95 search latency > 200ms sustained on production volume.
+- Need for ranking / fuzzy / multi-field weighting that pg_trgm can't satisfy.
+- Need for stemming / synonyms / language-specific tokenization.
+
+Until then: pg_trgm + GIN. Indexes added per-entity on first search-surface need; not pre-built across the universe.
+
+### 1R.6 Reconciliation: `site_search_entries` early migration
+
+The pre-map `site_search_entries` table (from `20260423180000_site_search_entries.sql`) predates Section 1R. Phase 4G audit decides:
+
+- (a) Promote `site_search_entries` to canonical search-index pattern (denormalized projections kept fresh by triggers); OR
+- (b) Deprecate; rely on direct trigram/GIN against canonical tables.
+
+Decision deferred to Phase 4G when the first staff-search surface ships. Until then: `site_search_entries` is RECONCILE per the early-migration audit in `data_layers_reconciliation_v1.md`.
+
+### 1R.7 Section 1R explicitly rejects
+
+- Direct `LIKE` queries from app code (use `searchEntities`).
+- Cross-org search by default (RLS enforces `org_id` boundary per `1U`).
+- Search results that include non-`production` rows for unprivileged staff (per primitives addendum #4).
+- Global-search capability granted to roles other than ops + admin (sensitive-access-reason logged).
+
+### 1R.8 Cross-links
+
+`Section 1D` (capabilities), `Section 1J.10` (sensitive-access-reason), `Section 1U` (org boundary), `Section 1H` (read models, aggregate analytics — distinct from search), `Section 1N` (AI semantic search — future, distinct), `Section 1T` (future vector layer — distinct), `Section 1G.8` (provider workspace surfaces consume `searchEntities`), `Section 1H.6.2` (operator dashboards), system primitives addendum (data_environment + org_id filters baked in).
+
+---
+
+## Section 1S: Event-stream readiness (foundational; design-now, defer-runtime)
+
+*Layer 1 architectural rule: the four spine tables (`audit_events`, `patient_timeline_events`, `outbound_jobs`, `domain_events`) are designed to be replay-streamable later via CDC / Debezium / Kafka without schema rework. v1 has no streaming runtime; Section 1S codifies the discipline so a future swap is mechanical, not a schema migration. Per Phase 4B-arch: directional posture only; runtime defers indefinitely until volume signals demand it.*
+
+### 1S.1 Scope and non-goals
+
+- **In scope:** the discipline that the four spine tables follow today, so a future stream consumer (Kafka / Kinesis / Redpanda / Supabase Realtime) can read them via CDC without schema rework.
+- **Out of scope:** running Kafka now, dual-writing to a parallel queue, in-process pub/sub that bypasses the spine.
+- **No streaming runtime in v1.** Section 1S is a **constraint document**, not a build phase.
+
+### 1S.2 Spine table invariants (binding)
+
+Every row in the four spine tables carries:
+
+- **Stable, schema-versioned `event_type`** — values from the typed registry (`lib/intake/events.ts` pattern; per primitives addendum #6 + 1H + 1Q.7 reconciliation pointer). Schema version pinned in payload (`payload.schema_version`).
+- **Partition key**: `patient_id` (when patient-scoped) + `org_id` (per `1U`). Streams shard naturally on these.
+- **Idempotency key**: `idempotency_key` column for outbound effects (`outbound_jobs`); for `audit_events` and `patient_timeline_events`, the row's `id` is the idempotency anchor (append-only; no updates).
+- **`occurred_at`** (the canonical timestamp of when the event truly happened) — distinct from `created_at` (when the row was inserted). Per primitives addendum #5 temporal truth.
+- **Append-only**: never updated; supersession via new row pointing back via `supersedes_*_id`. Per `1H` discipline.
+- **Payload jsonb**: minimal; ids + flags only; no narrative PHI per `1H.5` audit-evidence rule.
+
+CI lint: any new spine row that omits these is rejected.
+
+### 1S.3 Future `eventStreamPublisher` adapter (named, not built)
+
+Single named adapter:
+
+```ts
+publishToStream(rowId: string, table: 'audit_events' | 'patient_timeline_events' | 'outbound_jobs' | 'domain_events'): Promise<void>
+```
+
+v1 implementation: no-op (rows already exist in Postgres; no stream).
+Future implementation: Debezium CDC against the four tables → Kafka topic per `org_id` shard.
+
+The adapter is invoked from a single CDC source, never from app code (which would risk dual-write divergence).
+
+### 1S.4 Why this matters now (cheap-now-expensive-later)
+
+If the four spine tables already follow the invariants, future streaming is mechanical:
+
+- Add a `_stream_published_at` column (additive, idempotent).
+- Configure Debezium / Supabase Realtime against the four tables.
+- Consumers read from Kafka topics; no schema migration; no app-code change.
+
+If the invariants are NOT followed (mutable rows, ad-hoc event_types, missing partition keys, narrative PHI in payloads), future streaming requires a parallel "stream-only" event table + dual-write + reconciliation — a multi-quarter retrofit.
+
+### 1S.5 Section 1S explicitly rejects
+
+- Dual-write to a parallel queue (drift; reconciliation pain).
+- In-process pub/sub that bypasses the spine (audit gap; replay impossible).
+- Mutable rows in the four spine tables (breaks CDC ordering).
+- Inline string `event_type` literals at write sites (per primitives addendum #6).
+- Narrative PHI in spine payloads (audit-evidence rule).
+
+### 1S.6 Cross-links
+
+`Section 1H` (operational traceability + read models), `Section 1H.5` (audit evidence), `Section 1H.3` (idempotency / reconciliation / drift), `Section 1G.3` (`outbound_jobs` send-policy gate), `Section 1Q.7` (rule-firing audit + event_type catalog), `Section 1U` (`org_id` partition key), system primitives addendum (#5 temporal, #6 enum-as-config), companion doc `data_layers_reconciliation_v1.md` Section 6 (defer to indefinite future phase).
+
+---
+
+## Section 1T: Vector / ML / embedding readiness (foundational; design-now, defer-runtime)
+
+*Layer 2 architectural rule: every entity that may eventually carry an embedding already has a stable id we can join on; future embedding tables (`*_embeddings`) join via FK. Section 1T codifies the join-key contract + retention/de-identification posture so future ML adoption is mechanical. Per Phase 4B-arch: directional posture only; runtime ships when a concrete need lands (likely message semantic search or lab-PDF semantic extraction).*
+
+### 1T.1 Scope and non-goals
+
+- **In scope:** the join-key contract that future embedding tables will use, plus retention + PHI / de-identification posture.
+- **Out of scope:** building embedding tables now, choosing a model now, running inference now.
+- **No vector store in v1.** Section 1T is a **constraint document**, not a build phase.
+
+### 1T.2 Future join keys (named, not built)
+
+Every entity that may eventually carry an embedding already has a stable id available for FK join:
+
+- `clinical_concepts.concept_id` — for concept-similarity search (e.g., "find conditions similar to `condition.hypogonadism`").
+- `patient_document_routing.id` — for document-content embeddings (after OCR/extraction per Section 1O).
+- `inbound_narrative_reviews.id` — for narrative-content embeddings (per Section 1P).
+- `messages.id` — for message-thread semantic search (capability-gated).
+- `patient_clinical_assertions.id` — for problem-list semantic clustering.
+- `patient_state_observations.id` — for symptom-trajectory embeddings (future).
+
+### 1T.3 Future shape (directional)
+
+When the first need lands, embedding tables follow this shape:
+
+```
+{entity}_embeddings (
+  id uuid primary key,
+  entity_id uuid not null,                  -- FK to source row
+  org_id uuid not null,                     -- per Section 1U
+  model_name text not null,                 -- e.g., 'openai-text-embedding-3-small'
+  model_version text not null,
+  vector vector(N),                         -- pgvector default; N depends on model
+  generated_at timestamptz not null,
+  generated_by text not null,               -- per primitives addendum #1 authored_by
+  metadata jsonb
+)
+```
+
+`pgvector` is the default Postgres extension. Alternative providers (Pinecone / Weaviate) plug in via adapter, never directly from app code.
+
+### 1T.4 De-identification + retention
+
+- Embeddings of PHI rows are PHI-equivalent; same RLS as the source row; same `data_environment` filter; same `org_id` partition.
+- External LLM calls (when generating embeddings via OpenAI / Anthropic / etc.) follow `1H.4.2` subprocessor + Intent service-role discipline. Patient data leaving the org boundary for embedding requires a documented vendor contract.
+- Synthetic / non-`production` patients excluded from embedding generation by default per primitives addendum #4.
+- Retention: embeddings deleted when source row deleted per `Section 1V` retention class. RTBF cascades.
+
+### 1T.5 AI engine consumer (Section 1N)
+
+`Section 1N` is the only consumer of embeddings. Embeddings are an input to the AI engine, not a parallel stack. Per `1N`'s "one AI engine" rule.
+
+### 1T.6 Section 1T explicitly rejects
+
+- Building embedding tables before the first concrete consumer need lands.
+- Sending PHI to external LLM providers without documented subprocessor contract.
+- Embedding non-`production` rows.
+- Storing embeddings outside the canonical RLS / `org_id` boundary.
+- Treating embeddings as authoritative state (they are derived; replayable from source rows; not source-of-truth).
+
+### 1T.7 Cross-links
+
+`Section 1N` (AI engine — only consumer), `Section 1O` (document routing — produces `patient_document_routing.id` join key), `Section 1P` (narrative atomization — produces `inbound_narrative_reviews.id` join key), `Section 1U` (org_id partition), `Section 1V` (retention; RTBF cascade), `Section 1H.4.2` (subprocessor discipline), `Intent` (PHI boundary), system primitives addendum (#4 data_environment, #2 source/provenance — embeddings carry generated_by + source_kind=`ai_inference`).
+
+---
+
+## Section 1U: Multi-org / multi-tenant partition discipline (foundational; design-now, mechanical add in 4C-pre)
+
+*Layer 1 architectural rule: every patient-scoped row carries `org_id`. PHI never crosses `org_id`. RLS enforces at the database layer. Capability scoping respects org boundary. v1 has one org (`'main'`); discipline ensures multi-brand / multi-org future doesn't require schema migration. Per Phase 4B-arch: column add + RLS predicates land in Phase 4C-pre.*
+
+### 1U.1 Scope and non-goals
+
+- **In scope:** `org_id` everywhere; cross-org reads forbidden by RLS; capability scoping respects org boundary; partition-key alignment with `Section 1S` event-stream readiness.
+- **Out of scope:** schema-per-tenant (Postgres operational nightmare), separate database-per-tenant (cost + cross-org reporting nightmare), application-only filtering without RLS (security anti-pattern).
+
+### 1U.2 The discipline (binding)
+
+- **Every patient-scoped row carries `org_id`** (FK to `orgs.id`). v1 seeds one row: `org_id = 'main'`. Default in app code; not surfaced to patients.
+- **PHI never crosses `org_id`.** Cross-org reads forbidden by RLS at the database layer. RLS predicate template:
+  ```sql
+  CREATE POLICY org_scoped ON <table> FOR SELECT
+    USING (org_id = current_setting('app.current_org_id', true)::uuid);
+  ```
+- **Capability scoping** (per `Section 1D`) extends to carry `org_scope: 'all_orgs' | 'specific_org' | 'self_org_only'`; default is `self_org_only`.
+- **Partition-key alignment with `Section 1S`**: `org_id` is the natural partition key for any future event-stream sharding (one stream per org, or one stream sharded by `org_id`).
+
+### 1U.3 Optional `brand_id` sub-partition
+
+For soft sub-brands within a single org (e.g., "MAIN" runs both EVO and ONA brands as separate patient cohorts but in the same Postgres):
+
+- `brand_id` (FK to `brands.id`; nullable) on patient-scoped rows.
+- Capability scoping may further restrict to `brand_scope` (default: `all_brands_in_org`).
+- RLS does NOT enforce `brand_id` boundary by default (sub-brands within an org are a marketing distinction, not a PHI boundary). Org-internal reporting can join across brands.
+
+### 1U.4 Future host-org / tenant-org model (one paragraph; not a hierarchy)
+
+v1 has one org. v2 may add **tenant orgs** (separate clinics offering services on the platform); a **host org** can administer multiple tenant orgs only via capability-gated SECURITY DEFINER functions that explicitly join via consent + audit per Intent. The discipline ensures v2 doesn't require schema migration; no tenant hierarchy is being designed now.
+
+### 1U.5 Section 1U explicitly rejects
+
+- Schema-per-tenant.
+- Separate database-per-tenant.
+- Application-only filtering without RLS.
+- `org_id` as nullable on patient-scoped rows (always defaulted, even pre-account flows).
+- Cross-org PHI reads outside SECURITY DEFINER + capability + audit + consent.
+
+### 1U.6 Phase 4C-pre implementation (mechanical)
+
+One migration adds `org_id uuid not null default 'main-uuid' references orgs(id)` to every patient-scoped row + RLS policy + capability extension. Backfill is a single UPDATE per table. Per backfill addendum (Section 1V.7) discipline.
+
+### 1U.7 Cross-links
+
+`Section 1D` (capabilities + `org_scope`), `Section 1J` (identity precedence — applies within org boundary), `Section 1J.6` (duplicate detection — within org only), `Section 1S` (event-stream partition key), `Section 1H` (analytics — aggregate-only across orgs only with explicit cap), `Section 1V` (governance — retention applies per org), Intent (PHI boundary discipline; cross-org service-role discipline).
+
+---
+
+## Section 1V: Data governance — retention, deletion, RTBF, lifecycle (foundational; design-now, runtime in 4H)
+
+*Layer 1 architectural rule: every data class declares its retention schedule and lifecycle taxonomy in code-as-config. Soft-delete vs hard-delete is per-class. Every deletion writes `audit_events`. SAR + RTBF workflows are rules-engine outputs (per Section 1Q). Per Phase 4B-arch: directional posture; runtime in Phase 4H.*
+
+### 1V.1 Scope and non-goals
+
+- **In scope:** retention class taxonomy; soft-vs-hard delete rule per class; uniform lifecycle taxonomy; audit-on-delete invariant; SAR + RTBF as future rules-engine outputs.
+- **Out of scope:** detailed RTBF state machine (until first request lands); state-by-state carve-out matrix (until we onboard a state with novel requirements); subprocessor inventory + data-sharing contract registry (until 5+ subprocessors active).
+
+### 1V.2 Retention class taxonomy (six classes; binding)
+
+| Class | Examples | Default retention | Default delete |
+|---|---|---|---|
+| **Clinical** | `patient_clinical_assertions`, `patient_state_observations`, `clinical_visits`, `patient_diagnostic_reports`, `patient_medications`, `patient_allergies`, `patient_immunizations`, `treatment_orders` | HIPAA-required minimum (typically 6-10 years post-encounter; state-specific overrides per `1G.7.5d` jurisdiction) | soft-delete; retained per class |
+| **Identity** | ID images, selfies (in `patient_identity_verifications`) | 90 days post-verification (unless dispute open) | hard-delete; only verification-status row + hash retained per `1O.4.1` |
+| **Insurance** | Insurance card images | coverage period + retention window | hard-delete after retention window |
+| **Messages** | `messages`, `message_threads` | clinical-tagged retained per Clinical class; non-clinical per org policy | soft-delete with audit |
+| **Audit** | `audit_events`, `patient_timeline_events` | ~7 years (compliance baseline) | soft-delete; retention class enforced |
+| **Marketing / analytics** | acquisition metadata; `1H.4` source records | shorter retention; aggressive purge | hard-delete after retention window |
+
+Retention values are code-as-config in a `lib/governance/retention-schedules.ts` registry (per primitives addendum #6 enum-as-config). PR review required to change.
+
+### 1V.3 Soft-delete vs hard-delete (per-class default; binding)
+
+- **Soft-delete**: `deleted_at + deletion_reason + deleted_by_user_id` columns on the row; row stays queryable by audit but invisible to all other reads (RLS predicate excludes `deleted_at IS NOT NULL`).
+- **Hard-delete**: row physically removed; only an `audit_events` "row deleted" record persists with hashes (not content) for forensic verification.
+- **Per-data-class default chosen explicitly; never per-request.**
+
+### 1V.4 Uniform lifecycle taxonomy (binding)
+
+Beyond per-domain status enums (`patient_clinical_assertions.status`, `patient_medications.status`, `subscriptions.status`, etc.), every data class maps onto a uniform post-active lifecycle:
+
+```
+active → inactive → archived → retention-expired → deleted
+```
+
+Per-domain mapping examples:
+
+- `subscriptions.status='cancelled'` → inactive.
+- `patient_clinical_assertions.status='superseded'` → inactive (claim row stays for audit; reconciled entity recomputes).
+- `patient_diagnostic_reports.status='archived'` → archived (read-only; off active surfaces).
+- `retention-expired` = retention class deadline reached.
+- `deleted` = soft or hard per class.
+
+**Archival** transitions write `audit_events` rows. **Deletion** writes both `audit_events` (with content hashes only, not PHI) and follows the per-class soft/hard rule. CI lint: every domain table reviewed in PR maps its status enum onto the uniform tail.
+
+### 1V.5 SAR + RTBF as future rules-engine outputs
+
+- **Subject-access-request (SAR)**: patient requests export of their data. SAR is a rules-engine output (per `Section 1Q`) that produces an `outbound_jobs` row of kind `sar_export`. Worker assembles canonical-table dump scoped to `patient_id`, signs it, delivers via secure download. Audited per Intent.
+- **Right-to-be-forgotten (RTBF)**: patient requests deletion. RTBF is a rules-engine output that produces per-data-class deletion plans:
+  - Hard-delete eligible classes (Identity, Insurance, Marketing).
+  - Soft-delete with retention carve-out for Clinical (with patient notice that clinical data must be retained for legal/regulatory reasons).
+  - Audited per Intent + `audit_events` row per deletion.
+
+Detailed RTBF state machine + state-by-state carve-out matrix deferred until first request lands.
+
+### 1V.6 Audit on every deletion (binding)
+
+Every deletion (soft or hard) writes an `audit_events` row with:
+
+- Actor (per primitives addendum #1).
+- Capability used (`can_delete_patient_data` / per-class capabilities).
+- Scope (which row(s) deleted; entity counts only, not PHI).
+- Retention class affected.
+- Hashes of deleted content (forensic verification without re-storing PHI).
+- For RTBF: link to the originating patient request.
+
+### 1V.7 Backfill / migration discipline (addendum within 1V)
+
+As we move early migrations → canonical Section shapes (1L / 1M / 1O) and as 4C-pre adds `org_id` + `data_environment` + primitive columns to existing tables, backfills become first-class deliverables.
+
+**Binding rules:**
+
+- Migration scripts are first-class code (versioned in `supabase/migrations/`; reviewed via PR).
+- Backfills are **idempotent** (safe to re-run); guarded by `WHERE col IS NULL` or equivalent; never assume one-shot success.
+- Schema-version stamp on each canonical table (`metadata.schema_version` or dedicated column) so future transforms know what shape they're reading.
+- New migrations include a dry-run mode (queryable diff before write) for migrations affecting > 10k rows.
+- Backfill failures route to `outbound_jobs` of kind `backfill_retry` for resume.
+- "Backfills are first-class deliverables, not afterthoughts" — declared explicitly so reviewers don't merge migrations without a backfill plan.
+
+CI lint: new migration files reviewed in PR confirm backfill plan in commit message.
+
+### 1V.8 Section 1V explicitly rejects
+
+- Per-table ad-hoc retention (must use the six retention classes).
+- Deletion without `audit_events` row.
+- "We'll add retention later" (it gets harder every quarter).
+- One-shot non-idempotent backfills.
+
+### 1V.9 Cross-links
+
+`Section 1Q` (rules engine — produces SAR + RTBF jobs), `Section 1H.4.2` (subprocessor discipline — RTBF cascades to subprocessors), `Section 1O.11` (HIPAA/privacy guardrails — Identity class retention), `Section 1J.10` (sensitive-access reasoning — applies to deletion audit), `Section 1U` (retention applies per org), Intent (PHI boundary), system primitives addendum (#1 actor, #2 source — both required on deletion audit), companion doc `data_layers_reconciliation_v1.md` Section 6 (Phase 4H runtime).
+
+---
