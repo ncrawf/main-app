@@ -47,6 +47,28 @@ import type { InteractionContext } from '../interaction-context';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 /**
+ * Phase 4C-pre actor-kind enum, compatible with the AUTHORED_BY enum on
+ * `patient_clinical_assertions` plus the adapter actors that aren't authors
+ * of clinical claims. Used on `audit_events.actor_kind`.
+ */
+export type ActorKind =
+  | 'patient'
+  | 'staff_user'
+  | 'provider_user'
+  | 'system'
+  | 'cron'
+  | 'webhook'
+  | 'partner_adapter'
+  | 'ai_engine';
+
+/**
+ * Phase 4C-pre data_environment enum (per system primitives addendum #4).
+ * Synthetic / non-`production` patients are structurally invisible to
+ * outbound dispatch and metrics by default.
+ */
+export type DataEnvironment = 'production' | 'staging' | 'internal_qa' | 'synthetic';
+
+/**
  * Args for the orchestrator. Caller is the recordIntakeResponse wrapper
  * (Commit 8) or any per-target write handler (Commits 4-7).
  */
@@ -70,6 +92,21 @@ export interface WriteEmissionsArgs {
    */
   assertion_group_id?: string;
   interaction_context: InteractionContext;
+  /**
+   * Phase 4C-pre primitives. Optional at the call site — the SECURITY DEFINER
+   * orchestrator falls back to the patient's row values when omitted. Pass
+   * explicitly to override (e.g., a system-derived write under a different org).
+   *
+   * Per Section 1U: org_id partitions every patient-scoped row.
+   * Per primitives addendum #4: data_environment gates outbound side effects.
+   * Per primitives addendum #1: actor_kind declares who authored this batch
+   * for the audit_events row (defaults to 'patient' inside the orchestrator
+   * when omitted; pass 'staff_user' / 'provider_user' / 'system' / etc. for
+   * non-patient flows).
+   */
+  org_id?: string;
+  data_environment?: DataEnvironment;
+  actor_kind?: ActorKind;
 }
 
 export interface WriteEmissionResult {
@@ -116,6 +153,12 @@ export async function writeEmissions(args: WriteEmissionsArgs): Promise<WriteEmi
     p_assertion_group_id: args.assertion_group_id ?? null,
     p_interaction_context: args.interaction_context,
     p_emissions: sorted,
+    // Phase 4C-pre primitives + tenancy. Null = orchestrator falls back to
+    // the patient's row values (org_id + data_environment) and 'patient'
+    // for actor_kind. Pass explicitly to override.
+    p_org_id: args.org_id ?? null,
+    p_data_environment: args.data_environment ?? null,
+    p_actor_kind: args.actor_kind ?? null,
   });
 
   if (error) {

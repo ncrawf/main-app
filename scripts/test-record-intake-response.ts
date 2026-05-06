@@ -171,6 +171,8 @@ interface IntakeResponseRow {
   raw_value: unknown;
   session_id: string;
   question_id: string;
+  org_id: string;
+  data_environment: string;
 }
 
 interface AssertionRow {
@@ -179,6 +181,8 @@ interface AssertionRow {
   source_intake_response_id: string | null;
   authored_by: string;
   status: string;
+  org_id: string;
+  data_environment: string;
 }
 
 interface AuditRow {
@@ -186,12 +190,16 @@ interface AuditRow {
   action: string;
   resource_type: string | null;
   resource_id: string | null;
+  actor_kind: string | null;
+  org_id: string | null;
 }
+
+const MAIN_ORG_ID = '00000000-0000-0000-0000-000000000001';
 
 async function verify(ctx: TestContext): Promise<void> {
   const irRes = await ctx.supabase
     .from('intake_responses')
-    .select('id, raw_value, session_id, question_id')
+    .select('id, raw_value, session_id, question_id, org_id, data_environment')
     .eq('id', ctx.intakeResponseId!)
     .single();
   if (irRes.error || !irRes.data) {
@@ -204,10 +212,16 @@ async function verify(ctx: TestContext): Promise<void> {
   if (ir.question_id !== 'qb.smoke.test_question_v1') {
     throw new Error(`intake_responses.question_id mismatch: ${ir.question_id}`);
   }
+  if (ir.org_id !== MAIN_ORG_ID) {
+    throw new Error(`intake_responses.org_id mismatch: ${ir.org_id} !== ${MAIN_ORG_ID}`);
+  }
+  if (ir.data_environment !== 'production') {
+    throw new Error(`intake_responses.data_environment mismatch: ${ir.data_environment}`);
+  }
 
   const aRes = await ctx.supabase
     .from('patient_clinical_assertions')
-    .select('id, concept_id, source_intake_response_id, authored_by, status')
+    .select('id, concept_id, source_intake_response_id, authored_by, status, org_id, data_environment')
     .eq('id', ctx.assertionId!)
     .single();
   if (aRes.error || !aRes.data) {
@@ -226,10 +240,16 @@ async function verify(ctx: TestContext): Promise<void> {
   if (assertion.authored_by !== 'patient_reported') {
     throw new Error(`assertion.authored_by mismatch: ${assertion.authored_by}`);
   }
+  if (assertion.org_id !== MAIN_ORG_ID) {
+    throw new Error(`assertion.org_id mismatch: ${assertion.org_id} !== ${MAIN_ORG_ID}`);
+  }
+  if (assertion.data_environment !== 'production') {
+    throw new Error(`assertion.data_environment mismatch: ${assertion.data_environment}`);
+  }
 
   const auditRes = await ctx.supabase
     .from('audit_events')
-    .select('id, action, resource_type, resource_id')
+    .select('id, action, resource_type, resource_id, actor_kind, org_id')
     .in('id', ctx.auditEventIds);
   if (auditRes.error || !auditRes.data) {
     throw new Error(`audit_events fetch failed: ${auditRes.error?.message}`);
@@ -249,6 +269,12 @@ async function verify(ctx: TestContext): Promise<void> {
   }
   if (auditRow.action !== 'intake.atom.emitted') {
     throw new Error(`audit row action mismatch: ${auditRow.action}`);
+  }
+  if (auditRow.actor_kind !== 'patient') {
+    throw new Error(`audit row actor_kind mismatch: ${auditRow.actor_kind} !== 'patient'`);
+  }
+  if (auditRow.org_id !== MAIN_ORG_ID) {
+    throw new Error(`audit row org_id mismatch: ${auditRow.org_id} !== ${MAIN_ORG_ID}`);
   }
 
   console.log('  intake_responses row OK');
