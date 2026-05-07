@@ -103,6 +103,10 @@ Pre-map exploratory migrations (`20260418` → `20260430`) classified against ca
 
 **Net**: 4 migrations need RECONCILE (4 documents → 1O; 1 notifications → 1G.3 / outbound_jobs; 1 timeline + 1 outbound_jobs need shape audits not redesigns). 1 migration is LEGACY-REPLACE (forms/form_submissions). The site_search_entries row was reclassified KEEP after Phase 4G confirmed it serves the CMS nav search concern (separate from Section 1R domain entity search). The rest KEEP.
 
+### Implicit engine v0 (TS code; not a migration; tracked here for parity-audit completeness)
+
+Phase 4H-pre identified an undisciplined notification + workflow code path that pre-dates Section 1Q. Files: [`lib/workflows/onPatientWorkflowEvent.ts`](../../lib/workflows/onPatientWorkflowEvent.ts) + [`lib/workflows/notificationRules.ts`](../../lib/workflows/notificationRules.ts) + [`lib/workflows/types.ts`](../../lib/workflows/types.ts) + [`lib/notifications/patientMessages.ts`](../../lib/notifications/patientMessages.ts). Verdict: **DELETE-AFTER-PARITY** per-flow. Each of the 11 `NotificationTemplateKey` cases migrates one-per-PR to a typed Rule + Template per `1Q.4` + `1Q.5`; the legacy case deletes in the same PR. When the last case is migrated, the four files delete entirely. Forbidden: extending v0 during the cutover (violates `1Q.0` invariant 12 consolidation discipline). Anchor: [system_map_three_layers_60706286.plan.md](system_map_three_layers_60706286.plan.md) Section 1Q.12 (the binding inventory + directive).
+
 ---
 
 ## 5. Integrated runtime view

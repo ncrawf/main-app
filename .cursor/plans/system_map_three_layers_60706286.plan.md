@@ -120,6 +120,8 @@ Every `patients` row declares its environment. Enum: `production | staging | int
 
 CI lint: any code path that calls Stripe / Twilio / Resend / pharmacy / lab outbound MUST gate on `data_environment === 'production'` or carry an explicit override.
 
+**Suppression terminal state + canonical audit event (binding; Phase 4H-pre)**: when the dispatch gate suppresses a non-`production` `outbound_jobs` row, the row transitions to terminal status `'suppressed_data_environment'` (added to the existing 8-value status enum in `outbound_jobs`; not a new column) and the dispatcher emits one `notification.dispatch_blocked_by_privacy_check` audit event with `metadata.suppression_reason = 'data_environment'` per `1Q.7` privacy-gate event vocabulary. The event is already registered in `lib/events/audit-actions.ts` `RULE_AND_NOTIFICATION_AUDIT_ACTIONS` (Phase 4F LANDED). The status terminal + audit event are the canonical observability shape for non-production suppression; CI lint forbids any silent drop. This locks the contract before the gate ships in Phase 4H-pre commit 2.
+
 #### 5. temporal truth (`effective_at` + `recorded_at`)
 
 Every clinical / observation / decision row distinguishes **when it was true** (effective) from **when it was said** (recorded). Real-world example: patient says today *"I stopped metformin 3 weeks ago"* → `recorded_at = today`, `effective_at = 3 weeks ago`. Without this, timelines are wrong and rules engine makes wrong decisions.
@@ -7295,6 +7297,8 @@ Deterministic pipeline (binding):
 
 **Phase 4F status (LANDED)**: this privacy-gate vocabulary is registered in `lib/events/audit-actions.ts` under the `RULE_AND_NOTIFICATION_AUDIT_ACTIONS` group (17 values; reserved directional vocabulary for Phase 4H runtime). Listed there so the rules-engine implementation reads from the typed catalog rather than introducing inline strings during 4H. Cross-link: 1H.5 §"Phase 4F status (LANDED)" reconciliation note.
 
+**Rule lineage on `outbound_jobs` (binding; Phase 4H-pre foundational extension)**: every `audit_events` row produced by a rule firing carries `rule_id` + `rule_version` + `template_key?` + `template_version?` + `evidence_refs` + `decision_outcome_reason` + `actor_user_id?` + `actor_kind` + `pathway_code?` + `interaction_context` + `org_id` + `data_environment` per the audit shape declared above. **For rule firings that produce side effects via `outbound_jobs`, the same rule lineage primitives ALSO persist on the `outbound_jobs` row** (`outbound_jobs.rule_id` / `rule_version` / `template_key` / `template_version` / `intended_privacy_exposure_level` / `message_intent` / `decision_outcome_reason` / `pathway_code`) so: (a) replay of the firing reconstructs exactly the rule + template version that produced the queued side effect; (b) recall propagation per `1Q.10` finds affected jobs by `rule_id` + `rule_version` (and emits `mass_supersede` / `flag_for_re_review` actions against in-flight jobs without requiring an `audit_events` join); (c) post-mortem traces a delivered email / SMS / pharmacy fax / lab webhook back to the rule version that produced it without joining through audit. Every other audit primitive (`org_id` / `data_environment` / `actor_kind` / `idempotency_key`) is already on `outbound_jobs` per Phase 4C-pre + 4E. Phase 4H-pre commit 1 is the migration that adds the rule-lineage columns; the contract is binding from this section forward.
+
 | Tier | Owns | Approval required for |
 |---|---|---|
 | **Clinical CODEOWNER** | Clinical concepts (`1K.5.A`); clinical safety rules; clinical templates; safety-relevant prompt/rule changes | All `clinical_safety`, `patient_clarification`, `lab_requirement`, `refill_renewal`, `dose_escalation`, `adverse_event`, `provider_review` rules + templates; concept registry changes |
@@ -7809,6 +7813,30 @@ CI lint enforces:
 - **Defaulting `ai_refinement_allowed = true` without rationale** (opt-in is required to be explicit).
 - **Soft-deletion of rules/templates without `supersedes_*` chain** (replayability per invariant 2).
 - **`mass_supersede` recall action without `recall_severity = safety_critical` + clinical CODEOWNER + compliance approval** (per 1Q.10).
+
+### 1Q.12 Implicit engine v0 inventory + delete-after-parity directive (binding; Phase 4H-pre)
+
+**Stance**: an undisciplined notification + workflow code path exists today that pre-dates Section 1Q. It is named, classified DELETE-AFTER-PARITY, and forbidden from extension by `1Q.0` invariant 12 (consolidation discipline). The target architecture is `1Q.0`–`1Q.11`. This section makes the legacy explicit so contributors do not extend it during Phase 4H-pre / 4H-rules-runtime.
+
+**Implicit engine v0 inventory:**
+
+- [`lib/workflows/onPatientWorkflowEvent.ts`](../../lib/workflows/onPatientWorkflowEvent.ts) — in-process post-mutation hook that fires patient notifications on every workflow status change. Couples mutation logic to notification logic.
+- [`lib/workflows/notificationRules.ts`](../../lib/workflows/notificationRules.ts) — a static `status → template_key` map with hardcoded inline dedupe-key strings. Named "rules" but is a lookup; carries no `rule_id` / `rule_version` / `evidence_refs` / `decision_outcome_reason`.
+- [`lib/workflows/types.ts`](../../lib/workflows/types.ts) — supporting types for the v0 hook.
+- [`lib/notifications/patientMessages.ts`](../../lib/notifications/patientMessages.ts) — 11 inline patient-facing prose templates keyed by `NotificationTemplateKey`. Carries no `privacy_exposure_level`, no `message_intent`, no `prohibited_claims`, no `outside_secure_render_strategy`, no `required_variables` discipline; full PHI ships via SMS by default.
+
+**Disposition: DELETE-AFTER-PARITY (per-flow).** Each of the 11 `NotificationTemplateKey` cases (`payment_received`, `intake_submitted`, `awaiting_clinical_review`, `case_approved`, `case_denied`, `followup_needed`, `rx_sent`, `shipped`, `active_care`, `followup_due`, `refill_pending`) is migrated one-per-PR to a typed Rule + typed Template per `1Q.4` + `1Q.5`. Once migrated and behaviorally green, the legacy case is DELETED from `notificationRules.ts` + `patientMessages.ts`. When the last case is removed, the files delete entirely. **No long-tail of "we'll fix it later".**
+
+**Forbidden during the cutover (binding):**
+
+- Adding new cases to `NotificationTemplateKey` or `lib/workflows/notificationRules.ts` (violates `1Q.0` invariant 12).
+- Adding new prose templates to `lib/notifications/patientMessages.ts` (violates `1Q.0` invariant 9 + `1Q.5` template object shape).
+- Calling `onPatientWorkflowEvent` from new sites (violates the typed-event-bus pattern that replaces it in Phase 4H-rules-runtime).
+- Wrapping v0 cases in adapters that pretend to be `1Q.4` Rules without the full object shape, version pinning, evidence refs, or CI-lint discipline.
+
+**Companion doc cross-reference**: [`data_layers_reconciliation_v1.md`](data_layers_reconciliation_v1.md) Section 4 lists the implicit engine v0 in the disposition table alongside the early-migration audit. Both source-of-truth surfaces converge on DELETE-AFTER-PARITY.
+
+**Phase 4H-pre anchor**: the parity proof flow is `payment_received` (lowest clinical surface area; tier_1 `existence_only` per `1Q.17`; intent `billing`). Per `1Q.4` action-template enforcement chain, the migrated Rule declares `rule_id = rule.billing.payment_received_v1` + `rule_version` semver + `intended_privacy_exposure_level: 1` + `message_intent: 'billing'`; the migrated Template declares matching tier + intent + `transactional_critical: true` (so the suppression windows from `1Q.21` cadence rules don't block billing transactional). When the parity smoke proves equivalence on the same Stripe trigger, the legacy `payment_received` case in `notificationRules.ts` + `patientMessages.ts` deletes in the same PR.
 
 ### 1Q.13 Module taxonomy + cross-domain collision handling (binding; per `2026-04-30_module_taxonomy.md`)
 
