@@ -56,14 +56,16 @@ export type JobKind = (typeof JOB_KINDS)[number];
 // =====================================================================
 
 export const JOB_STATUSES = [
-  'queued',         // initial; awaiting dispatcher pickup
-  'dispatching',    // worker locked the row + is calling external system
-  'succeeded',      // terminal happy path
-  'failed',         // last attempt errored; retry scheduled per backoff
-  'dead',           // terminal — exhausted max_attempts; ops triage required
-  'cancelled',      // caller / staff cancelled before dispatch
-  'suppressed',     // 1G.3 send-policy gate blocked
-  'superseded',     // replaced by a newer job
+  'queued',                       // initial; awaiting dispatcher pickup
+  'dispatching',                  // worker locked the row + is calling external system
+  'succeeded',                    // terminal happy path
+  'failed',                       // last attempt errored; retry scheduled per backoff
+  'dead',                         // terminal — exhausted max_attempts; ops triage required
+  'cancelled',                    // caller / staff cancelled before dispatch
+  'suppressed',                   // 1G.3 send-policy gate blocked (privacy + consent + channel pref)
+  'superseded',                   // replaced by a newer job
+  'suppressed_data_environment',  // Phase 4H-pre: data_environment dispatch gate blocked non-production row
+                                  // (primitives addendum #4 binding terminal state; the gate ships in commit 2)
 ] as const;
 
 export type JobStatus = (typeof JOB_STATUSES)[number];
@@ -71,16 +73,22 @@ export type JobStatus = (typeof JOB_STATUSES)[number];
 /**
  * State transitions allowed from each status. Used by CI lint + runtime
  * guards (mark_outbound_job_dispatch RPC enforces the same).
+ *
+ * `suppressed_data_environment` is a terminal state per primitives
+ * addendum #4 — once the dispatch gate suppresses a non-production row,
+ * it does not re-enter the queue. To send the same intent in a different
+ * env, a new outbound_jobs row is enqueued.
  */
 export const ALLOWED_STATUS_TRANSITIONS: Record<JobStatus, JobStatus[]> = {
-  queued: ['dispatching', 'cancelled', 'suppressed', 'superseded'],
-  dispatching: ['succeeded', 'failed', 'dead', 'queued'],     // queued = retry after exponential backoff
-  succeeded: [],                                                // terminal
-  failed: ['queued', 'dead'],                                   // retryable → re-queued; max_attempts → dead
-  dead: [],                                                     // terminal
-  cancelled: [],                                                // terminal
-  suppressed: ['superseded'],                                   // can be replaced by a newer job
-  superseded: [],                                               // terminal
+  queued: ['dispatching', 'cancelled', 'suppressed', 'suppressed_data_environment', 'superseded'],
+  dispatching: ['succeeded', 'failed', 'dead', 'queued'],       // queued = retry after exponential backoff
+  succeeded: [],                                                  // terminal
+  failed: ['queued', 'dead'],                                     // retryable → re-queued; max_attempts → dead
+  dead: [],                                                       // terminal
+  cancelled: [],                                                  // terminal
+  suppressed: ['superseded'],                                     // can be replaced by a newer job
+  superseded: [],                                                 // terminal
+  suppressed_data_environment: [],                                // terminal — env gate is structural, not retryable
 };
 
 // =====================================================================
@@ -170,7 +178,19 @@ export const EnqueueOutboundJobArgs = z.object({
   pathway_sensitivity: z.enum(PATHWAY_SENSITIVITY_LEVELS).optional(),
   message_intent: z.enum(MESSAGE_INTENTS).optional(),
   priority_hint: z.enum(PRIORITY_HINTS).default('standard'),
+
+  // Privacy primitives (per Section 1Q.4 + 1Q.7 audit shape extension).
+  // Both persist on outbound_jobs so a future replay can verify the
+  // template.privacy_exposure_level <= action.intended_privacy_exposure_level
+  // invariant was respected at dispatch time.
   declared_privacy_exposure_level: z.number().int().min(0).max(5).optional(),
+  intended_privacy_exposure_level: z.number().int().min(0).max(5).optional(),
+
+  // Decision outcome (per Section 1K.12 / 1Q.7 controlled vocabulary).
+  // Free-form by design; vocabulary is extensible per-domain by PR +
+  // CODEOWNERS per 1K.0. NOT validated as enum here; validation lives in
+  // per-domain decision-code registries when those land.
+  decision_outcome_reason: z.string().optional(),
 
   // Source/provenance (per primitives addendum #2).
   source_kind: z.enum([

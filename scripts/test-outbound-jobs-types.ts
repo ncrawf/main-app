@@ -3,7 +3,8 @@
  *
  * Validates:
  *  1. JOB_KINDS enum completeness (21 values).
- *  2. JOB_STATUSES enum completeness (8 values).
+ *  2. JOB_STATUSES enum completeness (9 values; Phase 4H-pre commit 1
+ *     added `suppressed_data_environment`).
  *  3. ALLOWED_STATUS_TRANSITIONS state machine — terminal states have no
  *     outgoing edges; `dispatching` can transition to all expected outcomes;
  *     invalid transitions throw via assertValidStatusTransition.
@@ -67,10 +68,11 @@ for (const k of expectedKinds) {
 // Test 2: JOB_STATUSES completeness
 // ---------------------------------------------------------------------
 console.log('[test 2] JOB_STATUSES enum');
-assert(JOB_STATUSES.length === 8, 'JOB_STATUSES has 8 values', `got ${JOB_STATUSES.length}`);
+assert(JOB_STATUSES.length === 9, 'JOB_STATUSES has 9 values', `got ${JOB_STATUSES.length}`);
 const expectedStatuses: JobStatus[] = [
   'queued', 'dispatching', 'succeeded', 'failed', 'dead',
   'cancelled', 'suppressed', 'superseded',
+  'suppressed_data_environment',  // Phase 4H-pre commit 1
 ];
 for (const s of expectedStatuses) {
   assert((JOB_STATUSES as readonly string[]).includes(s), `JOB_STATUSES contains ${s}`, 'missing');
@@ -82,7 +84,10 @@ for (const s of expectedStatuses) {
 console.log('[test 3] ALLOWED_STATUS_TRANSITIONS state machine');
 
 // Terminal states have no outgoing edges.
-const terminalStates: JobStatus[] = ['succeeded', 'dead', 'cancelled', 'superseded'];
+const terminalStates: JobStatus[] = [
+  'succeeded', 'dead', 'cancelled', 'superseded',
+  'suppressed_data_environment',  // Phase 4H-pre commit 1: env gate is structural; not retryable
+];
 for (const t of terminalStates) {
   assert(
     ALLOWED_STATUS_TRANSITIONS[t].length === 0,
@@ -91,10 +96,16 @@ for (const t of terminalStates) {
   );
 }
 
-// queued can dispatch / be cancelled / suppressed / superseded but NOT directly succeeded.
+// queued can dispatch / be cancelled / suppressed / superseded /
+// suppressed_data_environment but NOT directly succeeded.
 assert(
   ALLOWED_STATUS_TRANSITIONS['queued'].includes('dispatching'),
   'queued → dispatching allowed',
+  'missing edge'
+);
+assert(
+  ALLOWED_STATUS_TRANSITIONS['queued'].includes('suppressed_data_environment'),
+  'queued → suppressed_data_environment allowed (Phase 4H-pre dispatch gate)',
   'missing edge'
 );
 assert(
@@ -230,6 +241,45 @@ const tooHighExposure = EnqueueOutboundJobArgs.safeParse({
   declared_privacy_exposure_level: 99,
 });
 assert(!tooHighExposure.success, 'declared_privacy_exposure_level out of range rejected', 'unexpectedly accepted');
+
+// Phase 4H-pre commit 1 — intended_privacy_exposure_level (rule-action cap)
+// + decision_outcome_reason (controlled vocabulary code).
+const happyWithRuleLineage = EnqueueOutboundJobArgs.safeParse({
+  kind: 'send_email',
+  template_key: 'tmpl.billing.payment_received_v1',
+  template_version: '1.0.0',
+  message_intent: 'billing',
+  declared_privacy_exposure_level: 1,    // template-level (1Q.5)
+  intended_privacy_exposure_level: 1,    // rule-action cap (1Q.4)
+  decision_outcome_reason: 'rule_matched',
+  rule_id: 'rule.billing.payment_received_v1',
+  rule_version: '1.0.0',
+});
+assert(
+  happyWithRuleLineage.success,
+  'Phase 4H-pre fields accepted (intended_privacy_exposure_level + decision_outcome_reason)',
+  happyWithRuleLineage.success ? '' : JSON.stringify(happyWithRuleLineage.error.issues)
+);
+
+const tooHighIntended = EnqueueOutboundJobArgs.safeParse({
+  kind: 'send_email',
+  intended_privacy_exposure_level: 6,    // out of 0..5 range
+});
+assert(
+  !tooHighIntended.success,
+  'intended_privacy_exposure_level out of range rejected',
+  'unexpectedly accepted'
+);
+
+const negativeIntended = EnqueueOutboundJobArgs.safeParse({
+  kind: 'send_email',
+  intended_privacy_exposure_level: -1,
+});
+assert(
+  !negativeIntended.success,
+  'intended_privacy_exposure_level negative rejected',
+  'unexpectedly accepted'
+);
 
 // ---------------------------------------------------------------------
 // Test 6: Idempotency key path

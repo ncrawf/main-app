@@ -172,6 +172,8 @@ export interface OutboundJobRow {
   message_intent: string | null;
   priority_hint: string | null;
   declared_privacy_exposure_level: number | null;
+  intended_privacy_exposure_level: number | null;  // Phase 4H-pre commit 1
+  decision_outcome_reason: string | null;          // Phase 4H-pre commit 1
   source_kind: string | null;
   source_id: string | null;
   org_id: string;
