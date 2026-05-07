@@ -1,5 +1,4 @@
-import { createAdminClient } from '@/lib/supabase/admin'
-import { logAuditEvent } from '@/lib/audit/logAuditEvent'
+import { insertAuditEvent, insertTimelineEvent } from '@/lib/events'
 import type { StaffProfile } from '@/lib/staff/getStaffProfile'
 
 /**
@@ -301,14 +300,13 @@ async function emitCapabilityAudit(args: CapabilityAuditArgs): Promise<void> {
     ...options.extraMetadata,
   }
 
-  const action = decision === 'exercised' ? 'capability.exercised' : 'capability.denied'
-
-  await logAuditEvent({
+  await insertAuditEvent({
     actorUserId: user.id,
-    action,
+    action: decision === 'exercised' ? 'capability.exercised' : 'capability.denied',
     resourceType: options.objectType ?? 'capability',
     resourceId: options.objectId ?? null,
     patientId: options.patientId ?? null,
+    actorKind: 'staff_user',
     metadata,
   })
 
@@ -322,12 +320,11 @@ async function emitCapabilityAudit(args: CapabilityAuditArgs): Promise<void> {
   // lands. Today they're sequential best-effort and non-blocking.
   if (decision === 'exercised' && options.patientId) {
     try {
-      const supabase = createAdminClient()
-      const { error } = await supabase.from('patient_timeline_events').insert({
-        patient_id: options.patientId,
-        event_type: 'staff_capability_exercised',
+      const result = await insertTimelineEvent({
+        patientId: options.patientId,
+        eventType: 'staff_capability_exercised',
         body: `Staff exercised capability ${capability}${options.objectType ? ` on ${options.objectType}` : ''}.`,
-        actor_user_id: user.id,
+        actorUserId: user.id,
         payload: {
           capability,
           role,
@@ -338,8 +335,8 @@ async function emitCapabilityAudit(args: CapabilityAuditArgs): Promise<void> {
           ...options.extraMetadata,
         },
       })
-      if (error) {
-        console.error('capability timeline insert failed', error)
+      if (!result.ok) {
+        console.error('capability timeline insert failed', result.error)
       }
     } catch (err) {
       console.error('capability timeline insert threw', err)

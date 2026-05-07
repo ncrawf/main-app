@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { logAuditEvent } from '@/lib/audit/logAuditEvent'
+import { insertAuditEvent, insertTimelineEvent } from '@/lib/events'
 import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
 
 const BUCKET = 'intake_uploads'
@@ -127,33 +127,40 @@ export async function submitPatientPortalDocumentUpload(
 
   const body = `Uploaded ${input.diagnosticKind === 'lab' ? 'lab / lab report' : humanKind(input.diagnosticKind)}: ${titleBase}`
 
-  const { error: tlErr } = await admin.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: careProgramId,
-    treatment_item_id: input.treatmentItemId ?? null,
-    event_type: 'patient_document_uploaded',
-    body,
-    actor_user_id: null,
-    payload: {
-      diagnostic_report_id: reportId,
-      diagnostic_kind: input.diagnosticKind,
-      file_name: safeName,
-      mime_type: input.mimeType,
-      bucket: BUCKET,
-      object_path: objectPath,
-      source: 'patient_portal',
+  const tlRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId,
+      treatmentItemId: input.treatmentItemId ?? null,
+      eventType: 'patient_document_uploaded',
+      body,
+      actorUserId: null,
+      payload: {
+        diagnostic_report_id: reportId,
+        diagnostic_kind: input.diagnosticKind,
+        file_name: safeName,
+        mime_type: input.mimeType,
+        bucket: BUCKET,
+        object_path: objectPath,
+        source: 'patient_portal',
+      },
     },
-  })
-  if (tlErr) console.error('submitPatientPortalDocumentUpload.timeline', tlErr)
+    admin,
+  )
+  if (!tlRes.ok) console.error('submitPatientPortalDocumentUpload.timeline', tlRes.error)
 
-  await logAuditEvent({
-    actorUserId: null,
-    action: 'patient_diagnostic.portal_upload',
-    resourceType: 'patient_diagnostic_reports',
-    resourceId: reportId,
-    patientId,
-    metadata: { diagnostic_kind: input.diagnosticKind, object_path: objectPath },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: null,
+      action: 'patient_diagnostic.portal_upload',
+      resourceType: 'patient_diagnostic_reports',
+      resourceId: reportId,
+      patientId,
+      actorKind: 'patient',
+      metadata: { diagnostic_kind: input.diagnosticKind, object_path: objectPath },
+    },
+    admin,
+  )
 
   await enqueueChartAiReview(admin, {
     patientId,

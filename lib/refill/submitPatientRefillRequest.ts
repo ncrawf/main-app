@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { isWorkflowTransitionAllowed } from '@/lib/care/workflowTransition'
-import { logAuditEvent } from '@/lib/audit/logAuditEvent'
+import { insertAuditEvent, insertTimelineEvent } from '@/lib/events'
 import { OPEN_REFILL_REQUEST_STATUSES } from '@/lib/refill/refillRequestTransitions'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
 import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
@@ -117,21 +117,24 @@ export async function submitPatientRefillRequest(
   }
 
   const treatmentBody = `Treatment (${item.display_name}): ${labelForTreatmentStatus(prevStatus)} → ${labelForTreatmentStatus(nextStatus)}`
-  const { error: tErr } = await admin.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: item.care_program_id,
-    treatment_item_id: item.id,
-    event_type: 'treatment_status_changed',
-    body: treatmentBody,
-    actor_user_id: null,
-    payload: {
-      treatment_key: item.treatment_key,
-      from: prevStatus,
-      to: nextStatus,
-      source: 'patient_portal',
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: item.care_program_id,
+      treatmentItemId: item.id,
+      eventType: 'treatment_status_changed',
+      body: treatmentBody,
+      actorUserId: null,
+      payload: {
+        treatment_key: item.treatment_key,
+        from: prevStatus,
+        to: nextStatus,
+        source: 'patient_portal',
+      },
     },
-  })
-  if (tErr) console.error(tErr)
+    admin,
+  )
+  if (!tRes.ok) console.error(tRes.error)
 
   if (item.treatment_key === 'glp1_primary') {
     if (prevStatus !== nextStatus) {
@@ -181,32 +184,39 @@ export async function submitPatientRefillRequest(
   }
 
   const refillBody = `Continue plan started for ${item.display_name}. Checkout is required before clinician review.`
-  const { error: refillTlErr } = await admin.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: item.care_program_id,
-    treatment_item_id: item.id,
-    event_type: 'refill_requested',
-    body: refillBody,
-    actor_user_id: null,
-    payload: {
-      refill_request_id: inserted.id,
-      treatment_key: item.treatment_key,
-      patient_note: patientNote,
-      refill_check_in_profile: profile,
-      source: 'patient_portal',
-      continuation_phase: 'post_submit_pre_payment',
+  const refillTl = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: item.care_program_id,
+      treatmentItemId: item.id,
+      eventType: 'refill_requested',
+      body: refillBody,
+      actorUserId: null,
+      payload: {
+        refill_request_id: inserted.id,
+        treatment_key: item.treatment_key,
+        patient_note: patientNote,
+        refill_check_in_profile: profile,
+        source: 'patient_portal',
+        continuation_phase: 'post_submit_pre_payment',
+      },
     },
-  })
-  if (refillTlErr) console.error(refillTlErr)
+    admin,
+  )
+  if (!refillTl.ok) console.error(refillTl.error)
 
-  await logAuditEvent({
-    actorUserId: null,
-    action: 'refill_request.submitted_patient_portal',
-    resourceType: 'refill_request',
-    resourceId: inserted.id,
-    patientId,
-    metadata: { treatment_item_id: treatmentItemId, treatment_key: item.treatment_key },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: null,
+      action: 'refill_request.submitted_patient_portal',
+      resourceType: 'refill_request',
+      resourceId: inserted.id,
+      patientId,
+      actorKind: 'patient',
+      metadata: { treatment_item_id: treatmentItemId, treatment_key: item.treatment_key },
+    },
+    admin,
+  )
 
   await enqueueChartAiReview(admin, {
     patientId,

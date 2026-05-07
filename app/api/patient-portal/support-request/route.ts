@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { assertPatientPortalSessionOnly } from '@/lib/patient-portal/assertAccess'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
+import { insertTimelineEvent } from '@/lib/events'
 
 export const runtime = 'nodejs'
 
@@ -77,36 +78,33 @@ export async function POST(request: Request) {
     }
 
     const portalPayload = { recipient, submitted_at: now }
-    const { data: inserted, error } = await admin
-      .from('patient_timeline_events')
-      .insert({
-        patient_id: patientId,
-        event_type: 'patient_message_submitted',
+    const inserted = await insertTimelineEvent(
+      {
+        patientId,
+        eventType: 'patient_message_submitted',
         body: message,
-        actor_user_id: null,
+        actorUserId: null,
         payload: portalPayload,
-      })
-      .select('id')
-      .maybeSingle()
-    if (error) {
-      console.error('support-request: message insert', error)
+      },
+      admin,
+    )
+    if (!inserted.ok) {
+      console.error('support-request: message insert', inserted.error)
       return NextResponse.json({ error: 'Could not submit your message right now.' }, { status: 500 })
     }
-    if (inserted?.id) {
-      const { error: sopErr } = await admin.from('patient_support_requests').insert({
-        patient_id: patientId,
-        source_timeline_event_id: inserted.id,
-        request_kind: 'message',
-        status: 'new',
-        portal_payload: portalPayload,
-      })
-      if (sopErr) console.error('support-request: message ops row', sopErr)
-      await enqueueChartAiReview(admin, {
-        patientId,
-        triggerEventType: 'support_message_submitted',
-        triggerRef: inserted.id,
-      })
-    }
+    const { error: sopErr } = await admin.from('patient_support_requests').insert({
+      patient_id: patientId,
+      source_timeline_event_id: inserted.id,
+      request_kind: 'message',
+      status: 'new',
+      portal_payload: portalPayload,
+    })
+    if (sopErr) console.error('support-request: message ops row', sopErr)
+    await enqueueChartAiReview(admin, {
+      patientId,
+      triggerEventType: 'support_message_submitted',
+      triggerRef: inserted.id,
+    })
     return NextResponse.json({ ok: true })
   }
 
@@ -134,36 +132,33 @@ export async function POST(request: Request) {
       note: note || null,
       submitted_at: now,
     }
-    const { data: inserted, error } = await admin
-      .from('patient_timeline_events')
-      .insert({
-        patient_id: patientId,
-        event_type: 'patient_callback_requested',
+    const inserted = await insertTimelineEvent(
+      {
+        patientId,
+        eventType: 'patient_callback_requested',
         body: bodyText,
-        actor_user_id: null,
+        actorUserId: null,
         payload: portalPayload,
-      })
-      .select('id')
-      .maybeSingle()
-    if (error) {
-      console.error('support-request: callback insert', error)
+      },
+      admin,
+    )
+    if (!inserted.ok) {
+      console.error('support-request: callback insert', inserted.error)
       return NextResponse.json({ error: 'Could not submit your callback request right now.' }, { status: 500 })
     }
-    if (inserted?.id) {
-      const { error: sopErr } = await admin.from('patient_support_requests').insert({
-        patient_id: patientId,
-        source_timeline_event_id: inserted.id,
-        request_kind: 'callback',
-        status: 'new',
-        portal_payload: portalPayload,
-      })
-      if (sopErr) console.error('support-request: callback ops row', sopErr)
-      await enqueueChartAiReview(admin, {
-        patientId,
-        triggerEventType: 'support_callback_requested',
-        triggerRef: inserted.id,
-      })
-    }
+    const { error: sopErr } = await admin.from('patient_support_requests').insert({
+      patient_id: patientId,
+      source_timeline_event_id: inserted.id,
+      request_kind: 'callback',
+      status: 'new',
+      portal_payload: portalPayload,
+    })
+    if (sopErr) console.error('support-request: callback ops row', sopErr)
+    await enqueueChartAiReview(admin, {
+      patientId,
+      triggerEventType: 'support_callback_requested',
+      triggerRef: inserted.id,
+    })
     return NextResponse.json({ ok: true })
   }
 

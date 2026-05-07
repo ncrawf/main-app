@@ -71,11 +71,12 @@ export type InsertAuditEventInput = {
 /**
  * Insert one `audit_events` row using the canonical Phase 4F vocabulary.
  *
- * Replaces ad-hoc `lib/audit/logAuditEvent` for new call sites; the legacy
- * helper still works for back-compat reads but new writes should use this.
+ * Sole canonical entry point for `audit_events` writes outside the Phase 4A
+ * orchestrator. Replaced the legacy `lib/audit/logAuditEvent` helper as part
+ * of the strict-lint migration (Phase 4F follow-up).
  *
- * Errors are swallowed and logged (matches `logAuditEvent` semantics) —
- * audit writes are non-blocking by design per Section 1H.3 idempotency.
+ * Errors are swallowed and logged — audit writes are non-blocking by design
+ * per Section 1H.3 idempotency.
  */
 export async function insertAuditEvent(
   input: InsertAuditEventInput,

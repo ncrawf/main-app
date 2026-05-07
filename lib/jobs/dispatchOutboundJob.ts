@@ -3,6 +3,7 @@ import { OUTBOUND_JOB_TYPES, type EmailTransactionalPayload, type SmsTransaction
 import { sendTransactionalEmail } from '@/lib/notifications/emailResend'
 import { sendPatientSms } from '@/lib/notifications/smsTwilio'
 import { processChartAiReviewJob } from '@/lib/ai/processChartAiReviewJob'
+import { insertTimelineEvent } from '@/lib/events'
 
 export type DispatchOutcome = 'completed' | 'retry' | 'dead'
 
@@ -96,19 +97,22 @@ export async function dispatchOutboundJob(
     }
 
     if (p.insert_timeline_email_sent) {
-      const { error: tErr } = await admin.from('patient_timeline_events').insert({
-        patient_id: p.patient_id,
-        event_type: 'email_sent',
-        body: `${p.template_key} → ${p.to}`,
-        actor_user_id: null,
-        payload: {
-          template_key: p.template_key,
-          dedupe_key: p.dedupe_key,
-          provider_message_id: sent.id,
-          workflow_source: p.workflow_source ?? null,
+      const tRes = await insertTimelineEvent(
+        {
+          patientId: p.patient_id,
+          eventType: 'email_sent',
+          body: `${p.template_key} → ${p.to}`,
+          actorUserId: null,
+          payload: {
+            template_key: p.template_key,
+            dedupe_key: p.dedupe_key,
+            provider_message_id: sent.id,
+            workflow_source: p.workflow_source ?? null,
+          },
         },
-      })
-      if (tErr) console.error('dispatchOutboundJob: timeline email_sent', tErr)
+        admin,
+      )
+      if (!tRes.ok) console.error('dispatchOutboundJob: timeline email_sent', tRes.error)
     }
 
     return { outcome: 'completed' }
@@ -148,19 +152,22 @@ export async function dispatchOutboundJob(
       return { outcome: 'retry', detail: insErr.message }
     }
 
-    const { error: tErr } = await admin.from('patient_timeline_events').insert({
-      patient_id: p.patient_id,
-      event_type: 'sms_sent',
-      body: p.template_key,
-      actor_user_id: null,
-      payload: {
-        template_key: p.template_key,
-        dedupe_key: p.dedupe_key,
-        provider_message_id: sms.messageSid,
-        workflow_source: p.workflow_source ?? null,
+    const tRes = await insertTimelineEvent(
+      {
+        patientId: p.patient_id,
+        eventType: 'sms_sent',
+        body: p.template_key,
+        actorUserId: null,
+        payload: {
+          template_key: p.template_key,
+          dedupe_key: p.dedupe_key,
+          provider_message_id: sms.messageSid,
+          workflow_source: p.workflow_source ?? null,
+        },
       },
-    })
-    if (tErr) console.error('dispatchOutboundJob: timeline sms_sent', tErr)
+      admin,
+    )
+    if (!tRes.ok) console.error('dispatchOutboundJob: timeline sms_sent', tRes.error)
 
     return { outcome: 'completed' }
   }

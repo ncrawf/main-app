@@ -2,6 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type Stripe from 'stripe'
 import { getStripe } from '@/lib/stripe/server'
 import { getOrCreateStripeCustomerForPatient } from './stripeCustomer'
+import { insertTimelineEvent } from '@/lib/events'
 
 type PatientPaymentRow = {
   id: string
@@ -160,18 +161,21 @@ export async function approveTreatmentOrder(
       })
       .eq('id', order.id)
 
-    await supabase.from('patient_timeline_events').insert({
-      patient_id: order.patient_id,
-      event_type: 'treatment_order_payment_failed',
-      body: `Charge failed for order ${order.order_number}: ${message}`,
-      payload: {
-        order_number: order.order_number,
-        treatment_order_id: order.id,
-        stripe_payment_intent_id: paymentIntentId,
-        message,
+    await insertTimelineEvent(
+      {
+        patientId: order.patient_id,
+        eventType: 'treatment_order_payment_failed',
+        body: `Charge failed for order ${order.order_number}: ${message}`,
+        payload: {
+          order_number: order.order_number,
+          treatment_order_id: order.id,
+          stripe_payment_intent_id: paymentIntentId,
+          message,
+        },
+        actorUserId: args.actorStaffUserId,
       },
-      actor_user_id: args.actorStaffUserId,
-    })
+      supabase,
+    )
 
     return {
       ok: true,
@@ -196,17 +200,20 @@ export async function approveTreatmentOrder(
       })
       .eq('id', order.id)
 
-    await supabase.from('patient_timeline_events').insert({
-      patient_id: order.patient_id,
-      event_type: 'treatment_order_charged',
-      body: `Charged ${(order.amount_cents / 100).toFixed(2)} ${(order.currency ?? 'USD').toUpperCase()} for order ${order.order_number}`,
-      payload: {
-        order_number: order.order_number,
-        treatment_order_id: order.id,
-        stripe_payment_intent_id: pi.id,
+    await insertTimelineEvent(
+      {
+        patientId: order.patient_id,
+        eventType: 'treatment_order_charged',
+        body: `Charged ${(order.amount_cents / 100).toFixed(2)} ${(order.currency ?? 'USD').toUpperCase()} for order ${order.order_number}`,
+        payload: {
+          order_number: order.order_number,
+          treatment_order_id: order.id,
+          stripe_payment_intent_id: pi.id,
+        },
+        actorUserId: args.actorStaffUserId,
       },
-      actor_user_id: args.actorStaffUserId,
-    })
+      supabase,
+    )
 
     return {
       ok: true,
@@ -225,18 +232,21 @@ export async function approveTreatmentOrder(
     })
     .eq('id', order.id)
 
-  await supabase.from('patient_timeline_events').insert({
-    patient_id: order.patient_id,
-    event_type: 'treatment_order_approved',
-    body: `Order ${order.order_number} approved; awaiting charge confirmation.`,
-    payload: {
-      order_number: order.order_number,
-      treatment_order_id: order.id,
-      stripe_payment_intent_id: pi.id,
-      stripe_status: pi.status,
+  await insertTimelineEvent(
+    {
+      patientId: order.patient_id,
+      eventType: 'treatment_order_approved',
+      body: `Order ${order.order_number} approved; awaiting charge confirmation.`,
+      payload: {
+        order_number: order.order_number,
+        treatment_order_id: order.id,
+        stripe_payment_intent_id: pi.id,
+        stripe_status: pi.status,
+      },
+      actorUserId: args.actorStaffUserId,
     },
-    actor_user_id: args.actorStaffUserId,
-  })
+    supabase,
+  )
 
   return {
     ok: true,
@@ -287,17 +297,20 @@ export async function denyTreatmentOrder(
     return { ok: false, status: 500, error: upErr.message || 'Deny failed' }
   }
 
-  await supabase.from('patient_timeline_events').insert({
-    patient_id: order.patient_id,
-    event_type: 'treatment_order_denied',
-    body: `Order ${order.order_number} denied by clinician.`,
-    payload: {
-      order_number: order.order_number,
-      treatment_order_id: order.id,
-      reason: args.reason ?? null,
+  await insertTimelineEvent(
+    {
+      patientId: order.patient_id,
+      eventType: 'treatment_order_denied',
+      body: `Order ${order.order_number} denied by clinician.`,
+      payload: {
+        order_number: order.order_number,
+        treatment_order_id: order.id,
+        reason: args.reason ?? null,
+      },
+      actorUserId: args.actorStaffUserId,
     },
-    actor_user_id: args.actorStaffUserId,
-  })
+    supabase,
+  )
 
   return { ok: true, orderNumber: order.order_number }
 }

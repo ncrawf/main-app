@@ -1,4 +1,4 @@
-import { logAuditEvent } from '@/lib/audit/logAuditEvent'
+import { insertAuditEvent, insertTimelineEvent } from '@/lib/events'
 import { syncLegacyGlp1ToCareModel, type CareSyncResult } from '@/lib/care/syncLegacyGlp1ToCareModel'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
@@ -77,30 +77,32 @@ export async function handleStripeCheckoutSessionCompleted(session: Stripe.Check
   else if (hasConsult) bodyParts.push('consult')
 
   if (!already) {
-    const timelineRow = {
-      patient_id: patientId,
-      event_type: 'stripe_checkout_completed',
-      body: bodyParts.join(' · '),
-      actor_user_id: null,
-      payload: {
-        stripe_checkout_session_id: session.id,
-        payment_intent: session.payment_intent,
-        amount_total: amountTotal,
-        currency,
-        has_consult: hasConsult,
-        has_supplement: hasSupplement,
-        status_updated: statusChanged,
+    const tRes = await insertTimelineEvent(
+      {
+        patientId,
+        eventType: 'stripe_checkout_completed',
+        body: bodyParts.join(' · '),
+        actorUserId: null,
+        payload: {
+          stripe_checkout_session_id: session.id,
+          payment_intent: session.payment_intent,
+          amount_total: amountTotal,
+          currency,
+          has_consult: hasConsult,
+          has_supplement: hasSupplement,
+          status_updated: statusChanged,
+        },
+        ...(careSync.available
+          ? {
+              careProgramId: careSync.careProgramId,
+              treatmentItemId: careSync.treatmentItemId,
+            }
+          : {}),
       },
-      ...(careSync.available
-        ? {
-            care_program_id: careSync.careProgramId,
-            treatment_item_id: careSync.treatmentItemId,
-          }
-        : {}),
-    }
-    const { error: tErr } = await admin.from('patient_timeline_events').insert(timelineRow)
-    if (tErr) {
-      console.error('stripe checkout: timeline insert', tErr)
+      admin,
+    )
+    if (!tRes.ok) {
+      console.error('stripe checkout: timeline insert', tRes.error)
     }
   }
 
@@ -146,40 +148,47 @@ export async function handleStripeCheckoutSessionCompleted(session: Stripe.Check
       if (promoteErr) {
         console.error('stripe checkout: refill promote to under_review failed', promoteErr)
       } else if (!already) {
-        const { error: continuationEvtErr } = await admin.from('patient_timeline_events').insert({
-          patient_id: patientId,
-          event_type: 'refill_request_status_changed',
-          body: 'Continue plan payment received. Clinician review starts now.',
-          actor_user_id: null,
-          payload: {
-            refill_request_id: refillRequestId,
-            from: 'requested',
-            to: 'under_review',
-            source: 'stripe_webhook',
-            continuation_phase: 'active_review',
-            stripe_checkout_session_id: session.id,
+        const continuationEvt = await insertTimelineEvent(
+          {
+            patientId,
+            eventType: 'refill_request_status_changed',
+            body: 'Continue plan payment received. Clinician review starts now.',
+            actorUserId: null,
+            payload: {
+              refill_request_id: refillRequestId,
+              from: 'requested',
+              to: 'under_review',
+              source: 'stripe_webhook',
+              continuation_phase: 'active_review',
+              stripe_checkout_session_id: session.id,
+            },
           },
-        })
-        if (continuationEvtErr) {
-          console.error('stripe checkout: continuation timeline insert', continuationEvtErr)
+          admin,
+        )
+        if (!continuationEvt.ok) {
+          console.error('stripe checkout: continuation timeline insert', continuationEvt.error)
         }
       }
     }
   }
 
-  await logAuditEvent({
-    actorUserId: null,
-    action: 'stripe.checkout.session_completed',
-    resourceType: 'stripe_checkout_session',
-    resourceId: session.id,
-    patientId,
-    metadata: {
-      amount_total: amountTotal,
-      currency,
-      has_consult: hasConsult,
-      has_supplement: hasSupplement,
+  await insertAuditEvent(
+    {
+      actorUserId: null,
+      action: 'stripe.checkout.session_completed',
+      resourceType: 'stripe_checkout_session',
+      resourceId: session.id,
+      patientId,
+      actorKind: 'webhook',
+      metadata: {
+        amount_total: amountTotal,
+        currency,
+        has_consult: hasConsult,
+        has_supplement: hasSupplement,
+      },
     },
-  })
+    admin,
+  )
 
   if (hasSupplement) {
     const { data: patientProfile } = await admin
@@ -247,19 +256,22 @@ export async function handleStripeCheckoutSessionCompleted(session: Stripe.Check
       const body = missingShipping
         ? `Supplement purchase recorded, but shipping profile is incomplete (${names.join(', ')}${suffix}).`
         : `Supplement purchase queued for fulfillment (${names.join(', ')}${suffix}).`
-      const { error: sEvtErr } = await admin.from('patient_timeline_events').insert({
-        patient_id: patientId,
-        event_type: 'supplement_purchase_recorded',
-        body,
-        actor_user_id: null,
-        payload: {
-          stripe_checkout_session_id: session.id,
-          fulfillment_status: orderStatus,
-          item_count: supplementItems.length,
-          missing_shipping: missingShipping,
+      const sEvt = await insertTimelineEvent(
+        {
+          patientId,
+          eventType: 'supplement_purchase_recorded',
+          body,
+          actorUserId: null,
+          payload: {
+            stripe_checkout_session_id: session.id,
+            fulfillment_status: orderStatus,
+            item_count: supplementItems.length,
+            missing_shipping: missingShipping,
+          },
         },
-      })
-      if (sEvtErr) console.error('stripe checkout: supplement timeline insert', sEvtErr)
+        admin,
+      )
+      if (!sEvt.ok) console.error('stripe checkout: supplement timeline insert', sEvt.error)
     }
   }
 

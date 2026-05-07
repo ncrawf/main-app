@@ -13,7 +13,7 @@
 import { createHash } from 'crypto'
 import { revalidatePath } from 'next/cache'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { logAuditEvent } from '@/lib/audit/logAuditEvent'
+import { insertAuditEvent, insertTimelineEvent } from '@/lib/events'
 import { isMissingRelationError, isWorkflowTransitionAllowed } from '@/lib/care/workflowTransition'
 import { buildClinicalVisitPdfArtifactPointer } from '@/lib/clinical/artifact'
 import { buildLabOrderPdfArtifactPointer } from '@/lib/labs/artifact'
@@ -209,16 +209,19 @@ export async function addStaffNote(patientId: string, rawText: string): Promise<
   const { data: patient, error: pErr } = await supabase.from('patients').select('id').eq('id', patientId).maybeSingle()
   if (pErr || !patient) return { ok: false, error: 'Patient not found.' }
 
-  const { error: insErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'staff_note',
-    body: text,
-    actor_user_id: user.id,
-    payload: {},
-  })
+  const insRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'staff_note',
+      body: text,
+      actorUserId: user.id,
+      payload: {},
+    },
+    supabase,
+  )
 
-  if (insErr) {
-    console.error(insErr)
+  if (!insRes.ok) {
+    console.error(insRes.error)
     return { ok: false, error: 'Could not save note.' }
   }
 
@@ -280,26 +283,33 @@ export async function applyCaseUpdates(
     const fromN = await staffDisplayName(supabase, prevAssignee)
     const toN = await staffDisplayName(supabase, assigneeNorm)
     const body = `Assignee: ${fromN} → ${toN}`
-    const { error: aErr } = await supabase.from('patient_timeline_events').insert({
-      patient_id: patientId,
-      event_type: 'assignee_changed',
-      body,
-      actor_user_id: user.id,
-      payload: {
-        from: prevAssignee,
-        to: assigneeNorm,
+    const aRes = await insertTimelineEvent(
+      {
+        patientId,
+        eventType: 'assignee_changed',
+        body,
+        actorUserId: user.id,
+        payload: {
+          from: prevAssignee,
+          to: assigneeNorm,
+        },
       },
-    })
-    if (aErr) console.error(aErr)
+      supabase,
+    )
+    if (!aRes.ok) console.error(aRes.error)
 
-    await logAuditEvent({
-      actorUserId: user.id,
-      action: 'patient_state.assignee_changed',
-      resourceType: 'patient_state',
-      resourceId: patientId,
-      patientId,
-      metadata: { from: prevAssignee, to: assigneeNorm },
-    })
+    await insertAuditEvent(
+      {
+        actorUserId: user.id,
+        action: 'patient_state.assignee_changed',
+        resourceType: 'patient_state',
+        resourceId: patientId,
+        patientId,
+        actorKind: 'staff_user',
+        metadata: { from: prevAssignee, to: assigneeNorm },
+      },
+      supabase,
+    )
   }
 
   revalidatePath(`/internal/patients/${patientId}`)
@@ -350,13 +360,16 @@ export async function sendTemplateTestEmail(
     return { ok: false, error: result.error }
   }
 
-  await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'email_preview_sent',
-    body: `${templateKey} preview sent to ${user.email}`,
-    actor_user_id: user.id,
-    payload: { template_key: templateKey, provider_message_id: result.id },
-  })
+  await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'email_preview_sent',
+      body: `${templateKey} preview sent to ${user.email}`,
+      actorUserId: user.id,
+      payload: { template_key: templateKey, provider_message_id: result.id },
+    },
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   return { ok: true, sentTo: user.email }
@@ -419,20 +432,23 @@ export async function updateTreatmentItemStatus(
   }
 
   const body = `Treatment (${item.display_name}): ${labelForTreatmentStatus(prevStatus)} → ${labelForTreatmentStatus(nextStatus)}`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: item.care_program_id,
-    treatment_item_id: item.id,
-    event_type: 'treatment_status_changed',
-    body,
-    actor_user_id: user.id,
-    payload: {
-      treatment_key: item.treatment_key,
-      from: prevStatus,
-      to: nextStatus,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: item.care_program_id,
+      treatmentItemId: item.id,
+      eventType: 'treatment_status_changed',
+      body,
+      actorUserId: user.id,
+      payload: {
+        treatment_key: item.treatment_key,
+        from: prevStatus,
+        to: nextStatus,
+      },
     },
-  })
-  if (tErr) console.error(tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error(tRes.error)
 
   if (nextStatus === 'active') {
     await completeDiagnosticActionTasks(supabase, patientId, user.id, 'treatment_activated', openDiagnosticTasks)
@@ -455,14 +471,18 @@ export async function updateTreatmentItemStatus(
     }
   }
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'treatment_item.status_changed',
-    resourceType: 'treatment_item',
-    resourceId: treatmentItemId,
-    patientId,
-    metadata: { from: prevStatus, to: nextStatus, treatment_key: item.treatment_key },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'treatment_item.status_changed',
+      resourceType: 'treatment_item',
+      resourceId: treatmentItemId,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: { from: prevStatus, to: nextStatus, treatment_key: item.treatment_key },
+    },
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
@@ -514,15 +534,18 @@ export async function updateCareProgramStatus(
   }
 
   const body = `Program (${program.title?.trim() || labelForProgramStatus(program.program_type)}): ${labelForProgramStatus(prevStatus)} → ${labelForProgramStatus(nextStatus)}`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: program.id,
-    event_type: 'program_status_changed',
-    body,
-    actor_user_id: user.id,
-    payload: { from: prevStatus, to: nextStatus, program_type: program.program_type },
-  })
-  if (tErr) console.error(tErr)
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: program.id,
+      eventType: 'program_status_changed',
+      body,
+      actorUserId: user.id,
+      payload: { from: prevStatus, to: nextStatus, program_type: program.program_type },
+    },
+    supabase,
+  )
+  if (!tRes.ok) console.error(tRes.error)
 
   // Workflow notifications follow canonical program status transitions.
   if (program.program_type === 'weight_loss') {
@@ -541,14 +564,18 @@ export async function updateCareProgramStatus(
     }
   }
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'care_program.status_changed',
-    resourceType: 'care_program',
-    resourceId: careProgramId,
-    patientId,
-    metadata: { from: prevStatus, to: nextStatus, program_type: program.program_type },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'care_program.status_changed',
+      resourceType: 'care_program',
+      resourceId: careProgramId,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: { from: prevStatus, to: nextStatus, program_type: program.program_type },
+    },
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
@@ -635,29 +662,36 @@ export async function requestRefillForTreatmentItem(
   }
 
   const body = `Refill requested for ${item.display_name}`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: item.care_program_id,
-    treatment_item_id: item.id,
-    event_type: 'refill_requested',
-    body,
-    actor_user_id: user.id,
-    payload: {
-      refill_request_id: inserted.id,
-      treatment_key: item.treatment_key,
-      patient_note: note.length > 0 ? note : null,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: item.care_program_id,
+      treatmentItemId: item.id,
+      eventType: 'refill_requested',
+      body,
+      actorUserId: user.id,
+      payload: {
+        refill_request_id: inserted.id,
+        treatment_key: item.treatment_key,
+        patient_note: note.length > 0 ? note : null,
+      },
     },
-  })
-  if (tErr) console.error(tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error(tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'refill_request.submitted',
-    resourceType: 'refill_request',
-    resourceId: inserted.id,
-    patientId,
-    metadata: { treatment_item_id: treatmentItemId, treatment_key: item.treatment_key },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'refill_request.submitted',
+      resourceType: 'refill_request',
+      resourceId: inserted.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: { treatment_item_id: treatmentItemId, treatment_key: item.treatment_key },
+    },
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
@@ -841,22 +875,29 @@ async function completeDiagnosticActionTasks(
 ): Promise<void> {
   const toClose = openTasks.filter((task) => task.allowedCompletionActions.includes(completionAction))
   if (toClose.length === 0) return
-  const rows = toClose.map((task) => ({
-    patient_id: patientId,
-    event_type: 'clinical_action_task_completed',
-    body: `Completed action task: ${task.title}`,
-    actor_user_id: actorUserId,
-    payload: {
-      source: 'chart_ai_action_plan',
-      review_id: task.reviewId,
-      task_id: task.taskId,
-      completion_action: completionAction,
-      task_status: 'completed',
-    },
-  }))
-  const { error } = await supabase.from('patient_timeline_events').insert(rows)
-  if (error) {
-    console.error('completeDiagnosticActionTasks', error)
+  const results = await Promise.all(
+    toClose.map((task) =>
+      insertTimelineEvent(
+        {
+          patientId,
+          eventType: 'clinical_action_task_completed',
+          body: `Completed action task: ${task.title}`,
+          actorUserId,
+          payload: {
+            source: 'chart_ai_action_plan',
+            review_id: task.reviewId,
+            task_id: task.taskId,
+            completion_action: completionAction,
+            task_status: 'completed',
+          },
+        },
+        supabase,
+      ),
+    ),
+  )
+  const failed = results.filter((r) => !r.ok)
+  if (failed.length > 0) {
+    console.error('completeDiagnosticActionTasks', failed.map((f) => (f.ok ? '' : f.error)))
   }
 }
 
@@ -974,20 +1015,23 @@ export async function updateRefillRequestStatus(
   }
 
   const body = `Refill (${treatment.display_name}): ${labelRefillStatus(prev)} → ${labelRefillStatus(next)}`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: row.care_program_id,
-    treatment_item_id: treatment.id,
-    event_type: 'refill_request_status_changed',
-    body,
-    actor_user_id: user.id,
-    payload: {
-      refill_request_id: refillRequestId,
-      from: prev,
-      to: next,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: row.care_program_id,
+      treatmentItemId: treatment.id,
+      eventType: 'refill_request_status_changed',
+      body,
+      actorUserId: user.id,
+      payload: {
+        refill_request_id: refillRequestId,
+        from: prev,
+        to: next,
+      },
     },
-  })
-  if (tErr) console.error(tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error(tRes.error)
 
   if (next === 'approved') {
     await completeDiagnosticActionTasks(supabase, patientId, user.id, 'refill_approved', openDiagnosticTasks)
@@ -995,14 +1039,18 @@ export async function updateRefillRequestStatus(
     await completeDiagnosticActionTasks(supabase, patientId, user.id, 'refill_fulfilled', openDiagnosticTasks)
   }
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'refill_request.status_changed',
-    resourceType: 'refill_request',
-    resourceId: refillRequestId,
-    patientId,
-    metadata: { from: prev, to: next, treatment_item_id: treatment.id },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'refill_request.status_changed',
+      resourceType: 'refill_request',
+      resourceId: refillRequestId,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: { from: prev, to: next, treatment_item_id: treatment.id },
+    },
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
@@ -1309,41 +1357,48 @@ export async function createAndPublishLabOrder(
     return { ok: false, error: 'Order published, but signed URL could not be created.' }
   }
 
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'lab_order_published',
-    body: `Lab requisition published (${selectedTests.length} tests)`,
-    actor_user_id: user.id,
-    payload: {
-      lab_order_id: inserted.id,
-      order_date: orderDate,
-      ordering_provider_name: orderingProviderName,
-      diagnosis_codes: diagnosisCodes,
-      ordered_tests: selectedTests.map((test) => ({ code: test.code, label: test.label })),
-      signature_mode: signatureMode,
-      object_path: artifact.object_path,
-      bucket: artifact.bucket,
-      content_sha256: hash,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'lab_order_published',
+      body: `Lab requisition published (${selectedTests.length} tests)`,
+      actorUserId: user.id,
+      payload: {
+        lab_order_id: inserted.id,
+        order_date: orderDate,
+        ordering_provider_name: orderingProviderName,
+        diagnosis_codes: diagnosisCodes,
+        ordered_tests: selectedTests.map((test) => ({ code: test.code, label: test.label })),
+        signature_mode: signatureMode,
+        object_path: artifact.object_path,
+        bucket: artifact.bucket,
+        content_sha256: hash,
+      },
     },
-  })
-  if (tErr) console.error('createAndPublishLabOrder.timeline', tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('createAndPublishLabOrder.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'lab_order.published',
-    resourceType: 'lab_order',
-    resourceId: inserted.id,
-    patientId,
-    metadata: {
-      object_path: artifact.object_path,
-      bucket: artifact.bucket,
-      test_count: selectedTests.length,
-      ordering_provider_name: orderingProviderName,
-      ordering_provider_npi: orderingProviderNpi || null,
-      diagnosis_codes: diagnosisCodes,
-      signature_mode: signatureMode,
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'lab_order.published',
+      resourceType: 'lab_order',
+      resourceId: inserted.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: {
+        object_path: artifact.object_path,
+        bucket: artifact.bucket,
+        test_count: selectedTests.length,
+        ordering_provider_name: orderingProviderName,
+        ordering_provider_npi: orderingProviderNpi || null,
+        diagnosis_codes: diagnosisCodes,
+        signature_mode: signatureMode,
+      },
     },
-  })
+    supabase,
+  )
 
   if (notifyPatientByEmail) {
     try {
@@ -1614,33 +1669,40 @@ export async function createClinicalVisitNote(
     }
   }
 
-  const { error: timelineErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'clinical_visit_documented',
-    body: `Clinical visit note documented (${visitType.replaceAll('_', ' ')})`,
-    actor_user_id: user.id,
-    payload: {
-      clinical_visit_id: insertedVisit.id,
-      diagnosis_codes: diagnosisCodes,
-      linked_treatment_item_ids: selectedTreatments.map((row) => row.id),
-      source_refill_request_id: sourceRefillRequestId,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'clinical_visit_documented',
+      body: `Clinical visit note documented (${visitType.replaceAll('_', ' ')})`,
+      actorUserId: user.id,
+      payload: {
+        clinical_visit_id: insertedVisit.id,
+        diagnosis_codes: diagnosisCodes,
+        linked_treatment_item_ids: selectedTreatments.map((row) => row.id),
+        source_refill_request_id: sourceRefillRequestId,
+      },
     },
-  })
-  if (timelineErr) console.error('createClinicalVisitNote.timeline', timelineErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('createClinicalVisitNote.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'clinical_visit.documented',
-    resourceType: 'clinical_visit',
-    resourceId: insertedVisit.id,
-    patientId,
-    metadata: {
-      visit_type: visitType,
-      diagnosis_codes: diagnosisCodes,
-      linked_treatment_item_ids: selectedTreatments.map((row) => row.id),
-      source_refill_request_id: sourceRefillRequestId,
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'clinical_visit.documented',
+      resourceType: 'clinical_visit',
+      resourceId: insertedVisit.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: {
+        visit_type: visitType,
+        diagnosis_codes: diagnosisCodes,
+        linked_treatment_item_ids: selectedTreatments.map((row) => row.id),
+        source_refill_request_id: sourceRefillRequestId,
+      },
     },
-  })
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   return { ok: true, visitId: insertedVisit.id }
@@ -1822,33 +1884,40 @@ export async function publishClinicalVisitPdf(
     return { ok: false, error: 'PDF published but signed URL unavailable.' }
   }
 
-  const { error: timelineErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'clinical_visit_pdf_published',
-    body: `Clinical visit PDF published to patient portal (${visit.visit_type.replaceAll('_', ' ')})`,
-    actor_user_id: user.id,
-    payload: {
-      clinical_visit_id: visit.id,
-      object_path: artifact.object_path,
-      bucket: artifact.bucket,
-      content_sha256: hash,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'clinical_visit_pdf_published',
+      body: `Clinical visit PDF published to patient portal (${visit.visit_type.replaceAll('_', ' ')})`,
+      actorUserId: user.id,
+      payload: {
+        clinical_visit_id: visit.id,
+        object_path: artifact.object_path,
+        bucket: artifact.bucket,
+        content_sha256: hash,
+      },
     },
-  })
-  if (timelineErr) console.error('publishClinicalVisitPdf.timeline', timelineErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('publishClinicalVisitPdf.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'clinical_visit.pdf_published',
-    resourceType: 'clinical_visit',
-    resourceId: visit.id,
-    patientId,
-    metadata: {
-      object_path: artifact.object_path,
-      bucket: artifact.bucket,
-      content_sha256: hash,
-      notify_patient_email: notifyPatientByEmail,
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'clinical_visit.pdf_published',
+      resourceType: 'clinical_visit',
+      resourceId: visit.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: {
+        object_path: artifact.object_path,
+        bucket: artifact.bucket,
+        content_sha256: hash,
+        notify_patient_email: notifyPatientByEmail,
+      },
     },
-  })
+    supabase,
+  )
 
   if (notifyPatientByEmail && patient.email) {
     try {
@@ -1948,29 +2017,36 @@ export async function createClinicalVisitAddendum(
     return { ok: false, error: 'Could not save addendum.' }
   }
 
-  const { error: timelineErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'clinical_visit_addendum_created',
-    body: `Clinical visit addendum recorded.\n${addendumText}`,
-    actor_user_id: user.id,
-    payload: {
-      clinical_visit_id: clinicalVisitId,
-      clinical_visit_addendum_id: inserted.id,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'clinical_visit_addendum_created',
+      body: `Clinical visit addendum recorded.\n${addendumText}`,
+      actorUserId: user.id,
+      payload: {
+        clinical_visit_id: clinicalVisitId,
+        clinical_visit_addendum_id: inserted.id,
+      },
     },
-  })
-  if (timelineErr) console.error('createClinicalVisitAddendum.timeline', timelineErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('createClinicalVisitAddendum.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'clinical_visit.addendum_created',
-    resourceType: 'clinical_visit_addendum',
-    resourceId: inserted.id,
-    patientId,
-    metadata: {
-      clinical_visit_id: clinicalVisitId,
-      text_length: addendumText.length,
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'clinical_visit.addendum_created',
+      resourceType: 'clinical_visit_addendum',
+      resourceId: inserted.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: {
+        clinical_visit_id: clinicalVisitId,
+        text_length: addendumText.length,
+      },
     },
-  })
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   return { ok: true, addendumId: inserted.id }
@@ -2034,29 +2110,36 @@ export async function markLabOrderDispatched(
     dispatchMode === 'fax'
       ? `Lab requisition faxed${destination ? ` to ${destination}` : ''}.${note ? `\nNote: ${note}` : ''}`
       : `Lab requisition sent to lab${destination ? ` (${destination})` : ''}.${note ? `\nNote: ${note}` : ''}`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'lab_order_dispatch_updated',
-    body,
-    actor_user_id: user.id,
-    payload: {
-      lab_order_id: labOrderId,
-      dispatch_mode: dispatchMode,
-      destination: destination || null,
-      note: note || null,
-      status: nextStatus,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'lab_order_dispatch_updated',
+      body,
+      actorUserId: user.id,
+      payload: {
+        lab_order_id: labOrderId,
+        dispatch_mode: dispatchMode,
+        destination: destination || null,
+        note: note || null,
+        status: nextStatus,
+      },
     },
-  })
-  if (tErr) console.error('markLabOrderDispatched.timeline', tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('markLabOrderDispatched.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'lab_order.dispatch_updated',
-    resourceType: 'lab_order',
-    resourceId: labOrderId,
-    patientId,
-    metadata: { dispatch_mode: dispatchMode, destination: destination || null, status: nextStatus },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'lab_order.dispatch_updated',
+      resourceType: 'lab_order',
+      resourceId: labOrderId,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: { dispatch_mode: dispatchMode, destination: destination || null, status: nextStatus },
+    },
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath(`/dashboard/${patientId}`)
@@ -2204,30 +2287,37 @@ export async function generateRxPdfForTreatment(
     return { ok: false, error: 'PDF saved but signed URL could not be created.' }
   }
 
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: item.care_program_id,
-    treatment_item_id: item.id,
-    event_type: 'rx_pdf_generated',
-    body: `Rx PDF generated for ${item.display_name} (fax default ${DEFAULT_TEMP_FAX_NUMBER})`,
-    actor_user_id: user.id,
-    payload: {
-      object_path: artifact.object_path,
-      bucket: artifact.bucket,
-      content_sha256: hash,
-      fax_to: DEFAULT_TEMP_FAX_NUMBER,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: item.care_program_id,
+      treatmentItemId: item.id,
+      eventType: 'rx_pdf_generated',
+      body: `Rx PDF generated for ${item.display_name} (fax default ${DEFAULT_TEMP_FAX_NUMBER})`,
+      actorUserId: user.id,
+      payload: {
+        object_path: artifact.object_path,
+        bucket: artifact.bucket,
+        content_sha256: hash,
+        fax_to: DEFAULT_TEMP_FAX_NUMBER,
+      },
     },
-  })
-  if (tErr) console.error('generateRxPdfForTreatment.timeline', tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('generateRxPdfForTreatment.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'treatment_item.rx_pdf_generated',
-    resourceType: 'treatment_item',
-    resourceId: item.id,
-    patientId,
-    metadata: { object_path: artifact.object_path, bucket: artifact.bucket, fax_to: DEFAULT_TEMP_FAX_NUMBER },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'treatment_item.rx_pdf_generated',
+      resourceType: 'treatment_item',
+      resourceId: item.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: { object_path: artifact.object_path, bucket: artifact.bucket, fax_to: DEFAULT_TEMP_FAX_NUMBER },
+    },
+    supabase,
+  )
 
   revalidatePath(`/internal/patients/${patientId}`)
   return { ok: true, signedUrl: signed.signedUrl, objectPath: artifact.object_path }
@@ -2361,30 +2451,37 @@ export async function prepareTreatmentForPharmacyDispatch(
   }
 
   const body = `Pharmacy dispatch payload prepared for ${treatment.display_name} (fax ${DEFAULT_TEMP_FAX_NUMBER})`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: treatment.care_program_id,
-    treatment_item_id: treatment.id,
-    event_type: 'pharmacy_dispatch_prepared',
-    body,
-    actor_user_id: user.id,
-    payload: {
-      treatment_order_id: inserted.id,
-      dispatch_mode: 'fax_pdf',
-      fax_to: DEFAULT_TEMP_FAX_NUMBER,
-      fulfillment_channel: fulfillmentChannel,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: treatment.care_program_id,
+      treatmentItemId: treatment.id,
+      eventType: 'pharmacy_dispatch_prepared',
+      body,
+      actorUserId: user.id,
+      payload: {
+        treatment_order_id: inserted.id,
+        dispatch_mode: 'fax_pdf',
+        fax_to: DEFAULT_TEMP_FAX_NUMBER,
+        fulfillment_channel: fulfillmentChannel,
+      },
     },
-  })
-  if (tErr) console.error('prepareTreatmentForPharmacyDispatch.timeline', tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('prepareTreatmentForPharmacyDispatch.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'treatment_order.payload_prepared',
-    resourceType: 'treatment_order',
-    resourceId: inserted.id,
-    patientId,
-    metadata: { treatment_item_id: treatment.id, dispatch_mode: 'fax_pdf', fax_to: DEFAULT_TEMP_FAX_NUMBER },
-  })
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'treatment_order.payload_prepared',
+      resourceType: 'treatment_order',
+      resourceId: inserted.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: { treatment_item_id: treatment.id, dispatch_mode: 'fax_pdf', fax_to: DEFAULT_TEMP_FAX_NUMBER },
+    },
+    supabase,
+  )
 
   let warning: string | undefined
   if (treatment.status === 'approved') {
@@ -2487,21 +2584,24 @@ export async function updateSupplementFulfillmentStatus(
     ? `\nTracking: ${trackingNumber}${trackingUrl ? ` (${trackingUrl})` : ''}`
     : ''
   const body = `Supplement fulfillment status ${labelFrom} → ${labelTo}.${trackingSuffix}${noteSuffix}`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'supplement_fulfillment_status_changed',
-    body,
-    actor_user_id: user.id,
-    payload: {
-      fulfillment_order_id: order.id,
-      stripe_checkout_session_id: order.stripe_checkout_session_id,
-      from_status: order.status,
-      to_status: nextStatus,
-      tracking_number: trackingNumber || null,
-      tracking_url: trackingUrl || null,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'supplement_fulfillment_status_changed',
+      body,
+      actorUserId: user.id,
+      payload: {
+        fulfillment_order_id: order.id,
+        stripe_checkout_session_id: order.stripe_checkout_session_id,
+        from_status: order.status,
+        to_status: nextStatus,
+        tracking_number: trackingNumber || null,
+        tracking_url: trackingUrl || null,
+      },
     },
-  })
-  if (tErr) console.error('updateSupplementFulfillmentStatus.timeline', tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('updateSupplementFulfillmentStatus.timeline', tRes.error)
 
   const shouldNotify = nextStatus !== 'blocked_missing_shipping' || Boolean(staffNote)
   if (shouldNotify) {
@@ -2563,20 +2663,24 @@ export async function updateSupplementFulfillmentStatus(
     }
   }
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'supplement_fulfillment_order.status_updated',
-    resourceType: 'supplement_fulfillment_order',
-    resourceId: order.id,
-    patientId,
-    metadata: {
-      from_status: order.status,
-      to_status: nextStatus,
-      tracking_number: trackingNumber || null,
-      tracking_url: trackingUrl || null,
-      note: staffNote || null,
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'supplement_fulfillment_order.status_updated',
+      resourceType: 'supplement_fulfillment_order',
+      resourceId: order.id,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: {
+        from_status: order.status,
+        to_status: nextStatus,
+        tracking_number: trackingNumber || null,
+        tracking_url: trackingUrl || null,
+        note: staffNote || null,
+      },
     },
-  })
+    supabase,
+  )
 
   try {
     const admin = createAdminClient()
@@ -2790,20 +2894,23 @@ export async function updatePatientSupportRequestStatus(
   const actionLabel = supportActionLabel(action)
   const noteSuffix = staffNote ? `\nNote: ${staffNote}` : ''
   const timelineBody = `${sourceLabel} marked ${actionLabel.toLowerCase()}.${noteSuffix}`
-  const { error: insErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'support_request_status_updated',
-    body: timelineBody,
-    actor_user_id: user.id,
-    payload: {
-      support_source_event_id: timelineEventId,
-      support_source_event_type: ev.event_type,
-      from_status: currentStatus,
-      to_status: action,
-      staff_note: staffNote || null,
+  const insRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'support_request_status_updated',
+      body: timelineBody,
+      actorUserId: user.id,
+      payload: {
+        support_source_event_id: timelineEventId,
+        support_source_event_type: ev.event_type,
+        from_status: currentStatus,
+        to_status: action,
+        staff_note: staffNote || null,
+      },
     },
-  })
-  if (insErr) console.error('updatePatientSupportRequestStatus.timeline', insErr)
+    supabase,
+  )
+  if (!insRes.ok) console.error('updatePatientSupportRequestStatus.timeline', insRes.error)
 
   if (action === 'call_completed' && ev.event_type === 'patient_callback_requested') {
     try {
@@ -2853,19 +2960,23 @@ export async function updatePatientSupportRequestStatus(
     }
   }
 
-  await logAuditEvent({
-    actorUserId: user.id,
-    action: 'patient_support_request.status_updated',
-    resourceType: 'patient_timeline_event',
-    resourceId: timelineEventId,
-    patientId,
-    metadata: {
-      source_event_type: ev.event_type,
-      from_status: currentStatus,
-      to_status: action,
-      staff_note: staffNote || null,
+  await insertAuditEvent(
+    {
+      actorUserId: user.id,
+      action: 'patient_support_request.status_updated',
+      resourceType: 'patient_timeline_event',
+      resourceId: timelineEventId,
+      patientId,
+      actorKind: 'staff_user',
+      metadata: {
+        source_event_type: ev.event_type,
+        from_status: currentStatus,
+        to_status: action,
+        staff_note: staffNote || null,
+      },
     },
-  })
+    supabase,
+  )
 
   try {
     const admin = createAdminClient()

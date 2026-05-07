@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { assertPatientPortalSessionOnly } from '@/lib/patient-portal/assertAccess'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { enqueueChartAiReview } from '@/lib/ai/enqueueChartAiReview'
+import { insertTimelineEvent } from '@/lib/events'
 
 export const runtime = 'nodejs'
 
@@ -114,33 +115,30 @@ export async function POST(request: Request) {
   }
 
   const bodyText = `Patient check-in submitted for ${treatment.display_name}.`
-  const { data: inserted, error: iErr } = await admin
-    .from('patient_timeline_events')
-    .insert({
-      patient_id: patientId,
-      treatment_item_id: treatment.id,
-      event_type: 'patient_treatment_checkin_submitted',
+  const inserted = await insertTimelineEvent(
+    {
+      patientId,
+      treatmentItemId: treatment.id,
+      eventType: 'patient_treatment_checkin_submitted',
       body: bodyText,
-      actor_user_id: null,
+      actorUserId: null,
       payload,
-    })
-    .select('id')
-    .maybeSingle()
-  if (iErr) {
-    console.error('treatment-checkin: timeline', iErr)
+    },
+    admin,
+  )
+  if (!inserted.ok) {
+    console.error('treatment-checkin: timeline', inserted.error)
     return NextResponse.json({ error: 'Could not save check-in.' }, { status: 500 })
   }
-  if (inserted?.id) {
-    const { error: cErr } = await admin.from('patient_treatment_checkins').insert({
-      patient_id: patientId,
-      treatment_item_id: treatment.id,
-      source_timeline_event_id: inserted.id,
-      treatment_key: treatment.treatment_key,
-      display_name: treatment.display_name,
-      checkin: payload.checkin,
-    })
-    if (cErr) console.error('treatment-checkin: ops row', cErr)
-  }
+  const { error: cErr } = await admin.from('patient_treatment_checkins').insert({
+    patient_id: patientId,
+    treatment_item_id: treatment.id,
+    source_timeline_event_id: inserted.id,
+    treatment_key: treatment.treatment_key,
+    display_name: treatment.display_name,
+    checkin: payload.checkin,
+  })
+  if (cErr) console.error('treatment-checkin: ops row', cErr)
 
   const priorMetadata = ((treatment.metadata as Record<string, unknown>) ?? {}) as Record<string, unknown>
   const { error: mErr } = await admin
@@ -167,7 +165,7 @@ export async function POST(request: Request) {
   await enqueueChartAiReview(admin, {
     patientId,
     triggerEventType: 'treatment_checkin_submitted',
-    triggerRef: inserted?.id ?? treatment.id,
+    triggerRef: inserted.id,
   })
 
   return NextResponse.json({ ok: true })

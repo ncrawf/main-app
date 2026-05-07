@@ -7,6 +7,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { parseActionPlanTasksFromPayload } from '@/lib/pathways/decisionContract'
 import { allowedNextRefillRequestStatuses, isValidRefillRequestStatus } from '@/lib/refill/refillRequestTransitions'
+import { insertTimelineEvent } from '@/lib/events'
 import { revalidatePath } from 'next/cache'
 
 export type {
@@ -414,33 +415,36 @@ export async function reviewChartAiDraft(
   if (decision === 'reviewed_accepted') {
     const actionPlanTasks = parseActionPlanTasksFromPayload(reviewRow.output_payload)
     if (actionPlanTasks.length > 0) {
-      const taskRows = await Promise.all(
+      const taskInserts = await Promise.all(
         actionPlanTasks.map(async (task) => {
           const targets = await resolveTaskTargets(supabase, patientId, task.allowed_completion_actions)
-          return {
-            patient_id: patientId,
-            event_type: 'clinical_action_task_created',
-            body: `Action required: ${task.title}`,
-            actor_user_id: user.id,
-            payload: {
-              source: 'chart_ai_action_plan',
-              review_id: reviewId,
-              task_id: task.task_id,
-              task_title: task.title,
-              task_reason: task.reason,
-              required_owner: task.required_owner,
-              required_due_state: task.required_due_state,
-              allowed_completion_actions: task.allowed_completion_actions,
-              refill_request_id: targets.refillRequestId,
-              treatment_item_id: targets.treatmentItemId,
-              task_status: 'open',
+          return insertTimelineEvent(
+            {
+              patientId,
+              eventType: 'clinical_action_task_created',
+              body: `Action required: ${task.title}`,
+              actorUserId: user.id,
+              payload: {
+                source: 'chart_ai_action_plan',
+                review_id: reviewId,
+                task_id: task.task_id,
+                task_title: task.title,
+                task_reason: task.reason,
+                required_owner: task.required_owner,
+                required_due_state: task.required_due_state,
+                allowed_completion_actions: task.allowed_completion_actions,
+                refill_request_id: targets.refillRequestId,
+                treatment_item_id: targets.treatmentItemId,
+                task_status: 'open',
+              },
             },
-          }
+            supabase,
+          )
         })
       )
-      const { error: taskErr } = await supabase.from('patient_timeline_events').insert(taskRows)
-      if (taskErr) {
-        console.error('reviewChartAiDraft.taskRows', taskErr)
+      const failed = taskInserts.filter((r) => !r.ok)
+      if (failed.length > 0) {
+        console.error('reviewChartAiDraft.taskRows', failed.map((f) => (f.ok ? '' : f.error)))
       }
     }
 

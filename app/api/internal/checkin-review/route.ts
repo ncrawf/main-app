@@ -3,6 +3,7 @@ import { requireCapability } from '@/lib/auth/capabilities'
 import { isMissingRelationError } from '@/lib/care/workflowTransition'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
+import { insertTimelineEvent } from '@/lib/events'
 
 export const runtime = 'nodejs'
 
@@ -117,19 +118,22 @@ export async function POST(request: Request) {
     }
   }
 
-  const { error: insErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'patient_treatment_checkin_reviewed',
-    body: 'Staff reviewed patient check-in.',
-    actor_user_id: user.id,
-    payload: {
-      source_event_id: sourceEventId,
-      reviewed_at: reviewedAt,
-      reviewed_by: user.id,
+  const insRes = await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'patient_treatment_checkin_reviewed',
+      body: 'Staff reviewed patient check-in.',
+      actorUserId: user.id,
+      payload: {
+        source_event_id: sourceEventId,
+        reviewed_at: reviewedAt,
+        reviewed_by: user.id,
+      },
     },
-  })
-  if (insErr) {
-    console.error('checkin-review.insert', insErr)
+    supabase,
+  )
+  if (!insRes.ok) {
+    console.error('checkin-review.insert', insRes.error)
     return NextResponse.json({ error: 'Could not mark check-in as reviewed.' }, { status: 500 })
   }
 

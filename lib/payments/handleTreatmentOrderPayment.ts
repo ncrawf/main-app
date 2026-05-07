@@ -1,6 +1,7 @@
 import type Stripe from 'stripe'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getStripe } from '@/lib/stripe/server'
+import { insertTimelineEvent } from '@/lib/events'
 
 /**
  * Persists the saved payment method from a `mode=setup` checkout session back
@@ -81,17 +82,20 @@ export async function handleSetupIntentCheckoutCompleted(
     return
   }
 
-  await admin.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    event_type: 'payment_method_added',
-    body: brand && last4 ? `Payment method saved (${brand} · ${last4})` : 'Payment method saved',
-    payload: {
-      stripe_setup_intent_id: setupIntentId,
-      stripe_payment_method_id: paymentMethodId,
-      brand,
-      last4,
+  await insertTimelineEvent(
+    {
+      patientId,
+      eventType: 'payment_method_added',
+      body: brand && last4 ? `Payment method saved (${brand} · ${last4})` : 'Payment method saved',
+      payload: {
+        stripe_setup_intent_id: setupIntentId,
+        stripe_payment_method_id: paymentMethodId,
+        brand,
+        last4,
+      },
     },
-  })
+    admin,
+  )
 }
 
 /**
@@ -161,17 +165,20 @@ export async function handleTreatmentOrderPaymentSucceeded(
   }
 
   if (nextStatus !== order.status) {
-    await admin.from('patient_timeline_events').insert({
-      patient_id: order.patient_id,
-      event_type: 'treatment_order_charged',
-      body: `Payment confirmed for order ${order.order_number}.`,
-      payload: {
-        order_number: order.order_number,
-        treatment_order_id: order.id,
-        stripe_payment_intent_id: paymentIntent.id,
-        amount_cents: amount,
+    await insertTimelineEvent(
+      {
+        patientId: order.patient_id,
+        eventType: 'treatment_order_charged',
+        body: `Payment confirmed for order ${order.order_number}.`,
+        payload: {
+          order_number: order.order_number,
+          treatment_order_id: order.id,
+          stripe_payment_intent_id: paymentIntent.id,
+          amount_cents: amount,
+        },
       },
-    })
+      admin,
+    )
   }
 }
 
@@ -220,15 +227,18 @@ export async function handleTreatmentOrderPaymentFailed(
     return
   }
 
-  await admin.from('patient_timeline_events').insert({
-    patient_id: order.patient_id,
-    event_type: 'treatment_order_payment_failed',
-    body: `Charge failed for order ${order.order_number}: ${message}`,
-    payload: {
-      order_number: order.order_number,
-      treatment_order_id: order.id,
-      stripe_payment_intent_id: paymentIntent.id,
-      message,
+  await insertTimelineEvent(
+    {
+      patientId: order.patient_id,
+      eventType: 'treatment_order_payment_failed',
+      body: `Charge failed for order ${order.order_number}: ${message}`,
+      payload: {
+        order_number: order.order_number,
+        treatment_order_id: order.id,
+        stripe_payment_intent_id: paymentIntent.id,
+        message,
+      },
     },
-  })
+    admin,
+  )
 }

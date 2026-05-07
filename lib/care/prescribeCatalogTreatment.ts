@@ -1,6 +1,6 @@
 import { randomBytes } from 'crypto'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { logAuditEvent } from '@/lib/audit/logAuditEvent'
+import { insertAuditEvent, insertTimelineEvent } from '@/lib/events'
 import {
   buildDosagePayload,
   getMedicationCatalogEntry,
@@ -91,16 +91,19 @@ async function stopPriorTreatment(
   }
 
   const body = `Treatment (${item.display_name}): discontinued (superseded by new dose row)`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: patientId,
-    care_program_id: item.care_program_id,
-    treatment_item_id: item.id,
-    event_type: 'treatment_status_changed',
-    body,
-    actor_user_id: actorUserId,
-    payload: { treatment_key: item.treatment_key, from: prev, to: 'stopped', reason: 'catalog_supersede' },
-  })
-  if (tErr) console.error('stopPriorTreatment.timeline', tErr)
+  const tRes = await insertTimelineEvent(
+    {
+      patientId,
+      careProgramId: item.care_program_id,
+      treatmentItemId: item.id,
+      eventType: 'treatment_status_changed',
+      body,
+      actorUserId,
+      payload: { treatment_key: item.treatment_key, from: prev, to: 'stopped', reason: 'catalog_supersede' },
+    },
+    supabase,
+  )
+  if (!tRes.ok) console.error('stopPriorTreatment.timeline', tRes.error)
 
   return { ok: true }
 }
@@ -225,34 +228,41 @@ export async function prescribeCatalogTreatment(
   }
 
   const body = `New treatment from catalog: ${displayName}`
-  const { error: tErr } = await supabase.from('patient_timeline_events').insert({
-    patient_id: input.patientId,
-    care_program_id: input.careProgramId,
-    treatment_item_id: inserted.id,
-    event_type: 'catalog_treatment_prescribed',
-    body,
-    actor_user_id: actorUserId,
-    payload: {
-      catalog_medication_id: entry.id,
-      treatment_key: treatmentKey,
-      initial_status: input.initialStatus,
-      supersedes: input.supersedesTreatmentItemId,
+  const tRes = await insertTimelineEvent(
+    {
+      patientId: input.patientId,
+      careProgramId: input.careProgramId,
+      treatmentItemId: inserted.id,
+      eventType: 'catalog_treatment_prescribed',
+      body,
+      actorUserId,
+      payload: {
+        catalog_medication_id: entry.id,
+        treatment_key: treatmentKey,
+        initial_status: input.initialStatus,
+        supersedes: input.supersedesTreatmentItemId,
+      },
     },
-  })
-  if (tErr) console.error('prescribeCatalogTreatment.timeline', tErr)
+    supabase,
+  )
+  if (!tRes.ok) console.error('prescribeCatalogTreatment.timeline', tRes.error)
 
-  await logAuditEvent({
-    actorUserId,
-    action: 'treatment_item.catalog_prescribe',
-    resourceType: 'treatment_item',
-    resourceId: inserted.id,
-    patientId: input.patientId,
-    metadata: {
-      catalog_medication_id: entry.id,
-      care_program_id: input.careProgramId,
-      supersedes_treatment_item_id: input.supersedesTreatmentItemId,
+  await insertAuditEvent(
+    {
+      actorUserId,
+      action: 'treatment_item.catalog_prescribe',
+      resourceType: 'treatment_item',
+      resourceId: inserted.id,
+      patientId: input.patientId,
+      actorKind: 'staff_user',
+      metadata: {
+        catalog_medication_id: entry.id,
+        care_program_id: input.careProgramId,
+        supersedes_treatment_item_id: input.supersedesTreatmentItemId,
+      },
     },
-  })
+    supabase,
+  )
 
   return { ok: true, treatmentItemId: inserted.id }
 }
