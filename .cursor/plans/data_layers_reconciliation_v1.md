@@ -85,7 +85,7 @@ Pre-map exploratory migrations (`20260418` → `20260430`) classified against ca
 | `20260423170000_clinical_visits_and_rx_reviews` | KEEP | 1G | canonical |
 | `20260423173000_clinical_visit_pdf_artifacts` | RECONCILE | 1O | consolidate under `patient_document_routing` manifest (4D); blobs stay in storage |
 | `20260423174000_clinical_visit_lock_and_addenda` | KEEP | 1G | canonical |
-| `20260423180000_site_search_entries` | RECONCILE | 1R | reconcile under canonical search adapter or deprecate (4G) |
+| `20260423180000_site_search_entries` | KEEP (Phase 4G decision) | — (CMS nav search) | NOT a Section 1R domain entity; powers public `/search` + `/internal/search` admin UI. Phase 4G `searchEntities()` operates on canonical entities directly via pg_trgm + GIN; this table is unaffected. |
 | `20260423190000_provider_profiles_and_staff_admin` | KEEP | 1D, 1G.4 | canonical |
 | `20260423191000_staff_profile_contact_fields` | KEEP | 1D | canonical |
 | `20260424120000_drop_patient_states_glp1_status` | KEEP | — | pruning |
@@ -101,7 +101,7 @@ Pre-map exploratory migrations (`20260418` → `20260430`) classified against ca
 | `20260504120000_intake_foundation_v1` | KEEP | 1K, 1J, 1L, 1M, 1O, 1G, 1I | Phase 3 canonical |
 | `20260505120000_intake_emission_orchestrator_v1` | KEEP | 1K, 1Q.7 | Phase 4A canonical |
 
-**Net**: 5 migrations need RECONCILE (4 documents → 1O; 1 search → 1R; 1 notifications → 1G.3 / outbound_jobs; 1 timeline + 1 outbound_jobs need shape audits not redesigns). 1 migration is LEGACY-REPLACE (forms/form_submissions). The rest KEEP.
+**Net**: 4 migrations need RECONCILE (4 documents → 1O; 1 notifications → 1G.3 / outbound_jobs; 1 timeline + 1 outbound_jobs need shape audits not redesigns). 1 migration is LEGACY-REPLACE (forms/form_submissions). The site_search_entries row was reclassified KEEP after Phase 4G confirmed it serves the CMS nav search concern (separate from Section 1R domain entity search). The rest KEEP.
 
 ---
 

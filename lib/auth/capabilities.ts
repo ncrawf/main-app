@@ -52,6 +52,14 @@ export type Capability =
   | 'can_view_audit_log'
   | 'can_impersonate_patient'
   | 'can_manage_system_settings'
+  // Search & cross-cutting reads (Section 1R / 1D)
+  /** Cross-patient global search per Section 1R.4. Without this, search is
+   * scoped to the caller's queue (provider) or denied (other roles). Use
+   * with `SensitiveAccessReason` per Section 1J.10. */
+  | 'can_search_globally'
+  /** Permits search and read access to non-`production` data_environment
+   * rows (synthetic / staging / internal_qa) per primitives addendum #4. */
+  | 'can_see_test_data'
 
 /**
  * Staff role enum matching the `staff_profiles.role` check constraint

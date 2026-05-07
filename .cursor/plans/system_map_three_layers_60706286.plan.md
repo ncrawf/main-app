@@ -9370,12 +9370,11 @@ Until then: pg_trgm + GIN. Indexes added per-entity on first search-surface need
 
 ### 1R.6 Reconciliation: `site_search_entries` early migration
 
-The pre-map `site_search_entries` table (from `20260423180000_site_search_entries.sql`) predates Section 1R. Phase 4G audit decides:
+**Phase 4G decision (LANDED): KEEP — different concern.** The pre-map `site_search_entries` table (from `20260423180000_site_search_entries.sql`) is a CMS nav-search registry — title / href / terms / top_search_label / top_search_query / top_search_rank — that powers the public `/search` landing page and the `/internal/search` admin UI for editing entries. It is NOT a Section 1R domain entity index. Phase 4G `searchEntities()` operates on canonical Section 1R.3 entities (patients, orders, messages, documents, lab_orders, subscriptions, action_items) directly via pg_trgm + GIN; `site_search_entries` is unaffected and stays as-is.
 
-- (a) Promote `site_search_entries` to canonical search-index pattern (denormalized projections kept fresh by triggers); OR
-- (b) Deprecate; rely on direct trigram/GIN against canonical tables.
+The Phase 4B-arch early-migration audit table classified this row as RECONCILE due to a name-collision read; the actual concern split is clean. The companion doc `data_layers_reconciliation_v1.md` Section 4 is updated accordingly.
 
-Decision deferred to Phase 4G when the first staff-search surface ships. Until then: `site_search_entries` is RECONCILE per the early-migration audit in `data_layers_reconciliation_v1.md`.
+**Phase 4G status (LANDED)**: pg_trgm extension + GIN trigram indexes on patients (first_name, last_name, email, phone) + B-tree on dob + composite (org_id, data_environment) partial index on production rows shipped via `supabase/migrations/20260510120000_phase_4g_search_indexes.sql`. Adapter pattern at `lib/search-entities/index.ts` (orchestrator) + `lib/search-entities/adapters/postgres.ts` (v1 backend). Future Elastic / OpenSearch adapter slots in beside the postgres adapter under `lib/search-entities/adapters/` without callers changing. CI lint at `scripts/lint-direct-like-queries.ts` enforces §1R.7 by refusing direct `.like(` / `.ilike(` calls on domain tables outside the adapter directory. v1 covers `'patients'` scope only per §1R.5 ("indexes added per-entity on first search-surface need"); other scopes throw `ScopeNotImplementedError` so the next surface that needs them lights up the entity, the index, and the adapter branch in one PR.
 
 ### 1R.7 Section 1R explicitly rejects
 
