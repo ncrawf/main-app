@@ -160,9 +160,20 @@ try {
 assert(!threw, 'assertValidStatusTransition does not throw on valid edge', 'unexpectedly threw');
 
 // ---------------------------------------------------------------------
-// Test 4: isExternalRailJobKind partition
+// Test 4: isExternalRailJobKind partition (exhaustive)
 // ---------------------------------------------------------------------
-console.log('[test 4] isExternalRailJobKind partition');
+// Phase 4H-pre commit 2 strengthening: this test is exhaustive-by-
+// construction. It drives from JOB_KINDS and asserts every kind is
+// classified into exactly one of {externalKinds, internalKinds}. If a
+// future contributor adds a new kind to JOB_KINDS without classifying
+// it here, this test fails — forcing the classification decision.
+//
+// The TypeScript-level exhaustiveness in lib/outbound/types.ts
+// isExternalRailJobKind() (the `const exhaustive: never = kind` switch)
+// catches missing cases at compile time. This runtime test catches
+// missing classifications at test time. Belt-and-suspenders: a new
+// kind must be classified at both layers.
+console.log('[test 4] isExternalRailJobKind partition (exhaustive)');
 
 const externalKinds: JobKind[] = [
   'send_email', 'send_sms', 'send_push',
@@ -170,9 +181,6 @@ const externalKinds: JobKind[] = [
   'pharmacy_send_rx', 'pharmacy_cancel_rx',
   'lab_send_order', 'lab_kit_ship',
 ];
-for (const k of externalKinds) {
-  assert(isExternalRailJobKind(k), `${k} is external rail`, 'returned false');
-}
 
 const internalKinds: JobKind[] = [
   'send_in_app',                                      // in-app push doesn't leave the platform
@@ -182,8 +190,42 @@ const internalKinds: JobKind[] = [
   'sar_export', 'rtbf_apply',
   'misc_internal',
 ];
+
+// Per-kind correctness.
+for (const k of externalKinds) {
+  assert(isExternalRailJobKind(k), `${k} is external rail`, 'returned false');
+}
 for (const k of internalKinds) {
   assert(!isExternalRailJobKind(k), `${k} is internal-only`, 'returned true');
+}
+
+// Exhaustive-by-construction: total count matches JOB_KINDS.length.
+assert(
+  externalKinds.length + internalKinds.length === JOB_KINDS.length,
+  `external + internal kinds covers all JOB_KINDS (got ${externalKinds.length} + ${internalKinds.length}, expected ${JOB_KINDS.length})`,
+  'unclassified kinds remain — every new JobKind must be classified at this test'
+);
+
+// No double-classification.
+const internalSet = new Set<string>(internalKinds);
+for (const k of externalKinds) {
+  assert(
+    !internalSet.has(k),
+    `${k} not double-classified`,
+    'kind appears in both externalKinds and internalKinds — fix the partition'
+  );
+}
+
+// Every JOB_KIND is in exactly one set. This is the forcing assertion:
+// a new JOB_KIND added to types.ts without classification here will
+// fail this test.
+const classified = new Set<string>([...externalKinds, ...internalKinds]);
+for (const k of JOB_KINDS) {
+  assert(
+    classified.has(k),
+    `JOB_KIND ${k} is classified as external or internal`,
+    'add to externalKinds or internalKinds in scripts/test-outbound-jobs-types.ts'
+  );
 }
 
 // ---------------------------------------------------------------------

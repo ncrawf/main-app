@@ -226,6 +226,21 @@ export interface EnqueueOutboundJobResult {
   audit_event_id: string | null;
   /** True when an existing job was returned (idempotency_key matched). */
   idempotent_replay: boolean;
+  /**
+   * Phase 4H-pre commit 2 — true when the data_environment gate
+   * suppressed this row immediately after enqueue (non-production
+   * row + external-rail kind → terminal 'suppressed_data_environment'
+   * status + 'notification.dispatch_blocked_by_privacy_check' audit).
+   * False for production rows, internal-only kinds, and idempotent
+   * replays.
+   */
+  suppressed_by_data_environment: boolean;
+  /**
+   * Phase 4H-pre commit 2 — the audit_events row id emitted when the
+   * gate suppressed the row. Null when the gate passed or when
+   * suppression was a no-op (race condition: row already terminal).
+   */
+  suppression_audit_event_id: string | null;
 }
 
 // =====================================================================

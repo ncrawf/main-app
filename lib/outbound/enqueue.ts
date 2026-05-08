@@ -12,10 +12,16 @@
  *  - Idempotency: if `idempotency_key` matches an existing row, returns
  *    that row's id with `idempotent_replay: true` (no duplicate insert).
  *  - Cross-org rejection inside the RPC.
- *  - data_environment-gated at DISPATCH time (not enqueue): synthetic
- *    patients can enqueue jobs (e.g., for testing the queue path) but
- *    `pick_next_outbound_job()` only returns production rows. The
- *    structural lock per primitives addendum #4.
+ *  - data_environment gate (Phase 4H-pre commit 2): structurally
+ *    enforced at the SQL layer (`pick_next_outbound_job` filters
+ *    `data_environment = 'production'`) AND additionally at the TS
+ *    layer here — after the RPC returns, the gate at
+ *    lib/outbound/dataEnvironmentGate.ts evaluates the row and, if
+ *    it would not pass, atomically transitions the row to
+ *    'suppressed_data_environment' + emits one
+ *    'notification.dispatch_blocked_by_privacy_check' audit event.
+ *    This prevents non-production rows from accumulating as 'queued'
+ *    forever (the SQL filter alone never marks them terminal).
  */
 
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -23,6 +29,7 @@ import {
   EnqueueOutboundJobArgs,
   type EnqueueOutboundJobResult,
 } from './types';
+import { applyDataEnvironmentGateAfterEnqueue } from './dataEnvironmentGate';
 
 export async function enqueueOutboundJob(rawArgs: unknown): Promise<EnqueueOutboundJobResult> {
   const args = EnqueueOutboundJobArgs.parse(rawArgs);
@@ -76,9 +83,25 @@ export async function enqueueOutboundJob(rawArgs: unknown): Promise<EnqueueOutbo
     idempotent_replay: boolean;
   };
 
+  // Phase 4H-pre commit 2 — data_environment gate at the enqueue
+  // boundary. Atomically transitions non-production external-rail rows
+  // to 'suppressed_data_environment' terminal state + emits a
+  // 'notification.dispatch_blocked_by_privacy_check' audit event. The
+  // gate is a no-op for production rows + internal-only kinds. Skipped
+  // for idempotent replays (we are not the party responsible for those
+  // rows' terminal state).
+  const gate = await applyDataEnvironmentGateAfterEnqueue({
+    outbound_job_id: row.outbound_job_id,
+    kind: args.kind,
+    idempotent_replay: row.idempotent_replay,
+    supabase,
+  });
+
   return {
     outbound_job_id: row.outbound_job_id,
     audit_event_id: row.audit_event_id,
     idempotent_replay: row.idempotent_replay,
+    suppressed_by_data_environment: gate.decision === 'suppress',
+    suppression_audit_event_id: gate.audit_event_id,
   };
 }

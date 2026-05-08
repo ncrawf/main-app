@@ -34,6 +34,7 @@ import {
   type DispatchResultResponse,
   isExternalRailJobKind,
 } from './types';
+import { applyDataEnvironmentGateAtDispatch } from './dataEnvironmentGate';
 
 export class AdapterNotImplementedError extends Error {
   constructor(public readonly kind: JobKind) {
@@ -111,11 +112,28 @@ export async function runSendPolicyGate(_job: OutboundJobRow): Promise<{
  */
 export async function runDispatcherTick(): Promise<{
   job_id: string | null;
-  outcome: DispatchOutcome | 'queue_empty' | 'suppressed_by_gate';
+  outcome:
+    | DispatchOutcome
+    | 'queue_empty'
+    | 'suppressed_by_gate'
+    | 'suppressed_data_environment';
 }> {
   const job = await pickNextOutboundJob();
   if (!job) {
     return { job_id: null, outcome: 'queue_empty' };
+  }
+
+  // Phase 4H-pre commit 2 — data_environment gate (defense-in-depth).
+  // pick_next_outbound_job already filters data_environment='production'
+  // at the SQL layer (Phase 4E structural lock), so this gate should
+  // never fire in normal operation. It exists to catch malformed
+  // worker code paths, schema drift, manual ops dispatches, and any
+  // future code that bypasses pick_next. When it fires, it atomically
+  // transitions the row to 'suppressed_data_environment' + emits one
+  // 'notification.dispatch_blocked_by_privacy_check' audit event.
+  const envGate = await applyDataEnvironmentGateAtDispatch(job);
+  if (envGate.decision === 'suppress') {
+    return { job_id: job.id, outcome: 'suppressed_data_environment' };
   }
 
   // Section 1G.3 5-step send-policy gate (4H ships full impl).
