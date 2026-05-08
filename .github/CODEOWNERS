@@ -26,6 +26,21 @@
 # Module catalog — module composition over questions
 /repo/intake/modules/                                       @ncrawf
 
+# Rules registry — typed Rule definitions per Section 1Q.4 (Phase 4H-pre commit 3 scaffold)
+# Every Rule firing pins rule_id + rule_version on audit_events + outbound_jobs.
+# Scaffold only in commit 3; first Rule lands in commit 5 (rule.billing.payment_received_v1).
+# Per Section 1Q.0 invariant 6 (CODEOWNER governance) + Section 1Q.12 (DELETE-AFTER-PARITY).
+/repo/rules/                                                @ncrawf
+
+# Templates registry — typed Template definitions per Section 1Q.5 (Phase 4H-pre commit 3 scaffold)
+# Every patient-facing send fires through an approved Template. Scaffold only in commit 3.
+# Per Section 1Q.5 binding rule: high-sensitivity pathway-named outside-secure marketing
+# templates (privacy_exposure_level: 3 + outside_secure_render_strategy:
+# mention_pathway_name_with_consent + pathway_sensitivity_compatibility includes 'high' +
+# domain: marketing_lifecycle) require DUAL clinical CODEOWNER + compliance CODEOWNER co-sign.
+# CI lint at scripts/lint-rules-templates-scaffold.ts enforces.
+/repo/templates/                                            @ncrawf
+
 # Lab interpretation rules per 1L.20 (drives lab-derived assertion emission)
 /lib/labs/category-mappings/                                @ncrawf
 /lib/labs/insights/                                         @ncrawf

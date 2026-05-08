@@ -57,6 +57,17 @@ const EXEMPT_PATHS = [
   // typed catalog still gates these values at runtime via the orchestrator's
   // `audit_event_only` target dispatch (see record_intake_emissions_batch).
   join('lib', 'intake', 'question-bank'),
+  // Phase 4H-pre commit 3 — Rule + Template scaffold uses RuleTrigger.event_type
+  // as a property name, which is a DIFFERENT concept than
+  // patient_timeline_events.event_type. The string-literal heuristic this lint
+  // uses cannot distinguish them; the Rule scaffold is exempt from the
+  // timeline-event-type check. Future commits that ship rules under repo/rules/
+  // inherit this exemption. The Rule.audit_event_type field IS checked at
+  // compile time against AuditAction, so the typed-catalog discipline is
+  // preserved at the type-system level.
+  join('repo', 'rules'),
+  join('repo', 'templates'),
+  join('scripts', 'test-rules-templates-scaffold.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,
