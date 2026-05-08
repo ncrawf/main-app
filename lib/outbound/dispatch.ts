@@ -35,6 +35,8 @@ import {
   isExternalRailJobKind,
 } from './types';
 import { applyDataEnvironmentGateAtDispatch } from './dataEnvironmentGate';
+import { sendTransactionalEmail } from '@/lib/notifications/emailResend';
+import { sendPatientSms } from '@/lib/notifications/smsTwilio';
 
 export class AdapterNotImplementedError extends Error {
   constructor(public readonly kind: JobKind) {
@@ -152,8 +154,26 @@ export async function runDispatcherTick(): Promise<{
     return { job_id: job.id, outcome: 'suppressed_by_gate' };
   }
 
+  // Phase 4H-pre commit 5 — pre-rendered payload branch.
+  // Rule-engine-enqueued jobs carry pre-rendered email/SMS content in
+  // the payload. The dispatcher recognizes the rendered shape and
+  // dispatches directly via Resend/Twilio. This is the path the
+  // payment_received Rule (and future Rules) flow through; it avoids
+  // re-touching the legacy `lib/notifications/patientMessages.ts`
+  // template switch which is being deleted per-flow per Section 1Q.12
+  // DELETE-AFTER-PARITY.
+  const renderedEmail = extractRenderedEmail(job);
+  if (job.kind === 'send_email' && renderedEmail) {
+    return dispatchPreRenderedEmail(job, renderedEmail);
+  }
+  const renderedSms = extractRenderedSms(job);
+  if (job.kind === 'send_sms' && renderedSms) {
+    return dispatchPreRenderedSms(job, renderedSms);
+  }
+
   // Adapter dispatch — real SDK calls land here per kind.
-  // Phase 4E ships the queue plumbing only; adapters land in 4H+.
+  // Phase 4E ships the queue plumbing only; non-pre-rendered adapters
+  // land in 4H+ (per-kind).
   if (isExternalRailJobKind(job.kind)) {
     throw new AdapterNotImplementedError(job.kind);
   }
@@ -161,6 +181,137 @@ export async function runDispatcherTick(): Promise<{
   // Internal-only kinds (sar_export / rtbf_apply / ai_extraction / etc.)
   // — also stubbed; 4H+ wires per-kind.
   throw new AdapterNotImplementedError(job.kind);
+}
+
+// =====================================================================
+// Phase 4H-pre commit 5 — pre-rendered payload helpers
+// =====================================================================
+
+interface RenderedEmailPayload {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+}
+
+interface RenderedSmsPayload {
+  to_phone: string;
+  body: string;
+}
+
+function extractRenderedEmail(job: OutboundJobRow): RenderedEmailPayload | null {
+  const p = job.payload as { rendered_email?: unknown; to?: unknown } | null;
+  if (!p || typeof p !== 'object') return null;
+  const rendered = p.rendered_email as
+    | { subject?: unknown; html?: unknown; text?: unknown }
+    | undefined;
+  const to = p.to;
+  if (!rendered || typeof rendered !== 'object') return null;
+  if (
+    typeof to !== 'string' ||
+    typeof rendered.subject !== 'string' ||
+    typeof rendered.html !== 'string' ||
+    typeof rendered.text !== 'string'
+  ) {
+    return null;
+  }
+  return { to, subject: rendered.subject, html: rendered.html, text: rendered.text };
+}
+
+function extractRenderedSms(job: OutboundJobRow): RenderedSmsPayload | null {
+  const p = job.payload as { rendered_sms?: unknown; to_phone?: unknown } | null;
+  if (!p || typeof p !== 'object') return null;
+  const rendered = p.rendered_sms as { body?: unknown } | undefined;
+  const toPhone = p.to_phone;
+  if (!rendered || typeof rendered !== 'object') return null;
+  if (typeof toPhone !== 'string' || typeof rendered.body !== 'string') return null;
+  return { to_phone: toPhone, body: rendered.body };
+}
+
+async function dispatchPreRenderedEmail(
+  job: OutboundJobRow,
+  rendered: RenderedEmailPayload,
+): Promise<{ job_id: string; outcome: DispatchOutcome }> {
+  const sent = await sendTransactionalEmail({
+    to: rendered.to,
+    subject: rendered.subject,
+    html: rendered.html,
+    text: rendered.text,
+  });
+  if (!sent.ok) {
+    if ('skipped' in sent && sent.skipped) {
+      // Treat skip as terminal-success so the row exits the queue;
+      // matches existing legacy behavior in lib/jobs/dispatchOutboundJob.ts.
+      await markOutboundJobDispatch({
+        outbound_job_id: job.id,
+        attempt: job.attempts,
+        status: 'succeeded',
+        channel: 'email',
+        provider: 'resend',
+        error_message: sent.error,
+      });
+      return { job_id: job.id, outcome: 'succeeded' };
+    }
+    await markOutboundJobDispatch({
+      outbound_job_id: job.id,
+      attempt: job.attempts,
+      status: 'failed_retryable',
+      channel: 'email',
+      provider: 'resend',
+      error_message: sent.error,
+    });
+    return { job_id: job.id, outcome: 'failed_retryable' };
+  }
+  await markOutboundJobDispatch({
+    outbound_job_id: job.id,
+    attempt: job.attempts,
+    status: 'succeeded',
+    channel: 'email',
+    provider: 'resend',
+    provider_message_id: sent.id,
+  });
+  return { job_id: job.id, outcome: 'succeeded' };
+}
+
+async function dispatchPreRenderedSms(
+  job: OutboundJobRow,
+  rendered: RenderedSmsPayload,
+): Promise<{ job_id: string; outcome: DispatchOutcome }> {
+  const sent = await sendPatientSms({
+    toE164: rendered.to_phone,
+    body: rendered.body,
+  });
+  if (!sent.ok) {
+    if ('skipped' in sent && sent.skipped) {
+      await markOutboundJobDispatch({
+        outbound_job_id: job.id,
+        attempt: job.attempts,
+        status: 'succeeded',
+        channel: 'sms',
+        provider: 'twilio',
+        error_message: sent.error,
+      });
+      return { job_id: job.id, outcome: 'succeeded' };
+    }
+    await markOutboundJobDispatch({
+      outbound_job_id: job.id,
+      attempt: job.attempts,
+      status: 'failed_retryable',
+      channel: 'sms',
+      provider: 'twilio',
+      error_message: sent.error,
+    });
+    return { job_id: job.id, outcome: 'failed_retryable' };
+  }
+  await markOutboundJobDispatch({
+    outbound_job_id: job.id,
+    attempt: job.attempts,
+    status: 'succeeded',
+    channel: 'sms',
+    provider: 'twilio',
+    provider_message_id: sent.messageSid,
+  });
+  return { job_id: job.id, outcome: 'succeeded' };
 }
 
 /**

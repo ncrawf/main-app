@@ -64,6 +64,11 @@ export async function enqueueOutboundJob(rawArgs: unknown): Promise<EnqueueOutbo
     p_data_environment: args.data_environment ?? null,
     p_actor_kind: args.actor_kind ?? null,
     p_metadata: args.metadata ?? {},
+    // Phase 4H-pre commit 5 — orchestrator extension. The function
+    // signature was extended in 20260513130000_phase_4h_pre_extend_enqueue_outbound_job
+    // to accept the two columns added by Phase 4H-pre commit 1.
+    p_intended_privacy_exposure_level: args.intended_privacy_exposure_level ?? null,
+    p_decision_outcome_reason: args.decision_outcome_reason ?? null,
   });
 
   if (error) {

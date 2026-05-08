@@ -135,18 +135,12 @@ export function buildPatientEmail(
   let body: EmailBody
 
   switch (templateKey) {
-    case 'payment_received': {
-      const extra = ctx.paymentSummary ? ` (${ctx.paymentSummary})` : ''
-      body = {
-        subject: 'We received your payment',
-        previewText: 'Payment confirmed — your visit is moving forward.',
-        eyebrow: 'Payment update',
-        heading: 'Payment confirmed',
-        intro: `Thanks — we received your payment${extra}.`,
-        detail: 'Your visit is moving forward. You can track next steps in your dashboard.',
-      }
-      break
-    }
+    // Phase 4H-pre commit 5 — `payment_received` case removed. Migrated
+    // to typed Template at `repo/templates/billing/payment_received_v1.ts`
+    // per Section 1Q.12 DELETE-AFTER-PARITY directive. Rendering now
+    // happens in `lib/templates/render/payment-received.ts` driven by
+    // typed required_variables; brand sourced from `brands` table per
+    // ADR Section 7.5 multi-tenant rule.
     case 'intake_submitted': {
       body = {
         subject: 'We received your intake',
@@ -277,8 +271,12 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${ctx.patientId}`
 
   switch (templateKey) {
-    case 'payment_received':
-      return `MAIN: Payment received. ${short}`
+    // Phase 4H-pre commit 5 — `payment_received` case removed. Migrated
+    // to typed Template per Section 1Q.12 DELETE-AFTER-PARITY directive.
+    // SMS now renders via `lib/templates/render/payment-received.ts`
+    // `renderPaymentReceivedSms` with brand prefix sourced from
+    // `brands.slug.toUpperCase()` (typed slot `brand_short_label`)
+    // instead of hardcoded "MAIN:" per ADR Section 7.5 multi-tenant rule.
     case 'intake_submitted':
       return `MAIN: Intake received. ${short}`
     case 'awaiting_clinical_review':

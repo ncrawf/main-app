@@ -5,9 +5,17 @@ export type NotificationChannel = 'email' | 'sms'
 /**
  * One key per email template (copy lives in `lib/notifications/patientMessages.ts`).
  * Add a key here → add `buildPatientEmail` / SMS preview cases → map status below.
+ *
+ * Phase 4H-pre commit 5 — `payment_received` removed; migrated to typed
+ * Rule + Template at `repo/rules/billing/payment_received_v1.ts` +
+ * `repo/templates/billing/payment_received_v1.ts` per Section 1Q.12
+ * DELETE-AFTER-PARITY directive. New patient-facing notifications MUST
+ * NOT extend this union; per the cutover discipline, each remaining
+ * NotificationTemplateKey case migrates per-PR to a typed Rule +
+ * Template, and the legacy case deletes in the same PR. When the last
+ * case is removed, this file deletes entirely.
  */
 export type NotificationTemplateKey =
-  | 'payment_received'
   | 'intake_submitted'
   | 'awaiting_clinical_review'
   | 'case_approved'
@@ -57,23 +65,18 @@ function transitionDedupe(channel: NotificationChannel, templateKey: string, pat
 export function resolvePatientNotifications(ev: PatientWorkflowEvent): ResolvedPatientNotification[] {
   if (ev.fromWorkflowStatus === ev.toWorkflowStatus) return []
 
-  const { patientId, fromWorkflowStatus, toWorkflowStatus, stripeCheckoutSessionId } = ev
+  const { patientId, fromWorkflowStatus, toWorkflowStatus } = ev
   const out: ResolvedPatientNotification[] = []
 
-  if (toWorkflowStatus === 'payment_completed') {
-    const sid = stripeCheckoutSessionId?.trim() || `patient:${patientId}:payment`
-    out.push({
-      channel: 'email',
-      templateKey: 'payment_received',
-      dedupeKey: `email:payment_received:${sid}`,
-    })
-    out.push({
-      channel: 'sms',
-      templateKey: 'payment_received',
-      dedupeKey: `sms:payment_received:${sid}`,
-    })
-    return out
-  }
+  // Phase 4H-pre commit 5 — the legacy `payment_completed` special-case
+  // branch that resolved 'payment_received' for email + SMS has been
+  // deleted. The typed Rule at `repo/rules/billing/payment_received_v1.ts`
+  // is now the sole producer of payment_received notifications, fired
+  // directly from `lib/payments/handleStripeCheckoutCompleted.ts` via
+  // the dispatcher at `lib/rules/runtime/dispatcher.ts`. For
+  // `toWorkflowStatus === 'payment_completed'`, the rules engine handles
+  // the notification side effect; this function returns no notifications
+  // for that status.
 
   const templateKey = PATIENT_NOTIFY_BY_STATUS[toWorkflowStatus]
   if (!templateKey) return out

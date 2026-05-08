@@ -68,6 +68,15 @@ const EXEMPT_PATHS = [
   join('repo', 'rules'),
   join('repo', 'templates'),
   join('scripts', 'test-rules-templates-scaffold.ts'),
+  // Phase 4H-pre commit 5 — same false-positive class for
+  // RuleTrigger.event_type at the dispatcher + caller + smoke test
+  // sites. The values here come from
+  // lib/events/rule-trigger-event-types.ts (typed RuleTriggerEventType
+  // registry), not from patient_timeline_events.event_type. Future
+  // dispatcher code paths inherit this exemption.
+  join('lib', 'rules', 'runtime'),
+  join('lib', 'payments', 'handleStripeCheckoutCompleted.ts'),
+  join('scripts', 'test-payment-received-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

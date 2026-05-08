@@ -81,7 +81,7 @@ export type InsertAuditEventInput = {
 export async function insertAuditEvent(
   input: InsertAuditEventInput,
   supabase?: SupabaseClient,
-): Promise<{ ok: true } | { ok: false; error: string }> {
+): Promise<{ ok: true; audit_event_id: string | null } | { ok: false; error: string }> {
   // Catch dynamically-built action strings that bypassed compile-time enforcement.
   assertKnownAuditAction(input.action)
 
@@ -97,12 +97,20 @@ export async function insertAuditEvent(
   if (input.actorKind !== undefined) row.actor_kind = input.actorKind
   if (input.orgId !== undefined) row.org_id = input.orgId
 
-  const { error } = await client.from('audit_events').insert(row)
+  // Phase 4H-pre commit 5 — surface the inserted row id on success so
+  // callers that need the audit lineage (e.g. lib/rules/runtime/dispatcher.ts)
+  // can chain it. Existing callers that only check `.ok` are unaffected.
+  const { data, error } = await client
+    .from('audit_events')
+    .insert(row)
+    .select('id')
+    .single()
   if (error) {
     console.error('[insertAuditEvent] failed', { action: input.action, error })
     return { ok: false, error: error.message }
   }
-  return { ok: true }
+  const auditEventId = (data as { id: string } | null)?.id ?? null
+  return { ok: true, audit_event_id: auditEventId }
 }
 
 export type InsertTimelineEventInput = {

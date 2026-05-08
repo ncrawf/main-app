@@ -19,14 +19,35 @@
  */
 
 import type { Rule } from './types'
+import { paymentReceivedV1 } from './billing/payment_received_v1'
 
 /**
- * Empty registry. The runtime shape (Map, file-glob, subscription
- * registry) is decided in 4H-rules-runtime; until then this is a
- * placeholder that compiles + exports the type for downstream
- * consumers to import.
+ * Rules registry. Phase 4H-pre commit 5 lands the first Rule
+ * (`rule.billing.payment_received_v1`). Subsequent migrations under
+ * the per-PR DELETE-AFTER-PARITY directive add more rules; the registry
+ * grows one entry per migrated NotificationTemplateKey case.
+ *
+ * The runtime shape (Map vs file-glob vs subscription registry) is
+ * decided in Phase 4H-rules-runtime; until then this array is the
+ * single source the dispatcher consults via `findRulesByTriggerEventType`.
  */
-export const RULE_REGISTRY: ReadonlyArray<Rule> = []
+export const RULE_REGISTRY: ReadonlyArray<Rule> = [paymentReceivedV1]
+
+/**
+ * Find rules whose trigger matches the given event_type. Used by the
+ * dispatcher at lib/rules/runtime/dispatcher.ts. Returns active rules
+ * only (status === 'active').
+ */
+export function findRulesByTriggerEventType(eventType: string): ReadonlyArray<Rule> {
+  return RULE_REGISTRY.filter(
+    (r) =>
+      r.status === 'active' &&
+      r.trigger.kind === 'event' &&
+      r.trigger.event_type === eventType,
+  )
+}
+
+export { paymentReceivedV1 } from './billing/payment_received_v1'
 
 export type { Rule } from './types'
 export type {

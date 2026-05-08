@@ -49,9 +49,15 @@ function assert(cond: boolean, label: string, msg: string): void {
 }
 
 // ---------------------------------------------------------------------
-// Test 1: Registries are exported and empty (commit 3 scaffold-only)
+// Test 1: Registries reflect the current cutover state
 // ---------------------------------------------------------------------
-console.log('[test 1] Registries are empty in commit 3 (no rules / templates ship)')
+// Phase 4H-pre commit 3 baseline was empty registries. Commit 5 lands
+// the first Rule + Template (`rule.billing.payment_received_v1` +
+// `tmpl.billing.payment_received_v1`). After every subsequent per-PR
+// migration of a NotificationTemplateKey case, the registries grow by
+// one entry each. This test asserts the registries contain the
+// expected baseline rules/templates and remain consistent.
+console.log('[test 1] Registries reflect the current cutover state')
 
 assert(
   Array.isArray(RULE_REGISTRY),
@@ -59,9 +65,14 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length === 0,
-  'RULE_REGISTRY is empty (commit 3 ships no rules)',
-  `got ${RULE_REGISTRY.length} rules`
+  RULE_REGISTRY.length >= 1,
+  'RULE_REGISTRY contains the payment_received_v1 anchor (commit 5+)',
+  `got ${RULE_REGISTRY.length} rules — expected >= 1 after commit 5`
+)
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
+  'RULE_REGISTRY contains rule.billing.payment_received_v1',
+  'first parity proof Rule missing'
 )
 
 assert(
@@ -70,9 +81,14 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length === 0,
-  'TEMPLATE_REGISTRY is empty (commit 3 ships no templates)',
-  `got ${TEMPLATE_REGISTRY.length} templates`
+  TEMPLATE_REGISTRY.length >= 1,
+  'TEMPLATE_REGISTRY contains the payment_received_v1 anchor (commit 5+)',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 1 after commit 5`
+)
+assert(
+  TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
+  'TEMPLATE_REGISTRY contains tmpl.billing.payment_received_v1',
+  'first parity proof Template missing'
 )
 
 // ---------------------------------------------------------------------

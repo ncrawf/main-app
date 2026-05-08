@@ -2,6 +2,7 @@ import { insertAuditEvent, insertTimelineEvent } from '@/lib/events'
 import { syncLegacyGlp1ToCareModel, type CareSyncResult } from '@/lib/care/syncLegacyGlp1ToCareModel'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
+import { dispatchRuleTriggerEvent } from '@/lib/rules/runtime/dispatcher'
 import type Stripe from 'stripe'
 
 /**
@@ -280,6 +281,42 @@ export async function handleStripeCheckoutSessionCompleted(session: Stripe.Check
     paymentSummary = `${(amountTotal / 100).toFixed(2)} ${currency.toUpperCase()}`
   }
   if (hasConsult && statusChanged) {
+    // Phase 4H-pre commit 5 — fire the typed Rule for payment_received.
+    // Per ADR Section 7.6: rule execution is side-effect bounded;
+    // the dispatcher only enqueues outbound_jobs + emits audit events,
+    // never mutates domain state. The legacy onPatientWorkflowEvent
+    // call below STAYS because it still enqueues chart.ai_review (a
+    // non-notification side effect) — only the legacy `payment_received`
+    // notification case is removed from notificationRules.ts in this
+    // commit. resolvePatientNotifications now returns [] for the
+    // 'payment_completed' workflow status; the new typed Rule is the
+    // sole producer of payment_received outbound_jobs rows.
+    if (amountTotal != null && currency) {
+      try {
+        await dispatchRuleTriggerEvent(
+          {
+            event_type: 'commerce.checkout.session_completed',
+            payload: {
+              patient_id: patientId,
+              stripe_checkout_session_id: session.id,
+              payment_amount_cents: amountTotal,
+              payment_currency: currency,
+            },
+          },
+          admin,
+        )
+      } catch (err) {
+        // Audit-side failures don't roll back the upstream Stripe handler;
+        // the cron worker continues to process any rows that did enqueue.
+        console.error('stripe checkout: dispatchRuleTriggerEvent', err)
+      }
+    } else {
+      console.warn(
+        'stripe checkout: skipping payment_received rule firing (missing amount_total or currency)',
+        session.id,
+      )
+    }
+
     try {
       await onPatientWorkflowEvent({
         patientId,

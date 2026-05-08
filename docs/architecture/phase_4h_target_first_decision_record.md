@@ -174,6 +174,7 @@ CI + reviewer discipline must reject any of the following during 4H-pre:
 - Auto-send of AI-drafted text under any human's capability.
 - Patient-facing automated send paths that bypass the template registry.
 - Wrapping v0 cases in adapters that pretend to be `1Q.4` Rules without the full object shape, version pinning, evidence refs, or CI-lint discipline.
+- **Rule execution that performs domain state mutations via raw writes, OR that orchestrates workflows outside an approved orchestrator-mediated path.** The approved action set extends per-phase by explicit ADR amendment; the rules engine MUST NOT become a second orchestrator. See Section 7.6 for the binding contract + the current approved set + the extension procedure.
 
 ---
 
@@ -274,6 +275,76 @@ Reason:  multi-tenant — brand_short_label sourced from brands.label_short per 
 ### Anti-drift purpose
 
 Together, the parity rule + the wording diff log create a forcing function: the migrating engineer cannot ship the PR without listing every legacy wording fragment and stating, on the record, why it is preserved or rewritten. Future contributors reading the PR know exactly what survived from v0 and what was governed away. Future auditors reviewing the platform's PHI handling have the diff log as evidence of per-flow privacy-tier review.
+
+---
+
+## 7.6 Rule execution scope (binding — added 2026-05-08 pre-commit-5)
+
+> **Rules may not mutate domain state directly. Rules may only produce governed actions through approved orchestrator / writer boundaries. The approved action set extends per-phase by explicit ADR amendment.**
+
+This section was added to the ADR before Phase 4H-pre commit 5 landed in response to an architectural review. The permanent invariant prevents the rules engine from becoming a parallel write path that bypasses orchestrators and becomes a hidden second source of truth. The extensible framing acknowledges that future Rules will legitimately need to request care tasks, suppression, recall, escalation, etc. — but each new action type goes through its proper orchestrator boundary and carries rule lineage / audit, not via raw writes from rule runtime.
+
+### Permanent invariants (binding for every Rule, every phase)
+
+A Rule firing MUST NOT:
+
+- **Mutate patient state via raw writes.** No UPDATE / INSERT / DELETE against `patients`, `patient_clinical_assertions`, `patient_state_observations`, `patient_consents`, `patient_addresses`, `patient_contacts`, `patient_diagnostic_reports`, `patient_lab_observations`, `patient_identity_verifications`, `patient_action_items`, or any other patient-scoped domain table from the rule runtime layer.
+- **Mutate domain state via raw writes.** No UPDATE / INSERT / DELETE against `care_programs`, `treatment_items`, `treatment_orders`, `clinical_visits`, `lab_orders`, `refill_requests`, `commerce_orders`, `commerce_order_lines`, `subscription_*` tables, or any other domain table from the rule runtime layer.
+- **Reconcile longitudinal state directly.** No claim-ledger writes per Section 1K.5.A. No derived-entity rewrites per Section 1J.10. Reconciliation flows through its own orchestrators when triggered by rule actions; never inline in rule execution.
+- **Orchestrate workflows outside approved orchestrator boundaries.** No direct calls to `onPatientWorkflowEvent`. No manipulation of `intake_sessions` or `intake_responses` from rule runtime. No direct INSERT to `patient_timeline_events` from rule runtime (the existing dispatch-time `email_sent` / `sms_sent` writes from `lib/jobs/dispatchOutboundJob.ts` are not rule-runtime writes — they fire from the dispatcher worker after successful provider send and stay the only legitimate timeline path produced by rule-driven flows).
+- **Become a second orchestrator.** Domain mutations have orchestrators (`record_intake_emissions_batch`, `route_patient_document`, `enqueue_outbound_job`, future `mark_outbound_job_suppressed_by_env`, future task / recall / escalation orchestrators). Rule runtime *requests* governed actions from those orchestrators; rule runtime does not *re-implement* them.
+- **Bypass the audit trail.** Every rule firing emits a typed `rule.fired.*` audit event with `rule_id` + `rule_version` + `template_key?` + `template_version?` + `decision_outcome_reason` + `evidence_refs` per Section 1Q.7.
+
+A Rule firing MAY:
+
+- Evaluate the trigger event match.
+- READ patient / brand / domain state, scoped to the inputs declared in `Rule.required_inputs`.
+- Render typed Template output via the typed `required_variables` slots per Section 1Q.5.
+- Produce **governed actions** through approved orchestrator / writer boundaries (extensible — see below).
+
+### Currently-approved action set (Phase 4H-pre commit 5)
+
+For commit 5, the approved orchestrator-mediated actions a Rule firing may produce are exactly two:
+
+1. **Enqueue `outbound_jobs` rows** via the `enqueue_outbound_job` SECURITY DEFINER orchestrator (Phase 4E), wrapped by [`lib/outbound/enqueue.ts`](../../lib/outbound/enqueue.ts) `enqueueOutboundJob`. Carries full rule lineage on the row (`rule_id`, `rule_version`, `template_key`, `template_version`, `intended_privacy_exposure_level`, `message_intent`, `decision_outcome_reason`, `pathway_code`) per Phase 4H-pre commit 1 schema.
+2. **Emit typed `audit_events` rows** via [`lib/events/index.ts`](../../lib/events/index.ts) `insertAuditEvent`, specifically `rule.fired.*` actions drawn from `RULE_AND_NOTIFICATION_AUDIT_ACTIONS` (Phase 4F + commit 5 catalog extension).
+
+These two are the approved set today because they are the only orchestrator-mediated actions that Phase 4H-pre commit 5's `payment_received` parity migration requires. The dispatcher at [`lib/rules/runtime/dispatcher.ts`](../../lib/rules/runtime/dispatcher.ts) is structurally limited to these two writers via its import allowlist.
+
+### Extension procedure (binding for future phases)
+
+When a future Rule legitimately needs a new action type (e.g. `kind: 'route'` requires creating a `patient_action_items` row, or `kind: 'gate'` requires opening a `clinical_required` turn, or recall propagation per Section 1Q.10 requires marking in-flight `outbound_jobs` superseded), the path is:
+
+1. **Identify or build the responsible orchestrator.** The action's domain mutation belongs in a SECURITY DEFINER function or a typed TS wrapper that ALREADY has its own audit discipline + capability gating + cross-org rejection per the orchestrator pattern. If no such orchestrator exists, build it first as a separate phase commit; do not write it as part of the rule runtime.
+2. **Amend this ADR (or write a follow-up ADR)** explicitly approving the new action type for rule runtime use. The amendment names: the orchestrator's TS wrapper module path, the new RuleAction kind it serves, the audit lineage the orchestrator emits, and the failure modes.
+3. **Extend the dispatcher's import allowlist** to include the new orchestrator's TS wrapper. The CI lint that statically verifies the allowlist accepts the new entry.
+4. **Update the system map** invariant 13 with the extended approved-action set so future contributors find the current state in the binding document.
+
+Examples of future-approved actions (NOT approved yet; listed to make the extension framing concrete):
+
+- `enqueueOutboundJobSuppression` via `mark_outbound_job_suppressed_by_env` (already exists per Phase 4H-pre commit 2; adds to allowlist when first Rule needs to suppress directly rather than via the env gate).
+- `createPatientActionItem` via a future task orchestrator (when `kind: 'route'` actions create patient_action_items rows).
+- `markOutboundJobsRecalled` via a future recall orchestrator (when `kind: 'recall'` actions per Section 1Q.10 land).
+- `openClinicalRequiredTurn` via a future clinical-routing orchestrator (when `kind: 'gate'` actions need to halt the patient case).
+
+Each of those would arrive with its own ADR amendment, its own orchestrator implementation with its own audit discipline, and its own dispatcher allowlist extension. **What is forbidden is doing any of those via raw writes from the rule runtime layer.**
+
+### Structural enforcement (commit 5)
+
+The dispatcher implementation at [`lib/rules/runtime/dispatcher.ts`](../../lib/rules/runtime/dispatcher.ts) enforces the commit-5 approved set at the import level:
+
+- The dispatcher's signature accepts a typed trigger event payload and returns `{ enqueued_outbound_job_ids: string[]; audit_event_id: string }` — no domain return values, no mutation handles.
+- The dispatcher's import allowlist (commit 5 set): `lib/outbound/enqueue.ts` (the typed `enqueueOutboundJob` wrapper), `lib/events/index.ts` (typed audit insert helper), `lib/supabase/admin.ts` (read-only SELECTs against `patients` + `brands`), `lib/templates/render/`, `repo/rules/`, `repo/templates/`, `lib/events/rule-trigger-event-types.ts`. The allowlist comment in the dispatcher source enumerates this set + names what's forbidden.
+- The dispatcher does NOT import from any domain-mutation directory (`lib/care/`, `lib/internal/patient-case/`, `lib/refill/`, `lib/payments/`, `lib/intake/runtime/`, `lib/workflows/`). Each owns a mutation surface that rule runtime cannot reach.
+- All writes from the dispatcher flow through `enqueueOutboundJob` and `insertAuditEvent`. No raw INSERT / UPDATE / DELETE statements.
+
+### Future enforcement (Phase 4H-rules-runtime onward)
+
+- A CI lint at `scripts/lint-rule-runtime-imports.ts` (or equivalent) statically verifies `lib/rules/runtime/` files import only from the allowlist. The allowlist is a typed constant updated alongside ADR amendments.
+- Code review discipline flags any new import in rule runtime against the denylist.
+- Each new approved orchestrator-mediated action ships with a dispatcher signature extension that preserves the principle: rule runtime returns identifiers + audit event ids, never mutation handles.
+
+The system map at Section 1Q.0 carries an aligned invariant 13 ("Rules may not mutate domain state directly; rules may only produce governed actions through approved orchestrator/writer boundaries; the approved action set extends per-phase by explicit ADR amendment") so future contributors find the binding rule both in the ADR (with reasoning + the extension procedure) and in the binding architectural document (with the invariant text).
 
 ---
 

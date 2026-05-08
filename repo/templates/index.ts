@@ -19,13 +19,25 @@
  */
 
 import type { Template } from './types'
+import { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
 
 /**
- * Empty registry. The runtime shape is decided in 4H-rules-runtime;
- * until then this is a placeholder that compiles + exports the type
- * for downstream consumers to import.
+ * Templates registry. Phase 4H-pre commit 5 lands the first Template
+ * (`tmpl.billing.payment_received_v1`). Subsequent migrations under
+ * the per-PR DELETE-AFTER-PARITY directive add more templates; the
+ * registry grows one entry per migrated case.
  */
-export const TEMPLATE_REGISTRY: ReadonlyArray<Template> = []
+export const TEMPLATE_REGISTRY: ReadonlyArray<Template> = [paymentReceivedTemplateV1]
+
+/**
+ * Look up a Template by its template_key. Returns undefined when not
+ * found. Used by the dispatcher + render module.
+ */
+export function findTemplateByKey(templateKey: string): Template | undefined {
+  return TEMPLATE_REGISTRY.find((t) => t.template_key === templateKey)
+}
+
+export { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
 
 export type { Template } from './types'
 export type {

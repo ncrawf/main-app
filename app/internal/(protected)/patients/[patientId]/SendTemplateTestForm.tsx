@@ -3,8 +3,14 @@
 import { useState, useTransition } from 'react'
 import { sendTemplateTestEmail } from './actions'
 
+// Phase 4H-pre commit 5 — `payment_received` removed from this admin
+// preview form because the legacy NotificationTemplateKey case was
+// migrated to a typed Rule + Template at repo/rules/billing/ +
+// repo/templates/billing/. A future admin preview surface for typed
+// Templates ships in 4H-rules-runtime; for now, payment_received
+// preview is only via the live-DB smoke test
+// (scripts/test-payment-received-parity.ts).
 const TEMPLATE_OPTIONS = [
-  'payment_received',
   'intake_submitted',
   'awaiting_clinical_review',
   'case_approved',

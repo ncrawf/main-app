@@ -127,6 +127,12 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   'notification.suppressed_during_safety_window',
   'pathway.closed_clarification_unanswered',
   'provider_decision.flagged_stale_pending_review',
+  // Phase 4H-pre commit 5 — first Rule-firing audit action under the
+  // rule.fired.<domain>.<concept>_v<N> namespace per Section 1Q.4
+  // line 7209. Emitted by lib/rules/runtime/dispatcher.ts when
+  // repo/rules/billing/payment_received_v1.ts fires in response to a
+  // commerce.checkout.session_completed trigger.
+  'rule.fired.billing.payment_received_v1',
   'rule.firing_overridden',
 ] as const
 
