@@ -141,17 +141,13 @@ export function buildPatientEmail(
     // happens in `lib/templates/render/payment-received.ts` driven by
     // typed required_variables; brand sourced from `brands` table per
     // ADR Section 7.5 multi-tenant rule.
-    case 'intake_submitted': {
-      body = {
-        subject: 'We received your intake',
-        previewText: 'Intake received — we will review your visit details.',
-        eyebrow: 'Intake update',
-        heading: 'Intake received',
-        intro: 'Thanks — we received your intake form.',
-        detail: 'Our team will review it as part of your visit and keep you posted.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline commit 1 — `intake_submitted` case
+    // removed. Migrated to typed Template at
+    // `repo/templates/account_lifecycle/intake_submitted_v1.ts` per
+    // Section 1Q.12 DELETE-AFTER-PARITY directive. Rendering now happens
+    // in `lib/templates/render/intake-submitted.ts` driven by typed
+    // required_variables; brand sourced from `brands` table per ADR
+    // Section 7.5 multi-tenant rule.
     case 'awaiting_clinical_review': {
       body = {
         subject: 'Your visit is in clinical review',
@@ -277,8 +273,12 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // `renderPaymentReceivedSms` with brand prefix sourced from
     // `brands.slug.toUpperCase()` (typed slot `brand_short_label`)
     // instead of hardcoded "MAIN:" per ADR Section 7.5 multi-tenant rule.
-    case 'intake_submitted':
-      return `MAIN: Intake received. ${short}`
+    // Phase 4H-templates-discipline commit 1 — `intake_submitted` case
+    // removed. SMS now renders via
+    // `lib/templates/render/intake-submitted.ts` `renderIntakeSubmittedSms`
+    // with brand prefix sourced from `brands.slug.toUpperCase()` (typed
+    // slot `brand_short_label`) instead of hardcoded "MAIN:" per ADR
+    // Section 7.5 multi-tenant rule.
     case 'awaiting_clinical_review':
       return `MAIN: In clinical review. ${short}`
     case 'case_approved':

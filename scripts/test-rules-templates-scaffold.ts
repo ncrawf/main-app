@@ -65,14 +65,19 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 1,
-  'RULE_REGISTRY contains the payment_received_v1 anchor (commit 5+)',
-  `got ${RULE_REGISTRY.length} rules — expected >= 1 after commit 5`
+  RULE_REGISTRY.length >= 2,
+  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 (commit 5 + templates-discipline 1)',
+  `got ${RULE_REGISTRY.length} rules — expected >= 2 after Phase 4H-templates-discipline commit 1`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
   'RULE_REGISTRY contains rule.billing.payment_received_v1',
   'first parity proof Rule missing'
+)
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.account_lifecycle.intake_submitted_v1'),
+  'RULE_REGISTRY contains rule.account_lifecycle.intake_submitted_v1',
+  'second parity proof Rule missing (Phase 4H-templates-discipline commit 1)'
 )
 
 assert(
@@ -81,14 +86,19 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 1,
-  'TEMPLATE_REGISTRY contains the payment_received_v1 anchor (commit 5+)',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 1 after commit 5`
+  TEMPLATE_REGISTRY.length >= 2,
+  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 anchors',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 2 after Phase 4H-templates-discipline commit 1`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
   'TEMPLATE_REGISTRY contains tmpl.billing.payment_received_v1',
   'first parity proof Template missing'
+)
+assert(
+  TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.account_lifecycle.intake_submitted_v1'),
+  'TEMPLATE_REGISTRY contains tmpl.account_lifecycle.intake_submitted_v1',
+  'second parity proof Template missing (Phase 4H-templates-discipline commit 1)'
 )
 
 // ---------------------------------------------------------------------

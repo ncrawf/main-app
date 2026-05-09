@@ -46,6 +46,15 @@ export const RULE_TRIGGER_EVENT_TYPES = [
    * `rule.billing.payment_received_v1`.
    */
   'commerce.checkout.session_completed',
+
+  /**
+   * Emitted from `lib/protocol/derive.ts` `deriveCanonicalState` when a
+   * patient submits an intake form via `POST /api/forms/[formKey]` and
+   * the upstream form-submissions row is inserted. Carries the
+   * form_submission_id as the per-submission idempotency anchor.
+   * Consumed by `rule.account_lifecycle.intake_submitted_v1`.
+   */
+  'patient.intake_submitted',
 ] as const
 
 export type RuleTriggerEventType = (typeof RULE_TRIGGER_EVENT_TYPES)[number]

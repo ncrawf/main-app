@@ -67,6 +67,11 @@ import {
   renderPaymentReceivedSms,
   type PaymentReceivedRenderInputs,
 } from '@/lib/templates/render/payment-received'
+import {
+  renderIntakeSubmittedEmail,
+  renderIntakeSubmittedSms,
+  type IntakeSubmittedRenderInputs,
+} from '@/lib/templates/render/intake-submitted'
 import { getAppBaseUrl } from '@/lib/stripe/server'
 import type { Rule } from '@/repo/rules'
 
@@ -78,13 +83,15 @@ import type { Rule } from '@/repo/rules'
  * The trigger event payload the dispatcher accepts. Discriminated by
  * `event_type`. New triggers added to RULE_TRIGGER_EVENT_TYPES extend
  * this union per Section 1Q.4 + ADR Section 8 deferral.
- *
- * For commit 5, only `commerce.checkout.session_completed` is wired.
  */
 export type RuleTriggerEvent =
   | {
       event_type: 'commerce.checkout.session_completed'
       payload: CommerceCheckoutSessionCompletedPayload
+    }
+  | {
+      event_type: 'patient.intake_submitted'
+      payload: PatientIntakeSubmittedPayload
     }
 
 export interface CommerceCheckoutSessionCompletedPayload {
@@ -96,6 +103,22 @@ export interface CommerceCheckoutSessionCompletedPayload {
   payment_amount_cents: number
   /** ISO 4217 3-letter currency code from session.currency. */
   payment_currency: string
+}
+
+export interface PatientIntakeSubmittedPayload {
+  /** UUID; the patient record this intake submission pertains to. */
+  patient_id: string
+  /**
+   * UUID of the form_submissions row created in
+   * app/api/forms/[formKey]/route.ts. Used as the per-submission
+   * idempotency anchor (replaces legacy patient-keyed dedupe).
+   */
+  form_submission_id: string
+  /**
+   * Form key from the route (e.g. 'glp1-intake'). Carried for audit
+   * metadata; the Template itself is pathway-agnostic.
+   */
+  form_key: string
 }
 
 /**
@@ -187,6 +210,9 @@ export async function dispatchRuleTriggerEvent(
 
   if (event.event_type === 'commerce.checkout.session_completed') {
     return executePaymentReceivedRule(sb, rule, event.payload)
+  }
+  if (event.event_type === 'patient.intake_submitted') {
+    return executeIntakeSubmittedRule(sb, rule, event.payload)
   }
 
   // Should be unreachable given the typed event union; defensive.
@@ -402,6 +428,212 @@ async function executePaymentReceivedRule(
   if (!auditResult.ok) {
     throw new Error(
       `executePaymentReceivedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
+    )
+  }
+
+  return {
+    matched: true,
+    rule_id: rule.rule_id,
+    rule_version: rule.rule_version,
+    enqueued_outbound_job_ids: enqueuedIds,
+    audit_event_id: auditResult.audit_event_id ?? '',
+  }
+}
+
+// =====================================================================
+// Per-rule executor: intake_submitted
+// =====================================================================
+
+async function executeIntakeSubmittedRule(
+  supabase: SupabaseClient,
+  rule: Rule,
+  payload: PatientIntakeSubmittedPayload,
+): Promise<RuleDispatchResult> {
+  if (rule.action.kind !== 'notify') {
+    throw new Error(
+      `executeIntakeSubmittedRule: rule ${rule.rule_id} has action.kind=${rule.action.kind}; ` +
+        `commit-5-pattern dispatcher only fires 'notify' actions. Other kinds require approved ` +
+        `orchestrator boundary per ADR Section 7.6 extension procedure.`,
+    )
+  }
+
+  const template = findTemplateByKey(rule.template_key ?? '')
+  if (!template) {
+    throw new Error(
+      `executeIntakeSubmittedRule: rule ${rule.rule_id} references template_key=${rule.template_key} ` +
+        `which is not in TEMPLATE_REGISTRY.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // READ-only patient + brand resolution per ADR Section 7.6 allowed-MAY.
+  // ---------------------------------------------------------------
+
+  const { data: patientRow, error: patientError } = await supabase
+    .from('patients')
+    .select('id, org_id, first_name, email, phone')
+    .eq('id', payload.patient_id)
+    .single()
+  if (patientError || !patientRow) {
+    throw new Error(
+      `executeIntakeSubmittedRule: patient lookup failed for ${payload.patient_id}: ${patientError?.message ?? 'not found'}`,
+    )
+  }
+  const patient = patientRow as {
+    id: string
+    org_id: string
+    first_name: string | null
+    email: string | null
+    phone: string | null
+  }
+
+  const { data: brandRow, error: brandError } = await supabase
+    .from('brands')
+    .select('id, org_id, slug, display_name, status')
+    .eq('org_id', patient.org_id)
+    .eq('status', 'active')
+    .limit(1)
+    .maybeSingle()
+  if (brandError) {
+    throw new Error(
+      `executeIntakeSubmittedRule: brand lookup failed for org_id=${patient.org_id}: ${brandError.message}`,
+    )
+  }
+  const brand = brandRow as { id: string; slug: string; display_name: string } | null
+
+  if (!brand) {
+    throw new Error(
+      `executeIntakeSubmittedRule: no active brand for org_id=${patient.org_id}. ` +
+        `Multi-tenant brand sourcing is required per ADR Section 7.5.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // Render the typed Template into channel-specific output.
+  // ---------------------------------------------------------------
+
+  const dashboardUrl = `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${patient.id}`
+  const renderInputs: IntakeSubmittedRenderInputs = {
+    brand_short_label: brand.slug.toUpperCase(),
+    dashboard_url: dashboardUrl,
+    patient_first_name: patient.first_name,
+  }
+  const rendered = {
+    email: renderIntakeSubmittedEmail(renderInputs),
+    sms: renderIntakeSubmittedSms(renderInputs),
+  }
+
+  // ---------------------------------------------------------------
+  // Approved action #1 — enqueue outbound_jobs rows.
+  // Per-submission idempotency keyed on form_submission_id (replaces
+  // legacy per-patient null->intake_submitted dedupe). Documented in
+  // the commit message wording diff log.
+  // ---------------------------------------------------------------
+
+  const enqueuedIds: string[] = []
+
+  if (patient.email && rule.action.channels.includes('email')) {
+    const emailResult = await enqueueOutboundJob({
+      kind: 'send_email',
+      channel: 'email',
+      patient_id: patient.id,
+      idempotency_key: `rule.intake_submitted:${payload.form_submission_id}:email`,
+      external_system_name: 'forms',
+      external_system_id: payload.form_submission_id,
+      // external_inbound_event_id intentionally omitted (one inbound
+      // form_submission produces 2 outbound rows; per-row dedupe is
+      // via idempotency_key, same as commit 5).
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to: patient.email,
+        rendered_email: rendered.email,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        form_key: payload.form_key,
+      },
+    })
+    enqueuedIds.push(emailResult.outbound_job_id)
+  }
+
+  if (patient.phone && rule.action.channels.includes('sms')) {
+    const smsResult = await enqueueOutboundJob({
+      kind: 'send_sms',
+      channel: 'sms',
+      patient_id: patient.id,
+      idempotency_key: `rule.intake_submitted:${payload.form_submission_id}:sms`,
+      external_system_name: 'forms',
+      external_system_id: payload.form_submission_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to_phone: patient.phone,
+        rendered_sms: rendered.sms,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        form_key: payload.form_key,
+      },
+    })
+    enqueuedIds.push(smsResult.outbound_job_id)
+  }
+
+  // ---------------------------------------------------------------
+  // Approved action #2 — emit rule.fired.* audit event.
+  // ---------------------------------------------------------------
+
+  const auditResult = await insertAuditEvent(
+    {
+      action: rule.audit_event_type,
+      resourceType: 'rule',
+      resourceId: rule.rule_id,
+      patientId: patient.id,
+      actorKind: 'system',
+      orgId: patient.org_id,
+      metadata: {
+        rule_version: rule.rule_version,
+        template_key: template.template_key,
+        template_version: template.template_version,
+        intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+        message_intent: rule.action.message_intent,
+        decision_outcome_reason: 'rule_matched',
+        trigger_event_type: 'patient.intake_submitted' satisfies RuleTriggerEventType,
+        form_submission_id: payload.form_submission_id,
+        form_key: payload.form_key,
+        enqueued_outbound_job_ids: enqueuedIds,
+      },
+    },
+    supabase,
+  )
+
+  if (!auditResult.ok) {
+    throw new Error(
+      `executeIntakeSubmittedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
     )
   }
 

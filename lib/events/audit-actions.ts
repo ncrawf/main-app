@@ -132,6 +132,7 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   // line 7209. Emitted by lib/rules/runtime/dispatcher.ts when
   // repo/rules/billing/payment_received_v1.ts fires in response to a
   // commerce.checkout.session_completed trigger.
+  'rule.fired.account_lifecycle.intake_submitted_v1',
   'rule.fired.billing.payment_received_v1',
   'rule.firing_overridden',
 ] as const

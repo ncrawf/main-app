@@ -9,14 +9,20 @@ export type NotificationChannel = 'email' | 'sms'
  * Phase 4H-pre commit 5 — `payment_received` removed; migrated to typed
  * Rule + Template at `repo/rules/billing/payment_received_v1.ts` +
  * `repo/templates/billing/payment_received_v1.ts` per Section 1Q.12
- * DELETE-AFTER-PARITY directive. New patient-facing notifications MUST
- * NOT extend this union; per the cutover discipline, each remaining
- * NotificationTemplateKey case migrates per-PR to a typed Rule +
- * Template, and the legacy case deletes in the same PR. When the last
- * case is removed, this file deletes entirely.
+ * DELETE-AFTER-PARITY directive.
+ *
+ * Phase 4H-templates-discipline commit 1 — `intake_submitted` removed;
+ * migrated to typed Rule + Template at
+ * `repo/rules/account_lifecycle/intake_submitted_v1.ts` +
+ * `repo/templates/account_lifecycle/intake_submitted_v1.ts`.
+ *
+ * New patient-facing notifications MUST NOT extend this union; per the
+ * cutover discipline, each remaining NotificationTemplateKey case
+ * migrates per-PR to a typed Rule + Template, and the legacy case
+ * deletes in the same PR. When the last case is removed, this file
+ * deletes entirely.
  */
 export type NotificationTemplateKey =
-  | 'intake_submitted'
   | 'awaiting_clinical_review'
   | 'case_approved'
   | 'case_denied'
@@ -36,7 +42,10 @@ export type ResolvedPatientNotification = {
 
 /** Staff moves patient into this status → patient gets email + SMS row (SMS sends when Twilio is wired). */
 const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>> = {
-  intake_submitted: 'intake_submitted',
+  // Phase 4H-templates-discipline commit 1 — `intake_submitted: 'intake_submitted'`
+  // removed. The typed Rule at repo/rules/account_lifecycle/intake_submitted_v1.ts
+  // is now the sole producer of intake_submitted notifications, fired from
+  // lib/protocol/derive.ts deriveCanonicalState via the dispatcher.
   under_review: 'awaiting_clinical_review',
   pending_approval: 'awaiting_clinical_review',
   approved: 'case_approved',

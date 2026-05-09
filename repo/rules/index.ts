@@ -20,6 +20,7 @@
 
 import type { Rule } from './types'
 import { paymentReceivedV1 } from './billing/payment_received_v1'
+import { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 
 /**
  * Rules registry. Phase 4H-pre commit 5 lands the first Rule
@@ -31,7 +32,10 @@ import { paymentReceivedV1 } from './billing/payment_received_v1'
  * decided in Phase 4H-rules-runtime; until then this array is the
  * single source the dispatcher consults via `findRulesByTriggerEventType`.
  */
-export const RULE_REGISTRY: ReadonlyArray<Rule> = [paymentReceivedV1]
+export const RULE_REGISTRY: ReadonlyArray<Rule> = [
+  paymentReceivedV1,
+  intakeSubmittedV1,
+]
 
 /**
  * Find rules whose trigger matches the given event_type. Used by the
@@ -48,6 +52,7 @@ export function findRulesByTriggerEventType(eventType: string): ReadonlyArray<Ru
 }
 
 export { paymentReceivedV1 } from './billing/payment_received_v1'
+export { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 
 export type { Rule } from './types'
 export type {

@@ -77,6 +77,11 @@ const EXEMPT_PATHS = [
   join('lib', 'rules', 'runtime'),
   join('lib', 'payments', 'handleStripeCheckoutCompleted.ts'),
   join('scripts', 'test-payment-received-parity.ts'),
+  // Phase 4H-templates-discipline commit 1 — same false-positive at
+  // lib/protocol/derive.ts (calls dispatchRuleTriggerEvent with
+  // 'patient.intake_submitted') + the new parity test.
+  join('lib', 'protocol', 'derive.ts'),
+  join('scripts', 'test-intake-submitted-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

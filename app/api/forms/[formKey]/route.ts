@@ -63,6 +63,7 @@ export async function POST(request: Request, context: { params: Promise<{ formKe
       formKey,
       patientId,
       answers: sanitizedAnswers,
+      formSubmissionId: submission.id,
     })
 
     await enqueueChartAiReview(supabase, {

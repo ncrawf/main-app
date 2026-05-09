@@ -20,6 +20,7 @@
 
 import type { Template } from './types'
 import { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
+import { intakeSubmittedTemplateV1 } from './account_lifecycle/intake_submitted_v1'
 
 /**
  * Templates registry. Phase 4H-pre commit 5 lands the first Template
@@ -27,7 +28,10 @@ import { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
  * the per-PR DELETE-AFTER-PARITY directive add more templates; the
  * registry grows one entry per migrated case.
  */
-export const TEMPLATE_REGISTRY: ReadonlyArray<Template> = [paymentReceivedTemplateV1]
+export const TEMPLATE_REGISTRY: ReadonlyArray<Template> = [
+  paymentReceivedTemplateV1,
+  intakeSubmittedTemplateV1,
+]
 
 /**
  * Look up a Template by its template_key. Returns undefined when not
@@ -38,6 +42,7 @@ export function findTemplateByKey(templateKey: string): Template | undefined {
 }
 
 export { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
+export { intakeSubmittedTemplateV1 } from './account_lifecycle/intake_submitted_v1'
 
 export type { Template } from './types'
 export type {
