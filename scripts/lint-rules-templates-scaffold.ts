@@ -34,6 +34,9 @@
 import { readFileSync, existsSync } from 'node:fs'
 import { execSync } from 'node:child_process'
 
+import { RULE_REGISTRY } from '../repo/rules'
+import { isKnownPathwayCode, PATHWAY_CODES } from '../lib/pathways/sensitivity-registry'
+
 const ROOT = process.cwd()
 
 const FAILURES: string[] = []
@@ -224,6 +227,89 @@ try {
   fail(
     'legacy-v0',
     `failed to enumerate onPatientWorkflowEvent callers: ${err instanceof Error ? err.message : err}`
+  )
+}
+
+// =====================================================================
+// Check 4: pathway_sensitivity propagation discipline
+// (Phase 4H-disclosure-policy commit 2)
+// =====================================================================
+
+console.log(
+  '\n[check 4] Pathway sensitivity propagation (Section 1Q.4 + 1Q.17 + ADR Section 7.5)',
+)
+
+// 4a. Every PathwayCode referenced in any Rule's pathway_scope must
+// resolve to a registered code at lib/pathways/sensitivity-registry.ts.
+//
+// Catches typos and out-of-sync registries at PR time so the
+// dispatcher never throws at runtime on an unknown code (which would
+// abort the rule firing loudly — recoverable, but sloppy).
+
+const OUTSIDE_SECURE_CHANNELS = new Set(['sms', 'email', 'push', 'mail'])
+
+let pathwayCodeViolations = 0
+let elevatedScopeViolations = 0
+
+for (const rule of RULE_REGISTRY) {
+  if (rule.pathway_scope && rule.pathway_scope.length > 0) {
+    for (const code of rule.pathway_scope) {
+      if (!isKnownPathwayCode(code)) {
+        fail(
+          'pathway-resolves',
+          `${rule.rule_id} references pathway_code='${code}' which is not in PATHWAY_CODES at lib/pathways/sensitivity-registry.ts. ` +
+            `Add the code to the registry (with its sensitivity declaration) or remove it from pathway_scope. ` +
+            `Registered codes: ${PATHWAY_CODES.join(', ')}.`,
+        )
+        pathwayCodeViolations++
+      }
+    }
+  }
+
+  // 4b. Tier_3+ outside-secure rules must scope tightly.
+  //
+  // Per the Phase 4H-disclosure-policy commit 2 preflight + ChatGPT
+  // pushback wording: "commit 2 supports single-pathway scope;
+  // multi-pathway scope must either fail lint for elevated outside-
+  // secure rules or require explicit max-sensitivity reducer."
+  //
+  // The reducer ships in a later commit; until then, multi-scope tier_3+
+  // outside-secure rules fail lint. Multi-scope tier_2 or below: passes.
+  // Single-scope tier_3+ outside-secure: passes (sensitivity unambiguously
+  // resolvable).
+  if (rule.action.kind === 'notify' || rule.action.kind === 'escalate' || rule.action.kind === 'clarify') {
+    const tier = rule.action.intended_privacy_exposure_level
+    const channels: string[] =
+      rule.action.kind === 'notify'
+        ? rule.action.channels
+        : []
+    const hitsOutsideSecure = channels.some((c) => OUTSIDE_SECURE_CHANNELS.has(c))
+    const isElevated = tier !== undefined && tier >= 3
+    const isMultiScope = (rule.pathway_scope?.length ?? 0) > 1
+
+    if (isElevated && hitsOutsideSecure && isMultiScope) {
+      fail(
+        'pathway-elevated-scope',
+        `${rule.rule_id} is tier_${tier} outside-secure with multi-element pathway_scope=[${rule.pathway_scope!.join(', ')}]. ` +
+          `Multi-scope tier_3+ outside-secure rules cannot resolve sensitivity unambiguously. ` +
+          `Either tighten pathway_scope to a single pathway, or wait until the multi-pathway max-sensitivity reducer ships in a later commit. ` +
+          `(Multi-scope is fine for tier_0/1/2 outside-secure or any inside-secure-only channels — the clamp does not read pathway_sensitivity for those.)`,
+      )
+      elevatedScopeViolations++
+    }
+  }
+}
+
+if (pathwayCodeViolations === 0) {
+  ok(
+    'pathway-resolves',
+    `every Rule.pathway_scope element resolves to a registered code (${RULE_REGISTRY.length} rules scanned; ${PATHWAY_CODES.length} registered codes)`,
+  )
+}
+if (elevatedScopeViolations === 0) {
+  ok(
+    'pathway-elevated-scope',
+    `no tier_3+ outside-secure rule has multi-element pathway_scope without the (deferred) max-sensitivity reducer`,
   )
 }
 

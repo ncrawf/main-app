@@ -23,6 +23,7 @@
 
 import type { MessageIntent, PathwaySensitivity } from '../../lib/outbound/types'
 import type { AuditAction } from '../../lib/events/audit-actions'
+import type { PathwayCode } from '../../lib/pathways/sensitivity-registry'
 
 // =====================================================================
 // Re-exports of types defined elsewhere
@@ -81,8 +82,22 @@ export type AuthorityFloor =
 /** @stub-for-4H-runtime — capability code per Section 1D.1. */
 export type CapabilityCode = string
 
-/** @stub-for-4H-runtime — pathway code per Section 1K.2 (e.g., glp1, trt, female_hrt, peptides). */
-export type PathwayCode = string
+/**
+ * Pathway code per Section 1K.2. Tightened from `string` stub to the
+ * typed enum at `lib/pathways/sensitivity-registry.ts` in Phase 4H-
+ * disclosure-policy commit 2 so every Rule.pathway_scope element
+ * resolves to a registered pathway_sensitivity at the type layer
+ * (the CI lint at scripts/lint-rules-templates-scaffold.ts adds the
+ * runtime assertion).
+ *
+ * Adding a new pathway code requires:
+ *   1. Adding it to PATHWAY_CODES in lib/pathways/sensitivity-registry.ts.
+ *   2. Declaring its sensitivity in PATHWAY_SENSITIVITY_BY_CODE.
+ *   3. Adding the corresponding Pathway composition in lib/intake/pathways/.
+ *
+ * The string identifiers MUST match across all three.
+ */
+export type { PathwayCode }
 
 /** @stub-for-4H-runtime — jurisdiction code (state / country) per Section 1J.4 + 1G.4.1. */
 export type JurisdictionCode = string

@@ -12,16 +12,19 @@
  *        SECURITY DEFINER orchestrator (wrapped by lib/outbound/enqueue.ts).
  *     2. Emit rule.fired.* audit events via insertAuditEvent.
  *
- * STRUCTURAL ENFORCEMENT — IMPORT ALLOWLIST (commit 5 set):
+ * STRUCTURAL ENFORCEMENT — IMPORT ALLOWLIST (commit 5 set; extended in
+ * Phase 4H-disclosure-policy commit 2 with the pathway sensitivity
+ * registry — pure read-only constant lookup, no I/O, no side effects):
  *
  *   ALLOWED:
- *     @/lib/outbound/enqueue          — enqueueOutboundJob (action #1)
- *     @/lib/events/index              — insertAuditEvent (action #2)
- *     @/lib/supabase/admin            — read-only SELECTs (patients, brands)
- *     @/lib/templates/render/*        — render typed Template output
- *     @/repo/rules                    — Rule registry + lookup
- *     @/repo/templates                — Template registry + lookup
+ *     @/lib/outbound/enqueue              — enqueueOutboundJob (action #1)
+ *     @/lib/events/index                  — insertAuditEvent (action #2)
+ *     @/lib/supabase/admin                — read-only SELECTs (patients, brands)
+ *     @/lib/templates/render/*            — render typed Template output
+ *     @/repo/rules                        — Rule registry + lookup
+ *     @/repo/templates                    — Template registry + lookup
  *     @/lib/events/rule-trigger-event-types — typed trigger vocabulary
+ *     @/lib/pathways/sensitivity-registry — typed pathway_code -> sensitivity lookup
  *
  *   FORBIDDEN (any import here is a structural violation):
  *     @/lib/care/*                    — domain mutation surface
@@ -74,6 +77,12 @@ import {
 } from '@/lib/templates/render/intake-submitted'
 import { getAppBaseUrl } from '@/lib/stripe/server'
 import type { Rule } from '@/repo/rules'
+import {
+  resolvePathwaySensitivity,
+  isKnownPathwayCode,
+  type PathwayCode,
+} from '@/lib/pathways/sensitivity-registry'
+import type { PathwaySensitivity } from '@/lib/outbound/types'
 
 // =====================================================================
 // Public types
@@ -148,6 +157,56 @@ export type RuleDispatchSkipped = {
   enqueued_outbound_job_ids: []
   audit_event_id: null
   skip_reason: 'no_active_rule' | 'unknown_trigger_event_type'
+}
+
+// =====================================================================
+// Pathway sensitivity propagation (Phase 4H-disclosure-policy commit 2)
+// =====================================================================
+
+interface ResolvedPathway {
+  pathway_code: PathwayCode | undefined
+  pathway_sensitivity: PathwaySensitivity | undefined
+}
+
+/**
+ * Resolve a Rule's pathway scope to the (pathway_code, pathway_sensitivity)
+ * pair the disclosure-policy gate consumes at dispatch time.
+ *
+ * Behavior matrix per Phase 4H-disclosure-policy commit 2 preflight:
+ *
+ *   Rule.pathway_scope                  | Result
+ *   -----------------------------------|------------------------------------
+ *   undefined or empty array            | both fields undefined (no behavior change vs Phase 4H-pre)
+ *   single element, registered code     | both fields populated from registry
+ *   single element, UNREGISTERED code   | throws — caught by caller; the rule firing aborts loudly so the misconfiguration is fixed at PR time, not silently fail-closed at runtime
+ *   multi-element                       | both fields undefined (the multi-scope reducer ships in a later commit; the elevated-tier-must-scope-tightly lint at scripts/lint-rules-templates-scaffold.ts blocks the dangerous combinations from authoring time)
+ *
+ * Rationale: only the "registered single-pathway" branch carries enough
+ * information to populate sensitivity unambiguously. Multi-scope tier_3+
+ * outside-secure rules are blocked by the lint per ChatGPT pushback;
+ * multi-scope tier_2 or below rules pass with null sensitivity (they
+ * don't read it).
+ */
+function resolvePathwayForRule(rule: Rule): ResolvedPathway {
+  const scope = rule.pathway_scope
+  if (!scope || scope.length === 0) {
+    return { pathway_code: undefined, pathway_sensitivity: undefined }
+  }
+  if (scope.length > 1) {
+    return { pathway_code: undefined, pathway_sensitivity: undefined }
+  }
+  const code = scope[0]
+  if (!isKnownPathwayCode(code)) {
+    throw new Error(
+      `resolvePathwayForRule: rule ${rule.rule_id} has pathway_scope=['${code}'] ` +
+        `which is not in PATHWAY_CODES at lib/pathways/sensitivity-registry.ts. ` +
+        `Add the code to the registry or fix the typo before firing the rule.`,
+    )
+  }
+  return {
+    pathway_code: code,
+    pathway_sensitivity: resolvePathwaySensitivity(code),
+  }
 }
 
 // =====================================================================
@@ -314,6 +373,12 @@ async function executePaymentReceivedRule(
     sms: renderPaymentReceivedSms(renderInputs),
   }
 
+  // Resolve pathway sensitivity once per firing (Phase 4H-disclosure-policy
+  // commit 2). For unscoped rules like payment_received, both fields are
+  // undefined and the disclosure-policy gate treats the row as null-pathway
+  // (which is fine for tier_1 outside-secure; would fail-closed for tier_3+).
+  const resolvedPathway = resolvePathwayForRule(rule)
+
   // ---------------------------------------------------------------
   // Approved action #1 — enqueue outbound_jobs rows.
   // The full rule + template + privacy lineage persists on each row
@@ -339,6 +404,8 @@ async function executePaymentReceivedRule(
       rule_version: rule.rule_version,
       template_key: template.template_key,
       template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
       message_intent: rule.action.message_intent,
       declared_privacy_exposure_level: template.privacy_exposure_level,
       intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
@@ -377,6 +444,8 @@ async function executePaymentReceivedRule(
       rule_version: rule.rule_version,
       template_key: template.template_key,
       template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
       message_intent: rule.action.message_intent,
       declared_privacy_exposure_level: template.privacy_exposure_level,
       intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
@@ -523,6 +592,11 @@ async function executeIntakeSubmittedRule(
     sms: renderIntakeSubmittedSms(renderInputs),
   }
 
+  // Resolve pathway sensitivity once per firing (Phase 4H-disclosure-policy
+  // commit 2). intake_submitted is unscoped today (it fires for any
+  // patient regardless of pathway), so both fields resolve to undefined.
+  const resolvedPathway = resolvePathwayForRule(rule)
+
   // ---------------------------------------------------------------
   // Approved action #1 — enqueue outbound_jobs rows.
   // Per-submission idempotency keyed on form_submission_id (replaces
@@ -547,6 +621,8 @@ async function executeIntakeSubmittedRule(
       rule_version: rule.rule_version,
       template_key: template.template_key,
       template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
       message_intent: rule.action.message_intent,
       declared_privacy_exposure_level: template.privacy_exposure_level,
       intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
@@ -581,6 +657,8 @@ async function executeIntakeSubmittedRule(
       rule_version: rule.rule_version,
       template_key: template.template_key,
       template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
       message_intent: rule.action.message_intent,
       declared_privacy_exposure_level: template.privacy_exposure_level,
       intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
