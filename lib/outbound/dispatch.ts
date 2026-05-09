@@ -28,13 +28,13 @@
 import { createAdminClient } from '@/lib/supabase/admin';
 import {
   type JobKind,
-  type JobChannel,
   type DispatchOutcome,
   type DispatchResultArgs,
   type DispatchResultResponse,
   isExternalRailJobKind,
 } from './types';
 import { applyDataEnvironmentGateAtDispatch } from './dataEnvironmentGate';
+import { applyDisclosurePolicy } from '@/lib/disclosure-policy/runtime';
 import { sendTransactionalEmail } from '@/lib/notifications/emailResend';
 import { sendPatientSms } from '@/lib/notifications/smsTwilio';
 
@@ -88,24 +88,68 @@ export async function markOutboundJobDispatch(
 }
 
 /**
- * Per Section 1G.3 5-step gate. STUB until Phase 4H rules + templates
- * engine wires the real implementation. Returns 'pass' today; future
- * version returns 'pass' | 'suppress' | 'consent_uplift_required' |
- * 'block' with a reason code.
+ * Section 1G.3 send-policy gate runtime — applies the disclosure-policy
+ * evaluator at lib/disclosure-policy/ to a single outbound_jobs row.
  *
- * CI lint anchor: any code path that dispatches an external-rail job
- * MUST consult this gate before the SDK call. Tested via the unit test
- * that asserts the symbol exists + the SuppressionReason enum is
- * referenced.
+ * Phase 4H-disclosure-policy commit 1 ships steps 1+2(minimal)+3+5 of
+ * the Section 1G.3 5-step chain:
+ *   - Step 1: action-template alignment (failsafe).
+ *   - Step 2: channel max compute (per-channel ceiling + pathway-
+ *     sensitivity clamp; Refinement 5 channel preferences deferred
+ *     until DB schema lands).
+ *   - Step 3: decision (pass / consent_uplift_required / block).
+ *   - Step 5: notification.privacy_exposure_check audit emission.
+ *
+ * Deferred to subsequent commits:
+ *   - Step 4 (safety emergency orchestration): needs companion
+ *     templates + safety-window primitive.
+ *   - Step 5b (in-person redundancy): needs `appointments` table.
+ *   - Marketing exclusion windows: needs campaign engine.
+ *   - Contact freshness: needs verified-at columns on patients.
+ *
+ * The implementation lives at lib/disclosure-policy/ because the
+ * underlying evaluator generalizes beyond outbound notifications;
+ * future surfaces (AI summarization, exports, etc.) ride the same
+ * engine. This entry point is the outbound-notifications application
+ * of that engine.
+ *
+ * Per ADR Section 7.6: the gate runs in worker code (this file), not
+ * in lib/rules/runtime/. Section 7.6's import allowlist + approved
+ * action set govern rule runtime; the worker dispatcher is
+ * structurally a separate concern.
  */
-export async function runSendPolicyGate(_job: OutboundJobRow): Promise<{
+export async function runSendPolicyGate(job: OutboundJobRow): Promise<{
   decision: 'pass' | 'suppress' | 'consent_uplift_required' | 'block';
   reason?: string;
+  fail_safety_posture?: string;
 }> {
-  // TODO(4H): wire the 5-step gate using template metadata +
-  // patient_consents + jurisdiction + recent-interaction window +
-  // pre-send revalidation + contact info freshness.
-  return { decision: 'pass' };
+  const result = await applyDisclosurePolicy(job);
+  if (result.decision.decision === 'pass') {
+    return {
+      decision: 'pass',
+      fail_safety_posture: result.decision.fail_safety_posture,
+    };
+  }
+  if (result.decision.decision === 'consent_uplift_required') {
+    return {
+      decision: 'consent_uplift_required',
+      reason: result.decision.reason,
+      fail_safety_posture: result.decision.fail_safety_posture,
+    };
+  }
+  if (result.decision.decision === 'failsafe_action_template_mismatch') {
+    return {
+      decision: 'block',
+      reason: `failsafe:${result.decision.reason}`,
+      fail_safety_posture: result.decision.fail_safety_posture,
+    };
+  }
+  // block
+  return {
+    decision: 'block',
+    reason: result.decision.reason,
+    fail_safety_posture: result.decision.fail_safety_posture,
+  };
 }
 
 /**
@@ -138,19 +182,16 @@ export async function runDispatcherTick(): Promise<{
     return { job_id: job.id, outcome: 'suppressed_data_environment' };
   }
 
-  // Section 1G.3 5-step send-policy gate (4H ships full impl).
+  // Section 1G.3 send-policy gate runtime — Phase 4H-disclosure-policy
+  // commit 1 ships steps 1+2(minimal)+3+5. The runtime engine at
+  // lib/disclosure-policy/runtime.ts handles the row transition + audit
+  // emission atomically when the decision is non-pass; the dispatcher
+  // does NOT need to call markOutboundJobDispatch on suppression.
+  // (Contrast Phase 4E behavior which routed all non-pass through
+  // markOutboundJobDispatch with status=failed_terminal — that path is
+  // gone now.)
   const gate = await runSendPolicyGate(job);
   if (gate.decision !== 'pass') {
-    // Suppress / consent_uplift / block all map to status=suppressed today.
-    // 4H will distinguish them with the suppression_reason vocabulary.
-    await markOutboundJobDispatch({
-      outbound_job_id: job.id,
-      attempt: job.attempts,
-      status: 'failed_terminal',                // distinct terminal vs retryable; suppression is policy, not retryable
-      channel: (job.channel as JobChannel) ?? 'in_app',
-      provider: 'send_policy_gate',
-      error_message: `suppressed_by_gate: ${gate.reason ?? gate.decision}`,
-    });
     return { job_id: job.id, outcome: 'suppressed_by_gate' };
   }
 
