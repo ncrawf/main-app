@@ -65,9 +65,9 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 2,
-  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 (commit 5 + templates-discipline 1)',
-  `got ${RULE_REGISTRY.length} rules — expected >= 2 after Phase 4H-templates-discipline commit 1`
+  RULE_REGISTRY.length >= 3,
+  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1',
+  `got ${RULE_REGISTRY.length} rules — expected >= 3 after Phase 4H-templates-discipline commit 2`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
@@ -79,6 +79,49 @@ assert(
   'RULE_REGISTRY contains rule.account_lifecycle.intake_submitted_v1',
   'second parity proof Rule missing (Phase 4H-templates-discipline commit 1)'
 )
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.clinical_decision.case_approved_v1'),
+  'RULE_REGISTRY contains rule.clinical_decision.case_approved_v1',
+  'third parity proof Rule missing (Phase 4H-templates-discipline commit 2; first clinical + provider-authority Rule)'
+)
+// Phase 4H-templates-discipline commit 2 — first Rule with
+// authority_floor='provider' + message_intent='clinical' +
+// recall_severity='clinical_significant' active in the registry.
+{
+  const caseApproved = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.clinical_decision.case_approved_v1',
+  )
+  assert(
+    caseApproved?.authority_floor === 'provider',
+    'case_approved_v1 declares authority_floor=provider',
+    `got ${caseApproved?.authority_floor}`,
+  )
+  assert(
+    caseApproved?.recall_severity === 'clinical_significant',
+    'case_approved_v1 declares recall_severity=clinical_significant',
+    `got ${caseApproved?.recall_severity}`,
+  )
+  assert(
+    caseApproved?.action.kind === 'notify' &&
+      'message_intent' in caseApproved.action &&
+      caseApproved.action.message_intent === 'clinical',
+    'case_approved_v1 action.message_intent=clinical',
+    `got ${caseApproved?.action.kind === 'notify' ? caseApproved.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    caseApproved?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in caseApproved.action &&
+      caseApproved.action.intended_privacy_exposure_level === 2,
+    'case_approved_v1 action.intended_privacy_exposure_level=2 (low_context_phi)',
+    `got ${caseApproved?.action.kind === 'notify' ? caseApproved.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    caseApproved?.pathway_scope === undefined ||
+      caseApproved.pathway_scope.length === 0,
+    'case_approved_v1 pathway_scope is undefined (rule fires regardless of pathway; producer-site filters gate to glp1_primary / weight_loss)',
+    `got pathway_scope=${JSON.stringify(caseApproved?.pathway_scope)}`,
+  )
+}
 
 assert(
   Array.isArray(TEMPLATE_REGISTRY),
@@ -86,9 +129,9 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 2,
-  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 anchors',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 2 after Phase 4H-templates-discipline commit 1`
+  TEMPLATE_REGISTRY.length >= 3,
+  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 anchors',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 3 after Phase 4H-templates-discipline commit 2`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
@@ -100,6 +143,35 @@ assert(
   'TEMPLATE_REGISTRY contains tmpl.account_lifecycle.intake_submitted_v1',
   'second parity proof Template missing (Phase 4H-templates-discipline commit 1)'
 )
+assert(
+  TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.clinical_decision.case_approved_v1'),
+  'TEMPLATE_REGISTRY contains tmpl.clinical_decision.case_approved_v1',
+  'third parity proof Template missing (Phase 4H-templates-discipline commit 2)'
+)
+// Verify case_approved Template ships with transactional_critical=false
+// per pre-execution refinement #3 (cadence-bypass NOT defensible for
+// case approval; clinical authority is carried by the Rule's
+// authority_floor + message_intent + recall_severity instead).
+{
+  const caseApprovedTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.clinical_decision.case_approved_v1',
+  )
+  assert(
+    caseApprovedTemplate?.transactional_critical === false,
+    'case_approved Template transactional_critical=false (cadence-bypass NOT defensible for case approval per pre-execution refinement #3)',
+    `got transactional_critical=${caseApprovedTemplate?.transactional_critical}`,
+  )
+  assert(
+    caseApprovedTemplate?.privacy_exposure_level === 2,
+    'case_approved Template privacy_exposure_level=2 (low_context_phi)',
+    `got ${caseApprovedTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    caseApprovedTemplate?.message_intent === 'clinical',
+    'case_approved Template message_intent=clinical',
+    `got ${caseApprovedTemplate?.message_intent}`,
+  )
+}
 
 // ---------------------------------------------------------------------
 // Test 2: Rule interface accepts the commit-5 anchor shape

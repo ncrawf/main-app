@@ -24,7 +24,6 @@ export type NotificationChannel = 'email' | 'sms'
  */
 export type NotificationTemplateKey =
   | 'awaiting_clinical_review'
-  | 'case_approved'
   | 'case_denied'
   | 'followup_needed'
   | 'rx_sent'
@@ -48,7 +47,11 @@ const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>>
   // lib/protocol/derive.ts deriveCanonicalState via the dispatcher.
   under_review: 'awaiting_clinical_review',
   pending_approval: 'awaiting_clinical_review',
-  approved: 'case_approved',
+  // Phase 4H-templates-discipline c2 — `approved: 'case_approved'` removed.
+  // The typed Rule at repo/rules/clinical_decision/case_approved_v1.ts is
+  // now the sole producer of case_approved notifications, fired from
+  // lib/internal/patient-case/impl.ts (updateTreatmentItemStatus +
+  // updateCareProgramStatus) via the dispatcher.
   denied: 'case_denied',
   paused: 'followup_needed',
   completed: 'followup_needed',

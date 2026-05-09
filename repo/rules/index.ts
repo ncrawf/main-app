@@ -21,6 +21,7 @@
 import type { Rule } from './types'
 import { paymentReceivedV1 } from './billing/payment_received_v1'
 import { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
+import { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 
 /**
  * Rules registry. Phase 4H-pre commit 5 lands the first Rule
@@ -35,6 +36,7 @@ import { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 export const RULE_REGISTRY: ReadonlyArray<Rule> = [
   paymentReceivedV1,
   intakeSubmittedV1,
+  caseApprovedV1,
 ]
 
 /**
@@ -53,6 +55,7 @@ export function findRulesByTriggerEventType(eventType: string): ReadonlyArray<Ru
 
 export { paymentReceivedV1 } from './billing/payment_received_v1'
 export { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
+export { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 
 export type { Rule } from './types'
 export type {

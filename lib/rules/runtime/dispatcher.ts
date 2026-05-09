@@ -75,6 +75,11 @@ import {
   renderIntakeSubmittedSms,
   type IntakeSubmittedRenderInputs,
 } from '@/lib/templates/render/intake-submitted'
+import {
+  renderCaseApprovedEmail,
+  renderCaseApprovedSms,
+  type CaseApprovedRenderInputs,
+} from '@/lib/templates/render/case-approved'
 import { getAppBaseUrl } from '@/lib/stripe/server'
 import type { Rule } from '@/repo/rules'
 import {
@@ -102,6 +107,10 @@ export type RuleTriggerEvent =
       event_type: 'patient.intake_submitted'
       payload: PatientIntakeSubmittedPayload
     }
+  | {
+      event_type: 'patient.case_approved'
+      payload: PatientCaseApprovedPayload
+    }
 
 export interface CommerceCheckoutSessionCompletedPayload {
   /** UUID; the patient record this checkout pertains to. */
@@ -128,6 +137,35 @@ export interface PatientIntakeSubmittedPayload {
    * metadata; the Template itself is pathway-agnostic.
    */
   form_key: string
+}
+
+export interface PatientCaseApprovedPayload {
+  /** UUID; the patient record this case-approval pertains to. */
+  patient_id: string
+  /**
+   * Identifies the underlying mutation surface. Today's producer sites
+   * approve either a `treatment_items` row (gated to `treatment_key =
+   * 'glp1_primary'`) or a `care_programs` row (gated to `program_type
+   * = 'weight_loss'`). The Rule layer does not double-filter; the
+   * Template wording is identical regardless of surface. The kind is
+   * carried for audit metadata.
+   */
+  case_kind: 'treatment_item' | 'care_program'
+  /**
+   * UUID of the treatment_items.id or care_programs.id row that was
+   * approved. Combined with case_kind in the audit metadata for full
+   * lineage.
+   */
+  case_id: string
+  /**
+   * UUID of the audit_events row emitted by the producer site for the
+   * underlying status-transition mutation (action =
+   * 'treatment_item.status_changed' or 'care_program.status_changed').
+   * Used as the PER-TRANSITION idempotency anchor — a case bouncing
+   * approved -> denied -> approved produces a distinct audit_event_id
+   * for each genuine re-approval, so each fires a fresh notification.
+   */
+  approval_audit_event_id: string
 }
 
 /**
@@ -272,6 +310,9 @@ export async function dispatchRuleTriggerEvent(
   }
   if (event.event_type === 'patient.intake_submitted') {
     return executeIntakeSubmittedRule(sb, rule, event.payload)
+  }
+  if (event.event_type === 'patient.case_approved') {
+    return executeCaseApprovedRule(sb, rule, event.payload)
   }
 
   // Should be unreachable given the typed event union; defensive.
@@ -712,6 +753,246 @@ async function executeIntakeSubmittedRule(
   if (!auditResult.ok) {
     throw new Error(
       `executeIntakeSubmittedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
+    )
+  }
+
+  return {
+    matched: true,
+    rule_id: rule.rule_id,
+    rule_version: rule.rule_version,
+    enqueued_outbound_job_ids: enqueuedIds,
+    audit_event_id: auditResult.audit_event_id ?? '',
+  }
+}
+
+// =====================================================================
+// Per-rule executor: case_approved
+//
+// Phase 4H-templates-discipline commit 2 — third hardcoded executor
+// branch. Per ChatGPT pre-execution constraint #1 (binding): NO
+// dispatcher generalization. The branch sits alongside the existing
+// two; the runtime stays as side-effect-bounded as it is today.
+//
+// FIRST executor that fires a clinical + provider-authority Rule.
+// Distinguishing characteristics vs the existing two:
+//   - rule.audit_event_type = 'rule.fired.clinical_decision.*'
+//     (vs rule.fired.billing.* / rule.fired.account_lifecycle.*)
+//   - rule.action.message_intent = 'clinical' (vs 'billing' / 'account')
+//   - rule.authority_floor = 'provider' (vs 'system' — metadata only
+//     today; the dispatcher does not enforce authority_floor structurally)
+//   - rule.recall_severity = 'clinical_significant' (vs 'operational')
+//
+// Idempotency: per-transition, keyed on the underlying status-mutation
+// audit_event_id (so a case bouncing approved -> denied -> approved
+// emits a fresh notification on each genuine re-approval). The
+// `case_kind` + `case_id` are carried in audit metadata for full
+// lineage but are NOT part of the dedupe handle.
+// =====================================================================
+
+async function executeCaseApprovedRule(
+  supabase: SupabaseClient,
+  rule: Rule,
+  payload: PatientCaseApprovedPayload,
+): Promise<RuleDispatchResult> {
+  if (rule.action.kind !== 'notify') {
+    throw new Error(
+      `executeCaseApprovedRule: rule ${rule.rule_id} has action.kind=${rule.action.kind}; ` +
+        `commit-5-pattern dispatcher only fires 'notify' actions. Other kinds require approved ` +
+        `orchestrator boundary per ADR Section 7.6 extension procedure.`,
+    )
+  }
+
+  const template = findTemplateByKey(rule.template_key ?? '')
+  if (!template) {
+    throw new Error(
+      `executeCaseApprovedRule: rule ${rule.rule_id} references template_key=${rule.template_key} ` +
+        `which is not in TEMPLATE_REGISTRY.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // READ-only patient + brand resolution per ADR Section 7.6 allowed-MAY.
+  // ---------------------------------------------------------------
+
+  const { data: patientRow, error: patientError } = await supabase
+    .from('patients')
+    .select('id, org_id, first_name, email, phone')
+    .eq('id', payload.patient_id)
+    .single()
+  if (patientError || !patientRow) {
+    throw new Error(
+      `executeCaseApprovedRule: patient lookup failed for ${payload.patient_id}: ${patientError?.message ?? 'not found'}`,
+    )
+  }
+  const patient = patientRow as {
+    id: string
+    org_id: string
+    first_name: string | null
+    email: string | null
+    phone: string | null
+  }
+
+  const { data: brandRow, error: brandError } = await supabase
+    .from('brands')
+    .select('id, org_id, slug, display_name, status')
+    .eq('org_id', patient.org_id)
+    .eq('status', 'active')
+    .limit(1)
+    .maybeSingle()
+  if (brandError) {
+    throw new Error(
+      `executeCaseApprovedRule: brand lookup failed for org_id=${patient.org_id}: ${brandError.message}`,
+    )
+  }
+  const brand = brandRow as { id: string; slug: string; display_name: string } | null
+
+  if (!brand) {
+    throw new Error(
+      `executeCaseApprovedRule: no active brand for org_id=${patient.org_id}. ` +
+        `Multi-tenant brand sourcing is required per ADR Section 7.5.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // Render the typed Template into channel-specific output.
+  // ---------------------------------------------------------------
+
+  const dashboardUrl = `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${patient.id}`
+  const renderInputs: CaseApprovedRenderInputs = {
+    brand_short_label: brand.slug.toUpperCase(),
+    dashboard_url: dashboardUrl,
+    patient_first_name: patient.first_name,
+  }
+  const rendered = {
+    email: renderCaseApprovedEmail(renderInputs),
+    sms: renderCaseApprovedSms(renderInputs),
+  }
+
+  // Resolve pathway sensitivity once per firing. case_approved is
+  // unscoped today (the producer-site filters at lib/internal/
+  // patient-case/impl.ts gate to glp1_primary / weight_loss; the Rule
+  // layer does not double-filter), so both fields resolve to undefined.
+  // pathway_sensitivity null is correct for tier_2 — the disclosure-policy
+  // clamp does not read it.
+  const resolvedPathway = resolvePathwayForRule(rule)
+
+  // ---------------------------------------------------------------
+  // Approved action #1 — enqueue outbound_jobs rows.
+  // Per-transition idempotency keyed on approval_audit_event_id.
+  // ---------------------------------------------------------------
+
+  const enqueuedIds: string[] = []
+
+  if (patient.email && rule.action.channels.includes('email')) {
+    const emailResult = await enqueueOutboundJob({
+      kind: 'send_email',
+      channel: 'email',
+      patient_id: patient.id,
+      idempotency_key: `rule.case_approved:${payload.approval_audit_event_id}:email`,
+      external_system_name: payload.case_kind,
+      external_system_id: payload.case_id,
+      // external_inbound_event_id intentionally omitted (one inbound
+      // case-approval transition produces 2 outbound rows; per-row
+      // dedupe is via idempotency_key, same pattern as commit 5 +
+      // intake_submitted commit 1).
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to: patient.email,
+        rendered_email: rendered.email,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+      },
+    })
+    enqueuedIds.push(emailResult.outbound_job_id)
+  }
+
+  if (patient.phone && rule.action.channels.includes('sms')) {
+    const smsResult = await enqueueOutboundJob({
+      kind: 'send_sms',
+      channel: 'sms',
+      patient_id: patient.id,
+      idempotency_key: `rule.case_approved:${payload.approval_audit_event_id}:sms`,
+      external_system_name: payload.case_kind,
+      external_system_id: payload.case_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to_phone: patient.phone,
+        rendered_sms: rendered.sms,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+      },
+    })
+    enqueuedIds.push(smsResult.outbound_job_id)
+  }
+
+  // ---------------------------------------------------------------
+  // Approved action #2 — emit rule.fired.* audit event.
+  // ---------------------------------------------------------------
+
+  const auditResult = await insertAuditEvent(
+    {
+      action: rule.audit_event_type,
+      resourceType: 'rule',
+      resourceId: rule.rule_id,
+      patientId: patient.id,
+      actorKind: 'system',
+      orgId: patient.org_id,
+      metadata: {
+        rule_version: rule.rule_version,
+        template_key: template.template_key,
+        template_version: template.template_version,
+        intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+        message_intent: rule.action.message_intent,
+        decision_outcome_reason: 'rule_matched',
+        trigger_event_type: 'patient.case_approved' satisfies RuleTriggerEventType,
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+        approval_audit_event_id: payload.approval_audit_event_id,
+        enqueued_outbound_job_ids: enqueuedIds,
+      },
+    },
+    supabase,
+  )
+
+  if (!auditResult.ok) {
+    throw new Error(
+      `executeCaseApprovedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
     )
   }
 

@@ -57,6 +57,7 @@ import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
 import type { NotificationTemplateKey } from '@/lib/workflows/notificationRules'
+import { dispatchRuleTriggerEvent } from '@/lib/rules/runtime/dispatcher'
 
 const MAX_NOTE = 8000
 
@@ -455,6 +456,14 @@ export async function updateTreatmentItemStatus(
   }
 
   // Workflow notifications follow canonical treatment status transitions.
+  // Phase 4H-templates-discipline c2 cutover note: the legacy hook still
+  // fires for this glp1_primary status transition because it routes the
+  // 8 unmigrated NotificationTemplateKey cases (case_denied, rx_sent,
+  // shipped, active_care, etc.) AND because it enqueues chart.ai_review
+  // as a non-notification side effect. The legacy `'approved' ->
+  // 'case_approved'` mapping inside PATIENT_NOTIFY_BY_STATUS is being
+  // deleted in this same PR; the typed Rule below is the sole producer
+  // of case_approved notifications going forward.
   if (item.treatment_key === 'glp1_primary') {
     if (prevStatus !== nextStatus) {
       try {
@@ -471,7 +480,12 @@ export async function updateTreatmentItemStatus(
     }
   }
 
-  await insertAuditEvent(
+  // Emit the canonical status-changed audit FIRST so we can capture
+  // its id as the per-transition idempotency anchor for the typed
+  // case_approved Rule (Phase 4H-templates-discipline c2 commit). The
+  // audit row still describes the same mutation; only the ordering
+  // moved.
+  const treatmentAudit = await insertAuditEvent(
     {
       actorUserId: user.id,
       action: 'treatment_item.status_changed',
@@ -483,6 +497,35 @@ export async function updateTreatmentItemStatus(
     },
     supabase,
   )
+
+  // Phase 4H-templates-discipline c2 — typed Rule trigger for the
+  // case_approved cutover. Fires ONLY on transition to 'approved' AND
+  // ONLY for glp1_primary treatments (preserves legacy filter; the
+  // Rule layer is pathway-agnostic but the producer-site filter gates
+  // to the same population that previously received case_approved
+  // notifications under the legacy `'approved' -> 'case_approved'`
+  // map entry).
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'approved' &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_approved',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'treatment_item',
+          case_id: treatmentItemId,
+          approval_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent case_approved', err)
+    }
+  }
 
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
@@ -548,6 +591,11 @@ export async function updateCareProgramStatus(
   if (!tRes.ok) console.error(tRes.error)
 
   // Workflow notifications follow canonical program status transitions.
+  // Phase 4H-templates-discipline c2 cutover note: same posture as
+  // updateTreatmentItemStatus above — legacy hook stays for the 8
+  // unmigrated NotificationTemplateKey cases + chart.ai_review side
+  // effect. The legacy `'approved' -> 'case_approved'` mapping is
+  // being deleted in this same PR.
   if (program.program_type === 'weight_loss') {
     if (prevStatus !== nextStatus) {
       try {
@@ -564,7 +612,10 @@ export async function updateCareProgramStatus(
     }
   }
 
-  await insertAuditEvent(
+  // Emit canonical status-changed audit FIRST to capture id for the
+  // per-transition idempotency anchor (mirrors updateTreatmentItemStatus
+  // ordering above).
+  const programAudit = await insertAuditEvent(
     {
       actorUserId: user.id,
       action: 'care_program.status_changed',
@@ -576,6 +627,31 @@ export async function updateCareProgramStatus(
     },
     supabase,
   )
+
+  // Phase 4H-templates-discipline c2 — typed Rule trigger for the
+  // case_approved cutover. Fires ONLY on transition to 'approved' AND
+  // ONLY for weight_loss programs (preserves legacy filter).
+  if (
+    program.program_type === 'weight_loss' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'approved' &&
+    programAudit.ok &&
+    programAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_approved',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'care_program',
+          case_id: careProgramId,
+          approval_audit_event_id: programAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateCareProgramStatus: dispatchRuleTriggerEvent case_approved', err)
+    }
+  }
 
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')

@@ -55,6 +55,19 @@ export const RULE_TRIGGER_EVENT_TYPES = [
    * Consumed by `rule.account_lifecycle.intake_submitted_v1`.
    */
   'patient.intake_submitted',
+
+  /**
+   * Emitted from `lib/internal/patient-case/impl.ts` after a staff user
+   * transitions a glp1_primary treatment_item or a weight_loss
+   * care_program to `'approved'` status. Carries the underlying
+   * mutation's audit_event_id as the per-transition idempotency anchor
+   * (so a case bouncing approved -> denied -> approved emits a fresh
+   * notification on each genuine re-approval). Consumed by
+   * `rule.clinical_decision.case_approved_v1`. First trigger event in
+   * the registry whose consumer carries `message_intent: 'clinical'` +
+   * `authority_floor: 'provider'`.
+   */
+  'patient.case_approved',
 ] as const
 
 export type RuleTriggerEventType = (typeof RULE_TRIGGER_EVENT_TYPES)[number]

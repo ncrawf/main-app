@@ -82,6 +82,14 @@ const EXEMPT_PATHS = [
   // 'patient.intake_submitted') + the new parity test.
   join('lib', 'protocol', 'derive.ts'),
   join('scripts', 'test-intake-submitted-parity.ts'),
+  // Phase 4H-templates-discipline commit 2 — same false-positive class at
+  // lib/internal/patient-case/impl.ts (calls dispatchRuleTriggerEvent
+  // with 'patient.case_approved' from updateTreatmentItemStatus +
+  // updateCareProgramStatus producer sites) + the new parity test.
+  // The file's existing audit + timeline literals are typed-helper
+  // protected at insertAuditEvent / insertTimelineEvent call sites.
+  join('lib', 'internal', 'patient-case', 'impl.ts'),
+  join('scripts', 'test-case-approved-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

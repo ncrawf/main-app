@@ -159,17 +159,10 @@ export function buildPatientEmail(
       }
       break
     }
-    case 'case_approved': {
-      body = {
-        subject: 'Your case was approved',
-        previewText: 'Approved — next steps are available now.',
-        eyebrow: 'Clinical decision',
-        heading: 'You are approved',
-        intro: 'Your clinician has approved your case.',
-        detail: 'Next steps are ready in your dashboard.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c2 — `case 'case_approved'` arm
+    // removed; rendering migrated to lib/templates/render/case-approved.ts
+    // and the typed Template at repo/templates/clinical_decision/
+    // case_approved_v1.ts.
     case 'case_denied': {
       body = {
         subject: 'Update on your MAIN visit',
@@ -281,8 +274,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // Section 7.5 multi-tenant rule.
     case 'awaiting_clinical_review':
       return `MAIN: In clinical review. ${short}`
-    case 'case_approved':
-      return `MAIN: Case approved. ${short}`
+    // Phase 4H-templates-discipline c2 — `case 'case_approved'` arm
+    // removed; SMS preview migrated to renderCaseApprovedSms in
+    // lib/templates/render/case-approved.ts.
     case 'case_denied':
       return `MAIN: Update on your visit. ${short}`
     case 'followup_needed':
