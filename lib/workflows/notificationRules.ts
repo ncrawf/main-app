@@ -26,7 +26,6 @@ export type NotificationTemplateKey =
   | 'case_denied'
   | 'followup_needed'
   | 'rx_sent'
-  | 'followup_due'
   | 'refill_pending'
 
 export type ResolvedPatientNotification = {
@@ -66,13 +65,18 @@ const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>>
   // is now the sole producer of active_care notifications, fired from
   // lib/internal/patient-case/impl.ts (updateTreatmentItemStatus +
   // updateCareProgramStatus) via the dispatcher.
+  // Phase 4H-templates-discipline c6 — `refill_due: 'followup_due'`
+  // removed. The typed Rule at
+  // repo/rules/clinical_decision/followup_due_v1.ts is now the sole
+  // producer of followup_due notifications, fired from
+  // lib/internal/patient-case/impl.ts updateTreatmentItemStatus on
+  // transition to 'refill_due' via the dispatcher.
   denied: 'case_denied',
   paused: 'followup_needed',
   completed: 'followup_needed',
   cancelled: 'followup_needed',
   stopped: 'followup_needed',
   rx_sent: 'rx_sent',
-  refill_due: 'followup_due',
   refill_pending: 'refill_pending',
 }
 

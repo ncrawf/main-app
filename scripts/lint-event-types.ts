@@ -114,6 +114,10 @@ const EXEMPT_PATHS = [
   // 'patient.case_active' literal). Producer-site exemption
   // (impl.ts) already covers the trigger literal in the producer.
   join('scripts', 'test-active-care-parity.ts'),
+  // Phase 4H-templates-discipline c6 — same false-positive class at
+  // the followup_due parity test (RuleTriggerEventType
+  // 'patient.case_followup_due' literal).
+  join('scripts', 'test-followup-due-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

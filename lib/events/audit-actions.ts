@@ -150,6 +150,17 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   // repo/rules/clinical_decision/case_approved_v1.ts fires in response to
   // a patient.case_approved trigger from lib/internal/patient-case/impl.ts.
   'rule.fired.clinical_decision.case_approved_v1',
+  // Phase 4H-templates-discipline c6 — seventh Rule-firing audit action.
+  // Fourth in the rule.fired.clinical_decision.* namespace (siblings:
+  // case_approved_v1, awaiting_clinical_review_v1, active_care_v1).
+  // System-authority status ack. Tier_1 existence_only operational
+  // intent. FIRST single-producer-surface clinical_decision rule
+  // (treatment_items only; refill_due not a care_programs.status).
+  // Emitted by lib/rules/runtime/dispatcher.ts when
+  // repo/rules/clinical_decision/followup_due_v1.ts fires in response
+  // to a patient.case_followup_due trigger from
+  // lib/internal/patient-case/impl.ts updateTreatmentItemStatus.
+  'rule.fired.clinical_decision.followup_due_v1',
   // Phase 4H-templates-discipline c5 — sixth Rule-firing audit action.
   // Third in the rule.fired.clinical_decision.* namespace (siblings:
   // case_approved_v1, awaiting_clinical_review_v1). System-authority

@@ -65,9 +65,9 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 6,
-  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1',
-  `got ${RULE_REGISTRY.length} rules — expected >= 6 after Phase 4H-templates-discipline commit 5`
+  RULE_REGISTRY.length >= 7,
+  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1',
+  `got ${RULE_REGISTRY.length} rules — expected >= 7 after Phase 4H-templates-discipline commit 6`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
@@ -99,6 +99,60 @@ assert(
   'RULE_REGISTRY contains rule.clinical_decision.active_care_v1',
   'sixth parity proof Rule missing (Phase 4H-templates-discipline commit 5; third clinical_decision domain Rule)'
 )
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.clinical_decision.followup_due_v1'),
+  'RULE_REGISTRY contains rule.clinical_decision.followup_due_v1',
+  'seventh parity proof Rule missing (Phase 4H-templates-discipline commit 6; fourth clinical_decision domain Rule; first single-producer-surface)'
+)
+// Phase 4H-templates-discipline c6 — fourth clinical_decision domain
+// Rule. FIRST single-producer-surface clinical_decision rule (only
+// fires from updateTreatmentItemStatus; refill_due not a
+// care_programs.status).
+{
+  const followupDue = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.clinical_decision.followup_due_v1',
+  )
+  assert(
+    followupDue?.domain === 'clinical_decision',
+    'followup_due_v1 declares domain=clinical_decision',
+    `got ${followupDue?.domain}`,
+  )
+  assert(
+    followupDue?.authority_floor === 'system',
+    'followup_due_v1 declares authority_floor=system',
+    `got ${followupDue?.authority_floor}`,
+  )
+  assert(
+    followupDue?.recall_severity === 'operational',
+    'followup_due_v1 declares recall_severity=operational',
+    `got ${followupDue?.recall_severity}`,
+  )
+  assert(
+    followupDue?.action.kind === 'notify' &&
+      'message_intent' in followupDue.action &&
+      followupDue.action.message_intent === 'operational',
+    'followup_due_v1 action.message_intent=operational',
+    `got ${followupDue?.action.kind === 'notify' ? followupDue.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    followupDue?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in followupDue.action &&
+      followupDue.action.intended_privacy_exposure_level === 1,
+    'followup_due_v1 action.intended_privacy_exposure_level=1 (existence_only)',
+    `got ${followupDue?.action.kind === 'notify' ? followupDue.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    followupDue?.audit_event_type === 'rule.fired.clinical_decision.followup_due_v1',
+    'followup_due_v1 audit_event_type uses clinical_decision namespace',
+    `got ${followupDue?.audit_event_type}`,
+  )
+  assert(
+    followupDue?.trigger.kind === 'event' &&
+      followupDue.trigger.event_type === 'patient.case_followup_due',
+    "followup_due_v1 trigger.event_type='patient.case_followup_due'",
+    `got ${followupDue?.trigger.kind === 'event' ? followupDue.trigger.event_type : '(non-event trigger)'}`,
+  )
+}
 // Phase 4H-templates-discipline commit 5 — third clinical_decision
 // domain Rule (siblings: case_approved_v1, awaiting_clinical_review_v1).
 // Same shape as awaiting_clinical_review_v1: system-authority status
@@ -286,9 +340,9 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 6,
-  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 anchors',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 6 after Phase 4H-templates-discipline commit 5`
+  TEMPLATE_REGISTRY.length >= 7,
+  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 anchors',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 7 after Phase 4H-templates-discipline commit 6`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
@@ -326,6 +380,40 @@ assert(
   'TEMPLATE_REGISTRY contains tmpl.clinical_decision.active_care_v1',
   'sixth parity proof Template missing (Phase 4H-templates-discipline commit 5; third clinical_decision domain Template)'
 )
+assert(
+  TEMPLATE_REGISTRY.some(
+    (t) => t.template_key === 'tmpl.clinical_decision.followup_due_v1',
+  ),
+  'TEMPLATE_REGISTRY contains tmpl.clinical_decision.followup_due_v1',
+  'seventh parity proof Template missing (Phase 4H-templates-discipline commit 6; fourth clinical_decision domain Template)'
+)
+// Phase 4H-templates-discipline c6 — verify followup_due Template
+// ships with the expected tier_1 + operational shape.
+{
+  const followupDueTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.clinical_decision.followup_due_v1',
+  )
+  assert(
+    followupDueTemplate?.domain === 'clinical_decision',
+    'followup_due Template domain=clinical_decision',
+    `got ${followupDueTemplate?.domain}`,
+  )
+  assert(
+    followupDueTemplate?.transactional_critical === false,
+    'followup_due Template transactional_critical=false',
+    `got transactional_critical=${followupDueTemplate?.transactional_critical}`,
+  )
+  assert(
+    followupDueTemplate?.privacy_exposure_level === 1,
+    'followup_due Template privacy_exposure_level=1 (existence_only)',
+    `got ${followupDueTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    followupDueTemplate?.message_intent === 'operational',
+    'followup_due Template message_intent=operational',
+    `got ${followupDueTemplate?.message_intent}`,
+  )
+}
 // Phase 4H-templates-discipline c5 — verify active_care Template
 // ships with the expected tier_1 + operational shape;
 // transactional_critical=false carries the same axis-separation

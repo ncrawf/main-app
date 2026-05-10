@@ -87,6 +87,22 @@ export const RULE_TRIGGER_EVENT_TYPES = [
   'patient.case_under_review',
 
   /**
+   * Emitted from `lib/internal/patient-case/impl.ts` after a staff
+   * user transitions a glp1_primary treatment_item to `'refill_due'`
+   * status. Single producer surface (refill_due is not a valid
+   * `care_programs.status`). Carries the underlying status-transition
+   * audit_event_id as the per-transition idempotency anchor (so a
+   * treatment_item bouncing active -> refill_due -> active ->
+   * refill_due fires one notification per genuine transition into
+   * refill_due). Consumed by `rule.clinical_decision.followup_due_v1`.
+   * Fourth clinical_decision domain trigger event (siblings:
+   * patient.case_approved, patient.case_under_review,
+   * patient.case_active). FIRST single-producer-surface
+   * clinical_decision trigger.
+   */
+  'patient.case_followup_due',
+
+  /**
    * Emitted from `lib/internal/patient-case/impl.ts` after a staff user
    * transitions a glp1_primary treatment_item or a weight_loss
    * care_program to `'active'` status. Carries the underlying

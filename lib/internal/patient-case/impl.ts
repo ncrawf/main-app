@@ -585,6 +585,41 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  // Phase 4H-templates-discipline c6 — typed Rule trigger for the
+  // followup_due cutover. Fires ONLY on transition to 'refill_due'
+  // AND ONLY for glp1_primary treatments (preserves legacy filter;
+  // the Rule layer is pathway-agnostic but the producer-site filter
+  // gates to the same population that previously received followup_due
+  // notifications under the legacy `'refill_due' -> 'followup_due'`
+  // map entry).
+  //
+  // Single producer surface (no corresponding block in
+  // updateCareProgramStatus): refill_due is not a valid
+  // care_programs.status — the Rule's case_kind discriminant has the
+  // 'care_program' variant reserved for future expansion if a
+  // care_programs-level analog ever lands.
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'refill_due' &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_followup_due',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'treatment_item',
+          case_id: treatmentItemId,
+          transition_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent followup_due', err)
+    }
+  }
+
   // Phase 4H-templates-discipline c4 — typed Rule trigger for the
   // order_shipped cutover. Fires ONLY on transition to 'shipped'
   // AND ONLY for glp1_primary treatments (preserves legacy filter;

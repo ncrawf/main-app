@@ -209,17 +209,11 @@ export function buildPatientEmail(
     // brand_short_label slot. Producer dispatch from
     // updateTreatmentItemStatus + updateCareProgramStatus on
     // transition to 'active'.
-    case 'followup_due': {
-      body = {
-        subject: 'Time for a check-in',
-        previewText: 'Check-in due now.',
-        eyebrow: 'Check-in due',
-        heading: 'Time for your check-in',
-        intro: 'It is time for your next follow-up.',
-        detail: 'Please complete any due tasks in your dashboard.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c6 — `case 'followup_due'` arm
+    // removed; email rendering migrated to renderFollowupDueEmail in
+    // lib/templates/render/followup-due.ts. SMS prefix sourced from
+    // brand_short_label slot. Producer dispatch from
+    // updateTreatmentItemStatus on transition to 'refill_due'.
     case 'refill_pending': {
       body = {
         subject: 'Refill update',
@@ -281,8 +275,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // Phase 4H-templates-discipline c5 — `case 'active_care'` arm
     // removed; SMS preview migrated to renderActiveCareSms in
     // lib/templates/render/active-care.ts.
-    case 'followup_due':
-      return `MAIN: Check-in due. ${short}`
+    // Phase 4H-templates-discipline c6 — `case 'followup_due'` arm
+    // removed; SMS preview migrated to renderFollowupDueSms in
+    // lib/templates/render/followup-due.ts.
     case 'refill_pending':
       return `MAIN: Refill update. ${short}`
     default: {
