@@ -88,6 +88,32 @@ export const RULE_TRIGGER_EVENT_TYPES = [
 
   /**
    * Emitted from `lib/internal/patient-case/impl.ts` after a staff
+   * user transitions a glp1_primary treatment_item OR a weight_loss
+   * care_program to a "more info needed" terminal-or-paused status.
+   *
+   * ASYMMETRIC producer-side gates per surface:
+   *   - updateTreatmentItemStatus: 'paused' | 'stopped'
+   *     (treatment_items has no 'completed'/'cancelled' status)
+   *   - updateCareProgramStatus: 'paused' | 'completed' | 'cancelled'
+   *     (care_programs has no 'stopped' status)
+   *
+   * Both producers route to the same Rule
+   * (rule.clinical_decision.followup_needed_v1) — preserving legacy
+   * behavior where 4 PATIENT_NOTIFY_BY_STATUS map entries (paused,
+   * completed, cancelled, stopped) all routed to the same
+   * 'followup_needed' template.
+   *
+   * The payload's `next_status` field carries which status fired
+   * for audit lineage. Carries the underlying status-transition
+   * audit_event_id as the per-transition idempotency anchor.
+   *
+   * FIRST trigger event whose consumer fires on asymmetric per-
+   * producer status gates.
+   */
+  'patient.case_followup_needed',
+
+  /**
+   * Emitted from `lib/internal/patient-case/impl.ts` after a staff
    * user transitions a glp1_primary treatment_item to `'refill_due'`
    * status. Single producer surface (refill_due is not a valid
    * `care_programs.status`). Carries the underlying status-transition

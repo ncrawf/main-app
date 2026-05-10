@@ -118,6 +118,10 @@ const EXEMPT_PATHS = [
   // the followup_due parity test (RuleTriggerEventType
   // 'patient.case_followup_due' literal).
   join('scripts', 'test-followup-due-parity.ts'),
+  // Phase 4H-templates-discipline c7 — same false-positive class at
+  // the followup_needed parity test (RuleTriggerEventType
+  // 'patient.case_followup_needed' literal).
+  join('scripts', 'test-followup-needed-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

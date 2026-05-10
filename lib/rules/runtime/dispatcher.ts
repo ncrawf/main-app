@@ -96,6 +96,11 @@ import {
   type FollowupDueRenderInputs,
 } from '@/lib/templates/render/followup-due'
 import {
+  renderFollowupNeededEmail,
+  renderFollowupNeededSms,
+  type FollowupNeededRenderInputs,
+} from '@/lib/templates/render/followup-needed'
+import {
   renderOrderShippedEmail,
   renderOrderShippedSms,
   type OrderShippedRenderInputs,
@@ -142,6 +147,10 @@ export type RuleTriggerEvent =
   | {
       event_type: 'patient.case_followup_due'
       payload: PatientCaseFollowupDuePayload
+    }
+  | {
+      event_type: 'patient.case_followup_needed'
+      payload: PatientCaseFollowupNeededPayload
     }
   | {
       event_type: 'patient.order_shipped'
@@ -273,6 +282,39 @@ export interface PatientCaseActivePayload {
    * notification.
    */
   activation_audit_event_id: string
+}
+
+export interface PatientCaseFollowupNeededPayload {
+  /** UUID; the patient record this status transition pertains to. */
+  patient_id: string
+  /**
+   * Same case_kind discriminant as the prior clinical_decision
+   * payloads — bounded to the clinical-decision lifecycle. See
+   * watch-zone note on the sibling payloads above; do NOT extend
+   * the case_kind union to non-clinical-decision domain objects.
+   */
+  case_kind: 'treatment_item' | 'care_program'
+  /**
+   * UUID of the treatment_items.id or care_programs.id row that
+   * transitioned. Combined with case_kind in audit metadata.
+   */
+  case_id: string
+  /**
+   * Which status the case transitioned INTO. Asymmetric per
+   * producer:
+   *   - From updateTreatmentItemStatus: 'paused' | 'stopped'
+   *   - From updateCareProgramStatus: 'paused' | 'completed' | 'cancelled'
+   * The union is the SET of all possible values across both
+   * producers; the producer-side filter is what determines which
+   * actually fires. Carried for audit lineage.
+   */
+  next_status: 'paused' | 'stopped' | 'completed' | 'cancelled'
+  /**
+   * UUID of the audit_events row emitted by the producer site for
+   * the underlying status-transition mutation. Used as the
+   * PER-TRANSITION idempotency anchor.
+   */
+  transition_audit_event_id: string
 }
 
 export interface PatientCaseFollowupDuePayload {
@@ -505,6 +547,9 @@ export async function dispatchRuleTriggerEvent(
   }
   if (event.event_type === 'patient.case_followup_due') {
     return executeFollowupDueRule(sb, rule, event.payload)
+  }
+  if (event.event_type === 'patient.case_followup_needed') {
+    return executeFollowupNeededRule(sb, rule, event.payload)
   }
   if (event.event_type === 'patient.order_shipped') {
     return executeOrderShippedRule(sb, rule, event.payload)
@@ -2168,6 +2213,240 @@ async function executeFollowupDueRule(
   if (!auditResult.ok) {
     throw new Error(
       `executeFollowupDueRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
+    )
+  }
+
+  return {
+    matched: true,
+    rule_id: rule.rule_id,
+    rule_version: rule.rule_version,
+    enqueued_outbound_job_ids: enqueuedIds,
+    audit_event_id: auditResult.audit_event_id ?? '',
+  }
+}
+
+// =====================================================================
+// Per-rule executor: followup_needed
+//
+// Phase 4H-templates-discipline commit 7 — eighth hardcoded executor
+// branch. Per ChatGPT pre-execution constraint #1 (binding): NO
+// dispatcher generalization. The branch sits alongside the existing
+// seven; the runtime stays as side-effect-bounded as it is today.
+//
+// Fifth clinical_decision domain executor. Same shape as
+// executeAwaitingClinicalReviewRule + executeActiveCareRule +
+// executeFollowupDueRule.
+//
+// FIRST executor whose producer-side gates are ASYMMETRIC across the
+// two producer surfaces:
+//   - updateTreatmentItemStatus fires on (paused | stopped)
+//   - updateCareProgramStatus fires on (paused | completed | cancelled)
+// The Rule layer is producer-agnostic; the next_status field on the
+// payload carries which status fired for audit lineage.
+//
+// Idempotency: per-transition, keyed on transition_audit_event_id.
+// =====================================================================
+
+async function executeFollowupNeededRule(
+  supabase: SupabaseClient,
+  rule: Rule,
+  payload: PatientCaseFollowupNeededPayload,
+): Promise<RuleDispatchResult> {
+  if (rule.action.kind !== 'notify') {
+    throw new Error(
+      `executeFollowupNeededRule: rule ${rule.rule_id} has action.kind=${rule.action.kind}; ` +
+        `commit-5-pattern dispatcher only fires 'notify' actions. Other kinds require approved ` +
+        `orchestrator boundary per ADR Section 7.6 extension procedure.`,
+    )
+  }
+
+  const template = findTemplateByKey(rule.template_key ?? '')
+  if (!template) {
+    throw new Error(
+      `executeFollowupNeededRule: rule ${rule.rule_id} references template_key=${rule.template_key} ` +
+        `which is not in TEMPLATE_REGISTRY.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // READ-only patient + brand resolution per ADR Section 7.6 allowed-MAY.
+  // ---------------------------------------------------------------
+
+  const { data: patientRow, error: patientError } = await supabase
+    .from('patients')
+    .select('id, org_id, first_name, email, phone')
+    .eq('id', payload.patient_id)
+    .single()
+  if (patientError || !patientRow) {
+    throw new Error(
+      `executeFollowupNeededRule: patient lookup failed for ${payload.patient_id}: ${patientError?.message ?? 'not found'}`,
+    )
+  }
+  const patient = patientRow as {
+    id: string
+    org_id: string
+    first_name: string | null
+    email: string | null
+    phone: string | null
+  }
+
+  const { data: brandRow, error: brandError } = await supabase
+    .from('brands')
+    .select('id, org_id, slug, display_name, status')
+    .eq('org_id', patient.org_id)
+    .eq('status', 'active')
+    .limit(1)
+    .maybeSingle()
+  if (brandError) {
+    throw new Error(
+      `executeFollowupNeededRule: brand lookup failed for org_id=${patient.org_id}: ${brandError.message}`,
+    )
+  }
+  const brand = brandRow as { id: string; slug: string; display_name: string } | null
+
+  if (!brand) {
+    throw new Error(
+      `executeFollowupNeededRule: no active brand for org_id=${patient.org_id}. ` +
+        `Multi-tenant brand sourcing is required per ADR Section 7.5.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // Render the typed Template into channel-specific output.
+  // ---------------------------------------------------------------
+
+  const dashboardUrl = `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${patient.id}`
+  const renderInputs: FollowupNeededRenderInputs = {
+    brand_short_label: brand.slug.toUpperCase(),
+    dashboard_url: dashboardUrl,
+    patient_first_name: patient.first_name,
+  }
+  const rendered = {
+    email: renderFollowupNeededEmail(renderInputs),
+    sms: renderFollowupNeededSms(renderInputs),
+  }
+
+  // Resolve pathway sensitivity once per firing. followup_needed is
+  // unscoped today; both fields resolve to undefined. tier_1 — clamp
+  // doesn't read it.
+  const resolvedPathway = resolvePathwayForRule(rule)
+
+  // ---------------------------------------------------------------
+  // Approved action #1 — enqueue outbound_jobs rows.
+  // Per-transition idempotency keyed on transition_audit_event_id.
+  // ---------------------------------------------------------------
+
+  const enqueuedIds: string[] = []
+
+  if (patient.email && rule.action.channels.includes('email')) {
+    const emailResult = await enqueueOutboundJob({
+      kind: 'send_email',
+      channel: 'email',
+      patient_id: patient.id,
+      idempotency_key: `rule.followup_needed:${payload.transition_audit_event_id}:email`,
+      external_system_name: payload.case_kind,
+      external_system_id: payload.case_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to: patient.email,
+        rendered_email: rendered.email,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+        next_status: payload.next_status,
+      },
+    })
+    enqueuedIds.push(emailResult.outbound_job_id)
+  }
+
+  if (patient.phone && rule.action.channels.includes('sms')) {
+    const smsResult = await enqueueOutboundJob({
+      kind: 'send_sms',
+      channel: 'sms',
+      patient_id: patient.id,
+      idempotency_key: `rule.followup_needed:${payload.transition_audit_event_id}:sms`,
+      external_system_name: payload.case_kind,
+      external_system_id: payload.case_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to_phone: patient.phone,
+        rendered_sms: rendered.sms,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+        next_status: payload.next_status,
+      },
+    })
+    enqueuedIds.push(smsResult.outbound_job_id)
+  }
+
+  // ---------------------------------------------------------------
+  // Approved action #2 — emit rule.fired.* audit event.
+  // ---------------------------------------------------------------
+
+  const auditResult = await insertAuditEvent(
+    {
+      action: rule.audit_event_type,
+      resourceType: 'rule',
+      resourceId: rule.rule_id,
+      patientId: patient.id,
+      actorKind: 'system',
+      orgId: patient.org_id,
+      metadata: {
+        rule_version: rule.rule_version,
+        template_key: template.template_key,
+        template_version: template.template_version,
+        intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+        message_intent: rule.action.message_intent,
+        decision_outcome_reason: 'rule_matched',
+        trigger_event_type: 'patient.case_followup_needed' satisfies RuleTriggerEventType,
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+        next_status: payload.next_status,
+        transition_audit_event_id: payload.transition_audit_event_id,
+        enqueued_outbound_job_ids: enqueuedIds,
+      },
+    },
+    supabase,
+  )
+
+  if (!auditResult.ok) {
+    throw new Error(
+      `executeFollowupNeededRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
     )
   }
 

@@ -24,7 +24,6 @@ export type NotificationChannel = 'email' | 'sms'
  */
 export type NotificationTemplateKey =
   | 'case_denied'
-  | 'followup_needed'
   | 'rx_sent'
   | 'refill_pending'
 
@@ -71,11 +70,16 @@ const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>>
   // producer of followup_due notifications, fired from
   // lib/internal/patient-case/impl.ts updateTreatmentItemStatus on
   // transition to 'refill_due' via the dispatcher.
+  // Phase 4H-templates-discipline c7 — 4 map entries removed
+  // (paused/completed/cancelled/stopped → followup_needed). The
+  // typed Rule at repo/rules/clinical_decision/followup_needed_v1.ts
+  // is now the sole producer of followup_needed notifications, fired
+  // from lib/internal/patient-case/impl.ts via the dispatcher with
+  // ASYMMETRIC producer-side status gates: updateTreatmentItemStatus
+  // fires on (paused | stopped); updateCareProgramStatus fires on
+  // (paused | completed | cancelled). Collapses 4 legacy mappings
+  // into 1 typed Rule.
   denied: 'case_denied',
-  paused: 'followup_needed',
-  completed: 'followup_needed',
-  cancelled: 'followup_needed',
-  stopped: 'followup_needed',
   rx_sent: 'rx_sent',
   refill_pending: 'refill_pending',
 }

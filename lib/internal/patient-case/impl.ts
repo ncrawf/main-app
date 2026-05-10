@@ -585,6 +585,39 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  // Phase 4H-templates-discipline c7 — typed Rule trigger for the
+  // followup_needed cutover. Fires on transition to EITHER 'paused'
+  // OR 'stopped' (preserves legacy PATIENT_NOTIFY_BY_STATUS behavior
+  // where both map entries routed to the same 'followup_needed'
+  // template). ASYMMETRIC producer-side gate per surface: this
+  // (treatment_item) producer fires on (paused | stopped); the
+  // care_program producer fires on (paused | completed | cancelled)
+  // because treatment_items has no 'completed'/'cancelled' status
+  // and care_programs has no 'stopped' status. Same Rule on the
+  // other side; producer-agnostic.
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    (nextStatus === 'paused' || nextStatus === 'stopped') &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_followup_needed',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'treatment_item',
+          case_id: treatmentItemId,
+          next_status: nextStatus as 'paused' | 'stopped',
+          transition_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent followup_needed', err)
+    }
+  }
+
   // Phase 4H-templates-discipline c6 — typed Rule trigger for the
   // followup_due cutover. Fires ONLY on transition to 'refill_due'
   // AND ONLY for glp1_primary treatments (preserves legacy filter;
@@ -857,6 +890,37 @@ export async function updateCareProgramStatus(
       })
     } catch (err) {
       console.error('updateCareProgramStatus: dispatchRuleTriggerEvent active_care', err)
+    }
+  }
+
+  // Phase 4H-templates-discipline c7 — typed Rule trigger for the
+  // followup_needed cutover. Fires on transition to ('paused' |
+  // 'completed' | 'cancelled'). ASYMMETRIC producer-side gate vs
+  // the treatment_item side (which fires on 'paused' | 'stopped'):
+  // care_programs has no 'stopped' status; treatment_items has no
+  // 'completed' or 'cancelled'. Same Rule on both sides; producer-
+  // agnostic. Same weight_loss program filter as the prior
+  // care_program-side dispatches.
+  if (
+    program.program_type === 'weight_loss' &&
+    prevStatus !== nextStatus &&
+    (nextStatus === 'paused' || nextStatus === 'completed' || nextStatus === 'cancelled') &&
+    programAudit.ok &&
+    programAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_followup_needed',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'care_program',
+          case_id: careProgramId,
+          next_status: nextStatus as 'paused' | 'completed' | 'cancelled',
+          transition_audit_event_id: programAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateCareProgramStatus: dispatchRuleTriggerEvent followup_needed', err)
     }
   }
 

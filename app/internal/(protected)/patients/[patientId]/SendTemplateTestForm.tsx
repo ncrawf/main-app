@@ -12,7 +12,6 @@ import { sendTemplateTestEmail } from './actions'
 // via their live-DB parity smoke tests.
 const TEMPLATE_OPTIONS = [
   'case_denied',
-  'followup_needed',
   'rx_sent',
   'refill_pending',
 ] as const

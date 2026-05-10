@@ -168,17 +168,12 @@ export function buildPatientEmail(
       }
       break
     }
-    case 'followup_needed': {
-      body = {
-        subject: 'We need a bit more information',
-        previewText: 'Action needed to keep your case moving.',
-        eyebrow: 'Action needed',
-        heading: 'Additional info needed',
-        intro: 'We need a little more information before we can move forward.',
-        detail: 'Please complete the requested steps in your dashboard.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c7 — `case 'followup_needed'`
+    // arm removed; email rendering migrated to
+    // renderFollowupNeededEmail in lib/templates/render/followup-
+    // needed.ts. Producer dispatch from updateTreatmentItemStatus
+    // (paused | stopped) + updateCareProgramStatus (paused |
+    // completed | cancelled) on transition to those statuses.
     case 'rx_sent': {
       body = {
         subject: 'Prescription sent to pharmacy',
@@ -265,8 +260,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // lib/templates/render/case-approved.ts.
     case 'case_denied':
       return `MAIN: Update on your visit. ${short}`
-    case 'followup_needed':
-      return `MAIN: More info needed. ${short}`
+    // Phase 4H-templates-discipline c7 — `case 'followup_needed'`
+    // arm removed; SMS preview migrated to renderFollowupNeededSms
+    // in lib/templates/render/followup-needed.ts.
     case 'rx_sent':
       return `MAIN: Rx sent to pharmacy. ${short}`
     // Phase 4H-templates-discipline c4 — `case 'shipped'` arm removed;

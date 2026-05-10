@@ -65,9 +65,9 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 7,
-  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1',
-  `got ${RULE_REGISTRY.length} rules — expected >= 7 after Phase 4H-templates-discipline commit 6`
+  RULE_REGISTRY.length >= 8,
+  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1',
+  `got ${RULE_REGISTRY.length} rules — expected >= 8 after Phase 4H-templates-discipline commit 7`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
@@ -104,6 +104,61 @@ assert(
   'RULE_REGISTRY contains rule.clinical_decision.followup_due_v1',
   'seventh parity proof Rule missing (Phase 4H-templates-discipline commit 6; fourth clinical_decision domain Rule; first single-producer-surface)'
 )
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.clinical_decision.followup_needed_v1'),
+  'RULE_REGISTRY contains rule.clinical_decision.followup_needed_v1',
+  'eighth parity proof Rule missing (Phase 4H-templates-discipline commit 7; fifth clinical_decision domain Rule; first asymmetric per-producer status gates)'
+)
+// Phase 4H-templates-discipline c7 — fifth clinical_decision domain
+// Rule. FIRST asymmetric producer-side status gates: treatment_items
+// (paused | stopped) vs care_programs (paused | completed |
+// cancelled). Collapses 4 legacy PATIENT_NOTIFY_BY_STATUS map
+// entries into one typed Rule.
+{
+  const followupNeeded = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.clinical_decision.followup_needed_v1',
+  )
+  assert(
+    followupNeeded?.domain === 'clinical_decision',
+    'followup_needed_v1 declares domain=clinical_decision',
+    `got ${followupNeeded?.domain}`,
+  )
+  assert(
+    followupNeeded?.authority_floor === 'system',
+    'followup_needed_v1 declares authority_floor=system',
+    `got ${followupNeeded?.authority_floor}`,
+  )
+  assert(
+    followupNeeded?.recall_severity === 'operational',
+    'followup_needed_v1 declares recall_severity=operational',
+    `got ${followupNeeded?.recall_severity}`,
+  )
+  assert(
+    followupNeeded?.action.kind === 'notify' &&
+      'message_intent' in followupNeeded.action &&
+      followupNeeded.action.message_intent === 'operational',
+    'followup_needed_v1 action.message_intent=operational',
+    `got ${followupNeeded?.action.kind === 'notify' ? followupNeeded.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    followupNeeded?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in followupNeeded.action &&
+      followupNeeded.action.intended_privacy_exposure_level === 1,
+    'followup_needed_v1 action.intended_privacy_exposure_level=1 (existence_only)',
+    `got ${followupNeeded?.action.kind === 'notify' ? followupNeeded.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    followupNeeded?.audit_event_type === 'rule.fired.clinical_decision.followup_needed_v1',
+    'followup_needed_v1 audit_event_type uses clinical_decision namespace',
+    `got ${followupNeeded?.audit_event_type}`,
+  )
+  assert(
+    followupNeeded?.trigger.kind === 'event' &&
+      followupNeeded.trigger.event_type === 'patient.case_followup_needed',
+    "followup_needed_v1 trigger.event_type='patient.case_followup_needed'",
+    `got ${followupNeeded?.trigger.kind === 'event' ? followupNeeded.trigger.event_type : '(non-event trigger)'}`,
+  )
+}
 // Phase 4H-templates-discipline c6 — fourth clinical_decision domain
 // Rule. FIRST single-producer-surface clinical_decision rule (only
 // fires from updateTreatmentItemStatus; refill_due not a
@@ -340,9 +395,9 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 7,
-  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 anchors',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 7 after Phase 4H-templates-discipline commit 6`
+  TEMPLATE_REGISTRY.length >= 8,
+  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1 anchors',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 8 after Phase 4H-templates-discipline commit 7`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
@@ -387,6 +442,40 @@ assert(
   'TEMPLATE_REGISTRY contains tmpl.clinical_decision.followup_due_v1',
   'seventh parity proof Template missing (Phase 4H-templates-discipline commit 6; fourth clinical_decision domain Template)'
 )
+assert(
+  TEMPLATE_REGISTRY.some(
+    (t) => t.template_key === 'tmpl.clinical_decision.followup_needed_v1',
+  ),
+  'TEMPLATE_REGISTRY contains tmpl.clinical_decision.followup_needed_v1',
+  'eighth parity proof Template missing (Phase 4H-templates-discipline commit 7; fifth clinical_decision domain Template)'
+)
+// Phase 4H-templates-discipline c7 — verify followup_needed Template
+// ships with the expected tier_1 + operational shape.
+{
+  const followupNeededTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.clinical_decision.followup_needed_v1',
+  )
+  assert(
+    followupNeededTemplate?.domain === 'clinical_decision',
+    'followup_needed Template domain=clinical_decision',
+    `got ${followupNeededTemplate?.domain}`,
+  )
+  assert(
+    followupNeededTemplate?.transactional_critical === false,
+    'followup_needed Template transactional_critical=false',
+    `got transactional_critical=${followupNeededTemplate?.transactional_critical}`,
+  )
+  assert(
+    followupNeededTemplate?.privacy_exposure_level === 1,
+    'followup_needed Template privacy_exposure_level=1 (existence_only)',
+    `got ${followupNeededTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    followupNeededTemplate?.message_intent === 'operational',
+    'followup_needed Template message_intent=operational',
+    `got ${followupNeededTemplate?.message_intent}`,
+  )
+}
 // Phase 4H-templates-discipline c6 — verify followup_due Template
 // ships with the expected tier_1 + operational shape.
 {
