@@ -105,6 +105,16 @@ import {
   renderOrderShippedSms,
   type OrderShippedRenderInputs,
 } from '@/lib/templates/render/order-shipped'
+import {
+  renderRefillInitiatedEmail,
+  renderRefillInitiatedSms,
+  type RefillInitiatedRenderInputs,
+} from '@/lib/templates/render/refill-initiated'
+import {
+  renderRxSentEmail,
+  renderRxSentSms,
+  type RxSentRenderInputs,
+} from '@/lib/templates/render/rx-sent'
 import { getAppBaseUrl } from '@/lib/stripe/server'
 import type { Rule } from '@/repo/rules'
 import {
@@ -155,6 +165,14 @@ export type RuleTriggerEvent =
   | {
       event_type: 'patient.order_shipped'
       payload: PatientOrderShippedPayload
+    }
+  | {
+      event_type: 'patient.rx_sent_to_pharmacy'
+      payload: PatientRxSentToPharmacyPayload
+    }
+  | {
+      event_type: 'patient.refill_initiated'
+      payload: PatientRefillInitiatedPayload
     }
 
 export interface CommerceCheckoutSessionCompletedPayload {
@@ -394,6 +412,93 @@ export interface PatientOrderShippedPayload {
 }
 
 /**
+ * Phase 4H-templates-discipline c8 — pharmacy_lifecycle sibling
+ * activation (member 1 of 2).
+ *
+ * Per system-map `## Platform operational model` doctrine: the
+ * `pharmacy_event_kind` discriminant is the PHARMACY sibling's
+ * identifier; INTENTIONALLY DIFFERENT from `case_kind` and
+ * `order_kind`. Future authors of pharmacy-shaped events
+ * (`'rx_filled'`, `'rx_dispensed'`, `'refill_approved_by_provider'`,
+ * `'refill_denied_by_provider'`) inherit the correct sibling-domain
+ * home and must NOT extend `case_kind` or `order_kind` across the
+ * sibling seam.
+ *
+ * Single-literal narrow union for this trigger. The cross-event
+ * union for `pharmacy_event_kind` widens implicitly across sibling
+ * rules in the pharmacy_lifecycle/ folder; the scaffold lint
+ * (check 5) validates folder placement.
+ */
+export interface PatientRxSentToPharmacyPayload {
+  /** UUID; the patient record this rx-send pertains to. */
+  patient_id: string
+  /**
+   * Pharmacy sibling discriminant. Single-literal narrow union for
+   * this trigger.
+   */
+  pharmacy_event_kind: 'rx_sent_to_pharmacy'
+  /**
+   * Logical identifier for the prescription. Today the producer
+   * surface is `lib/internal/patient-case/impl.ts` operating on
+   * `treatment_items.id` (case-shaped legacy surface; transitional
+   * locality per the doctrine's producer-site rule + audit §6 #3 +
+   * radar zone 27). Future producer at `lib/pharmacy/...` will
+   * switch the bound id to `prescriptions.id` (or equivalent)
+   * WITHOUT changing payload semantics.
+   */
+  prescription_id: string
+  /**
+   * UUID of the audit_events row emitted by the producer site for
+   * the underlying status-transition mutation. PER-TRANSITION
+   * idempotency anchor.
+   */
+  sent_audit_event_id: string
+}
+
+/**
+ * Phase 4H-templates-discipline c8 — pharmacy_lifecycle sibling
+ * activation (member 2 of 2).
+ *
+ * Discriminant value `'refill_initiated'` (NOT `'refill_pending'`).
+ * The legacy STATUS name `'refill_pending'` is an internal
+ * `treatment_items.status` value, not the pharmacy event vocabulary.
+ * `'refill_initiated'` makes the producer-side semantic explicit:
+ * the system has INITIATED a refill request with the pharmacy.
+ * Future events (`'refill_approved_by_provider'`,
+ * `'refill_denied_by_provider'`, `'refill_filled'`) slot cleanly
+ * alongside.
+ */
+export interface PatientRefillInitiatedPayload {
+  /** UUID; the patient record this refill-initiation pertains to. */
+  patient_id: string
+  /**
+   * Pharmacy sibling discriminant. Single-literal narrow union for
+   * this trigger.
+   */
+  pharmacy_event_kind: 'refill_initiated'
+  /**
+   * Logical identifier for the prescription. Today bound to
+   * `treatment_items.id`; transitional. Future bound to
+   * `prescriptions.id` (or equivalent).
+   */
+  prescription_id: string
+  /**
+   * UUID of the `refill_requests` row inserted by the producer site
+   * if available. May be null when the producer-site path doesn't
+   * thread the FK through to the dispatcher (rollback path,
+   * downstream consumers, etc.). NOT used as idempotency anchor —
+   * the audit_event_id is. Surfaced for audit lineage only.
+   */
+  refill_request_id: string | null
+  /**
+   * UUID of the audit_events row emitted by the producer site for
+   * the underlying status-transition mutation. PER-TRANSITION
+   * idempotency anchor.
+   */
+  initiation_audit_event_id: string
+}
+
+/**
  * Side-effect-bounded return shape per ADR Section 7.6. The dispatcher
  * surfaces ONLY: identifiers of enqueued outbound_jobs rows + the
  * rule.fired audit event id. No domain return values, no mutation
@@ -553,6 +658,12 @@ export async function dispatchRuleTriggerEvent(
   }
   if (event.event_type === 'patient.order_shipped') {
     return executeOrderShippedRule(sb, rule, event.payload)
+  }
+  if (event.event_type === 'patient.rx_sent_to_pharmacy') {
+    return executeRxSentRule(sb, rule, event.payload)
+  }
+  if (event.event_type === 'patient.refill_initiated') {
+    return executeRefillInitiatedRule(sb, rule, event.payload)
   }
 
   // Should be unreachable given the typed event union; defensive.
@@ -2447,6 +2558,425 @@ async function executeFollowupNeededRule(
   if (!auditResult.ok) {
     throw new Error(
       `executeFollowupNeededRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
+    )
+  }
+
+  return {
+    matched: true,
+    rule_id: rule.rule_id,
+    rule_version: rule.rule_version,
+    enqueued_outbound_job_ids: enqueuedIds,
+    audit_event_id: auditResult.audit_event_id ?? '',
+  }
+}
+
+// =====================================================================
+// Per-rule executor: rx_sent_to_pharmacy
+//
+// Phase 4H-templates-discipline commit 8 — ninth hardcoded executor
+// branch; FIRST in the pharmacy_lifecycle domain (sibling-domain
+// activation #3 after clinical_decision and fulfillment_lifecycle).
+// Per ChatGPT pre-execution constraint #1 (binding): NO dispatcher
+// generalization. The branch sits alongside the existing eight; the
+// runtime stays as side-effect-bounded as it is today.
+//
+// Mirrors executeOrderShippedRule structurally (also tier_2 / system /
+// operational). Differences:
+//   - rule key + audit namespace + template key are pharmacy_lifecycle
+//   - render module imports + payload shape (pharmacy_event_kind +
+//     prescription_id + sent_audit_event_id)
+//   - idempotency anchor is sent_audit_event_id
+//
+// Producer-site transitional locality: see header on
+// repo/rules/pharmacy_lifecycle/rx_sent_v1.ts.
+// =====================================================================
+
+async function executeRxSentRule(
+  supabase: SupabaseClient,
+  rule: Rule,
+  payload: PatientRxSentToPharmacyPayload,
+): Promise<RuleDispatchResult> {
+  if (rule.action.kind !== 'notify') {
+    throw new Error(
+      `executeRxSentRule: rule ${rule.rule_id} has action.kind=${rule.action.kind}; ` +
+        `commit-5-pattern dispatcher only fires 'notify' actions. Other kinds require approved ` +
+        `orchestrator boundary per ADR Section 7.6 extension procedure.`,
+    )
+  }
+
+  const template = findTemplateByKey(rule.template_key ?? '')
+  if (!template) {
+    throw new Error(
+      `executeRxSentRule: rule ${rule.rule_id} references template_key=${rule.template_key} ` +
+        `which is not in TEMPLATE_REGISTRY.`,
+    )
+  }
+
+  const { data: patientRow, error: patientError } = await supabase
+    .from('patients')
+    .select('id, org_id, first_name, email, phone')
+    .eq('id', payload.patient_id)
+    .single()
+  if (patientError || !patientRow) {
+    throw new Error(
+      `executeRxSentRule: patient lookup failed for ${payload.patient_id}: ${patientError?.message ?? 'not found'}`,
+    )
+  }
+  const patient = patientRow as {
+    id: string
+    org_id: string
+    first_name: string | null
+    email: string | null
+    phone: string | null
+  }
+
+  const { data: brandRow, error: brandError } = await supabase
+    .from('brands')
+    .select('id, org_id, slug, display_name, status')
+    .eq('org_id', patient.org_id)
+    .eq('status', 'active')
+    .limit(1)
+    .maybeSingle()
+  if (brandError) {
+    throw new Error(
+      `executeRxSentRule: brand lookup failed for org_id=${patient.org_id}: ${brandError.message}`,
+    )
+  }
+  const brand = brandRow as { id: string; slug: string; display_name: string } | null
+  if (!brand) {
+    throw new Error(
+      `executeRxSentRule: no active brand for org_id=${patient.org_id}. ` +
+        `Multi-tenant brand sourcing is required per ADR Section 7.5.`,
+    )
+  }
+
+  const dashboardUrl = `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${patient.id}`
+  const renderInputs: RxSentRenderInputs = {
+    brand_short_label: brand.slug.toUpperCase(),
+    dashboard_url: dashboardUrl,
+    patient_first_name: patient.first_name,
+  }
+  const rendered = {
+    email: renderRxSentEmail(renderInputs),
+    sms: renderRxSentSms(renderInputs),
+  }
+
+  const resolvedPathway = resolvePathwayForRule(rule)
+
+  // ---------------------------------------------------------------
+  // Approved action #1 — enqueue outbound_jobs rows.
+  // Per-transition idempotency keyed on sent_audit_event_id.
+  // ---------------------------------------------------------------
+
+  const enqueuedIds: string[] = []
+
+  if (patient.email && rule.action.channels.includes('email')) {
+    const emailResult = await enqueueOutboundJob({
+      kind: 'send_email',
+      channel: 'email',
+      patient_id: patient.id,
+      idempotency_key: `rule.rx_sent:${payload.sent_audit_event_id}:email`,
+      external_system_name: payload.pharmacy_event_kind,
+      external_system_id: payload.prescription_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to: patient.email,
+        rendered_email: rendered.email,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        pharmacy_event_kind: payload.pharmacy_event_kind,
+        prescription_id: payload.prescription_id,
+      },
+    })
+    enqueuedIds.push(emailResult.outbound_job_id)
+  }
+
+  if (patient.phone && rule.action.channels.includes('sms')) {
+    const smsResult = await enqueueOutboundJob({
+      kind: 'send_sms',
+      channel: 'sms',
+      patient_id: patient.id,
+      idempotency_key: `rule.rx_sent:${payload.sent_audit_event_id}:sms`,
+      external_system_name: payload.pharmacy_event_kind,
+      external_system_id: payload.prescription_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to_phone: patient.phone,
+        rendered_sms: rendered.sms,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        pharmacy_event_kind: payload.pharmacy_event_kind,
+        prescription_id: payload.prescription_id,
+      },
+    })
+    enqueuedIds.push(smsResult.outbound_job_id)
+  }
+
+  // ---------------------------------------------------------------
+  // Approved action #2 — emit rule.fired.* audit event.
+  // ---------------------------------------------------------------
+
+  const auditResult = await insertAuditEvent(
+    {
+      action: rule.audit_event_type,
+      resourceType: 'rule',
+      resourceId: rule.rule_id,
+      patientId: patient.id,
+      actorKind: 'system',
+      orgId: patient.org_id,
+      metadata: {
+        rule_version: rule.rule_version,
+        template_key: template.template_key,
+        template_version: template.template_version,
+        intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+        message_intent: rule.action.message_intent,
+        decision_outcome_reason: 'rule_matched',
+        trigger_event_type: 'patient.rx_sent_to_pharmacy' satisfies RuleTriggerEventType,
+        pharmacy_event_kind: payload.pharmacy_event_kind,
+        prescription_id: payload.prescription_id,
+        sent_audit_event_id: payload.sent_audit_event_id,
+        enqueued_outbound_job_ids: enqueuedIds,
+      },
+    },
+    supabase,
+  )
+
+  if (!auditResult.ok) {
+    throw new Error(
+      `executeRxSentRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
+    )
+  }
+
+  return {
+    matched: true,
+    rule_id: rule.rule_id,
+    rule_version: rule.rule_version,
+    enqueued_outbound_job_ids: enqueuedIds,
+    audit_event_id: auditResult.audit_event_id ?? '',
+  }
+}
+
+// =====================================================================
+// Per-rule executor: refill_initiated
+//
+// Phase 4H-templates-discipline commit 8 — tenth hardcoded executor
+// branch; SECOND in the pharmacy_lifecycle domain. Mirrors
+// executeRxSentRule. Differences are wording (refill-initiated render
+// module), payload semantics (refill_request_id surfaced in audit
+// metadata; idempotency anchor is initiation_audit_event_id).
+// =====================================================================
+
+async function executeRefillInitiatedRule(
+  supabase: SupabaseClient,
+  rule: Rule,
+  payload: PatientRefillInitiatedPayload,
+): Promise<RuleDispatchResult> {
+  if (rule.action.kind !== 'notify') {
+    throw new Error(
+      `executeRefillInitiatedRule: rule ${rule.rule_id} has action.kind=${rule.action.kind}; ` +
+        `commit-5-pattern dispatcher only fires 'notify' actions. Other kinds require approved ` +
+        `orchestrator boundary per ADR Section 7.6 extension procedure.`,
+    )
+  }
+
+  const template = findTemplateByKey(rule.template_key ?? '')
+  if (!template) {
+    throw new Error(
+      `executeRefillInitiatedRule: rule ${rule.rule_id} references template_key=${rule.template_key} ` +
+        `which is not in TEMPLATE_REGISTRY.`,
+    )
+  }
+
+  const { data: patientRow, error: patientError } = await supabase
+    .from('patients')
+    .select('id, org_id, first_name, email, phone')
+    .eq('id', payload.patient_id)
+    .single()
+  if (patientError || !patientRow) {
+    throw new Error(
+      `executeRefillInitiatedRule: patient lookup failed for ${payload.patient_id}: ${patientError?.message ?? 'not found'}`,
+    )
+  }
+  const patient = patientRow as {
+    id: string
+    org_id: string
+    first_name: string | null
+    email: string | null
+    phone: string | null
+  }
+
+  const { data: brandRow, error: brandError } = await supabase
+    .from('brands')
+    .select('id, org_id, slug, display_name, status')
+    .eq('org_id', patient.org_id)
+    .eq('status', 'active')
+    .limit(1)
+    .maybeSingle()
+  if (brandError) {
+    throw new Error(
+      `executeRefillInitiatedRule: brand lookup failed for org_id=${patient.org_id}: ${brandError.message}`,
+    )
+  }
+  const brand = brandRow as { id: string; slug: string; display_name: string } | null
+  if (!brand) {
+    throw new Error(
+      `executeRefillInitiatedRule: no active brand for org_id=${patient.org_id}. ` +
+        `Multi-tenant brand sourcing is required per ADR Section 7.5.`,
+    )
+  }
+
+  const dashboardUrl = `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${patient.id}`
+  const renderInputs: RefillInitiatedRenderInputs = {
+    brand_short_label: brand.slug.toUpperCase(),
+    dashboard_url: dashboardUrl,
+    patient_first_name: patient.first_name,
+  }
+  const rendered = {
+    email: renderRefillInitiatedEmail(renderInputs),
+    sms: renderRefillInitiatedSms(renderInputs),
+  }
+
+  const resolvedPathway = resolvePathwayForRule(rule)
+
+  const enqueuedIds: string[] = []
+
+  if (patient.email && rule.action.channels.includes('email')) {
+    const emailResult = await enqueueOutboundJob({
+      kind: 'send_email',
+      channel: 'email',
+      patient_id: patient.id,
+      idempotency_key: `rule.refill_initiated:${payload.initiation_audit_event_id}:email`,
+      external_system_name: payload.pharmacy_event_kind,
+      external_system_id: payload.prescription_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to: patient.email,
+        rendered_email: rendered.email,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        pharmacy_event_kind: payload.pharmacy_event_kind,
+        prescription_id: payload.prescription_id,
+        refill_request_id: payload.refill_request_id,
+      },
+    })
+    enqueuedIds.push(emailResult.outbound_job_id)
+  }
+
+  if (patient.phone && rule.action.channels.includes('sms')) {
+    const smsResult = await enqueueOutboundJob({
+      kind: 'send_sms',
+      channel: 'sms',
+      patient_id: patient.id,
+      idempotency_key: `rule.refill_initiated:${payload.initiation_audit_event_id}:sms`,
+      external_system_name: payload.pharmacy_event_kind,
+      external_system_id: payload.prescription_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to_phone: patient.phone,
+        rendered_sms: rendered.sms,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        pharmacy_event_kind: payload.pharmacy_event_kind,
+        prescription_id: payload.prescription_id,
+        refill_request_id: payload.refill_request_id,
+      },
+    })
+    enqueuedIds.push(smsResult.outbound_job_id)
+  }
+
+  const auditResult = await insertAuditEvent(
+    {
+      action: rule.audit_event_type,
+      resourceType: 'rule',
+      resourceId: rule.rule_id,
+      patientId: patient.id,
+      actorKind: 'system',
+      orgId: patient.org_id,
+      metadata: {
+        rule_version: rule.rule_version,
+        template_key: template.template_key,
+        template_version: template.template_version,
+        intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+        message_intent: rule.action.message_intent,
+        decision_outcome_reason: 'rule_matched',
+        trigger_event_type: 'patient.refill_initiated' satisfies RuleTriggerEventType,
+        pharmacy_event_kind: payload.pharmacy_event_kind,
+        prescription_id: payload.prescription_id,
+        refill_request_id: payload.refill_request_id,
+        initiation_audit_event_id: payload.initiation_audit_event_id,
+        enqueued_outbound_job_ids: enqueuedIds,
+      },
+    },
+    supabase,
+  )
+
+  if (!auditResult.ok) {
+    throw new Error(
+      `executeRefillInitiatedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
     )
   }
 

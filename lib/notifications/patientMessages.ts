@@ -174,17 +174,17 @@ export function buildPatientEmail(
     // needed.ts. Producer dispatch from updateTreatmentItemStatus
     // (paused | stopped) + updateCareProgramStatus (paused |
     // completed | cancelled) on transition to those statuses.
-    case 'rx_sent': {
-      body = {
-        subject: 'Prescription sent to pharmacy',
-        previewText: 'Your prescription has been sent.',
-        eyebrow: 'Medication update',
-        heading: 'Prescription sent',
-        intro: 'Your prescription has been sent to the pharmacy.',
-        detail: 'You can track fulfillment progress in your dashboard.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c8 — `case 'rx_sent'` arm
+    // removed; email rendering migrated to renderRxSentEmail in
+    // lib/templates/render/rx-sent.ts. Brand prefix sourced from
+    // `brands.slug.toUpperCase()` (typed slot `brand_short_label`)
+    // instead of hardcoded "MAIN:" per ADR Section 7.5 multi-tenant
+    // rule. Type system encodes pharmacy_lifecycle /
+    // pharmacy_event_kind per system-map `## Platform operational
+    // model` doctrine; runtime dispatch is from
+    // updateTreatmentItemStatus on the legacy case-shaped producer
+    // surface as transitional locality per PREFLIGHT 4H-c8 §1 +
+    // radar zone 27.
     // Phase 4H-templates-discipline c4 — `case 'shipped'` arm
     // removed; email rendering migrated to renderOrderShippedEmail
     // in lib/templates/render/order-shipped.ts. Brand prefix sourced
@@ -209,17 +209,15 @@ export function buildPatientEmail(
     // lib/templates/render/followup-due.ts. SMS prefix sourced from
     // brand_short_label slot. Producer dispatch from
     // updateTreatmentItemStatus on transition to 'refill_due'.
-    case 'refill_pending': {
-      body = {
-        subject: 'Refill update',
-        previewText: 'There is a refill update for your care plan.',
-        eyebrow: 'Refill update',
-        heading: 'Refill in progress',
-        intro: 'There is an update on your refill.',
-        detail: 'Please review current details in your dashboard.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c8 — `case 'refill_pending'`
+    // arm removed; email rendering migrated to
+    // renderRefillInitiatedEmail in lib/templates/render/refill-
+    // initiated.ts. Producer dispatch from updateTreatmentItemStatus
+    // on transition to 'refill_pending'. Note: the typed Rule's
+    // pharmacy_event_kind discriminant value is 'refill_initiated'
+    // (not 'refill_pending') — the legacy status name is internal
+    // to treatment_items.status and does not leak into the cross-
+    // sibling event vocabulary.
     default: {
       const _exhaustive: never = templateKey
       throw new Error(`Unhandled template: ${String(_exhaustive)}`)
@@ -263,8 +261,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // Phase 4H-templates-discipline c7 — `case 'followup_needed'`
     // arm removed; SMS preview migrated to renderFollowupNeededSms
     // in lib/templates/render/followup-needed.ts.
-    case 'rx_sent':
-      return `MAIN: Rx sent to pharmacy. ${short}`
+    // Phase 4H-templates-discipline c8 — `case 'rx_sent'` arm
+    // removed; SMS preview migrated to renderRxSentSms in
+    // lib/templates/render/rx-sent.ts.
     // Phase 4H-templates-discipline c4 — `case 'shipped'` arm removed;
     // SMS preview migrated to renderOrderShippedSms in
     // lib/templates/render/order-shipped.ts.
@@ -274,8 +273,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // Phase 4H-templates-discipline c6 — `case 'followup_due'` arm
     // removed; SMS preview migrated to renderFollowupDueSms in
     // lib/templates/render/followup-due.ts.
-    case 'refill_pending':
-      return `MAIN: Refill update. ${short}`
+    // Phase 4H-templates-discipline c8 — `case 'refill_pending'`
+    // arm removed; SMS preview migrated to renderRefillInitiatedSms
+    // in lib/templates/render/refill-initiated.ts.
     default: {
       return `MAIN: Update. ${short}`
     }

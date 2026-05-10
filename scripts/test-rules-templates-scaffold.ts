@@ -65,9 +65,9 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 8,
-  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1',
-  `got ${RULE_REGISTRY.length} rules — expected >= 8 after Phase 4H-templates-discipline commit 7`
+  RULE_REGISTRY.length >= 10,
+  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1 + rx_sent_v1 + refill_initiated_v1',
+  `got ${RULE_REGISTRY.length} rules — expected >= 10 after Phase 4H-templates-discipline commit 8`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
@@ -109,6 +109,115 @@ assert(
   'RULE_REGISTRY contains rule.clinical_decision.followup_needed_v1',
   'eighth parity proof Rule missing (Phase 4H-templates-discipline commit 7; fifth clinical_decision domain Rule; first asymmetric per-producer status gates)'
 )
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.pharmacy_lifecycle.rx_sent_v1'),
+  'RULE_REGISTRY contains rule.pharmacy_lifecycle.rx_sent_v1',
+  'ninth parity proof Rule missing (Phase 4H-templates-discipline commit 8; first pharmacy_lifecycle domain Rule; sibling-domain activation #3)'
+)
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.pharmacy_lifecycle.refill_initiated_v1'),
+  'RULE_REGISTRY contains rule.pharmacy_lifecycle.refill_initiated_v1',
+  'tenth parity proof Rule missing (Phase 4H-templates-discipline commit 8; second pharmacy_lifecycle domain Rule; ships in same commit as rx_sent_v1)'
+)
+// Phase 4H-templates-discipline c8 — first pharmacy_lifecycle domain
+// Rule. Sibling-domain activation #3 (after clinical_decision and
+// fulfillment_lifecycle). system-authority + tier_2 + operational;
+// uses the `pharmacy_event_kind` discriminant on its payload (NOT
+// case_kind, NOT order_kind) per the system-map `## Platform
+// operational model` doctrine.
+{
+  const rxSent = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.pharmacy_lifecycle.rx_sent_v1',
+  )
+  assert(
+    rxSent?.domain === 'pharmacy_lifecycle',
+    'rx_sent_v1 declares domain=pharmacy_lifecycle',
+    `got ${rxSent?.domain}`,
+  )
+  assert(
+    rxSent?.authority_floor === 'system',
+    'rx_sent_v1 declares authority_floor=system',
+    `got ${rxSent?.authority_floor}`,
+  )
+  assert(
+    rxSent?.recall_severity === 'operational',
+    'rx_sent_v1 declares recall_severity=operational',
+    `got ${rxSent?.recall_severity}`,
+  )
+  assert(
+    rxSent?.action.kind === 'notify' &&
+      'message_intent' in rxSent.action &&
+      rxSent.action.message_intent === 'operational',
+    'rx_sent_v1 action.message_intent=operational',
+    `got ${rxSent?.action.kind === 'notify' ? rxSent.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    rxSent?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in rxSent.action &&
+      rxSent.action.intended_privacy_exposure_level === 2,
+    'rx_sent_v1 action.intended_privacy_exposure_level=2 (low_context_phi)',
+    `got ${rxSent?.action.kind === 'notify' ? rxSent.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    rxSent?.audit_event_type === 'rule.fired.pharmacy_lifecycle.rx_sent_v1',
+    'rx_sent_v1 audit_event_type uses pharmacy_lifecycle namespace',
+    `got ${rxSent?.audit_event_type}`,
+  )
+  assert(
+    rxSent?.trigger.kind === 'event' &&
+      rxSent.trigger.event_type === 'patient.rx_sent_to_pharmacy',
+    "rx_sent_v1 trigger.event_type='patient.rx_sent_to_pharmacy'",
+    `got ${rxSent?.trigger.kind === 'event' ? rxSent.trigger.event_type : '(non-event trigger)'}`,
+  )
+}
+// Phase 4H-templates-discipline c8 — second pharmacy_lifecycle domain
+// Rule. Same shape as rx_sent_v1; ships in the same commit to
+// demonstrate pharmacy_event_kind polymorphism out of the gate.
+{
+  const refillInitiated = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.pharmacy_lifecycle.refill_initiated_v1',
+  )
+  assert(
+    refillInitiated?.domain === 'pharmacy_lifecycle',
+    'refill_initiated_v1 declares domain=pharmacy_lifecycle',
+    `got ${refillInitiated?.domain}`,
+  )
+  assert(
+    refillInitiated?.authority_floor === 'system',
+    'refill_initiated_v1 declares authority_floor=system',
+    `got ${refillInitiated?.authority_floor}`,
+  )
+  assert(
+    refillInitiated?.recall_severity === 'operational',
+    'refill_initiated_v1 declares recall_severity=operational',
+    `got ${refillInitiated?.recall_severity}`,
+  )
+  assert(
+    refillInitiated?.action.kind === 'notify' &&
+      'message_intent' in refillInitiated.action &&
+      refillInitiated.action.message_intent === 'operational',
+    'refill_initiated_v1 action.message_intent=operational',
+    `got ${refillInitiated?.action.kind === 'notify' ? refillInitiated.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    refillInitiated?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in refillInitiated.action &&
+      refillInitiated.action.intended_privacy_exposure_level === 2,
+    'refill_initiated_v1 action.intended_privacy_exposure_level=2 (low_context_phi)',
+    `got ${refillInitiated?.action.kind === 'notify' ? refillInitiated.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    refillInitiated?.audit_event_type === 'rule.fired.pharmacy_lifecycle.refill_initiated_v1',
+    'refill_initiated_v1 audit_event_type uses pharmacy_lifecycle namespace',
+    `got ${refillInitiated?.audit_event_type}`,
+  )
+  assert(
+    refillInitiated?.trigger.kind === 'event' &&
+      refillInitiated.trigger.event_type === 'patient.refill_initiated',
+    "refill_initiated_v1 trigger.event_type='patient.refill_initiated'",
+    `got ${refillInitiated?.trigger.kind === 'event' ? refillInitiated.trigger.event_type : '(non-event trigger)'}`,
+  )
+}
 // Phase 4H-templates-discipline c7 — fifth clinical_decision domain
 // Rule. FIRST asymmetric producer-side status gates: treatment_items
 // (paused | stopped) vs care_programs (paused | completed |
@@ -395,9 +504,9 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 8,
-  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1 anchors',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 8 after Phase 4H-templates-discipline commit 7`
+  TEMPLATE_REGISTRY.length >= 10,
+  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1 + rx_sent_v1 + refill_initiated_v1 anchors',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 10 after Phase 4H-templates-discipline commit 8`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
@@ -449,6 +558,72 @@ assert(
   'TEMPLATE_REGISTRY contains tmpl.clinical_decision.followup_needed_v1',
   'eighth parity proof Template missing (Phase 4H-templates-discipline commit 7; fifth clinical_decision domain Template)'
 )
+assert(
+  TEMPLATE_REGISTRY.some(
+    (t) => t.template_key === 'tmpl.pharmacy_lifecycle.rx_sent_v1',
+  ),
+  'TEMPLATE_REGISTRY contains tmpl.pharmacy_lifecycle.rx_sent_v1',
+  'ninth parity proof Template missing (Phase 4H-templates-discipline commit 8; first pharmacy_lifecycle domain Template; sibling-domain activation #3)'
+)
+assert(
+  TEMPLATE_REGISTRY.some(
+    (t) => t.template_key === 'tmpl.pharmacy_lifecycle.refill_initiated_v1',
+  ),
+  'TEMPLATE_REGISTRY contains tmpl.pharmacy_lifecycle.refill_initiated_v1',
+  'tenth parity proof Template missing (Phase 4H-templates-discipline commit 8; second pharmacy_lifecycle domain Template)'
+)
+// Phase 4H-templates-discipline c8 — verify both pharmacy_lifecycle
+// Templates ship with the expected tier_2 + operational shape.
+{
+  const rxSentTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.pharmacy_lifecycle.rx_sent_v1',
+  )
+  assert(
+    rxSentTemplate?.domain === 'pharmacy_lifecycle',
+    'rx_sent Template domain=pharmacy_lifecycle',
+    `got ${rxSentTemplate?.domain}`,
+  )
+  assert(
+    rxSentTemplate?.transactional_critical === false,
+    'rx_sent Template transactional_critical=false',
+    `got transactional_critical=${rxSentTemplate?.transactional_critical}`,
+  )
+  assert(
+    rxSentTemplate?.privacy_exposure_level === 2,
+    'rx_sent Template privacy_exposure_level=2 (low_context_phi)',
+    `got ${rxSentTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    rxSentTemplate?.message_intent === 'operational',
+    'rx_sent Template message_intent=operational',
+    `got ${rxSentTemplate?.message_intent}`,
+  )
+}
+{
+  const refillInitiatedTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.pharmacy_lifecycle.refill_initiated_v1',
+  )
+  assert(
+    refillInitiatedTemplate?.domain === 'pharmacy_lifecycle',
+    'refill_initiated Template domain=pharmacy_lifecycle',
+    `got ${refillInitiatedTemplate?.domain}`,
+  )
+  assert(
+    refillInitiatedTemplate?.transactional_critical === false,
+    'refill_initiated Template transactional_critical=false',
+    `got transactional_critical=${refillInitiatedTemplate?.transactional_critical}`,
+  )
+  assert(
+    refillInitiatedTemplate?.privacy_exposure_level === 2,
+    'refill_initiated Template privacy_exposure_level=2 (low_context_phi)',
+    `got ${refillInitiatedTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    refillInitiatedTemplate?.message_intent === 'operational',
+    'refill_initiated Template message_intent=operational',
+    `got ${refillInitiatedTemplate?.message_intent}`,
+  )
+}
 // Phase 4H-templates-discipline c7 — verify followup_needed Template
 // ships with the expected tier_1 + operational shape.
 {

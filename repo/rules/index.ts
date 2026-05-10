@@ -27,6 +27,8 @@ import { activeCareV1 } from './clinical_decision/active_care_v1'
 import { followupDueV1 } from './clinical_decision/followup_due_v1'
 import { followupNeededV1 } from './clinical_decision/followup_needed_v1'
 import { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
+import { refillInitiatedV1 } from './pharmacy_lifecycle/refill_initiated_v1'
+import { rxSentV1 } from './pharmacy_lifecycle/rx_sent_v1'
 
 /**
  * Rules registry. Phase 4H-pre commit 5 lands the first Rule
@@ -53,6 +55,8 @@ export const RULE_REGISTRY: ReadonlyArray<Rule> = [
   followupDueV1,
   followupNeededV1,
   orderShippedV1,
+  rxSentV1,
+  refillInitiatedV1,
 ]
 
 /**
@@ -77,6 +81,8 @@ export { activeCareV1 } from './clinical_decision/active_care_v1'
 export { followupDueV1 } from './clinical_decision/followup_due_v1'
 export { followupNeededV1 } from './clinical_decision/followup_needed_v1'
 export { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
+export { refillInitiatedV1 } from './pharmacy_lifecycle/refill_initiated_v1'
+export { rxSentV1 } from './pharmacy_lifecycle/rx_sent_v1'
 
 export type { Rule } from './types'
 export type {

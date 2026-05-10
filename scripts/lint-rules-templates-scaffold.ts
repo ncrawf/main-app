@@ -353,6 +353,15 @@ const DISCRIMINANT_FOLDER_RULES: DiscriminantFolderRule[] = [
     requiredFolder: 'repo/rules/fulfillment_lifecycle/',
     description: 'fulfillment_lifecycle sibling owns order_kind',
   },
+  // Phase 4H-templates-discipline c8 — pharmacy_lifecycle sibling
+  // activation. Per the doctrine: pharmacy_event_kind belongs to the
+  // pharmacy_lifecycle sibling and MUST NOT appear in clinical_decision/
+  // or fulfillment_lifecycle/ rule files.
+  {
+    discriminant: 'pharmacy_event_kind',
+    requiredFolder: 'repo/rules/pharmacy_lifecycle/',
+    description: 'pharmacy_lifecycle sibling owns pharmacy_event_kind',
+  },
 ]
 
 let discriminantFolderViolations = 0

@@ -197,6 +197,25 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   // lib/internal/patient-case/impl.ts (transitional producer-site
   // locality per audit §6 #3 + radar zone 27).
   'rule.fired.fulfillment_lifecycle.order_shipped_v1',
+  // Phase 4H-templates-discipline c8 — ninth Rule-firing audit
+  // action. FIRST in the rule.fired.pharmacy_lifecycle.* namespace
+  // (sibling-domain activation #3 after clinical_decision and
+  // fulfillment_lifecycle). Per system-map ## Platform operational
+  // model doctrine: pharmacy lifecycle is a first-class sibling
+  // under Patient with its own audit-action namespace. Emitted by
+  // lib/rules/runtime/dispatcher.ts when
+  // repo/rules/pharmacy_lifecycle/rx_sent_v1.ts fires in response
+  // to a patient.rx_sent_to_pharmacy trigger from
+  // lib/internal/patient-case/impl.ts (transitional producer-site
+  // locality per audit §6 #3 + radar zone 27; future correct
+  // producer is a lib/pharmacy/... module).
+  'rule.fired.pharmacy_lifecycle.rx_sent_v1',
+  // Phase 4H-templates-discipline c8 — tenth Rule-firing audit
+  // action. SECOND in the rule.fired.pharmacy_lifecycle.* namespace.
+  // Emitted by lib/rules/runtime/dispatcher.ts when
+  // repo/rules/pharmacy_lifecycle/refill_initiated_v1.ts fires in
+  // response to a patient.refill_initiated trigger.
+  'rule.fired.pharmacy_lifecycle.refill_initiated_v1',
   'rule.firing_overridden',
 ] as const
 

@@ -182,6 +182,80 @@ export const RULE_TRIGGER_EVENT_TYPES = [
    * notification per genuine re-shipment).
    */
   'patient.order_shipped',
+
+  /**
+   * Phase 4H-templates-discipline c8 — pharmacy_lifecycle sibling
+   * activation (member 1 of 2).
+   *
+   * Emitted from `lib/internal/patient-case/impl.ts`
+   * updateTreatmentItemStatus when a glp1_primary treatment_item
+   * transitions to `'rx_sent'`. Consumed by
+   * `repo/rules/pharmacy_lifecycle/rx_sent_v1.ts`.
+   *
+   * Per system-map `## Platform operational model` doctrine:
+   * pharmacy lifecycle is a first-class sibling under Patient with
+   * its own `pharmacy_event_kind` discriminant. Payload schema is
+   * defined alongside the trigger; the discriminant is a single-
+   * literal narrow union for this trigger ('rx_sent_to_pharmacy')
+   * and widens implicitly across sibling rules in the
+   * pharmacy_lifecycle/ folder.
+   *
+   * Payload shape:
+   *   {
+   *     patient_id: string                        // UUID
+   *     pharmacy_event_kind: 'rx_sent_to_pharmacy'
+   *     prescription_id: string                   // see comment below
+   *     sent_audit_event_id: string               // UUID; idempotency anchor
+   *   }
+   *
+   * `prescription_id`: logical identifier for the prescription.
+   * Today the producer surface is `lib/internal/patient-case/impl.ts`
+   * operating on `treatment_items.id` (case-shaped legacy surface);
+   * transitional locality per system-map doctrine + radar zone 27.
+   * Future producer at `lib/pharmacy/...` will switch the bound id
+   * to `prescriptions.id` (or equivalent) without changing payload
+   * semantics.
+   *
+   * Idempotency: per-transition, keyed on `sent_audit_event_id`.
+   */
+  'patient.rx_sent_to_pharmacy',
+
+  /**
+   * Phase 4H-templates-discipline c8 — pharmacy_lifecycle sibling
+   * activation (member 2 of 2).
+   *
+   * Emitted from `lib/internal/patient-case/impl.ts`
+   * updateTreatmentItemStatus when a glp1_primary treatment_item
+   * transitions to `'refill_pending'` (i.e. `requestRefillForTreatmentItem`
+   * has just inserted a `refill_requests` row). Consumed by
+   * `repo/rules/pharmacy_lifecycle/refill_initiated_v1.ts`.
+   *
+   * Discriminant value `'refill_initiated'` (NOT `'refill_pending'`)
+   * makes the producer-side semantic explicit: the system has
+   * INITIATED a refill request with the pharmacy. The legacy STATUS
+   * name `'refill_pending'` is an internal `treatment_items.status`
+   * value, not the pharmacy event vocabulary. Future events
+   * (`'refill_approved_by_provider'`, `'refill_denied_by_provider'`,
+   * `'refill_filled'`) slot cleanly alongside.
+   *
+   * Payload shape:
+   *   {
+   *     patient_id: string                  // UUID
+   *     pharmacy_event_kind: 'refill_initiated'
+   *     prescription_id: string             // see rx_sent_to_pharmacy comment
+   *     refill_request_id: string | null    // refill_requests.id when
+   *                                         // available; producer site
+   *                                         // does not always thread it
+   *                                         // through, so optional
+   *     initiation_audit_event_id: string   // UUID; idempotency anchor
+   *   }
+   *
+   * Idempotency: per-transition, keyed on `initiation_audit_event_id`.
+   *
+   * Producer-site transitional locality: same as rx_sent_to_pharmacy.
+   * Future correct producer is a `lib/pharmacy/...` module.
+   */
+  'patient.refill_initiated',
 ] as const
 
 export type RuleTriggerEventType = (typeof RULE_TRIGGER_EVENT_TYPES)[number]

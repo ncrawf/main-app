@@ -122,6 +122,11 @@ const EXEMPT_PATHS = [
   // the followup_needed parity test (RuleTriggerEventType
   // 'patient.case_followup_needed' literal).
   join('scripts', 'test-followup-needed-parity.ts'),
+  // Phase 4H-templates-discipline c8 — pharmacy_lifecycle parity
+  // tests reference the new RuleTriggerEventType literals
+  // 'patient.rx_sent_to_pharmacy' and 'patient.refill_initiated'.
+  join('scripts', 'test-rx-sent-parity.ts'),
+  join('scripts', 'test-refill-initiated-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

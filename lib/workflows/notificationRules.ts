@@ -24,8 +24,6 @@ export type NotificationChannel = 'email' | 'sms'
  */
 export type NotificationTemplateKey =
   | 'case_denied'
-  | 'rx_sent'
-  | 'refill_pending'
 
 export type ResolvedPatientNotification = {
   channel: NotificationChannel
@@ -79,9 +77,16 @@ const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>>
   // fires on (paused | stopped); updateCareProgramStatus fires on
   // (paused | completed | cancelled). Collapses 4 legacy mappings
   // into 1 typed Rule.
+  // Phase 4H-templates-discipline c8 — `rx_sent: 'rx_sent'` and
+  // `refill_pending: 'refill_pending'` map entries removed. The typed
+  // Rules at repo/rules/pharmacy_lifecycle/rx_sent_v1.ts and
+  // refill_initiated_v1.ts are now the sole producers, fired from
+  // lib/internal/patient-case/impl.ts via the dispatcher.
+  // Sibling-domain activation #3 (pharmacy_lifecycle/) per system-map
+  // `## Platform operational model` doctrine. Only `case_denied`
+  // remains in this map; deletion of all 4 legacy notification files
+  // unlocks once `case_denied` migrates (4H-send-policy phase).
   denied: 'case_denied',
-  rx_sent: 'rx_sent',
-  refill_pending: 'refill_pending',
 }
 
 function transitionDedupe(channel: NotificationChannel, templateKey: string, patientId: string, from: string | null, to: string): string {

@@ -27,6 +27,8 @@ import { activeCareTemplateV1 } from './clinical_decision/active_care_v1'
 import { followupDueTemplateV1 } from './clinical_decision/followup_due_v1'
 import { followupNeededTemplateV1 } from './clinical_decision/followup_needed_v1'
 import { orderShippedTemplateV1 } from './fulfillment_lifecycle/order_shipped_v1'
+import { refillInitiatedTemplateV1 } from './pharmacy_lifecycle/refill_initiated_v1'
+import { rxSentTemplateV1 } from './pharmacy_lifecycle/rx_sent_v1'
 
 /**
  * Templates registry. Phase 4H-pre commit 5 lands the first Template
@@ -48,6 +50,8 @@ export const TEMPLATE_REGISTRY: ReadonlyArray<Template> = [
   followupDueTemplateV1,
   followupNeededTemplateV1,
   orderShippedTemplateV1,
+  rxSentTemplateV1,
+  refillInitiatedTemplateV1,
 ]
 
 /**
@@ -66,6 +70,8 @@ export { activeCareTemplateV1 } from './clinical_decision/active_care_v1'
 export { followupDueTemplateV1 } from './clinical_decision/followup_due_v1'
 export { followupNeededTemplateV1 } from './clinical_decision/followup_needed_v1'
 export { orderShippedTemplateV1 } from './fulfillment_lifecycle/order_shipped_v1'
+export { refillInitiatedTemplateV1 } from './pharmacy_lifecycle/refill_initiated_v1'
+export { rxSentTemplateV1 } from './pharmacy_lifecycle/rx_sent_v1'
 
 export type { Template } from './types'
 export type {

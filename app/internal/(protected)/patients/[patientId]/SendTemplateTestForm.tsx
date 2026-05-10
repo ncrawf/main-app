@@ -12,8 +12,6 @@ import { sendTemplateTestEmail } from './actions'
 // via their live-DB parity smoke tests.
 const TEMPLATE_OPTIONS = [
   'case_denied',
-  'rx_sent',
-  'refill_pending',
 ] as const
 
 type TemplateKey = (typeof TEMPLATE_OPTIONS)[number]

@@ -710,6 +710,110 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  // Phase 4H-templates-discipline c8 — typed Rule trigger for the
+  // rx_sent cutover (pharmacy_lifecycle sibling activation, member 1 of
+  // 2). Fires ONLY on transition to 'rx_sent' AND ONLY for glp1_primary
+  // treatments (preserves legacy filter; the Rule layer is pathway-
+  // agnostic but the producer-site filter gates to the same population
+  // that previously received `'rx_sent'` notifications under the legacy
+  // `'rx_sent' -> 'rx_sent'` map entry).
+  //
+  // PRODUCER-SITE TRANSITIONAL LOCALITY (binding per system-map
+  // `## Platform operational model` doctrine + the 2026-05-10 alignment
+  // audit §6 #3 + v1 pressure-test radar zone 27):
+  //
+  //   This dispatch block lives in the case-shaped surface
+  //   (lib/internal/patient-case/impl.ts updateTreatmentItemStatus)
+  //   because that is where the legacy notification fires today.
+  //   The architecturally-correct producer for pharmacy events is a
+  //   future `lib/pharmacy/...` module that owns prescription state
+  //   machines (rx-sent, rx-filled, rx-dispensed, refill-approval,
+  //   refill-denial, refill-fill); migration to that surface is
+  //   deferred pending broader pharmacy-state consolidation appetite
+  //   (no `prescriptions` table exists today; treatment_items +
+  //   treatment_orders are the de-facto prescription surrogate).
+  //
+  //   The TYPE SYSTEM nonetheless encodes the correct architecture:
+  //   the Rule lives in `repo/rules/pharmacy_lifecycle/`, the payload
+  //   uses `pharmacy_event_kind` (NOT `case_kind` and NOT
+  //   `order_kind`), the audit namespace is
+  //   `rule.fired.pharmacy_lifecycle.*`. Future pharmacy-event
+  //   migrations (rx_filled, rx_dispensed, refill_approved_by_provider,
+  //   refill_denied_by_provider) MUST target the future
+  //   `lib/pharmacy/...` surface AND inherit the pharmacy_lifecycle /
+  //   pharmacy_event_kind pattern. See PREFLIGHT
+  //   .cursor/plans/PREFLIGHT_2026-05-10_phase_4h_templates_discipline_c8_pharmacy_lifecycle.md.
+  //
+  //   The `prescription_id` field on the payload is bound to
+  //   `treatment_items.id` today (transitional). Future producer
+  //   migration will switch the bound id without changing payload
+  //   semantics ("the prescription's stable identifier").
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'rx_sent' &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.rx_sent_to_pharmacy',
+        payload: {
+          patient_id: patientId,
+          pharmacy_event_kind: 'rx_sent_to_pharmacy',
+          prescription_id: treatmentItemId,
+          sent_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent rx_sent', err)
+    }
+  }
+
+  // Phase 4H-templates-discipline c8 — typed Rule trigger for the
+  // refill_initiated cutover (pharmacy_lifecycle sibling activation,
+  // member 2 of 2). Fires ONLY on transition to 'refill_pending' AND
+  // ONLY for glp1_primary treatments (preserves legacy filter; the
+  // Rule layer is pathway-agnostic but the producer-site filter gates
+  // to the same population that previously received `'refill_pending'`
+  // notifications under the legacy `'refill_pending' -> 'refill_pending'`
+  // map entry).
+  //
+  // Discriminant value `'refill_initiated'` (NOT `'refill_pending'`)
+  // makes the producer-side semantic explicit (the system has
+  // initiated a refill request); the legacy STATUS name
+  // `'refill_pending'` is an internal `treatment_items.status` value
+  // that does not need to leak into the cross-sibling event vocabulary.
+  //
+  // PRODUCER-SITE TRANSITIONAL LOCALITY: same as rx_sent above. Future
+  // correct producer is a `lib/pharmacy/...` module. The
+  // `refill_request_id` field is null at this surface because this
+  // producer site doesn't thread the FK through; it would be available
+  // in a future `lib/pharmacy/...` producer that wraps both the status
+  // change and the refill_requests row insertion atomically.
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'refill_pending' &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.refill_initiated',
+        payload: {
+          patient_id: patientId,
+          pharmacy_event_kind: 'refill_initiated',
+          prescription_id: treatmentItemId,
+          refill_request_id: null,
+          initiation_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent refill_initiated', err)
+    }
+  }
+
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
   return { ok: true }
