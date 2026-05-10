@@ -556,6 +556,35 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  // Phase 4H-templates-discipline c5 — typed Rule trigger for the
+  // active_care cutover. Fires ONLY on transition to 'active' AND
+  // ONLY for glp1_primary treatments (preserves legacy filter; the
+  // Rule layer is pathway-agnostic but the producer-site filter
+  // gates to the same population that previously received
+  // active_care notifications under the legacy `'active' ->
+  // 'active_care'` map entry).
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'active' &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_active',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'treatment_item',
+          case_id: treatmentItemId,
+          activation_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent active_care', err)
+    }
+  }
+
   // Phase 4H-templates-discipline c4 — typed Rule trigger for the
   // order_shipped cutover. Fires ONLY on transition to 'shipped'
   // AND ONLY for glp1_primary treatments (preserves legacy filter;
@@ -764,6 +793,35 @@ export async function updateCareProgramStatus(
       })
     } catch (err) {
       console.error('updateCareProgramStatus: dispatchRuleTriggerEvent case_under_review', err)
+    }
+  }
+
+  // Phase 4H-templates-discipline c5 — typed Rule trigger for the
+  // active_care cutover. Fires ONLY on transition to 'active' AND
+  // ONLY for weight_loss programs (preserves legacy filter; the Rule
+  // layer is pathway-agnostic but the producer-site filter gates to
+  // the same population that previously received active_care
+  // notifications under the legacy `'active' -> 'active_care'` map
+  // entry).
+  if (
+    program.program_type === 'weight_loss' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'active' &&
+    programAudit.ok &&
+    programAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_active',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'care_program',
+          case_id: careProgramId,
+          activation_audit_event_id: programAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateCareProgramStatus: dispatchRuleTriggerEvent active_care', err)
     }
   }
 

@@ -23,6 +23,7 @@ import { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
 import { intakeSubmittedTemplateV1 } from './account_lifecycle/intake_submitted_v1'
 import { caseApprovedTemplateV1 } from './clinical_decision/case_approved_v1'
 import { awaitingClinicalReviewTemplateV1 } from './clinical_decision/awaiting_clinical_review_v1'
+import { activeCareTemplateV1 } from './clinical_decision/active_care_v1'
 import { orderShippedTemplateV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 /**
@@ -41,6 +42,7 @@ export const TEMPLATE_REGISTRY: ReadonlyArray<Template> = [
   intakeSubmittedTemplateV1,
   caseApprovedTemplateV1,
   awaitingClinicalReviewTemplateV1,
+  activeCareTemplateV1,
   orderShippedTemplateV1,
 ]
 
@@ -56,6 +58,7 @@ export { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
 export { intakeSubmittedTemplateV1 } from './account_lifecycle/intake_submitted_v1'
 export { caseApprovedTemplateV1 } from './clinical_decision/case_approved_v1'
 export { awaitingClinicalReviewTemplateV1 } from './clinical_decision/awaiting_clinical_review_v1'
+export { activeCareTemplateV1 } from './clinical_decision/active_care_v1'
 export { orderShippedTemplateV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 export type { Template } from './types'

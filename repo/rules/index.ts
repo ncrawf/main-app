@@ -23,6 +23,7 @@ import { paymentReceivedV1 } from './billing/payment_received_v1'
 import { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 import { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 import { awaitingClinicalReviewV1 } from './clinical_decision/awaiting_clinical_review_v1'
+import { activeCareV1 } from './clinical_decision/active_care_v1'
 import { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 /**
@@ -46,6 +47,7 @@ export const RULE_REGISTRY: ReadonlyArray<Rule> = [
   intakeSubmittedV1,
   caseApprovedV1,
   awaitingClinicalReviewV1,
+  activeCareV1,
   orderShippedV1,
 ]
 
@@ -67,6 +69,7 @@ export { paymentReceivedV1 } from './billing/payment_received_v1'
 export { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 export { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 export { awaitingClinicalReviewV1 } from './clinical_decision/awaiting_clinical_review_v1'
+export { activeCareV1 } from './clinical_decision/active_care_v1'
 export { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 export type { Rule } from './types'

@@ -88,6 +88,21 @@ export const RULE_TRIGGER_EVENT_TYPES = [
 
   /**
    * Emitted from `lib/internal/patient-case/impl.ts` after a staff user
+   * transitions a glp1_primary treatment_item or a weight_loss
+   * care_program to `'active'` status. Carries the underlying
+   * status-transition audit_event_id as the per-transition idempotency
+   * anchor (so a treatment_item bouncing approved -> active -> stopped
+   * -> active fires one notification per genuine transition into
+   * active). Consumed by `rule.clinical_decision.active_care_v1`.
+   * Third clinical_decision domain trigger event (siblings:
+   * patient.case_approved, patient.case_under_review). Like the prior
+   * two, fires from BOTH `updateTreatmentItemStatus` and
+   * `updateCareProgramStatus` producer surfaces.
+   */
+  'patient.case_active',
+
+  /**
+   * Emitted from `lib/internal/patient-case/impl.ts` after a staff user
    * transitions a glp1_primary treatment_item to `'shipped'` status.
    * Consumed by `rule.fulfillment_lifecycle.order_shipped_v1`.
    *

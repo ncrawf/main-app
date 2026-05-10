@@ -200,17 +200,15 @@ export function buildPatientEmail(
     // dispatch is from updateTreatmentItemStatus on the legacy case-
     // shaped producer surface as transitional locality (radar zone
     // 27 + audit §6 #3).
-    case 'active_care': {
-      body = {
-        subject: 'You are in active care',
-        previewText: 'Welcome to active care.',
-        eyebrow: 'Care update',
-        heading: 'Welcome to active care',
-        intro: 'You are now in active care with MAIN.',
-        detail: 'Your dashboard includes your current plan, check-ins, and next steps.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c5 — `case 'active_care'` arm
+    // removed; email rendering migrated to renderActiveCareEmail in
+    // lib/templates/render/active-care.ts. Legacy intro line
+    // "You are now in active care with MAIN." rewritten to
+    // "You are now in active care with ${brand_short_label}." per
+    // ADR Section 7.5 multi-tenant rule. SMS prefix sourced from
+    // brand_short_label slot. Producer dispatch from
+    // updateTreatmentItemStatus + updateCareProgramStatus on
+    // transition to 'active'.
     case 'followup_due': {
       body = {
         subject: 'Time for a check-in',
@@ -280,8 +278,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // Phase 4H-templates-discipline c4 — `case 'shipped'` arm removed;
     // SMS preview migrated to renderOrderShippedSms in
     // lib/templates/render/order-shipped.ts.
-    case 'active_care':
-      return `MAIN: Active care. ${short}`
+    // Phase 4H-templates-discipline c5 — `case 'active_care'` arm
+    // removed; SMS preview migrated to renderActiveCareSms in
+    // lib/templates/render/active-care.ts.
     case 'followup_due':
       return `MAIN: Check-in due. ${short}`
     case 'refill_pending':

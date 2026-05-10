@@ -109,6 +109,11 @@ const EXEMPT_PATHS = [
   // shapes. Same false-positive exemption pattern as the prior
   // parity tests.
   join('scripts', 'test-in-app-inbox-c1.ts'),
+  // Phase 4H-templates-discipline c5 — same false-positive class at
+  // the active_care parity test (RuleTriggerEventType
+  // 'patient.case_active' literal). Producer-site exemption
+  // (impl.ts) already covers the trigger literal in the producer.
+  join('scripts', 'test-active-care-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

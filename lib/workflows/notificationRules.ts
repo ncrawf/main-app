@@ -26,7 +26,6 @@ export type NotificationTemplateKey =
   | 'case_denied'
   | 'followup_needed'
   | 'rx_sent'
-  | 'active_care'
   | 'followup_due'
   | 'refill_pending'
 
@@ -62,13 +61,17 @@ const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>>
   // domain expansion since the registry was scaffolded; per system-map
   // `## Platform operational model` doctrine, fulfillment is a first-
   // class sibling under Patient (not a sub-shape of clinical_decision).
+  // Phase 4H-templates-discipline c5 — `active: 'active_care'` removed.
+  // The typed Rule at repo/rules/clinical_decision/active_care_v1.ts
+  // is now the sole producer of active_care notifications, fired from
+  // lib/internal/patient-case/impl.ts (updateTreatmentItemStatus +
+  // updateCareProgramStatus) via the dispatcher.
   denied: 'case_denied',
   paused: 'followup_needed',
   completed: 'followup_needed',
   cancelled: 'followup_needed',
   stopped: 'followup_needed',
   rx_sent: 'rx_sent',
-  active: 'active_care',
   refill_due: 'followup_due',
   refill_pending: 'refill_pending',
 }

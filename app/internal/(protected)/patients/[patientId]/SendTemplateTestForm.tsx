@@ -14,7 +14,6 @@ const TEMPLATE_OPTIONS = [
   'case_denied',
   'followup_needed',
   'rx_sent',
-  'active_care',
   'followup_due',
   'refill_pending',
 ] as const

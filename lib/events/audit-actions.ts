@@ -150,6 +150,17 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   // repo/rules/clinical_decision/case_approved_v1.ts fires in response to
   // a patient.case_approved trigger from lib/internal/patient-case/impl.ts.
   'rule.fired.clinical_decision.case_approved_v1',
+  // Phase 4H-templates-discipline c5 — sixth Rule-firing audit action.
+  // Third in the rule.fired.clinical_decision.* namespace (siblings:
+  // case_approved_v1, awaiting_clinical_review_v1). System-authority
+  // status ack (NOT provider-authority — distinct from case_approved).
+  // Tier_1 existence_only operational intent. Emitted by
+  // lib/rules/runtime/dispatcher.ts when
+  // repo/rules/clinical_decision/active_care_v1.ts fires in response
+  // to a patient.case_active trigger from
+  // lib/internal/patient-case/impl.ts (updateTreatmentItemStatus +
+  // updateCareProgramStatus producer sites).
+  'rule.fired.clinical_decision.active_care_v1',
   // Phase 4H-templates-discipline c4 — fifth Rule-firing audit action.
   // FIRST in the `rule.fired.fulfillment_lifecycle.*` namespace —
   // sibling-domain expansion since the registry was scaffolded (prior
