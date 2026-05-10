@@ -152,6 +152,20 @@ Surfaces first in: the shipped migration (4H-templates-discipline c4), where ful
 
 Binding parent invariant this watch zone protects: system-map `## Platform operational model` section.
 
+### 28. Care-task substrate fragmentation / metadata jsonb leakage (tier 1)
+
+Patient-facing actionable work ("click here to confirm your address", "review your prescription", "complete consent uplift", "answer this question before your visit") may eventually leak into multiple existing surfaces — `patient_inbox_messages.metadata`, `messages.body`, `treatment_items.status`, support-ticket-shaped fields, free-text notes — without ever being modeled as a first-class object. Once that leakage exists across multiple surfaces, "follow-up needed" becomes ambiguous everywhere and the system loses deterministic operational state.
+
+The acute near-term risk: the c1 in_app inbox commit shipped a `patient_inbox_messages.metadata jsonb` field as forward-compat for CTA / deep links / structured attachments. The first rule that wants to model "patient owes us an action" will be tempted to use that metadata field for task state. That sets a precedent that conflates inbox semantics (a delivered notification) with task semantics (an open patient action item).
+
+Watch for: a Rule (or future contributor) using `patient_inbox_messages.metadata.cta` / `.task_id` / `.action_required` / `.due_date` / `.completion_status` to model patient task state. If the inbox metadata contains anything that smells like state-of-the-action (vs lineage / display hint), the line has been crossed. The architecturally-correct answer when the first concrete need surfaces is a separate `patient_action_items` table (or equivalent) — distinct from the inbox notification, distinct from the conversation thread, distinct from `treatment_items.status`. The inbox row may *reference* the task (e.g., `metadata.action_item_ref: '<patient_action_items.id>'` is acceptable as a reference), but it cannot *be* the task.
+
+Surfaces first in: the first rule that needs to ship an inbox message with a tracked action state (likely a tier_2/3 patient-facing rule like "consent_uplift_required" or "address_confirmation_required"). Defer the actual `patient_action_items` table until that concrete need arrives — the radar zone exists so the first contributor faces the question explicitly rather than picking the path-of-least-resistance metadata-leakage answer.
+
+Source pressure-test: [`.cursor/plans/audits/2026-05-10_future_blocks_long_term_pressure_test.md`](../../.cursor/plans/audits/2026-05-10_future_blocks_long_term_pressure_test.md) §3.
+
+Binding parent invariant this watch zone protects: system-map `## Platform operational model` section (communications/inbox is a sibling; provider tasks/escalation is a sibling; they are not the same thing — and patient-facing tasks may eventually need their own sibling or a substrate primitive distinct from both).
+
 ---
 
 ## How to use this radar

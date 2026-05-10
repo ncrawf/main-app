@@ -129,3 +129,27 @@ c1 unblocks tier_3 communications. The natural next moves:
 5. **Continue Phase 4H-templates-discipline** legacy migrations — `case_denied`, `rx_sent`, `active_care`, `followup_due`, `followup_needed`, `refill_pending` (6 remaining of the 11 baseline).
 
 The trial is COMPLETE; future migrations follow the established pattern.
+
+---
+
+## Mode-shift note (added 2026-05-10 afternoon)
+
+After c1 shipped, ChatGPT pressure-tested long-term scale risks (preserved at [`.cursor/plans/audits/2026-05-10_future_blocks_long_term_pressure_test.md`](audits/2026-05-10_future_blocks_long_term_pressure_test.md)) and named a strategic transition the project is now at:
+
+```
+Substrate-completion mode  ->  Continuity-proving mode
+"Does the foundation hold?"     "Does the patient experience this?"
+```
+
+The architecture has reached the threshold where **more substrate without proving continuity is the new failure mode**. The c1 commit ships in_app infrastructure that no rule currently uses — appropriate because in_app was a prerequisite for tier_3 communications, but it means the next high-leverage move is to **USE** the substrate, not extend it further.
+
+Practical implications for commit planning going forward:
+
+- Default question shifts from "does this make the substrate more theoretically complete?" to "does this unlock visible continuity (something a patient or provider experiences)?"
+- The first rule in_app opt-in (sequencing option #1 above) is now the most direct response to this mode shift — it's the cheapest demonstration that the substrate works in production.
+- Continued legacy migrations (option #5) are also valid — they're mechanical pattern-replay that closes out the v0 cutover, which IS visible continuity (less divergence between legacy + typed paths).
+- Building MORE substrate (more channels, more orchestration, more disclosure-policy sophistication) without rules-using-it should be questioned at preflight time.
+
+This mode-shift recognition does NOT add architectural commitments. It is a strategic posture for commit-planning conversations. ADR §7.7 + system-map doctrine + radar continue to be the binding artifacts.
+
+The one concrete near-term watch zone surfaced by the pressure-test (radar zone 28: care-task substrate vs metadata jsonb leakage) is captured in the radar so future contributors face it explicitly when the first inbox-with-CTA rule lands.
