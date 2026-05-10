@@ -358,13 +358,29 @@ const DISCRIMINANT_FOLDER_RULES: DiscriminantFolderRule[] = [
 let discriminantFolderViolations = 0
 
 try {
-  // Find every .ts file under repo/rules/ that mentions a tracked
-  // discriminant. The scan is broad on purpose; the lint flags only
-  // when the file's path disagrees with the discriminant's required
-  // folder.
+  // Find every .ts file under repo/rules/ that uses a tracked
+  // discriminant in TS property syntax (i.e., `case_kind:` or
+  // `case_kind?:`, which signals an object-literal property or a
+  // type-field declaration — the patterns that indicate a real
+  // payload reference).
+  //
+  // We deliberately do NOT match the bare identifier (`case_kind`
+  // alone) because that pattern occurs in comments / documentation
+  // strings inside legitimately-placed rule files (e.g., a rule in
+  // fulfillment_lifecycle/ may explain in its header comment why it
+  // uses `order_kind` and not `case_kind`). The colon-suffix pattern
+  // is specific to actual TS code usage and avoids those false
+  // positives.
+  //
+  // Note: payload type definitions actually live in the dispatcher
+  // (lib/rules/runtime/dispatcher.ts), not in the rule files. So this
+  // lint typically finds nothing — its purpose is defensive: catch a
+  // future copy-paste mistake where a developer pulls a payload-shape
+  // declaration into a rule file in the wrong sibling-domain folder.
   for (const rule of DISCRIMINANT_FOLDER_RULES) {
+    // git grep treats the colon literally; -E enables extended regex.
     const grepCmd =
-      `git grep -l "${rule.discriminant}" -- 'repo/rules/**/*.ts' || true`
+      `git grep -lE '\\b${rule.discriminant}\\??:' -- 'repo/rules/**/*.ts' || true`
     const grepOutput = execSync(grepCmd, {
       cwd: ROOT,
       encoding: 'utf8',
@@ -381,7 +397,7 @@ try {
     for (const file of offendingFiles) {
       fail(
         'sibling-discriminant',
-        `${file} references payload discriminant '${rule.discriminant}' but lives outside ${rule.requiredFolder}. ` +
+        `${file} references payload discriminant '${rule.discriminant}:' (TS property syntax) but lives outside ${rule.requiredFolder}. ` +
           `Per system-map \`## Platform operational model\` doctrine: ${rule.description}. ` +
           `Reusing a discriminant across sibling seams is the canonization-of-wrong-ontology error this check prevents. ` +
           `Either move the rule to ${rule.requiredFolder} or use the correct sibling's discriminant for this rule's domain.`,

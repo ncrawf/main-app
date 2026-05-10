@@ -37,6 +37,8 @@ import { applyDataEnvironmentGateAtDispatch } from './dataEnvironmentGate';
 import { applyDisclosurePolicy } from '@/lib/disclosure-policy/runtime';
 import { sendTransactionalEmail } from '@/lib/notifications/emailResend';
 import { sendPatientSms } from '@/lib/notifications/smsTwilio';
+import { recordInboxMessage } from '@/lib/inbox/recordInboxMessage';
+import type { MessageIntent } from './types';
 
 export class AdapterNotImplementedError extends Error {
   constructor(public readonly kind: JobKind) {
@@ -211,6 +213,10 @@ export async function runDispatcherTick(): Promise<{
   if (job.kind === 'send_sms' && renderedSms) {
     return dispatchPreRenderedSms(job, renderedSms);
   }
+  const renderedInApp = extractRenderedInApp(job);
+  if (job.kind === 'send_in_app' && renderedInApp) {
+    return dispatchPreRenderedInApp(job, renderedInApp);
+  }
 
   // Adapter dispatch — real SDK calls land here per kind.
   // Phase 4E ships the queue plumbing only; non-pre-rendered adapters
@@ -353,6 +359,161 @@ async function dispatchPreRenderedSms(
     provider_message_id: sent.messageSid,
   });
   return { job_id: job.id, outcome: 'succeeded' };
+}
+
+// =====================================================================
+// Phase 4H-in-app-inbox c1 — pre-rendered in_app dispatch.
+//
+// Per system-map `## Platform operational model` doctrine:
+// communications/inbox is a first-class operational sibling under
+// Patient. The substrate side (this dispatch path + the
+// patient_inbox_messages table) ships in c1; the per-rule opt-in
+// (rules adding 'in_app' to their channels array) lands per-rule in
+// future commits.
+//
+// Distinct from email/sms dispatch in two ways:
+//   1. No external rail. The "send" is an internal write to
+//      patient_inbox_messages. isExternalRailJobKind('send_in_app')
+//      is already false at lib/outbound/types.ts line 307.
+//   2. The rendered payload is { subject, body_html, body_text } —
+//      no `to`/`to_phone` field because the destination is
+//      patient_id (already on the OutboundJobRow).
+//
+// On success the dispatcher records:
+//   - outbound_job_dispatches row (channel='in_app', provider='in_app_inbox',
+//     provider_message_id=<inbox_message_id>) via markOutboundJobDispatch
+//   - patient_inbox_messages row (via record_inbox_message SECURITY DEFINER)
+// =====================================================================
+
+interface RenderedInAppPayload {
+  subject: string;
+  body_html: string;
+  body_text: string;
+}
+
+function extractRenderedInApp(job: OutboundJobRow): RenderedInAppPayload | null {
+  const p = job.payload as { rendered_in_app?: unknown } | null;
+  if (!p || typeof p !== 'object') return null;
+  const rendered = p.rendered_in_app as
+    | { subject?: unknown; body_html?: unknown; body_text?: unknown }
+    | undefined;
+  if (!rendered || typeof rendered !== 'object') return null;
+  if (
+    typeof rendered.subject !== 'string' ||
+    typeof rendered.body_html !== 'string' ||
+    typeof rendered.body_text !== 'string'
+  ) {
+    return null;
+  }
+  return {
+    subject: rendered.subject,
+    body_html: rendered.body_html,
+    body_text: rendered.body_text,
+  };
+}
+
+async function dispatchPreRenderedInApp(
+  job: OutboundJobRow,
+  rendered: RenderedInAppPayload,
+): Promise<{ job_id: string; outcome: DispatchOutcome }> {
+  // Defensive: in_app dispatch requires a patient_id. The OutboundJobRow
+  // type allows null (some kinds — e.g. system-cron operational tasks —
+  // don't have one), but inbox messages MUST have one.
+  if (!job.patient_id) {
+    await markOutboundJobDispatch({
+      outbound_job_id: job.id,
+      attempt: job.attempts,
+      status: 'failed_terminal',
+      channel: 'in_app',
+      provider: 'in_app_inbox',
+      error_message: 'send_in_app requires patient_id; outbound_job has none',
+    });
+    return { job_id: job.id, outcome: 'failed_terminal' };
+  }
+
+  // message_intent on the OutboundJobRow is loosely typed as `string | null`
+  // but the enqueue path validates it against the MESSAGE_INTENTS enum.
+  // record_inbox_message requires it (SQL CHECK + Zod). Defensive guard
+  // so the wrapper sees a valid value.
+  if (!job.message_intent) {
+    await markOutboundJobDispatch({
+      outbound_job_id: job.id,
+      attempt: job.attempts,
+      status: 'failed_terminal',
+      channel: 'in_app',
+      provider: 'in_app_inbox',
+      error_message: 'send_in_app requires message_intent on outbound_job',
+    });
+    return { job_id: job.id, outcome: 'failed_terminal' };
+  }
+
+  if (job.intended_privacy_exposure_level === null) {
+    await markOutboundJobDispatch({
+      outbound_job_id: job.id,
+      attempt: job.attempts,
+      status: 'failed_terminal',
+      channel: 'in_app',
+      provider: 'in_app_inbox',
+      error_message:
+        'send_in_app requires intended_privacy_exposure_level on outbound_job',
+    });
+    return { job_id: job.id, outcome: 'failed_terminal' };
+  }
+
+  try {
+    const { inbox_message_id } = await recordInboxMessage({
+      outbound_job_id: job.id,
+      patient_id: job.patient_id,
+      org_id: job.org_id,
+      data_environment: job.data_environment as
+        | 'production'
+        | 'staging'
+        | 'internal_qa'
+        | 'synthetic',
+      // brand_id is not on the OutboundJobRow; future refinement could
+      // join it through. For c1 we leave it null on the inbox row.
+      brand_id: null,
+      rule_id: job.rule_id,
+      rule_version: job.rule_version,
+      template_key: job.template_key,
+      template_version: job.template_version,
+      intended_privacy_exposure_level: job.intended_privacy_exposure_level,
+      message_intent: job.message_intent as MessageIntent,
+      subject: rendered.subject,
+      body_html: rendered.body_html,
+      body_text: rendered.body_text,
+      // c1 does not propagate metadata from outbound_jobs.payload; future
+      // rules that need CTA / structured context will define their own
+      // propagation pattern.
+      metadata: {},
+      // Use the outbound_job's created_at as effective_at (= when the
+      // rule fired / when the message became effective in the patient's
+      // communication timeline). Differs from the inbox row's created_at
+      // (= when the dispatcher inserted the row).
+      effective_at: job.created_at,
+    });
+
+    await markOutboundJobDispatch({
+      outbound_job_id: job.id,
+      attempt: job.attempts,
+      status: 'succeeded',
+      channel: 'in_app',
+      provider: 'in_app_inbox',
+      provider_message_id: inbox_message_id,
+    });
+    return { job_id: job.id, outcome: 'succeeded' };
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : String(err);
+    await markOutboundJobDispatch({
+      outbound_job_id: job.id,
+      attempt: job.attempts,
+      status: 'failed_retryable',
+      channel: 'in_app',
+      provider: 'in_app_inbox',
+      error_message: errorMessage,
+    });
+    return { job_id: job.id, outcome: 'failed_retryable' };
+  }
 }
 
 /**

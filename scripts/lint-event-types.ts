@@ -101,6 +101,14 @@ const EXEMPT_PATHS = [
   // 'patient.order_shipped' literal). Producer-site exemption
   // (impl.ts) already covers the trigger literal in the producer.
   join('scripts', 'test-shipped-parity.ts'),
+  // Phase 4H-in-app-inbox c1 — substrate channel test inserts
+  // synthetic outbound_jobs rows with kind='send_in_app' and may
+  // reference rule/template lineage strings. The test does not
+  // emit audit_events.action or patient_timeline_events.event_type
+  // values, but the literal-string scan flags adjacent property
+  // shapes. Same false-positive exemption pattern as the prior
+  // parity tests.
+  join('scripts', 'test-in-app-inbox-c1.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,
