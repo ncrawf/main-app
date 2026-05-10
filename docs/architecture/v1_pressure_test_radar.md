@@ -138,6 +138,22 @@ No visibility into per-provider touches, escalations, or automation escape rates
 
 ---
 
+## 2026-05-10 addendum (post-snapshot)
+
+The 2026-05-10 system-map alignment audit ([`.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md`](../../.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md)) produced the `## Platform operational model` binding doctrine now at the top of the system map. That doctrine surfaced one new pressure-test zone that does not match any existing entry. It is added here as an addendum rather than renumbered into the original snapshot, per the "snapshot is more valuable than perfect-current-list" guidance.
+
+### 27. Sibling-discriminant leak / case-as-parent-ontology drift (tier 1)
+
+A payload discriminant defined for one operational sibling silently extends across sibling seams. Canonical example: `case_kind` (defined for clinical-decision events on `treatment_items` / `care_programs`) extended to cover orders, appointments, prescriptions, lab kits, retail purchases, or marketing journeys. Each sibling owns its own discriminant per the `## Platform operational model` doctrine; reusing one across siblings is the canonization-of-wrong-ontology error the doctrine binds against.
+
+Watch for: a new typed Rule whose payload schema reuses an existing sibling's discriminant for a different sibling shape; a new `event_type` placing `case_kind` over a non-clinical-decision concept; substrate primitives being modeled as siblings ("domain folder for audit lineage", "domain folder for disclosure-policy" — both category errors); operational siblings nested under each other (orders as a sub-shape of clinical-decision-cases). Also watch for legacy cross-sibling producer wiring becoming permanent: a fulfillment-shaped event emitted from `lib/internal/patient-case/impl.ts` is acceptable as transitional with an explicit comment, but if it never migrates out, the producer-site has retroactively justified nesting siblings under each other.
+
+Surfaces first in: the shipped migration (4H-templates-discipline c4), where fulfillment events crossing a case-centric producer site forced the doctrinal question. The audit's §6 adjustments (new `fulfillment_lifecycle/` folder, `order_kind` discriminant, producer-locality comment) operationalize the doctrine. Future siblings (scheduling, pharmacy, labs, retail, marketing) follow the same pattern when their first concrete migration arrives.
+
+Binding parent invariant this watch zone protects: system-map `## Platform operational model` section.
+
+---
+
 ## How to use this radar
 
 - **Re-read before**: provider dashboard work, task runtime, lifecycle automation expansion, broad send-policy rollout, the moment 10-20 typed Rules / Templates have shipped.
