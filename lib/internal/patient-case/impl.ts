@@ -32,7 +32,6 @@ import {
   buildClinicalVisitNotePublishedEmail,
   buildLabRequisitionPublishedEmail,
   buildPatientCallbackCompletedEmail,
-  buildPatientEmail,
   buildSupplementFulfillmentEmail,
 } from '@/lib/notifications/patientMessages'
 import { sendTransactionalEmail } from '@/lib/notifications/emailResend'
@@ -56,14 +55,15 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { getStaffProfile } from '@/lib/staff/getStaffProfile'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
-import type { NotificationTemplateKey } from '@/lib/workflows/notificationRules'
 import { dispatchRuleTriggerEvent } from '@/lib/rules/runtime/dispatcher'
 
 const MAX_NOTE = 8000
 
 export type AddStaffNoteResult = { ok: true } | { ok: false; error: string }
 export type ApplyCaseResult = { ok: true } | { ok: false; error: string }
-export type SendTemplateTestResult = { ok: true; sentTo: string } | { ok: false; error: string }
+// Phase 4H-templates-discipline c9 — `SendTemplateTestResult` removed
+// alongside the `sendTemplateTestEmail` function it served. See the
+// comment block where the function lived for rationale.
 export type UpdateTreatmentItemStatusResult = { ok: true } | { ok: false; error: string }
 export type UpdateCareProgramStatusResult = { ok: true } | { ok: false; error: string }
 export type RequestRefillForTreatmentItemResult = { ok: true } | { ok: false; error: string }
@@ -318,63 +318,16 @@ export async function applyCaseUpdates(
   return { ok: true }
 }
 
-export async function sendTemplateTestEmail(
-  patientId: string,
-  templateKey: NotificationTemplateKey
-): Promise<SendTemplateTestResult> {
-  const supabase = await createSupabaseServerClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-  if (!user?.email) return { ok: false, error: 'Not signed in.' }
-
-  const { data: patient, error: pErr } = await supabase
-    .from('patients')
-    .select('id, first_name')
-    .eq('id', patientId)
-    .maybeSingle()
-  if (pErr || !patient) return { ok: false, error: 'Patient not found.' }
-
-  let patientPortalUrl: string | null = null
-  try {
-    patientPortalUrl = await buildPatientPortalExchangeUrl(patientId, `/dashboard/${patientId}`)
-  } catch (e) {
-    console.warn('sendTemplateTestEmail: patient portal link omitted', e)
-  }
-
-  const email = buildPatientEmail(templateKey, {
-    patientId,
-    email: user.email,
-    firstName: patient.first_name,
-    patientPortalUrl,
-    paymentSummary: '199.00 USD',
-  })
-
-  const result = await sendTransactionalEmail({
-    to: user.email,
-    subject: `[Preview] ${email.subject}`,
-    html: email.html,
-    text: email.text,
-  })
-
-  if (!result.ok) {
-    return { ok: false, error: result.error }
-  }
-
-  await insertTimelineEvent(
-    {
-      patientId,
-      eventType: 'email_preview_sent',
-      body: `${templateKey} preview sent to ${user.email}`,
-      actorUserId: user.id,
-      payload: { template_key: templateKey, provider_message_id: result.id },
-    },
-    supabase,
-  )
-
-  revalidatePath(`/internal/patients/${patientId}`)
-  return { ok: true, sentTo: user.email }
-}
+// Phase 4H-templates-discipline c9 — `sendTemplateTestEmail` removed.
+// The function was a staff-facing template-preview test surface tied
+// to the legacy NotificationTemplateKey union; that union became
+// empty in c9 when `case_denied` migrated, so the function had no
+// callable templates left. Removed alongside SendTemplateTestForm.tsx
+// + the corresponding server action in
+// app/internal/(protected)/patients/[patientId]/actions.ts. A future
+// template-preview surface (if needed) should target the typed
+// registry directly via TEMPLATE_REGISTRY rather than the deleted
+// NotificationTemplateKey shape.
 
 export async function updateTreatmentItemStatus(
   patientId: string,
@@ -770,6 +723,47 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  // Phase 4H-templates-discipline c9 — typed Rule trigger for the
+  // case_denied cutover. FINAL legacy migration. Fires on transition
+  // to 'denied' for glp1_primary treatments (preserves legacy filter;
+  // legacy `resolvePatientNotifications` was producer-agnostic, so
+  // this dispatch + the matching block in updateCareProgramStatus
+  // route to the same Rule).
+  //
+  // SCOPE BINDING (anti-overload, see companion Rule file header
+  // DENIED SEMANTIC SCOPE block + PREFLIGHT c9 §1A): this dispatch
+  // fires ONLY for PROVIDER clinical-decision denials. It is NOT
+  // for payer adjudication, NOT for prior auth denial, NOT for
+  // refill denial (provider OR pharmacy), NOT for identity-
+  // verification denial, NOT for capability-permission denial. As
+  // those operational events become real, they get their OWN
+  // sibling-domain dispatch blocks (likely revenue_cycle/,
+  // authorization_lifecycle/, pharmacy_lifecycle/, account_lifecycle/)
+  // with their OWN trigger events and discriminants. Reusing this
+  // dispatch is the canonization-of-wrong-ontology error v1
+  // pressure-test radar zone 27 prevents.
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'denied' &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_denied',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'treatment_item',
+          case_id: treatmentItemId,
+          transition_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent case_denied', err)
+    }
+  }
+
   // Phase 4H-templates-discipline c8 — typed Rule trigger for the
   // refill_initiated cutover (pharmacy_lifecycle sibling activation,
   // member 2 of 2). Fires ONLY on transition to 'refill_pending' AND
@@ -1025,6 +1019,38 @@ export async function updateCareProgramStatus(
       })
     } catch (err) {
       console.error('updateCareProgramStatus: dispatchRuleTriggerEvent followup_needed', err)
+    }
+  }
+
+  // Phase 4H-templates-discipline c9 — typed Rule trigger for the
+  // case_denied cutover. FINAL legacy migration. Fires on transition
+  // to 'denied' for weight_loss programs (preserves legacy filter).
+  // Mirrors the matching block in updateTreatmentItemStatus; both
+  // producer surfaces route to the same Rule because legacy
+  // `resolvePatientNotifications` was producer-agnostic.
+  //
+  // SCOPE BINDING (anti-overload — see companion Rule file header
+  // DENIED SEMANTIC SCOPE block + PREFLIGHT c9 §1A): provider
+  // clinical-decision denials only.
+  if (
+    program.program_type === 'weight_loss' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'denied' &&
+    programAudit.ok &&
+    programAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_denied',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'care_program',
+          case_id: careProgramId,
+          transition_audit_event_id: programAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateCareProgramStatus: dispatchRuleTriggerEvent case_denied', err)
     }
   }
 

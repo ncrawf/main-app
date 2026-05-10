@@ -1,36 +1,28 @@
 /**
- * Phase 4H-templates-discipline commit 8 — rx_sent parity smoke (live-DB).
+ * Phase 4H-templates-discipline c9 — case_denied parity smoke (live-DB).
+ * FINAL legacy migration; closes the 4H-templates-discipline series.
  *
  * Verifies the cutover from legacy v0 notification path to the typed
- * Rule + Template at `repo/rules/pharmacy_lifecycle/rx_sent_v1.ts`
- * + `repo/templates/pharmacy_lifecycle/rx_sent_v1.ts`.
+ * Rule + Template at `repo/rules/clinical_decision/case_denied_v1.ts`
+ * + `repo/templates/clinical_decision/case_denied_v1.ts`.
  *
- * Ninth typed migration overall; FIRST in the pharmacy_lifecycle
- * domain folder (sibling-domain activation #3).
+ * Eleventh typed migration overall; sixth in clinical_decision.
  *
- * Five scenarios: production dispatch + synthetic suppression +
- * idempotent replay + legacy non-firing + wording byte-identity.
+ * Five scenarios: production dispatch (treatment_item) + synthetic
+ * suppression (care_program) + idempotent replay + legacy non-firing
+ * + wording byte-identity.
  *
- * Run with: `npx tsx scripts/test-rx-sent-parity.ts`.
+ * Run with: `npx tsx scripts/test-case-denied-parity.ts`.
  */
 
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { dispatchRuleTriggerEvent } from '../lib/rules/runtime/dispatcher'
 import {
-  renderRxSentEmail,
-  renderRxSentSms,
-} from '../lib/templates/render/rx-sent'
-import { rxSentV1 } from '../repo/rules'
-import { rxSentTemplateV1 } from '../repo/templates'
-
-// Phase 4H-templates-discipline c9 — legacy lib/workflows/notificationRules.ts
-// deleted in c9. The original prior-commit parity scenario 4 verified that
-// the legacy resolvePatientNotifications returned [] for the migrated
-// status. Post-c9 the module is gone entirely, which is a strictly
-// stronger claim. This local stub preserves the original test shape
-// (returns []) so the historical parity assertions still hold without
-// depending on the deleted module.
-const resolvePatientNotifications = (_ev: unknown): never[] => []
+  renderCaseDeniedEmail,
+  renderCaseDeniedSms,
+} from '../lib/templates/render/case-denied'
+import { caseDeniedV1 } from '../repo/rules'
+import { caseDeniedTemplateV1 } from '../repo/templates'
 
 interface TestContext {
   supabase: SupabaseClient
@@ -40,8 +32,8 @@ interface TestContext {
   auditEventIds: string[]
   productionTransitionAuditEventId: string
   syntheticTransitionAuditEventId: string
-  productionPrescriptionId: string
-  syntheticPrescriptionId: string
+  productionCaseId: string
+  syntheticCaseId: string
 }
 
 function uuid(): string {
@@ -72,8 +64,8 @@ async function main(): Promise<void> {
     auditEventIds: [],
     productionTransitionAuditEventId: uuid(),
     syntheticTransitionAuditEventId: uuid(),
-    productionPrescriptionId: uuid(),
-    syntheticPrescriptionId: uuid(),
+    productionCaseId: uuid(),
+    syntheticCaseId: uuid(),
   }
 
   let exitCode = 0
@@ -99,28 +91,28 @@ async function main(): Promise<void> {
     console.log(`  production_patient_id=${ctx.productionPatientId}`)
     console.log(`  synthetic_patient_id=${ctx.syntheticPatientId}`)
 
-    // Scenario 1: production patient + rx_sent
-    console.log(`\n[scenario 1] production patient + rx_sent dispatch`)
+    // Scenario 1: production patient + treatment_item denial
+    console.log(`\n[scenario 1] production patient + treatment_item denial dispatch`)
     const r1 = await dispatchRuleTriggerEvent(
       {
-        event_type: 'patient.rx_sent_to_pharmacy',
+        event_type: 'patient.case_denied',
         payload: {
           patient_id: ctx.productionPatientId,
-          pharmacy_event_kind: 'rx_sent_to_pharmacy',
-          prescription_id: ctx.productionPrescriptionId,
-          sent_audit_event_id: ctx.productionTransitionAuditEventId,
+          case_kind: 'treatment_item',
+          case_id: ctx.productionCaseId,
+          transition_audit_event_id: ctx.productionTransitionAuditEventId,
         },
       },
       supabase,
     )
 
-    assert(r1.matched === true, 'Scenario 1: dispatcher matched rx_sent_v1', `got matched=${r1.matched}`)
+    assert(r1.matched === true, 'Scenario 1: dispatcher matched case_denied_v1', `got matched=${r1.matched}`)
     if (!r1.matched) throw new Error('rule did not match')
 
     ctx.outboundJobIds.push(...r1.enqueued_outbound_job_ids)
     if (r1.audit_event_id) ctx.auditEventIds.push(r1.audit_event_id)
 
-    assert(r1.rule_id === 'rule.pharmacy_lifecycle.rx_sent_v1', 'Scenario 1: rule_id', `got ${r1.rule_id}`)
+    assert(r1.rule_id === 'rule.clinical_decision.case_denied_v1', 'Scenario 1: rule_id', `got ${r1.rule_id}`)
     assert(r1.enqueued_outbound_job_ids.length === 2, 'Scenario 1: 2 outbound_jobs', `got ${r1.enqueued_outbound_job_ids.length}`)
 
     const { data: jobsData } = await supabase
@@ -132,26 +124,30 @@ async function main(): Promise<void> {
     const smsJob = rows.find((j) => j.kind === 'send_sms')
 
     if (emailJob) {
-      assert(emailJob.rule_id === 'rule.pharmacy_lifecycle.rx_sent_v1', 'Scenario 1: email rule_id', `got ${emailJob.rule_id}`)
-      assert(emailJob.template_key === 'tmpl.pharmacy_lifecycle.rx_sent_v1', 'Scenario 1: email template_key', `got ${emailJob.template_key}`)
-      assert(emailJob.intended_privacy_exposure_level === 2, 'Scenario 1: email tier=2', `got ${emailJob.intended_privacy_exposure_level}`)
+      assert(emailJob.rule_id === 'rule.clinical_decision.case_denied_v1', 'Scenario 1: email rule_id', `got ${emailJob.rule_id}`)
+      assert(emailJob.template_key === 'tmpl.clinical_decision.case_denied_v1', 'Scenario 1: email template_key', `got ${emailJob.template_key}`)
+      assert(emailJob.intended_privacy_exposure_level === 1, 'Scenario 1: email tier=1', `got ${emailJob.intended_privacy_exposure_level}`)
       assert(emailJob.message_intent === 'operational', 'Scenario 1: email intent=operational', `got ${emailJob.message_intent}`)
       assert(
-        emailJob.idempotency_key === `rule.rx_sent:${ctx.productionTransitionAuditEventId}:email`,
+        emailJob.idempotency_key === `rule.case_denied:${ctx.productionTransitionAuditEventId}:email`,
         'Scenario 1: email idempotency_key shape',
         `got ${emailJob.idempotency_key}`,
       )
       assert(emailJob.status === 'queued', 'Scenario 1: email row stays queued', `got ${emailJob.status}`)
 
       const renderedEmail = (emailJob.payload as { rendered_email?: { subject?: string; text?: string } } | null)?.rendered_email
-      assert(renderedEmail?.subject === 'Prescription sent to pharmacy', 'Scenario 1: email subject byte-identical', `got "${renderedEmail?.subject}"`)
       assert(
-        typeof renderedEmail?.text === 'string' && renderedEmail.text.includes('Prescription sent'),
-        'Scenario 1: email text contains "Prescription sent" heading',
+        typeof renderedEmail?.subject === 'string' && renderedEmail.subject.startsWith('Update on your '),
+        'Scenario 1: email subject starts with "Update on your "',
+        `got "${renderedEmail?.subject}"`,
+      )
+      assert(
+        typeof renderedEmail?.text === 'string' && renderedEmail.text.includes('Your visit has an update'),
+        'Scenario 1: email text contains "Your visit has an update" heading',
         'missing',
       )
       assert(
-        typeof renderedEmail?.text === 'string' && renderedEmail.text.includes('Your prescription has been sent to the pharmacy.'),
+        typeof renderedEmail?.text === 'string' && renderedEmail.text.includes('There is an update on your visit request.'),
         'Scenario 1: email intro byte-identical',
         'missing',
       )
@@ -160,8 +156,8 @@ async function main(): Promise<void> {
     if (smsJob) {
       const renderedSms = (smsJob.payload as { rendered_sms?: { body?: string } } | null)?.rendered_sms
       assert(
-        typeof renderedSms?.body === 'string' && renderedSms.body.startsWith('MAIN: Rx sent to pharmacy.'),
-        'Scenario 1: SMS body starts with "MAIN: Rx sent to pharmacy."',
+        typeof renderedSms?.body === 'string' && renderedSms.body.startsWith('MAIN: Update on your visit.'),
+        'Scenario 1: SMS body starts with "MAIN: Update on your visit."',
         `got "${renderedSms?.body}"`,
       )
     }
@@ -169,8 +165,8 @@ async function main(): Promise<void> {
     const { data: auditData } = await supabase
       .from('audit_events')
       .select('id, action, metadata')
-      .eq('action', 'rule.fired.pharmacy_lifecycle.rx_sent_v1')
-      .eq('resource_id', 'rule.pharmacy_lifecycle.rx_sent_v1')
+      .eq('action', 'rule.fired.clinical_decision.case_denied_v1')
+      .eq('resource_id', 'rule.clinical_decision.case_denied_v1')
       .eq('patient_id', ctx.productionPatientId)
     assert(
       Array.isArray(auditData) && auditData.length === 1,
@@ -180,21 +176,21 @@ async function main(): Promise<void> {
     if (auditData && auditData.length > 0) {
       ctx.auditEventIds.push((auditData[0] as { id: string }).id)
       const meta = (auditData[0] as { metadata: Record<string, unknown> }).metadata
-      assert(meta.pharmacy_event_kind === 'rx_sent_to_pharmacy', 'Scenario 1: audit metadata.pharmacy_event_kind', `got ${meta.pharmacy_event_kind}`)
-      assert(meta.prescription_id === ctx.productionPrescriptionId, 'Scenario 1: audit metadata.prescription_id', `got ${meta.prescription_id}`)
-      assert(meta.sent_audit_event_id === ctx.productionTransitionAuditEventId, 'Scenario 1: audit metadata.sent_audit_event_id', `got ${meta.sent_audit_event_id}`)
+      assert(meta.case_kind === 'treatment_item', 'Scenario 1: audit metadata.case_kind', `got ${meta.case_kind}`)
+      assert(meta.case_id === ctx.productionCaseId, 'Scenario 1: audit metadata.case_id', `got ${meta.case_id}`)
+      assert(meta.transition_audit_event_id === ctx.productionTransitionAuditEventId, 'Scenario 1: audit metadata.transition_audit_event_id', `got ${meta.transition_audit_event_id}`)
     }
 
-    // Scenario 2: synthetic patient suppression
-    console.log(`\n[scenario 2] synthetic patient suppression`)
+    // Scenario 2: synthetic patient + care_program denial
+    console.log(`\n[scenario 2] synthetic patient + care_program denial suppression`)
     const r2 = await dispatchRuleTriggerEvent(
       {
-        event_type: 'patient.rx_sent_to_pharmacy',
+        event_type: 'patient.case_denied',
         payload: {
           patient_id: ctx.syntheticPatientId,
-          pharmacy_event_kind: 'rx_sent_to_pharmacy',
-          prescription_id: ctx.syntheticPrescriptionId,
-          sent_audit_event_id: ctx.syntheticTransitionAuditEventId,
+          case_kind: 'care_program',
+          case_id: ctx.syntheticCaseId,
+          transition_audit_event_id: ctx.syntheticTransitionAuditEventId,
         },
       },
       supabase,
@@ -234,15 +230,15 @@ async function main(): Promise<void> {
     }
 
     // Scenario 3: idempotent replay
-    console.log(`\n[scenario 3] replay same sent_audit_event_id`)
+    console.log(`\n[scenario 3] replay same transition_audit_event_id`)
     const r3 = await dispatchRuleTriggerEvent(
       {
-        event_type: 'patient.rx_sent_to_pharmacy',
+        event_type: 'patient.case_denied',
         payload: {
           patient_id: ctx.productionPatientId,
-          pharmacy_event_kind: 'rx_sent_to_pharmacy',
-          prescription_id: ctx.productionPrescriptionId,
-          sent_audit_event_id: ctx.productionTransitionAuditEventId,
+          case_kind: 'treatment_item',
+          case_id: ctx.productionCaseId,
+          transition_audit_event_id: ctx.productionTransitionAuditEventId,
         },
       },
       supabase,
@@ -259,7 +255,7 @@ async function main(): Promise<void> {
     const { data: replayJobs } = await supabase
       .from('outbound_jobs')
       .select('id')
-      .eq('idempotency_key', `rule.rx_sent:${ctx.productionTransitionAuditEventId}:email`)
+      .eq('idempotency_key', `rule.case_denied:${ctx.productionTransitionAuditEventId}:email`)
     assert(
       Array.isArray(replayJobs) && replayJobs.length === 1,
       'Scenario 3: exactly 1 email row exists',
@@ -269,7 +265,7 @@ async function main(): Promise<void> {
     const { data: postReplayAudits } = await supabase
       .from('audit_events')
       .select('id')
-      .eq('action', 'rule.fired.pharmacy_lifecycle.rx_sent_v1')
+      .eq('action', 'rule.fired.clinical_decision.case_denied_v1')
       .eq('patient_id', ctx.productionPatientId)
     if (Array.isArray(postReplayAudits)) {
       for (const a of postReplayAudits) {
@@ -278,76 +274,86 @@ async function main(): Promise<void> {
       }
     }
 
-    // Scenario 4: legacy non-firing
-    console.log(`\n[scenario 4] legacy resolvePatientNotifications no longer fires for 'rx_sent'`)
-    const legacyResult = resolvePatientNotifications({
-      patientId: ctx.productionPatientId,
-      fromWorkflowStatus: 'approved',
-      toWorkflowStatus: 'rx_sent',
-      source: 'staff',
-    })
+    // Scenario 4: legacy non-firing — confirm the legacy module is GONE
+    // (it deleted in this same commit). The `import` would error at
+    // module-load time if attempted; instead we confirm the module
+    // file no longer exists in the registry of legacy keys by
+    // verifying the empty NotificationTemplateKey is unreachable
+    // via the import system.
+    console.log(`\n[scenario 4] legacy notificationRules module confirmed deleted`)
+    let legacyImportFailed = false
+    try {
+      // @ts-expect-error — module is intentionally deleted in c9
+      await import('../lib/workflows/notificationRules')
+    } catch {
+      legacyImportFailed = true
+    }
     assert(
-      Array.isArray(legacyResult) && legacyResult.length === 0,
-      "Scenario 4: legacy resolvePatientNotifications returns [] for 'rx_sent'",
-      `got ${legacyResult.length} notifications`,
+      legacyImportFailed,
+      "Scenario 4: lib/workflows/notificationRules.ts is deleted (import throws)",
+      'legacy module still resolves; deletion incomplete',
     )
 
     // Scenario 5: wording byte-identity
     console.log(`\n[scenario 5] wording rendering parity`)
-    const renderedEmail = renderRxSentEmail({
+    const renderedEmail = renderCaseDeniedEmail({
       brand_short_label: 'MAIN',
       dashboard_url: 'https://example.test/dashboard/abc',
       patient_first_name: 'Test',
     })
-    const renderedSms = renderRxSentSms({
+    const renderedSms = renderCaseDeniedSms({
       brand_short_label: 'MAIN',
       dashboard_url: 'https://example.test/dashboard/abc',
       patient_first_name: 'Test',
     })
 
-    assert(renderedEmail.subject === 'Prescription sent to pharmacy', 'Scenario 5: email subject verbatim', `got "${renderedEmail.subject}"`)
-    assert(renderedEmail.text.includes('Prescription sent'), 'Scenario 5: email heading', 'missing')
     assert(
-      renderedEmail.text.includes('Your prescription has been sent to the pharmacy.'),
+      renderedEmail.subject === 'Update on your MAIN visit',
+      'Scenario 5: email subject byte-identical to legacy "Update on your MAIN visit"',
+      `got "${renderedEmail.subject}"`,
+    )
+    assert(renderedEmail.text.includes('Your visit has an update'), 'Scenario 5: email heading', 'missing')
+    assert(
+      renderedEmail.text.includes('There is an update on your visit request.'),
       'Scenario 5: email intro byte-identical',
       `got "${renderedEmail.text}"`,
     )
     assert(
-      renderedEmail.text.includes('You can track fulfillment progress in your dashboard.'),
+      renderedEmail.text.includes('Please review details and next steps in your dashboard.'),
       'Scenario 5: email detail verbatim',
       'missing',
     )
     assert(renderedEmail.text.includes('— MAIN'), 'Scenario 5: email footer "— MAIN"', 'missing')
 
     assert(
-      renderedSms.body === 'MAIN: Rx sent to pharmacy. https://example.test/dashboard/abc',
-      'Scenario 5: SMS body byte-identical to legacy "MAIN: Rx sent to pharmacy. <url>"',
+      renderedSms.body === 'MAIN: Update on your visit. https://example.test/dashboard/abc',
+      'Scenario 5: SMS body byte-identical to legacy "MAIN: Update on your visit. <url>"',
       `got "${renderedSms.body}"`,
     )
 
     assert(
-      rxSentV1.rule_id === 'rule.pharmacy_lifecycle.rx_sent_v1',
-      'Scenario 5: rxSentV1 anchor exported',
-      `got ${rxSentV1.rule_id}`,
+      caseDeniedV1.rule_id === 'rule.clinical_decision.case_denied_v1',
+      'Scenario 5: caseDeniedV1 anchor exported',
+      `got ${caseDeniedV1.rule_id}`,
     )
     assert(
-      rxSentTemplateV1.template_key === 'tmpl.pharmacy_lifecycle.rx_sent_v1',
-      'Scenario 5: rxSentTemplateV1 anchor exported',
-      `got ${rxSentTemplateV1.template_key}`,
+      caseDeniedTemplateV1.template_key === 'tmpl.clinical_decision.case_denied_v1',
+      'Scenario 5: caseDeniedTemplateV1 anchor exported',
+      `got ${caseDeniedTemplateV1.template_key}`,
     )
     assert(
-      rxSentTemplateV1.transactional_critical === false,
-      'Scenario 5: rxSentTemplateV1.transactional_critical=false',
-      `got ${rxSentTemplateV1.transactional_critical}`,
+      caseDeniedTemplateV1.transactional_critical === false,
+      'Scenario 5: caseDeniedTemplateV1.transactional_critical=false',
+      `got ${caseDeniedTemplateV1.transactional_critical}`,
     )
 
     console.log('\n----------------------------------------------------------------------')
-    console.log(`Phase 4H-templates-discipline c8 rx_sent parity: ${passes} passed, ${failures} failed.`)
+    console.log(`Phase 4H-templates-discipline c9 case_denied parity: ${passes} passed, ${failures} failed.`)
     if (failures > 0) {
       console.error('RED — parity broken.')
       exitCode = 1
     } else {
-      console.log('GREEN — rx_sent cutover is parity-equivalent.')
+      console.log('GREEN — case_denied cutover is parity-equivalent. 4H-templates-discipline series CLOSES.')
     }
   } catch (err) {
     console.error(
@@ -367,9 +373,9 @@ async function setup(ctx: TestContext, ts: number): Promise<void> {
   const synth = await ctx.supabase
     .from('patients')
     .insert({
-      email: `phase4h-c8-rxsent-synth-${ts}@example.test`,
-      phone: '+15555550819',
-      first_name: 'SynthRX',
+      email: `phase4h-c9-synth-${ts}@example.test`,
+      phone: '+15555550909',
+      first_name: 'SynthCD',
       data_environment: 'synthetic',
     })
     .select('id')
@@ -382,9 +388,9 @@ async function setup(ctx: TestContext, ts: number): Promise<void> {
   const prod = await ctx.supabase
     .from('patients')
     .insert({
-      email: `phase4h-c8-rxsent-prod-${ts}@example.test`,
-      phone: '+15555550818',
-      first_name: 'ProdRX',
+      email: `phase4h-c9-prod-${ts}@example.test`,
+      phone: '+15555550908',
+      first_name: 'ProdCD',
     })
     .select('id')
     .single()
@@ -408,7 +414,7 @@ async function cleanup(ctx: TestContext): Promise<void> {
       .from('audit_events')
       .delete()
       .eq('resource_type', 'rule')
-      .in('resource_id', ['rule.pharmacy_lifecycle.rx_sent_v1'])
+      .in('resource_id', ['rule.clinical_decision.case_denied_v1'])
       .in('patient_id', [ctx.productionPatientId, ctx.syntheticPatientId])
     await ctx.supabase.from('outbound_jobs').delete().in('id', ctx.outboundJobIds)
   }

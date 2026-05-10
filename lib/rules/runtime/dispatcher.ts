@@ -106,6 +106,11 @@ import {
   type OrderShippedRenderInputs,
 } from '@/lib/templates/render/order-shipped'
 import {
+  renderCaseDeniedEmail,
+  renderCaseDeniedSms,
+  type CaseDeniedRenderInputs,
+} from '@/lib/templates/render/case-denied'
+import {
   renderRefillInitiatedEmail,
   renderRefillInitiatedSms,
   type RefillInitiatedRenderInputs,
@@ -161,6 +166,10 @@ export type RuleTriggerEvent =
   | {
       event_type: 'patient.case_followup_needed'
       payload: PatientCaseFollowupNeededPayload
+    }
+  | {
+      event_type: 'patient.case_denied'
+      payload: PatientCaseDeniedPayload
     }
   | {
       event_type: 'patient.order_shipped'
@@ -300,6 +309,32 @@ export interface PatientCaseActivePayload {
    * notification.
    */
   activation_audit_event_id: string
+}
+
+export interface PatientCaseDeniedPayload {
+  /** UUID; the patient record this denial pertains to. */
+  patient_id: string
+  /**
+   * Same case_kind discriminant as prior clinical_decision payloads.
+   * SCOPE BINDING (anti-overload — see companion Rule's file
+   * header DENIED SEMANTIC SCOPE block + PREFLIGHT c9 §1A): this
+   * payload is for PROVIDER clinical-decision denials only. Future
+   * "denied" events in other siblings (payer adjudication, prior
+   * auth, refill denial, identity-verification) MUST get their own
+   * discriminants in their own sibling-domain payloads.
+   */
+  case_kind: 'treatment_item' | 'care_program'
+  /**
+   * UUID of the treatment_items.id or care_programs.id row that
+   * was denied. Combined with case_kind in audit metadata.
+   */
+  case_id: string
+  /**
+   * UUID of the audit_events row emitted by the producer site for
+   * the underlying status-transition mutation. PER-TRANSITION
+   * idempotency anchor.
+   */
+  transition_audit_event_id: string
 }
 
 export interface PatientCaseFollowupNeededPayload {
@@ -655,6 +690,9 @@ export async function dispatchRuleTriggerEvent(
   }
   if (event.event_type === 'patient.case_followup_needed') {
     return executeFollowupNeededRule(sb, rule, event.payload)
+  }
+  if (event.event_type === 'patient.case_denied') {
+    return executeCaseDeniedRule(sb, rule, event.payload)
   }
   if (event.event_type === 'patient.order_shipped') {
     return executeOrderShippedRule(sb, rule, event.payload)
@@ -2977,6 +3015,215 @@ async function executeRefillInitiatedRule(
   if (!auditResult.ok) {
     throw new Error(
       `executeRefillInitiatedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
+    )
+  }
+
+  return {
+    matched: true,
+    rule_id: rule.rule_id,
+    rule_version: rule.rule_version,
+    enqueued_outbound_job_ids: enqueuedIds,
+    audit_event_id: auditResult.audit_event_id ?? '',
+  }
+}
+
+// =====================================================================
+// Per-rule executor: case_denied
+//
+// Phase 4H-templates-discipline c9 — eleventh hardcoded executor
+// branch; FINAL legacy migration. Sixth in clinical_decision domain
+// (siblings: case_approved, awaiting_clinical_review, active_care,
+// followup_due, followup_needed). Per ChatGPT pre-execution
+// constraint #1 (binding): NO dispatcher generalization. The branch
+// sits alongside the existing ten; the runtime stays as side-effect-
+// bounded as it is today.
+//
+// Mirrors executeAwaitingClinicalReviewRule structurally (also tier_1
+// / system / operational / dual-producer). Differences are wording
+// (case-denied render module), payload shape (case_kind discriminant),
+// and idempotency anchor (transition_audit_event_id).
+//
+// SCOPE BINDING (anti-overload): this executor handles ONLY provider
+// clinical-decision denials. See companion Rule file header for the
+// full DENIED SEMANTIC SCOPE block.
+// =====================================================================
+
+async function executeCaseDeniedRule(
+  supabase: SupabaseClient,
+  rule: Rule,
+  payload: PatientCaseDeniedPayload,
+): Promise<RuleDispatchResult> {
+  if (rule.action.kind !== 'notify') {
+    throw new Error(
+      `executeCaseDeniedRule: rule ${rule.rule_id} has action.kind=${rule.action.kind}; ` +
+        `commit-5-pattern dispatcher only fires 'notify' actions. Other kinds require approved ` +
+        `orchestrator boundary per ADR Section 7.6 extension procedure.`,
+    )
+  }
+
+  const template = findTemplateByKey(rule.template_key ?? '')
+  if (!template) {
+    throw new Error(
+      `executeCaseDeniedRule: rule ${rule.rule_id} references template_key=${rule.template_key} ` +
+        `which is not in TEMPLATE_REGISTRY.`,
+    )
+  }
+
+  const { data: patientRow, error: patientError } = await supabase
+    .from('patients')
+    .select('id, org_id, first_name, email, phone')
+    .eq('id', payload.patient_id)
+    .single()
+  if (patientError || !patientRow) {
+    throw new Error(
+      `executeCaseDeniedRule: patient lookup failed for ${payload.patient_id}: ${patientError?.message ?? 'not found'}`,
+    )
+  }
+  const patient = patientRow as {
+    id: string
+    org_id: string
+    first_name: string | null
+    email: string | null
+    phone: string | null
+  }
+
+  const { data: brandRow, error: brandError } = await supabase
+    .from('brands')
+    .select('id, org_id, slug, display_name, status')
+    .eq('org_id', patient.org_id)
+    .eq('status', 'active')
+    .limit(1)
+    .maybeSingle()
+  if (brandError) {
+    throw new Error(
+      `executeCaseDeniedRule: brand lookup failed for org_id=${patient.org_id}: ${brandError.message}`,
+    )
+  }
+  const brand = brandRow as { id: string; slug: string; display_name: string } | null
+  if (!brand) {
+    throw new Error(
+      `executeCaseDeniedRule: no active brand for org_id=${patient.org_id}. ` +
+        `Multi-tenant brand sourcing is required per ADR Section 7.5.`,
+    )
+  }
+
+  const dashboardUrl = `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${patient.id}`
+  const renderInputs: CaseDeniedRenderInputs = {
+    brand_short_label: brand.slug.toUpperCase(),
+    dashboard_url: dashboardUrl,
+    patient_first_name: patient.first_name,
+  }
+  const rendered = {
+    email: renderCaseDeniedEmail(renderInputs),
+    sms: renderCaseDeniedSms(renderInputs),
+  }
+
+  const resolvedPathway = resolvePathwayForRule(rule)
+
+  const enqueuedIds: string[] = []
+
+  if (patient.email && rule.action.channels.includes('email')) {
+    const emailResult = await enqueueOutboundJob({
+      kind: 'send_email',
+      channel: 'email',
+      patient_id: patient.id,
+      idempotency_key: `rule.case_denied:${payload.transition_audit_event_id}:email`,
+      external_system_name: payload.case_kind,
+      external_system_id: payload.case_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to: patient.email,
+        rendered_email: rendered.email,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+      },
+    })
+    enqueuedIds.push(emailResult.outbound_job_id)
+  }
+
+  if (patient.phone && rule.action.channels.includes('sms')) {
+    const smsResult = await enqueueOutboundJob({
+      kind: 'send_sms',
+      channel: 'sms',
+      patient_id: patient.id,
+      idempotency_key: `rule.case_denied:${payload.transition_audit_event_id}:sms`,
+      external_system_name: payload.case_kind,
+      external_system_id: payload.case_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to_phone: patient.phone,
+        rendered_sms: rendered.sms,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+      },
+    })
+    enqueuedIds.push(smsResult.outbound_job_id)
+  }
+
+  const auditResult = await insertAuditEvent(
+    {
+      action: rule.audit_event_type,
+      resourceType: 'rule',
+      resourceId: rule.rule_id,
+      patientId: patient.id,
+      actorKind: 'system',
+      orgId: patient.org_id,
+      metadata: {
+        rule_version: rule.rule_version,
+        template_key: template.template_key,
+        template_version: template.template_version,
+        intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+        message_intent: rule.action.message_intent,
+        decision_outcome_reason: 'rule_matched',
+        trigger_event_type: 'patient.case_denied' satisfies RuleTriggerEventType,
+        case_kind: payload.case_kind,
+        case_id: payload.case_id,
+        transition_audit_event_id: payload.transition_audit_event_id,
+        enqueued_outbound_job_ids: enqueuedIds,
+      },
+    },
+    supabase,
+  )
+
+  if (!auditResult.ok) {
+    throw new Error(
+      `executeCaseDeniedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
     )
   }
 

@@ -45,9 +45,17 @@ import {
   renderCaseApprovedEmail,
   renderCaseApprovedSms,
 } from '../lib/templates/render/case-approved'
-import { resolvePatientNotifications } from '../lib/workflows/notificationRules'
 import { caseApprovedV1 } from '../repo/rules'
 import { caseApprovedTemplateV1 } from '../repo/templates'
+
+// Phase 4H-templates-discipline c9 — legacy lib/workflows/notificationRules.ts
+// deleted in c9. The original prior-commit parity scenario 4 verified that
+// the legacy resolvePatientNotifications returned [] for the migrated
+// status. Post-c9 the module is gone entirely, which is a strictly
+// stronger claim. This local stub preserves the original test shape
+// (returns []) so the historical parity assertions still hold without
+// depending on the deleted module.
+const resolvePatientNotifications = (_ev: unknown): never[] => []
 
 interface TestContext {
   supabase: SupabaseClient

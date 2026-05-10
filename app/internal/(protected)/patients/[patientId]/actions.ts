@@ -1,6 +1,5 @@
 'use server'
 
-import type { NotificationTemplateKey } from '@/lib/workflows/notificationRules'
 import { requireCapability, type Capability, type RequireCapabilityOptions } from '@/lib/auth/capabilities'
 import * as patientCase from '@/lib/internal/patient-case/impl'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
@@ -23,7 +22,6 @@ export type {
   PublishClinicalVisitPdfResult,
   RequestRefillForTreatmentItemResult,
   RequestRefillsBulkResult,
-  SendTemplateTestResult,
   UpdateCareProgramStatusResult,
   UpdatePatientSupportRequestStatusResult,
   UpdateRefillRequestStatusResult,
@@ -151,15 +149,6 @@ export async function applyCaseUpdates(patientId: string, nextAssignedTo: string
   })
   if (!g.ok) return g
   return patientCase.applyCaseUpdates(patientId, nextAssignedTo)
-}
-
-export async function sendTemplateTestEmail(patientId: string, templateKey: NotificationTemplateKey) {
-  const g = await requirePatientCaseCapability('can_collaborate_patient_case', patientId, {
-    objectType: 'email_preview',
-    extraMetadata: { action: 'sendTemplateTestEmail', templateKey },
-  })
-  if (!g.ok) return g
-  return patientCase.sendTemplateTestEmail(patientId, templateKey)
 }
 
 export async function updateTreatmentItemStatus(patientId: string, treatmentItemId: string, nextStatus: string) {

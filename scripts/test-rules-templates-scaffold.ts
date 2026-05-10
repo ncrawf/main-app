@@ -65,9 +65,9 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 10,
-  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1 + rx_sent_v1 + refill_initiated_v1',
-  `got ${RULE_REGISTRY.length} rules — expected >= 10 after Phase 4H-templates-discipline commit 8`
+  RULE_REGISTRY.length >= 11,
+  'RULE_REGISTRY contains all 11 typed Rules after Phase 4H-templates-discipline c9 (FINAL legacy migration; case_denied closes the series)',
+  `got ${RULE_REGISTRY.length} rules — expected >= 11 after Phase 4H-templates-discipline commit 9`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
@@ -109,6 +109,62 @@ assert(
   'RULE_REGISTRY contains rule.clinical_decision.followup_needed_v1',
   'eighth parity proof Rule missing (Phase 4H-templates-discipline commit 7; fifth clinical_decision domain Rule; first asymmetric per-producer status gates)'
 )
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.clinical_decision.case_denied_v1'),
+  'RULE_REGISTRY contains rule.clinical_decision.case_denied_v1',
+  'eleventh parity proof Rule missing (Phase 4H-templates-discipline commit 9; sixth clinical_decision domain Rule; FINAL legacy migration)'
+)
+// Phase 4H-templates-discipline c9 — sixth clinical_decision domain
+// Rule. FINAL legacy migration; closes the 4H-templates-discipline
+// series. Same shape as awaiting_clinical_review_v1 + followup_needed_v1
+// (system-authority, tier_1 existence_only, operational, dual-producer).
+// SCOPE BINDING: provider clinical-decision denials only — see Rule
+// file header DENIED SEMANTIC SCOPE block + PREFLIGHT c9 §1A.
+{
+  const caseDenied = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.clinical_decision.case_denied_v1',
+  )
+  assert(
+    caseDenied?.domain === 'clinical_decision',
+    'case_denied_v1 declares domain=clinical_decision',
+    `got ${caseDenied?.domain}`,
+  )
+  assert(
+    caseDenied?.authority_floor === 'system',
+    'case_denied_v1 declares authority_floor=system',
+    `got ${caseDenied?.authority_floor}`,
+  )
+  assert(
+    caseDenied?.recall_severity === 'operational',
+    'case_denied_v1 declares recall_severity=operational',
+    `got ${caseDenied?.recall_severity}`,
+  )
+  assert(
+    caseDenied?.action.kind === 'notify' &&
+      'message_intent' in caseDenied.action &&
+      caseDenied.action.message_intent === 'operational',
+    'case_denied_v1 action.message_intent=operational',
+    `got ${caseDenied?.action.kind === 'notify' ? caseDenied.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    caseDenied?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in caseDenied.action &&
+      caseDenied.action.intended_privacy_exposure_level === 1,
+    'case_denied_v1 action.intended_privacy_exposure_level=1 (existence_only)',
+    `got ${caseDenied?.action.kind === 'notify' ? caseDenied.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    caseDenied?.audit_event_type === 'rule.fired.clinical_decision.case_denied_v1',
+    'case_denied_v1 audit_event_type uses clinical_decision namespace',
+    `got ${caseDenied?.audit_event_type}`,
+  )
+  assert(
+    caseDenied?.trigger.kind === 'event' &&
+      caseDenied.trigger.event_type === 'patient.case_denied',
+    "case_denied_v1 trigger.event_type='patient.case_denied'",
+    `got ${caseDenied?.trigger.kind === 'event' ? caseDenied.trigger.event_type : '(non-event trigger)'}`,
+  )
+}
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.pharmacy_lifecycle.rx_sent_v1'),
   'RULE_REGISTRY contains rule.pharmacy_lifecycle.rx_sent_v1',
@@ -504,9 +560,9 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 10,
-  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 + active_care_v1 + followup_due_v1 + followup_needed_v1 + rx_sent_v1 + refill_initiated_v1 anchors',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 10 after Phase 4H-templates-discipline commit 8`
+  TEMPLATE_REGISTRY.length >= 11,
+  'TEMPLATE_REGISTRY contains all 11 typed Templates after Phase 4H-templates-discipline c9',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 11 after Phase 4H-templates-discipline commit 9`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
@@ -558,6 +614,40 @@ assert(
   'TEMPLATE_REGISTRY contains tmpl.clinical_decision.followup_needed_v1',
   'eighth parity proof Template missing (Phase 4H-templates-discipline commit 7; fifth clinical_decision domain Template)'
 )
+assert(
+  TEMPLATE_REGISTRY.some(
+    (t) => t.template_key === 'tmpl.clinical_decision.case_denied_v1',
+  ),
+  'TEMPLATE_REGISTRY contains tmpl.clinical_decision.case_denied_v1',
+  'eleventh parity proof Template missing (Phase 4H-templates-discipline commit 9; sixth clinical_decision domain Template; FINAL legacy migration)'
+)
+// Phase 4H-templates-discipline c9 — verify case_denied Template
+// ships with the expected tier_1 + operational shape.
+{
+  const caseDeniedTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.clinical_decision.case_denied_v1',
+  )
+  assert(
+    caseDeniedTemplate?.domain === 'clinical_decision',
+    'case_denied Template domain=clinical_decision',
+    `got ${caseDeniedTemplate?.domain}`,
+  )
+  assert(
+    caseDeniedTemplate?.transactional_critical === false,
+    'case_denied Template transactional_critical=false',
+    `got transactional_critical=${caseDeniedTemplate?.transactional_critical}`,
+  )
+  assert(
+    caseDeniedTemplate?.privacy_exposure_level === 1,
+    'case_denied Template privacy_exposure_level=1 (existence_only)',
+    `got ${caseDeniedTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    caseDeniedTemplate?.message_intent === 'operational',
+    'case_denied Template message_intent=operational',
+    `got ${caseDeniedTemplate?.message_intent}`,
+  )
+}
 assert(
   TEMPLATE_REGISTRY.some(
     (t) => t.template_key === 'tmpl.pharmacy_lifecycle.rx_sent_v1',

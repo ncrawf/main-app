@@ -22,7 +22,6 @@ import { CreateClinicalVisitAddendumForm } from './CreateClinicalVisitAddendumFo
 import { CreateClinicalVisitForm } from './CreateClinicalVisitForm'
 import { CreateLabOrderForm } from './CreateLabOrderForm'
 import { LabOrderDispatchForm } from './LabOrderDispatchForm'
-import { SendTemplateTestForm } from './SendTemplateTestForm'
 import { AdminHistoryPanel } from './AdminHistoryPanel'
 import { GenerateRxPdfForm } from './GenerateRxPdfForm'
 import { PreparePharmacyDispatchForm } from './PreparePharmacyDispatchForm'
@@ -1099,10 +1098,6 @@ export default async function InternalPatientCasePage({ params }: { params: Prom
           initialAssignedTo={stateRow?.assigned_to ?? null}
           staffOptions={staffRows ?? []}
         />
-      </section>
-
-      <section className="mt-4">
-        <SendTemplateTestForm patientId={patientId} />
       </section>
 
       <section className="mt-8 grid gap-4 lg:grid-cols-12">

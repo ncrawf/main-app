@@ -1,5 +1,4 @@
 import { getAppBaseUrl } from '@/lib/stripe/server'
-import type { NotificationTemplateKey } from '@/lib/workflows/notificationRules'
 import { getEmailTheme } from './emailTheme'
 
 export type PatientMessageContext = {
@@ -128,159 +127,40 @@ Open your dashboard: ${dash}
 — ${theme.brandName}`
 }
 
-export function buildPatientEmail(
-  templateKey: NotificationTemplateKey,
-  ctx: PatientMessageContext
-): { subject: string; html: string; text: string } {
-  let body: EmailBody
-
-  switch (templateKey) {
-    // Phase 4H-pre commit 5 — `payment_received` case removed. Migrated
-    // to typed Template at `repo/templates/billing/payment_received_v1.ts`
-    // per Section 1Q.12 DELETE-AFTER-PARITY directive. Rendering now
-    // happens in `lib/templates/render/payment-received.ts` driven by
-    // typed required_variables; brand sourced from `brands` table per
-    // ADR Section 7.5 multi-tenant rule.
-    // Phase 4H-templates-discipline commit 1 — `intake_submitted` case
-    // removed. Migrated to typed Template at
-    // `repo/templates/account_lifecycle/intake_submitted_v1.ts` per
-    // Section 1Q.12 DELETE-AFTER-PARITY directive. Rendering now happens
-    // in `lib/templates/render/intake-submitted.ts` driven by typed
-    // required_variables; brand sourced from `brands` table per ADR
-    // Section 7.5 multi-tenant rule.
-    // Phase 4H-templates-discipline c3 — `case 'awaiting_clinical_review'`
-    // arm removed; rendering migrated to
-    // lib/templates/render/awaiting-clinical-review.ts and the typed
-    // Template at repo/templates/clinical_decision/
-    // awaiting_clinical_review_v1.ts.
-    // Phase 4H-templates-discipline c2 — `case 'case_approved'` arm
-    // removed; rendering migrated to lib/templates/render/case-approved.ts
-    // and the typed Template at repo/templates/clinical_decision/
-    // case_approved_v1.ts.
-    case 'case_denied': {
-      body = {
-        subject: 'Update on your MAIN visit',
-        previewText: 'There is an update on your visit request.',
-        eyebrow: 'Clinical decision',
-        heading: 'Your visit has an update',
-        intro: 'There is an update on your visit request.',
-        detail: 'Please review details and next steps in your dashboard.',
-      }
-      break
-    }
-    // Phase 4H-templates-discipline c7 — `case 'followup_needed'`
-    // arm removed; email rendering migrated to
-    // renderFollowupNeededEmail in lib/templates/render/followup-
-    // needed.ts. Producer dispatch from updateTreatmentItemStatus
-    // (paused | stopped) + updateCareProgramStatus (paused |
-    // completed | cancelled) on transition to those statuses.
-    // Phase 4H-templates-discipline c8 — `case 'rx_sent'` arm
-    // removed; email rendering migrated to renderRxSentEmail in
-    // lib/templates/render/rx-sent.ts. Brand prefix sourced from
-    // `brands.slug.toUpperCase()` (typed slot `brand_short_label`)
-    // instead of hardcoded "MAIN:" per ADR Section 7.5 multi-tenant
-    // rule. Type system encodes pharmacy_lifecycle /
-    // pharmacy_event_kind per system-map `## Platform operational
-    // model` doctrine; runtime dispatch is from
-    // updateTreatmentItemStatus on the legacy case-shaped producer
-    // surface as transitional locality per PREFLIGHT 4H-c8 §1 +
-    // radar zone 27.
-    // Phase 4H-templates-discipline c4 — `case 'shipped'` arm
-    // removed; email rendering migrated to renderOrderShippedEmail
-    // in lib/templates/render/order-shipped.ts. Brand prefix sourced
-    // from `brands.slug.toUpperCase()` (typed slot `brand_short_label`)
-    // instead of hardcoded "MAIN:" per ADR Section 7.5 multi-tenant
-    // rule. Type system encodes fulfillment_lifecycle / order_kind
-    // per system-map `## Platform operational model` doctrine; runtime
-    // dispatch is from updateTreatmentItemStatus on the legacy case-
-    // shaped producer surface as transitional locality (radar zone
-    // 27 + audit §6 #3).
-    // Phase 4H-templates-discipline c5 — `case 'active_care'` arm
-    // removed; email rendering migrated to renderActiveCareEmail in
-    // lib/templates/render/active-care.ts. Legacy intro line
-    // "You are now in active care with MAIN." rewritten to
-    // "You are now in active care with ${brand_short_label}." per
-    // ADR Section 7.5 multi-tenant rule. SMS prefix sourced from
-    // brand_short_label slot. Producer dispatch from
-    // updateTreatmentItemStatus + updateCareProgramStatus on
-    // transition to 'active'.
-    // Phase 4H-templates-discipline c6 — `case 'followup_due'` arm
-    // removed; email rendering migrated to renderFollowupDueEmail in
-    // lib/templates/render/followup-due.ts. SMS prefix sourced from
-    // brand_short_label slot. Producer dispatch from
-    // updateTreatmentItemStatus on transition to 'refill_due'.
-    // Phase 4H-templates-discipline c8 — `case 'refill_pending'`
-    // arm removed; email rendering migrated to
-    // renderRefillInitiatedEmail in lib/templates/render/refill-
-    // initiated.ts. Producer dispatch from updateTreatmentItemStatus
-    // on transition to 'refill_pending'. Note: the typed Rule's
-    // pharmacy_event_kind discriminant value is 'refill_initiated'
-    // (not 'refill_pending') — the legacy status name is internal
-    // to treatment_items.status and does not leak into the cross-
-    // sibling event vocabulary.
-    default: {
-      const _exhaustive: never = templateKey
-      throw new Error(`Unhandled template: ${String(_exhaustive)}`)
-    }
-  }
-
-  return {
-    subject: body.subject,
-    html: renderEmailHtml(ctx, body),
-    text: renderEmailText(ctx, body),
-  }
-}
-
-/** Short SMS bodies (Twilio); same keys as email templates. */
-export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx: PatientMessageContext): string {
-  const short =
-    ctx.patientPortalUrl?.trim() ||
-    `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${ctx.patientId}`
-
-  switch (templateKey) {
-    // Phase 4H-pre commit 5 — `payment_received` case removed. Migrated
-    // to typed Template per Section 1Q.12 DELETE-AFTER-PARITY directive.
-    // SMS now renders via `lib/templates/render/payment-received.ts`
-    // `renderPaymentReceivedSms` with brand prefix sourced from
-    // `brands.slug.toUpperCase()` (typed slot `brand_short_label`)
-    // instead of hardcoded "MAIN:" per ADR Section 7.5 multi-tenant rule.
-    // Phase 4H-templates-discipline commit 1 — `intake_submitted` case
-    // removed. SMS now renders via
-    // `lib/templates/render/intake-submitted.ts` `renderIntakeSubmittedSms`
-    // with brand prefix sourced from `brands.slug.toUpperCase()` (typed
-    // slot `brand_short_label`) instead of hardcoded "MAIN:" per ADR
-    // Section 7.5 multi-tenant rule.
-    // Phase 4H-templates-discipline c3 — `case 'awaiting_clinical_review'`
-    // arm removed; SMS preview migrated to renderAwaitingClinicalReviewSms
-    // in lib/templates/render/awaiting-clinical-review.ts.
-    // Phase 4H-templates-discipline c2 — `case 'case_approved'` arm
-    // removed; SMS preview migrated to renderCaseApprovedSms in
-    // lib/templates/render/case-approved.ts.
-    case 'case_denied':
-      return `MAIN: Update on your visit. ${short}`
-    // Phase 4H-templates-discipline c7 — `case 'followup_needed'`
-    // arm removed; SMS preview migrated to renderFollowupNeededSms
-    // in lib/templates/render/followup-needed.ts.
-    // Phase 4H-templates-discipline c8 — `case 'rx_sent'` arm
-    // removed; SMS preview migrated to renderRxSentSms in
-    // lib/templates/render/rx-sent.ts.
-    // Phase 4H-templates-discipline c4 — `case 'shipped'` arm removed;
-    // SMS preview migrated to renderOrderShippedSms in
-    // lib/templates/render/order-shipped.ts.
-    // Phase 4H-templates-discipline c5 — `case 'active_care'` arm
-    // removed; SMS preview migrated to renderActiveCareSms in
-    // lib/templates/render/active-care.ts.
-    // Phase 4H-templates-discipline c6 — `case 'followup_due'` arm
-    // removed; SMS preview migrated to renderFollowupDueSms in
-    // lib/templates/render/followup-due.ts.
-    // Phase 4H-templates-discipline c8 — `case 'refill_pending'`
-    // arm removed; SMS preview migrated to renderRefillInitiatedSms
-    // in lib/templates/render/refill-initiated.ts.
-    default: {
-      return `MAIN: Update. ${short}`
-    }
-  }
-}
+// =====================================================================
+// Phase 4H-templates-discipline c9 — buildPatientEmail +
+// buildPatientSmsPreview removed (FINAL legacy migration).
+//
+// Both functions were case-statement dispatchers keyed on
+// NotificationTemplateKey, the legacy v0 notification union. The c9
+// commit migrated the last entry (`case_denied`) to the typed
+// Rule + Template registry; the union became empty; the dispatchers
+// had nothing left to dispatch. Removed alongside:
+//   - lib/workflows/notificationRules.ts (deleted entirely; no more
+//     NotificationTemplateKey union to consume)
+//   - the legacy workflow-event hook notification fan-out (shrunk
+//     to chart.ai_review-only)
+//   - sendTemplateTestEmail (deleted; was the staff-facing preview
+//     surface that depended on this dispatcher)
+//
+// All migrations:
+//   payment_received   → repo/templates/billing/payment_received_v1.ts
+//   intake_submitted   → repo/templates/account_lifecycle/intake_submitted_v1.ts
+//   case_approved      → repo/templates/clinical_decision/case_approved_v1.ts
+//   awaiting_review    → repo/templates/clinical_decision/awaiting_clinical_review_v1.ts
+//   active_care        → repo/templates/clinical_decision/active_care_v1.ts
+//   followup_due       → repo/templates/clinical_decision/followup_due_v1.ts
+//   followup_needed    → repo/templates/clinical_decision/followup_needed_v1.ts
+//   case_denied        → repo/templates/clinical_decision/case_denied_v1.ts (c9)
+//   shipped            → repo/templates/fulfillment_lifecycle/order_shipped_v1.ts
+//   rx_sent            → repo/templates/pharmacy_lifecycle/rx_sent_v1.ts
+//   refill_pending     → repo/templates/pharmacy_lifecycle/refill_initiated_v1.ts
+//
+// The non-legacy build functions below (visit-note, lab-req, callback,
+// supplement) are NOT part of the legacy v0 notification path; they
+// stay until they too either migrate to the typed registry or are
+// retired.
+// =====================================================================
 
 export type SupplementFulfillmentEmailStatus =
   | 'queued'

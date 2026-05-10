@@ -221,6 +221,42 @@ export const RULE_TRIGGER_EVENT_TYPES = [
   'patient.rx_sent_to_pharmacy',
 
   /**
+   * Phase 4H-templates-discipline c9 — FINAL legacy migration.
+   *
+   * Emitted from `lib/internal/patient-case/impl.ts` after a staff
+   * user transitions a glp1_primary treatment_item OR a weight_loss
+   * care_program to `'denied'`. Consumed by
+   * `repo/rules/clinical_decision/case_denied_v1.ts`.
+   *
+   * Producer-agnostic: BOTH updateTreatmentItemStatus and
+   * updateCareProgramStatus fire on transition to 'denied' (legacy
+   * `resolvePatientNotifications` was producer-agnostic; this
+   * preserves that behavior). Same pattern as patient.case_active +
+   * patient.case_followup_needed.
+   *
+   * SCOPE BINDING (anti-overload — see companion Rule's file
+   * header DENIED SEMANTIC SCOPE block + PREFLIGHT c9 §1A):
+   * this trigger fires ONLY for provider clinical-decision
+   * denials. Future "denied" events (payer adjudication, prior
+   * auth denial, refill denial, identity-verification denial)
+   * MUST get their own trigger event types in their own sibling-
+   * domain folders. Reusing this trigger across that ontology
+   * seam is the canonization-of-wrong-ontology error v1
+   * pressure-test radar zone 27 prevents.
+   *
+   * Payload shape:
+   *   {
+   *     patient_id: string                     // UUID
+   *     case_kind: 'treatment_item' | 'care_program'
+   *     case_id: string                        // UUID of the row
+   *     transition_audit_event_id: string      // UUID; idempotency anchor
+   *   }
+   *
+   * Idempotency: per-transition, keyed on transition_audit_event_id.
+   */
+  'patient.case_denied',
+
+  /**
    * Phase 4H-templates-discipline c8 — pharmacy_lifecycle sibling
    * activation (member 2 of 2).
    *

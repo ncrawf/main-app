@@ -127,6 +127,10 @@ const EXEMPT_PATHS = [
   // 'patient.rx_sent_to_pharmacy' and 'patient.refill_initiated'.
   join('scripts', 'test-rx-sent-parity.ts'),
   join('scripts', 'test-refill-initiated-parity.ts'),
+  // Phase 4H-templates-discipline c9 — final legacy migration parity
+  // test references the 'patient.case_denied' RuleTriggerEventType
+  // literal.
+  join('scripts', 'test-case-denied-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

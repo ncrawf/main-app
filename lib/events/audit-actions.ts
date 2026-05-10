@@ -150,6 +150,24 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   // repo/rules/clinical_decision/case_approved_v1.ts fires in response to
   // a patient.case_approved trigger from lib/internal/patient-case/impl.ts.
   'rule.fired.clinical_decision.case_approved_v1',
+  // Phase 4H-templates-discipline c9 — eleventh Rule-firing audit
+  // action; FINAL legacy migration. Sixth in
+  // rule.fired.clinical_decision.* namespace (siblings:
+  // case_approved_v1, awaiting_clinical_review_v1, active_care_v1,
+  // followup_due_v1, followup_needed_v1). System-authority case-
+  // status ack. Tier_1 existence_only operational intent. Dual-
+  // producer (treatment_item + care_program). Emitted by
+  // lib/rules/runtime/dispatcher.ts when
+  // repo/rules/clinical_decision/case_denied_v1.ts fires in
+  // response to a patient.case_denied trigger from
+  // lib/internal/patient-case/impl.ts.
+  //
+  // SCOPE BINDING (anti-overload — see companion Rule file header
+  // DENIED SEMANTIC SCOPE block + PREFLIGHT c9 §1A): this audit
+  // action records ONLY provider clinical-decision denials. Future
+  // payer / prior_auth / refill / identity-verification denials
+  // get their own sibling-domain audit namespaces.
+  'rule.fired.clinical_decision.case_denied_v1',
   // Phase 4H-templates-discipline c7 — eighth Rule-firing audit action.
   // Fifth in the rule.fired.clinical_decision.* namespace (siblings:
   // case_approved_v1, awaiting_clinical_review_v1, active_care_v1,

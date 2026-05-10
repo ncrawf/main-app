@@ -24,6 +24,7 @@ import { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 import { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 import { awaitingClinicalReviewV1 } from './clinical_decision/awaiting_clinical_review_v1'
 import { activeCareV1 } from './clinical_decision/active_care_v1'
+import { caseDeniedV1 } from './clinical_decision/case_denied_v1'
 import { followupDueV1 } from './clinical_decision/followup_due_v1'
 import { followupNeededV1 } from './clinical_decision/followup_needed_v1'
 import { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
@@ -54,6 +55,7 @@ export const RULE_REGISTRY: ReadonlyArray<Rule> = [
   activeCareV1,
   followupDueV1,
   followupNeededV1,
+  caseDeniedV1,
   orderShippedV1,
   rxSentV1,
   refillInitiatedV1,
@@ -78,6 +80,7 @@ export { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 export { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 export { awaitingClinicalReviewV1 } from './clinical_decision/awaiting_clinical_review_v1'
 export { activeCareV1 } from './clinical_decision/active_care_v1'
+export { caseDeniedV1 } from './clinical_decision/case_denied_v1'
 export { followupDueV1 } from './clinical_decision/followup_due_v1'
 export { followupNeededV1 } from './clinical_decision/followup_needed_v1'
 export { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
