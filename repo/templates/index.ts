@@ -23,18 +23,25 @@ import { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
 import { intakeSubmittedTemplateV1 } from './account_lifecycle/intake_submitted_v1'
 import { caseApprovedTemplateV1 } from './clinical_decision/case_approved_v1'
 import { awaitingClinicalReviewTemplateV1 } from './clinical_decision/awaiting_clinical_review_v1'
+import { orderShippedTemplateV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 /**
  * Templates registry. Phase 4H-pre commit 5 lands the first Template
  * (`tmpl.billing.payment_received_v1`). Subsequent migrations under
  * the per-PR DELETE-AFTER-PARITY directive add more templates; the
  * registry grows one entry per migrated case.
+ *
+ * Phase 4H-templates-discipline c4 added the fifth Template
+ * (`tmpl.fulfillment_lifecycle.order_shipped_v1`) — FIRST in the
+ * `fulfillment_lifecycle` sibling-domain folder per system-map
+ * `## Platform operational model` doctrine.
  */
 export const TEMPLATE_REGISTRY: ReadonlyArray<Template> = [
   paymentReceivedTemplateV1,
   intakeSubmittedTemplateV1,
   caseApprovedTemplateV1,
   awaitingClinicalReviewTemplateV1,
+  orderShippedTemplateV1,
 ]
 
 /**
@@ -49,6 +56,7 @@ export { paymentReceivedTemplateV1 } from './billing/payment_received_v1'
 export { intakeSubmittedTemplateV1 } from './account_lifecycle/intake_submitted_v1'
 export { caseApprovedTemplateV1 } from './clinical_decision/case_approved_v1'
 export { awaitingClinicalReviewTemplateV1 } from './clinical_decision/awaiting_clinical_review_v1'
+export { orderShippedTemplateV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 export type { Template } from './types'
 export type {

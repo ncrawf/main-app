@@ -150,6 +150,19 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   // repo/rules/clinical_decision/case_approved_v1.ts fires in response to
   // a patient.case_approved trigger from lib/internal/patient-case/impl.ts.
   'rule.fired.clinical_decision.case_approved_v1',
+  // Phase 4H-templates-discipline c4 — fifth Rule-firing audit action.
+  // FIRST in the `rule.fired.fulfillment_lifecycle.*` namespace —
+  // sibling-domain expansion since the registry was scaffolded (prior
+  // four lived in account_lifecycle / billing / clinical_decision).
+  // Per system-map `## Platform operational model` doctrine (binding
+  // 2026-05-10): orders/fulfillment is a first-class sibling under
+  // Patient, not a sub-shape of clinical_decision. Emitted by
+  // lib/rules/runtime/dispatcher.ts when
+  // repo/rules/fulfillment_lifecycle/order_shipped_v1.ts fires in
+  // response to a patient.order_shipped trigger from
+  // lib/internal/patient-case/impl.ts (transitional producer-site
+  // locality per audit §6 #3 + radar zone 27).
+  'rule.fired.fulfillment_lifecycle.order_shipped_v1',
   'rule.firing_overridden',
 ] as const
 

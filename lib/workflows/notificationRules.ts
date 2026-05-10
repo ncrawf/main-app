@@ -26,7 +26,6 @@ export type NotificationTemplateKey =
   | 'case_denied'
   | 'followup_needed'
   | 'rx_sent'
-  | 'shipped'
   | 'active_care'
   | 'followup_due'
   | 'refill_pending'
@@ -56,13 +55,19 @@ const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>>
   // now the sole producer of case_approved notifications, fired from
   // lib/internal/patient-case/impl.ts (updateTreatmentItemStatus +
   // updateCareProgramStatus) via the dispatcher.
+  // Phase 4H-templates-discipline c4 — `shipped: 'shipped'` removed. The
+  // typed Rule at repo/rules/fulfillment_lifecycle/order_shipped_v1.ts
+  // is now the sole producer of shipped notifications, fired from
+  // lib/internal/patient-case/impl.ts via the dispatcher. FIRST sibling-
+  // domain expansion since the registry was scaffolded; per system-map
+  // `## Platform operational model` doctrine, fulfillment is a first-
+  // class sibling under Patient (not a sub-shape of clinical_decision).
   denied: 'case_denied',
   paused: 'followup_needed',
   completed: 'followup_needed',
   cancelled: 'followup_needed',
   stopped: 'followup_needed',
   rx_sent: 'rx_sent',
-  shipped: 'shipped',
   active: 'active_care',
   refill_due: 'followup_due',
   refill_pending: 'refill_pending',

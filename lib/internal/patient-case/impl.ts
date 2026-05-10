@@ -556,6 +556,63 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  // Phase 4H-templates-discipline c4 — typed Rule trigger for the
+  // order_shipped cutover. Fires ONLY on transition to 'shipped'
+  // AND ONLY for glp1_primary treatments (preserves legacy filter;
+  // the Rule layer is pathway-agnostic but the producer-site filter
+  // gates to the same population that previously received `'shipped'`
+  // notifications under the legacy `'shipped' -> 'shipped'` map
+  // entry).
+  //
+  // PRODUCER-SITE TRANSITIONAL LOCALITY (binding per system-map
+  // `## Platform operational model` doctrine + the 2026-05-10
+  // alignment audit §6 #3 + v1 pressure-test radar zone 27):
+  //
+  //   This dispatch block lives in the case-shaped surface
+  //   (lib/internal/patient-case/impl.ts updateTreatmentItemStatus)
+  //   because that is where the legacy notification fires today.
+  //   The architecturally-correct producer for fulfillment events
+  //   is the orders subsystem (lib/orders/updateFulfillment.ts);
+  //   migration to that surface is deferred pending broader
+  //   treatment_items-vs-treatment_orders consolidation appetite.
+  //
+  //   The TYPE SYSTEM nonetheless encodes the correct architecture:
+  //   the Rule lives in `repo/rules/fulfillment_lifecycle/`, the
+  //   payload uses `order_kind` (NOT `case_kind`), the audit
+  //   namespace is `rule.fired.fulfillment_lifecycle.*`. Future
+  //   fulfillment-event migrations (delivered, supplement_order_shipped,
+  //   lab_kit_shipped, pharmacy_filled, retail_order_placed) MUST
+  //   target the orders subsystem (not this case-shaped surface)
+  //   AND inherit the fulfillment_lifecycle / order_kind pattern.
+  //
+  //   The `order_id` field on the payload is bound to
+  //   `treatment_items.id` today (because this producer surface
+  //   only has that handle). Future producer migration to
+  //   updateFulfillment.ts will switch the bound id to
+  //   `treatment_orders.id` without changing the payload semantic
+  //   ("the shipped order's stable identifier").
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    nextStatus === 'shipped' &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.order_shipped',
+        payload: {
+          patient_id: patientId,
+          order_kind: 'treatment_order',
+          order_id: treatmentItemId,
+          shipping_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent order_shipped', err)
+    }
+  }
+
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
   return { ok: true }

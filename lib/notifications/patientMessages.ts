@@ -190,17 +190,16 @@ export function buildPatientEmail(
       }
       break
     }
-    case 'shipped': {
-      body = {
-        subject: 'Your order has shipped',
-        previewText: 'Shipment update — your order is on the way.',
-        eyebrow: 'Shipment update',
-        heading: 'Your order has shipped',
-        intro: 'Good news — your order is on the way.',
-        detail: 'Tracking details are available in your dashboard.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c4 — `case 'shipped'` arm
+    // removed; email rendering migrated to renderOrderShippedEmail
+    // in lib/templates/render/order-shipped.ts. Brand prefix sourced
+    // from `brands.slug.toUpperCase()` (typed slot `brand_short_label`)
+    // instead of hardcoded "MAIN:" per ADR Section 7.5 multi-tenant
+    // rule. Type system encodes fulfillment_lifecycle / order_kind
+    // per system-map `## Platform operational model` doctrine; runtime
+    // dispatch is from updateTreatmentItemStatus on the legacy case-
+    // shaped producer surface as transitional locality (radar zone
+    // 27 + audit §6 #3).
     case 'active_care': {
       body = {
         subject: 'You are in active care',
@@ -278,8 +277,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
       return `MAIN: More info needed. ${short}`
     case 'rx_sent':
       return `MAIN: Rx sent to pharmacy. ${short}`
-    case 'shipped':
-      return `MAIN: Order shipped. ${short}`
+    // Phase 4H-templates-discipline c4 — `case 'shipped'` arm removed;
+    // SMS preview migrated to renderOrderShippedSms in
+    // lib/templates/render/order-shipped.ts.
     case 'active_care':
       return `MAIN: Active care. ${short}`
     case 'followup_due':

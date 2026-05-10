@@ -85,6 +85,11 @@ import {
   renderAwaitingClinicalReviewSms,
   type AwaitingClinicalReviewRenderInputs,
 } from '@/lib/templates/render/awaiting-clinical-review'
+import {
+  renderOrderShippedEmail,
+  renderOrderShippedSms,
+  type OrderShippedRenderInputs,
+} from '@/lib/templates/render/order-shipped'
 import { getAppBaseUrl } from '@/lib/stripe/server'
 import type { Rule } from '@/repo/rules'
 import {
@@ -119,6 +124,10 @@ export type RuleTriggerEvent =
   | {
       event_type: 'patient.case_under_review'
       payload: PatientCaseUnderReviewPayload
+    }
+  | {
+      event_type: 'patient.order_shipped'
+      payload: PatientOrderShippedPayload
     }
 
 export interface CommerceCheckoutSessionCompletedPayload {
@@ -218,6 +227,52 @@ export interface PatientCaseUnderReviewPayload {
    * notification (preserves legacy from->to dedupe behavior).
    */
   transition_audit_event_id: string
+}
+
+export interface PatientOrderShippedPayload {
+  /** UUID; the patient record this shipment pertains to. */
+  patient_id: string
+  /**
+   * Sibling-domain discriminant per system-map `## Platform operational
+   * model` doctrine (binding 2026-05-10): orders / fulfillment /
+   * inventory is a first-class sibling under Patient. The
+   * `order_kind` discriminant is the FULFILLMENT sibling's identifier;
+   * it is INTENTIONALLY DIFFERENT from `case_kind` (the clinical-
+   * decision sibling's identifier) so future authors of fulfillment-
+   * shaped events (delivered, supplement_order_shipped, lab_kit_shipped,
+   * pharmacy_filled, retail_order_placed) inherit the correct
+   * sibling-domain home and do NOT extend `case_kind` across the
+   * sibling seam.
+   *
+   * Initial wiring covers `'treatment_order'` only. The other two
+   * values (`'supplement_order'`, `'lab_kit_order'`) are RESERVED in
+   * the discriminant but not yet active; their producer sites + parity
+   * tests land in future migrations. Adding a 4th value (e.g.,
+   * `'pharmacy_event'`) is forbidden — pharmacy events are a separate
+   * sibling and must get their own discriminant + folder per the
+   * doctrine.
+   */
+  order_kind: 'treatment_order' | 'supplement_order' | 'lab_kit_order'
+  /**
+   * Logical identifier for the shipped order. Today the producer
+   * surface is `lib/internal/patient-case/impl.ts` operating on
+   * `treatment_items.id` (transitional locality per the doctrine's
+   * producer-site rule + audit §6 #3 + radar zone 27). Future
+   * producer migration to `lib/orders/updateFulfillment.ts` will
+   * switch the bound id to `treatment_orders.id` WITHOUT changing
+   * the payload semantic — the field remains "the shipped order's
+   * stable identifier."
+   */
+  order_id: string
+  /**
+   * UUID of the audit_events row emitted by the producer site for the
+   * underlying status-transition mutation (action =
+   * 'treatment_item.status_changed' today). Used as the PER-TRANSITION
+   * idempotency anchor — a treatment_item bouncing approved ->
+   * rx_sent -> shipped -> rx_sent -> shipped produces a distinct
+   * audit_event_id for each genuine re-shipment.
+   */
+  shipping_audit_event_id: string
 }
 
 /**
@@ -368,6 +423,9 @@ export async function dispatchRuleTriggerEvent(
   }
   if (event.event_type === 'patient.case_under_review') {
     return executeAwaitingClinicalReviewRule(sb, rule, event.payload)
+  }
+  if (event.event_type === 'patient.order_shipped') {
+    return executeOrderShippedRule(sb, rule, event.payload)
   }
 
   // Should be unreachable given the typed event union; defensive.
@@ -1301,6 +1359,259 @@ async function executeAwaitingClinicalReviewRule(
   if (!auditResult.ok) {
     throw new Error(
       `executeAwaitingClinicalReviewRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
+    )
+  }
+
+  return {
+    matched: true,
+    rule_id: rule.rule_id,
+    rule_version: rule.rule_version,
+    enqueued_outbound_job_ids: enqueuedIds,
+    audit_event_id: auditResult.audit_event_id ?? '',
+  }
+}
+
+// =====================================================================
+// Per-rule executor: order_shipped
+//
+// Phase 4H-templates-discipline commit 4 — fifth hardcoded executor
+// branch. Per ChatGPT pre-execution constraint #1 (binding): NO
+// dispatcher generalization. The branch sits alongside the existing
+// four; the runtime stays as side-effect-bounded as it is today.
+//
+// FIRST executor in the fulfillment_lifecycle sibling-domain
+// namespace per the system-map `## Platform operational model`
+// doctrine (binding 2026-05-10). Distinguishing characteristics vs
+// the existing four executors:
+//   - rule.audit_event_type = 'rule.fired.fulfillment_lifecycle.*'
+//     (vs rule.fired.billing.* / rule.fired.account_lifecycle.* /
+//     rule.fired.clinical_decision.*) — FIRST sibling-domain
+//     expansion.
+//   - payload uses `order_kind` discriminant (NOT `case_kind`) per
+//     the doctrine: each operational sibling owns its own
+//     discriminant and discriminants do not leak across sibling
+//     seams.
+//   - rule.action.send_policy_class = 'transactional_operational'
+//     (matches awaiting_clinical_review's class but distinguishes
+//     from billing / account / clinical).
+//
+// PRODUCER-SITE TRANSITIONAL LOCALITY: the producer at
+// lib/internal/patient-case/impl.ts is the case-shaped surface
+// where the legacy notification fired; this executor consumes that
+// transitional wiring. The TYPE SYSTEM nonetheless encodes the
+// architecturally-correct sibling-domain home (folder, discriminant,
+// audit namespace). Tracked as v1 pressure-test radar zone 27.
+//
+// Idempotency: per-transition, keyed on shipping_audit_event_id
+// (mirrors approval_audit_event_id / transition_audit_event_id
+// patterns from the prior clinical_decision executors).
+// =====================================================================
+
+async function executeOrderShippedRule(
+  supabase: SupabaseClient,
+  rule: Rule,
+  payload: PatientOrderShippedPayload,
+): Promise<RuleDispatchResult> {
+  if (rule.action.kind !== 'notify') {
+    throw new Error(
+      `executeOrderShippedRule: rule ${rule.rule_id} has action.kind=${rule.action.kind}; ` +
+        `commit-5-pattern dispatcher only fires 'notify' actions. Other kinds require approved ` +
+        `orchestrator boundary per ADR Section 7.6 extension procedure.`,
+    )
+  }
+
+  const template = findTemplateByKey(rule.template_key ?? '')
+  if (!template) {
+    throw new Error(
+      `executeOrderShippedRule: rule ${rule.rule_id} references template_key=${rule.template_key} ` +
+        `which is not in TEMPLATE_REGISTRY.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // READ-only patient + brand resolution per ADR Section 7.6 allowed-MAY.
+  // ---------------------------------------------------------------
+
+  const { data: patientRow, error: patientError } = await supabase
+    .from('patients')
+    .select('id, org_id, first_name, email, phone')
+    .eq('id', payload.patient_id)
+    .single()
+  if (patientError || !patientRow) {
+    throw new Error(
+      `executeOrderShippedRule: patient lookup failed for ${payload.patient_id}: ${patientError?.message ?? 'not found'}`,
+    )
+  }
+  const patient = patientRow as {
+    id: string
+    org_id: string
+    first_name: string | null
+    email: string | null
+    phone: string | null
+  }
+
+  const { data: brandRow, error: brandError } = await supabase
+    .from('brands')
+    .select('id, org_id, slug, display_name, status')
+    .eq('org_id', patient.org_id)
+    .eq('status', 'active')
+    .limit(1)
+    .maybeSingle()
+  if (brandError) {
+    throw new Error(
+      `executeOrderShippedRule: brand lookup failed for org_id=${patient.org_id}: ${brandError.message}`,
+    )
+  }
+  const brand = brandRow as { id: string; slug: string; display_name: string } | null
+
+  if (!brand) {
+    throw new Error(
+      `executeOrderShippedRule: no active brand for org_id=${patient.org_id}. ` +
+        `Multi-tenant brand sourcing is required per ADR Section 7.5.`,
+    )
+  }
+
+  // ---------------------------------------------------------------
+  // Render the typed Template into channel-specific output.
+  // ---------------------------------------------------------------
+
+  const dashboardUrl = `${getAppBaseUrl().replace(/\/$/, '')}/dashboard/${patient.id}`
+  const renderInputs: OrderShippedRenderInputs = {
+    brand_short_label: brand.slug.toUpperCase(),
+    dashboard_url: dashboardUrl,
+    patient_first_name: patient.first_name,
+  }
+  const rendered = {
+    email: renderOrderShippedEmail(renderInputs),
+    sms: renderOrderShippedSms(renderInputs),
+  }
+
+  // Resolve pathway sensitivity once per firing. order_shipped is
+  // unscoped today (the producer-site filter at lib/internal/
+  // patient-case/impl.ts gates to glp1_primary; the Rule layer does
+  // not double-filter), so both fields resolve to undefined.
+  // pathway_sensitivity null is correct for tier_2 — the disclosure-
+  // policy clamp does not read it for tier_2.
+  const resolvedPathway = resolvePathwayForRule(rule)
+
+  // ---------------------------------------------------------------
+  // Approved action #1 — enqueue outbound_jobs rows.
+  // Per-transition idempotency keyed on shipping_audit_event_id
+  // (a treatment_item bouncing approved -> rx_sent -> shipped ->
+  // rx_sent -> shipped fires one notification per genuine re-shipment).
+  // ---------------------------------------------------------------
+
+  const enqueuedIds: string[] = []
+
+  if (patient.email && rule.action.channels.includes('email')) {
+    const emailResult = await enqueueOutboundJob({
+      kind: 'send_email',
+      channel: 'email',
+      patient_id: patient.id,
+      idempotency_key: `rule.order_shipped:${payload.shipping_audit_event_id}:email`,
+      external_system_name: payload.order_kind,
+      external_system_id: payload.order_id,
+      // external_inbound_event_id intentionally omitted (one inbound
+      // shipping transition produces 2 outbound rows; per-row dedupe
+      // is via idempotency_key, same pattern as prior c1-c3 migrations).
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to: patient.email,
+        rendered_email: rendered.email,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        order_kind: payload.order_kind,
+        order_id: payload.order_id,
+      },
+    })
+    enqueuedIds.push(emailResult.outbound_job_id)
+  }
+
+  if (patient.phone && rule.action.channels.includes('sms')) {
+    const smsResult = await enqueueOutboundJob({
+      kind: 'send_sms',
+      channel: 'sms',
+      patient_id: patient.id,
+      idempotency_key: `rule.order_shipped:${payload.shipping_audit_event_id}:sms`,
+      external_system_name: payload.order_kind,
+      external_system_id: payload.order_id,
+      rule_id: rule.rule_id,
+      rule_version: rule.rule_version,
+      template_key: template.template_key,
+      template_version: template.template_version,
+      pathway_code: resolvedPathway.pathway_code,
+      pathway_sensitivity: resolvedPathway.pathway_sensitivity,
+      message_intent: rule.action.message_intent,
+      declared_privacy_exposure_level: template.privacy_exposure_level,
+      intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+      decision_outcome_reason: 'rule_matched',
+      priority_hint: 'standard',
+      source_kind: 'rule_engine',
+      source_id: rule.rule_id,
+      queued_by_kind: 'rule_engine',
+      payload: {
+        template_key: template.template_key,
+        template_version: template.template_version,
+        to_phone: patient.phone,
+        rendered_sms: rendered.sms,
+      },
+      metadata: {
+        gate_call_site: 'rule_engine',
+        order_kind: payload.order_kind,
+        order_id: payload.order_id,
+      },
+    })
+    enqueuedIds.push(smsResult.outbound_job_id)
+  }
+
+  // ---------------------------------------------------------------
+  // Approved action #2 — emit rule.fired.* audit event.
+  // ---------------------------------------------------------------
+
+  const auditResult = await insertAuditEvent(
+    {
+      action: rule.audit_event_type,
+      resourceType: 'rule',
+      resourceId: rule.rule_id,
+      patientId: patient.id,
+      actorKind: 'system',
+      orgId: patient.org_id,
+      metadata: {
+        rule_version: rule.rule_version,
+        template_key: template.template_key,
+        template_version: template.template_version,
+        intended_privacy_exposure_level: rule.action.intended_privacy_exposure_level,
+        message_intent: rule.action.message_intent,
+        decision_outcome_reason: 'rule_matched',
+        trigger_event_type: 'patient.order_shipped' satisfies RuleTriggerEventType,
+        order_kind: payload.order_kind,
+        order_id: payload.order_id,
+        shipping_audit_event_id: payload.shipping_audit_event_id,
+        enqueued_outbound_job_ids: enqueuedIds,
+      },
+    },
+    supabase,
+  )
+
+  if (!auditResult.ok) {
+    throw new Error(
+      `executeOrderShippedRule: insertAuditEvent failed for ${rule.audit_event_type}: ${auditResult.error}`,
     )
   }
 

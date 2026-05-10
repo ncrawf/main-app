@@ -23,12 +23,19 @@ import { paymentReceivedV1 } from './billing/payment_received_v1'
 import { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 import { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 import { awaitingClinicalReviewV1 } from './clinical_decision/awaiting_clinical_review_v1'
+import { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 /**
  * Rules registry. Phase 4H-pre commit 5 lands the first Rule
  * (`rule.billing.payment_received_v1`). Subsequent migrations under
  * the per-PR DELETE-AFTER-PARITY directive add more rules; the registry
  * grows one entry per migrated NotificationTemplateKey case.
+ *
+ * Phase 4H-templates-discipline c4 added the fifth Rule
+ * (`rule.fulfillment_lifecycle.order_shipped_v1`) — FIRST sibling-
+ * domain expansion since the registry was scaffolded. Lives under
+ * the new `fulfillment_lifecycle/` folder per system-map
+ * `## Platform operational model` doctrine.
  *
  * The runtime shape (Map vs file-glob vs subscription registry) is
  * decided in Phase 4H-rules-runtime; until then this array is the
@@ -39,6 +46,7 @@ export const RULE_REGISTRY: ReadonlyArray<Rule> = [
   intakeSubmittedV1,
   caseApprovedV1,
   awaitingClinicalReviewV1,
+  orderShippedV1,
 ]
 
 /**
@@ -59,6 +67,7 @@ export { paymentReceivedV1 } from './billing/payment_received_v1'
 export { intakeSubmittedV1 } from './account_lifecycle/intake_submitted_v1'
 export { caseApprovedV1 } from './clinical_decision/case_approved_v1'
 export { awaitingClinicalReviewV1 } from './clinical_decision/awaiting_clinical_review_v1'
+export { orderShippedV1 } from './fulfillment_lifecycle/order_shipped_v1'
 
 export type { Rule } from './types'
 export type {

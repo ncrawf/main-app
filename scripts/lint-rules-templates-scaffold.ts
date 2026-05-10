@@ -314,6 +314,96 @@ if (elevatedScopeViolations === 0) {
 }
 
 // =====================================================================
+// Check 5: Sibling-discriminant / sibling-folder alignment
+// (Phase 4H-templates-discipline c4 — system-map `## Platform
+// operational model` doctrine + audit §6 #1 + #2 + radar zone 27)
+//
+// Per the doctrine: each operational sibling owns its own payload
+// discriminant (case_kind for clinical-decision, order_kind for
+// fulfillment, etc.) and discriminants do NOT leak across sibling
+// seams. Reusing case_kind for orders or order_kind for clinical-
+// decision events is the canonization-of-wrong-ontology error this
+// lint exists to prevent.
+//
+// This check uses static text scan against the rule files (the
+// payload type lives in the dispatcher's union, not on the Rule
+// object itself, so we cannot inspect the Rule shape directly). The
+// scan is conservative: it flags rule files whose folder location
+// disagrees with the discriminant they reference.
+// =====================================================================
+
+console.log(
+  '\n[check 5] Sibling-discriminant / sibling-folder alignment (## Platform operational model doctrine)',
+)
+
+interface DiscriminantFolderRule {
+  discriminant: string
+  requiredFolder: string
+  description: string
+}
+
+const DISCRIMINANT_FOLDER_RULES: DiscriminantFolderRule[] = [
+  {
+    discriminant: 'case_kind',
+    requiredFolder: 'repo/rules/clinical_decision/',
+    description: 'clinical_decision sibling owns case_kind',
+  },
+  {
+    discriminant: 'order_kind',
+    requiredFolder: 'repo/rules/fulfillment_lifecycle/',
+    description: 'fulfillment_lifecycle sibling owns order_kind',
+  },
+]
+
+let discriminantFolderViolations = 0
+
+try {
+  // Find every .ts file under repo/rules/ that mentions a tracked
+  // discriminant. The scan is broad on purpose; the lint flags only
+  // when the file's path disagrees with the discriminant's required
+  // folder.
+  for (const rule of DISCRIMINANT_FOLDER_RULES) {
+    const grepCmd =
+      `git grep -l "${rule.discriminant}" -- 'repo/rules/**/*.ts' || true`
+    const grepOutput = execSync(grepCmd, {
+      cwd: ROOT,
+      encoding: 'utf8',
+    })
+    const offendingFiles = grepOutput
+      .split('\n')
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0)
+      .filter((s) => !s.startsWith(rule.requiredFolder))
+      // The types file references the discriminant in a comment as
+      // documentation, not as a Rule's payload reference; exempt.
+      .filter((s) => s !== 'repo/rules/types.ts')
+
+    for (const file of offendingFiles) {
+      fail(
+        'sibling-discriminant',
+        `${file} references payload discriminant '${rule.discriminant}' but lives outside ${rule.requiredFolder}. ` +
+          `Per system-map \`## Platform operational model\` doctrine: ${rule.description}. ` +
+          `Reusing a discriminant across sibling seams is the canonization-of-wrong-ontology error this check prevents. ` +
+          `Either move the rule to ${rule.requiredFolder} or use the correct sibling's discriminant for this rule's domain.`,
+      )
+      discriminantFolderViolations++
+    }
+  }
+
+  if (discriminantFolderViolations === 0) {
+    ok(
+      'sibling-discriminant',
+      `every Rule's payload discriminant aligns with its sibling-domain folder (${DISCRIMINANT_FOLDER_RULES.length} discriminant/folder pairs verified)`,
+    )
+  }
+} catch (err) {
+  fail(
+    'sibling-discriminant',
+    `failed to scan repo/rules for discriminant/folder alignment: ${err instanceof Error ? err.message : err}`,
+  )
+}
+
+// =====================================================================
 // Check 3: Scaffold integrity
 // =====================================================================
 

@@ -85,6 +85,46 @@ export const RULE_TRIGGER_EVENT_TYPES = [
    * First trigger event whose consumer fires on a 2-status OR gate.
    */
   'patient.case_under_review',
+
+  /**
+   * Emitted from `lib/internal/patient-case/impl.ts` after a staff user
+   * transitions a glp1_primary treatment_item to `'shipped'` status.
+   * Consumed by `rule.fulfillment_lifecycle.order_shipped_v1`.
+   *
+   * FIRST trigger event in the `fulfillment_lifecycle` sibling-domain
+   * namespace. Per system-map `## Platform operational model` doctrine
+   * (binding 2026-05-10): orders / fulfillment / inventory is a first-
+   * class sibling under Patient. The payload carries an `order_kind`
+   * discriminant ('treatment_order' | 'supplement_order' |
+   * 'lab_kit_order') — NOT `case_kind`. Reusing `case_kind` across
+   * sibling seams is the canonization-of-wrong-ontology error the
+   * doctrine binds against; `order_kind` is the sibling discriminant
+   * for fulfillment events.
+   *
+   * PRODUCER-SITE TRANSITIONAL LOCALITY (per audit §6 #3 + radar zone
+   * 27): the producer site is `lib/internal/patient-case/impl.ts`
+   * `updateTreatmentItemStatus` — the same case-shaped surface that
+   * fires the existing clinical_decision triggers. This is
+   * transitional. The architecturally-correct producer is
+   * `lib/orders/updateFulfillment.ts`. Producer migration is deferred
+   * pending broader treatment_items-vs-treatment_orders consolidation
+   * appetite. The TYPE SYSTEM nonetheless encodes the correct
+   * architecture (folder = fulfillment_lifecycle, discriminant =
+   * order_kind) so future authors of `delivered`, `pharmacy_filled`,
+   * `retail_order_placed`, etc. inherit the correct sibling-domain
+   * pattern, NOT the legacy locality.
+   *
+   * Initial wiring covers `order_kind: 'treatment_order'` only. The
+   * other two values (`supplement_order`, `lab_kit_order`) are reserved
+   * in the discriminant but not active; their producer sites + parity
+   * tests land in future migrations.
+   *
+   * Carries the underlying status-transition audit_event_id as the
+   * per-transition idempotency anchor (so a treatment_item bouncing
+   * approved -> rx_sent -> shipped -> rx_sent -> shipped fires one
+   * notification per genuine re-shipment).
+   */
+  'patient.order_shipped',
 ] as const
 
 export type RuleTriggerEventType = (typeof RULE_TRIGGER_EVENT_TYPES)[number]

@@ -65,9 +65,9 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 4,
-  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1',
-  `got ${RULE_REGISTRY.length} rules — expected >= 4 after Phase 4H-templates-discipline commit 3`
+  RULE_REGISTRY.length >= 5,
+  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1',
+  `got ${RULE_REGISTRY.length} rules — expected >= 5 after Phase 4H-templates-discipline commit 4`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
@@ -89,6 +89,60 @@ assert(
   'RULE_REGISTRY contains rule.clinical_decision.awaiting_clinical_review_v1',
   'fourth parity proof Rule missing (Phase 4H-templates-discipline commit 3; first 2-status OR producer gate)'
 )
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.fulfillment_lifecycle.order_shipped_v1'),
+  'RULE_REGISTRY contains rule.fulfillment_lifecycle.order_shipped_v1',
+  'fifth parity proof Rule missing (Phase 4H-templates-discipline commit 4; first sibling-domain expansion into fulfillment_lifecycle per ## Platform operational model doctrine)'
+)
+// Phase 4H-templates-discipline commit 4 — first Rule in the
+// fulfillment_lifecycle domain. system-authority + tier_2; uses the
+// `order_kind` discriminant on its payload (NOT case_kind) per the
+// system-map `## Platform operational model` doctrine.
+{
+  const orderShipped = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.fulfillment_lifecycle.order_shipped_v1',
+  )
+  assert(
+    orderShipped?.domain === 'fulfillment_lifecycle',
+    'order_shipped_v1 declares domain=fulfillment_lifecycle (FIRST sibling-domain expansion)',
+    `got ${orderShipped?.domain}`,
+  )
+  assert(
+    orderShipped?.authority_floor === 'system',
+    'order_shipped_v1 declares authority_floor=system',
+    `got ${orderShipped?.authority_floor}`,
+  )
+  assert(
+    orderShipped?.recall_severity === 'operational',
+    'order_shipped_v1 declares recall_severity=operational',
+    `got ${orderShipped?.recall_severity}`,
+  )
+  assert(
+    orderShipped?.action.kind === 'notify' &&
+      'message_intent' in orderShipped.action &&
+      orderShipped.action.message_intent === 'operational',
+    'order_shipped_v1 action.message_intent=operational',
+    `got ${orderShipped?.action.kind === 'notify' ? orderShipped.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    orderShipped?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in orderShipped.action &&
+      orderShipped.action.intended_privacy_exposure_level === 2,
+    'order_shipped_v1 action.intended_privacy_exposure_level=2 (low_context_phi)',
+    `got ${orderShipped?.action.kind === 'notify' ? orderShipped.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    orderShipped?.audit_event_type === 'rule.fired.fulfillment_lifecycle.order_shipped_v1',
+    'order_shipped_v1 audit_event_type uses fulfillment_lifecycle namespace',
+    `got ${orderShipped?.audit_event_type}`,
+  )
+  assert(
+    orderShipped?.trigger.kind === 'event' &&
+      orderShipped.trigger.event_type === 'patient.order_shipped',
+    "order_shipped_v1 trigger.event_type='patient.order_shipped'",
+    `got ${orderShipped?.trigger.kind === 'event' ? orderShipped.trigger.event_type : '(non-event trigger)'}`,
+  )
+}
 // Phase 4H-templates-discipline commit 3 — second clinical_decision
 // domain Rule. system-authority status ack (NOT provider-authority);
 // recall_severity=operational; tier_1.
@@ -178,9 +232,9 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 4,
-  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 anchors',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 4 after Phase 4H-templates-discipline commit 3`
+  TEMPLATE_REGISTRY.length >= 5,
+  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 + order_shipped_v1 anchors',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 5 after Phase 4H-templates-discipline commit 4`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
@@ -204,6 +258,42 @@ assert(
   'TEMPLATE_REGISTRY contains tmpl.clinical_decision.awaiting_clinical_review_v1',
   'fourth parity proof Template missing (Phase 4H-templates-discipline commit 3)'
 )
+assert(
+  TEMPLATE_REGISTRY.some(
+    (t) => t.template_key === 'tmpl.fulfillment_lifecycle.order_shipped_v1',
+  ),
+  'TEMPLATE_REGISTRY contains tmpl.fulfillment_lifecycle.order_shipped_v1',
+  'fifth parity proof Template missing (Phase 4H-templates-discipline commit 4; first fulfillment_lifecycle domain Template)'
+)
+// Phase 4H-templates-discipline c4 — verify order_shipped Template
+// ships with the expected tier_2 + operational shape;
+// transactional_critical=false carries the same axis-separation
+// reasoning that locked it false on the prior Templates.
+{
+  const orderShippedTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.fulfillment_lifecycle.order_shipped_v1',
+  )
+  assert(
+    orderShippedTemplate?.domain === 'fulfillment_lifecycle',
+    'order_shipped Template domain=fulfillment_lifecycle (FIRST in the new sibling-domain folder per ## Platform operational model doctrine)',
+    `got ${orderShippedTemplate?.domain}`,
+  )
+  assert(
+    orderShippedTemplate?.transactional_critical === false,
+    'order_shipped Template transactional_critical=false (cadence-bypass NOT defensible for shipping notification)',
+    `got transactional_critical=${orderShippedTemplate?.transactional_critical}`,
+  )
+  assert(
+    orderShippedTemplate?.privacy_exposure_level === 2,
+    'order_shipped Template privacy_exposure_level=2 (low_context_phi)',
+    `got ${orderShippedTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    orderShippedTemplate?.message_intent === 'operational',
+    'order_shipped Template message_intent=operational',
+    `got ${orderShippedTemplate?.message_intent}`,
+  )
+}
 // Verify awaiting_clinical_review Template ships with the expected
 // tier_1 + operational shape; transactional_critical=false carries
 // the same axis-separation reasoning that locked it false on
