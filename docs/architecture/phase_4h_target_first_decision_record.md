@@ -348,6 +348,104 @@ The system map at Section 1Q.0 carries an aligned invariant 13 ("Rules may not m
 
 ---
 
+## 7.7 Sibling-domain operational object layering (binding — added 2026-05-10 post-c4)
+
+This amendment captures three architectural decisions that emerged during the Phase 4H-templates-discipline c4 (`order_shipped`) migration and the focused system-map alignment audit that preceded it. All three are now binding for every Phase 4H migration that follows.
+
+### Context
+
+The first three Phase 4H-templates-discipline migrations (`intake_submitted` c1, `case_approved` c2, `awaiting_clinical_review` c3) all landed in domain folders that already existed at scaffold time (`account_lifecycle/`, `clinical_decision/`). Each had a single producer surface — `lib/internal/patient-case/impl.ts` — and the wiring was mechanical.
+
+The c4 (`shipped`) migration was the first to expose an architectural seam: the legacy notification fires from a case-shaped state machine (`treatment_items.status`) but the conceptually-correct surface is a fulfillment-shaped state machine (`treatment_orders.status`). The codebase has both, with overlapping `'shipped'` values. The c4 migration was the first to force a conscious choice: which subsystem represents "shipped" canonically, and what does that choice mean for the typed Rule registry?
+
+The 2026-05-10 system-map alignment audit (preserved at [`.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md`](../../.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md)) and the supporting ontology analysis (preserved at [`.cursor/plans/shipped_ontology_analysis_2026-05-10.md`](../../.cursor/plans/shipped_ontology_analysis_2026-05-10.md)) examined this seam. The result: a binding doctrine inserted at the top of the system map (`## Platform operational model`) that names the platform as a patient-rooted operational healthcare system with first-class sibling operational domains (clinical record, care programs, scheduling, prescriptions, fulfillment, labs, provider tasks, communications, billing, retail, marketing) over a shared substrate. Three architectural decisions flow from that doctrine and are recorded here.
+
+### Decision A — Operational object layering as binding doctrine (binding)
+
+The system map's `## Platform operational model` section binds the platform's operational object layer. Concretely:
+
+- Major operational domains are **first-class siblings under Patient and shared organizational context**. Siblings are peers; siblings are never nested under each other; siblings are never modeled as sub-shapes of any single sibling (including "case").
+- **Each operational sibling owns its own payload discriminant.** `case_kind` is the clinical-decision sibling's discriminant. `order_kind` is the fulfillment sibling's discriminant. `appointment_kind` will be the scheduling sibling's discriminant when that sibling activates. Discriminants do **not** leak across sibling seams.
+- **A case is one operational object among many**, not the parent ontology of the system. Reusing `case_kind` to cover orders, appointments, prescriptions, lab kits, retail purchases, or marketing journeys is the canonization-of-wrong-ontology error this doctrine binds against.
+- **Substrate primitives are infrastructure that every sibling depends on.** They are NOT siblings. Adding a "domain folder for audit lineage" or "domain folder for disclosure-policy" is a category error.
+
+The doctrine binds every section of the system map below it. Companion doc with the visualization, per-sibling conventions, and platform-grade-foundations bar table: [`docs/architecture/operational_objects_under_patient.md`](operational_objects_under_patient.md).
+
+**Structural enforcement:** the new `[check 5] Sibling-discriminant / sibling-folder alignment` in `scripts/lint-rules-templates-scaffold.ts` (added in c4) statically verifies that any Rule referencing `case_kind` lives in `repo/rules/clinical_decision/` and any Rule referencing `order_kind` lives in `repo/rules/fulfillment_lifecycle/`. The check fails at PR time on misalignment.
+
+**Future work:** as new operational siblings activate (scheduling, pharmacy, labs, retail, marketing), the lint adds new discriminant/folder pairs. The doctrine itself does not need amendment; only the lint table extends.
+
+### Decision B — Producer-site transitional locality as an approved pattern (binding)
+
+The c4 migration shipped a Rule whose runtime dispatch lives at a **legacy case-shaped producer surface** (`lib/internal/patient-case/impl.ts` `updateTreatmentItemStatus`) even though the architecturally-correct producer is the fulfillment subsystem (`lib/orders/updateFulfillment.ts`). This pattern is now an **approved transitional pattern**, not a one-off hack.
+
+The pattern is approved when:
+
+1. **The TYPE SYSTEM encodes the architecturally-correct sibling-domain home.** The Rule lives in the correct sibling-domain folder. The payload uses the correct discriminant. The audit_event_type uses the correct namespace. Future authors reading the registry inherit the correct pattern, not the legacy locality.
+2. **The producer-site dispatch site carries an explicit transitional comment** naming (a) the legacy locality, (b) the architecturally-correct future producer, (c) the doctrine, (d) the relevant audit section, and (e) the radar zone tracking the canonization risk.
+3. **The producer-site comment is duplicated in two adjacent locations:** the rule file's header comment AND the payload type's interface JSDoc. Three places total. Loss of any one is a regression.
+4. **A radar zone tracks the canonization risk.** The c4 commit landed v1 pressure-test radar zone 27 (Sibling-discriminant leak / case-as-parent-ontology drift) as the parent invariant this transitional pattern is allowed to sit underneath.
+5. **The deferral has a named release condition.** The c4 deferral named "broader treatment_items-vs-treatment_orders consolidation appetite" as the trigger for migrating the producer to the correct surface. Without a named condition, the transitional becomes permanent invisibly.
+
+The pattern is **NOT approved** when any of the five disciplines is missing. Specifically: silently shipping a Rule in the wrong sibling-domain folder is forbidden (the lint catches this). Silently using `case_kind` for non-clinical-decision events is forbidden. Skipping the producer-site comment is forbidden. Skipping the radar entry is forbidden.
+
+**Why approve transitional locality at all?** Because the alternative — refactoring producer-side wiring concurrent with each Rule cutover — would force premature treatment_items / treatment_orders consolidation, which is its own multi-week migration. The Option D synthesis (analyzed in detail in [`shipped_ontology_analysis_2026-05-10.md`](../../.cursor/plans/shipped_ontology_analysis_2026-05-10.md) §7) lets the Phase 4H cutover proceed at notification-cutover cadence while the producer-side cleanup happens at producer-cleanup cadence. The TYPE SYSTEM tells the truth about the architecture; the runtime locality is a temporary detail.
+
+**Escape conditions (when to actually migrate the producer site):**
+
+- The treatment_items-vs-treatment_orders consolidation lands. Producer migration is part of that work.
+- A new fulfillment-shaped event needs a producer site that doesn't fit the case-shaped surface (e.g., a vendor-webhook-driven `delivered` event that has no `treatment_items` row to anchor on).
+- The radar zone 27 review (triggered before the next migration that touches the orders subsystem) determines the deferral has lasted too long given accumulated migrations.
+- An audit identifies a defensibility risk from the dual surface.
+
+Until any of those triggers, the transitional locality is approved.
+
+### Decision C — Convergence-via-wiring trial COMPLETE (binding milestone)
+
+The Phase 4H-pre target-first decision record (this file, §1–§5) anticipated that the typed Rule + Template + render-module + producer-wiring + lint-anchors + parity-test + DELETE-AFTER-PARITY pattern would need 2–3 reinforcements before stabilizing. Each reinforcement either confirmed or contradicted the framework; contradiction would have triggered re-architecture.
+
+After c4, **three reinforcements have shipped across three different sibling domains:**
+
+- `case_approved` (c2) — `clinical_decision`, provider-authority, tier_2 clinical
+- `awaiting_clinical_review` (c3) — `clinical_decision`, system-authority, tier_1 operational, 2-status OR producer gate (first non-trivial gate variation)
+- `order_shipped` (c4) — `fulfillment_lifecycle`, system-authority, tier_2 operational (first sibling-domain expansion)
+
+Each reinforcement confirmed the pattern. The c2 + c3 reinforcements proved the framework holds across authority floors and across producer-gate shapes. The c4 reinforcement proved the framework holds across sibling-domain expansion (the framework didn't need re-architecture to admit a new domain folder; it just needed the doctrine to make the layering explicit).
+
+**The trial is concluded.** Future Phase 4H-templates-discipline migrations (`delivered`, `pharmacy_filled`, `retail_order_placed`, scheduling-event migrations, lab-event migrations, etc.) follow the established pattern WITHOUT further architectural reflection at the substrate layer. The ADR + system-map doctrine + companion doc + lint suite collectively encode what new authors need.
+
+**Concretely, this means:**
+
+- New migrations do not need a separate preflight that re-derives the architectural choices. A short preflight naming the migration's specific (a) sibling domain, (b) discriminant, (c) producer site, (d) authority-floor + recall-severity + tier survey, (e) wording diff log is sufficient.
+- New migrations do not need a separate ADR amendment unless they introduce a NEW architectural pattern beyond what's documented here.
+- New migrations DO still need their own per-migration handoff for state continuity (per the convention note in §10 of this ADR).
+
+If a future migration encounters a NEW architectural seam not anticipated by this ADR + the doctrine, that migration's handoff names it explicitly, and a §7.8+ amendment to this ADR records the new pattern.
+
+### Cross-references
+
+| Concern | Canonical home |
+|---|---|
+| Binding doctrine (the platform IS) | System map `## Platform operational model` section (lines 7-25) |
+| Doctrine elaboration / visualization / per-sibling conventions | [`docs/architecture/operational_objects_under_patient.md`](operational_objects_under_patient.md) |
+| Why the doctrine landed when it did | [`.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md`](../../.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md) |
+| Ontology seam analysis (9 questions; Option D synthesis) | [`.cursor/plans/shipped_ontology_analysis_2026-05-10.md`](../../.cursor/plans/shipped_ontology_analysis_2026-05-10.md) |
+| Watch-zone for canonization-of-wrong-ontology drift | [`docs/architecture/v1_pressure_test_radar.md`](v1_pressure_test_radar.md) zone 27 |
+| Structural enforcement of per-sibling discriminant rule | `scripts/lint-rules-templates-scaffold.ts` check 5 |
+| C4 implementation (parity proof of decisions A + B + C) | [`.cursor/plans/HANDOFF_2026-05-10_phase_4h_templates_discipline_c4_checkpoint.md`](../../.cursor/plans/HANDOFF_2026-05-10_phase_4h_templates_discipline_c4_checkpoint.md) |
+
+### Anti-drift purpose
+
+Without §7.7, three risks accumulate:
+
+1. **Decision A drift:** future authors read the system-map doctrine but lack the rationale chain (audit + ontology analysis + companion doc). They might re-litigate the case-as-parent-ontology framing without seeing why it was rejected. §7.7 consolidates the rationale into the ADR home where future-quarter readers expect to find it.
+2. **Decision B drift:** transitional producer-site locality is a SUBTLE pattern that's easy to misuse. Without §7.7 codifying the five disciplines, a future author could ship a Rule in the wrong sibling-domain folder citing "the c4 commit did it too" without preserving the type-system-tells-truth invariant. §7.7 names the disciplines as binding so the pattern can't degrade silently.
+3. **Decision C drift:** the trial-completion milestone is invisible to people who weren't in the c2-c3-c4 sessions. Without §7.7 marking it explicitly, future authors might believe each new migration still needs full architectural reflection (slow) OR might believe the framework is open-ended (under-disciplined). §7.7 names the trial as concluded and names the conditions under which a future migration reopens the question.
+
+§7.7 sits in the ADR (rationale home) alongside §7.5 (cutover discipline) and §7.6 (rule execution scope) so the three Phase 4H binding patterns share one canonical reference.
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).
