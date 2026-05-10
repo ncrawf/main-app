@@ -446,6 +446,90 @@ Without §7.7, three risks accumulate:
 
 ---
 
+## 7.8 Anti-overload binding pattern for ontologically overloaded English words (binding — added 2026-05-10 post-c9)
+
+This amendment captures the architectural pattern that emerged during Phase 4H-templates-discipline c9 (`case_denied`), the FINAL legacy notification migration. Where §7.7 binds the *folder + discriminant* layer of sibling-domain separation, §7.8 binds the *English-word* layer.
+
+### Context
+
+The c9 migration shipped `rule.clinical_decision.case_denied_v1`. During pressure-test review, ChatGPT flagged that the English word "denied" is structurally overloaded across healthcare operations:
+
+- **Provider clinical-decision denial** (the c9 case) — a licensed clinician denied a treatment request.
+- **Payer adjudication / claim denial** — an insurance company denied a claim.
+- **Prior authorization denial** — a payer refused to pre-authorize a procedure.
+- **Refill denial by provider** — provider declined a refill request (slot reserved in c8 as `pharmacy_event_kind: 'refill_denied_by_provider'`).
+- **Refill denial by pharmacy / insurance** — different actor, different operational seam.
+- **Identity-verification denial** — IDV provider rejected a verification.
+- **Capability/permission denial** — audit-only metadata for `requireCapability` failures, NOT a notification.
+
+Each of these will eventually live in a different sibling-domain folder (`revenue_cycle/`, `authorization_lifecycle/`, `pharmacy_lifecycle/`, `account_lifecycle/`, etc.) with its own discriminant and its own audit namespace. The same word, six (or more) operational seams.
+
+The c9 migration was at risk of accidentally claiming the word "denied" for `clinical_decision/` permanently, which would force every future denial-shaped event into a `case_kind` discriminant against the §7.7 doctrine.
+
+`case_denied` is not a special case. The same overload pressure applies to:
+
+- **`approved`** — clinical-decision approval, payer claim approval, prior-auth approval, refill approval by provider, refill approval by pharmacy, identity-verification approval.
+- **`shipped`** — already navigated in c4 (treatment_order vs supplement_order vs lab_kit_order; resolved via the `order_kind` discriminant within `fulfillment_lifecycle/`). External overloads still possible (e.g., "shipped" used by a future logistics integration).
+- **`completed`** — case completed, care program completed, treatment item completed, appointment completed, lab order completed, support ticket completed, claim completed, subscription billing cycle completed.
+- **`active`** — treatment active (clinical), care program active, subscription active (billing), patient account active, provider license active, brand active.
+- **`cancelled`** — case cancelled, care program cancelled, subscription cancelled, appointment cancelled, claim cancelled, refill request cancelled.
+- **`paused`** — treatment paused, care program paused, subscription paused, lifecycle journey paused.
+- **`pending`** — countless siblings.
+
+Without a canonical resolution pattern, each of these will be re-litigated commit-by-commit, and at least one will leak across a sibling seam silently.
+
+### Decision — Anti-overload binding pattern (binding for every Rule whose name uses an overloaded English word)
+
+When a Rule's English-language identifier (rule_id slug, audit-action slug, trigger-event slug, template_key slug, or render-module name) uses a word that plausibly overloads across siblings, the migration's preflight + the migration's artifacts MUST pin the binding in **four locations**:
+
+1. **Rule file header** — a `DENIED SEMANTIC SCOPE` (or equivalent, per the relevant word) block enumerating: (a) what THIS Rule IS bound to, and (b) what it is NOT bound to with the future sibling-domain home + future discriminant for each excluded variant.
+2. **Template file header** — a parallel block referencing the Rule's binding. The Template renders the bound semantic; future overloaded variants get their own Templates.
+3. **Producer-site dispatch block comment** — at the call site in the producer subsystem (e.g., `lib/internal/patient-case/impl.ts`), a brief anti-overload comment naming the bound semantic + a pointer to the Rule's header block. This is the pull-request-review-time anchor.
+4. **Preflight artifact** — a "[Word] semantic scope" subsection (or §1A-style anchor) enumerating the same future-home table. The preflight is the durable git-history record.
+
+Each location is independently durable: a future contributor reading any one of them sees the binding. The four places are a defense-in-depth layer that survives partial copy-paste, partial code review, and partial documentation drift.
+
+**Structural enforcement:**
+
+- The §7.7 scaffold lint check 5 (sibling-discriminant alignment) statically prevents the discriminant variant of the leak: a Rule referencing `case_kind` cannot live outside `repo/rules/clinical_decision/`. As future siblings activate (`revenue_cycle/`, `authorization_lifecycle/`, etc.), the lint table extends to bind their discriminants.
+- The English-word layer of the leak is NOT structurally lintable today — there is no automated way to verify "the word 'denied' in this Rule means provider clinical-decision denial and not payer denial." The four-place pinning is the human-discipline equivalent.
+- A future iteration could add a CI check that scans rule rationale_notes for the phrase `SEMANTIC SCOPE` (or equivalent marker) on rules whose names include overloaded words. NOT in scope today.
+
+**Trigger conditions** (when a migration MUST apply this pattern):
+
+- The Rule's name is an English word with at least one plausible future sibling-domain variant.
+- The migration is the FIRST occupant of that English word in a sibling-domain folder. Subsequent occupants in OTHER sibling folders inherit the pattern reflexively (each sibling's binding lives in its own folder; collision is visible at scaffold time).
+- Edge case: if a migration is shipping a Rule whose name happens NOT to overload (e.g., `intake_submitted` is unlikely to mean anything but account intake), the pattern is OPTIONAL. Apply when in doubt; the cost is a few comment blocks.
+
+**Anti-pattern:**
+
+- Pinning the binding in only one place (e.g., the preflight only). Single-place bindings are invisible to future authors who land in the codebase via a search for the English word.
+- Pinning the binding without enumerating the future sibling-domain homes. "This is provider denial only" is necessary but not sufficient; future authors need to know where the OTHER variants will live so they don't extend this Rule.
+- Pinning the binding without referencing radar zone 27 (sibling-discriminant leak). The ADR pattern + the radar zone are complementary; the ADR codifies the resolution, the radar tracks the watch.
+
+### Cross-references
+
+| Concern | Canonical home |
+|---|---|
+| Sibling-domain layering doctrine (folder + discriminant) | ADR §7.7 + system map `## Platform operational model` section |
+| English-word overload resolution (this section) | ADR §7.8 |
+| Watch zone for canonization-of-wrong-ontology drift | [`docs/architecture/v1_pressure_test_radar.md`](v1_pressure_test_radar.md) zone 27 |
+| Structural enforcement of per-sibling discriminant rule | `scripts/lint-rules-templates-scaffold.ts` check 5 |
+| First application of the pattern (parity proof) | [`.cursor/plans/PREFLIGHT_2026-05-10_phase_4h_templates_discipline_c9_case_denied.md`](../../.cursor/plans/PREFLIGHT_2026-05-10_phase_4h_templates_discipline_c9_case_denied.md) §1A + [`HANDOFF_2026-05-10_phase_4h_templates_discipline_c9_checkpoint.md`](../../.cursor/plans/HANDOFF_2026-05-10_phase_4h_templates_discipline_c9_checkpoint.md) |
+| Earlier instance navigated implicitly (treatment_order vs supplement_order vs lab_kit_order) | [`HANDOFF_2026-05-10_phase_4h_templates_discipline_c4_checkpoint.md`](../../.cursor/plans/HANDOFF_2026-05-10_phase_4h_templates_discipline_c4_checkpoint.md) |
+
+### Anti-drift purpose
+
+Without §7.8, three risks accumulate as the platform expands:
+
+1. **Word-leak drift:** future authors search for "denied" and find `case_denied_v1`, then (a) extend it to cover payer denials by adding a `denial_kind` discriminant, OR (b) copy-paste it into a `revenue_cycle/` rule that retains `case_kind`. Either erodes §7.7. §7.8 names the four-place binding so the resolution is visible from any of the four entry points.
+2. **Reusable-pattern drift:** without codification, every future overloaded-word case (`approved`, `cancelled`, `completed`, `active`, `paused`) re-derives the resolution from scratch. The cost is per-commit overhead AND the risk that one of the migrations gets it wrong silently. §7.8 names the resolution as a reusable pattern so subsequent migrations apply it reflexively.
+3. **Audit-defensibility drift:** post-incident review of a misrouted denial event needs to be able to ask "which Rule's binding said this was the wrong place?" The four-place pinning gives reviewers four independent attestations. Single-place bindings give reviewers nothing.
+
+§7.8 sits in the ADR alongside §7.5 (cutover discipline), §7.6 (rule execution scope), and §7.7 (sibling-domain layering). The four sections collectively encode the binding patterns of Phase 4H. After the 4H-templates-discipline series concluded with c9, no further §7.x amendments are anticipated until 4H-send-policy or a new sibling activation surfaces a NEW pattern.
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).

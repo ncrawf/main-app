@@ -52,6 +52,8 @@ Inline prose bypassing the typed Template registry at `repo/templates/`. The fai
 
 Temporary migration code becomes permanent. The DELETE-AFTER-PARITY directive at system map 1Q.12 is the answer; the lint snapshot reports each migration. Watch for: a v0 case described as "almost migrated, just needs one more thing" — that's the language that turns 90 days into 18 months. Force the deletion in the same PR that ships the typed replacement.
 
+> **Status update (2026-05-10):** **Closed structurally** by Phase 4H-templates-discipline c9 (commit `aa8fa4f`). All eleven baseline `NotificationTemplateKey` cases migrated to typed Rules + Templates over the c1–c9 arc. `lib/workflows/notificationRules.ts` deleted; `lib/notifications/patientMessages.ts` legacy switch dispatchers removed; `lib/workflows/onPatientWorkflowEvent.ts` shrunk to chart.ai_review-only. The survival risk this zone tracked is structurally eliminated — the legacy module no longer exists to drift from. The zone stays in the radar as a historical entry; future "legacy survival" risks (e.g., a NEW v0 surface accumulating temporary code) would warrant a new zone, not a re-opening of zone 7.
+
 ### 8. Search becoming accidental source of truth
 
 Humans treat search results as canonical state. "I searched for X and didn't find it, so it doesn't exist." Search is an index, not a store; domain tables remain the source of truth. The Section 1R search adapter at `lib/search-entities/` is read-only by design. Watch for: a feature making operational decisions from a search query result, or a search result UI that omits the "as of" timestamp. Surfaces first in: provider dashboard + read-model surfaces.

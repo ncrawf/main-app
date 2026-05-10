@@ -101,6 +101,24 @@ The decision was target-first: the new architecture comes from Section 1Q, not f
 
 The full reasoning lives in [`phase_4h_target_first_decision_record.md`](phase_4h_target_first_decision_record.md), which is the project's first ADR.
 
+## Act IX: The templates-discipline arc (May 8 – May 10)
+
+The 4H-templates-discipline series shipped over nine commits across three days. Each commit migrated one (or two) of the eleven legacy `NotificationTemplateKey` cases to a typed Rule + typed Template + render module + parity test, with the legacy case deleting in the same PR. The arc concluded on May 10 with c9 (`case_denied`), at which point the legacy notification module deleted entirely and the DELETE-AFTER-PARITY discipline reached structural closure.
+
+What the arc actually surfaced — beyond the per-commit migration mechanics — was the platform's operational object layer. Three architectural moments:
+
+The c4 migration (`order_shipped`) forced the first sibling-domain expansion. The legacy notification fired from a case-shaped state machine on `treatment_items.status`, but "shipped" is conceptually a fulfillment event, not a clinical-decision event. A focused system-map alignment audit (preserved at [`.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md`](../../.cursor/plans/audits/2026-05-10_system_map_alignment_pressure_test.md)) examined the seam and produced the binding doctrine that now sits at the top of the system map: `## Platform operational model`. The platform is named explicitly as a patient-rooted operational healthcare system with first-class sibling operational domains over a shared substrate. That doctrine — clinical record, care programs, scheduling, prescriptions / pharmacy lifecycle, orders / fulfillment / inventory, labs, provider tasks, communications, billing, retail, marketing as peer siblings under Patient — was always the implicit truth of what was being built. The audit forced the implicit to become the binding.
+
+The c8 migration (`pharmacy_lifecycle/` activation with `rx_sent` + `refill_initiated` together) was the first two-member sibling-domain activation in a single commit. The c4 single-member precedent had been deliberate; c8 demonstrated that the substrate accepted polymorphic sibling activation without architectural changes. That was itself the validation signal: each new sibling fits without rewriting the substrate.
+
+The c9 migration (`case_denied`) was the doctrinally-charged finale. ChatGPT's pre-execution pressure-test surfaced the anti-overload problem: the English word "denied" overloads across at least six future operational seams (provider clinical denial, payer claim adjudication, prior authorization denial, refill denial, identity-verification denial, capability/permission audit denial), each of which will eventually live in its own sibling-domain folder with its own discriminant. Without an explicit binding, future contributors would search for "denied" and find `case_denied_v1`, then extend it across the seam. The c9 commit pinned the binding in four places — rule header, template header, producer comment, preflight — and ADR §7.8 now codifies the resolution pattern as reusable for every future overloaded-word case (`approved`, `cancelled`, `completed`, `active`, `paused`, etc.).
+
+By the time c9 shipped, eleven typed Rules + eleven typed Templates lived across five active sibling-domain folders. The legacy notification files (`notificationRules.ts`, the `buildPatientEmail` / `buildPatientSmsPreview` switch dispatchers, the `SendTemplateTestForm.tsx` test UI, the `sendTemplateTestEmail` server action + impl) deleted entirely. The legacy workflow-event hook (`onPatientWorkflowEvent.ts`) shrunk to chart.ai_review-only — keeping only the non-notification responsibility that the rules engine doesn't yet own.
+
+The convergence-via-wiring trial declared in c4 ADR §7.7 stayed COMPLETE through c5–c9 without surfacing new architectural questions. The substrate accommodated three sibling-domain expansions (clinical_decision growth + fulfillment_lifecycle + pharmacy_lifecycle), one anti-overload binding, asymmetric per-producer status gates, and dual-producer dispatch — all without changes to the dispatcher's import allowlist, the orchestrator boundary discipline, or the side-effect-bounded rule execution scope. That's what "structurally complete" looks like when the structure is right.
+
+The radar zone 7 (legacy v0 notification survival) closed structurally with c9. Zone 27 (sibling-discriminant leak / case-as-parent-ontology drift) stays as a forward-looking watch zone; the c9 anti-overload binding is fresh empirical reinforcement of the doctrine.
+
 ---
 
 ## Turning-point realizations (the seven that mattered)
