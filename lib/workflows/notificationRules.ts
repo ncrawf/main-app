@@ -23,7 +23,6 @@ export type NotificationChannel = 'email' | 'sms'
  * deletes entirely.
  */
 export type NotificationTemplateKey =
-  | 'awaiting_clinical_review'
   | 'case_denied'
   | 'followup_needed'
   | 'rx_sent'
@@ -45,8 +44,13 @@ const PATIENT_NOTIFY_BY_STATUS: Partial<Record<string, NotificationTemplateKey>>
   // removed. The typed Rule at repo/rules/account_lifecycle/intake_submitted_v1.ts
   // is now the sole producer of intake_submitted notifications, fired from
   // lib/protocol/derive.ts deriveCanonicalState via the dispatcher.
-  under_review: 'awaiting_clinical_review',
-  pending_approval: 'awaiting_clinical_review',
+  // Phase 4H-templates-discipline c3 — BOTH `under_review:` and
+  // `pending_approval:` map entries removed (both used to point at
+  // 'awaiting_clinical_review'). The typed Rule at
+  // repo/rules/clinical_decision/awaiting_clinical_review_v1.ts is now
+  // the sole producer of those notifications, fired from
+  // lib/internal/patient-case/impl.ts via the dispatcher's 2-status
+  // OR producer gate.
   // Phase 4H-templates-discipline c2 — `approved: 'case_approved'` removed.
   // The typed Rule at repo/rules/clinical_decision/case_approved_v1.ts is
   // now the sole producer of case_approved notifications, fired from

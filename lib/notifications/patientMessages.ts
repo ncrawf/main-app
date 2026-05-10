@@ -148,17 +148,11 @@ export function buildPatientEmail(
     // in `lib/templates/render/intake-submitted.ts` driven by typed
     // required_variables; brand sourced from `brands` table per ADR
     // Section 7.5 multi-tenant rule.
-    case 'awaiting_clinical_review': {
-      body = {
-        subject: 'Your visit is in clinical review',
-        previewText: 'Your case is now in clinical review.',
-        eyebrow: 'Clinical review',
-        heading: 'In clinical review',
-        intro: 'Your visit is now in clinical review.',
-        detail: 'We will send another update as soon as your clinician has a decision.',
-      }
-      break
-    }
+    // Phase 4H-templates-discipline c3 — `case 'awaiting_clinical_review'`
+    // arm removed; rendering migrated to
+    // lib/templates/render/awaiting-clinical-review.ts and the typed
+    // Template at repo/templates/clinical_decision/
+    // awaiting_clinical_review_v1.ts.
     // Phase 4H-templates-discipline c2 — `case 'case_approved'` arm
     // removed; rendering migrated to lib/templates/render/case-approved.ts
     // and the typed Template at repo/templates/clinical_decision/
@@ -272,8 +266,9 @@ export function buildPatientSmsPreview(templateKey: NotificationTemplateKey, ctx
     // with brand prefix sourced from `brands.slug.toUpperCase()` (typed
     // slot `brand_short_label`) instead of hardcoded "MAIN:" per ADR
     // Section 7.5 multi-tenant rule.
-    case 'awaiting_clinical_review':
-      return `MAIN: In clinical review. ${short}`
+    // Phase 4H-templates-discipline c3 — `case 'awaiting_clinical_review'`
+    // arm removed; SMS preview migrated to renderAwaitingClinicalReviewSms
+    // in lib/templates/render/awaiting-clinical-review.ts.
     // Phase 4H-templates-discipline c2 — `case 'case_approved'` arm
     // removed; SMS preview migrated to renderCaseApprovedSms in
     // lib/templates/render/case-approved.ts.

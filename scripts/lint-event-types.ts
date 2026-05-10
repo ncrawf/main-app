@@ -90,6 +90,12 @@ const EXEMPT_PATHS = [
   // protected at insertAuditEvent / insertTimelineEvent call sites.
   join('lib', 'internal', 'patient-case', 'impl.ts'),
   join('scripts', 'test-case-approved-parity.ts'),
+  // Phase 4H-templates-discipline commit 3 — same false-positive class
+  // at the awaiting_clinical_review parity test (same
+  // RuleTriggerEventType vs patient_timeline_events.event_type
+  // distinction). The producer site exemption above (impl.ts) already
+  // covers the patient.case_under_review trigger literal in that file.
+  join('scripts', 'test-awaiting-clinical-review-parity.ts'),
 ]
 
 /** Function names whose argument literals are TS-typed against the registry,

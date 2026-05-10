@@ -134,6 +134,16 @@ export const RULE_AND_NOTIFICATION_AUDIT_ACTIONS = [
   // commerce.checkout.session_completed trigger.
   'rule.fired.account_lifecycle.intake_submitted_v1',
   'rule.fired.billing.payment_received_v1',
+  // Phase 4H-templates-discipline c3 — fourth Rule-firing audit action.
+  // First with a 2-status OR producer gate (under_review +
+  // pending_approval both route to the same Rule, preserving legacy
+  // PATIENT_NOTIFY_BY_STATUS behavior). System-authority status ack
+  // (NOT provider-authority — distinct from case_approved). Emitted by
+  // lib/rules/runtime/dispatcher.ts when
+  // repo/rules/clinical_decision/awaiting_clinical_review_v1.ts fires
+  // in response to a patient.case_under_review trigger from
+  // lib/internal/patient-case/impl.ts.
+  'rule.fired.clinical_decision.awaiting_clinical_review_v1',
   // Phase 4H-templates-discipline c2 — third Rule-firing audit action.
   // First with `message_intent: 'clinical'` + `authority_floor: 'provider'`
   // semantics. Emitted by lib/rules/runtime/dispatcher.ts when

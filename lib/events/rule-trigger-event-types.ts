@@ -68,6 +68,23 @@ export const RULE_TRIGGER_EVENT_TYPES = [
    * `authority_floor: 'provider'`.
    */
   'patient.case_approved',
+
+  /**
+   * Emitted from `lib/internal/patient-case/impl.ts` after a staff user
+   * transitions a glp1_primary treatment_item or a weight_loss
+   * care_program to EITHER `'under_review'` OR `'pending_approval'`
+   * status. Both transition targets route to the same Rule
+   * (`rule.clinical_decision.awaiting_clinical_review_v1`) — preserving
+   * legacy behavior where both `PATIENT_NOTIFY_BY_STATUS` map entries
+   * (`under_review` + `pending_approval`) routed to the same template.
+   * The payload carries `next_status` so the executor can record which
+   * status was entered for audit lineage. Carries the underlying
+   * status-transition audit_event_id as the per-transition idempotency
+   * anchor (a case bouncing pending -> under_review -> pending_approval
+   * -> under_review emits one notification per genuine transition).
+   * First trigger event whose consumer fires on a 2-status OR gate.
+   */
+  'patient.case_under_review',
 ] as const
 
 export type RuleTriggerEventType = (typeof RULE_TRIGGER_EVENT_TYPES)[number]

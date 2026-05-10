@@ -65,9 +65,9 @@ assert(
   `got ${typeof RULE_REGISTRY}`
 )
 assert(
-  RULE_REGISTRY.length >= 3,
-  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1',
-  `got ${RULE_REGISTRY.length} rules — expected >= 3 after Phase 4H-templates-discipline commit 2`
+  RULE_REGISTRY.length >= 4,
+  'RULE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1',
+  `got ${RULE_REGISTRY.length} rules — expected >= 4 after Phase 4H-templates-discipline commit 3`
 )
 assert(
   RULE_REGISTRY.some((r) => r.rule_id === 'rule.billing.payment_received_v1'),
@@ -84,6 +84,55 @@ assert(
   'RULE_REGISTRY contains rule.clinical_decision.case_approved_v1',
   'third parity proof Rule missing (Phase 4H-templates-discipline commit 2; first clinical + provider-authority Rule)'
 )
+assert(
+  RULE_REGISTRY.some((r) => r.rule_id === 'rule.clinical_decision.awaiting_clinical_review_v1'),
+  'RULE_REGISTRY contains rule.clinical_decision.awaiting_clinical_review_v1',
+  'fourth parity proof Rule missing (Phase 4H-templates-discipline commit 3; first 2-status OR producer gate)'
+)
+// Phase 4H-templates-discipline commit 3 — second clinical_decision
+// domain Rule. system-authority status ack (NOT provider-authority);
+// recall_severity=operational; tier_1.
+{
+  const awaitingReview = RULE_REGISTRY.find(
+    (r) => r.rule_id === 'rule.clinical_decision.awaiting_clinical_review_v1',
+  )
+  assert(
+    awaitingReview?.authority_floor === 'system',
+    'awaiting_clinical_review_v1 declares authority_floor=system (NOT provider — distinct from case_approved)',
+    `got ${awaitingReview?.authority_floor}`,
+  )
+  assert(
+    awaitingReview?.recall_severity === 'operational',
+    'awaiting_clinical_review_v1 declares recall_severity=operational',
+    `got ${awaitingReview?.recall_severity}`,
+  )
+  assert(
+    awaitingReview?.action.kind === 'notify' &&
+      'message_intent' in awaitingReview.action &&
+      awaitingReview.action.message_intent === 'operational',
+    'awaiting_clinical_review_v1 action.message_intent=operational',
+    `got ${awaitingReview?.action.kind === 'notify' ? awaitingReview.action.message_intent : '(non-notify action)'}`,
+  )
+  assert(
+    awaitingReview?.action.kind === 'notify' &&
+      'intended_privacy_exposure_level' in awaitingReview.action &&
+      awaitingReview.action.intended_privacy_exposure_level === 1,
+    'awaiting_clinical_review_v1 action.intended_privacy_exposure_level=1 (existence_only)',
+    `got ${awaitingReview?.action.kind === 'notify' ? awaitingReview.action.intended_privacy_exposure_level : '(non-notify action)'}`,
+  )
+  assert(
+    awaitingReview?.pathway_scope === undefined ||
+      awaitingReview.pathway_scope.length === 0,
+    'awaiting_clinical_review_v1 pathway_scope is undefined',
+    `got pathway_scope=${JSON.stringify(awaitingReview?.pathway_scope)}`,
+  )
+  assert(
+    awaitingReview?.trigger.kind === 'event' &&
+      awaitingReview.trigger.event_type === 'patient.case_under_review',
+    "awaiting_clinical_review_v1 trigger.event_type='patient.case_under_review' (2-status OR gate at producer)",
+    `got ${awaitingReview?.trigger.kind === 'event' ? awaitingReview.trigger.event_type : '(non-event trigger)'}`,
+  )
+}
 // Phase 4H-templates-discipline commit 2 — first Rule with
 // authority_floor='provider' + message_intent='clinical' +
 // recall_severity='clinical_significant' active in the registry.
@@ -129,9 +178,9 @@ assert(
   `got ${typeof TEMPLATE_REGISTRY}`
 )
 assert(
-  TEMPLATE_REGISTRY.length >= 3,
-  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 anchors',
-  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 3 after Phase 4H-templates-discipline commit 2`
+  TEMPLATE_REGISTRY.length >= 4,
+  'TEMPLATE_REGISTRY contains payment_received_v1 + intake_submitted_v1 + case_approved_v1 + awaiting_clinical_review_v1 anchors',
+  `got ${TEMPLATE_REGISTRY.length} templates — expected >= 4 after Phase 4H-templates-discipline commit 3`
 )
 assert(
   TEMPLATE_REGISTRY.some((t) => t.template_key === 'tmpl.billing.payment_received_v1'),
@@ -148,6 +197,37 @@ assert(
   'TEMPLATE_REGISTRY contains tmpl.clinical_decision.case_approved_v1',
   'third parity proof Template missing (Phase 4H-templates-discipline commit 2)'
 )
+assert(
+  TEMPLATE_REGISTRY.some(
+    (t) => t.template_key === 'tmpl.clinical_decision.awaiting_clinical_review_v1',
+  ),
+  'TEMPLATE_REGISTRY contains tmpl.clinical_decision.awaiting_clinical_review_v1',
+  'fourth parity proof Template missing (Phase 4H-templates-discipline commit 3)'
+)
+// Verify awaiting_clinical_review Template ships with the expected
+// tier_1 + operational shape; transactional_critical=false carries
+// the same axis-separation reasoning that locked it false on
+// case_approved_v1.
+{
+  const awaitingReviewTemplate = TEMPLATE_REGISTRY.find(
+    (t) => t.template_key === 'tmpl.clinical_decision.awaiting_clinical_review_v1',
+  )
+  assert(
+    awaitingReviewTemplate?.transactional_critical === false,
+    'awaiting_clinical_review Template transactional_critical=false (cadence-bypass NOT defensible for status ack)',
+    `got transactional_critical=${awaitingReviewTemplate?.transactional_critical}`,
+  )
+  assert(
+    awaitingReviewTemplate?.privacy_exposure_level === 1,
+    'awaiting_clinical_review Template privacy_exposure_level=1 (existence_only)',
+    `got ${awaitingReviewTemplate?.privacy_exposure_level}`,
+  )
+  assert(
+    awaitingReviewTemplate?.message_intent === 'operational',
+    'awaiting_clinical_review Template message_intent=operational',
+    `got ${awaitingReviewTemplate?.message_intent}`,
+  )
+}
 // Verify case_approved Template ships with transactional_critical=false
 // per pre-execution refinement #3 (cadence-bypass NOT defensible for
 // case approval; clinical authority is carried by the Rule's

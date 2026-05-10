@@ -3,15 +3,14 @@
 import { useState, useTransition } from 'react'
 import { sendTemplateTestEmail } from './actions'
 
-// Phase 4H-pre commit 5 + Phase 4H-templates-discipline commit 1 + c2 —
-// `payment_received`, `intake_submitted`, and `case_approved` removed
-// from this admin preview form because they are now typed Rule +
-// Template at repo/rules/* + repo/templates/*. A future admin preview
-// surface for typed Templates ships in 4H-rules-runtime; for now,
-// migrated flows are only previewable via their live-DB parity smoke
-// tests.
+// Phase 4H-pre commit 5 + Phase 4H-templates-discipline commits 1 + c2 + c3 —
+// `payment_received`, `intake_submitted`, `case_approved`, and
+// `awaiting_clinical_review` removed from this admin preview form
+// because they are now typed Rule + Template at repo/rules/* +
+// repo/templates/*. A future admin preview surface for typed Templates
+// ships in 4H-rules-runtime; for now, migrated flows are only previewable
+// via their live-DB parity smoke tests.
 const TEMPLATE_OPTIONS = [
-  'awaiting_clinical_review',
   'case_denied',
   'followup_needed',
   'rx_sent',
@@ -24,7 +23,7 @@ const TEMPLATE_OPTIONS = [
 type TemplateKey = (typeof TEMPLATE_OPTIONS)[number]
 
 export function SendTemplateTestForm({ patientId }: { patientId: string }) {
-  const [template, setTemplate] = useState<TemplateKey>('awaiting_clinical_review')
+  const [template, setTemplate] = useState<TemplateKey>('case_denied')
   const [msg, setMsg] = useState<string>('')
   const [pending, start] = useTransition()
 

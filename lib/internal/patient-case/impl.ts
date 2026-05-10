@@ -527,6 +527,35 @@ export async function updateTreatmentItemStatus(
     }
   }
 
+  // Phase 4H-templates-discipline c3 — typed Rule trigger for the
+  // awaiting_clinical_review cutover. 2-STATUS OR producer gate:
+  // fires on transition to EITHER 'under_review' OR 'pending_approval'
+  // (preserves legacy PATIENT_NOTIFY_BY_STATUS behavior where both
+  // map entries routed to the same notification template). Same
+  // glp1_primary treatment filter as case_approved above.
+  if (
+    item.treatment_key === 'glp1_primary' &&
+    prevStatus !== nextStatus &&
+    (nextStatus === 'under_review' || nextStatus === 'pending_approval') &&
+    treatmentAudit.ok &&
+    treatmentAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_under_review',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'treatment_item',
+          case_id: treatmentItemId,
+          next_status: nextStatus,
+          transition_audit_event_id: treatmentAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateTreatmentItemStatus: dispatchRuleTriggerEvent case_under_review', err)
+    }
+  }
+
   revalidatePath(`/internal/patients/${patientId}`)
   revalidatePath('/internal/patients')
   return { ok: true }
@@ -650,6 +679,34 @@ export async function updateCareProgramStatus(
       })
     } catch (err) {
       console.error('updateCareProgramStatus: dispatchRuleTriggerEvent case_approved', err)
+    }
+  }
+
+  // Phase 4H-templates-discipline c3 — typed Rule trigger for the
+  // awaiting_clinical_review cutover. 2-STATUS OR producer gate:
+  // fires on transition to EITHER 'under_review' OR 'pending_approval'
+  // (preserves legacy PATIENT_NOTIFY_BY_STATUS behavior). Same
+  // weight_loss program filter as case_approved above.
+  if (
+    program.program_type === 'weight_loss' &&
+    prevStatus !== nextStatus &&
+    (nextStatus === 'under_review' || nextStatus === 'pending_approval') &&
+    programAudit.ok &&
+    programAudit.audit_event_id
+  ) {
+    try {
+      await dispatchRuleTriggerEvent({
+        event_type: 'patient.case_under_review',
+        payload: {
+          patient_id: patientId,
+          case_kind: 'care_program',
+          case_id: careProgramId,
+          next_status: nextStatus,
+          transition_audit_event_id: programAudit.audit_event_id,
+        },
+      })
+    } catch (err) {
+      console.error('updateCareProgramStatus: dispatchRuleTriggerEvent case_under_review', err)
     }
   }
 
