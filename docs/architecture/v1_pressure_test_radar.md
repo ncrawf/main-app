@@ -170,6 +170,66 @@ Binding parent invariant this watch zone protects: system-map `## Platform opera
 
 ---
 
+## 2026-05-11 addendum (post-doctrine-reconciliation)
+
+The 2026-05-11 doctrine reconciliation pass landed Doctrine locks DL-1 through DL-9 + Section 1W (foundation primitive) in MAIN, plus §5.2 owned diagnostic acquisition + §6.6 specialty register + §11.0 crosswalk in the foundational doc, plus the consistency cleanup. That pass surfaced five new pressure-test zones tracked here (29-33).
+
+### 29. Specialty-acquisition-table proliferation drift (tier 1)
+
+A future contributor proposes a specialty-specific acquisition table — `urology_void_flow_table`, `cardiac_holter_table`, `pulm_dlco_table`, `gyn_colposcopy_table`, `ophtho_oct_table`, `ent_audiogram_table`, `pain_rfa_table`, etc. — to model what the substrate already admits via the `diagnostic_acquisition_session` operational object + DL-9 producer lanes + the §4 substrate primitive set. Each specialty-specific table is the first move toward specialty-poisoned substrate (DL-8 admission-criteria violation).
+
+Watch for: a PR that adds a `<specialty>_<test>_table` migration without first adding a row to §6.6 + running §1.8 admission criteria. If §6.6 already has an analog row showing the shape composes from existing primitives, the new table is rejected by default. If §6.6 does not yet cover the shape, extend §6.6 first; the row-then-table sequence is the discipline.
+
+Surfaces first in: the first specialty activation beyond the wedge clinic — possibly urology, cardiology, pulm, GYN, endocrine, neuro, ophtho, ENT, allergy, rheum, wound, pain, or a specialty not yet in §6.6. The radar zone exists so the first contributor faces the §6.6 + §1.8 sequence explicitly.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine locks DL-7 (tracked clinical objects + structured-first authoring) + DL-8 (universal flow grammar + primitive admission criteria) + DL-9 (owned diagnostic acquisition) + ADR §7.11 (DL-9 codification) + §7.12 (specialty register pattern).
+
+### 30. §6.6 specialty register staleness (tier 2)
+
+A new specialty domain activates for the wedge but the §6.6 specialty-coverage non-foreclosure register doesn't gain rows for its representative shapes. The substrate non-foreclosure proof rots: future contributors arriving at §6.6 see a register that no longer represents the activated specialty universe, and the demonstration loses force.
+
+Watch for: any new sibling activation PR that does not touch §6.6 (or explicitly notes "no new specialty admittance needed because every shape is already covered by an analog row"). §6.6 extension is part of activation pre-flight, not optional. Also watch for PRs that add specialty workflows in code without the §6.6 row landing first — that sequence violates the §7.12 method.
+
+Surfaces first in: the first sibling activation that involves a specialty not currently in §6.6's 12 categories. Threshold: if a new activation touches ≥3 specialty test/procedure shapes not enumerated in §6.6, the register MUST extend.
+
+Binding parent invariant this watch zone protects: ADR §7.12 (specialty register pattern) + MAIN Doctrine locks DL-6 (substrate non-foreclosure across all dimensions) + foundational doc §6.6.
+
+### 31. Day 0 elite-class depth-bar drift (tier 1)
+
+Shallow versions of activated domains creep into the substrate as activations scale ("we'll do real Mindbody-class scheduling later"; "Hims-class intake structure is a v2 thing"; "outpatient-EMR-depth charting can ship in pieces"). DL-5 explicitly forbids this regression. Once one activated domain ships sub-Day-0 depth, the moat erodes — the wedge clinic lose-no-depth-on-switching commitment is broken.
+
+Watch for: any sibling activation PR that does not declare the depth bar it ships at + cite the §1.5 named-bar (Mindbody-class scheduling, Shopify-class commerce, Hims-class intake, ActiveCampaign-class lifecycle marketing, Klara/RingCentral-class communications, Athena-lab-module-class diagnostics, outpatient-EMR-depth charting). "Day 0 not yet" / "MVP depth" / "lighter version" framings are red flags. Activation PRs must explicitly address depth-bar adequacy or be paused.
+
+Surfaces first in: the next activated sibling beyond the c1-c9 wedge (`scheduling_lifecycle/` activation? `clinical_record/` activation? `communications_lifecycle/` UI surface activation? `revenue_cycle/` Day 0 charge-lineage activation?). Each of these stresses a different §1.5 named depth bar.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine locks DL-5 (Day 0 elite-class depth) + ADR §7.10 + foundational doc §1, §1.5.
+
+### 32. Owned-vs-external diagnostic conflation (tier 1)
+
+A future contributor treats owned in-office tests as substrate primitive #16 (external-system ingest) cases — uses `external_partner_result` as the `output_source` for clinic-owned acquisition, or routes owned acquisition through document-routing pipelines instead of `labs_lifecycle/` + `procedure_lifecycle/` native authoring. DL-9 explicitly forbids this: substrate primitive #16 is for **outside** systems only; owned tests are authored, not ingested.
+
+Watch for: any new diagnostic / procedural PR whose `output_source` field is `external_partner_result` for a clinic-owned acquisition; any PR that proposes routing an in-office PFT / ECG / urodynamics / colposcopy / EEG / OCT / audiogram via substrate primitive #16; any PR that conflates the four DL-9 lanes (omni_native_authoring, in_office_device_file, in_office_device_feed, vendor_cloud_import, external_partner_result, manual_transcription). The four-lane model + output-source taxonomy is the binding discipline.
+
+Surfaces first in: the first diagnostic / procedural workflow activation post-DL-9 — possibly the `labs_lifecycle/` sibling activation, an in-office PFT or ECG capture path, or an in-office procedure-result template. The first concrete activation is when the conflation risk is highest; subsequent activations inherit the discipline.
+
+Source pressure-test: ChatGPT diagnosis during the post-c9 owned-diagnostic-acquisition pressure test — captured in foundational doc §5.2 + ADR §7.11.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine locks DL-9 (owned diagnostic acquisition) + ADR §7.11 + foundational doc §5.2 (binding sub-doctrine) + §5.2.6 anti-pattern list.
+
+### 33. Primitive numbering drift recurrence (tier 2)
+
+The post-DL-9 consistency cleanup resolved a primitive-numbering mismatch between the foundational doc §4 (canonical 21-primitive enumeration in build-sequence order) and the §11.0 crosswalk (which had drifted to a different drafted-from-memory ordering). The fix was to renumber §11.0 to match §4 exactly. The risk: future contributors writing new doctrine-tier docs / commits / PRs re-introduce a non-§4 ordering, recreating the mismatch.
+
+Watch for: any reference to "substrate primitive #N" outside §4's canonical numbering — e.g., a PR that says "primitive #1 = org/brand/location" (which is §4 #4 multi-tenant; §4 #1 is Audit + lineage) or "primitive #6 = consent" (which is §4 #21; §4 #6 is Longitudinal operational memory). §4 is canonical; every other reference must match. CI lint candidate later (out of current scope); for now, human-discipline + cross-link to §4 in any doc that cites primitives by number.
+
+Surfaces first in: any future doctrine-tier amendment that cites primitives by number (a new ADR sub-section, a new radar zone, a new evolution narrative entry, a new handoff). Each must cross-check §4 before publishing.
+
+Source: post-DL-9 consistency cleanup pressure test — captured in the consistency cleanup plan + foundational doc §11.0 crosswalk reconciliation.
+
+Binding parent invariant this watch zone protects: foundational doc §4 (canonical 21-primitive enumeration) + MAIN Doctrine locks DL-8 (admission criteria implicitly bind §4 ordering via the "21 substrate primitives" count).
+
+---
+
 ## How to use this radar
 
 - **Re-read before**: provider dashboard work, task runtime, lifecycle automation expansion, broad send-policy rollout, the moment 10-20 typed Rules / Templates have shipped.

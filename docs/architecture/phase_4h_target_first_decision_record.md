@@ -530,6 +530,322 @@ Without §7.8, three risks accumulate as the platform expands:
 
 ---
 
+## 7.9 Doctrine locks DL-1 through DL-9 binding model + Section 1W as foundation primitive (binding — added 2026-05-11 post-doctrine-reconciliation)
+
+This amendment captures the architectural decision to compile the Phase 4H doctrine that emerged across the c1-c9 series into the canonical MAIN system map as binding **Doctrine locks DL-1 through DL-9** + a new **Section 1W: Tracked clinical objects + procedure / intervention lifecycle** (foundation primitive). The doctrine had previously been drafted in `.cursor/plans/FOUNDATIONAL_ARCHITECTURE_2026-05-10_all_dimensions.md` (the Foundational Architecture v2 doc) and was floating outside the canonical map.
+
+### Context
+
+- The 9k-line MAIN system map ([`/.cursor/plans/system_map_three_layers_60706286.plan.md`](../../.cursor/plans/system_map_three_layers_60706286.plan.md)) had no top-of-map binding doctrine before the post-c9 reconciliation. The Platform operational model paragraph (added during the shipped-seam pressure test) named the patient-rooted-siblings premise but the foundational architectural commitments (substrate-vs-operational, sibling tier, discriminant locality, producer-site transitional locality, Day 0 elite-class depth, substrate non-foreclosure, tracked-clinical-objects-as-foundation-primitive, universal flow grammar, primitive admission criteria, owned diagnostic acquisition) lived in a long-form rationale doc that did not bind.
+- User reaction to that arrangement was decisive: "we're creating doctrine. then leaving it hanging outside the system map?" — captured in the agent transcript.
+- ChatGPT pro confirmed the structural concern: doctrine should compile INTO the canonical map, with the long-form doc as rationale source.
+
+### Decision
+
+Binding architectural commitments live in MAIN as **Doctrine locks DL-1 through DL-9**. Long-form rationale lives in the foundational doc. MAIN is the operating source of truth; the foundational doc does not bind by itself.
+
+The nine binding doctrine locks:
+
+| Lock | Subject | Origin |
+|---|---|---|
+| **DL-1** | Substrate-vs-operational distinction | Re-lock from Platform operational model |
+| **DL-2** | Patient-rooted siblings, no nesting under any single sibling | Re-lock from Platform operational model |
+| **DL-3** | Sibling-local discriminants; no cross-sibling discriminant leakage | Re-lock + ADR §7.7 (sibling layering) + §7.8 (anti-overload) |
+| **DL-4** | Producer-site transitional locality + radar tracking | Re-lock from Platform operational model + ADR §7.5 cutover discipline |
+| **DL-5** | Day 0 elite-class depth for activated domains; non-foreclosure for reserved domains | NEW (foundational doc §1 v3 reframe; codified separately in §7.10) |
+| **DL-6** | Substrate non-foreclosure across all dimensions | NEW (foundational doc §3 dimensional matrix; codified separately in §7.10) |
+| **DL-7** | Tracked clinical objects + procedure / intervention lifecycle is a foundation primitive (with structured-first authoring discipline) | NEW (foundational doc §1.6 + §7 + §8) |
+| **DL-8** | Universal flow grammar + primitive admission criteria | NEW (foundational doc §1.7 + §1.8 + §6.5 primitive-extraction grid) |
+| **DL-9** | Owned diagnostic acquisition + structured result authoring | NEW (foundational doc §1.5 + §5.2 + §6.6; codified separately in §7.11) |
+
+**Section 1W: Tracked clinical objects + procedure / intervention lifecycle** is the canonical home in MAIN for the foundation-primitive concept. It is **not** a sibling — it is foundation infrastructure referenced by every operational sibling (scheduling, charting, fulfillment, billing, communications, AI). The four-layer epistemic model (tracked clinical finding → clinical assertion atom → diagnosis entity → billing artifact), clinical identity reconciliation, anatomical anchoring, the encounter → intervention → checkout 8-layer continuity chain, structured-first authoring discipline, and recall / surveillance hooks all live here. Bound by DL-7 + DL-8 + DL-9.
+
+### Rationale
+
+A normal company architecture process keeps doctrine in the canonical map, not floating in a side plan. The reconciliation imported the binding locks; the foundational doc became the rationale source. The architecture relationship now reads:
+
+```
+Foundational Architecture v2 doc:
+  "Why this ontology exists, what primitives are admitted, what pressure tests proved it."
+
+MAIN system map:
+  "Here is the canonical system architecture, module placement, locked doctrine, schema direction, and build order."
+```
+
+Section 1W is foundation tier (alongside system-primitives addendum + Section 1L labs + Section 1M observations + Section 1U multi-org + Section 1V retention + etc.) rather than a sibling because:
+
+- Tracked clinical objects are referenced by every operational sibling (scheduling preloads against tracked-object state; charting renders tracked-object evidence; fulfillment derives from interventions on tracked objects; billing derives from intervention layer; communications surface tracked-object status updates; AI consumes the four-layer epistemic model).
+- Modeling tracked objects inside any single sibling would force every other sibling to reach across the seam — the canonization-of-wrong-ontology error DL-3 prevents.
+- The four epistemic layers (Layer 1 tracked finding ≠ Layer 2 assertion ≠ Layer 3 diagnosis code ≠ Layer 4 billing artifact) are substrate conditions for outpatient-EMR-class + Athena-lab-module-class + Shopify-class commerce simultaneously. Collapsing the layers eliminates the moat.
+
+### Consequences
+
+- The §11.0 crosswalk in the foundational doc maps every doctrine concept to its MAIN binding location with status (LANDED / PARTIAL / RESERVED / RESERVED IN-DOC).
+- Future architectural commitments add to MAIN doctrine locks first; foundational doc updates with rationale second. This is the inverse of the original drafting order (foundational doc first, then reconciliation) and matches the way the platform now governs.
+- Section 1W is the canonical home for any future `tracked_clinical_objects` / `clinical_object_aliases` / `clinical_object_interventions` / `clinical_object_evidence` / `intervention_to_billing_link` / reserved `clinical_diagnosis_entities` schema. The 11 sub-sections (1W.0 - 1W.11) are the binding spine.
+- The foundational doc is no longer a sidecar. It is the rationale source for the binding locks in MAIN; future contributors read MAIN's Doctrine locks first, then consult the foundational doc when they need rationale.
+
+### Anti-drift purpose
+
+Without §7.9, three risks accumulate:
+
+1. **Doctrine drift between MAIN and the foundational doc.** A future amendment to the foundational doc that does not import into MAIN binding text would re-create the sidecar problem. §7.9 names MAIN as the operating source of truth; foundational doc updates without corresponding MAIN updates are rejected by default.
+2. **Section 1W being treated as just-another-section.** The Repo anchors table + Platform operational model "Foundation modules underneath the siblings" paragraph + Doctrine locks DL-7 + DL-8 collectively bind Section 1W as foundation infrastructure. Future contributors who try to nest tracked clinical objects under a sibling violate DL-2 + DL-3.
+3. **Re-litigating the substrate-vs-operational distinction.** DL-1 + DL-2 + DL-3 collectively encode the distinction; ADR §7.7 + §7.8 enforce the operational rules; §7.9 binds the structural placement.
+
+### Cross-references
+
+| Concern | Canonical home |
+|---|---|
+| Binding doctrine locks DL-1 through DL-9 | [`/.cursor/plans/system_map_three_layers_60706286.plan.md`](../../.cursor/plans/system_map_three_layers_60706286.plan.md) `## Doctrine locks` section |
+| Foundation primitive Section 1W | MAIN `## Section 1W` |
+| Long-form rationale | [`/.cursor/plans/FOUNDATIONAL_ARCHITECTURE_2026-05-10_all_dimensions.md`](../../.cursor/plans/FOUNDATIONAL_ARCHITECTURE_2026-05-10_all_dimensions.md) |
+| Crosswalk (every doctrine concept → MAIN location → status) | Foundational doc §11.0 |
+| Definition table (terminology normalization) | Foundational doc §2.1 |
+| Sibling-domain layering operational rules | ADR §7.7 |
+| Anti-overload binding pattern | ADR §7.8 |
+| Day 0 elite-class depth (DL-5 + DL-6) | ADR §7.10 |
+| Owned diagnostic acquisition (DL-9) | ADR §7.11 |
+| Specialty-coverage non-foreclosure register pattern (§6.6) | ADR §7.12 |
+
+---
+
+## 7.10 Day 0 elite-class depth for activated domains (DL-5) + substrate non-foreclosure across all dimensions (DL-6) (binding — added 2026-05-11 post-doctrine-reconciliation)
+
+This amendment captures the Day 0 elite-class depth commitment for activated domains and the architectural non-foreclosure commitment for reserved domains. The two commitments together replace the earlier "consumer-grade" / "lighter-than-each-best-of-breed-tool" framing that was rejected in Phase 1.5 v3 of the foundational doc.
+
+### Context
+
+- Earlier drafts of the foundational doc framed OMNI as "lighter than Mindbody / Shopify / Hims / ActiveCampaign / Klara / RingCentral / Athena / outpatient EMR — we'll get to those depths later." The framing was a wedge-discipline framing intended to keep scope tight, but it implicitly conceded depth at activation time.
+- User pushback was decisive: "WE WANT TO BE ABLE TO SHCEULDE A PATIENT LIKE MONDBODY ON DAY 0 ... WE WANT TO BE ABLE TO HIMS INTAKE adn SHOPOIFY POS on DAY 0. THOSE ARE THE TOLLS THAT CURRENTLY EXIST IN THE MARKETPLACE> RHOAE ARE THE OTOOLS WE MUST MATCH." The "consumer-grade" / "lighter" framing eroded the moat and was rejected.
+- The integration of activated domains over a single substrate IS the moat. A clinic running today on {Mindbody + Shopify + Hims-style intake + ActiveCampaign + Klara/RingCentral + Athena lab module + outpatient EMR + Stripe} should switch to OMNI on Day 0 and not lose any operational depth. They gain integration. They do not lose features.
+- Reserved domains stay reserved at substrate-primitive / sibling-folder level; activation is the depth gate.
+
+### Decision
+
+**DL-5 (Day 0 elite-class depth for activated domains).** When a sibling domain is activated for a wedge workflow, the substrate must admit it at elite-class depth on Day 0. The named depth bars are:
+
+| Activated domain | Day 0 depth bar (binding) |
+|---|---|
+| Scheduling / resource coordination | Mindbody-class (provider calendars + room/suite/equipment + multi-resource bookings + prep dependencies) |
+| Commerce / retail / memberships / packages | Shopify-class (catalog, packages, memberships, point-of-sale, multi-rail settlement) |
+| Intake / eligibility / structured history | Hims-class (high-grade structured clinical intake; atomization per §7 four-layer model) |
+| Lifecycle marketing / engagement | ActiveCampaign-class (journeys, attribution, consent-bound sends) |
+| Communications / escalation / cross-channel continuity | Klara / RingCentral-class (multi-channel, multi-endpoint, AI-assisted) |
+| EMR / charting / clinical decisions | Outpatient-EMR depth (visits, notes, problem list, labs review, clinical decisions, signoffs as practiced by a medspa / peptide / HRT / longevity / derm-cosmetic / hormone clinic) |
+| Diagnostic lifecycle (broad) | Athena-lab-module-class (labs, pathology, imaging, sleep studies, PFT, ECG, stress testing, urodynamics, colposcopy, EEG, OCT, audiogram, joint aspiration, and the broader specialty-test universe) |
+| Billing / charge lineage | Cash-pay + subscription + package + intervention-derived charge lineage at full operational depth on Day 0 (future RCM / claims / payer / ERA / EOB / AR reserved per `revenue_cycle/` sibling — not Day 0; see §7.10 sub-section below) |
+| Inventory / lot / expiry / point-of-care consumption | Full lot tracking + expiry + vendor sourcing + point-of-sale dispense on Day 0 |
+| Procedures / structured interventions | Procedure episodes + intervention capture + downstream inventory / charge / note derivation per §7.6, on Day 0 for procedural-specialty wedge workflows |
+| Tracked clinical objects / surveillance / recall | Longitudinal findings, recall, object identity, evidence + assertion lineage per §7 + §7.5, on Day 0 for surveillance-specialty wedge workflows |
+| External-system ingest / document routing | Inbound artifacts from labs, imaging, ASC EMRs, pathology, fax, referrals, vendor systems, scanned consents — substrate primitive #16, Day 0 |
+| Referrals / cross-org loop closure | Outbound referrals, inbound result return, packet handoff, status tracking — Day 0 |
+| Vendor / partner coordination | First-class vendor / partner interaction primitives — Day 0 |
+| Clinical coding / documentation rendering | Codes and notes as derived / rendered artifacts from structured state per §7.7 — Day 0 |
+| AI orchestration over the continuity graph | Bounded-but-real AI runtime; provider authority gating; AI-as-actor with audit + capability + disclosure-policy + consent — Day 0 |
+
+**Epic-grade hospital EMR is explicitly NOT the bar.** Out of current scope per §1.5: inpatient bed management, hospital-floor coordination, ICU monitoring, ED triage. Those would require substrate extension via §1.8 admission criteria. Outpatient and specialty depth is the Day 0 commitment; hospital depth is not.
+
+**Activation incrementality.** Activation order across domains is sequenced operationally — not every domain activates simultaneously. But once a domain activates for the wedge, depth is not incremental. Reserved-but-not-activated domains stay at substrate-primitive / sibling-folder reservation level until their first concrete migration arrives. The §11.0 crosswalk in the foundational doc tracks LANDED / PARTIAL / RESERVED status per primitive and per sibling.
+
+**DL-6 (substrate non-foreclosure across all dimensions).** The substrate must remain admissible across every cell of the dimensional matrix (foundational doc §3) without rewrites:
+
+- Care-delivery model (DTC / hybrid / brick-and-mortar / multi-site / multi-state)
+- Clinical shape (longitudinal pharmacotherapy / episodic procedural / surveillance / aesthetic / specialty)
+- Provider topology (single / group / cross-state / multi-specialty)
+- Revenue model (cash-pay / subscription / package / future claims)
+- Communication ingress (chat / SMS / fax / phone / portal / external-system ingest)
+- Scheduling depth (single-resource / multi-resource / equipment-gated / waitlist)
+- Patient role (DTC consumer / clinic patient / member / hybrid)
+- Data ingress (intake / device / lab vendor / ASC EMR / outside imaging / fax / OCR)
+
+Future-market admissibility is **not a roadmap commitment**; it is an **architectural non-foreclosure commitment** — the substrate must not require a rewrite to admit a new dimension once operational pressure forces activation. No future market is forbidden by the doctrine; wedge focus is current discipline, not depth restriction.
+
+### Rationale (the moat is integration, not lighter-than)
+
+The reasoning chain for rejecting "consumer-grade" framing:
+
+1. **Best-of-breed tools already exist** at every depth bar (Mindbody, Shopify, Hims, ActiveCampaign, Klara, RingCentral, Athena, etc.). Building a "lighter version" of each one is competing against the wrong axis.
+2. **Clinics today integrate 5-10 disconnected best-of-breed tools** plus coordinator headcount duplicating manual reconciliation work that exists ONLY because the tools don't talk. The wedge clinic profile (high-margin specialty / outpatient clinic, ~$600k+/month revenue, peptide / HRT / longevity / derm-cosmetic / medspa / procedural specialty) pays $30k+/month on this fragmented stack.
+3. **The substrate replaces the integration tax, not the depth.** OMNI's wedge value is "switch your 5-10 tools to OMNI on Day 0 and gain continuity, do not lose features." The continuity graph + AI orchestration runtime + universal flow grammar across every activated domain — no single best-in-class tool offers this.
+4. **Reserved-but-not-activated domains are not a depth-compromise**; they are an operational-sequencing decision. Substrate non-foreclosure (DL-6) ensures the depth bar applies whenever activation arrives, not "we'll get there."
+
+### Consequences
+
+- Foundational doc §1 v3 + §1.5 + §3 dimensional matrix + §6.6 specialty-coverage non-foreclosure register collectively encode this commitment.
+- §2.1 definition table "Activated sibling" row (post-consistency-cleanup) explicitly binds Day 0 depth: "For the wedge clinic, activated domains carry Day 0 elite-class depth per DL-5 ... Activation order across domains is sequenced operationally; once a domain activates for the wedge, depth is not incremental."
+- Sibling-activation PRs must declare what depth bar they ship at; "Day 0 not yet" is not a valid answer for activated domains. The radar gains zone 31 (Day 0 depth-bar drift) to track this.
+- The §6.6 specialty register (51 rows, 12 specialties) is the non-foreclosure proof for DL-6: every named specialty test/procedure shape composes from existing primitives + DL-9 acquisition session lanes without new specialty primitives.
+
+### Anti-drift purpose
+
+Without §7.10, three risks accumulate:
+
+1. **Depth-bar drift.** Future contributors who didn't read §1.5 named depth bars ship shallow versions of activated domains ("we'll do real Mindbody-class scheduling later"). This is the explicit anti-pattern DL-5 forbids. Radar zone 31 watches for it.
+2. **"Lighter-than" framing recurrence.** A future audit / pressure-test / pitch-deck draft that revives "lighter than each best-of-breed tool" framing erodes the moat. §7.10 records the rejection.
+3. **Future-market foreclosure.** A future architectural decision that closes off a dimensional-matrix cell (e.g., embeds DTC-only assumptions in scheduling) violates DL-6. The fix is to consult §3 dimensional matrix BEFORE every architectural commitment; substrate must admit every cell.
+
+### Cross-references
+
+| Concern | Canonical home |
+|---|---|
+| Day 0 elite-class depth (DL-5) | MAIN Doctrine locks DL-5; foundational doc §1, §1.5 |
+| Substrate non-foreclosure (DL-6) | MAIN Doctrine locks DL-6; foundational doc §1, §3 dimensional matrix |
+| Wedge clinic profile + integration-as-moat | Foundational doc §1 |
+| Activation incrementality + LANDED/PARTIAL/RESERVED status | Foundational doc §11.0 crosswalk; §2.1 definition table |
+| Out-of-scope (Epic-grade hospital EMR) | Foundational doc §1.5; §12 reservation status section B |
+| Day 0 depth-bar drift watch zone | [`docs/architecture/v1_pressure_test_radar.md`](v1_pressure_test_radar.md) zone 31 |
+| Specialty non-foreclosure proof (§6.6 method) | ADR §7.12 |
+| Owned diagnostic acquisition Day 0 implications | ADR §7.11 |
+
+---
+
+## 7.11 Owned diagnostic acquisition + structured result authoring (DL-9) (binding — added 2026-05-11 post-doctrine-reconciliation)
+
+This amendment captures the architectural decision that OMNI is the **authoring system** for in-office diagnostic acquisition and procedural result documentation, not merely an importer of external PDFs. It closes a doctrine gap that surfaced after the c1-c9 series: substrate primitive #16 (external-system ingest) was being implicitly treated as the primary diagnostic-input mode, but it covers only outside-system artifacts. Owned in-office tests need a different model.
+
+### Context
+
+- During the c4-c9 4H-templates-discipline arc, the foundational doc reservation language for `labs_lifecycle/` (§5) named "diagnostic acquisition + interpretation" as two sub-shapes, and §5.1 procedure_episode_kind included a `diagnostic_acquisition_episode` variant — but the principle "owned tests are authored, not merely ingested" was never bound as doctrine.
+- ChatGPT pressure-test surfaced the gap with concrete examples: a urology clinic doing void flow / uroflowmetry / urodynamics; a cardiology office running in-office Holter / event monitor / stress echo; a pulm clinic running PFT / DLCO / methacholine challenge; a GYN office doing colposcopy / LEEP / endometrial biopsy. None of these are substrate primitive #16 cases. They are owned in-office acquisition + interpretation workflows.
+- User reaction: "we have so many docs going I cant tell whats what" + the panic that the §6.5 12-row grid was being misread as comprehensive specialty coverage when it is actually a primitive-extraction validation grid.
+- Without DL-9, a future contributor reading the foundational doc could conclude "diagnostic lifecycle = ingest PDFs + interpret them," which would erode the EMR-grade depth bar (DL-5 + §7.10).
+
+### Decision
+
+OMNI is the **authoring system** for in-office diagnostic acquisition and procedural result documentation. **Owned tests are authored. External tests are ingested, reconciled, and interpreted. Both resolve into the same continuity graph.**
+
+**Three producer × entry-mode lanes (plus a hybrid lane):**
+
+| Producer | Entry mode | Example |
+|---|---|---|
+| Clinic performs test; OMNI authors result | Native structured template (`omni_native_authoring`) | Colonoscopy findings, sleep-study interpretation, PFT interpretation, ECG interpretation, urodynamics report, colposcopy findings, EEG read, OCT interpretation, audiogram, joint-aspiration findings, RFA procedure note, in-office Botox / filler procedure note |
+| Clinic performs test; device exports artifact / data | Device / file / API feed (`in_office_device_file` / `in_office_device_feed`) | PFT machine PDF / CSV / discrete measurements; ECG waveform / report; ultrasound DICOM; endoscopy tower image / video; in-office POC analyzer values; spirometry feed; CGM device upload; Holter device download |
+| External partner performs test | Substrate primitive #16 external-system ingest (`external_partner_result`) | Quest / Labcorp result; outside imaging report; outside pathology PDF; ASC procedure note; outside Holter; outside sleep study; faxed consult note; vendor webhook |
+| External partner performs test; clinic interprets (hybrid) | `external_partner_result` + `omni_native_authoring` interpretive workflow | Outside MRI with clinic radiology read; outside Holter with clinic cardiology interpretation; outside sleep study with clinic sleep-medicine interpretation |
+
+**The `diagnostic_acquisition_session` operational object** (substrate-shaped; not a sibling; not a new substrate primitive). Lifecycle: order / indication → accession / study identifier → scheduled / performed timestamp → acquisition device / source → operator / technician → raw artifact(s) → discrete measurements → structured result template → interpretation / signoff → patient communication → tracked-object update → billing / charge lineage → recall / task. Lives across `labs_lifecycle/` + `procedure_lifecycle/` + `clinical_record/`. Composes from existing primitives + DL-7 structured-first authoring.
+
+**Output-source taxonomy (binding enum on every diagnostic / procedural result row):**
+
+| Value | Meaning |
+|---|---|
+| `omni_native_authoring` | Result authored directly in OMNI structured template |
+| `in_office_device_file` | Clinic-owned device exports PDF / CSV / XML / DICOM file; attached + parsed |
+| `in_office_device_feed` | Clinic-owned device sends HL7 / FHIR / DICOM / API feed in real-time |
+| `vendor_cloud_import` | Vendor portal / cloud produces result artifact or API feed (clinic doesn't own device, uses vendor service) |
+| `external_partner_result` | Outside lab / imaging / pathology / ASC sends result via substrate primitive #16 |
+| `manual_transcription` | Staff enters values from paper / PDF when no integration exists |
+
+The taxonomy is the operational projection of the four lanes; future contributors must NOT lump these into "ingest" or "external."
+
+**Standards admissibility (admit, not require):** the substrate must admit DICOM (imaging, endoscopy visible-light, whole-slide pathology), HL7 v2 / FHIR Observation + DiagnosticReport (discrete results from labs / ECG / spirometry feeds), and LOINC (measurement terminology) when activated. Implementation timing per DL-5 activation gate; non-foreclosure per DL-6. These are already implicit in Section 1L labs reservation in MAIN; §5.2.5 in the foundational doc names them explicitly so future contributors know the substrate is non-foreclosed against full standards alignment.
+
+### Rationale
+
+- **Real outpatient EMR for the wedge clinic must handle:** structured visit notes + structured procedure reports + structured diagnostic reports + discrete observations + raw artifacts + interpretations + signoffs + finding updates + recall + billing lineage + patient communication. For a c-scope clinic running OMNI, OMNI must be able to **create** the colonoscopy report, not just attach a PDF. For a cardiology office, OMNI must support the sleep-study acquisition / interpretation workflow or at least native structured interpretation over an acquired artifact. For an in-office PFT, OMNI must store the raw artifact + discrete values + interpretation + comparison to prior + tracked-pulmonary-object update + recall + communication.
+- **Owned tests are authored, not merely ingested.** This single line is the binding doctrine that prevents regression to "diagnostic lifecycle = PDF storage + interpretation overlay."
+- **The four-lane model + output-source taxonomy + diagnostic_acquisition_session object together compose** without inventing specialty-specific primitives. The §6.6 specialty register (51 rows, 12 specialties) demonstrates non-foreclosure across the wedge specialty universe.
+
+### Anti-patterns explicitly rejected
+
+DL-9 explicitly forbids the following framings; each is a regression mode:
+
+- **"Diagnostic lifecycle = PDF storage + interpretation overlay."** Owned tests are authored, not ingested.
+- **"Owned in-office tests are a sub-case of substrate primitive #16."** #16 is for **outside** systems only. Owned acquisition lives in `labs_lifecycle/` + `procedure_lifecycle/` via `diagnostic_acquisition_session` + DL-7 structured-first authoring.
+- **Specialty-specific acquisition tables** (`urology_void_flow_table`, `cardiac_holter_table`, `pulm_dlco_table`, `gyn_colposcopy_table`, `ophtho_oct_table`, `ent_audiogram_table`, `pain_rfa_table`). DL-8 admission criteria reject these by default. Every shape in §6.6 composes from the existing primitive set + `diagnostic_acquisition_session`.
+- **Routing all diagnostic authoring through `clinical_record/`.** `labs_lifecycle/` + `procedure_lifecycle/` own their own structured-result templates within their sibling boundaries. `clinical_record/` is a **consumer** of rendered output, not the canonical authoring sibling for diagnostic / procedural results.
+- **Reducing diagnostic depth to "PDF upload + narrative interpretation."** DL-7 structured-first authoring forbids it. The structured template is canonical; the rendered note is the projection.
+- **Bypassing substrate primitive #16 for inbound external artifacts.** Every outside artifact enters via #16. Side-channels (direct blob upload, ad-hoc fax handler, vendor-specific shortcut) are forbidden.
+
+### Consequences
+
+- Foundational doc gains §5.2 binding sub-doctrine (~110 lines: §5.2.0 binding statement + §5.2.1 three-lane table + §5.2.2 common-output taxonomy + §5.2.3 acquisition-session object spec + §5.2.4 output-source enum + §5.2.5 standards admissibility + §5.2.6 anti-patterns + §5.2.7 cross-refs).
+- Foundational doc §6.6 specialty register demonstrates substrate non-foreclosure across 51 specialty test/procedure shapes spanning 12 specialty categories.
+- Foundational doc §1.5 sharpened: the Athena-lab-module-class line names the three lanes explicitly + adds urology / colposcopy / EEG / OCT / audiogram / joint aspiration to the representative test universe.
+- MAIN gains DL-9 binding lock + Section 1W §1W.6 step 7 cross-reference + Section 1W.9 cross-sibling consumption table updates (bind `labs_lifecycle/` + `procedure_lifecycle/` to DL-9).
+- Radar zone 32 (owned-vs-external diagnostic conflation) tracks DL-9 anti-pattern violations.
+
+### Cross-references
+
+| Concern | Canonical home |
+|---|---|
+| Binding doctrine lock | MAIN Doctrine locks DL-9 |
+| Long-form sub-doctrine | Foundational doc §5.2 |
+| Specialty non-foreclosure register | Foundational doc §6.6 |
+| Sharpened Day 0 framing | Foundational doc §1.5 |
+| Section 1W cross-references | MAIN Section 1W §1W.6 step 7 + §1W.9 cross-sibling consumption table |
+| Anti-overload prerequisite (the word "ingest" not allowed to overload) | ADR §7.8 |
+| Watch zone (owned-vs-external conflation) | Radar zone 32 |
+| Watch zone (specialty-acquisition-table proliferation) | Radar zone 29 |
+| Substrate primitive #16 (external-system ingest scope) | Foundational doc §4 primitive #16 |
+| Day 0 depth bar (Athena-lab-module-class) | ADR §7.10 + foundational doc §1.5 |
+
+---
+
+## 7.12 Specialty-coverage non-foreclosure register pattern (§6.6 method) (binding — added 2026-05-11 post-doctrine-reconciliation)
+
+This amendment captures the architectural pattern for proving substrate non-foreclosure across the specialty universe without committing to specialty-specific implementation. The §6.6 specialty register in the foundational doc (51 rows, 12 specialties) is the canonical instance; §7.12 binds the method.
+
+### Context
+
+- The foundational doc §6.5 12-row primitive-extraction grid (GLP-1, HRT, peptide/longevity, isotretinoin, Botox, filler, Mohs, skin excision, colonoscopy, EGD, cardiac cath, sleep study) was being read as specialty-coverage. It is not — it stress-tests primitive sufficiency against the dimensional matrix.
+- User pushback during the DL-9 / owned-diagnostic-acquisition pressure test: "i fucking rattled those off. like cardio, GI, PULM, shit. like there's 100 use cases." The honest answer was that §6.5 is a primitive-extraction validation grid, not a specialty audit. The §6.0 7-overlay list (aesthetic, derm-Mohs, plastics-rhino, GI surveillance, uro-vasectomy, pulm-BiPAP, fertility, concierge) is also representative wedge shapes, not exhaustive.
+- Without an explicit specialty-coverage register, urology void flow / cardiology Holter / pulm DLCO / GYN colposcopy / endo OGTT / neuro EEG / ophtho OCT / ENT audiogram / allergy patch testing / rheum joint aspiration / wound debridement / pain RFA all read as "implicitly admitted" rather than verified.
+
+### Decision
+
+For every architectural claim that the substrate "admits" a class of workflows, the demonstration is a row-by-row register that maps each named workflow to its **producer lane + sub-shape + sibling + primitives consumed + "no new primitive needed" verdict**. The register is **non-foreclosure proof, NOT a roadmap commitment.**
+
+The §6.6 instance:
+
+- 51 rows organized by 12 specialty clusters: Urology, Cardiology, Pulmonology, GYN, Endocrine, Neurology, Ophthalmology, ENT, Allergy/Immunology, Rheumatology, Wound care, Pain management.
+- Each row: specialty | test/procedure | producer lane (per DL-9 taxonomy) | sub-shape (per §5.1 procedure_episode_kind variants) | sibling (`labs_lifecycle/` / `procedure_lifecycle/` / `clinical_record/` / `clinical_finding/` / mixed) | primitives consumed (numbered references to §4) | new primitive needed? (**always NO** — that is the demonstration).
+- Closing binding rejects specialty-specific primitive tables explicitly.
+
+The register answers "what about urology void flow / cardiology Holter / pulm DLCO / GYN colposcopy / endo OGTT / neuro EEG / ophtho OCT / ENT audiogram / allergy patch testing / rheum joint aspiration / wound debridement / pain RFA" once and binds the answer: every shape composes from the existing primitive set + DL-9 acquisition session, no new primitive needed.
+
+### Rationale
+
+- **The test for any new specialty workflow** is "does it compose from existing primitives + DL-9 acquisition session lanes?" If yes, admit. If no, run §1.8 admission criteria — do not invent specialty-specific primitives by default.
+- **Pre-emptive enumeration prevents specialty-table proliferation.** When a future contributor encounters a specialty workflow not in §6.6, they look up an analog row first, then run admission criteria, then either admit via composition or escalate to a primitive admission via the four-condition test.
+- **The register is not a roadmap.** Activation depth lives in DL-5; non-foreclosure lives in DL-6. §6.6 only proves admissibility per DL-6 + DL-8.
+
+### When to extend the register (binding method)
+
+- **At activation time.** When a new specialty domain activates for a wedge workflow, extend §6.6 with that specialty's representative shapes BEFORE building. The register is the "what about THIS" answer; pre-emptive enumeration is cheaper than retroactive enumeration.
+- **At pressure-test time.** When a contributor surfaces a specialty workflow not in §6.6, the response is to add it to §6.6 with the row template, not to debate primitive sufficiency abstractly. The row is the artifact.
+- **NOT at every PR.** §6.6 is doctrine-tier; routine work does not extend it. The threshold is "is this a new specialty class with shape we have not yet shown the register admits?"
+
+### Anti-patterns explicitly rejected
+
+- **Letting §6.5 stand as a specialty audit.** §6.5 is a 12-row primitive-extraction validation grid, not specialty coverage. The cleanup pass (post-DL-9) added explicit "representative not exhaustive" disclaimers to both §6.0 (overlays) and §6.5 (extraction grid).
+- **Treating §6.6 as a roadmap commitment.** §6.6 is non-foreclosure proof. Activation timing is unrelated; activation depth is governed by DL-5.
+- **Adding specialty-specific tables when a row would suffice.** `urology_void_flow_table`, `cardiac_holter_table`, `pulm_dlco_table`, etc., are rejected by default per DL-8. The §6.6 row + DL-9 acquisition session is the model.
+- **Letting the register go stale as new specialties activate.** Radar zone 30 watches for §6.6 staleness.
+
+### Consequences
+
+- Foundational doc gains §6.6 specialty register (51 rows).
+- §6.0 + §6.5 gain "representative not exhaustive" disclaimers cross-linking §6.6.
+- §11.0 crosswalk has a row mapping §6.6 to "LANDED IN-DOC — non-foreclosure demonstration, not a roadmap commitment per DL-6 + DL-8."
+- Radar gains zone 29 (specialty-acquisition-table proliferation drift) + zone 30 (§6.6 staleness).
+
+### Cross-references
+
+| Concern | Canonical home |
+|---|---|
+| Specialty register | Foundational doc §6.6 |
+| "Representative not exhaustive" disclaimers | Foundational doc §6.0 + §6.5 |
+| Crosswalk status | Foundational doc §11.0 |
+| Substrate non-foreclosure binding | MAIN Doctrine locks DL-6 |
+| Universal flow grammar + admission criteria | MAIN Doctrine locks DL-8 + foundational doc §1.7 + §1.8 |
+| DL-9 producer lanes (referenced by every §6.6 row) | ADR §7.11 + MAIN Doctrine locks DL-9 |
+| Watch zone (specialty-table proliferation) | Radar zone 29 |
+| Watch zone (§6.6 staleness) | Radar zone 30 |
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).
