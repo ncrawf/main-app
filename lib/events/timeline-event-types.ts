@@ -80,9 +80,21 @@ export const CLINICAL_TIMELINE_TYPES = [
 /**
  * Patient-portal interactions — what the patient did from their dashboard
  * (Section 1G.3 messaging + check-ins).
+ *
+ * Note the distinction between:
+ *   * `patient_message_submitted` — the LEGACY support-request shape
+ *     (patient_support_requests + chart AI review enqueue; pre-c2 path
+ *     that wrote a timeline event but NOT a messages row).
+ *   * `patient_chat_message_sent` — the c2 chat-thread shape (messages row
+ *     written via post_patient_message orchestrator; thread-bound;
+ *     per-recipient read state advanced).
+ * Both can coexist while the support-request legacy path persists; product
+ * eventually migrates support-request to write through the c2 chat surface,
+ * at which point `patient_message_submitted` deprecates.
  */
 export const PATIENT_PORTAL_TIMELINE_TYPES = [
   'patient_callback_requested',
+  'patient_chat_message_sent',
   'patient_message_submitted',
   'patient_treatment_checkin_reviewed',
   'patient_treatment_checkin_submitted',

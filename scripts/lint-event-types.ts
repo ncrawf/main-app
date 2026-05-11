@@ -109,6 +109,14 @@ const EXEMPT_PATHS = [
   // shapes. Same false-positive exemption pattern as the prior
   // parity tests.
   join('scripts', 'test-in-app-inbox-c1.ts'),
+  // Phase 4H-communications c2 — chat rendering integration test
+  // inserts synthetic messages rows (staff turns + multi-participant
+  // scenarios) and may reference adjacent property shapes that the
+  // literal-string scan flags. Same false-positive exemption pattern.
+  // The test DOES emit patient_chat_message_sent via postPatientMessage,
+  // but that path uses the typed insertTimelineEvent helper, so the
+  // exemption is for incidental adjacent property literals only.
+  join('scripts', 'test-chat-rendering-c2.ts'),
   // Phase 4H-templates-discipline c5 — same false-positive class at
   // the active_care parity test (RuleTriggerEventType
   // 'patient.case_active' literal). Producer-site exemption
