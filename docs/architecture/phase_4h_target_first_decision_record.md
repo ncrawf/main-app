@@ -1041,6 +1041,76 @@ The register answers "what about urology void flow / cardiology Holter / pulm DL
 
 ---
 
+## 7.16 External-line first-touch + rail-agnostic substrate spine + OMNI canonical source-of-truth + settings precedence + deterministic outbound 8-gate + display-projection-not-substrate doctrine (DL-13) (binding — added 2026-05-12, post-DL-12 + post-e0 preflight)
+
+### Decision
+
+A nine-round pressure-test (R1 → R9) on the e0 external-line preflight (`.cursor/plans/PREFLIGHT_2026-05-12_phase_4h_external_line_e0_substrate_routing_design.md`) surfaced five cross-cutting binding clauses that promote out of preflight scope into core doctrine because they apply beyond external-line. **DL-13 binds these five clauses globally** + extends DL-10 (handle-vs-person identity discipline) + extends DL-12 (invariant 31 5-disposition pattern for pre-account artifacts) + admits sibling #20 `external_communications/`. The five binding clauses:
+
+1. **Rail-agnostic substrate + vendor-confined adapter pattern.** Generic `provider_*` columns on substrate; vendor code confined behind adapter boundary inside the relevant sibling directory. External-line rail adapters live under `lib/external-rails/<provider>/`; broader pattern applies to labs / payments / EHR-export via their own adapter boundaries — NOT all under `lib/external-rails/`.
+2. **OMNI canonical source-of-truth + vendor-adopt-not-write.** OMNI's identity / contact / endpoint / queue / settings / consent substrate is master; vendor stores are local convenience, NEVER authoritative.
+3. **Settings precedence hierarchy (six-level, top-down).** Law/compliance/consent > safety/clinical criticality > endpoint policy > queue policy > user preferences > device preferences. Lower layers may NEVER override higher layers.
+4. **Deterministic outbound 8-gate.** Every automated external-line outbound passes endpoint-intent + consent + STOP/HELP + template/disclosure + quiet-hours + idempotency + rate-limit + prohibited-claims. AI confirmation is NOT a gate.
+5. **Display-projection-not-substrate discipline.** Display identity + status chips are computed projections at query time; NEVER independent mutable substrate columns.
+
+### Why
+
+The e0 preflight pressure-test surfaced operational reality (RingCentral-parity / phone-system-parity / contact-identity sync / multi-brand / Hims-vs-medspa modes / voicemail / draft semantics / outbound traceability / settings taxonomy / display identity / status chips) that exceeded "build SMS webhooks" scope. The five clauses are architectural posture, not external-line features:
+
+- **Rail-agnostic substrate** prevents vendor lock-in. Future migration off Twilio to RingCentral / MessageBird / direct carrier / multi-rail is a migration, not a rewrite. The same pattern applies to labs (Quest / LabCorp / Olink), payments (Stripe / Adyen), EHR-export, pharmacy — every domain that has external vendor rails benefits.
+- **OMNI canonical** prevents the contact-database-as-vendor anti-pattern. OMNI's identity layer (DL-10 multi-relationship) is richer than any vendor's contact store; vendor address books cannot resolve OMNI identity correctly. Pattern generalizes to any vendor with its own object store.
+- **Settings precedence** prevents operational disasters (user mute suppressing safety, marketing consent overriding clinical STOP, device preference suppressing on-call escalation). Pattern generalizes to any layered-settings domain.
+- **Deterministic 8-gate** prevents compliance + safety + reputation disasters at the only point that matters: before the rail dispatches. AI judgment is not a substitute for deterministic gates on external sends.
+- **Display-projection-not-substrate** prevents UI drift from backend truth. Pattern generalizes to dashboards, reports, queue badges, any derived UI state.
+
+The pressure-test arc (9 rounds, ~6 hours) is chronicled in evolution narrative Act XIV; the closing handoff `.cursor/plans/HANDOFF_2026-05-12_phase_4h_doctrine_reconciliation_complete.md` captures R1-R9 round-by-round synthesis + cross-arc impact map.
+
+### Explicit REJECTED alternatives (this is a Rejected-Alternatives Record per the ADR convention)
+
+1. **Twilio (or any vendor) as substrate — substrate keys built around Twilio Conversation SIDs / Twilio Contact IDs / Twilio Phone Number SIDs** — REJECTED. Couples OMNI fatally to one rail. Future migration becomes rewrite. Multi-vendor impossible. Substrate is rail-agnostic with generic `provider_*` columns.
+2. **Vendor address book as canonical contact store — reading Twilio / RingCentral contact records to resolve OMNI patient identity** — REJECTED. Vendor stores reflect only vendor-side activity; OMNI's DL-10 multi-relationship-per-person model is unrepresentable in vendor stores. OMNI is canonical; vendor is adopt-not-write.
+3. **All rail adapters under `lib/external-rails/`** — REJECTED. The vendor-confined-adapter pattern applies to other domains (labs, payments, EHR-export, pharmacy) via their own adapter boundaries inside their own sibling directories. External-line adapters live at `lib/external-rails/<provider>/`; lab adapters live at `labs_lifecycle/lib/lab-rails/<vendor>/`; etc. Pattern is "vendor-confined-adapter inside the relevant sibling," not "everything under one folder."
+4. **Independent `chat_status` / `lead_stage` / `display_state` mutable columns on conversation or message tables** — REJECTED. Display drifts from substrate truth as backend state changes; status chips lie. Display is computed projection at query time over substrate (contact_identities + patient_relationships + appointment state + care_programs + intake state + patient_consents + open action items + billing state + clinical/safety flags). Projection-cache tables admissible per DL-8 IF justified by performance, but cache is derived state with invalidation contract, NEVER source of truth.
+5. **AI as participant on external conversations — AI silently replies to a patient SMS or impersonates staff identity on external rails** — REJECTED. External sends use `staff` (manual) / `staff_with_ai_assist` (human approved + sent AI draft) / `system` / `automation` (deterministic rule/template per 8-gate). `ai_assisted` alone is NOT admitted for external-line send. AI Response Assist drafts must transition to human-approved or deterministic-policy-approved.
+6. **Marketing + clinical traffic on the same endpoint without intent classification, consent separation, routing policy, and audit** — REJECTED (Zone 68). **NOTE**: a real clinic may legitimately use one main line for both lead capture and patient ops; the rejected pattern is UNSEPARATED INTENT, not single-physical-number per se. Substrate enforces intent_class + per-endpoint consent + routing policy + audit so single-line operations remain compliant by construction.
+7. **STOP cascading silently across intent classes — a clinical STOP silently opts out marketing or vice versa, or a marketing STOP silently opts out clinical** — REJECTED. STOP is intent-class-scoped + channel-scoped + endpoint-scoped by default; cross-channel / cross-intent STOP requires explicit reciprocal logic + audit. Patient may STOP marketing on this endpoint without losing clinical communications. "STOP ALL" or explicit cross-intent STOP requires keyword detection + operator confirmation + audit.
+8. **AI confirmation as a gate in the 8-gate** — REJECTED. AI judgment is not a substitute for deterministic gates on external sends. AI may DRAFT (Response Assist) but the 8-gate is deterministic-only. Substituting AI judgment for any of the 8 gates introduces non-reproducibility + audit gaps + compliance risk.
+9. **Voicemail / MMS / annotated-image auto-filing to chart on patient projection** — REJECTED. 5-disposition pattern (link / attach / chart_file / safety_task / reject_spam) governs projection; chart filing is a separate capability-gated explicit step. Auto-filing externally-received artifacts to chart is clinical truth pollution (Zone 59 sibling).
+10. **Settings-precedence inversion — user preference suppressing safety escalation; device preference suppressing on-call; endpoint policy overriding compliance** — REJECTED. Six-level precedence is binding; lower layers may NEVER override higher layers.
+11. **Endpoint-policy-via-jsonb — storing endpoint routing / business hours / voicemail policy in `metadata` instead of structured substrate columns** — REJECTED. Endpoint policy is first-class substrate; structured columns enable indexing, querying, audit, validation. JSONB is for vendor-specific extension fields only (`provider_metadata`).
+12. **Single shared phone number for marketing and clinical SMS without intent classification + operational isolation** (per radar zone 68 pre-existing rejection) — REJECTED. Refined by (6) above to softer "unseparated intent" formulation; substrate enforces safe pattern.
+13. **Treating external_conversation_messages as patient chat messages (i.e., merging external-line into c2 messages substrate)** — REJECTED. External-line first-touch is operator-facing triage with its own access model (broad front-desk access for main client lines vs narrower relationship-scoped patient chat); merging conflates two substrates. External_communications is sibling #20.
+14. **Inventing a `fax_lifecycle/` or `external_documents_lifecycle/` or `inbound_voicemail/` sibling** — REJECTED (Zone 46, Zone 70 sibling). Fax composes from primitives per 5.3(a); voicemail / MMS / artifacts compose from external_communications sibling #20 + primitive #16 ingest. No proliferation.
+15. **Hardcoding "front desk owns main line" or "high-touch clinic mode" as substrate** — REJECTED. Multi-brand operating mode (4 brand modes × 3 backend modes) is configured per brand / practice_entity / endpoint. Substrate admits all 12 combinations without hardcoding.
+
+### Watch zones (radar 69-78)
+
+- **Zone 69 — External-line rail-bypass drift.** Vendor-specific columns leaking onto substrate; vendor IDs becoming primary keys; substrate becoming Twilio-shaped.
+- **Zone 70 — Vendor-as-contact-source drift.** OMNI code reading from vendor contact stores to resolve identity.
+- **Zone 71 — `chat_status`-independent-field drift.** Independent mutable display-state columns on conversation / contact / message tables.
+- **Zone 72 — Multi-brand cross-leakage drift.** Brand A staff seeing Brand B conversations without explicit endpoint/relationship scope.
+- **Zone 73 — STOP-cascading-across-intents drift.** A clinical STOP silently opts out marketing or vice versa.
+- **Zone 74 — Display projection drift from substrate.** Cached display state diverges from substrate truth; cache becomes source of truth.
+- **Zone 75 — Settings-precedence inversion drift.** User preference suppresses safety; device preference overrides compliance.
+- **Zone 76 — Endpoint-policy-via-jsonb drift.** Endpoint routing / business hours / voicemail policy stuffed into `metadata` jsonb.
+- **Zone 77 — External-line voicemail / artifact auto-filing-to-chart drift.** Externally-received artifacts silently chart-filed on patient projection.
+- **Zone 78 — AI-as-participant drift on external conversations.** AI directly sends external messages without human approval or deterministic-policy gate.
+
+### Effect on the binding map
+
+| Artifact | Change |
+|---|---|
+| Doctrine lock | **DL-13 (binding, NEW; 2026-05-12)** in system map `## Doctrine locks` |
+| MAIN binding subsections | §1D.4 (settings precedence + endpoint admin capability + multi-brand operating-mode config) + §1G.12 (external-line surface + endpoint substrate + voicemail state machine + draft semantics + outbound endpoint selection + delivery state + annotation + search + visibility) + §1J.13 (handle-vs-person + contact-identity lifecycle + manual-account-creation sync + retroactive projection + external-line access scope + search audit) + §1N.9 (AI-not-as-participant + deterministic-outbound-via-system-actor + Response Assist scope on external-line) + §1P.15 (external-line voicemail / MMS / annotated-image artifacts + 5-disposition pattern + atomization + PDFs) + §1Q.14.2 (deterministic 8-gate + STOP/HELP cascade + endpoint-intent classification + intent-class consent + single-line marketing-and-clinical + cross-channel STOP + failed-gate handling + human-authored-sends-and-the-8-gate) + §1V.11 (display-projection-not-substrate + immutable external-line message history + spam/archive/restrict/entered-in-error vs delete + correction via follow-up) |
+| Foundational doc binding | §4.B primitive description updates (#1 + #5 + #10 + #11 + #16) + §5 sibling #20 `external_communications/` + §5.3(c) (external-communications-as-sibling-with-rail-agnostic-substrate guard) + §7.13.13 (long-form sub-doctrine with 7 subsections) + §8.1 clauses 29-33 + additional cross-cutting sub-disciplines + §11.0 crosswalk row |
+| Crosswalk status | Foundational doc §11.0 (LANDED doctrine via DL-13; substrate migration future) |
+| Watch zones | Radar zones 69-78 (10 zones) — external-line rail-bypass / vendor-as-contact-source / chat_status-independent-field / multi-brand cross-leakage / STOP-cascading-across-intents / display projection drift / settings-precedence inversion / endpoint-policy-via-jsonb / voicemail-auto-files-to-chart / AI-as-participant drift |
+| Topology spine | [`docs/architecture/communications_topology.md`](communications_topology.md) §11 (external-line substrate spine paragraph + e0 preflight cross-reference) + §12 (DL-13 cross-references subsection) |
+| e0 preflight | [`.cursor/plans/PREFLIGHT_2026-05-12_phase_4h_external_line_e0_substrate_routing_design.md`](../../.cursor/plans/PREFLIGHT_2026-05-12_phase_4h_external_line_e0_substrate_routing_design.md) (R1-R9 pressure-test trail; 23 sections; 55-scenario matrix; doctrine inheritance updated) |
+| Closing handoff | [`.cursor/plans/HANDOFF_2026-05-12_phase_4h_doctrine_reconciliation_complete.md`](../../.cursor/plans/HANDOFF_2026-05-12_phase_4h_doctrine_reconciliation_complete.md) |
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).
