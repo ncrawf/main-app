@@ -178,7 +178,7 @@ This is the anti-randomness rule. It is what keeps OMNI broad-in-scope without b
 | Provider topology | single-provider · multi-provider collaborative · care team (proceduralist + consultant + primary + covering + MA + coordinator + injector + aesthetician) · cross-org referral |
 | Revenue model | cash-pay · insurance-billed · subscription · hybrid · DTC retail · concierge membership · per-procedure · package |
 | Communication ingress | outbound-only · inbound SMS · inbound voice · inbound fax · inbound email reply · portal message · scanned upload |
-| Communication endpoints | single brand inbox · per-department · per-specialty · per-provider · per-location · AI-operated endpoint |
+| Communication endpoints | single brand inbox · per-department · per-specialty · per-provider · per-location · AI-operated endpoint. **Binding response per DL-11 + §7.14:** three architecturally distinct messaging surfaces — (1) patient-facing chat (`messages` substrate, c2 shipped); (2) external-line / pre-account contact-identity + ops triage (future preflight); (3) internal team collaboration (`internal_collaboration/` sibling #19; ad-hoc + persistent-group + 1:1; first-class multi-object attachment via `internal_thread_object_links`; patient-less threads first-class). Per-department / per-specialty / per-provider / per-location surfaces in internal_collaboration ride persistent-group threads with role/capability-derived membership. AI-operated endpoints are admissible substrate-side per primitive #11 (AI orchestration runtime); operational shape future. |
 | Scheduling depth | provider-only · provider + room · provider + room + equipment · multi-suite · cross-facility · surgery-center · device + technician |
 | Identity scope | single org · multi-brand within org · multi-org with shared patient · cross-org referral with packet handoff. **Binding response per DL-10 + §7.13:** `patients` canonical within an OMNI identity namespace (deployment / org PHI boundary today); `patient_relationship` (primitive #19) per-relationship scope; cross-namespace federation explicit / consent-aware / audited (not auto-shared) |
 | Patient role | episodic patient · longitudinal patient · subscription member · returning post-procedure patient · surveillance cohort · recurring aesthetic patient |
@@ -258,7 +258,13 @@ Substrate primitives are cross-cutting infrastructure every sibling depends on. 
 | `referral_lifecycle/` | `referral_event_kind` | referral as object: reason + urgency + records packet + external recipient + consent + status + appointment confirmation + result returned + loop closure | Loop closure is the multi-week / often-manual operational pain that destroys continuity in real clinics |
 | `inventory_lifecycle/` (NEW) | `inventory_event_kind` | lot tracking, expiry, vendor sourcing, point-of-sale dispense, in-clinic injectable / implant / device / supplement tracking, consumption from interventions | Distinct from retail commerce (which is the customer-facing transaction) and pharmacy fulfillment (which is the prescription pipeline). Cosmetic/procedural inventory has its own semantics. |
 
-**Total siblings: 18** (5 active, 13 reserved).
+### Reserved by DL-11 (1 new — added 2026-05-11 late evening)
+
+| Sibling | Discriminant | Owns | Why distinct |
+|---|---|---|---|
+| **`internal_collaboration/` (NEW per DL-11)** | `internal_thread_kind` (`ad_hoc` / `persistent_group` / `direct_message`) + `internal_thread_object_link.object_type` polymorphic on attached objects | **Staff-to-staff threaded discussion** with first-class object attachment (patient / patient_relationship / lab_order / lab_result / appointment / treatment_order / clinical_visit / care_program / patient_document / patient_message / outbound_job / billing_exception / adverse_event) AND first-class admission for **patient-less threads** (persistent group channels — billing / front_desk / on_call / safety_committee / compliance — with role/capability-derived membership; 1:1 direct messages; free-floating ops discussion). Owns: thread substrate (`internal_threads`), message substrate (`internal_thread_messages`), participant substrate (`internal_thread_participants` with explicit + derived membership), object-attachment substrate (`internal_thread_object_links` as typed multi-object child table), mention notification semantics (emit `outbound_jobs.send_in_app` + `audit_events`; **never** `patient_timeline_events` unless explicit patient-record state change), sensitivity tagging, relationship-scoping per DL-10. | **Distinct from `messages` (c2 patient chat)** — staff-only, different audit / access model, multi-object attachment, patient-less admission. **Distinct from `provider_tasking/`** — task is queue-of-ownership state; thread is conversation state; they compose via `link_role='produced_task'` but neither replaces the other. **Distinct from external-line substrate** — external-line ops triage is its own substrate (Layer 3 in `communications_topology.md` §11); internal_collaboration threads can be spawned from / linked to external-line triage but the external conversation is not an internal thread. **Distinct from `communications_lifecycle/`** — communications_lifecycle reserved for patient-facing multi-channel rails; internal_collaboration is staff-only. |
+
+**Total siblings: 19** (5 active, 14 reserved). +1 from DL-11.
 
 ### Sibling boundary discipline (binding)
 
@@ -268,6 +274,7 @@ Every sibling's documentation MUST name what it does NOT own with cross-referenc
 - `referral_lifecycle/` does NOT own communications (→ `communications_lifecycle/`); does NOT own appointment booking at receiving clinic (→ that org's `scheduling_lifecycle/`); does NOT own result interpretation (→ `clinical_decision/` or `labs_lifecycle/`).
 - `revenue_cycle/` does NOT own subscription billing (→ `billing_subscription/`); does NOT own retail commerce (→ `retail_lifecycle/`); does NOT own prior auth (→ `authorization_lifecycle/`).
 - `inventory_lifecycle/` does NOT own customer-facing retail transactions (→ `retail_lifecycle/`); does NOT own pharmacy fill pipeline (→ `pharmacy_lifecycle/`); does NOT own procedure documentation (→ `procedure_lifecycle/`, attached as derived).
+- `internal_collaboration/` (NEW per DL-11) does NOT own patient-facing chat (→ c2 `messages` substrate); does NOT own external-line / pre-account communications (→ future external-line preflight; external-line is Layer 3 in `communications_topology.md` §11); does NOT own task / queue / SLA / escalation (→ `provider_tasking/`; threads compose with tasks via `internal_thread_object_links.link_role = 'produced_task'`); does NOT own staff directory / presence / on-call coverage (→ future doctrine arc per DL-11 non-foreclosure clause; today fragments live in `staff_profiles` + Section 1D + §1G.7 operational state + §1G.8 My Status); does NOT own patient timeline (→ substrate; mentions emit `outbound_jobs.send_in_app` + `audit_events` only, **never** `patient_timeline_events` unless explicit patient-record state change).
 
 This boundary discipline is binding doctrine. Every sibling activation MUST include its boundary statement in rule + template file headers.
 
@@ -988,6 +995,281 @@ Three medspa clinics each run their own OMNI deployment (separate namespaces). T
 
 ---
 
+## 7.14 Internal team collaboration messaging (binding sub-doctrine per DL-11)
+
+This section is the long-form rationale for **Doctrine lock DL-11** in MAIN. The lock itself is the binding source; this section explains the three-surface distinction, the Slack-with-patient-context / Epic-Secure-Chat / iMessage/Teams quality bar, the substrate sketch, worked examples, and anti-patterns. Read DL-11 first; this section explains the why. New sibling #19 `internal_collaboration/` (foundational doc §5) is the substrate home.
+
+### 7.14.0 Binding sentence + patient-less threads clarification
+
+> "OMNI admits three architecturally distinct messaging surfaces: **(1) patient-facing chat** (`messages` substrate; c2 shipped); **(2) external-line / pre-account communications** (contact-identity + Twilio webhooks; future preflight); **(3) internal team collaboration** (staff-to-staff threaded discussion with first-class object attachment AND first-class patient-less threads). The three surfaces share substrate primitives (authority + capability, audit, communication rails, `patient_relationship` per DL-10, consent) but do not share storage tables, access models, audit shape, or lifecycle semantics. Cramming any surface into another's substrate is forbidden."
+
+**Patient-less threads are first-class.** Internal collaboration is NOT patient-bound by default. The substrate admits three thread shapes — ad-hoc, persistent-group, direct-message — and patient-less threads (billing team chat, on-call rotation chat, 1:1 staff DM about a non-clinical topic) are first-class shapes, not degenerate cases of patient-attached threads.
+
+### 7.14.1 The three messaging surfaces and why they're distinct
+
+| Concern | (1) Patient-facing chat | (2) External-line / pre-account | (3) Internal team collaboration |
+|---|---|---|---|
+| **Substrate today** | `messages` + `message_threads` + `message_thread_participants` (c2 substrate, 2026-04-30 migration + 2026-05-16 c2 commit) | Not built; future external-line preflight | Not built; doctrine LANDED via DL-11; substrate migration future |
+| **Participants** | Patient + care team (per care_program) | Unmatched / unknown contact (pre-resolution) → staff (post-resolution) | Staff-only (creator + participants + derived group members) |
+| **Patient-visible?** | YES (patient reads + writes) | NO during triage; conversation may later project into patient timeline post-link | NO (staff-only; mentions never pollute patient timeline) |
+| **Object attachment** | Implicit: bound to one care_program | One contact identity → optionally → one patient_relationship | First-class multi-object via `internal_thread_object_links` typed child table |
+| **Patient binding required?** | YES (one care_program per thread) | Not initially (unmatched events); becomes patient-bound after resolution | NO (patient-less ad-hoc / persistent-group / DM threads are first-class) |
+| **Access model** | RLS via `is_staff_user` + patient portal session; participants via `message_thread_participants` | Ops triage capability; identity-claim-matching workflow; patient post-link gates patient-visible reads | Capability-gated reads per sensitivity; persistent-group membership derived from role + capability; PHI-aware audit per access |
+| **Audit shape** | `audit_events` for staff writes; `patient_timeline_events` for patient turns + clinical_required resolutions | `audit_events` for triage + linking actions; sparse timeline writes only on resolution | `audit_events` on every thread action; **never** `patient_timeline_events` for mentions / participant adds / sensitivity changes — only for explicit patient-record state changes |
+| **Lifecycle** | Care-program-bound; closes with care_program | Triage queue lifecycle: unmatched → triaged → linked / dismissed / converted_to_lead | Thread lifecycle: open → waiting → resolved → archived; persistent-group threads don't close |
+| **Sensitivity / PHI exposure** | Patient-readable; clamped by disclosure-policy gate per §1Q.17 | Pre-resolution: low (no patient identity yet); post-resolution: gated | Variable per thread: `normal` / `sensitive` / `safety`; capability-gated viz |
+
+Cramming these surfaces into one substrate forces compromises along every axis. DL-11 keeps them parallel.
+
+### 7.14.2 The three internal-thread shapes
+
+| Shape | When to use | Patient binding | Participants | Lifecycle |
+|---|---|---|---|---|
+| **ad_hoc** | Specific topic, one-off discussion. May attach a patient + related objects, or be patient-less ops discussion. | Optional | Explicit-add per thread | open → resolved → archived |
+| **persistent_group** | Named team channel (billing, front_desk, on_call, safety_committee, compliance, on_call_after_hours). Durable institutional memory across many topics. | Typically none (group is the patient-less coordination surface); a specific message may attach a patient | Derived from role + capability at write-time; explicit guest-adds admitted | Group is durable; individual messages have no lifecycle beyond edit/delete |
+| **direct_message** | 1:1 staff-to-staff conversation. Usually patient-less ("can you cover my shift?") but may attach an object opportunistically. | Optional | Exactly two staff | Open until explicitly archived; no thread-close semantics |
+
+Decision criteria for which shape a new thread takes:
+- Discussion is one-off about a specific patient or object → `ad_hoc`
+- Discussion is team-coordination ongoing → `persistent_group`
+- Discussion is between two specific staff → `direct_message`
+
+### 7.14.3 Object-attachment polymorphism (first-class, multi-object)
+
+Every internal_collaboration thread admits:
+
+1. A **primary context** on the thread row itself: `primary_context_type` + `primary_context_id` (NULL for patient-less threads)
+2. **Multi-object additional attachments** via a typed child table `internal_thread_object_links` with `(object_type, object_id, link_role, linked_by, linked_at)` per link
+
+Object types admitted today (admission discipline applies per §1.8 for new types):
+
+`patient` · `patient_relationship` · `lab_order` · `lab_result` · `appointment` · `treatment_order` · `clinical_visit` · `care_program` · `patient_document` · `patient_message` · `outbound_job` · `billing_exception` · `adverse_event`
+
+`link_role` values: `primary` (denormalization of the thread.primary_context_*), `additional` (extra object linked), `produced_task` (link to a `provider_tasking/` row this thread produced), `superseded` (link rolled into a successor thread).
+
+**A thread with zero object links is valid** — patient-less ad-hoc / persistent-group / direct-message threads. The substrate must not require object attachment.
+
+**Anti-patterns (radar zone 39):**
+- Limiting threads to a single `(context_type, context_id)` on the thread row only (no child link table)
+- Encoding object attachment in `internal_thread_messages.metadata` jsonb
+- Per-object-type internal-thread tables (one for labs, one for orders — rejected by DL-8 admission criteria, same as the specialty-table proliferation pattern rejected per radar zone 29)
+
+### 7.14.4 Substrate sketch (NOT a migration)
+
+Concrete shape for future contributors. Migration is a future commit driven by first sibling activation.
+
+- `internal_threads` — `id`, `org_id`, `thread_kind` text CHECK (`ad_hoc` | `persistent_group` | `direct_message`), `group_name` text NULL (only for `persistent_group`), `group_kind` text NULL (only for `persistent_group`; e.g., `billing`, `front_desk`, `on_call`, `safety_committee`, `compliance`, `after_hours_coverage`), `primary_context_type` text NULL, `primary_context_id` UUID NULL, `patient_id` UUID NULL (denormalized for indexing when primary context resolves to a patient), `patient_relationship_id` UUID NULL (per DL-10, when patient-scoped), `title` text, `status` text CHECK (`open` | `waiting` | `resolved` | `archived`), `priority` text, `sensitivity` text CHECK (`normal` | `sensitive` | `safety`), `created_by` staff_id, `created_at`, `updated_at`, `metadata` jsonb (forward-compat). Patient-less threads: `primary_context_*` + `patient_id` + `patient_relationship_id` all NULL.
+- `internal_thread_object_links` — `id`, `internal_thread_id`, `object_type` text, `object_id` UUID, `link_role` text (`primary` / `additional` / `produced_task` / `superseded`), `linked_by` staff_id, `linked_at`. Admits multi-object case.
+- `internal_thread_messages` — `id`, `internal_thread_id`, `author_staff_id`, `body`, `mention_staff_ids` UUID array, `created_at`, `edited_at`, `metadata`. Parallel `internal_thread_message_attachments` admits rich-media (images, screenshots, markups, files) when activation drives.
+- `internal_thread_participants` — `id`, `internal_thread_id`, `staff_profile_id`, `role` text (`creator` / `participant` / `assigned` / `observer`), `membership_source` text (`explicit_add` / `derived_from_group_membership` / `derived_from_role`), `last_read_message_id`, `last_read_at`, `notifications_muted` boolean, `joined_at`, `left_at`. For `persistent_group` threads, `membership_source = 'derived_*'` rows reflect role/capability-based auto-inclusion; explicit guest-adds also admitted.
+- RLS: capability-gated reads (`is_staff_user` + `requireCapability` per sensitivity); writes only via SECURITY DEFINER orchestrators.
+- Audit: every thread create / message post / participant add/remove / object link / sensitivity change / task link emits an `audit_events` row.
+
+### 7.14.5 Persistent-group membership derivation
+
+Persistent-group memberships are derived from role + capability at write-time, materialized into `internal_thread_participants` rows. The derivation is a separate primitive (extends `lib/auth/capabilities.ts` or a new `lib/groups/` module) that exposes:
+
+- `getCurrentGroupMembers(group_kind: 'billing' | 'front_desk' | 'on_call' | …) → staff_profile_id[]`
+- Trigger: when a new persistent-group thread is created OR when a message is posted, the orchestrator materializes current group members as participant rows with `membership_source = 'derived_from_group_membership'`
+- **Historical accountability:** an audit query at any past timestamp returns the membership *at that timestamp*, not the current membership. Role assignment changes don't retroactively rewrite who was a member when.
+
+Definition of each `group_kind` (binding admission requires this to be locked at definition time):
+- `billing` → staff with `billing` role OR `can_manage_billing_exceptions` capability
+- `front_desk` → staff with `customer_support` role at a given location
+- `on_call` → staff in the current on-call rotation (depends on future on-call substrate per §7.14.17 dependency clause)
+- `safety_committee` → staff with `compliance_auditor` role + safety-committee opt-in
+- `compliance` → staff with `compliance_auditor` role
+- (More admitted via §1.8 admission criteria)
+
+### 7.14.6 Mention notification semantics (binding)
+
+When staff A mentions staff B in an internal_collaboration thread:
+
+- An `outbound_jobs` row of `kind='send_in_app'` is enqueued for staff B (in-app notification per the c1 substrate)
+- An `audit_events` row records the mention (action `internal_thread.mention_issued`)
+- **NO `patient_timeline_events` row is written** by default
+
+A `patient_timeline_events` row is written only when the thread produces an explicit patient-record state change:
+- Thread resolves into a patient-visible message (via separate orchestrator call into the c2 `messages` substrate)
+- Thread produces a clinical_visit / clinical_assertion / patient_state_observation update
+- Thread produces a `patient_action_items` row (c4 future)
+- Thread updates a chart field directly
+
+This rule prevents internal team activity from polluting the patient timeline. The patient timeline is patient-facing memory, not an internal-team activity log. Radar zone 41 watches.
+
+### 7.14.7 Relationship-scoping per DL-10
+
+Internal collaboration threads attaching a patient are **relationship-scoped per DL-10**. The substrate denormalizes `patient_relationship_id` onto the thread row when applicable. RLS predicates and capability checks must filter on the relationship.
+
+Example: a thread about a Brand A patient's GLP-1 dose review:
+- Thread `patient_id` = patient X's `patients.id`
+- Thread `patient_relationship_id` = Brand A's `patient_relationship.id` for patient X
+- Visibility: Brand A care team can read; Brand B care team (where patient X also has a relationship for HRT) CANNOT read by default
+- Cross-relationship visibility requires explicit consent + capability + audit per DL-10's "cross-relationship linking is explicit, permissioned, consent-aware, audited" clause
+
+Radar zone 40 watches for cross-relationship leakage.
+
+### 7.14.8 Composition with `provider_tasking/`
+
+A thread can produce a task: the orchestrator inserts a `provider_tasking/` row and writes a corresponding `internal_thread_object_links` row with `link_role = 'produced_task'`, `object_type = 'provider_tasking_task'`, `object_id = <task.id>`. The task is queue state (owner, SLA, escalation); the thread is conversation state.
+
+A thread can resolve a task: when staff posts a message marking the task done, the orchestrator updates the task row + writes a participant + audit_events row. The link survives.
+
+Neither replaces the other. A task without a thread is fine (deterministic queue work). A thread without a task is fine (most threads). Linked threads + tasks compose well — the queue surface (provider_tasking workspace) shows the task; clicking opens the thread.
+
+### 7.14.9 Composition with external-line substrate (DL-10/DL-11 boundary)
+
+External-line ops triage is its own substrate (Layer 3 in `docs/architecture/communications_topology.md` §11's four-layer model). It is NOT internal collaboration.
+
+When staff need to discuss an unmatched external-line event (e.g., "this Twilio inbound looks like patient X — confirm before linking"), an internal_collaboration thread can be **spawned from** the external-line triage row or **linked to** it via `internal_thread_object_links` with `object_type = 'external_line_event'`. The external conversation stays in external-line substrate; the staff discussion sits in internal_collaboration.
+
+This preserves the DL-10/DL-11 layer boundaries cleanly. Without this discipline, the temptation is "external-line triage IS internal collaboration" — which collapses the contact-identity layer into the staff-collaboration layer and loses both.
+
+### 7.14.10 Quality bar: Slack-with-patient-context + Epic Secure Chat + iMessage/Teams
+
+The user expectation is **elite-level messaging quality**:
+
+- **Slack-style threading** + mentions + reactions (future) + presence-where-appropriate
+- **iMessage/Teams-level rich media**: images, screenshots, screen markup / drawing, file attachments, voice messages (future)
+- **Epic Secure Chat-style patient context**: when a thread attaches a patient, a card shows the patient identity + key flags + deep link to chart (DOB / age / allergies / active programs / relationship-scope-aware) WITHOUT staff having to type PHI into the message body
+- **Provider workspace integration**: threads appear in My Queue / clinical-message inbox surfaces (§1G.8 surfaces)
+- **Mobile-first** capabilities (sketched; deferred per §7.14.19)
+
+The substrate must admit each of these. DL-11 doesn't lock the UI design; it locks the substrate so the UI lands cleanly.
+
+### 7.14.11 Worked example: lab result review thread (ad_hoc; multi-object)
+
+Provider receives an estradiol result for patient X (Brand A's women's HRT relationship). Result is borderline; provider wants MA to call patient to confirm symptoms before signing off and replying via c2 patient chat.
+
+1. Provider opens patient X's chart, scrolls to the new `lab_result`, clicks "Start internal discussion."
+2. New `internal_threads` row inserted: `thread_kind = 'ad_hoc'`, `primary_context_type = 'lab_result'`, `primary_context_id = <lab_result.id>`, `patient_id` denormalized, `patient_relationship_id` = Brand A's relationship.
+3. `internal_thread_object_links` row inserted: `(thread_id, 'lab_result', <id>, 'primary')` + additionally `(thread_id, 'patient', <patient_id>, 'additional')` + `(thread_id, 'lab_order', <lab_order.id>, 'additional')`.
+4. Provider posts: "@MA-Sarah can you call X tomorrow morning, ask about hot flashes vs sleep changes before I sign off?"
+5. Mention emits `outbound_jobs.send_in_app` to MA-Sarah + `audit_events` row (action `internal_thread.mention_issued`). **No `patient_timeline_events`** at this point.
+6. MA-Sarah calls patient, posts back: "Confirmed worse hot flashes; no sleep change. Patient OK with continuing current dose."
+7. Provider posts back: "Great. Will reply via portal." Marks thread `status = 'resolved'`.
+8. Provider opens c2 portal chat, sends patient X a patient-facing message via `postPatientMessage`. **This** action writes a `patient_timeline_events` row of `event_type = 'patient_message_submitted'` (the patient-record state change). The internal thread itself never touched patient timeline.
+
+### 7.14.12 Worked example: post-procedure photo discussion (ad_hoc; rich media; sensitivity)
+
+Patient Y had a Botox treatment yesterday. Today she texted Brand C's medspa main line a photo of her forehead with concerning asymmetry. Front-desk staff routes the photo to the medspa team.
+
+1. Front-desk creates a new `internal_threads` row: `thread_kind = 'ad_hoc'`, `primary_context_type = 'patient'`, `primary_context_id = <patient_id>`, `patient_relationship_id` = Brand C's medspa relationship, `sensitivity = 'sensitive'` (photo of a clinical concern).
+2. `internal_thread_object_links` additionally links `(thread_id, 'treatment_order', <botox_order.id>, 'additional')` + `(thread_id, 'patient_document', <photo.id>, 'additional')`.
+3. Photo lives in `patient_documents` (substrate); the thread links it via `internal_thread_object_links`, not embedded in metadata.
+4. Provider + injector (only Brand C team — Brand A HRT team and Brand B GLP-1 team don't see this thread per DL-10 relationship-scoping) discuss: "looks like minor asymmetry; reassure patient; recommend wait 7 days for full settling."
+5. Resolution: provider sends patient Y a portal message + schedules optional follow-up appointment. Both actions write `patient_timeline_events` from their respective orchestrators; the thread itself doesn't.
+
+### 7.14.13 Worked example: persistent-group billing channel (patient-less; durable institutional memory)
+
+Billing team has a persistent group thread `billing` (group_kind = 'billing'). Members derived from billing role + `can_manage_billing_exceptions` capability — typically billing-ops + compliance leads.
+
+1. Billing lead posts: "Starting next Monday we're charging full refund per the new policy — see attached doc."
+2. Message links `patient_document` for the policy via `internal_thread_object_links`. No patient binding.
+3. Three weeks later a new ops hire is added to the billing group via role assignment. Their `internal_thread_participants` row materializes with `membership_source = 'derived_from_group_membership'`. They scroll back to see the durable policy message.
+4. The thread is institutional memory. No patient timeline writes ever (patient-less). All audited.
+
+### 7.14.14 Worked example: 1:1 direct message (no patient binding)
+
+Dr. Provider and MA Sarah have ongoing 1:1 thread (`thread_kind = 'direct_message'`, no patient binding). They use it for scheduling questions, after-hours coverage discussion, general coordination.
+
+- Today MA Sarah posts: "Are you covering Friday or do I ask Dr. Lee?"
+- Dr. Provider replies: "I'll cover. Thanks."
+- No patient timeline writes. Both participant rows derived from `explicit_add`.
+- If the conversation drifts to a patient-specific topic, they create a new ad_hoc thread linked to the patient — they don't pollute the DM with PHI.
+
+### 7.14.15 Worked example: billing exception escalation (ad_hoc; multi-object; produces task)
+
+A patient's GLP-1 refill payment failed. Ops sees the exception via §1G.5 escalation. Ops creates a thread to coordinate fix.
+
+1. Thread: `thread_kind = 'ad_hoc'`, `primary_context_type = 'billing_exception'`, `primary_context_id = <exception.id>`, `patient_relationship_id` = Brand B's GLP-1 relationship.
+2. Object links: billing_exception (primary) + patient (additional) + treatment_order (additional) + outbound_job (additional — the dunning send that failed).
+3. Ops posts: "GLP-1 refill payment failed — provider already approved. Stripe says card expired. @Provider hold the shipment; @Billing-Lead please reach out for new card."
+4. The thread produces a `provider_tasking/` task: "reach out to patient for new card; pause refill until resolved." `internal_thread_object_links` row: `(thread_id, 'provider_tasking_task', <task.id>, 'produced_task')`.
+5. Billing lead later resolves the task (new card on file); thread marked `resolved`. Task closes; thread closes; link survives in audit.
+
+### 7.14.16 Worked example: external-line triage discussion
+
+An unknown number texts Brand A's main line: "Hi, I had Botox 3 weeks ago and have a question about swelling." External-line ops triage row is created (in external-line substrate, per topology §11 Layer 1 → 2 → 3).
+
+1. Ops cannot find this phone in any `patients` row in the namespace. Unmatched.
+2. Ops creates an `internal_collaboration` thread to discuss with the medspa team: "Looks like a returning patient who didn't use the portal — anyone recognize the photo description?"
+3. Thread: `thread_kind = 'ad_hoc'`, `primary_context_type = 'external_line_event'`, `primary_context_id = <triage_row.id>`. **No patient binding yet** (no patient identity resolved).
+4. Injector recognizes the description: "Sounds like patient Y from 3 weeks ago — try matching by phone number against her secondary contact." 
+5. Ops matches, links the external-line event to patient Y's Brand C relationship (per the external-line substrate's link-to-patient workflow). The internal_collaboration thread then **adds an `internal_thread_object_links` row** for `(thread_id, 'patient', <patient_y.id>, 'additional')` once identity is resolved.
+6. The external conversation in the external-line substrate is converted into a patient_message via the linking workflow (patient Y now has a c2 patient chat with the new message visible). The internal thread separately discussed the triage; it stays in internal_collaboration.
+
+### 7.14.17 Staff directory + presence + on-call coverage dependency (NOT in DL-11 scope)
+
+Internal collaboration depends on a **staff directory + presence/availability + on-call coverage** substrate for:
+- @mention disambiguation (who is this person? what's their role? are they on duty?)
+- Assignment routing (who can take this thread? who's on call for this specialty / location / brand?)
+- Escalation paths (when X is unavailable, who covers?)
+- "Currently available for consult" surfaces inside thread compose flow
+- "Click into person view → see schedule" UI (user named this; depends on `scheduling_lifecycle/` + `staff_profiles`)
+
+**What's built today (substrate fragments):**
+- `staff_profiles` (Section 1D) — identity, role, credentials, capabilities
+- §1G.7 operational-state enum on `staff_profiles` — `offline / signed_in / open_for_queue / paused / at_capacity / unavailable` (routing-focused presence)
+- §1G.8 "My Status" surface — UI for §1G.7's enum
+- `staff_profiles` carries `service_state_codes`, `state_licenses`, `prescription_licenses`, contact fields
+
+**What's NOT built (named here for future doctrine):**
+- First-class staff directory UI surface (browse-who-works-here)
+- On-call rotation / coverage primitive (who's on for Friday night? specialty rotation? after-hours coverage?)
+- Personal-cell-vs-work-cell visibility policy (capability-gated reveal of personal cell phone numbers)
+- Department / team grouping beyond role
+- "Today's daily schedule for staff X" UI (depends on `scheduling_lifecycle/` activation)
+- "This week's coverage for the on-call rotation" UI
+
+**Non-foreclosure clause (per DL-11):** the future doctrine arc (DL-12 candidate, naming TBD; lands when first concrete pressure surfaces) handles these. DL-11 commits the substrate to **admit** this future work without retroactive churn. Internal collaboration features built today that *depend* on directory / on-call / presence beyond what §1G.7 already gives must defer or stub explicitly; the substrate change comes later.
+
+**Personal contact visibility is capability/policy-gated, not assumed global.** Work contact (work email, work phone) may be broadly visible per org policy; personal cell visibility requires explicit capability + audit per-access. Radar zone 42 watches for drift (everyone-sees-everyone's-personal-cell-forever anti-pattern; or features built on assumed on-call substrate that doesn't yet exist).
+
+The "click into a staff view → see daily/weekly schedule" surface the user named is a UI consumer of `scheduling_lifecycle/` + `staff_profiles` — not new doctrine; lands when scheduling sibling activates.
+
+### 7.14.18 Anti-patterns explicitly forbidden by DL-11
+
+- **Cram-internal-into-patient-chat (Extreme 1):** adding `from_patient: false, staff_internal: true` to `messages`, or a "thread type" column to fold internal team conversations into the c2 substrate. The exact framing the prior §1G.8.8 canonized; DL-11 supersedes. Radar zone 38.
+- **Object-attachment-via-jsonb / single-context-only (radar zone 39):** using `internal_thread_messages.metadata.object_refs[]` for polymorphic object attachment instead of typed `internal_thread_object_links`. Or limiting threads to a single primary context on the thread row only (no child link table) when multi-object is doctrinally required.
+- **Cross-relationship internal-thread leakage (radar zone 40):** Brand B care team seeing Brand A internal discussion about a shared patient without explicit cross-relationship permission. DL-10 follow-on.
+- **Patient-timeline pollution (radar zone 41):** writing `patient_timeline_events` rows for staff mentions, participant adds, internal sensitivity changes — anything that's not an explicit patient-record state change.
+- **Provider_tasking overload:** making threaded discussion a `provider_tasking/` feature. Conflates queue-of-ownership with conversation; both lose.
+- **Per-object-type internal-thread tables:** one for labs, one for orders, one for billing. DL-8 admission criteria reject (same shape as the specialty-table proliferation rejected by radar zone 29).
+- **Patient-action-items as discussion channel:** using `patient_action_items` (c4 substrate future) to hold staff-to-staff conversations. Action items are tasks-the-patient-must-complete, not staff workspace.
+- **Forcing patient binding on every thread:** patient-less group chats and 1:1 DMs are first-class.
+- **Cell-phone-visibility-everyone (radar zone 42):** personal cell numbers exposed in directory without capability gates.
+
+### 7.14.19 What §7.14 does NOT specify (deferred)
+
+- Exact `internal_threads` / `internal_thread_messages` / `internal_thread_participants` / `internal_thread_object_links` schema beyond the §7.14.4 sketch. Future migration.
+- Rich-media handling architecture (image / screenshot / markup / file / voice / video attachments). Future preflight.
+- Presence / typing indicators / read receipts beyond `last_read_message_id`. Deferred.
+- Mention notification fan-out details (debounce / batching / @here vs @channel / mention digests). Deferred.
+- Mobile-app surface design. Future product work.
+- Group-membership derivation primitive implementation (lives in `lib/auth/` or `lib/groups/`). Future commit.
+- Reactions / emoji semantics. Deferred.
+- Staff directory UI design + on-call rotation primitive (§7.14.17). Separate future doctrine arc.
+- Personal-cell visibility policy details. Separate future doctrine arc.
+- "Click into person → see schedule" UI (depends on `scheduling_lifecycle/` activation).
+
+### 7.14.20 Cross-references
+
+- MAIN **DL-11** (binding lock)
+- MAIN **§1G.8.8** (SUPERSEDED-AND-REPLACED-BY-DL-11 banner; historical context preserved)
+- Foundational doc **sibling #19 `internal_collaboration/`** (formalized per DL-11)
+- Foundational doc **§7.13** + DL-10 (relationship-scoping; threads about a patient are relationship-scoped)
+- Foundational doc **§5** sibling boundary discipline (`internal_collaboration/` boundary statement)
+- Foundational doc **§3 dimensional matrix** — Communication endpoints axis
+- ADR **§7.14** — decision record + alternatives considered
+- Radar **zones 38-42** — drift watch
+- Topology doc **§11** — external-line architecture; preserves DL-10/DL-11 boundaries
+- Topology doc **§12** — internal team collaboration as third messaging surface
+- MAIN **§1G.7** — operational-state enum on `staff_profiles` (presence fragments today)
+- MAIN **§1G.8** — provider workspace v1; My Queue / My Status / clinical-messages inbox / lab-review drawer surfaces
+
+---
+
 ## 8. Cross-cutting concerns (axes that span siblings)
 
 Not siblings. Not substrate primitives. Cross-cutting concerns every sibling must accommodate.
@@ -1112,6 +1394,7 @@ Pure documentation. No code. No migrations. No schema. No new rules.
 | Sibling: `authorization_lifecycle/` | Reserved — prior-auth + payer-auth substrate; activates when `revenue_cycle/` future RCM activates | RESERVED |
 | Sibling: `referral_lifecycle/` | Reserved — referral-shape workflows; activates when first cross-org referral surface emerges | RESERVED |
 | Sibling: `inventory_lifecycle/` | Reserved — inventory + supplies + specimen logistics substrate; activates when first procedural sibling requires inventory consumption beyond what `treatment_orders` carries | RESERVED |
+| Sibling: `internal_collaboration/` (NEW per DL-11) | **Foundational doc §5 "Reserved by DL-11" + §7.14** + sibling-boundary statement in §5 | **DOCTRINE LANDED (via DL-11; 2026-05-11 late evening); substrate migration future when first sibling activation drives** |
 | Universal flow grammar (§1.7) | DL-8 + Section 1W.6 (operational projection — 8-layer continuity chain) | LANDED |
 | Primitive admission criteria (§1.8) | DL-8 | LANDED |
 | Four-layer epistemic model (§7) | Section 1W.2 (canonical table) | LANDED |
@@ -1123,6 +1406,8 @@ Pure documentation. No code. No migrations. No schema. No new rules.
 | 20 ontology traps (§9) | Distributed across DL-1 through DL-9 + radar zones 27–28 | LANDED via doctrine locks (binding); long-form trap enumeration remains here as rationale |
 | Dimensional matrix (§3) | DL-6 (substrate non-foreclosure across all matrix cells) | LANDED |
 | **Consumer identity vs operational patient-relationship scoping (§7.13)** | **MAIN DL-10** (binding lock) + **§1J amendment** (identity-namespace scope) + **§1U.3 amendment** (brand_id graduated boundary) + **primitive #19 formalization** as `patient_relationship` + **radar zones 34-37** | **LANDED (doctrine via DL-10; 2026-05-11 evening); substrate migration future** |
+| **Internal team collaboration messaging (§7.14)** | **MAIN DL-11** (binding lock) + **§1G.8.8 supersession** (SUPERSEDED-AND-REPLACED-BY-DL-11 banner) + **sibling #19 `internal_collaboration/`** (formalized; first new sibling since the original 18-sibling enumeration) + **radar zones 38-42** + topology doc **§12** (third messaging surface) | **LANDED (doctrine via DL-11; 2026-05-11 late evening); substrate migration future** |
+| **Staff directory + presence + on-call coverage dependency (§7.14.17)** | DL-11 names as non-foreclosure clause; fragments today in `staff_profiles` (Section 1D) + §1G.7 operational-state enum + §1G.8 My Status surface | **RESERVED — future doctrine arc (DL-12 candidate or sibling activation; naming TBD); lands when first concrete pressure surfaces** |
 | Day 0 elite-class depth + activation incrementality (§1) | DL-5 | LANDED |
 | §6.5 12-procedure pressure-test grid | Reserved — long-form remains in this document; not paste-imported into MAIN per reconciliation constraint | RESERVED IN-DOC |
 | §12 reservation status (Reserved-deferred vs Truly-deferred) | Cross-link from MAIN's relevant Section reservations (Section 1F scheduling, Section 1L labs, Section 1I revenue, Section 1U multi-org) | LANDED — MAIN sections cross-link this section as the long-form reservation register |

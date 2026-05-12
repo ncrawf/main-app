@@ -338,4 +338,38 @@ This preflight does not exist yet. It is named here so future contributors know 
 
 ---
 
-*End of synthesis. Read alongside the binding MAIN sections + DL-5 + ADR §7.10 before opening any communications-shaped commit. **The §11 external-line gap is the largest named architectural concern in this doc; do not let it become invisible because c2-c7+ are noisier.***
+---
+
+## §12 Internal team collaboration (third messaging surface — binding per DL-11)
+
+§11 named the external-line gap as the second messaging surface (pre-account / contact identity → triage → relationship). DL-11 (landed 2026-05-11 late evening) binds the **third** messaging surface: **staff-to-staff internal team collaboration**. This is what makes OMNI's communications domain Klara/RingCentral-class for the staff side, not just the patient side.
+
+**Surface scope.** Threaded staff-to-staff discussion with first-class object attachment (patient / patient_relationship / lab_order / lab_result / appointment / treatment_order / clinical_visit / care_program / patient_document / patient_message / outbound_job / billing_exception / adverse_event), three thread shapes (`ad_hoc`, `persistent_group`, `direct_message`), patient-less threads first-class (billing team chat, front desk chat, 1:1 DMs), Slack/Epic-Secure-Chat/iMessage-quality bar (mentions, sensitivity, rich media on the roadmap).
+
+**Substrate today.** Doctrine LANDED via DL-11. Substrate migration future. The new sibling `internal_collaboration/` (sibling #19 in foundational doc §5) is the home. Substrate sketch in foundational doc §7.14.4: `internal_threads`, `internal_thread_messages`, `internal_thread_participants`, `internal_thread_object_links` (first-class typed multi-object child table). NOT `messages` with a `staff_internal` thread type — that's the prior §1G.8.8 framing that DL-11 supersedes.
+
+**Boundary with c2 patient-facing chat.** Internal collaboration is staff-only. Never appears on patient-facing pages. Patient identity may be attached via `internal_thread_object_links` (and denormalized to `internal_threads.patient_id` for indexing) but the patient does NOT see internal threads about them. When a thread produces a patient-visible response, the orchestrator writes a separate row to the c2 `messages` substrate via `postPatientMessage` (or staff-equivalent path) — the internal thread does not "promote" into a patient message.
+
+**Boundary with external-line / pre-account communications (§11 above).** External-line ops triage stays in external-line substrate (Layer 3 in §11's four-layer model). When staff need to discuss an unmatched external-line event (e.g., "this Twilio inbound looks like patient X — confirm before linking"), an internal collaboration thread can be **spawned from or linked to** the external-line triage row — but the external conversation itself is NOT an internal thread. The unmatched-event substrate (contact identity + ops triage queue) is one source of internal threads, not the same substrate.
+
+**Boundary with `provider_tasking/` (reserved sibling).** A thread can produce a task via `internal_thread_object_links.link_role = 'produced_task'`. The task carries queue / owner / SLA / escalation state. The thread carries conversation state. Neither replaces the other; they compose. The provider workspace surfaces both: queue items from `provider_tasking/`, threads from `internal_collaboration/`, with cross-links for context.
+
+**Mention notification semantics (binding per DL-11).** Mentions emit `outbound_jobs.send_in_app` (in-app notification to mentioned staff via c1 substrate) + `audit_events`. **They do NOT emit `patient_timeline_events`** unless the thread produces an explicit patient-record state change. Patient timeline is patient-facing memory, not an internal-team activity log.
+
+**Relationship-scoping (binding per DL-10 + DL-11).** Internal threads attaching a patient are relationship-scoped per DL-10: a thread about Brand A's patient stays in Brand A's care-team workspace by default. Cross-relationship visibility is explicit / permissioned / consent-aware / audited.
+
+**Staff directory + presence + on-call coverage (NOT in DL-11 scope; non-foreclosure clause).** Internal collaboration depends on a staff directory + presence + on-call coverage substrate for @mention disambiguation, assignment routing, escalation paths, and "click into staff view → see schedule" UI. Today's substrate has fragments — `staff_profiles` + §1G.7 operational state + §1G.8 My Status — but no first-class directory UI, no on-call rotation primitive, no personal-cell visibility policy. Future doctrine arc (DL-12 candidate, naming TBD). Personal contact visibility is capability/policy-gated, not assumed global. Radar zone 42 watches.
+
+**What c2 / c3 / c4 / external-line preflight inherit from DL-11.**
+- **c2 (shipped):** unaffected. `messages` substrate stays patient-facing.
+- **c3 (`/inbox` UI for `patient_inbox_messages`):** unaffected. Patient-facing one-way notifications.
+- **c4 (`patient_action_items` substrate build, re-scoped per DL-10):** must distinguish "patient action item" (substrate for tasks the patient must complete) from "internal team thread about a patient" (substrate for staff-to-staff discussion). Both can compose — an action item may have a linked internal_collaboration thread — but they're not the same primitive.
+- **External-line preflight (future):** preserves §11's four-layer model; ops triage stays in external-line substrate; internal collaboration threads can be spawned from / linked to external-line events.
+
+**Anti-patterns explicitly rejected (radar zones 38-42).** Cram-internal-into-patient-chat (38), object-attachment-via-jsonb / single-context-only (39), cross-relationship leakage (40), patient-timeline pollution from internal activity (41), staff-directory / on-call / personal-contact drift (42).
+
+**Build status (post-DL-11):** doctrine LANDED; substrate NOT built; first sibling activation drives the migration. The `internal_collaboration/` folder + first concrete typed thread + first persistent-group definition will likely be the activation trigger. Expected to overlap with the external-line preflight or the c4 patient_action_items substrate build, both of which need DL-11's boundary clarifications to land cleanly.
+
+---
+
+*End of synthesis. Read alongside the binding MAIN sections + DL-5 + DL-10 + DL-11 + ADR §7.10 + §7.13 + §7.14 before opening any communications-shaped commit. **The §11 external-line gap and the §12 internal team collaboration substrate are the two largest named architectural concerns in this doc; do not let them become invisible because c2-c7+ are noisier.***

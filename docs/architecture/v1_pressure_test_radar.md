@@ -286,6 +286,78 @@ Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-10 + Se
 
 ---
 
+## 2026-05-11 late evening addendum (post-DL-11, internal team collaboration messaging)
+
+The DL-11 doctrine arc (landed 2026-05-11 late evening, hours after DL-10) bound the third messaging surface (staff-to-staff internal team collaboration with first-class object attachment, distinct from c2 patient-facing chat and the future external-line preflight). It formalizes the new sibling `internal_collaboration/` (sibling #19) and supersedes the prior §1G.8.8 "reuse messages — no new product" framing. Five new zones watch for drift around these commitments.
+
+### 38. Cram-internal-into-patient-chat drift (tier 1)
+
+The risk: anyone proposing a `from_patient: false, staff_internal: true` flag on `messages`, or a "thread type" column intended to merge internal team conversations into the c2 substrate. The exact anti-pattern the prior §1G.8.8 framing canonized ("reuses `message_thread` + `message_thread_participant` model with a `staff_internal` thread type — no new product"); DL-11 explicitly supersedes and rejects.
+
+Watch for: PRs / preflights / migrations that propose extending the c2 `messages` substrate to carry staff-to-staff communication. The smoking gun is a CHECK constraint adding `staff_internal` as a valid `from_patient` adjacent flag, or a UI design doc proposing "internal notes" inside the patient thread view. Internal collaboration is a parallel substrate (`internal_threads` + family); the c2 substrate stays patient-facing only.
+
+Surfaces first in: any future commit touching `messages` schema or `lib/messages/`. Provider mirror parallel-track design is the second likely surface.
+
+Source: DL-11 doctrine arc; the user's Teams/Epic-Secure-Chat-quality framing made the prior §1G.8.8 reuse-messages framing structurally untenable.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-11 + §1G.8.8 SUPERSEDED-AND-REPLACED-BY-DL-11 banner + foundational doc §7.14 + sibling #19 `internal_collaboration/`.
+
+### 39. Object-attachment-via-jsonb / single-context-only drift (tier 1)
+
+The risk: using `messages.metadata` or `internal_thread_messages.metadata` to encode polymorphic object attachment instead of the typed `internal_thread_object_links` child table; OR limiting threads to a single `(context_type, context_id)` pair on the thread row only (no child link table) when multi-object attachment is doctrinally required. A single thread frequently spans multiple objects (patient + lab_order + treatment_order + clinical_visit + patient_document); a jsonb `object_refs[]` or single-context-only model forecloses this.
+
+Watch for: substrate migrations introducing `internal_threads` with only `primary_context_type` + `primary_context_id` and no child link table; or preflights proposing `internal_thread_messages.metadata.object_refs[]` jsonb arrays. Same primitive-fragmentation shape as radar zone 28 (metadata jsonb leakage of typed state).
+
+Surfaces first in: the future `internal_collaboration/` substrate migration. The migration MUST include `internal_thread_object_links` as a first-class table from the start.
+
+Source: DL-11 doctrine arc; ChatGPT's mid-arc warning that multi-object attachment must be first-class.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-11 + foundational doc §7.14.3 (object-attachment polymorphism is first-class and multi-object).
+
+### 40. Cross-relationship internal-thread leakage (tier 2)
+
+The risk: internal threads about a patient surfacing in care teams from other relationships (Brand B staff seeing Brand A internal discussion about a shared patient) without explicit cross-relationship permission. DL-10 follow-on; internal_collaboration threads attaching a patient inherit DL-10's relationship-scoping.
+
+Watch for: queries / RLS predicates / UI surfaces that return internal threads keyed only on `patient_id` without filtering by `patient_relationship_id`. Cross-relationship visibility is admissible but must be explicit, permissioned, consent-aware, audited per DL-10's binding clause.
+
+Surfaces first in: future `internal_collaboration/` substrate migration RLS predicates; provider workspace queue surfaces that aggregate "all threads about my patients."
+
+Source: DL-11 doctrine arc; DL-10 relationship-scoping carries forward to internal_collaboration.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-10 + DL-11 + foundational doc §7.14.7.
+
+### 41. Patient-timeline pollution from internal mentions / activity (tier 1)
+
+The risk: `patient_timeline_events` rows written for internal team activity — staff @-mentions, thread participant adds, internal-only sensitivity changes, thread creation events linked to a patient — when no patient-record state change occurred. Patient timeline is patient-facing memory (per §1H + primitive #6); it should reflect what happened TO or BY the patient, not what staff did internally.
+
+Watch for: orchestrators that emit `patient_timeline_events` rows on mention / participant / sensitivity / thread-create events. Mentions emit `outbound_jobs.send_in_app` + `audit_events` only; patient timeline writes ONLY when the thread produces an explicit patient-record state change (patient-visible message via c2; chart update; clinical assertion; `patient_action_items` row creation via c4 future).
+
+Surfaces first in: the future `internal_collaboration/` substrate migration's orchestrator design. Mention-fan-out implementation is the specific risk point.
+
+Source: DL-11 doctrine arc; ChatGPT's correction that mentions must not pollute the patient timeline.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-11 + foundational doc §7.14.6 + substrate primitive #6 (longitudinal operational memory; patient_timeline_events is patient-facing memory).
+
+### 42. Staff-directory / on-call / personal-contact drift (tier 2)
+
+The risk: features built on assumed staff-directory + on-call substrate that doesn't yet exist (e.g., "@mention triggers on-call escalation routing" before the on-call rotation primitive lands); or personal cell phone visibility leaking via UI surfaces without capability/policy gates (everyone sees everyone's personal cell forever). DL-11 names the staff-directory / presence / on-call dependency as a non-foreclosure clause; the future doctrine arc (DL-12 candidate, naming TBD) lands when first concrete pressure surfaces.
+
+Watch for: PRs / preflights / UI designs that:
+- Assume on-call rotation substrate exists (it doesn't beyond §1G.7's operational-state enum)
+- Display personal cell phone numbers in a staff directory UI without explicit capability gates per-access
+- Use staff.phone_number column without distinguishing work vs personal contact
+- Build @mention escalation routing logic that requires on-call coverage knowledge
+
+Until the future doctrine arc lands, internal_collaboration features that *depend* on directory / on-call / presence beyond what §1G.7 already gives (operational-state enum on `staff_profiles`) must defer or stub explicitly. Personal contact visibility is capability/policy-gated, not assumed global.
+
+Surfaces first in: the future internal_collaboration UI surface design when staff-directory / on-call features are tempted.
+
+Source: DL-11 doctrine arc; ChatGPT's correction + user's "Teams-shit" framing about company directory + presence + cell phone visibility.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-11 §7.14.17 non-foreclosure clause + Section 1D capability discipline + future DL-12 candidate doctrine arc.
+
+---
+
 ## How to use this radar
 
 - **Re-read before**: provider dashboard work, task runtime, lifecycle automation expansion, broad send-policy rollout, the moment 10-20 typed Rules / Templates have shipped.

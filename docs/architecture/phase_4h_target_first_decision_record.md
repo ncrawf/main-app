@@ -901,6 +901,64 @@ The register answers "what about urology void flow / cardiology Holter / pulm DL
 
 ---
 
+## 7.14 Internal team collaboration messaging (DL-11) (binding — added 2026-05-11 late evening, post-DL-10 shipping)
+
+**Decision.** Adopt **Doctrine lock DL-11**: bind three architecturally distinct messaging surfaces — (1) patient-facing chat (`messages` substrate; c2 shipped commit `8f02bc0`); (2) external-line / pre-account communications (future preflight); (3) internal team collaboration (new sibling #19 `internal_collaboration/`). Formalize internal team collaboration as the third surface with its own substrate parallel to c2 (NOT a reuse of `messages` with a `staff_internal` thread type). Supersede the prior §1G.8.8 "reuse messages — no new product" framing. Admit three thread shapes (`ad_hoc`, `persistent_group`, `direct_message`) including patient-less threads as first-class. Make object attachment first-class and multi-object via typed `internal_thread_object_links` child table. Bind mention notification semantics: mentions emit `outbound_jobs.send_in_app` + `audit_events` only, NEVER `patient_timeline_events` unless an explicit patient-record state change occurs. Bind relationship-scoping per DL-10. Name staff directory + presence + on-call coverage as a separate future doctrine arc (DL-12 candidate, NOT in DL-11 scope) via non-foreclosure clause.
+
+**Context.** The decision was forced by a series of c2-adjacent + DL-10-adjacent design questions: (a) the user described a Teams-quality / Epic-Secure-Chat-quality internal staff collaboration surface (mentions, group chats, 1:1 DMs, rich media, patient attachment) that the existing doctrine had not bound — §1G.8.8 had named the surface but mis-bound it to "reuse `messages` table with a thread-type flag, no new product"; (b) c2 chat rendering shipped on a substrate ill-suited to staff-to-staff collaboration (different access model, different audit, different lifecycle, no multi-object attachment); (c) c4 (`patient_action_items` substrate build) is queued next and would risk conflating "patient action items" with "internal team threads about a patient" if DL-11 didn't bind first; (d) external-line preflight is the other queued preflight and would risk collapsing "ops triage queue" into "internal collaboration substrate" without DL-11 + DL-10's layer boundaries. The user also raised the question of patient-less group chats ("billing team chat" / "front desk chat" / "1:1 DM about a non-clinical topic") which the existing §1G.8.8 framing did not admit cleanly.
+
+**Rationale.** Parallel substrate is cheaper than reuse-with-flags long-term: storage tables, access models, audit shape, lifecycle semantics, multi-object attachment, mention semantics, and patient-less threads all differ between patient-facing chat and internal team collaboration. Forcing both into one substrate compromises every axis. The Mindbody-style consumer-identity-with-business-relationship answer DL-10 bound is fundamentally about identity scope and operational-state ownership; DL-11 binds the parallel question about messaging surface ownership. Internal collaboration as a sibling (sibling #19) keeps the doctrine clean: the boundary discipline in foundational doc §5 forces every sibling to declare what it does NOT own, which surfaces compositions cleanly. Object attachment as a first-class multi-object child table rejects the per-object-type-table proliferation pattern (same shape DL-8 + radar zone 29 rejected for specialty acquisition tables) and rejects the metadata-jsonb-bag pattern (same shape radar zone 28 rejected for care-task state fragmentation). Mention semantics matter because the patient timeline is patient-facing memory, not an internal-team activity log — radar zone 41 watches.
+
+**Alternatives considered.**
+
+| Alternative | Why it was rejected |
+|---|---|
+| **Reuse `messages` with `staff_internal` thread type (the prior §1G.8.8 framing).** Simplest substrate change; one new enum value. | Rejected. Internal collaboration has different access model (staff-only; no patient portal session), different audit shape (mentions don't emit timeline events), different lifecycle (persistent groups don't close; direct messages don't have status), different participant semantics (derived from role + capability for groups), different object attachment (multi-object first-class), different sensitivity model (per-thread `sensitive` / `safety` tagging). Forcing these into the c2 `messages` substrate either pollutes c2 with staff-only fields and dual-purpose audit, OR strips internal collaboration of features it needs. The two surfaces are structurally distinct. |
+| **Build internal collaboration as a feature of `provider_tasking/`.** Threads as a UI feature on top of tasks. | Rejected. Conflates queue/task semantics (ownership, SLA, escalation, completion) with thread/conversation semantics (multi-party discussion, mentions, sensitivity, lifecycle). Both lose. They compose well — a thread can produce or resolve a task via `internal_thread_object_links.link_role='produced_task'` — but neither replaces the other. `provider_tasking/` stays focused on tasks; internal_collaboration is its own sibling. |
+| **Per-object-type internal-thread tables** (one for labs, one for orders, one for billing exceptions). | Rejected. Same shape as the specialty-acquisition-table proliferation pattern rejected by DL-8 + radar zone 29. Object types proliferate; new types require schema changes; cross-type discussions (a thread linking patient + lab + order) become impossible. Typed `internal_thread_object_links` with polymorphic `(object_type, object_id, link_role)` admits all current + future object types cleanly. |
+| **Defer the doctrine entirely; build c4 and external-line first, then bind internal collaboration later.** Lighter doctrine commitment. | Rejected. c4 (`patient_action_items` substrate build) would canonize on the wrong assumption — that action items hold staff-to-staff conversation context — and require retrofit. External-line preflight would collapse Layer 3 (ops triage queue) into internal collaboration substrate without DL-10/DL-11's layer boundaries. The doctrine arc is doc-only and small enough to land first. |
+| **Force patient binding on every internal thread.** Cleaner data model (every row has a patient_id). | Rejected. Patient-less threads (billing team chat, 1:1 DM, "starting Monday we charge full refund per the new policy") are first-class operational surfaces. Forcing patient binding either (a) refuses to admit them, breaking real workflows, or (b) admits them via fake / synthetic / system patient_id, polluting `patients` table. Patient-less threads stay first-class. |
+| **Include staff directory + presence + on-call coverage in DL-11.** One bigger doctrine arc. | Rejected. The user explicitly noted "back-burner for later" possibility. Staff directory / presence / on-call has its own substrate concerns (visibility policy, rotation primitives, schedule integration) that overlap with `scheduling_lifecycle/` and Section 1D. DL-11 names the dependency via non-foreclosure clause (§7.14.17) and reserves the future arc for DL-12 candidate or sibling activation. |
+
+**Consequences.**
+
+- **c2 chat substrate (already shipped, commit `8f02bc0`):** unchanged. Continues serving patient-facing chat. No retrofit.
+- **§1G.8.8 in MAIN:** SUPERSEDED-AND-REPLACED-BY-DL-11 banner inserted at top; historical text preserved for archaeology. New doctrine lives in DL-11 + foundational doc §7.14.
+- **c3 (`/inbox` UI for `patient_inbox_messages`):** unaffected. c3 is patient-facing one-way notifications; doesn't touch internal team substrate.
+- **c4 (`patient_action_items` substrate build, re-scoped per DL-10):** must respect DL-11's distinction between "patient action item" (substrate for tasks-the-patient-must-complete) and "internal team thread about a patient" (substrate for staff-to-staff discussion). c4 does NOT build internal_collaboration; it builds patient_action_items. The two compose: a `patient_action_items` row may have an associated internal_collaboration thread linked via `internal_thread_object_links.object_type='patient_action_item'`.
+- **External-line preflight (future):** must respect DL-10/DL-11's layer boundaries. External-line ops triage stays in external-line substrate (Layer 3 in topology §11); internal_collaboration threads can be spawned from / linked to external-line events but the external conversation itself is not an internal thread.
+- **Provider mirror parallel track:** must consume both substrates correctly. Patient chat via c2 substrate; internal team threads via the future `internal_collaboration/` substrate. Compose surfaces appropriately in the provider workspace.
+- **Future `internal_collaboration/` migration:** lands when first sibling activation drives it. Migration includes the four tables (`internal_threads`, `internal_thread_messages`, `internal_thread_participants`, `internal_thread_object_links`), persistent-group derivation primitive (`lib/groups/` or `lib/auth/` extension), RLS predicates, audit instrumentation, and rich-media handling architecture.
+- **Future DL-12 candidate (staff directory / presence / on-call):** lands as a separate doctrine arc when first concrete pressure surfaces. Likely candidates: `scheduling_lifecycle/` activation (on-call rotation overlaps); first multi-clinic / multi-deployment activation (cross-clinic on-call coverage); first capability-gated personal-cell-visibility incident.
+
+**What DL-11 explicitly does NOT decide.**
+
+- Exact schema for the four substrate tables (sketched in foundational doc §7.14.4; migration future).
+- Rich-media handling architecture (attachments, screenshots, markups, voice/video messages).
+- Presence / typing indicators / read receipts beyond `last_read_message_id`.
+- Mention notification fan-out details (batching / digests / @here vs @channel semantics).
+- Mobile-app surface design.
+- Group-membership derivation implementation (`lib/auth/` or `lib/groups/` module).
+- Reactions / emoji semantics.
+- Staff directory UI design + on-call rotation primitive + personal-cell visibility policy (separate future doctrine arc per §7.14.17).
+- "Click into staff view → see schedule" UI (depends on `scheduling_lifecycle/` activation; no new doctrine needed beyond what scheduling sibling admits).
+
+**Cross-links.**
+
+| Concern | Reference |
+|---|---|
+| Binding doctrine lock | MAIN DL-11 |
+| §1G.8.8 supersession | MAIN §1G.8.8 (SUPERSEDED-AND-REPLACED-BY-DL-11 banner) |
+| Long-form rationale | Foundational doc §7.14 |
+| New sibling | Foundational doc §5 "Reserved by DL-11" — sibling #19 `internal_collaboration/` |
+| Sibling-boundary discipline | Foundational doc §5 boundary statement for `internal_collaboration/` |
+| Crosswalk status | Foundational doc §11.0 (LANDED doctrine via DL-11; substrate migration future) |
+| Watch zones | Radar zones 38 (cram-internal-into-patient-chat), 39 (object-attachment-via-jsonb / single-context), 40 (cross-relationship leakage), 41 (patient-timeline pollution), 42 (staff-directory / on-call / personal-contact drift) |
+| Topology spine | [`docs/architecture/communications_topology.md`](communications_topology.md) §12 (third messaging surface) + §11 (external-line / DL-10/DL-11 boundary clarification) |
+| Closing handoff | [`.cursor/plans/HANDOFF_2026-05-11_phase_4h_internal_collaboration_doctrine.md`](../../.cursor/plans/HANDOFF_2026-05-11_phase_4h_internal_collaboration_doctrine.md) |
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).
