@@ -142,6 +142,164 @@ If picking up care-team/coverage substrate activation: read DL-12 invariants 35,
 
 ---
 
+## Round-by-round synthesis log (how we got here)
+
+Each round had a trigger (the user's pressure-test question), a key discovery (the architectural insight that surfaced), and at least one stale idea discarded (named explicitly so future contributors don't re-litigate). Captured here in granular form to complement the higher-level Act XIII narrative.
+
+### Round 1 — Template / AI interaction (clarifications a-e)
+
+**Trigger.** "Do we have to define how templates for messaging to clients, or messaging to 1:1 staff should interact in the threads? Is that now or later? Do we have to define how AI layer interacts on these threads? Can the system generate a new thread? Based off of an AI trigger?"
+
+**Key discovery (1 of 8 that mattered).** The patient-facing-template engine and the thread substrate are different things. Templates govern automated/system/rule-fired/campaign/notification/AI-generated patient-facing sends; threads are the delivery/conversation surface. Conflating them either (a) over-rigidifies ordinary provider portal messaging (force-everything-through-template) or (b) bypasses disclosure-policy governance (let-AI-silently-send-anything). The clean line: **human-authored patient chat is free-text under capability/audit; automated/AI-generated patient-facing sends are template-governed**.
+
+**Stale ideas discarded.**
+- Defer template/AI guardrails to a later phase — REJECTED per user "treat these as foundational. NOW is the time to get this right."
+- Add a new DL-13 for AI participation — REJECTED; AI participation bounds are a primitive #11 description update + §1N extension, not new substrate.
+- Internal staff snippets in `repo/templates/` alongside patient-facing — REJECTED; conflates patient-facing-send governance with internal collaboration tooling.
+
+### Round 2 — Search / visibility / notification governance (clarifications f-j)
+
+**Trigger.** "Can everyone at the company search for a message?? That seems good and bad at the same time. What would Teams do? Like, I should or shouldn't be able to see a separate 1:1 discussion between two other people?"
+
+**Key discovery (2 of 8).** Search/discovery is a future projection over substrates, NOT a new source of truth. Storage stays per-substrate (c2 messages, c1 patient_inbox_messages, future internal_collaboration sibling, future external-line, future patient_action_items, fax queue). Visibility is capability-gated + scope-aware + thread-class-aware across **five visibility classes** (public/internal channels, private group threads, 1:1 DMs, patient/object-linked, restricted/sensitive). **Anti-panopticon discipline**: 1:1 DMs and private group threads are NOT globally searchable by ordinary staff — if they were, conversations would flee to text/iMessage/Slack and OMNI would lose the operational system of record.
+
+**Stale ideas discarded.**
+- Mega-table for all threads (cross-surface storage merge) — REJECTED.
+- Single global "everyone-can-search-everything" toggle — REJECTED.
+- 1:1 DMs and private group threads globally searchable by ordinary staff — REJECTED.
+- Search as a new source of truth replacing per-substrate storage — REJECTED.
+- Patient notification preferences allow silent-suppress of clinical/safety/critical messages — REJECTED.
+- Staff DND/mute bypassing on-call/safety/CMO/assigned-owner escalations — REJECTED.
+
+### Round 3 — Edit / attachment / preview / legal / safety / task / merge / queue-routed-work (clarifications k-r)
+
+**Trigger.** "A provider should see a lab come back at 9pm, act on it, and message front desk 'please order repeat lab' without having to look up who is on call for front desk. Whoever picks up front desk duty next morning will have to own it, and like, check it off as done or something. 'Delivered' and 'read' views — standard for any messaging app, right?"
+
+**Key discovery (3 of 8).** **Read receipt ≠ accountability.** This is the killer use case that exposed why queue-routed work needs a state machine distinct from ordinary participant read state. Provider routes to queue → next AM staff reads → UI shows "read" → provider assumes "handled" → patient never gets booked. The fix: claim/complete/escalate task substrate state, separately tracked. **Five queue-routing states tracked SEPARATELY from messaging read state**: delivered_to_queue, unread_by_queue, seen_by_queue_member, claimed_by_staff, completed/escalated_or_overdue.
+
+**Key discovery (4 of 8) — surfaced same round.** Message edits never rewrite history. Attachments are first-class artifacts. Notification previews are a separate disclosure surface from message body. Legal hold is an administrative break-glass capability, never ordinary search.
+
+**Stale ideas discarded.**
+- Message edit silently rewrites history (no audit trail) — REJECTED.
+- Attachments stored as raw bytes in `messages.body` blob — REJECTED.
+- Full PHI in notification preview / lock-screen / SMS companion / search snippet — REJECTED.
+- Legal hold / eDiscovery / compliance export treated as ordinary search — REJECTED.
+- Async chat surface marketed as emergency channel — REJECTED.
+- Thread "done" message treated as task completion — REJECTED.
+- Queue-routed message treated as "handled" by read receipt — REJECTED.
+
+### Round 4 — Three-state attachment + iOS-vs-OMNI-native markup + culture clause (clarifications s-v)
+
+**Trigger.** "Please tell me a screenshot can enter the group chat, or a photo. What happens to a new PDF added in through a group chat? That doesn't seem like a good way to enter info for a patient? Does our operational work on a patient get attached to their chart??? Is that safe??? What if we say 'patient super angry, don't treat them, or staff laughs at them' and then an audit turns it up."
+
+**Key discovery (5 of 8).** **A file in chat is NOT in the chart.** This is the cleanest safety boundary in the whole arc. The three states: chat-attachment → reviewed/classified → filed-to-chart (only the last is canonical clinical truth, and only via capability-gated disposition).
+
+**Key discovery (6 of 8) — surfaced same round, when user asked about drawing/markup.** **iOS-flattened-upload vs OMNI-native-markup is the right pragmatic distinction.** Doctrine shouldn't pretend it can reconstruct a camera-roll original it never received (the iMessage reality). If the user pre-marked a screenshot before uploading, the flattened image IS the source artifact for that thread. But if markup happens INSIDE OMNI against an existing artifact, original must be preserved + annotation becomes derived. This gives iOS ergonomics where OMNI never owned the source + healthcare-grade audit where OMNI does own the source.
+
+**Stale ideas discarded.**
+- Attachment auto-files to chart on upload without explicit disposition — REJECTED.
+- OMNI-native markup overwrites original source artifact — REJECTED.
+- PDFs treated identical to flattened image uploads without original preservation — REJECTED.
+- Internal collaboration as consequence-free backchannel — REJECTED.
+- Markup stored as raw bytes in message metadata blob — REJECTED.
+
+### Round 5 — Patient-facing rich-media parity + thread-kind parameterization (clarifications w-x)
+
+**Trigger.** "Will our patient messaging retain the same level of ability? Like, an ops team should be able to send a photo or a screenshot, annotate it, even send video. A provider should be able to screenshot an aftercare plan and annotate on it, and send it to patient. THAT is how real care is playing out right now on RingCentral currently for us in every day use at our separate medspa." + "Will our current architecture allow us to pivot from entrenched 'specialty group message' format, and become 1:1 with provider if needed, or 1:1 with front desk, or 1:1 with your esti?"
+
+**Key discovery (7 of 8).** **Thread-kind parameterization prevents the worst architectural mistake the platform could make.** If `message_threads.thread_kind` is hardcoded or absent, every future medspa / aesthetics / multi-relationship deployment hits a wall. Patient-facing thread substrate admits care_team / provider_1:1 / front_desk / esthetician / injector / billing / support / post_procedure / location_team / role_queue / on_call. Specialty-group is ONE routing shape, NOT the substrate. The "1:1 UX preserves backend coverage" insight is gold — patients feel direct connection to their injector / esthetician / provider while the substrate quietly admits MA coverage, on-call rotation, role-queue fallback.
+
+**Stale ideas discarded.**
+- Patient-facing media treated as casual iMessage attachment without scan/audit/PHI/capability-gate — REJECTED.
+- Patient-facing thread substrate hardcoded to specialty/care-team — REJECTED (medspa-blind failure mode).
+- 1:1 patient thread without backend coverage / escalation / role-queue fallback — REJECTED (1:1-orphans-when-staff-off-duty failure mode).
+
+### Round 6 — Internal-membership-vs-patient-visible-roster + care-team/coverage-layer (clarifications y-z)
+
+**Trigger.** "Will operators add a new group member to the user group chat? Like, the system may automatically populate a specialty group for peptides — how does someone get added? Add themselves? How does that show up or not show up, on the user side? What if there are 5 providers lurking on a chat? Does the patient see all of them always, or just who we choose to reveal?" + "What will actually control the default provider, default MA, default NP in a group chat? Like, what if a provider quits the company, who defaults? The next on-call provider or something? Geographically constrained, of course, like Hims model."
+
+**Key discovery (8 of 8).** **Internal access membership ≠ patient-visible roster.** Without this distinction, the platform either (a) exposes every backend lurker to the patient (creepy, confusing) or (b) lets curious staff self-join any patient thread (PHI breach). The fix is two distinct concepts: backend internal participants (who can ACCESS and ACT) vs patient-visible roster (governed by display policy — named staff / role-title / team alias / "Care Team" label). And **patient-facing thread membership is DERIVED from a care-team/coverage assignment layer; the thread CONSUMES that layer, never hardcodes membership** — provider quits → coverage rule selects replacement (next on-call / state-licensed pool / coverage group / CMO queue / unassigned-queue); thread stays active; three modes of patient-visible disclosure (silent backend / message-authored / explicit transition notice).
+
+**Stale ideas discarded.**
+- Internal access membership identical to patient-visible roster (every backend observer exposed) — REJECTED.
+- Staff self-join into patient thread allowed without authorization (curious browse) — REJECTED.
+- Thread membership hardcoded in thread instead of derived from care-team/coverage assignment layer — REJECTED.
+- Patient-visible disclosure required for every backend coverage change — REJECTED (only primary-provider/high-touch needs explicit transition notice).
+- Care-team/coverage rules hardcoded in chat substrate — REJECTED (lives in future care-team/coverage substrate; chat consumes).
+
+### Round 7 — General-enterprise-platform coexistence + AI Response Assist (clarifications aa-bb)
+
+**Trigger.** "Teams has Copilot right alongside it. Because our system is building its own Teams, will we lose out on things by not just incorporating Teams???" + "One of the KEY things we have been using ChatGPT for for SMS messaging from the main office line is: screenshot the thread messages, prepare your partial answer, all sloppy and all; ChatGPT looks at the thread and the raw text draft, then gives us polished output. It's not a huge deal to continue doing this, HIPAA concerns at 500M scale tho, also, its (slightly) inefficient to be screenshotting back into chat. We need this ability in app to use full level AI to suggest responses, not just basic RingCentral template shit."
+
+**Key discovery.** **OMNI is NOT a Teams/Slack/M365/Workspace clone. The external enterprise platform is NOT the source of truth for OMNI patient-context.** Integration via notifications + deep links + governed connectors, never source-of-truth swap. Specific vendor names are illustrative; doctrine binds the pattern, not the brand. AND: **the screenshot-into-external-ChatGPT workflow is a named compliance anti-pattern**. Design rule binding: "the compliant workflow must be easier than the workaround" — if OMNI's in-app AI is worse than copy-paste-into-ChatGPT, staff route around the platform and HIPAA posture becomes performative.
+
+**Stale ideas discarded.**
+- Build OMNI internal_collaboration as a generic enterprise-chat clone (Teams/Slack/M365/Workspace/future-tool clone) — REJECTED.
+- Use external enterprise platform as the source of truth for OMNI patient-context — REJECTED.
+- Accept screenshot-into-external-ChatGPT as the patient-context AI drafting workflow — REJECTED (PHI exfiltration at scale).
+- Defer in-app AI response-assist as nice-to-have — REJECTED (foundational because absent it staff WILL use external AI).
+
+### Round 8 — Scenario matrix discipline switch (the procedural correction)
+
+**Trigger.** "How many more seams do you guys want me to spot????? Like, you guys are idiots. These are just off the top of my head."
+
+**Key procedural discovery.** **After 7 rounds of user-finds-seam-AI-patches, the right move was to switch from reactive seam-discovery to a scenario matrix.** The matrix ran 66 operational scenarios across 7 buckets (patient-facing messaging, internal collaboration, staffing/coverage, artifacts/media, AI/templates, search/notifications, cross-cutting/external) and classified each as ✅ covered / 🟡 small guardrail needed / 🔮 future preflight / ⚫ not relevant. **Result: 57 covered, 1 small guardrail (Teams brand-genericization), 8 future preflights, 0 unhandled.** The matrix confirmed the doctrine was solid; only the Teams wording patch needed before execution.
+
+**Stale ideas discarded.**
+- Reactive seam-by-seam discovery as the path to doctrine completeness — REJECTED. By round 4, run the scenario matrix.
+
+### Round 9 — Teams brand-genericization patch (the final wording fix)
+
+**Trigger.** "Side note: why are we saying it will be Copilot and 365? Like, idk if it will be another app or what. Teams seems fine okay. Idk if ChatGPT will have a messaging Teams version in the future? Why are we committing to specific brands. Should we be agnostic."
+
+**Key discovery.** **Doctrine binds the pattern, not the brand.** "Teams/M365" became "general enterprise collaboration platforms (e.g., Microsoft Teams, Slack, Microsoft 365, Google Workspace, and future enterprise chat / Copilot-class tools that may emerge)." When the chosen platform changes, the doctrine still holds. Apply this discipline to any future arc that touches a third-party tool.
+
+**Stale ideas discarded.**
+- Hardcoding specific vendor names in doctrine clauses — REJECTED for any future doctrine touching third-party platforms.
+
+---
+
+## Impact on Phase 4H arc work (cross-arc map)
+
+DL-12 is doctrine-only (no migration / schema / rules / code). The arc-work impact is **what inherits cross-substrate obligations**, **what is unaffected**, and **what gains new substrate hooks**.
+
+### Already shipped — unaffected
+
+| Arc | Status | Why unaffected |
+|---|---|---|
+| **c1 in-app inbox** (shipped) | `patient_inbox_messages` substrate; one-way patient-facing notifications | DL-12 binds lifecycle for `patient_inbox_messages` cross-substrate (per §1V.10, primitive #1 actor_type, queue-routing state machine for queue-claimed items), but no migration required today; c1 substrate is already conformant. |
+| **c2 rich chat rendering** (shipped at `8f02bc0`) | `messages` substrate; patient-facing two-way chat | DL-12 binds c2 patient chat as patient-facing-thread substrate; the `messages` substrate is already conformant with thread_kind parameterization admissibility (substrate sketch in §7.14.4 extended is for future internal_collaboration sibling, not c2). c2 stays as shipped. |
+| **DL-7 / DL-8 / DL-9 / DL-10 / DL-11** (all shipped) | Foundational locks | DL-12 supersedes none; refines/strengthens DL-7 (canonical-state-in-substrate cross-link), DL-8 (sibling admission discipline applied to fax + thread storage), DL-10 (relationship scope inherited by thread membership + patient-visible roster), DL-11 (three messaging surfaces with cross-substrate lifecycle). |
+
+### Future arc work — INHERITS DL-12 cross-substrate obligations
+
+| Arc | Status | What DL-12 obligates |
+|---|---|---|
+| **c3 `/inbox` UI** | Next likely commit; UI for `patient_inbox_messages` | UI must respect §1J.12 preview/snippet privacy + §1V.10 retention parameterization + §1Q.14.1(d) patient notification preference criticality overrides. No substrate change needed. |
+| **c4 `patient_action_items` substrate build** | Re-scoped per DL-10 + DL-12 | Must distinguish "patient action item" (substrate for tasks the patient must complete) from "internal team thread about a patient" (DL-11 internal_collaboration). DL-12 invariant 28 (thread-to-task transitions are explicit structured operations) binds: thread completion lives in task substrate, NOT in thread message text. DL-12 invariant 30 (queue-routed work state machine) binds: read receipt ≠ accountability. **HIGH PRIORITY** because action items + queue-routed work are the substrate for the 9pm-front-desk-queue elite-ops scenario. |
+| **External-line first-touch preflight** | Future | Contact-identity layer for unknown numbers; Twilio inbound webhooks; ops triage queue. DL-12 invariants 17 (per-substrate storage), 19 (thread search/visibility), 36 (patient-visible roster), 37 (care-team/coverage derived membership) all apply. NOT BLOCKED. |
+| **Internal_collaboration sibling activation** (DL-11 sibling #19) | Future; substrate sketch in §7.14.4 extended with DL-12 fields | When activated: `internal_threads`, `internal_thread_messages`, `internal_thread_participants`, `internal_thread_object_links`, `internal_thread_queue_state`, `patient_visible_thread_roster_label` + internal-snippet typed/versioned registry inside the sibling. The substrate sketch is concrete enough to migrate from. DL-12 invariants 14 (AI participation bounds), 16 (system/AI-thread provenance + anti-noise), 20 (patient-linked-thread-projection), 23 (edit-history), 30 (queue-routing state machine), 33 (not-a-consequence-free-backchannel) bind cross-substrate. |
+| **Care-team/coverage assignment substrate** | Future; **HIGH PRIORITY** because c4/c5+ patient-facing thread shapes depend on it | Full staffing algorithm. Inputs: `patient_relationship` + `care_program` + `specialty` + `geography/licensure` (Hims-style) + `location` + `on-call/coverage` schedule + `staff_active_status` + `capability/credential`. Entry/exit paths bound by §1G.3(d); provider-quits-coverage-rule by §1G.3(e); three modes of patient-visible disclosure by §1G.3(f). Consumption contract is bound by DL-12; substrate migration future. |
+| **Fax pipeline activation** | Future | Composed from primitive #10 + primitive #16 + §1P + §1G.6.2 + future provider_tasking + future c4 patient_action_items. NOT a new sibling per §5.3(a). Full preflight when first concrete fax need arrives. |
+| **Future patient-proxy / caregiver / parent-on-behalf-of-minor actor type extension** | Future | Primitive #1 taxonomy admits extension via `patient_proxy` / `caregiver` / `parent_on_behalf_of_minor` when DL-10 relationship layer formalizes proxy relationships. NOT BLOCKED. |
+| **Future patient-to-patient peer support surface** | Future; out of DL-11/DL-12 scope | New surface (e.g., GLP-1 group sessions, peer recovery). New doctrine arc when group programs / peer support pressure surfaces. |
+| **Future enterprise-platform connector layer** | Future | Governed connector to Microsoft Teams / Slack / Microsoft 365 / Google Workspace / future enterprise chat / Copilot-class tools. Notifications + deep-link integration; never source-of-truth swap per DL-12 invariant 38 + §7.14.9. |
+| **In-app AI Response Assist build** (UI + LLM integration) | Future | DL-12 invariant 39 names the binding doctrine + design rule "compliant workflow must be easier than the workaround". Actual UI/UX + LLM integration + audit trail implementation lands when first concrete pressure activates. The longer staff use external screenshot-into-ChatGPT, the more compliance posture is performative (zone 67). |
+| **Markup / annotation editor build** | Future | Will respect §5.3(b.ii) iOS-vs-OMNI-native distinction + §5.3(b.iii) PDF stricter discipline. |
+| **Patient-facing video pipeline** | Future | Transcoding + scan + size limits + secure-portal-link discipline for SMS rails per §5.3(b.v). |
+| **Voice notes / audio messages** | Future | §5.3(b.v) admits "voice notes where policy allows". Future media pipeline. |
+| **AI translation / multi-language drafts** | Future | Under primitive #11 description. |
+| **Scheduled / time-delayed send** | Future | UI/scheduling feature; not foundational. |
+| **Records export (HIPAA Right of Access)** | Future | Separate substrate (patient_data_export); not chat-specific. |
+| **Group video call from inside patient thread** | Future | Telehealth video session; separate substrate; chat may launch but not own. |
+| **Emergency provider-to-provider direct line bypass** | Future | Voice infrastructure; out of DL-12 scope. |
+
+### Phase 4H-pre / 4H-rules-runtime work — unchanged
+
+The original Phase 4H-pre commits 1-5 trajectory (`outbound_jobs` lineage columns → `data_environment` dispatch gate → scaffold → parity proof) is unaffected by DL-12. DL-12 is doctrine, not Phase 4H-pre implementation.
+
+---
+
 ## Pressure-test cycle history (for the seven-doc cycle convention)
 
 | # | Date | Doctrine | Cycle docs |
