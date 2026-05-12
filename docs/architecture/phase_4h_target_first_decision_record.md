@@ -846,6 +846,61 @@ The register answers "what about urology void flow / cardiology Holter / pulm DL
 
 ---
 
+## 7.13 Consumer identity vs operational patient-relationship scoping (DL-10) (binding — added 2026-05-11 evening, post-c2 shipping)
+
+**Decision.** Adopt **Doctrine lock DL-10**: distinguish reusable patient identity from operational patient relationships. Keep `patients` canonical as the consumer identity row within an OMNI identity namespace (deployment / org PHI boundary today). Formalize the previously-reserved Continuity Relationship primitive (foundational doc §4 primitive #19) as **`patient_relationship`** — generalized to admit 11 possible scoping dimensions (brand, clinic, practice_entity, location, specialty line, legal entity, parent org, separate deployment post-federation, referral partner, care team, endpoint / business phone line). Operational state (consents, care programs, messaging, memberships, clinical chart context, appointments, care team) attaches to the relationship layer, not blindly to the global `patient_id`. Cross-relationship and cross-namespace linking is explicit, permissioned, consent-aware, and audited.
+
+**Context.** The decision was forced by a series of c2-adjacent design questions: (a) how messaging routes when one human engages with multiple OMNI-powered brands / clinics / specialties; (b) how OMNI's wedge clinic strategy admits future brand expansion (e.g., Cultured for women's HRT + Make for men's HRT/GLP-1 + dermatology medspa) without doctrine drift; (c) how Twilio main-line / external-line ingress identifies and links to existing identities without auto-sharing operational state; (d) how separate OMNI deployments handle future mergers; (e) the Mindbody analogy where one consumer identity spans many businesses but each business owns its own operational world. The existing substrate already named the dimensional axis (foundational doc §3 "Identity scope: single org · multi-brand within org · multi-org with shared patient · cross-org referral with packet handoff") and reserved primitive #19 (Continuity Relationship) but had not bound the **operational response** to those dimensions. c2's chat substrate shipped on 2026-05-11 PM using `(patient_id, care_program_id)` scoping; the question "what about Brand B?" couldn't be answered without a binding doctrine layer.
+
+**Rationale.** The four-layer object model (external contact identity → `patients` consumer identity → `patient_relationship` → care context) preserves existing `patient_id` semantics across every operational table in the substrate (zero migration cost today) while admitting the Mindbody-style multi-brand / multi-clinic / consumer-marketplace shapes the wedge clinic strategy needs. Brand is one of N scoping dimensions, not the only one — the relationship-boundary admission guardrail (§7.13.4 in foundational doc) ensures the boundary list doesn't over-generate relationship rows (endpoint, care team, location are *possible* boundaries, not automatic). Section 1U.3's brand_id pivot graduates `brand_id` from marketing-only to operational boundary when (and only when) the brand owns distinct consents / care programs / messaging / memberships / clinical context / staff access. Section 1J's "single canonical `patients` row per person" scope is clarified as per-namespace (cross-namespace matching creates explicit federation / linking records). The $500M-state non-foreclosure clause (mirrors DL-6 pattern) commits the substrate to admit 8 deployment shapes without replatforming. The two extremes DL-10 rejects — global-auto-share-everywhere (Epic-enterprise interpretation) and hard-silos-no-shared-identity (per-brand `patients` rows) — are both anti-patterns; the winning middle is *shared identity substrate, separate operational relationships*.
+
+**Alternatives considered.**
+
+| Alternative | Why it was rejected |
+|---|---|
+| **Mapping A: redefine `patients` as the per-brand relationship row + add new `person_identity` layer above it.** Closer to a literal Mindbody implementation. | Rejected. Every existing `patient_id` reference (in `patient_timeline_events`, `audit_events`, `messages`, `outbound_jobs`, `care_programs`, `treatment_items`, `clinical_visits`, `lab_orders`, `refill_requests`, `commerce_orders`, `patient_inbox_messages`, identity verification, duplicate detection, documents, audit/read logs, portal access, commerce surfaces) would become ambiguous: does this mean the human or the brand relationship? Weeks of doctrine drift for marginal conceptual purity. The current spine treats `patients.id` as the universal handle (per primitive #5 + Section 1J + Section 1U); redefining it now is unjustified churn. |
+| **Mapping C: completely new top-level layer (`person` table) + new `patient_relationship` + deprecate `patients`.** Most ambitious. | Rejected for the same reasons as Mapping A, amplified: triple substrate churn (new top layer + new relationship layer + deprecation of existing). No commensurate benefit over Mapping B. |
+| **Naming the primitive `patient_brand_relationship` instead of `patient_relationship`.** Closer to the immediate Mindbody analogy. | Rejected. Brand is one of 11 possible scoping dimensions. Hardcoding "brand" in the primitive name forecloses clinic / practice_entity / location / specialty / external-partner / endpoint scoping. The future-pain of renaming this primitive once a non-brand boundary surfaces (which will happen — see the 8-shape matrix) is much larger than the cost of naming it correctly now. Radar zone 36 watches for this anti-pattern. |
+| **Hard silos per brand (Extreme 2): mint a separate `patients` row for each brand the human engages with.** Avoids the auto-share risk. | Rejected. Loses duplicate detection, merger support, consumer-marketplace strategy, cross-brand risk / gaming detection, and the Mindbody-style convenience of identity reuse. The dimensional matrix (§3) explicitly admits "multi-brand within org" and "multi-org with shared patient"; minting separate `patients` rows per brand forecloses both. Radar zone 37 watches for this anti-pattern. |
+| **Global-auto-share-everywhere (Extreme 1): one global patient account where clinical / operational state propagates across all relationships on identity-claim match.** Closer to Epic-enterprise interpretation. | Rejected. The Epic enterprise interpretation works for hospital systems where one legal entity governs all care; it is the wrong shape when an OMNI deployment hosts multiple distinct legal / brand / clinic / specialty contexts. Auto-share of consents, clinical chart, messaging, or memberships across brand relationships is clinically dangerous, legally untenable, and violates the consent / privacy posture. Radar zone 35 watches for this anti-pattern. |
+| **Build cross-deployment federation now.** Tempting given future multi-OMNI-deployment shapes. | Rejected as out-of-scope for the doctrine landing. DL-10 commits the substrate to **admit** cross-deployment federation via the identity-namespace abstraction; the actual federation mechanism (matching algorithm, consent capture, merger workflow, audit shape) is future work. Premature design without a real consumer would canonize wrong shapes. |
+
+**Consequences.**
+
+- **c2 chat substrate** stays as shipped. Today each brand is 1:1 with one care program; the `(patient_id, care_program_id)` scoping on `messages` happens to be relationship-equivalent. Future migrations may add `patient_relationship_id` to operational tables when the substrate landing happens.
+- **c3 inbox UI** is unaffected. `patient_inbox_messages` is c1 substrate; the UI lands on identity-scoped data which is fine for now.
+- **c4 (`patient_action_items` substrate build)** inherits relationship-aware obligations. The c4 preflight must decide whether action items are identity-scoped or relationship-scoped (and may answer "both" depending on action item type — provider_message is relationship-scoped, identity_verification_required is identity-scoped).
+- **External-line preflight (forthcoming)** must start from the external contact identity layer (§7.13.2 layer 1) and link up through the namespace + relationship layers. Topology doc §11 is updated to reflect DL-10's vocabulary.
+- **Provider mirror parallel track** consuming the per-staff `last_read_message_id` pointer must be relationship-aware when building queue surfaces.
+- **Future federation work** is enabled by the namespace abstraction. Substrate migration for `patient_relationship` table happens when the first sibling activation drives it (likely external-line preflight or first explicit multi-brand activation).
+- **All seven 4H-templates-discipline rules** that ship today continue to work unchanged. They write to `outbound_jobs` with `patient_id` lineage; they will be retrofit to relationship-scoping when the substrate migration lands.
+
+**What DL-10 explicitly does NOT decide.**
+
+- Exact `patient_relationship` schema (column list + indexes + RLS policies). Future migration.
+- Identity-confidence scoring algorithm for cross-namespace matching. Future federation architecture.
+- Merger UI shapes. Future product work.
+- Consumer-marketplace portal surface design. Future product work.
+- Specific FK retrofit plan for existing operational tables (`messages.patient_relationship_id`, `care_programs.patient_relationship_id`, etc.). Future migration when first sibling activation drives it.
+- Cross-deployment federation mechanism. Reserved as non-foreclosure.
+
+**Cross-links.**
+
+| Concern | Reference |
+|---|---|
+| Binding doctrine lock | MAIN DL-10 |
+| Identity-namespace amendment | MAIN §1J intro (amended per DL-10) |
+| Brand_id graduation amendment | MAIN §1U.3 (amended per DL-10) |
+| Long-form rationale | Foundational doc §7.13 |
+| `patient_relationship` primitive | Foundational doc §4 primitive #19 (formalized per DL-10) |
+| Dimensional matrix response | Foundational doc §3 identity-scope row |
+| Crosswalk status | Foundational doc §11.0 |
+| Watch zones | Radar zones 34 (identity-collapse), 35 (auto-share / Extreme 1), 36 (brand-hardcoded), 37 (hard-silo / Extreme 2) |
+| Topology spine | [`docs/architecture/communications_topology.md`](communications_topology.md) §11 (external-line architecture references DL-10) |
+| Closing handoff | [`.cursor/plans/HANDOFF_2026-05-11_phase_4h_identity_relationship_doctrine.md`](../../.cursor/plans/HANDOFF_2026-05-11_phase_4h_identity_relationship_doctrine.md) |
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).

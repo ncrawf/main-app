@@ -230,6 +230,62 @@ Binding parent invariant this watch zone protects: foundational doc §4 (canonic
 
 ---
 
+## 2026-05-11 evening addendum (post-DL-10, consumer identity vs operational patient-relationship scoping)
+
+The DL-10 doctrine arc (landed 2026-05-11 evening, after c2 chat rendering shipped) bound the Mindbody-style "shared identity substrate, separate operational relationships" answer. It formalizes the previously-reserved Continuity Relationship primitive #19 as `patient_relationship`, amends Section 1J intro for identity-namespace scope, and amends Section 1U.3 for `brand_id` graduation. Four new zones watch for drift around these commitments.
+
+### 34. Identity-collapse drift (tier 1)
+
+The risk: a feature treats `patient_id` as the global cross-relationship identity in contexts that should be relationship-scoped. The substrate has shipped with `patient_id` as the spine across every operational table (timeline, messages, audit, orders, treatments, refills, commerce, intake, lab, document routing) — that is the right shape per primitive #5. But DL-10 binds: certain operational state is relationship-scoped, not identity-scoped. A query like "all messages for this patient" without filtering by `patient_relationship` is the smoking gun.
+
+Watch for: queries / API surfaces / UI views that return operational data keyed only on `patient_id` when the operational concept is relationship-scoped (consents, memberships, care programs, messages thread context, clinical chart context, care team assignments). The fix is not to delete `patient_id`-keyed reads — it's to add the relationship filter. Identity-claim queries (name, DOB, verification status, duplicate detection) legitimately stay `patient_id`-keyed; the line is operational state.
+
+Surfaces first in: c4 (`patient_action_items` substrate build) — the c4 preflight must explicitly decide per action-item type whether it's identity-scoped or relationship-scoped. The provider mirror parallel track is the second likely surface (queue reads, assignment surfaces).
+
+Source: DL-10 doctrine arc; the Mindbody analogy pressure test against the existing `patient_id`-only spine.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-10 + foundational doc §7.13 + primitive #19 formalization.
+
+### 35. Cross-relationship auto-share drift / Extreme 1 (tier 1)
+
+The risk: operational state silently propagates across relationships on identity-claim match. The "I matched the phone number, therefore the refill rule fires on every brand this patient has a relationship with" failure mode. Or: a marketing send goes to all of the patient's relationships because they're "the same person." This is the Epic-enterprise interpretation DL-10 explicitly rejects ("Extreme 1").
+
+Watch for: rules / orchestrators / dispatchers that fan out across all of a patient's relationships without per-relationship gating. Consent / memberships / care-team / clinical-chart access bleeding from one relationship into another. AI assistance that reads the patient's "global" chart across relationships without per-relationship permission. Outbound dispatches that aggregate across relationships.
+
+Surfaces first in: any future rule activation that triggers on identity-level events (e.g., "patient identity verification status changed") — the rule fires once per patient, but its operational effects must be scoped per relationship if the effect is operational state.
+
+Source: DL-10 doctrine arc; the Epic-vs-Mindbody contrast.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-10 (cross-relationship linking is explicit, permissioned, consent-aware, audited; never auto-shared on identity match) + foundational doc §7.13.3 (the reusable-vs-scoped split) + §7.13.9 anti-patterns.
+
+### 36. Brand-hardcoded relationship primitive (tier 2)
+
+The risk: building features that assume `brand` is the only relationship boundary, foreclosing clinic / practice_entity / location / specialty-line / external-partner / endpoint scoping. The smoking gun is a column named `patient_brand_relationship_id`, a UI label "Brand relationship," or a switch that hardcodes brand-as-relationship-key.
+
+Watch for: PRs / preflights / migrations that introduce relationship-scoping logic via `brand_id` alone, when the primitive (per primitive #19 + DL-10) admits 11 possible scoping dimensions. The relationship-boundary admission guardrail (foundational doc §7.13.4) is the binding test: a dimension becomes a relationship boundary only when it owns distinct operational state — but the *primitive* is `patient_relationship`, not `patient_brand_relationship`.
+
+Surfaces first in: the future `patient_relationship` substrate migration. The migration MUST NOT bake "brand" into the primitive name, FK shape, or RLS predicate. Future preflights citing this primitive must use `patient_relationship` vocabulary.
+
+Source: DL-10 doctrine arc; ChatGPT's mid-arc warning that `patient_brand_relationship` would be too narrow.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-10 + foundational doc §4 primitive #19 + §7.13.4 admission guardrail.
+
+### 37. Hard-silo / no-shared-identity drift / Extreme 2 (tier 1)
+
+The risk: a brand expansion or new-clinic rollout mints a separate `patients` row for an existing OMNI consumer instead of creating a new `patient_relationship` against the existing identity. The "every brand gets its own patients table" failure mode. Or: a federation roadmap that assumes cross-deployment merger means "everyone gets new patient rows in the merged namespace." This is the per-brand-silo interpretation DL-10 explicitly rejects ("Extreme 2").
+
+Watch for: code paths / preflights / migrations that create new `patients` rows when identity claims (phone / email / DOB / verified-ID) match an existing row in the same namespace. Brand activation work that proposes "the easy thing" is to mint a separate `patients` row. Federation designs that auto-collapse identities across namespaces without explicit consent + audit.
+
+The risk is also subtler: an intake flow that doesn't check for existing `patients` rows in the namespace before creating one. Or an external-line preflight that creates a new `patients` row for every Twilio inbound text without identity-claim-matching against the namespace first.
+
+Surfaces first in: any future brand activation (e.g., a second brand launches on the same OMNI deployment) — the activation MUST reuse existing `patients` rows for identity-claim-matched humans and create a new `patient_relationship` row, not mint parallel patient rows. Also at the first cross-deployment merger.
+
+Source: DL-10 doctrine arc; the per-brand-silo pressure-test against the Mindbody identity-reuse strategy.
+
+Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-10 + Section 1J amendment (single canonical `patients` row per namespace) + foundational doc §7.13 (identity reuse within namespace).
+
+---
+
 ## How to use this radar
 
 - **Re-read before**: provider dashboard work, task runtime, lifecycle automation expansion, broad send-policy rollout, the moment 10-20 typed Rules / Templates have shipped.

@@ -180,7 +180,7 @@ This is the anti-randomness rule. It is what keeps OMNI broad-in-scope without b
 | Communication ingress | outbound-only · inbound SMS · inbound voice · inbound fax · inbound email reply · portal message · scanned upload |
 | Communication endpoints | single brand inbox · per-department · per-specialty · per-provider · per-location · AI-operated endpoint |
 | Scheduling depth | provider-only · provider + room · provider + room + equipment · multi-suite · cross-facility · surgery-center · device + technician |
-| Identity scope | single org · multi-brand within org · multi-org with shared patient · cross-org referral with packet handoff |
+| Identity scope | single org · multi-brand within org · multi-org with shared patient · cross-org referral with packet handoff. **Binding response per DL-10 + §7.13:** `patients` canonical within an OMNI identity namespace (deployment / org PHI boundary today); `patient_relationship` (primitive #19) per-relationship scope; cross-namespace federation explicit / consent-aware / audited (not auto-shared) |
 | Patient role | episodic patient · longitudinal patient · subscription member · returning post-procedure patient · surveillance cohort · recurring aesthetic patient |
 | Operational data ingress | structured intake · OCR fax · uploaded PDF · imaging DICOM · pathology report · lab result · device telemetry · vendor webhook · point-of-sale |
 | Procedural category | operative · therapeutic · diagnostic acquisition · surveillance · interpretive · device · multi-category (e.g., colonoscopy = operative + diagnostic + surveillance) |
@@ -213,7 +213,7 @@ Substrate primitives are cross-cutting infrastructure every sibling depends on. 
 | 16 (NEW) | **External-system ingest** | reconcile-and-attach pipeline for inbound artifacts from external systems: ASC EMR result PDFs, outside imaging reports, outside lab results, fax inbound, OCR'd consent forms, pathology PDFs, vendor-system webhooks, prior-record packets from referrals. Cross-cutting; substrate-shaped. **Not a sibling.** Used by labs_lifecycle, referral_lifecycle, procedure_lifecycle, clinical_finding, revenue_cycle, communications_lifecycle, and charting/documentation surfaces. Future contributors must NOT carve it into `external_documents_lifecycle/`, `fax_lifecycle/`, `asc_results_lifecycle/`, or `integration_lifecycle/`. Every inbound external source goes through this one substrate primitive. | Reserved |
 | 17 (NEW) | **Encounter** | clinical contact event: in-clinic visit, telehealth call, async chart review, message-triggered review, post-op follow-up call, vendor-handoff review. Container for procedures + interventions + observations + decisions + communications. Distinct from appointment (intent), distinct from procedure_episode (procedural arc). The encounter is the operational session in which the procedural arc occurs. Cross-cutting; recurs across every sibling. | Reserved |
 | 18 (NEW) | **Plan / protocol** | future-directed structured intent: cadence, criteria, escalation rules. Owns: GLP-1 titration plan, post-Mohs surveillance schedule, infusion protocol, refill cadence, post-op care plan, hormone dose-adjustment protocol, peptide-cycle protocol. Distinct from recall (#12) — recall is one obligation; plan is the rule-set that *generates* recalls. Distinct from typed Rules (#13) — Rules are governance / orchestration policy; Plans are clinical / operational protocols attached to patients + tracked objects. | Reserved |
-| 19 (NEW) | **Continuity relationship** | ongoing patient-system-clinician relationship over time. Owns: relationship status (active / disengaged / lost-to-followup / churned), provider continuity (this patient sees Dr. X for hormone, Dr. Y for derm), patient role (subscription member / longitudinal / episodic / surveillance cohort), care-arc start/end. Distinct from patient identity (#5) which is the row; continuity relationship is the longitudinal arc on top of identity. The Hims-ethos primitive — without this, the system can't represent the difference between "this patient" and "this patient's ongoing relationship with our clinic over 5 years." | Reserved |
+| 19 (NEW) | **`patient_relationship`** (formalization of "Continuity relationship") | The patient's **operational relationship** with a clinic / brand / practice / business context. **Generalized per DL-10**: scoped by **brand, clinic, practice_entity, location, specialty line, legal entity, parent org, separate deployment (post-federation), referral partner, care team, or endpoint / business phone line**. Owns: relationship status (active / disengaged / lost-to-followup / churned / transferred / merged), consents, intake requirements, memberships / packages, appointments, care programs, messages thread context, clinical chart context for that relationship, assigned care team, communication endpoint, relationship-specific preferences, provider continuity within that relationship, patient role within that relationship, care-arc start/end. Distinct from patient identity (#5) which is the row; `patient_relationship` is the **longitudinal operational arc on top of identity**. **Admission guardrail (binding per DL-10):** a scoping dimension becomes a `patient_relationship` boundary **only when it owns distinct operational state** (consents, care programs, messaging, memberships, clinical context, staff access, lifecycle state, or legal/compliance boundary). Otherwise the dimension is an attribute of an existing relationship, not a separate relationship row. Endpoint, care team, and location are *possible* boundaries; they are *not automatic* boundaries. **Brand is one of N — not the only — boundary.** Without this primitive, the system collapses "this patient" with "this patient's brand-specific operational world," losing multi-brand / multi-clinic / Mindbody-style identity-reuse-with-relationship-scoping. | **LANDED (doctrine via DL-10); substrate migration future** |
 | 20 (NEW) | **Vendor / partner interaction** | transactional state with external parties. Owns: pharmacy vendor account state, lab vendor account, ASC partnership credentialing, imaging-center contract, payment processor account, telephony vendor account, referral-partner relationship. Distinct from external-system ingest (#16) — ingest is artifact-flow (we receive a thing); vendor interaction is account / contract / credentialing / on-time-rate / rate-card / integration state. | Reserved |
 | 21 (NEW) | **Consent / authorization** | legal permission boundary for clinical operations: procedure consent, photo consent, records release, financial responsibility, anesthesia consent, pathology consent, photo-use-for-marketing, telehealth consent, AI-rendering consent. Split from disclosure-policy (#3) because the two govern different domains: disclosure-policy clamps outbound communication, consent gates clinical operation performance. A photo-use-for-marketing consent does not gate communication; a disclosure-policy clamp does not gate procedure performance. | Reserved |
 
@@ -829,6 +829,165 @@ This pattern is anti-narrative-first-authoring (radar trap 17 below). It is the 
 
 ---
 
+## 7.13 Consumer identity vs operational patient-relationship scoping (binding sub-doctrine)
+
+This section is the long-form rationale for **Doctrine lock DL-10** in MAIN. The lock itself is the binding source; this section explains the Mindbody analogy, Epic contrast, four-layer object model, what's reusable vs scoped, the 8 deployment shapes the substrate must admit, and worked examples. Read DL-10 first; this section explains the why.
+
+### 7.13.0 Binding sentence (verbatim mirror of DL-10 lead)
+
+> "OMNI distinguishes reusable patient identity from operational patient relationships. A human may have one deployment-local patient identity and multiple clinic / brand / practice relationships. Clinical, messaging, consent, membership, appointment, and care-program state attach to the relationship context, not blindly to the global person. Cross-relationship linking is explicit, permissioned, consent-aware, and audited."
+
+### 7.13.1 Why this matters: Mindbody analogy vs Epic contrast
+
+**Mindbody analogy (the right shape for OMNI).** Mindbody supports one consumer identity across many businesses. The client experiences one app / profile / login, but each studio / clinic / business owns its own waivers, memberships, payment rules, appointments, packages, messaging, staff, policies, intake forms, and history with that business. The auto-profile is reused identity + reusable demographic claims; the operational world per business is separate and the business owns it. The patient's "I'm using Mindbody" experience is unified; the businesses' "this is OUR patient at OUR studio" reality is scoped.
+
+**Epic contrast (the wrong shape for OMNI's wedge).** Epic's enterprise model often shares clinical state across the enterprise — different hospitals, practices, and portals may feel separate but the underlying chart can be enterprise-wide via master-patient-index + chart-access controls. That works for hospital systems where one legal entity governs all care. It is the **wrong** shape when the OMNI deployment hosts multiple **distinct legal / brand / clinic / specialty** contexts that should not auto-share clinical, consent, or messaging state. **Epic is explicitly NOT the bar for OMNI's wedge** (per DL-5 + §1.5); for identity / relationship scoping specifically, Epic-style enterprise-wide auto-share is one of the two extremes DL-10 rejects.
+
+OMNI's answer: **shared identity substrate, separate operational relationships.** The middle between global-auto-share (Extreme 1 / Epic) and hard-silos-no-shared-identity (Extreme 2 / per-brand patient rows).
+
+### 7.13.2 The four-layer object model
+
+DL-10's identity / relationship scoping decomposes into four conceptual layers. Each layer has a different ownership, lifecycle, and access model:
+
+| Layer | Concept | Substrate today | Owns |
+|---|---|---|---|
+| 1. **External contact identity** | Pre-account / unmatched-event layer for Twilio main-line SMS, inbound call, lead form fill, fax inbound | Not built (named in [`docs/architecture/communications_topology.md`](../../docs/architecture/communications_topology.md) §11; external-line preflight forthcoming) | Phone / email / external handle with match candidates + linked / unlinked status + provenance of linking |
+| 2. **`patients` consumer identity** (within OMNI identity namespace) | Reusable identity-claim layer | Built (`patients` table); identity namespace = deployment / org PHI boundary today | Legal name, DOB, phone, email, portal login, identity verification, duplicate / merge candidates, demographic profile, global notification preferences where legally appropriate |
+| 3. **`patient_relationship`** | Per-relationship operational scope | Doctrine LANDED per DL-10; substrate migration future. Reserved as primitive #19. | Consents, intake requirements, memberships / packages, appointments, care programs, messages thread context, clinical chart context for that relationship, assigned care team, communication endpoint, lifecycle status, provider continuity, patient role within that relationship |
+| 4. **Care context** | Concrete operational unit within a relationship | Built (care_programs, clinical_visits, appointments, messages, treatment_orders, etc.) | Specific program / encounter / appointment / message / order — always anchored to a relationship (today implicitly via `patient_id`; future explicitly via `patient_relationship_id`) |
+
+### 7.13.3 What's reusable vs scoped (binding split)
+
+**Reusable across relationships (identity-claim layer on `patients`):**
+
+- Legal name
+- DOB
+- Phone numbers (verified identity claims)
+- Email addresses (verified identity claims)
+- Portal login + authentication state
+- Identity verification status (L0–L4 per §1J.4)
+- Duplicate / merge candidates
+- Demographic profile (race, ethnicity, gender identity, pronouns where collected globally)
+- Mailing address (where appropriate; some addresses may be relationship-scoped)
+- Emergency contact (where appropriate)
+- Payment method (where consent-captured for global reuse)
+- Global notification preferences where legally appropriate
+
+**Scoped per `patient_relationship` (NOT auto-shared across relationships):**
+
+- Consents (intake, treatment, photo, marketing, records release, AI-rendering, anesthesia, procedure-specific — always relationship-scoped)
+- Memberships / packages
+- Care programs
+- Appointments
+- Messages / threads
+- Clinical chart context for that relationship (problem list relevant to this care arc; not the patient's global health history)
+- Provider notes within the relationship's encounters
+- Care team assignment
+- Communication endpoint (which brand main-line / portal surface they use)
+- Relationship-specific lifecycle state (active / disengaged / churned / transferred / merged)
+- Brand-specific disclosures / policies
+- Financial state for that relationship (open balance, dunning state, package consumption)
+- Relationship-specific preferences
+
+**The binding rule:** sharing identity claims is automatic (within a namespace); sharing operational state across relationships is explicit, permissioned, consent-aware, audited.
+
+### 7.13.4 The relationship-boundary admission guardrail (binding test)
+
+DL-10 names 11 possible scoping dimensions: brand, clinic, practice_entity, location, specialty line, legal entity, parent org, separate deployment (post-federation), referral partner, care team, endpoint / business phone line. **But not every dimension automatically becomes a separate relationship row.** A scoping dimension is promoted to a `patient_relationship` boundary **only when it owns distinct operational state** — specifically, when crossing the dimension changes one of:
+
+- Consents
+- Care programs
+- Messaging context
+- Memberships
+- Clinical context
+- Staff access
+- Lifecycle state
+- Legal / compliance boundary
+
+If the dimension does **not** own distinct operational state, it remains an **attribute** of an existing relationship, **not** a separate relationship row. Examples:
+
+- **Multi-location clinic, same brand, shared chart, location-specific operations:** locations may be an attribute on the relationship (an appointment has a location); they do NOT auto-spawn separate relationships unless a location owns distinct consents / staff access / lifecycle (e.g., a procedural-day location with separate informed-consent regime).
+- **Care team membership inside one clinic relationship:** care_team is an attribute of the relationship (or of the encounter); it does NOT spawn a new relationship per care team unless the care team genuinely operates as a separate practice entity.
+- **Endpoint / business phone line:** the same brand may have multiple endpoints (main line + after-hours line). They are attributes of the same relationship unless they truly operate distinct clinical or operational rules.
+
+**Promote a dimension to a relationship boundary only when distinct operational state actually exists, never pre-emptively.** This guardrail keeps the substrate clean and prevents the boundary list from over-generating relationship rows.
+
+### 7.13.5 The 8 deployment shapes DL-10 admits (non-foreclosure)
+
+DL-10 commits to admit the following 8 shapes without substrate replatforming. Mirrors DL-6's pattern: this is non-foreclosure, not a roadmap commitment.
+
+1. **Single-brand single-clinic** — one OMNI deployment, one brand, one clinic. Each human → one `patients` row + one `patient_relationship`. Simplest case.
+2. **Multi-brand inside one parent company** — same OMNI deployment, multiple brands owning distinct operational state (e.g., women's HRT + men's HRT + GLP-1 + medspa). One `patients` row per human within the deployment; one `patient_relationship` per brand the human engages with. Operational state per relationship is independent.
+3. **Multi-location clinic group** — one brand, multiple locations. If locations don't own distinct operational state → location is an attribute of one relationship (per the §7.13.4 admission guardrail). If locations do own distinct operational state (separate consent regimes, separate staff pools, separate care programs) → multiple relationships per human.
+4. **Separate specialty clinics on OMNI sharing some patients** — multiple clinics on the same OMNI deployment, each with distinct chart / care-team / lifecycle. One `patients` row per human within the deployment; one `patient_relationship` per clinic.
+5. **Consumer-marketplace / Mindbody-style cross-clinic discovery** — patient uses an OMNI-powered consumer surface that lets them book across many clinics on the deployment. Single `patients` consumer identity; multiple `patient_relationship` rows materialized when patient actually engages with each clinic (lazy materialization is OK — see admission guardrail).
+6. **Post-merger duplicate linking** — three clinics on separate OMNI deployments merge. Cross-namespace identity matching surfaces likely-same-human pairs to authorized staff. Linking is explicit (consent-captured, audited). Operational state does NOT silently collapse; merger workflow may choose to migrate, archive, or maintain-separately based on legal / clinical / consent posture.
+7. **Cross-brand gaming / risk detection** — same human attempts to engage with multiple brands to get duplicate GLP-1 prescriptions. Identity-claim layer flags "likely same human" to authorized clinical / ops staff; no auto-share of clinical state; clinical decisions still require permissioned workflow + consent + audit.
+8. **Cross-deployment federation** — separate OMNI deployments stay isolated by default. Future federation surfaces identity-claim matches across namespaces but does NOT auto-share operational state. Federation is explicit, consent-captured, audited.
+
+### 7.13.6 Worked example: same human across Cultured + Make + dermatology medspa
+
+A 38-year-old woman uses three brands on the same OMNI deployment over 18 months:
+
+1. Signs up for **Cultured** (women's HRT brand). System creates her `patients` row + Cultured `patient_relationship`. Her HRT care_programs, HRT consents, HRT messages, HRT chart context all live on the Cultured relationship.
+2. Six months later her partner asks her to refer Make (men's HRT/GLP-1 brand). She decides to also try GLP-1 herself for weight loss. System recognizes her identity-claim match against her existing OMNI `patients` row (phone + email + DOB + portal login). Identity is reused; **no new `patients` row is minted**. A new Make `patient_relationship` is created — separate consents (Make has different telehealth-consent + GLP-1-specific disclosures), separate care_programs (GLP-1 program), separate care team (Make's prescriber, not Cultured's), separate messaging endpoint (Make's main line + portal surface). Her Cultured HRT history is NOT auto-shared with Make's care team unless she explicitly authorizes it.
+3. A year later she gets Botox at a dermatology medspa brand that runs on the same OMNI deployment. Same `patients` row; third `patient_relationship`. Medspa staff sees identity (name, phone, DOB) and verification status; does NOT see Cultured's clinical chart or Make's prescription history unless explicit cross-relationship access is granted with consent + audit.
+4. She moves and her phone number changes. She updates it in the OMNI consumer surface. **The change propagates to the identity layer** — all three relationships see the new phone number for their identity claims, because phone is reusable per §7.13.3. But the change does NOT propagate her Cultured care state into Make's chart.
+
+### 7.13.7 Worked example: Twilio main-line text from unknown number
+
+A new lead texts Cultured's main line: "Hi, I'm interested in HRT." Per the external-line preflight architecture (forthcoming) and topology doc §11:
+
+1. The Twilio webhook lands as an **external contact identity** row (layer 1 in §7.13.2). Phone number is the identity claim.
+2. The system attempts identity-claim matching against `patients` rows in the deployment's namespace. Suppose this phone matches an existing `patients` row (this human signed up for Make's GLP-1 6 months ago but never engaged with Cultured).
+3. The system surfaces the match to Cultured's intake staff: "Likely existing OMNI patient — has a Make relationship but no Cultured relationship. Create new Cultured relationship for this human?"
+4. Staff confirms; a new Cultured `patient_relationship` is created against the existing `patients` row. Auto-prefill identity claims (name, DOB, phone, email, address) from the identity layer. **Do NOT auto-pull** Make's clinical chart, Make's consents, or Make's prescription history into Cultured's relationship — those are Make-relationship-scoped.
+5. Cultured's intake forms / consents / care programs proceed independently.
+
+If the phone number did NOT match any existing `patients` row, the external contact identity stays as a contact identity / lead until intake completes, at which point both a `patients` row and a Cultured `patient_relationship` are created. Identity-namespace + relationship layers compose cleanly.
+
+### 7.13.8 Worked example: post-merger duplicate linking
+
+Three medspa clinics each run their own OMNI deployment (separate namespaces). They merge. The parent company wants unified consumer identity but each clinic's operational chart stays independent until staff explicitly decides per-patient.
+
+1. **Federation surface** lands as future architecture (post-DL-10, not now). It identifies probable-same-human pairs across deployments by identity claims (phone + email + DOB + verified-ID).
+2. For each match, authorized staff sees: "Patient at Clinic A appears identity-matched to patient at Clinic B and patient at Clinic C." Staff captures consent from the patient (federation-tier consent) and chooses one of:
+   - **Link only** (preserve all three patient rows; identity-claim layer surfaces "this is the same human" across deployments; operational state remains independent per relationship per deployment).
+   - **Merge identity** (collapse the three `patients` rows into one canonical row in a unified namespace; relationships per-deployment remain independent operational records).
+   - **Merge fully** (collapse identity AND merge relationship-level operational state — requires explicit consent for each piece of operational state migrated; audit per migration).
+3. Each choice is explicit, consent-captured, and audited per DL-10's "cross-relationship linking is explicit, permissioned, consent-aware, and audited" clause. No silent collapse.
+
+### 7.13.9 Anti-patterns explicitly forbidden by DL-10
+
+- **Treating `patient_id` as the global cross-relationship identity** in features that should be relationship-scoped (e.g., a query that returns "all messages for this patient" without filtering by relationship). Radar zone 34.
+- **Auto-sharing operational state across relationships on identity-claim match** (e.g., a refill rule fires across all the patient's relationships because phone-number-matched). Radar zone 35 / "Extreme 1."
+- **Hardcoding `brand` as the only relationship boundary** (e.g., a column named `patient_brand_relationship_id` or a UI that can't accommodate clinic-but-not-brand contexts). Radar zone 36.
+- **Minting separate `patients` rows per brand for the same human within a namespace** (loses identity reuse, duplicate detection, merger support, consumer-marketplace strategy). Radar zone 37 / "Extreme 2."
+- **Auto-collapsing relationships during deployment mergers** without explicit consent + audit. Forbidden by DL-10's "cross-relationship linking is explicit" clause.
+- **Routing Twilio main-line texts directly into `messages`** without going through the contact-identity → identity-match → relationship-resolution sequence. Forbidden by DL-10 + topology doc §11.
+
+### 7.13.10 What §7.13 does NOT specify (deferred)
+
+- Exact `patient_relationship` schema (column list + indexes + RLS policies). Future migration when first sibling activates relationship-scoping.
+- Identity-confidence scoring algorithm for cross-namespace matching. Future federation architecture.
+- Merger UI shapes. Future product work.
+- Consumer-marketplace portal surface design. Future product work.
+- External contact-identity primitive (lives in the external-line preflight architecture per topology doc §11).
+- Migration plan for retrofitting existing operational tables with `patient_relationship_id`. Future commit; today the implicit `patient_id` + `brand_id`-on-care-program path works because each brand is 1:1 with one care program for the wedge clinic.
+
+### 7.13.11 Cross-references
+
+- MAIN **DL-10** (binding lock)
+- MAIN **§1J** (Patient identity) — identity-namespace amendment per DL-10
+- MAIN **§1U.3** (brand_id) — graduated-boundary amendment per DL-10
+- Foundational doc **primitive #19** (formalized as `patient_relationship`)
+- Foundational doc **§3 dimensional matrix** — identity-scope axis
+- ADR **§7.13** — decision record + alternatives considered
+- Radar **zones 34-37** — drift watch
+- Topology doc **§11** — external-line architecture; uses DL-10 as the substrate spine
+
+---
+
 ## 8. Cross-cutting concerns (axes that span siblings)
 
 Not siblings. Not substrate primitives. Cross-cutting concerns every sibling must accommodate.
@@ -963,6 +1122,7 @@ Pure documentation. No code. No migrations. No schema. No new rules.
 | Producer-site transitional locality (ADR §7.5) | DL-4 + Platform operational model paragraph | LANDED |
 | 20 ontology traps (§9) | Distributed across DL-1 through DL-9 + radar zones 27–28 | LANDED via doctrine locks (binding); long-form trap enumeration remains here as rationale |
 | Dimensional matrix (§3) | DL-6 (substrate non-foreclosure across all matrix cells) | LANDED |
+| **Consumer identity vs operational patient-relationship scoping (§7.13)** | **MAIN DL-10** (binding lock) + **§1J amendment** (identity-namespace scope) + **§1U.3 amendment** (brand_id graduated boundary) + **primitive #19 formalization** as `patient_relationship` + **radar zones 34-37** | **LANDED (doctrine via DL-10; 2026-05-11 evening); substrate migration future** |
 | Day 0 elite-class depth + activation incrementality (§1) | DL-5 | LANDED |
 | §6.5 12-procedure pressure-test grid | Reserved — long-form remains in this document; not paste-imported into MAIN per reconciliation constraint | RESERVED IN-DOC |
 | §12 reservation status (Reserved-deferred vs Truly-deferred) | Cross-link from MAIN's relevant Section reservations (Section 1F scheduling, Section 1L labs, Section 1I revenue, Section 1U multi-org) | LANDED — MAIN sections cross-link this section as the long-form reservation register |

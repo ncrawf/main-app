@@ -184,7 +184,8 @@ Binding section in MAIN: §1G.8 (provider workspace), §1G.9 (clinical messages 
 |---|---|---|---|---|
 | Rich chat (`messages` + threads + participants) | **YES** but tables EMPTY (no inserts anywhere; c2 is first writer) | SHELL ONLY | Real rendering, per-recipient read state, classification chips, turn-model UX, **thread + participant backfill** | **c2** |
 | Inbox notifications (`patient_inbox_messages`) | YES (c1) | NO | `/inbox` route does not exist | **c3** |
-| Action items (`patient_action_items`) | **NO — table not built** (despite §1G.11 doctrine) | UI exists but reads derived dashboard model, not substrate | Substrate doesn't exist | **c4** (re-scoped to substrate build, not audit) |
+| Action items (`patient_action_items`) | **NO — table not built** (despite §1G.11 doctrine) | UI exists but reads derived dashboard model, not substrate | Substrate doesn't exist; **per DL-10 (2026-05-11 evening) c4 must also decide identity-scoped vs relationship-scoped per action-item type** | **c4** (re-scoped to substrate build with DL-10 obligations, not audit) |
+| `patient_relationship` (per DL-10 substrate spine for all of the below) | **NO — primitive #19 formalized as doctrine 2026-05-11; substrate migration future** | n/a (doctrine layer) | Future migration when first sibling activation drives it | future preflight; likely external-line or first multi-brand activation |
 | `send_email` outbound | YES | N/A | None | — |
 | `send_sms` outbound | YES (Twilio) | N/A | None | — |
 | `send_in_app` outbound | YES | N/A (UI via c3) | None substrate-side | — |
@@ -289,7 +290,18 @@ None of these have a known `patient_id` at the moment the event arrives. **Today
 
 **What is reserved in MAIN §1P:** `inbound_emails`, `inbound_call_transcripts`, `vendor_email`, `pharmacy_partner_message`, `inbound_narrative_reviews`. These name some of the rail-event-layer shapes but none are migrated, and none yet model the contact-identity layer separately from patient identity.
 
-**Architectural preference (binding guidance for the future external-line preflight).** When that preflight is written, **prefer the dual-substrate four-layer model** (separate `communication_events` + `contact_identities` + ops triage substrate, distinct from the authenticated `messages` substrate). **Treat "make `messages.patient_id` nullable" as the default-losing option** unless a pressure test in that preflight proves the single-substrate path is cleaner. Rationale:
+**Architectural preference (binding guidance for the future external-line preflight; UPDATED 2026-05-11 evening per DL-10).** When that preflight is written, **prefer the dual-substrate four-layer model** (separate `communication_events` + `contact_identities` + ops triage substrate, distinct from the authenticated `messages` substrate). **Treat "make `messages.patient_id` nullable" as the default-losing option** unless a pressure test in that preflight proves the single-substrate path is cleaner.
+
+**DL-10 substrate spine (binding, post-2026-05-11 evening).** The four conceptual layers below now have explicit substrate-doctrine mapping per [MAIN Doctrine lock DL-10](../../.cursor/plans/system_map_three_layers_60706286.plan.md) and [foundational doc §7.13](../../.cursor/plans/FOUNDATIONAL_ARCHITECTURE_2026-05-10_all_dimensions.md):
+
+- **Layer 1: External contact identity** (this doc's "rail event" + "contact identity" layers compressed) — the unmatched / pre-account communications layer above the OMNI identity namespace. Future external-line preflight builds this.
+- **Layer 2: `patients` consumer identity** within OMNI identity namespace (deployment / org PHI boundary today; cross-namespace federation as non-foreclosure per DL-10).
+- **Layer 3: `patient_relationship`** (formalized primitive #19 per DL-10) — per-relationship operational scope. **Brand is one of N scoping dimensions** (clinic / practice_entity / location / specialty / legal entity / parent org / deployment / referral partner / care team / endpoint). Admission guardrail: a dimension becomes a relationship boundary only when it owns distinct operational state.
+- **Layer 4: Care context** — concrete operational unit within a relationship (program, encounter, appointment, message).
+
+**External-line ingress sequence (binding per DL-10 + this section):** Twilio main-line / inbound call / fax / unknown lead-form event → Layer 1 contact identity → identity-claim match against Layer 2 `patients` within namespace → resolve or create Layer 3 `patient_relationship` (with explicit consent + audit per DL-10) → operational state in Layer 4. **Never route Twilio main-line events directly into `messages`** without going through this sequence. Forbidden by DL-10 + radar zone 35 (auto-share drift).
+
+Rationale (why dual-substrate; pre-DL-10 framing preserved below for reference):
 
 - Authenticated patient chat and unknown-number external traffic have **different authority** (patient-scoped vs ops-scoped), **different privacy** (PHI from a known patient vs an unknown texter possibly not even a patient), **different routing** (clinical_required + care-program-bound vs triage-to-staff), **different retention** (clinical vs marketing/spam), and **different UX rules** (patient portal vs ops triage queue).
 - Collapsing them into one nullable-patient_id table creates a junk-drawer: lead texts, spam, wrong numbers, billing questions, appointment reschedules, post-procedure concerns, clinical patient messages, and authenticated portal messages all flowing through the same row shape with metadata-jsonb discriminants. Radar zone 28's exact anti-pattern.
