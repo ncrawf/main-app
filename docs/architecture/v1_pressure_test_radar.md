@@ -358,6 +358,162 @@ Binding parent invariant this watch zone protects: MAIN Doctrine lock DL-11 §7.
 
 ---
 
+## 2026-05-12 addendum — DL-12 watch zones (25 zones: 43-67)
+
+*Dated 2026-05-12 early morning, post-DL-12 doctrine landing. Watch zones for DL-12 (thread + participant lifecycle as cross-substrate discipline + fax canonical placement + 28 foundational clarifications across 7 pressure-test rounds). Each zone has a tier classification, a smoking-gun signal, a forbidden-per cross-link, and the binding parent invariant. The 28 foundational clarifications are bound; these 25 zones are the watch list for drift.*
+
+### Zone 43 — Staff deactivation orphans open threads/tasks (tier 1)
+
+Staff deactivated without reassignment of open assigned work; thread / task ownership tuple has dead `case_owner`; OR owner cardinality assumed individual-only without team/queue/role/coverage-group fallback. Smoking gun: a deactivation flow that revokes access without firing the §1G.1 reassignment check; or `message_threads.case_owner = deactivated_staff_id` with no fallback per §1G.1(b) owner cardinality.
+
+Forbidden per: DL-12 invariant 1 staff deactivation lifecycle + §1D.3(a) + §1G.1(b).
+
+### Zone 44 — True-delete of thread / message / participant (tier 1)
+
+Forbidden in healthcare retention. Status transitions to `archived` or `entered_in_error` (admin/compliance only via §1J.9 break-glass); IT/compliance recovery never rewrites authorship and never impersonates the original author. Smoking gun: a DELETE statement on `messages` / `message_thread_participants` / `internal_threads` / `internal_thread_messages` in application code.
+
+Forbidden per: DL-12 invariant 8 + §1V.10(a) + primitive #1.
+
+### Zone 45 — Thread title source ambiguity (tier 2)
+
+System-derived title gets edited to user-set without audit/provenance; or persistent-group thread title gets user-edited overwriting group-derived name. Title source must be explicit + tracked.
+
+Forbidden per: DL-12 invariant 7 + foundational §8.1 sub-clause 6.
+
+### Zone 46 — Fax treated as new sibling OR stuffed into internal_collaboration (tier 2)
+
+Proliferation prevention (parallel to zone 29 specialty-table proliferation) + cross-surface contamination (parallel to zone 38 cram-internal-into-patient-chat). Fax is composed-from-primitives per §5.3(a) sibling-boundary guard.
+
+Forbidden per: DL-12 fax canonical placement + foundational §5.3(a) + primitive #10 + primitive #16.
+
+### Zone 47 — Thread proliferation / wrong-granularity drift (tier 2)
+
+Multiple internal threads opened for the same lab / order / patient concern without object linkage, merge / split / link policy, or canonical context. Elite-ops messaging dies from thread sprawl. Doesn't need to solve merge/split now; names the risk so future internal_collaboration UI design accounts for thread-discoverability + thread-deduplication + canonical-context guidance.
+
+Forbidden per: DL-12 invariant 29 future merge/split/link forward-pointer + DL-11 + DL-8.
+
+### Zone 48 — Internal-thread-as-canonical-state drift (tier 1)
+
+A thread is treated as the source of truth for an order / Rx / lab approval / billing exception / clinical decision / adverse event when the canonical state belongs in the order / Rx / lab / action_item / clinical_visit substrate per DL-7 structured-first authoring + DL-11 boundary discipline. Smoking gun: a code path that reads "Dr X approved this" from `internal_thread_messages.body` text instead of from the order's `approved_at` / `approved_by_staff_id` columns. Threads coordinate around state; they do not own state.
+
+Forbidden per: DL-12 invariant 11 threads-coordinate-never-canonical-state + DL-7 + §7.14.10(a).
+
+### Zone 49 — AI silently sends patient-facing message without template / disclosure-policy gate (tier 1)
+
+AI participation in a thread proposes or drafts a patient-facing message and the system sends it WITHOUT routing through `repo/templates/` + `outbound_jobs` + Section 1Q template governance + primitive #3 disclosure-policy gate. AI proposes, humans (or rules + capability checks) authorize the send; patient-facing send path stays owned by §1Q + primitive #13. Smoking gun: an internal_thread orchestrator that calls `postPatientMessage` directly on an AI-drafted body without a template-render gate, capability check, or human approval step.
+
+Forbidden per: DL-12 invariant 14 AI participation bounds + primitive #11 + §1Q.14.1.
+
+### Zone 50 — System / automation / AI-created thread without provenance fields (tier 1)
+
+An automation or rule or AI proposal creates a thread without populating `created_by_actor_type` (per primitive #1 actor taxonomy) or `trigger_source` or `evidence_refs` (via `internal_thread_object_links`) or `reason_code` or `owner_or_team` or `audit_events` row. Unowned automation-created threads are forbidden — every system-created thread has an owner queue or team at creation. AI-created clinical/safety/Rx threads also carry an explicit `human_review_required` flag per thread class.
+
+Forbidden per: DL-12 invariant 16 + primitive #1 + primitive #11 + §7.14.4.
+
+### Zone 51 — AI thread spam from missing anti-noise controls (tier 1)
+
+Automation/AI-created threads without `dedupe_key` + `cooldown_window` + `severity_threshold` + `ownership_controls`. Smoking gun: same lab result triggers ten parallel "Lab review" threads in five minutes; or AI safety detector fires three threads on the same patient note; or non-deterministic AI trigger auto-creates a high-sensitivity clinical/Rx/safety thread without entering human triage/proposal state first. **High-sensitivity clinical / Rx / safety threads may be auto-created ONLY under approved deterministic trigger policy** OR MUST enter a human triage/proposal state before becoming an active thread.
+
+Forbidden per: DL-12 invariant 16 anti-noise clause + primitive #11 anti-noise discipline + §1N.8(c).
+
+### Zone 52 — AI authorship rewriting (tier 1)
+
+A message authored/sent after a human accepted/edited an AI draft is attributed to AI (`actor_type='ai_assisted'`) instead of to the human (`actor_type='staff_with_ai_assist'` with AI-assist provenance attached via `ai_proposal_id` / `ai_confidence` / `ai_model`). Smoking gun: a portal chat send pipeline records `author_staff_id=null` + `actor_type='ai_assisted'` when a provider clicked "send" on an AI-drafted reply. **Matters legally and clinically** — the provider is the responsible author of any message they accepted/sent; AI is provenance attachment, never authorship rewrite. AI impersonation of staff is a substrate-level boundary violation.
+
+Forbidden per: DL-12 invariant 14 authorship attribution + primitive #1 actor taxonomy + primitive #11 authorship rule.
+
+### Zone 53 — Thread search "everyone-can-search-everything" or 1:1 DMs broadly browsable by ordinary staff (tier 1)
+
+A search/index implementation that lets any staff member browse other staff members' 1:1 DMs or private group threads they are not part of; OR a UI that treats search as a single global toggle ("enable search across all threads") rather than as capability-gated + scope-aware + thread-class-aware filtering. Smoking gun: a search endpoint that returns thread bodies the requesting user has no participant/relationship/object/role authority to read; or a "company-wide thread search" admin toggle with no per-thread-class or per-relationship scoping. Admin/CMO/IT/compliance discovery is a distinct audited break-glass capability — never ordinary search. **Cultural failure mode**: if ordinary staff can browse other people's DMs, conversations flee to text/iMessage/Slack and OMNI loses the operational system of record.
+
+Forbidden per: DL-12 invariant 19 thread search/visibility governance + §1J.12(c) anti-panopticon discipline + primitive #2.
+
+### Zone 54 — Notification preferences silently suppress safety/clinical/critical messages (tier 1)
+
+Patient notification-preference application that treats safety / clinical_required / Rx-critical / billing-critical / appointment-critical / legal-compliance notifications the same as marketing or non-critical, allowing patient mute / quiet-hours / channel-disable to silently drop them. OR staff notification-preference application that lets ordinary mute bypass on-call escalation / safety/adverse-event / CMO escalation / assigned-owner / compliance/admin recovery / unresolved-clinical-blocker overrides. Smoking gun: an outbound dispatcher that checks `patient.notification_prefs.muted=true` and drops a Rx-recall message; or a staff notification router that obeys `staff.dnd=on` for a critical on-call escalation. Preferences ride atop intent + capability + escalation; preferences NEVER silently override critical-message delivery.
+
+Forbidden per: DL-12 invariants 21 + 22 + §1Q.14.1(d) + §1D.3(c).
+
+### Zone 55 — Message edit silently rewrites history (tier 1)
+
+A message edit / correction / retraction implementation that overwrites `messages.body` (or equivalent across substrates) without preserving `original_body` + `editor_staff_id` + `edited_at` + `reason_code` + `audit_events` row. Patient messaging, internal threads, AI drafts, fax notes, and staff DMs all carry potential liability; silent edits destroy defensibility in court / QA / compliance review. Smoking gun: an UPDATE statement on `messages.body` with no insertion into a message_edit_history substrate or audit_events. Patient-facing message correction also must consider §1Q template/disclosure-policy-aware handling — silent rewrite of a sent patient message can mislead about what was actually delivered.
+
+Forbidden per: DL-12 invariant 23 edit-history preservation + §1V.10(c) + primitive #1.
+
+### Zone 56 — Attachment treated as thread metadata blob instead of first-class artifact (tier 1)
+
+A thread implementation that stores photos / PDFs / fax pages / screenshots / lab docs / post-procedure images / OCR'd consent / dictation audio as raw bytes in `messages.body` JSON or in an opaque `messages.attachments` array WITHOUT scan status + file type + uploader staff_id + object link + sensitivity classification + retention class + audit. Smoking gun: a UI upload pipeline that base64-encodes a photo into `messages.body` instead of writing to artifact substrate + referencing via FK. Threads attach/render/preview via reference; raw file safety / OCR / document classification / chart filing lives in canonical artifact substrate.
+
+Forbidden per: DL-12 invariant 24 attachments-as-first-class-artifact + foundational §5.3(b).
+
+### Zone 57 — PHI leak via notification preview / lock-screen / SMS companion / search snippet (tier 1)
+
+A notification dispatch pipeline that puts full PHI in lock-screen text / push notification body / email/SMS companion preview / search-result snippet, treating preview content as identical to message body. Smoking gun: a push payload `{title: "Care Team", body: "Your testosterone lab is 1248 ng/dL, abnormal — call ASAP"}`. Preview surface is a separate disclosure surface from message body content; receiving an alert NEVER implies full PHI in the preview. "New message from your care team" may be okay; full content is not.
+
+Forbidden per: DL-12 invariant 25 preview privacy + §1Q.14.1(e) + §1J.12.
+
+### Zone 58 — Queue-routed message treated as "handled" by read receipt (tier 1)
+
+An ops UI / queue implementation that considers a queue-routed message "complete" or "handled" because a queue member's read receipt fired, without producing or linking to a task / `provider_tasking` item AND without recording claim/completion/escalation in the task substrate. **Binds the 9pm-provider-to-front-desk-queue scenario**: provider routes "please order repeat lab" to Front Desk queue → next morning queue member reads it → UI shows "read" → provider assumes it's handled → patient never gets booked. Read receipts (delivered + seen) are messaging state; claimed + completed + escalated are task/work state. A queue message is NOT handled because someone read it. Smoking gun: a queue UI with no claim/complete/escalate buttons, or a back-end that auto-closes queue items on read.
+
+Forbidden per: DL-12 invariant 30 queue-routed work semantics + §1G.6.2 + DL-7 + §1G.1(d).
+
+### Zone 59 — Attachment auto-files to chart without explicit capability-gated disposition (tier 1)
+
+An upload pipeline / classification automation / AI pipeline that takes a screenshot / photo / PDF / fax uploaded to an internal thread and automatically inserts it into the chart / `parsed_intake_documents` filed state / clinical-visit attachments / order/lab/Rx record / adverse-event record WITHOUT an explicit capability-gated disposition action with audit. **Clinical truth pollution risk**: a screenshot in chat is NOT chart truth; auto-filing turns staff coordination context into formal record without deliberate review. Smoking gun: a server-side handler that on upload writes a `chart_documents` row OR a classification AI that auto-promotes thread attachments to chart status without a `dispose(file_to_chart, reason, capability_check)` audited transition. Filing is a deliberate operator action, not an upload side-effect.
+
+Forbidden per: DL-12 invariant 31 three-state attachment lifecycle + §5.3(b.i) + DL-7.
+
+### Zone 60 — OMNI-native markup overwrites original source artifact (tier 1)
+
+An OMNI-internal markup/annotation tool that destructively writes annotations BACK onto the original artifact bytes / replaces the source file / updates `parsed_intake_documents.file_url` in place rather than creating a derived annotation artifact / annotation layer with author + timestamp + linked source + audit. **Distinguishes from externally flattened iOS upload**: an already-flattened marked-up image received from iOS IS the source artifact (OMNI never had the pre-markup original — doctrine does not require reconstructing it). But OMNI-native markup, where OMNI DOES own the source, must preserve original + create derived annotation. **PDFs always stricter** — original PDF always preserved regardless of markup mode. Smoking gun: an in-app PDF editor that calls PUT on the original PDF URL instead of creating an annotation layer / derived PDF. Annotation never overwrites original; matters for legal/audit/clinical defensibility.
+
+Forbidden per: DL-12 invariant 32 iOS-vs-OMNI-native markup + §5.3(b.ii) + §5.3(b.iii).
+
+### Zone 61 — Patient-facing media sent without scan / audit / PHI-classification / capability-gate (tier 1)
+
+A patient-chat upload pipeline that treats photos / screenshots / annotated images / PDFs / video as casual iMessage-style attachments WITHOUT scan status + sender attribution + PHI/privacy classification + relationship-scope check + retention class + capability check on the sender role. Smoking gun: a patient chat upload handler that writes file bytes to storage and references in `messages.body` without writing to artifact substrate AND without virus scan AND without PHI classification AND without sender capability check. Patient-facing media is patient-visible communication record — defensibility, malware safety, and disclosure-policy compliance require stricter handling than internal staff DMs. **Automated / AI-generated patient-facing media must additionally route through §1Q template/disclosure governance** (overlaps with zone 49 AI silent patient-send; this zone covers the broader category of un-governed media sends).
+
+Forbidden per: DL-12 invariant 34 patient-facing-media-parity-with-stricter-discipline + §5.3(b.v).
+
+### Zone 62 — Patient-facing thread substrate hardcoded to specialty-group (tier 1)
+
+A schema / UI implementation that assumes every patient-facing thread is a `care_team` / specialty-group thread, with no `thread_kind` parameterization to admit `provider_1:1` / `front_desk` / `esthetician` / `injector` / `billing` / `support` / `post_procedure` / `location_team` / `role_queue` / `on_call`. **Medspa-blind failure mode**: a medspa platform that can only offer "Care Team Chat" but cannot offer "Message your injector directly" / "Message Front Desk" / "Message your esthetician" loses the natural daily-care UX patients and staff expect. Smoking gun: a `message_threads` schema with no `thread_kind` column or with a hardcoded enum that only admits `care_team`; or a thread-creation API that ignores requested thread_kind. Specialty-group is ONE routing shape, NOT the substrate.
+
+Forbidden per: DL-12 invariant 35 thread-kind parameterization + §1G.3(c) + DL-11.
+
+### Zone 63 — 1:1 patient thread orphans when staff off-duty / on-vacation / on-leave (tier 1)
+
+A 1:1 thread implementation (`provider_1:1` / `esthetician` / `injector`) that does NOT admit backend coverage + escalation + role-queue + audit when the named staff member is temporarily unavailable. **Distinct from zone 43** (staff deactivation orphans — permanent) — this zone covers TEMPORARY unavailability (vacation / sick day / off-shift / weekend / after-hours / coverage rotation). **Failure mode**: patient messages "my esthetician" who is on vacation; UI suggests 1:1; backend has no coverage rule; message sits unread for two weeks; patient feels ghosted; safety/clinical issue could fall through. Smoking gun: a `message_threads` row with `case_owner=specific_staff_id` and no fallback `coverage_owner_team_id` / `coverage_owner_queue_id` / `coverage_owner_role`; or a notification router that fires only to the named staff member without a coverage cascade. 1:1 UX must preserve coverage + escalation + role-queue fallback.
+
+Forbidden per: DL-12 invariant 35 backend coverage under 1:1 UX + §1G.6.2 + §1G.1(b).
+
+### Zone 64 — Staff joins patient thread without authorization (tier 1)
+
+A curious staff member self-joins a patient-facing thread without queue/team membership / coverage role / assignment / escalation / explicit capability / admin-CMO-reviewer authority / break-glass. **Failure mode**: any staff member with portal access can self-add to "Sarah's HRT thread" out of curiosity, expanding PHI access beyond the legitimate care team. Smoking gun: a `message_thread_participants` insert endpoint with no authorization check (no capability check, no queue/team membership check, no coverage check); or a UI "join thread" button visible to all staff regardless of relationship to that patient/care-team. Staff entry must flow through one of the legitimate paths (derived assignment / manual operator add capability-gated / claim from queue / escalation / coverage substitution / break-glass). Pairs with anti-panopticon (zone 53 covers SEARCH; this zone covers JOIN/MEMBERSHIP).
+
+Forbidden per: DL-12 invariant 36 internal-membership-vs-patient-visible-roster + §1J.12(f) staff-self-join discipline.
+
+### Zone 65 — Internal-only participants silently exposed in patient-visible roster (tier 1)
+
+A patient-facing thread UI / API that exposes every backend internal participant (assigned provider + covering provider + MA + front desk + ops + CMO reviewer + admin + on-call role + specialty queue + lurking observers) to the patient WITHOUT applying display policy. **Failure mode**: patient opens HRT thread and sees a list of 12 staff members including admins, CMO observers, and lurking coverage groups — feels surveilled and confused, asks why so many people are reading their messages. Smoking gun: a patient-facing roster API that returns the raw `message_thread_participants` list without policy filtering, OR a patient UI that lists every author's full name regardless of policy (when policy says "Care Team" alias should be used). Display policy admits four modes: named staff / role-title / team alias / "Care Team" / "Front Desk" / "Peptides Care Team" label — per thread class + relationship + clinic preference. Pair this with zone 64: zone 64 prevents unauthorized JOIN; zone 65 prevents unauthorized DISPLAY of authorized participants.
+
+Forbidden per: DL-12 invariant 36 + §1J.12(e) patient-visible-roster display policy.
+
+### Zone 66 — Thread membership hardcoded in thread instead of derived from care-team/coverage layer (tier 1)
+
+A `message_threads` schema or thread-creation flow that bakes default provider / NP / MA / front desk participation directly into the thread row at creation time, without consuming a care-team / coverage assignment layer. **Failure mode**: provider quits; thread row still references the departed provider as primary owner; coverage rule never re-derives because the thread was the source of truth instead of the consumer; patient messages go to a dead inbox. OR: patient moves states and triggers Hims-style geography/licensure constraint, but thread still references the wrong-state provider because the geography rule was never consulted. Smoking gun: a `create_patient_thread` function that takes `(patient_id, provider_id)` and inserts directly without consulting `care_team_assignment` / `coverage_schedule` / `licensure_constraint` / `on_call_rotation` / `staff_active_status`. Thread membership must be DERIVED from the care-team/coverage layer; thread is consumer; care-team layer is source of truth. Full staffing-assignment substrate is a future deliverable, but the consumption contract is binding now.
+
+Forbidden per: DL-12 invariant 37 care-team/coverage-layer-drives-derived-membership + §1G.3(d).
+
+### Zone 67 — Staff use external screenshot/copy-paste to unmanaged AI for patient-context drafting (tier 1)
+
+Staff continue the RingCentral/SMS/patient-portal screenshot-into-external-ChatGPT workflow for polishing reply drafts because OMNI's in-app AI drafting surface is missing, slower, or worse than the workaround. **PHI exfiltration at scale** — patient identifiers, clinical context, and message content flow into unmanaged AI tools without BAA, audit, retention controls, or capability gates. **Smoking gun**: usage data showing staff copy/paste of OMNI thread content into web AI tools; OR staff Slack/Teams channels named "ChatGPT-help-with-replies"; OR audit logs of patient PHI appearing in non-OMNI AI services; OR product feedback "the AI suggestions in OMNI aren't as good as ChatGPT so I just paste in." **Design rule binding: "compliant workflow must be easier than the workaround"** — OMNI must provide in-app PHI-safe context-aware AI drafting that uses authorized thread context directly, with capabilities at least matching what external AI provides (summarize / polish / propose patient-safe reply / suggest next action / clinically cautious / warmer-shorter-safer). Final send remains human-approved per actor-attribution rules; accepted drafts authored as `staff_with_ai_assist` per primitive #1. If OMNI fails this rule, staff route around the platform and the entire HIPAA/compliance posture is performative.
+
+Forbidden per: DL-12 invariant 39 AI Response Assist replaces screenshot-into-external-AI + §1N.8(e) + primitive #11.
+
+---
+
 ## How to use this radar
 
 - **Re-read before**: provider dashboard work, task runtime, lifecycle automation expansion, broad send-policy rollout, the moment 10-20 typed Rules / Templates have shipped.
