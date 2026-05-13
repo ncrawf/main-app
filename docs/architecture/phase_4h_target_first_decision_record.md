@@ -1111,6 +1111,74 @@ The pressure-test arc (9 rounds, ~6 hours) is chronicled in evolution narrative 
 
 ---
 
+## 7.17 OMNI CNS center of gravity — event-driven care coordination; rails and surfaces are outputs (DL-14) (binding — added 2026-05-13, post-DL-13)
+
+### Decision
+
+OMNI is the **event-driven care coordination brain**, not a messaging system, Twilio integration, marketing automation tool, outbound-job runner, or basic rules/templates engine. The CNS reads a unified event graph (atoms, clinical atoms, scheduling, purchases, treatments, intake, calls, voicemails, SMS, email, in-app messages, labs, Rx, memberships, packages, provider/staff activity, patient state, elapsed time, and any other event source) and decides the best next action across multiple actor targets (patient, provider, front desk, care coordinator, manager, compliance/admin, AI planner, queue/team, external vendor/system) emitted as multiple action types (patient messaging, provider notification, staff task, passive awareness marker, escalation, suppression/cancellation, wait, AI plan request, lifecycle state update, no-op). Rails (SMS/MMS, email, in-app, push, voice, voicemail, provider inbox, staff task surfaces, dashboards, vendor adapters, future rails) are outputs. Subsystems (rules/templates engine, marketing lifecycle, action substrate / primitive #10, AI runtime / primitive #11, Twilio adapter, dynamic-behavior gates) operate UNDER the CNS, not AS the CNS. The CNS includes a learning loop: outcomes, staff thumbs-up/down/unsafe feedback on system actions, AI suggestion accept/edit/reject events, and awareness-marker state transitions are first-class CNS inputs.
+
+### Why this ADR exists (CORRECTION, not discovery)
+
+The CNS framing existed in fragments across MAIN §1Q + §1Q.21 Marketing Lifecycle + §1Q.17 privacy gate + §1Q.19 dynamic behavior gate + §1Q.20 runtime green-light + foundational primitive #10 (`outbound_jobs`) + foundational primitive #11 (AI runtime) for weeks before this ADR. It was **never canonized at the top-level** as a binding doctrine lock. This let multiple downstream conversations drift back into reductive reframings:
+
+- The R3 e1 8-gate pressure-test thread drifted into designing fail-open semantics for a Twilio dispatcher as if the dispatcher were the orchestration engine.
+- The marketing-vs-clinical-outbound thread treated lifecycle automation as if it were risky marketing requiring suppression, rather than as the core CNS product requiring first-class enablement.
+- Multiple thread participants reframed OMNI as a messaging system or Twilio integration when the architecture clearly intended OMNI as a care-coordination brain.
+- The "outbound_jobs" primitive name implied patient-outbound-message scope when CNS action types include provider tasks, staff tasks, passive awareness markers, AI requests, suppressions, and lifecycle state updates.
+
+DL-14 canonizes the spine in plain sight, with explicit rejected reframings and radar protection, so future contributors cannot accidentally reduce OMNI to any of its subsystems.
+
+### Explicit REJECTED alternatives (with rationale)
+
+- **REJECTED: CNS as SMS rules engine.** Rationale: OMNI coordinates events across many channels and actor types. Modeling it as an SMS rules engine forecloses lab / Rx / scheduling / commerce / membership / provider-task / staff-task / AI-suggestion coordination. SMS is one rail under the CNS, not the CNS itself.
+
+- **REJECTED: CNS as marketing automation tool.** Rationale: OMNI's primary product is operational care coordination (lifecycle nurture, clinical safety, provider awareness, staff workflow). Marketing campaigns are one class of CNS action (`actor_target = patient` + `intent_class = marketing`) — the marketing-lifecycle suite (`§1Q.21`) is a subsystem, not the CNS itself. Framing OMNI as marketing automation collapses the multi-actor multi-action reality.
+
+- **REJECTED: CNS as Twilio integration.** Rationale: Twilio is one external rail among many (future RingCentral, MessageBird, Bandwidth, fax providers, email providers, push providers). Per DL-13 the substrate is rail-agnostic. CNS-as-Twilio reframes the brain as one of its outputs.
+
+- **REJECTED: CNS as patient-messaging system.** Rationale: OMNI emits actions to provider, front desk, care coordinator, manager, compliance, AI planner, queue/team, and external vendor — not only to patient. Designing the CNS as patient-messaging-shaped forecloses the multi-actor target axis (DL-14 invariant 2).
+
+- **REJECTED: CNS as outbound-job runner / dispatcher.** Rationale: CNS action types include suppression, cancellation, wait, no-op, lifecycle state update, AI plan request, and passive awareness markers — none of which are "outbound." Framing the CNS as a dispatcher reduces it to one of its action types and forecloses learning-loop ingestion.
+
+- **REJECTED: CNS as basic rules/templates engine.** Rationale: §1Q rules + templates is one subsystem under the CNS that decides WHAT and WHAT-CAN-BE-SAID. The CNS also reads events, manages state, coordinates actors, throttles cadence, suppresses on inbound, learns from feedback, and orchestrates AI planning. Rules + templates is necessary but not sufficient.
+
+- **REJECTED: framing rails (SMS, email, in-app, push, voice, voicemail) as the CNS.** Rationale: rails are outputs. Rails dispatch what the brain decided. Rail-side fail-open / gate logic / suppression / throttle must inherit policy from the upstream CNS decision (intent_class, actor_target, policy_class), not invent it locally. A rail-side dispatcher is NOT the CNS; it is one of its projections (DL-14 invariant 4).
+
+- **REJECTED: framing AI runtime (primitive #11) as marketing copywriter.** Rationale: DL-14 requires AI runtime to be a planner over multi-event patient state subordinate to §1Q deterministic gates. Scoping AI runtime to marketing copy assist alone forecloses AI's role in planning provider tasks, drafting staff suggestions, surfacing operational anomalies, and accepting/rejecting feedback with full attachment lineage. **Phase 0 of the brain hardening audit determines current adequacy; this ADR binds the rejected scope-as-marketing-copywriter framing.**
+
+- **REJECTED: framing outbound_jobs (primitive #10) as patient-outbound-only.** Rationale: The action substrate must host all CNS action types as projections beneath. Patient outbound is one type; provider task, staff task, ops alert, passive awareness marker, suppression, AI plan request, lifecycle state update, no-op are sibling types. **Phase 0 of the brain hardening audit determines whether primitive #10 must be semantically broadened or renamed (e.g., `orchestration_actions`).**
+
+- **REJECTED: discussing "should we add lifecycle automation."** Rationale: lifecycle automation IS the product. It is not an add-on, not a future feature, not a risky thing to gate. Lifecycle automation is the core CNS capability that turns a unified event graph into coordinated next actions. Conversations that frame lifecycle automation as "risky outbound to be restricted" are categorically wrong and reflect drift toward CNS-as-messaging framing.
+
+- **REJECTED: CNS as a one-way emitter (no learning loop).** Rationale: DL-14 invariant 6 binds outcome events, staff thumbs-up/down feedback, AI accept/edit/reject events, and awareness-marker state transitions as first-class CNS inputs. A CNS without learning-loop substrate is not a brain — it is a fire-and-forget emitter. **Phase 0 stress scenarios 9-11 audit whether the learning-loop substrate exists or is missing.**
+
+- **REJECTED: CNS as an external-actor-only system (patients only).** Rationale: the CNS coordinates internal actors (providers, staff, ops, compliance, AI, queues) as first-class targets — not only patients. Provider passive awareness, staff task creation, ops escalation, AI plan request, and compliance alert are all first-class CNS actions. Modeling the CNS as patient-facing-only forecloses the operational coordination half of the product (DL-14 invariant 2 + Phase 0 stress scenarios 9-11).
+
+### Subordination, not adequacy
+
+DL-14 binds **subordination** (subsystems operate under the CNS, not as the CNS) — it does NOT certify **adequacy** of the current subsystem implementations. Specifically:
+
+- Whether primitive #10 (currently named `outbound_jobs`) is genuinely the universal action substrate, or must be semantically broadened / renamed to `orchestration_actions` with projections beneath for each action type.
+- Whether primitive #11 (AI runtime) is genuinely a planner over multi-event patient state across all actor targets and all action types, or must be broadened from a marketing-copy-shaped scope.
+- Whether §1Q rules engine expresses the full multi-actor multi-action multi-policy CNS model, or must be amended.
+- Whether the learning-loop substrate (feedback attachment depth + awareness-marker state machine) exists at canonical homes, or must be added.
+
+These adequacy questions are answered by **Phase 0 of the brain hardening audit** at [`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md). DL-14 does not pre-decide them.
+
+### Reconciliation pointers
+
+| Artifact | Change |
+|---|---|
+| Doctrine lock | **DL-14 (binding, NEW; 2026-05-13)** in system map `## Doctrine locks` |
+| MAIN system map | Top-level CNS anchor section before `## Platform operational model` + `### 1Q.0` DL-14 subordination note + `### 1Q.21` DL-14 subordination note |
+| Foundational doc binding | §0 anchor (before §1 premise) + §4.B primitive #10 DL-14 subordination + §4.B primitive #11 DL-14 subordination + §8.1 clauses 34-39 + additional DL-14 cross-cutting sub-disciplines |
+| Watch zones | Radar zones 79-88 (10 zones) — CNS-as-messaging-system / CNS-as-Twilio / CNS-as-marketing / CNS-as-rules-engine / outbound_jobs-as-SMS-only / AI-runtime-as-copywriter / rail-side-fail-open-without-brain-decision / lifecycle-as-risky-outbound / new-orchestration-logic-on-rail-instead-of-brain / CNS-without-non-patient-actors |
+| Topology | [`docs/architecture/communications_topology.md`](communications_topology.md) §1.0 rails-as-outputs clarification + DL-14 cross-references |
+| Evolution narrative | Act XV (CNS center-of-gravity reckoning) — framed as a CORRECTION |
+| Brain hardening plan | [`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md) — Phase 0 adversarial audit + 11 stress scenarios + 7-axis taxonomy + primitive #10/#11 adequacy verdicts |
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).

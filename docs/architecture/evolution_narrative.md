@@ -219,6 +219,45 @@ What DL-13 is really about: the next time OMNI integrates a new vendor — wheth
 
 ---
 
+## Act XV: CNS center-of-gravity reckoning — DL-14 (May 13)
+
+**This act is a CORRECTION, not a discovery.**
+
+The CNS framing — OMNI as event-driven care coordination brain, not patient messaging system — has existed in the architecture for weeks. It lives in fragments across `§1Q` rules + templates, `§1Q.21` Marketing Lifecycle + Growth Orchestration, `§1Q.17` privacy governance, `§1Q.19` dynamic behavior gates, `§1Q.20` runtime green-light, foundational primitive #10 (`outbound_jobs`), foundational primitive #11 (AI orchestration runtime), and the `2026-05-01_marketing_lifecycle_growth_orchestration.md` audit. The pieces were there. The user had articulated this framing **verbatim** at least once already — roughly three weeks before May 13, in an earlier session.
+
+The architecture remembered the parts. The conversation lost the spine.
+
+What happened was simple and structural: the CNS center of gravity was never canonized at the top-level. It lived in `§1Q.x` subsections. It lived in primitive descriptions. It lived in the Marketing Lifecycle audit. It lived in the 75-scenario validation claim of `§1Q.20` runtime green-light. But it did not live at the **top** of the system map, the **top** of the foundational doc, or in **any** doctrine lock. There was no DL named "OMNI is care coordination, not messaging." There was no ADR rejecting "CNS as messaging system / Twilio integration / marketing automation." There were no radar zones for "framing OMNI as messaging."
+
+Without a loud top-level spine, every downstream conversation became drift-vulnerable. And drift it did:
+
+- The R3 e1 pressure-test thread drifted into designing fail-open semantics for a Twilio dispatcher **as if the dispatcher were the orchestration engine**. The discussion proposed tiered fail-open thresholds, override economics, scheduled-send revalidation, dispatch-attempt audit tables — all reasonable rail-side concerns, but all reasoned about as if the rail were the brain. Both AI collaborators participated in the drift. Neither caught it for several rounds.
+- The marketing-vs-clinical-outbound discussion repeatedly framed lifecycle automation as "risky outbound to be gated" — the exact opposite of the doctrine, which treats lifecycle automation as the core CNS product to be enabled (with safety gates, not with suppression).
+- The naming "outbound_jobs" implied patient-outbound-message scope, when CNS actions include provider tasks, staff tasks, passive awareness markers, AI plan requests, suppressions, no-op, and lifecycle state updates — actions that are not "outbound" in any meaningful sense.
+- The AI runtime was reasoned about as a marketing copywriter / draft polisher rather than as a planner over multi-event patient state.
+
+Eventually the user — exhausted by having to re-articulate the CNS model — pushed back: "WHY THE FUCK AM I EXPLAINING THIS TO YOU GUYS AT THIS POINT?" The answer was uncomfortable: because the framing was never canonized at the doctrine layer, and so every drift required re-articulation by the human.
+
+DL-14 fixes that. The CNS center-of-gravity is now canonized in seven places, in plain sight:
+
+1. **MAIN system map** — top-level anchor section before "Platform operational model," with required heading verbatim: `## OMNI CNS IS THE EVENT-DRIVEN CARE COORDINATION BRAIN. RAILS AND SURFACES ARE OUTPUTS.` The first content block a reader sees.
+2. **MAIN doctrine locks** — `DL-14` block alongside DL-10/11/12/13, with six invariants (unified event graph + multi-actor decision + multi-type action + rails-as-outputs + subsystem-subordination + learning-loop) and nine explicitly rejected reframings.
+3. **`§1Q.0` subordination note** — opening line declares §1Q is a subsystem under the CNS, not the CNS itself.
+4. **`§1Q.21` subordination note** — opening line declares Marketing Lifecycle is one class of CNS action (`actor_target = patient` + `intent_class = marketing`), not the CNS itself.
+5. **Foundational doc §0** — top-level anchor before §1 premise, mirroring MAIN's anchor; §4.B primitive #10 + #11 DL-14 subordination notes (declaring subordination, NOT certifying adequacy — Phase 0 audits adequacy); §8.1 clauses 34-39 binding the six invariants as cross-cutting concerns.
+6. **ADR §7.17** — explicit decision record with eleven rejected alternatives, each with rationale. Names this as a CORRECTION, not a discovery.
+7. **Pressure-test radar zones 79-88** — ten anti-pattern watchzones for the exact drift modes this conversation exposed: framing OMNI as messaging (79) / Twilio (80) / marketing (81) / rules engine (82) / outbound_jobs as SMS-only (83) / AI runtime as copywriter (84) / rail-side fail-open without brain decision (85) / lifecycle as risky outbound (86) / new orchestration on rail (87) / CNS without non-patient actors (88).
+
+**Subordination, not adequacy.** DL-14 binds that subsystems (primitive #10 action substrate, primitive #11 AI runtime, §1Q rules engine, Marketing Lifecycle, dynamic-behavior gates, Twilio adapter, future rails) operate UNDER the CNS, not AS the CNS. **It does not certify that any of those subsystems is currently adequate against the full DL-14 model.** Specifically: is `outbound_jobs` truly the universal action substrate or must it broaden / rename to `orchestration_actions`? Is AI runtime genuinely a planner over multi-event patient state or marketing-copy-shaped? Does §1Q express the full multi-actor multi-action model? Does the learning-loop substrate (feedback attachment depth + awareness-marker state machine) exist at canonical homes? These are open questions answered by **Phase 0 of the brain hardening audit** (`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`) — an adversarial walk through eleven required stress scenarios (skincare nurture, peptide check-in with passive provider awareness, Botox-concern with suppression, lab-due with cancel-on-result, Rx side-effect escalation, call-cancels-SMS, granular per-intent STOP, cross-rail anti-duplication, passive provider awareness state machine, staff thumbs-up/down feedback with full attachment lineage, AI accept/edit/reject feedback with full attachment lineage). Phase 1 hardens whatever Phase 0 finds. Phase 2 reframes e1 as a rail-side projection. Only then does e1 implementation resume.
+
+What DL-14 is really about: every future conversation about OMNI now has a top-level spine to point back to. If a thread, PR, design doc, or stakeholder reframes OMNI as messaging / Twilio / marketing / rules / outbound, the radar fires, the ADR cites a rejection, the doctrine lock contradicts. The human is no longer the only thing holding the spine. The architecture holds it.
+
+This is also a permanent record that the CNS framing existed three weeks before DL-14. The architecture remembered. The conversation forgot. DL-14 closes that gap by making the conversation impossible to drift through without tripping a radar zone or doctrine reference.
+
+Six doctrine arcs in three days now — DL-10 (identity / relationship), c2 + DL-10 reconciliation, DL-11 (three messaging surfaces), DL-12 (cross-substrate lifecycle + 28 clarifications), DL-13 (rail-agnostic substrate spine), DL-14 (CNS center-of-gravity reckoning). The convention runs the same cycle every time. Future drift back into reductive framings now hits a wall of canonical doctrine, not a wall of human exhaustion.
+
+---
+
 ## Turning-point realizations (the seven that mattered)
 
 1. **The system map is real.** April 24's checkpoint was the moment the project became a system being modeled, not just a codebase being shipped.

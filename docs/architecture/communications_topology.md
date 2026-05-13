@@ -1,8 +1,20 @@
 # Communications topology
 
-**Status:** companion synthesis, not binding doctrine. Bound by **Doctrine lock DL-5** (Day 0 elite-class depth for activated domains) and **ADR §7.10** (Klara/RingCentral-class communications named as a Day 0 depth bar). Read this first when working on any communications-shaped commit so the patient-facing surfaces, outbound rails, inbound rails, and live encounter modalities stay in one mental model.
+**Status:** companion synthesis, not binding doctrine. Bound by **Doctrine lock DL-5** (Day 0 elite-class depth for activated domains), **DL-13** (rail-agnostic substrate spine), **DL-14** (OMNI CNS center of gravity — event-driven care coordination; rails and surfaces are outputs), and **ADR §7.10** + **§7.16** + **§7.17**. Read this first when working on any communications-shaped commit so the patient-facing surfaces, outbound rails, inbound rails, and live encounter modalities stay in one mental model.
 
 This document does not invent architecture. It situates pieces that already exist across MAIN §1F + §1G + §1G.8 + §1G.9 + §1G.11 + §1P + §1Q.23, the in-app inbox c1 substrate, the live messaging substrate landed 2026-04-30, and the rules-engine outbound rail (`outbound_jobs` + dispatcher branches). Where a piece is reserved but not built, the doc says so. **§11 names the largest architectural gap (external-line / pre-account communications) so it does not become invisible behind the well-trodden portal-chat work.**
+
+---
+
+## §1.0 Rails are outputs of the OMNI CNS (DL-14 binding)
+
+**All communication rails described in this document are outputs of the OMNI CNS.** Per **DL-14** (canonical anchor at the top of [`.cursor/plans/system_map_three_layers_60706286.plan.md`](../../.cursor/plans/system_map_three_layers_60706286.plan.md) + foundational anchor §0 + ADR §7.17), OMNI is the **event-driven care coordination brain** that reads a unified event graph and decides actions across multiple actor targets (patient, provider, front desk, care coordinator, manager, compliance/admin, AI planner, queue/team, external vendor/system). This document specifies **HOW rails deliver actions**; the brain decides **WHICH actions to emit, to WHICH actor target, on WHICH channel**.
+
+**Rails do not orchestrate; they project.** Rail-side fail-open / gate logic / suppression / throttle inherit policy from the upstream CNS decision (`intent_class` + `policy_class` + `actor_target` carried on the action substrate, currently primitive #10). Rail dispatchers (Twilio adapter, future RingCentral adapter, email rail, in-app rail, voice rail, push rail) must not invent orchestration logic locally; per radar zones 85 + 87 such invention is a DL-14 violation.
+
+**Subsystem subordination, not adequacy.** The action substrate (currently named `outbound_jobs` / primitive #10) and AI runtime (primitive #11) are subsystems UNDER the CNS. Their current naming + scope + adequacy is being audited by Phase 0 of the brain hardening plan ([`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md)) — references to `outbound_jobs` throughout this topology document reflect the current naming; that naming may broaden / change after Phase 0+1 settle.
+
+Cross-link: MAIN DL-14 + foundational §0 + ADR §7.17 + radar zones 79-88.
 
 ---
 
@@ -390,6 +402,24 @@ Additional DL-13 cross-cutting extensions: **handle-vs-person identity disciplin
 
 **External-line substrate inherits these rules**; sibling #20 `external_communications/` (foundational §5) is the substrate home. The e0 preflight `.cursor/plans/PREFLIGHT_2026-05-12_phase_4h_external_line_e0_substrate_routing_design.md` is the full design (23 sections, R1-R9 pressure-test trail, 55-scenario matrix). e1 execution (Twilio adapter, substrate migration, ops triage UI) is the next preflight, deferred until DL-13 doctrine lands.
 
+### §12 DL-14 cross-references (added 2026-05-13)
+
+DL-14 sits **above** the rail-agnostic DL-13 spine: where DL-13 binds the substrate shape for rails, DL-14 binds that **rails are outputs of the CNS**, not the CNS itself. Five binding pointers extend this topology document with DL-14 semantics. Canonical homes: MAIN DL-14 top-level anchor + foundational §0 + ADR §7.17 + radar zones 79-88. Long-form rationale: brain hardening plan.
+
+- **Rails-as-outputs binding (DL-14 invariant 4).** SMS/MMS, email, in-app, push, voice, voicemail, provider inbox, staff task surfaces, manager dashboards, vendor adapters, and future rails are projections of CNS decisions. Rail-side fail-open / gate logic / suppression / throttle inherit policy from the upstream CNS decision (intent_class + policy_class + actor_target carried on the action substrate). **Designing rail-side fail-open logic without first establishing what the brain decided is a DL-14 violation** — radar zone 85. Canonical: MAIN DL-14 invariant 4 + foundational §8.1 clause 37.
+
+- **Multi-actor target binding (DL-14 invariant 2).** The CNS emits actions to patient AND provider AND front desk AND care coordinator AND manager AND compliance/admin AND AI planner AND queue/team AND external vendor/system. This topology document covers patient-facing rails primarily, but the broader CNS coordinates internal actors too. Provider-facing surfaces (provider inbox, chart awareness markers, provider task surfaces) and staff-facing surfaces (queue UIs, ops dashboards, staff tasking) are first-class CNS output surfaces alongside patient rails. Canonical: MAIN DL-14 invariant 2 + foundational §8.1 clause 35 + radar zone 88.
+
+- **Multi-type action binding (DL-14 invariant 3).** CNS action types include patient messaging AND provider notification AND staff task AND passive awareness marker (state machine: OMNI sent → unseen → seen → acknowledged) AND escalation AND suppression/cancellation AND wait/throttle AND AI plan request AND lifecycle state update AND outcome feedback logging AND no-op. The action substrate (currently primitive #10, currently named `outbound_jobs`) must host all action types as projections. **Phase 0 of the brain hardening audit determines whether primitive #10 must be semantically broadened or renamed (e.g., `orchestration_actions`).** Canonical: MAIN DL-14 invariant 3 + foundational §8.1 clause 36 + radar zone 83.
+
+- **Subsystem subordination — not adequacy (DL-14 invariant 5).** Subsystems including §1Q rules + templates engine, §1Q.21 Marketing Lifecycle, §1Q.17 privacy gate, §1Q.19 dynamic behavior gate, primitive #10 action substrate, primitive #11 AI runtime, Twilio adapter, future rail adapters operate UNDER the CNS, not AS the CNS. **DL-14 binds subordination only; adequacy is determined by Phase 0.** Canonical: MAIN DL-14 invariant 5 + foundational §4.B primitive #10 / #11 DL-14 subordination + §8.1 clause 38.
+
+- **CNS learning loop binding (DL-14 invariant 6).** Outcomes, staff thumbs-up/down/unsafe feedback on system actions, AI suggestion accept/edit/reject events, and awareness-marker state transitions are first-class CNS inputs. Feedback must attach with full lineage depth (action id, rule id + version, template id + version, campaign step, channel projection / rail attempt, context snapshot, AI proposal id, prompt version, model version, final action diff). **A CNS without a learning loop is a one-way emitter — rejected by DL-14.** Canonical: MAIN DL-14 invariant 6 + foundational §8.1 clause 39 + Phase 0 stress scenarios 9-11.
+
+**Rejected reframings (radar protection).** Conversations / PRs / designs that frame OMNI as: a messaging system (zone 79), a Twilio integration (zone 80), a marketing automation tool (zone 81), a basic rules/templates engine (zone 82), an outbound-job runner (zone 83), an AI marketing copywriter (zone 84), a rail-side fail-open dispatcher (zone 85), lifecycle automation as risky outbound (zone 86), rail-side orchestration (zone 87), or a patient-facing-only system (zone 88) are DL-14 violations and must be redirected back to the CNS center-of-gravity model.
+
+**Phase 0 audit pending.** The brain hardening plan ([`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md)) executes Phase 0 next: adversarial audit of §1Q + Marketing Lifecycle + primitive #10 + primitive #11 + dynamic-behavior gates against the DL-14 model with 11 stress scenarios + 6+1-axis taxonomy + primitive adequacy verdicts. Until Phase 0 + 1 settle, **e1 implementation does not resume**.
+
 ---
 
 ## §13 Fax as cross-cutting rail + ingress (binding per DL-12 — added 2026-05-12 early morning)
@@ -412,4 +442,4 @@ DL-12 binds fax canonical placement. **Fax is dual-nature**: an **outbound commu
 
 ---
 
-*End of synthesis. Read alongside the binding MAIN sections + DL-5 + DL-10 + DL-11 + DL-12 + DL-13 + ADR §7.10 + §7.13 + §7.14 + §7.15 + §7.16 + e0 preflight before opening any communications-shaped commit. **The §11 external-line substrate spine (DL-13), the §12 internal team collaboration substrate (DL-11), the §12 DL-12 cross-substrate lifecycle/template/AI/search/visibility/notification/attachment/thread-kind/care-team-coverage discipline, the §12 DL-13 cross-references (rail-agnostic + OMNI canonical + settings precedence + 8-gate + display projection), and the §13 fax canonical placement are the named architectural anchors in this doc; do not let them become invisible because c2-c7+ are noisier.***
+*End of synthesis. Read alongside the binding MAIN sections + DL-5 + DL-10 + DL-11 + DL-12 + DL-13 + DL-14 + ADR §7.10 + §7.13 + §7.14 + §7.15 + §7.16 + §7.17 + e0 preflight + brain hardening plan before opening any communications-shaped commit. **The §1.0 rails-are-outputs DL-14 anchor, the §11 external-line substrate spine (DL-13), the §12 internal team collaboration substrate (DL-11), the §12 DL-12 cross-substrate lifecycle/template/AI/search/visibility/notification/attachment/thread-kind/care-team-coverage discipline, the §12 DL-13 cross-references (rail-agnostic + OMNI canonical + settings precedence + 8-gate + display projection), the §12 DL-14 cross-references (rails-as-outputs + multi-actor + multi-action + subsystem-subordination + learning-loop), and the §13 fax canonical placement are the named architectural anchors in this doc; do not let them become invisible because c2-c7+ are noisier.***
