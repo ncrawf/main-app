@@ -1729,6 +1729,9 @@ Each step backwards-compatible; each step ships independently with smoke test.
 - **Body FTS sneak-in drift** — full-text body search was CUT from e1 per amendment but may sneak back in via a "convenience" PR. Watch: code review flag for any FTS index on `external_conversation_messages.body`.
 - **AI sneak-in drift** — AI Response Assist was CUT from e1 per amendment. Watch: code review flag for any AI-call paths on external-line outbound dispatch.
 - **Provider reassignment cascade misuse** — known gap in e1 (provider reassignment doesn't auto-propagate to external-line participant membership until care-team/coverage substrate). Watch: staff complaints about "I don't see Dr. Y's conversations even though he took over" — likely indicates misuse of substrate without manual retag; expected behavior, not a bug.
+- **Splitting/merging audit-trail drift (post-R6 amendment per §26 capture)** — when conversations migrate identities via SPLIT (forward or retroactive per §11.4) or MERGE (deferred to e2 substrate but lineage in e1), downstream artifacts (tags, internal notes, callback reminders, ownership, `patient_projection_links`) must NOT silently retroactively change permissions. Watch: code review flag for any operation that mutates historical visibility based on CURRENT identity state rather than HISTORICAL identity state at the moment of artifact creation. Audit trail must show original state + transition state, never overwrite. Cross-link `apparent_identity_id` / `apparent_patient_relationship_id` discipline per §6.6.
+- **Multi-thread parallel-thread surfacing fatigue (post-R6 amendment per §26 capture)** — if conversation detail surfaces "this patient also has N other active threads" too aggressively, staff overload risk; if surfaces too quietly, staff misses connections. e1 may not address; track to A1 federation arc for full operator-cognition layer. Watch: staff complaints about either "I can't see related threads" OR "the threads view is overwhelming"; signals which way the surface needs tuning.
+- **Mobile ops degradation regression (post-R6 amendment per §26 capture)** — desktop-first dev pattern erodes mobile parity over time. The §17.6 mobile-responsive MUST is a baseline; without continuous attention, mobile becomes laggy / cluttered / unusable / broken-attachment-flows / accidental-sends. Watch: every UI commit reviewed against 375px viewport; CI lint flag for non-responsive primitives; mobile usage telemetry vs desktop (if mobile usage drops below threshold, mobile parity is regressing). Cross-link A3 PHI surface governance arc for mobile-posture future state.
 
 ---
 
@@ -1813,13 +1816,15 @@ Like e0's R1-R9 arc, e1 preflight is pressure-tested before implementation commi
 
 ### §24.A Round status
 
+**Amended 2026-05-12 evening post-R6 follow-up:** R3 / R4 / R5 dimensions sharpened with seams 1-10 fold-in per §26. Findings table reflects expanded scope without changing pass/fail status.
+
 | Round | Status | Findings location |
 |---|---|---|
 | **R1 — Substrate sketches** | **COMPLETED 2026-05-12 evening** | Folded into §6.3.A (single-handle assumption reservation), §6.4 (retention class explicit), §6.6 (apparent_identity + apparent_patient_relationship + denormalized display_sender_label note), §6.9 (deletion semantics + circular-ref protection), §6.10 (last_read_at + partial unique index), §6.12 (system user UUID pattern), §6.14 / §6.15 / §6.16 / §6.17 / §6.18 (new substrate). |
 | R2 — Adapter contract | Pending | Vendor-confinement audit; types leakage check; capability descriptor completeness. |
-| **R3 — 8-gate** | **NEXT** | Fail-open semantics for gates 4/5/7; override auditing; quiet-hours / consent collisions / duplicate-send protection; human vs automation asymmetry; urgent override workflows; queue escalation behavior. **The gate system is one of the hottest operational surfaces in the architecture; this round is high priority.** |
-| R4 — Identity sync | Pending | Manual scheduling creation flow corner cases; spouse/family-shared phone; reassigned phone; duplicate detection threshold; off-duty cascade interaction with identity changes. |
-| R5 — Display projection | Pending | Chip taxonomy completeness; chip-tie resolution (Active Program + Payment Issue — which wins as primary?); display identity fallback chain; PHI privacy on lock-screen previews. |
+| **R3 — 8-gate (sharpened post-R6)** | **NEXT** | Fail-open semantics for gates 4/5/7; override auditing; quiet-hours / consent collisions / duplicate-send protection; human vs automation asymmetry; urgent override workflows; queue escalation behavior. **Plus seams 2 (wrong-endpoint chaos) + 4 (scheduled-send state drift) + 10 (human override economics) folded in per §26.** **The gate system is one of the hottest operational surfaces in the architecture; this round is high priority.** |
+| R4 — Identity sync (sharpened post-R6) | Pending | Manual scheduling creation flow corner cases; spouse/family-shared phone; reassigned phone; duplicate detection threshold; off-duty cascade interaction with identity changes. **Plus seams 1 (splitting/merging audit-trail) + 3 (multi-thread patient reality operator cognition; partial — full A1 future arc) + 8 (operational identity drift) folded in per §26.** |
+| R5 — Display projection (sharpened post-R6) | Pending | Chip taxonomy completeness; chip-tie resolution (Active Program + Payment Issue — which wins as primary?); display identity fallback chain; PHI privacy on lock-screen previews. **Plus seam 7 (mobile ops degradation) folded in per §26.** |
 | **R6 — Ops triage inbox UI minimum** | **COMPLETED 2026-05-12 evening** | Folded into §17 amendment (notes panel; tags chips; per-staff unread badge; ambiguity-status indicators; missed-call rows; click-to-callback; callback reminder action; Mark-as-reassigned + SPLIT entry; reply-time identity/relationship picker; gate-override UI flow; mobile responsive baseline). Substantial expansion from original §17. |
 | R7 — Response Assist stub | **CANCELLED** | AI Response Assist CUT from e1 per R1+R6 amendment. Separate post-e1 arc; R-arc for that arc pending its own preflight. |
 | R8 — Migration sequencing | Pending | Each step in §20.1 backwards-compatible? Any sequencing that requires double-deploy or feature flag? Any step that blocks rollback? |
@@ -1827,20 +1832,41 @@ Like e0's R1-R9 arc, e1 preflight is pressure-tested before implementation commi
 
 ### §24.B Next round: R3 (8-gate pressure-test)
 
+**Sharpened 2026-05-12 evening per post-R6 follow-up.** Seams 2 (wrong-endpoint operational chaos), 4 (scheduled-send + state drift), 10 (human override economics) fold into R3 as additional dimensions per §26 capture.
+
 R3 dimensions to attack:
 
 - **Fail-open semantics for gates 4/5/7** — when gate fails open with degradation logging, what's the audit trail tell us? Will we actually notice the degradation, or will it become invisible normalcy? Should some gates BLOCK rather than degrade when dependencies are absent?
-- **Override auditing** — is reason_code + reason_text + per-staff override-rate metric enough? What's the anomaly detection threshold (e.g., > 3× org median per day)? Who reviews flagged overrides?
-- **Quiet hours** — endpoint-timezone default when recipient timezone unresolvable: defensible or risky? What about cross-jurisdiction (recipient is in a state with tighter quiet-hours than endpoint policy assumes)?
+- **Override auditing + human override economics (seam 10)** — is reason_code + reason_text + per-staff override-rate metric enough? What's the anomaly detection threshold (e.g., > 3× org median per day)? Who reviews flagged overrides? **The deeper economic question: if the system blocks too much, staff bypass it (iMessage, personal phone, calling directly); if the system allows too much, chaos + leakage + audit problems.** What's the right friction tuning? How does e1 measure whether the override surface is well-tuned? Cross-link A2 prioritization arc (override frequency is a workload-and-attention-economics signal).
+- **Quiet hours** — endpoint-timezone default when recipient timezone unresolvable: defensible or risky? What about cross-jurisdiction (recipient is in a state with tighter quiet-hours than endpoint policy assumes)? Cross-link A1 federation arc (jurisdiction-aware quiet hours).
 - **Consent collisions** — per-brand vs per-endpoint vs per-relationship: which is canonical when they disagree? Patient opted into marketing on Brand A, opted out on Brand B — send via Brand A endpoint that references Brand B in body: which consent wins?
 - **Duplicate-send protection** — gate-6 dedupe keys for human + system are correct on paper; what about adversarial cases (staff edits body slightly to bypass dedupe; rule fires twice with millisecond difference)? Time-bucket size correct?
 - **Human-vs-automation asymmetry** — gates 4/5/6/7 partially applied to humans, fully to system: is the partition right? Is gate 8 (prohibited-claims) really enforced for human free-text replies (probably should be — flag for R3)?
 - **Urgent override workflows** — what's the threshold for "this is urgent enough to bypass quiet hours"? Who decides — the sender or the system (via message classification)? What about staff bypassing for non-urgent reasons (e.g., "I'm leaving for the day, want to send this now")?
 - **Queue escalation behavior** — claimed-owner-off-duty cascade returns to queue: what if queue is also off-duty? Cascade further? To CMO? To on-call rotation? For e1 without care-team/coverage substrate, what's the fallback?
+- **Wrong-endpoint operational chaos (seam 2 fold-in)** — gate 1 endpoint-intent classification stress: how does e1 UI default the outbound endpoint? How obvious is the "Replying as / Sending from" indicator? What confirmation friction exists when staff toggles endpoint? When staff sends from a wrong endpoint (Birmingham staff replies from Somerset number; cosmetic patient gets reply from clinical line; provider replies from personal endpoint by accident; after-hours escalation goes out from wrong brand), what catches it? Is gate 1 enough or do we need pre-send confirmation when recipient pattern differs?
+- **Scheduled-send + state drift (seam 4 fold-in)** — scheduled-send is §3.B / §3.C deferred but the design seam needs R3 attention because it touches the gate system fundamentally. Question: when a scheduled message fires Friday after being scheduled Monday, what state was it gated against? Monday's consent? Friday's consent? Patient cancels Tuesday — does the scheduled message still fire? Patient changes provider Thursday — does relationship-state at send-time get re-evaluated? **8-gates must re-evaluate at send-time, not at schedule-time.** Confirm this explicitly in R3 even though scheduled-send doesn't ship in e1.
 
 ### §24.C Subsequent rounds (after R3)
 
-R4 (identity), R8 (sequencing), R2 (adapter contract), R5 (display projection), R9 (verification gates), in that priority order. Each round produces explicit "passes" / "needs change" decisions; preflight updates between rounds.
+**Sharpened per post-R6 follow-up — R4 + R5 absorb additional seams.**
+
+- **R4 (identity sync)** absorbs seams 1 (conversation splitting/merging audit-trail), 3 (multi-thread patient reality operator cognition), 8 (operational identity drift):
+  - Manual scheduling creation flow corner cases.
+  - Spouse/family-shared phone (per-message `apparent_identity_id` picker UX).
+  - Reassigned phone (carrier reuse + Mark-as-reassigned + SPLIT UI flow).
+  - Duplicate detection threshold + tuning.
+  - Off-duty cascade interaction with identity changes.
+  - **Conversation splitting/merging audit-trail behavior (seam 1):** can one conversation migrate identities? Do historical permissions change retroactively when identity splits? What happens to tags / notes / callback reminders / ownership / projection_links when identities merge or split?
+  - **Multi-thread patient reality operator cognition (seam 3 partial; full coverage in A1 federation arc):** does staff realize parallel threads connect when same patient texts from multiple handles or arrives on multiple channels? What surfaces the connection? E1 has partial coverage via `apparent_identity_id` + `apparent_patient_relationship_id`; cross-channel parallel-thread surfacing is A1 future arc.
+  - **Operational identity drift (seam 8):** staff renames contacts manually; family members reuse numbers; CRM imports conflict; front desk creates local assumptions. Does e1 substrate admit the corner cases? Is §6.3.A single-handle-assumption discipline actually enforceable in code review?
+- **R5 (display projection)** absorbs seam 7 (mobile ops degradation):
+  - Chip taxonomy completeness.
+  - Chip-tie resolution (Active Program + Payment Issue — which wins as primary?).
+  - Display identity fallback chain correctness.
+  - PHI privacy on lock-screen previews (cross-link A3 PHI surface governance arc).
+  - **Mobile ops degradation (seam 7):** automated mobile testing; touch-friendly sizing; accidental-send protection; attachment flow at 375px viewport; per-staff unread badge at narrow widths; tag chips at narrow widths; callback reminder action at narrow widths.
+- **R8 (sequencing)**, **R2 (adapter contract)**, **R9 (verification gates)** — pending in priority order. Each round produces explicit "passes" / "needs change" decisions; preflight updates between rounds.
 
 R-arc rounds may surface additional dimensions; the table above is the operating plan, not a closed list.
 
@@ -1858,6 +1884,57 @@ R-arc rounds may surface additional dimensions; the table above is the operating
 - **DL-13 closing handoff**: [HANDOFF_2026-05-12_phase_4h_external_line_e0_doctrine_complete.md](HANDOFF_2026-05-12_phase_4h_external_line_e0_doctrine_complete.md) — R1-R9 round-by-round synthesis + cross-arc impact map.
 - **Stripe portability sketch**: [THOUGHT_EXPERIMENT_2026-05-12_dl13_second_rail_stripe_adapter_sketch.md](THOUGHT_EXPERIMENT_2026-05-12_dl13_second_rail_stripe_adapter_sketch.md) — DL-13 portability validation + multi-consumer adapter placement recommendation.
 - **c2 non-foreclosure twin**: [PREFLIGHT_2026-05-11_phase_4h_in_app_inbox_c2_rich_chat_rendering.md](PREFLIGHT_2026-05-11_phase_4h_in_app_inbox_c2_rich_chat_rendering.md).
+- **A1 Federation / Permeability / Topology future arc**: [FUTURE_ARC_2026-05-12_federation_permeability_topology.md](FUTURE_ARC_2026-05-12_federation_permeability_topology.md) — captures seams 3 (multi-thread patient reality) + 9 (scheduling-communications collision); 5+ topology modes; DL-14-candidate.
+- **A2 Prioritization / Attention Economics future arc**: [FUTURE_ARC_2026-05-12_prioritization_attention_economics.md](FUTURE_ARC_2026-05-12_prioritization_attention_economics.md) — captures seam 5 (escalation fatigue / queue poisoning); priority schema + SLA decay + AI prioritization scope + workload balancing.
+- **A3 PHI Surface Governance future arc**: [FUTURE_ARC_2026-05-12_phi_surface_governance.md](FUTURE_ARC_2026-05-12_phi_surface_governance.md) — captures seam 6 (invisible PHI leakage); notification preview policy + mobile posture + AI visibility scopes + attachment expiration; complementary to substrate discipline.
+
+---
+
+## §26 Operational seams identified during R1+R6 follow-up (post-amendment capture)
+
+**Added 2026-05-12 evening.** After R1+R6 pressure-tests completed and the e1 preflight was amended, a follow-up conversation surfaced 10 additional operational seams (ChatGPT-named) + a federation/permeability/topology thread. This section is the triage capture. Every seam is preserved either in this preflight (R-round sub-dimension + §21.B watch zone) OR in one of the three FUTURE_ARC docs (A1 / A2 / A3) — NOTHING is unclaimed.
+
+The 10 seams ChatGPT named map to dispositions as follows:
+
+| # | Seam | Disposition | Where captured |
+|---|---|---|---|
+| 1 | Conversation splitting/merging (can one conversation migrate identities? do historical permissions change retroactively?) | R4 sub-dimension + §21.B watch zone | §24.C R4 + §21.B "Splitting/merging audit-trail drift" + §6.6 `apparent_identity_id` + §11.4 SPLIT UI |
+| 2 | Wrong-endpoint operational chaos (Birmingham staff replies from Somerset number; cosmetic patient texts clinical line; provider replies from personal endpoint) | R3 sub-dimension | §24.B R3 "Wrong-endpoint operational chaos" + §13 outbound endpoint selection UI + §17 Replying-as / Sending-from explicit display |
+| 3 | Multi-thread patient reality (same patient texts main line + calls another + emails + fills form + spouse texts separately — when do they unify operationally?) | R4 partial + A1 future arc full coverage | §24.C R4 "Multi-thread patient reality operator cognition" + A1 federation arc §4 cross-channel patient reality fold-in |
+| 4 | Scheduled-send + state drift (message scheduled Monday, patient cancels Tuesday, consent revoked Wednesday, provider changes Thursday, send fires Friday — what gets re-evaluated at send time?) | R3 sub-dimension (design seam; scheduled-send itself is §3.B / §3.C deferred) | §24.B R3 "Scheduled-send + state drift" + §22 deferred |
+| 5 | Escalation fatigue / queue poisoning (too many reminders → too many tasks → staff stops trusting urgency indicators) | A2 future arc | A2 prioritization / attention-economics arc (entire document) |
+| 6 | Invisible PHI leakage (screenshotting, forwarding, copy/paste, wrong recipient, mobile notifications, lock-screen previews, AI summarization mistakes, staff exporting) | A3 future arc | A3 PHI surface governance arc (entire document) |
+| 7 | Mobile ops degradation (desktop inbox works beautifully; mobile becomes laggy / cluttered / accidental sends / unreadable / broken attachment flows) | R5 + R6 partial coverage; §21.B watch zone; A3 future arc for mobile posture | §24.C R5 "Mobile ops degradation" + §21.B "Mobile ops degradation regression" + §17.6 mobile responsive MUST + A3 mobile posture governance |
+| 8 | Operational identity drift (staff renames contacts; family members reuse numbers; CRM imports conflict; front desk creates local assumptions) | R4 sub-dimension | §24.C R4 "Operational identity drift" + §6.3.A single-handle reservation + §11.4 identity-altering operations |
+| 9 | Scheduling/communications collision (no-show workflows; deposit collection; reschedule loops; provider changes; waitlist activation; urgent openings; package expiration; follow-up cadence — scheduling becomes communications orchestration engine) | A1 future arc | A1 federation arc §5 scheduling-communications collision fold-in |
+| 10 | Human override economics (if system blocks too much → staff bypass via iMessage / personal phone; if allows too much → chaos + leakage; override friction tuning is existential) | R3 sub-dimension | §24.B R3 "Override auditing + human override economics" + §9.4(b) override flow + §19.C per-staff override-rate metric |
+
+### §26.A Federation / permeability / topology thread (separate from the 10 seams)
+
+In the same follow-up conversation, the user surfaced a deeper architectural thread: "multi-location" is actually "network topology" — not "does this org have multiple clinics?" but "what kinds of operational permeability exist between entities?" User + ChatGPT named 5+ topology modes (fully shared local market → shared national brand → Hims-mode → franchise ecosystem → hybrid dynamic permeability → separate subscription / mode-transitions).
+
+**Disposition:** This is the **A1 future arc** (federation / permeability / topology). It's DL-14 candidate — bigger than e1, bigger than DL-13, complementary to DL-13 rail-substrate doctrine. Substrate already admits the building blocks (`org_id` + `brand_id` + `practice_entity_id` + `location_id` + DL-10 `patient_relationships`); doctrine fires when first multi-state / first franchise / first Hims-overlay activation hits OMNI operationally. See A1 future arc doc for full capture.
+
+### §26.B Capture pass complete
+
+All 10 seams + the federation topology thread are now preserved. R3 pressure-test can proceed without losing seams to gate-focus narrowness. R-round sub-dimensions per §24.B + §24.C absorb seams 1, 2, 3, 4, 7, 8, 10. FUTURE_ARC docs A1/A2/A3 absorb seams 3 (full coverage), 5, 6, 9. e1 §21.B watch zones extended with 3 new entries for splitting/merging audit-trail + multi-thread surfacing fatigue + mobile ops degradation regression.
+
+The 4 doctrine arcs from 2026-05-12 (DL-13 + A1 + A2 + A3) form a coherent post-e0 set:
+
+- **DL-13** (LANDED 2026-05-12) — rail-agnostic substrate spine.
+- **A1 federation/permeability/topology** (RESERVED) — cross-entity operational permeability.
+- **A2 prioritization/attention-economics** (RESERVED) — attention-layer doctrine.
+- **A3 PHI surface governance** (RESERVED) — operational-layer PHI doctrine.
+
+Together they cover: substrate (DL-13), inter-entity coordination (A1), attention/prioritization runtime (A2), and human-layer PHI governance (A3). Future doctrine arcs will emerge as scale + new domains push on the system; the cycle is the discipline.
+
+### §26.C Why this section exists (preserves intent for future-us)
+
+Without §26, future-us reading the e1 preflight + the four 2026-05-12 commits in isolation would not understand WHY R3 sub-dimensions include wrong-endpoint chaos + scheduled-send state drift + human override economics, OR WHY there are three FUTURE_ARC docs in `.cursor/plans/` referencing this preflight. §26 is the orientation map.
+
+Cross-link this section from R3 discussion start (next session) to ground the round.
+
+---
 
 ### Status note
 
@@ -1883,6 +1960,15 @@ DL-13 doctrine is bound. e0 design is settled. e1 is the execution sequence. R-a
 - §15-§17 amended — missed-call inbox visibility (e1); MMS outbound + inline media display (e1); ops inbox substantially expanded with notes panel + tags chips + per-staff unread + ambiguity indicators + callback reminders + Mark-as-reassigned entry + reply-time picker + gate-override flow + mobile responsive baseline.
 - §18 REMOVED — AI Response Assist CUT from e1 entirely; substrate admissions remain for future arc.
 - §19-§24 amended — audit taxonomy expanded; new test categories; new metrics; sequence re-ordered; watch zones expanded; out-of-scope refreshed; R-arc status reflects R1+R6 done + R3 next.
+
+**Capture pass amendment (2026-05-12 evening, post-R6 follow-up):**
+
+- §21.B expanded — 3 new watch zones (splitting/merging audit-trail drift; multi-thread parallel-thread surfacing fatigue; mobile ops degradation regression).
+- §24.B R3 dimensions sharpened — seams 2 (wrong-endpoint operational chaos) + 4 (scheduled-send state drift) + 10 (human override economics) explicitly folded in.
+- §24.C R4 / R5 dimensions sharpened — R4 absorbs seams 1 (splitting/merging audit-trail) + 3 (multi-thread patient reality partial) + 8 (operational identity drift); R5 absorbs seam 7 (mobile ops degradation).
+- §25 cross-references extended — A1 / A2 / A3 future-arc docs added.
+- §26 NEW — seam-triage table + federation topology disposition + capture-pass-complete note + four-doctrine-arc summary (DL-13 LANDED + A1/A2/A3 RESERVED).
+- Three new companion docs land same evening: A1 federation/permeability/topology, A2 prioritization/attention-economics, A3 PHI surface governance.
 
 **Next:** R3 (8-gate) pressure-test of this amended preflight; subsequent rounds per §24.C; then e1.1 substrate migration commit.
 
