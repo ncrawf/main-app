@@ -1154,16 +1154,78 @@ DL-14 canonizes the spine in plain sight, with explicit rejected reframings and 
 
 - **REJECTED: CNS as an external-actor-only system (patients only).** Rationale: the CNS coordinates internal actors (providers, staff, ops, compliance, AI, queues) as first-class targets — not only patients. Provider passive awareness, staff task creation, ops escalation, AI plan request, and compliance alert are all first-class CNS actions. Modeling the CNS as patient-facing-only forecloses the operational coordination half of the product (DL-14 invariant 2 + Phase 0 stress scenarios 9-11).
 
-### Subordination, not adequacy
+### AI-specific REJECTED alternatives (Phase A.2 additions; DL-14 invariants 7-22)
 
-DL-14 binds **subordination** (subsystems operate under the CNS, not as the CNS) — it does NOT certify **adequacy** of the current subsystem implementations. Specifically:
+- **REJECTED: AI as copywriter only.** Rationale: AI is hybrid interpretation + action-assist layer per DL-14 invariant 7. Scoping AI to marketing copy alone forecloses inbound intent classification, scheduling, clinical cue detection, operations recommendations, learning-loop participation. Cross-link radar zone 89.
 
-- Whether primitive #10 (currently named `outbound_jobs`) is genuinely the universal action substrate, or must be semantically broadened / renamed to `orchestration_actions` with projections beneath for each action type.
-- Whether primitive #11 (AI runtime) is genuinely a planner over multi-event patient state across all actor targets and all action types, or must be broadened from a marketing-copy-shaped scope.
-- Whether §1Q rules engine expresses the full multi-actor multi-action multi-policy CNS model, or must be amended.
-- Whether the learning-loop substrate (feedback attachment depth + awareness-marker state machine) exists at canonical homes, or must be added.
+- **REJECTED: AI as marketing assistant only.** Rationale: same as above. AI is one engine across 4 capability envelopes (operations / clinical / content / safety-triage); marketing is one slice of the content envelope. Cross-link radar zone 89.
 
-These adequacy questions are answered by **Phase 0 of the brain hardening audit** at [`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md). DL-14 does not pre-decide them.
+- **REJECTED: AI as chatbot detached from operations.** Rationale: per Guardrail 4 + invariant 14 (Tesla-autopilot pattern), AI is part of CNS operational coordination, not a freeform chat tab. Cross-link radar zone 101.
+
+- **REJECTED: AI as autonomous actor outside the CNS.** Rationale: per Guardrail 2 + invariant 7, AI proposes; CNS validates; action substrate executes. AI itself does NOT book, message, mutate state, dispatch outbound, or write to chart. Cross-link radar zone 90.
+
+- **REJECTED: AI as rail-side logic.** Rationale: intent classification / planning / autonomy MUST live in the CNS interpretation layer (L3 of 9-layer stack), NOT in `lib/external-rails/twilio/` or email rail. Rail-side fail-open / gate logic inherits policy from upstream CNS decisions (Guardrail 4 + invariant 14). Cross-link radar zone 93.
+
+- **REJECTED: AI as scheduling helper that bypasses deterministic resource availability + provider rules + deposit + consent + audit.** Rationale: AI consumes typed scheduling artifacts (availability_query → availability_result), NEVER invents canonical resource state. Cross-link radar zone 92 + 97.
+
+- **REJECTED: AI as one undifferentiated blob.** Rationale: invocations must declare jurisdiction (operations / clinical / content / safety_triage) per invariant 9. Freeform agent-to-agent chatter between envelopes is rejected. Use typed CNS artifacts. Cross-link radar zone 94.
+
+- **REJECTED: AI operations envelope making clinical eligibility decisions.** Rationale: clinical eligibility belongs to clinical envelope + provider authority per `§1J.10` / `§1K.5.A`. Cross-link radar zone 95 + Guardrail 1.
+
+- **REJECTED: AI clinical envelope autonomously executing patient-facing workflows.** Rationale: clinical envelope is provider-facing + review-bound. Cross-link radar zone 95 + 108.
+
+- **REJECTED: AI bounded autopilot extended to action classes the org has not explicitly opted into.** Rationale: bounded autopilot is per-org-policy-opt-in for explicitly enumerated low-risk action types only. Default is conservative.
+
+- **REJECTED: AI as global on/off flag without per-path layered policy resolution.** Rationale: AI autonomy resolves through 7 layered axes per invariant 11. Default-closed; safety-biased; clinical-risk supersedes all. Cross-link radar zone 91 + 96.
+
+- **REJECTED: AI inventing scheduling availability.** Rationale: AI cannot propose a slot the scheduling/resource substrate has not emitted as `availability_result`. AI consumes typed scheduling artifacts; never fabricates canonical resource state. Cross-link radar zone 97.
+
+- **REJECTED: Patient-facing AI as freeform chat without pathway permit + deterministic validation + action-substrate execution.** Rationale: Guardrail 4 + `§1N.0` patient-facing-AI-out-of-scope preserved. AI assists; CNS decides; action substrate executes. Cross-link radar zone 98.
+
+- **REJECTED: AI re-prompt / retry without pre-fire revalidation.** Rationale: every retry must re-check current state before firing per invariant 12 + 21. Fire-and-forget retries that ignore replies / opt-outs / clinical cues are rejected. Cross-link radar zone 99 + 112.
+
+- **REJECTED: Meta-AI / supervisor-AI / orchestration-AI infrastructure.** Rationale: per invariant 13, CNS itself is the supervisor; observability is deterministic monitoring, not another AI layer. Adding "AI that watches AI" re-introduces the undifferentiated-blob anti-pattern. Cross-link radar zone 100.
+
+- **REJECTED: Chatbot framing (OMNI as freeform AI chat tab).** Rationale: per invariant 14 + 15, OMNI is an operating system with AI-assisted control (Tesla-autopilot pattern). Hybrid AI/human surfaces with control ownership visible to staff are mandatory. UI patterns that conceal control state or imply AI "talks to" patients autonomously are rejected. Cross-link radar zone 101.
+
+- **REJECTED: Domain-specific mini-brain.** Rationale: per invariant 14 + 5, building a domain-specific orchestrator (scheduling brain / marketing brain / clinical decision engine) that bypasses the 9-layer CNS spine is rejected. Same anti-pattern as per-role AI stacks but at the domain level. Cross-link radar zone 104.
+
+- **REJECTED: Cross-tenant AI leakage.** Rationale: per invariant 22, AI invocations for one org reading another org's patient state, or AI invocations missing `org_id` / `location_id` declaration, are rejected. Cross-link radar zone 103.
+
+- **REJECTED: orchestration_actions hosting pathway/journey state directly.** Rationale: per invariant 17, multi-step journeys belong on orchestration_runs (parent state machine), NOT on atomic action rows. Cross-link radar zone 105.
+
+- **REJECTED: AI Compose Assist as provider-only silo.** Rationale: per invariant 18 + `§1N.23`, Compose Assist is ONE global capability across all staff/provider composition surfaces with role-scoped action sets.
+
+- **REJECTED: Compose Assist exposing context outside role scope.** Rationale: per invariant 18 Context Packet Builder, role + jurisdiction + channel + DLP permissions are enforced at construction time. Front-desk Compose Assist receiving clinical atoms beyond ops scope = rejected. Cross-link radar zone 106.
+
+- **REJECTED: AI authoring clinical advice without provider approval.** Rationale: per Guardrail 4 + invariant 18 mode 5, AI clinical drafts must transition through provider edit / approval before patient-facing send. Cross-link radar zone 107 + 108.
+
+- **REJECTED: Polish button bypassing provider authority for clinical content.** Rationale: per invariant 18 + `§1K.5.A`, AI cannot independently diagnose / prescribe / clear contraindications / create clinical truth. Polish refines wording; it does not grant clinical authority. Cross-link radar zone 108.
+
+- **REJECTED: UX that exposes substrate jargon to normal users.** Rationale: per invariant 18 simple-surface-serious-substrate principle, UI patterns that show users "select jurisdiction envelope" / "configure autonomy mode" / "set policy class" instead of simple action buttons are rejected. Substrate machinery is invisible in normal UX.
+
+- **REJECTED: Polish gets minimal context as a "safety" measure.** Rationale: per invariant 18 (corrected), Polish gets RICH relevant context (thread + atoms + appointments + treatments + Rx/peptide/product + purchases + safety flags as role-permits). The distinction between modes is **output authority**, NOT context size. Hiding context from Polish makes it a dumb grammar checker.
+
+- **REJECTED: AI silently changing clinical or operational intent.** Rationale: per invariant 19, Polish/refine modes preserve intent. Material additions surfaced as flagged suggestions, never silently inserted. Cross-link radar zones 109 + 110.
+
+- **REJECTED: Treating inbound patient/staff/vendor text as AI instructions.** Rationale: per invariant 20, inbound content is UNTRUSTED DATA. Instruction hierarchy: system/CNS > org > provider/staff > approved knowledge > inbound content. Cross-link radar zone 111.
+
+- **REJECTED: Firing orchestration_actions without live-state revalidation.** Rationale: per invariant 21, stale AI drafts / race conditions / tool failures must be caught BEFORE action transitions to executing. Tool failure → human workflow, never hallucinated success. Cross-link radar zones 112 + 113.
+
+### Subordination + selective adequacy commits (Phase A.2 update)
+
+DL-14 binds **subordination** (subsystems operate under the CNS, not as the CNS) for all subsystems. Phase A.2 additionally COMMITS scope decisions for primitive #10 + primitive #11 that were previously deferred to Phase 0:
+
+- **Primitive #10 (action substrate) conceptual rename to `orchestration_actions` is COMMITTED (non-reopenable per Phase A.2; DL-14 invariants 3 + 5 + 14 + 16).** The legacy `outbound_jobs` name is a one-projection legacy artifact. `orchestration_actions` hosts ALL CNS action types as projections (16 action_type enums + 9 origin enums + 9 actor_target enums + channel enum + 9 control_state enums + 12 lifecycle_state enums). Phase 0 / Phase 1 audit only HOW the physical migration lands (in-place rename, table extension, new table + legacy projection view, compatibility wrapper, or staged migration). **Phase 0 does NOT decide whether `outbound_jobs` remains the conceptual primitive — that decision is over.**
+
+- **Primitive #11 (AI runtime) scope is BOUND by DL-14 invariants 7-22 (Phase A.2).** AI is hybrid interpretation + action-assist layer subordinate to deterministic CNS policy; 7 autonomy modes; 4 capability envelopes; AI invocation audit lineage; 7-layer policy/toggle matrix; re-prompt pathway; no global meta-AI; 9-layer vertical stack participation; control state machine; 6-layer CQRS pattern emission; orchestration_runs participation; AI Compose Assist + Context Packet Builder + 5 invocation modes; AI intent preservation; prompt injection defense + instruction hierarchy; live-state revalidation + tool failure fallback; multi-tenant + federation-aware scoping. **Adequacy of the EXISTING AI implementation against this bound scope is Phase 0.** Phase 0 audits: does current code implement classifier + planner + draftsman + bounded executor + ranker + learning-loop participant against this scope, or is it currently marketing-copy-shaped and must be broadened? Does the Context Packet Builder substrate exist?
+
+- Whether **§1Q rules engine** expresses the full multi-actor multi-action multi-policy CNS model, or must be amended → still Phase 0 audit.
+- Whether the **learning-loop substrate** (feedback attachment depth + awareness-marker state machine) exists at canonical homes, or must be added → still Phase 0 audit.
+- Whether **orchestration_runs** parent state-machine concept (per invariant 17) generalizes from existing primitives (§1Q.21 campaign_enrollment + §1G.3 continuation/adherence state) or requires new substrate → Phase 0 audit.
+- Whether the **AI policy/toggle matrix substrate** (`org_ai_policy_configurations` per invariant 11) exists or must be created → Phase 0 audit.
+
+These adequacy questions are answered by **Phase 0 of the brain hardening audit** at [`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md) (27 stress scenarios including enterprise audit checklist).
 
 ### Reconciliation pointers
 

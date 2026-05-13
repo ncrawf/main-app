@@ -10,11 +10,15 @@ This document does not invent architecture. It situates pieces that already exis
 
 **All communication rails described in this document are outputs of the OMNI CNS.** Per **DL-14** (canonical anchor at the top of [`.cursor/plans/system_map_three_layers_60706286.plan.md`](../../.cursor/plans/system_map_three_layers_60706286.plan.md) + foundational anchor §0 + ADR §7.17), OMNI is the **event-driven care coordination brain** that reads a unified event graph and decides actions across multiple actor targets (patient, provider, front desk, care coordinator, manager, compliance/admin, AI planner, queue/team, external vendor/system). This document specifies **HOW rails deliver actions**; the brain decides **WHICH actions to emit, to WHICH actor target, on WHICH channel**.
 
-**Rails do not orchestrate; they project.** Rail-side fail-open / gate logic / suppression / throttle inherit policy from the upstream CNS decision (`intent_class` + `policy_class` + `actor_target` carried on the action substrate, currently primitive #10). Rail dispatchers (Twilio adapter, future RingCentral adapter, email rail, in-app rail, voice rail, push rail) must not invent orchestration logic locally; per radar zones 85 + 87 such invention is a DL-14 violation.
+**Rails do not orchestrate; they project.** Rail-side fail-open / gate logic / suppression / throttle inherit policy from the upstream CNS decision (`intent_class` + `policy_class` + `actor_target` carried on the action substrate, primitive #10 = `orchestration_actions`). Rail dispatchers (Twilio adapter, future RingCentral adapter, email rail, in-app rail, voice rail, push rail) must not invent orchestration logic locally; per radar zones 85 + 87 + 93 such invention is a DL-14 violation.
 
-**Subsystem subordination, not adequacy.** The action substrate (currently named `outbound_jobs` / primitive #10) and AI runtime (primitive #11) are subsystems UNDER the CNS. Their current naming + scope + adequacy is being audited by Phase 0 of the brain hardening plan ([`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md)) — references to `outbound_jobs` throughout this topology document reflect the current naming; that naming may broaden / change after Phase 0+1 settle.
+**Inbound rails are inputs to AI interpretation (Phase A.2 update).** Per DL-14 invariant 14 + `§1N.12` + `§1N.18`, inbound events from rails flow through the 9-layer CNS vertical stack: **L1 raw input rails → L2 atomization / typed events (per `§1P`) → L3 AI interpretation envelopes (safety/triage classifier first; operations + clinical + content as needed) → L4 context assembly → L5 deterministic CNS policy + AI policy resolution → L6 planner / orchestration → L7 `orchestration_actions` substrate → L8 rail / surface execution → L9 feedback loop returning to L4**. **Rails are inputs AND outputs of the CNS.** AI envelopes are CALLED BY the CNS as needed, not chained as a fixed pipeline. Feedback returns to CNS state + learning loop, NOT to a single envelope (no Ops mini-brain drift per radar zone 104).
 
-Cross-link: MAIN DL-14 + foundational §0 + ADR §7.17 + radar zones 79-88.
+**Primitive #10 conceptual rename to `orchestration_actions` is COMMITTED (Phase A.2; non-reopenable per DL-14 invariants 3 + 5 + 14 + 16).** The legacy `outbound_jobs` name is one-projection legacy artifact. `orchestration_actions` hosts ALL CNS action types as projections: patient outbound message / provider notification / staff task / ops alert / passive awareness marker / suppression-cancellation / AI plan request / lifecycle state update / no-op / booking hold / deposit link request. Phase 0 / Phase 1 audit only HOW the physical migration lands.
+
+**Subsystem subordination + selective adequacy commits.** Action substrate (primitive #10) conceptual rename committed; physical migration approach is Phase 0/1. AI runtime (primitive #11) scope is bound by DL-14 invariants 7-22 (Phase A.2); adequacy of existing implementation against bound scope is Phase 0. Cross-link foundational §4.B primitive #10 COMMITTED RENAME + §4.B primitive #11 scope extension.
+
+Cross-link: MAIN DL-14 (now 22 invariants) + foundational §0 + ADR §7.17 (35+ REJECTED alternatives) + radar zones 79-113 (35 total new zones).
 
 ---
 
@@ -418,7 +422,37 @@ DL-14 sits **above** the rail-agnostic DL-13 spine: where DL-13 binds the substr
 
 **Rejected reframings (radar protection).** Conversations / PRs / designs that frame OMNI as: a messaging system (zone 79), a Twilio integration (zone 80), a marketing automation tool (zone 81), a basic rules/templates engine (zone 82), an outbound-job runner (zone 83), an AI marketing copywriter (zone 84), a rail-side fail-open dispatcher (zone 85), lifecycle automation as risky outbound (zone 86), rail-side orchestration (zone 87), or a patient-facing-only system (zone 88) are DL-14 violations and must be redirected back to the CNS center-of-gravity model.
 
-**Phase 0 audit pending.** The brain hardening plan ([`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md)) executes Phase 0 next: adversarial audit of §1Q + Marketing Lifecycle + primitive #10 + primitive #11 + dynamic-behavior gates against the DL-14 model with 11 stress scenarios + 6+1-axis taxonomy + primitive adequacy verdicts. Until Phase 0 + 1 settle, **e1 implementation does not resume**.
+**Phase 0 audit pending.** The brain hardening plan ([`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md)) executes Phase 0 next: adversarial audit of §1Q + Marketing Lifecycle + primitive #10 + primitive #11 + dynamic-behavior gates against the DL-14 model with 27 stress scenarios (Phase A.2) + 9-axis taxonomy + primitive adequacy verdicts + enterprise audit checklist. Until Phase 0 + 1 settle, **e1 implementation does not resume**.
+
+### §12 DL-14 cross-references (Phase A.2 update — 2026-05-13)
+
+DL-14 sits above DL-13: DL-13 binds rail-agnostic substrate; DL-14 binds rails-as-outputs of the CNS. Phase A.2 extends DL-14 with invariants 7-22 (sixteen new) adding AI-specific layer: AI hybrid + 7 autonomy modes + 4 capability envelopes + audit lineage + 7-layer policy matrix + retry pathway + no-meta-AI + 9-layer vertical stack + control state machine + 6-layer CQRS pattern + orchestration_runs + AI Compose Assist + intent preservation + prompt injection defense + live-state revalidation + multi-tenant federation.
+
+**Key topology-relevant Phase A.2 bindings (cross-references):**
+
+- **AI capability envelopes** (invariant 9 + `§1N.10`): operations / clinical / content / safety-triage; orthogonal to `§1N.2` role surfaces; same engine + infrastructure; typed CNS artifact exchange (no freeform chatter between envelopes per radar zone 94).
+
+- **AI autonomy modes** (invariant 8 + `§1N.11`): 7 modes (off / observe / draft / recommend / human-approved-execute / bounded-autopilot CNS-executed / escalate-only); conservative default; clinical-risk interrupt ABSOLUTE (Guardrail 1).
+
+- **AI policy / toggle matrix** (invariant 11 + `§1N.15`): 7 layered axes (org / brand-location / channel / thread-pathway / service-intent / provider-segment-risk / confidence-runtime); default-closed; safety-biased.
+
+- **Re-prompt / retry pathway** (invariant 12 + `§1N.16`): stateful follow-up with pre-fire revalidation; AI drafts, CNS validates, action substrate executes.
+
+- **Control ownership state machine** (invariant 15 + `§1N.19`): 9 substrate states + 4 pause sub-types; substrate-vs-UI distinction binding; transitions audited.
+
+- **AI Compose Assist** (invariant 18 + `§1N.23`): global capability across composition surfaces (provider chat / front desk SMS / ops inbox / email / in-app / internal notes / provider notifications / template edits / voicemail follow-up); role-scoped action sets; Context Packet Builder produces mode-specific scoped packets; **Polish gets RICH relevant context — distinction is OUTPUT AUTHORITY, NOT context size**.
+
+- **Provider AI-assisted clinical reply** (invariant 18 mode 5 + `§1N.23`): origin = `provider_ai_assisted`; provider owns clinical authority; AI proposes drafts/clinical input; provider edits/approves; full audit lineage. Patient sees provider attribution.
+
+- **Multi-tenant + federation-aware AI scoping** (invariant 22 + `§1N.20`): cross-tenant isolation; federated-org AI shares state ONLY per active A1 permeability policy (default NOT total visibility).
+
+- **AI invocation audit lineage** (invariant 10 + `§1N.13`): every AI invocation records ai_jurisdiction + role_surface + ai_assist_mode + ai_policy_config_id + policy_resolution_trail + context_packet_id + intent_preserved + material_additions_suggested + tool_failure_reason + etc.
+
+**Four absolute guardrails (Phase A.2)**: (1) Clinical-risk interrupt is ABSOLUTE; (2) Bounded autopilot is CNS-executed, not AI-executed; (3) AI policy is LAYERED + DEFAULT-CLOSED + INVOCATION-AUDITED; (4) Patient-facing AI is NOT freeform chat even with bounded autopilot.
+
+**Two product principles (Phase A.2)**: (a) Simple surface, serious substrate; (b) Rich relevant context, restricted output authority.
+
+**Rejected reframings (radar protection)**. New radar zones 89-113 (25 added in Phase A.2) extend the existing zones 79-88 (Phase A) for the full AI / orchestration_actions / orchestration_runs / Compose Assist / Polish-intent / prompt-injection / live-state-revalidation anti-patterns.
 
 ---
 
