@@ -344,6 +344,54 @@ DL-15 (Scheduling Substrate Spine) lands next in Phase B Commit 2 — the first 
 
 ---
 
+## Act XVI part 2: Scheduling Substrate Spine — DL-15 (May 13 evening, immediately following DL-16)
+
+**Phase B Commit 2 — the first domain specialization against DL-16's universal substrate.**
+
+With DL-16 canonized as the universal grammar of the CNS event graph, DL-15 lands as the first specialization. 28 mechanically-numbered invariants, all subordinate to DL-16's 39 universal invariants. Each DL-15 invariant explicitly cites the DL-16 invariant(s) it specializes — no scheduling-specific invariant reinvents envelope, partition, registry, atomicity, payload minimization, isolation, authorization, idempotency, reliability, temporal validity, projection rules, consistency tiers, causality, erasure, AI integrity, identity, saga coordination, observability, environment segregation, governance, audit, reality capture, routing, concurrency, normalization, retention, or reconciliation. DL-15 takes the universal substrate and binds the scheduling-specific shape: Mindbody-class depth on Day 0, multi-resource atomic booking, 13-state appointment lifecycle, ABSOLUTE clinical clearance interrupt (blood thinners + Botox is the canonical adversarial scenario), live-state revalidation, per-resource concurrency locks, jurisdiction + federation awareness, patient-profile integration prominent (DL-15 invariant 18 spans 16 profile dimensions — past-visit history / preferences / contraindications / consent / membership / balances / no-show history / etc.), AI-assisted booking under bounded autopilot, prompt injection defense at booking surface, orchestration_runs for multi-step booking journeys, staff override + manual reality capture, scheduling↔CNS bidirectional seam, compensation discipline (not silent rollback), strong consistency for booking commits, per-class retention, out-of-band reconciliation.
+
+The structure of DL-15's invariants mirrors DL-14 + DL-16: 28 invariants grouped by theme, each with a one-line summary + binding implementation cross-link to MAIN system map sections + foundational §8.1 clauses + ADR §7.18 rejected alternatives + radar zones 132-153 (22 zones). The canonical home for DL-15 implementation details is the new system map §1F.10-§1F.24 (15 subsections; §1F.23 patient-profile-integration prominent). Foundational §4.B `scheduling_lifecycle/` Reserved Tier row gets a DL-15 binding extension; foundational §8.1 clauses 96-117 (22 clauses) bind DL-15 invariants as cross-cutting concerns alongside the DL-14 + DL-16 + DL-12 + DL-13 clauses already in place.
+
+The scheduling-specific REJECTED alternatives (ADR §7.18) read like a tour of every Mindbody / Calendly / scheduling-as-a-feature drift pattern the architecture has ever risked:
+
+- "Single-resource booking" — REJECTED. Multi-resource atomic boundary is non-negotiable in clinical + aesthetic medicine.
+- "Slot-book without offer → hold → book lifecycle" — REJECTED. AI booking proposals + staff phone-bookings + patient self-bookings all need a hold-pending window with TTL.
+- "Silent hold extension" — REJECTED. Holds release atomically on expiry; re-extension requires explicit audited action.
+- "Free-text appointment lifecycle states" — REJECTED. 13 enumerated states; illegal transitions emit audit event.
+- "Silent reschedule mutation" — REJECTED. Reschedule = atomic compensation pair (cancel original + book new) via orchestration_run.
+- "Cancellation policy invented at cancel time" — REJECTED. Declared per service / provider / location / brand; deterministic; AI never invents.
+- "Waitlist as a standalone feature" — REJECTED. Waitlist promotion is an orchestration_run pathway.
+- "Post-booking deposit collection" — REJECTED. Deposit coupling into booking lifecycle (state 5 `confirmation_pending_deposit`).
+- "Clinical clearance bypass via confidence / mode / org config" — REJECTED. ABSOLUTE per DL-14 invariant 21 + Guardrail 1.
+- "Trust last-seen availability" — REJECTED. Live-state revalidation via source-of-truth read at execution moment.
+- "Cross-jurisdiction booking without exception capability" — REJECTED. Provider state license + location regulation + brand rules gate.
+- "AI emits booking actions directly to rails" — REJECTED. Bounded autopilot (AI proposes; CNS validates; executor executes).
+- "Patient text as AI booking instructions" — REJECTED. Prompt injection defense; UNTRUSTED data, never AI instructions.
+- "Multi-step booking journey without orchestration_run" — REJECTED. Pathway containers required.
+- "Default cross-brand visibility in federated org" — REJECTED. Strict isolation + opt-in permeability per A1 future arc.
+- "Booking surface ignores patient profile" — REJECTED. Patient-profile integration PROMINENT.
+- "Booking actions without first-class CNS decision records" — REJECTED. Audit lineage + context snapshot immutability binding.
+- "Manual / staff booking bypassing clinical hard-stops" — REJECTED. Hard-stops apply regardless of origin.
+- "Scheduling-domain envelope drift from DL-16 universal envelope" — REJECTED. Scheduling specializes, doesn't deviate.
+- "Event / action conflation in scheduling domain" — REJECTED. `booking_action` is intent; `appointment_booked` is fact.
+- "Unidirectional scheduler-emits-only seam" — REJECTED. Bidirectional CNS↔scheduler seam.
+- "Silent revert for incorrect bookings" — REJECTED. Compensation discipline; never silent rollback for irreversible side-effects.
+- "Eventual consistency for booking commits" — REJECTED. Strong consistency for clinical + financial state changes.
+
+**§1F.23 patient-profile-integration is the most architecturally significant new subsection.** Across all the pressure-test rounds in Phase A through Phase B, the user repeatedly returned to the theme that patient identity + profile + history + preferences + consent + relationships is the load-bearing substrate of the whole platform. §1F.23 binds 16 profile dimensions that booking actions MUST read (past-visit history / service preferences / provider preferences / time-of-day preferences / language preferences / contraindication flags / consent state / membership benefits / package credits / saved payment methods / outstanding balances / loyalty tier / no-show history / cancellation history / lifetime value tier / referral source). Reads obey DL-16 invariants 7 (payload minimization), 24 (source-of-truth for clinical fields), and 25 (patient impersonation gate — unverified handles get PUBLIC routing context only). Patient profile is canonical; booking surface reads but does NOT mutate profile state. Profile updates (preferences inferred from booking choices, no-show history accruing, membership benefit consumed) emit profile-update events through the standard CNS channel per DL-16 inv 2 — NOT silent inline mutations. Future Phase B+1 implementation work ships read patterns + event vocabulary + the patient-facing "remembered preferences" disclosure for HIPAA marketing authorization clarity per §1Q.21.
+
+**Admitted-but-deferred items (3) for DL-15:** D1 group scheduling (multi-patient appointments), D2 recurring availability templates + complex blackout patterns, D3 group commerce + package + membership coupling at scheduling time. Named explicitly so future drift is recognized as already-acknowledged debt, not new discovery.
+
+DL-15 is the first of many domain DLs that will specialize against DL-16. Phase C (commerce DL — three modes: in-office service POS, e-commerce + retail, hims-like async subscription) will specialize. Phase D (Rx + labs + notes DL) will specialize. Future intake-as-CNS-input DL will specialize. None will reinvent envelope, partition, or registry — all will specialize against DL-16's universal substrate, citing specific DL-16 invariants for each specialization.
+
+The pressure-test arc has now run **seventeen times** across DL-10 through DL-14 + Phase A + Phase A.2 + Phase B Commit 1 (DL-16) + Phase B Commit 2 (DL-15). The cycle works. The canonization is real.
+
+**Phase 0 is next.** With DL-14 + DL-16 + DL-15 canonized, the brain hardening adversarial audit can now run against fully-defined load-bearing domain primitives instead of fragmented event grammar. The eleven required stress scenarios (skincare nurture, peptide check-in with passive provider awareness, Botox-concern with suppression, lab-due with cancel-on-result, Rx side-effect escalation, call-cancels-SMS, granular per-intent STOP, cross-rail anti-duplication, passive provider awareness state machine, staff thumbs-up/down feedback with full attachment lineage, AI accept/edit/reject feedback with full attachment lineage) now have a concrete scheduling vocabulary + universal envelope + partition + registry + observability + audit to audit against. Phase 0 will validate per-domain DL-16 compliance, DL-15 specialization completeness, ABSOLUTE clinical-cue interrupts (Botox + blood thinners), concurrency locks, audit lineage, patient-profile integration coverage, manual reality capture pathways, and compensation discipline. Phase 1 hardens what Phase 0 finds. Phase 2 reframes e1 as a rail-side projection. Only then does e1 implementation resume.
+
+The doctrine layer is now thick enough to hold the next 2 billion dollars of architectural decisions.
+
+---
+
 ## Turning-point realizations (the seven that mattered)
 
 1. **The system map is real.** April 24's checkpoint was the moment the project became a system being modeled, not just a codebase being shipped.

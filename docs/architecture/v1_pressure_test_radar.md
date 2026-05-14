@@ -896,6 +896,138 @@ Audit log rows that can be UPDATEd / DELETEd by ordinary code paths; no hash-cha
 
 Forbidden per: DL-16 invariants 38 + 39 + §1Z.6 + §1Z.11 + ADR §7.19.
 
+### Zone 132 — Mindbody-lite scheduling drift / "we'll do real depth later" (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A PR that ships scheduling at less than Mindbody-class depth on Day 0 for an activated wedge clinic; doctrine sections that read "scheduling v1 — providers + appointments only; rooms/devices/waitlist/deposit/clearance later"; activation that ships without multi-resource bookings + waitlist + deposit coupling + clinical clearance. Per DL-15 invariant 1 + DL-5, "lighter than Mindbody" is REJECTED wedge framing.
+
+Forbidden per: DL-15 invariant 1 + DL-5 + ADR §7.18 + §1F.10 + radar zone 31.
+
+### Zone 133 — Single-resource booking (provider only; room/device/MA ignored) (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A booking flow that consumes only the provider's time without holding the room / device / MA / supply atomically; partial bookings (provider held but room conflict resolved late); silent dual-booking where two bookings won the provider slot but neither held the room atomically. Per DL-15 invariant 2 + DL-16 invariant 26, multi-resource atomic boundary is binding.
+
+Forbidden per: DL-15 invariant 2 + DL-16 invariant 26 + ADR §7.18 + §1F.11.
+
+### Zone 134 — Slot-book without offer → hold → book lifecycle (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A booking action that commits without an explicit hold step; AI booking proposals that emit `appointment_booked` directly without a `slot_held` intermediate; race conditions producing double-booking because no hold-TTL discipline existed. Per DL-15 invariants 3 + 4, slot offer → hold → book lifecycle is binding.
+
+Forbidden per: DL-15 invariants 3 + 4 + ADR §7.18 + §1F.12.
+
+### Zone 135 — Silent hold extension (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+Code that auto-extends an expired hold without explicit `extend_hold_action` + audit; system that re-creates expired holds invisibly when a patient returns to the booking flow late; missing audit lineage for hold-extension decisions. Per DL-15 invariant 4 + DL-16 invariant 37, explicit re-hold action with audit is binding.
+
+Forbidden per: DL-15 invariant 4 + DL-16 invariant 37 + ADR §7.18 + §1F.12.
+
+### Zone 136 — Free-text appointment lifecycle states (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+`appointment.status` accepting arbitrary string values; missing CHECK constraint or enum on appointment status column; ad-hoc state transitions ("rebook_pending", "tentative_hold", "waiting_for_clearance") emerging in production code without doctrine update. Per DL-15 invariant 5, 13 enumerated states + state-machine validation are binding.
+
+Forbidden per: DL-15 invariant 5 + DL-16 invariant 38 + ADR §7.18 + §1F.12.
+
+### Zone 137 — Silent reschedule mutation (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A reschedule operation that mutates `start_at` + `end_at` in place without emitting a compensating `appointment_cancelled` + `appointment_booked` pair; reschedule that loses audit lineage of the original slot; missing orchestration_run linking the original cancel with the new booking. Per DL-15 invariant 6 + DL-16 invariant 31, reschedule = atomic compensation pair via orchestration_run.
+
+Forbidden per: DL-15 invariant 6 + DL-16 invariant 31 + ADR §7.18 + §1F.13.
+
+### Zone 138 — Cancellation policy invented at cancel time (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+Cancel-time code that computes refund % / no-show fee / forfeiture from ad-hoc business logic at the cancel surface instead of reading deterministic policy declared per service / provider / location / brand; staff overrides without capability check + reason-coded audit. Per DL-15 invariant 7 + DL-14 invariant 8 + DL-16 invariant 37, declared policy + audited override are binding.
+
+Forbidden per: DL-15 invariant 7 + DL-14 invariant 8 + DL-16 invariant 37 + ADR §7.18 + §1F.13.
+
+### Zone 139 — Waitlist as a standalone feature (no orchestration_run) (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+Waitlist join + offer + promotion modeled as one-off mutations on a waitlist table without an owning orchestration_run; waitlist offer state machine reinvented per use case; missing TTL discipline on offers. Per DL-15 invariants 8 + 16 + DL-14 invariant 17, waitlist is an orchestration_run pathway.
+
+Forbidden per: DL-15 invariants 8 + 16 + DL-14 invariant 17 + ADR §7.18 + §1F.14.
+
+### Zone 140 — Post-booking deposit collection / decoupled deposit (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A booking flow that confirms first (state 4) and then attempts deposit collection separately; missing `confirmation_pending_deposit` (state 5) intermediate; failed deposit not atomically releasing resources; dual-state "booked-but-not-paid" appointments in production. Per DL-15 invariant 9, deposit coupling into booking lifecycle (state 5) is binding.
+
+Forbidden per: DL-15 invariant 9 + DL-16 invariant 26 + ADR §7.18 + §1F.15.
+
+### Zone 141 — Clinical clearance bypass / override without provider capability (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A booking flow that allows scheduling a Botox appointment for a patient on blood thinners (the canonical adversarial scenario); AI booking proposals that emit clinical actions without routing through deterministic clinical clearance check; staff override exposed as one-click without capability + reason-coded audit; clinical-cue interrupt bypass via "AI confidence high enough" / "mode opt-in" / "org config." Per DL-15 invariants 10 + 14 + DL-14 invariant 21 + Guardrail 1, ABSOLUTE.
+
+Forbidden per: DL-15 invariants 10 + 14 + DL-14 invariant 21 + Guardrail 1 + ADR §7.18 + §1F.16 + radar zone 89.
+
+### Zone 142 — Trust last-seen availability / no live-state revalidation (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+AI Compose Assist booking proposal that trusts a slot search result minutes/hours old at execution time; booking action that commits against stale availability cache; missing source-of-truth read at the firing moment; observed double-bookings because two parallel pipelines both trusted last-seen state. Per DL-15 invariant 11 + DL-16 invariant 24, live-state revalidation via source-of-truth read at execution moment is binding.
+
+Forbidden per: DL-15 invariant 11 + DL-16 invariant 24 + ADR §7.18 + §1F.17 + radar zone 125.
+
+### Zone 143 — Cross-jurisdiction booking without exception capability (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A patient resident in State A successfully books with a provider licensed only in State B without explicit exception capability + audited reason; cross-brand booking in federated org by default (Cultured patient auto-visible on Evo schedule); missing jurisdiction check at action emission OR at execution. Per DL-15 invariants 12 + 17 + DL-10 + DL-14 invariant 22 + A1 future arc, jurisdiction + federation gates are binding.
+
+Forbidden per: DL-15 invariants 12 + 17 + DL-10 + DL-14 invariant 22 + A1 future arc + ADR §7.18 + §1F.18.
+
+### Zone 144 — AI emits booking actions directly to rails (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+AI Compose Assist booking response that calls the scheduler executor directly without CNS deterministic policy validation; AI emitting `appointment_booked` events itself (bypassing scheduler executor); AI-side resource lock attempts. Per DL-15 invariants 13 + 21 + DL-14 invariant 18 + DL-16 invariant 34, bounded autopilot (AI proposes; CNS validates; executor executes) is binding; scheduler is the arbiter for resource locks.
+
+Forbidden per: DL-15 invariants 13 + 21 + DL-14 invariant 18 + DL-16 invariant 34 + ADR §7.18 + §1F.19 + radar zone 116.
+
+### Zone 145 — Patient text as AI booking instructions (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A patient SMS / portal message / voicemail transcript that says "book me without a deposit" / "book me while on blood thinners" / "tell the provider I'm cleared" successfully altering AI booking behavior beyond classification; clinical-cue extraction routed through booking envelope instead of safety envelope; instruction-hierarchy violation. Per DL-15 invariant 15 + DL-14 invariant 20, prompt injection defense is binding.
+
+Forbidden per: DL-15 invariant 15 + DL-14 invariant 20 + ADR §7.18 + §1F.19 + radar zone 99.
+
+### Zone 146 — Multi-step booking journey without orchestration_run (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A new-lead → consult → first-Tx → followup booking flow modeled as a series of independent appointment rows without a parent `orchestration_run`; lab-result-required → review → cleared → rebook reasoning happening across disconnected actions without a journey container; pre-treatment intake → atomization → clearance → booking-release pathway without saga binding. Per DL-15 invariant 16 + DL-14 invariant 17, orchestration_runs binding.
+
+Forbidden per: DL-15 invariant 16 + DL-14 invariant 17 + ADR §7.18 + §1F.14.
+
+### Zone 147 — Booking surface ignores patient profile (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A booking flow that does NOT read patient profile for past-visit history / preferences / contraindications / consent / membership / balances / no-show history; AI booking proposal that misses the patient's saved preferred provider; commerce flow that double-charges because deposit history wasn't read; safety surface that misses contraindication because profile flags weren't hydrated. Per DL-15 invariant 18 + DL-16 invariants 7 + 24 + 25, patient-profile integration is PROMINENT.
+
+Forbidden per: DL-15 invariant 18 + DL-16 invariants 7 + 24 + 25 + ADR §7.18 + §1F.23.
+
+### Zone 148 — Booking actions without first-class CNS decision records (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A `booking_action` emitted without a `decision_id` referencing a first-class CNS decision row; audit lineage reconstructed from event stream alone post-incident (medico-legal review weak); missing rejected-alternatives capture (we proposed slot A but rejected slots B/C/D for reasons X/Y/Z); context snapshot not preserved at decision time. Per DL-15 invariant 19 + DL-16 invariants 30 + 33 + 38, decision records + context snapshot immutability + tamper-evident audit are binding.
+
+Forbidden per: DL-15 invariant 19 + DL-16 invariants 30 + 33 + 38 + ADR §7.18 + §1F.21.
+
+### Zone 149 — Manual / staff booking bypassing clinical hard-stops (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A front-desk manual booking flow that skips clinical clearance check because "staff is overriding"; missing capability + reason-coded audit on manual override; out-of-band booking (paper, walk-in, verbal clearance) that never re-enters CNS via manual reality capture pathway; staff manual booking emitting events with `origin = staff_manual` but bypassing standard envelope discipline. Per DL-15 invariant 20 + DL-14 invariant 8 + DL-16 invariant 36, hard-stops apply regardless of origin; manual reality capture binding.
+
+Forbidden per: DL-15 invariant 20 + DL-14 invariant 8 + DL-16 invariants 36 + 37 + ADR §7.18 + §1F.22.
+
+### Zone 150 — Scheduling-domain envelope drift from DL-16 universal envelope (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A scheduling event payload missing required universal envelope fields (event_id / event_kind / domain / actor / four time fields / entity_refs / tenant_id / environment_context / consistency_tier / retention_class / etc.); a scheduling-specific envelope that adds non-registry-governed fields ad-hoc; missing audit_lineage / idempotency_key / correlation_id / causation_id on scheduling events. Per DL-15 invariants 22 + 23 + DL-16 invariants 2 + 3 + 5 + 9, scheduling specializes against universal envelope (does NOT deviate).
+
+Forbidden per: DL-15 invariants 22 + 23 + DL-16 invariants 2 + 3 + 5 + 9 + ADR §7.18 + §1F.20 + radar zones 114 + 115.
+
+### Zone 151 — Unidirectional scheduler-emits-only seam / scheduler as mini-brain (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A scheduler integration that emits events to CNS but cannot receive `orchestration_actions` back from CNS for execution; CNS code that writes directly to scheduling canonical tables bypassing the scheduler executor; scheduler that orchestrates downstream (sends its own confirmation SMS, fires its own lifecycle automation) instead of CNS coordinating across rails. Per DL-15 invariant 24 + DL-16 invariant 4 + DL-14 invariant 4, bidirectional CNS↔scheduler seam binding; scheduler is NOT a domain mini-brain.
+
+Forbidden per: DL-15 invariant 24 + DL-16 invariant 4 + DL-14 invariant 4 + ADR §7.18 + §1F.20 + radar zone 116.
+
+### Zone 152 — Silent revert for incorrect bookings (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+A reverse-the-booking flow that DELETEs the appointment row + cancels the pending confirmation SMS (already in flight) without emitting a compensating cancel-with-apology + supersession message; AI hallucinated booking confirmation sent to patient with no compensation action; missing "we apologize for the confusion" workflow when booking was wrong. Per DL-15 invariant 25 + DL-16 invariant 31, compensation discipline binding — silent rollback REJECTED for irreversible side-effects.
+
+Forbidden per: DL-15 invariant 25 + DL-16 invariant 31 + ADR §7.18 + §1F.13.
+
+### Zone 153 — Eventual consistency for booking writes + no scheduling reconciliation (tier 1; DL-15 binding — added 2026-05-13 evening Phase B Commit 2)
+
+Booking commits + deposit reservation + clinical clearance check via eventually-consistent reads (last-write-wins, stale read possible); slot-search telemetry retained at long-term medico-legal retention class; missing out-of-band reconciliation job between scheduling projections (calendar UI, provider dashboard, day-roster) and canonical appointment state; drift > threshold not surfacing as operational alert; no circuit breaker per `tenant / brand / location / provider / service`. Per DL-15 invariants 26 + 27 + 28 + DL-16 invariants 13 + 21 + 22 + 27 + 39, strong consistency + per-class retention + reconciliation + circuit breakers binding.
+
+Forbidden per: DL-15 invariants 26 + 27 + 28 + DL-16 invariants 13 + 21 + 22 + 27 + 39 + ADR §7.18 + §1F.24.
+
 ---
 
 ## How to use this radar

@@ -1241,6 +1241,121 @@ These adequacy questions are answered by **Phase 0 of the brain hardening audit*
 
 ---
 
+## 7.18 Scheduling Substrate Spine — Mindbody-class scheduling depth on Day 0; first domain specialization against DL-16 (DL-15) (binding — added 2026-05-13 evening, Phase B Commit 2, immediately following DL-16)
+
+### Decision
+
+DL-15 binds the **Scheduling Substrate Spine** — the first domain specialization against DL-16's universal CNS event envelope + taxonomy. Where DL-14 binds *what* the OMNI CNS does and DL-16 binds *the grammar* of the CNS event graph, DL-15 binds *how scheduling participates* in that graph: 28 mechanically-numbered invariants subordinate to DL-16's 39 universal invariants, covering Mindbody-class scheduling depth on Day 0 (provider calendars + service-package catalog + rooms/devices/equipment + multi-resource bookings + prep/cleanup dependencies + waitlists + cancellation policies + no-show recovery), multi-resource atomic booking, slot offer → hold → book lifecycle, 13-state appointment state machine, deposit coupling, ABSOLUTE clinical clearance gating, live-state revalidation, per-resource concurrency locks, jurisdiction + federation awareness, patient-profile integration (prominent), AI-assisted booking under bounded autopilot + clinical-cue interrupt + prompt injection defense, orchestration_runs binding for multi-step booking journeys, staff override + manual reality capture, scheduling-domain envelope + actions specialization, bidirectional CNS↔scheduler seam, compensation discipline (not silent rollback), strong consistency for booking commits, retention class declaration, out-of-band reconciliation jobs.
+
+**DL-15 is the first of many domain DLs that will specialize against DL-16.** Phase C commerce DL (three modes — in-office service POS, e-commerce + retail, hims-like async subscription) will specialize against DL-16. Phase D Rx + labs + notes DL will specialize against DL-16. Future intake-as-CNS-input DL will specialize against DL-16. None will reinvent envelope, partition, or registry — all will specialize against DL-16's universal substrate. DL-15 establishes the pattern.
+
+### Why this ADR exists
+
+The user reframed the architectural roadmap mid-conversation: instead of proceeding directly to Phase 0 (brain hardening adversarial audit) after Phase A.2, the user demanded that **load-bearing domain pillars (scheduling, commerce, Rx writing)** be canonized first. The reasoning was a Tesla analogy: *"how would Tesla design a self-driving car? would they hook up all the road sensors first and then design and harden the CNS?????? or would they hook up 2 sensors (intake and messaging) and wing the CNS??????"* Hardening a CNS against an under-specified scheduling vocabulary would produce a hardened brain reasoning over fragmented event grammar. Better sequence: canonize load-bearing domain primitives first, then audit the hardened brain against fully-defined domain primitives.
+
+Scheduling was selected as the first domain to canonize because it is one of the most operationally + clinically + financially load-bearing pillars: every wedge clinic activates scheduling on Day 0; scheduling couples to deposits + clinical clearance + waitlists + no-show recovery + lifecycle automation + provider availability + room/device capacity; scheduling is the canonical example of multi-resource atomic booking; scheduling carries the canonical adversarial scenario (blood thinners + Botox absolute interrupt).
+
+The original Phase B intent was a single DL-15 commit. Eight rounds of adversarial pressure-test (rounds A-H) surfaced ~30 distinct gaps — but none were scheduling-specific. All applied to every domain emitting events into CNS. The universal patterns were promoted to **DL-16** (landing Phase B Commit 1, ahead of DL-15); the scheduling-specific patterns remained in DL-15 (landing Phase B Commit 2). This ADR documents the DL-15 decision; ADR §7.19 documents DL-16.
+
+### Explicit REJECTED alternatives (with rationale)
+
+- **REJECTED: Scheduling as a Mindbody integration / Calendly clone / generic calendar widget.** Rationale: DL-5 binds Mindbody-class scheduling depth on Day 0 for activated wedge clinics. Generic calendar tools do not handle multi-resource atomicity, clinical clearance gating, deposit coupling, waitlists, jurisdiction. DL-15 invariant 1 binds.
+
+- **REJECTED: Single-resource booking (just provider, ignore room/device/MA).** Rationale: aesthetic medicine + clinical procedures couple provider × room × device × MA × supply atomically. Multi-resource atomic booking per DL-15 invariant 2; partial bookings produce silent dual-booking failure modes at scale.
+
+- **REJECTED: Slot-book without offer → hold → book lifecycle.** Rationale: AI booking proposals + patient self-booking flows + staff phone-bookings need a hold-pending window. Lifecycle binding per DL-15 invariant 3; per-hold-class TTL per DL-15 invariant 4.
+
+- **REJECTED: Silent hold extension.** Rationale: holds released atomically on expiry; re-extension requires explicit audited action per DL-15 invariant 4 + DL-16 invariant 37 (privileged-action discipline).
+
+- **REJECTED: Free-text appointment lifecycle states.** Rationale: 13 enumerated states per DL-15 invariant 5; state-machine validation; illegal transitions emit `illegal_transition_attempted` audit event per DL-16 invariant 38.
+
+- **REJECTED: Reschedule as a single mutation.** Rationale: reschedule = atomic compensation (cancel + book) emitted as a single orchestration_run with linked compensation actions per DL-15 invariant 6 + DL-16 invariant 31. Silent reschedule produces audit-lineage gaps + compensation-discipline gaps.
+
+- **REJECTED: Cancellation policy invented at cancel time.** Rationale: declared per service / provider / location / brand per DL-15 invariant 7; deterministic at cancel time; AI never invents policy locally. Staff override requires capability + reason-coded audit per DL-14 invariant 8 + DL-16 invariant 37.
+
+- **REJECTED: Waitlist as a standalone feature.** Rationale: waitlist promotion is an orchestration_run pathway (offer-sent → response-received → conversion-or-expiry → next-eligible) per DL-15 invariant 8 + 16 + DL-14 invariant 17.
+
+- **REJECTED: Deposit collected post-booking.** Rationale: deposit coupling into booking lifecycle (state 5 `confirmation_pending_deposit`) per DL-15 invariant 9; post-booking deposit produces dual-state failure modes (booked-but-not-paid) at scale.
+
+- **REJECTED: Clinical clearance check optional / bypass-able via confidence / mode opt-in.** Rationale: ABSOLUTE per DL-15 invariant 10 + DL-14 invariant 21 + Guardrail 1. Contraindications (blood thinners + Botox, pregnancy + retinoid, GLP-1 + scheduled surgery, lab-required-before-followup, provider-flagged-hold) BLOCK booking unconditionally. Override requires provider capability + reason-coded audit.
+
+- **REJECTED: Booking trusts last-seen availability.** Rationale: live-state revalidation per DL-15 invariant 11 + DL-16 invariant 24 source-of-truth read. Stale actions transition to `failed_stale` + emit `slot_disappeared_before_execution` outcome event.
+
+- **REJECTED: Cross-jurisdiction booking without exception capability.** Rationale: provider state license + location regulation + brand rules + age-restricted services gate bookings at action emission AND at execution per DL-15 invariant 12 + DL-10. Cross-jurisdiction REJECTED unless explicit exception capability granted.
+
+- **REJECTED: AI as a free-text-chat booking agent that emits actions directly to rails.** Rationale: bounded autopilot per DL-14 invariant 18; AI proposes, deterministic CNS policy validates, scheduler executes. AI NEVER bypasses clinical clearance, live-state revalidation, jurisdiction gating, deposit coupling, concurrency locks, compensation discipline per DL-15 invariants 13 + 14 + 15.
+
+- **REJECTED: Patient text as AI instructions (book me without deposit / book me while on blood thinners).** Rationale: prompt injection defense per DL-15 invariant 15 + DL-14 invariant 20. Patient text is UNTRUSTED data; clinical-cue extraction goes through safety envelope, not booking envelope.
+
+- **REJECTED: Multi-step booking journeys without runs substrate.** Rationale: orchestration_runs binding per DL-15 invariant 16 + DL-14 invariant 17. Multi-step pathways (new-lead → consult → first-Tx → followup; lab-result-required → review → cleared → rebook; no-show → re-engagement → recovery booking; pre-treatment intake → atomization → clearance → booking release) live on `orchestration_runs`.
+
+- **REJECTED: Default cross-brand visibility in federated org.** Rationale: strict isolation default + opt-in permeability per DL-15 invariant 17 + DL-10 + A1 future arc + DL-16 invariant 8.
+
+- **REJECTED: Booking surface that ignores patient profile.** Rationale: patient-profile integration is PROMINENT per DL-15 invariant 18. Booking actions read 16 profile dimensions (past-visit history / preferences / contraindications / membership / balances / no-show history / etc.) for personalization + clinical safety + commercial accuracy. Reads obey DL-16 invariants 7 + 24 + 25 (payload minimization + source-of-truth + impersonation gate).
+
+- **REJECTED: Audit lineage rebuilt from event stream alone.** Rationale: first-class CNS decision records per DL-15 invariant 19 + DL-16 invariants 30 + 33 + 38 (decision-id + context snapshot + tamper-evident audit). Without first-class decision records, replay + medico-legal review + AI debugging are weak.
+
+- **REJECTED: Manual / staff bookings that bypass clinical hard-stops.** Rationale: hard-stops apply regardless of origin per DL-15 invariant 20 + DL-14 invariant 21. Manual reality capture (verbal clearance, walk-in, paper booking) handled per DL-16 invariant 36.
+
+- **REJECTED: AI-side or CNS-side resource locks (reserving slots outside the scheduler executor).** Rationale: scheduler is the arbiter per DL-15 invariant 21 + DL-16 invariant 34. CNS reads outcome events; AI cannot reserve resources outside the executor. Locks managed via optimistic concurrency or aggregate locks at the executor boundary.
+
+- **REJECTED: Scheduling-domain envelope that drifts from DL-16 universal envelope.** Rationale: DL-15 specializes, doesn't deviate, per DL-15 invariant 22 + DL-16 invariant 2. Every scheduling domain event carries the universal envelope.
+
+- **REJECTED: Scheduling actions and events as the same row type.** Rationale: partition binding per DL-15 invariant 23 + DL-16 invariant 3. `booking_action` is an INTENT (orchestration_action); `appointment_booked` is a FACT (domain event). Conflation produces ambiguous downstream routing.
+
+- **REJECTED: Unidirectional scheduler-emits-only seam.** Rationale: bidirectional per DL-15 invariant 24 + DL-16 invariant 4. Scheduler is BOTH producer (events) AND consumer (orchestration_actions). CNS emits orchestration_actions to scheduler to express booking intent; scheduler validates + executes + emits outcome events.
+
+- **REJECTED: Silent revert for incorrect bookings.** Rationale: compensation per DL-15 invariant 25 + DL-16 invariant 31. Patient already saw the confirmation; cure is a NEW message correcting it, not pretending the original never happened.
+
+- **REJECTED: Eventual consistency for booking commits / deposit reservation / clinical clearance.** Rationale: strong consistency per DL-15 invariant 26 + DL-16 invariant 21. Eventual / best-effort acceptable for analytics + telemetry.
+
+- **REJECTED: Uniform retention across scheduling substrate.** Rationale: per-class retention per DL-15 invariant 27 + DL-16 invariant 13. Appointments long retention (medico-legal 7-25 years); holds short retention; telemetry low retention; waitlist medium retention.
+
+- **REJECTED: No reconciliation between projections and canonical state.** Rationale: out-of-band reconciliation per DL-15 invariant 28 + DL-16 invariant 39. Drift > threshold becomes audit-event + operational alert per DL-16 invariant 27 (observability + circuit breakers).
+
+### Specialization-vs-foundation note: DL-15 specializes against DL-16
+
+DL-16 binds the universal grammar (envelope, partition, registry, atomicity, payload, isolation, authorization, idempotency, reliability, temporal, projection, consistency, causality, erasure, AI integrity, identity, saga, observability, environment, governance, audit, reality, routing, concurrency, normalization, retention, reconciliation). DL-15 specializes scheduling-specific applications:
+- DL-15 inv 22 specializes DL-16 inv 2 (envelope for scheduling events).
+- DL-15 inv 23 specializes DL-16 inv 3 (partition for scheduling actions).
+- DL-15 inv 24 specializes DL-16 inv 4 (bidirectional seam for scheduler).
+- DL-15 inv 11 specializes DL-16 inv 24 (live-state revalidation via source-of-truth reads).
+- DL-15 inv 18 specializes DL-16 inv 7 + 24 + 25 (patient-profile reads).
+- DL-15 inv 10 + 14 specialize DL-14 inv 21 (clinical clearance ABSOLUTE interrupt).
+- DL-15 inv 21 specializes DL-16 inv 34 (per-resource concurrency).
+- DL-15 inv 16 specializes DL-14 inv 17 (orchestration_runs for multi-step booking).
+- DL-15 inv 6 + 25 specialize DL-16 inv 31 (compensation discipline).
+- DL-15 inv 19 specializes DL-16 inv 30 + 33 + 38 (decision records + context snapshots + tamper-evident audit).
+- DL-15 inv 20 specializes DL-16 inv 36 + 37 (manual reality capture + privileged-action discipline).
+- DL-15 inv 26 specializes DL-16 inv 21 (consistency tier).
+- DL-15 inv 27 specializes DL-16 inv 13 + 22 (retention + erasure).
+- DL-15 inv 28 specializes DL-16 inv 27 + 39 (observability + reconciliation).
+
+Future commerce DL (Phase C) will specialize against DL-16 similarly (e-commerce → DL-16 inv 18 temporal for subscription renewal windows; commerce → DL-16 inv 26 saga for cross-domain deposit-and-booking coordination; commerce → DL-16 inv 34 concurrency for inventory; etc.). Future Rx + labs + notes DL (Phase D) will specialize against DL-16 + DL-15 (Rx → DL-16 inv 24 source-of-truth reads for clinical decisions; lab → DL-16 inv 18 temporal validity for result effective windows; notes → DL-16 inv 23 AI content validation for provider-attributed notes).
+
+### Admitted-but-deferred items (3) — DL-15 names these explicitly
+
+- **D1. Group scheduling (multi-patient appointments).** Group classes (multi-patient yoga, group counseling, multi-patient consult sessions). Implementation deferred to e1+ build. DL-15 invariant 5 names group scheduling as a valid future state; substrate admits via N-to-1 patient ↔ appointment relationship.
+- **D2. Recurring availability templates + complex blackout patterns.** Provider availability authored as recurring templates + exceptions + sick-days + coverage rotations. Implementation deferred to e1+ build. DL-15 invariant 1 names admission requirement.
+- **D3. Group commerce + package + membership coupling at scheduling time.** Complex member-benefit redemption flows + package-credit consumption + loyalty-tier discount applied at booking. Implementation deferred to Phase C commerce DL.
+
+### Reconciliation pointers
+
+| Artifact | Change |
+|---|---|
+| Doctrine lock | **DL-15 (binding, NEW; 2026-05-13 evening, Phase B Commit 2)** in system map `## Doctrine locks` between DL-14 and DL-16 (numeric ordering DL-14 < DL-15 < DL-16) |
+| MAIN system map | New subsections **§1F.10 — §1F.24** (15 new subsections; §1F.23 patient-profile-integration PROMINENT). Section 1F is the canonical home for DL-15 |
+| Foundational doc binding | §4.B `scheduling_lifecycle/` Reserved Tier row + §8.1 clauses **96-117** (22 new clauses binding DL-15 invariants 1-28) + additional DL-15 cross-cutting sub-disciplines |
+| Companion ADR | This document §7.19 (DL-16 universal foundation against which DL-15 specializes) |
+| Watch zones | Radar zones **132-153** (~22 zones; DL-15 anti-patterns) — Mindbody-lite drift / single-resource booking / no-hold-lifecycle / silent-hold-extension / free-text-states / silent-reschedule / invented-cancellation-policy / standalone-waitlist / post-booking-deposit / bypass-clinical-clearance / trust-last-seen-availability / cross-jurisdiction-without-exception / AI-direct-rail-emission / patient-text-as-instructions / no-runs-for-multi-step / cross-brand-default / no-patient-profile-reads / no-decision-records / manual-bypass-clinical / AI-side-resource-locks / scheduling-envelope-drift / event-action-conflation-scheduling-domain / unidirectional-scheduler-seam / silent-revert / eventual-consistency-for-bookings / uniform-retention / no-reconciliation |
+| Cross-surface reconciliation | Row 1 (scheduling) in [`docs/architecture/cns_taxonomy_reconciliation.md`](cns_taxonomy_reconciliation.md) |
+| Topology | [`docs/architecture/communications_topology.md`](communications_topology.md) — DL-15 cross-references for scheduling↔messaging seam (booking confirmation messaging, no-show recovery messaging, lifecycle suppression during active booking flow) |
+| Evolution narrative | [`docs/architecture/evolution_narrative.md`](evolution_narrative.md) — Act XVI part 2 (DL-15 canonization on top of DL-16 substrate; first domain specialization) |
+| Brain hardening plan | [`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md) — Phase 0 audit scope now includes per-domain DL-16 compliance + DL-15 specialization completeness checks |
+| Phase B plan | [`.cursor/plans/phase_b_scheduling_e2c30269.plan.md`](../../.cursor/plans/phase_b_scheduling_e2c30269.plan.md) — Commit 1 (DL-16) + Commit 2 (DL-15) both landed |
+
+---
+
 ## 7.19 Universal CNS Event Envelope + Taxonomy Evolution (DL-16) (binding — added 2026-05-13 evening, Phase B Commit 1, immediately following Phase A.2)
 
 ### Decision
