@@ -1241,6 +1241,102 @@ These adequacy questions are answered by **Phase 0 of the brain hardening audit*
 
 ---
 
+## 7.19 Universal CNS Event Envelope + Taxonomy Evolution (DL-16) (binding — added 2026-05-13 evening, Phase B Commit 1, immediately following Phase A.2)
+
+### Decision
+
+DL-14 binds *what* the OMNI CNS does (reads a unified event graph; decides multi-actor multi-action; emits via primitive #10 `orchestration_actions`). **DL-16 binds *the grammar* the CNS reads + writes.** Every domain event in OMNI (scheduling, messaging, commerce, intake, labs, Rx, notes, calls, voicemails, fax, external-line, internal collaboration, future) carries a universal envelope (DL-16 invariant 2); partitions cleanly into seven categories (DL-16 invariant 3); registers through a single taxonomy registry with producer + consumer schema contracts (DL-16 invariants 5 + 9 + 29); obeys atomic state-mutation discipline (invariant 6); enforces payload minimization with policy-scoped PHI hydration (invariant 7); is multi-tenant isolated at the event-bus level (invariant 8); checks authorization at emission time (invariant 10); is idempotent at execution time (invariant 11); supports DLQ + manual review (invariant 12); declares retention class (invariant 13); has executor timeout contracts + cross-run correlation (invariants 14 + 15); supports explicit replay safety modes (invariant 16); has executor outcome contracts (invariant 17); models temporal validity with four time fields (invariant 18); declares projection freshness + rebuildability (invariant 19); enforces causality cycle detection + depth limit (invariant 20); declares consistency tier (invariant 21); supports GDPR/CCPA erasure-by-pseudonymization (invariant 22); requires AI content validation before emission (invariant 23); enforces source-of-truth reads for clinical-decision surfaces (invariant 24); gates patient-PHI hydration on identity confidence (invariant 25); rejects cross-domain atomic writes in favor of saga + compensation (invariants 26 + 31); exposes operational observability + circuit breakers (invariant 27); segregates environments (invariant 28); authorizes producers (invariant 29); records first-class CNS decisions (invariant 30); enforces event-granularity routing (invariant 32); preserves context snapshot immutability (invariant 33); coordinates scarce resources via lock discipline (invariant 34); normalizes units/timezone/currency (invariant 35); captures manual operational reality (invariant 36); requires elevated approval for privileged operations (invariant 37); maintains tamper-evident audit (invariant 38); runs out-of-band reconciliation jobs (invariant 39).
+
+DL-16 **39 invariants are mechanically numbered** (per chat round-G request — "do not rely on summary counts; create one explicit numbered list"). Plus 3 admitted-but-deferred items (D1 distributed tracing infrastructure, D2 data residency per tenant, D3 substrate-level deprecation discipline).
+
+DL-16 introduces a new top-level section in MAIN: **§1Z — Universal CNS Event Envelope + Taxonomy.** Section 1Z is the canonical home for the universal envelope + partition + registry + operational disciplines. Cross-surface reconciliation table at `docs/architecture/cns_taxonomy_reconciliation.md` maps ~20 OMNI surfaces × 7 vocabulary categories.
+
+### Why this ADR exists (CORRECTION forced by Phase B scheduling pressure-testing, not new discovery)
+
+DL-16 was forced into existence by the Phase B scheduling pressure-test. The intent of Phase B was to canonize a Mindbody-class scheduling substrate (DL-15). The first attempt proposed a closed list of ~30 scheduling-specific event kinds. That attempt was rejected (by Knox/chat in pressure-test Round A) on the grounds that:
+
+- CNS reads events from ~20 surfaces today and dozens more over time; each surface has its own native event vocabulary.
+- Without a universal envelope, three failure modes appear at scale: (1) CNS context-assembly code has to know N event shapes — quadratic complexity; (2) projections cannot uniformly reason about events; (3) audit / observability / replay cannot share a common spine — every dimension fragments.
+- Domain events and orchestration_actions were being conflated as one row type — distinct row types per DL-14 invariants 16 + 17.
+- The CNS↔domain seam was being framed as unidirectional (scheduler emits to CNS) when it must be bidirectional (CNS also emits orchestration_actions back to scheduler).
+- Distributed-systems guardrails (correlation, causation, atomic state mutation, payload minimization, replayability, authorization, compensation, consistency tiers, GDPR erasure, etc.) were missing from the scheduling-specific proposal — but these are NOT scheduling-specific; they apply to every domain.
+
+Across eight adversarial pressure-test rounds (A through H), ~30 distinct gaps were surfaced. Each round added invariants. By round H the consolidated set was 39 mechanically-numbered invariants spanning foundation / atomicity / execution / replay / consistency / operations / audit / reality / governance / integrity. **All of them were universal — promoted from scheduling-specific to apply to every CNS event consumer + producer.**
+
+DL-16 canonizes the result. If DL-16 had not landed first, DL-15 (scheduling) would have inherited drift from every other domain's ambiguous event vocabulary. Now DL-15 (Commit 2) specializes against DL-16 — the first of many domain DLs that will likewise specialize.
+
+### Explicit REJECTED alternatives (with rationale)
+
+- **REJECTED: Closed event taxonomy (pre-defined finite list of `event_kinds`).** Rationale: OMNI's domain coverage expands over time (Phase C commerce 3-modes, Phase D Rx + labs, future inbound rails, future EMR integrations). A finite event list forecloses extension. DL-16 invariant 1 binds extensibility under registry governance + envelope discipline.
+
+- **REJECTED: Events and `orchestration_actions` as the same row type / same substrate.** Rationale: DL-14 invariants 16 + 17 already establish 6-layer event-sourced + CQRS pattern (event → cns_decision → orchestration_action → projection → attempt → outcome). DL-16 invariant 3 makes the 7-category partition explicit and binding. Conflation REJECTED per DL-16 invariant 3 + radar zone 114.
+
+- **REJECTED: Unidirectional scheduler-emits-to-CNS-only seam (CNS as read-only consumer of scheduling).** Rationale: DL-16 invariant 4 binds bidirectional CNS↔domain seam. CNS emits orchestration_actions back to scheduler (e.g., booking_action, scheduling_hold, reschedule_action) for execution. Domain validates + executes + emits outcome. The pattern generalizes to every domain — messaging, commerce, intake, labs, Rx, notes.
+
+- **REJECTED: Non-atomic state mutation + event emission (write state in one transaction, emit event in another, hope nothing crashes between them).** Rationale: silent state mutation produces CNS world-model drift — CNS sees no event for a state change, AI hallucinates against stale world model. DL-16 invariant 6 binds atomic boundary: event sourcing OR transactional outbox.
+
+- **REJECTED: Events carrying full PHI payloads broadcast across the bus.** Rationale: universal event ingestion ≠ universal PHI broadcast. DL-16 invariant 7 binds payload minimization + policy-scoped hydration. Consumers hydrate PHI per role / capability / relationship scope / jurisdiction / DLP / federation permeability.
+
+- **REJECTED: Cross-tenant event bus without `tenant_id` isolation enforcement.** Rationale: every event carries `tenant_id`; subscribers enforce tenant boundary at subscription + delivery per DL-16 invariant 8. Default = strict isolation; permeability is opt-in per A1 federation arc.
+
+- **REJECTED: Schema changes shipped without registry update + compatibility tests.** Rationale: DL-16 invariants 5 + 9 + 29 bind registry governance + producer/consumer schema contracts + write-time validation. Breaking changes require migration plan + compatibility tests demonstrating active consumers either migrate or accept the break.
+
+- **REJECTED: Action authorization deferred entirely to executor.** Rationale: emission-time authorization (DL-16 invariant 10) prevents unauthorized actions from reaching the queue. Executor's check is the second line of defense, not the only line. AI autonomy + capability + jurisdiction + clinical clearance all checked at both points.
+
+- **REJECTED: Two-phase commit / synchronous distributed transactions across siblings.** Rationale: DL-16 invariant 26 binds cross-domain saga coordination + compensation. Each sibling owns its own write atomicity. Two-phase commit doesn't survive at 2B scale; saga + compensation does.
+
+- **REJECTED: Replay mode confusion (simulation replay accidentally hits live rails).** Rationale: DL-16 invariant 16 binds explicit replay safety modes. Simulation replay is non-emitting by default; operational recovery replay requires explicit authorized mode + idempotency + rail-side duplicate suppression. Mode declared via `environment_context` per invariant 28.
+
+- **REJECTED: Single-timestamp modeling for facts with effective windows.** Rationale: clinical clearance / consent / financial authorization have effective windows. DL-16 invariant 18 binds four time fields: `occurred_at` / `recorded_at` / `effective_at` / `valid_from` + `valid_to`. Single-timestamp REJECTED for window-semantic facts.
+
+- **REJECTED: Projections treated as authority.** Rationale: DL-16 invariant 19 binds projection freshness + rebuildability — a projection is NEVER authority. DL-16 invariant 24 binds source-of-truth reads for clinical-decision surfaces. Projections admit only for navigation / discovery / analytics / non-clinical-decision.
+
+- **REJECTED: Causality cascades without depth limit.** Rationale: DL-16 invariant 20 binds `causation_depth` tracking + threshold rejection (default 8-10; per-action_kind overridable). Prevents cascade-bug-becomes-DDoS-on-patients (reminder → no-response retry → escalation → reschedule offer → ... 200 actions in 5 minutes).
+
+- **REJECTED: GDPR right-to-erasure via physical event deletion.** Rationale: DL-16 invariant 22 binds erasure-by-pseudonymization. Physical event deletion destroys audit causality. HIPAA / clinical / regulatory legal hold supersedes pseudonymization where required.
+
+- **REJECTED: AI generating content referencing actions that did not occur.** Rationale: DL-16 invariant 23 binds AI content validation against canonical substrate before emission. AI cannot draft "your appointment is confirmed for Tuesday at 3pm" when no `appointment_booking_action` resolved successfully.
+
+- **REJECTED: Auto-hydration of PHI for events from unverified handles.** Rationale: DL-16 invariant 25 binds patient impersonation gate. Events from unverified handles get PUBLIC routing context only; PHI access requires identity confidence ≥ L-threshold + audit.
+
+- **REJECTED: Manual operational reality (verbal clearances, walk-ins, paper bookings) lost to CNS.** Rationale: DL-16 invariant 36 binds manual reality capture pathways. CNS cannot assume all reality originated inside OMNI. Capture via manual-event-entry UI, reconciliation jobs, manual-bypass decision records.
+
+- **REJECTED: Single-admin omnipotence over privileged operations.** Rationale: DL-16 invariant 37 binds dual approval + break-glass + auto-time-bound + immediate audit alert + post-action review for privileged operations (rule modification, safety-check disable, mass-pause, cross-tenant access, schema-breaking change, PHI export, mass-erasure, retention class change, audit log inspection, tombstone-mapping access, executor allow-list change, environment-context promotion).
+
+- **REJECTED: Audit log mutable without meta-audit.** Rationale: DL-16 invariant 38 binds tamper-evident audit. Append-only + hash-chained OR immutable storage. Mutations require break-glass + dual approval + meta-audit-event. Without this, every other audit invariant is theater.
+
+- **REJECTED: No periodic reconciliation between projections / executor state / canonical state / event stream.** Rationale: DL-16 invariant 39 binds out-of-band reconciliation jobs. At 2B scale, event delivery is unreliable; trust must be earned through periodic auditable reconciliation, not assumed.
+
+- **REJECTED: Compensation as silent rollback.** Rationale: DL-16 invariant 31 binds compensation discipline. SMS sent is not unsent; lab order placed is not unplaced; deposit charged is not unstrucked. Correction / cancellation / reversal / refund / retraction / supersession / apology-clarification are NEW actions/events with audit, not silent state reverts.
+
+### Specialization-vs-foundation note: DL-16 is universal, DL-15 specializes
+
+DL-16 specializes nothing on its own. It binds the universal grammar that every domain's event vocabulary must obey. **DL-15 (Scheduling Substrate Spine, landing Phase B Commit 2) is the first domain specialization against DL-16** — every scheduling invariant inherits the appropriate DL-16 invariants (e.g., DL-15 inv 22 binds scheduling events to DL-16 invariant 2 envelope; DL-15 inv 23 binds scheduling orchestration_actions to DL-16 invariant 3 partition; DL-15 inv 24 binds scheduler↔CNS bidirectional seam to DL-16 invariant 4).
+
+Future domain DLs will specialize similarly: future commerce DL against DL-16 + DL-15 deposit coupling; future Rx + labs DL against DL-16 + clinical-source-of-truth; future notes DL against DL-16 + four-layer epistemic model. **None will reinvent envelope, partition, or registry.**
+
+### Admitted-but-deferred items (3) — DL-16 names these explicitly
+
+- **D1. Distributed tracing infrastructure (OpenTelemetry-grade or equivalent).** `correlation_id` + `causation_id` in the envelope are theory without runtime tracing tooling. Operational tooling work; deferred to e1+ build. DL-16 names the dependency so future drift is recognized as already-acknowledged debt, not new discovery.
+- **D2. Data residency / sovereignty per tenant.** Canada PHIPA, EU GDPR, US state-level data-residency requirements bind event bus topology + storage location per tenant. Already implicit in DL-10 federation; admitted explicitly here.
+- **D3. Substrate-level deprecation discipline.** Whole-substrate deprecation (not just per-`event_kind` per DL-16 invariant 5) is implicit in DL-12 + Phase A.2 (committed `outbound_jobs` → `orchestration_actions` rename). Admitted explicitly so it is not re-discovered as new doctrine.
+
+### Reconciliation pointers
+
+| Artifact | Change |
+|---|---|
+| Doctrine lock | **DL-16 (binding, NEW; 2026-05-13 evening, Phase B Commit 1)** in system map `## Doctrine locks` after DL-14 |
+| MAIN system map | New top-level section **§1Z — Universal CNS Event Envelope + Taxonomy** (~18 subsections covering envelope, partition, registry, atomicity, PHI, isolation, authorization, idempotency, DLQ, retention, timeouts, correlation, replay, temporal, projections, consistency, causality, erasure, AI validation, source-of-truth, impersonation, saga, observability, environments, producer auth, decision records, compensation, routing, context snapshots, locks, normalization, manual capture, privileged-action, tamper-evident audit, reconciliation, admitted-deferred, rejections, cross-links) |
+| Foundational doc binding | §0 anchor extension (DL-16 commentary block) + §8.1 clauses 66-95 (30 new clauses binding DL-16 invariants 1-39) + additional DL-16 cross-cutting sub-disciplines |
+| Watch zones | Radar zones 114-131 (~18 zones; DL-16 anti-patterns) — closed-taxonomy / event-action-conflation / unidirectional-seam / non-atomic-mutation / PHI-broadcast / cross-tenant-leak / unregistered-schema / executor-only-authorization / two-phase-commit / replay-mode-confusion / single-timestamp / projection-as-authority / unlimited-cascades / physical-event-deletion / AI-hallucinated-action-references / auto-PHI-for-unverified / manual-reality-lost / single-admin-privileged / mutable-audit / no-reconciliation |
+| Companion file | NEW: [`docs/architecture/cns_taxonomy_reconciliation.md`](cns_taxonomy_reconciliation.md) — cross-surface reconciliation table (~20 surfaces × 7 vocabulary categories) |
+| Topology | [`docs/architecture/communications_topology.md`](communications_topology.md) — DL-16 cross-references for messaging-specific event vocabulary inheritance |
+| Evolution narrative | [`docs/architecture/evolution_narrative.md`](evolution_narrative.md) — Act XVI part 1 (DL-16 canonization; forced by Phase B scheduling pressure-test) |
+| Brain hardening plan | [`.cursor/plans/omni_brain_hardening_d1ef429b.plan.md`](../../.cursor/plans/omni_brain_hardening_d1ef429b.plan.md) — Phase 0 will audit per-domain DL-16 compliance (envelope correctness, partition cleanliness, registry coverage, audit completeness) — refreshed in Commit 2 |
+| Phase B plan | [`.cursor/plans/phase_b_scheduling_e2c30269.plan.md`](../../.cursor/plans/phase_b_scheduling_e2c30269.plan.md) — Commit 1 = DL-16, Commit 2 = DL-15; Scope evolution + Pressure-test arcs A-H captured |
+
+---
+
 ## 8. Open implementation choices INTENTIONALLY DEFERRED
 
 The pressure-test deliberately did NOT specify these. Each will be discovered during 4H-pre or 4H-rules-runtime implementation; once discovered, the appropriate map section gets amended (binding map follows code, not the other way around).

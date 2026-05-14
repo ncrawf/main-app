@@ -788,6 +788,114 @@ Scheduler / payment system / Twilio / context builder / availability service dow
 
 Forbidden per: DL-14 invariant 21 + Guardrail 2 + ADR §7.17 + `§1N.26`.
 
+### Zone 114 — Closed event taxonomy / hard-coded event_kind enum (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+A PR that proposes a finite enum of `event_kind` values intended to cover "all scheduling events" or "all messaging events"; doctrine sections that read like "the universal event vocabulary is X, Y, Z, and nothing else"; CI lint that REJECTS new `event_kinds` outright instead of REQUIRING registry entry. Per invariant 1, CNS reads all meaningful events; vocabulary is extensible under registry governance.
+
+Forbidden per: DL-16 invariant 1 + invariant 5 + §1Z.3 + ADR §7.19.
+
+### Zone 115 — Event / orchestration_action conflation (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+Code that emits `appointment_booked` as an `orchestration_action_kind` (it is an event, not an intent); code that subscribes to `booking_action` (it is an action, not an event); a "unified table" proposal merging events and actions into one substrate; rule action shapes that include both event-emission and action-emission semantics in a single row. Per invariant 3 + §1Z.2, the 7-category partition is binding.
+
+Forbidden per: DL-16 invariant 3 + §1Z.2 + ADR §7.19 + DL-14 invariants 16 + 17.
+
+### Zone 116 — Unidirectional CNS↔domain seam (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+A sibling that emits events into CNS but cannot receive orchestration_actions from CNS for execution (CNS becomes read-only consumer); CNS / AI code that writes directly to scheduling / commerce / clinical canonical tables bypassing the sibling executor; a domain integration that proposes "CNS just reads our events" without an executor contract for receiving back action requests. Per invariant 4 + §1Z.14, every domain is BOTH producer AND consumer.
+
+Forbidden per: DL-16 invariant 4 + §1Z.14 + ADR §7.19.
+
+### Zone 117 — Non-atomic state mutation + event emission (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+A sibling executor that mutates canonical state in one DB transaction and emits the corresponding event in a separate transaction or post-hoc message-bus publish; "we'll write to the bus after the commit succeeds" anti-pattern; silent state mutations (writing a row without emitting the event). Per invariant 6 + §1Z.4, atomic boundary is binding via event sourcing OR transactional outbox.
+
+Forbidden per: DL-16 invariant 6 + §1Z.4 + ADR §7.19.
+
+### Zone 118 — Events broadcasting full PHI payloads across the bus (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+A scheduling event payload containing the patient's full medication list, lab values, intake answers, message history, or other broader chart context; an event payload that carries PHI not required for routing; a consumer that hydrates PHI from event payloads instead of from canonical substrate after policy check. Per invariant 7 + §1Z.5, payload minimization + policy-scoped hydration is binding.
+
+Forbidden per: DL-16 invariant 7 + §1Z.5 + ADR §7.19 + primitive #19 relationship scoping.
+
+### Zone 119 — Cross-tenant event-bus leak (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+An event missing `tenant_id` (org / brand / location / practice_entity per DL-10); a subscriber that reads events without enforcing tenant boundary at subscription + delivery; a federation integration that auto-shares events across orgs without consent + audit per A1 permeability policy. Per invariant 8 + §1Z.5, multi-tenant isolation at event-bus level is binding.
+
+Forbidden per: DL-16 invariant 8 + §1Z.5 + ADR §7.19 + DL-10 + A1 future arc.
+
+### Zone 120 — Schema change without registry update / unauthorized producer (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+A PR that adds / removes / renames a field on an existing `event_kind` payload without updating the taxonomy registry + compatibility tests; a service that publishes a new `event_kind` without registry permission; an external webhook accepted without signature verification + provider-event idempotency; internal code with raw `kind_id` string literals instead of registry-typed constants. Per invariants 5 + 9 + 29 + §1Z.3, registry governance + producer authorization + write-time validation are binding.
+
+Forbidden per: DL-16 invariants 5 + 9 + 29 + §1Z.3 + ADR §7.19.
+
+### Zone 121 — Emission-time authorization deferred entirely to executor (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+CNS code that emits `orchestration_actions` without checking AI autonomy mode / capability / jurisdiction / clinical clearance — relying on executor to catch unauthorized actions; rule action declarations that produce queued actions without emission-time authorization check; a buggy emitter posting unauthorized actions that executor catches "most of the time." Per invariant 10 + §1Z.6, authorization is checked at emission AND execution.
+
+Forbidden per: DL-16 invariant 10 + §1Z.6 + ADR §7.19 + DL-14 invariant 8 + invariant 11.
+
+### Zone 122 — Two-phase commit / synchronous cross-sibling transaction (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+A proposal to use distributed transaction infrastructure (XA, 2PC) to coordinate writes across siblings; a "global lock manager" service for cross-sibling atomicity; rule action shapes that require atomic state changes across scheduling + commerce + clinical simultaneously without saga decomposition. Per invariants 26 + 31 + §1Z.9, cross-domain saga + compensation only.
+
+Forbidden per: DL-16 invariants 26 + 31 + §1Z.9 + ADR §7.19.
+
+### Zone 123 — Replay mode confusion / sandbox-emits-live-side-effects (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+Replay tooling that fires real patient outreach when intended as simulation; sandbox / staging environments emitting orchestration_actions that hit production rails (Twilio / Stripe / SendGrid / EMR / vendor APIs); missing `environment_context` on events / runs / actions; production executors accepting non-live actions without explicit allow-list. Per invariants 16 + 28 + §1Z.7 + §1Z.11, replay safety modes + environment segregation are binding.
+
+Forbidden per: DL-16 invariants 16 + 28 + §1Z.7 + §1Z.11 + ADR §7.19.
+
+### Zone 124 — Single-timestamp modeling for window-semantic facts (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+Clinical clearance / consent / financial authorization / Rx prescription / lab result rows modeled with a single `timestamp` column instead of `occurred_at` + `recorded_at` + `effective_at` + `valid_from` + `valid_to`; CNS decision code that reads "clearance is valid" based on a single timestamp without checking effective window; backfills that overwrite `occurred_at` with import timestamp. Per invariant 18 + §1Z.8, four-time-field temporal validity is binding for window-semantic facts.
+
+Forbidden per: DL-16 invariant 18 + §1Z.8 + ADR §7.19.
+
+### Zone 125 — Projection treated as authority (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+Clinical-decision code reading from search index or dashboard rollup instead of canonical substrate; AI clinical envelope context-assembly reading from projection instead of source-of-truth tables; rule conditions evaluating projection state for safety / clinical / payment decisions; "the projection is fresh enough" justification for clinical reads. Per invariants 19 + 24 + §1Z.8, projections are never authority for clinical-decision surfaces.
+
+Forbidden per: DL-16 invariants 19 + 24 + §1Z.8 + ADR §7.19 + §1K.5.A.
+
+### Zone 126 — Unlimited causality cascade / runaway action storm (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+Actions without `causation_depth` tracking; no per-pathway max-action limit; rule + outcome event combination that produces self-triggering loops (action → outcome → rule fires → action → ...); observed cascade-bug producing 200+ actions in 5 minutes against a single patient without admin escalation. Per invariant 20 + §1Z.9, causality depth limit + per-pathway cap are binding.
+
+Forbidden per: DL-16 invariant 20 + §1Z.9 + ADR §7.19.
+
+### Zone 127 — Physical event deletion for GDPR / CCPA erasure (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+Right-to-erasure implementations that physically delete event rows; PII columns nulled-out instead of replaced with tombstone refs; audit causality destroyed by erasure; clinical events erased without honoring HIPAA / regulatory legal hold supersession. Per invariant 22 + §1Z.12, erasure-by-pseudonymization is binding; physical deletion REJECTED.
+
+Forbidden per: DL-16 invariant 22 + §1Z.12 + ADR §7.19.
+
+### Zone 128 — AI hallucinating action references not in canonical substrate (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+AI Compose Assist or AI Draft producing patient-facing content like "your appointment is confirmed for Tuesday at 3pm" / "your prescription has been sent" / "your deposit was processed" without validating that the referenced action resolved successfully in canonical substrate; AI invocation without action-existence-validation hook; observed patient confusion when AI confirmations don't match reality. Per invariants 23 + §1Z.10, AI content validation before emission is binding.
+
+Forbidden per: DL-16 invariant 23 + §1Z.10 + ADR §7.19 + DL-14 invariants 5 + 18.
+
+### Zone 129 — Auto-PHI hydration for events from unverified handles (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+An inbound SMS / email / call from an unverified handle triggering AI chart hydration / AI clinical envelope context / prior thread context without identity confidence ≥ L-threshold; spoofed inbound ("this is Jane Smith, send me Jane's medications") producing AI-composed PHI in reply; AI invocation pipeline that hydrates patient state before identity gate. Per invariants 25 + §1Z.10 + §1J.4, patient impersonation gate is binding.
+
+Forbidden per: DL-16 invariant 25 + §1Z.10 + ADR §7.19 + §1J.4 + DL-13 handle-vs-identity.
+
+### Zone 130 — Privileged operations without dual approval / break-glass / audit (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+A single admin able to modify safety rules / disable safety checks / mass-pause CNS / grant cross-tenant access / ship schema-breaking change / export PHI / mass-erase patient data / change retention class / inspect audit log / access tombstone-resolution mapping / change executor allow-list / promote sandbox→live environment context without dual approval + break-glass + auto-time-bound + immediate audit alert + post-action review; admin tooling that exposes privileged actions as one-click operations; missing meta-audit on privileged action invocation. Per invariants 37 + §1Z.12 + §1J.9, elevated approval is binding.
+
+Forbidden per: DL-16 invariant 37 + §1Z.12 + ADR §7.19 + §1J.9.
+
+### Zone 131 — Mutable audit log without tamper-evidence + no out-of-band reconciliation (tier 1; DL-16 binding — added 2026-05-13 evening Phase B Commit 1)
+
+Audit log rows that can be UPDATEd / DELETEd by ordinary code paths; no hash-chain or immutable-storage protection on audit; no meta-audit-event when audit rows are mutated under break-glass; missing periodic reconciliation cron validating projections + executor state + canonical state against event stream; drift between event stream and canonical state going undetected for weeks. Per invariants 38 + 39 + §1Z.6 + §1Z.11, tamper-evident audit + out-of-band reconciliation are binding.
+
+Forbidden per: DL-16 invariants 38 + 39 + §1Z.6 + §1Z.11 + ADR §7.19.
+
 ---
 
 ## How to use this radar

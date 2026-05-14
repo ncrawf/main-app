@@ -294,6 +294,56 @@ The pressure-test arc has now run a total of **fifteen times** across DL-10 thro
 
 ---
 
+## Act XVI part 1: Universal CNS event envelope + taxonomy evolution — DL-16 (May 13 evening, immediately following Phase A.2)
+
+**This act is a CORRECTION forced by Phase B scheduling pressure-testing, not a new discovery.**
+
+The day Phase A.2 landed (DL-14 invariants 7-22, AI hybrid layer doctrine), the user's energy shifted. The next-best architectural item was not Phase 0 (the brain hardening audit). It was the **load-bearing pillars still undefined**: scheduling, sales/commerce, Rx writing. The exact phrase the user used: *"how are we gonna harden a CNS without understanding scheduling requirements to a high degree first?? how would Tesla design a self-driving car? would they hook up all the road sensors first and then design and harden the CNS?????? or would they hook up 2 sensors (intake and messaging) and wing the CNS?"*
+
+The reframing was right. Phase 0 against an under-specified scheduling vocabulary would have produced a hardened brain reasoning over a fragmented event grammar. Better sequence: canonize Mindbody-class scheduling first (Phase B), then audit the hardened brain against fully-defined domain primitives.
+
+Phase B started with a single intent: canonize **DL-15 — Scheduling Substrate Spine**. The first draft proposed ~30 scheduling-specific event_kinds as a closed list. Knox/chat pressure-tested it in eight rounds (A through H). The findings, in compressed form:
+
+**Round A**: Closed taxonomy rejected. CNS reads events from ~20 surfaces today; dozens more over time. A finite enum forecloses extension. Vocabulary must be extensible under registry governance.
+
+**Round B**: Event / orchestration_action conflation rejected. DL-14 invariants 16 + 17 already establish 6-layer event-sourced + CQRS pattern. The original Phase B draft was treating domain events (CNS inputs) and orchestration_actions (CNS outputs) as one substrate. Partition is binding: 7 categories (domain event / canonical state / orchestration_run / orchestration_action / projection / outcome event / cns_decision).
+
+**Round C**: Unidirectional CNS↔domain seam rejected. The first draft framed scheduling as "scheduler emits events to CNS." Real model: scheduler is BOTH producer (events) AND consumer (orchestration_actions). Every domain integration is bidirectional. The pattern generalizes — messaging, commerce, intake, labs, Rx, notes all follow the same bidirectional seam.
+
+**Round D**: Distributed systems guardrails missing. Causality (correlation_id / causation_id / aggregate_id), atomic state mutation (event sourcing or transactional outbox), payload minimization (PHI hydrated by consumers per policy), replayability (CNS decisions replayable against historical timelines), authorization (producer + emission + execution authentication), compensation (compensating actions, not silent rollback), consistency tiers (strong / eventual / best-effort per event_kind), GDPR/CCPA erasure (pseudonymization, not physical deletion). None of these were scheduling-specific. All applied to every domain.
+
+**Round E**: AI content validation, source-of-truth reads, patient impersonation, saga-only cross-domain, observability + circuit breakers, environment segregation, producer auth, decision records, compensation, granularity routing, context snapshot immutability, lock discipline, unit/value normalization, manual reality capture, privileged-action approval, tamper-evident audit, out-of-band reconciliation. Each added a missing universal guardrail.
+
+**Round F**: Cycle detection (causation_depth limit), consistency tier declaration per event_kind, AI content validation against canonical state before emission, source-of-truth reads for clinical-decision surfaces, unverified-handle PHI gating, cross-domain atomic write rejection.
+
+**Round G**: Math correction. The summary count was wrong (chat's 9 + Opus's 5 + Knox's 7 ≠ 16; it's 21). Mechanically numbered invariant list demanded. Producer authorization + first-class CNS decision records + compensation discipline + event granularity routing + context snapshot immutability + aggregate concurrency / lock discipline + unit/timezone/value normalization + manual reality capture added.
+
+**Round H**: Final additions — operational observability + circuit breakers (event lag / DLQ age / projection staleness / action failure rate / unauthorized event attempts / schema rejection rate; pause/resume by tenant / domain / event_kind / action_kind / rail; emergency safe mode), producer/consumer schema contract governance (registry tracks active producers + consumers + required fields + compatibility class + schema owner + migration plan; breaking changes require migration), environment / sandbox / replay segregation (`environment_context` on every event / run / action / replay / import / executor call; non-production = non-emitting by default; production executors reject non-live actions).
+
+By the end of Round H, the consolidated set was **39 mechanically-numbered invariants** spanning ten thematic clusters: foundation (1-4), envelope + atomicity (5-9), execution + reliability (10-15), replay + temporal + projection (16-19), consistency + causality + erasure (20-22), AI integrity + identity (23-25), saga + observability + environment (26-28), governance + audit (29-30, 37-38), reality + routing + concurrency (31-36), reconciliation (39). Plus 3 admitted-but-deferred items (D1 distributed tracing infrastructure, D2 data residency, D3 substrate-level deprecation).
+
+**What DL-16 is really about**: every domain in OMNI emits events. Without a universal envelope + partition + registry + operational disciplines, every domain reinvents the basics — and every reinvention drifts. DL-14 binds *what* the CNS does. DL-16 binds *the grammar* the CNS reads + writes. DL-15 (Scheduling Substrate Spine, landing Commit 2 of Phase B) will be the first specialization against DL-16. Future commerce (Phase C), Rx + labs (Phase D), notes, intake-events-as-CNS-inputs, etc. all specialize against DL-16. None reinvent envelope, partition, or registry.
+
+DL-16 is canonized in seven places (mirroring the DL-14 pattern):
+
+1. **MAIN system map doctrine locks** — `DL-16` block after DL-14, with all 39 invariants mechanically numbered.
+2. **MAIN system map `§1Z`** — new top-level section (`Universal CNS Event Envelope + Taxonomy`) with ~18 subsections covering envelope / partition / registry / atomicity / PHI hydration / isolation / authorization / idempotency / DLQ / retention / timeouts / correlation / replay / temporal / projections / consistency / causality / erasure / AI validation / source-of-truth / impersonation / saga / observability / environments / producer auth / decision records / compensation / routing / context snapshots / locks / normalization / manual capture / privileged-action / tamper-evident audit / reconciliation / admitted-deferred / rejections / cross-links.
+3. **Foundational doc §0** — anchor extension binding DL-16 commentary; §8.1 clauses 66-95 (30 new clauses binding DL-16 invariants as cross-cutting concerns).
+4. **ADR §7.19** — explicit decision record with 20+ rejected alternatives; specialization-vs-foundation note (DL-16 universal, DL-15 first specialization).
+5. **Pressure-test radar zones 114-131** — 18 new anti-pattern watchzones (closed taxonomy / event-action conflation / unidirectional seam / non-atomic mutation / PHI broadcast / cross-tenant leak / unregistered schema / executor-only authorization / two-phase commit / replay-mode confusion / single-timestamp / projection-as-authority / unlimited cascades / physical-event deletion / AI-hallucinated action references / auto-PHI for unverified / privileged-without-approval / mutable audit + no reconciliation).
+6. **Cross-surface reconciliation table** — new file `docs/architecture/cns_taxonomy_reconciliation.md` mapping ~20 OMNI surfaces × 7 vocabulary categories.
+7. **Phase B plan file** — two-commit sequence (`DL-16` Commit 1, `DL-15` Commit 2) with full scope evolution + pressure-test arcs A-H captured.
+
+**Subordination, not adequacy.** DL-16 binds the universal grammar. It does NOT certify that any existing event substrate today fully implements all 39 invariants. Phase 0 (brain hardening audit) will audit per-domain DL-16 compliance — envelope correctness, partition cleanliness, registry coverage, audit completeness, replay safety, PHI hydration discipline, environment segregation. Phase 1 hardens whatever Phase 0 finds. The discipline is the same as DL-14: canonize the spine first, audit subsystem adequacy second.
+
+What this act is really about: the user's exhaustion at re-articulating universal patterns every time a new domain came up. DL-14 stopped the "OMNI is messaging" drift. DL-16 stops the "every domain reinvents the event basics" drift. Every future domain canonization in OMNI now starts with "specializes DL-16 invariants 1-39 as follows..." instead of re-deriving universal patterns from scratch.
+
+The pressure-test arc has now run **sixteen times** across DL-10 through DL-14 + Phase A + Phase A.2 + Phase B Commit 1 (DL-16). The cycle works. The canonization is real.
+
+DL-15 (Scheduling Substrate Spine) lands next in Phase B Commit 2 — the first domain specialization against DL-16.
+
+---
+
 ## Turning-point realizations (the seven that mattered)
 
 1. **The system map is real.** April 24's checkpoint was the moment the project became a system being modeled, not just a codebase being shipped.
