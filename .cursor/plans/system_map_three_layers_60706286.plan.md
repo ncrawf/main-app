@@ -623,6 +623,16 @@ Booking RPC `appointment_propose` enforces restrictions when the encounter_line 
 
 Booking RPC `appointment_propose` evaluates per-staff availability by matching ALL 4 axes (service ∈ services[] AND venue ∈ venue_ids[] AND requested_time ∈ [start_datetime, end_datetime] AND patient_visibility check). Staff is bookable only if ALL 4 axes match. Build Contract anchor: §3.1 + §6.7.A foundation tier `availability_window` (4-axis) substrate. Compose with amendment 30 (4-axis booking composer reads availability_window during Staff axis evaluation) and amendment 31 (3-component appointment block reads staff_service_assignment for prep/booking/finish time during availability matching).
 
+35. **(Phase 1 hardening 2026-05-17, amendment 7 of 7) Recurring + one-time-override availability composition.** Real staff schedules combine recurring patterns (every Tuesday 9am-5pm at Bloom-Birmingham) with one-time overrides (Tuesday 2026-05-19 sick day; Tuesday 2026-06-02 working until 7pm late; Tuesday 2026-07-14 working at Bloom-Somerset instead). Existing DL-15 does NOT bind how recurring + overrides compose. **Substrate amendment:** `availability_window` extends with:
+- `availability_kind` ENUM (`recurring / one_time_override / blocked_time`)
+  - `recurring`: window has a `recurrence_rule` per RFC 5545 RRULE; generates virtual occurrences at booking-propose time (not pre-materialized rows)
+  - `one_time_override`: window is single occurrence; replaces matching recurring instance for that specific datetime
+  - `blocked_time`: window represents unavailable period (sick day / vacation / training); higher precedence than recurring
+- `parent_recurrence_id` (FK; nullable; populated on overrides that derive from a specific recurring pattern)
+- `override_supersedes_recurring` BOOLEAN — when true on a one_time_override, the override REPLACES the recurring instance for that datetime (e.g., "work Bloom-Somerset Tuesday 06-02 instead of Bloom-Birmingham"); when false, the override is ADDITIVE (e.g., "extra Saturday clinic")
+
+Booking RPC resolves staff availability at `appointment_propose` time by composing in precedence order: (1) `blocked_time` windows (always block) > (2) `one_time_override` windows with `override_supersedes_recurring=true` (replace recurring) > (3) `one_time_override` windows with `override_supersedes_recurring=false` (additive) > (4) `recurring` window virtual occurrences. Resource lock during booking captures specific resolved `availability_window_id` for audit + reconciliation per inv 28. Build Contract anchor: §3.1 #13 blocked time / time-off / sick day + §5.11 provider sick-day cascade scenario + §6.7.A foundation tier `availability_window` 4-axis substrate. Compose with amendment 34 (4-axis primitive — recurrence_rule is the When axis; override + blocked_time integrate within When axis evaluation).
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.
