@@ -612,6 +612,17 @@ The **output-source taxonomy** (binding enum for every diagnostic / procedural r
 
 Booking RPC `appointment_propose` enforces restrictions when the encounter_line carries a pricing_option redemption. REJECTED with reason_code per restriction (e.g., `pricing_option_max_sessions_exceeded`, `pricing_option_consecutive_day_blocked`). Build Contract anchor: §3.4 #47 Pricing Option 4-type taxonomy + §3.1 #1 4-axis composer (scheduling_restrictions compose during booking validation as a 5th rule-check pass after axis availability). Cross-link future Commerce DL pricing_option substrate (this DL-15 invariant binds the SCHEDULING-side enforcement; commerce primitive is Commerce DL territory).
 
+34. **(Phase 1 hardening 2026-05-17, amendment 6 of 7) Staff Availability Window 4-axis primitive (What / Where / When / Other-Privacy).** Mindbody Batch 15 evidence + Layer 2 D.3 surface 4 distinct dimensions of staff availability that compose at booking time. Existing DL-15 implies availability_window but does NOT enumerate the 4 axes. **Substrate amendment:** `availability_window` substrate with 4 axis groups:
+- **What** (`services[]` ARRAY FK to staff_service_assignment): subset of services this window admits. May be ALL services (`*`) or specific list. E.g., "Provider C available for telemedicine consults only during evening window."
+- **Where** (`venue_ids[]` ARRAY FK to venue): subset of venues this window admits. Critical for multi-location staff (e.g., "Provider rotates Mondays Bloom-Birmingham + Tuesdays Bloom-Somerset"). For pure-Hims provider (no physical clinic): `venue_ids = [virtual_venue_id]`.
+- **When** (`start_datetime` + `end_datetime` + optional `recurrence_rule` per RFC 5545 RRULE syntax): the time range. May be single window or recurring per recurrence_rule.
+- **Other / Privacy** group (3 sub-fields):
+  - `booking_visibility` ENUM (`public / staff_only / private_admin_only`) — controls who can see this window
+  - `patient_visibility` ENUM (`visible_to_patients / not_visible`) — controls whether window appears in patient self-booking UI
+  - `auto_release_unbooked` BOOLEAN — if true and window unbooked at start_datetime, release for waitlist promotion
+
+Booking RPC `appointment_propose` evaluates per-staff availability by matching ALL 4 axes (service ∈ services[] AND venue ∈ venue_ids[] AND requested_time ∈ [start_datetime, end_datetime] AND patient_visibility check). Staff is bookable only if ALL 4 axes match. Build Contract anchor: §3.1 + §6.7.A foundation tier `availability_window` (4-axis) substrate. Compose with amendment 30 (4-axis booking composer reads availability_window during Staff axis evaluation) and amendment 31 (3-component appointment block reads staff_service_assignment for prep/booking/finish time during availability matching).
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.
