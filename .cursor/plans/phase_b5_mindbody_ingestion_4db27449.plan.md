@@ -14,22 +14,22 @@ todos:
     status: completed
   - id: agent_cleanup_pass
     content: "AGENT: cleanup pass (preserve everything). Move 49 ' 2.PNG' duplicate screenshots to .cursor/plans/ingestion/mindbody/screenshots/_duplicates/ (do not delete). Move Pasted text (4).txt + Pasted text (6).txt out of screenshots/ and rename to mindbody_settings_room_requirements_raw.md + mindbody_settings_class_course_options_raw.md with frozen-ingest headers. Commit + push cleanup."
-    status: pending
+    status: completed
   - id: agent_build_manifest
     content: "AGENT: build .cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md (master index). Columns: screenshot filename, screen title (inferred from content), feature area, raw capture file it lands in, chat sections referencing it, mobile/desktop indicator, batch number, ingestion status. This is the durable index Layer 2 and future contributors traverse to find granularity. Commit + push manifest scaffold."
-    status: pending
+    status: completed
   - id: agent_chat_navigation_map
     content: "AGENT: read chat transcript in offset/limit passes to build a navigation map at .cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md (line ranges per topic / per Knox-takeaway-batch / per screenshot batch user dropped). Preserves chat granularity without summarizing — just indexes it. Commit + push."
-    status: pending
+    status: completed
   - id: agent_raw_capture_batches
-    content: "AGENT: ingest screenshots in feature-area batches (~5-10 per pass). Per-area raw capture files at .cursor/plans/ingestion/mindbody/mindbody_NN_<area>_raw.md (likely areas: dashboard / appointments-grid / appointments-detail / rooms / check-in / clients / pos-checkout / insights / marketing / services-products-catalog / staff-rbac / settings-feature-flags / memberships-packages / waitlist / mobile / notifications / reports / billing / privacy-audit / etc.). Per-screen capture follows Hims [Step NN] convention: filename + visible text content + UI elements + settings exposed + visual markers. Cross-reference each screen to chat navigation map line ranges where it was discussed. Update manifest after each batch. Commit + push per batch."
-    status: pending
+    content: "AGENT: ingest screenshots in feature-area batches (~5-10 per pass). 163 of 163 (100%) COMPLETED across 17 raw capture files (mindbody_04 through mindbody_21) over 3 threads (Batch 4 thread 1; Batches 5-10 thread 2; Batches 11-21 thread 3). 185+ cumulative findings encoded."
+    status: completed
   - id: agent_layer2_synthesis
-    content: "AGENT: produce .cursor/plans/designs/2026-05-15_mindbody_architecture_understanding.md with Sections A-M: A entity model + B event vocabulary + C configuration surface (domain-scoped settings architecture) + D operational depth + E user's 9 gaps with architectural root causes + F coverage matrix (Mindbody concept -> OMNI doctrine bucket) + G refined doctrine sharpening scope (DL-15 amendments + new commerce/RBAC/settings DL drafts) + H refined substrate slice scope + I OMNI competitive moats + J cross-domain implications (features that inform commerce Phase C / Rx-labs Phase D / RBAC / settings infrastructure / CRM / marketing engine) + K industry analogy insights (CPU/RAM / airports / Amazon / Ford assembly line / restaurant POS applied to scheduling) + L multi-modality + scaling vision (medspa Day 0 -> sleep labs / cardio / endocrine / plastics / $10k/mo SaaS) + M mobile vs desktop UX distinction. Cite specific raw capture file + manifest row + chat navigation map line range for every claim. Commit + push."
-    status: pending
+    content: "AGENT: Layer 2 synthesis COMPLETED at .cursor/plans/designs/2026-05-16_mindbody_architecture_understanding.md (commit 780e523). 13 sections A-M; 185+ findings cited back to raw layer + manifest + chat nav map. Open questions Q1-Q5 SHELVED for Phase B.5+ doctrine sharpening."
+    status: completed
   - id: agent_plan_integration
-    content: "AGENT: update existing canonical plans with Phase B.5 outputs. omni_brain_hardening_d1ef429b.plan.md inserts Phase B.5 between Phase B and Phase 0 (already partially reflected); add cross-references from system_map_three_layers / FOUNDATIONAL_ARCHITECTURE / evolution_narrative / radar / topology to the new Layer 2 doc + manifest. Commit + push."
-    status: pending
+    content: "AGENT: plan integration COMPLETED (commit dc6c170). 7 canonical plans updated with Phase B.5 cross-references: omni_brain_hardening / FOUNDATIONAL_ARCHITECTURE / system_map / FUTURE_ARC_federation / evolution_narrative / v1_pressure_test_radar / communications_topology."
+    status: completed
   - id: review_layer2
     content: USER + Knox review Layer 2 + manifest + raw captures; iterate or proceed to doctrine sharpening + substrate slice phase
     status: pending
