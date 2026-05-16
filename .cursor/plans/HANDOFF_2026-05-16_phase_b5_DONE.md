@@ -30,8 +30,8 @@
    - Desktop area: `mindbody_11` through `mindbody_16` (Batches 11-16, thread 3 — completion of cockpit + service catalog editor + pricing options + retail + staff admin + settings master surface)
    - Mobile area: `mindbody_17` through `mindbody_21` (Batches 17-21, thread 3 — full mobile iOS Business app)
 
-5. **Step 0.5 supplemental dump** (post-Batch-4 OMNI direction conversation):
-   [`mindbody_to_omni_direction_raw.md`](ingestion/mindbody/mindbody_to_omni_direction_raw.md) — verbatim 6-exchange Knox + user direction with explicit Q1 shelve.
+5. **OMNI direction supplemental sessions** (verbatim Knox/chat ↔ user conversations):
+   [`mindbody_to_omni_direction_raw.md`](ingestion/mindbody/mindbody_to_omni_direction_raw.md) — Session 1 (Turn 1-6, post-Batch-4, with explicit Q1 shelve) + Session 2 (Turn 1-30, post-Phase-B.5-DONE scheduler-builder progressive discussion, REFERENCE / IDEAS only). Session 2 EXPANDS Q1 + Q2 understanding and surfaces Q6-Q14 (Care Episode parent / Encounter-vs-Interaction boundary / Planned-vs-Performed substrate / 3-lane source-of-truth / 4-tier provider authorship + attestation / Visit Closeout drawer 7 lanes / 11-axis location taxonomy / false-equivalence audit meta-principle / clinical-media-intake-consent separate substrates). **Per Knox + user joint discipline: Session 2 is REFERENCE / IDEAS, NOT truth, NOT build plan, NOT doctrine.** Q1 remains SHELVED. Session 2 implications fold at Phase B.5+ doctrine sharpening, NOT by retroactively rewriting Layer 2.
 
 6. **User feedback raw** (9 gaps — feeds Layer 2 Section E):
    [`mindbody_user_feedback_raw.md`](ingestion/mindbody/mindbody_user_feedback_raw.md)
