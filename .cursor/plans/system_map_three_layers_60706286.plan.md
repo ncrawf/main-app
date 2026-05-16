@@ -603,6 +603,15 @@ The **output-source taxonomy** (binding enum for every diagnostic / procedural r
 
 `service_type='class'` and `'course'` are Day 0 substrate-only (per Day 0 Build Contract §4 R1 REJECTED Day 0 UI; substrate admits future activation if OMNI scales to group classes). `service_type='membership'` is the substrate linkage placeholder; commerce primitives live in future Commerce DL (per Build Contract §4 R13 Memberships-as-service-row REJECTED — membership IS commerce, service_type column is the integration anchor). Build Contract anchor: §3.1 + §4 R1 + §4 R13 + future Commerce DL draft.
 
+33. **(Phase 1 hardening 2026-05-17, amendment 5 of 7) 5 Scheduling Restrictions on Pricing Options.** Mindbody pricing options carry 5 distinct scheduling restrictions surfaced in Batch 13 Step 9 evidence + Layer 2. These restrictions gate WHICH appointments may consume a pricing option entitlement at booking time. **Substrate amendment:** `pricing_option_scheduling_restrictions` substrate (1-to-1 with pricing_option), 5 fields:
+- `max_sessions_per_period` (NUMERIC + period_unit ENUM(day/week/month/quarter/year); e.g., max 4 Botox visits per year per patient under this pricing option)
+- `disallow_consecutive_days` (BOOLEAN; e.g., LHR pricing option blocks booking on consecutive days)
+- `daily_max_count` (NUMERIC; e.g., max 1 facial per day per patient under this pricing option)
+- `day_of_month_scheduling_opens` (NUMERIC 1-31; e.g., new-month bookings open only on or after the 1st of the month)
+- `time_access_window` (start_time + end_time per day allowed; e.g., only weekday daytime; per-day-of-week schedule)
+
+Booking RPC `appointment_propose` enforces restrictions when the encounter_line carries a pricing_option redemption. REJECTED with reason_code per restriction (e.g., `pricing_option_max_sessions_exceeded`, `pricing_option_consecutive_day_blocked`). Build Contract anchor: §3.4 #47 Pricing Option 4-type taxonomy + §3.1 #1 4-axis composer (scheduling_restrictions compose during booking validation as a 5th rule-check pass after axis availability). Cross-link future Commerce DL pricing_option substrate (this DL-15 invariant binds the SCHEDULING-side enforcement; commerce primitive is Commerce DL territory).
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.
