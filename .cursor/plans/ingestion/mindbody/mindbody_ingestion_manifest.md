@@ -160,11 +160,11 @@ References [mindbody_chat_navigation_map.md](mindbody_chat_navigation_map.md) (b
 | 47 | `IMG_9168.PNG` | mobile | TBD | TBD | TBD | TBD | TBD | PENDING |
 | 48 | `IMG_9169.PNG` | mobile | TBD | TBD | TBD | TBD | TBD | PENDING |
 | 49 | `IMG_9170.PNG` | mobile | TBD | TBD | TBD | TBD | TBD | PENDING |
-| 50 | `Screen Shot 2026-05-13 at 11.42.37 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
-| 51 | `Screen Shot 2026-05-13 at 11.43.23 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
-| 52 | `Screen Shot 2026-05-13 at 11.43.47 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
-| 53 | `Screen Shot 2026-05-13 at 11.44.26 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
-| 54 | `Screen Shot 2026-05-13 at 11.44.49 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
+| 50 | `Screen Shot 2026-05-13 at 11.42.37 PM.png` | desktop | dashboard | Mindbody Dashboard — Insights snapshot home | mindbody_04_dashboard_and_appointments_grid_raw.md | pre-marker + marker 1 (lines 1-700) | 4 | COMPLETED |
+| 51 | `Screen Shot 2026-05-13 at 11.43.23 PM.png` | desktop | appointments_grid | Appointments — Week view (single-provider filter, Crawford Dr. Nicholas) | mindbody_04_dashboard_and_appointments_grid_raw.md | pre-marker bucket 1 + marker 1 (lines 240-700) | 4 | COMPLETED |
+| 52 | `Screen Shot 2026-05-13 at 11.43.47 PM.png` | desktop | appointments_grid | Appointments — Day view (multi-provider team, 8 columns) | mindbody_04_dashboard_and_appointments_grid_raw.md | pre-marker buckets 1+2 + marker 1 (lines 240-700) | 4 | COMPLETED |
+| 53 | `Screen Shot 2026-05-13 at 11.44.26 PM.png` | desktop | appointments_grid | Appointments — Day view zoomed (focused on appointment cards + status badges) | mindbody_04_dashboard_and_appointments_grid_raw.md | pre-marker buckets 1+2 + marker 1 (lines 240-700) | 4 | COMPLETED |
+| 54 | `Screen Shot 2026-05-13 at 11.44.49 PM.png` | desktop | appointments_admin_menu | Appointments — "More" admin menu opened (5 admin actions + 2 view prefs) | mindbody_04_dashboard_and_appointments_grid_raw.md | marker 14 (line 27597, Appointment Options page deep-dive) | 4 | COMPLETED |
 | 55 | `Screen Shot 2026-05-13 at 11.45.04 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
 | 56 | `Screen Shot 2026-05-13 at 11.45.23 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
 | 57 | `Screen Shot 2026-05-13 at 11.45.35 PM.png` | desktop | TBD | TBD | TBD | TBD | TBD | PENDING |
