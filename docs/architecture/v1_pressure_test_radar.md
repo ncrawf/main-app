@@ -6,6 +6,8 @@ Most of these are not problems yet. They become dangerous when multiple independ
 
 This is not the system map. It is not an ADR. It does not introduce new architecture. When a zone here actually surfaces in production work, write a focused ADR or amend the system map; do not expand this file.
 
+> **Phase B.5 update (2026-05-16):** Mindbody reality ingestion landed Layer 2 at [`.cursor/plans/designs/2026-05-16_mindbody_architecture_understanding.md`](../../.cursor/plans/designs/2026-05-16_mindbody_architecture_understanding.md). Layer 2 Section I (OMNI competitive moats — 9 enumerated) + Section J (cross-domain implications — 9 integration boundaries) surface new pressure-test zones that may warrant future radar entries: clinical-grade structured commerce (gap #2 Botox 7-tier workaround substrate elimination), 4-axis booking composer (gap #1 substrate enforcement), encounter container architecture (Q1 OPEN), 2-layer capability model composition (per-brand × per-staff), 12+ commerce primitive substrate scope (Phase C territory), and ~100+ settings sub-pages substrate (settings-as-OS pattern). Raw ingestion at [`.cursor/plans/ingestion/mindbody/`](../../.cursor/plans/ingestion/mindbody/) is the durable archive. **Q1 encounter container architecture is SHELVED** per [mindbody_open_questions_raw.md](../../.cursor/plans/ingestion/mindbody/mindbody_open_questions_raw.md).
+
 ---
 
 ## How to read this

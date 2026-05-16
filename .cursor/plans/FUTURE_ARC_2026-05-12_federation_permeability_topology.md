@@ -11,6 +11,8 @@
 - [FUTURE_ARC_2026-05-12_phi_surface_governance.md](FUTURE_ARC_2026-05-12_phi_surface_governance.md) (A3)
 - [PREFLIGHT_2026-05-12_phase_4h_external_line_e1_execution_substrate_adapter_inbox.md](PREFLIGHT_2026-05-12_phase_4h_external_line_e1_execution_substrate_adapter_inbox.md) (e1 §26 cross-reference origin)
 
+**Phase B.5 (2026-05-16) cross-reference:** Mindbody reality ingestion Layer 2 at [`designs/2026-05-16_mindbody_architecture_understanding.md`](designs/2026-05-16_mindbody_architecture_understanding.md) Section A.2 confirms Mindbody's **3 concentric identity scopes** (User / Site / Owner) with multi-site switcher substrate — concrete topology-mode evidence for the 5+ topology mode enumeration in §1 below. Section C.10 (Q5 capability flags per brand/clinic mapping to OMNI capability layer) is the explicit topology-mode capability question. Section J.9 (Identity / Auth federation) maps Mindbody's separable login (Remove login soft-disable preserving staff record for audit) substrate.
+
 ---
 
 ## §1 Premise

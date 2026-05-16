@@ -95,6 +95,26 @@ No e1 implementation, no Phase 0 audit, no R-arc continuation until Phase A is l
 
 This canonical framing must be carried into Phase A edits verbatim and referenced (not paraphrased) by Phase 0 and all downstream work.
 
+## Phase B.5 — Mindbody Reality Ingestion (COMPLETED 2026-05-16)
+
+Inserted between Phase B (DL-15 + DL-16 canonized) and Phase 0 (adversarial brain audit). Ingests 163 Mindbody screenshots + 27,982-line Knox chat + Step 0.5 OMNI-direction supplemental dump into a 17-file raw layer + manifest + chat nav map + Layer 2 synthesis. Per Knox direction (binding): preserve everything; raw ingestion files frozen; commit per batch.
+
+**Outputs (durable):**
+- Master plan: [phase_b5_mindbody_ingestion_4db27449.plan.md](./phase_b5_mindbody_ingestion_4db27449.plan.md)
+- Raw ingestion layer: [.cursor/plans/ingestion/mindbody/](./ingestion/mindbody/) — 17 raw capture files (mindbody_04 through mindbody_21) + manifest (163 rows COMPLETED) + chat nav map + 5 supplemental files
+- Manifest: [mindbody_ingestion_manifest.md](./ingestion/mindbody/mindbody_ingestion_manifest.md)
+- **Layer 2 synthesis: [.cursor/plans/designs/2026-05-16_mindbody_architecture_understanding.md](./designs/2026-05-16_mindbody_architecture_understanding.md)** — 13 sections A-M with 185+ findings cited back to raw layer
+- Open questions log: [mindbody_open_questions_raw.md](./ingestion/mindbody/mindbody_open_questions_raw.md) — Q1-Q5 SHELVED for Phase B.5+ doctrine sharpening
+- Step 0.5 OMNI direction: [mindbody_to_omni_direction_raw.md](./ingestion/mindbody/mindbody_to_omni_direction_raw.md)
+
+**Resolved into doctrine sharpening scope (Layer 2 Sections G + H):**
+- DL-15 amendments needed (7 amendments enumerated)
+- DL-16 amendments needed (4 amendments enumerated)
+- 4 new DLs to draft (Commerce DL / Settings-Infrastructure DL / RBAC DL / Clinical-Coding DL)
+- Substrate slice scope: ~40 substrate tables enumerated for Day 0
+
+**Phase B.5+ doctrine sharpening:** sequenced AFTER Phase 0 brain audit. DL amendments + new DL drafts use Layer 2 Section G as the authoritative scope spec.
+
 ## Four phases + five checkpoints
 
 ```mermaid
