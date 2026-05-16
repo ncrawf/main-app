@@ -100,10 +100,12 @@ References [mindbody_chat_navigation_map.md](mindbody_chat_navigation_map.md) (b
 
 | Filename | Lines | Bytes | Source |
 |---|---|---|---|
-| [mindbody_knox_chat_raw.md](mindbody_knox_chat_raw.md) | 30,627 | ~1.0 MB | User ↔ Knox chat transcript (full back-and-forth) |
+| [mindbody_knox_chat_raw.md](mindbody_knox_chat_raw.md) | 27,983 (v2 clean) | ~845 KB | User ↔ Knox chat transcript (full back-and-forth, v2 clean — v1 with copy-paste duplication archived at `mindbody_knox_chat_raw_v1_with_duplicates_preserved.md`) |
 | [mindbody_user_feedback_raw.md](mindbody_user_feedback_raw.md) | 62 | 7.5 KB | User's 9-gap feedback + meta-framing |
 | [mindbody_settings_room_requirements_raw.md](mindbody_settings_room_requirements_raw.md) | ~146 | ~15 KB | Mindbody "Room Requirements" settings page (132-service × room matrix; verbatim text from Pasted text (4).txt with frozen-ingest header) |
 | [mindbody_settings_class_course_options_raw.md](mindbody_settings_class_course_options_raw.md) | ~196 | ~13 KB | Mindbody "Class and Course Options" settings page (~89 numbered settings; verbatim text from Pasted text (6).txt with frozen-ingest header) |
+| [mindbody_to_omni_direction_raw.md](mindbody_to_omni_direction_raw.md) | 321 | 20 KB | Step 0.5 supplemental — user ↔ chat/Knox 6-exchange OMNI scheduling design pressure-test session 1, dated 2026-05-16 (~midnight). Verbatim. Status: shelved — encounter container architecture explicitly deferred to Layer 2 + Phase B.5+ doctrine sharpening per Knox + user joint direction. |
+| [mindbody_open_questions_raw.md](mindbody_open_questions_raw.md) | 199 | 16 KB | Step 0.5 supplemental gap log extracted from `mindbody_to_omni_direction_raw.md` — 5 indexed open architectural questions (Q1 encounter container architecture; Q2 8 pressure-test scenarios; Q3 4-entity split validity; Q4 mode-per-service-line vs flat appointment_type; Q5 capability flags mapping). Status: all OPEN, no resolution during Phase B.5. |
 
 ---
 
