@@ -529,9 +529,13 @@ T+14d: CNS-scheduled SMS fires: "Time for your 2-week tox check. Schedule here: 
 T+30d: Rebook follow-up if patient hasn't rebooked
 ```
 
-**Substrate primitives touched:** appointment + encounter + planned_intent_line + performed_intervention_line + consent_line + commerce_order + commerce_order_line + payment_attempt + provider_note + clinical_media (if photos) + orchestration_actions (5+: confirmation / reminder / aftercare / 2d-follow-up / 2wk-toxcheck / rebook-30d) + cns_decisions
+**Substrate primitives touched:** appointment + encounter + planned_intent_line + performed_intervention_line + consent_line + commerce_order + commerce_order_line + payment_attempt + provider_note + clinical_media (if photos) + orchestration_actions (5+: confirmation / reminder / aftercare / 2d-follow-up / 2wk-toxcheck / rebook-30d) + cns_decisions + attribution_line (Amber as performer + checkout_staff)
 
-**Why OMNI handles this better than Mindbody:** chairside drawer eliminates verbal hallway handoff; substrate-derived charge_line eliminates front-desk-translation error; provider attestation lives on performed_line not on appointment; receipt projection doesn't corrupt clinical note granularity.
+**Smart-drawer UX requirement (per Knox Session 2 Turn 24 + user direction):** The chairside drawer MUST be contextually preloaded from: today's appointment + scheduled provider's favorite presets + service template (Botox unit map / SkinPen areas / Laser checklist) + patient package context + patient prior treatments + room/device context + planned intent. **Generic 400-item catalog search is REJECTED UX failure mode.** Provider should see "Common for this visit: Botox units / Dysport units / Lip filler syringe / Add-on options" preloaded — NOT a search bar with full catalog.
+
+**Day 0 tier-2 acceptable path (per Knox + user direction 2026-05-17):** If provider does not enter chairside (workflow shock / time pressure / next room), MA or trained staff can DRAFT the performed_intervention_line. Status `authorship_state='staff_drafted'` + `attestation_state='pending'`. Checkout proceeds; provider attests at end of visit / end of day / chart-close timer. NOT a hard bottleneck Day 0 (per §6.14 Q10 recommendation).
+
+**Why OMNI handles this better than Mindbody:** chairside drawer eliminates verbal hallway handoff (when provider uses it); staff-drafted-pending-attestation eliminates verbal hallway handoff (when provider doesn't); substrate-derived charge_line eliminates front-desk-translation error; provider attestation lives on performed_line not on appointment; receipt projection doesn't corrupt clinical note granularity; ATTRIBUTION_LINE captures performer / checkout_staff at line level (Day 0 substrate; commission UI Month 1-2).
 
 ## 5.2 Laser hair removal — package visit 1-of-3 (resource_only_session variant)
 
@@ -557,7 +561,7 @@ T+1d:  CNS-scheduled SMS: aftercare instructions
 T+30d: CNS-scheduled SMS: time for session 5
 ```
 
-**Critical:** drawer is CONTEXTUAL (preloads package + session + planned areas). NOT a generic 400-item catalog search. Knox Session 2 Turn 24.
+**Critical:** drawer is CONTEXTUAL (preloads package + session + planned areas + device + room + provider favorites). NOT a generic 400-item catalog search. Knox Session 2 Turn 24 + user direction 2026-05-17. Per Bloom catalog, Day 0 ships ~3 service-specific drawer templates (Botox / SkinPen / Laser); Month 1-2 expands to ~20+ templates covering full Bloom catalog.
 
 ## 5.3 Mole-check pivots to Botox + GLP-1 refill (multi-episode-per-encounter)
 
@@ -672,26 +676,46 @@ T+90d: 3-month check-in: lab requirement (if clinic policy) → CNS sends lab ki
 
 **This is Hims.** OMNI does Hims with MORE clinical structure than Hims itself (per Knox Session 2 Turn 16).
 
-## 5.5 Video visit (scheduled + ad-hoc variants)
+## 5.5 Video visit (multi-initiator Day 0; ad-hoc Month 6)
+
+Per user direction 2026-05-17 Q20: Hims-style patient ALWAYS has option to schedule video / in-clinic. "Schedule video call now" affordance on patient portal Day 0. Multiple initiators first-class.
 
 ```
-SCHEDULED VARIANT:
-T-3d:  Patient books video visit → appointment(profile=video_visit, scheduled_provider_id=Dr. Smith)
-       → encounter created
+PATIENT-INITIATED SCHEDULED VIDEO (Day 0 affordance for Hims-hybrid patient):
+T-3d:  Hims-style patient (no physical clinic visit history) logs into portal
+       Patient clicks "Schedule video call now"
+       → portal shows available slots on Provider C's calendar
+       Patient picks Tuesday 2pm
+       → appointment(profile=video_visit, scheduled_provider_id=C, booking_initiator='patient')
+       → encounter created (venue.virtual_flag=true, provider_schedule_location=C's_calendar, patient_state_jurisdiction=patient.state)
        → video_session created (vendor_adapter=zoom_video_sdk, join_link generated, no room_id)
-       → CNS sends SMS with link "Click here at 2pm"
+       → CNS sends SMS with link "See you Tuesday at 2pm, click here at 2pm"
 T-1h:  Reminder + link re-send
 T-0:   Patient clicks link → joins video room → video_started event
-       Provider clicks "Start" → video_started event from provider side
+       Provider C clicks "Start" → video_started event from provider side
        Bidirectional video active
 T+25m: Visit concludes → video_completed event
        Provider opens performed_intervention drawer → records what was done
-       performed_intervention_line(virtual_visit_completed, decisions_made=[...])
+       performed_intervention_line(virtual_visit_completed, decisions_made=[...], rx_order_id=...)
 T+30m: Provider signs note → note_signed
-       Charge line auto-generates if billable
+       Charge line auto-generates if billable (subscription billing if Hims membership)
 
-AD-HOC VARIANT (provider initiates from patient profile):
-T+0:   Patient sends message: "Can we hop on a quick call?"
+PROVIDER-INITIATED SCHEDULED VIDEO (Day 0):
+       Provider in queue sees patient needing follow-up
+       Provider clicks "Schedule video visit" from patient profile
+       → patient gets SMS with slot options OR notification with proposed time
+       Patient confirms → appointment booked
+       (same downstream flow)
+
+CNS-SUGGESTED SCHEDULED VIDEO (Day 0):
+       Care episode follow-up cadence fires (e.g., GLP-1 30-day check-in)
+       → CNS emits orchestration_action(suggest_appointment_to_patient, profile=video_visit, suggested_slots=[...])
+       → patient gets SMS "Time for your monthly check-in. Tap to schedule: [link]"
+       Patient picks slot or replies with preferred time
+       → appointment booked (booking_initiator='patient_via_cns_suggestion')
+
+AD-HOC PROVIDER-INITIATED (Month 6 UX; substrate Day 0):
+       Patient sends inbound message: "Can we hop on a quick call?"
        Provider opens patient profile, clicks "Start video call now"
        → video_session(no_appointment_id, no_encounter_id, ad_hoc=true, initiator=provider)
        → CNS sends link SMS to patient
@@ -702,8 +726,11 @@ T+10m: video_completed
 
 **Substrate criticality:**
 - `video_session` has `encounter_id` nullable (admits ad-hoc).
+- `appointment.booking_initiator` enum: `patient / provider / staff / cns_suggestion` per Q4+Q20.
 - Zoom is rail. OMNI owns video_session state. Per DL-13.
 - Ad-hoc → async_review encounter promotion is CNS-decision-driven, not automatic. Per Q7 + Q20.
+- Day 0 affordances: patient portal "Schedule video visit" / provider quick-book / CNS-suggested slot.
+- Ad-hoc-from-message-thread provider-initiated UX is Month 6 (substrate Day 0).
 
 ## 5.6 Red light therapy (resource_only_session, no provider)
 
@@ -783,6 +810,232 @@ T+0:   Pure Hims patient (Bob) — no physical clinic
 - Patient_relationship_id (DL-10) scopes what cross-location data is visible per federation policy.
 - Care Episode CAN span venues (Maria's GLP-1 episode spans Bham + Somerset + FL).
 - CNS reads federation policy at decision time + scopes orchestration_actions per resolved permeability.
+
+---
+
+## §5 ADDITIONAL workflow scenarios (Day 0 + Month 1-2 + Year 1 — per user direction "THINK MAN")
+
+Scenarios beyond the canonical 8. Synthesized from Mindbody screenshots + industry-analog patterns + Sessions 1+2 implicit cases. Each shows substrate touch points + which DL primitive bears the load.
+
+### 5.9 Patient cancels via SMS or web-link (cancellation cascade + fee enforcement)
+
+T-2d: Patient gets reminder SMS with cancellation link. T-23h: Patient clicks cancel. Substrate: `appointment_cancelled` event + DL-15 inv 7 cancellation policy enforcement reads service.cancellation_policy + lead-time threshold + clinic policy. If outside grace window: deposit forfeiture line + `commerce_order_line(line_kind='cancellation_fee', amount=$X, reason='late_cancel_within_24h')`. CNS emits `waitlist_promotion_check` orchestration_action → first waitlist match gets `waitlist_offer_sent` per DL-15 inv 8 + 16. If patient cancels INSIDE grace window: no fee; waitlist promotion still fires; resources released atomically.
+
+Mindbody handles cancellations but stores fee charge as ad-hoc Pricing Option ("Cancellation Policy $0" — per Batch 16 Step 06 + Batch 20 Step 06 substrate trick). OMNI Day 0 admits cancellation_fee as 1st-class line_kind. **Substrate Day 0; full waitlist promotion UI Month 6.**
+
+### 5.10 No-show (no-show fee + lifecycle re-engagement)
+
+T+15m past appointment_time: no patient check-in. Front desk or CNS marks `no_show` (per DL-15 inv 5 state 10). Substrate emits `no_show_confirmed` event. CNS fires:
+- `commerce_order_line(line_kind='no_show_fee')` per clinic policy
+- `lifecycle_re_engagement` orchestration_run (per DL-14 inv 17): "We missed you today. Want to reschedule?"
+- 21-event Client Alert "No Arrivals in Threshold" if pattern across last 30d (per Layer 2 G.3 DL-16 amendment)
+- If 3rd consecutive no-show: escalate to provider task "Patient X: 3 consecutive no-shows; consider discharge from care or care plan revision"
+
+**Substrate Day 0; UI Month 1-2.**
+
+### 5.11 Provider sick-day / bulk reschedule cascade (operational reality)
+
+Provider C calls in sick at 7am. Staff opens admin UI → marks Provider C unavailable today → triggers bulk_reschedule orchestration_run per DL-15 inv 16. Substrate cascade:
+- All Provider C appointments today → status_flags |= Provider_unavailable
+- CNS for each appointment: try provider_swap (find another provider with capability + availability) → if found: propose swap to patient → if no: propose reschedule slot
+- Patient SMS: "Provider C is out today. We can reschedule to Tuesday 3pm OR get you in with Provider D at original time. Reply 1 or 2."
+- Cancellation fee NOT charged (clinic-side cancel, not patient-side)
+- Patients who don't reply within 1hr: front desk calls
+
+Coordinated bulk-cancel emits 1 cns_decision per appointment (audit chain per DL-16 inv 30); not 30 separate manual cancellations.
+
+**Substrate Day 0 (orchestration_run + bulk_reschedule_action); admin UI Month 1-2.**
+
+### 5.12 Waitlist promotion (cancellation → next person in queue)
+
+Patient X cancels. Substrate emits `appointment_cancelled` event. CNS evaluates waitlist per DL-15 inv 8: find first waitlist entry matching (service, provider, location, window). Emit `waitlist_offer_sent` orchestration_action → SMS "A slot just opened: Tomorrow 2pm with Provider C. Tap to book within 4 hours." TTL on offer. If accepted: `appointment_book` from waitlist_entry. If expired: cascade to next waitlist entry. Per DL-15 inv 16 orchestration_runs.
+
+**Substrate Day 0; offer-cascade UI Month 6.**
+
+### 5.13 Subscription billing failure → access suspended
+
+GLP-1 patient on monthly autopay subscription. Card declined on next billing. Substrate emits `payment_failed` event. CNS:
+- 21-event Client Alert "Autopay Failed" fires (per DL-16 amendment)
+- patient SMS: "Your card was declined. Update payment to continue your GLP-1 plan: [link]"
+- 3-retry cadence over 7 days
+- If still failing day 7: care_episode.lifecycle_state → `paused`; subsequent Rx refill blocked until payment resolved
+- Provider task created if substance/Rx is mid-protocol (clinical judgment whether to continue or suspend)
+
+**Substrate Day 0 (payment_attempt retry + care_episode pause); CNS coordination Day 0.**
+
+### 5.14 Lab order → result → followup encounter (derm biopsy pathway)
+
+During mole_check encounter: provider biopsies suspicious lesion. Substrate:
+- `performed_intervention_line(line_kind='procedure', service=biopsy, areas=[...], specimen_collected=true)`
+- `order_line(line_kind='lab_order', test=pathology_dermatopathology, specimen_ref=<biopsy>)`
+- `cns_decision(care_episode.dermatology_surveillance keeps open + cns_schedules_pathology_followup_orchestration_run)`
+
+T+5d: pathology result arrives via lab integration (HL7 v2 / FHIR; substrate-admit Day 0; integration Year 1). Substrate emits `lab_result_received` event. CNS evaluates:
+- Benign: send patient "Good news, biopsy was benign" + close pathology orchestration_run + schedule next surveillance per care_episode cadence
+- Suspicious/Malignant: emit `clinical_concern_raised` event → provider task with HIGH priority → optionally auto-suggest Mohs surgery referral within federation
+
+T+10d: provider has reviewed; calls patient OR sends portal message OR creates followup_encounter (async_review profile) if accountable clinical decision occurred during review.
+
+**Substrate Day 0 (lab_order + lab_result placeholder); lab integration Year 1.**
+
+### 5.15 Rx renewal with lab gating (GLP-1 monthly renewal requires monitoring)
+
+GLP-1 patient on monthly subscription. Month 3: per clinic policy, requires BP + weight + side-effect check before next refill. Substrate:
+- CNS at T-7d before month-3 renewal: emit `request_form` orchestration_action → patient gets BP + weight + symptom form
+- Patient submits → `intake_evidence_link` created → linked to upcoming async_review encounter
+- T-2d: provider in queue reviews intake + Rx history → decision: continue / adjust / pause / require video visit
+- If continue: async_review encounter created + Rx renewed + subscription bills + meds ship
+- If adjust: provider initiates dose-change via Rx amendment + patient SMS
+- If video visit needed: CNS-suggested slot to patient
+- If pause: care_episode.lifecycle_state → `paused`; patient SMS explaining
+
+**Substrate Day 0; Rx adjust + lab integration Year 1.**
+
+### 5.16 New-patient first-visit flow (full onboarding sequence)
+
+New patient (Sarah) books online for "Botox consultation." Substrate:
+- Patient created (status=prospect → first_visit_pending)
+- appointment(profile=office_visit, first_visit=true)
+- CNS fires onboarding orchestration_run:
+  - Required-fields check (Consumer Mode per Q17 dual-mode policy)
+  - Intake form push (per service_closeout_template OR clinic policy)
+  - Consent forms push (general clinic consent + service-specific if applicable)
+  - "Welcome to Bloom Health" SMS + portal account invite
+- T-1d: reminder + form completion check; if forms incomplete: SMS nudge
+- T-0: patient arrives → status_flags |= first_visit + intake_complete + consent_complete + payment_on_file
+- Provider sees "FIRST VISIT" badge on encounter card → adjusts workflow (medical history review + chart establish)
+- After completion: status → returning_patient; portal account active
+
+Per user feedback gap #9 ("display new, first-time visits, if at all").
+
+**Substrate Day 0 (patient_status enum + first_visit boolean); UI Day 0.**
+
+### 5.17 Recurring appointment series (e.g., weekly weight checks for 12 weeks)
+
+Care plan requires patient to come in weekly for weight check + injection. Provider creates `appointment_series` (one parent series + N child appointments). Substrate:
+- `appointment_series` substrate with cadence (weekly Tuesday 4pm × 12 weeks)
+- Each child appointment is normal `appointment` row linked via `series_id` FK
+- Patient can cancel/reschedule individual appointments; series itself preserved
+- CNS fires reminders for each appointment
+- Series completion triggers care_episode milestone
+
+Mindbody calls these "recurring appointments." OMNI substrate Day 0 admits via series substrate.
+
+**Substrate Day 0; UI Month 6.**
+
+### 5.18 Package purchase + first-session redemption SAME visit
+
+Patient at front desk: "I want to buy the LHR package + use my first session today." Substrate:
+- `commerce_order_line(line_kind='package_purchase', package=LHR_6_session, amount=$1800)`
+- Atomic with: `commerce_order_line(line_kind='package_credit_redemption', package_ref=<NEW>, session_number=1)`
+- `performed_intervention_line(LHR, session_number=1)` linked via `derived_from_performed_line_id`
+- Cart settles with single payment; package created + first session immediately redeemed
+
+This requires Commerce DL primitives Day 0 (per §8.1 Knox 8-item list + package_credit_link). Mindbody handles this clunkily. OMNI: atomic.
+
+**Substrate Day 0 (basic package primitive in Knox 8-item commerce list); full package UI Month 6.**
+
+### 5.19 Membership signup at checkout (mid-visit upsell)
+
+Patient comes for Botox. At checkout: "Want to sign up for BH+ Elite membership? $159/month gets you 20% off Botox + free monthly facial." Front desk:
+- Adds `commerce_order_line(line_kind='membership_signup', tier=BH_Elite, amount=$159, recurring=monthly)`
+- Cart auto-recalculates Botox with -20% membership discount (per Commerce DL primitives)
+- Settles total
+- Substrate creates `client_membership` row + autopay schedule + recurring billing orchestration_run
+
+**Substrate Day 0 (basic membership primitive); full discount/loyalty integration Month 6 → Year 1.**
+
+### 5.20 Insurance prior-auth required before procedure (derm/plastics)
+
+Patient books for biopsy or surgical_case profile encounter. Clinic policy: insurance prior-auth required if procedure CPT code matches policy table. Substrate:
+- `appointment(profile=procedure_encounter)` with status_flags |= prior_auth_required
+- CNS fires `request_prior_auth` orchestration_action → external integration (clearing house) OR manual staff task
+- Until prior-auth received: appointment cannot transition to `arrived` state (per DL-15 inv 10 clinical clearance gating analogue)
+- Once received: status_flags |= prior_auth_received → appointment unblocks
+
+**Substrate Day 0 (status_flag + clearance gating); external integration Year 1 (per Phase D RCM).**
+
+### 5.21 Manual reality capture (paper booking / verbal clearance / walk-in)
+
+Real-world chaos: walk-in patient with no appointment; provider says "yeah I'll see her now"; verbal clearance given in hallway; paper booking written on a napkin.
+
+Substrate per DL-16 inv 36 manual reality capture pathway:
+- Walk-in: front desk creates appointment(walk_in=true, actor=staff_manual) for current time + immediate check-in
+- Verbal clearance: provider clicks "Verbal clearance given" UI → audit_event created with reason + actor + timestamp; status_flags |= clinical_clearance_received_verbal
+- Paper booking: staff manually enters appointment with reason_code='paper_booking_capture'
+
+All visible in audit; none silent.
+
+**Substrate Day 0 (per DL-16 inv 36); UI affordances Day 0 minimum.**
+
+### 5.22 Minor patient with parental consent (dual-actor model)
+
+Patient is 16-year-old presenting for acne treatment. Substrate:
+- Patient row: minor=true; guardian_patient_relationship_id FK to parent's patient record
+- Consent rows: require BOTH minor's assent (if age-appropriate) AND parent's consent
+- Encounter participation: parent may join visit (additional `attribution_line` for parental observer role)
+- Billing: parent is responsible_party (commerce_order.billing_party_patient_id = parent.id)
+- Messaging: portal access split — parent gets messages; minor may have separate portal at clinic discretion
+
+DL-11 messaging substrate + DL-10 patient_relationship cover this. OMNI substrate Day 0.
+
+**Substrate Day 0 (DL-10 relationship + dual-consent); UI Month 1-2.**
+
+### 5.23 Bulk-cancel (clinic closed for snow / holiday)
+
+Clinic decides to close tomorrow due to snowstorm. Operator opens admin UI → "Close clinic 2026-05-17 all day" → triggers mass_cancel orchestration_run. Substrate:
+- Reads all appointments for date + location
+- Per appointment: `appointment_cancelled` event with reason=`clinic_closure_snow_2026_05_17`
+- No cancellation fee charged (clinic-side cancel)
+- CNS for each: SMS patient "Sorry, we're closed tomorrow due to weather. Reschedule here: [link]"
+- Waitlist NOT promoted (closure not slot release)
+
+**Substrate Day 0 (mass_cancel orchestration_run); admin UI Month 1-2.**
+
+### 5.24 Resource maintenance (laser device down for service)
+
+Laser device A fails diagnostic check. Front desk marks "Laser A out of service." Substrate:
+- resource_unavailable_window created (start=now, end=null)
+- Any appointment requiring Laser A during window → CNS evaluates per DL-15 inv 11 live-state revalidation
+- Patients with affected appointments: SMS "Your laser appointment needs to move; we'll call you." + provider/staff task
+- Once device repaired: resource_unavailable_window closed; waitlist for laser flushes
+
+**Substrate Day 0 (resource availability window primitive); UI Month 1-2.**
+
+### 5.25 Cross-state patient travel (Maria snowbird seasonal flow expansion)
+
+Already partially covered in §5.8. Adds: Maria flies to FL Dec 1 - April 1 each year. Care_episode active across both locations. Bloom_FL provider needs read access to Maria's MI history (per federation/permeability policy: brand=share, legal_entity=cross-state read-only).
+
+Substrate: per-dimension permeability policy resolves "Bloom_FL provider can read MI clinical history" + "Bloom_FL cannot edit MI provider notes." Maria's seasonal pattern detected via location_of_record changes + venue history.
+
+**Substrate Day 0 (federation policy + cross-venue read scoping); seasonal-pattern detection UI Year 1.**
+
+### 5.26 Provider-on-coverage (Provider A covering Provider B's patients during vacation)
+
+Provider B is on vacation. Provider A covers her patients. Substrate:
+- Provider B's appointments during vacation period: scheduled_provider_id stays Provider B (history preserved); performing_provider on the day = Provider A (attribution_line override at performance time)
+- CNS reads coverage_assignment substrate when patient sends inbound message → routes to covering provider
+- Encounter audit lineage shows BOTH: scheduled with Provider B + performed by Provider A
+
+Per Q10 4-tier attestation + attribution_line. Mindbody handles coverage poorly; OMNI substrate first-class.
+
+**Substrate Day 0 (coverage_assignment + attribution_line override); UI Month 1-2.**
+
+### 5.27 Industry-analog pressure-test scenarios (per user reminder: airline/restaurant/Amazon/Tesla)
+
+Beyond the 26 scenarios above, OMNI substrate also handles:
+
+- **Airline-style standby/no-show release** (cancellation cascade § 5.12)
+- **Restaurant-style comp / discount given by manager** (admin_override path § 6.14 Q10 tier 4)
+- **Amazon-style return-within-30-days** (refund + restock-to-inventory toggle per Mindbody Batch 19 Step 07 evidence)
+- **Tesla-style continuous-sensor-input + decision-time-snapshot** (CNS reads patient state continuously; orchestration_action carries context_snapshot per DL-16 inv 33)
+- **Uber-style surge-pricing / dynamic-pricing** (rejected for Day 0; loyalty rotating-tier discounts at Year 1 instead)
+- **Hotel-style early-check-in / late-checkout** (resource hold extension; per DL-15 inv 4 hold timeout discipline)
+- **Epic-style encounter-with-multiple-orders** (multiple order_line + lab_line + rx_line per encounter; substrate Day 0)
+- **Shopify-style order with split-tender** (multi-payment per commerce_order per Knox 8-item)
+- **Ford-assembly-line-style sequential resource scheduling** (procedure_encounter with surgeon → anesthesia → room → recovery; sequential resource holds per Q12 + DL-15)
+
+These map naturally onto the OMNI substrate; not separate workflows.
 
 ---
 
@@ -946,19 +1199,30 @@ Tentative recommendations. Final lock requires joint Opus + Knox + user signoff.
 
 **Downstream:** Commerce DL primary work (Layer 2 G.2.1).
 
-## 6.10 Q4 — Mode-per-service-line
+## 6.10 Q4 — Mode-per-service-line + Q20 multi-initiator video booking
 
-**Recommended decision:** **`service.mode` enum** per-service catalog row + `encounter_profile` per-encounter row. Both compose: service.mode declares "this service is async_first" (no scheduled time required); encounter_profile declares "this encounter is office_visit." Combine at booking time.
+**Recommended decision:** **`service.mode` enum per-service catalog row + `encounter_profile` per-encounter row + MULTI-INITIATOR booking pathway** (per user direction 2026-05-17 Q20). Both service.mode and encounter_profile compose at booking time. Booking can be initiated by patient (portal / app), provider (in-EHR / mobile), staff (front desk), or CNS suggestion (system-proposed slot per care_episode follow-up cadence).
 
 **`service.mode` enum:** `async_first / schedule_required / hybrid / disabled_scheduler / async_first_with_optional_video / resource_booking_only`.
 
-**Reasoning:** Knox Session 1 Turn 3 framing; service-level mode admits "GLP-1 = async_first" while keeping office_visit profile available for hybrid cases.
+**Multi-initiator booking pathways (per Q20 user direction, all first-class Day 0):**
+1. **Patient-initiated** (portal / Hims-style "Schedule video call now" affordance / mobile app)
+2. **Provider-initiated** (provider books on own calendar from patient profile; e.g., "follow-up in 2 weeks")
+3. **Staff-initiated** (front desk books on phone / in-person)
+4. **CNS-suggested** (system proposes slot based on care_episode cadence / Rx renewal due / lab review due / 2-week tox check / 90-day mole surveillance; patient confirms or modifies)
 
-**Alternatives:** mode only on encounter_profile (rejected — service-line declarations needed for clinic policy); flat single mode (rejected — too rigid).
+For a Hims-style patient: ALL 4 pathways available Day 0. Patient clicks "Schedule video call now" → patient-initiated. Provider initiates from review queue → provider-initiated. CNS proposes "Time for monthly check-in" → CNS-suggested patient confirms.
 
-**What breaks if wrong:** GLP-1 always requires scheduled visit; Hims model breaks.
+**Reasoning:** Knox Session 1 Turn 3 framing; service-level mode admits "GLP-1 = async_first" while keeping office_visit profile available for hybrid cases. User direction 2026-05-17: Hims patient ALWAYS has option to schedule video / in-clinic. Multi-initiator first-class Day 0.
 
-**Downstream:** `service.mode` column; CNS booking validation reads service.mode + encounter_profile.
+**Alternatives:** mode only on encounter_profile (rejected — service-line declarations needed for clinic policy); flat single mode (rejected — too rigid); single-initiator (rejected per user direction).
+
+**What breaks if wrong:**
+- Single-initiator only → patient cannot book from portal Day 0; Hims model breaks
+- Mode-only-encounter → can't express "GLP-1 service is async-first by default"
+- No CNS-suggested → care_episode follow-ups manual; CNS coordination breaks
+
+**Downstream:** `service.mode` column; CNS booking validation reads service.mode + encounter_profile + booking_initiator; patient portal "Schedule visit" affordance Day 0; provider quick-book UI Day 0; CNS suggested-slot orchestration_action Day 0.
 
 ## 6.11 Q7 — Encounter vs Interaction boundary
 
@@ -1000,20 +1264,25 @@ Tentative recommendations. Final lock requires joint Opus + Knox + user signoff.
 
 ## 6.14 Q10 — 4-tier provider authorship + attestation
 
-**Recommended decision:** **4-tier model on `performed_intervention_line`:**
+**Recommended decision (CLARIFIED per Knox Session 2 + user direction 2026-05-17):** **4-tier model on `performed_intervention_line` with `staff_drafted` as ACCEPTABLE Day 0 workflow** (not exception path):
 
-1. `authorship_state='provider_entered'` + `attestation_state='attested'` — cleanest path
-2. `authorship_state='staff_drafted'` + `attestation_state='pending'` — checkout allowed if clinic policy permits; provider attests later (end-of-day)
-3. Front desk can NEVER set `line_kind='performed_intervention'` (commercial-only); substrate constraint
+1. `authorship_state='provider_entered'` + `attestation_state='attested'` — cleanest / preferred path
+2. **`authorship_state='staff_drafted'` + `attestation_state='pending'` — ACCEPTABLE Day 0 workflow (per Knox: "may be a workflow shock, support staff-drafted/admin-reconciled fallback, not a hard Day 0 bottleneck").** Checkout allowed per clinic policy; provider attests later (end-of-day / end-of-visit / chart-close timer).
+3. Front desk can NEVER set `line_kind='performed_intervention'` directly (commercial-only); substrate constraint
 4. `authorship_state='admin_override'` + `attestation_state='pending'` + audit_event `event_kind='checkout_override_with_provider_reconciliation_required'` — reconciliation task created
 
-**Reasoning:** Session 2 Turns 22, 27 verbatim. Provider owns clinical truth; front desk owns commercial settlement; admin override leaves audit scar.
+**Why tier 2 is NOT an exception path Day 0:** Bloom medspa current workflow IS verbal hallway handoff (Session 2 Turn 23 evidence). Forcing tier 1 (provider chairside) Day 0 is workflow shock that risks adoption. Tier 2 path is the realistic Day 0 fallback that preserves chart integrity (pending attestation visible; reconciliation task auto-created if not attested by end-of-day). Bloom can MIGRATE from tier 2 → tier 1 organically as providers adopt the chairside drawer over Month 1-3.
 
-**Alternatives:** provider must be online always (rejected; clinic flow breaks); admin override silent (rejected; audit corrupts).
+**Reasoning:** Session 2 Turns 22, 27 verbatim. Provider owns clinical truth; front desk owns commercial settlement; admin override leaves audit scar. User direction 2026-05-17 confirms: do not force tier 1 as hard Day 0 bottleneck.
 
-**What breaks if wrong:** Mindbody pattern returns (shared login, no accountability); chart corruption.
+**Alternatives:** tier 1 hard requirement Day 0 (rejected per user direction; workflow shock); provider-must-be-online-always (rejected; clinic flow breaks); admin override silent (rejected; audit corrupts).
 
-**Downstream:** RBAC DL substrate; `performed_intervention_line.authorship_state` + `attestation_state` columns; reconciliation task workflow.
+**What breaks if wrong:**
+- Tier 2 not Day 0 → Bloom adoption shock; clinic abandons OMNI; product launch fails
+- Tier 2 has no attestation gate → chart corruption Mindbody-style
+- Admin override silent → audit corruption; medico-legal exposure
+
+**Downstream:** RBAC DL substrate; `performed_intervention_line.authorship_state` + `attestation_state` + `attesting_actor_id` + `attested_at` columns; reconciliation task workflow; end-of-day chart-close timer per encounter_profile policy.
 
 ## 6.15 Q11 — Visit Closeout drawer 7 lanes
 
@@ -1048,17 +1317,38 @@ Tentative recommendations. Final lock requires joint Opus + Knox + user signoff.
 
 **Downstream:** RBAC DL substrate; capability resolution at orchestration_action emission per DL-14 inv 11.
 
-## 6.17 Q12 — 11-axis location / venue / federation taxonomy
+## 6.17 Q12 — 11-axis location / venue / federation taxonomy + Q7 Federation Day 0
 
-**Recommended decision:** **`venue` substrate with 11 typed columns** per §2.5. Encounter has `venue_id` FK. Different profiles require different axes (encounter_profile_policy declares required axes per profile). Federation/permeability policy per A1 future arc resolves cross-venue visibility.
+**Recommended decision (REVISED per user direction 2026-05-17):** **`venue` substrate with 11 typed columns per §2.5 SHIPS DAY 0. Federation/permeability policy resolution + cross-location patient flow ALSO ship Day 0** (not Year 1).
 
-**Reasoning:** Pure Hims (no physical) + cross-state federation (Maria's Bham → FL flow §5.8) + multi-brand sibling brands (Cultured/Evo) all need this.
+**Reasoning:** User explicit — "3 spas using this on Day 1." Day 0 customer base is medspa federation, not single-location. Without venue substrate + federation/permeability policy on Day 0, multi-site spas cannot deploy. The substrate was already planned Day 0 (§2.5); user direction confirms policy resolution + cross-location patient flow are NOT deferrable to Year 1.
 
-**Alternatives:** 3-scope identity only (User/Site/Owner per system map 1U) — too coarse; per-axis tables (overengineered).
+**Day 0 federation scope (concrete):**
+- 11-axis `venue` substrate (physical_location / virtual / brand / legal_entity / deployment / patient_relationship / provider_schedule_location / patient_state_jurisdiction / billing_rendering_location / resource_location / federation_location_of_record)
+- `federation_permeability_policy` substrate (per-dimension policy table per A1 future arc; brand × legal_entity × patient_state × dimension matrix)
+- Cross-location patient flow (Maria Bham → Somerset same-brand same-legal_entity = full permeability; Maria → FL same-brand DIFFERENT legal_entity = jurisdiction-gated permeability per policy)
+- CNS reads federation policy at decision time + scopes orchestration_actions per resolved permeability
+- DL-10 patient_relationship_id scoping enforced at every cross-venue read
+- Pure-Hims deployment substrate admitted (virtual_flag=true + no physical_location; provider_schedule_location + billing_rendering_location + patient_jurisdiction required)
 
-**What breaks if wrong:** clinic_room = location = legal_entity = brand = billing_site collapse (Knox Session 2 Turn 18 explicit failure mode).
+**What ships Day 0 vs deferred:**
+- Day 0: Full 11-axis venue substrate + per-dimension permeability policy table + CNS-level policy resolution + UI for cross-location patient cockpit view (per-dimension visibility)
+- Month 6: per-clinic admin UI for permeability policy config (Day 0 = clinic operator works with OMNI staff to set policy; Month 6 self-serve)
+- Year 1+: cross-state CMEK/data-residency / pathology cross-federation routing / advanced multi-state regulatory tooling
 
-**Downstream:** Federation-Topology DL extension (Phase B.5+); A1 future arc fulfillment.
+**Alternatives:** 3-scope identity only (User/Site/Owner per system map 1U) — too coarse, fails 3-spa Day 0; per-axis tables — over-engineered.
+
+**What breaks if wrong:**
+- If federation deferred to Year 1: 3 Day 1 spa customers cannot deploy with multi-location; product launch blocks
+- If venue 1-axis only: Knox Session 2 Turn 18 failure mode — `clinic_room = location = legal_entity = brand = billing_site` collapses; pure-Hims customer cannot deploy
+- If permeability default permissive: cross-brand PHI leakage; HIPAA + DL-10 violations
+
+**Downstream:** Federation-Topology DL drafted at Phase B.5+ (NOT deferred); substrate ships Day 0; A1 future arc folds into this DL.
+
+**Deferred:**
+- Advanced cross-state regulatory tooling (state-specific consent variants / state-specific Rx scheduling rules / CMEK per-state)
+- Cross-federation patient location-of-record reconciliation tooling
+- Cross-state pathology integration
 
 ## 6.18 Q22 — DL-14 inv 14 + Q1 compatibility framing
 
@@ -1229,61 +1519,111 @@ What the 190 screenshots taught us. 12 concrete failures. OMNI design response p
 
 What ships when. Concrete substrate + UI + CNS event boundaries per phase.
 
-## 8.1 Day 0 (V1 thin slice — Q21 recommendation)
+## 8.1 Day 0 (V1 thin slice — Q21 + user direction 2026-05-17)
 
-**Substrate primitives implemented:**
+**SCOPE NOTE (binding, per user direction):** Day 0 customer base = 3 medspa federation customers + Hims-hybrid patient affordance + derm wedge starting. Federation IS Day 0 (not Year 1). OMNI-wide Settings-Infrastructure substrate ships Day 0 (NOT just scheduling-slice settings). Settings-Infra is broader than scheduling — it's OMNI-wide doctrine. Half the Mindbody settings (~50 sub-pages) are OMNI-wide concerns (vocabulary override, dual-mode required fields, tax rates, payment methods, locations, etc.); only ~30-50 are scheduling-specific (encounter profile policy, cancellation policy, no-show fee, availability rules, etc.). The OMNI Settings-Infra DL substrate ships Day 0; scheduling-pillar settings live within it.
+
+**Substrate primitives Day 0 — SCHEDULING-PILLAR:**
 - patient + patient_relationship + staff + staff_capability + staff_service_assignment
 - permission_group + permission_atom + permission_group_atom_grant + staff_permission_group_assignment
 - service + service_category + add_on flag + service_closeout_template
 - room + room_service_compatibility
 - resource + resource_service_compatibility
 - availability_window (4-axis)
-- care_episode (skeleton, 0-N per patient)
-- episode_catalog (config; clinic-managed)
+- care_episode (skeleton, 0-N per patient) + episode_catalog (config; clinic-managed)
 - encounter_container (with profile + venue_id)
 - encounter_profile + encounter_profile_policy (5 profiles Day 0: office_visit / video_visit / async_review / aesthetic_treatment_visit / resource_only_session)
-- appointment (linked to encounter, nullable for async)
+- appointment (linked to encounter; nullable appointment_id on encounter for async_review)
 - hold
 - encounter_line (with line_kind discriminator: planned_intent / performed_intervention / consent / follow_up / task / message)
-- attribution_line
-- venue (11-axis)
+- **attribution_line (Day 0 substrate; commission UI Month 1-2 per user direction)**
 - client_alert (21-event vocabulary; partial)
 - outbound_template + orchestration_action + orchestration_run + cns_decision + audit_event
 
-**Substrate primitives placeholder (admit but minimal UI):**
-- commerce_order + commerce_order_line (cart placeholder)
-- payment_attempt (single-method; full federation Phase C)
-- video_session (Zoom adapter; ad-hoc + scheduled)
-- clinical_media (photos linked to encounter_line)
-- intake_session + intake_evidence_link
-- consent (versioned)
+**Substrate primitives Day 0 — FEDERATION (per user direction; 3 spas Day 1):**
+- **venue (11-axis: physical_location / virtual_flag / brand / legal_entity / deployment / patient_relationship / provider_schedule_location / patient_state_jurisdiction / billing_rendering_location / resource_location / federation_location_of_record)**
+- **federation_permeability_policy (per-dimension policy table; brand × legal_entity × patient_state × dimension matrix per A1 future arc)**
+- **DL-10 patient_relationship_id scoping enforced at every cross-venue read**
+
+**Substrate primitives Day 0 — OMNI-WIDE SETTINGS-INFRASTRUCTURE (per user direction; broader than scheduling):**
+- **settings_section + settings_subpage substrate (admits ~100 sub-pages; ~30-50 implemented Day 0)**
+- **vocabulary_override (Mindbody "Words and Phrases" pattern; per-clinic + per-brand vocabulary customization)**
+- **required_field_policy (dual-mode: Consumer Mode + Business Mode; per-domain field-state enum: always_required / configurable_required / configurable_optional)**
+- **per_clinic_default + per_clinic_auto_fill (e.g., default City/State for new patient form)**
+- **client_metadata: required_fields + client_indexes + client_index_values + client_form_custom_fields (4-tier)**
+- **client_alerts substrate (21-event + 2-level severity)**
+- **suspension_types**
+- **tax_rates (2-tier Sales Tax + Tax 2)**
+- **revenue_categories (accounting axis)**
+- **accounting_basis brand-level enum (Accrual / Cash)**
+- **payment_method_capability (per-clinic enabled flags for the 25+ payment methods)**
+- **cancellation_policy + no_show_fee_policy (per-service / per-clinic)**
+- **business_hours + holiday_calendar + scheduling_window_policy**
+- **prospect_stages + relationship_types + client_types + referral_types + referral_subtypes + contact_log_types + client_statuses + gender_enum**
+
+**Substrate primitives Day 0 — COMMERCE MINIMUM (Knox 8-item list, per user direction):**
+- **performed_service / product / order_line (`commerce_order_line` with line_kind discriminator)**
+- **quantity / unit / price_basis columns**
+- **package_credit_link substrate (`commerce_order_line.entitlement_redemption_ref` FK to package_redemption record)**
+- **discount + loyalty + promo line_kind placeholders (`line_kind IN ('discount', 'loyalty_reward', 'promo', 'membership_discount')`)**
+- **provider attribution per line (via attribution_line FK)**
+- **checkout / cart projection (computed view)**
+- **receipt projection (computed view; rendered, never stored as authority)**
+- **commerce_override audit_event (every front-desk-modify or admin-override emits audit_event with reason)**
+
+Full Commerce DL (full Pricing Option 4-type / full Contract / Gift Card / Promo Code / Aspire/Cherry/Allē integration / 25+ payment methods full federation) deferred to Month 1-2 → Year 1.
+
+**Substrate primitives Day 0 — VIDEO (per user direction Q20; multi-initiator first-class):**
+- **video_session (Zoom Video SDK adapter Day 0)**
+- **scheduled video visit fully functional (provider schedule + patient portal "Schedule video visit" affordance + provider-initiated booking + system-suggested booking via CNS)**
+- **"Schedule video call now" affordance on PATIENT PORTAL Day 0 (per user direction)**
+- **video_session.encounter_id nullable (admits ad-hoc; ad-hoc UX deferred Month 6)**
+- **"Start video call now" provider-initiated affordance on patient profile (Month 6; substrate Day 0)**
+
+**Substrate primitives Day 0 — CLINICAL-MEDIA + INTAKE + CONSENT (placeholder UI; substrate full):**
+- clinical_media (photos / videos / scans; linked to encounter_line)
+- intake_session + intake_evidence_link (longitudinal; linked to encounter when used)
+- consent (versioned; signed; linked to procedures/Rx)
+- patient_document (lab PDFs / pathology / referrals / legal)
 
 **RPCs Day 0:**
 - service_create / service_update (catalog admin)
 - staff_service_assignment_create / _update (with prep + booking + finish time)
-- appointment_propose (slot search with 4-axis validation)
-- appointment_book (commit hold)
+- appointment_propose (slot search with 4-axis validation + federation/permeability check)
+- appointment_book (commit hold; venue-aware)
 - appointment_reschedule / _cancel / _no_show
 - appointment_check_in
 - appointment_complete
 - planned_intent_line_mark_not_performed (with reason enum)
-- performed_intervention_line_create (provider-attested; pushes derived charge_line to cart)
-- cart_settle (placeholder; commerce DL deferred)
-- appointment_emit_cns_event (DL-16 envelope per transition)
+- performed_intervention_line_create (provider-entered OR staff-drafted-pending-attestation; pushes derived charge_line to cart)
+- performed_intervention_line_attest (provider attestation RPC)
+- cart_settle (Knox 8-item commerce minimum)
+- commerce_override_apply (with reason; audit-eventd)
+- federation_permeability_resolve (per-venue per-dimension policy evaluation)
+- venue_create / _update (federation admin)
+- settings_subpage_get / _update (OMNI-wide settings admin)
+- vocabulary_override_set
+- video_session_schedule (scheduled video visit)
 - video_session_start / _complete
+- appointment_emit_cns_event (DL-16 envelope per transition)
 
-**CNS events Day 0 (minimum 15):**
+**CNS events Day 0 (minimum 20):**
 - appointment_requested / _booked / _rescheduled / _cancelled / _no_show
 - patient_checked_in
 - encounter_started / _completed
 - planned_service_not_performed
 - performed_intervention_recorded
+- performed_intervention_attested
 - cart_settled
 - checkout_completed
+- commerce_override_applied
 - follow_up_scheduled
-- video_session_started / _completed
+- video_session_scheduled / _started / _completed
+- federation_permeability_resolution_made
+- venue_changed
+- settings_subpage_updated
 
-**CNS orchestration_actions Day 0 (minimum 15):**
+**CNS orchestration_actions Day 0 (minimum 18):**
 - send_appointment_confirmation / _reminder
 - request_form
 - request_deposit (placeholder)
@@ -1293,85 +1633,118 @@ What ships when. Concrete substrate + UI + CNS event boundaries per phase.
 - offer_2wk_tox_check
 - suggest_rebook
 - start_video_session
+- send_video_visit_link
 - process_inbound_confirmation_reply
+- classify_clinical_cue_intent
 - escalate_clinical_concern
 - suppress_marketing
 - send_aftercare
 - recommend_retail_product (Phase 1+ but admitted)
+- federation_route_decision (cross-venue patient flow)
 
 **UI surfaces Day 0:**
-- Day-view + week-view schedule (provider-keyed + room-keyed)
-- Appointment booking modal with 4-axis availability check
+- Day-view + week-view schedule (provider-keyed + room-keyed + venue-keyed)
+- Multi-location schedule view (cross-venue calendar per federation permeability)
+- Appointment booking modal with 4-axis availability check + federation gating
 - Encounter drawer with "Planned today" + "Performed today" sub-sections
-- Performed-line entry drawer with 3 service templates (Botox / SkinPen / Laser areas checklist)
-- Cart view (shared, permissioned)
-- Client profile cockpit (Profile / Schedule / Purchases tabs minimum)
-- Video visit "Click here" button
-- Closeout drawer (3 lanes Day 0: cart / documentation / follow-up)
+- Provider chairside performed-line entry drawer (smart contextual; preloads appointment + package + room + device + planned-areas; per service template: Botox unit map / SkinPen areas / Laser areas-checklist; NOT generic catalog search)
+- MA/staff-draft pathway (4-tier authorship UI with attestation_state visible)
+- Cart view (shared, permissioned; commerce_override path visible)
+- Client profile cockpit (Profile / Schedule / Purchases / Documents / Photos / Intake tabs)
+- Patient portal "Schedule video visit" affordance (Hims patient affordance; user-initiated booking)
+- Video visit "Click here to start" button (provider + patient join paths)
+- Closeout drawer (3 lanes Day 0: cart / documentation / follow-up; full 7 lanes Month 6)
+- Federation admin UI (venue + permeability_policy management)
+- OMNI Settings admin UI (~30-50 sub-pages Day 0; the scheduling-relevant + OMNI-wide settings users need to operate)
 
 **Phasing critical NOT in Day 0:**
-- Full Commerce DL (Pricing Option 4-type / Contract / Package / Gift Card / Promo / Loyalty / Aspire / 25+ Payment Methods)
-- Full inventory by lot
-- Full RBAC permission-atom drill-down
-- Full settings-as-OS surface (~100 sub-pages)
-- Full video stack (recording / transcript / multi-vendor adapter)
-- Full closeout drawer 7 lanes (Day 0 has 3 lanes)
-- Procedure_encounter profile depth (Day 0 admits substrate, UI deferred)
-- Pure Hims async-review UX polish (admits substrate, UI Year 1)
-- Care Episode catalog management UI (Day 0 has the FK + skeleton; UI Year 1)
-- Mobile-native integrations (Tap to Pay on iPhone)
-- ICD/CPT clinical coding integration
+- Full Commerce DL (full Pricing Option 4-type / Contract / Package / Gift Card / Promo / Loyalty / Aspire / 25+ Payment Methods integrated — Month 1-2 → Year 1)
+- Full inventory by lot (Year 1)
+- Full RBAC permission-atom drill-down (Month 1-2 substrate; UI Month 6)
+- Full Mindbody-style settings ~100 sub-pages (Day 0 = ~30-50 high-load; remaining Month 6+)
+- Full video stack — recording / transcript / multi-vendor adapter (Year 1)
+- Full closeout drawer 7 lanes (Day 0 has 3 lanes; full 7 Month 6)
+- Procedure_encounter profile depth (Day 0 admits substrate; UI Month 6)
+- Surgical_case profile UI (Year 1+)
+- Pure Hims async-review UX deep polish (admits substrate Day 0; full polish Year 1)
+- Care Episode catalog management UI (Day 0 has the FK + skeleton + auto-instantiation rules; full admin UI Month 6)
+- Mobile-native integrations (Tap to Pay on iPhone — Year 1)
+- ICD/CPT clinical coding integration (Year 1+ substrate; full RCM Year 2+)
 
-## 8.2 Month 6 (after Day 0 medspa traction)
+## 8.2 Month 1-2 (post-Day 0 critical fast-follows)
+
+Per user direction 2026-05-17: "attribution substrate needs to be planned for in advance, month 1-2." Several Day 0 substrate primitives need their UI/reports/admin surfaces to land WELL BEFORE Month 6.
+
+**Adds within 8 weeks of Day 0:**
+- **Attribution reports / commission UI** (substrate Day 0; UI Month 1-2 per user direction). Per-line provider commission (performing / assisting / supervising / seller / checkout_staff); per-staff commission report; multi-provider visit support per §5.7.
+- 4-tier authorship + attestation full UI (per Q10; substrate Day 0)
+- Care Episode catalog management UI (per Q19 hybrid; substrate Day 0)
+- Self-serve federation permeability policy admin UI (Day 0 = OMNI-staff-managed; Month 1-2 = clinic self-serve)
+- Closeout drawer expansion 3 lanes → 7 lanes (per Q11)
+- Full smart-drawer service template library (Day 0 has 3 templates: Botox / SkinPen / Laser; Month 1-2 expands to 20+ templates per Bloom catalog)
+
+## 8.3 Month 6 (after early traction; derm + 3-spa federation stable)
 
 **Adds:**
-- 4-tier authorship + attestation full implementation (per Q10)
-- Closeout drawer 7 lanes (per Q11 derived projection)
-- Care Episode catalog management UI (per Q19 hybrid)
-- Commerce DL primitives (Pricing Option 4-type / basic Contract / Gift Card / Promo Code)
-- Retail products as 4th catalog (per Mindbody evidence)
-- Membership / Subscription basics
-- Mobile chairside drawer (iOS Business app pattern)
-- Encounter profiles 6-13 (procedure_encounter / lab_draw_visit / etc. UX)
-- Settings-Infrastructure DL phase 1 (10-section surface, basic admin)
-- 4-axis booking composer fully enforced per encounter_profile policy
+- Commerce DL primitives wave 1: full Pricing Option 4-type taxonomy + basic Contract / Autopay rolling + Gift Card + Promo Code (substrate Day 0; UI/admin Month 6)
+- Retail products as 4th catalog (per Mindbody evidence; substrate Day 0; UI Month 6)
+- Membership + Subscription tier UI (substrate Day 0; UI Month 6)
+- Discount Program with rotating-tier patterns (e.g., Bloom's GOLD / VIP INJECTABLES 40/30/10 / ULTRA 25/25/10)
+- Mobile chairside drawer (iOS native; Day 0 was web/tablet)
+- Encounter profiles 6-13 UX (procedure_encounter / lab_draw_visit / surgical_case / post_procedure_follow_up — substrate Day 0; UI Month 6)
+- Aspire / Allē / Cherry / GreenSky integration (per Mindbody 25+ payment method list)
 - Patient timeline UI (5-lane synthesized view per §4)
-
-## 8.3 Year 1 (after Month 6 derm/specialty wedge)
-
-**Adds:**
-- Full Commerce DL (all 19+ primitives; Aspire/Cherry/Allē integration)
-- Full RBAC DL (permission atoms drill-down + 4-tier attestation enforcement)
-- Full Settings-Infrastructure DL (~100 sub-pages)
-- Full Clinical-Media DL (4 separate substrates)
-- Procedure_encounter profile depth (multi-resource + assistant + recovery)
-- Hims async polish (full UX for no-physical-clinic deployment)
-- Video stack (recording / transcript / multi-vendor adapter)
-- Federation cross-location patient flow (per A1 + Q12)
+- "Start video call now" provider-initiated ad-hoc affordance (substrate Day 0; UI Month 6)
+- Outstanding ~50 Settings sub-pages (Day 0 shipped ~30-50; Month 6 closes the remainder)
 - Out-of-band reconciliation jobs (DL-16 inv 39)
+- Clinical-Media DL substrate refinements (annotation tools / before-after pair UI / series grouping UI)
+
+## 8.4 Year 1 (derm + plastics wedge expansion)
+
+**Adds (per user direction: plastics is next specialty after derm):**
+- **Plastics-specialty modality UX** (surgical_case profile depth: multi-resource + anesthesia/sedation prep / pre-op + post-op encounter sequences / surgical consent workflow / before-after photo series management / multi-stage procedure series tracking)
+- Full Commerce DL (all 19+ primitives integrated; full Aspire/Cherry/Allē/CareCredit/GreenSky federation; 25+ Payment Method capability full)
+- Full inventory tracking by lot (Botox vial tracking / pharmacy lot for Rx / device serial for laser)
+- Full RBAC permission-atom drill-down + 4-tier attestation enforcement at policy level
+- Full Settings-Infrastructure DL admin surface (Mindbody-class depth)
+- Hims async polish (full UX for no-physical-clinic deployment customer)
+- Video stack (recording / transcript / multi-vendor adapter Daily/Twilio/Foundry beyond Zoom)
 - 21-event Client Alert vocabulary fully encoded (DL-16 amendment)
 - ICD-10 + CPT placeholder substrate (codes attachable; not yet for claims)
-- Surgical case + endoscopy profile substrate
+- Out-of-band reconciliation jobs fully running per DL-16 inv 39
 
-## 8.4 Year 2+ ($10k SaaS multi-modality)
+## 8.5 Year 2+ (multi-modality + $10k SaaS; specialty priority per user direction)
 
-**Adds:**
-- Sleep labs / cardio / endocrine / plastics modality UX
-- Full RCM (claims / EOB / denial management)
-- Multi-state federation full A1 fulfillment
-- Pathology integration
-- Lab interface (HL7 v2 / FHIR Observation + DiagnosticReport)
-- Branded patient app
+**Specialty rollout order (per user direction 2026-05-17): medspa (Day 0) → derm (Month 6) → plastics (Year 1) → GI (Year 2) → cardio (Year 2) → endocrine (Year 2+) → sleep labs (Year 2+).**
+
+**Year 2 adds:**
+- **GI-specialty modality UX** (endoscopy procedure_encounter depth + pathology integration + sedation prep + scope equipment + recovery encounter + pathology specimen workflow + follow-up surveillance cadence + colonoscopy 10-year recall)
+- **Cardio-specialty modality UX** (multi-modality stress test / echo / Holter monitor / cath lab; mixed acuity; sequential multi-provider within single encounter; cardiology-specific clearance gates)
+- Full RCM (claims / EOB / denial management / payer rules engine; ICD-10 + CPT live for claims submission)
+- Pathology integration (HL7 v2 + FHIR DiagnosticReport / specimen tracking / result-to-encounter linking)
+- Lab interface (HL7 v2 / FHIR Observation; LabCorp / Quest / hospital labs)
+- Cross-state federation full A1 fulfillment (data residency per state; CMEK per state; cross-state provider licensure routing)
+- Branded patient app (per-clinic white-label)
 - AI Compose Assist full deployment (5 invocation modes per DL-14 inv 18)
-- Cross-federation patient location-of-record reconciliation
-- Multi-tenant white-label deployment patterns
-- Advanced analytics + metric substrate (substrate-derived per Layer 2 §5.14)
 
-## 8.5 Why this phasing survives
+**Year 2+ adds (later in Year 2 or Year 3):**
+- **Endocrine-specialty modality UX** (lab-draw heavy resource_only_session profile / Rx infusion appointment / long-term care plan tracking / endocrine-specific clearance + monitoring)
+- **Sleep lab modality UX** (overnight resource session profile / polysomnograph equipment / sleep-tech role / overnight observation encounter / multi-night encounter sequences / CPAP titration workflow)
+- AI clinical envelope full deployment (provider-facing clinical reasoning; per DL-14 inv 9)
+- Multi-tenant white-label deployment patterns
+- Cross-federation patient location-of-record reconciliation tooling
+- Advanced analytics + metric substrate (substrate-derived per Layer 2 §5.14)
+- Surgical_case full depth (operative_note + anesthesia_record + recovery_track + 90-day-global-period billing)
+
+## 8.6 Why this phasing survives
 
 - Day 0 substrate ADMITS all future scope (no rewrites)
-- Each phase activates an existing substrate primitive's UX, not new substrate
-- Commerce DL / RBAC DL / Settings-Infra DL / Clinical-Media DL drafted at Phase B.5+, implemented in Month 6 / Year 1
+- Federation is DAY 0 (per user direction 3 spas Day 1), not Year 1 deferral
+- OMNI-wide Settings-Infrastructure is DAY 0 (broader than scheduling), not Year 1
+- Attribution substrate Day 0; commission UI Month 1-2 (not Month 6+); user explicit "do not leave dangling"
+- Specialty rollout order pinned: medspa → derm → plastics → GI → cardio → endocrine → sleep
+- Each Year 1+ phase activates an existing substrate primitive's UX, not new substrate
+- Commerce DL / RBAC DL / Settings-Infra DL / Clinical-Media DL / Care-Coordination DL / Federation-Topology DL drafted at Phase B.5+, implemented progressively Day 0 → Month 1-2 → Month 6 → Year 1 → Year 2+
 - DL-14 / DL-15 / DL-16 invariants remain stable; new domains specialize against DL-16 envelope without reinventing
 
 ---
@@ -1390,59 +1763,23 @@ What ships when. Concrete substrate + UI + CNS event boundaries per phase.
 
 5. **Day 0 underbuild.** Day 0 substrate too thin to admit Month 6 + Year 1 features; rewrite at Month 12. Mitigation: §8.1 enumeration explicitly admits 30+ substrate tables + placeholders + nullable FKs; substrate slice scoping rigorous.
 
-## 9.2 20 validation questions for user
+## 9.2 Validation Resolution Status
 
-Probing load-bearing assumptions. Please answer one at a time or all at once.
+Per user direction 2026-05-17: stop re-litigating decisions already in Sessions 1+2 + Knox answers. The 20 validation questions originally posed are now resolved as follows (full citation matrix at §10 below).
 
-### Day 0 boundary questions
+**RESOLVED via Knox-user discussion (14 of 20):** Q1 / Q2 / Q3 / Q4 / Q5 / Q6 / Q8 (procedure_encounter) / Q10 (Care Episode match) / Q11 (multi-episode frequency) / Q12 (planned-vs-performed today) / Q13 (front desk modify: WARN) / Q14 (MAs draft today) / Q15 (provider drawer adoption) / Q19 (Hims async match).
 
-1. **Day 0 medspa Botox visit (§5.1):** does it match Bloom Health workflow today? Anything wrong?
+**RESOLVED by user direction 2026-05-17 (5 of 20):**
+- **Q7 Federation:** Day 0 (3 spas Day 1)
+- **Q9 First specialty after derm:** plastics → GI → cardio → endocrine → sleep
+- **Q16 Attribution:** substrate Day 0; reports Month 1-2 (not Month 6+)
+- **Q17 Settings:** scheduling-specific Day 0 + OMNI-wide Settings-Infra DL Day 0 (broader than scheduling pillar; ~30-50 sub-pages Day 0)
+- **Q20 Hims-to-scheduled trigger:** multi-initiator (patient / provider / system suggestion / ad-hoc); patient ALWAYS has option; "Schedule video call now" Day 0 affordance
 
-2. **Day 0 LHR package visit (§5.2):** at Bloom, do you track session N-of-M + body areas + device settings on receipt? On clinical note? In package credit?
+**REMAINS NEEDING USER (1 of 20):**
+- **Q18 Any Bloom workflow missed?** Per user: "no Bloom workflows that come to mind atm — but there WILL BE MORE." OMNI commits: substrate Day 0 admits flexible workflow expansion (§5.9-§5.27 covers 19 additional scenarios beyond canonical 8); when new workflows surface, no rewrite needed.
 
-3. **Day 0 commerce placeholder:** Day 0 has cart + single payment method + no Pricing Option 4-type. Is that survivable for first medspa deployment? Or must it have memberships/packages at Day 0?
-
-4. **Day 0 video visit:** scheduled video only (Zoom adapter)? Or ad-hoc-from-message-thread too? Both?
-
-5. **Day 0 closeout drawer:** 3 lanes (cart + documentation + follow-up) or full 7 lanes (add patient-instructions + retail-recs + scheduling-instructions + ops-tasks)?
-
-### Persona scope questions
-
-6. **Hims async-only deployment:** is that a Year 1 customer (substrate admits Day 0; UX deferred) or a Day 0 customer? If Day 0, the async_review profile UI must ship Day 0 not Year 1.
-
-7. **Multi-location federation (Bham + Somerset + FL Maria flow §5.8):** which year does this need to work? Year 1 implies federation DL drafted at Phase B.5+; Year 2+ implies it can wait.
-
-8. **Pure procedure clinic (Mohs / endoscopy / surgical_case profile depth):** Year 1 ship or Year 2+? Substrate admits Day 0; UI/policy depth deferred which year?
-
-9. **Sleep labs / cardio / endocrine / plastics ($10k SaaS Year 2+):** what's the FIRST specialty after medspa + derm? Cardio? Sleep? Affects substrate priorities.
-
-### Architecture-feature link questions
-
-10. **Care Episode auto-creation (Q19 hybrid):** when patient gets first Botox, system auto-creates "Aesthetic_Maintenance" episode. Does that match how you'd organize Bloom patient care? Or do you organize differently (e.g., by service type only)?
-
-11. **Multi-episode-per-encounter (§5.3 Mohs+Botox+GLP-1):** how often does this actually happen at Bloom? Is it 5% of visits or 50%? Affects how prominent the multi-episode UI is.
-
-12. **Planned-vs-Performed separation (Q8):** when Bloom patient pivots (booked mole check, got Botox), today how is that recorded? Free-text in notes? Edit appointment_type? Skip recording? Answer affects how aggressive the substrate enforcement should be.
-
-13. **3-lane source-of-truth (Q9):** at Bloom today, does front desk ever modify clinical units (e.g., "we did 30 not 24 — provider forgot to update")? Should OMNI BLOCK this (provider attestation required) or WARN this (reconciliation task)?
-
-14. **4-tier provider attestation (Q10):** at Bloom today, do MAs draft clinical lines, or only providers? Affects tier-2 vs tier-1 use.
-
-15. **Provider-on-cart push (§5.1 chairside drawer):** would Bloom providers ACTUALLY use a chairside drawer to push to cart? Or do they expect front desk to do it (status quo)? This is a UX change-management question.
-
-### Mindbody comparison questions
-
-16. **Mindbody features OMNI INTENTIONALLY drops:** Are you OK NOT having Mindbody-class day-roster + commission reports + advanced staff scheduling templates on Day 0? These are big workflows at Bloom today.
-
-17. **Mindbody settings depth:** ~100 sub-pages. Day 0 has the master toggle + ~10 sub-pages (encounter profile policy / cancellation policy / required fields / vocabulary / etc.). Is that enough?
-
-18. **Bloom workflow we missed:** is there ANY Bloom medspa workflow that this architecture can't handle? Specific scenarios you can think of that aren't in the 8 we walked?
-
-### Hims comparison questions
-
-19. **Hims-style async Rx (§5.4):** does the encounter substrate without appointment row + Care Episode + monthly subscription billing match how Hims actually works (from your understanding)?
-
-20. **Hybrid Hims-medspa (your stated goal):** when does a Hims patient need to transition to scheduled visit? Substrate admits both. Workflow trigger — labs due? Provider judgment? Annual?
+The §9.3 discipline note acknowledges: no more validation re-litigation. Sessions 1+2 + user direction 2026-05-17 are the validation source. Future ambiguities surface at substrate slice scoping time.
 
 ---
 
@@ -1464,4 +1801,48 @@ This artifact:
 
 After your validation answers (above), I revise this doc to match. Then Phase 1 hardening sequence proceeds per Layer 2 G.4: DL-15 amendments → DL-16 amendments → 4-7 new DL drafts → substrate slice scoping → code build.
 
-**End of OMNI Scheduling Operating Model and Architecture (2026-05-17). Ready for joint Knox + user review + your 20 validation answers.**
+**End of OMNI Scheduling Operating Model and Architecture (2026-05-17).**
+
+---
+
+# §10 Validation Resolution Status — citation matrix (post-2026-05-17 user direction)
+
+For future readers + Knox + user: where each of the 20 originally-posed validation questions was resolved.
+
+| # | Original question | Resolution source | Resolution doc location |
+|---|---|---|---|
+| Q1 | Day 0 medspa Botox match Bloom? | Session 2 Turns 21-29 + Knox 2026-05-17 + user 2026-05-17 | §5.1 + §6.14 Q10 (staff-drafted Day 0 acceptable) |
+| Q2 | LHR receipt/note/credit split | Session 2 Turn 25 + Knox 2026-05-17 | §4.3 + §5.2 + §6.13 Q9 |
+| Q3 | Day 0 commerce minimum | Knox 2026-05-17 8-item list | §8.1 Day 0 commerce minimum (Knox 8-item) |
+| Q4 | Day 0 video scheduled or ad-hoc | Knox 2026-05-17 + user 2026-05-17 Q20 | §5.5 + §8.1 + §6.10 Q4 (multi-initiator Day 0) |
+| Q5 | Day 0 closeout 3 lanes or 7 | Session 2 Turn 30 user + Knox | §8.1 (3 lanes Day 0) + §8.3 (7 lanes Month 6) |
+| Q6 | Hims-only Day 0 customer? | Sessions 1+2 wedge framing | §8.1 (substrate admits async_review Day 0) + Bloom = Day 0 customer; Hims-only = Year 1 |
+| Q7 | Federation Year 1 or Year 2+? | User 2026-05-17 explicit | **§6.17 Q12 (REVISED Day 0)** + §8.1 (federation substrate Day 0) |
+| Q8 | Procedure_encounter Year 1 or 2+? | Session 2 Turn 5 | §8.4 Year 1 (substrate Day 0; UI Year 1) |
+| Q9 | First specialty after derm? | User 2026-05-17 explicit | **§8.4-§8.5 (plastics → GI → cardio → endocrine → sleep)** |
+| Q10 | Care Episode match Bloom? | Session 2 Turn 2 user accepted | §6.7 Q19 (hybrid) + §2 + §5.3 |
+| Q11 | Multi-episode-per-encounter frequency | Session 2 Turn 2 example | §5.3 Mohs-pivot-Botox-GLP-1 load-bearing |
+| Q12 | Planned-vs-performed today | Sessions 2 Turns 3 + 23 | §5.3 + §6.12 Q8 substrate enforcement |
+| Q13 | Front desk modify: BLOCK or WARN | Session 2 Turn 22 Knox | §6.14 Q10 (WARN + reconciliation flag) |
+| Q14 | MAs draft today? | Session 2 Turn 22 Knox | §6.14 Q10 tier-2 staff_drafted |
+| Q15 | Providers actually use drawer? | Session 2 Turn 24 user + Knox + user 2026-05-17 | §5.1 + §5.2 smart-contextual drawer (generic catalog REJECTED) |
+| Q16 | OK no day-roster/commission Day 0? | User 2026-05-17 explicit | **§8.2 attribution UI Month 1-2 (not Month 6+)** |
+| Q17 | Settings ~10 sub-pages enough? | User 2026-05-17 explicit | **§8.1 OMNI-wide Settings-Infra Day 0 (~30-50 sub-pages; broader than scheduling)** |
+| Q18 | Bloom workflow missed? | User 2026-05-17: "no atm but there will be more" | §5.9-§5.27 (19 additional scenarios); substrate Day 0 admits flexible expansion |
+| Q19 | Hims async substrate match? | Session 2 Turns 4 + 6 | §5.4 matches verbatim |
+| Q20 | Hims-to-scheduled trigger? | User 2026-05-17 explicit | **§6.10 Q4 multi-initiator (patient/provider/system) + patient "Schedule video call now" Day 0** |
+
+**5 questions where user direction 2026-05-17 overrode my initial recommendations:**
+- Q7 (Federation moved Day 0 from Year 1)
+- Q9 (Specialty order pinned: plastics → GI → cardio → endocrine → sleep)
+- Q16 (Attribution reports Month 1-2 from Month 6+)
+- Q17 (Settings Day 0 expanded to ~30-50 OMNI-wide sub-pages from ~10 scheduling-specific)
+- Q20 (Multi-initiator video Day 0 from "scheduled-only Day 0")
+
+**Doc revision history:**
+- 2026-05-17 commit `42d2752` — initial doc (1467 lines)
+- 2026-05-17 second commit (this revision) — amendments per user direction 2026-05-17
+
+---
+
+**End of OMNI Scheduling Operating Model and Architecture (2026-05-17 + user direction 2026-05-17 amendments). Ready for Phase 1 hardening sequence per Layer 2 G.4: DL-15 amendments → DL-16 amendments → new DL drafts → substrate slice scoping → code build.**
