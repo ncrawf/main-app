@@ -3,7 +3,7 @@
 **Date:** 2026-05-17
 **Status:** ROUND 1 — index skeleton + Domain 1 only. Domains 2-7 land in subsequent rounds with explicit user + Knox review checkpoints between each.
 **Anchor:** Day 0 Build Contract commit `6dc1286` is the frozen build-facing target. This rule matrix translates the Build Contract + locked + DRAFT doctrine into evidence-backed, buildable rules.
-**Discipline:** every rule cites 1-3 evidence sources (Mindbody ingestion + cross-app reference + doctrine ref). Mindbody is **EVIDENCE OF TENANT NEEDS**, not a substrate template. Cross-app evidence forces broader pattern discovery. Substrate pressure-test verdicts surface real gaps without silent invention.
+**Discipline:** every rule cites Mindbody (hard evidence) + 1-3 cross-app pattern references (analogies for pressure-testing, NOT hard evidence per Knox 2026-05-17 patch) + 1-3 doctrine / Build Contract / preferences locked / post-mortem refs (hard evidence). Mindbody is **EVIDENCE OF TENANT NEEDS**, not a substrate template. Cross-app references force broader pattern discovery. Substrate pressure-test verdicts surface real gaps without silent invention.
 
 ---
 
@@ -24,9 +24,11 @@ The single biggest risk: Opus reads Mindbody too literally and produces a "Mindb
 
 **Lane:** Use Mindbody as ONE example among many. Translate observed behavior into generic OMNI primitives. Pull cross-app evidence from other scheduling/calendar/booking systems to validate the abstraction. Stay buildable but high enough to extract the platform rule.
 
-### §2.1 Cross-app evidence sources (each rule cites 1-3)
+### §2.1 Cross-app pattern references (each rule cites 1-3; these are ANALOGIES for pressure-testing, NOT hard evidence)
 
-| System | What it informs |
+**Important distinction (Knox 2026-05-17 patch):** Cross-app references in this matrix are pattern-level analogies used to pressure-test whether the OMNI abstraction is sound. They are NOT hard evidence in the rigorous sense. Without sourced documentation per app, cross-app references serve as DESIGN PRESSURE TESTS, not implementation prescriptions. **Hard evidence is:** Mindbody ingestion (sourced from 190 screenshots + verbatim chat) + user 15% gap list (verbatim) + locked + DRAFT DL refs + Build Contract sections + post-mortem patterns + preferences locked record.
+
+| System | What pattern it informs |
 |---|---|
 | **Restaurant POS / OpenTable / Toast** | Menu hierarchy (category → item → modifier); combo meals as presets; broad-default vs guided ordering; party-size as resource axis |
 | **Airline booking (Delta / United / Expedia)** | Fare class (Economy / Economy Plus / Business / First) as commercial variant of one flight, NOT as a "flight type" |
@@ -35,7 +37,7 @@ The single biggest risk: Opus reads Mindbody too literally and produces a "Mindb
 | **Calendly / Cal.com / Zoom Scheduler** | "Event type" as bookable affordance, separated from the actual meeting/encounter |
 | **Boulevard (medspa-native competitor)** | Service categories with add-ons; differs from Mindbody on bundle UX |
 | **Hospital OR / endoscopy block scheduling** | Procedure + room + provider + anesthesiologist + MA as multi-resource bundle with prep/finish time |
-| **Mindbody (current evidence base)** | Primary evidence base — treated as ONE example, not THE example |
+| **Mindbody** | Hard evidence base (sourced ingestion) — see "Mindbody ingestion evidence" cross-link section below |
 
 ### §2.2 Anti-copy warnings (every rule honors)
 
@@ -60,8 +62,8 @@ Each rule across all 7 domains follows this exact structure. Section A (flight-l
 
 #### Section A — Flight-lane translation
 
-1. **Mindbody behavior observed:** [batch ref + screenshot ref + 1-3 sentence description; or "n/a — gap, not in Mindbody"]
-2. **Cross-app evidence:** [1-3 systems from §2.1 + brief description of pattern transferred]
+1. **Mindbody behavior observed (HARD EVIDENCE):** [batch ref + screenshot ref + 1-3 sentence description; or "n/a — gap, not in Mindbody"]
+2. **Cross-app pattern reference (ANALOGIES for pressure-testing, NOT hard evidence):** [1-3 systems from §2.1 + brief description of pattern transferred]
 3. **Underlying tenant need:** [the pure abstraction; vendor-free; specialty-free; what the tenant actually needs the platform to do]
 4. **OMNI generic primitive / rule:** [the platform answer; substrate FK + behavioral rule]
 5. **Divergence / improvement:** [where OMNI intentionally deviates from Mindbody or other apps, and why]
@@ -81,7 +83,7 @@ Each rule across all 7 domains follows this exact structure. Section A (flight-l
 13. **UI surface:** [where staff/patient sees it; consumer of the rule]
 14. **Failure mode:** [what happens if inputs are missing or invalid; graceful degradation; never patient-facing ugliness]
 15. **Audit / event:** [what event taxonomy entry fires; per DL-16 envelope + amendment 42 outbound trigger registry]
-16. **Evidence citations:** [1-3 sources: DL ref / Mindbody batch ref / Build Contract section / preferences locked ref / post-mortem pattern ref / cross-app pattern]
+16. **Evidence citations (HARD EVIDENCE ONLY — distinct from cross-app pattern reference above):** [1-3 sources from: DL ref / Mindbody batch ref / Build Contract section / preferences locked ref / post-mortem pattern ref / user 15% gap. NOT cross-app references — those go in Section A.2.]
 17. **Test case:** [concrete scenario walked through the rule; e.g., "LHR Brazilian booked, 5 areas performed"]
 ```
 
@@ -118,7 +120,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 
 | # | Domain | File | Round | Status | Rule count Day 0 | Substrate verdicts |
 |---|---|---|---|---|---|---|
-| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Round 1** | **AUTHORED** | TBD (target 25-35) | TBD |
+| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Round 1 + Knox patch round** | **AUTHORED + PATCHED** | 30 Day 0 | 23 OK / 7 OK-with-extension (3 distinct amendments A/B/C) |
 | 2 | Booking composer / availability rules | (deferred) | Round 2 | NOT STARTED | — | — |
 | 3 | Appointment lifecycle rules | (deferred) | Round 3 | NOT STARTED | — | — |
 | 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — |
