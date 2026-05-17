@@ -723,6 +723,18 @@ Round 3.3 doctrine additions (NOT new substrate; cross-cutting discipline locks 
 
 Phase 1 hardening v8 may add additional amendments as later domains surface gaps. Domain 6 pre-brief is fully framed; Shopify ingestion task is parked + binding for pre-Round-6.
 
+**Phase 1 hardening v9 (2026-05-17, post Round 3.4 — benefit stacking + conflict resolution anti-double-dipping doctrine lock) — 0 substrate amendments; 1 doctrine section added + 1 extended:**
+
+Round 3.4 doctrine addition (NOT new substrate; binding stacking discipline ahead of Domain 6 authoring) — captured in Day 0 Scheduling Rule Matrix [index doc §2.13](designs/day_0_scheduling_rule_matrix/00_index.md) + extended [§2.9 Section K](designs/day_0_scheduling_rule_matrix/00_index.md):
+
+- **§2.13 Benefit stacking + conflict resolution (anti-double-dipping)** — Per user direction 2026-05-17: patients commonly hold MULTIPLE simultaneous benefit sources (multiple memberships + packages + promos + gift_cards + account_credits + staff_adjustments + loyalty_credits). Cart-level benefit resolution MUST handle overlapping eligibility on same cart line deterministically. Anti-double-dipping is OMNI DEFAULT; tenant opts INTO stacking via explicit per-benefit config. Locks 7 binding default stacking rules (multi-membership-pct → best one only / package + membership → don't combine / service_credit + pct → don't combine on $0 line / pricing_override + promo → don't combine unless explicit / gift_card / staff_adjustment / promo + promo). Locks 6 substrate fields per benefit (combinable_with_other_benefits / exclusive_group / stacking_priority / conflict_resolution_strategy / staff_override_allowed / patient_visible_attribution). Locks 6 conflict_resolution_strategy ENUM values (best_value_wins default / highest_priority_wins / first_expiring_wins / package_redemption_wins / manual_staff_review / tenant_defined_order). Locks 5 policy profiles (medspa_anti_double_dip default / aggressive_loyalty / payment_only_credits / manual_staff_resolution / tenant_custom) — NOT toggle-soup. Locks deterministic cart-level resolution algorithm. 4 worked examples (SkinPen package vs BH+ $50 / triple-membership 15% skincare / gift_card on top of discount / staff override comp).
+
+- **§2.9 Domain 6 mandatory pre-brief — EXTENDED** with new compliance Section K (benefit stacking + conflict resolution compliance) — 7 default rules / 6 substrate fields / 6 conflict strategies / 5 policy profiles / anti-double-dipping default.
+
+**Amendment I candidate (NEW; Round 6 to evaluate):** Existing substrate has `promo_code.combinable_with_other_promos` BOOLEAN (DL-17 inv 14) + `entitlement.redemption_priority` (DL-17 inv 4). Amendment I extends to `discount_program` (DL-17 inv 15) + `entitlement` (DL-17 inv 22) with 6 stacking-control fields + adds tenant `commerce_stacking_policy_profile` setting per DL-19 inv 1 + 4. Domain 6 evaluates final shape at Round 6 start.
+
+Phase 1 hardening v9 may add additional amendments as later domains surface gaps. Domain 6 pre-brief is fully framed (Sections A-K); Shopify ingestion task is parked + binding for pre-Round-6.
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.

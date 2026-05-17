@@ -492,9 +492,32 @@ Domain 6 (Checkout / commerce / entitlement) MUST address the following at Round
 - Cross-app references (Stripe / Amazon / etc.) remain ANALOGIES per Round 1.5 terminology fix
 - Targeted Shopify ingestion must be captured BEFORE Round 6 authoring starts
 
+**K. Benefit stacking + conflict resolution compliance** (per Round 3.4 §2.13):
+- Default to ANTI-DOUBLE-DIPPING — Round 3.4 7 default stacking rules locked
+- 6 substrate fields per benefit (combinable_with_other_benefits / exclusive_group / stacking_priority / conflict_resolution_strategy / staff_override_allowed / patient_visible_attribution)
+- Conflict resolution strategies (6 ENUM values: best_value_wins / highest_priority_wins / first_expiring_wins / package_redemption_wins / manual_staff_review / tenant_defined_order)
+- Tenant configuration via policy profiles (medspa_anti_double_dip / aggressive_loyalty / payment_only_credits / manual_staff_resolution / tenant_custom), NOT toggle-soup
+- Package + membership_discount on same line: DO NOT COMBINE by default (rule 2)
+- Multiple memberships with overlapping eligibility: best_value_wins from exclusive_group (rule 1)
+- Gift card / account credit: stored value, applies AFTER discounts (rule 5)
+- Staff override: requires DL-18 Tier 2 attestation + reason_code + audit (rule 6)
+- Non-applied eligible benefits ALWAYS visible to staff; patient-visible per `patient_visible_attribution` flag
+
 **Potential Amendment H candidate (Domain 6 to evaluate; expanded per Round 3.3):** DL-17 inv 15 `discount_program.program_kind` ENUM currently has 4 values (flat_percent / flat_amount / rotating_tier / cumulative_loyalty). Round 3.3 expansion: Amendment H may need TWO parts:
 - (a) `program_kind = pricing_override` value to support "Botox $14/u → $12/u member price" cleanly — OR alternate pricing_option per member tier (DL-17 inv 1 admits M:N).
 - (b) NEW `commerce_order_line_benefit_attribution` child substrate (or denormalized JSONB column) to capture per-line attribution lines (source / benefit_type / original_price / adjusted_price / quantity / savings_amount / stacking_position / staff_override_status) for receipt + dashboard + booking estimate surfacing. Required for Round 3.3 §2.11 benefit attribution doctrine.
+
+Domain 6 authoring decides shape; flagged here for Round 6 evaluation.
+
+**Potential Amendment I candidate (Domain 6 to evaluate per Round 3.4 §2.13):** Benefit stacking + conflict resolution substrate fields. Existing substrate has `promo_code.combinable_with_other_promos` BOOLEAN (DL-17 inv 14) + `entitlement.redemption_priority` (DL-17 inv 4). Amendment I extends to `discount_program` (DL-17 inv 15) + `entitlement` (DL-17 inv 22) with:
+- `combinable_with_other_benefits` BOOLEAN
+- `exclusive_group` STRING NULL (benefits in same group resolve to one winner)
+- `stacking_priority` NUMERIC
+- `conflict_resolution_strategy` ENUM (6 values: best_value_wins / highest_priority_wins / first_expiring_wins / package_redemption_wins / manual_staff_review / tenant_defined_order)
+- `staff_override_allowed` BOOLEAN
+- `patient_visible_attribution` BOOLEAN
+
+Plus tenant `commerce_stacking_policy_profile` setting (5 default profiles + tenant_custom) per DL-19 inv 1 + 4.
 
 Domain 6 authoring decides shape; flagged here for Round 6 evaluation.
 
@@ -697,6 +720,172 @@ Before Round 6 authoring starts:
 - Domain 6 authoring MUST cite Shopify evidence as primary commerce + cart-resolution evidence (alongside Mindbody for medspa-specific scheduling + entitlement-reservation patterns)
 
 **This is NOT a Round 4 blocker.** Round 4 (Confirmation / outbound) proceeds without Shopify evidence. The Shopify ingestion task is parked + binding for pre-Round-6.
+
+### §2.13 Round 3.4 binding doctrine — Benefit stacking + conflict resolution (anti-double-dipping)
+
+Per Knox/chat 2026-05-17 + user direction. Locked before Domain 6 authoring (Round 6).
+
+**Binding doctrine:** Patients commonly hold MULTIPLE simultaneous benefit sources — multiple memberships, packages, promos, gift cards, account credits. Cart-level benefit resolution MUST handle overlapping eligibility on the same cart line deterministically. Default rule: anti-double-dipping. Tenant may opt INTO stacking via explicit per-benefit configuration; OMNI defaults prevent accidental double-dipping.
+
+**Why this matters (per user verbatim 2026-05-17):**
+
+*"people want to buy a 3-pack of SkinPen. Price goes from $400 solo to $1k for 3. BH+ monthly membership gets you $50 off any SkinPen treatment! No, you cannot combine those."*
+
+*"red light therapy membership + peptide membership + BH+ — all may give 15% off skincare. At skincare checkout, we do NOT apply BOTH or ALL!!!! We will need hard rules to govern things like 'only apply lowest, only apply 1 at a time.'"*
+
+Without explicit stacking doctrine, Domain 6 risks defaulting to either: (a) silent multi-stack (45% off skincare from 3 memberships → revenue leak), or (b) silent best-only with no patient visibility (membership value invisible → cancellation risk per §2.11).
+
+**7 default stacking rules (binding OMNI doctrine; tenant may opt in to stacking via per-benefit config):**
+
+| # | Scenario | Default behavior | Rationale |
+|---|---|---|---|
+| 1 | Multiple membership % discounts on same product/category (Red Light mbr + Peptide mbr + BH+ all = 15% off skincare) | Apply **best one only** (highest savings); attribute applied + flag non-applied to staff | Anti-double-dipping; preserves value visibility per §2.11 |
+| 2 | Package redemption + membership service discount on same service (SkinPen 3-pack session + BH+ $50 off SkinPen) | **Do not combine.** Package redemption wins; membership discount flagged as "not applied" with reason | Package is already a bundled/discounted price; double-discounting on already-discounted line is unintended |
+| 3 | Free monthly service credit + percent/fixed discount on same line (June Hydrafacial benefit + 15% promo) | **Do not combine** on $0 line; service credit wins (already fully covers) | $0 line means no discount applicable; staff override available for "credit + tip" scenarios |
+| 4 | Pricing override + promo code (Botox $12/u member + SPRING25 promo) | **Do not combine** unless promo explicitly marked `combinable_with_pricing_overrides = TRUE` | Pricing override is the per-tier baseline; layering promo on top is rare + tenant-explicit |
+| 5 | Gift card / account credit + discount on same line | **May combine** (gift card/credit applied AFTER discounts) | Stored value behaves like PAYMENT not DISCOUNT; applies to remaining balance after benefits |
+| 6 | Staff adjustment + any benefit | **Allowed with permission + reason_code + audit** per DL-18 inv 8 | Staff override is a privileged action with attestation; explicit per-case decision |
+| 7 | Promo code + promo code | **Do not combine** unless both explicitly marked `combinable_with_other_promos = TRUE` | Per existing DL-17 inv 14 promo_code.combinable_with_other_promos field |
+
+**Per-benefit substrate fields required (Amendment I candidate — Domain 6 to substrate):**
+
+Each benefit row (entitlement / discount_program / promo_code / pricing_override) carries:
+
+| Field | Type | Purpose |
+|---|---|---|
+| `combinable_with_other_benefits` | BOOLEAN | Default FALSE for memberships + packages; default per-substrate for others |
+| `exclusive_group` | STRING NULL | Benefits in same exclusive_group cannot co-apply (e.g., all 15% skincare discounts share group `retail_pct_15`) |
+| `stacking_priority` | NUMERIC | Higher = applied first when stacking allowed; ties broken by savings_amount DESC then valid_to ASC |
+| `conflict_resolution_strategy` | ENUM | `best_value_wins` (default) / `highest_priority_wins` / `first_expiring_wins` / `package_redemption_wins` / `manual_staff_review` / `tenant_defined_order` |
+| `staff_override_allowed` | BOOLEAN | If TRUE + Tier 2 attestation per DL-18 inv 8, staff may force-apply / force-skip |
+| `patient_visible_attribution` | BOOLEAN | If TRUE (default), patient sees on receipt; if FALSE, staff-only attribution |
+
+DL-17 inv 14 (promo_code) already has `combinable_with_other_promos`. DL-17 inv 4 has `redemption_priority` (low/medium/high). Round 3.4 binds these need to extend to `discount_program` (DL-17 inv 15) + `entitlement` (DL-17 inv 22) + new field-set for `exclusive_group` + `conflict_resolution_strategy`. Flagged as Amendment I candidate for Domain 6 to substrate.
+
+**Cart-level conflict resolution algorithm (binding deterministic logic for Domain 6):**
+
+```text
+For each cart_line:
+  eligible_benefits = filter(all_active_sources_for_patient, applies_to(cart_line))
+
+  # Group by exclusive_group
+  groups = group_by(eligible_benefits, .exclusive_group)
+  
+  for each group:
+    if group.size == 1:
+      apply(benefit) → attribution line (§2.11)
+    elif group.size > 1:
+      strategy = group.first().conflict_resolution_strategy (must match within group)
+      winner = resolve(group, strategy)
+      apply(winner) → attribution line
+      record_non_applied(group - {winner}) → staff-visible attribution; patient-visible only if patient_visible_attribution = TRUE
+  
+  # Apply combinable benefits in stacking_priority order (where allowed per rule 1-7)
+  for each combinable_benefit in remaining (sorted by stacking_priority DESC):
+    if compatible_with_already_applied(combinable_benefit):
+      apply(combinable_benefit) → attribution line
+  
+  # Apply gift card / account credit AFTER discounts (per default rule 5)
+  for each stored_value_source in (gift_card, account_credit) in priority order:
+    apply against remaining_balance → attribution line
+  
+  # Compute uncovered_balance + emit cart-level summary
+  return per_line_attribution + uncovered_balance + non_applied_eligible_benefits
+```
+
+**Conflict resolution strategies (per `conflict_resolution_strategy` ENUM):**
+
+- `best_value_wins` (DEFAULT) — apply benefit with highest savings_amount on this line; ties broken by valid_to ASC then purchased_at ASC
+- `highest_priority_wins` — apply benefit with highest `stacking_priority`; ties broken per default tie-break
+- `first_expiring_wins` — use-it-or-lose-it: apply benefit with earliest valid_to first
+- `package_redemption_wins` — package entitlement always wins over membership/promo on same line (matches default rule 2)
+- `manual_staff_review` — substrate emits `cart.benefit_conflict_pending_staff_review` event; cart cannot finalize until staff resolves
+- `tenant_defined_order` — tenant configures explicit ordered list of benefit kinds; resolves per list
+
+**Tenant configuration via policy profiles (binding UX guidance, not toggle-soup):**
+
+Per Knox/chat 2026-05-17: DO NOT expose 900 random toggles. Use policy profiles:
+
+| Policy profile | Typical defaults |
+|---|---|
+| `medspa_anti_double_dip` (DEFAULT for medspa) | Rules 1-7 as default; package wins; no member+promo stacking |
+| `aggressive_loyalty` | Allow membership + package combine on specific service categories; loyalty-tier-stacking allowed |
+| `payment_only_credits` | Gift card / account credit may combine with any discount; all other stacking forbidden |
+| `manual_staff_resolution` | All conflicts route to staff review queue (high-touch / VIP / luxury tier) |
+| `tenant_custom` | Per-benefit config; explicit |
+
+Tenant picks profile at brand setup; per-service / per-preset / per-category overrides per DL-19 inv 4 settings hierarchy.
+
+**Worked examples (per user direction + chat framing):**
+
+**Example A — SkinPen package + BH+ $50 off** (default rule 2):
+```text
+SkinPen Treatment — $399.00
+  Applied:    SkinPen 3-Pack session 2 of 3  (-$399.00)
+  You pay:    $0.00
+  Sessions remaining: 1
+  
+  ┌─ Staff-only attribution ─────────────────────────────┐
+  │ Not applied: BH+ Elite $50 off SkinPen               │
+  │ Reason:      package_redemption_wins (default rule 2)│
+  │ Eligible:    yes; combinable: no                     │
+  └──────────────────────────────────────────────────────┘
+```
+
+**Example B — 3 memberships, all 15% off skincare** (default rule 1):
+```text
+SkinBetter Alto Defense Serum — $165.00
+  Applied:    BH+ Elite 15% retail discount (-$24.75)
+  You pay:    $140.25
+  
+  ┌─ Staff-only attribution ─────────────────────────────┐
+  │ Not applied: Red Light Membership 15% retail discount│
+  │ Not applied: Peptide Membership 15% retail discount  │
+  │ Reason:      exclusive_group=retail_pct_15;          │
+  │              best_value_wins (tied → BH+ Elite       │
+  │              picked by valid_to ASC tiebreak)        │
+  └──────────────────────────────────────────────────────┘
+```
+
+**Example C — Gift card on top of membership discount** (default rule 5):
+```text
+SkinBetter Serum — $165.00
+  Applied:    BH+ Elite 15% retail discount (-$24.75)
+  Subtotal:   $140.25
+  Applied:    Gift Card $50 redemption (-$50.00) [stored value]
+  You pay:    $90.25
+  Gift card remaining: $0
+```
+
+**Example D — Staff override with reason** (default rule 6):
+```text
+SkinPen Treatment — $399.00
+  Applied:    SkinPen 3-Pack session 2 of 3 (-$399.00)
+  Staff adj:  Manager comp $50 (-$50.00) [reason: loyalty_recovery; actor: NC]
+  You pay:    -$50.00 → converted to account_credit $50
+  
+  ┌─ Staff override audit ───────────────────────────────┐
+  │ Override:    rule 6 staff_override                   │
+  │ Reason:      loyalty_recovery                        │
+  │ Attestation: NC Tier 2                               │
+  │ Audit lineage: per DL-16 inv 30 decision record      │
+  └──────────────────────────────────────────────────────┘
+```
+
+**Anti-patterns (Round 3.4 binding rejections):**
+
+- ❌ Default-combine all eligible discounts (revenue leak; 45% off scenario)
+- ❌ Silent best-only without attribution to staff (loses audit + value visibility)
+- ❌ Tenant toggle-soup with 50+ stacking flags (use policy profiles)
+- ❌ Per-source branching `if has_membership: apply_membership; if has_package: apply_package` (per §2.10 — generic engine, not branched)
+- ❌ Stack package_redemption + membership_discount by default (default rule 2)
+- ❌ Stack pricing_override + promo by default (default rule 4)
+
+**Key principle (Knox/chat 2026-05-17 verbatim closer):**
+
+*"All eligible benefits are detected. Only allowed combinations are applied. Conflicts are resolved deterministically, visibly, and auditable."*
+
+This is the binding doctrine for Domain 6 stacking + conflict resolution. Domain 6 implements; Round 3.4 locks the architecture.
 
 ---
 
