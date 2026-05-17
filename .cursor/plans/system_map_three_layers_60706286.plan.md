@@ -870,6 +870,27 @@ Booking RPC resolves staff availability at `appointment_propose` time by composi
 
 ---
 
+## Cross-DL warning — Vendor / specialty / external-system labels do NOT become OMNI substrate
+
+*(Phase 1 hardening cross-DL principle, 2026-05-17, applies to all DRAFTs DL-17 → DL-22 and to any future DL.)*
+
+OMNI substrate exposes GENERIC primitives. Vendor names (Allē, Aspire, Cherry, ClassPass, CareCredit, GreenSky, Stripe-as-substrate, Twilio-as-substrate, Mindbody UI labels, Canfield Visia), specialty labels (aesthetic, medspa, derm, plastics, GI, cardio, endocrine, sleep), and external-system artifacts MUST NOT become enum values, column names, or table names in OMNI substrate UNLESS they represent a generic platform concept that survives the vendor / specialty / external system being replaced.
+
+**The test:** if vendor X disappears tomorrow, does the substrate need a schema change? If yes, the substrate is wrong. Vendor-specific behavior lives in DL-13 partner_adapter pattern (optional, per-tenant, opt-in). Specialty-specific behavior lives in tenant-defined catalog / episode_kind / service_category / tag / metadata_axis seed data. Mindbody UI labels are evidence of what tenants configure, not evidence of what OMNI hardcodes.
+
+**Concrete examples of correct application:**
+- "Allē" / "Aspire" / "Cherry" are tenant-defined `payment_method.label` STRING values, NOT enum members. Tenant adds Bitcoin in 2031 without code change. Per DL-17 inv 18 generic registry.
+- "Botox" / "Dysport" / "Daxxify" are tenant-defined `service` rows in the service catalog (DL-15), NOT substrate enum values. Tenant adds new neuromodulators without code change.
+- "Aesthetic Office Visit" / "Procedure Visit With Room" are NOT encounter substrate concepts. Substrate carries `encounter.modality` (4 values: in_person / video / phone / async) + `service_id` for what is done + `venue_id` for where + `care_episode_id` for why.
+- "Hydrafacial Signature/Deluxe/Platinum" are `pricing_option` rows linked to one `service` ("Hydrafacial"), NOT three separate services.
+- "Canfield Visia" is a tenant-typed `partner_device_label` STRING value under generic `partner_imaging_device` enum, NOT an enum member.
+- Mindbody's "5 permission groups" (External / Front Desk / Manager / Service Provider / Social Media Manager) are NOT substrate enum values; OMNI uses its own 8 staff roles per `lib/auth/capabilities.ts`.
+- Mindbody's flat appointment-type list is NOT substrate; tenant configures `service_category` hierarchy + `service` rows + `booking_preset` affordances.
+
+**This warning is shared across DL-17 / DL-18 / DL-19 / DL-20 / DL-21 / DL-22** and cross-links to existing DL-13 (rail-agnostic substrate + vendor confinement). Each new DRAFT preamble references this clause.
+
+---
+
 ## Section 1D: Staff capability, workspace, and access control (Layer 1D; `lib/auth/capabilities.ts`)
 
 *This section is the **architected** home for the capability layer **already** **implemented** in the repo. It does **not** replace **1J.9** (high-liability **mutations** and **authority** **boundaries**) or **1E** (commerce **surface** → **capability** **defaults**); it **sits** **next** to them and answers **“can this org scale** **coarse** **roles** **without** **losing** **separation** **or** **audit**?”** **1D.1** = **risk-** **domain** **/ **grants** **(timeless) **. **1D.2** = **early-** **stage** **(2–3** **users) ** **vs** **scaled** **(multi-** **provider,** **multi-** **role,** **multi-** **state) **. **
