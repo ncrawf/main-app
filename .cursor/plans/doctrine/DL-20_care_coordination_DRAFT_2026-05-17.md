@@ -3,6 +3,12 @@
 **Date:** 2026-05-17
 **Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice. **CONTAINS partial resolution of Q1 (encounter container architecture, SHELVED) and Q6 (Care Episode parent object) — promotion requires explicit Q1+Q6 joint signoff.**
 
+**Phase 1 hardening v2 corrections (2026-05-17 user + Knox refinements REPLACE my prior overcorrections):** The earlier draft (committed as 7e5de53) framed encounter_container as the mandatory primary primitive. Pressure-testing against Hims async / lab review / biopsy recall / multi-day adverse event / GLP-1 multi-modal scenarios proved this overcorrected. The corrected model is THREE distinct layers — appointment + appointment_item (planned) / encounter + encounter_line (actual) / linked evidence + commerce — with the appointment IS the container for synchronous trips; lazy container materializes only when needed for multi-line coordination; encounter created when work begins (scheduled OR walk-in OR async OR lab review). DL-15 amendment 8 renames inv 5 state "confirmed" → "scheduled" so DL-20 confirmation_state can use "confirmed" for patient confirmation. Rejected patterns explicitly enumerated below. Full pressure-test arc preserved at [future_care_obligations_design_2026-05-17.md](future_care_obligations_design_2026-05-17.md).
+
+**Cross-DL discipline:** honors system_map Cross-DL warning (vendor/specialty/Mindbody-artifact labels do NOT become OMNI substrate enum values). encounter.modality is 4 values (in_person / video / phone / async) — NOT specialty-coded. Specialty leakage prevented. Per-specialty taxonomies live in tenant catalog (service_category hierarchy via DL-15 + DL-17 + DL-19 booking_preset).
+
+**Broad-default booking doctrine** (mirrors DL-15 + DL-19 preambles): a patient may always book at category level; missing planned_details NEVER display as "Unknown" patient-facing; tenant configures self_bookable_progressive_disclosure_mode per service.
+
 **Cross-anchors:**
 - System map DL-7 (tracked clinical objects + procedure / intervention lifecycle as foundation primitive) + DL-14 (CNS center of gravity) + DL-15 (Scheduling Substrate Spine) + DL-16 (universal envelope) + DL-17 (Commerce Substrate Spine) + DL-18 (RBAC)
 - Layer 2 Section A.1 (Care Episode + Encounter Container proposed; Q6 OPEN) + Section E (User's 9 gaps — gap #5 procedure visits vs office visits)
@@ -14,7 +20,7 @@
 
 ---
 
-## Invariants (32 candidates)
+## Invariants (41 candidates; was 32; +9 for Phase 1 hardening v2 three-layer foundation + appointment substrate + appointment_item + encounter refactor + encounter_line linked_appointment_item_id + encounter creation paths refactor + encounter_participant + appointment_staff_note_entry + appointment_confirmation_event + rejected patterns enumeration)
 
 ### Care Episode primitive (Q6 partial resolution)
 
@@ -74,7 +80,7 @@
 
 ### Care Episode tasks + cadence + recommendations
 
-16. **Care Episode Task substrate (binding).** Per Build Contract §3 ledger. `care_episode_task` carries: `id`, `care_episode_id` FK, `task_kind` ENUM (`schedule_followup` / `await_lab_result` / `await_intake_response` / `await_consent_signature` / `await_patient_response` / `provider_review_pending` / `outbound_reminder_due` / etc.), `assigned_to_actor` per DL-16 amendment 43 (typically `staff_user` or `provider_user` or `system` cron), `due_at` NULLABLE, `status` ENUM (`pending` / `in_progress` / `completed` / `cancelled` / `escalated`), `priority` ENUM per DL-16 amendment 41 (red / yellow), `linked_encounter_id` FK NULL (if task relates to specific encounter), `escalation_rules` JSONB NULL. Tasks are first-class CNS substrate; cross-link DL-14 + 1Q.14.2 outbound 8-gate.
+16. **Care Episode Task substrate — MINIMAL recall extension only in current patch round (binding).** Per Build Contract §3 ledger. `care_episode_task` carries existing fields: `id`, `care_episode_id` FK, `task_kind` ENUM (extended with 3 new recall kinds per Phase 1 hardening: `schedule_followup_recall` / `clinical_review_recall` / `outreach_recall` — added to existing enum: `schedule_followup` / `await_lab_result` / `await_intake_response` / `await_consent_signature` / `await_patient_response` / `provider_review_pending` / `outbound_reminder_due` / etc.), `assigned_to_actor` per DL-16 amendment 43, `due_at` NULLABLE, `status` ENUM, `priority` ENUM per DL-16 amendment 41 (red / yellow), `linked_encounter_id` FK NULL, `escalation_rules` JSONB NULL. **NEW FK fields for recall conversion:** `linked_clinical_object_id` FK NULL (source-of-recall linkage per DL-7), `fulfillment_appointment_id` FK NULL (populated when task converts to scheduled appointment), `fulfillment_encounter_id` FK NULL (populated when clinically acted on). **Binding lifecycle rule:** a care_episode_task is NEITHER an appointment NOR an encounter until it converts. Tasks are first-class CNS substrate; cross-link DL-14 + 1Q.14.2 outbound 8-gate. **Full future-care-obligations substrate design (30+ fields, 55+ Day 0 task_kinds across 10 origin classes, lifecycle conversion rules, 4 refinement gaps) is PARKED at [future_care_obligations_design_2026-05-17.md](future_care_obligations_design_2026-05-17.md) — NOT expanded into DL-20 invariants in this patch round. The Care-Coordination-CNS workstream is a future scope, not this scheduling-foundation round.**
 
 17. **Provider Review Queue substrate composes with care_episode_task (binding per Build Contract §3.7 patch 5).** Per Day 0 patch 5 — Hims-level functionality. `provider_review_queue` is a logical projection of `care_episode_task` rows where `task_kind ∈ {provider_review_pending, await_lab_result, await_intake_response}` AND `assigned_to_actor.actor_kind = provider_user`. Queue routing supports:
     - **Auto-reassignment**: provider unavailability (PTO / off-duty / over-capacity threshold) auto-reassigns to next-eligible-provider per fallback_provider_pool per inv 17
@@ -139,6 +145,230 @@
 ### Open-question boundaries preserved
 
 32. **Q12 (federation) cross-references for Day 0 federation (binding per user direction).** Per user direction 2026-05-17: federation Day 0. Encounter venue_id + legal_entity_id (inv 6) compose with Federation-Topology DL 11-axis venue. Patient continuity across modalities (Hims + medspa + federation) preserved via single patient_id per DL-10 + primitive #19 + Federation-Topology DL.
+
+### Three-layer foundation refinement (Phase 1 hardening v2 — appointment + appointment_item + encounter + encounter_line as separated layers per industry pattern)
+
+33. **`appointment` substrate (Layer 1 planned operational commitment, binding).** Per the 3-layer model that matches FHIR + Epic + Cerner + Athena + Amazon + airline + restaurant + Tesla patterns. The appointment IS the synchronous-trip container; lazy multi-line container materializes only when 2+ items coordinate.
+
+    ```text
+    appointment
+    ├── id, tenant_id, patient_id, patient_relationship_id
+    ├── venue_id NULL (per DL-21 11-axis venue substrate)
+    ├── planned_window_start, planned_window_end
+    ├── status ENUM (per DL-15 inv 5 + amendment 8 renames):
+    │       proposed / held / hold_expired / scheduled (was "confirmed") /
+    │       scheduled_pending_deposit (was "confirmation_pending_deposit") /
+    │       checked_in / in_progress / completed / cancelled / no_showed /
+    │       rescheduled / disputed / archived
+    ├── booking_channel ENUM (registry-extensible per DL-16 inv 5):
+    │       online_self_booking / staff_phone_booking / staff_walk_in_booking /
+    │       staff_in_person_booking / cns_proposed_accepted /
+    │       api_partner_booking
+    │   (HOW the booking was made — single concept)
+    ├── attribution_source STRING NULL
+    │   (WHERE the patient came from — free-form: UTM, influencer code,
+    │    referral_patient_id, organic, paid_search, walk_in_other)
+    ├── trigger_source ENUM (registry-extensible):
+    │       patient_initiated / staff_initiated /
+    │       care_episode_recall_conversion / waitlist_promotion /
+    │       no_show_recovery_rebook / cns_proposed_accepted /
+    │       partner_referral_inbound
+    │   (WHAT initiated the booking flow — single concept)
+    ├── booking_request_note STRING NULL (cap 500 chars; patient-typed at
+    │       booking; MUTABLE with audit history per DL-16 inv 38 — each edit
+    │       emits appointment.booking_request_note_modified event capturing
+    │       before/after/actor/timestamp; patient may add context later;
+    │       staff may correct typos; single field, single-author UX)
+    ├── confirmation_state ENUM (state machine; deterministic transitions
+    │       per DL-15 inv 5 pattern; illegal transitions emit
+    │       illegal_transition_attempted):
+    │       unconfirmed (initial after scheduled)
+    │       confirmation_sent (outbound dispatched)
+    │       confirmed (patient acknowledged — natural staff-facing term
+    │                  per DL-15 amendment 8 freeing this word)
+    │       cancellation_requested (does NOT auto-cancel; routes to
+    │                               deterministic policy or staff review)
+    │       reschedule_requested (routes to reschedule flow per DL-15 inv 6)
+    │       staff_review_required (ambiguous classification)
+    │       failed_delivery (all attempts failed)
+    │       expired_no_response (NOT cancellation; tenant policy decides)
+    │       not_required (tenant admits some service types as no-confirm)
+    ├── fulfillment_encounter_id FK NULL (populated when realized into encounter)
+    ├── created_by_actor (DL-16 amendment 43 4-tuple)
+    └── ... cancellation_policy_id FK NULL, audit lineage
+    ```
+
+    Patient new-vs-repeat status COMPUTED at runtime from `patient.first_visit_at IS NULL` — NOT stored as enum value. UI projects "New patient" / "Repeat — Nth visit" badges from this computed state.
+
+    Meaning across status + confirmation_state: `appointment.status = scheduled` = booking commitment exists (slot held); `confirmation_state = confirmed` = patient acknowledged. Orthogonal. Both can be set simultaneously without conflict.
+
+34. **`appointment_item` substrate (Layer 1 planned line under appointment, binding).** Each appointment has 1-to-N items. Item is what was planned to happen.
+
+    ```text
+    appointment_item
+    ├── id, appointment_id FK
+    ├── planned_service_id FK NULL OR planned_service_category_id FK NULL
+    │   (exactly one populated; specific service vs category-level booking
+    │    per neuromodulator-family / injectable-menu UX)
+    ├── planned_pricing_option_id FK NULL (for tier-at-booking per Hydrafacial
+    │       Signature/Deluxe/Platinum — NULL = tier resolved at checkout)
+    ├── sequence_index NUMERIC (for sequential trips: Hydrafacial 1 → injector
+    │       2 → red light 3 in same appointment)
+    ├── planned_start, planned_end (per-item time window)
+    ├── planned_quantity NUMERIC NULL (e.g., 24 units Botox, 5 areas LHR,
+    │       2 cycles CoolSculpting)
+    ├── planned_treatment_areas[] (also captured in planned_details for typing)
+    ├── planned_details JSONB (structured planned-detail capture validated
+    │       against service.planned_detail_schema — treatment areas, preferred
+    │       product, planned cycles, tier preferences; NO free text in
+    │       structured path; controlled vocabulary against tenant schemas)
+    ├── planned_provider_id FK NULL
+    ├── planned_room_id FK NULL
+    ├── planned_resource_id FK NULL
+    ├── prep_time, booking_time, finish_time (per DL-15 amendment 31)
+    ├── item_state ENUM: proposed / confirmed / in_progress / executed /
+    │       cancelled / skipped_at_visit / superseded / fulfilled
+    ├── item_origin ENUM: booking_initial / added_at_visit /
+    │       added_during_closeout
+    ├── parent_item_id FK NULL (for ADD-ONS — hair salon haircut+gloss,
+    │       medspa facial+lip flip; child line inherits parent's
+    │       provider/room/resource OR carries own)
+    ├── visibility_to_patient BOOLEAN
+    ├── linked_recall_task_id FK NULL (when item fulfills a recall)
+    └── linked_booking_preset_id FK NULL (per DL-19 booking_preset that
+            materialized this item)
+    ```
+
+35. **`encounter` substrate (Layer 2 actual care moment, binding — REFACTORED from prior encounter_container).** Created when work begins. encounter_profile_registry (prior proposal) is RIPPED OUT entirely; specialty-coded enum values were leakage per system_map Cross-DL warning.
+
+    ```text
+    encounter
+    ├── id, tenant_id, patient_id, patient_relationship_id
+    ├── modality ENUM (4 values only — NO specialty leakage):
+    │       in_person / video / phone / async
+    ├── arrival_kind_actual ENUM (registry-extensible):
+    │       scheduled / walk_in / ad_hoc_video /
+    │       inbound_message_triggered / cns_initiated_async /
+    │       lab_review_initiated
+    ├── fulfillment_appointment_id FK NULL (when realized from appointment;
+    │       NULL for walk-in, async, lab review, message escalation)
+    ├── care_episode_id NULL
+    ├── venue_id NULL
+    ├── actual_start, actual_end
+    ├── status ENUM: started / in_progress / paused_pending_external /
+    │       clinical_work_complete / closeout_complete /
+    │       cancelled_before_start / archived
+    ├── closeout_attestation_id NULL (per DL-18 inv 9; provider signature
+    │       at closeout)
+    └── created_by_actor (DL-16 amendment 43)
+    ```
+
+    Specialty / service-type / venue-type all live on their own axes:
+    - WHAT was planned = `appointment_item.planned_service_id` (DL-15/17 catalog)
+    - WHAT happened = `encounter_line` rows with line_kind discriminator (inv 12)
+    - WHO participated = `encounter_participant` rows (inv 38 NEW)
+    - WHY care over time = `care_episode_id` FK
+    - WHERE physically = `venue_id` FK (DL-21 11-axis venue)
+    - WHAT resources = `room_id` / `resource_ids[]` (DL-15 4-axis composer)
+    - HOW BILLED = linked `commerce_order_id` (DL-17)
+    
+    Provider capability / specialty / licensure is a CONSTRAINT on the participant (read at booking from staff_capability per DL-18 inv 6 + provider_license per DL-21 inv 12), NOT a column on encounter.
+
+36. **`encounter_line` REFACTOR — adds `linked_appointment_item_id` FK NULL (when this line fulfilled a planned item from appointment).** Existing line_kind enum + line_state + provider_id + attestation_id + performed_payload JSONB + linked_clinical_object_id + linked_commerce_order_line_id + linked_thread_message_id + linked_patient_document_id remain per inv 12. Encounter_lines are created WHEN WORK HAPPENS, not auto-copied from appointment_items at check-in (preserves Q9 planned-vs-performed distinction).
+
+37. **Encounter creation paths (binding per Knox session 2 marker, REFACTORED from prior inv 10):** scheduled-first (appointment → check-in → encounter with fulfillment_appointment_id); intake-first (intake_session submitted → encounter with arrival_kind=inbound_message_triggered, no appointment); walk-in (encounter at door, arrival_kind=walk_in, no appointment); ad-hoc video (patient or provider initiates → encounter, no appointment); async clinical decision (provider takes action → encounter, modality=async, no appointment); lab review (provider reviews lab result → encounter, arrival_kind=lab_review_initiated, no appointment); message escalation (CNS detects urgency in inbound message → encounter, arrival_kind=cns_initiated_async). Each path produces an encounter with appropriate fulfillment_appointment_id (NULL when no upstream appointment).
+
+38. **`encounter_participant` substrate (NEW Phase 1 hardening; 3 FK targets, NOT 4).** Multi-role participants attach to EITHER appointment_item_id (planned participant for specific item: injector for Dysport line) OR encounter_line_id (performed participant for specific line) OR encounter_id (visit-wide role: checkout_owner, patient_facing_designated, supervising MD on call). Exactly one FK populated.
+
+    ```text
+    encounter_participant
+    ├── id
+    ├── appointment_item_id FK NULL
+    ├── encounter_line_id FK NULL
+    ├── encounter_id FK NULL    (exactly one of the 3 populated)
+    ├── staff_id FK
+    ├── role ENUM (registry-extensible per DL-16 inv 5; NOT closed):
+    │       primary_rendering_provider / assisting_staff /
+    │       supervising_provider / checkout_owner / care_team_member /
+    │       patient_facing_designated / observer / trainee
+    ├── valid_from, valid_to NULL (admits mid-encounter handoff)
+    └── joined_at_actor (DL-16 amendment 43)
+    ```
+
+    Multi-provider per-line via multiple appointment_item-scoped participants; visit-wide via encounter-scoped participants. "Operational owner" is a projection: patient_facing_designated for patient-side rendering; highest-attestation-tier participant for closeout; checkout_owner role for commercial coordination. NOT a substrate column.
+
+39. **`appointment_staff_note_entry` substrate (NEW Phase 1 hardening — REPLACES single-field staff_booking_note per Knox refinement).** Append-only child substrate with note_kind discriminator. Captures Mindbody's "NC—..." pattern properly + the three distinct staff note types (scheduling context / treatment preview / inventory prep / etc.).
+
+    ```text
+    appointment_staff_note_entry
+    ├── id, appointment_id FK
+    ├── note_kind ENUM (registry-extensible per DL-16 inv 5):
+    │       scheduling_context / treatment_preview /
+    │       inventory_prep / deposit_capture / visit_followup /
+    │       reschedule_context / general
+    ├── content STRING (cap 500 chars per entry)
+    ├── entered_at TIMESTAMP
+    ├── entered_by_actor (DL-16 amendment 43 — initials shown in UI)
+    ├── visibility ENUM: staff_only / supervisor_only / patient_visible_explicit
+    └── superseded_by_entry_id FK NULL (if later entry corrects)
+    ```
+
+    UI renders entries reverse-chronologically with actor initials + timestamp. Multiple staff append without overwriting. Heavier clinical notes live in DL-7 clinical_record / DL-22 patient_document — distinct substrate.
+
+40. **`appointment_confirmation_event` substrate (NEW Phase 1 hardening — CNS round-trip orchestration; REPLACES single confirmed timestamp).** Confirmation is event-driven orchestration round-trip per DL-14 + DL-16 + DL-15 state machine. AI classifies; deterministic rules transition state. Event substrate REFERENCES messaging/orchestration/cns_decision substrates via FK; does NOT duplicate content.
+
+    ```text
+    appointment_confirmation_event
+    ├── id, appointment_id FK
+    ├── round_trip_kind ENUM: outbound_attempt / inbound_response /
+    │       cns_classification / state_transition
+    ├── confirmation_method ENUM (registry-extensible):
+    │       email_auto / sms_auto / sms_manual_staff_typed /
+    │       phone_call_outbound / phone_call_inbound /
+    │       in_app_push / patient_portal_click /
+    │       staff_verbal_in_person
+    ├── linked_orchestration_action_id FK NULL (DL-14 primitive #10;
+    │       outbound action ref — content lives in orchestration_action
+    │       substrate, NOT here)
+    ├── linked_inbound_message_id FK NULL (§1Q/§1V messaging substrate;
+    │       REFERENCE only, message content NOT duplicated here)
+    ├── linked_cns_decision_id FK NULL (DL-16 inv 30; classification ref)
+    ├── classified_intent ENUM NULL (when round_trip_kind=cns_classification):
+    │       confirmed / cancel_request / reschedule_request /
+    │       question_unrelated / ambiguous / opt_out / other
+    ├── classifier_confidence NUMERIC NULL (AI confidence per DL-14 inv 18-22)
+    ├── requires_staff_review BOOLEAN
+    ├── state_transition_applied BOOLEAN (FALSE = queued for staff review;
+    │       TRUE = appointment.confirmation_state actually changed)
+    ├── resulting_state_transition_from + to (when round_trip_kind=state_transition)
+    ├── occurred_at TIMESTAMP
+    ├── triggered_by_actor (DL-16 amendment 43)
+    └── notes STRING NULL
+    ```
+
+    Round-trip flow: appointment scheduled → CNS emits outbound action → patient responds via rail → CNS classifier interprets → IF classifier_confidence above threshold AND classified_intent unambiguous: deterministic rules transition confirmation_state, state_transition_applied=TRUE; ELSE: requires_staff_review=TRUE, confirmation_state=staff_review_required, staff resolves manually with explicit state transition event.
+
+    Guard (binding): appointment_confirmation_event MUST NOT duplicate messaging substrate. Stores ONLY appointment-specific interpretation + state-transition audit. Message content lives in messaging substrate; outbound payload lives in orchestration_action substrate; CNS classification record lives in cns_decision substrate. AI classifies; deterministic rules + staff decide. AI never silently changes appointment state.
+
+### Phase 1 hardening v2 explicit rejections
+
+41. **Phase 1 hardening v2 REJECTED patterns (cross-link to system_map Cross-DL warning + preservation doc).** Patterns considered and rejected during 2026-05-17 pressure-test arc:
+    - encounter_profile_registry as substrate enum with specialty-coded values (aesthetic_treatment_visit / procedure_visit_with_room / etc.) — RIPPED OUT; encounter.modality is 4 values only
+    - Mandatory encounter_container as separate row for every visit — appointment IS the container for synchronous trips; lazy container materializes only when 2+ items coordinate
+    - "appointment_line as primary primitive collapsing all clinical truth" (my prior overcorrection) — restored 3-layer separation
+    - "acknowledged_by_patient" workaround for confirmation_state (my prior workaround to dodge DL-15 amendment) — DL-15 amendment 8 fixes upstream collision; confirmation_state.confirmed is the natural term
+    - schedule_segment substrate as child of encounter_line (Knox over-modeling) — appointment_item + encounter_line carry own timing
+    - 6-state line-type enum (primary/add-on/dependent/optional/same-day-added/not-performed) — replaced by parent_item_id FK + item_origin 3-value ENUM + per-item policy axes
+    - 4-FK participant attachment (appointment+appointment_item+encounter+encounter_line) — 3 FK targets only
+    - New care_obligation substrate for recalls — extends existing care_episode_task with 3 recall task_kinds
+    - Auto-copy appointment_items to encounter_lines at check-in — encounter_lines created when work happens
+    - "reason_for_visit[]" tenant-controlled-vocabulary checklist — booking_request_note free-text field (bounded, mutable with audit) + structured planned_details JSONB
+    - compound booking_origin enum — decomposed into 3 fields (booking_channel + attribution_source + trigger_source)
+    - array-of-promo-FKs on appointment — replaced by appointment_promo_intent substrate per DL-17 inv 37
+    - single-string staff_booking_note — replaced by appointment_staff_note_entry append-only child substrate per inv 39
+    - simple-event-table confirmation (one row per send) — replaced by CNS round-trip with state machine + cns_classification rows + state_transition rows per inv 40
+
+    Full pressure-test arc + rationale preserved at [future_care_obligations_design_2026-05-17.md](future_care_obligations_design_2026-05-17.md).
 
 ---
 
