@@ -4,18 +4,27 @@
 **Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice (substrate slice scoping is the next gate per Build Contract §6.5).
 
 **Cross-anchors:**
-- System map DL-14 (CNS center of gravity) + DL-16 (universal CNS event envelope, including Phase 1 amendments 40-43)
-- System map DL-15 (Scheduling Substrate Spine; Phase 1 amendments 29-35 — DL-17 is the **second domain specialization against DL-16**, following DL-15)
+- System map DL-14 (CNS center of gravity) + DL-16 (universal CNS event envelope, including Phase 1 amendments 40-43) + DL-15 (Scheduling Substrate Spine; Phase 1 amendments 29-36 including amendment 8 lifecycle state naming refinement — DL-17 is the **second domain specialization against DL-16**, following DL-15)
+- System map **Cross-DL warning** subsection on anti-vendor-promotion + anti-specialty-leakage (Phase 1 hardening 2026-05-17) — DL-17 honors this discipline (no vendor names as enum values; payment_method.label is tenant-defined free-form STRING)
+- Preservation doc: [.cursor/plans/doctrine/future_care_obligations_design_2026-05-17.md](future_care_obligations_design_2026-05-17.md) (parked design context; entitlement redemption + pricing-location + membership-as-contract clarifications referenced)
 - Layer 2 Section G.2.1 (commerce primitives source-of-truth)
 - Day 0 Build Contract §3.5 (commerce primitives that ship Day 0) + §3.7 patch 3 (Day 0 refunds/voids/credits/adjustments) + §6.4 step 4 (this draft)
 - Mindbody raw layer batches 6-21 (cumulative commerce reality evidence)
 - §1E (commerce surface → capability defaults) + §1J.9 (high-liability mutations + authority boundaries) — coexists; does not supersede
 
-**Scope (binding):** OMNI commerce substrate — every billable / refundable / discountable / credit-bearing / entitlement-conferring / accounting-recognized primitive across medspa / Hims / derm / plastics / GI / cardio / endocrine / sleep workflows. DL-17 specializes against DL-16 — every DL-17 invariant inherits the appropriate DL-16 invariants (envelope, partition, registry, atomicity, payload minimization, multi-tenant isolation, action authorization, idempotent execution, retention, decision record, compensation, source-of-truth, audit). DL-17 binds the **commerce substrate spine**; it does NOT bind Rx / lab / clinical-encounter line items (those specialize in DL-7 / DL-8 / future Clinical-Coding DL); it does NOT bind subscription billing rails (Stripe / authorize.net — those are `partner_adapter` actor_kind per DL-16 amendment 43); it does NOT bind accounting general-ledger export (deferred to Accounting Integration DL, Phase D).
+**Scope (binding):** OMNI commerce substrate — every billable / refundable / discountable / credit-bearing / entitlement-conferring / accounting-recognized primitive across medspa / Hims-style / derm / plastics / GI / cardio / endocrine / sleep workflows. DL-17 specializes against DL-16 — every DL-17 invariant inherits the appropriate DL-16 invariants (envelope, partition, registry, atomicity, payload minimization, multi-tenant isolation, action authorization, idempotent execution, retention, decision record, compensation, source-of-truth, audit). DL-17 binds the **commerce substrate spine**; it does NOT bind Rx / lab / clinical-encounter line items (those specialize in DL-7 / DL-8 / future Clinical-Coding DL); it does NOT bind subscription billing rails (Stripe / authorize.net — those are `partner_adapter` actor_kind per DL-16 amendment 43); it does NOT bind accounting general-ledger export (deferred to Accounting Integration DL, Phase D).
+
+**Pricing-location separation (binding clarification per 2026-05-17 user + Knox direction):** Pricing lives on `pricing_option` substrate, NOT on `service`, NOT on `service_category`. Three distinct concerns, three substrate locations: `service_category` (DL-15 taxonomy) = discovery + grouping + booking flow hierarchy (NO price); `service` (DL-15 operational catalog) = the operational/clinical kind ("this IS Hydrafacial") with quantity_strategy + planned_detail_schema + prep/finish defaults (NO price); `pricing_option` (DL-17 inv 2 commerce variant) = the commerce variant + price + discount eligibility + commission rules (linked many-to-many to service via service_pricing_option_assignment per inv 1). Supports flat-rate (one service + one pricing_option), tiered (one service + N pricing_options for Mindbody-Hydrafacial-style), package (multiple_sessions pricing_option with redemption_count=N), per-unit (quantity_strategy=per_unit_quantity eliminates Mindbody 7-tier Botox workaround), per-area (quantity_strategy=per_unit_quantity, unit_kind=area eliminates 5-tier LHR workaround), and subscription (autopay_contract pricing_option_type per inv 11). Tenant catalog flexibility preserved: tenants MAY model brand-specific variants (Botox / Dysport / Daxxify as separate services) when operationally distinct, OR ONE neuromodulator service with preferred_product in planned_details — tenant catalog decision, not substrate constraint. Price alone does NOT drive scheduling logic; operational differences (duration, staff, room, resource) drive scheduling via booking_preset or service distinctions.
+
+**Membership-as-contract-granting-benefits clarification (binding):** Memberships are autopay_contracts per DL-17 inv 11 with recurrence_rule (typically FREQ=MONTHLY). Each successful monthly charge triggers a tenant-configured `contract_recurrence_template` that defines what that month grants. A multi-benefit membership ("Free Hydrafacial + 20% off Botox + free peel + priority booking") is a COMPOSITION of existing primitives — NOT a new membership_benefit substrate: free service benefits = entitlements (DL-17 inv 22); discount benefits = patient_metadata_axis_value (DL-19 inv 9 membership_tier) unlocking pre-configured discount_program (DL-17 inv 15) eligibility at sale time; operational benefits = operational flag on patient_relationship that DL-15 scheduling reads for queue priority; bundled service benefits = entitlement of pricing_option_type=multiple_sessions. **Membership is NOT a payment method.** Memberships do NOT appear in payment_method registry. Multi-benefit memberships compose existing primitives via tenant-configured recurrence_template. Industry pattern: Amazon Prime / Costco / airline frequent flyer all use the same composition (subscription → many heterogeneous downstream effects via configuration), no magical "benefit" substrate.
+
+**Entitlement redemption visibility clarification (binding):** "Visit 2 of 3 of your SkinPen package" / "this Hydrafacial paid by August membership grant" is substrate-supported via existing inv 11 (Contract / autopay lazy template-expansion) + inv 22 (entitlement 5-state lifecycle) + inv 23 (entitlement_redemption with redemption_index). No new substrate; UI projection surfaces at booking + check-in + sale + patient cockpit. Mindbody's "staff must dig and infer" pattern eliminated by structural support.
+
+**Deposit visibility clarification (binding, UI projection only — no substrate gap):** Substrate already captures deposits as `commerce_order_line.line_kind = treatment_deposit` (per inv 6) linked to appointment_id via FK, payment_method captures channel (Cash/Venmo/Zelle/card/etc.) per inv 18, commerce_order_payment.entered_by_actor captures initials per DL-16 amendment 43. UI projection on appointment cockpit displays: "Deposit: $200 collected — Venmo — 5/15/2026 — captured by NC — held against this appointment." Mindbody's "deposit data lost on reschedule" bug doesn't occur because commerce rows are persistent + FK-linked. Reschedule emits compensation chain per DL-15 inv 6 but original deposit row stays linked via reassignment, not deletion.
 
 ---
 
-## Invariants (35 candidates)
+## Invariants (38 candidates; was 35; +3 for patient_promo_claim + appointment_promo_intent + commerce-level promo application)
 
 ### Catalog primitives
 
@@ -61,7 +70,7 @@
 
 17. **Commerce order lifecycle (binding, 9 states).** `commerce_order.status` ENUM: (1) `cart_open` (line items added, not yet submitted) / (2) `pending_payment` (submitted; payment in progress) / (3) `payment_failed` (payment processor rejected; retry allowed) / (4) `paid_fully` (payment matches total; success path) / (5) `paid_partial` (payment less than total; remainder owed) / (6) `voided` (pre-settlement cancellation per inv 10) / (7) `refunded_fully` (post-settlement full reversal) / (8) `refunded_partially` (post-settlement partial reversal; some lines refunded, others retained) / (9) `closed_archived` (post-retention archival per DL-16 inv 13 retention class). Transitions are state-machine-validated; illegal transitions emit `illegal_transition_attempted` audit per DL-15 inv 5 pattern. Atomic closeout per Build Contract §3.6 closeout drawer.
 
-18. **Payment Method federation as registered partner_adapter (binding) + capability flag per tenant (25+ enum minimum).** Per DL-16 amendment 43 (12-kind actor enum; `partner_adapter` and `third_party_integration` distinct seats). Each payment method is registered in `payment_method_registry` with: `id`, `method_kind` ENUM (Day 0 seed list: 25 kinds — `card_reader` / `card_swipe` / `card_enter` / `saved_card` / `cash` / `check` / `account_credit` / `gift_card` / `other` / `carecredit` / `greensky` / `alle` / `treatment_deposit` / `venmo` / `pre_paid` / `paypal` / `zelle` / `aspire` / `bh_plus_member_discount` / `new_patient_special` / `classpass` / `referral_discount` / `comp` / `comp_guest` / `cherry`), `executor_partner_adapter_id` FK (per DL-16 amendment 43 actor_kind), `requires_pci_compliance` BOOLEAN, `supports_refund` BOOLEAN, `supports_partial_capture` BOOLEAN, `default_settlement_class` ENUM. Per-tenant capability via `tenant_payment_method_capability { tenant_id, payment_method_id, is_enabled, configuration_overrides JSONB }` — capability flag NOT free-form (must reference registered method). NOT a closed enum: registry extends as new methods land. Cross-link Layer 2 D.23 + Q5.
+18. **Payment Method as tenant-defined free-form label + loose accounting_class enum (REPLACES prior 25-vendor-name seed per 2026-05-17 user direction — vendor names like Allē / Aspire / Cherry are LABELS not integrations).** Each payment method is a tenant-configured row in `payment_method` substrate carrying: `id`, `tenant_id`, `label` STRING (free-form tenant-defined: "Cash" / "Check" / "Visa" / "HSA card" / "Allē" / "Aspire" / "Cherry" / "Venmo" / "Bitcoin in 2031" / whatever the tenant adds), `accounting_class` ENUM (loose categorization for accounting bucketing: `cash` / `check` / `card_network` / `digital_wallet` / `external_financing` / `external_program_credit` / `gift_card` / `account_credit` / `comp` / `other` — registry-extensible per DL-16 inv 5), `requires_reference_number` BOOLEAN (does staff enter a confirmation #?), `reference_number_label` STRING NULL (UI hint: "Allē confirmation #" / "Cherry approval #" / "Check number"), `active` BOOLEAN, `refund_allowed` BOOLEAN, `supports_partial_capture` BOOLEAN, `revenue_category_id` FK NULL (accounting linkage per inv 20), `tenant_brand_location_scope` (which tenant scope the method is enabled at), `auto_capture_adapter_id` FK NULL (populated only when a real DL-13 partner_adapter exists for the vendor — Day 0 always NULL; integration is a separate concern from labeling). **Day 0 seed: ~10 universal accounting_class values, NOT 25 vendor names.** Allē / Aspire / Cherry / Venmo / Cash / Check / Visa are ILLUSTRATIVE tenant labels in tenant-extensible substrate rows, NOT core OMNI substrate concepts. Vendor name on label does NOT imply integration. If Allē shuts down tomorrow, OMNI loses one row in one tenant's catalog — no schema change, no code change, no migration. If a new injectable rebate partner appears, tenant adds a new payment_method row with their label. Integration with any vendor API (Stripe, Twilio, Surescripts, future Allē API) is governed by DL-13 partner_adapter pattern and is OPT-IN per tenant + per vendor. Cross-link Layer 2 D.23 (Mindbody's 25-vendor-name reality is tenant-configured rows in OMNI, not enum members) + Q5 + system_map Cross-DL warning (vendor names do NOT become OMNI substrate enums).
 
 19. **Tip as 1st-class commerce line item (binding).** Per Layer 2 + Batch 21 Step 02 (sale-with-tip evidence). `commerce_order_line.line_kind = tip` carries: `staff_id` FK (tip recipient; may differ from `commerce_order.staff_id` who rang the sale), `tip_amount`, `tip_source` ENUM (`cash_tip` / `card_tip` / `pre_authorized_tip` / `house_pool`), `commissionable` BOOLEAN (per inv 25). Multi-staff tip splitting: multiple tip lines per sale, each with distinct `staff_id`. REJECTED: storing tip as opaque field on sale parent (tip is a line for accounting + commission visibility).
 
@@ -100,7 +109,7 @@
 
 ### Attribution + reporting primitives (Day 0 substrate; UI deferred per Build Contract)
 
-31. **Attribution Line substrate Day 0 (per Build Contract §3.5 user direction patch).** `attribution_line` carries: `id`, `commerce_order_id` OR `appointment_id` (1-or-the-other; check constraint), `attribution_kind` ENUM (`marketing_channel` / `staff_referral` / `patient_referral` / `provider_attribution` / `legal_entity` / `location`), `attribution_value_id` (FK appropriate to kind), `weight_percent` (for multi-attribution; sum across kinds for same parent = 100% per attribution_kind group), `attribution_window_kind` ENUM (`first_touch` / `last_touch` / `multi_touch_equal` / `multi_touch_weighted`), `attribution_source` ENUM (`url_param` / `manual_staff_entry` / `inferred_from_context` / `partner_integration`). Day 0 substrate per user direction; UI dashboards Month 1-2. Cross-link DL-10 (multi-tenant) + Federation-Topology DL (legal_entity).
+31. **Attribution Line substrate Day 0 (per Build Contract §3.5 user direction patch; FK options expanded per DL-20 reconciliation).** `attribution_line` carries: `id`, **`commerce_order_id` OR `appointment_id` OR `encounter_id` (exactly one populated; check constraint — encounter_id added per DL-20 reconciliation so accountable-care attribution is captured at the encounter level too)**, `attribution_kind` ENUM (`marketing_channel` / `staff_referral` / `patient_referral` / `provider_attribution` / `legal_entity` / `location`), `attribution_value_id` (FK appropriate to kind), `weight_percent` (for multi-attribution; sum across kinds for same parent = 100% per attribution_kind group), `attribution_window_kind` ENUM (`first_touch` / `last_touch` / `multi_touch_equal` / `multi_touch_weighted`), `attribution_source` ENUM (`url_param` / `manual_staff_entry` / `inferred_from_context` / `partner_integration`). Day 0 substrate per user direction; UI dashboards Month 1-2. Cross-link DL-10 (multi-tenant) + Federation-Topology DL (legal_entity) + DL-20 (encounter as the realized care moment).
 
 ### Cross-DL bindings
 
@@ -112,13 +121,78 @@
 
 35. **Commerce decision record per DL-16 inv 30 + 30+ event_kinds + 20+ orchestration_action_kinds.** Every commerce action (sale_closed / refund_issued / void_executed / payment_failed / contract_charged / autopay_failed / entitlement_redeemed / promo_applied / discount_applied / tip_recorded / cancellation_fee_charged / commission_earned / etc.) emits per DL-16 envelope per amendments 40-43. Day 0 seed registry entries per Layer 2 G.3 outbound trigger vocabulary amendment 42 + DL-17 inv 35 candidate event kinds (subset listed; full registry seed accompanies substrate slice scoping).
 
+### Patient promo wallet + intent + application (Phase 1 hardening 2026-05-17 additions per user + Knox correction)
+
+36. **`patient_promo_claim` substrate — patient/account-level promo wallet (binding, NEW).** A promo is NOT only attached to an appointment. It is claimed BY THE PATIENT (their account/wallet) and then optionally RESERVED for a visit and APPLIED at checkout. Four-layer model: `promo_code` (inv 14) = offer definition; `patient_promo_claim` (this invariant) = patient wallet, AVAILABILITY; `appointment_promo_intent` (inv 37) = appointment-scoped reservation, INTENT; `commerce_order_line.applied_promo_claim_id` (inv 38) = commerce TRUTH. **Substrate:**
+
+    ```text
+    patient_promo_claim                  (patient/account-level promo wallet)
+    ├── id
+    ├── tenant_id
+    ├── patient_id, patient_relationship_id NULL
+    ├── promo_code_id FK (inv 14 promo definition)
+    ├── claim_state ENUM (state machine):
+    │       available / reserved_for_appointment / applied_at_checkout /
+    │       partially_used / expired / voided / reversed
+    ├── claim_source ENUM (registry-extensible per DL-16 inv 5):
+    │       patient_self_claimed / staff_added_manually /
+    │       influencer_link_clicked / referral_code_redeemed /
+    │       campaign_email_clicked / imported_from_partner_api /
+    │       cns_auto_granted_per_policy / loyalty_milestone_earned
+    ├── claim_origin_metadata JSONB NULL (UTM, influencer code, manual
+    │       entry context for OMNI-unknown promos like verbal Insta)
+    ├── claimed_at TIMESTAMP
+    ├── claimed_by_actor (DL-16 amendment 43 4-tuple)
+    ├── expires_at TIMESTAMP NULL (may override promo_code.valid_to)
+    ├── max_uses NUMERIC NULL
+    ├── remaining_uses NUMERIC NULL
+    ├── max_total_amount NUMERIC NULL
+    ├── remaining_amount NUMERIC NULL
+    ├── reserved_for_appointment_id FK NULL
+    ├── combinable_with_other_promos_override BOOLEAN NULL
+    └── audit lineage
+    ```
+
+    Manual promo entry path for OMNI-unknown promos (verbal "Insta 10% off Botox"): staff creates a promo_code row inline (admin UI affordance) + a patient_promo_claim row attached to patient with claim_source=staff_added_manually + claim_origin_metadata capturing manual context. Full audit. Wallet survives across appointments — Sarah claims Insta promo today, books CoolPeel tomorrow, applies at checkout next week; the claim is a stable row, not lost on reschedule.
+
+37. **`appointment_promo_intent` substrate — appointment-scoped reservation with own state machine (binding, NEW; REPLACES array-on-appointment per Knox refinement).** Appointment-level intent/reservation linking patient_promo_claim to a specific appointment with its own state lifecycle separate from wallet-level claim state. Promo intent can be added, removed, expired, overridden, or denied independently — deserves a real row with proper audit. **Substrate:**
+
+    ```text
+    appointment_promo_intent
+    ├── id
+    ├── tenant_id
+    ├── patient_promo_claim_id FK         (the wallet-level claim being reserved)
+    ├── appointment_id FK
+    ├── appointment_item_id FK NULL       (line-specific vs visit-wide)
+    ├── intent_state ENUM (state machine):
+    │       planned    -- patient/staff indicated intent; not yet locked
+    │       reserved   -- locked; wallet claim_state transitioned to
+    │                     reserved_for_appointment
+    │       removed    -- patient/staff removed intent before commit
+    │       expired    -- claim or appointment expired before checkout
+    │       applied    -- commerce_order_line populated; wallet claim moved
+    │                     to applied_at_checkout / partially_used
+    │       rejected   -- eligibility check failed (combinability / valid_to /
+    │                     min_purchase / other policy)
+    ├── intent_source ENUM:
+    │       patient_selected_at_booking / staff_added_at_booking /
+    │       staff_added_at_checkout / cns_auto_proposed
+    ├── created_at, created_by_actor (DL-16 amendment 43)
+    ├── intent_state_transitioned_at, transitioned_by_actor
+    ├── rejection_reason ENUM NULL
+    ├── notes STRING NULL
+    └── linked_commerce_order_line_id FK NULL (when intent_state=applied)
+    ```
+
+38. **Commerce-level promo application (binding).** `commerce_order_line.applied_promo_claim_id` FK NULL populated when promo actually applied at sale close. Updates patient_promo_claim.remaining_uses / remaining_amount; transitions both wallet `claim_state` to `applied_at_checkout` or `partially_used` AND appointment_promo_intent.intent_state to `applied` with linked_commerce_order_line_id populated. **Rule (binding):** Patient wallet owns AVAILABILITY; appointment_promo_intent owns RESERVATION (not the appointment row directly); commerce owns ACTUAL application. Same pattern applies to packages and memberships — symmetric design across promos / packages / memberships.
+
 ---
 
 ## Open sub-questions (require Knox + user signoff before lock)
 
 - **Q-DL17-1**: Package = Contract sub-kind OR separate package substrate? Tentative resolution Option B (separate). Cross-link inv 12.
 - **Q-DL17-2**: Cherry / GreenSky / CareCredit financing — modeled as payment_method (per inv 18) OR as separate `financing_arrangement` substrate? Tentative: payment_method with `financing_lifecycle` sub-state (financing has its own approval / decline / partial-funded states).
-- **Q-DL17-3**: Allē rebate program — is this commerce primitive (rebate as entitlement) OR partner_integration (Allē API returns credit applied externally)? Tentative: partner_integration with named third_party_integration actor per DL-16 amendment 43 + entitlement-mirror in OMNI commerce.
+- **Q-DL17-3**: ~~Allē rebate program~~ **STRICKEN per 2026-05-17 user direction.** Allē / Aspire / Cherry / ClassPass are tenant-defined `payment_method.label` STRING values (free-form), NOT partner_integrations and NOT substrate enum members. The earlier framing of "Allē rebate as third_party_integration with entitlement-mirror" was wrong scope creep. Loyalty recording is DEFERRED entirely to a future charting/documentation workstream (parked in preservation doc); Day 0 records "patient paid $80 via Allē label with reference # ALL-7842913" as a normal payment line. No new substrate. No partner_adapter. No integration. If Allē ever ships an OMNI API, that becomes a DL-13 partner_adapter then — opt-in per tenant, separate concern from labeling.
 - **Q-DL17-4**: Multi-currency support — Day 0 substrate or M6+? Tentative: Day 0 substrate `currency_code` field on commerce_order + tax_rate; Day 0 USD-only operationally; multi-currency execution M6+.
 - **Q-DL17-5**: HSA/FSA + insurance claims — explicitly DEFERRED per system map Phase B.5+ deferrals. NOT DL-17 scope.
 
