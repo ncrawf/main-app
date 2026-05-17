@@ -5,6 +5,10 @@
 
 **User direction anchor (2026-05-17, verbatim):** *"seettggins sub pages NEED TO BE CONISDERED IN THE BROAD CONTEXT OF OMNI MAN!!!! like. half those fucking setting s are for OMNI at large, not for the fucking scheduling pillar itself. LIKE YES. we need all thos e setting smapped out and usable on day 0."* — Settings-Infrastructure DL is OMNI-wide Day 0, NOT a scheduling sub-feature.
 
+**Cross-DL discipline:** honors system_map Cross-DL warning (Phase 1 hardening 2026-05-17 — vendor/specialty/Mindbody-artifact labels do NOT become OMNI substrate enum values). Treatment menu is tenant-curated configuration via DL-19 settings, NOT a flat substrate enum. Booking presets are tenant-configured affordances, not new substrate hops in the scheduling lifecycle.
+
+**Broad-default booking doctrine (binding cross-DL clause per 2026-05-17 user direction; mirrored in DL-15 + DL-20 preambles):** Broad booking is the patient-facing default. Rich structured booking is opt-in per tenant policy. A patient may always book at category level (`planned_service_category_id NOT NULL, planned_service_id NULL, planned_details may be empty or partial`). Patient-facing schedule renders the cleanest parent label ("Neuromodulator Visit" / "Filler Consult" / "Weight Loss Follow-Up" / "Peptide & Wellness Provider Guidance") — NEVER "Unknown Botox" or "Unspecified [whatever]." Missing planned_details are stored as null or marked internally as "not_specified"; they never display as patient-facing ugliness. Per-service tenant configuration via `service.self_bookable_progressive_disclosure_mode` ENUM (`none` / `optional` / `required`) — default `optional` (patient can drill down if they want, never forced).
+
 **Cross-anchors:**
 - System map §1F (existing settings surface scaffold) + DL-14 inv 8 (auditable mutations) + DL-16 inv 30 (decision record for settings changes) + DL-18 inv 23 (settings atoms gate edit operations) + DL-10 (multi-tenant brand scoping)
 - Layer 2 Section C (configuration surface — 10 sections + 100+ sub-pages) + Section G.2.2
@@ -17,7 +21,7 @@
 
 ---
 
-## Invariants (28 candidates)
+## Invariants (29 candidates; was 28; +1 for booking_preset substrate)
 
 ### Core settings substrate primitives
 
@@ -86,7 +90,41 @@
 
 17. **Accounting Basis brand-level setting (composes with DL-17 inv 21).** `general.accounting_basis` ENUM(`accrual` / `cash`) at brand scope. Change emits `policy_changed.accounting_basis` → DL-17 revenue recognition substrate updates. Audit trail per inv 14.
 
-18. **Encounter Profile Policy substrate (composes with DL-15 amendment 30 4-axis composer + future Care-Coordination DL).** `encounter_profile_policy` carries per-profile required-axis flags: `(profile_id, requires_staff, requires_room, requires_resource, requires_capacity_consume, requires_scheduled_time, requires_clinical_clearance, requires_consent, requires_intake_complete, requires_deposit, allows_walk_in)`. Settings UI exposes per-profile editor. Booking RPC reads policy at appointment_propose time per DL-15 inv 30. NOT pure-scheduling — care-coordination cross-cuts.
+18. **Service-policy substrate (REPLACES prior encounter_profile_policy framing per DL-20 rip-out of encounter_profile_registry).** `service_policy` carries per-(service_id, modality) required-axis flags: `(service_id, modality, requires_staff, requires_room, requires_resource, requires_capacity_consume, requires_scheduled_time, requires_clinical_clearance, requires_consent, requires_intake_complete, requires_deposit, allows_walk_in)`. Settings UI exposes per-service-per-modality editor. Booking RPC reads policy at appointment_propose time per DL-15 inv 30. After DL-20 patches RIP OUT the encounter_profile_registry substrate (encounter.modality is just a 4-value enum: in_person / video / phone / async; specialty leakage prevented), policy is keyed by (service_id, modality) instead of (encounter_profile_id). Same axes; different key. NOT pure-scheduling — care-coordination cross-cuts.
+
+19. **`booking_preset` substrate (NEW DL-19 Phase 1 hardening addition 2026-05-17).** Tenant-configured booking affordance, lives under DL-19 settings substrate. NOT a new substrate layer in the scheduling lifecycle. Maps tenant-named affordances ("Brazilian LHR" / "CoolSculpting 2 cycles" / "Hydrafacial Deluxe" / "Injectable Consult" / "Neuromodulator Visit" / "Masseter Tox" / "Full Facial Balancing combo") to default substrate values on the resulting appointment_item.
+
+    ```text
+    booking_preset
+    ├── id, tenant_id
+    ├── display_label                    -- patient-facing name
+    ├── target_service_id FK NULL        -- when preset targets specific service
+    ├── target_service_category_id FK NULL  -- when preset targets category-level
+    │                                       (mutually exclusive with target_service_id)
+    ├── target_pricing_option_id FK NULL -- for tier-at-booking (Hydrafacial-style)
+    ├── default_planned_quantity NUMERIC NULL
+    ├── default_planned_details JSONB    -- pre-populates planned_details with
+    │                                       preset's structured defaults
+    │                                       (e.g., "Masseter Tox" preset =>
+    │                                        planned_treatment_areas=['masseter'])
+    ├── default_duration_minutes NUMERIC NULL
+    ├── default_provider_eligibility_filter STRING NULL
+    ├── default_resource_requirement STRING NULL
+    ├── visible_in_self_booking BOOLEAN
+    ├── parent_preset_id FK NULL         -- for hierarchical drill-down UX
+    │                                       (Hydrafacial parent w/ Signature/
+    │                                        Deluxe/Platinum children)
+    ├── bundled_member_preset_ids[] ARRAY NULL  -- for combo bundles like
+    │                                       "Full Facial Balancing" =
+    │                                       Neuromodulator + Filler + Filler +
+    │                                       Biostimulator Consult; picking
+    │                                       this preset materializes MULTIPLE
+    │                                       appointment_items
+    ├── tenant_display_order NUMERIC
+    └── active BOOLEAN
+    ```
+    
+    Booking RPC reads preset(s), materializes one or more appointment_items with preset defaults, allows edit-with-schema-validation before commit. Single substrate row supports three patterns: single-item preset (target_service_id), hierarchical drill-down preset (parent_preset_id chain), combo bundle preset (bundled_member_preset_ids[]). Tenant chooses pattern per affordance. Cross-link DL-15 amendment 5 (quantity_strategy / per_unit_quantity / treatment_areas) + DL-20 appointment_item.linked_booking_preset_id FK. Day 0 ships substrate + admin UI; tenants create their own preset libraries.
 
 19. **Jurisdiction + Licensure Policy substrate (composes with Build Contract §3.7 patch 1 + DL-18 inv 6 capability flags).** `jurisdiction_policy` carries per-(legal_entity, profile, service, jurisdiction-state) admission rules: which provider licenses admit which actions. Settings UI per Build Contract patch 1.
 
