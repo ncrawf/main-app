@@ -5,6 +5,28 @@
 
 **USER DIRECTION ANCHOR (2026-05-17, verbatim):** *"federation ability needs to be day 0 man. like we're gonna have 3 spas using this on day 1. plastics is next after deerm. then GI and cardio etc. attribution substrate needs to be planned for in advance, month 1-2."* — Federation Day 0 (not deferred to e1+) per user direction.
 
+**Cross-DL discipline:** honors system_map Cross-DL warning (Phase 1 hardening 2026-05-17 — vendor / specialty / Mindbody-artifact labels do NOT become OMNI substrate enum values). Specialty rollout names (medspa → derm → plastics → GI → cardio → endocrine → sleep) are pinned per Build Contract §8 phasing but are NOT substrate enum values; they're tenant-configured catalog seed timing.
+
+**Day 0 vs FUTURE scope matrix (binding per 2026-05-17 user direction + FUTURE_ARC §3 mode taxonomy):**
+
+| Mode (per FUTURE_ARC §3) | Day 0 promoted | FUTURE deferred |
+|---|---|---|
+| **Mode 1** — Fully shared local market (Bham + Somerset, 3 spas Day 1) | Substrate primitives Day 0: 11-axis venue + 6-tier topology + multi-tenant patient_relationship + permeability policy + jurisdiction admission rule + provider_license per state + Day 0 medspa specialty seed | — |
+| **Mode 2** — Shared national brand (multi-state under one LE; plastics next per user direction) | Substrate primitives Day 0; specialty seed Day 0 medspa + Day 0 shallow derm; deep derm M3; plastics M6 per Build Contract §8 | Cross-state operations stay rare Day 0 in practice |
+| **Mode 3** — Hims-mode (network-native virtual care) | Async encounter substrate Day 0 (per DL-20 inv 37 async path); patient identity Day 0 | Hims-mode-specific national-virtual-care deployment depth deferred per FUTURE_ARC §8 |
+| **Mode 4** — Franchise ecosystem (cross-tenant patient portability) | — | DEFERRED per FUTURE_ARC §8; activates with first franchise operator |
+| **Mode 5** — Hybrid dynamic permeability | — | DEFERRED per FUTURE_ARC §8; activates with first dynamic-policy customer |
+| **Mode 6+** — Separate subscription / mode transitions | — | DEFERRED per FUTURE_ARC §8 |
+| **Cross-tenant break-glass** (Q-DL21-3) | — | DEFERRED to future workstream |
+| **Partner facility ingestion** (Q-DL21-5) | — | DEFERRED to future Partner-Integration DL Phase D |
+| **Mode-transition tooling** | — | DEFERRED per FUTURE_ARC §8; activates with first transition operationally surfacing |
+
+**Existing OMNI substrate primitives this DL extends (per FUTURE_ARC §6, NOT parallel substrate):** `org_id` (foundational §4 primitive #4) / `brand_id` (existing) / `practice_entity_id` (FOUNDATIONAL §4 — DL-21 inv 1 Tier 2 legal_entity maps to this) / `location_id` (existing) / `patient_relationships` (DL-10 + FOUNDATIONAL §7.13 — DL-21 inv 4 single-patient-identity-with-multi-relationship extends this) / `patient_projection_links` (e1 §6.12) / `patient_consents` (existing) / settings precedence (DL-13 + MAIN §1D.4) / `audit_events` (existing — substrate slice MUST audit current state of `audit_events.actor_kind` enum per DL-16 amendment 43 12-kind harmonization). Substrate slice MUST verify whether existing `staff_profiles` row already carries any provider license fields; substrate evolution extends, not replaces.
+
+**Provider license cross-link** (per inv 12 multi-state licensing): existing `SensitiveAccessReason` enum at [lib/auth/capabilities.ts](../../lib/auth/capabilities.ts) line 94 includes `cross_state_coverage` value — OMNI already knows about cross-state operations as a concept but no substrate yet. DL-21 inv 12 provider_license substrate extends this with full state-level licensure tracking.
+
+**FUTURE_ARC document update note (per Knox patch 3):** [FUTURE_ARC_2026-05-12_federation_permeability_topology.md](../FUTURE_ARC_2026-05-12_federation_permeability_topology.md) status header must be updated from "RESERVED FUTURE ARC" to "ACTIVATED Day 0 per user direction 2026-05-17 — see DL-21 DRAFT for activated substrate primitives." (See ancillary updates in patch round v2 step 11.)
+
 **Cross-anchors:**
 - System map DL-10 (Consumer identity vs operational patient-relationship scoping) + DL-16 amendment 43 (actor 4-tuple incl. `clinic` + `third_party_integration` actor_kinds) + DL-18 inv 13-14 (cross-brand permission + legal entity ownership)
 - Future arc document `FUTURE_ARC_2026-05-12_federation_permeability_topology.md` (A1 source-of-truth; promoted from future to Day 0 substrate per user direction)
