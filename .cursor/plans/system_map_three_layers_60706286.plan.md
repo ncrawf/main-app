@@ -654,6 +654,14 @@ Booking RPC resolves staff availability at `appointment_propose` time by composi
 
     DL-15 original invariants 1-28 + amendments 29-35 unchanged. Amendment 36 is a documentation-level rename that frees "confirmed" terminology for DL-20 confirmation_state.
 
+**Phase 1 hardening v3 (2026-05-17, Knox patch round, post-Day 0 Scheduling Rule Matrix Domain 1 review) — 3 DL DRAFT amendments applied (NOT to locked DL-15 or DL-16; only to DL DRAFTs):**
+
+- **Amendment A** — DL-20 inv 33: add `appointment.source_booking_preset_id` FK NULL. Replaces the bundle-specific `bundled_from_preset_id` name with general-purpose source-preset tracking covering single-item / category-targeting / bundle preset / direct booking shapes uniformly. Anchored to Day 0 Scheduling Rule Matrix [TM-10 / TM-14 / TM-23 patch round](designs/day_0_scheduling_rule_matrix/01_domain_treatment_menu.md) + post-mortem Pattern 7 prevention.
+- **Amendment B** — DL-19 preamble (cross-references DL-15 inv 30 service substrate): split conflated `service.self_bookable_progressive_disclosure_mode` ENUM into `service.self_bookable` BOOLEAN (visibility axis, default TRUE) + `service.planned_detail_disclosure_mode` ENUM (form rigor axis, default `optional`). Caught Pattern 3 (compound enum) regression pre-substrate-slice. Anchored to Day 0 Scheduling Rule Matrix TM-15 + TM-16 patch round.
+- **Amendment C** — DL-20 inv 34: clarify `planned_treatment_areas[]` is materialized projection of canonical `planned_details.treatment_areas` JSONB; no column changes, just intent + trigger discipline. Anchored to TM-20 patch round.
+
+These 3 amendments live in DL DRAFTs only (DL-19 + DL-20). Locked DL-15 / DL-16 untouched. Phase 1 hardening v3 may add additional amendments as Domains 2-7 surface gaps; current count = 3.
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.

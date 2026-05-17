@@ -193,6 +193,16 @@
     │       failed_delivery (all attempts failed)
     │       expired_no_response (NOT cancellation; tenant policy decides)
     │       not_required (tenant admits some service types as no-confirm)
+    ├── source_booking_preset_id FK NULL          (Amendment A per Phase 1
+    │       hardening v3 / Knox 2026-05-17 patch round)
+    │       — DL-19 inv 19 booking_preset that initiated the booking action;
+    │       NULL for direct raw service bookings + degenerate staff category
+    │       fallback; populated for single-item presets / category-targeting
+    │       presets / bundle presets uniformly. Used for analytics +
+    │       schedule label projection per Day 0 Scheduling Rule Matrix TM-14
+    │       + cancellation cascading + booking-shape analytics. Generalizes
+    │       beyond bundle-only patterns (which the earlier draft name
+    │       bundled_from_preset_id implied).
     ├── fulfillment_encounter_id FK NULL (populated when realized into encounter)
     ├── created_by_actor (DL-16 amendment 43 4-tuple)
     └── ... cancellation_policy_id FK NULL, audit lineage
@@ -217,11 +227,20 @@
     ├── planned_start, planned_end (per-item time window)
     ├── planned_quantity NUMERIC NULL (e.g., 24 units Botox, 5 areas LHR,
     │       2 cycles CoolSculpting)
-    ├── planned_treatment_areas[] (also captured in planned_details for typing)
-    ├── planned_details JSONB (structured planned-detail capture validated
-    │       against service.planned_detail_schema — treatment areas, preferred
-    │       product, planned cycles, tier preferences; NO free text in
-    │       structured path; controlled vocabulary against tenant schemas)
+    ├── planned_treatment_areas[] MATERIALIZED PROJECTION
+    │       (Amendment C per Phase 1 hardening v3 / Knox 2026-05-17 patch
+    │       round — clarifies source-of-truth) — derived from
+    │       planned_details.treatment_areas at write time via trigger;
+    │       indexed for analytics queries; do NOT write to this column
+    │       directly. Source of truth is the JSONB field below.
+    ├── planned_details JSONB CANONICAL SOURCE OF TRUTH (structured
+    │       planned-detail capture validated against
+    │       service.planned_detail_schema per DL-19 inv 18 — treatment areas,
+    │       preferred product, planned cycles, tier preferences; NO free
+    │       text in structured path; controlled vocabulary against tenant
+    │       schemas; treatment_areas array within JSONB is canonical,
+    │       planned_treatment_areas[] column above is materialized
+    │       projection only)
     ├── planned_provider_id FK NULL
     ├── planned_room_id FK NULL
     ├── planned_resource_id FK NULL
