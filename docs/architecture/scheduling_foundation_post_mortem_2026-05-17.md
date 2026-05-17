@@ -1,12 +1,16 @@
-# Scheduling Foundation Post-Mortem (2026-05-16 + 2026-05-17)
+# Scheduling Foundation Post-Mortem (2026-05-16 + 2026-05-17 — extended 2026-05-17 post-Round-3.5)
 
-**Status:** Forensic ADR-style record. No praise. Honest analysis of what went wrong during the two-day scheduling foundation arc, the failure patterns that repeated, and the escape mechanism that pulled us out. Written so future Opus + Knox sessions on remaining pillars (Rx, Labs, Procedures, Commerce-deep, Communications-orchestration) don't repeat the same loop.
+**Status:** Forensic ADR-style record. No praise. Honest analysis of what went wrong during the two-day scheduling foundation arc + the post-arc Day 0 Scheduling Rule Matrix Rounds 1-3.5, the failure patterns that repeated, and the escape mechanism that pulled us out. Written so future Opus + Knox sessions on remaining pillars (Rx, Labs, Procedures, Commerce-deep, Communications-orchestration) AND remaining rule matrix rounds (4, 5, 6, 7, Final) don't repeat the same loop.
 
 **Scope:**
-- 2026-05-16 (yesterday): 190 Mindbody screenshots ingested, Layer 2 synthesis written, DL-15 + DL-16 amendments locked, six new DL DRAFTs authored (DL-17 → DL-22).
-- 2026-05-17 (today): patch round v2 — 37 patches across the 6 DRAFTs, DL-15 amendment 8, anti-vendor doctrine warning, preservation doc, three-layer foundation refactor, multiple drift corrections.
+- 2026-05-16: 190 Mindbody screenshots ingested, Layer 2 synthesis written, DL-15 + DL-16 amendments locked, six new DL DRAFTs authored (DL-17 → DL-22).
+- 2026-05-17 morning: patch round v2 — 37 patches across the 6 DRAFTs, DL-15 amendment 8, anti-vendor doctrine warning, preservation doc, three-layer foundation refactor, multiple drift corrections.
+- 2026-05-17 afternoon: Day 0 Scheduling Rule Matrix Rounds 1-3.5 — Domain 1 (Treatment menu) + Domain 2 (Booking composer) + Domain 3 (Appointment lifecycle) + cross-cutting doctrine §2.0-§2.20 + §2.21 Round Kickoff Reading Discipline.
+- 2026-05-17 evening (Round 3.5 post-mortem extension): Pattern 9 (known-pillars-as-discoveries) + Pattern 10 (narrow-framing-creep) added; companion ADR `cns_action_orchestration_adr_2026-05-17.md` + Volume 2 narrative `evolution_narrative_volume_2_2026-05-17.md` authored.
 
-**Audience:** the user, Knox, and any future Opus instance that picks up the remaining 4-5 pillars. The point of this doc is that the next pillar must NOT take 12+ hours of back-and-forth to land if the user has already explained the concept.
+**Total failure patterns named:** 10 (originally 8 from the 2026-05-16/17 arc; Patterns 9 + 10 added post-Round-3.5).
+
+**Audience:** the user, Knox, and any future Opus instance that picks up remaining pillars or remaining rule matrix rounds. The point of this doc is that the next pillar/round must NOT take 12+ hours of back-and-forth to land if the user has already explained the concept.
 
 ---
 
@@ -139,6 +143,51 @@ Each of these showed up multiple times across the two days. Naming them so futur
 **The fix:** the user-stated objective (build substrate) must override the AI's natural inclination (refine current doctrine artifact) by default. When user says "build," AI must shift artifact class — not pile more doctrine.
 
 **Recurrence risk:** structural. This is the highest-risk pattern for the remaining pillars. Every remaining pillar will tempt another DL DRAFT, another preservation doc, another preflight, another amendment cycle.
+
+### Pattern 9 — Known pillars treated as new discoveries (added 2026-05-17 post-Round-3.5)
+
+**What it looked like:** Across Day 0 Scheduling Rule Matrix Rounds 1-3.5, the same locked doctrine was repeatedly "re-discovered" instead of cited. CNS bounded autopilot (DL-14 inv 18-22), 32-seed outbound trigger registry (DL-16 amendment 42), actor 4-tuple (DL-16 amendment 43), 21-event client-alert vocabulary (DL-16 amendment 41), episode_catalog.recommended_cadence (DL-20 inv 5), episode cadence + recommended-next-action engine (DL-20 inv 18), `appointment.confirmation_state` ENUM (DL-20 inv 33), `appointment_confirmation_event` substrate (DL-20 inv 40), and the entire `communications_topology.md` (3 patient surfaces + 6 outbound channels + 5 inbound channels + 4h phase work for rich chat / action items / inbound classification) were treated as new findings each round when they were already locked across 8+ weeks of prior phase work.
+
+**Verbatim user direction during Round 3.5 calling this out:**
+
+> *"like jesus. havent we already discussed all this like 3-4 times !!!!!!!!! ?????? how many times do i need to remind you guys what we're doing broadly with OMNIA and the CNS and all the atomic events etc etc etc. isnt there a goddamn system map?? like why do i feel like no one is fucking reading it. and like 20 other documents we've slaved thru over the past 8 weeks."*
+
+**Why it's seductive:** the locked doctrine spans ~10 binding files across `docs/architecture/` + `.cursor/plans/doctrine/` + `system_map_three_layers_60706286.plan.md` + the 4h phase work commits. Reading all of them before authoring a new round feels heavy. Re-discovering a pillar while authoring is faster in the moment but produces 12+ hours of cumulative drift correction.
+
+**The actual root cause:** scheduling-rule-matrix authoring is its own active workspace; without an explicit binding mechanism that forces the author to read the locked doctrine first, the path of least resistance is to author rules from scratch and have the user manually re-introduce each pillar one scenario at a time.
+
+**The fix (landed in Round 3.5 scaffolding):**
+1. **§2.21 Round Kickoff Reading Discipline** in 00_index.md — binds every future round (4, 5, 6, 7, Final) to mandatory pre-reading of 10 specific items (system_map + 00_index full + post-mortem + preferences + 3-layer pattern + Volume 1 + Volume 2 narrative + communications_topology + Round 3.5 ADR + prior domain files + per-domain MUST READ list)
+2. **§2.19 Citation Map** in 00_index.md — anchors each chat-flagged reliability guardrail to existing locked doctrine, making citation binding on Round 4 (and inheriting for future rounds)
+3. **Per-domain MUST READ column** in §6 domain status table — Round 4 / 5 / 6 / 7 / Final each have specific doc lists they must read
+4. **Round opening + closing templates** in §2.21 — audit lineage proof of pre-reading
+
+**Recurrence risk:** medium. The scaffolding is binding but a future round could still skip the reading checklist. Mitigation: round opening statement is non-optional + auditable. If a Round 4 file opens without the read-receipt statement, the round is halted until it complies.
+
+### Pattern 10 — Narrow framing creep (added 2026-05-17 post-Round-3.5)
+
+**What it looked like:** Round 3.5 opened with proposed doctrine sections framed as "longitudinal conversation doctrine" + "intervention context layer" + "outbound message envelope" — all narrow on three axes (patient-only / appointment-first / outbound-only). Across a seven-hour multi-correction dialogue, the framing was widened through 4 named corrections to the actual width: "source-agnostic CNS action orchestration" + "Context Module Layer" (Intervention is ONE of 6 module types) + "CNS Action Envelope" (outbound message is ONE of 10 action_kinds).
+
+Specifically:
+- Correction 1 — Anti-brain naming (Tesla analogy)
+- Correction 2 — 9-value thread_policy symmetric with conversation_scope (added `attach_to_entitlement_thread` + `attach_to_general_patient_thread`)
+- Correction 3 — Multi-recipient orchestration (expanded envelope from 13 → 17 fields; added recipient_class + audience_scope + action_required + owning_queue; rhinoplasty post-op call example was the test case)
+- Correction 4 — Source-agnostic CNS Action Envelope (expanded envelope from 17 → 18 fields; added action_kind ENUM as field #1; reframed Intervention Context Layer → Context Module Layer with 6 module types; appointment_id declared OPTIONAL context; Hims-async pressure-test passed)
+
+Each correction was forced by the user naming a real-world scenario the narrow framing couldn't handle:
+- "what about provider tasks? what about billing tasks?" → Correction 3
+- "what about retail purchase? what about refund? what about promo applied? what about lab/Rx/intake?" → Correction 4
+
+**Why it's seductive:** narrow framing feels achievable for a single round. Wide framing feels like it might creep into adjacent rounds' scope. The author defaults to narrow.
+
+**The actual root cause:** Pattern 9. If the author had read DL-14 inv 16 (orchestration_action primitive) + DL-16 inv 3 (4-partition event envelope) + DL-16 amendment 42 (32-seed outbound trigger registry covering 8 buckets including marketing / lifecycle / billing / clinical / forms / scheduling) BEFORE proposing Round 3.5 doctrine, the wide framing would have been visible from the start. The architecture is already source-agnostic at the doctrine level. The rule matrix had not yet made it binding for Domain 4 specifically.
+
+**The fix (landed in Round 3.5):**
+1. **§2.14 source-agnostic CNS action orchestration doctrine** — explicit wide framing. 18+ event source taxonomy. Appointment is OPTIONAL context.
+2. **Round 4 scope clarification** — Domain 4 authors SCHEDULING-domain slice; CNS Action Envelope + Context Module Layer + arbitration + composition discipline BINDS CROSS-DOMAIN; other domains inherit when they author their own action orchestration rules.
+3. **§2.21 Round Kickoff Reading Discipline** — binds future round authors to read the existing CNS doctrine before proposing scope; prevents narrow opening.
+
+**Recurrence risk:** medium-high. Each remaining round (5, 6, 7) will have its own "narrow scope feels achievable" temptation. Mitigation: §2.21 read receipt template requires the round to state "key constraints I am honoring from prior rounds" — which forces the author to consider the wide existing architecture before narrowing scope.
 
 ---
 
