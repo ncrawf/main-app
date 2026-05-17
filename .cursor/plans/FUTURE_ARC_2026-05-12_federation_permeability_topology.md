@@ -1,6 +1,14 @@
 # FUTURE ARC — Federation / Permeability / Topology (cross-entity operational permeability + cross-channel patient unification + scheduling-communications collision)
 
-**Status:** RESERVED FUTURE ARC — 2026-05-12 capture (post-R6 follow-up to e1 preflight)
+**STATUS UPDATE 2026-05-17:** PARTIALLY ACTIVATED to Day 0 substrate per user direction (3 spas Day 1 deployment + plastics specialty next per Build Contract §8 rollout pinning). See [.cursor/plans/doctrine/DL-21_federation_topology_DRAFT_2026-05-17.md](doctrine/DL-21_federation_topology_DRAFT_2026-05-17.md) for activated substrate primitives. Activation scope per DL-21 Day 0 vs FUTURE matrix:
+- **Day 0 promoted (Mode 1 + Mode 2 substrate primitives):** 11-axis venue substrate + 6-tier topology (deployment → legal_entity → brand → site → location → venue) + single deployment-wide patient identity + patient_continuity_policy + federation_permeability_policy substrate + legal_entity substrate per Build Contract §3.7 patch 1 + jurisdiction substrate (50 US states + DC + territories + Canada provinces Day 0 seed) + provider_license per state + provider_credentialing + jurisdiction admission rule executable + multi-modality patient continuity per user direction + identity canonical match + relationship merge + cross-tenant decision record + topology-aware retention + event vocabulary seed.
+- **Remaining FUTURE per §8 below (unchanged from original 2026-05-12 scope):** Mode 3 Hims-mode national virtual care deployment depth + Mode 4 Franchise ecosystem cross-tenant patient portability + Mode 5 hybrid dynamic policy-driven permeability + Mode 6+ separate-subscription + mode-transition tooling + cross-tenant break-glass + partner facility ingestion.
+
+This document remains the source of truth for the ORIGINAL ARC and FUTURE deferrals; DL-21 DRAFT carries the Day 0 activated primitives. Both docs are maintained until Phase 1 hardening v2 lands as locked doctrine.
+
+---
+
+**Status (original):** RESERVED FUTURE ARC — 2026-05-12 capture (post-R6 follow-up to e1 preflight)
 **Type:** Future doctrine arc. Not a preflight. Not a design. Not active doctrine. Preserves a real architectural question for whenever first multi-state / first franchise / first network-native activation pushes on the gap.
 **Likely DL designation when activated:** DL-14 candidate (rail-agnostic substrate + cross-entity operational permeability). Naming TBD when arc activates.
 **Origin:** R6 follow-up conversation 2026-05-12 evening — user observed "multi-location" is actually "network topology"; ChatGPT named 5+ topology modes spanning shared local market → shared national brand → Hims-mode → franchise ecosystem → hybrid dynamic permeability.

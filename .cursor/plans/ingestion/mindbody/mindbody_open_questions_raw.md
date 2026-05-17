@@ -7,6 +7,26 @@ Companion: [mindbody_to_omni_direction_raw.md](mindbody_to_omni_direction_raw.md
 
 ---
 
+## STATUS UPDATE 2026-05-17 — partial resolutions surfaced in Phase 1 hardening v2 DRAFTs (PENDING joint signoff)
+
+Per the 2026-05-17 patch round v2 design pressure-test session, the following questions have TENTATIVE partial resolutions in the new DL DRAFTs at `.cursor/plans/doctrine/DL-NN_*_DRAFT_2026-05-17.md`. **These are NOT yet locked.** Promotion to RESOLVED requires explicit joint Knox + user + Opus signoff. Until then, treat as SHELVED → TENTATIVE RESOLUTION IN DRAFT.
+
+- **Q1 (encounter container architecture):** SHELVED → tentative resolution in DL-20 DRAFT (Phase 1 hardening v2 invariants 33-40). Three-layer foundation: appointment + appointment_item / encounter + encounter_line / linked evidence + commerce. The encounter_profile_registry with specialty-coded enum values (originally proposed) is RIPPED OUT entirely. encounter.modality is 4 values only (in_person / video / phone / async). Industry-validated against FHIR + Epic + Cerner + Athena + Amazon + airline + restaurant + Tesla patterns. Full pressure-test arc + 15 scenario stress tests preserved at [.cursor/plans/doctrine/future_care_obligations_design_2026-05-17.md](../../doctrine/future_care_obligations_design_2026-05-17.md).
+- **Q6 (Care Episode parent object):** SHELVED → tentative resolution in DL-20 DRAFT inv 1. Care Episode is 1st-class substrate primitive (parent of encounters). Lifecycle 6-state (intake_pending / active / in_remission_or_paused / completed / transferred_out / archived_inactive).
+- **Q7 (Provider authorship + attestation tiers):** SHELVED → tentative resolution in DL-18 DRAFT inv 8-9. 4-tier authorship hierarchy (authorship_only / reason_coded_authorship / dual_approval_authorship / provider_attestation_signature). Tier 2 reason_code seeds existing SensitiveAccessReason enum at lib/auth/capabilities.ts lines 89-95.
+- **Q8 / Q11 (Visit closeout drawer):** SHELVED → tentative resolution in DL-20 DRAFT inv 15. Closeout drawer is atomic operation across substrates (clinical attestation + commerce close + encounter status transition + performed lines + closeout outbound).
+- **Q9 (Planned intent vs performed truth):** SHELVED → tentative resolution in DL-20 DRAFT inv 12 + 36. Distinct line_kinds: planned_intent_line on appointment_item, performed_intervention_line on encounter_line. Encounter_lines created when work happens, NOT auto-copied from appointment_items.
+- **Q10 (3-lane source-of-truth):** SHELVED → tentative resolution in DL-20 + DL-17 cross-DL discipline. Scheduling truth on appointment + appointment_item; clinical truth on encounter + encounter_line; commerce truth on commerce_order + commerce_order_line. Three lanes linked via FK, never collapsed.
+- **Q12 (federation Day 0):** SHELVED → tentative resolution in DL-21 DRAFT. Federation activated to Day 0 substrate per user direction 2026-05-17 (3 spas Day 1 + plastics next). Mode 1 + Mode 2 substrate primitives Day 0; Mode 3/4/5/6+ deferred per FUTURE_ARC §8.
+- **Q13 (Encounter vs Interaction boundary):** SHELVED → tentative resolution in DL-20 DRAFT inv 21. encounter_interaction_link substrate captures Knox's "interaction becomes encounter-linked-evidence when it informs/triggers/documents an accountable care action" boundary. Interactions can also exist without encounter linkage (general patient communications).
+- **Q14 (Photos/intake/consent/docs as separate clinical artifacts):** SHELVED → tentative resolution in DL-22 DRAFT inv 1-2. Unified patient_document substrate with document_kind discriminator (16 Day 0 seed kinds: clinical_photo_general / before_after_baseline / before_after_followup / intake_form_submission / consent_signature / signed_liability_waiver / signed_contract_document / id_scan_patient / insurance_card_scan / external_lab_report / external_imaging_report / external_pathology_report / external_referral_letter / clinical_progress_attachment / clinical_education_handout_sent / other).
+
+**Promotion gate:** each tentative resolution requires explicit joint Knox + user + Opus signoff before this file is updated to mark Q1/Q6/Q7/Q8/Q9/Q10/Q11/Q12/Q13/Q14 as RESOLVED. Until then, the resolutions live IN the DRAFTs as TENTATIVE; this STATUS UPDATE block cross-references them.
+
+Remaining questions not yet addressed by Phase 1 hardening v2: Q2 (45 workflow scenario coverage) + Q3 (commerce 4-entity split validity) + Q4 (Knox 12-entity check) + Q5 (capability flag scope) + Q15 onwards as applicable. Phase B.5+ doctrine sharpening continues.
+
+---
+
 ## Why this file exists
 
 Per Knox's explicit recommendation in [mindbody_to_omni_direction_raw.md](mindbody_to_omni_direction_raw.md) Turn 6:
