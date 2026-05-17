@@ -691,6 +691,22 @@ Phase 1 hardening v5 may add additional amendments as later domains surface gaps
 
 Phase 1 hardening v6 may add additional amendments as later domains surface gaps.
 
+**Phase 1 hardening v7 (2026-05-17, post-Day 0 Scheduling Rule Matrix Round 3.1 financial seam patch + Round 3.2 entitlement-aware continuation pre-brief) — 0 substrate amendments; 4 doctrine sections added:**
+
+Round 3.2 doctrine additions (NOT new substrate; cross-cutting discipline locks ahead of Domain 6 authoring) — captured in Day 0 Scheduling Rule Matrix [index doc §2.4 (extended) + §2.7 + §2.8 + §2.9](designs/day_0_scheduling_rule_matrix/00_index.md):
+
+- **§2.4 extended** — Same-service ≠ different-service doctrine now covers ALL entitlement contexts beyond member/non-member: SkinPen package-credit vs self-pay = SAME service; red light unlimited-period vs single-session = SAME service; GLP-1 included-visit vs self-pay visit = SAME service; Botox $12/u member-price vs $14/u self-pay = SAME service. Catalog pollution prevented across the full entitlement context space.
+
+- **§2.7 Entitlement-aware continuation doctrine** — OMNI does NOT just know what someone bought; OMNI knows what entitlements remain, when each is eligible, when to prompt patient, what can be booked, what should be applied at checkout. Cross-domain consumption pattern: Domains 2/3/4/5/6/7 all read entitlement ledger but Domain 6 OWNS it. Patient dashboard "Benefits wallet" + scheduling UX entitlement messaging + Domain 4 / CNS continuation messaging are projection surfaces, NOT new substrate.
+
+- **§2.8 Membership-as-benefit-bundle doctrine** — A membership is NOT a single thing. A membership is a CONTRACT (DL-17 inv 11 autopay_contract) that GRANTS a BUNDLE of distinct benefit entitlements per billing cycle. Bundle materialization via tenant-configured `contract_recurrence_template` on each successful billing cycle. Benefit kinds map to existing substrate primitives: recurring service credits → entitlement; period benefits → entitlement with custom recurrence; unlimited-period → entitlement.pricing_option_type; discounts → discount_program; pricing overrides → discount_program (potential `pricing_override` program_kind) OR alternate pricing_option per tier; priority booking → patient_relationship operational flag; etc. Cart-level benefit resolution pass at checkout (deterministic priority order; stacking rules; conflict surfacing; membership_current revalidation per Round 3.1 §8.3). Anti-pattern: do NOT model as `member = TRUE → 15% off`.
+
+- **§2.9 Domain 6 mandatory pre-brief** — Binding requirements for Round 6 (Domain 6 authoring): A. Entitlement ledger substrate (counts / windows / reservation / redemption / forfeiture / restoration). B. Benefit/pricing rules substrate (discount kinds; eligibility; stacking; tenant override). C. Cart-level benefit resolution pass (deterministic priority; conflict surfacing; membership_current revalidation). D. Membership-as-bundle materialization (contract_recurrence_template). E. Entitlement-aware continuation surfaces (Benefits wallet; scheduling UX; CNS continuation messaging). F. Same-service doctrine compliance. G. Round 3.1 cross-domain seam compliance.
+
+**Potential Amendment H candidate (Domain 6 to evaluate at Round 6 start):** DL-17 inv 15 `discount_program.program_kind` ENUM may need `pricing_override` value to support unit-price overrides like "Botox $14/u → $12/u member price" — OR using separate pricing_option per member tier (DL-17 inv 1 admits M:N pricing_options per service). Domain 6 authoring decides which pattern is cleaner.
+
+Phase 1 hardening v7 may add additional amendments as later domains surface gaps. Round 4 (Domain 4 — Confirmation / outbound) is next; Domain 6 pre-brief is parked + binding.
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.

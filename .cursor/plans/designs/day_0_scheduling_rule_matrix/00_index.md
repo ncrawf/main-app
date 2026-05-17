@@ -208,20 +208,28 @@ These each have their own owning substrate + domain. Round 3 stops at lifecycle 
 
 Cross-link: Round 2.6 guardrails inherited into every subsequent domain round; explicit substrate-slice readiness checklist will include "does this domain stay within its canonical truth?" as a binding gate.
 
-### §2.4 Round 3.1 binding doctrine — Same service ≠ different service for entitlement context
+### §2.4 Round 3.1 binding doctrine — Same service ≠ different service for ANY entitlement context (extended Round 3.2)
 
 Per Knox/chat 2026-05-17 + user direction post Round 3 review. Locked before Domain 6 (commerce / entitlement) lands so the doctrine is in place when Domain 6 authoring starts.
 
-**Anti-pattern (binding rejection):** Member-vs-non-member is NOT a different service. Tenants MUST NOT create separate `service` rows like:
-- "BH Member HydraFacial" vs "BH Non-Member HydraFacial"
-- "June Member HydraFacial" vs "July Member HydraFacial"
-- "Membership HydraFacial Redemption" as a service
-- "Member Botox $14/u" vs "Non-Member Botox $14/u"
-- "Member Sauna" vs "Non-Member Sauna"
+**Round 3.2 extension scope (Knox/chat 2026-05-17 post Round 3.1 review):** the original Round 3.1 framing focused on member vs non-member. The same doctrine applies to ALL entitlement / payment / discount / package / pricing contexts — not just memberships. Same service / same appointment_item / same encounter_line; only commerce + entitlement resolves the route.
 
-This is Mindbody-brain catalog pollution. It corrupts the treatment menu + appointment_item + encounter_line + analytics.
+**Anti-pattern (binding rejection — extended):** Tenants MUST NOT create separate `service` rows distinguished by entitlement context. ALL of the following are catalog pollution:
 
-**Binding doctrine:** A BH HydraFacial is a BH HydraFacial regardless of who books it. The substrate layers:
+| Anti-pattern (REJECTED) | Correct model |
+|---|---|
+| "BH Member HydraFacial" vs "BH Non-Member HydraFacial" | ONE Hydrafacial service; commerce resolves member benefit vs self-pay |
+| "June Member HydraFacial" vs "July Member HydraFacial" | ONE Hydrafacial service; commerce resolves which monthly benefit period applies |
+| "Membership HydraFacial Redemption" as a service | ONE Hydrafacial service; entitlement_redemption substrate handles the benefit-consumption truth |
+| "Member Botox $14/u" vs "Non-Member Botox $14/u" | ONE Neuromodulator service; pricing_option + discount_program resolves $12 vs $14 |
+| "SkinPen 3-Pack Session" vs "SkinPen Self-Pay Session" | ONE SkinPen service; entitlement substrate (package multiple_sessions) tracks count remaining |
+| "Red Light Member Visit" vs "Red Light Single Visit" | ONE Red Light service; entitlement unlimited_period vs single_session resolves the route |
+| "GLP-1 Included Provider Visit" vs "GLP-1 Self-Pay Visit" | ONE GLP-1 followup service; entitlement substrate handles included-visit vs self-pay |
+| "Hydrafacial with Package Credit" vs "Hydrafacial with Promo" | ONE Hydrafacial service; entitlement_redemption + applied_promo_claim resolve at checkout |
+
+This is Mindbody-brain catalog pollution. It corrupts treatment menu + appointment_item + encounter_line + analytics + provider workflow.
+
+**Binding doctrine:** A service is a service regardless of HOW the patient ends up paying for it. The substrate layers:
 
 | Layer | What it carries | Member vs non-member? |
 |---|---|---|
@@ -311,6 +319,162 @@ DL-19 inv 18 `service_policy_eligibility_gate.requirement_kind` ENUM is **regist
 These join existing requirement_kinds (clinical_clearance / consent / intake_complete / deposit / age_verification / license_validation / prior_consult_required / substance_class_authorization / member_only / federation_permeability / medical_director_review / lab_results_review) per Amendment D.
 
 **Important distinction:** `member_only` (existing) means "patient has a membership at all" (binary). `membership_current` (NEW) means "membership billing payment is current/settled" (state-dependent). Tenants frequently need BOTH gates — `member_only` to filter who can book member-rate services + `membership_current` to ensure they can actually redeem the benefit. Domain 6 will own the binding patterns when authored.
+
+### §2.7 Round 3.2 binding doctrine — Entitlement-aware continuation
+
+Per Knox/chat 2026-05-17 post Round 3.1 review + user SkinPen / red light examples. Locked before Domain 6 authoring (Round 6).
+
+**Binding doctrine:** OMNI does NOT just know what someone bought. OMNI knows:
+
+1. **What entitlements remain** — package count remaining; current-period benefit available; unlimited-period eligible; quarterly/annual benefit reset windows
+2. **When each entitlement is eligible** — within benefit window; not previously redeemed; not previously reserved on an active appointment; not forfeited via late-cancel/no-show
+3. **When to prompt patient** — next recommended booking window per service cadence; entitlement approaching expiration; unused monthly benefit before reset
+4. **What can be booked** — patient sees only services + presets where they have eligibility OR can self-pay (no "Member Only" service hidden when patient has eligible package credit)
+5. **What should be applied at checkout** — automatic entitlement resolution pass identifies which benefit applies to which line; staff resolves conflicts or stacking-not-allowed cases
+
+**Operational examples (binding for Domain 6 authoring):**
+
+- *SkinPen 3-pack patient* checks out session 1 → entitlement ledger says: 2 sessions remaining; next recommended session window = (completed_at + 4-6 weeks). After ~4-6 weeks, Domain 4 / CNS messages: "Ready for your 2nd SkinPen session, Tracey? Let's get you booked." Booking flow surfaces the remaining package credit.
+- *BH+ Elite member in June* → entitlement ledger says: June Hydrafacial available; June peel available (if quarterly cadence aligns); red light unlimited through June 30; Botox member pricing ($12/u) active; 15% retail discount active. Domain 4 / CNS messages: "Red light therapy is included in your BH+ Elite membership this month, Jon." Dashboard shows "Your available benefits" wallet view.
+- *BH+ Elite member with failed June payment* → entitlement ledger says: membership_current = FALSE; benefits PAUSED. Domain 4 / CNS messages: "Your BH+ Elite benefits are paused until your payment method is updated." Booking flow surfaces the same services but financial route resolves to self-pay until membership_current = TRUE.
+
+**Cross-domain consumption pattern:**
+
+| Domain | Reads entitlement ledger for |
+|---|---|
+| Domain 2 (Booking composer) | Filter visible services per patient eligibility; surface "you have a benefit" messaging at booking time; gate via `entitlement_available` per §2.6 |
+| Domain 3 (Appointment lifecycle) | Reserve entitlement at booking commit (per Round 3.1 §8.4); release reservation on honored cancel; flag forfeiture-candidate on late-cancel/no-show (Domain 6 decides disposition) |
+| Domain 4 (Confirmation / outbound) | Compose continuation messages: "Ready for session 2" / "Your benefit is available this month" / "Membership payment needs attention" |
+| Domain 5 (Encounter creation) | Read which entitlement was reserved for this appointment_item; carry through to performed encounter_line |
+| Domain 6 (Commerce / entitlement) | OWN the ledger substrate + reservation + redemption + forfeiture + restoration + cart-level resolution pass at checkout |
+| Domain 7 (Documentation) | Audit attestation chain referencing entitlement_redemption per closeout |
+
+**Patient dashboard / scheduling UX surface (Domain 6 product surface, NOT new substrate):**
+
+The dashboard projects the entitlement ledger as a "Benefits / Credits / Packages" wallet view:
+- Available benefits per period (June Hydrafacial / Q3 peel / unlimited red light)
+- Remaining package sessions (SkinPen 2 of 3 remaining)
+- Included membership perks (Botox $12/u pricing / 15% retail / priority booking)
+- Account credit balance + promo claims
+- Expiration dates / reset dates
+- Next recommended booking window per service cadence
+- Book / Use / View restrictions CTAs
+
+Scheduling UX surfaces entitlement at booking flow: "You have a SkinPen package session available — we'll apply one at checkout" / "Red light is included with your BH+ Elite this month."
+
+Checkout UX runs the benefit resolution pass (per Round 3.2 §2.8 + Domain 6 authoring) and shows itemized application: "June Hydrafacial benefit applied / Member Botox pricing applied: $12/u / 15% retail discount applied to eligible products."
+
+**Binding anti-patterns (Round 3.2):**
+
+- Do NOT message about benefits without reading membership_current + entitlement_available state (per Round 3.1 §8.3 4-stage validation)
+- Do NOT show "available benefit" UI without revalidating at booking + closeout (per Round 3.1 §8.3)
+- Do NOT model entitlement-aware messaging as marketing layer (it's CARE COORDINATION + COMMERCE TRUTH — per Round 3.1 same-service doctrine)
+- Do NOT create separate services for entitlement-aware vs self-pay flows (per Round 3.2 §2.4 extension)
+
+### §2.8 Round 3.2 binding doctrine — Membership = bundle of benefit entitlements (NOT a single membership_credit)
+
+Per Knox/chat 2026-05-17 post Round 3.1 review + user complex-membership examples (BH+ Elite: 1 free HydraFacial/month + 1 peel/quarter + unlimited red light + 15% retail + Botox $12/u + $50 SkinPen discount + priority booking + included provider visits). Locked before Domain 6 authoring.
+
+**Binding doctrine:** A membership is NOT a single thing. A membership is a CONTRACT that GRANTS a BUNDLE of distinct benefit entitlements per billing cycle. Each benefit is a different substrate primitive:
+
+| Benefit kind | Substrate primitive (existing) | Example |
+|---|---|---|
+| Recurring service credit | `entitlement` (pricing_option_type = `multiple_sessions` OR `single_session` with `activation_strategy = on_billing_cycle_start`) | 1 Hydrafacial / month |
+| Periodic benefit (quarterly / annual) | `entitlement` with custom recurrence_rule on contract_recurrence_template | 1 peel every 3 months |
+| Unlimited period benefit | `entitlement` (pricing_option_type = `unlimited_period`) | Unlimited red light during current billing period |
+| Service discount (fixed $) | `discount_program` (program_kind = `flat_amount`) linked to eligible_pricing_options | $50 off SkinPen |
+| Category retail discount (%) | `discount_program` (program_kind = `flat_percent`) linked to eligible_pricing_options | 15% off eligible retail |
+| Pricing override (unit price change) | `discount_program` with new `program_kind = pricing_override` (potential **Amendment H candidate** — Domain 6 to evaluate) OR alternate pricing_option per member tier | Botox $14/u → $12/u member price |
+| Priority booking / scheduling perk | Operational flag on `patient_relationship` OR `patient_metadata_axis_value(membership_tier)` read by DL-15 BC-09 routing strategy | VIP queue / faster confirmation |
+| Included provider visit | `entitlement` with quarterly/monthly count | 1 GLP-1 followup / month included |
+
+**Mechanism (per existing DL-17 preamble + DL-19 inv 9 patient_metadata + Round 3.2 binding):**
+
+- Membership is an `autopay_contract` (DL-17 inv 11) with `recurrence_rule = FREQ=MONTHLY` (typical).
+- Each successful billing cycle charge triggers `contract_recurrence_template` materialization: tenant-configured template defines what THIS cycle grants:
+  - INSERT N `entitlement` rows per cycle (each benefit kind gets its own row)
+  - SET / refresh `patient_metadata_axis_value(membership_tier)` for discount_program eligibility
+  - SET operational flags on `patient_relationship` for scheduling perks
+- Failed billing cycle: NO new entitlements inserted; existing PRIOR-cycle entitlements may expire per their `valid_to`; metadata_axis_value may revert to non-member tier per tenant policy.
+
+**Cart-level benefit resolution pass (Round 3.2 doctrine for Domain 6 to implement):**
+
+At checkout, OMNI runs a deterministic resolution pass across the full cart (NOT per-line in isolation):
+
+1. **Identify eligible benefits for each cart line:**
+   - Service credit available + within window + not reserved-elsewhere?
+   - Discount program eligible per pricing_option + category?
+   - Pricing override applicable per membership tier?
+2. **Apply deterministic priority order** (per DL-17 inv 4 redemption priority):
+   - Highest redemption_priority first
+   - Ties broken by valid_to ascending (use-it-or-lose-it first)
+   - Ties broken by purchased_at ascending (FIFO)
+3. **Honor stacking rules** per `discount_program.combinable_with_other_promos` + tenant policy
+4. **Surface conflicts to staff** when:
+   - Stacking not allowed + multiple benefits eligible (patient/staff chooses)
+   - Membership_current = FALSE but member benefit attempted (forces resolution per §8.3)
+   - Package credit already used elsewhere (idempotency)
+5. **Compute uncovered balance** + emit clear itemized application to UI
+
+**Anti-patterns (Round 3.2 binding):**
+
+- Do NOT model membership as `member = TRUE` → "apply 15% discount to everything." That hides which discount applies where + breaks reporting + corrupts the benefit ledger.
+- Do NOT collapse multiple benefit kinds into a single membership_credit row. Each kind = own entitlement / discount_program / metadata_axis_value.
+- Do NOT auto-apply benefits without validation per Round 3.1 §8.3 (membership_current + entitlement_available + account_hold_clear).
+- Do NOT skip the cart-level resolution pass + just sum per-line discounts (loses stacking discipline + conflict surfacing).
+
+### §2.9 Round 3.2 binding doctrine — Domain 6 mandatory pre-brief (binding when Domain 6 authoring starts)
+
+Domain 6 (Checkout / commerce / entitlement) MUST address the following at Round 6 authoring start. NOT optional; binding doctrine from Round 3.2:
+
+**A. Entitlement ledger** — the substrate that tracks what a patient HAS available:
+- Package counts (used / remaining / total)
+- Period benefits (monthly / quarterly / annual cycles)
+- Unlimited-period benefits
+- Benefit windows (valid_from / valid_to)
+- Reservation state (per Round 3.1 §8.4 entitlement_reservation lifecycle)
+- Redemption history (per appointment / per encounter_line)
+- Forfeiture / restoration audit (per Round 3.1 §8.5)
+- Conversion to credit / discount-next per policy
+
+**B. Benefit/pricing rules** — the substrate that tracks WHEN and HOW benefits apply:
+- Eligible services / pricing_options / categories per benefit
+- Discount kinds: flat_percent / flat_amount / rotating_tier / cumulative_loyalty / **pricing_override** (Amendment H candidate — Domain 6 to evaluate if existing `program_kind` ENUM needs extension for unit-price overrides like "Botox $14/u → $12/u member price")
+- Stacking rules (`combinable_with_other_promos`)
+- Tenant override + staff override per DL-18 attestation
+- Auto-apply vs surface-for-staff-decision policy
+
+**C. Cart-level benefit resolution pass** (per Round 3.2 §2.8):
+- Run at checkout (closeout_documentation_gate per Round 1.7 5-timing model + Round 3.1 §8.3 4-stage validation)
+- Deterministic resolution per DL-17 inv 4 priority order
+- Conflict surface when stacking not allowed
+- Membership_current revalidation before allowing redemption-as-benefit (per Round 3.1 §8.3)
+- Itemized output showing which benefit applied to which line
+
+**D. Membership-as-bundle materialization** (per Round 3.2 §2.8):
+- `contract_recurrence_template` configuration per membership tier
+- On successful billing cycle: materialize N entitlements + refresh metadata + set operational flags
+- On failed billing cycle: pause benefits per policy; do NOT silently grant new entitlements
+- Manual restore / pause / cancel paths with audit
+
+**E. Entitlement-aware continuation surfaces** (per Round 3.2 §2.7):
+- Patient dashboard "Benefits wallet" view
+- Booking flow entitlement messaging
+- Scheduling UX "you have a benefit" surfacing
+- Domain 4 / CNS continuation messaging from entitlement ledger
+- Next-recommended-booking-window computation per service cadence
+
+**F. Same-service doctrine compliance** (per Round 3.2 §2.4 extension):
+- Domain 6 substrate writes MUST NOT create separate services for entitlement contexts
+- All entitlement / payment / discount / package contexts resolve in commerce + entitlement substrate ONLY
+- Service / appointment_item / encounter_line stay invariant across all patient payment routes
+
+**G. Round 3.1 cross-domain seam compliance** (per Round 3.1 §2.5 + Domain 3 §8):
+- Domain 6 consumes Domain 3 lifecycle events; emits commerce outcome events
+- Domain 6 owns fee / forfeiture / restoration / refund / account-credit / deposit-disposition decisions
+- Domain 3 ↔ Domain 6 coupling is event-driven, not direct mutation
+
+**Potential Amendment H candidate (Domain 6 to evaluate):** DL-17 inv 15 `discount_program.program_kind` ENUM currently has 4 values (flat_percent / flat_amount / rotating_tier / cumulative_loyalty). Adding `pricing_override` value to support "Botox $14/u → $12/u member price" cleanly — OR using a separate `pricing_option` per member tier (DL-17 inv 1 admits many pricing_options per service via M:N assignment). Domain 6 authoring must decide which pattern is cleaner; flagged here for Round 6 evaluation.
 
 ---
 
