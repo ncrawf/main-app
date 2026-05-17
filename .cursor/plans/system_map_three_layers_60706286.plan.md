@@ -735,6 +735,44 @@ Round 3.4 doctrine addition (NOT new substrate; binding stacking discipline ahea
 
 Phase 1 hardening v9 may add additional amendments as later domains surface gaps. Domain 6 pre-brief is fully framed (Sections A-K); Shopify ingestion task is parked + binding for pre-Round-6.
 
+**Phase 1 hardening v10 (2026-05-17, post Round 3.5 — source-agnostic CNS action orchestration doctrine lock ahead of Round 4 Domain 4 authoring) — 0 substrate amendments; 6 doctrine sections added + Amendment J 4-part candidate parked:**
+
+Round 3.5 doctrine additions (NOT new substrate; cross-cutting CNS-action-orchestration discipline ahead of Round 4 Domain 4 authoring) — captured in Day 0 Scheduling Rule Matrix [index doc §2.14 through §2.20](designs/day_0_scheduling_rule_matrix/00_index.md):
+
+- **§2.14 Source-agnostic CNS action orchestration doctrine** — CNS action orchestration is source-agnostic. Events from ANY OMNI substrate (appointment / encounter / intake_atom / lab_result / abnormal_lab_flag / rx_sent / rx_failed / refill_due / dose_escalation_due / commerce_order_line / refund / promo / account_credit / membership_payment_failed / entitlement_expiring / product_purchased / patient_reply / task_overdue / provider_review_needed / future) normalize into ONE pipeline. Appointment is OPTIONAL context, NOT center. Scheduling alerts are ONE `action_kind=patient_message` branch. Locks: 18+ event source taxonomy / Tesla-freeway unified pipeline / Hims-style async pressure-test (no appointment_id required) / Round 4 scope = scheduling-domain slice (envelope binds cross-domain) / 5 patient-facing communication classes table / parallel internal action classes table / 15 worked examples (6 patient + 9 internal/cross-source incl. lab/Rx/intake/retail/refund/promo/membership/payment). 10 anti-pattern rejections.
+
+- **§2.15 Context Module Layer doctrine** (renamed from "Intervention Context Layer" per chat Correction 4; Intervention Context is ONE module type) — 6 module types: Intervention / Product-SKU / Care Program / Entitlement / Order-Commerce / Patient Profile. Anti-brain naming binding per Correction 1 (NEVER "Brain Layer" / "Knowledge Layer" / "Protocol Engine"). 3-packet projection model (CNS Action / Recipient Communication / Provider Clinical Context — renamed per Patch 2 from "Patient Communication"). NOT orchestrator / NOT rules engine in the orchestration sense (declarative constraints permitted per Patch 3) / NOT message CMS / NOT operational-kind logic. Content/version governance per Patch 7: each module instance carries `version` + `approved_by_actor` + `effective_from` + `effective_to` + `superseded_by_version` + `change_audit_lineage` per DL-16 inv 30. Decision records capture WHICH versions were consumed. Substrate distribution deferred to Round 5/7 (user direction `defer_to_5_7`).
+
+- **§2.16 CNS Action Envelope doctrine** (renamed from "Outbound Message Envelope" per chat Correction 4) — 18-field envelope binding on every CNS action: 1 action_kind discriminator (10 ENUM values per Correction 4: patient_message / internal_notification / provider_task / staff_task / billing_task / clinical_escalation / scheduling_offer / state_transition_proposal / suppression / no_op + 3 reserved registry-extensions) + 13 patient/conversation fields + 4 multi-recipient orchestration fields (recipient_class / audience_scope / action_required / owning_queue per Correction 3). Field applicability matrix discriminates which fields are no-op per action_kind. 7-value reply_policy + 9-value thread_policy (per Correction 2, symmetric with conversation_scope) + 8-value recipient_class + 9-value action_required + 8-tier arbitration priority order + patient contact-load budget + 5-operation composition layer + 10 composition invariants including cross-action_kind split (Correction 4) + cross-recipient-class split (Correction 3) + EXACTLY ONE reply_policy per composed action (Constraint 2). Acknowledgment via `action_required=acknowledge` NOT reply_policy (Patch 1). Constraint 5: basic deterministic reminders work without AI (graceful degradation).
+
+- **§2.17 Provider Clinical Context Packet forward-reference** — Round 4 does NOT author provider decisioning rules. Round 5/7 owns. Forward-reference locks principles: same Context Module Layer feeds Provider Clinical Context Packet; authority gradient strictest (AI summarizes/proposes/drafts; deterministic validates+flags+blocks unsafe; provider SIGNS where clinical authority required per DL-14 inv 21 + DL-15 inv 10 absolute); charting-from-context anti-pattern (chart MUST NOT start from blank note; generated from context); AI enrichment requires citation/trace (NO hallucinated medicine).
+
+- **§2.18 Round 4 mandatory pre-brief (Sections A-O)** — 15 binding compliance sections including new Section M (multi-recipient orchestration per Correction 3) + Section N (source-agnostic action_kind per Correction 4) + Section O (§2.19 Citation Map compliance — Round 4 cites existing doctrine, does NOT re-author).
+
+- **§2.19 Citation Map** (NOT new architecture; binding citation of existing locked doctrine for 8 chat-flagged reliability guardrails per user direction 2026-05-17 "we already did this work"). Audit confirmed 7 of 8 already locked across DL-14/15/16/18/20/21 + communications_topology.md + §1F/§1G/§1G.8/§1G.11/§1P/§1Q.23 + 4h phase work. Single missing piece (Context Module versioning) patched in §2.15 per Patch 7. Round 4 author MUST cite existing doctrine for: contact endpoint resolution / delivery lifecycle / live-state revalidation / idempotency / unsolicited inbound / task lifecycle / content versioning / observability.
+
+**§2.20 Amendment J candidate (4-part; flagged for Round 5/7 substrate evaluation):**
+
+- **J(a)** — Context Module Layer substrate distribution per module type (6 module types). Round 5/7 substrate-decides shape.
+- **J(b)** — `orchestration_action` envelope extension (DL-14 inv 16 + DL-16 amendment 42): add 18-field CNS Action Envelope including `action_kind` + 4 multi-recipient orchestration fields. Plus new `queue` substrate for owning_queue resolution.
+- **J(c)** — Source-agnostic event normalization + arbitration + queue routing substrate: 18+ event source kind registry + contact budget + suppression_group registry + priority queue + multi-recipient queue routing matrix.
+- **J(d)** — Provider Clinical Context Packet assembly substrate.
+
+**Chat correction history applied to Round 3.5 (4 corrections + 5 cleanup patches + Patch 7):**
+- Correction 1 — Anti-brain naming for Context Module Layer
+- Correction 2 — 9-value thread_policy ENUM (symmetric with conversation_scope; added `attach_to_entitlement_thread` + `attach_to_general_patient_thread`)
+- Correction 3 — Multi-recipient orchestration (8-value recipient_class + 9-value action_required + owning_queue + cross-recipient-class composition split)
+- Correction 4 — Source-agnostic CNS Action Envelope (10-value action_kind + cross-action_kind composition split + 18+ event source taxonomy + appointment_id is OPTIONAL context + Hims-async pressure-test + Context Module Layer renamed from "Intervention Context Layer" with 6 module types)
+- Cleanup Patches 1-5 — `acknowledge` is `action_required` not `reply_policy` / Recipient Communication Packet rename / declarative constraints permitted in Context / duplicate 3-packet table removed / stale labels fixed
+- Patch 7 — Context Module versioning (genuinely missing piece per reliability audit)
+
+Phase 1 hardening v10 may add additional amendments as later domains surface gaps. Round 4 (Domain 4) pre-brief is fully framed (Sections A-O); Amendment J 4-part candidate parked for Round 5/7.
+
+**Execution choices (user direction 2026-05-17):**
+- **Commit cadence:** Round 3.5 doctrine-only commit; do not combine with Round 4 authoring. (Option `pause_first`.)
+- **Binding scope:** CNS Action Envelope binds cross-domain, but Round 4 authors only scheduling-domain slice. (Option `round_4_authoritative_other_domains_inherit`.)
+- **Context Module substrate home:** Defer to Round 5/7 / Amendment J. Doctrine defines the pattern; substrate ownership comes later. (Option `defer_to_5_7`.)
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.

@@ -892,6 +892,428 @@ This is the binding doctrine for Domain 6 stacking + conflict resolution. Domain
 
 ---
 
+### §2.14 Round 3.5 binding doctrine — Source-agnostic CNS action orchestration (renamed from "Longitudinal conversation" per chat Correction 4)
+
+Per Knox/chat 2026-05-17 multi-round pressure-test + user direction. Locked before Round 4 (Domain 4) authoring.
+
+**Binding architectural statement (Correction 4):**
+
+CNS action orchestration is **source-agnostic**. Events from ANY OMNI substrate normalize into one unified pipeline. Appointment is one possible context reference, NOT the required center. Scheduling alerts are ONE deterministic `action_kind=patient_message` branch among many. The same envelope + arbitration + composition discipline binds across all event sources.
+
+**Why this matters (per user direction 2026-05-17 verbatim):**
+
+> *"we already discussed all this like 3-4 times. how many times do i need to remind you guys what we're doing broadly with OMNIA and the CNS and all the atomic events etc etc. isn't there a goddamn system map??"*
+
+The user is correct: CNS doctrine is already locked across DL-14 / DL-15 / DL-16 / DL-18 / DL-20 / DL-21 + communications_topology.md + §1F / §1G / §1G.8 / §1G.11 / §1P / §1Q.23 + the 4h phase rich-chat / action-items / inbound-classification build. §2.14 does NOT re-author those. §2.14 makes them CITED + BINDING from the scheduling-rule-matrix so Round 4 (Domain 4) author cannot regress to Mindbody-shaped "appointment confirmation / reminder engine."
+
+**18+ event source taxonomy** (registry-extensible per DL-16 inv 5 + 9 + 29):
+
+| Bucket | Event sources |
+|---|---|
+| Scheduling | `appointment.scheduled` / `appointment.rescheduled` / `appointment.cancelled` / `appointment.no_showed` / `appointment.checked_in` |
+| Encounter | `encounter.started` / `encounter.line_performed` / `encounter.completed` |
+| Intake | `intake_atom.created` / `intake_atom.flagged` / `intake_session.submitted` |
+| Lab | `lab_result.received` / `lab_result.abnormal_flag` / `lab_result.critical` |
+| Rx | `rx.sent` / `rx.failed` / `refill.due` / `dose_escalation.due` |
+| Commerce | `commerce_order.placed` / `commerce_order_line.created` / `refund.issued` / `promo.applied` / `account_credit.applied` |
+| Membership / Entitlement | `membership_payment.failed` / `entitlement.expiring` / `entitlement.consumed` |
+| Patient interaction | `patient_reply.received` / `patient.opt_out_changed` |
+| Internal | `task.overdue` / `provider_review.needed` / `staff.shift_change` |
+| Future | `vendor.integration_event` / `external.lab_partner` / `regulatory.compliance_alert` / etc. — registry-extends per DL-16 inv 5 |
+
+**Unified pipeline (Tesla-freeway architecture; same pipe for every source):**
+
+```text
+[typed event from any source]
+  → [context refs — typed FKs not blobs; per chat Tesla sensor-frame analogy]
+    → [CNS context packet — assembled from Context Module Layer §2.15 at decision time]
+      → [action candidate(s) — CNS evaluation; AI proposes per DL-14 inv 18 within autonomy mode]
+        → [arbitration + composition — priority / contact-load / suppression / merge / split / defer per §2.16]
+          → [CNS Action Envelope — action_kind + recipient_class + reply_policy + thread_policy + owning_queue + ...]
+            → [delivery — channel (SMS/email/push/portal) / queue (provider_task / billing / clinical_triage / ops) / state-transition / no-op]
+              → [inbound handling — reply classification / task completion / state change / suppression]
+```
+
+**Appointment_id is OPTIONAL context, not required.** Hims-style async care must work without appointment:
+
+```text
+intake_session.submitted
+  → CNS context packet (Care Program Context for GLP-1 + Patient Profile)
+    → action candidate: provider async review task
+      → CNS Action Envelope (action_kind=provider_task, recipient_class=provider,
+        owning_queue=async_review_queue, thread_policy=attach_to_care_program_thread)
+        → provider decision (Rx approve / decline / request more info)
+          → rx.sent event
+            → CNS context packet (Care Program + Intervention Context + Patient Profile)
+              → action candidates: patient_message (medication education) +
+                scheduling_offer (side-effect check-in 7 days) +
+                provider_task (review at refill)
+                → compose-or-split per §2.16 invariants
+                  → delivery
+```
+
+No appointment substrate involved. Same pipeline.
+
+**Round 4 scope clarification (per user direction — binding scope decision):**
+
+Domain 4 (Round 4) authors RULES for the **SCHEDULING-domain slice** of this pipeline (appointment.* events as triggers; `patient_message` + `provider_task` + `staff_task` + `suppression` as primary action_kinds). The CNS Action Envelope + Context Module Layer + arbitration + composition discipline **BINDS CROSS-DOMAIN**; other domains (Domain 5 encounter / Domain 6 commerce / Domain 7 documentation / future lab/Rx/intake domains) inherit the envelope when they author their own action orchestration rules.
+
+**5 patient-facing communication classes** (with per-class behavior rules):
+
+| Class | Examples | opt-out | quiet hours | consent_class | clinical review | AI drafting | suppression | escalation |
+|---|---|---|---|---|---|---|---|---|
+| `transactional_scheduling` | booked / confirmed / reminder / reschedule / cancellation / waitlist offer | hard transactional | per tenant | transactional | no | low (template) | low | low |
+| `pre_care_prep` | stop retinols / shave / NSAIDs / makeup-free / complete intake/consent / bring meds | clinical opt-out separate | per tenant | clinical | maybe | medium (assembled from approved protocol) | per intervention | per protocol |
+| `post_care_followup` | how feeling? / aftercare / adverse symptom triage / photo check-in / provider follow-up | clinical opt-out separate | per tenant | clinical | yes (red flags) | medium | per intervention | absolute (clinical red flag) |
+| `entitlement_retention` | benefit expiring / package remaining / membership perk / next session / payment blocking | marketing opt-out | per tenant | marketing or transactional (case-dependent) | no | medium-high | per contact load | low |
+| `experience_personalization` | provider preference / comfort prefs / "anything specific?" | marketing opt-out | per tenant | transactional or marketing | no | high | per contact load | low |
+
+**Parallel internal action classes** (per Correction 3 — non-patient recipients):
+
+| Class | Owning queue | SLA | Escalation | Staff review | Authority |
+|---|---|---|---|---|---|
+| `provider_clinical_task` | provider_task_queue | per task urgency | overdue → supervising MD | yes | provider |
+| `provider_administrative_task` | provider_task_queue (admin lane) | low urgency | overdue → manager | optional | provider |
+| `front_desk_task` | front_desk_queue | shift-based | overdue → supervisor | yes | front desk staff |
+| `clinical_triage_alert` | clinical_triage_queue | minutes (per severity) | per DL-14 inv 21 absolute interrupt | yes | clinical staff or provider |
+| `billing_resolution_task` | billing_resolution_queue | day-window | overdue → billing manager | yes | billing staff |
+| `ops_hospitality_task` | ops_hospitality_queue | per appointment timing | overdue → ops manager | optional | ops team |
+| `care_coordinator_task` | care_coordinator_queue | program-cadence-based | overdue → manager | yes | care coordinator |
+| `vendor_action` | vendor_integration_queue | per vendor SLA | per vendor escalation | yes | external + internal |
+
+**15 worked examples** spanning the source-agnostic pipeline:
+
+Patient-facing (6):
+1. **Tracey — HydraFacial benefit expiring** (`entitlement.expiring`) → `patient_message` + `scheduling_offer` (booking_assist_enabled)
+2. **CoolPeel-after spacing** (`appointment.scheduled` validated against intervention_context.spacing_rules) → `suppression` + counter-offer
+3. **Daisy — Botox post-care check-in** (`encounter.completed` + intervention_context.post_care_followup) → `patient_message` with `clinical_escalation_enabled` reply_policy
+4. **Todd — CoolSculpting prep** (`appointment.scheduled` 24h out + intervention_context.prep_instructions) → composed `patient_message` (confirmed + loose clothing + face washed + intake)
+5. **Daryl — CoolSculpting hospitality** (`appointment.scheduled` + experience_personalization class) → `patient_message` + `ops_hospitality_task` on reply
+6. **Kylie — Laser visit 4 of 6** (`appointment.scheduled` + entitlement_context.package_session_count) → `patient_message` with series-aware copy
+
+Internal / cross-source (9):
+
+7. **Dr. Z rhinoplasty post-op day 7 call** (`encounter.completed` + intervention_context.rhinoplasty_postop_v3.milestone_postop_day_7) → `provider_task` (action_required=call_patient, recipient_class=provider, owning_queue=provider_task_queue)
+8. **Membership payment blocker** (`membership_payment.failed` 24h before HydraFacial) → `billing_task` + `front_desk_task` + `patient_message`
+9. **Patient hospitality reply** (`patient_reply.received` matching scent preference) → `ops_hospitality_task` on appointment
+10. **Worsening pain after laser** (`patient_reply.received` classified clinical red flag) → `clinical_escalation` to provider + `patient_message` acknowledging receipt
+11. **Retail + treatment composition** (Botox + HydraFacial encounters + in-clinic Cream X + online Lotion P50) → Patient Profile + Intervention + Product/SKU + Order-Commerce context modules → compose-or-split per §2.16
+12. **Lab result ingested** (`lab_result.received` abnormal) → `provider_task` (review) + `patient_message` (labs received; provider reviewing) + possible `clinical_escalation` if critical
+13. **Rx sent for GLP-1** (`rx.sent`) → `patient_message` (medication education) + `scheduling_offer` (side-effect check-in 7 days) + `provider_task` (review at refill)
+14. **Intake atom flag** (`intake_atom.flagged` contraindication) → booking hard gate (per §2.1.5 `booking_hard_gate` timing) + `provider_task` (review) + `patient_message` (asking follow-up)
+15. **Promo credit applied** (`promo.applied`) → `patient_message` (notification) + dashboard `context_update` + `scheduling_offer` (use before expiration)
+
+**Anti-pattern rejections (binding):**
+- ❌ `appointment_reminder_template` substrate / `send_sms_reminder_template` template-first architecture
+- ❌ Mindbody trigger-name copy without protocol context
+- ❌ SMS / email / push as orchestrator (rails are outputs, NOT brain)
+- ❌ Collapsing 5 patient-facing classes into "templates"
+- ❌ `appointment_type` as the brain
+- ❌ Domain 4 as patient-only messaging (per Correction 3 — multi-recipient)
+- ❌ Treating internal tasks as "alerts" outside CNS envelope discipline
+- ❌ **Appointment-first architecture / `appointment_id` required for CNS action (per Correction 4)** — Hims async / lab review / Rx-driven check-ins must work without appointment
+- ❌ **Retail / refund / promo / lab / Rx / intake as separate automation silos (per Correction 4)** — same pipeline
+- ❌ Building separate "marketing automation" / "billing notifications" / "clinical alerts" / "retail follow-up" subsystems outside CNS envelope discipline
+
+### §2.15 Round 3.5 binding doctrine — Context Module Layer (renamed from "Intervention Context Layer" per chat Correction 4; Intervention Context is ONE module type)
+
+Per Knox/chat 2026-05-17 Tesla/Amazon analogies + Correction 1 (anti-brain naming) + Correction 4 (multi-module umbrella). Locked before Round 4 authoring.
+
+**Naming binding (anti-category-error per Correction 1):**
+
+Layer is named **Context Module Layer** (umbrella). NEVER "Brain Layer" / "Knowledge Layer" / "Protocol Engine" / "Protocol Brain." Any framing that calls Context Module Layer "the brain" is REJECTED as a category error.
+
+**CNS is the brain. Context Modules are structured input.** Period. Context Modules carry facts/hooks/references; CNS assembles them at decision time into the appropriate packet.
+
+- **NOT the orchestrator.** Context does not decide what to send / when / through which channel. CNS decides.
+- **NOT a rules engine** (per chat 2026-05-17 Patch 3 — softened framing). Context Modules MAY carry declarative protocol constraints, thresholds, timing parameters, contraindication lists, red-flag thresholds, spacing windows, follow-up cadence, and approved content modules (e.g., "stop retinols 5 days before CoolPeel" / "follow up 48 hours after Botox" / "do not schedule HydraFacial within X days after CoolPeel" / "red flags include fever, pus, severe swelling" / "dose escalation check at X interval"). What Context Modules do NOT do: decide actions / select channels / route replies / suppress messages / own orchestration. Those decisions live in CNS deterministic policy + DL-14 inv 18 bounded autopilot, which READS the declarative constraints from Context Modules.
+- **NOT a message CMS.** Context does not own templates or copy. Templates live per DL-16 amendment 42 `default_template_set` per outbound trigger.
+- **NOT operational-kind logic.** Operational kinds (service / appointment_type / membership_kind / product_sku) live in their own catalog substrates. Context Modules are structured metadata ATTACHED to those operational kinds.
+
+**6 Context Module types** (per Correction 4 — Intervention is ONE of these, not the only one):
+
+| Module type | Carries | Anchored to | Example |
+|---|---|---|---|
+| **Intervention Context** | what_to_expect / included_components / prep_instructions / aftercare_instructions / contraindications / red_flag_symptoms / follow_up_schedule / spacing_rules / next_recommended_touchpoint / required_consent_artifacts / required_intake_sections / clinical_documentation_requirements / patient_facing_faq / provider_protocol_notes / cns_message_triggers | service / booking_preset / encounter_line.service_id / care_program treatment kind | CoolPeel CO2 protocol / Botox protocol / GLP-1 program protocol |
+| **Product/SKU Context** | usage_instructions / contraindications_with_recent_treatments / spacing_with_actives / follow_up_prompts / reorder_cadence / patient_education / safety_warnings | product / commerce_order_line.product_sku | Cream X usage with retinols / Lotion P50 cautions after laser |
+| **Care Program Context** | program_definition / dose_cadence / monitoring_cadence / lab_requirements / dose_escalation_eligibility / provider_review_triggers / patient_check_in_cadence / program_completion_criteria | care_program / care_episode | GLP-1 weight loss program / surgical pre-op pathway / HRT monitoring program |
+| **Entitlement Context** | benefit_definition / eligibility_rules / consumption_tracking / expiration_policy / next_eligible_date / value_visibility_attribution (per Round 3.3 §2.11) | entitlement / membership_contract / package_purchase | BH+ Elite membership benefits / SkinPen 3-pack remaining sessions |
+| **Order/Commerce Context** | order_lifecycle / refund_policy / promo_application_history / payment_status / discount_attribution (per Round 3.4 §2.13) | commerce_order / commerce_order_line / refund / promo_application | Order status / refund issued / promo applied |
+| **Patient Profile Context** | preferences / consent_state / contact_load / communication_preferences / opt_out_state / clinical_memory_summary | patient | Tea preference / SMS opt-out / recent contact volume |
+
+**Content / version governance per module instance** (per chat 2026-05-17 Patch 7 — the ONE genuinely missing piece per §2.19 reliability audit):
+
+Every Context Module instance MUST carry:
+- `version` STRING (e.g., `coolpeel_co2_v3` / `bhplus_elite_v2` / `cream_x_usage_v1`)
+- `approved_by_actor` (DL-16 amendment 43 4-tuple)
+- `effective_from` TIMESTAMP
+- `effective_to` TIMESTAMP NULL (NULL = currently effective)
+- `superseded_by_version` STRING NULL (FK to next version; version chain)
+- `change_audit_lineage` per DL-16 inv 30 decision record
+
+When CNS assembles a context packet, the SPECIFIC versions of modules consumed are captured in the decision record per DL-16 inv 30. If CoolPeel protocol updates from v3 → v4 after a message was sent referencing v3, the audit shows v3 was what the patient actually received. Clinical/legal traceability is non-negotiable for prep/aftercare/Rx education/product safety content.
+
+Future modules (registry-extensible per DL-16 inv 5 + 9 + 29): **Vendor / Integration Context** (lab partner / specialty pharmacy / external referral); **Marketing Context** (campaign membership / segment / preference); **Compliance Context** (regulatory state per jurisdiction).
+
+**CNS assembles context packets from relevant modules at decision time** — never copies module content into events. Per Tesla sensor-frame analogy: events ship typed references (`intervention_context_id=coolpeel_co2_v3` + `product_context_id=cream_x_v1` + `entitlement_context_id=bhplus_elite_v2`), NOT module bodies. CNS pulls modules at decision time, assembles packet, emits action candidate(s).
+
+**3-packet projection model** (same Context Module Layer, different assemblies, different authority gradients):
+
+| Packet | Consumer | Purpose | Authority |
+|---|---|---|---|
+| **CNS Action Packet** | CNS orchestration | "What should happen next?" | AI proposes / deterministic validates / executes within DL-14 inv 18 autonomy mode |
+| **Recipient Communication Packet** (renamed per chat 2026-05-17 Patch 2 — supports patient AND internal recipient communications; was "Patient Communication Packet") | Round 4 (Domain 4); inherited by other domains for their own outbound | "What to say to whom, through which rail/queue, how replies/acknowledgments route?" | AI may draft per `permits_ai_drafting`; deterministic validates; staff override per envelope; per-recipient_class authority gradient |
+| **Provider Clinical Context Packet** | Round 5/7 (Domain 5 + 7) | "What does provider need to safely decide + document?" | AI summarizes/proposes/drafts; deterministic flags+blocks unsafe; **provider signs where clinical authority required** |
+
+Substrate distribution deferred per Amendment J(a) — Round 5/7 substrate-decides shape per module type (per user direction 2026-05-17 — option `defer_to_5_7`).
+
+Constraint 1 anchor: AI may assemble/polish from APPROVED context modules; never invent. Applies across ALL module types — AI cannot invent product safety instructions, care program protocols, entitlement benefit definitions, etc.
+
+**Anti-pattern rejections (binding):**
+- ❌ Calling Context Module Layer "the brain" (category error per Correction 1)
+- ❌ Context Module as orchestrator
+- ❌ Context Module as rules engine (in the orchestration sense — declarative constraints are permitted per Patch 3)
+- ❌ Context Module as message CMS
+- ❌ Appointment type / service / product as the protocol home (operational kind ≠ context home)
+- ❌ `service.description` as the Intervention Context home
+- ❌ `product.description` as the Product/SKU Context home
+- ❌ ActiveCampaign-shaped automation builder
+- ❌ Event snapshot as blob containing full protocol manual (per Tesla sensor-frame analogy)
+- ❌ Cramming Product/SKU Context into Intervention Context (Lotion P50 usage instructions ≠ CoolPeel protocol field)
+- ❌ Single-module assumption — CNS context packet may pull from 1+ modules simultaneously
+
+### §2.16 Round 3.5 binding doctrine — CNS Action Envelope + action_kind + reply_policy + thread_policy + recipient_class + arbitration + composition (renamed from "Outbound Message Envelope" per chat Correction 4)
+
+Per Knox/chat 2026-05-17 multi-round pressure-test. Locked before Round 4 authoring.
+
+Operational binding for every CNS action produced by the source-agnostic pipeline (§2.14). An "action" is ANY CNS output: outbound patient message / internal task / provider notification / billing task / clinical escalation / ops alert / suppression / no-op / state transition proposal / context update / action-link request / AI draft proposal.
+
+**18-field CNS Action Envelope** (extends DL-14 inv 16 `orchestration_action` per Amendment J(b); expanded from 13 → 17 per Correction 3 → 18 per Correction 4 adds `action_kind` as field #1):
+
+**Action discriminator field (NEW per Correction 4 — 1 field):**
+- `action_kind` ENUM (10 values per Correction 4)
+
+**Patient + conversation fields (the original 13):**
+- `message_purpose` (registry ENUM per DL-16 amendment 42)
+- `source_event_id` (FK to triggering event)
+- `orchestration_action_id` (FK to DL-14 inv 16)
+- `conversation_scope` ENUM (appointment / encounter / entitlement / care_program / order / general_patient_thread)
+- `thread_policy` ENUM (9 values per Constraint 3 + Correction 2)
+- `expected_intents[]` (registry ENUM per DL-16 inv 5)
+- `permits_ai_drafting` BOOLEAN (per DL-14 inv 18 + DL-16 amendment 42 default)
+- `staff_review_required` BOOLEAN
+- `clinical_risk_possible` BOOLEAN
+- `consent_class` ENUM (transactional / marketing / clinical per DL-16 amendment 42)
+- `quiet_hours_policy` ENUM
+- `suppression_group` STRING (per Constraint 4)
+- `reply_policy` ENUM (7 values)
+
+**Multi-recipient orchestration fields (NEW per Correction 3 — 4 fields):**
+- `recipient_class` ENUM (8 values)
+- `audience_scope` ENUM (single_recipient / multi_recipient_primary_plus_cc / broadcast_to_queue)
+- `action_required` ENUM (9 values)
+- `owning_queue` STRING NULL (FK to queue substrate)
+
+**10-value `action_kind` ENUM** (per Correction 4):
+- `patient_message` — outbound to patient; reply_policy + thread_policy fully apply
+- `internal_notification` — informational notification to internal recipient; reply_policy=`no_reply` (acknowledgment via `action_required=acknowledge` not reply_policy per Patch 1); thread_policy may apply
+- `provider_task` — task assigned to provider with `action_required`; owning_queue=provider_task_queue
+- `staff_task` — task assigned to staff with `action_required`; owning_queue routes by recipient_class
+- `billing_task` — specialized staff_task; owning_queue=billing_resolution_queue
+- `clinical_escalation` — per DL-14 inv 21 absolute interrupt; owning_queue=clinical_triage_queue; bypasses normal contact-load budget
+- `scheduling_offer` — proactive booking offer to patient; reply_policy=`booking_assist_enabled`
+- `state_transition_proposal` — CNS proposes a state change; deterministic policy decides; reply_policy/thread_policy may not apply
+- `suppression` — explicit no-send decision recorded for audit; no delivery; staff-only attribution
+- `no_op` — CNS evaluated context and decided no action; recorded for audit only
+
+Plus reserved for registry-extension: `context_update` / `action_link_request` / `ai_draft_proposal`.
+
+**Field applicability by action_kind** (binding — some fields are no-op for some kinds):
+
+| action_kind | reply_policy | thread_policy | owning_queue | recipient_class | conversation_scope |
+|---|---|---|---|---|---|
+| `patient_message` | YES | YES | NO | patient | YES |
+| `internal_notification` | YES (no_reply mainly; acknowledgment via `action_required=acknowledge` per Patch 1) | YES | YES (informational queue) | non-patient | YES |
+| `provider_task` | N/A | YES | YES (provider_task_queue) | provider | YES |
+| `staff_task` | N/A | YES | YES (routes by recipient) | non-patient non-provider | YES |
+| `billing_task` | N/A | YES | YES (billing_resolution_queue) | billing_staff | YES |
+| `clinical_escalation` | YES (clinical_escalation_enabled) | YES (create_clinical_triage_thread) | YES (clinical_triage_queue) | clinical_staff or provider | YES |
+| `scheduling_offer` | YES (booking_assist_enabled) | YES | NO | patient | YES |
+| `state_transition_proposal` | NO | NO | NO | N/A | N/A |
+| `suppression` | NO | NO | NO | N/A | audit-only |
+| `no_op` | NO | NO | NO | N/A | audit-only |
+
+**8-value `recipient_class` ENUM** (per Correction 3): `patient` / `provider` / `front_desk` / `clinical_staff` / `billing_staff` / `ops_team` / `care_coordinator` / `external_vendor`.
+
+**9-value `action_required` ENUM** (per Correction 3): `none` / `acknowledge` / `reply` / `complete_task` / `review` / `call_patient` / `sign` / `resolve_billing` / `escalate`.
+
+**9-value `thread_policy` ENUM** (per Constraint 3 + Correction 2 — symmetric with `conversation_scope`): `no_thread` / `attach_to_appointment_thread` / `attach_to_encounter_thread` / `attach_to_entitlement_thread` / `attach_to_care_program_thread` / `attach_to_billing_thread` / `attach_to_general_patient_thread` / `create_staff_triage_thread` / `create_clinical_triage_thread`.
+
+**7-value `reply_policy` ENUM**: `no_reply` / `action_link_only` / `two_way_staff_queue` / `two_way_ai_triage` / `clinical_escalation_enabled` / `booking_assist_enabled` / `billing_resolution_enabled`.
+
+**Conflict resolution strategies for arbitration** (priority + composition decisions):
+
+Default arbitration priority order (binding; tenant-tunable):
+1. clinical_safety (red flags / DL-14 inv 21 absolute interrupt)
+2. appointment_logistics (within day-of / hours-of timing)
+3. billing_payment_blocker (blocks service delivery)
+4. required_prep_intake_consent (within prep-timing window)
+5. post_care_followup (within post-care window)
+6. entitlement_continuation (benefit expiring / package remaining)
+7. hospitality_personalization
+8. marketing
+
+Clinical_safety bypasses contact-load budget. Appointment_logistics bypasses some limits. Hospitality/marketing suppressed first when budget exceeded.
+
+**Patient contact-load budget** (per Constraint 4):
+- Max non-urgent SMS per day (tenant-configurable; default ~3)
+- Max marketing/retention messages per week (default ~2)
+- Suppression groups (per `suppression_group` field) prevent dedupe collisions
+- Tenant overrides per DL-19 policy profile
+
+**Composition operations** (5-operation layer):
+- `select` (pick one, suppress rest within contact-load window)
+- `compose` / `merge` (bundle compatible into one CNS action)
+- `split` (across channels OR across action_kinds when semantics differ)
+- `hold` / `defer` (timing window wrong; higher-priority just sent)
+- `suppress` (over contact-load threshold; higher-priority covered thread)
+
+**Composition invariants (binding; 10 invariants):**
+1. **Cannot merge across different `action_kind`** (Correction 4) — patient_message + provider_task + billing_task + clinical_escalation NEVER merge into one CNS action; always split.
+2. **Constraint 2** — composed message has EXACTLY ONE `reply_policy`; incompatible policies MUST split.
+3. **Cannot merge across different `recipient_class`** (Correction 3) — patient outbound + provider task NEVER ride together.
+4. **Cannot merge across different `owning_queue`** (Correction 3) — provider task queue + billing queue stay separate.
+5. Cannot merge across different `consent_class` (HIPAA / CAN-SPAM / TCPA).
+6. Cannot merge across different `staff_review_required` flags.
+7. Merge permitted when `conversation_scope` compatible; otherwise split.
+8. Most-restrictive `quiet_hours_policy` wins across merged content.
+9. Most-conservative `permits_ai_drafting` wins (any FALSE → entire composed message requires non-AI draft).
+10. **Constraint 1** — composition assembles APPROVED modules from Context Module Layer; never invents clinical/product/program/entitlement content.
+
+Patient-visible attribution per Round 3.3 §2.11 still required in merged compositions. Audit trail per DL-16 inv 30: input candidates / selected operation / rationale / output actions / suppressed-deferred candidates / cross-action_kind splits with reason / cross-recipient-class splits with reason.
+
+**Constraint 5 binding (graceful degradation — basic reminders work without AI):**
+
+Basic deterministic path MUST work with AI disabled:
+- Booked confirmation
+- Day-before reminder
+- Same-day reminder (tenant-configurable)
+- Cancellation / reschedule handling
+- Inbound confirmation classification (deterministic keyword match: "C" / "yes" / "no" / "cancel" / "reschedule")
+- Staff ambiguity queue for non-keyword replies
+
+AI composition is ENHANCEMENT not DEPENDENCY. Tenant may disable AI per DL-14 inv 18 autonomy mode; core scheduling reliability preserved.
+
+**Anti-pattern rejections (binding):**
+- ❌ Composed action mixing `action_kind` (Correction 4)
+- ❌ Composed action mixing `recipient_class` (Correction 3)
+- ❌ Composed action with hybrid `reply_policy` (Constraint 2)
+- ❌ Outbound without explicit `thread_policy` → reply soup (Constraint 3)
+- ❌ Blast all eligible messages (Constraint 4 — contact-load budget required)
+- ❌ Basic reminders depend on AI to function (Constraint 5)
+- ❌ AI invents clinical / product / program / entitlement content (Constraint 1)
+- ❌ "Outbound Message Envelope" naming (Correction 4 — CNS Action Envelope; outbound message is one action_kind)
+- ❌ Treating internal tasks as alerts outside CNS envelope discipline
+
+### §2.17 Round 3.5 binding doctrine — Provider Clinical Context Packet (forward-reference for Round 5/7)
+
+Per Knox/chat 2026-05-17. Scope-disciplined: Round 4 does NOT author provider decisioning rules. Round 5/7 owns provider decisioning + charting. §2.17 is a FORWARD-REFERENCE that locks the principles now so Round 5/7 builds to them later.
+
+Locks:
+- Same Context Module Layer (§2.15) + event graph feeds Provider Clinical Context Packet
+- **Authority gradient strictest of the 3 packets** — AI summarizes / proposes / drafts; deterministic validates + flags + blocks unsafe transitions; **provider SIGNS where clinical authority required** (per DL-14 inv 21 + DL-15 inv 10 absolute)
+- Packet shape (deferred to Round 5/7 substrate authoring): pathway/program/intervention / reason / intake / clinical memory / labs/vitals/photos/documents / prior treatments / contraindication/risk checks / protocol checklist / unresolved gaps / AI summary if allowed / deterministic warnings / provider decision options / evidence references
+- **Charting-from-context anti-pattern**: chart MUST NOT start from blank note; chart GENERATED from context (encounter reason + pathway + intake + performed + provider findings + products/lots/units/areas + clinical decision + patient education + follow-up + evidence references)
+- **AI enrichment with citation/trace requirement**: NO hallucinated medicine / NO silent decisions / NO uncited "guideline says" when clinical
+- Amendment J(d) flag — provider clinical context packet substrate (Round 5/7 owns)
+
+Example application: **Testosterone pathway** (per user direction 2026-05-17):
+- Intervention/Care Program Context = testosterone pathway v3 (eligibility / baseline labs / symptom domains / contraindication screening / monitoring cadence / dose adjustment policy / red flags / documentation requirements / informed consent / patient education / provider review checklist)
+- When provider opens case → CNS assembles Provider Clinical Context Packet:
+  - "Patient is in Testosterone pathway"
+  - "Baseline labs complete except X"
+  - "Intake flags Y"
+  - "Thyroid/cancer/fertility/cardiac/sleep apnea questions need review if your protocol requires"
+  - "Last dose change was Z"
+  - "Next monitoring interval due on DATE"
+  - "Provider decision needed: approve / deny / request labs / schedule visit / message patient"
+- Provider decides + signs. CNS does NOT decide testosterone protocol or sign orders.
+
+### §2.18 Round 4 mandatory pre-brief (Sections A-O)
+
+Per Knox/chat 2026-05-17. Binding compliance for Round 4 author (mirrors §2.9 Domain 6 pre-brief).
+
+- **A.** Source-agnostic CNS action orchestration compliance (§2.14 per Correction 4 — multi-source, multi-recipient, multi-action_kind; Domain 4 authors SCHEDULING-domain slice; envelope binds cross-domain)
+- **B.** 5 patient-facing communication classes + parallel internal action classes compliance
+- **C.** 2-lane architecture compliance (Lane 1 confirmation round-trip per DL-20 inv 40 + Lane 2 protocol-aware comms)
+- **D.** Context Module Layer consumption (§2.15) — never owner; never "brain" framing per Correction 1; multi-module assembly permitted
+- **E.** 18-field CNS Action Envelope compliance (§2.16; expanded from 13 → 17 → 18 per Corrections 3 + 4)
+- **F.** 7-value reply_policy ENUM compliance (applies to reply-capable action_kinds)
+- **G.** 9-value thread_policy ENUM compliance (Constraint 3 per Correction 2; symmetric with conversation_scope)
+- **H.** Composition rules + 10 invariants compliance (Constraints 1 + 2 + cross-recipient-class split per Correction 3 + cross-action_kind split per Correction 4)
+- **I.** Arbitration + contact-load budget compliance (Constraint 4; clinical safety bypasses budget)
+- **J.** Graceful degradation / basic-reminders-without-AI compliance (Constraint 5)
+- **K.** Cross-domain seams (D3↔D4 confirmation lifecycle, D4↔D6 entitlement-continuation comms, D4↔D5 encounter-driven comms, D4↔future-domains lab/Rx/intake comms)
+- **L.** DL-16 amendment 41 + 42 + 43 (alerts + outbound trigger registry + actor 4-tuple) compliance
+- **M.** Multi-recipient orchestration compliance (Correction 3) — 8-value recipient_class ENUM + 9-value action_required ENUM + owning_queue routing + cross-recipient-class composition split invariant + 5 internal-action worked examples
+- **N.** Source-agnostic action_kind compliance (Correction 4) — 10-value action_kind ENUM + field applicability matrix + cross-action_kind composition split invariant + appointment_id is OPTIONAL context + Hims-style async pressure-test + 9 cross-source worked examples
+- **O.** §2.19 Citation Map compliance — Round 4 MUST cite existing locked doctrine listed in §2.19 for the 8 reliability guardrails. Round 4 does NOT re-author these. Substrate gaps surfaced during authoring flag as Amendment J extensions.
+
+### §2.19 Round 3.5 binding doctrine — Citation Map (existing locked doctrine binding for Round 4; NOT new architecture)
+
+Per user direction 2026-05-17 + chat 2026-05-17 reliability-guardrails audit: this section is NOT new architecture. It is a **citation map** that anchors each chat-flagged "reliability guardrail" to existing locked doctrine. Round 4 cites these; does not re-author them.
+
+**Background:** Chat 2026-05-17 flagged 8 reliability guardrails (contact endpoint resolution / delivery lifecycle / live-state revalidation / idempotency / unsolicited inbound / internal task lifecycle / content versioning / observability). User correctly pointed out chat does not have direct access to OMNI's locked doctrine (system_map + DL-14 through DL-22 + communications_topology.md + §1F + §1G + §1G.8 + §1G.11 + §1P + §1Q.23 + 4h phase work). Audit confirmed **7 of 8 already locked**; 1 (Context Module content/version governance) needed explicit §2.15 patch (now applied).
+
+**8 reliability guardrails → existing doctrine citation:**
+
+| # | Guardrail | Already locked at | Round 4 binding via |
+|---|---|---|---|
+| 1 | **Contact endpoint resolution** (SMS/email/portal/caregiver-proxy/preferred channel/blocked channel/no PHI over SMS/on-call provider/coverage/role queue assignment) | DL-16 amendment 42 `default_channels[]` per trigger + DL-16 inv 7 payload minimization + DL-16 amendment 42 `pii_exposure_class` + [communications_topology.md](../../../docs/architecture/communications_topology.md) §3 six outbound channels + §4 five inbound channels + §6 integration points + §1Q.23 patient channel preference + DL-18 inv 6 staff_capability + DL-21 on-call/coverage federation patterns | §2.18 Section D + Section O |
+| 2 | **Delivery lifecycle / rail failure** (queued/attempted/delivered/failed/bounced/undeliverable/retried/fallback-channel-used/suppressed/manually-resolved) | DL-14 inv 16 orchestration_action lifecycle + DL-16 inv 3 category d delivery partition + 1Q.14.2 8-gate (cooldown / dedupe / quiet-hours / channel selection / etc.) + DL-16 inv 39 out-of-band reconciliation jobs + existing `outbound_send_log` substrate from Mindbody architecture understanding | §2.18 Section L + Section O |
+| 3 | **Live-state revalidation before execution** (re-check live state immediately before send/task/state-transition) | DL-15 inv 11 booking live-state revalidation + DL-16 inv 24 live-state pattern — Tesla-freeway pattern already locked | §2.18 Section H + Section O |
+| 4 | **Idempotency / duplicate prevention** (source_event + action_kind + context scope + recipient/action target dedupe keys) | DL-16 amendment 42 `default_throttle` (cooldown + dedupe key shape per registry row) + DL-16 inv 6 atomic event emission + DL-16 inv 21 strong consistency for commits + 1Q.14.2 gate 4 dedupe | §2.16 `suppression_group` + Section O |
+| 5 | **Unsolicited inbound** (patients texting first, no originating outbound) | DL-16 inv 3 category c `inbound_messages` partition + [communications_topology.md](../../../docs/architecture/communications_topology.md) §4 five inbound channels + §1P pipeline (invariant 8: structured bypasses AI) + 4h phase work (action items + staff triage + AI classification + rich chat rendering) | §2.18 Section K + Section O |
+| 6 | **Task lifecycle for internal actions** (created/assigned/accepted/in_progress/completed/snoozed/escalated/reassigned/expired/cancelled/linked-to-resolution-event) | DL-14 inv 16 orchestration_action lifecycle + DL-14 inv 17 orchestration_runs + DL-16 inv 30 decision records + existing `patient_action_items` substrate + §1G.11 satisfy-on-write-path | §2.18 Section M + Section O |
+| 7 | **Content/version governance** (protocol version / template version / who approved / when changed / what version did patient receive) | DL-16 amendment 42 `default_template_set` FK (org-overridable per inv 8 isolation) + DL-16 inv 30 versioned decision records + DL-20 inv 5 `episode_catalog.clinical_protocol_template_id` FK NULL + DL-18 inv 9 attestation envelope (approvals) + **§2.15 NEW per chat Patch 7** — Context Module instances carry `version` + `approved_by_actor` + `effective_from` + `effective_to` + `superseded_by_version` + `change_audit_lineage` | §2.15 + Section O |
+| 8 | **Observability / "why did OMNI do this?"** (per-action: why generated / what source event / what context modules + versions / what candidates suppressed / why this channel / why this recipient / why AI was/wasn't allowed / what policy blocked alternatives) | DL-16 inv 30 decision records (full why/what/when/who recorded per action) + DL-16 amendment 43 actor 4-tuple + DL-14 inv 17 orchestration_runs multi-step audit + DL-16 inv 39 reconciliation drift detection + DL-16 inv 13 retention discipline | §2.18 Section L + Section O |
+
+**Round 4 binding statement:**
+
+Round 4 author MUST cite these existing locked doctrine sources when authoring Domain 4 rules that touch any of the 8 guardrails. Round 4 does NOT re-author them. Round 4 rules ASSUME:
+- Channel selection + endpoint resolution per existing DL-16 amendment 42 + §1Q.23 infrastructure
+- Delivery lifecycle + retry/fallback per existing DL-14 + DL-16 + 1Q.14.2 infrastructure
+- Live-state revalidation per existing DL-15 inv 11 + DL-16 inv 24 pattern
+- Idempotency per existing DL-16 amendment 42 `default_throttle` + DL-16 inv 6 atomic emission
+- Unsolicited inbound enters via existing DL-16 inv 3 category c + §1P pipeline + 4h phase work
+- Internal task lifecycle per existing DL-14 inv 16 + 17 + `patient_action_items` substrate
+- Content versioning per existing DL-16 amendment 42 templates + §2.15 NEW Context Module versioning
+- Observability per existing DL-16 inv 30 decision records + amendment 43 actor 4-tuple
+
+Substrate gaps surfaced during Round 4 authoring that touch these guardrails get flagged as **Amendment J extensions** (rather than authored in Round 4).
+
+**Anti-patterns (Round 3.5 + §2.19 binding rejections):**
+- ❌ Round 4 re-authoring contact endpoint resolution / delivery lifecycle / etc. as if they don't exist
+- ❌ Round 4 assuming the existing doctrine doesn't cover these — chat doesn't have direct access; the user/system_map/DLs do
+- ❌ Inventing new substrate for things already covered by §1P / §1Q.23 / communications_topology.md / 4h phase work
+
+**Key principle (Round 3.5 verbatim closer per user direction 2026-05-17):**
+
+> *"we already did this work."*
+
+The architecture for source-agnostic CNS action orchestration, contact endpoint resolution, delivery lifecycle, live-state revalidation, idempotency, unsolicited inbound, internal task lifecycle, and observability is already locked across DL-14 through DL-22 + communications_topology.md + 8 weeks of prior phase work. §2.19 makes that work CITED + BINDING from the scheduling-rule-matrix so Round 4 (Domain 4) does not regress.
+
+### §2.20 Round 3.5 Amendment J candidate (4-part; flagged for Round 5/7 substrate evaluation)
+
+Per chat 2026-05-17 Correction 4 + reliability audit. Substrate work parked for Round 5/7 authoring; Round 4 surfaces gaps that flag here.
+
+- **J(a) — Context Module Layer substrate distribution** (6 module types). Options: (i) per-module substrate fields on each anchored kind (service / product / care_program / entitlement / commerce_order / patient) — distributed; (ii) consolidated `context_module_profile` substrate with `module_kind` discriminator; (iii) new DL-23 "Context Module Layer" doctrine document. Deferred to Round 5/7 substrate-decides per module type (user direction 2026-05-17 — option `defer_to_5_7`).
+- **J(b) — `orchestration_action` envelope extension** (DL-14 inv 16 + DL-16 amendment 42): add 18-field CNS Action Envelope including `action_kind` + `reply_policy` + `thread_policy` + `suppression_group` + `recipient_class` + `audience_scope` + `action_required` + `owning_queue`. Plus new `queue` substrate or extension for owning_queue resolution.
+- **J(c) — Source-agnostic event normalization + arbitration + queue routing substrate**: typed event registry extension for 18+ event source kinds; patient-level contact budget tracking + suppression_group registry + priority queue + recent_contact_load projection + multi-recipient queue routing matrix.
+- **J(d) — Provider clinical context packet assembly substrate**: Round 5/7 owns shape.
+
+---
+
 ## §7 Cross-link map (every rule cross-references these)
 
 ### Locked doctrine
