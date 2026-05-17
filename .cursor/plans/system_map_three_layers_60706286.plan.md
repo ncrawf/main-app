@@ -707,6 +707,22 @@ Round 3.2 doctrine additions (NOT new substrate; cross-cutting discipline locks 
 
 Phase 1 hardening v7 may add additional amendments as later domains surface gaps. Round 4 (Domain 4 — Confirmation / outbound) is next; Domain 6 pre-brief is parked + binding.
 
+**Phase 1 hardening v8 (2026-05-17, post Round 3.2 — generic-engine + attribution + Shopify-evidence doctrine locks) — 0 substrate amendments; 3 doctrine sections added + 1 extended:**
+
+Round 3.3 doctrine additions (NOT new substrate; cross-cutting discipline locks ahead of Domain 6 authoring) — captured in Day 0 Scheduling Rule Matrix [index doc §2.10 + §2.11 + §2.12](designs/day_0_scheduling_rule_matrix/00_index.md) + extended [§2.9](designs/day_0_scheduling_rule_matrix/00_index.md):
+
+- **§2.10 Generic benefit/discount/entitlement resolution engine** — Domain 6 MUST model commerce/entitlement resolution as a GENERIC engine, NOT branching by source. Membership is ONE source of benefits among many (package / promo / gift_card / account_credit / staff_adjustment / loyalty / refund_credit / subscription / future tenant-extensible sources). All sources flow into common resolution engine. Anti-pattern: `if patient.has_membership: do_membership_logic` branching REJECTED. Stacking rules per-benefit (`combinable_with_other_promos`), not per-source. Source registry extensible per DL-16 inv 5 + 9.
+
+- **§2.11 Benefit attribution / value visibility (receipt is marketing)** — Per user direction: "we NEED to be able to show customers (and staff) that the BH+ membership took them from 14 to 12 per unit!!! otherwise, we're diluting our value." Every applied benefit produces an ATTRIBUTION LINE: source / benefit_type / original_price / adjusted_price / quantity / savings_amount / eligible_line_item_id / stacking_position / staff_override_status. Surfaces: staff checkout cart / patient receipt / patient dashboard Membership value summary / booking estimate. Pricing override "Standard $14/u → Member $12/u" MUST be shown — never silently applied. 6 worked examples in §2.11 (Botox pricing_override / retail category_discount / Hydrafacial monthly service_credit / Red Light unlimited_period / SkinPen package_redemption / multi-source stacking).
+
+- **§2.12 Shopify ingestion as pre-Domain-6 mandatory evidence** — Before Domain 6 authoring starts, OMNI MUST ingest targeted Shopify evidence covering 10 buckets (products+variants / collections+categories / discounts / stacking+combination / gift_cards / subscriptions / checkout+cart / customer_segments / receipt+attribution / refund+adjustment). Shopify is HARD EVIDENCE for catalog + commerce + cart resolution (alongside Mindbody for medspa-specific scheduling + entitlement-reservation). NOT 200-screenshot scope; targeted ingestion + synthesis into Domain 6 evidence reference list. NOT a Round 4 blocker.
+
+- **§2.9 Domain 6 mandatory pre-brief — EXTENDED** with 3 new compliance sections (H / I / J): generic engine compliance / benefit attribution compliance / Shopify evidence base compliance.
+
+**Amendment H candidate expanded:** Originally `discount_program.program_kind = pricing_override` (Round 3.2). Round 3.3 expansion: ALSO requires `commerce_order_line_benefit_attribution` child substrate (OR denormalized JSONB) to support §2.11 attribution requirements. Domain 6 evaluates both parts at Round 6 start.
+
+Phase 1 hardening v8 may add additional amendments as later domains surface gaps. Domain 6 pre-brief is fully framed; Shopify ingestion task is parked + binding for pre-Round-6.
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.

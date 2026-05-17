@@ -474,7 +474,229 @@ Domain 6 (Checkout / commerce / entitlement) MUST address the following at Round
 - Domain 6 owns fee / forfeiture / restoration / refund / account-credit / deposit-disposition decisions
 - Domain 3 ↔ Domain 6 coupling is event-driven, not direct mutation
 
-**Potential Amendment H candidate (Domain 6 to evaluate):** DL-17 inv 15 `discount_program.program_kind` ENUM currently has 4 values (flat_percent / flat_amount / rotating_tier / cumulative_loyalty). Adding `pricing_override` value to support "Botox $14/u → $12/u member price" cleanly — OR using a separate `pricing_option` per member tier (DL-17 inv 1 admits many pricing_options per service via M:N assignment). Domain 6 authoring must decide which pattern is cleaner; flagged here for Round 6 evaluation.
+**H. Generic benefit resolution engine compliance** (per Round 3.3 §2.10):
+- ALL benefit sources are first-class citizens (membership / package / promo / gift_card / account_credit / staff_adjustment / loyalty / refund_credit / subscription / future tenant-extensible sources)
+- NO `if patient.has_membership` branching by source
+- Stacking rules per-benefit (`combinable_with_other_promos`), not per-source
+- Source registry is registry-extensible per DL-16 inv 5 + 9
+
+**I. Benefit attribution / value visibility compliance** (per Round 3.3 §2.11):
+- EVERY applied benefit produces an attribution line (source / benefit_type / original_price / adjusted_price / quantity / savings_amount / eligible_line_item_id / stacking_position / staff_override_status)
+- Surfaces: staff checkout cart / patient receipt / patient dashboard "Membership value summary" / booking estimate
+- Pricing override (Botox $14/u → $12/u) MUST show "Standard $14/u → Member $12/u" — never silently applied
+- Attribution substrate: `commerce_order_line_benefit_attribution` child OR denormalized JSONB (Amendment H part b — Domain 6 to evaluate shape)
+
+**J. Shopify evidence base compliance** (per Round 3.3 §2.12):
+- Domain 6 MUST cite Shopify evidence (10 buckets — products/variants/collections/discounts/stacking/gift_cards/subscriptions/checkout/customer_segments/receipt) as primary commerce + cart-resolution evidence
+- Mindbody remains HARD EVIDENCE for medspa-specific scheduling + entitlement-reservation patterns
+- Cross-app references (Stripe / Amazon / etc.) remain ANALOGIES per Round 1.5 terminology fix
+- Targeted Shopify ingestion must be captured BEFORE Round 6 authoring starts
+
+**Potential Amendment H candidate (Domain 6 to evaluate; expanded per Round 3.3):** DL-17 inv 15 `discount_program.program_kind` ENUM currently has 4 values (flat_percent / flat_amount / rotating_tier / cumulative_loyalty). Round 3.3 expansion: Amendment H may need TWO parts:
+- (a) `program_kind = pricing_override` value to support "Botox $14/u → $12/u member price" cleanly — OR alternate pricing_option per member tier (DL-17 inv 1 admits M:N).
+- (b) NEW `commerce_order_line_benefit_attribution` child substrate (or denormalized JSONB column) to capture per-line attribution lines (source / benefit_type / original_price / adjusted_price / quantity / savings_amount / stacking_position / staff_override_status) for receipt + dashboard + booking estimate surfacing. Required for Round 3.3 §2.11 benefit attribution doctrine.
+
+Domain 6 authoring decides shape; flagged here for Round 6 evaluation.
+
+### §2.10 Round 3.3 binding doctrine — Generic benefit/discount/entitlement resolution engine (NOT branching by source)
+
+Per Knox/chat 2026-05-17 + user direction. Locked before Domain 6 authoring (Round 6).
+
+**Binding doctrine:** Domain 6 MUST model commerce/entitlement resolution as a GENERIC ENGINE, NOT a branching tree per benefit source. Membership is ONE source of benefits among many; package credit, promo claim, gift card, account credit, staff adjustment, loyalty reward, refund credit, subscription benefit are sibling sources. ALL flow into a common resolution engine.
+
+**Anti-pattern (REJECTED — Round 3.3 binding):**
+
+```text
+if patient.has_membership:        # ❌ Special-snowflake branching
+    apply_membership_logic()
+if patient.has_package:           # ❌ Same anti-pattern
+    apply_package_logic()
+if patient.has_promo:             # ❌ Same anti-pattern
+    apply_promo_logic()
+if patient.has_gift_card:         # ❌ Same anti-pattern
+    apply_gift_card_logic()
+```
+
+This branching becomes hell as benefit sources multiply. Worse: stacking rules + priority resolution + conflict surfacing must be re-implemented per branch + drift inevitably.
+
+**Correct model (BINDING):**
+
+```text
+sources_of_benefits = [           # All sources are equal citizens
+    membership.entitlements,
+    membership.discount_programs,
+    membership.pricing_overrides,
+    package.entitlements,
+    promo.claims,
+    gift_card.balances,
+    account_credit.balances,
+    staff_adjustment.lines,
+    loyalty.tier_discounts,
+    refund_credit.balances,
+    subscription.entitlements,
+]
+
+cart_resolution_engine(cart, sources_of_benefits) → {
+    per_line_applied_benefits: [...],
+    per_line_attribution: [...],   # Round 3.3 §2.11
+    stacking_conflicts: [...],     # surfaced to staff
+    uncovered_balance: $X,
+    staff_approval_required: [...],
+}
+```
+
+**Binding rules for the resolution engine:**
+
+1. **All benefit sources are first-class citizens** — no source-specific branching. Membership entitlements are NOT special; they're entitlement-substrate rows like package entitlements.
+2. **Deterministic priority order** — per DL-17 inv 4 (redemption_priority high first; ties by valid_to ASC; ties by purchased_at ASC FIFO). Substrate-level discipline, not source-specific.
+3. **Stacking rules are PER-BENEFIT not PER-SOURCE** — `discount_program.combinable_with_other_promos` is the binding field; applies uniformly across sources.
+4. **Conflict surfacing is uniform** — when stacking not allowed + multiple eligible benefits, present choice to staff/patient regardless of source.
+5. **Reservation + redemption lifecycle is uniform** — booking creates reservation (Round 3.1 §8.4); completed visit redeems; late-cancel/no-show evaluates forfeiture per policy. Same across sources.
+6. **Attribution output is uniform** — every applied benefit produces an attribution line per §2.11 binding structure.
+
+**Anti-pattern enumeration (Round 3.3 binding rejections):**
+
+- ❌ `if patient.has_membership` branching for membership-specific logic
+- ❌ Source-specific discount stacking implementations
+- ❌ Membership-only "free service" pathway distinct from package "free session" pathway
+- ❌ Membership-only pricing override pathway distinct from promo "% off" pathway
+- ❌ Source-specific cart UI rendering (vs uniform attribution-driven render)
+- ❌ Hardcoded benefit source enum that admits only existing sources (must be registry-extensible per DL-16 inv 5 for future loyalty / referral / etc.)
+
+**Sources are tenant-extensible:** Day 0 seed admits 8 source kinds (membership / package / promo / gift_card / account_credit / staff_adjustment / loyalty / refund_credit). Tenant may add new sources (e.g., referral_credit / influencer_perk / partner_benefit) without code change, via registry extension per DL-16 inv 5 + 9.
+
+### §2.11 Round 3.3 binding doctrine — Benefit attribution / value visibility (receipt is marketing)
+
+Per user direction 2026-05-17 + chat framing. Locked before Domain 6 authoring.
+
+**Binding doctrine:** Membership pricing (and ALL benefit application) MUST be visible and attributable to the customer + staff. NEVER silently applied. Without visibility, membership value is invisible + gets cancelled.
+
+**Two distinct truths the system MUST represent:**
+
+1. **Pricing truth** — what did the patient actually owe?
+2. **Value attribution truth** — why did they owe that amount, and what did each benefit save them?
+
+**Binding attribution line structure (Amendment H part b — Domain 6 to substrate):**
+
+Every applied benefit produces an attribution line carrying:
+
+| Field | Purpose |
+|---|---|
+| `source` | Benefit source ("BH+ Elite Membership" / "SkinPen 3-Pack" / "Promo Code SPRING25" / "Gift Card $50" / etc.) |
+| `benefit_type` | Kind (pricing_override / service_credit / category_discount / unit_discount / package_redemption / gift_card_redemption / promo_application / account_credit_consumption / staff_adjustment) |
+| `original_price` | Standard price before benefit |
+| `adjusted_price` | Price after benefit applied |
+| `quantity` | Units affected (where applicable) |
+| `savings_amount` | adjusted - original (negative for savings) |
+| `eligible_line_item_id` | Which `commerce_order_line` the benefit applied to |
+| `stacking_position` | Order in stack (e.g., "1 of 2" if multi-benefit on one line) |
+| `staff_override_status` | NULL if automatic; populated with reason_code + actor if staff override |
+
+**Required surfacing (binding for Domain 6 UX work):**
+
+- **Staff checkout cart** — itemized per-line with attribution lines visible
+- **Patient receipt** — itemized; shows "Standard price / Member price / Savings" for pricing_override; shows "Free with membership" for full-coverage benefits
+- **Patient dashboard "Membership value summary"** — running totals: month-to-date / cycle-to-date / annual savings via each benefit source
+- **Booking estimate** — surfaces expected attribution BEFORE checkout ("With your BH+ Elite, this visit will be approximately $X instead of $Y")
+
+**Worked examples (per user direction, binding for Domain 6 output):**
+
+**Example 1 — Botox pricing override:**
+```text
+Botox — 40 units
+  Standard price:   $14/u  =  $560.00
+  BH+ Elite price:  $12/u  =  $480.00
+  Membership savings:      -$80.00 (BH+ Elite Membership pricing_override)
+```
+
+**Example 2 — Retail category discount:**
+```text
+SkinBetter Alto Defense Serum
+  Standard price:   $165.00
+  BH+ Elite 15% retail benefit:  -$24.75  (BH+ Elite Membership category_discount)
+  You paid:         $140.25
+```
+
+**Example 3 — Full-coverage monthly benefit:**
+```text
+BH HydraFacial
+  Standard price:   $200.00
+  June BH+ monthly benefit applied:  -$200.00 (BH+ Elite Membership service_credit, June benefit)
+  You paid:         $0.00
+  Membership value used: $200
+```
+
+**Example 4 — Unlimited period benefit:**
+```text
+Red Light Therapy
+  Standard price:   $35.00
+  Included with BH+ Elite this month:  -$35.00 (BH+ Elite Membership unlimited_period)
+  You paid:         $0.00
+```
+
+**Example 5 — Package redemption:**
+```text
+SkinPen Treatment
+  Standard price:   $399.00
+  SkinPen 3-Pack session 2 of 3:  -$399.00 (SkinPen 3-Pack package_redemption)
+  You paid:         $0.00
+  Sessions remaining: 1
+```
+
+**Example 6 — Multi-source stacking (where allowed):**
+```text
+SkinPen Treatment
+  Standard price:   $399.00
+  BH+ Elite $50 SkinPen benefit:  -$50.00 (BH+ Elite Membership service_discount)
+  Promo Code SPRING25 (15% off):  -$52.35 (Promo Code promo_application)
+                                  (15% applied to post-membership-discount subtotal $349)
+  You paid:         $296.65
+```
+
+**Anti-patterns (Round 3.3 binding rejections):**
+
+- ❌ Silently apply member pricing without showing "Standard $14/u → Member $12/u"
+- ❌ Show only final price without attribution lines on receipt
+- ❌ Render benefit application as opaque "Discount: $X" without source / kind
+- ❌ Omit booking-estimate attribution (patient sees price at checkout for the first time)
+- ❌ Roll multiple benefits into single "Member savings" line (loses source attribution)
+
+**Why this matters (user verbatim 2026-05-17):**
+
+*"we NEED to be able to show customers (and staff) that the BH+ membership took them from 14 to 12 per unit!!! otherwise, we're diluting our value. we need to be able to show in the system, or on a receipt, here's what this was priced to, here's what you paid with your membership."*
+
+OMNI's receipt is marketing. Without attribution, the membership value is invisible + the customer cancels. This is core membership-value-visibility doctrine, NOT cosmetic UI.
+
+### §2.12 Round 3.3 binding doctrine — Shopify ingestion as pre-Domain-6 mandatory evidence
+
+Per Knox/chat 2026-05-17. Locked before Domain 6 authoring (Round 6).
+
+**Binding rule:** Before Domain 6 (Checkout / commerce / entitlement) authoring starts, OMNI MUST ingest targeted Shopify evidence + integrate findings into Domain 6 pre-brief. Mindbody is HARD EVIDENCE for medspa scheduling pain; Shopify is HARD EVIDENCE for catalog / discount / cart resolution. Cross-app pattern references (Stripe / Amazon / OpenTable / etc.) remain ANALOGIES for pressure-testing per Round 1.5 terminology fix — they do NOT replace targeted Shopify ingestion as the second HARD EVIDENCE base.
+
+**Why Shopify specifically:** Shopify is the industry-standard implementation of every commerce primitive Domain 6 needs — products / variants / collections / discount eligibility / promo stacking / gift cards / subscriptions / cart line resolution / customer segments. Where Mindbody is "okay" at memberships but bad at catalog/discount logic, Shopify is rigorous. Domain 6 should land in Shopify-like territory for catalog + commerce truth + cart-level resolution, augmented with Mindbody-derived medspa scheduling and entitlement-reservation discipline.
+
+**10 evidence buckets to capture (targeted, NOT 200-screenshot scope):**
+
+1. **Products + variants** — product / variant / SKU / category / collection / tags / inventory status / price + compare-at price / selling plans (subscriptions)
+2. **Collections + categories** — manual collection / automated collection / product eligibility by tag/category/vendor/type / how products qualify for discount groups
+3. **Discounts** — percentage / fixed amount / buy X get Y / free shipping / automatic discounts / discount codes / customer eligibility / product/collection eligibility / usage limits / start/end dates
+4. **Discount stacking + combination rules** — can combine with product discounts / order discounts / shipping discounts / cannot combine / priority + conflict resolution
+5. **Gift cards + store credit** — balance / redemption / partial use / expiration / refund-to-credit
+6. **Subscriptions + selling plans** — recurring billing / membership-ish logic / recurring product entitlements / skipped/paused/cancelled states
+7. **Checkout + cart** — line-level discounts / order-level discounts / taxes / shipping / refunds / partial refunds / abandoned checkout
+8. **Customer groups + segments** — customer tags / member group / VIP group / eligibility by customer segment
+9. **Receipt + attribution display** — how Shopify shows applied discounts to merchant + customer (informs Round 3.3 §2.11)
+10. **Refund + adjustment** — partial refund mechanics / restocking / credit conversion
+
+**Pre-Domain-6 evidence task (binding):**
+
+Before Round 6 authoring starts:
+- Capture Shopify evidence covering the 10 buckets (screenshots OR documentation summaries OR equivalent)
+- Synthesize evidence into Domain 6 evidence reference list (similar to Mindbody Layer 2 §G commerce primitives synthesis from Phase B.5)
+- Cross-link evidence to Round 3.2 §2.8 (membership-as-bundle) + Round 3.3 §2.10 (generic engine) + Round 3.3 §2.11 (attribution) doctrine
+- Domain 6 authoring MUST cite Shopify evidence as primary commerce + cart-resolution evidence (alongside Mindbody for medspa-specific scheduling + entitlement-reservation patterns)
+
+**This is NOT a Round 4 blocker.** Round 4 (Confirmation / outbound) proceeds without Shopify evidence. The Shopify ingestion task is parked + binding for pre-Round-6.
 
 ---
 
