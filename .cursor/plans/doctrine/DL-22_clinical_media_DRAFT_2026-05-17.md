@@ -3,6 +3,16 @@
 **Date:** 2026-05-17
 **Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice.
 
+**Cross-DL discipline:** honors system_map Cross-DL warning (Phase 1 hardening 2026-05-17 — vendor / specialty / Mindbody-artifact labels do NOT become OMNI substrate enum values). camera_kind enum is generic; vendor-specific names (Canfield Visia / VECTRA / specific device models) are tenant-typed STRING values under generic enum, NOT enum members.
+
+**Phase 1 hardening v2 small patches (per patch round v2 2026-05-17):**
+
+- **inv 5 camera_kind vendor prune:** REPLACE `partner_device_canfield_visia` with generic `partner_imaging_device` enum value + optional `partner_device_label` STRING field (tenant-typed: "Canfield Visia" / "VECTRA" / whatever). Vendor name out of enum per system_map Cross-DL warning.
+- **inv 10 external lab/imaging report scope cross-ref:** existing §1L Labs precedence (per always-applied workspace rule + Section 1L doctrine) is the canonical pipeline. Day 0 stores opaque PDF as patient_document with document_kind=external_lab_report; structured ingestion is §1L existing pipeline scope, not new DL.
+- **inv 17 42 CFR Part 2 scope clarification:** Day 0 substrate admits classification flag on patient_document but does NOT yet ship workflows requiring it. Specialty rollout activates these workflows (e.g., behavioral health specialty rollout brings SUD scope live).
+- **Q14 partial resolution gate:** unified patient_document substrate with document_kind discriminator is the tentative answer; promotion to LOCK requires joint Knox + user signoff per Q-DL22-1.
+- **§10.5 cross-ref clause:** substrate slice MUST audit existing OMNI primitives that may already cover parts of this substrate (existing patient_documents or patient_photos if present; existing signature / consent handling for Rx + treatment_orders per `can_clinical_treatment_authoring` capability at [lib/auth/capabilities.ts](../../lib/auth/capabilities.ts) line 42; existing intake/form primitives in `clinical_record/` and `scheduling_lifecycle/` per FOUNDATIONAL §5). NOT a parallel system.
+
 **Cross-anchors:**
 - System map DL-7 (tracked clinical objects + procedure / intervention lifecycle as foundation primitive — DL-22 specializes for clinical media artifacts) + DL-14 + DL-16 + DL-18 (RBAC for media access) + DL-20 (Care-Coordination — clinical media attaches to encounter_container + care_episode) + Q14 (Photos/intake/consent/docs as separate clinical artifacts — partial resolution)
 - Day 0 Build Contract §3.4 (consent + attestation Day 0) + §3.6 (visit closeout includes photos + chart attach) + §3.7 patch 4 (clinical product/lot capture; complementary) + §6.4 step 4
