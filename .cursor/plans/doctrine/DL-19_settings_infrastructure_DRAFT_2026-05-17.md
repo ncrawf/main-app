@@ -37,7 +37,7 @@ These admit "self-bookable with no structured details" AND "staff-only but with 
 
 ---
 
-## Invariants (29 candidates; was 28; +1 for booking_preset substrate)
+## Invariants (30 candidates; was 29; +1 for provider routing policy substrate Amendment F)
 
 ### Core settings substrate primitives
 
@@ -217,6 +217,126 @@ After DL-20 patches RIP OUT the encounter_profile_registry substrate (encounter.
 22. **Federation Permeability Policy substrate (composes with DL-10 + A1 + Federation-Topology DL).** `federation_permeability_policy` carries per-tenant outgoing-permission grants (which other tenants may see / write to / participate with this tenant's substrate). Settings UI requires DL-18 inv 8 Tier 4 attestation (legal_entity_owner_signature). Change emits `policy_changed.federation_permeability` + immediate red alert per DL-16 amendment 41.
 
 23. **Compliance + Audit settings substrate.** `compliance.hipaa_strict_mode` / `compliance.retention_policy` / `audit.tamper_evident_chain_verification_interval_hours` / `audit.export_phi_dual_approval_required` / etc. All such settings REJECT downgrade without DL-18 inv 8 Tier 4 attestation. Per DL-16 inv 38 tamper-evident + Build Contract §3.4.
+
+### Provider routing policy (Amendment F per Phase 1 hardening v5 2026-05-17 — supports continuity routing + new-lead routing strategies)
+
+30. **Provider routing policy substrate cluster (Amendment F binding addition per Day 0 Scheduling Rule Matrix Round 2 Domain 2 BC-09 expansion).** Provider eligibility (per Domain 2 BC-08 — staff_service_assignment ∩ capability ∩ provider_license) returns the SET of qualified-and-available providers. When the set has > 1 member, OMNI needs deterministic policy for: (a) **continuity routing** — patients who have seen a provider before get "rebook with X" by default; (b) **new-lead / "any provider" routing** — tenant-controlled strategy for distributing leads across qualified providers (round-robin / first-available / weighted-pool / priority-pool-cascade / hybrid / manual-staff-mediated). Day 0 deterministic rules + weights + thresholds; AI-driven optimization explicitly DEFERRED to M3-6+ (per Knox 2026-05-17 framing — "Day 0 should not pretend to be magic"). Patient continuity is DERIVED from `encounter_line.provider_id` + `appointment_item.planned_provider_id` history (no new continuity_link substrate; queries via service_id + patient_id history).
+
+**Substrate cluster (4 substrates):**
+
+```text
+provider_routing_policy:
+├── id, tenant_id (composite per DL-21 inv 2)
+├── scope ENUM: tenant_default / service / booking_preset / service_category
+├── scope_target_id FK NULL (FK depending on scope — service_id /
+│       booking_preset_id / service_category_id; NULL when scope=tenant_default)
+├── continuity_mode ENUM:
+│       prior_provider_preferred  -- DEFAULT for established patients:
+│                                    if patient has prior provider for this
+│                                    service, propose "Rebook with [Provider]"
+│                                    UNLESS patient says "any" / "see someone
+│                                    sooner"
+│       prior_provider_required   -- patient MUST rebook with prior provider
+│                                    (relationship-bound services; e.g.,
+│                                    therapy, primary care)
+│       continuity_optional        -- offer prior + others side-by-side
+│       continuity_disabled        -- always route per routing_strategy
+│                                    regardless of patient history
+├── routing_strategy ENUM (for new leads OR when continuity unavailable/declined):
+│       round_robin                 -- Amelia → Bella → Chloe → repeat;
+│                                      cursor-state per provider_routing_state
+│       first_available             -- earliest available across qualified;
+│                                      maximizes conversion speed
+│       weighted_pool               -- per-provider weight × availability;
+│                                      weighted random selection within pool
+│       priority_pool_cascade       -- tier-based: pool tier 1 filled first;
+│                                      overflow to tier 2 when tier 1 capacity
+│                                      threshold reached
+│       random                      -- secure random with logged seed
+│       manual_staff_mediated       -- composer surfaces eligible to staff
+│                                      queue; staff picks; no auto-assign
+├── fallback_chain ENUM[] (ordered list of strategies to try if primary
+│       returns empty; e.g., [first_available, manual_staff_mediated])
+├── provider_pool_id FK NULL (links to provider_pool for weighted_pool /
+│       priority_pool_cascade strategies)
+├── auto_fill_threshold JSONB NULL (per Knox 2026-05-17 GLP-1 example:
+│       {primary_pool_capacity_threshold: 80, overflow_pool_id: '<uuid>',
+│        threshold_metric: 'appointments_per_week' | 'utilization_percent' |
+│        'open_slots_remaining'};
+│       when primary pool's capacity threshold reached, route to overflow_pool)
+├── allow_patient_override BOOLEAN (default TRUE — patient may override
+│       suggested provider if continuity_mode != prior_provider_required)
+├── allow_staff_override BOOLEAN (default TRUE — staff with capability may
+│       override per DL-18 inv 8)
+├── effective_at, valid_to (temporal validity per DL-16 inv 18)
+├── created_by_actor (DL-16 amendment 43)
+└── audit lineage
+
+provider_pool:
+├── id, tenant_id
+├── name STRING (tenant-defined free-form label; e.g., "Full-time Injectors",
+│       "1099 Coverage Pool", "GLP-1 Primary Pool", "Weekend Coverage")
+├── pool_kind ENUM (registry-extensible per DL-16 inv 5 — Day 0 seed):
+│       full_time_staff / part_time_staff / contractor_1099 / specialty_pool /
+│       coverage_pool / promotion_pool / specific_named_pool /
+│       overflow_pool
+├── default_weight NUMERIC (when no per-staff override on membership)
+├── description TEXT NULL
+├── active BOOLEAN
+└── audit lineage
+
+provider_pool_membership:
+├── id, pool_id FK, staff_id FK
+├── weight NUMERIC (relative routing weight; default = pool.default_weight;
+│       per-staff override; higher = more leads routed)
+├── priority_tier NUMERIC (1 = highest; for priority_pool_cascade strategy;
+│       tier-based fill — tier 1 filled before tier 2; ties broken by weight)
+├── active BOOLEAN
+├── valid_from, valid_to (admits time-bound membership for coverage windows /
+│       contractor seasonal shifts)
+├── auto_disable_on_capacity_threshold_reached BOOLEAN (per Knox GLP-1 example;
+│       when this staff member's `auto_fill_threshold` reached, auto-disable
+│       routing to this member; admin re-enables manually or on next week)
+└── audit lineage
+
+provider_routing_state (per-tenant per-scope rotation cursor — stateful):
+├── id, tenant_id, scope_target_id (FK depending on scope)
+├── last_assigned_staff_id FK
+├── last_assigned_at TIMESTAMP
+├── rotation_cursor JSONB (strategy-specific state; for round_robin:
+│       {position_index, total_count}; for weighted_pool:
+│       {seed, last_selected_id})
+├── primary_pool_current_load JSONB NULL (cached capacity tracking for
+│       auto_fill_threshold evaluation; refresh interval per tenant config)
+├── updated_at
+└── audit lineage
+```
+
+**Resolution flow at composer (per Domain 2 BC-09a / BC-09b / BC-09c):**
+
+1. **Eligibility filter** (Domain 2 BC-08): produce eligible staff set via staff_service_assignment ∩ capability ∩ provider_license ∩ availability_window.
+2. **Continuity check** (BC-09a per Amendment F): if continuity_mode != continuity_disabled AND patient has prior provider for this service AND prior provider ∈ eligible set:
+   - `prior_provider_preferred`: surface "Rebook with [Provider]" + offer other eligible side-by-side (patient may switch)
+   - `prior_provider_required`: pin to prior provider; reject if unavailable in window with reschedule offer
+   - `continuity_optional`: present full eligible list with prior provider flagged
+3. **New-lead / declined-continuity routing** (BC-09b per Amendment F): apply `routing_strategy`:
+   - `round_robin`: pick (cursor_position + 1) mod eligible_count; update provider_routing_state
+   - `first_available`: pick earliest-available across eligible
+   - `weighted_pool`: read provider_pool_membership.weight; weighted random
+   - `priority_pool_cascade`: pick from tier 1 first; cascade to tier 2 on threshold
+   - `random`: secure random with logged seed
+   - `manual_staff_mediated`: surface eligible list to staff queue; no auto-pick
+4. **Auto-fill threshold + overflow** (BC-09c per Amendment F): check `auto_fill_threshold` — if primary pool capacity reached, route to overflow_pool per `auto_fill_threshold.overflow_pool_id`. Audit overflow events.
+5. **Override paths**: patient override (when allowed) + staff override (when allowed) both bypass strategy with audit lineage per DL-16 amendment 43 actor 4-tuple.
+
+**Anti-pattern guards:**
+- NO AI-driven provider selection at Day 0 (deterministic only).
+- NO conversion-based dynamic weighting at Day 0 (M3-6+ analytics deferred).
+- NO "smart routing" that bypasses license/jurisdiction/capability constraints (BC-08 eligibility ALWAYS upstream of routing strategy).
+- NO continuity_link substrate (DERIVED from encounter/appointment history per query).
+- Provider preference is per-tenant per-scope configurable; NEVER hardcoded into substrate values.
+
+Cross-link: Day 0 Scheduling Rule Matrix Domain 2 BC-09 / BC-09b / BC-09c implements this substrate. Composes with DL-15 amendment 30 (4-axis composer; staff axis), DL-18 inv 6 (capability flags), DL-21 inv 12 (provider_license). Deferred: AI optimization based on conversion/retention/no-show rate (M3-6+ per Knox framing).
 
 ### Lifecycle + versioning
 

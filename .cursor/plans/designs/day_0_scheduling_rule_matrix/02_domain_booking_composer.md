@@ -74,7 +74,7 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
 |---|---|---|
 | A | BC-01 to BC-03 | Amendment D: service_policy_eligibility_gate substrate (gate_timing column carries Domain 1 TM-12 taxonomy) |
 | B | BC-04 to BC-07 | 4-axis booking composer (capacity × staff × room × resource) |
-| C | BC-08 to BC-10 | Provider eligibility resolution (staff_service_assignment + capability + jurisdiction) |
+| C | BC-08 to BC-10 (5 rules total — BC-09 expanded to BC-09 + BC-09b + BC-09c per Round 2.5 Amendment F) | Provider eligibility + routing (eligibility filter + continuity-first + new-lead strategies + auto-fill overflow + absence cascade) |
 | D | BC-11 to BC-12 | 3-component appointment block (prep + booking + finish) |
 | E | BC-13 to BC-17 | Staff availability window (4-axis + recurring + override + blocked) |
 | F | BC-18 to BC-20 | Room + resource availability + compatibility |
@@ -375,7 +375,12 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
 11. **Output / state change:** Walk-in appointment created with current time queue position.
 12. **Owning substrate:** Same as BC-04 + DL-15 amendment 29 status_flags.
 13. **UI surface:** Staff: walk-in modal with "Add to queue" button; shows estimated wait time. Patient: queue position display + estimated wait.
-14. **Failure mode:** If no axis available even with next-available: reject with `walk_in_queue_full` and offer to schedule for later.
+14. **Failure mode (per user decision 2026-05-17 #4 — overflow fallback chain):** If no axis available even with next-available, do NOT dead-end — apply fallback chain per tenant config:
+    - (a) Offer waitlist position (per DL-15 inv 8 waitlist substrate) — patient notified on cancellation
+    - (b) Offer next-available-later-today slot (with later time window expansion)
+    - (c) Offer future appointment booking (transition to standard scheduled flow)
+    - (d) Staff override option (front desk capability to manually find or create slot)
+    - Order configurable per `walk_in_overflow_fallback_chain` tenant setting; default: waitlist → later-today → future booking → staff override.
 15. **Audit / event:** `walk_in_appointment_created` per DL-16 amendment 42.
 16. **Evidence citations:** DL-15 amendment 32 + amendment 29 + DL-19 inv 18 + Mindbody Batch 20 Step 07 walk-in cart.
 17. **Test case:** Walk-in patient arrives at front desk for Hydrafacial. Staff selects "Walk-in." Service_policy: allows_walk_in=TRUE for Hydrafacial. Composer: earliest available Hydrafacial slot = 11:15am (15min wait). Appointment created with status_flags |= Walk_in, planned_window = 11:15am-12:15pm. Patient sees "Wait approx 15 min" badge.
@@ -436,43 +441,156 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
     - INTERSECT all = {Dr.Crawford, NP_Klait, Dr.Balboul} — 3 eligible.
     - Pass to BC-09 for selection.
 
-### Rule BC-09: Multi-eligible staff selection is deterministic + per-tenant policy
+### Rule BC-09: Continuity-first provider routing — "rebook with [Provider]" is the default for patients with prior provider history
 
 **Phase:** DAY_0
 
 #### Section A — Flight-lane translation
 
-1. **Mindbody behavior observed:** Mindbody allows patient to pick specific staff OR "any available" → first-available alphabetical by default.
-2. **Cross-app pattern reference:**
-   - **Calendly Round Robin** — Round-robin / random / least-recent / specific assignment policies.
-   - **Hospital provider queue routing** — Skill match + load balancing + on-call rotation.
-   - **Restaurant table assignment** — Sections / server load / VIP routing.
-3. **Underlying tenant need:** When multiple staff are eligible, the tenant must control selection: round-robin / lowest-load / specific-preferred / patient-preference. Deterministic so race conditions don't double-book.
-4. **OMNI generic primitive / rule:** `tenant_setting.staff_selection_policy` ENUM per (service_id, default-or-override): `patient_choice` / `round_robin` / `lowest_load_today` / `specific_preferred_first` / `random`. Composer applies policy at staff axis selection. Default: `patient_choice` (patient sees list) for patient-facing bookings; `lowest_load_today` for staff-facing bookings.
-5. **Divergence / improvement vs Mindbody:** Mindbody first-available is one option; OMNI admits multiple policies.
-6. **Anti-copy warning:** Do NOT randomize at runtime without seed (race conditions); do NOT allow `staff_selection_policy = random` at substrate without explicit logging.
-7. **Substrate pressure-test verdict:** **OK** — DL-19 inv 1 settings substrate covers; policy values are tenant-configurable.
+1. **Mindbody behavior observed (HARD EVIDENCE):** Mindbody allows patient to pick specific staff at booking; if patient has prior provider for the service, they may select that provider from the staff list. NO automatic continuity preference — patient picks every time. No "rebook with X" affordance surfaced based on history.
+2. **Cross-app pattern reference (ANALOGIES for pressure-testing, NOT hard evidence):**
+   - **Calendly returning-attendee detection** — Returning meeting attendees can be pre-routed to prior host via metadata.
+   - **Hair salon "your stylist Amelia" UX** — Modern salon apps detect prior stylist + offer rebook-with-X as primary CTA.
+   - **Therapy / primary care scheduling** — Established patient strongly routes to assigned provider; "see someone sooner" is opt-out.
+   - **Restaurant repeat-customer prefs** — OpenTable surfaces "Your usual table?" / "[Server name] is on tonight."
+3. **Underlying tenant need:** Medspa relationship sensitivity matters. Patients who saw Amelia for filler want to see Amelia again. Without continuity preference as default, patient must remember to pick Amelia each time + risks getting wrong provider on auto-routing. For relationship-bound services (therapy, primary care, established medspa), continuity should be near-required. For commoditized services (Hydrafacial, LHR), continuity is preference but not required.
+4. **OMNI generic primitive / rule:** Continuity routing is the FIRST step in provider selection after BC-08 eligibility filter. Per Amendment F substrate (DL-19 inv 30), `provider_routing_policy.continuity_mode` ENUM controls behavior:
+   - `prior_provider_preferred` (DEFAULT): if patient has prior provider for this service AND prior provider ∈ eligible set, surface "Rebook with [Provider]" as primary CTA; offer "See someone sooner" / "Choose different provider" as secondary
+   - `prior_provider_required` (relationship-bound services): pin to prior provider; reject if unavailable in window with reschedule offer
+   - `continuity_optional`: present full eligible list with prior provider flagged with "(your previous provider)" badge
+   - `continuity_disabled`: skip continuity check; route per `routing_strategy` (BC-09b)
+   - Patient continuity DERIVED from encounter/appointment history per query: `SELECT DISTINCT provider_id FROM encounter_line WHERE patient_id = ? AND service_id = ? AND status = 'closeout_complete' ORDER BY actual_end DESC` (preferred — closeout-complete encounters); falls back to `appointment_item.planned_provider_id` if encounter history empty.
+5. **Divergence / improvement vs Mindbody:** OMNI surfaces "Rebook with X" as the default patient UX for established patients. Mindbody requires manual selection every time. Continuity matters at medspa scale.
+6. **Anti-copy warning:** Do NOT create a `continuity_link` substrate (continuity is DERIVED from encounter/appointment history per query; no new table). Do NOT force `prior_provider_required` as default (over-restrictive for medspa). Do NOT hardcode service kinds to continuity mode (tenant configures per service/preset).
+7. **Substrate pressure-test verdict:** **OK** — Amendment F applied this round; `provider_routing_policy.continuity_mode` carries the 4-value ENUM.
 
 #### Section B — Rule definition
 
-8. **Trigger:** Composer has multi-eligible staff post-BC-08.
-9. **Required inputs:** Eligible staff list, tenant policy, optional patient preference.
+8. **Trigger:** Composer staff axis evaluation post-BC-08 with multi-eligible staff set.
+9. **Required inputs:** Eligible staff list (from BC-08), patient_id, service_id, modality, scope (service/preset/category/tenant_default).
 10. **Decision logic:**
-    - Apply policy:
-      - `patient_choice`: return all eligible to UI (patient picks).
-      - `round_robin`: pick next-in-rotation per `tenant_state.last_assigned_staff_id`.
-      - `lowest_load_today`: pick staff with fewest appointments today.
-      - `specific_preferred_first`: pick patient's preferred provider if eligible, else round-robin.
-      - `random`: secure random; log seed.
-    - Ties broken by staff_id ascending (deterministic).
-    - Patient preference override: if patient has `patient_metadata_axis(preferred_provider) = X` and X is eligible, prefer X.
-11. **Output / state change:** Selected staff_id passed to slot-offer-hold-book lifecycle.
-12. **Owning substrate:** Settings substrate + composer logic.
-13. **UI surface:** Patient: dropdown if `patient_choice`; otherwise single auto-selected with override option.
-14. **Failure mode:** If policy fails (e.g., round-robin state corrupt): fall back to first-eligible alphabetical.
-15. **Audit / event:** `staff_selected.policy_kind = {policy_value}` per DL-16 amendment 42.
-16. **Evidence citations:** DL-19 inv 1 settings + Calendly round-robin pattern + Mindbody.
-17. **Test case:** Bloom tenant configures `staff_selection_policy = round_robin` for Injectables. 3 eligible injectors. Last assigned: NP_Klait. Round-robin → Dr.Crawford. Selected.
+    - Resolve `provider_routing_policy` for scope (service > preset > category > tenant_default; first match wins).
+    - Read `continuity_mode`.
+    - If `continuity_disabled`: skip continuity; pass to BC-09b routing strategy.
+    - Else: query patient's prior provider history for (patient_id, service_id):
+      ```sql
+      SELECT DISTINCT provider_id FROM encounter_line
+        WHERE patient_id = ? AND service_id = ? AND status = 'closeout_complete'
+        ORDER BY actual_end DESC LIMIT 1
+      ```
+      If no encounter history: fall back to `appointment_item.planned_provider_id` history for completed appointments.
+    - If patient has prior_provider AND prior_provider ∈ eligible_set:
+      - `prior_provider_preferred`: surface "Rebook with [Provider]" + "See sooner" option; patient picks; if patient picks prior → use; if "see sooner" → fall through to BC-09b
+      - `prior_provider_required`: pin to prior_provider; if unavailable in window, reject with reschedule offer (no fallback to other providers)
+      - `continuity_optional`: full eligible list with prior flagged; patient picks
+    - If no prior history OR prior not in eligible set: fall through to BC-09b routing strategy.
+11. **Output / state change:** Either pin to selected provider (continuity match) OR pass eligible set to BC-09b routing strategy.
+12. **Owning substrate:** `provider_routing_policy.continuity_mode` (DL-19 inv 30 Amendment F) + encounter/appointment history (derived).
+13. **UI surface:** Patient: "Rebook with Amelia (your provider for this service)" as primary CTA when prior_provider_preferred + match; secondary options for "See someone sooner" / "Different provider." Staff: prior provider flagged in eligible list.
+14. **Failure mode:** If `prior_provider_required` + prior unavailable: surface reschedule offer (do NOT silently route to alternate — relationship-bound services NEVER auto-swap providers). If continuity query fails: log + fall through to BC-09b.
+15. **Audit / event:** `provider_routed.continuity_match = TRUE/FALSE` + `provider_routed.continuity_mode = {mode}` per DL-16 amendment 42.
+16. **Evidence citations (HARD EVIDENCE + doctrine):**
+    - DL-19 inv 30 Amendment F (this round)
+    - Encounter_line + appointment_item history (DL-20 inv 12 + inv 34)
+    - User direction 2026-05-17 ("if theyve seen someone in the past, we want to near-autopopulate with their past provider, like any scheduling would offer 'rebook with Amelia'")
+    - Knox + chat 2026-05-17 framing ("continuity routing first" / "in medspa, relationship matters")
+17. **Test case:** Sarah (returning patient) books Botox. provider_routing_policy(service=Botox, scope=service): continuity_mode = `prior_provider_preferred`. Query history: Sarah's last Botox encounter_line.provider_id = NP_Klait (3 months ago). NP_Klait ∈ eligible set → surface "Rebook with NP Klait" as primary CTA + "See sooner" option. Sarah taps "Rebook with NP Klait" → 2pm Tuesday with Klait selected.
+    Contrast: New patient Patrick books Botox. No history → fall through to BC-09b.
+    Contrast: Returning patient Maria books therapy. continuity_mode = `prior_provider_required`. Prior therapist Dr.Chen unavailable in requested window → reject with "Your therapist Dr. Chen is fully booked through next week. [See alternative times]" — does NOT auto-route to different therapist (relationship-bound).
+
+### Rule BC-09b: New-lead routing strategies for multi-eligible providers (6 deterministic strategies)
+
+**Phase:** DAY_0
+
+#### Section A — Flight-lane translation
+
+1. **Mindbody behavior observed:** Mindbody first-available alphabetical for "any provider"; no other strategies.
+2. **Cross-app pattern reference:**
+   - **Calendly Round Robin** — Round-robin / least-recent / weighted assignment.
+   - **Hospital ER provider rotation** — Round-robin within ED on-shift.
+   - **Customer support ticket routing** — Round-robin / load-balanced / skill-based / VIP routing.
+   - **Restaurant section / server load balancing** — Per-section rotation; senior-server-promotion for high-value parties.
+3. **Underlying tenant need:** Per user direction 2026-05-17 + Knox/chat framing — Bloom (and any medspa) needs multiple deterministic strategies:
+   - `round_robin`: fairness — every provider gets a shot at new leads (Amelia → Bella → Chloe → repeat)
+   - `first_available`: conversion speed — earliest available wins
+   - `weighted_pool`: practice emphasis — newer provider gets boost; promote senior provider on high-value
+   - `priority_pool_cascade`: tiered fill — full-time first, 1099 overflow second
+   - `random`: blind fairness (rare; with logged seed for audit)
+   - `manual_staff_mediated`: high-touch services — staff manually assigns from eligible list
+4. **OMNI generic primitive / rule:** `provider_routing_policy.routing_strategy` ENUM 6 values per Amendment F. Composer applies strategy when BC-09 continuity check passes through. Strategy reads `provider_pool_id` + `provider_pool_membership` for weighted/priority strategies. Cursor state per `provider_routing_state` for round_robin.
+5. **Divergence / improvement vs Mindbody:** OMNI explicit 6-strategy ENUM; tenant per-scope override.
+6. **Anti-copy warning:** Do NOT default to `first_available` globally (some tenants want fairness over speed). Do NOT bake strategy into service substrate (tenant per-scope). Do NOT allow AI-driven dynamic weighting at Day 0 (deterministic only per Knox framing).
+7. **Substrate pressure-test verdict:** **OK** — Amendment F covers.
+
+#### Section B — Rule definition
+
+8. **Trigger:** BC-09 continuity check fell through (no prior OR `continuity_disabled` OR patient declined continuity).
+9. **Required inputs:** Eligible staff set from BC-08, `provider_routing_policy` for scope, optional `provider_pool_id`.
+10. **Decision logic:**
+    - Read `routing_strategy` from policy.
+    - Apply strategy:
+      - **`round_robin`**: read `provider_routing_state.rotation_cursor` for scope; pick (cursor + 1) mod len(eligible); update cursor; commit. Ties broken by staff_id ascending. Deterministic.
+      - **`first_available`**: pick eligible provider with earliest-available slot in requested window. Ties broken by staff_id ascending.
+      - **`weighted_pool`**: read `provider_pool_membership.weight` for eligible providers in pool; weighted random selection (cryptographically secure RNG; logged seed). Higher weight = more probability.
+      - **`priority_pool_cascade`** (per BC-09c): read tier 1 members; if any eligible + available, pick from tier 1 per sub-strategy (default round_robin within tier). If tier 1 capacity threshold reached, cascade to tier 2; continue. Audit cascade events.
+      - **`random`**: secure random; log seed.
+      - **`manual_staff_mediated`**: composer DOES NOT auto-pick; surface eligible list to staff queue (front desk or assignment dashboard); staff picks from UI. Patient receives "We'll confirm your provider shortly" message; appointment is held but provider is NULL until staff assigns.
+    - If primary strategy returns empty (no eligible match after strategy applied — rare; e.g., weighted pool has no members in eligible set): apply `fallback_chain` in order; if all exhausted → reject `routing_strategy_unresolvable`.
+11. **Output / state change:** Selected provider passed to BC-21 concurrency lock + slot-offer-hold-book per BC-31. For `manual_staff_mediated`: appointment held with provider=NULL + staff assignment task created.
+12. **Owning substrate:** `provider_routing_policy` + `provider_pool` + `provider_pool_membership` + `provider_routing_state` (DL-19 inv 30 Amendment F).
+13. **UI surface:** Patient: typically transparent (just shows selected provider in confirmation). For `manual_staff_mediated`: "We'll confirm your provider shortly." Staff: assignment dashboard for manual mode; cascade audit log for `priority_pool_cascade`.
+14. **Failure mode:** Primary strategy empty → fallback_chain. All exhausted → reject `routing_strategy_unresolvable`. Stale cursor for `round_robin` → fall back to first-eligible alphabetical.
+15. **Audit / event:** `provider_routed.strategy = {strategy}` + `.from_pool_id = X` + `.fallback_triggered = TRUE/FALSE` per DL-16 amendment 42.
+16. **Evidence citations:** Amendment F + Calendly Round Robin pattern + Knox/chat 2026-05-17 framing + user direction (GLP-1 routing example).
+17. **Test case:** Bloom Hydrafacial preset configured: continuity_mode=continuity_optional + routing_strategy=`round_robin`. 3 eligible estheticians: Amber, Parrah, Maya. Last assigned: Amber. New lead Patrick books → fall through to BC-09b → round_robin → cursor +1 → Parrah selected. Cursor updated to Parrah. Next new lead → Maya. Next → Amber. Fair rotation.
+    Contrast: Bloom Botox preset: continuity_mode=prior_provider_preferred + routing_strategy=`weighted_pool` + pool=Injector_Pool with weights {Klait: 3, Crawford: 2, Balboul: 1}. New patient Patrick (no Botox history) → BC-09 falls through → BC-09b weighted_pool → weighted random → 50% chance Klait / 33% Crawford / 17% Balboul. Logged seed for audit.
+
+### Rule BC-09c: Auto-fill threshold + overflow pool — capacity-aware cascade (GLP-1 routing pattern)
+
+**Phase:** DAY_0
+
+#### Section A — Flight-lane translation
+
+1. **Mindbody behavior observed:** No native auto-fill / overflow. Tenant manages capacity manually by disabling staff.
+2. **Cross-app pattern reference:**
+   - **Customer support ticket overflow** — Primary team fills until capacity, then overflow to backup team.
+   - **Airline crew scheduling overflow** — Senior crew fills first; junior crew on overflow flights.
+   - **Hospital on-call rotation** — Primary on-call until capacity; backup on-call activates on threshold.
+   - **Sales pipeline routing** — AE 1 fills lead quota; AE 2 activates on threshold.
+3. **Underlying tenant need:** Per user direction 2026-05-17 GLP-1 example: "OMNI may choose to feed a full time provider everything, before sending extras to 1099 part time." Need capacity-aware overflow: route 100% to primary pool until primary reaches capacity threshold, then overflow to secondary pool.
+4. **OMNI generic primitive / rule:** `provider_routing_policy.auto_fill_threshold` JSONB carries threshold config. Composer evaluates primary pool capacity at routing time:
+   - `primary_pool_capacity_threshold`: NUMERIC + `threshold_metric` ENUM (`appointments_per_week` / `utilization_percent` / `open_slots_remaining`)
+   - `overflow_pool_id`: FK to overflow `provider_pool`
+   - Logic: if primary pool current load ≥ threshold, route to overflow_pool members; else route within primary pool per `routing_strategy`.
+5. **Divergence / improvement vs Mindbody:** OMNI explicit capacity-aware overflow; Mindbody manual.
+6. **Anti-copy warning:** Do NOT compute capacity at runtime in hot booking path (cache + refresh interval per `provider_routing_state.primary_pool_current_load`). Do NOT cascade > 1 level deep at Day 0 (primary → overflow only; deeper chains deferred to M3-6). Do NOT use AI-predicted capacity at Day 0 (deterministic threshold only).
+7. **Substrate pressure-test verdict:** **OK** — Amendment F `auto_fill_threshold` JSONB + `provider_routing_state.primary_pool_current_load` cover.
+
+#### Section B — Rule definition
+
+8. **Trigger:** Routing per BC-09b with `provider_routing_policy.auto_fill_threshold` non-NULL AND primary pool exists.
+9. **Required inputs:** `auto_fill_threshold` JSONB config + primary pool current load (cached).
+10. **Decision logic:**
+    - Read `auto_fill_threshold` JSONB: `{primary_pool_capacity_threshold, overflow_pool_id, threshold_metric}`.
+    - Read `provider_routing_state.primary_pool_current_load` (cached; refresh interval per tenant; default 1 hour).
+    - Compute current_load per threshold_metric:
+      - `appointments_per_week`: count appointments scheduled this rolling-week across primary pool
+      - `utilization_percent`: (scheduled_minutes / available_minutes) × 100 across primary pool this week
+      - `open_slots_remaining`: count of available 30min slots remaining this week across primary pool
+    - If current_load ≥ threshold: route to `overflow_pool_id` members per `routing_strategy`. Emit `provider_routing.overflow_triggered` event for audit + admin awareness.
+    - Else: route within primary pool per `routing_strategy`.
+    - `auto_disable_on_capacity_threshold_reached` on per-member basis: when set, auto-disable individual members reaching their own threshold (per `provider_pool_membership.auto_disable_on_capacity_threshold_reached`); admin re-enables manually.
+11. **Output / state change:** Selected provider from primary or overflow pool.
+12. **Owning substrate:** Amendment F (DL-19 inv 30).
+13. **UI surface:** Admin: capacity dashboard showing primary vs overflow utilization. Patient: transparent. Audit log: overflow events visible.
+14. **Failure mode:** Overflow pool empty → fall back to `routing_strategy` against primary pool (overflow disabled). Cache stale → recompute at routing time with refresh + log.
+15. **Audit / event:** `provider_routing.overflow_triggered` + `.primary_load = X` + `.threshold = Y` + `.overflow_pool_id = Z` per DL-16 amendment 42.
+16. **Evidence citations:** Amendment F + user direction (GLP-1 example) + Knox/chat 2026-05-17 framing.
+17. **Test case:** Bloom GLP-1 Consult preset configured: continuity_mode=continuity_optional + routing_strategy=`round_robin` + auto_fill_threshold = `{primary_pool_capacity_threshold: 80, overflow_pool_id: 'GLP1_Overflow_Pool', threshold_metric: 'utilization_percent'}`. Primary pool: 2 full-time NPs. Overflow pool: 1 1099 NP.
+    - Monday: primary pool current load = 60% utilization → route within primary (round_robin).
+    - Friday: primary pool current load = 85% utilization → 80% threshold exceeded → route to overflow_pool (1099 NP). Emit `provider_routing.overflow_triggered` with payload.
+    - Monday next week: cache refreshes; current load = 45% → back to primary.
+    Auto-fill behavior is deterministic, audited, and respects user direction.
 
 ### Rule BC-10: Provider absence (PTO / sick) triggers automatic re-resolution + waitlist promotion
 
@@ -485,10 +603,13 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
    - **Airline flight cancellation** — Auto-rebook on alternative flight or refund.
    - **Hospital provider absence** — Auto-route to coverage provider via on-call.
    - **Restaurant chef cancellation** — Affected reservations contacted with alternatives.
-3. **Underlying tenant need:** When a provider becomes unavailable post-booking (sick day, PTO, emergency), affected appointments must trigger: (a) detection; (b) re-resolution attempt (assign coverage provider); (c) if no coverage, patient notification + reschedule offer.
-4. **OMNI generic primitive / rule:** When `availability_window.availability_kind = 'blocked_time'` is inserted retroactively (provider sick day), CNS event `availability.blocked_post_booking` fires. Orchestration_run per DL-14 inv 17 begins:
-   - Identify affected appointments (in window, with this provider).
-   - For each: re-run BC-08 + BC-09 with `blocked_provider_excluded`. If alternate provider eligible → propose silent reassignment with audit + outbound notify per DL-16 amendment 42 + amendment 41 yellow severity. If no alternate → emit `appointment.no_coverage_available` + initiate reschedule offer outbound per Domain 4.
+3. **Underlying tenant need:** When a provider becomes unavailable post-booking (sick day, PTO, emergency), affected appointments must trigger: (a) detection; (b) tenant-configurable cascade policy — staff-mediated by default for relationship-bound services (Botox/filler), auto-cascade allowed for commoditized services (Hydrafacial); (c) if no coverage, patient notification + reschedule offer.
+4. **OMNI generic primitive / rule:** When `availability_window.availability_kind = 'blocked_time'` is inserted retroactively (provider sick day), CNS event `availability.blocked_post_booking` fires. Orchestration_run per DL-14 inv 17 begins.
+   - Read tenant `provider_absence_cascade_policy` per service/preset/category/tenant_default (per Knox decision 2026-05-17 #5: default staff-mediated for relationship-bound; auto-cascade per service opt-in):
+     - **`staff_mediated`** (DEFAULT for medspa relationship-bound services — Botox, filler, therapy, primary care, established patient services): emit `appointment.coverage_needed.staff_action_required` event → notify staff queue → staff manually decides reassignment OR reschedule OR cancellation. Does NOT auto-route to another provider (relationship sensitivity per BC-09 continuity).
+     - **`auto_cascade`** (per-service opt-in for commoditized services — Hydrafacial, LHR, walk-in arrivals): re-run BC-08 + BC-09 with `blocked_provider_excluded`. If alternate eligible per `continuity_optional` policy → propose silent reassignment with audit + outbound notify per DL-16 amendment 42 + amendment 41 yellow severity. If no alternate → emit `appointment.no_coverage_available` + initiate reschedule offer outbound per Domain 4.
+     - **`hybrid`**: staff-mediated for patients with prior provider for this service (relationship-bound by history); auto-cascade for new patients / "any provider" bookings (no relationship to disrupt).
+   - Per Knox 2026-05-17 framing: "Auto-cascade is good for commoditized services, but medspa clients often have provider preference and relationship sensitivity."
 5. **Divergence / improvement vs Mindbody:** OMNI auto-resolves; Mindbody manual.
 6. **Anti-copy warning:** Do NOT silently change provider without patient notification (consent + transparency). Do NOT auto-cancel without offering reschedule.
 7. **Substrate pressure-test verdict:** **OK** — DL-15 amendment 35 (blocked_time) + DL-14 inv 17 (orchestration_run) + DL-16 amendment 41 (severity) cover.
@@ -563,7 +684,7 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
 4. **OMNI generic primitive / rule:** `room_service_compatibility` and `resource_service_compatibility` carry `prep_lock_required` + `finish_lock_required` BOOLEANs. Default: TRUE for procedure resources (devices, equipment); FALSE for consult rooms.
 5. **Divergence / improvement vs Mindbody:** OMNI tracks per-resource lock semantics.
 6. **Anti-copy warning:** Do NOT default all resources to full-block-lock (over-conservative). Do NOT collapse this into service-level config.
-7. **Substrate pressure-test verdict:** **OK with extension** — `room_service_compatibility.prep_lock_required` and `finish_lock_required` BOOLEANS need to be added. Amendment E candidate; small extension.
+7. **Substrate pressure-test verdict:** **OK (Amendment E applied this round)** — `room_service_compatibility.prep_lock_required` + `finish_lock_required` + same fields on `resource_service_compatibility` per Amendment E (Phase 1 hardening v5 / system_map). Substrate gap resolved.
 
 #### Section B — Rule definition
 
@@ -1183,8 +1304,8 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
    - **Airline seat hold** — TTL during checkout.
    - **Hotel reservation hold** — Pre-booking confirmation.
    - **Ticketmaster seat hold** — Few-minute hold during purchase.
-3. **Underlying tenant need:** Patient selects slot → slot reserved short-term (TTL) → patient completes booking → committed. Prevents 2 patients clicking same slot simultaneously.
-4. **OMNI generic primitive / rule:** DL-15 inv 3 lifecycle. `appointment.status = 'proposed'` (offered) → 'held' (TTL active) → 'scheduled' (committed). TTL configurable per tenant (default 10 min).
+3. **Underlying tenant need:** Patient selects slot → slot reserved short-term (TTL) → patient completes booking → committed. Prevents 2 patients clicking same slot simultaneously. Mobile users need enough time to finish booking flow; not so long that high-demand inventory is locked.
+4. **OMNI generic primitive / rule:** DL-15 inv 3 lifecycle. `appointment.status = 'proposed'` (offered) → 'held' (TTL active) → 'scheduled' (committed). TTL configurable per tenant (per user decision 2026-05-17 #3: **default 10 minutes; tenant override bounded 5-15 minutes**; high-demand services may use shorter; low-traffic flows may use longer). Substrate enforces bounds (reject TTL configuration outside 5-15min range without explicit tenant attestation per DL-18).
 5. **Divergence / improvement vs Mindbody:** OMNI explicit lifecycle.
 6. **Anti-copy warning:** Do NOT skip hold for "fast" patient flows. Per DL-15 inv 4 explicit hold required.
 7. **Substrate pressure-test verdict:** **OK** — DL-15 inv 3.
@@ -1263,22 +1384,24 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
 
 ---
 
-## §4 Substrate gap audit
+## §4 Substrate gap audit (post Round 2 patch — Amendments E + F applied)
 
 | Rule | Verdict | Notes |
 |---|---|---|
-| BC-01 | OK | Amendment D applied this round |
+| BC-01 | OK | Amendment D applied (Round 2 commit ee46585) |
 | BC-02 | OK | Booking RPC reads service_policy_eligibility_gate |
 | BC-03 | OK | tenant_override_allowed BOOLEAN per Amendment D |
 | BC-04 | OK | DL-15 inv 30 4-axis composer |
 | BC-05 | OK | DL-19 inv 18 per-(service_id, modality) keying |
 | BC-06 | OK | DL-15 inv 2 atomic + Domain 1 TM-10 bundle |
-| BC-07 | OK | DL-15 amendment 32 service_type + amendment 29 walk-in flag |
+| BC-07 | OK | DL-15 amendment 32 service_type + amendment 29 walk-in flag + overflow fallback chain (user decision #4) |
 | BC-08 | OK | staff_service_assignment + DL-18 + DL-21 inv 12 |
-| BC-09 | OK | DL-19 inv 1 settings substrate |
-| BC-10 | OK | orchestration_run + blocked_time + outbound |
+| BC-09 | OK (Amendment F applied) | Continuity-first routing — `provider_routing_policy.continuity_mode` ENUM (4 values) per DL-19 inv 30 Amendment F. Continuity DERIVED from encounter_line + appointment_item history. |
+| BC-09b | OK (Amendment F applied) | New-lead routing strategies — `routing_strategy` ENUM (6 values: round_robin / first_available / weighted_pool / priority_pool_cascade / random / manual_staff_mediated) + `provider_pool` + `provider_pool_membership` per DL-19 inv 30 Amendment F. |
+| BC-09c | OK (Amendment F applied) | Auto-fill threshold + overflow pool (GLP-1 routing pattern) — `auto_fill_threshold` JSONB + `provider_routing_state.primary_pool_current_load` per DL-19 inv 30 Amendment F. |
+| BC-10 | OK | orchestration_run + blocked_time + tenant-configurable cascade policy (staff_mediated / auto_cascade / hybrid; default staff_mediated per user decision #5) |
 | BC-11 | OK | DL-15 amendment 31 3-component time |
-| BC-12 | **OK with extension (Amendment E candidate)** | `room_service_compatibility.prep_lock_required` + `finish_lock_required` BOOLEAN — small addition; covers shared rooms vs dedicated procedure rooms. Flagged for Phase 1 v5. |
+| BC-12 | OK (Amendment E applied) | `room_service_compatibility.prep_lock_required` + `finish_lock_required` + same on resource_service_compatibility per Phase 1 hardening v5 / system_map. |
 | BC-13 | OK | DL-15 amendments 34+35 |
 | BC-14 | OK | DL-15 amendment 34 RFC 5545 |
 | BC-15 | OK | DL-15 amendment 35 override semantics |
@@ -1297,43 +1420,35 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
 | BC-28 | OK | DL-20 inv 33 confirmation_state separation |
 | BC-29 | OK | Domain 1 TM-21 + DL-15 inv 30 |
 | BC-30 | OK | Domain 1 TM-10 + sequence_index |
-| BC-31 | OK | DL-15 inv 3 + inv 5 lifecycle |
+| BC-31 | OK | DL-15 inv 3 + inv 5 lifecycle + tenant TTL bounded 5-15min default 10min (user decision #3) |
 | BC-32 | OK | DL-16 inv 11 idempotency |
 
-### Substrate gap audit summary (Round 2)
+### Substrate gap audit summary (post Round 2 patch — Amendments E + F applied)
 
-- **Total Day 0 rules:** 32
-- **OK:** 31 rules
-- **OK with extension:** 1 rule (BC-12 — Amendment E candidate: `room_service_compatibility.prep_lock_required` + `finish_lock_required` BOOLEANs; small addition)
+- **Total Day 0 rules:** 34 (was 32; +2 for BC-09 expansion into BC-09 / BC-09b / BC-09c)
+- **OK:** **34 rules** (all rules; Amendments E + F applied this round; previously-extension BC-12 resolved)
+- **OK with extension:** 0 rules
 - **NEW SUBSTRATE NEEDED:** 0 rules
 
-### Proposed DL amendment note (Amendment E candidate)
+### Amendments applied this patch round (Phase 1 hardening v5)
 
-**Gap:** `room_service_compatibility` and `resource_service_compatibility` need `prep_lock_required` + `finish_lock_required` BOOLEAN columns to admit per-resource lock semantics. Default TRUE (conservative).
+**Amendment E** — DL-15 amendment 30 extension (system_map):
+- `room_service_compatibility.prep_lock_required` BOOLEAN (default TRUE)
+- `room_service_compatibility.finish_lock_required` BOOLEAN (default TRUE)
+- Same 2 fields on `resource_service_compatibility`
+- Admits per-resource lock semantics; prevents over-reserving shared rooms
 
-**Justification:** Some rooms/resources need prep/finish lock (Hydrafacial machine cleanup); others don't (consult room used during patient interview only). Without this, all rooms/resources lock for full prep+booking+finish block, which over-reserves shared rooms.
+**Amendment F** — DL-19 inv 30 (NEW invariant): provider routing policy substrate cluster:
+- `provider_routing_policy` — per-scope routing config (continuity_mode + routing_strategy + fallback_chain + pool linkage + auto_fill_threshold + override flags)
+- `provider_pool` — tenant-named pools (full_time_staff / part_time_staff / contractor_1099 / specialty_pool / coverage_pool / promotion_pool / overflow_pool / specific_named_pool)
+- `provider_pool_membership` — staff_id ∈ pool with weight + priority_tier + auto_disable_on_capacity_threshold_reached
+- `provider_routing_state` — per-tenant per-scope rotation cursor + cached primary_pool_current_load
 
-**Proposed extension:**
-
-```diff
- room_service_compatibility:
- ├── id, service_id FK, room_id FK
- ├── ...existing fields...
-+├── prep_lock_required BOOLEAN DEFAULT TRUE
-+│       — if FALSE, room lock = booking_time only (skip prep+finish lock)
-+├── finish_lock_required BOOLEAN DEFAULT TRUE
-+│       — if FALSE, room lock = booking_time only
- └── ...
-
- resource_service_compatibility:
- ├── (same 2-column extension)
-```
-
-Not done this round. Flagged for Phase 1 v5 (next round or before Domain 3 starts).
+System_map Phase 1 hardening v5 section updated with both amendments cross-referenced.
 
 ---
 
-## §5 Resolution map (10 doctrine questions → resolving rules)
+## §5 Resolution map (10 doctrine questions + provider routing questions → resolving rules)
 
 | Doctrine question | Resolving rules |
 |---|---|
@@ -1344,11 +1459,13 @@ Not done this round. Flagged for Phase 1 v5 (next round or before Domain 3 start
 | Q5. Booking_hard_gate firing timing | BC-01, BC-02, BC-03, BC-23, BC-24, BC-25, BC-26 |
 | Q6. Pre_arrival_task generation | BC-27, BC-28 |
 | Q7. Multi-item bundle atomicity | BC-06, BC-29, BC-30 |
-| Q8. 3-component time block composition | BC-11, BC-12 |
+| Q8. 3-component time block composition | BC-11, BC-12 (Amendment E) |
 | Q9. Add-on inheritance | BC-29 |
 | Q10. Patient confirmation initiation | BC-28 (separation); Domain 4 details |
+| **Q11. Provider routing — continuity vs new-lead (Round 2.5 addition)** | BC-08 (eligibility) + BC-09 (continuity-first) + BC-09b (6 routing strategies) + BC-09c (auto-fill overflow per GLP-1 pattern) |
+| **Q12. Provider absence cascade — relationship vs commoditized (Round 2.5 addition)** | BC-10 (tenant-configurable cascade policy; default staff_mediated) |
 
-All 10 questions answered by 2+ rules. Doctrine holds.
+All 12 questions answered by 2+ rules. Doctrine holds. Provider routing addressed narrowly per Knox 2026-05-17 framing (deterministic Day 0; AI optimization M3-6+).
 
 ---
 
@@ -1390,17 +1507,38 @@ All 10 questions answered by 2+ rules. Doctrine holds.
 
 None material. Cross-app references for resource prep_lock_required are sparse; hospital OR turnover is the strongest analog.
 
-### Open decisions (require user + Knox signoff before Round 3)
+### Open decisions — RESOLVED per user + Knox 2026-05-17 (Round 2 patch decisions)
 
-1. **Amendment E candidate** — `room_service_compatibility.prep_lock_required` + `finish_lock_required` BOOLEAN on rooms + resources. **Opus recommendation: APPLY** before Round 3. Small extension; admits real-world shared-room operations cleanly.
+All 5 decisions resolved + 1 additional patch (provider routing expansion) applied. Status now reflected in rules:
 
-2. **Staff selection policy default** — BC-09 currently defaults to `patient_choice` for patient-facing flows. Some tenants may want `round_robin` as default to balance load. **Recommendation: leave `patient_choice` as default with tenant override per service.**
+1. **Amendment E — RESOLVED: APPLIED this round.** `room_service_compatibility.prep_lock_required` + `finish_lock_required` BOOLEANs (default TRUE) added per Phase 1 hardening v5 / system_map. Same fields on `resource_service_compatibility`. BC-12 verdict moved to OK.
 
-3. **Hold TTL default** — BC-31 currently 10 minutes default. Some tenants (high-traffic) may want 5 minutes; others (slow patient flow) may want 15. **Recommendation: tenant-configurable; 10min as global default.**
+2. **Staff selection policy — RESOLVED: NOT a universal global default.** Per user 2026-05-17: "Make staff selection mode configurable per booking_preset/service. Supported modes should include patient_choice, best_available, specific_staff_required, staff_pool, and staff_only." Applied via **Amendment F** (DL-19 inv 30) — `provider_routing_policy` substrate cluster with `routing_strategy` ENUM (6 values: round_robin / first_available / weighted_pool / priority_pool_cascade / random / manual_staff_mediated) + `continuity_mode` ENUM (4 values: prior_provider_preferred / prior_provider_required / continuity_optional / continuity_disabled) + `provider_pool` + `provider_pool_membership` + `provider_routing_state`. Per-scope (tenant_default / service / booking_preset / service_category). BC-09 expanded into 3 rules (BC-09 continuity-first / BC-09b new-lead routing strategies / BC-09c auto-fill threshold + overflow pool — GLP-1 pattern).
 
-4. **Walk-in queue overflow handling** — BC-07 rejects on full queue. **Recommendation: also support "schedule for later today" fallback offer.**
+3. **Hold TTL — RESOLVED: 10 minutes default; tenant override bounded 5-15 minutes** (substrate-enforced bounds; out-of-range requires DL-18 attestation). BC-31 updated.
 
-5. **Provider absence cascade tier** — BC-10 currently auto-resolves via composer + outbound. Some tenants may prefer staff-mediated reschedule even for routine sick days. **Recommendation: tenant-configurable cascade policy.**
+4. **Walk-in overflow — RESOLVED: fallback chain added.** BC-07 failure mode now includes (a) waitlist, (b) later-today slot, (c) future appointment booking, (d) staff override. Order tenant-configurable per `walk_in_overflow_fallback_chain` setting.
+
+5. **Provider absence cascade — RESOLVED: tenant-configurable per service/preset/category/tenant_default.** BC-10 updated. Per Knox 2026-05-17 ("medspa clients often have provider preference and relationship sensitivity") — **default = `staff_mediated`** for relationship-bound services (Botox / filler / therapy / primary care / established patient services). Optional auto-cascade per service opt-in for commoditized services (Hydrafacial / LHR / walk-in arrivals). Hybrid mode: staff-mediated for patients with prior provider; auto-cascade for new patients / "any provider" bookings.
+
+### Provider routing expansion (Amendment F) — applied this round per user direction
+
+Per user direction + Knox/chat 2026-05-17 framing: address provider routing now, narrowly. Day 0 deterministic rules + weights + thresholds; AI-driven optimization DEFERRED to M3-6+.
+
+**4 new substrate primitives in DL-19 inv 30:**
+- `provider_routing_policy` — per-scope routing config
+- `provider_pool` — tenant-named pools (full_time_staff / part_time_staff / contractor_1099 / specialty_pool / coverage_pool / promotion_pool / overflow_pool / specific_named_pool)
+- `provider_pool_membership` — staff_id ∈ pool with `weight` + `priority_tier` + `auto_disable_on_capacity_threshold_reached`
+- `provider_routing_state` — per-tenant per-scope rotation cursor + cached primary_pool_current_load
+
+**Behavioral coverage (BC-09 / BC-09b / BC-09c):**
+- **Continuity routing** (BC-09): "Rebook with Amelia" default for patients with prior provider for this service; `prior_provider_required` for relationship-bound services
+- **New-lead routing** (BC-09b): 6 strategies (round_robin / first_available / weighted_pool / priority_pool_cascade / random / manual_staff_mediated)
+- **Auto-fill threshold + overflow** (BC-09c): primary pool fills until capacity threshold (utilization_percent / appointments_per_week / open_slots_remaining), then overflow to overflow_pool — supports user's GLP-1 routing example
+
+**Patient continuity is DERIVED** from `encounter_line.provider_id` + `appointment_item.planned_provider_id` history; no new `continuity_link` substrate.
+
+**Explicit deferrals (per Knox framing):** AI-driven dynamic weighting / conversion-based routing / ML-suggested routing / provider performance metrics for routing → M3-6+ (Deferred Rule Candidates).
 
 ### Whether 4-axis composer doctrine held up
 
@@ -1414,21 +1552,44 @@ The 5-timing gate model from Round 1.7 held under composer pressure-test:
 
 Multi-resource atomic commit + 4-axis composer + slot-offer-hold-book lifecycle + concurrency locks all hold against real workflows (Bloom Glow Package bundle / GLP-1 intake-first / walk-in Hydrafacial / provider sick-day cascade / Sarah simultaneous booking with Patrick).
 
-### Substrate gap audit summary
+### Substrate gap audit summary (post Round 2 patch round 2.5)
 
-- 32 total rules
-- 31 OK / 1 OK-with-extension (BC-12 Amendment E candidate)
-- 0 NEW SUBSTRATE NEEDED
+- **34 total rules** (was 32; +2 for BC-09 expansion)
+- **34 OK** (all rules; Amendments E + F applied this round)
+- **0 OK-with-extension**
+- **0 NEW SUBSTRATE NEEDED**
 
-**Recommendation:** Apply Amendment E before Round 3 (Domain 3 — Appointment lifecycle rules). Small extension; cheap pre-substrate-slice.
+Doctrine held under: Round 1 (Domain 1) + Rounds 1.5/1.6/1.7 (Domain 1 patches) + Round 2 (Domain 2 initial) + **Round 2.5 (Amendment E + Amendment F + Knox/chat provider routing expansion)**. Domain 2 now substrate-slice-ready for booking composer + availability + provider routing concerns. Ready for Round 3 (Domain 3 — Appointment lifecycle rules).
 
 ---
 
 ## §7 What this file is NOT
 
-- NOT new locked doctrine (Amendment D + E live in DL DRAFTs).
+- NOT new locked doctrine (Amendments D + E + F live in DL DRAFTs only).
 - NOT code. Substrate slice scoping comes after all domains.
 - NOT migrations.
 - NOT a complete rule matrix — Domains 3-7 still need authoring.
 
-Round 2 ends here. Push commits to origin/main. Stop and report.
+Round 2 + Round 2.5 (patch round per user + Knox/chat 2026-05-17 decisions) end here. Push commits to origin/main. Stop and report.
+
+## §8 Round 2.5 patch summary (this commit)
+
+Patches applied per user 2026-05-17 decisions + Knox/chat framing:
+
+1. **Amendment E applied** (DL-15 amendment 30 extension via system_map): `prep_lock_required` + `finish_lock_required` BOOLEANs on `room_service_compatibility` + `resource_service_compatibility`. Resolves BC-12 extension.
+
+2. **Amendment F applied** (DL-19 inv 30 NEW invariant): provider routing policy substrate cluster (4 substrates: provider_routing_policy + provider_pool + provider_pool_membership + provider_routing_state). Covers continuity routing (rebook with Amelia) + 6 new-lead routing strategies + auto-fill threshold/overflow (GLP-1 pattern). Day 0 deterministic only; AI optimization DEFERRED to M3-6+.
+
+3. **BC-09 expanded into 3 rules**: BC-09 (continuity-first) + BC-09b (new-lead routing strategies) + BC-09c (auto-fill threshold + overflow pool).
+
+4. **BC-10 patched**: provider absence cascade now tenant-configurable per scope; default `staff_mediated` for relationship-bound services; optional `auto_cascade` per service opt-in.
+
+5. **BC-07 patched**: walk-in overflow now has fallback chain (waitlist → later-today → future booking → staff override).
+
+6. **BC-31 patched**: hold TTL default 10 minutes bounded 5-15 minutes; substrate enforces bounds.
+
+7. **§6 Open decisions updated**: all 5 user decisions resolved + Amendment F documented.
+
+8. **Substrate gap audit rebuilt**: 34 OK / 0 OK-with-extension / 0 NEW.
+
+Domain 2 status: substrate-slice-ready for booking composer + availability + provider routing. Ready for Round 3.

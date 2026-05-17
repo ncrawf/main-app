@@ -666,7 +666,19 @@ These 3 amendments live in DL DRAFTs only (DL-19 + DL-20). Locked DL-15 / DL-16 
 
 - **Amendment D** — DL-19 inv 18 service_policy: split into 2-part substrate. Axis composition flags (requires_staff / requires_room / requires_resource / requires_capacity_consume / requires_scheduled_time / allows_walk_in) remain on `service_policy` parent. NEW child substrate `service_policy_eligibility_gate` carries per-(service_id, modality, requirement_kind) rows with `required` BOOLEAN + `gate_timing` ENUM (5 values: booking_visibility / booking_hard_gate / pre_arrival_task / pre_performance_gate / closeout_documentation_gate per TM-12 + DL-19 preamble gate-timing taxonomy) + `gate_payload` JSONB. Anchored to Day 0 Scheduling Rule Matrix [Domain 2 Section A](designs/day_0_scheduling_rule_matrix/02_domain_booking_composer.md) + Round 1.7 TM-12 correction (consent is pre-performance, NOT pre-booking).
 
-Phase 1 hardening v4 may add additional amendments as Domain 2 + later domains surface gaps.
+**Phase 1 hardening v5 (2026-05-17, post-Day 0 Scheduling Rule Matrix Round 2 Domain 2 booking composer review) — 2 DL DRAFT amendments applied:**
+
+- **Amendment E** — DL-15 amendment 30 (4-axis composer) extension: `room_service_compatibility` and `resource_service_compatibility` substrates each gain 2 BOOLEAN columns — `prep_lock_required` + `finish_lock_required` (default TRUE). Admits per-resource lock semantics: dedicated procedure rooms / equipment that need cleanup time lock the full block (prep + booking + finish); shared consult rooms / non-procedure equipment lock booking_time only. Without these flags, the scheduler over-reserves shared rooms and looks artificially full. Anchored to Day 0 Scheduling Rule Matrix [Domain 2 BC-12](designs/day_0_scheduling_rule_matrix/02_domain_booking_composer.md).
+
+- **Amendment F** — DL-19 inv 30 (NEW invariant): provider routing policy substrate cluster. 4 new substrates:
+  - **`provider_routing_policy`** — per-scope (tenant_default / service / booking_preset / service_category) routing config: `continuity_mode` ENUM (prior_provider_preferred default / prior_provider_required / continuity_optional / continuity_disabled) + `routing_strategy` ENUM (round_robin / first_available / weighted_pool / priority_pool_cascade / random / manual_staff_mediated) + `fallback_chain` ENUM[] + `provider_pool_id` FK NULL + `auto_fill_threshold` JSONB + override flags
+  - **`provider_pool`** — tenant-named pools (full_time_staff / part_time_staff / specialty_pool / coverage_pool / specific_named_pool); `pool_kind` ENUM registry-extensible per DL-16 inv 5
+  - **`provider_pool_membership`** — staff_id ∈ pool_id with `weight` NUMERIC + `priority_tier` NUMERIC + `auto_disable_on_capacity_threshold_reached` BOOLEAN
+  - **`provider_routing_state`** — per-tenant per-scope rotation cursor (last_assigned_staff_id + last_assigned_at + rotation_cursor JSONB)
+  
+  Patient continuity is DERIVED from encounter/appointment history (no new continuity_link substrate). Day 0 deterministic rules + weights + thresholds; AI-driven optimization explicitly DEFERRED to M3-6+ per Knox 2026-05-17 framing ("Day 0 should not pretend to be magic"). Anchored to Day 0 Scheduling Rule Matrix Domain 2 BC-09 / BC-09b / BC-09c.
+
+Phase 1 hardening v5 may add additional amendments as later domains surface gaps.
 
 **The reframings DL-15 explicitly rejects.**
 
