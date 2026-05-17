@@ -106,7 +106,73 @@ These admit "self-bookable with no structured details" AND "staff-only but with 
 
 17. **Accounting Basis brand-level setting (composes with DL-17 inv 21).** `general.accounting_basis` ENUM(`accrual` / `cash`) at brand scope. Change emits `policy_changed.accounting_basis` → DL-17 revenue recognition substrate updates. Audit trail per inv 14.
 
-18. **Service-policy substrate (REPLACES prior encounter_profile_policy framing per DL-20 rip-out of encounter_profile_registry).** `service_policy` carries per-(service_id, modality) required-axis flags: `(service_id, modality, requires_staff, requires_room, requires_resource, requires_capacity_consume, requires_scheduled_time, requires_clinical_clearance, requires_consent, requires_intake_complete, requires_deposit, allows_walk_in)`. Settings UI exposes per-service-per-modality editor. Booking RPC reads policy at appointment_propose time per DL-15 inv 30. After DL-20 patches RIP OUT the encounter_profile_registry substrate (encounter.modality is just a 4-value enum: in_person / video / phone / async; specialty leakage prevented), policy is keyed by (service_id, modality) instead of (encounter_profile_id). Same axes; different key. NOT pure-scheduling — care-coordination cross-cuts.
+18. **Service-policy substrate (REPLACES prior encounter_profile_policy framing per DL-20 rip-out of encounter_profile_registry; EXTENDED with Amendment D per Phase 1 hardening v4 / Knox 2026-05-17 Round 1.7 correction).** `service_policy` carries per-(service_id, modality) axis composition flags + eligibility gates separated by timing. Settings UI exposes per-service-per-modality editor. Booking RPC reads policy at appointment_propose time per DL-15 inv 30; encounter_line creation reads policy per DL-20 inv 12; closeout reads policy per DL-20 inv 15.
+
+**Two-part substrate (Amendment D restructure):**
+
+```text
+service_policy (axis composition — structural, no timing semantics):
+├── id, tenant_id (composite per DL-21 inv 2)
+├── service_id FK (per DL-15 inv 30)
+├── modality ENUM (per DL-20 inv 35 — in_person / video / phone / async)
+├── requires_staff BOOLEAN          (4-axis composer per DL-15 inv 30)
+├── requires_room BOOLEAN
+├── requires_resource BOOLEAN
+├── requires_capacity_consume BOOLEAN
+├── requires_scheduled_time BOOLEAN
+├── allows_walk_in BOOLEAN
+└── audit lineage
+
+service_policy_eligibility_gate (NEW Amendment D child substrate — eligibility + 5-timing):
+├── id, tenant_id (composite per DL-21 inv 2)
+├── service_id FK (per DL-15 inv 30)
+├── modality ENUM
+├── requirement_kind ENUM (registry-extensible per DL-16 inv 5):
+│       clinical_clearance / consent / intake_complete / deposit /
+│       age_verification / license_validation / prior_consult_required /
+│       substance_class_authorization / member_only / federation_permeability /
+│       medical_director_review / lab_results_review
+├── required BOOLEAN (TRUE if this gate applies to this service+modality)
+├── gate_timing ENUM (the 5 values per Day 0 Scheduling Rule Matrix TM-12 +
+│       DL-19 preamble gate-timing taxonomy):
+│       booking_visibility / booking_hard_gate / pre_arrival_task /
+│       pre_performance_gate / closeout_documentation_gate
+├── gate_payload JSONB NULL (per-requirement-kind extensions; e.g.,
+│       age_verification: {min_age: 18, guardian_consent_allowed: TRUE};
+│       consent: {consent_artifact_kind: 'neuromodulator_consent_v2'};
+│       license_validation: {required_license_kinds: ['md','np','pa'],
+│       jurisdiction_match_required: TRUE};
+│       deposit: {amount: 50, capture_method: 'card_on_file'};
+│       intake_complete: {intake_template_id: '<uuid>'})
+├── tenant_override_allowed BOOLEAN (can tenant downgrade/upgrade
+│       gate_timing per service via admin UI? default TRUE for most;
+│       FALSE for license_validation + age_verification when statute-bound)
+├── unique_per_kind UNIQUE constraint: (service_id, modality, requirement_kind)
+│       — one row per (service+modality+requirement); update via insert-new-
+│       row + valid_to set on old row per DL-12 versioning + DL-16 inv 18
+├── created_by_actor (DL-16 amendment 43)
+└── audit lineage
+```
+
+**Day 0 default seed (per DL-19 preamble gate-timing taxonomy):**
+
+| Service kind | requirement_kind | required | gate_timing | Rationale |
+|---|---|---|---|---|
+| Normal medspa (Hydrafacial / Botox / Filler / LHR / CoolSculpting / Sculptra) | `consent` | TRUE | `pre_performance_gate` | Patient signs at check-in before treatment; not pre-booking |
+| Normal medspa | `intake_complete` | TRUE | `pre_arrival_task` | Standard intake form; pre-arrival; does not block booking |
+| Normal medspa | `clinical_clearance` | TRUE (per service) | `pre_performance_gate` | Verified at check-in; does not block booking |
+| GLP-1 / HRT async (Hims-style) | `intake_complete` | TRUE | `booking_hard_gate` | Intake-first; tenant explicitly upgrades for this service kind |
+| GLP-1 / HRT | `consent` | TRUE | `pre_performance_gate` (provider review) | Provider reviews intake + consent before Rx |
+| GLP-1 / HRT | `prior_consult_required` | TRUE (state-dependent) | `booking_hard_gate` | Some states (e.g., AL/AR/TX) require prior in-person before async Rx; jurisdiction-derived per DL-21 |
+| Controlled substance Rx | `substance_class_authorization` | TRUE | `booking_hard_gate` | DEA license + state license per substance class |
+| Surgery / Procedure | `consent` | TRUE | `pre_performance_gate` (procedure-specific) | Procedure consent before procedure performed |
+| Surgery / Procedure | `prior_consult_required` | TRUE | `booking_hard_gate` | Pre-surgical consult required before procedure booking |
+| All services | `license_validation` | TRUE | `booking_hard_gate` | Provider must hold license valid for service + patient jurisdiction |
+| All services | `age_verification` | (per service min_age) | `booking_hard_gate` (when no workaround) OR `pre_performance_gate` (when guardian consent admitted) | Statute-bound for substance class; tenant-config for medspa minors |
+
+After DL-20 patches RIP OUT the encounter_profile_registry substrate (encounter.modality is just a 4-value enum: in_person / video / phone / async; specialty leakage prevented), policy is keyed by (service_id, modality) instead of (encounter_profile_id). Same axes; different key. NOT pure-scheduling — care-coordination cross-cuts.
+
+**Cross-link:** Day 0 Scheduling Rule Matrix [Domain 2 Section A](../designs/day_0_scheduling_rule_matrix/02_domain_booking_composer.md) implements the gate evaluation logic + per-timing firing across booking flow. Domain 5 (encounter creation) reads `pre_performance_gate` to block encounter_line; Domain 7 (documentation) reads `closeout_documentation_gate` to block attestation/closeout.
 
 19. **`booking_preset` substrate (NEW DL-19 Phase 1 hardening addition 2026-05-17).** Tenant-configured booking affordance, lives under DL-19 settings substrate. NOT a new substrate layer in the scheduling lifecycle. Maps tenant-named affordances ("Brazilian LHR" / "CoolSculpting 2 cycles" / "Hydrafacial Deluxe" / "Injectable Consult" / "Neuromodulator Visit" / "Masseter Tox" / "Full Facial Balancing combo") to default substrate values on the resulting appointment_item.
 

@@ -662,6 +662,12 @@ Booking RPC resolves staff availability at `appointment_propose` time by composi
 
 These 3 amendments live in DL DRAFTs only (DL-19 + DL-20). Locked DL-15 / DL-16 untouched. Phase 1 hardening v3 may add additional amendments as Domains 2-7 surface gaps; current count = 3.
 
+**Phase 1 hardening v4 (2026-05-17, post-Day 0 Scheduling Rule Matrix Domain 1 Round 1.7 gate-timing correction + start of Round 2 Domain 2 booking composer) — 1 DL DRAFT amendment applied:**
+
+- **Amendment D** — DL-19 inv 18 service_policy: split into 2-part substrate. Axis composition flags (requires_staff / requires_room / requires_resource / requires_capacity_consume / requires_scheduled_time / allows_walk_in) remain on `service_policy` parent. NEW child substrate `service_policy_eligibility_gate` carries per-(service_id, modality, requirement_kind) rows with `required` BOOLEAN + `gate_timing` ENUM (5 values: booking_visibility / booking_hard_gate / pre_arrival_task / pre_performance_gate / closeout_documentation_gate per TM-12 + DL-19 preamble gate-timing taxonomy) + `gate_payload` JSONB. Anchored to Day 0 Scheduling Rule Matrix [Domain 2 Section A](designs/day_0_scheduling_rule_matrix/02_domain_booking_composer.md) + Round 1.7 TM-12 correction (consent is pre-performance, NOT pre-booking).
+
+Phase 1 hardening v4 may add additional amendments as Domain 2 + later domains surface gaps.
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.
