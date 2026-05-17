@@ -1,10 +1,23 @@
 # Domain 3 — Appointment Lifecycle Rules (Day 0)
 
-**Date:** 2026-05-17
-**Round:** 3 of 7
-**Status:** AUTHORED — pending user + Knox review before Round 4 starts
+**Date:** 2026-05-17 (initial) + 2026-05-17 (Round 3.1 patch applied)
+**Round:** 3 of 7 + Round 3.1 patch (Amendment G + cross-domain seam + open decisions resolved)
+**Status:** AUTHORED + PATCHED — pending user + Knox review before Round 4 starts
 **Index:** [00_index.md](00_index.md)
 **Phase scope this file:** Day 0 fully detailed; M1-2 / M3-6 / FUTURE listed name-only in [§Deferred Rule Candidates](#deferred-rule-candidates).
+
+**Round 3.1 patches applied (Phase 1 hardening v6, post Round 3 review):**
+1. **Amendment G applied** — DL-17 inv 24 extended with reschedule fee policy columns (first/nth/threshold/staff_mediation_after_n).
+2. **Index §2.4-2.6 doctrine locked** — Same-service ≠ different-service for entitlement context (anti-pattern); Domain 3 ↔ Domain 6 seam (lifecycle event → commerce consequence); Financial eligibility gate family extension to Amendment D.
+3. **§8 added to this file** — Domain 3 ↔ Domain 6 seam with 4-stage validation pattern + entitlement reservation lifecycle + same-service doctrine cross-link.
+4. **LC rule patches** — LC-14/16/17/18/19/21/22 updated per Round 3.1 cross-domain discipline + user/Knox open-decision resolutions:
+   - LC-14/17: Domain 3 emits lifecycle events; Domain 6 applies fees + entitlement disposition (NOT Domain 3 directly)
+   - LC-16: 2-tier transition — auto-mark lifecycle no-show OK; financial consequences DEFAULT staff-review (tenant opt-in for automation)
+   - LC-18/19: reschedule chain depth policy threshold (no global hard cap; tenant-configurable per Amendment G `staff_mediation_required_after_n_reschedules`)
+   - LC-19: Amendment G applied
+   - LC-21/22: Waitlist TTL default 30min (revised from 1hr); tenant-configurable with preset values + per-context defaults
+
+Substrate gap audit post Round 3.1: **24 OK / 0 OK-with-extension / 0 NEW**.
 
 **Round 2.6 guardrails honored** (binding from index §2.3):
 
@@ -630,7 +643,7 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
 16. **Evidence citations:** DL-16 inv 31 + DL-18 inv 8 + LC-23.
 17. **Test case:** Provider accidentally creates encounter for wrong patient → encounter.status = in_progress. Discovered; dispute flow → Tier 3 attestation → encounter retracted (Domain 5) + appointment.status = cancelled via dispute path.
 
-### Rule LC-14: Cancellation fee applies based on late_cancel policy + emits commerce_order_line
+### Rule LC-14: Cancellation lifecycle event emitted; Domain 6 evaluates cancellation_policy + applies fee/deposit/entitlement disposition (Round 3.1 seam)
 
 **Phase:** DAY_0
 
@@ -641,13 +654,17 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
    - **Airline change fee** — fee row on PNR adjustment.
    - **Hotel late-cancel charge** — itemized on folio.
 3. **Underlying tenant need:** Fee must be itemized + accountable + linked to cancellation event + refundable per tenant policy.
-4. **OMNI generic primitive / rule:** When LC-12 determines late_cancel, emit:
-   - `commerce_order_line` with `line_kind = 'cancellation_fee'` (DL-17 inv 6); `amount = cancellation_policy.late_cancel_fee_amount` (or percentage of original); `linked_appointment_id = appointment.id`; status = 'pending'.
-   - Charge follows tenant policy: charge_now (auto from card on file) OR account_credit_consume OR invoice (staff_collect).
-   - Refund-to-credit option per `cancellation_policy.refund_to_credit_policy`.
-5. **Divergence / improvement vs Mindbody:** Dedicated substrate per DL-17 inv 24.
-6. **Anti-copy warning:** Do NOT model as $0 pricing option. Do NOT silently waive (staff override audit required).
-7. **Substrate pressure-test verdict:** **OK** — DL-17 inv 6 + 24.
+4. **OMNI generic primitive / rule (revised Round 3.1 — Domain 3 ↔ Domain 6 seam):** When LC-12 determines cancel/late_cancel, **Domain 3 emits the lifecycle event ONLY** — does NOT directly charge fees or apply entitlement disposition. Per Round 3.1 seam (index §2.5):
+   - Domain 3 emits `appointment.late_cancelled` (or `appointment.honored_cancelled`) with payload `{appointment_id, cancellation_reason_code, lead_time_actual_minutes, lead_time_required_minutes, actor}`.
+   - Domain 6 (commerce + entitlement) consumes the event + reads `cancellation_policy` + applies the consequence:
+     - Cancellation fee: insert `commerce_order_line` with `line_kind = 'cancellation_fee'` per DL-17 inv 6 + 24; amount per `late_cancel_fee_amount` or percentage; charge route per tenant policy (auto from card_on_file OR account_credit_consume OR invoice).
+     - Deposit disposition: per `cancellation_policy.deposit_forfeiture_policy` — retain / convert-to-credit / transfer-to-rescheduled / refund / waive.
+     - Entitlement disposition: per entitlement policy — forfeit / preserve / convert-to-credit / apply-as-future-discount / restore-by-staff. The booking-time `entitlement_redemption_pending` row (DL-17 inv 23) resolves per policy.
+     - Refund-to-credit option per `cancellation_policy.refund_to_credit_policy`.
+   - Domain 6 emits outcome events: `late_cancel_fee.assessed.amount = X` / `deposit.retained_no_show.amount = Y` / `entitlement.forfeited_due_to_late_cancel.entitlement_id = Z` / `account_credit.created.amount = W` etc. Domain 3 listens for outcome events but does NOT directly write commerce/entitlement state.
+5. **Divergence / improvement vs Mindbody:** Dedicated substrate per DL-17 inv 24 + explicit Domain 3 ↔ Domain 6 seam (Round 3.1). Mindbody collapses lifecycle + financial consequences into single flow, leading to silent ambiguity (e.g., member late-cancels — is benefit consumed? Mindbody answer varies by configuration without explicit policy).
+6. **Anti-copy warning:** Do NOT model fees as $0 pricing option (Mindbody workaround). Do NOT silently waive (staff override audit required). **Do NOT charge fees directly from Domain 3 logic (Round 3.1 binding — that's Domain 6 territory). Do NOT consume/forfeit entitlements from Domain 3 logic (Round 3.1 binding).** Domain 3 ONLY emits lifecycle event with policy-context payload.
+7. **Substrate pressure-test verdict:** **OK** — DL-17 inv 6 + 24 + Amendment G (reschedule fee columns) + Round 3.1 seam (event-driven coupling between Domain 3 + Domain 6).
 
 #### Section B — Rule definition
 
@@ -714,11 +731,14 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
    - **Airline no-show** — boarding closed; passenger flagged no-show; fare conditions apply.
    - **Restaurant no-show** — table held for grace period, then released; fee for some restaurants.
 3. **Underlying tenant need:** Patient who doesn't arrive by (planned_start + grace_window) auto-transitions to no_showed; downstream automation (fee, re-engagement, waitlist) fires.
-4. **OMNI generic primitive / rule:** Periodic job (every 5min per tenant config) evaluates:
+4. **OMNI generic primitive / rule (revised Round 3.1 — staff-review default ON when financial consequence):** Periodic job (every 5min per tenant config) evaluates:
    - Find appointments with `status = 'scheduled'` AND `NOW() > planned_window_start + tenant.no_show_grace_window_minutes` AND `no_show_confirmed_at IS NULL`.
-   - For each: atomic transition `appointment.status = 'no_showed'; no_show_confirmed_at = NOW()`. Emit `appointment.no_show_confirmed` event.
-   - Tenant policy: some clinics want staff confirmation before marking no_show (e.g., "did you call the patient?"); substrate emits `no_show_pending_staff_review` event; transition deferred until staff acts.
-   - Default grace window: 15 minutes (tenant override 5-30min).
+   - **Default grace window: 15 minutes** (tenant override per-service 5-30min; provider visits 10-15; spa services 10; long appointments 15).
+   - **Two-tier transition discipline (Round 3.1 per user/Knox decision):**
+     - **Auto-mark operational no-show** (lifecycle state transition): `appointment.status = 'no_showed'; no_show_confirmed_at = NOW()` always proceeds atomically. Lifecycle truth doesn't need staff to confirm "did you not arrive?" — the grace window elapsed.
+     - **Auto-charge / auto-forfeit (financial consequences): DEFAULT REQUIRES STAFF REVIEW.** Per Round 3.1 — when no-show triggers `no_show_fee` AND/OR `deposit_retained` AND/OR `entitlement_forfeited`, default policy is staff confirmation BEFORE Domain 6 applies financial consequences. Substrate emits `appointment.no_show_pending_financial_review` event with payload {appointment_id, would_apply: [no_show_fee_amount, deposit_retention, entitlement_forfeiture]}. Staff dashboard shows pending queue.
+     - Tenant may explicitly opt INTO automation per service / preset / category via `cancellation_policy.auto_apply_no_show_consequences = TRUE` (default FALSE).
+   - Lifecycle is auto; financial consequences are staff-mediated by default.
 5. **Divergence / improvement vs Mindbody:** OMNI explicit grace window + staff-review option.
 6. **Anti-copy warning:** Do NOT auto-no-show without grace window. Do NOT silently skip fee application.
 7. **Substrate pressure-test verdict:** **OK** — DL-15 inv 6 (no_show = state transition) + DL-17 inv 24 (no_show_fee).
@@ -736,7 +756,7 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
 16. **Evidence citations:** DL-15 inv 6 + DL-17 inv 24 + Mindbody Batch 15 Step 06.
 17. **Test case:** Patrick scheduled 2pm Botox. 2:20pm. Grace window 15min elapsed. Periodic job runs at 2:21pm. Patrick still status = scheduled, no_show_confirmed_at = NULL. Auto-transition → status = no_showed; no_show_confirmed_at = 2:21pm. No-show fee applied per LC-17. Re-engagement orchestration_run triggered.
 
-### Rule LC-17: No-show fee + re-engagement orchestration_run
+### Rule LC-17: No-show lifecycle event triggers Domain 6 fee/forfeiture evaluation + Domain 4 re-engagement orchestration_run (Round 3.1 seam)
 
 **Phase:** DAY_0
 
@@ -746,13 +766,17 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
 2. **Cross-app pattern reference:**
    - **Restaurant no-show charge** — credit card fee per OpenTable policy.
 3. **Underlying tenant need:** No-show fee + re-engagement (book again, waitlist offer, etc.) per tenant policy.
-4. **OMNI generic primitive / rule:** On LC-16 no_show transition:
-   - Emit `commerce_order_line` with `line_kind = 'no_show_fee'` per `cancellation_policy.no_show_fee_amount`.
-   - Trigger re-engagement orchestration_run per DL-14 inv 17 + DL-16 amendment 42 outbound: send patient "We missed you" SMS/email with rebook link.
-   - Update patient's no_show_history (patient_metadata_axis or computed) — informs future booking_hard_gate (e.g., > 3 no-shows in 6 months triggers deposit-before-booking policy).
-5. **Divergence / improvement vs Mindbody:** OMNI orchestration_run + re-engagement automation.
-6. **Anti-copy warning:** Do NOT skip fee silently. Do NOT auto-rebook without patient consent.
-7. **Substrate pressure-test verdict:** **OK** — DL-17 inv 24 + DL-14 inv 17 + DL-16 amendment 42.
+4. **OMNI generic primitive / rule (revised Round 3.1 — Domain 3 ↔ Domain 6 seam):** On LC-16 no_show transition:
+   - **Domain 3 emits** `appointment.no_show_confirmed` with payload `{appointment_id, planned_window_start, no_show_confirmed_at, grace_window_minutes, would_apply_consequences}`.
+   - **Domain 6 (commerce + entitlement)** consumes event + reads `cancellation_policy` + applies consequences (per LC-16 staff-review default unless tenant opted into automation):
+     - Insert `commerce_order_line` with `line_kind = 'no_show_fee'` per `cancellation_policy.no_show_fee_amount`. Domain 6 emits `no_show_fee.assessed.amount = X`.
+     - Deposit retention per `deposit_forfeiture_policy`. Domain 6 emits `deposit.retained_no_show.amount = Y`.
+     - Entitlement forfeiture per policy. Domain 6 emits `entitlement.forfeited_due_to_no_show.entitlement_id = Z`.
+   - **Domain 4 (confirmation / outbound)** consumes event + triggers re-engagement orchestration_run per DL-14 inv 17 + DL-16 amendment 42 outbound: send patient "We missed you" SMS/email with rebook link.
+   - **Domain 3** (this rule's owner) updates `patient.no_show_count` (computed projection) — informs future `booking_hard_gate` evaluation per Domain 2 BC-23-26 (e.g., > 3 no-shows in 6 months triggers deposit-before-booking policy per tenant rule).
+5. **Divergence / improvement vs Mindbody:** OMNI explicit cross-domain seam + staff-review default for financial consequences (Round 3.1).
+6. **Anti-copy warning:** Do NOT charge fees directly from Domain 3 (Round 3.1 binding). Do NOT auto-rebook without patient consent. Do NOT consume entitlements from Domain 3.
+7. **Substrate pressure-test verdict:** **OK** — DL-17 inv 24 + DL-14 inv 17 + DL-16 amendment 42 + Round 3.1 seam (event-driven cross-domain consequences).
 
 #### Section B — Rule definition
 
@@ -782,13 +806,14 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
    - **Airline rebooking** — original ticket voided; new ticket issued; compensation chain linked.
    - **Hotel reservation change** — original record cancelled with change fee; new record created.
 3. **Underlying tenant need:** Reschedule must preserve audit lineage (what was original; why changed; new state). Per DL-15 inv 6 — atomic compensation, not silent mutation.
-4. **OMNI generic primitive / rule:** Reschedule RPC: `appointment.reschedule(appointment_id, new_window, actor, reason_code)`. Logic:
+4. **OMNI generic primitive / rule (revised Round 3.1 — chain depth policy threshold):** Reschedule RPC: `appointment.reschedule(appointment_id, new_window, actor, reason_code)`. Logic:
    - Open `orchestration_run` per DL-14 inv 17 with `run_kind = 'appointment_reschedule'`.
-   - Run member action 1: cancel original appointment per LC-12 with `cancellation_reason_code = 'rescheduled'` (NO fee unless tenant policy explicitly charges reschedule fee). Set `appointment.status = 'rescheduled'` (NOT cancelled — terminal state for original).
+   - **Pre-flight chain depth check (per LC-19 + Amendment G):** walk `appointment.linked_rescheduled_from` FK history; count chain depth. If chain_count >= `cancellation_policy.staff_mediation_required_after_n_reschedules` (non-NULL) → reject self-service reschedule + emit `appointment.reschedule_blocked.staff_mediation_required`. Staff with capability per DL-18 inv 8 may override with reason_code.
+   - Run member action 1: cancel original appointment per LC-12 with `cancellation_reason_code = 'rescheduled'`. Set `appointment.status = 'rescheduled'` (NOT cancelled — terminal state for original). Per Round 3.1 seam: Domain 6 evaluates reschedule fee per LC-19 + Amendment G.
    - Run member action 2: book new appointment per Domain 2 BC-04 4-axis composer with same patient + service + preset + planned_details + new window. New appointment row created.
    - Atomic linkage: `original_appointment.linked_rescheduled_to_appointment_id = new_appointment.id`; `new_appointment.linked_rescheduled_from_appointment_id = original_appointment.id`.
    - If new booking fails (axis unavailable): roll back; original stays in scheduled state.
-   - Emit `appointment.rescheduled` event with both IDs in payload.
+   - Emit `appointment.rescheduled` event with both IDs + chain_depth in payload. Domain 6 reads chain_depth for fee evaluation per Amendment G.
 5. **Divergence / improvement vs Mindbody:** OMNI atomic compensation chain; original audit preserved.
 6. **Anti-copy warning:** Do NOT edit appointment in-place (per DL-15 inv 6). Do NOT mark original as cancelled (terminal `rescheduled` state preserves reschedule semantics distinct from cancellation).
 7. **Substrate pressure-test verdict:** **OK** — DL-15 inv 6 + DL-14 inv 17 + DL-16 inv 31 + linked_rescheduled_* FK fields on appointment.
@@ -806,7 +831,7 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
 16. **Evidence citations:** DL-15 inv 6 + DL-14 inv 17 + DL-16 inv 31.
 17. **Test case:** Sarah books Tuesday 2pm Botox. Calls Monday: "Can I move to Wednesday 3pm?" Staff reschedules: orchestration_run starts. Original cancelled with reason = rescheduled, status = rescheduled. New booking attempted for Wed 3pm via Domain 2 composer; succeeds. Linkage: original.linked_rescheduled_to = new.id; new.linked_rescheduled_from = original.id. Sarah sees confirmation for new appointment + audit trail preserved.
 
-### Rule LC-19: Reschedule fee policy per tenant; default no fee for first reschedule
+### Rule LC-19: Reschedule fee + chain depth policy per tenant; Amendment G applied — first/nth reschedule fee + staff_mediation_required_after_n_reschedules columns
 
 **Phase:** DAY_0
 
@@ -814,25 +839,30 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
 
 1. **Mindbody behavior observed:** Mindbody admits reschedule fees; mechanism scattered.
 2. **Cross-app pattern reference:**
-   - **Airline change fee** — fare-class specific.
-3. **Underlying tenant need:** Most medspas don't charge for first reschedule; some charge after N reschedules or for high-demand services.
-4. **OMNI generic primitive / rule:** `reschedule_policy` extends cancellation_policy OR lives as separate substrate field (M1-2 if needed):
-   - `first_reschedule_fee_amount` NUMERIC NULL (default NULL = no fee)
-   - `nth_reschedule_fee_amount` NUMERIC NULL (after threshold)
-   - `reschedule_count_threshold` INT NULL
-   - LC-18 reads policy + adds commerce_order_line if applicable.
-5. **Divergence / improvement vs Mindbody:** Explicit policy fields.
-6. **Anti-copy warning:** Do NOT charge silently.
-7. **Substrate pressure-test verdict:** **OK with extension (Amendment G candidate — small)** — `cancellation_policy` substrate (DL-17 inv 24) needs `first_reschedule_fee_amount` + `nth_reschedule_fee_amount` + `reschedule_count_threshold` columns OR a separate `reschedule_policy` linked substrate. Day 0 substrate option; UI affordance can defer to M1-2.
+   - **Airline change fee** — fare-class specific tiers.
+   - **Hotel reservation change** — N free changes then fee.
+3. **Underlying tenant need:** Most medspas don't charge for first reschedule; some charge after N reschedules; some require staff mediation after threshold rather than per-fee.
+4. **OMNI generic primitive / rule (Amendment G applied this round):** `cancellation_policy` (DL-17 inv 24) extends with 4 columns per Amendment G:
+   - `first_reschedule_fee_amount` NUMERIC NULL DEFAULT NULL (default NULL = no fee for first reschedule)
+   - `nth_reschedule_fee_amount` NUMERIC NULL DEFAULT NULL (fee after threshold)
+   - `reschedule_count_threshold` INT NULL DEFAULT NULL (counts entire reschedule chain via `appointment.linked_rescheduled_from` FK history; NULL = no fee threshold)
+   - `staff_mediation_required_after_n_reschedules` INT NULL DEFAULT NULL (after N reschedules in chain, self-service reschedule blocked + routes to staff mediation regardless of fee policy; NULL = no hard threshold per user/Knox decision Round 3.1: no global hard cap; tenant-configurable policy threshold for staff mediation)
+   
+   LC-18 reschedule reads policy at reschedule attempt + applies. Domain 3 emits `appointment.rescheduled` event; Domain 6 applies fee per Round 3.1 seam (LC-14 pattern).
+5. **Divergence / improvement vs Mindbody:** Explicit policy fields + Round 3.1 seam discipline (fee charging in Domain 6, not Domain 3).
+6. **Anti-copy warning:** Do NOT hard-cap reschedule chain globally (per user/Knox Round 3.1 — tenant policy threshold for staff mediation, not hard block). Do NOT charge silently. Do NOT apply fees from Domain 3 logic (Round 3.1 binding — Domain 6 territory).
+7. **Substrate pressure-test verdict:** **OK (Amendment G applied this round)** — DL-17 inv 24 + Amendment G + Round 3.1 seam. No remaining extension needed.
 
 #### Section B — Rule definition
 
 8. **Trigger:** LC-18 reschedule.
-9. **Required inputs:** cancellation_policy (extended) + appointment + reschedule_count.
+9. **Required inputs:** cancellation_policy (with Amendment G fields) + appointment + reschedule_count.
 10. **Decision logic:**
-    - Lookup reschedule_count for this appointment (chain via linked_rescheduled_from FK).
-    - Apply fee per policy.
-11. **Output / state change:** Per LC-18 + commerce_order_line if applicable.
+    - Lookup reschedule_count for this appointment chain (recursive walk via linked_rescheduled_from FK).
+    - Check `staff_mediation_required_after_n_reschedules`: if reschedule_count >= threshold AND non-NULL → reject self-service reschedule + route to staff queue. Staff with capability per DL-18 inv 8 may proceed with reason_code.
+    - Check fee policy: if reschedule_count = 1 AND `first_reschedule_fee_amount` populated → apply first fee; elif reschedule_count >= `reschedule_count_threshold` AND `nth_reschedule_fee_amount` populated → apply nth fee; else no fee.
+    - **Domain 3 emits `appointment.reschedule_fee_due` event** with payload {appointment_id, fee_amount, reschedule_count}; Domain 6 applies commerce_order_line per Round 3.1 seam (LC-14 pattern).
+11. **Output / state change:** Per LC-18 + Domain 6 fee application via event.
 12. **Owning substrate:** cancellation_policy extension.
 13. **UI surface:** Reschedule modal shows fee preview.
 14. **Failure mode:** Per LC-14.
@@ -892,15 +922,26 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
    - **Restaurant cancellation list** — cascade to next waiting party.
    - **Hospital cancellation list** — fills cancelled slots from waitlist.
 3. **Underlying tenant need:** When a high-demand slot opens, the next eligible waitlist entry should be auto-offered (with TTL); cascade to next if first declines.
-4. **OMNI generic primitive / rule:** On LC-12 cancel commit:
+4. **OMNI generic primitive / rule (revised Round 3.1 — TTL default 30min not 1hr per user/Knox decision):** On LC-12 cancel commit:
    - Open `orchestration_run` per DL-14 inv 17 with `run_kind = 'waitlist_promotion'`.
    - Query `waitlist_entry` for matching (service_id, provider_id (optional), location_id (optional), time_window includes cancelled appointment's time).
    - Pick first match per waitlist priority (FIFO + tenant overrides for VIP / loyalty tier).
-   - Emit `waitlist_offer_sent` action per DL-15 inv 8 — outbound SMS/email with offer + TTL (default 1hr).
-   - If patient accepts within TTL → trigger Domain 2 booking flow with held slot. If declines OR TTL expires → cascade to next entry.
-5. **Divergence / improvement vs Mindbody:** OMNI explicit orchestration_run + TTL cascade.
-6. **Anti-copy warning:** Do NOT auto-book without patient acceptance (waitlist promotion is OFFER not COMMIT).
-7. **Substrate pressure-test verdict:** **OK** — DL-15 inv 8 + DL-14 inv 17.
+   - Emit `waitlist_offer_sent` action per DL-15 inv 8 — outbound SMS/email with offer + TTL.
+   - **TTL is tenant policy, NOT hardcoded** (per Round 3.1 user/Knox decision):
+     - **Default: 30 minutes**
+     - Tenant-configurable per service / preset / category
+     - Suggested preset values: 10 / 15 / 30 / 45 / 60 minutes
+     - **Per-context defaults:**
+       - Future appointment openings (>= 24hr out): default 30 minutes
+       - Same-day openings (< 24hr out): default 15 minutes
+       - High-demand / short-notice services (< 4hr out): default 10-15 minutes
+     - Staff can manually extend or skip per entry per DL-18 capability.
+     - Substrate enforces tenant bound (5min ≤ TTL ≤ 4hr); out-of-bounds requires DL-18 inv 8 attestation.
+   - If patient accepts within TTL → trigger Domain 2 booking flow with held slot.
+   - If declines OR TTL expires → cascade to next entry per LC-22.
+5. **Divergence / improvement vs Mindbody:** OMNI explicit orchestration_run + tenant-controlled TTL policy + context-aware defaults. Mindbody's TTL is fixed/opaque.
+6. **Anti-copy warning:** Do NOT hardcode universal TTL (per Round 3.1 — tenant/service/preset policy). Do NOT auto-book without patient acceptance (offer is OFFER not COMMIT). Do NOT bypass TTL on staff override without explicit reason_code + audit.
+7. **Substrate pressure-test verdict:** **OK** — DL-15 inv 8 + DL-14 inv 17 + tenant settings substrate per DL-19 inv 1.
 
 #### Section B — Rule definition
 
@@ -929,7 +970,7 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
 2. **Cross-app pattern reference:**
    - **Airline upgrade cascade** — next on list.
 3. **Underlying tenant need:** If first waitlist patient doesn't respond, slot must cascade to next, not get stuck.
-4. **OMNI generic primitive / rule:** Per LC-21 orchestration_run: TTL on outbound offer (default 1hr). Periodic job checks pending offers:
+4. **OMNI generic primitive / rule (revised Round 3.1 — 30min default per LC-21):** Per LC-21 orchestration_run: TTL on outbound offer (default 30 min per LC-21 revised default; per-context defaults vary). Periodic job checks pending offers:
    - If patient accepted → close run, book new appointment.
    - If patient declined → cascade to next entry immediately.
    - If TTL expired without response → cascade to next entry.
@@ -1064,37 +1105,43 @@ waitlist_entry (DL-15 inv 8 implicit substrate):
 | LC-16 | OK | DL-15 inv 6 + DL-17 inv 24 |
 | LC-17 | OK | DL-17 inv 24 + DL-14 inv 17 + DL-16 amendment 42 |
 | LC-18 | OK | DL-15 inv 6 + DL-14 inv 17 + DL-16 inv 31 |
-| LC-19 | **OK with extension (Amendment G candidate)** | `cancellation_policy` substrate (DL-17 inv 24) needs `first_reschedule_fee_amount` + `nth_reschedule_fee_amount` + `reschedule_count_threshold` columns. Small extension. |
+| LC-19 | OK (Amendment G applied Round 3.1) | DL-17 inv 24 extended with `first_reschedule_fee_amount` + `nth_reschedule_fee_amount` + `reschedule_count_threshold` + `staff_mediation_required_after_n_reschedules` columns per Phase 1 hardening v6 commit. Domain 3 emits event; Domain 6 applies fee per Round 3.1 seam (§8). |
 | LC-20 | OK | DL-20 inv 33 + inv 34 |
 | LC-21 | OK | DL-15 inv 8 + DL-14 inv 17 |
 | LC-22 | OK | LC-21 + DL-14 inv 16 |
 | LC-23 | OK | DL-16 inv 31 + DL-18 inv 8 |
 | LC-24 | OK | DL-16 inv 13 + DL-21 inv 21 + DL-16 inv 22 |
 
-### Substrate gap audit summary
+### Substrate gap audit summary (post Round 3.1)
 
 - **Total Day 0 rules:** 24
-- **OK:** 23 rules
-- **OK with extension:** 1 rule (LC-19 — Amendment G candidate: cancellation_policy reschedule fee columns)
+- **OK:** **24 rules** (Amendment G applied; LC-19 resolved; Round 3.1 cross-domain seam locked)
+- **OK with extension:** 0 rules
 - **NEW SUBSTRATE NEEDED:** 0 rules
 
-### Amendment G candidate (proposed for next patch round)
+### Round 3.1 patches applied (Phase 1 hardening v6)
 
-```diff
- cancellation_policy (DL-17 inv 24):
- ├── ...existing fields (lead_time_minutes, late_cancel_fee_amount,
- │      no_show_fee_amount, etc.)
-+├── first_reschedule_fee_amount NUMERIC NULL DEFAULT NULL
-+│       (default NULL = no fee for first reschedule)
-+├── nth_reschedule_fee_amount NUMERIC NULL DEFAULT NULL
-+│       (fee after threshold reached)
-+├── reschedule_count_threshold INT NULL DEFAULT NULL
-+│       (after N reschedules, charge nth_reschedule_fee_amount;
-+│        NULL = no threshold)
- └── ...
-```
+**Amendment G** (DL-17 inv 24 extension):
+- `first_reschedule_fee_amount` NUMERIC NULL DEFAULT NULL
+- `nth_reschedule_fee_amount` NUMERIC NULL DEFAULT NULL
+- `reschedule_count_threshold` INT NULL DEFAULT NULL
+- `staff_mediation_required_after_n_reschedules` INT NULL DEFAULT NULL (per user/Knox decision Round 3.1: no global hard cap; tenant-configurable threshold for staff mediation)
 
-Small extension. Flagged for next patch round (before Round 4) OR can defer.
+**Round 3.1 doctrine additions (NOT new substrate; cross-cutting discipline locks):**
+- §2.4 Same-service ≠ different-service for entitlement context (anti-pattern)
+- §2.5 Domain 3 ↔ Domain 6 seam (lifecycle event → commerce consequence)
+- §2.6 Financial eligibility gate family extension to Amendment D requirement_kind ENUM (`payment_method_active` / `membership_current` / `entitlement_available` / `account_hold_clear`)
+
+**Domain 3 rule patches:**
+- LC-14: Domain 3 emits `appointment.late_cancelled` event; Domain 6 applies fee + deposit + entitlement disposition (NOT Domain 3)
+- LC-16: 2-tier transition discipline — auto-mark lifecycle no-show OK; financial consequences DEFAULT STAFF-REVIEW (tenant opt-in for automation)
+- LC-17: Domain 6 owns fee/forfeiture; Domain 3 emits event
+- LC-18: chain depth policy threshold (no hard cap; tenant-configurable per Round 3.1)
+- LC-19: Amendment G applied + Round 3.1 seam
+- LC-21: TTL default 30min (revised from 1hr); tenant-configurable with preset values + per-context defaults (future 30 / same-day 15 / high-demand 10-15)
+- LC-22: TTL default updated to 30min per LC-21
+
+**Domain 3 §8 added:** Domain 3 ↔ Domain 6 seam section with 4-stage validation pattern + entitlement reservation lifecycle + same-service doctrine cross-link + future-booking-restrictions-derived-from-history pattern.
 
 ---
 
@@ -1195,5 +1242,103 @@ The substrate is in good shape for Round 3 outputs. Only 1 small extension surfa
 - NOT a complete rule matrix — Domains 4-7 still need authoring.
 - NOT swallowing encounter creation (Round 2.6 Guardrail #2 honored).
 - NOT canonical truth for non-owned flags (Round 2.6 Guardrail #1 honored).
+- NOT directly charging fees / forfeiting entitlements / retaining deposits / computing account holds (Round 3.1 seam — Domain 6 territory).
 
-Round 3 ends here. Push commits to origin/main. Stop and report.
+## §8 Domain 3 ↔ Domain 6 seam (Round 3.1 binding)
+
+Per Knox/chat 2026-05-17 + user direction post Round 3 review. Locked before Domain 6 authoring starts.
+
+### §8.1 The seam pattern
+
+Appointment lifecycle (Domain 3) and commerce + entitlement (Domain 6) are **separate state machines coupled via events + policy**:
+
+```
+Domain 3 (this file)                      Domain 6 (deferred)
+─────────────────                         ─────────────────
+emits lifecycle event       →             consumes event +
+                                          reads cancellation_policy +
+                                          reads entitlement policy +
+                                          applies consequence +
+                                          emits outcome event
+                            ←             outcome event consumed by
+                                          downstream listeners (Domain 4
+                                          re-engagement, Domain 3
+                                          status_flags projection per
+                                          Round 2.6 Guardrail #1)
+```
+
+Domain 3 NEVER directly:
+- Charges fees (commerce action — Domain 6)
+- Retains deposits (commerce action — Domain 6)
+- Forfeits / restores entitlements (entitlement action — Domain 6)
+- Computes account holds (commerce state — Domain 6)
+- Sets `Deposit_paid` / `Card_on_file` status_flags directly (Round 2.6 Guardrail #1 — those are commerce projections)
+
+### §8.2 Domain 3 lifecycle events that drive Domain 6 consequences
+
+| Domain 3 event | Payload | Domain 6 consumes for |
+|---|---|---|
+| `appointment.scheduled_committed` | appointment_id, patient_id, planned_window, source_booking_preset_id | Reserve entitlement (`entitlement_redemption_pending` per DL-17 inv 23); deposit collection per `service_policy_eligibility_gate(deposit, booking_hard_gate)` |
+| `appointment.checked_in` | appointment_id, checked_in_at, actor | Validate membership_current + entitlement_available (4-stage validation §8.3); revalidate before allowing benefit redemption |
+| `appointment.completed` | appointment_id, completed_at, encounter_id | **Finalize entitlement redemption** (consume reserved benefit); close commerce_order; apply final fee + commission |
+| `appointment.honored_cancelled` | appointment_id, lead_time_actual, lead_time_required, reason_code | Release entitlement reservation (NOT consume); refund deposit per policy; no fee |
+| `appointment.late_cancelled` | appointment_id, lead_time_actual, lead_time_required, reason_code | Apply `late_cancel_fee` per DL-17 inv 24; deposit disposition per `deposit_forfeiture_policy` (retain / convert-to-credit / refund); entitlement disposition per policy (forfeit / preserve / convert-to-credit) |
+| `appointment.no_show_confirmed` | appointment_id, planned_window, grace_window, would_apply_consequences | (Per LC-16 staff-review default) staff confirms → Domain 6 applies `no_show_fee` + deposit retention + entitlement forfeiture. If tenant opted into automation, Domain 6 auto-applies. |
+| `appointment.rescheduled` | original_appointment_id, new_appointment_id, chain_depth | Apply reschedule_fee per LC-19 + Amendment G; transfer deposit to new appointment per policy; preserve entitlement reservation on new appointment |
+| `appointment.reschedule_blocked.staff_mediation_required` | appointment_id, chain_depth, threshold | Staff queue notification; no commerce consequence until staff resolves |
+| `appointment.disputed` | appointment_id, dispute_reason_code, attestation_id | Pause/reverse commerce; multi-domain compensation chain per DL-16 inv 31 |
+
+### §8.3 4-stage financial validation pattern (per Round 3.1 chat framing)
+
+Per user/Knox June Hydrafacial example, OMNI revalidates financial state at FOUR stages (mapped to 5-timing gate model from Round 1.7 TM-12):
+
+| Stage | Gate timing equivalent | What's validated | What happens if invalid |
+|---|---|---|---|
+| **At booking** | `booking_hard_gate` (block) OR `booking_visibility` (filter from menu) | License + jurisdiction + age + intake-first + (per service) membership_current + payment_method_active | Block booking with redirect ("Update card to book") OR allow booking but flag pre-arrival task |
+| **Before arrival** | `pre_arrival_task` | Membership_current status (if not blocked at booking) + payment_method_active + outstanding balance | Pre-arrival SMS/task: "Your membership payment appears unresolved. Please update before your visit." Booking remains active. |
+| **At check-in / pre-performance** | `pre_performance_gate` | Membership_current + entitlement_available + account_hold_clear | Block treatment (encounter_line creation in Domain 5) until front desk resolves. Patient appointment + arrival preserved. |
+| **At checkout / closeout** | `closeout_documentation_gate` | **Revalidate everything before allowing benefit redemption.** Did the period charge settle? Is benefit still active? Already redeemed elsewhere? Account hold? | Front desk CANNOT close visit as member benefit. Must resolve: collect self-pay / update card + collect membership / approved discount-credit / manager override / comp with attestation. |
+
+This addresses the explicit Mindbody anti-pattern: front desk services Hydrafacial on the 20th + lets patient walk out as member benefit without confirming the June 1st charge actually settled. OMNI's closeout gate forces resolution.
+
+### §8.4 Entitlement reservation lifecycle (Round 3.1 cross-DL pattern with DL-17 inv 22-23)
+
+```
+Booking commit  →  entitlement_redemption_pending row inserted
+                   (entitlement.status remains active_redeemable;
+                    one redemption "reserved" but not consumed)
+
+Completed visit →  entitlement_redemption finalized;
+                   entitlement.redemptions_used incremented;
+                   if exhausted → entitlement.status = fully_redeemed
+
+Late-cancel / no-show → Domain 6 evaluates entitlement policy:
+                        - forfeit_benefit: consume redemption despite no service
+                        - preserve_benefit: release reservation; not consumed
+                        - convert_to_account_credit: forfeit + credit dollar value
+                        - apply_as_discount_next: forfeit + flag for next-visit discount
+
+Staff override / restore → manual restoration with Tier 2 attestation +
+                           audit; reverses prior forfeiture
+```
+
+### §8.5 Same-service doctrine cross-link (Round 3.1 binding)
+
+Per index §2.4 — A BH HydraFacial is a BH HydraFacial regardless of who books it. Service substrate is operational kind; payment route resolves in commerce + entitlement. Domain 3 lifecycle rules are payment-agnostic: a Hydrafacial late-cancelled by a member fires the SAME `appointment.late_cancelled` event as a Hydrafacial late-cancelled by a non-member. Domain 6 decides whether the consequence is "consume member's June benefit" or "charge $50 late-cancel fee to self-pay" — that resolution happens in commerce, NOT in Domain 3's lifecycle event.
+
+This is the binding rule: SAME SERVICE → DIFFERENT FINANCIAL RESOLUTION. Never duplicate the treatment menu to represent payment context.
+
+### §8.6 Future booking restrictions derived from history (Round 3.1)
+
+Patient-level scheduling restrictions can be DERIVED (not canonical truth) by Domain 6:
+
+- `> 3 no-shows in 6 months` → derived patient_metadata flag → Domain 2 `booking_hard_gate(deposit_required)` fires for this patient on next booking attempt
+- `Outstanding balance > threshold` → derived → `booking_hard_gate(account_hold_clear)`
+- `Active membership lapsed > 30 days` → derived → membership benefits unavailable; self-pay route
+- `Pattern of late-cancels > N` → derived → tenant policy may impose card_on_file requirement
+
+These are computed in Domain 6 + projected to Domain 2 booking_hard_gate evaluation per Amendment D requirement_kind. Domain 3 emits the LIFECYCLE EVENTS that feed the computation but does NOT compute or own the restriction.
+
+---
+
+Round 3 + Round 3.1 end here. Push commits to origin/main. Stop and report.

@@ -138,7 +138,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 |---|---|---|---|---|---|---|
 | 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Rounds 1 + 1.5 + 1.6 + 1.7 (Knox gate-timing correction)** | **AUTHORED + PATCHED + AMENDMENTS A/B/C APPLIED + Amendment D candidate for Domain 2** | 30 Day 0 | 29 OK / 1 OK-with-extension (TM-12 → Amendment D for Domain 2) / 0 NEW |
 | 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + 2.5 + 2.6 (Amendments D + E + F applied; dual-target routing guardrail; Round 3 pre-flight guardrails locked)** | **AUTHORED + PATCHED + GUARDED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW |
-| 3 | Appointment lifecycle rules | [03_domain_appointment_lifecycle.md](03_domain_appointment_lifecycle.md) | **Round 3 (Round 2.6 guardrails honored)** | **AUTHORED** | 24 Day 0 | 23 OK / 1 OK-with-extension (Amendment G candidate — small) / 0 NEW |
+| 3 | Appointment lifecycle rules | [03_domain_appointment_lifecycle.md](03_domain_appointment_lifecycle.md) | **Round 3 + 3.1 (Amendment G applied; Round 3.1 doctrine + cross-domain seam locked)** | **AUTHORED + PATCHED** | 24 Day 0 | 24 OK / 0 OK-with-extension / 0 NEW |
 | 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — |
 | 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — |
 | 6 | Checkout / commerce / entitlement rules | (deferred) | Round 6 | NOT STARTED | — | — |
@@ -207,6 +207,110 @@ Examples Domain 3 must NOT swallow:
 These each have their own owning substrate + domain. Round 3 stops at lifecycle transitions and references-out (FK to encounter_id when encounter created; status_flag updates via materialized projection of owning-substrate state).
 
 Cross-link: Round 2.6 guardrails inherited into every subsequent domain round; explicit substrate-slice readiness checklist will include "does this domain stay within its canonical truth?" as a binding gate.
+
+### §2.4 Round 3.1 binding doctrine — Same service ≠ different service for entitlement context
+
+Per Knox/chat 2026-05-17 + user direction post Round 3 review. Locked before Domain 6 (commerce / entitlement) lands so the doctrine is in place when Domain 6 authoring starts.
+
+**Anti-pattern (binding rejection):** Member-vs-non-member is NOT a different service. Tenants MUST NOT create separate `service` rows like:
+- "BH Member HydraFacial" vs "BH Non-Member HydraFacial"
+- "June Member HydraFacial" vs "July Member HydraFacial"
+- "Membership HydraFacial Redemption" as a service
+- "Member Botox $14/u" vs "Non-Member Botox $14/u"
+- "Member Sauna" vs "Non-Member Sauna"
+
+This is Mindbody-brain catalog pollution. It corrupts the treatment menu + appointment_item + encounter_line + analytics.
+
+**Binding doctrine:** A BH HydraFacial is a BH HydraFacial regardless of who books it. The substrate layers:
+
+| Layer | What it carries | Member vs non-member? |
+|---|---|---|
+| `service` (DL-15) | Operational kind ("Hydrafacial") | SAME |
+| `appointment_item.planned_service_id` (DL-20 inv 34) | Planned service for this booking | SAME |
+| `encounter_line.service_id` (DL-20 inv 12) | Performed service | SAME |
+| `commerce_order_line` (DL-17 inv 6) | Billing line | SAME service; DIFFERENT pricing_option_id + entitlement_redemption + applied_promo_claim_id resolves payment route |
+| `entitlement_redemption` (DL-17 inv 22-23) | Whether membership benefit applies | RESOLVED here (member: benefit redeemed; non-member: full pay or package or self-pay) |
+| `pricing_option` (DL-17 inv 1) | Commerce variant (price + commission + tier) | DIFFERENT pricing_option for member-discount-eligible vs full-price |
+
+Provider performs the same service. Patient wants the same service. Scheduler displays the same service. Only OMNI's commerce/entitlement brain cares about the resolution.
+
+**3 financial booking behaviors per service_policy_eligibility_gate (extension of Round 1.7 5-timing gate model):**
+1. **Hard gate (`booking_hard_gate`)** — Patient cannot book unless financial condition satisfied. Example: sauna service requires `membership_current = TRUE` → booking blocked if membership payment failed; redirect to update payment method.
+2. **Soft gate / warning (`pre_arrival_task` task with explicit financial-update kind)** — Patient can book; OMNI creates pre-arrival task. Example: "You booked Hydrafacial. Your membership payment appears unresolved. Please update card before your visit."
+3. **Staff-mediated exception (`pre_performance_gate` or `closeout_documentation_gate`)** — Patient books; front desk must resolve before treatment or before checkout closes as member benefit. Example: membership status review at check-in or at closeout.
+
+The service is the SAME. The financial route changes per policy + patient state. Tenant configures per service which behavior fires when.
+
+### §2.5 Round 3.1 binding doctrine — Domain 3 ↔ Domain 6 seam (lifecycle event → commerce consequence)
+
+Per Knox/chat 2026-05-17. Locked before Domain 6 lands.
+
+**Binding rule:** Appointment lifecycle (Domain 3) and commerce + entitlement (Domain 6) are SEPARATE state machines coupled via events + policy. Domain 3 emits lifecycle events; Domain 6 consumes them + applies policy.
+
+**Domain 3 owns (emits events):**
+- `appointment.scheduled_committed`
+- `appointment.checked_in`
+- `appointment.in_progress_started`
+- `appointment.completed`
+- `appointment.late_cancelled` (per LC-12 when lead-time policy violated)
+- `appointment.honored_cancelled` (per LC-12 when within lead-time)
+- `appointment.no_show_confirmed` (per LC-16)
+- `appointment.rescheduled` (per LC-18; carries original + new appointment IDs)
+- `appointment.disputed` (per LC-23)
+
+**Domain 6 consumes + decides (applies commerce/entitlement consequence per policy):**
+- Cancellation fee: charge or waive (per `cancellation_policy.late_cancel_fee_amount` + `staff_override_allowed`)
+- Deposit disposition: retain / convert-to-credit / transfer-to-rescheduled / refund / waive (per `cancellation_policy.deposit_forfeiture_policy`)
+- Entitlement disposition: forfeit benefit / preserve benefit / convert-to-credit / restore-with-staff-override (per entitlement policy + tenant rule)
+- No-show fee: charge per `cancellation_policy.no_show_fee_amount` (or % of original)
+- Account hold: create if balance unpaid + tenant policy admits hold
+- Membership benefit redemption: redeem at completed checkout AFTER validation that benefit is still active + current + not previously consumed
+
+**Binding anti-pattern:** Domain 3 lifecycle rules MUST NOT directly:
+- Charge fees (commerce action — Domain 6)
+- Retain deposits (commerce action — Domain 6)
+- Forfeit entitlements (entitlement action — Domain 6)
+- Restore entitlements (staff override — Domain 6)
+- Compute account holds (commerce state — Domain 6)
+
+Per Round 2.6 Guardrail #1: `Deposit_paid` and `Card_on_file` status_flags are DERIVED projections from commerce substrate, NEVER set by Domain 3 directly. Per Round 3.1 seam: lifecycle events trigger commerce policy evaluation; Domain 6 decides + applies.
+
+**Entitlement reservation lifecycle (binding pattern per DL-17 inv 22-23):**
+1. **Booking creates reservation** (NOT consumption): `entitlement_redemption_pending` row inserted per DL-17 inv 23. Entitlement status remains `active_redeemable`; one redemption "reserved" but not yet consumed.
+2. **Completed visit redeems** (consumption): on appointment completion + commerce_order close, `entitlement_redemption` row finalized; entitlement.redemptions_used incremented; if exhausted → entitlement.status = `fully_redeemed`.
+3. **Late-cancel / no-show may forfeit** (per policy): on `appointment.late_cancelled` or `appointment.no_show_confirmed`, Domain 6 evaluates entitlement policy:
+   - `forfeit_benefit`: redemption consumed despite no service; entitlement decremented
+   - `preserve_benefit`: reservation released; entitlement.redemptions_used NOT incremented
+   - `convert_to_account_credit`: forfeit benefit AND credit dollar value to patient's account
+   - `apply_as_discount_next`: forfeit current; flag patient_metadata for next-visit discount
+4. **Staff override / restore**: staff with capability can manually restore forfeited entitlement OR override per-tenant policy with audit (Tier 2 attestation per DL-18 inv 8).
+
+This prevents the Mindbody pattern where benefits appear consumed but services weren't actually performed (or vice versa).
+
+**Closeout validation discipline (binding per Round 3.1):**
+At checkout / closeout (Domain 6 + Domain 7), OMNI MUST revalidate before allowing redemption-as-benefit:
+- Is the membership ACTIVE + CURRENT (billing payment settled, not just attempted)?
+- Is the benefit for THIS PERIOD granted (not from previous month or future month)?
+- Has the benefit already been USED (idempotency — preventing double-redemption)?
+- Is there an ACCOUNT HOLD or unpaid balance per tenant policy?
+- Has the benefit been FORFEITED via prior late-cancel/no-show?
+
+If validation fails: front desk cannot close visit as member redemption. Resolution required: collect self-pay / update card and collect membership balance / apply approved discount-credit / manager override with reason / comp with attestation. This is the explicit anti-pattern that addresses the Mindbody workflow gap: "front desk services on the 20th + lets them walk out as member benefit without confirming June actually paid."
+
+### §2.6 Round 3.1 binding doctrine — Financial eligibility gate family extension (Amendment D extension)
+
+DL-19 inv 18 `service_policy_eligibility_gate.requirement_kind` ENUM is **registry-extensible per DL-16 inv 5**. Round 3.1 adds financial gate kinds (NOT new substrate; new ENUM values):
+
+| New requirement_kind | Meaning | Typical gate_timing default | gate_payload schema |
+|---|---|---|---|
+| `payment_method_active` | Patient has valid + non-expired payment method on file | `pre_arrival_task` (soft) for most; `booking_hard_gate` for membership services where required | `{required_method_kinds: [tokenized_card, hsa_card, ...]}` |
+| `membership_current` | Membership billing payment is settled (NOT just `member_only = TRUE`) | `pre_arrival_task` (soft warning) OR `pre_performance_gate` (block treatment) OR `booking_hard_gate` (tenant policy) | `{required_membership_tier_ids: [...], grace_period_days: 5}` |
+| `entitlement_available` | Specific period/service benefit available + within window + not already redeemed/reserved | `pre_arrival_task` (warn if missing) OR `pre_performance_gate` (block treatment without entitlement) | `{benefit_kind: 'monthly_hydrafacial', period_resolver: 'current_month', allow_reservation_only: TRUE}` |
+| `account_hold_clear` | No outstanding patient balance per tenant threshold | `booking_hard_gate` (high threshold) OR `pre_performance_gate` (treatment-time block) | `{threshold_amount: 100, exempt_for_emergency: FALSE}` |
+
+These join existing requirement_kinds (clinical_clearance / consent / intake_complete / deposit / age_verification / license_validation / prior_consult_required / substance_class_authorization / member_only / federation_permeability / medical_director_review / lab_results_review) per Amendment D.
+
+**Important distinction:** `member_only` (existing) means "patient has a membership at all" (binary). `membership_current` (NEW) means "membership billing payment is current/settled" (state-dependent). Tenants frequently need BOTH gates — `member_only` to filter who can book member-rate services + `membership_current` to ensure they can actually redeem the benefit. Domain 6 will own the binding patterns when authored.
 
 ---
 

@@ -680,6 +680,17 @@ These 3 amendments live in DL DRAFTs only (DL-19 + DL-20). Locked DL-15 / DL-16 
 
 Phase 1 hardening v5 may add additional amendments as later domains surface gaps.
 
+**Phase 1 hardening v6 (2026-05-17, post-Day 0 Scheduling Rule Matrix Round 3 Domain 3 lifecycle authoring + Round 3.1 financial seam patch) — 1 DL DRAFT amendment applied + Round 3.1 doctrine seam additions:**
+
+- **Amendment G** — DL-17 inv 24 cancellation_policy extension: 4 new columns for reschedule fee policy — `first_reschedule_fee_amount` (default NULL = no fee), `nth_reschedule_fee_amount` (fee after threshold), `reschedule_count_threshold` (per appointment chain), `staff_mediation_required_after_n_reschedules` (forces staff override after N regardless of fee). Anchored to Day 0 Scheduling Rule Matrix Domain 3 LC-19.
+
+- **Round 3.1 doctrine additions (NOT new substrate; cross-cutting discipline locks)** captured in Day 0 Scheduling Rule Matrix [index doc §2.4-2.6](designs/day_0_scheduling_rule_matrix/00_index.md):
+  - **§2.4 Same-service ≠ different-service for entitlement context** — anti-pattern: NEVER create separate services for "Member HydraFacial" / "Non-Member HydraFacial" / "June Member HydraFacial." Service is operational kind; entitlement / package / payment / membership context resolves in commerce + entitlement substrate (DL-17 inv 22-23) — NEVER in service catalog.
+  - **§2.5 Domain 3 ↔ Domain 6 seam** — Domain 3 (appointment lifecycle) emits state-transition events; Domain 6 (commerce + entitlement) consumes them + applies fee / forfeiture / restoration / refund / account-credit / deposit-disposition per cancellation_policy + entitlement policy. Domain 3 does NOT directly charge fees, forfeit entitlements, retain deposits, or compute account holds — only emits lifecycle events.
+  - **§2.6 Financial eligibility gate family extension** — DL-19 inv 18 service_policy_eligibility_gate requirement_kind ENUM extends with financial gates: `payment_method_active`, `membership_current` (active billing payment status; distinct from existing `member_only` "has membership at all"), `entitlement_available` (specific period/service benefit available + within window + not already redeemed/reserved), `account_hold_clear` (no outstanding patient balance per tenant policy). Registry-extensible per DL-16 inv 5 (not new substrate; new ENUM values).
+
+Phase 1 hardening v6 may add additional amendments as later domains surface gaps.
+
 **The reframings DL-15 explicitly rejects.**
 
 - **Rejected:** Scheduling as a Mindbody integration / Calendly clone / generic calendar widget. DL-15 is a Mindbody-class clinical-aware scheduling SUBSTRATE with multi-resource atomicity, clinical clearance gating, deposit coupling, waitlist, jurisdiction. Generic calendar tools are NOT adequate.
