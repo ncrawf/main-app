@@ -39,6 +39,22 @@ The single biggest risk: Opus reads Mindbody too literally and produces a "Mindb
 | **Hospital OR / endoscopy block scheduling** | Procedure + room + provider + anesthesiologist + MA as multi-resource bundle with prep/finish time |
 | **Mindbody** | Hard evidence base (sourced ingestion) — see "Mindbody ingestion evidence" cross-link section below |
 
+### §2.1.5 Gate-timing taxonomy (binding cross-DL doctrine per Knox 2026-05-17 Round 1.7 correction)
+
+Eligibility requirements (consent, intake, clinical clearance, age, license, jurisdiction, prior consult, substance class, member-only, federation permeability) do NOT all fire at booking commit. The substrate exposes 5 distinct timings; tenant-policy assigns each requirement to one per service.
+
+| Gate timing | What it gates | Default for |
+|---|---|---|
+| `booking_visibility` | Whether service/preset appears in patient self-booking | `service.self_bookable = FALSE` visibility decisions |
+| `booking_hard_gate` | Blocks appointment creation at booking commit | Provider license + jurisdiction; intake-first when explicitly configured; age limits without workaround |
+| `pre_arrival_task` | Created at booking; pre-arrival completion; does NOT block booking | **Intake (default for normal services)** |
+| `pre_performance_gate` | Blocks `encounter_line` creation until satisfied | **Consent (default for normal medspa services — Botox / Hydrafacial / LHR / Filler)** |
+| `closeout_documentation_gate` | Blocks closeout / attestation | Lot capture; provider signature; chart note |
+
+**Binding rule:** Consent is usually `pre_performance_gate`, NOT `booking_hard_gate`. Patient books Hydrafacial → arrives → signs consent at check-in → treatment proceeds. Conflating consent into booking gates breaks basic medspa flow.
+
+Substrate location: Domain 2 (Booking composer / availability) will model `service_policy` (DL-19 inv 18) to admit per-requirement `gate_timing` ENUM. Day 0 Domain 1 binds the TAXONOMY (TM-12 + DL-19 preamble); Domain 2 implements the substrate column as Amendment D candidate.
+
 ### §2.2 Anti-copy warnings (every rule honors)
 
 These are **forbidden patterns**. If a proposed rule produces any of these, the rule is wrong and must be redesigned:
@@ -120,7 +136,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 
 | # | Domain | File | Round | Status | Rule count Day 0 | Substrate verdicts |
 |---|---|---|---|---|---|---|
-| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Round 1 + Round 1.5 (Knox patch) + Round 1.6 (Phase 1 v3 amendments + Knox 5 refinements)** | **AUTHORED + PATCHED + AMENDMENTS APPLIED** | 30 Day 0 | 30 OK / 0 OK-with-extension / 0 NEW (all 3 amendments applied in commit ee46585) |
+| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Rounds 1 + 1.5 + 1.6 + 1.7 (Knox gate-timing correction)** | **AUTHORED + PATCHED + AMENDMENTS A/B/C APPLIED + Amendment D candidate for Domain 2** | 30 Day 0 | 29 OK / 1 OK-with-extension (TM-12 → Amendment D for Domain 2) / 0 NEW |
 | 2 | Booking composer / availability rules | (deferred) | Round 2 | NOT STARTED | — | — |
 | 3 | Appointment lifecycle rules | (deferred) | Round 3 | NOT STARTED | — | — |
 | 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — |

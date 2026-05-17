@@ -16,17 +16,28 @@
 5. **Sloppy example fixed** — TM-06 test case clarified (Botox units / filler syringes / Sculptra vials / CoolSculpting cycles / LHR areas).
 6. **Cross-app terminology** — "Cross-app evidence" → "Cross-app pattern reference (ANALOGIES for pressure-testing, NOT hard evidence)" across all 30 rules and index.
 
-**Round 1.6 — DL amendments + Knox 5 refinements (commit `ee46585` + this commit):**
+**Round 1.6 — DL amendments + Knox 5 refinements (commits `ee46585` + `d040f59`):**
 1. **DL Amendment A applied** — DL-20 inv 33 now carries `appointment.source_booking_preset_id` FK NULL.
 2. **DL Amendment B applied** — DL-19 preamble now defines `service.self_bookable` BOOLEAN + `service.planned_detail_disclosure_mode` ENUM (split + DL-15 inv 30 service substrate cross-referenced).
 3. **DL Amendment C applied** — DL-20 inv 34 now explicitly designates `planned_details.treatment_areas` canonical + `planned_treatment_areas[]` materialized projection.
 4. **Knox refinement #1 (schedulability floor)** — TM-07 binding CHECK: category-targeting presets MUST carry `default_duration_minutes` + `default_provider_eligibility_filter` (cannot be all-NULL).
 5. **Knox refinement #2 (no pricing in scheduling)** — TM-09 + TM-03 explicit anti-copy: operational defaults (duration, room, resource, provider) live on PRESET/SERVICE, NEVER on pricing_option.
-6. **Knox refinement #3 (broad-default ≠ bypass gates)** — TM-12 explicit list of downstream gates (clinical clearance, intake-first, age limits, prior consult, license, jurisdiction, substance class, member-only, federation) that fire regardless of broad-vs-specific booking path.
+6. **Knox refinement #3 (broad-default ≠ bypass gates) — INITIAL VERSION (superseded by Round 1.7).** Initial draft treated all gates as firing at booking commit, which would have broken basic medspa flow.
 7. **Knox refinement #4 (Layer 1 admits vagueness; Layers 2 + 3 are specific)** — TM-12 3-layer resolution constraint: `appointment_item` may be category-only, but `encounter_line.service_id` AND `commerce_order_line.pricing_option_id` MUST be specific at performed + charged truth.
-8. **Knox refinement #5 (Domain 1 ≠ scheduler completion)** — Index doc §6 strengthened with explicit warning about Domain 2 (composer) / Domain 6 (commerce) / Domain 7 (documentation) as the next dangerous domains.
+8. **Knox refinement #5 (Domain 1 ≠ scheduler completion)** — Index doc §6 strengthened with explicit warning.
 
-Substrate gap audit post-Round 1.6: **30 OK / 0 OK-with-extension / 0 NEW SUBSTRATE NEEDED.** All 3 DL amendments live in DRAFTs; locked DL-15 / DL-16 untouched. See [§4 Substrate gap audit](#4-substrate-gap-audit-post-phase-1-hardening-v3-amendments-applied-2026-05-17--knox-refinements-integrated).
+**Round 1.7 — Gate-timing correction + wording fix (this commit):**
+1. **Wording fix — "may always book at category level" → "may book broadly WHEN tenant exposes a self-bookable category-targeting preset"** (per Knox 2026-05-17 wording correction). Broad-default is a SUPPORTED PATTERN, not a UNIVERSAL RIGHT. Tenant decides per-category whether to expose a self-bookable broad affordance. Applied to TM-12 + DL-19 preamble.
+2. **Gate-timing model (replaces overly-aggressive Round 1.6 refinement #3) — 5 distinct gate timings:**
+   - `booking_visibility` — controls whether service appears in self-booking
+   - `booking_hard_gate` — blocks appointment creation (license, jurisdiction, intake-first when configured)
+   - `pre_arrival_task` — task created at booking; pre-arrival completion; does NOT block booking (intake form for normal medspa)
+   - `pre_performance_gate` — blocks `encounter_line` creation until satisfied (**consent for normal medspa services — Botox / Hydrafacial / LHR / Filler all default here**)
+   - `closeout_documentation_gate` — blocks closeout (lot capture, attestation, chart note)
+3. **Binding rule:** Consent is usually `pre_performance_gate`, NOT `booking_hard_gate`. Patient books Hydrafacial → arrives → signs consent at check-in → treatment proceeds. Consent NEVER blocks booking unless tenant explicitly upgrades the service.
+4. **Amendment D candidate (DEFERRED to Domain 2 round):** DL-19 inv 18 `service_policy` will gain per-requirement `gate_timing` ENUM. Day 0 Domain 1 binds the TAXONOMY; Domain 2 implements the substrate column.
+
+Substrate gap audit post-Round 1.7: **29 OK / 1 OK-with-extension (TM-12 carries Amendment D candidate for Domain 2) / 0 NEW SUBSTRATE NEEDED.** All 3 DL amendments live in DRAFTs; locked DL-15 / DL-16 untouched. See [§4 Substrate gap audit](#4-substrate-gap-audit-post-phase-1-hardening-v3-amendments-applied-2026-05-17--knox-refinements-integrated).
 
 ---
 
@@ -632,7 +643,7 @@ Two options:
 
 ## Section C — Broad-default booking semantics
 
-### Rule TM-12: Broad-default booking goes through a category-targeting booking_preset (NOT raw service_category) — preserves TM-01 taxonomy purity
+### Rule TM-12: Broad-default booking goes through a tenant-exposed self-bookable category-targeting booking_preset (NOT raw service_category) — preserves TM-01 taxonomy purity + respects gate timing
 
 **Phase:** DAY_0
 
@@ -643,22 +654,40 @@ Two options:
    - **Restaurant reservations (OpenTable)** — Reserve a table for 4 at 7pm; menu choices happen AT the restaurant. Note: even OpenTable doesn't book a patient against the raw category "Italian Restaurants" — it books a specific RESTAURANT. The taxonomy stays taxonomy; the reservation goes through a discrete affordance.
    - **Calendly "round robin" event** — Patient picks an event type ("30-min Consult") which targets a TEAM (taxonomy concept); the event template carries operational defaults (duration / provider rotation rule); patient never books against a raw "team" object.
    - **Hotel category booking (Booking.com / Airbnb)** — Patient picks a property listing (the affordance carrying price / amenities / availability), not a raw category like "Beach Resorts."
-3. **Underlying tenant need:** Patients often don't know specifics at booking time. The tenant must let them book at a broad level ("Injectables Visit" / "Provider Consult" / "Botox Touch-Up Generic"). BUT the broad affordance must carry operational defaults (duration, provider eligibility filter, default planned_details, resource requirements) — somewhere. Per TM-01 service_category is pure taxonomy (no operational semantics). Therefore the operational defaults live on a `booking_preset` that targets the category.
-4. **OMNI generic primitive / rule:** Broad-default booking is the canonical path AND it goes through a `booking_preset` whose `target_service_category_id` is populated (per TM-07 / TM-08 pattern, but with category target instead of service target). The preset carries default_duration_minutes / default_provider_eligibility_filter / default_resource_requirement / default_planned_details. Materialization writes `appointment_item.planned_service_category_id = X`, `planned_service_id = NULL`, `linked_booking_preset_id = preset.id`. Service_category stays pure taxonomy — composer reads PRESET defaults, not category. (Raw category booking without a preset is a degenerate fallback for staff edge cases; see Decision logic.)
-5. **Divergence / improvement vs Mindbody:** Mindbody can't broad-book at all. OMNI's category-targeting booking_preset is the canonical broad-default affordance. The PRESET is what carries operational defaults; the CATEGORY remains a pure organizational concept. **This rule explicitly fixes the prior draft contradiction where category was implicitly carrying operational requirements.**
-6. **Anti-copy warning:** Do NOT put `default_duration` / `default_provider_eligibility_filter` / `default_resource_requirement` on `service_category` substrate. Service_category remains taxonomy per TM-01. Operational defaults live on the `booking_preset` that targets the category. Do NOT add a `service_category.self_bookable` BOOLEAN — visibility filtering is `booking_preset.visible_in_self_booking` (TM-16). Do NOT read service_category for axis requirements at booking — composer reads PRESET defaults. **Do NOT interpret "broad-default" as "skip clinical / compliance / eligibility gates" (Knox 2026-05-17 refinement #3).** Broad-default means SIMPLE UX, not BYPASSED GATES — see Decision logic #10 below for the explicit boundary.
+3. **Underlying tenant need:** Patients often don't know specifics at booking time. The tenant must let them book at a broad level ("Injectables Visit" / "Provider Consult" / "Botox Touch-Up Generic") — WHEN the tenant has decided to expose that broad affordance. Some categories should NOT be self-bookable broadly (controlled medications, certain HRT flows, surgical consults, post-op issues, pediatric/minor cases, anything requiring prior intake/labs/provider review). The broad affordance, where exposed, must carry operational defaults somewhere — per TM-01 service_category is pure taxonomy (no operational semantics), so defaults live on a `booking_preset` that targets the category.
+4. **OMNI generic primitive / rule:** Broad-default booking is a SUPPORTED PATTERN (not a UNIVERSAL RIGHT — per Knox 2026-05-17 wording correction). When and only when the tenant exposes a self-bookable category-targeting `booking_preset` (`target_service_category_id` populated AND `visible_in_self_booking = TRUE`), patients may broad-book at that category. The preset carries default_duration_minutes / default_provider_eligibility_filter / default_resource_requirement / default_planned_details. Materialization writes `appointment_item.planned_service_category_id = X`, `planned_service_id = NULL`, `linked_booking_preset_id = preset.id`. Service_category stays pure taxonomy — composer reads PRESET defaults, not category. (Raw category booking without a preset is a degenerate fallback for staff edge cases; see Decision logic.)
+5. **Divergence / improvement vs Mindbody:** Mindbody can't broad-book at all. OMNI's category-targeting booking_preset is the canonical broad-default affordance when tenant exposes it. The PRESET is what carries operational defaults; the CATEGORY remains a pure organizational concept. Tenant decides per-category whether to expose a self-bookable broad-affordance OR keep it staff-mediated. **This rule explicitly fixes both the prior draft contradiction (category implicitly carrying operational requirements) AND the over-broad "may always book at category level" wording.**
+6. **Anti-copy warning:** Do NOT put `default_duration` / `default_provider_eligibility_filter` / `default_resource_requirement` on `service_category` substrate. Service_category remains taxonomy per TM-01. Operational defaults live on the `booking_preset` that targets the category. Do NOT add a `service_category.self_bookable` BOOLEAN — visibility filtering is `booking_preset.visible_in_self_booking` (TM-16). Do NOT read service_category for axis requirements at booking — composer reads PRESET defaults. Do NOT claim "broad-default" is a universal right — it is a SUPPORTED PATTERN that requires tenant-exposed self-bookable preset. **Do NOT collapse all eligibility / intake / consent / clinical-clearance / license requirements into "booking gates" (Knox 2026-05-17 critical correction — would break basic medspa flow where patient books Hydrafacial online and signs consent at check-in, not before booking).** Gate timing is fine-grained — see refinement #3 below for the binding 5-timing model.
 
-**Knox 2026-05-17 refinement #3 — broad-default booking does NOT bypass clinical / compliance / eligibility gates.** Even when a patient broad-books through a category-targeting preset, downstream gates evaluated by Domain 2 (booking composer / availability) still apply:
-- Clinical clearance gating per DL-15 inv 10
-- Intake-first programs (e.g., GLP-1 requires intake completed before booking) per DL-19 inv 18 `service_policy.requires_intake_complete`
-- Age limits (e.g., Botox ≥ 18; HRT ≥ 18; Sculptra ≥ 18; controlled substances)
-- Prior consult requirements (e.g., new patient peptide booking requires prior provider consult)
-- Provider license / jurisdiction gating per DL-15 amendment + Build Contract §3.7 patch 1
-- Substance class restrictions (controlled meds per DL-18 inv 6 capability flags)
-- Membership-only services (per `pricing_option.member_only` per DL-17 inv 14)
-- Federation permeability per DL-21 (cross-LE bookings)
+**Knox 2026-05-17 refinement #3 — gate-timing model (REPLACES the over-aggressive "all gates fire at booking" wording from prior draft).** Critical correction: **consent is usually a PRE-PERFORMANCE gate, NOT a pre-booking gate.** The earlier draft language implied all eligibility / intake / consent / clinical-clearance / license requirements fire at booking commit time. That would break basic medspa flow — a patient books Hydrafacial online, arrives, completes consent at check-in, then receives treatment. Consent gates THE TREATMENT, not the BOOKING.
 
-These gates are evaluated AT BOOKING COMMIT TIME by Domain 2 rules (not Domain 1). The category-targeting preset MAY carry a default `requires_intake_complete` flag for category-level gates (TM-12 deferred to Domain 2 for exact mechanism — could be preset-level field or category-policy substrate). Broad-default booking simplifies the PATIENT UX (one click to book Injectables); it does NOT simplify the SERVER VALIDATION (gates still fire).
+Eligibility requirements fire at DIFFERENT TIMINGS in the appointment lifecycle. The substrate exposes 5 timings; tenant-policy assigns each requirement to one of them per service.
+
+**The 5 gate timings (binding cross-DL doctrine; mirrored in DL-19 preamble post-Knox patch):**
+
+| Gate timing | What it gates | Examples | Default for these requirements |
+|---|---|---|---|
+| **`booking_visibility`** | Whether service/preset appears in patient self-booking surface | `service.self_bookable = FALSE`; staff-only categories hidden from patient portal | Visibility decisions — not requirement-driven |
+| **`booking_hard_gate`** | Blocks appointment creation at booking commit | Intake-first programs (Hims-style GLP-1 requires intake submitted before scheduling); no licensed provider available for service + jurisdiction; age/guardian impossibility for substance class; explicit tenant-policy "consent-before-booking" services (rare — e.g., new-patient surgical consent packet) | Provider license + jurisdiction; intake-first when explicitly configured; age limits with no workaround |
+| **`pre_arrival_task`** | Task created at booking; must complete before arrival but does NOT block booking | Intake form for medspa visit; pre-treatment instructions; medical history update | **Intake (default for normal services)**; pre-visit instructions |
+| **`pre_performance_gate`** | Blocks `encounter_line` creation (actual performed treatment) until satisfied | Botox consent before injection; LHR consent before laser; procedure consent before surgical/endoscopic procedure; medical history update required to authorize treatment | **Consent (default for normal medspa services)** — patient books Hydrafacial → arrives → completes consent at check-in → treatment proceeds. If consent missing at check-in, treatment is blocked but appointment + arrival are preserved. |
+| **`closeout_documentation_gate`** | Blocks commerce_order closeout OR provider attestation OR encounter_line completion until satisfied | Lot / expiration / units / treatment_areas captured for injectable performed_line; provider signature attestation; required procedure note; required imaging captured | Lot capture; attestation; chart note |
+
+**Binding rule:** Consent is usually `pre_performance_gate`, NOT `booking_hard_gate`. Tenant-policy may upgrade specific services to `booking_hard_gate` (e.g., new-patient surgical consent packet) BUT this is an explicit tenant decision per-service, NOT a substrate default.
+
+**Worked examples (per Knox 2026-05-17):**
+
+| Service | Booking visibility | Booking hard gate | Pre-arrival task | Pre-performance gate | Closeout/doc gate |
+|---|---|---|---|---|---|
+| Hydrafacial | tenant exposes preset | none | intake form (if required) | consent before treatment | provider note |
+| Botox / Filler | tenant exposes preset | none | intake form | consent before injection | lot / units / areas + attestation |
+| LHR | tenant exposes preset | none | intake form | LHR consent before laser | provider note |
+| GLP-1 / HRT async (Hims-style) | tenant exposes preset OR staff-only | **intake-first → booking_hard_gate** | n/a (intake done pre-booking) | Rx prescribing requires intake review | provider attestation; Rx documentation |
+| Surgery / GI endoscopy | consult preset self-bookable; procedure self-bookable = FALSE | consult: none; procedure: pre-procedure consent may be required pre-booking depending on tenant policy | intake for consult | procedure consent before procedure (always pre-performance) | procedure note + pathology linkage |
+
+**Substrate location of gate_timing:** Domain 2 (Booking composer / availability) will model `service_policy` (DL-19 inv 18) to admit per-requirement `gate_timing` ENUM (with values matching the 5 timings above). Day 0 Domain 1 binds the TAXONOMY in this rule; Domain 2 implements the substrate column. **Flagged as Amendment D candidate** for the Domain 2 round.
+
+**What DOES still apply at booking commit (refinement #3 narrowed):** Only the gates marked `booking_hard_gate` in tenant configuration. By default this is a small set: license/jurisdiction + intake-first when explicitly configured + age/guardian when there's no workaround. The rest (consent, most intake, most clinical clearance, most prior-consult) fires DOWNSTREAM in the lifecycle (pre-arrival / pre-performance / closeout). Broad-default booking simplifies the PATIENT UX (one click to book Injectables); the gate-timing model ensures it does NOT bypass requirements — but routes each to its correct firing point.
 
 **Knox 2026-05-17 refinement #4 — category-level planned item must resolve to SPECIFIC at performed/charged truth.** Per the 3-layer pattern:
 - Layer 1 (planned): `appointment_item.planned_service_category_id` populated, `planned_service_id` NULL is VALID and EXPECTED for broad-default booking.
@@ -676,7 +705,7 @@ These gates are evaluated AT BOOKING COMMIT TIME by Domain 2 rules (not Domain 1
 10. **Decision logic:**
     - Resolve preset → read `target_service_category_id` + `default_duration_minutes` + `default_provider_eligibility_filter` + `default_resource_requirement` + `default_planned_details`.
     - **Schedulability floor validation per TM-07 refinement #1:** preset MUST have non-null `default_duration_minutes` AND `default_provider_eligibility_filter`. If either is NULL, REJECT at admin save (not at booking — booking surface only sees valid presets).
-    - **Downstream gates fire (refinement #3):** before booking commits, Domain 2 (booking composer / availability) evaluates: clinical_clearance gates per DL-15 inv 10 / intake-first per DL-19 inv 18 service_policy / age limits / prior consult requirements / provider license + jurisdiction per DL-15 amendment / substance class per DL-18 inv 6 / member-only per DL-17 inv 14 / federation permeability per DL-21. Broad-default presets do NOT short-circuit these — they still fire. Domain 2 will codify exact mechanism; Domain 1 enforces that the broad path admits the same gate-evaluation surface as the specific path.
+    - **Gate timing applies (refinement #3 — REVISED per Knox 2026-05-17 critical correction):** at booking commit, only `booking_hard_gate` requirements fire — NOT all requirements. By default this is a SMALL set: provider license + jurisdiction; intake-first when tenant explicitly configures the service this way (e.g., GLP-1 Hims-style); age/guardian when there's no workaround; tenant-configured "consent-before-booking" rarely. Most requirements fire DOWNSTREAM per the 5-timing model: consent → `pre_performance_gate` (at check-in / before treatment); standard intake → `pre_arrival_task` (created at booking, completed pre-arrival, does not block booking); lot capture + attestation + chart note → `closeout_documentation_gate`. Domain 1 enforces the TAXONOMY; Domain 2 implements the per-service `service_policy.gate_timing` ENUM (Amendment D candidate). Broad-default presets do NOT bypass requirements — they route each requirement to its correct firing point.
     - Run 4-axis booking composer per DL-15 inv 30 using PRESET defaults (NOT category-derived requirements):
       - Capacity axis: 1 (default for appointment-shape preset) unless preset specifies.
       - Staff axis: provider eligibility resolved per `preset.default_provider_eligibility_filter` (tenant-defined; e.g., "any injector" / "any MD" / specific staff group).
@@ -698,11 +727,14 @@ These gates are evaluated AT BOOKING COMMIT TIME by Domain 2 rules (not Domain 1
     - Preferences locked §1 "Broad-default booking; rich is opt-in"
     - User verbatim quote (Knox session 2)
     - TM-01 (taxonomy-only service_category — this rule preserves TM-01 by routing operational defaults through preset)
-17. **Test case (3-layer walk):** Tenant creates booking_preset "Injectables Visit" with `target_service_category_id = injectables_category.id`, `default_duration_minutes = 60`, `default_provider_eligibility_filter = 'any_injector'`, `default_planned_details = {}`, `visible_in_self_booking = TRUE`. Tenant also creates more-specific preset "GLP-1 Consult" targeting weight_loss_category with `requires_intake_complete = TRUE` (configured downstream in Domain 2).
-- **Layer 1 (planned):** Sarah self-books "Injectables Visit" at 2pm Tuesday. Schedulability floor passes (preset has duration + provider filter). Downstream gates fire — clinical clearance check OK (no contraindications). Composer finds an injector available (any of 3 eligible). `appointment` row inserted with `source_booking_preset_id = preset.id`; `appointment_item` row inserted with `planned_service_category_id = injectables_category.id`, `planned_service_id = NULL`, `linked_booking_preset_id = preset.id`, `planned_details = {}`. Schedule shows "Injectables Visit — Sarah" at 2pm (per TM-14 projection of preset.display_label).
-- **Layer 2 (performed):** At visit, provider Sarah Sees decides patient wants Botox 24u after consult. Encounter created (DL-20 inv 35); `encounter_line` inserted with `linked_appointment_item_id = X`, `service_id = neuromodulator_service.id` (SPECIFIC — refinement #4 — Layer 2 always concretizes), `performed_payload = {product: 'Botox', units: 24, treatment_areas: ['glabella', 'crows_feet']}`, `provider_id = sarah_sees.id`, `attestation_id = X`.
-- **Layer 3 (charged):** Sale closes. `commerce_order_line.line_kind = service`, `pricing_option_id = neuromodulator_per_unit.id` (SPECIFIC tier — refinement #4), `quantity = 24`, `unit_price = 14`, `total = 336`. Service-line linked back to encounter_line via `encounter_line.linked_commerce_order_line_id`.
-- Result: category remained pure taxonomy at Layer 1 (preserves broad-default intent audit); encounter + commerce specifics at Layers 2 + 3 (preserves clinical + financial truth). Same patient could alternatively book "GLP-1 Consult" preset → downstream gate (`requires_intake_complete`) fires; if intake incomplete, booking REJECTED with redirect to intake flow. Broad-default UX, full gate evaluation.
+17. **Test case (3-layer walk + 5-timing gate walk):** Tenant creates booking_preset "Injectables Visit" with `target_service_category_id = injectables_category.id`, `default_duration_minutes = 60`, `default_provider_eligibility_filter = 'any_injector'`, `default_planned_details = {}`, `visible_in_self_booking = TRUE`. Tenant also creates "GLP-1 Consult" preset targeting weight_loss_category with the underlying service marked intake-first (Domain 2 will set `service_policy.gate_timing` for intake to `booking_hard_gate` per Amendment D).
+- **Booking time (Sarah books "Injectables Visit"):** Schedulability floor passes (preset has duration + provider filter). At booking commit, ONLY `booking_hard_gate` requirements evaluated — provider license + jurisdiction valid; no intake-first configured for Injectables. Sarah does NOT sign consent here. Sarah does NOT need to complete intake here (intake is `pre_arrival_task` for normal medspa services). Booking succeeds. `appointment` row inserted with `source_booking_preset_id = preset.id`; `appointment_item` row inserted with `planned_service_category_id = injectables_category.id`, `planned_service_id = NULL`, `linked_booking_preset_id = preset.id`, `planned_details = {}`. Schedule shows "Injectables Visit — Sarah" at 2pm (per TM-14 projection).
+- **Pre-arrival window:** CNS sends intake form (`pre_arrival_task`); Sarah completes it 2 days before visit. Booking remains active regardless of completion (per refinement #3).
+- **Check-in (Sarah arrives at 1:55pm):** Front desk verifies intake complete; presents Neuromodulator consent on tablet for Sarah's signature (`pre_performance_gate`). Sarah signs.
+- **Layer 2 (performed):** Provider Sarah Sees consults; patient wants Botox 24u. `encounter_line` insert succeeds because consent satisfied. `encounter_line` carries `linked_appointment_item_id = X`, `service_id = neuromodulator_service.id` (SPECIFIC — refinement #4), `performed_payload = {product: 'Botox', units: 24, treatment_areas: ['glabella', 'crows_feet']}`, `provider_id = sarah_sees.id`.
+- **Closeout:** Provider attests (`closeout_documentation_gate` — attestation captured); lot/expiration recorded on performed_payload; chart note written. `commerce_order_line.line_kind = service`, `pricing_option_id = neuromodulator_per_unit.id` (SPECIFIC tier — refinement #4), `quantity = 24`, `unit_price = 14`, `total = 336`.
+- **Contrast — Sarah's friend Patrick tries "GLP-1 Consult":** Patrick has not submitted intake yet. Tenant has configured `service_policy.gate_timing` for intake on the underlying GLP-1 service to `booking_hard_gate`. Booking RPC rejects with patient-facing redirect: "Please complete our medical intake before scheduling. [Start intake →]". Patrick completes intake (15min) → booking now succeeds. Single-service tenant policy on intake gating; not a Domain 1 hardcoded rule.
+- **Result:** Sarah's broad-default booking went through cleanly without bypassing requirements; each requirement fired at its correct timing per the 5-timing model. Patrick's intake-first service correctly enforced `booking_hard_gate`. Category remained pure taxonomy at Layer 1; encounter + commerce specifics at Layers 2 + 3. Consent was a `pre_performance_gate` for Sarah's Hydrafacial-class flow; `booking_hard_gate` would have been wrong default.
 
 ---
 
@@ -1393,7 +1425,7 @@ Aggregated substrate pressure-test verdicts across all 30 Day 0 rules. **Status:
 | TM-09 | OK | Hierarchical drill-down booking_preset — DL-19 inv 19 parent_preset_id + Knox refinement #2 (operational defaults on preset/service, NOT pricing_option) |
 | TM-10 | OK (Amendment A applied) | Combo bundle booking_preset — `appointment.source_booking_preset_id` FK NULL added to DL-20 inv 33 in commit ee46585 |
 | TM-11 | OK | booking_preset.default_planned_details — DL-19 inv 19 |
-| TM-12 | OK | Broad-default via category-targeting preset — DL-19 inv 19 + DL-20 inv 34 + Knox refinement #3 (gates fire downstream) + refinement #4 (encounter resolves to specific) |
+| TM-12 | **OK with extension (Amendment D candidate — DEFERRED to Domain 2)** | Broad-default via tenant-exposed category-targeting preset — DL-19 inv 19 + DL-20 inv 34 + Knox refinement #3 REVISED (gate-timing model, 5 timings; consent is pre-performance not pre-booking) + refinement #4 (encounter resolves to specific). Amendment D candidate: DL-19 inv 18 `service_policy` will gain per-requirement `gate_timing` ENUM. Day 0 Domain 1 binds TAXONOMY; Domain 2 implements substrate column. |
 | TM-13 | OK | Clean patient-facing label — UI projection per DL-16 inv 3 |
 | TM-14 | OK (Amendment A applied) | Schedule projection reads `appointment.source_booking_preset_id` (Amendment A live in DL-20 inv 33) |
 | TM-15 | OK (Amendment B applied) | `service.self_bookable` BOOLEAN + `service.planned_detail_disclosure_mode` ENUM — split live in DL-19 preamble per commit ee46585 |
@@ -1413,21 +1445,24 @@ Aggregated substrate pressure-test verdicts across all 30 Day 0 rules. **Status:
 | TM-29 | OK | No vendor names in substrate — Cross-DL warning enforcement |
 | TM-30 | OK | "Visit type" projection — TM-14 |
 
-### Substrate gap audit summary (post Phase 1 hardening v3 amendments applied + Knox refinements integrated)
+### Substrate gap audit summary (post Phase 1 hardening v3 amendments + Knox 5 refinements + Round 1.7 gate-timing correction)
 
 - **Total Day 0 rules:** 30
-- **OK:** **30 rules** (all 30 — amendments applied; refinements integrated)
-- **OK with extension:** 0 rules
+- **OK:** **29 rules** (no extension)
+- **OK with extension:** **1 rule** (TM-12 — carries Amendment D candidate for Domain 2: `service_policy.gate_timing` ENUM per-requirement)
 - **NEW SUBSTRATE NEEDED:** 0 rules
 
-Knox's 5 refinements (2026-05-17 post-amendment) integrated into rules:
+Knox's refinements (2026-05-17 post-amendment + Round 1.7 correction) integrated into rules:
 - Refinement #1 (schedulability floor on category-targeting presets) → TM-07 binding CHECK at admin write
 - Refinement #2 (pricing must not sneak into scheduling) → TM-03 anti-copy + TM-09 explicit "operational defaults on preset/service, NOT pricing_option"
-- Refinement #3 (broad-default does NOT bypass gates) → TM-12 explicit gate evaluation at booking commit (deferred to Domain 2 mechanism but acknowledged in Domain 1)
+- Refinement #3 REVISED Round 1.7 (gate-timing model, NOT "all gates at booking") → TM-12 binds 5-timing taxonomy; consent default is `pre_performance_gate` not `booking_hard_gate`; Domain 2 implements per-service `gate_timing` ENUM as Amendment D
 - Refinement #4 (category-level planned must resolve to specific at performed/charged) → TM-12 3-layer constraint; encounter_line.service_id NOT NULL per DL-20 inv 12
 - Refinement #5 (Domain 1 ≠ scheduler completion) → index doc §6 stronger warning
+- Round 1.7 wording fix → broad-default booking is SUPPORTED PATTERN not UNIVERSAL RIGHT; requires tenant-exposed self-bookable category-targeting preset
 
-Doctrine held under both the original 30-rule pressure-test AND Knox's 5-refinement deeper review. Domain 1 is now **substrate-slice-ready for treatment-menu / visit-type concerns** — but per refinement #5, this does NOT generalize to scheduler-wide readiness. Domains 2-7 still need full pressure-testing.
+Doctrine held under: original 30-rule pressure-test (Round 1) + Knox's patch review (Round 1.5) + Knox's 5-refinement review (Round 1.6) + Knox's gate-timing correction (Round 1.7). The Round 1.7 correction is critical — the prior draft would have broken normal medspa flow (consent treated as booking blocker). Patient books Hydrafacial → arrives → signs consent → treats: this flow is now substrate-correct.
+
+Domain 1 is **substrate-slice-ready for treatment-menu / visit-type concerns ONLY** — per refinement #5, this does NOT generalize to scheduler-wide readiness. Domain 2 is the next dangerous domain AND must implement Amendment D (`service_policy.gate_timing` ENUM).
 
 ### DL amendment notes (3 amendments — ALL APPLIED in commit `ee46585` per Phase 1 hardening v3 2026-05-17)
 
