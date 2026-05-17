@@ -495,7 +495,7 @@ Domain 6 (Checkout / commerce / entitlement) MUST address the following at Round
 **K. Benefit stacking + conflict resolution compliance** (per Round 3.4 §2.13):
 - Default to ANTI-DOUBLE-DIPPING — Round 3.4 7 default stacking rules locked
 - 6 substrate fields per benefit (combinable_with_other_benefits / exclusive_group / stacking_priority / conflict_resolution_strategy / staff_override_allowed / patient_visible_attribution)
-- Conflict resolution strategies (6 ENUM values: best_value_wins / highest_priority_wins / first_expiring_wins / package_redemption_wins / manual_staff_review / tenant_defined_order)
+- Conflict resolution strategies (7 ENUM values per Round 3.4.5 patch: best_value_wins / highest_priority_wins / first_expiring_wins / package_redemption_wins / manual_staff_review / tenant_defined_order / allow_stack)
 - Tenant configuration via policy profiles (medspa_anti_double_dip / aggressive_loyalty / payment_only_credits / manual_staff_resolution / tenant_custom), NOT toggle-soup
 - Package + membership_discount on same line: DO NOT COMBINE by default (rule 2)
 - Multiple memberships with overlapping eligibility: best_value_wins from exclusive_group (rule 1)
@@ -513,7 +513,7 @@ Domain 6 authoring decides shape; flagged here for Round 6 evaluation.
 - `combinable_with_other_benefits` BOOLEAN
 - `exclusive_group` STRING NULL (benefits in same group resolve to one winner)
 - `stacking_priority` NUMERIC
-- `conflict_resolution_strategy` ENUM (6 values: best_value_wins / highest_priority_wins / first_expiring_wins / package_redemption_wins / manual_staff_review / tenant_defined_order)
+- `conflict_resolution_strategy` ENUM (7 values per Round 3.4.5: best_value_wins / highest_priority_wins / first_expiring_wins / package_redemption_wins / manual_staff_review / tenant_defined_order / allow_stack)
 - `staff_override_allowed` BOOLEAN
 - `patient_visible_attribution` BOOLEAN
 
@@ -756,7 +756,7 @@ Each benefit row (entitlement / discount_program / promo_code / pricing_override
 | `combinable_with_other_benefits` | BOOLEAN | Default FALSE for memberships + packages; default per-substrate for others |
 | `exclusive_group` | STRING NULL | Benefits in same exclusive_group cannot co-apply (e.g., all 15% skincare discounts share group `retail_pct_15`) |
 | `stacking_priority` | NUMERIC | Higher = applied first when stacking allowed; ties broken by savings_amount DESC then valid_to ASC |
-| `conflict_resolution_strategy` | ENUM | `best_value_wins` (default) / `highest_priority_wins` / `first_expiring_wins` / `package_redemption_wins` / `manual_staff_review` / `tenant_defined_order` |
+| `conflict_resolution_strategy` | ENUM | `best_value_wins` (default) / `highest_priority_wins` / `first_expiring_wins` / `package_redemption_wins` / `manual_staff_review` / `tenant_defined_order` / `allow_stack` |
 | `staff_override_allowed` | BOOLEAN | If TRUE + Tier 2 attestation per DL-18 inv 8, staff may force-apply / force-skip |
 | `patient_visible_attribution` | BOOLEAN | If TRUE (default), patient sees on receipt; if FALSE, staff-only attribution |
 
@@ -793,7 +793,7 @@ For each cart_line:
   return per_line_attribution + uncovered_balance + non_applied_eligible_benefits
 ```
 
-**Conflict resolution strategies (per `conflict_resolution_strategy` ENUM):**
+**Conflict resolution strategies (per `conflict_resolution_strategy` ENUM, 7 values):**
 
 - `best_value_wins` (DEFAULT) — apply benefit with highest savings_amount on this line; ties broken by valid_to ASC then purchased_at ASC
 - `highest_priority_wins` — apply benefit with highest `stacking_priority`; ties broken per default tie-break
@@ -801,6 +801,9 @@ For each cart_line:
 - `package_redemption_wins` — package entitlement always wins over membership/promo on same line (matches default rule 2)
 - `manual_staff_review` — substrate emits `cart.benefit_conflict_pending_staff_review` event; cart cannot finalize until staff resolves
 - `tenant_defined_order` — tenant configures explicit ordered list of benefit kinds; resolves per list
+- `allow_stack` — explicit override: benefits in this exclusive_group STACK rather than resolving to one winner; preserves grouping semantic for attribution while permitting cumulative application. Used when tenant wants exclusive_group for visibility/grouping/category purposes but specifically allows stacking (e.g., "loyalty tier discount" group + "anniversary bonus" group within "marketing_pct" exclusive_group, both stackable per tenant offer design)
+
+**`allow_stack` vs `combinable_with_other_benefits=TRUE`:** Distinction is intentional. `combinable_with_other_benefits=TRUE` means a benefit can stack with benefits in OTHER exclusive_groups. `allow_stack` (set on the exclusive_group itself via the conflict_resolution_strategy of its members) means benefits WITHIN the same exclusive_group stack rather than conflicting. A benefit can be both `combinable_with_other_benefits=TRUE` (stacks across groups) and in an `allow_stack` exclusive_group (stacks within group) — both pass.
 
 **Tenant configuration via policy profiles (binding UX guidance, not toggle-soup):**
 
