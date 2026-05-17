@@ -137,7 +137,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 | # | Domain | File | Round | Status | Rule count Day 0 | Substrate verdicts |
 |---|---|---|---|---|---|---|
 | 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Rounds 1 + 1.5 + 1.6 + 1.7 (Knox gate-timing correction)** | **AUTHORED + PATCHED + AMENDMENTS A/B/C APPLIED + Amendment D candidate for Domain 2** | 30 Day 0 | 29 OK / 1 OK-with-extension (TM-12 → Amendment D for Domain 2) / 0 NEW |
-| 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + Round 2.5 (Amendments D + E + F applied)** | **AUTHORED + PATCHED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW |
+| 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + 2.5 + 2.6 (Amendments D + E + F applied; dual-target routing guardrail; Round 3 pre-flight guardrails locked)** | **AUTHORED + PATCHED + GUARDED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW |
 | 3 | Appointment lifecycle rules | (deferred) | Round 3 | NOT STARTED | — | — |
 | 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — |
 | 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — |
@@ -147,13 +147,66 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 
 **Round cadence:** one domain per round. After each domain lands, STOP and report substrate gap audit + open decisions. User + Knox review BEFORE the next round starts. Final round walks 10 named scenarios end-to-end across all 7 domains to verify no gap.
 
-**IMPORTANT — Domain 1 completion is NOT scheduler completion (Knox 2026-05-17 refinement #5):** Domain 1 solves treatment-menu / visit-type rules ONLY. It does NOT solve availability, lifecycle, confirmation, encounter creation, checkout, or documentation. Substrate that "holds" for Domain 1 has only been pressure-tested against catalog / menu / visit-type / preset / broad-default concerns. The next dangerous domains are:
+**IMPORTANT — Domain 1 + 2 completion is NOT scheduler completion (Knox 2026-05-17 refinements + Round 2.6 chat review):** Domain 1 solves treatment-menu / visit-type rules. Domain 2 solves booking composer / availability / provider routing. Combined, they cover catalog + booking composition + axis atomicity + gate timing + provider routing — but NOT lifecycle, confirmation, encounter creation, checkout, or documentation. Substrate "holds" only against the concerns pressure-tested so far. The remaining dangerous domains:
 
-- **Domain 2 (Booking composer / availability)** — provider eligibility, rooms, resources, double-booking, add-ons, multi-item visits, jurisdiction, intake-first gates, age limits, clinical clearance, license validation. THIS is where the 4-axis composer (DL-15 inv 30) gets stress-tested against real workflows.
+- **Domain 3 (Appointment lifecycle rules)** — 13-state lifecycle + status_flags + reschedule/no-show/waitlist. See **Round 3 binding guardrails §2.3 below**.
+- **Domain 4 (Confirmation / outbound round-trip rules)** — CNS round-trip per DL-20 inv 40; AI classifies, deterministic rules + staff decide.
+- **Domain 5 (Encounter creation rules)** — owns scheduled-first / walk-in / async / ad-hoc-video / message-escalation / lab-review-initiated encounter paths + provider routing target #2 (async provider queue per Round 2.6 guardrail).
 - **Domain 6 (Commerce / entitlement)** — packages, memberships, promos, deposits, refunds, commission, checkout, entitlement redemption priority. Mindbody-era workarounds (treatment deposit as $0 pricing option / cancellation policy as $0 pricing option / 7-tier Botox) all collapse here.
 - **Domain 7 (Documentation / evidence)** — "booked Botox, performed Xeomin + Kysse with barcode/lot/expiration" — this is where 3-layer pattern proves itself OR breaks. Lot capture, attestation tiers, encounter immutability, partner imaging device naming, intake/consent/clinical media unified substrate.
 
-Each of these may surface new substrate gaps. Treating "Domain 1 holds" as "scheduler holds" would be premature; flagged here for every subsequent round.
+Each may surface new substrate gaps. Treating "Domain 1+2 holds" as "scheduler holds" would be premature.
+
+### §2.3 Round 3 binding guardrails (Knox/chat 2026-05-17 Round 2.6 review)
+
+Before Round 3 (Domain 3 — Appointment lifecycle rules) starts, two cross-cutting guardrails are locked to prevent Domain 3 from becoming a junk drawer.
+
+#### Guardrail #1 — status_flags BITMASK are DERIVED indicators, NOT canonical truth owners
+
+Per DL-15 amendment 29 (16-flag status_flags BITMASK), the appointment carries `status_flags` orthogonal to lifecycle state. **Round 2.6 binding clarification (anti-junk-drawer):** status_flags are **MATERIALIZED PROJECTIONS per DL-16 inv 3 category e** of truth that lives in DOMAIN-OWNING substrates. status_flags is a fast query/display surface; it is NOT the source of truth for any flag.
+
+Canonical truth lives elsewhere per this binding mapping:
+
+| status_flag | Canonical truth lives in | Domain owner |
+|---|---|---|
+| `Confirmed` | `appointment.confirmation_state = 'confirmed'` (DL-20 inv 33; patient-acknowledged per DL-15 amendment 8) | Domain 4 (confirmation round-trip) |
+| `Arrived` | Domain 3 lifecycle state transition `scheduled → checked_in` event | Domain 3 (appointment lifecycle) — owned |
+| `Forms_complete` | `care_episode_task(task_kind='intake_complete').status = 'complete'` OR `intake_session.status = 'submitted'` (DL-22) | Domain 7 (documentation / evidence) + Domain 5 (intake submitted creates async encounter path) |
+| `Card_on_file` | `payment_method` row exists for patient_id with `tokenized_card` populated (DL-17 inv 18) | Domain 6 (commerce / entitlement) |
+| `Consent_signed` | `consent_artifact` row exists for (patient_id, service_id, modality) with `signed_at` populated (DL-22) | Domain 7 (documentation / evidence) |
+| `Deposit_paid` | `commerce_order_line(line_kind='treatment_deposit', status='paid')` linked to appointment_id (DL-17 inv 6) | Domain 6 (commerce / entitlement) |
+| `Clinical_clearance_received` | `service_policy_eligibility_gate(clinical_clearance)` satisfied per Amendment D evaluation | Domain 2 / Domain 5 (gate evaluation) |
+| `Late` | DERIVED from `appointment.planned_window_start` vs `NOW()` at check-in time | Domain 3 — derived |
+| `Provider_running_behind` | Operational signal — DERIVED from staff schedule slip detection | Domain 3 — derived (operational, not canonical) |
+| `Photos_captured` | `clinical_media` rows exist for encounter (DL-22) | Domain 7 |
+| `Note_pending` | DERIVED from `encounter_line.attestation_id IS NULL` AND `encounter.status != 'closeout_complete'` (DL-20) | Domain 7 |
+| `Attestation_pending` | Same as Note_pending; DERIVED from DL-18 inv 9 attestation envelope | Domain 7 |
+| `Closeout_complete` | `encounter.status = 'closeout_complete'` (DL-20 inv 11) | Domain 5 / Domain 7 |
+| `First_visit` | DERIVED from `patient.first_visit_at IS NULL` at booking time | Domain 3 — derived |
+| `Walk_in` | Set at booking time per BC-07; reflects `service.service_type = 'arrival'` | Domain 2 (booking composer) — owned |
+| `Bulk_reschedule_pending` | Operational flag during bulk-cancel/reschedule events | Domain 3 — operational state |
+
+**Binding rule (Round 2.6 anti-junk-drawer):** Domain 3 rules MUST NOT create new canonical truth on appointment for flags whose canonical owner is in another domain. Domain 3 owns the BITMASK SHAPE + the DERIVATION/PROJECTION discipline + flags genuinely owned by appointment lifecycle (Arrived / Late / Bulk_reschedule_pending / Walk_in for booking-time, First_visit for booking-time). Domain 3 does NOT own Confirmed (Domain 4) / Forms_complete (Domain 7) / Consent_signed (Domain 7) / Deposit_paid (Domain 6) / Card_on_file (Domain 6) / Photos_captured (Domain 7) / Note_pending (Domain 7) / Attestation_pending (Domain 7) / Closeout_complete (Domain 5+7). Those flags are SET BY their owning domain via materialized projection update + emitted event.
+
+#### Guardrail #2 — Appointment lifecycle does NOT swallow encounter creation
+
+Per DL-20 inv 33 (appointment as Layer 1 planned commitment) + inv 35 (encounter as Layer 2 actual care moment) + 3-layer foundation:
+
+- **Domain 3 (Appointment lifecycle) owns** ONLY the appointment lifecycle state machine: `proposed / held / hold_expired / scheduled / scheduled_pending_deposit / checked_in / in_progress / completed / cancelled / no_showed / rescheduled / disputed / archived`. Plus reschedule = atomic compensation (cancel + book), no-show recovery, waitlist promotion, late-cancel policy fees, post-retention archival.
+- **Domain 5 (Encounter creation) owns** all `encounter` substrate behavior: scheduled-first / walk-in / async / ad-hoc-video / inbound-message-triggered / cns-initiated-async / lab-review-initiated paths per DL-20 inv 37. Provider routing target #2 (async provider queue) per Round 2.6 guardrail also lives here.
+
+**Binding rule (Round 2.6 anti-collapse):** Domain 3 lifecycle states fire on the appointment row. Encounter creation is a SIBLING event that fires per DL-20 inv 37 (Domain 5). The `appointment.fulfillment_encounter_id` FK on the appointment links the two but does NOT collapse them. Booked Botox is NOT the same as performed Botox. Booked Botox is NOT consent signed. Booked Botox is NOT Xeomin/Kysse units/lots/areas captured. Round 3 must preserve this distinction.
+
+Examples Domain 3 must NOT swallow:
+- Encounter_line creation when work happens (Domain 5)
+- Performed product/lot/units/treatment_areas capture (Domain 5 + 7)
+- Provider attestation at closeout (Domain 7)
+- Commerce order line creation at sale close (Domain 6)
+- Consent signed at check-in (Domain 7)
+
+These each have their own owning substrate + domain. Round 3 stops at lifecycle transitions and references-out (FK to encounter_id when encounter created; status_flag updates via materialized projection of owning-substrate state).
+
+Cross-link: Round 2.6 guardrails inherited into every subsequent domain round; explicit substrate-slice readiness checklist will include "does this domain stay within its canonical truth?" as a binding gate.
 
 ---
 

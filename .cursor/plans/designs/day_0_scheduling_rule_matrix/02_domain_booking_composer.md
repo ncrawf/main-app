@@ -445,6 +445,8 @@ Domain 2 rules sit on top of these primitives. Each rule cites the substrate it 
 
 **Phase:** DAY_0
 
+**Cross-domain seam note (Round 2.6 guardrail per Knox/chat 2026-05-17):** The provider routing policy substrate (DL-19 inv 30 Amendment F) is REUSABLE across two routing targets — scheduled appointment routing (this rule's scope; Domain 2 territory) AND async provider queue routing (Domain 5 territory; substrate deferred). BC-09 / BC-09b / BC-09c apply ONLY to the scheduled appointment target. When an async-only intake review needs provider routing (Hims-style GLP-1 intake, biopsy result review, lab follow-up — none of which create a scheduled appointment), the SAME policy substrate is read by Domain 5's async queue logic to produce a `clinical_work_item` / `async_encounter` / `provider_review_queue_assignment` — NOT a fake `appointment` row. Patients pick CARE TYPE + MODALITY; OMNI routes to defaults. Hims-style flows admitted: pure async review (no appointment) / live touchpoint request (book appointment via composer) / hybrid async-then-scheduled (intake → provider decides → optional scheduled visit). See [Round 2.6 patch + DL-19 inv 30 dual-target preamble](../../doctrine/DL-19_settings_infrastructure_DRAFT_2026-05-17.md) for substrate-level guardrail.
+
 #### Section A — Flight-lane translation
 
 1. **Mindbody behavior observed (HARD EVIDENCE):** Mindbody allows patient to pick specific staff at booking; if patient has prior provider for the service, they may select that provider from the staff list. NO automatic continuity preference — patient picks every time. No "rebook with X" affordance surfaced based on history.
