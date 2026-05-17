@@ -132,18 +132,18 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 
 ---
 
-## §6 The 7 domains (Round 1 status)
+## §6 The 7 domains (Round 1 status; per-domain MUST-READ pre-round reading per §2.21)
 
-| # | Domain | File | Round | Status | Rule count Day 0 | Substrate verdicts |
-|---|---|---|---|---|---|---|
-| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Rounds 1 + 1.5 + 1.6 + 1.7 (Knox gate-timing correction)** | **AUTHORED + PATCHED + AMENDMENTS A/B/C APPLIED + Amendment D candidate for Domain 2** | 30 Day 0 | 29 OK / 1 OK-with-extension (TM-12 → Amendment D for Domain 2) / 0 NEW |
-| 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + 2.5 + 2.6 (Amendments D + E + F applied; dual-target routing guardrail; Round 3 pre-flight guardrails locked)** | **AUTHORED + PATCHED + GUARDED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW |
-| 3 | Appointment lifecycle rules | [03_domain_appointment_lifecycle.md](03_domain_appointment_lifecycle.md) | **Round 3 + 3.1 (Amendment G applied; Round 3.1 doctrine + cross-domain seam locked)** | **AUTHORED + PATCHED** | 24 Day 0 | 24 OK / 0 OK-with-extension / 0 NEW |
-| 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — |
-| 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — |
-| 6 | Checkout / commerce / entitlement rules | (deferred) | Round 6 | NOT STARTED | — | — |
-| 7 | Documentation / evidence rules | (deferred) | Round 7 | NOT STARTED | — | — |
-| Final | Scenarios validation (10 scenarios end-to-end) | (deferred) | Final round | NOT STARTED | — | — |
+| # | Domain | File | Round | Status | Rule count Day 0 | Substrate verdicts | MUST READ before authoring |
+|---|---|---|---|---|---|---|---|
+| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Rounds 1 + 1.5 + 1.6 + 1.7 (Knox gate-timing correction)** | **AUTHORED + PATCHED + AMENDMENTS A/B/C APPLIED + Amendment D candidate for Domain 2** | 30 Day 0 | 29 OK / 1 OK-with-extension (TM-12 → Amendment D for Domain 2) / 0 NEW | n/a (done) |
+| 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + 2.5 + 2.6 (Amendments D + E + F applied; dual-target routing guardrail; Round 3 pre-flight guardrails locked)** | **AUTHORED + PATCHED + GUARDED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
+| 3 | Appointment lifecycle rules | [03_domain_appointment_lifecycle.md](03_domain_appointment_lifecycle.md) | **Round 3 + 3.1 (Amendment G applied; Round 3.1 doctrine + cross-domain seam locked)** | **AUTHORED + PATCHED** | 24 Day 0 | 24 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
+| 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — | §2.21 universal kickoff + §2.14-§2.20 (Round 3.5 doctrine) + §2.18 pre-brief Sections A-O + §2.19 Citation Map (8 reliability guardrails) + DL-14 inv 16-22 + DL-16 amendments 41-43 + DL-20 inv 33 + 40 + `docs/architecture/communications_topology.md` + §1F + §1G + §1G.8 + §1G.11 + §1P + §1Q.23 + 4h phase work + `cns_action_orchestration_adr_2026-05-17.md` |
+| 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet forward-reference + Amendment J(a) substrate evaluation + DL-20 inv 33-40 + §2.15 Context Module Layer |
+| 6 | Checkout / commerce / entitlement rules | (deferred) | Round 6 | NOT STARTED | — | — | §2.21 universal kickoff + §2.9 Domain 6 pre-brief Sections A-K + §2.10-§2.13 (generic engine / attribution / Shopify ingestion / stacking) + targeted Shopify ingestion (per §2.12) + DL-17 |
+| 7 | Documentation / evidence rules | (deferred) | Round 7 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet + DL-22 Clinical-Media + DL-20 inv 33-40 + Amendment J(d) substrate evaluation |
+| Final | Scenarios validation (10 scenarios end-to-end) | (deferred) | Final round | NOT STARTED | — | — | §2.21 universal kickoff + ALL prior domain files + scenarios validation framework |
 
 **Round cadence:** one domain per round. After each domain lands, STOP and report substrate gap audit + open decisions. User + Knox review BEFORE the next round starts. Final round walks 10 named scenarios end-to-end across all 7 domains to verify no gap.
 
@@ -1311,6 +1311,62 @@ Per chat 2026-05-17 Correction 4 + reliability audit. Substrate work parked for 
 - **J(b) — `orchestration_action` envelope extension** (DL-14 inv 16 + DL-16 amendment 42): add 18-field CNS Action Envelope including `action_kind` + `reply_policy` + `thread_policy` + `suppression_group` + `recipient_class` + `audience_scope` + `action_required` + `owning_queue`. Plus new `queue` substrate or extension for owning_queue resolution.
 - **J(c) — Source-agnostic event normalization + arbitration + queue routing substrate**: typed event registry extension for 18+ event source kinds; patient-level contact budget tracking + suppression_group registry + priority queue + recent_contact_load projection + multi-recipient queue routing matrix.
 - **J(d) — Provider clinical context packet assembly substrate**: Round 5/7 owns shape.
+
+### §2.21 Round Kickoff Reading Discipline (binding drift-prevention; established post-Round-3.5 per user direction 2026-05-17)
+
+**Why this exists:** During Rounds 1-3.5, the same locked doctrine was repeatedly "re-discovered" instead of cited. CNS bounded autopilot (DL-14 inv 18-22), 32-seed outbound trigger registry (DL-16 amendment 42), actor 4-tuple (DL-16 amendment 43), `appointment_confirmation_event` substrate (DL-20 inv 40), and `communications_topology.md` (3 patient surfaces + 6 outbound channels + 5 inbound channels) were treated as new findings each round. User direction 2026-05-17: *"we already did this work. how many times do i need to remind you guys."* §2.21 binds every round to a mandatory pre-authoring read so future rounds cannot regress.
+
+**Universal Round Kickoff Checklist (binding for every new round 4, 5, 6, 7, Final):**
+
+Every round MUST start by reading (in order):
+
+1. **`system_map_three_layers_60706286.plan.md`** — Phase 1 hardening latest version (v10 as of Round 3.5); locked DLs; locked invariants; amendment history
+2. **`00_index.md` §1 + §2.0 through §2.21** — all locked rule-matrix doctrine (binding doctrine sections for prior rounds + cross-cutting compliance)
+3. **`docs/architecture/scheduling_foundation_post_mortem_2026-05-17.md`** — 10 failure patterns (8 original + Pattern 9 known-pillars-as-discoveries + Pattern 10 narrow-framing-creep per Round 3.5)
+4. **`.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md`** — 18 explicit preferences NEVER re-litigate
+5. **`.cursor/plans/doctrine/coherent_omni_architecture_pattern_2026-05-17.md`** — 3-layer pattern reference
+6. **`docs/architecture/evolution_narrative.md`** (Volume 1: Phases 1-4H-pre) + **`docs/architecture/evolution_narrative_volume_2_2026-05-17.md`** (Volume 2: Phase B.5 + Day 0 Build Contract + Rule Matrix Rounds 1-3.5)
+7. **`docs/architecture/communications_topology.md`** — 3 patient surfaces / 6 outbound channels / 5 inbound channels (locked prior phase; consumed by Round 4+ and all comms-touching rounds)
+8. **`docs/architecture/cns_action_orchestration_adr_2026-05-17.md`** — Round 3.5 ADR (CNS Action Envelope + Context Module Layer + 8-guardrail Citation Map)
+9. **All prior Domain rule files** — `01_domain_treatment_menu.md`, `02_domain_booking_composer.md`, `03_domain_appointment_lifecycle.md` for Round 4; ALL prior domain files for later rounds
+10. **Domain-specific MUST READ** per §6 domain status table column — domain-specific DL invariants + DRAFT doctrine + cross-cutting compliance sections
+
+**Per-domain MUST READ** is in the §6 table above. Round 4's list points to §2.18 pre-brief Sections A-O + §2.19 Citation Map + DL-14/16/20 + communications_topology.md + §1F/1G/1G.8/1G.11/1P/1Q.23 + 4h phase work + Round 3.5 ADR.
+
+**Round opening template (binding):**
+
+Every round MUST open its work with a written statement of the form:
+
+> *"Round [N] opening. I have read: [list of all checklist items above + domain-specific MUST READ]. Key constraints I am honoring from prior rounds: [list of binding doctrine sections from §2.0 through §2.21]. Key user/Knox preferences I am honoring: [list from user_knox_preferences_locked]. Round [N] scope: [domain]. Open questions for user + Knox before authoring begins: [list]."*
+
+This statement lives in the domain rule file's opening section. It is NOT optional. It is the round's audit lineage proof of pre-reading.
+
+**Anti-patterns (Round 3.5 + §2.21 binding rejections):**
+
+- ❌ Starting a new round by proposing rules before citing §2.21 read receipt
+- ❌ Treating locked doctrine as "new architecture" in the round opening (re-discovery anti-pattern; Pattern 9 in post-mortem)
+- ❌ Re-narrowing scope after wide cross-domain framing is already locked in §2.14 (narrow-framing creep; Pattern 10 in post-mortem)
+- ❌ Re-litigating user/Knox preferences from `user_knox_preferences_locked_2026-05-17.md`
+- ❌ Inventing new substrate for things already covered by communications_topology / §1P / §1Q.23 / 4h phase work / Round 3.5 §2.19 Citation Map
+
+**Round closing template (binding):**
+
+Every round MUST close with a written statement of the form:
+
+> *"Round [N] closing. Authored: [N rules across X sections]. Substrate verdicts: [X OK / Y OK-with-extension / Z NEW SUBSTRATE NEEDED]. New Amendment candidates: [list]. New failure patterns observed: [list — to be added to post-mortem if needed]. New binding doctrine sections to add: [list]. Cross-domain seams identified: [list]. Open decisions for next round: [list]. Recommendation for next round: [authoring direction]."*
+
+This statement lives in the domain rule file's closing section. It informs the next round's opening checklist.
+
+**Companion docs (not duplicated; reference the source of truth):**
+
+- Failure patterns and lessons: post-mortem at `docs/architecture/scheduling_foundation_post_mortem_2026-05-17.md`
+- Locked preferences: `user_knox_preferences_locked_2026-05-17.md`
+- 3-layer pattern: `coherent_omni_architecture_pattern_2026-05-17.md`
+- Historical chronology: `evolution_narrative.md` (Volume 1) + `evolution_narrative_volume_2_2026-05-17.md` (Volume 2)
+- Round 3.5 decision record: `cns_action_orchestration_adr_2026-05-17.md`
+- 8 reliability guardrails citation: §2.19
+
+§2.21 is the **drift-prevention mechanism**. If Round 4 starts without honoring it, the regression risk that Rounds 1-3.5 surfaced will recur.
 
 ---
 
