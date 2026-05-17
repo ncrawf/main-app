@@ -6,15 +6,27 @@
 **Index:** [00_index.md](00_index.md)
 **Phase scope this file:** Day 0 fully detailed; M1-2 / M3-6 / FUTURE listed name-only in [§Deferred Rule Candidates](#deferred-rule-candidates).
 
-**Knox patch round changes (applied 2026-05-17 after initial review):**
-1. **TM-12 contradiction with TM-01 fixed** — broad-default booking now routes through a category-targeting `booking_preset` (preserves TM-01 taxonomy purity; service_category does NOT carry operational requirements).
-2. **FK renamed** — `appointment.bundled_from_preset_id` → `appointment.source_booking_preset_id` (more general; covers single / category / bundle / direct booking shapes uniformly). Affects TM-10 / TM-14 / TM-23.
-3. **TM-15 split** — Conflated `self_bookable_progressive_disclosure_mode` ENUM split into `service.self_bookable` BOOLEAN (visibility) + `service.planned_detail_disclosure_mode` ENUM (form rigor) as independent axes. Affects TM-15 / TM-16 / TM-02 / TM-19 cross-refs.
-4. **TM-20 source-of-truth clarified** — `planned_details.treatment_areas` JSONB is canonical; `planned_treatment_areas[]` ARRAY is materialized projection maintained by trigger.
-5. **Sloppy example fixed** — TM-06 test case clarified per-unit examples (Botox units / filler syringes-or-mL / Sculptra vials / CoolSculpting cycles / LHR areas) — Sculptra is vials, not units.
-6. **Cross-app terminology** — "Cross-app evidence" relabeled to "Cross-app pattern reference (ANALOGIES for pressure-testing, NOT hard evidence)" across all 30 rules and index doc. Hard evidence is Mindbody + doctrine + user gap + Build Contract + post-mortem.
+**Knox 2026-05-17 review changes applied (2 rounds):**
 
-Substrate gap audit post-patch: 23 OK / 7 OK-with-extension (resolving to 3 distinct DL amendments A/B/C) / 0 NEW SUBSTRATE NEEDED. See [§4 Substrate gap audit](#4-substrate-gap-audit-revised-after-knox-2026-05-17-patch-round).
+**Round 1.5 — Patch round (commit `5762edb`):**
+1. **TM-12 contradiction with TM-01 fixed** — broad-default booking now routes through a category-targeting `booking_preset` (preserves TM-01 taxonomy purity; service_category does NOT carry operational requirements).
+2. **FK renamed** — `appointment.bundled_from_preset_id` → `appointment.source_booking_preset_id` (more general; covers single / category / bundle / direct booking shapes uniformly).
+3. **TM-15 split flagged** — Conflated `self_bookable_progressive_disclosure_mode` ENUM proposed to split into `service.self_bookable` BOOLEAN + `service.planned_detail_disclosure_mode` ENUM.
+4. **TM-20 source-of-truth flagged** — `planned_details.treatment_areas` JSONB canonical; `planned_treatment_areas[]` ARRAY materialized projection.
+5. **Sloppy example fixed** — TM-06 test case clarified (Botox units / filler syringes / Sculptra vials / CoolSculpting cycles / LHR areas).
+6. **Cross-app terminology** — "Cross-app evidence" → "Cross-app pattern reference (ANALOGIES for pressure-testing, NOT hard evidence)" across all 30 rules and index.
+
+**Round 1.6 — DL amendments + Knox 5 refinements (commit `ee46585` + this commit):**
+1. **DL Amendment A applied** — DL-20 inv 33 now carries `appointment.source_booking_preset_id` FK NULL.
+2. **DL Amendment B applied** — DL-19 preamble now defines `service.self_bookable` BOOLEAN + `service.planned_detail_disclosure_mode` ENUM (split + DL-15 inv 30 service substrate cross-referenced).
+3. **DL Amendment C applied** — DL-20 inv 34 now explicitly designates `planned_details.treatment_areas` canonical + `planned_treatment_areas[]` materialized projection.
+4. **Knox refinement #1 (schedulability floor)** — TM-07 binding CHECK: category-targeting presets MUST carry `default_duration_minutes` + `default_provider_eligibility_filter` (cannot be all-NULL).
+5. **Knox refinement #2 (no pricing in scheduling)** — TM-09 + TM-03 explicit anti-copy: operational defaults (duration, room, resource, provider) live on PRESET/SERVICE, NEVER on pricing_option.
+6. **Knox refinement #3 (broad-default ≠ bypass gates)** — TM-12 explicit list of downstream gates (clinical clearance, intake-first, age limits, prior consult, license, jurisdiction, substance class, member-only, federation) that fire regardless of broad-vs-specific booking path.
+7. **Knox refinement #4 (Layer 1 admits vagueness; Layers 2 + 3 are specific)** — TM-12 3-layer resolution constraint: `appointment_item` may be category-only, but `encounter_line.service_id` AND `commerce_order_line.pricing_option_id` MUST be specific at performed + charged truth.
+8. **Knox refinement #5 (Domain 1 ≠ scheduler completion)** — Index doc §6 strengthened with explicit warning about Domain 2 (composer) / Domain 6 (commerce) / Domain 7 (documentation) as the next dangerous domains.
+
+Substrate gap audit post-Round 1.6: **30 OK / 0 OK-with-extension / 0 NEW SUBSTRATE NEEDED.** All 3 DL amendments live in DRAFTs; locked DL-15 / DL-16 untouched. See [§4 Substrate gap audit](#4-substrate-gap-audit-post-phase-1-hardening-v3-amendments-applied-2026-05-17--knox-refinements-integrated).
 
 ---
 
@@ -219,7 +231,7 @@ Visit type does NOT exist as a substrate primitive. It is a tenant-named project
 3. **Underlying tenant need:** A service may have multiple commercial variants — flat-rate, tiered, package (N sessions prepaid), unlimited-within-window, recurring autopay, member-discounted, comp/free promo, ClassPass-integration $0, deposit-only, late-cancel-fee $0 wrapper. Tenants must price one operational kind multiple ways without duplicating the service definition.
 4. **OMNI generic primitive / rule:** `pricing_option` substrate (DL-17 inv 2). Carries `id`, `tenant_id`, `pricing_option_type` ENUM (`single_session` / `multiple_sessions` / `unlimited_period` / `autopay_contract` per DL-17 inv 2), `display_name`, `price` NUMERIC, `online_price` NUMERIC NULL (channel-specific override), `quantity_strategy` ENUM per DL-17 inv 5 (5 values; binds to `service.quantity_strategy`), `activation_strategy` ENUM per DL-17 inv 3 (3 values: `on_sale_date` / `on_first_visit_after_purchase` / `on_custom_date`), `expires_after_value` NUMERIC NULL + `expires_after_unit` ENUM (`days` / `months` / `years`), `redemption_priority` per DL-17 inv 4 (Low/Medium/High), `member_only` BOOLEAN, `online_bookable` BOOLEAN, `revenue_category_id` FK (DL-17 inv 20), per-type sub-fields, scheduling restrictions per DL-15 amendment 33, commission per DL-17 inv 25, auto-email triggers per DL-17 inv N. Linked M:N to service via `service_pricing_option_assignment` (DL-17 inv 1).
 5. **Divergence / improvement:** Mindbody's per-quantity Botox workaround (7 pricing options for 7 quantity tiers of Botox) eliminated by `quantity_strategy = per_unit_quantity` per DL-17 inv 5 (one service + one pricing_option + planned_quantity at booking + actual quantity at checkout). Mindbody's $0 Cancellation Policy pricing option (Batch 13 Step 04 + Batch 20 Step 06) workaround is replaced by `cancellation_policy` 1st-class substrate per DL-17 inv 24 (cancellation/no-show fees emit `commerce_order_line.line_kind = cancellation_fee` directly).
-6. **Anti-copy warning:** Do NOT model deposit as a $0 "Treatment Deposit" pricing option (Mindbody workaround). Deposit is a `commerce_order_line.line_kind = treatment_deposit` per DL-17 inv 6 + DL-17 deposit visibility clarification. Do NOT model cancellation fees as $0 pricing options. Do NOT bake vendor financing names (Cherry, GreenSky, CareCredit) into `pricing_option_type` enum — those are `payment_method.label` per DL-17 inv 18 tenant-defined STRING.
+6. **Anti-copy warning:** Do NOT model deposit as a $0 "Treatment Deposit" pricing option (Mindbody workaround). Deposit is a `commerce_order_line.line_kind = treatment_deposit` per DL-17 inv 6 + DL-17 deposit visibility clarification. Do NOT model cancellation fees as $0 pricing options. Do NOT bake vendor financing names (Cherry, GreenSky, CareCredit) into `pricing_option_type` enum — those are `payment_method.label` per DL-17 inv 18 tenant-defined STRING. **Do NOT put operational defaults (duration, provider eligibility, room, resource) on pricing_option (Knox 2026-05-17 refinement #2).** Pricing_option carries COMMERCE truth only (price / online_price / commission / expires_after / activation_strategy / redemption_priority). If "Hydrafacial Deluxe" takes 90min and "Hydrafacial Signature" takes 60min, the duration difference lives on a child `booking_preset.default_duration_minutes` override (per TM-09) or on `service.default_duration_minutes` (service-level baseline) — NEVER on pricing_option. Pricing must NOT sneak back into scheduling.
 7. **Substrate pressure-test verdict:** **OK** — DL-17 inv 1-5 fully covers pricing_option substrate. DL-17 inv 22-23 covers entitlement-vs-pricing-option separation. DL-15 amendment 33 covers per-pricing-option scheduling restrictions. No new substrate needed.
 
 #### Section B — Rule definition
@@ -417,7 +429,7 @@ Visit type does NOT exist as a substrate primitive. It is a tenant-named project
 4. **OMNI generic primitive / rule:** `booking_preset` substrate per DL-19 inv 19. Carries `id`, `tenant_id`, `display_label` STRING (patient-facing name), `target_service_id` FK NULL OR `target_service_category_id` FK NULL (exactly one), `target_pricing_option_id` FK NULL (for tier-at-booking), `default_planned_quantity` NUMERIC NULL, `default_planned_details` JSONB (pre-populates planned_details), `default_duration_minutes` NUMERIC NULL, `default_provider_eligibility_filter` STRING NULL, `default_resource_requirement` STRING NULL, `visible_in_self_booking` BOOLEAN, `parent_preset_id` FK NULL (hierarchical drill-down), `bundled_member_preset_ids[]` ARRAY NULL (combo bundle), `tenant_display_order` NUMERIC, `active` BOOLEAN.
 5. **Divergence / improvement:** Mindbody conflates affordance + operational kind. OMNI separates: `service` is operational kind (clinical/operational reality); `booking_preset` is patient-facing affordance (UX/marketing reality). Tenant configures presets per channel, per audience, per marketing campaign without duplicating service rows. Result: cleaner catalog, no Mindbody-style "BH HydraFacial – Deluxe / Platinum / Signature" service-duplication; ONE Hydrafacial service + 3 presets pointing to 3 pricing_options.
 6. **Anti-copy warning:** Do NOT bake preset names into substrate enums (`preset_hydrafacial_deluxe` / `preset_neuromodulator_visit`). All preset names are tenant-defined STRINGs. Do NOT model presets as a child of pricing_option (presets are independent; preset can target service OR category OR pricing_option). Do NOT use "visit_type" as a substrate concept — `visit_type` is the projection of `booking_preset.display_label`, NOT a column or enum.
-7. **Substrate pressure-test verdict:** **OK** — DL-19 inv 19 fully covers `booking_preset` substrate. Three target patterns (service / category / pricing_option) are all admitted. No new substrate needed.
+7. **Substrate pressure-test verdict:** **OK** — DL-19 inv 19 fully covers `booking_preset` substrate. Three target patterns (service / category / pricing_option) are all admitted. **Schedulability floor constraint added (Knox 2026-05-17 refinement #1):** category-targeting presets MUST carry enough defaults to be safely bookable — see Decision logic #10 below. No new substrate fields needed; this is a CHECK constraint on existing fields.
 
 #### Section B — Rule definition
 
@@ -429,6 +441,11 @@ Visit type does NOT exist as a substrate primitive. It is a tenant-named project
     - For hierarchical preset: `parent_preset_id` non-NULL → drill-down chain; child inherits parent's `default_planned_details` unless overridden.
     - `visible_in_self_booking` controls patient portal visibility; staff always sees all presets.
     - `default_planned_details` JSONB MUST validate against target service's `planned_detail_schema` at admin write time.
+    - **Schedulability floor (Knox 2026-05-17 refinement #1) — binding CHECK at admin write:**
+      - If `target_service_category_id IS NOT NULL` (category-targeting preset): MUST have non-null `default_duration_minutes` AND non-null `default_provider_eligibility_filter` (cannot be all-NULL — the category itself carries no operational requirements per TM-01, so the preset MUST provide them). Optional fields: `default_resource_requirement` (NULL = no specific room/resource required), `default_planned_details` (NULL = empty), `default_pricing_option_id` (NULL = resolved at checkout).
+      - If `target_service_id IS NOT NULL` (single-item preset): defaults may be NULL; booking composer falls back to `service.default_duration_minutes` + `staff_service_assignment` resolution per DL-15 amendment 30.
+      - If `bundled_member_preset_ids[]` populated (bundle preset): defaults NULL allowed; duration + provider resolution composed from member presets.
+      - Patient-facing preset (`visible_in_self_booking = TRUE`) with missing schedulability floor → admin save REJECTED with explicit error: "Patient-bookable category preset requires default_duration_minutes and default_provider_eligibility_filter."
     - On booking commit: preset materializes one or more `appointment_item` rows with preset defaults (see TM-08 / TM-09 / TM-10 / TM-11 for shape-specific behavior).
 11. **Output / state change:** Insert `booking_preset` row; emit `booking_preset.created` event. On preset selection at booking → see TM-08/09/10/11 for materialization.
 12. **Owning substrate:** `booking_preset` (DL-19 inv 19). FK targets in `appointment_item.linked_booking_preset_id` (DL-20 inv 34).
@@ -496,10 +513,10 @@ Visit type does NOT exist as a substrate primitive. It is a tenant-named project
    - **Restaurant POS modifier prompts** — "Burger" → drill down (Bun: brioche/sesame/lettuce → Patty: 1/2 → Cheese: yes/no → Toppings: list).
    - **OpenTable special occasion selector** — Restaurant → drill down (Anniversary / Birthday / Business / Date / Romantic).
 3. **Underlying tenant need:** Some services have multiple tier variants that share the same operational kind but differ in price/duration/inclusions. Patient should see a clean parent label ("Hydrafacial") then optionally drill down to choose tier ("Signature" / "Deluxe" / "Platinum"). Tenant must be able to model this without duplicating service rows.
-4. **OMNI generic primitive / rule:** Hierarchical drill-down booking_preset = chain of `booking_preset` rows linked via `parent_preset_id` FK. Parent preset has `target_service_id = X`, children have `target_service_id = X` (same service) + `target_pricing_option_id = X_tier1/2/3` (different pricing_options) + `default_planned_details` overrides (tier-specific). At booking, patient picks parent → UI surfaces children for drill-down; selecting child commits with child's defaults.
-5. **Divergence / improvement:** Mindbody's flat list is replaced by tenant-controlled hierarchy. ONE Hydrafacial service + 3 pricing_options + 1 parent preset "Hydrafacial" + 3 child presets "Signature/Deluxe/Platinum" → clean UX, no service duplication.
-6. **Anti-copy warning:** Do NOT cap hierarchy depth at substrate (UI may impose soft cap for usability). Do NOT require children to share parent's `target_service_id` (children may target different services if tenant wants — but typical pattern is same service, different pricing_options).
-7. **Substrate pressure-test verdict:** **OK** — DL-19 inv 19 `parent_preset_id` FK admits arbitrary-depth chains. No new substrate needed.
+4. **OMNI generic primitive / rule:** Hierarchical drill-down booking_preset = chain of `booking_preset` rows linked via `parent_preset_id` FK. Parent preset has `target_service_id = X`, children have `target_service_id = X` (same service) + `target_pricing_option_id = X_tier1/2/3` (different pricing_options for COMMERCE variant) + `default_planned_details` overrides (tier-specific). **Critical: operational differences (default_duration_minutes / default_provider_eligibility_filter / default_resource_requirement) live on the PRESET CHILD, NOT on pricing_option** (Knox 2026-05-17 refinement #2 — pricing must NOT sneak back into scheduling). If "Hydrafacial Deluxe" takes 90min and "Hydrafacial Signature" takes 60min, the duration difference lives on the child preset's `default_duration_minutes` override, NOT on `pricing_option.price` or any pricing_option field. Pricing_option is COMMERCE truth; preset is OPERATIONAL truth. At booking, patient picks parent → UI surfaces children for drill-down; selecting child commits with child's operational defaults + child's pricing_option for commerce.
+5. **Divergence / improvement:** Mindbody's flat list is replaced by tenant-controlled hierarchy. ONE Hydrafacial service + 3 pricing_options + 1 parent preset "Hydrafacial" + 3 child presets "Signature (60min, $200)" / "Deluxe (90min, $250)" / "Platinum (120min, $300)" → clean UX, no service duplication, operational + commerce concerns cleanly separated.
+6. **Anti-copy warning:** Do NOT cap hierarchy depth at substrate (UI may impose soft cap for usability). Do NOT require children to share parent's `target_service_id` (children may target different services if tenant wants — but typical pattern is same service, different pricing_options + operational defaults). **Do NOT put operational defaults (duration, room, resource, provider) on `pricing_option` substrate.** Pricing_option carries `price` / `online_price` / `commission_rate` / `expires_after` / etc. — COMMERCE variants only. Operational variants belong on PRESET (child preset's defaults) or SERVICE (`service.default_duration_minutes`).
+7. **Substrate pressure-test verdict:** **OK** — DL-19 inv 19 `parent_preset_id` FK admits arbitrary-depth chains; child preset can override operational defaults independent of pricing_option. No new substrate needed. (Knox 2026-05-17 refinement #2 is enforced by EXISTING substrate separation — DL-17 inv 1 keeps price on pricing_option; DL-19 inv 19 keeps operational defaults on preset.)
 
 #### Section B — Rule definition
 
@@ -515,7 +532,12 @@ Visit type does NOT exist as a substrate primitive. It is a tenant-named project
 14. **Failure mode:** If leaf preset deactivated, walk up to next active sibling at same level. If parent chain has cycle (shouldn't happen at admin write — substrate rejects on insert), error logged + admin alert.
 15. **Audit / event:** `appointment_booked` with `booking_preset_id` (leaf) + `booking_preset_chain` in payload for analytics.
 16. **Evidence citations:** DL-19 inv 19 (parent_preset_id) + DL-20 inv 34. Cross-app: Amazon variant selectors, restaurant modifier prompts.
-17. **Test case:** Tenant creates parent preset "Hydrafacial" (target_service = Hydrafacial service, no pricing_option, no details). Creates 3 children: "Signature" (target_pricing_option = sig_$200, default_planned_details = {tier: 'signature'}); "Deluxe" (target_pricing_option = del_$250, default_planned_details = {tier: 'deluxe', addons: ['boost_serum']}); "Platinum" (target_pricing_option = plat_$300, default_planned_details = {tier: 'platinum', addons: ['boost_serum', 'led_light']}). Patient self-books → sees "Hydrafacial" → drills to "Deluxe" → appointment_item materialized with planned_pricing_option = del_$250, planned_details = {tier: 'deluxe', addons: ['boost_serum']}. Schedule shows "Hydrafacial Deluxe" (preset.display_label of leaf).
+17. **Test case:** Tenant creates parent preset "Hydrafacial" (target_service = Hydrafacial service, no pricing_option, no operational override). Creates 3 children with BOTH operational defaults (preset-level) AND commerce variants (pricing_option):
+    - "Signature" — target_pricing_option = sig_$200, default_duration_minutes = 60 (preset override of service default), default_planned_details = {tier: 'signature'}
+    - "Deluxe" — target_pricing_option = del_$250, default_duration_minutes = 90 (longer treatment), default_planned_details = {tier: 'deluxe', addons: ['boost_serum']}
+    - "Platinum" — target_pricing_option = plat_$300, default_duration_minutes = 120 (longest treatment), default_planned_details = {tier: 'platinum', addons: ['boost_serum', 'led_light']}
+    
+    Patient self-books → sees "Hydrafacial" → drills to "Deluxe" → appointment_item materialized with planned_pricing_option = del_$250 (commerce) + appointment.planned_window_end - planned_window_start = 90min (operational, from preset override, NOT from pricing_option). Schedule shows "Hydrafacial Deluxe" (preset.display_label of leaf) in a 90min block. Same Hydrafacial SERVICE underlies all 3 tiers; SAME 3 pricing_options as Mindbody Batch 13 Step 03 evidence; OMNI's clean separation: operational (preset) ⊥ commerce (pricing_option).
 
 ---
 
@@ -624,8 +646,28 @@ Two options:
 3. **Underlying tenant need:** Patients often don't know specifics at booking time. The tenant must let them book at a broad level ("Injectables Visit" / "Provider Consult" / "Botox Touch-Up Generic"). BUT the broad affordance must carry operational defaults (duration, provider eligibility filter, default planned_details, resource requirements) — somewhere. Per TM-01 service_category is pure taxonomy (no operational semantics). Therefore the operational defaults live on a `booking_preset` that targets the category.
 4. **OMNI generic primitive / rule:** Broad-default booking is the canonical path AND it goes through a `booking_preset` whose `target_service_category_id` is populated (per TM-07 / TM-08 pattern, but with category target instead of service target). The preset carries default_duration_minutes / default_provider_eligibility_filter / default_resource_requirement / default_planned_details. Materialization writes `appointment_item.planned_service_category_id = X`, `planned_service_id = NULL`, `linked_booking_preset_id = preset.id`. Service_category stays pure taxonomy — composer reads PRESET defaults, not category. (Raw category booking without a preset is a degenerate fallback for staff edge cases; see Decision logic.)
 5. **Divergence / improvement vs Mindbody:** Mindbody can't broad-book at all. OMNI's category-targeting booking_preset is the canonical broad-default affordance. The PRESET is what carries operational defaults; the CATEGORY remains a pure organizational concept. **This rule explicitly fixes the prior draft contradiction where category was implicitly carrying operational requirements.**
-6. **Anti-copy warning:** Do NOT put `default_duration` / `default_provider_eligibility_filter` / `default_resource_requirement` on `service_category` substrate. Service_category remains taxonomy per TM-01. Operational defaults live on the `booking_preset` that targets the category. Do NOT add a `service_category.self_bookable` BOOLEAN — visibility filtering is `booking_preset.visible_in_self_booking` (TM-16). Do NOT read service_category for axis requirements at booking — composer reads PRESET defaults.
-7. **Substrate pressure-test verdict:** **OK** — DL-19 inv 19 booking_preset already admits `target_service_category_id` FK. DL-20 inv 34 already admits `appointment_item.planned_service_category_id` FK NULL. No new substrate needed; this rule is a CONSTRAINT on the canonical path (broad booking = via preset, not raw category).
+6. **Anti-copy warning:** Do NOT put `default_duration` / `default_provider_eligibility_filter` / `default_resource_requirement` on `service_category` substrate. Service_category remains taxonomy per TM-01. Operational defaults live on the `booking_preset` that targets the category. Do NOT add a `service_category.self_bookable` BOOLEAN — visibility filtering is `booking_preset.visible_in_self_booking` (TM-16). Do NOT read service_category for axis requirements at booking — composer reads PRESET defaults. **Do NOT interpret "broad-default" as "skip clinical / compliance / eligibility gates" (Knox 2026-05-17 refinement #3).** Broad-default means SIMPLE UX, not BYPASSED GATES — see Decision logic #10 below for the explicit boundary.
+
+**Knox 2026-05-17 refinement #3 — broad-default booking does NOT bypass clinical / compliance / eligibility gates.** Even when a patient broad-books through a category-targeting preset, downstream gates evaluated by Domain 2 (booking composer / availability) still apply:
+- Clinical clearance gating per DL-15 inv 10
+- Intake-first programs (e.g., GLP-1 requires intake completed before booking) per DL-19 inv 18 `service_policy.requires_intake_complete`
+- Age limits (e.g., Botox ≥ 18; HRT ≥ 18; Sculptra ≥ 18; controlled substances)
+- Prior consult requirements (e.g., new patient peptide booking requires prior provider consult)
+- Provider license / jurisdiction gating per DL-15 amendment + Build Contract §3.7 patch 1
+- Substance class restrictions (controlled meds per DL-18 inv 6 capability flags)
+- Membership-only services (per `pricing_option.member_only` per DL-17 inv 14)
+- Federation permeability per DL-21 (cross-LE bookings)
+
+These gates are evaluated AT BOOKING COMMIT TIME by Domain 2 rules (not Domain 1). The category-targeting preset MAY carry a default `requires_intake_complete` flag for category-level gates (TM-12 deferred to Domain 2 for exact mechanism — could be preset-level field or category-policy substrate). Broad-default booking simplifies the PATIENT UX (one click to book Injectables); it does NOT simplify the SERVER VALIDATION (gates still fire).
+
+**Knox 2026-05-17 refinement #4 — category-level planned item must resolve to SPECIFIC at performed/charged truth.** Per the 3-layer pattern:
+- Layer 1 (planned): `appointment_item.planned_service_category_id` populated, `planned_service_id` NULL is VALID and EXPECTED for broad-default booking.
+- Layer 2 (performed): `encounter_line.service_id` MUST be specific (NOT NULL) per DL-20 inv 12. Provider determines specific service at care delivery time. If patient booked broad "Injectables" and received "Xeomin 24u" — the encounter_line.service_id resolves to the specific Neuromodulator service (or Xeomin-specific service if tenant models per-product); planned_details captures the specific product.
+- Layer 3 (charged): `commerce_order_line.line_kind = service` + linked pricing_option ID MUST be specific (NOT NULL). Commerce truth is always specific (per DL-17 inv 6).
+- Resolution path: patient broad-books → appointment_item has category-only → provider performs → encounter_line.linked_appointment_item_id = X + encounter_line.service_id = specific service (per DL-20 inv 36 refactor) + encounter_line.performed_payload captures specifics → commerce_order_line.pricing_option_id = specific tier → sale closes.
+- A patient broad-booked appointment_item NEVER stays vague at performed/charged truth — it's the BOOKING that admits vagueness; downstream layers always concretize.
+
+7. **Substrate pressure-test verdict:** **OK** — DL-19 inv 19 booking_preset already admits `target_service_category_id` FK. DL-20 inv 34 already admits `appointment_item.planned_service_category_id` FK NULL. DL-20 inv 12 already requires encounter_line.line_kind / service_id specifics at performed truth. No new substrate needed; this rule is a CONSTRAINT on the canonical path (broad booking = via preset, not raw category; gates always fire downstream; specifics emerge at performed truth).
 
 #### Section B — Rule definition
 
@@ -633,13 +675,16 @@ Two options:
 9. **Required inputs:** `booking_preset.id` with `target_service_category_id` populated, `target_service_id = NULL`. Optional: patient overrides to `planned_details` at booking.
 10. **Decision logic:**
     - Resolve preset → read `target_service_category_id` + `default_duration_minutes` + `default_provider_eligibility_filter` + `default_resource_requirement` + `default_planned_details`.
+    - **Schedulability floor validation per TM-07 refinement #1:** preset MUST have non-null `default_duration_minutes` AND `default_provider_eligibility_filter`. If either is NULL, REJECT at admin save (not at booking — booking surface only sees valid presets).
+    - **Downstream gates fire (refinement #3):** before booking commits, Domain 2 (booking composer / availability) evaluates: clinical_clearance gates per DL-15 inv 10 / intake-first per DL-19 inv 18 service_policy / age limits / prior consult requirements / provider license + jurisdiction per DL-15 amendment / substance class per DL-18 inv 6 / member-only per DL-17 inv 14 / federation permeability per DL-21. Broad-default presets do NOT short-circuit these — they still fire. Domain 2 will codify exact mechanism; Domain 1 enforces that the broad path admits the same gate-evaluation surface as the specific path.
     - Run 4-axis booking composer per DL-15 inv 30 using PRESET defaults (NOT category-derived requirements):
       - Capacity axis: 1 (default for appointment-shape preset) unless preset specifies.
       - Staff axis: provider eligibility resolved per `preset.default_provider_eligibility_filter` (tenant-defined; e.g., "any injector" / "any MD" / specific staff group).
       - Room axis: per `preset.default_resource_requirement` (may be NULL — no specific room required).
       - Resource axis: same source.
-    - Materialize `appointment_item` with: `planned_service_id = NULL`, `planned_service_category_id = preset.target_service_category_id`, `planned_details = preset.default_planned_details` (may be `{}`), `linked_booking_preset_id = preset.id`, `planned_pricing_option_id = NULL` (resolved at checkout per progressive disclosure or staff resolution).
-    - **Degenerate fallback (staff-only edge case):** Staff may create an appointment_item directly with `planned_service_category_id = X` and no preset reference (`linked_booking_preset_id = NULL`). In this case, composer applies tenant-default duration + no specific provider/room/resource (staff fills in manually). Patient-facing flow NEVER allows this path; broad-default for patients ALWAYS routes through a preset.
+    - Materialize `appointment_item` with: `planned_service_id = NULL`, `planned_service_category_id = preset.target_service_category_id`, `planned_details = preset.default_planned_details` (may be `{}`), `linked_booking_preset_id = preset.id`, `appointment.source_booking_preset_id = preset.id` (per Amendment A), `planned_pricing_option_id = NULL` (resolved at checkout per disclosure mode or staff resolution).
+    - **Resolution constraint at performed/charged truth (refinement #4):** When the appointment is fulfilled in Domain 5 (encounter creation), the resulting `encounter_line.service_id` MUST be specific (NOT NULL) per DL-20 inv 12 + inv 36. The provider determines specific service at care delivery. The category-only `appointment_item` remains category-only (preserves planned intent audit); the encounter_line carries the specific service.id. The commerce_order_line carries the specific pricing_option.id. Vagueness ends at Layer 1; Layers 2 + 3 are always specific.
+    - **Degenerate fallback (staff-only edge case):** Staff may create an appointment_item directly with `planned_service_category_id = X` and no preset reference (`linked_booking_preset_id = NULL`, `source_booking_preset_id = NULL`). In this case, composer applies tenant-default duration + no specific provider/room/resource (staff fills in manually). Patient-facing flow NEVER allows this path; broad-default for patients ALWAYS routes through a preset. Downstream gates still fire even for the staff fallback.
 11. **Output / state change:** Insert appointment + appointment_item; emit `appointment_booked` with `booking_mode = 'category_level_via_preset'` (or `category_level_direct_staff` for degenerate fallback) in payload.
 12. **Owning substrate:** `booking_preset` (DL-19 inv 19; with `target_service_category_id` populated) + `appointment_item.planned_service_category_id` (DL-20 inv 34) + `appointment_item.linked_booking_preset_id` (DL-20 inv 34).
 13. **UI surface:** Patient self-booking — category-targeting presets surface as broad-default options (alongside service-targeting presets and bundle presets). Staff appointment creation — same presets + raw-service-level booking + degenerate raw-category booking (clearly labeled as "advanced / staff override").
@@ -653,7 +698,11 @@ Two options:
     - Preferences locked §1 "Broad-default booking; rich is opt-in"
     - User verbatim quote (Knox session 2)
     - TM-01 (taxonomy-only service_category — this rule preserves TM-01 by routing operational defaults through preset)
-17. **Test case:** Tenant creates booking_preset "Injectables Visit" with `target_service_category_id = injectables_category.id`, `default_duration_minutes = 60`, `default_provider_eligibility_filter = 'any_injector'`, `default_planned_details = {}`. Patient self-books "Injectables Visit" at 2pm Tuesday → preset resolves; composer finds an injector available (any of 3 eligible); appointment_item materialized with `planned_service_category_id = injectables_category.id`, `planned_service_id = NULL`, `linked_booking_preset_id = preset.id`. Schedule shows "Injectables Visit — Sarah" at 2pm (per TM-14 projection of preset.display_label). At visit, provider determines patient wants Botox 24u; encounter_line created with `linked_appointment_item_id = X`, `performed_payload.units = 24`. Category remained pure taxonomy throughout.
+17. **Test case (3-layer walk):** Tenant creates booking_preset "Injectables Visit" with `target_service_category_id = injectables_category.id`, `default_duration_minutes = 60`, `default_provider_eligibility_filter = 'any_injector'`, `default_planned_details = {}`, `visible_in_self_booking = TRUE`. Tenant also creates more-specific preset "GLP-1 Consult" targeting weight_loss_category with `requires_intake_complete = TRUE` (configured downstream in Domain 2).
+- **Layer 1 (planned):** Sarah self-books "Injectables Visit" at 2pm Tuesday. Schedulability floor passes (preset has duration + provider filter). Downstream gates fire — clinical clearance check OK (no contraindications). Composer finds an injector available (any of 3 eligible). `appointment` row inserted with `source_booking_preset_id = preset.id`; `appointment_item` row inserted with `planned_service_category_id = injectables_category.id`, `planned_service_id = NULL`, `linked_booking_preset_id = preset.id`, `planned_details = {}`. Schedule shows "Injectables Visit — Sarah" at 2pm (per TM-14 projection of preset.display_label).
+- **Layer 2 (performed):** At visit, provider Sarah Sees decides patient wants Botox 24u after consult. Encounter created (DL-20 inv 35); `encounter_line` inserted with `linked_appointment_item_id = X`, `service_id = neuromodulator_service.id` (SPECIFIC — refinement #4 — Layer 2 always concretizes), `performed_payload = {product: 'Botox', units: 24, treatment_areas: ['glabella', 'crows_feet']}`, `provider_id = sarah_sees.id`, `attestation_id = X`.
+- **Layer 3 (charged):** Sale closes. `commerce_order_line.line_kind = service`, `pricing_option_id = neuromodulator_per_unit.id` (SPECIFIC tier — refinement #4), `quantity = 24`, `unit_price = 14`, `total = 336`. Service-line linked back to encounter_line via `encounter_line.linked_commerce_order_line_id`.
+- Result: category remained pure taxonomy at Layer 1 (preserves broad-default intent audit); encounter + commerce specifics at Layers 2 + 3 (preserves clinical + financial truth). Same patient could alternatively book "GLP-1 Consult" preset → downstream gate (`requires_intake_complete`) fires; if intake incomplete, booking REJECTED with redirect to intake flow. Broad-default UX, full gate evaluation.
 
 ---
 
@@ -1327,35 +1376,35 @@ These rules surface during Domain 1 authoring but are deferred to later phases. 
 
 ---
 
-## §4 Substrate gap audit (revised after Knox 2026-05-17 patch round)
+## §4 Substrate gap audit (post Phase 1 hardening v3 amendments applied 2026-05-17 + Knox refinements integrated)
 
-Aggregated substrate pressure-test verdicts across all 30 Day 0 rules:
+Aggregated substrate pressure-test verdicts across all 30 Day 0 rules. **Status: all 3 DL amendments (A / B / C) APPLIED in commit `ee46585` to DL-19 + DL-20 DRAFTs. Previously OK-with-extension rules are now OK.**
 
 | Rule | Verdict | Notes |
 |---|---|---|
 | TM-01 | OK | service_category — existing DL-15 + DL-19 |
-| TM-02 | OK | service — DL-15 amendment 30 + 32 + 33 (with TM-15 split field set) |
-| TM-03 | OK | pricing_option — DL-17 inv 1-5 |
+| TM-02 | OK | service — DL-15 amendment 30 + 32 + 33 + Amendment B split fields |
+| TM-03 | OK | pricing_option — DL-17 inv 1-5; Knox refinement #2 enforced (no operational defaults sneak into pricing_option) |
 | TM-04 | OK | service_pricing_option_assignment — DL-17 inv 1 |
 | TM-05 | OK | service.service_type ENUM 5-value — DL-15 amendment 32 inv 32 |
 | TM-06 | OK | service.quantity_strategy ENUM 5-value — DL-15 amendment 5 + DL-17 inv 5 |
-| TM-07 | OK | booking_preset — DL-19 inv 19 |
+| TM-07 | OK | booking_preset — DL-19 inv 19 + Knox refinement #1 schedulability floor CHECK on category-targeting presets |
 | TM-08 | OK | Single-item booking_preset — DL-19 inv 19 + DL-20 inv 34 |
-| TM-09 | OK | Hierarchical drill-down booking_preset — DL-19 inv 19 parent_preset_id |
-| TM-10 | **OK with extension (Amendment A)** | Combo bundle booking_preset — needs `appointment.source_booking_preset_id` FK NULL on DL-20 inv 33 |
+| TM-09 | OK | Hierarchical drill-down booking_preset — DL-19 inv 19 parent_preset_id + Knox refinement #2 (operational defaults on preset/service, NOT pricing_option) |
+| TM-10 | OK (Amendment A applied) | Combo bundle booking_preset — `appointment.source_booking_preset_id` FK NULL added to DL-20 inv 33 in commit ee46585 |
 | TM-11 | OK | booking_preset.default_planned_details — DL-19 inv 19 |
-| TM-12 | OK | Broad-default booking via category-targeting preset — DL-19 inv 19 + DL-20 inv 34 (revised post-Knox; TM-01 contradiction resolved by routing through preset, not raw category) |
+| TM-12 | OK | Broad-default via category-targeting preset — DL-19 inv 19 + DL-20 inv 34 + Knox refinement #3 (gates fire downstream) + refinement #4 (encounter resolves to specific) |
 | TM-13 | OK | Clean patient-facing label — UI projection per DL-16 inv 3 |
-| TM-14 | OK (via TM-10 extension) | Schedule projection — reads `appointment.source_booking_preset_id` (Amendment A) |
-| TM-15 | **OK with extension (Amendment B)** | `service.self_bookable` BOOLEAN + `service.planned_detail_disclosure_mode` ENUM — split the conflated `self_bookable_progressive_disclosure_mode` ENUM into 2 independent fields per Knox patch |
-| TM-16 | OK (via TM-15 extension) | Patient portal filter reads `service.self_bookable` + `booking_preset.visible_in_self_booking` |
+| TM-14 | OK (Amendment A applied) | Schedule projection reads `appointment.source_booking_preset_id` (Amendment A live in DL-20 inv 33) |
+| TM-15 | OK (Amendment B applied) | `service.self_bookable` BOOLEAN + `service.planned_detail_disclosure_mode` ENUM — split live in DL-19 preamble per commit ee46585 |
+| TM-16 | OK (Amendment B applied) | Patient portal filter reads `service.self_bookable` + `booking_preset.visible_in_self_booking` |
 | TM-17 | OK | service.planned_detail_schema JSONB — DL-15 inv 30 + DL-19 inv 2 |
 | TM-18 | OK | planned_details substrate-level validation — DL-19 inv 8 |
 | TM-19 | OK | appointment_item.planned_quantity — DL-20 inv 34 |
-| TM-20 | **OK with extension (Amendment C)** | Treatment areas — clarify DL-20 inv 34 source-of-truth: `planned_details.treatment_areas` JSONB canonical; `planned_treatment_areas[]` ARRAY materialized projection (per Knox patch — pick one source of truth) |
+| TM-20 | OK (Amendment C applied) | Treatment areas source-of-truth clarified — `planned_details.treatment_areas` canonical, `planned_treatment_areas[]` materialized projection — DL-20 inv 34 updated in commit ee46585 |
 | TM-21 | OK | Add-on appointment_item with parent_item_id — DL-20 inv 34 |
 | TM-22 | OK | Multi-line visit — DL-20 inv 33-34 |
-| TM-23 | OK (via TM-10 extension) | Bundle materialization — covered by Amendment A (`appointment.source_booking_preset_id`) |
+| TM-23 | OK (Amendment A applied) | Bundle materialization — covered by Amendment A (`appointment.source_booking_preset_id` populated for bundles) |
 | TM-24 | OK | Soft-delete (is_active) — standard pattern |
 | TM-25 | OK | Disassociate vs Deactivate — DL-17 inv 1 |
 | TM-26 | OK | service_category hierarchy depth — DL-15 + TM-01 |
@@ -1364,28 +1413,23 @@ Aggregated substrate pressure-test verdicts across all 30 Day 0 rules:
 | TM-29 | OK | No vendor names in substrate — Cross-DL warning enforcement |
 | TM-30 | OK | "Visit type" projection — TM-14 |
 
-### Substrate gap audit summary (revised post-Knox patch round)
+### Substrate gap audit summary (post Phase 1 hardening v3 amendments applied + Knox refinements integrated)
 
 - **Total Day 0 rules:** 30
-- **OK:** 23 rules (no extension needed)
-- **OK with extension:** 7 rules (TM-10 + TM-14 + TM-15 + TM-16 + TM-20 + TM-23 — but only **3 distinct amendments** because most share the underlying gap):
-  - **Amendment A** (DL-20 inv 33: `appointment.source_booking_preset_id` FK NULL) — affects TM-10 + TM-14 + TM-23
-  - **Amendment B** (DL-15 inv 30 + DL-19 preamble: split `self_bookable_progressive_disclosure_mode` into `self_bookable` BOOLEAN + `planned_detail_disclosure_mode` ENUM) — affects TM-15 + TM-16
-  - **Amendment C** (DL-20 inv 34: clarify treatment_areas source-of-truth as JSONB canonical + ARRAY projection) — affects TM-20
+- **OK:** **30 rules** (all 30 — amendments applied; refinements integrated)
+- **OK with extension:** 0 rules
 - **NEW SUBSTRATE NEEDED:** 0 rules
 
-### Why the OK-with-extension count rose from 2 to 7 rules (3 amendments)
+Knox's 5 refinements (2026-05-17 post-amendment) integrated into rules:
+- Refinement #1 (schedulability floor on category-targeting presets) → TM-07 binding CHECK at admin write
+- Refinement #2 (pricing must not sneak into scheduling) → TM-03 anti-copy + TM-09 explicit "operational defaults on preset/service, NOT pricing_option"
+- Refinement #3 (broad-default does NOT bypass gates) → TM-12 explicit gate evaluation at booking commit (deferred to Domain 2 mechanism but acknowledged in Domain 1)
+- Refinement #4 (category-level planned must resolve to specific at performed/charged) → TM-12 3-layer constraint; encounter_line.service_id NOT NULL per DL-20 inv 12
+- Refinement #5 (Domain 1 ≠ scheduler completion) → index doc §6 stronger warning
 
-Knox's 2026-05-17 patch round surfaced subtle architecture leaks that the initial draft didn't catch. The cascade:
+Doctrine held under both the original 30-rule pressure-test AND Knox's 5-refinement deeper review. Domain 1 is now **substrate-slice-ready for treatment-menu / visit-type concerns** — but per refinement #5, this does NOT generalize to scheduler-wide readiness. Domains 2-7 still need full pressure-testing.
 
-1. **TM-12 fix:** Routing broad-default booking through a category-targeting preset preserved TM-01's taxonomy purity but didn't introduce a new substrate need (booking_preset already admits `target_service_category_id` per DL-19 inv 19).
-2. **FK rename (Amendment A):** `bundled_from_preset_id` → `source_booking_preset_id` is more general (covers all 4 booking shapes uniformly: bundle / category-targeting / single-item / direct). Same extension; broader name. Cascades through TM-10 + TM-14 + TM-23 cleanly.
-3. **Split TM-15 (Amendment B):** `self_bookable` (visibility) and `planned_detail_disclosure_mode` (form rigor) are genuinely independent axes. Conflating them was a Pattern 3 (compound enum) regression. Splitting them is a real substrate clarification.
-4. **TM-20 source-of-truth (Amendment C):** Pre-Knox draft listed both `planned_treatment_areas[]` ARRAY AND `planned_details` JSONB without naming canonical source. Knox correctly flagged drift risk. Picking JSONB canonical + ARRAY materialized projection resolves cleanly with trigger pattern.
-
-All 3 amendments are pre-substrate-slice — cheap to apply now via DL-15 / DL-19 / DL-20 amendment commits before code lands. Per [post-mortem Pattern 4](../../../docs/architecture/scheduling_foundation_post_mortem_2026-05-17.md#pattern-4--workarounds-instead-of-upstream-fixes): workarounds become tech debt. Apply the amendments.
-
-### Proposed DL amendment notes (3 amendments, all OK-with-extension; NOT applied here)
+### DL amendment notes (3 amendments — ALL APPLIED in commit `ee46585` per Phase 1 hardening v3 2026-05-17)
 
 #### Amendment A — DL-20 inv 33: add `appointment.source_booking_preset_id` FK NULL
 
@@ -1477,7 +1521,7 @@ These are independent axes. A service can be self-bookable with no structured de
  └── ...
 ```
 
-**None of the 3 amendments are applied in this rule matrix.** All 3 are flagged for Phase 1 DL amendment review before Domain 2 starts (or batched into a single small "Phase 1 hardening v3" commit covering all 3 patches).
+**Status: ALL 3 AMENDMENTS APPLIED** in commit `ee46585` (Phase 1 hardening v3, 2026-05-17). DL-19 + DL-20 DRAFTs updated; system_map cross-reference added under DL-15 Phase 1 hardening v3 section. Locked DL-15 / DL-16 untouched. Substrate gap audit accordingly updated to 30 OK / 0 OK-with-extension / 0 NEW SUBSTRATE NEEDED. Pre-substrate-slice; no code/migration cost.
 
 ---
 
@@ -1585,17 +1629,21 @@ The post-mortem failure patterns were largely avoided in initial draft + the reg
 - **Pattern 7 (Mindbody UI labels as substrate)** — TM-28 / TM-29 / TM-30 explicitly enforce anti-leakage. Held.
 - **Initial Domain 1 → patched Domain 1:** the iterative review cycle worked — Knox's review caught real architecture leaks that initial draft missed.
 
-### Substrate gap audit summary (post-Knox patch round; for index)
+### Substrate gap audit summary (post Phase 1 hardening v3 + Knox 5 refinements)
 
-- 30 total rules
-- 23 OK (no extension)
-- 7 rules OK-with-extension, resolving to **3 distinct DL amendments**:
-  - **Amendment A** — DL-20 inv 33: add `appointment.source_booking_preset_id` FK NULL (affects TM-10 / TM-14 / TM-23)
-  - **Amendment B** — DL-15 inv 30 + DL-19 preamble: split `self_bookable_progressive_disclosure_mode` into `service.self_bookable` BOOLEAN + `service.planned_detail_disclosure_mode` ENUM (affects TM-15 / TM-16)
-  - **Amendment C** — DL-20 inv 34: clarify treatment areas — `planned_details.treatment_areas` canonical, `planned_treatment_areas[]` ARRAY is materialized projection (affects TM-20)
-- 0 NEW SUBSTRATE NEEDED
+- **30 total Day 0 rules**
+- **30 OK** (all 3 DL amendments applied in commit `ee46585`; Knox 5 refinements integrated into TM-03 / TM-07 / TM-09 / TM-12 / index)
+- **0 OK-with-extension**
+- **0 NEW SUBSTRATE NEEDED**
 
-**Recommendation:** Apply all 3 amendments before Domain 2 starts. Pre-substrate-slice (cheap; no code/migration cost). Can be batched into a single "Phase 1 hardening v3" commit covering all 3 patches. Alternative: defer A + C until Domain 2 confirms no additional gaps (safer to apply early). Amendment B is most urgent — splitting the conflated enum prevents Pattern 3 (compound enum) regression in downstream rules.
+Knox's 5 refinements (2026-05-17 post-amendment review) integrated into Domain 1:
+1. **Schedulability floor** for category-targeting presets — TM-07 binding CHECK
+2. **No pricing in scheduling** — TM-03 anti-copy + TM-09 operational-defaults-on-preset
+3. **Broad-default ≠ bypass gates** — TM-12 explicit downstream gate list
+4. **Layer 1 admits vagueness; Layers 2/3 are specific** — TM-12 3-layer resolution constraint
+5. **Domain 1 ≠ scheduler completion** — Index §6 explicit warning about Domains 2/6/7
+
+**Domain 1 status:** substrate-slice-ready for treatment-menu / visit-type concerns ONLY. Per refinement #5, this does NOT generalize to scheduler-wide readiness. Domain 2 (booking composer / availability) is the next dangerous domain — provider eligibility, rooms, resources, double-booking, intake-first gates, age limits, jurisdiction, license validation all surface there.
 
 ---
 

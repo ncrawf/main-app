@@ -120,7 +120,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 
 | # | Domain | File | Round | Status | Rule count Day 0 | Substrate verdicts |
 |---|---|---|---|---|---|---|
-| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Round 1 + Knox patch round** | **AUTHORED + PATCHED** | 30 Day 0 | 23 OK / 7 OK-with-extension (3 distinct amendments A/B/C) |
+| 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Round 1 + Round 1.5 (Knox patch) + Round 1.6 (Phase 1 v3 amendments + Knox 5 refinements)** | **AUTHORED + PATCHED + AMENDMENTS APPLIED** | 30 Day 0 | 30 OK / 0 OK-with-extension / 0 NEW (all 3 amendments applied in commit ee46585) |
 | 2 | Booking composer / availability rules | (deferred) | Round 2 | NOT STARTED | — | — |
 | 3 | Appointment lifecycle rules | (deferred) | Round 3 | NOT STARTED | — | — |
 | 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — |
@@ -130,6 +130,14 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 | Final | Scenarios validation (10 scenarios end-to-end) | (deferred) | Final round | NOT STARTED | — | — |
 
 **Round cadence:** one domain per round. After each domain lands, STOP and report substrate gap audit + open decisions. User + Knox review BEFORE the next round starts. Final round walks 10 named scenarios end-to-end across all 7 domains to verify no gap.
+
+**IMPORTANT — Domain 1 completion is NOT scheduler completion (Knox 2026-05-17 refinement #5):** Domain 1 solves treatment-menu / visit-type rules ONLY. It does NOT solve availability, lifecycle, confirmation, encounter creation, checkout, or documentation. Substrate that "holds" for Domain 1 has only been pressure-tested against catalog / menu / visit-type / preset / broad-default concerns. The next dangerous domains are:
+
+- **Domain 2 (Booking composer / availability)** — provider eligibility, rooms, resources, double-booking, add-ons, multi-item visits, jurisdiction, intake-first gates, age limits, clinical clearance, license validation. THIS is where the 4-axis composer (DL-15 inv 30) gets stress-tested against real workflows.
+- **Domain 6 (Commerce / entitlement)** — packages, memberships, promos, deposits, refunds, commission, checkout, entitlement redemption priority. Mindbody-era workarounds (treatment deposit as $0 pricing option / cancellation policy as $0 pricing option / 7-tier Botox) all collapse here.
+- **Domain 7 (Documentation / evidence)** — "booked Botox, performed Xeomin + Kysse with barcode/lot/expiration" — this is where 3-layer pattern proves itself OR breaks. Lot capture, attestation tiers, encounter immutability, partner imaging device naming, intake/consent/clinical media unified substrate.
+
+Each of these may surface new substrate gaps. Treating "Domain 1 holds" as "scheduler holds" would be premature; flagged here for every subsequent round.
 
 ---
 
