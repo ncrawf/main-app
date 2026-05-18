@@ -139,7 +139,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 | 1 | Treatment menu / visit-type rules | [01_domain_treatment_menu.md](01_domain_treatment_menu.md) | **Rounds 1 + 1.5 + 1.6 + 1.7 (Knox gate-timing correction)** | **AUTHORED + PATCHED + AMENDMENTS A/B/C APPLIED + Amendment D candidate for Domain 2** | 30 Day 0 | 29 OK / 1 OK-with-extension (TM-12 → Amendment D for Domain 2) / 0 NEW | n/a (done) |
 | 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + 2.5 + 2.6 (Amendments D + E + F applied; dual-target routing guardrail; Round 3 pre-flight guardrails locked)** | **AUTHORED + PATCHED + GUARDED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
 | 3 | Appointment lifecycle rules | [03_domain_appointment_lifecycle.md](03_domain_appointment_lifecycle.md) | **Round 3 + 3.1 (Amendment G applied; Round 3.1 doctrine + cross-domain seam locked)** | **AUTHORED + PATCHED** | 24 Day 0 | 24 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
-| 4 | Confirmation / outbound round-trip rules | [04_domain_confirmation_outbound.md](04_domain_confirmation_outbound.md) | **Round 4** | **AUTHORED** | 37 Day 0 | 32 OK / 5 OK-with-extension (all flagged Amendment J(a/b/c/d) for Round 5/7) / 0 NEW |
+| 4 | Confirmation / outbound round-trip rules | [04_domain_confirmation_outbound.md](04_domain_confirmation_outbound.md) | **Round 4.2C** | **ACCEPTED / CLOSED (design-conformance)** | Day 0 scheduling-originated CNS slice | Structurally accepted; remaining assumptions are integration gates for Round 5/6/7/final validation |
 | 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet forward-reference + Amendment J(a) substrate evaluation + DL-20 inv 33-40 + §2.15 Context Module Layer + **§2.22 Amendment K HARD CLOSURE GATE** (party/seat/roster/guest must be resolved before Round 5 closes) |
 | 6 | Checkout / commerce / entitlement rules | (deferred) | Round 6 | NOT STARTED | — | — | §2.21 universal kickoff + §2.9 Domain 6 pre-brief Sections A-K + §2.10-§2.13 (generic engine / attribution / Shopify ingestion / stacking) + targeted Shopify ingestion (per §2.12) + DL-17 + **§2.22 Amendment K per-seat entitlement implications** (if K(a-c) implemented, Domain 6 commerce ties to per-seat entitlement) |
 | 7 | Documentation / evidence rules | (deferred) | Round 7 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet + DL-22 Clinical-Media + DL-20 inv 33-40 + Amendment J(d) substrate evaluation + **§2.22 Amendment K HARD CLOSURE GATE** (party/seat/roster/guest documentation implications must be resolved before Round 7 closes if not resolved in Round 5) |
@@ -1341,9 +1341,14 @@ Every round MUST open its work with a written statement of the form:
 
 This statement lives in the domain rule file's opening section. It is NOT optional. It is the round's audit lineage proof of pre-reading.
 
+**Mandatory checkpoint after read receipt (binding):**
+
+After writing the round opening/read receipt, the author MUST STOP and wait for explicit user/Knox green light before authoring domain rules. "No blocking questions" does NOT authorize proceeding. If the green light is not explicit, rule authoring is blocked.
+
 **Anti-patterns (Round 3.5 + §2.21 binding rejections):**
 
 - ❌ Starting a new round by proposing rules before citing §2.21 read receipt
+- ❌ Continuing into rule authoring immediately after read receipt without explicit user/Knox green light
 - ❌ Treating locked doctrine as "new architecture" in the round opening (re-discovery anti-pattern; Pattern 9 in post-mortem)
 - ❌ Re-narrowing scope after wide cross-domain framing is already locked in §2.14 (narrow-framing creep; Pattern 10 in post-mortem)
 - ❌ Re-litigating user/Knox preferences from `user_knox_preferences_locked_2026-05-17.md`
@@ -1484,6 +1489,163 @@ Round 4 (Domain 4 — Confirmation / outbound round-trip rules) authors communic
 
 §2.22 is the **cross-vertical guardrail + scheduling-capacity closure gate** for Round 5/7. The principle preserves OMNI's vertical-agnostic primitives without expanding product scope.
 
+### §2.23 Round 3.6 interlude — CNS Orchestration Core parent contract (binding parent before Round 4.2)
+
+Per user direction 2026-05-18, OMNI CNS is now explicitly locked as a **first-class parent contract** before any Round 4.2 refactor.
+
+**Locked parent artifact:** [`03_6_cns_orchestration_core.md`](./03_6_cns_orchestration_core.md)  
+**System-map binding anchor:** [`system_map_three_layers_60706286.plan.md`](../../system_map_three_layers_60706286.plan.md) (Phase 1 hardening v11 entry)
+
+Round 3.6 parent contract stack (binding):
+- Source Event Contract (append-only typed facts; bypass whitelist must be explicit, named, justified, and auditable)
+- Context Packet / State Snapshot Contract (resolver reasons from typed/versioned snapshot, not raw tables)
+- Action Candidate Contract + lifecycle (`created -> eligible -> blocked|deferred|suppressed|resolved_to_envelope|expired|cancelled|superseded|failed_resolution`)
+- Domain Ownership Contract (domain owns event meaning + canonical commits; CNS owns orchestration)
+- State Mutation Boundary (`state_transition_proposal` from CNS; canonical commit by owning domain)
+- Identity/Correlation Contract (confidence + proxy + thread/action mapping; low confidence routes to staff review)
+- Supersession/Revision Contract (stale-safe execution and stale-safe inbound mutation)
+- Resolver Decision Record Minimum (required explainability/audit payload)
+- CNS Charter (plain-English ownership boundaries)
+- CNS Platform Readiness Guardrails (12 parent contracts including simulation/autonomy/feedback and oversight plane)
+- CNS Input Readiness Contract (typed/granular/versioned/attributable/policy-readable inputs)
+- Readiness scoring output per domain/event family: `ready | conditional | blocked`
+
+Binding inheritance rule:
+- Every domain slice inherits this parent contract.
+- Domain 4 is one scheduling-originated candidate emitter into CNS resolver, not a standalone messaging core.
+
+Binding freeze:
+- Round 5 remains frozen.
+- Round 4.2 text refactor is blocked until Round 3.6 conformance checkpoint is published and explicit user/Knox approval is granted.
+
+### §2.24 Domain Slice Template (binding for Round 5+ and future pillars)
+
+This section prevents per-domain reinvention of CNS logic.  
+Future domain rounds (D5/D6/D7 and future labs/Rx/intake/orders/async-care slices) must reuse the parent CNS pipe and author only domain-specific slice content.
+
+#### §2.24.1 Reuse everywhere (do NOT rebuild per domain)
+
+Every domain inherits the same parent chain:
+
+`source event -> context packet/state snapshot -> action candidate -> CNS resolver -> envelope -> execution/inbound loop -> decision record/oversight`
+
+Inherited contracts (required):
+- Source Event Contract
+- Context Packet / State Snapshot Contract
+- Action Candidate Contract + lifecycle
+- Domain Ownership Contract
+- State Mutation Boundary
+- Identity/Correlation Contract
+- Supersession/Revision Contract
+- Resolver Decision Record Minimum
+- No-bypass discipline (no direct rail/task/queue/state-proposal/suppression/no-op bypass)
+
+#### §2.24.2 Define per domain slice (and only this)
+
+Each domain file must define:
+- domain-owned source events and externally-owned consumed events
+- source-event -> candidate mapping table
+- minimum domain candidate payload additions (on top of parent minimum)
+- domain ownership and non-ownership seams
+- domain-specific legal transition matrix (if state machine exists)
+- failure modes + owning queue classes
+- stress/conformance table + integration-gate assumptions
+
+#### §2.24.3 Mandatory per-domain hardening checks (future-use footguns to preempt now)
+
+Every future domain slice MUST explicitly address:
+- **Revision-safe dedupe:** dedupe keys include revision/supersession branch context
+- **Timer active-state guard:** stale timers cannot mutate superseded/ineligible state
+- **Authority boundary:** operational candidates cannot leak clinical/financial authority
+- **Consent/legal-class specificity:** unknown-consent handling must be class-specific, not blanket
+- **Immediate provisional suppression for hard-stop signals:** e.g., STOP-like signals
+- **External adapter acknowledgment contract:** outbound/inbound/external-ack states are explicit and auditable
+- **Compensation/saga boundary:** cross-domain side effects flow via owned domain commits, never implicit in emitter domain
+- **Queue ownership explicitness:** no generic “staff review” without owning queue class
+- **Candidate emission != action:** candidate creation is evaluation input, not implied send/task
+- **Stress PASS semantics:** design pass is not runtime pass; unresolved assumptions are integration gates
+- **Event finality classification:** domain events classify provisional vs acknowledged vs final vs corrected vs reversed vs failed; CNS must not treat provisional external events as final truth unless policy explicitly allows
+- **Replay/correction behavior:** each domain defines how late, duplicate, replayed, corrected, and reversed events alter candidate emission/suppression and prior decision-record interpretation
+- **Domain authority matrix:** each domain defines AI/staff/provider/medical-director/compliance authority boundaries for candidate families and state proposals
+- **Audience visibility boundary:** each domain classifies outputs/facts as patient-visible, staff-visible, provider-visible, audit-only, or external-vendor-visible
+
+#### §2.24.4 Domain-slice opening template (required)
+
+Every future domain round opens with:
+1. parent-contract inheritance statement (cite §2.23 + parent artifact)
+2. domain ownership/non-ownership seam declaration
+3. explicit “what is reused vs what is newly defined” list
+
+#### §2.24.5 Anti-pattern rejections (binding)
+
+- ❌ Domain-specific “mini orchestrator” reimplementation
+- ❌ Event handler directly sending rails/tasks/queues
+- ❌ Domain claiming truth ownership outside its seam
+- ❌ Treating stress design PASS as production integration PASS
+- ❌ Rebuilding messaging logic instead of defining domain event/candidate/context slice
+
+#### §2.24.6 Future domain coverage note — Supply / Fulfillment / Availability (binding principle; not a Round 5 blocker)
+
+Inventory/supply/fulfillment signals are first-class CNS-readable source events.  
+This is a future domain slice coverage note, not a requirement to design a full inventory subsystem in Round 5.
+
+Binding principle:
+- Supply/fulfillment events go through the same parent CNS chain.
+- Do NOT implement a parallel “if stock low then text manager” mini-automation outside CNS.
+
+Representative future source events:
+- `supply.stock_below_par`
+- `supply.stockout_detected`
+- `supply.lot_expiring`
+- `supply.lot_recalled`
+- `supply.purchase_order_needed`
+- `supply.purchase_order_submitted`
+- `supply.purchase_order_acknowledged`
+- `supply.purchase_order_delayed`
+- `supply.receiving_completed`
+- `fulfillment.vendor_acknowledged`
+- `fulfillment.shipment_delayed`
+- `fulfillment.failed`
+- `rx.fulfillment_accepted`
+- `rx.fulfillment_rejected`
+- `rx.medication_unavailable`
+- `rx.refill_due`
+
+Representative candidate families:
+- `reorder_task_candidate`
+- `procurement_review_candidate`
+- `vendor_action_candidate`
+- `appointment_supply_risk_candidate`
+- `staff_notification_candidate`
+- `substitution_review_candidate`
+- `suppression` / `no_op` when duplicate/open PO already satisfies need
+
+Supply & Fulfillment Context (future context extension) should cover at least:
+- `sku_or_product_id`, `location_id`
+- `on_hand_qty`, `reserved_qty`, `available_qty`
+- `par_level`, `reorder_point`, `reorder_quantity`
+- `preferred_vendor`, `vendor_lead_time`
+- `open_purchase_order_refs`
+- `lot_number`, `expiration_status`, `recall_status` (where applicable)
+- storage constraints (e.g., cold-chain)
+- controlled/regulated class (where applicable)
+- substitution options
+- upcoming demand refs from scheduled appointments/encounters/orders
+
+Ownership seams (binding):
+- Supply/inventory/procurement domain owns stock/par/lot/procurement truth.
+- Commerce domain owns sale/refund/order/payment/customer-order truth.
+- Rx/clinical domain owns prescription authority and clinical appropriateness.
+- Encounter/documentation domain owns what was actually used/administered/dispensed.
+- CNS owns orchestration/routing/suppression/escalation/audit.
+- Supply availability may influence scheduling readiness, encounter readiness, commerce fulfillment, Rx continuation, and patient/staff/provider communication, but Supply/Fulfillment does NOT own those domains' canonical decisions.
+
+Boundary examples (binding):
+- `appointment_supply_risk_candidate` can warn low stock risk, but D2/D3 own scheduling/lifecycle decisions.
+- Lot recall can trigger clinical/documentation escalation, but clinical/documentation owns patient-safety disposition.
+- Dropship delay can trigger order communication, but Commerce owns order/refund truth.
+- Rx unavailable can trigger provider/pharmacy tasking, but Rx/clinical owns substitution and medication-appropriateness decisions.
+
 ---
 
 ## §7 Cross-link map (every rule cross-references these)
@@ -1493,6 +1655,7 @@ Round 4 (Domain 4 — Confirmation / outbound round-trip rules) authors communic
 - **DL-15** (Scheduling Substrate Spine) — locked + 8 amendments (invariants 29-36; amendment 8 renames lifecycle state `confirmed` → `scheduled`)
 - **DL-16** (Universal CNS Event Envelope) — locked + 4 amendments (invariants 40-43; amendment 42 outbound trigger registry; amendment 43 actor 4-tuple)
 - **Cross-DL warning** subsection in system_map (Phase 1 hardening 2026-05-17) — vendor / specialty / Mindbody-UI labels do NOT become OMNI substrate enum values
+- **Round 3.6 CNS parent contract** — [`03_6_cns_orchestration_core.md`](./03_6_cns_orchestration_core.md) — required parent contract for Domain 4+ inheritance
 
 ### DRAFT doctrine (referenced; not amended by rule matrix)
 - **DL-17** (Commerce) — [DL-17_commerce_DRAFT_2026-05-17.md](../../doctrine/DL-17_commerce_DRAFT_2026-05-17.md) — 38 invariants

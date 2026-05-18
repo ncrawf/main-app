@@ -231,9 +231,35 @@ When existing doctrine covers a concern, CITE it. Do not re-author. §2.19 Citat
 
 ---
 
-## What's next (post-Round-3.5)
+## Act XIV: Round 3.6 interlude — parent contract first (2026-05-18)
 
-Round 4 authoring starts after this scaffolding lands. Round 4 scope: Domain 4 — Confirmation / outbound round-trip rules. Estimated 32-38 Day 0 rules across 2 lanes (Lane 1 confirmation round-trip per DL-20 inv 40 + Lane 2 protocol-aware comms). Round 4 must honor §2.18 pre-brief Sections A-O + §2.19 Citation Map + §2.21 Round Kickoff Reading Discipline.
+The next correction happened before Round 4.2 execution: the architecture still read too "confirmation/outbound centric" unless CNS was codified as a first-class parent contract. Round 3.6 therefore paused domain-specific edits and locked a dedicated interlude artifact at [`03_6_cns_orchestration_core.md`](../../.cursor/plans/designs/day_0_scheduling_rule_matrix/03_6_cns_orchestration_core.md), then bound it into both the index (§2.23) and system map (Phase 1 hardening v11).
+
+What changed in this interlude:
+- CNS was formalized as a parent contract stack (source event, context packet/state snapshot, action candidate lifecycle, resolver, envelope, inbound loop, ownership boundary, mutation boundary, identity/correlation, supersession, decision record minimum).
+- A plain-English CNS charter was locked to prevent "CNS as reminder tool" drift.
+- Platform guardrails were promoted as explicit parent contracts, including simulation/autonomy/feedback and an oversight plane boundary (deterministic monitors + bounded AI analysis + human governance).
+- Input readiness became a gating contract with required rubric (`ready | conditional | blocked`), preventing low-quality domain facts from silently driving autonomous execution.
+
+This interlude is notable because it converted a repeated conceptual reminder into an explicit architecture seam that future rounds must inherit.
+
+---
+
+## Act XV: Round 4.2C closure — scheduling slice accepted (2026-05-18)
+
+Round 4 did not close as a simple patch to old confirmation/reminder logic. It was rebuilt and hardened as a scheduling-originated candidate-emitter slice under the parent CNS contract, then closed with explicit boundaries:
+
+- D4 owns scheduling candidate emission, confirmation state, confirmation-event write discipline, and scheduling reply classification.
+- D4 does not own D3 lifecycle truth, D5/D7 encounter/post-care policy, D6 commerce truth, lab/Rx/intake/marketing logic, or provider clinical disposition.
+- Stress “PASS” is design conformance only; assumptions are carried as integration gates.
+
+The companion lock that makes this durable is `00_index.md` §2.24 Domain Slice Template, which turns the Round 4 lesson into a reusable pattern for D5/D6/D7 and future labs/Rx/intake/orders/async-care slices.
+
+---
+
+## What's next (post-Round-4.2C)
+
+Round 4.2C is closed. Round 5 remains frozen until explicit user/Knox opening approval.
 
 After Round 4 closes, Round 5 (Domain 5 — Encounter creation) opens with §2.21 read receipt + Amendment J(a) Context Module Layer substrate evaluation + §2.17 Provider Clinical Context Packet substrate work.
 

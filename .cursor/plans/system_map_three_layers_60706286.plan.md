@@ -789,6 +789,28 @@ Anti-patterns (binding): NOT a product direction to chase fitness/salon/PT/massa
 
 Phase 1 hardening v10 may add additional amendments as later domains surface gaps. Round 4 (Domain 4) pre-brief is fully framed (Sections A-O); Amendment J 4-part candidate parked for Round 5/7.
 
+**Phase 1 hardening v11 (2026-05-18, Round 3.6 interlude — CNS Orchestration Core parent contract lock before Round 4.2 refactor) — 0 substrate amendments; parent-contract binding architecture locked:**
+
+Round 3.6 additions (cross-domain parent contract; required inheritance for all domain slices) are captured in Day 0 Scheduling Rule Matrix [index doc §2.23](designs/day_0_scheduling_rule_matrix/00_index.md) and dedicated interlude artifact [`03_6_cns_orchestration_core.md`](designs/day_0_scheduling_rule_matrix/03_6_cns_orchestration_core.md):
+
+- **CNS Charter locked as plain-English ownership boundary:** CNS owns orchestration (event intake, context assembly, policy resolution, routing/suppression/escalation, decision audit); domains own canonical truth and canonical commits.
+- **Parent contract stack locked:** Source Event / Context Packet-State Snapshot / Action Candidate / Resolver / Execution Envelope / Universal Inbound Loop / Domain Ownership / State Mutation Boundary / Identity-Correlation / Supersession-Revision / Decision Record Minimum.
+- **Source Event bypass governance tightened:** direct rail bypass allowed only via explicit whitelist entries that are named + justified + auditable + owner-assigned + revalidation-bound.
+- **CNS Input Readiness Contract locked:** CNS depends only on typed/granular/versioned/attributable/time-aware/ownership-clear/policy-readable facts with audit lineage and confidence markers.
+- **Readiness rubric locked (required output):** each domain/event-family scored `ready | conditional | blocked` for autonomous resolver eligibility.
+- **Platform guardrails locked as parent contracts (12):** event ledger/replay/schema versioning; policy governance; work queue/SLA; clinical risk severity; coverage ownership; human override; record boundary/retention; AI governance; tenant capability gating; observability metrics; simulation/autonomy/feedback; oversight plane.
+- **Domain inheritance lock:** Domain 4 is one scheduling-originated candidate emitter into shared CNS resolver, not a standalone messaging core.
+- **Freeze lock preserved:** Round 5 remains blocked; Round 4.2 refactor blocked until Round 3.6 conformance checkpoint + explicit user/Knox approval.
+
+**Phase 1 hardening v12 (2026-05-18, Round 4.2C closure + future-slice template lock) — 0 substrate amendments; D4 design closure + anti-rebuild guardrails locked:**
+
+- **Domain 4 closure state:** Round 4.2C accepted/closed as Day 0 scheduling-originated CNS slice (design-conformance).
+- **Closure semantics:** accepted architecture boundaries are explicit; stress PASS remains design-level with integration-gate assumptions for later rounds/final validation.
+- **Template lock for future domains:** `00_index.md` §2.24 is now binding for future slices (D5/D6/D7 and future labs/Rx/intake/orders/async-care).
+- **No-rebuild doctrine:** future domains must reuse parent CNS chain and define only local source events/context/candidates/seams/failure/stress contracts.
+- **Future domain coverage note added:** Supply/Fulfillment/Availability is explicitly admitted as CNS-readable event family (bounded future coverage, not a Round 5 inventory build).
+- **Round 5 freeze remains active:** closure of D4 does not auto-open Round 5; explicit user/Knox go is still required.
+
 **Execution choices (user direction 2026-05-17):**
 - **Commit cadence:** Round 3.5 doctrine-only commit; do not combine with Round 4 authoring. (Option `pause_first`.)
 - **Binding scope:** CNS Action Envelope binds cross-domain, but Round 4 authors only scheduling-domain slice. (Option `round_4_authoritative_other_domains_inherit`.)

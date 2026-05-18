@@ -270,6 +270,31 @@ This ADR is the response to that direction. §2.21 Round Kickoff Reading Discipl
 
 ---
 
-## §8 Decision summary in one sentence
+## §8 Round 3.6 addendum (2026-05-18)
+
+Round 3.6 extends this ADR from "source-agnostic action orchestration doctrine lock" to explicit **parent-contract architecture lock**:
+
+- Parent artifact: [`03_6_cns_orchestration_core.md`](../../.cursor/plans/designs/day_0_scheduling_rule_matrix/03_6_cns_orchestration_core.md)
+- Index binding: [00_index.md §2.23](../../.cursor/plans/designs/day_0_scheduling_rule_matrix/00_index.md)
+- System map binding: Phase 1 hardening v11 entry in [`system_map_three_layers_60706286.plan.md`](../../.cursor/plans/system_map_three_layers_60706286.plan.md)
+
+Round 3.6 lock clarifies that:
+- CNS is a first-class parent contract for all domains, not an appointment/reminder module.
+- D4 is one source-domain emitter into the shared CNS resolver.
+- Source-event bypasses must be explicit/named/justified/audited.
+- CNS input readiness must be scored `ready | conditional | blocked`.
+- Round 5 stays frozen until parent-contract conformance checkpoint and explicit approval.
+
+## §8.1 Round 4.2C closure addendum (2026-05-18)
+
+Round 4 closed as an inheriting scheduling slice (not a standalone reminder engine):
+- D4 accepted as scheduling-originated candidate emitter into shared CNS resolver.
+- D4 ownership boundaries are explicit; non-owned domains remain explicit seams.
+- D4 stress PASS is design-conformance only; assumptions are integration gates.
+- `00_index.md` §2.24 now locks reusable domain-slice template so future domains inherit CNS relationship rather than copy D4-specific rules.
+
+---
+
+## §9 Decision summary in one sentence
 
 **Round 3.5 locks source-agnostic CNS action orchestration as the binding architecture for Day 0 Scheduling Rule Matrix Domain 4 authoring and inherited by all future domains, via 6 doctrine sections (§2.14-§2.20) + binding round kickoff reading discipline (§2.21) that cite existing OMNI doctrine (DL-14 / DL-15 / DL-16 / DL-18 / DL-20 / DL-21 / communications_topology.md / 4h phase work) rather than re-authoring it.**

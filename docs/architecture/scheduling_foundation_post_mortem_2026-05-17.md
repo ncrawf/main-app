@@ -189,6 +189,20 @@ Each correction was forced by the user naming a real-world scenario the narrow f
 
 **Recurrence risk:** medium-high. Each remaining round (5, 6, 7) will have its own "narrow scope feels achievable" temptation. Mitigation: §2.21 read receipt template requires the round to state "key constraints I am honoring from prior rounds" — which forces the author to consider the wide existing architecture before narrowing scope.
 
+### Round 3.6 watchpoint — "Parent contract implicitness" (added 2026-05-18 post-Round-3.6 interlude)
+
+**What it looked like:** even after Round 3.5 source-agnostic doctrine, upcoming Round 4.2 edits still risked reading like a domain-local messaging design because the CNS parent contract was implied across multiple docs rather than codified as one explicit contract object.
+
+**Why it's dangerous:** when the parent seam is implicit, each domain round can accidentally re-interpret CNS scope, causing drift back to domain-centric orchestration and repeating Pattern 10.
+
+**The fix (landed):**
+- dedicated parent artifact: `03_6_cns_orchestration_core.md`
+- explicit index binding: `00_index.md` §2.23
+- explicit system-map binding: Phase 1 hardening v11
+- explicit readiness rubric (`ready | conditional | blocked`) and bypass governance (named + justified + audited whitelist)
+
+**Recurrence risk:** medium. Mitigation is procedural: any domain round that touches CNS behavior must first cite the parent artifact and inheritance rule before authoring.
+
 ---
 
 ## §4 The escape mechanism — what pulled us out
