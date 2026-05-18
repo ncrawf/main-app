@@ -293,6 +293,16 @@ Round 4 closed as an inheriting scheduling slice (not a standalone reminder engi
 - D4 stress PASS is design-conformance only; assumptions are integration gates.
 - `00_index.md` §2.24 now locks reusable domain-slice template so future domains inherit CNS relationship rather than copy D4-specific rules.
 
+## §8.2 Round 5 pre-open ontology addendum (2026-05-18)
+
+To avoid drift in Domain 5, a bounded pre-open ontology lock was added:
+- parent object: `service_occurrence`
+- primary classifier: `service_occurrence_kind`
+- clinical/documentation/legal projection: `encounter_view` (derived, not parent identity)
+- modality as segment axis (not parent type enum)
+
+This addendum preserves prior container work while preventing a fresh fixed-modality encounter model from being introduced in Round 5.
+
 ---
 
 ## §9 Decision summary in one sentence

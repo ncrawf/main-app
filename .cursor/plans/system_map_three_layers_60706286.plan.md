@@ -811,6 +811,15 @@ Round 3.6 additions (cross-domain parent contract; required inheritance for all 
 - **Future domain coverage note added:** Supply/Fulfillment/Availability is explicitly admitted as CNS-readable event family (bounded future coverage, not a Round 5 inventory build).
 - **Round 5 freeze remains active:** closure of D4 does not auto-open Round 5; explicit user/Knox go is still required.
 
+**Phase 1 hardening v13 (2026-05-18, Round 5 pre-open ontology lock — service occurrence framing) — 0 substrate amendments; encounter ontology guardrail locked before D5 authoring:**
+
+- **Round 5 pre-open doctrine lock:** index §2.25 now binds Domain 5 to `service_occurrence` as the canonical parent container for bounded actualized work/care/service/review/procedure/session.
+- **Naming lock:** `service_occurrence_kind` is the primary classifier; `encounter_view` is a derived projection (clinical/documentation/legal view), not a competing parent substrate.
+- **Modeling lock:** modality is segment/axis, not parent identity; provider involvement is conditional; non-provider and resource/device-led service occurrences are first-class.
+- **Anti-regression lock:** Round 5 cannot collapse into fixed parent modality enum (`in_person|video|phone|async`) or swallow D6 commerce / D7 documentation truth.
+- **D5 pre-open checks:** create-vs-link occurrence policy, linked occurrence chains, duplicate prevention across chains, authority matrix, sibling-boundary checks, and explicit pressure-test set (including equipment/resource-only occurrence).
+- **Round 5 freeze remains active:** this is a pre-open hardening lock, not Round 5 authoring start.
+
 **Execution choices (user direction 2026-05-17):**
 - **Commit cadence:** Round 3.5 doctrine-only commit; do not combine with Round 4 authoring. (Option `pause_first`.)
 - **Binding scope:** CNS Action Envelope binds cross-domain, but Round 4 authors only scheduling-domain slice. (Option `round_4_authoritative_other_domains_inherit`.)

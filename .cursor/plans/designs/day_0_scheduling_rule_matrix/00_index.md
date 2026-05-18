@@ -140,7 +140,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 | 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + 2.5 + 2.6 (Amendments D + E + F applied; dual-target routing guardrail; Round 3 pre-flight guardrails locked)** | **AUTHORED + PATCHED + GUARDED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
 | 3 | Appointment lifecycle rules | [03_domain_appointment_lifecycle.md](03_domain_appointment_lifecycle.md) | **Round 3 + 3.1 (Amendment G applied; Round 3.1 doctrine + cross-domain seam locked)** | **AUTHORED + PATCHED** | 24 Day 0 | 24 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
 | 4 | Confirmation / outbound round-trip rules | [04_domain_confirmation_outbound.md](04_domain_confirmation_outbound.md) | **Round 4.2C** | **ACCEPTED / CLOSED (design-conformance)** | Day 0 scheduling-originated CNS slice | Structurally accepted; remaining assumptions are integration gates for Round 5/6/7/final validation |
-| 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet forward-reference + Amendment J(a) substrate evaluation + DL-20 inv 33-40 + §2.15 Context Module Layer + **§2.22 Amendment K HARD CLOSURE GATE** (party/seat/roster/guest must be resolved before Round 5 closes) |
+| 5 | Service occurrence creation/linking rules — encounter_view projection where clinical | (deferred) | Round 5 | NOT STARTED | — | — | §2.21 universal kickoff + §2.23 CNS parent contract + §2.24 Domain Slice Template + §2.24.7 Round 5 pre-open required checks + §2.25 Encounter / Service Occurrence Container Doctrine + `05_preopen_service_occurrence_checkpoint.md` + §2.17 Provider Clinical Context Packet forward-reference + Amendment J(a) substrate evaluation + DL-20 inv 33-40 + §2.15 Context Module Layer + **§2.22 Amendment K HARD CLOSURE GATE** (party/seat/roster/guest must be resolved before Round 5 closes) |
 | 6 | Checkout / commerce / entitlement rules | (deferred) | Round 6 | NOT STARTED | — | — | §2.21 universal kickoff + §2.9 Domain 6 pre-brief Sections A-K + §2.10-§2.13 (generic engine / attribution / Shopify ingestion / stacking) + targeted Shopify ingestion (per §2.12) + DL-17 + **§2.22 Amendment K per-seat entitlement implications** (if K(a-c) implemented, Domain 6 commerce ties to per-seat entitlement) |
 | 7 | Documentation / evidence rules | (deferred) | Round 7 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet + DL-22 Clinical-Media + DL-20 inv 33-40 + Amendment J(d) substrate evaluation + **§2.22 Amendment K HARD CLOSURE GATE** (party/seat/roster/guest documentation implications must be resolved before Round 7 closes if not resolved in Round 5) |
 | Final | Scenarios validation (10 scenarios end-to-end + 2 cross-vertical) | (deferred) | Final round | NOT STARTED | — | — | §2.21 universal kickoff + ALL prior domain files + scenarios validation framework + **§2.22.5 cross-vertical scenarios** (group sauna party of 4 + patient + caregiver at PT visit) |
@@ -151,7 +151,7 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 
 - **Domain 3 (Appointment lifecycle rules)** — 13-state lifecycle + status_flags + reschedule/no-show/waitlist. See **Round 3 binding guardrails §2.3 below**.
 - **Domain 4 (Confirmation / outbound round-trip rules)** — CNS round-trip per DL-20 inv 40; AI classifies, deterministic rules + staff decide.
-- **Domain 5 (Encounter creation rules)** — owns scheduled-first / walk-in / async / ad-hoc-video / message-escalation / lab-review-initiated encounter paths + provider routing target #2 (async provider queue per Round 2.6 guardrail).
+- **Domain 5 (Service occurrence creation/linking rules)** — owns `service_occurrence` create-vs-link paths across scheduled-first / walk-in / async / ad-hoc-video / message-escalation / lab-review-initiated / Rx-program follow-up / resource-device-led flows; `encounter_view` is derived where clinical/documentation thresholds apply; provider routing target #2 (async provider queue per Round 2.6 guardrail).
 - **Domain 6 (Commerce / entitlement)** — packages, memberships, promos, deposits, refunds, commission, checkout, entitlement redemption priority. Mindbody-era workarounds (treatment deposit as $0 pricing option / cancellation policy as $0 pricing option / 7-tier Botox) all collapse here.
 - **Domain 7 (Documentation / evidence)** — "booked Botox, performed Xeomin + Kysse with barcode/lot/expiration" — this is where 3-layer pattern proves itself OR breaks. Lot capture, attestation tiers, encounter immutability, partner imaging device naming, intake/consent/clinical media unified substrate.
 
@@ -1321,7 +1321,7 @@ Per chat 2026-05-17 Correction 4 + reliability audit. Substrate work parked for 
 Every round MUST start by reading (in order):
 
 1. **`system_map_three_layers_60706286.plan.md`** — Phase 1 hardening latest version (v10 as of Round 3.5); locked DLs; locked invariants; amendment history
-2. **`00_index.md` §1 + §2.0 through §2.22** — all locked rule-matrix doctrine (binding doctrine sections for prior rounds + cross-cutting compliance + §2.22 cross-vertical pressure-test + Amendment K closure gate)
+2. **`00_index.md` §1 + §2.0 through §2.25** — all locked rule-matrix doctrine (binding doctrine sections for prior rounds + cross-cutting compliance + §2.22 cross-vertical pressure-test + Amendment K closure gate + §2.24 template + §2.25 service_occurrence ontology lock)
 3. **`docs/architecture/scheduling_foundation_post_mortem_2026-05-17.md`** — 10 failure patterns (8 original + Pattern 9 known-pillars-as-discoveries + Pattern 10 narrow-framing-creep per Round 3.5)
 4. **`.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md`** — 18 explicit preferences NEVER re-litigate
 5. **`.cursor/plans/doctrine/coherent_omni_architecture_pattern_2026-05-17.md`** — 3-layer pattern reference
@@ -1645,6 +1645,90 @@ Boundary examples (binding):
 - Lot recall can trigger clinical/documentation escalation, but clinical/documentation owns patient-safety disposition.
 - Dropship delay can trigger order communication, but Commerce owns order/refund truth.
 - Rx unavailable can trigger provider/pharmacy tasking, but Rx/clinical owns substitution and medication-appropriateness decisions.
+
+#### §2.24.7 Round 5 pre-open required checks (Encounter/Occurrence slice hardening)
+
+Before Round 5 authoring begins, Domain 5 opening MUST explicitly include:
+- create-vs-link decision contract for `service_occurrence`
+- single occurrence vs linked occurrences policy for chained modality flows
+- duplicate prevention across chain transitions/re-entry
+- participant role matrix (provider/non-provider/staff/device/resource-led)
+- clinical vs operational/wellness/service occurrence distinction
+- authority matrix for AI/staff/provider/medical-director/compliance actions
+- documentation/evidence sibling boundary (D7 owns documentation truth)
+- commerce sibling boundary (D6 owns financial truth)
+
+Mandatory Round 5 pressure-test set (pre-authoring gate):
+- scheduled in-person service occurrence
+- non-provider sauna/wellness service occurrence
+- equipment/resource-only occurrence (device/room primary actor)
+- async intake review occurrence
+- message escalation to provider review occurrence
+- phone/video follow-up occurrence
+- lab-review-initiated occurrence
+- Rx/program follow-up occurrence
+- procedure chain with checkpoints (e.g., pre-op/anesthesia step)
+- hybrid modality chain (`async -> phone -> video -> in_person`) with create-vs-link policy
+
+### §2.25 Encounter / Service Occurrence Container Doctrine (binding pre-Round-5 ontology lock)
+
+This section codifies existing prior work (DL-20 three-layer and pressure-test arc) into a pre-open lock so Round 5 does not regress into fixed modality encounter typing.
+
+Canonical naming lock:
+- parent object: `service_occurrence`
+- primary classifier: `service_occurrence_kind`
+- clinical projection/view: `encounter_view` (derived/presentational/legal-documentation view, not parent object identity)
+
+Binding rule:
+- all clinical encounters are `service_occurrences`
+- not all `service_occurrence` are clinical encounters
+
+Core doctrine:
+- `service_occurrence` is a bounded actualization of service/care/review/procedure/session.
+- modality is a segment/axis, not parent identity.
+- provider involvement is conditional, not universal.
+- clinicality and authority are explicit axes.
+- non-clinical/wellness/resource-led occurrences are first-class.
+- documentation/evidence and commerce remain linked siblings, not swallowed by D5.
+- CNS orchestrates around occurrences; it does not own clinical truth/disposition.
+
+Minimum axes for Round 5 slice:
+- `service_occurrence_kind`
+- `clinicality_level`
+- `authority_class`
+- `modality_segments`
+- `participant_roles`
+- `resource_footprint`
+- `evidence_requirement`
+- `commerce_linkage`
+- `care_episode/program linkage`
+- `cns_linkage`
+
+Representative `service_occurrence_kind` examples (registry-extensible):
+- `non_clinical_service`
+- `wellness_session`
+- `device_resource_session`
+- `staff_assisted_service`
+- `clinical_review`
+- `clinical_procedure`
+- `surgical_procedure`
+- `anesthesia_checkpoint`
+- `rx_review`
+- `lab_review`
+- `care_program_checkpoint`
+- `async_provider_review`
+- `other_registry_defined`
+
+Derived `encounter_view` principle:
+- derived from `service_occurrence_kind + clinicality_level + authority_class + evidence_requirement`
+- do not treat `encounter_view` as competing parent substrate identity
+
+Anti-pattern rejections (binding):
+- ❌ parent encounter identity fixed to modality enum (`in_person|video|phone|async`)
+- ❌ every message/lab/Rx/order event auto-creates a `service_occurrence`
+- ❌ every `service_occurrence` forced into clinical/provider framing
+- ❌ every `service_occurrence` forced to originate from appointment rows
+- ❌ D5 swallowing documentation (D7) or commerce (D6) responsibilities
 
 ---
 

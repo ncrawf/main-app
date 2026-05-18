@@ -257,9 +257,23 @@ The companion lock that makes this durable is `00_index.md` §2.24 Domain Slice 
 
 ---
 
+## Act XVI: Round 5 pre-open ontology lock (2026-05-18)
+
+Before opening Round 5, the team explicitly locked a second parent-level guardrail: the occurrence ontology for Domain 5. This was not a reset of prior work and not a new doctrine campaign; it was a bounded pre-open hardening step to prevent D5 from regressing into fixed visit-type modeling.
+
+Locked decisions:
+- canonical parent object is `service_occurrence`
+- primary classifier is `service_occurrence_kind`
+- `encounter_view` is derived projection (clinical/documentation/legal view), not a competing parent substrate
+- modality remains segment/axis, not parent identity
+
+This preserved prior container debates (DL-20 three-layer and pressure-test work) while clarifying naming and preventing another round of “encounter-as-fixed-modality” drift.
+
+---
+
 ## What's next (post-Round-4.2C)
 
-Round 4.2C is closed. Round 5 remains frozen until explicit user/Knox opening approval.
+Round 4.2C is closed. Round 5 remains frozen until explicit user/Knox opening approval after the pre-open ontology lock checkpoint.
 
 After Round 4 closes, Round 5 (Domain 5 — Encounter creation) opens with §2.21 read receipt + Amendment J(a) Context Module Layer substrate evaluation + §2.17 Provider Clinical Context Packet substrate work.
 
