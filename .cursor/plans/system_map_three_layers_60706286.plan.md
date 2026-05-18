@@ -758,6 +758,27 @@ Round 3.5 doctrine additions (NOT new substrate; cross-cutting CNS-action-orches
 - **J(c)** — Source-agnostic event normalization + arbitration + queue routing substrate: 18+ event source kind registry + contact budget + suppression_group registry + priority queue + multi-recipient queue routing matrix.
 - **J(d)** — Provider Clinical Context Packet assembly substrate.
 
+**§2.22 Amendment K candidate (NEW post-Round-3.5 per user direction 2026-05-18; HARD CLOSURE GATE for Round 5 + Round 7):**
+
+Cross-vertical pressure-test surfaced one real substrate gap: party / seat / roster / guest semantics. Current substrate `appointment` (DL-20 inv 33) carries `patient_id` 1-to-1; `service_type=class` (DL-15 amendment 4) admits multi-patient capacity at SERVICE level but NOT at booking level (one booking → N seats / non-patient participants / per-seat entitlement).
+
+- **K(a)** — `appointment_participant` substrate (mirrors DL-20 inv 38 `encounter_participant`): FKs to `appointment_id` + (`patient_id` NULL for guest OR NOT NULL for patient) + `role` ENUM (primary_booker / secondary_participant / guest / observer / caregiver) + `valid_from` / `valid_to` + per-participant entitlement context.
+- **K(b)** — `appointment.seat_count` + `appointment_seat` child substrate: per-seat `patient_id` NULL / `guest_name` STRING NULL / `entitlement_applied_id` FK NULL / `check_in_status` ENUM / `commerce_order_line_id` FK NULL.
+- **K(c)** — Both K(a) + K(b) combined.
+- **K(d)** — Intentionally excluded: party-of-N splits into N appointment rows; documented rationale required.
+
+**Binding closure rule (user direction 2026-05-18):** Round 5 (Domain 5 — Encounter creation) AND Round 7 (Domain 7 — Documentation / evidence) CANNOT close until Amendment K is resolved as IMPLEMENTED (A) / INTENTIONALLY EXCLUDED (B) / PROVEN COVERED BY EXISTING SUBSTRATE (C). Resolution log committed to 00_index.md §2.22.4. Final round (10-scenarios validation) MUST run 2 cross-vertical scenarios per §2.22.5 (group sauna party of 4 + patient + caregiver at PT visit); if Amendment K resolution path A is required by Final-round validation but not yet implemented, substrate slice is BLOCKED until resolved.
+
+This is the FIRST hard closure gate in the rule matrix beyond §10 promotion gate. Distinct from Amendment J in binding force.
+
+**§2.22 Cross-vertical pressure-test doctrine (binding scope discipline; established post-Round-3.5 per user direction 2026-05-18):**
+
+Binding principle: *"OMNI is not trying to become a fitness/salon/PT/massage platform, but its scheduling primitives must remain generic enough that those workflows do not require substrate reinvention."*
+
+Cross-vertical applicability matrix in 00_index.md §2.22.1 confirms current substrate broadly covers salon / massage / PT / personal trainer / sauna private / sauna walk-in / recurring programs WITHOUT substrate reinvention via service_type ENUM (DL-15 amendment 4) + 4-axis composer (DL-15 amendment 30) + provider routing (DL-19 Amendment F) + 3-component blocks (DL-15 amendment 31) + cancellation_policy (DL-17 inv 24) + entitlement (DL-17 inv 22) + 3-layer foundation. Group sauna with N seats / class with roster / patient + guest / caregiver at PT visit identified as Amendment K closure-gate items.
+
+Anti-patterns (binding): NOT a product direction to chase fitness/salon/PT/massage feature parity; NOT a sales narrative; NOT a Round 4 concern (Round 4 = communications, not scheduling capacity); Amendment K NOT deferrable to M6 / Y1 / Future — it is a Round 5/7 closure gate.
+
 **Chat correction history applied to Round 3.5 (4 corrections + 5 cleanup patches + Patch 7):**
 - Correction 1 — Anti-brain naming for Context Module Layer
 - Correction 2 — 9-value thread_policy ENUM (symmetric with conversation_scope; added `attach_to_entitlement_thread` + `attach_to_general_patient_thread`)

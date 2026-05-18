@@ -140,10 +140,10 @@ Day 0 phase scope is anchored to Build Contract commit `6dc1286`. M1-2 / M3-6 / 
 | 2 | Booking composer / availability rules | [02_domain_booking_composer.md](02_domain_booking_composer.md) | **Round 2 + 2.5 + 2.6 (Amendments D + E + F applied; dual-target routing guardrail; Round 3 pre-flight guardrails locked)** | **AUTHORED + PATCHED + GUARDED** | 34 Day 0 (BC-09 expanded to 3 rules for provider routing) | 34 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
 | 3 | Appointment lifecycle rules | [03_domain_appointment_lifecycle.md](03_domain_appointment_lifecycle.md) | **Round 3 + 3.1 (Amendment G applied; Round 3.1 doctrine + cross-domain seam locked)** | **AUTHORED + PATCHED** | 24 Day 0 | 24 OK / 0 OK-with-extension / 0 NEW | n/a (done) |
 | 4 | Confirmation / outbound round-trip rules | (deferred) | Round 4 | NOT STARTED | — | — | §2.21 universal kickoff + §2.14-§2.20 (Round 3.5 doctrine) + §2.18 pre-brief Sections A-O + §2.19 Citation Map (8 reliability guardrails) + DL-14 inv 16-22 + DL-16 amendments 41-43 + DL-20 inv 33 + 40 + `docs/architecture/communications_topology.md` + §1F + §1G + §1G.8 + §1G.11 + §1P + §1Q.23 + 4h phase work + `cns_action_orchestration_adr_2026-05-17.md` |
-| 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet forward-reference + Amendment J(a) substrate evaluation + DL-20 inv 33-40 + §2.15 Context Module Layer |
-| 6 | Checkout / commerce / entitlement rules | (deferred) | Round 6 | NOT STARTED | — | — | §2.21 universal kickoff + §2.9 Domain 6 pre-brief Sections A-K + §2.10-§2.13 (generic engine / attribution / Shopify ingestion / stacking) + targeted Shopify ingestion (per §2.12) + DL-17 |
-| 7 | Documentation / evidence rules | (deferred) | Round 7 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet + DL-22 Clinical-Media + DL-20 inv 33-40 + Amendment J(d) substrate evaluation |
-| Final | Scenarios validation (10 scenarios end-to-end) | (deferred) | Final round | NOT STARTED | — | — | §2.21 universal kickoff + ALL prior domain files + scenarios validation framework |
+| 5 | Encounter creation rules | (deferred) | Round 5 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet forward-reference + Amendment J(a) substrate evaluation + DL-20 inv 33-40 + §2.15 Context Module Layer + **§2.22 Amendment K HARD CLOSURE GATE** (party/seat/roster/guest must be resolved before Round 5 closes) |
+| 6 | Checkout / commerce / entitlement rules | (deferred) | Round 6 | NOT STARTED | — | — | §2.21 universal kickoff + §2.9 Domain 6 pre-brief Sections A-K + §2.10-§2.13 (generic engine / attribution / Shopify ingestion / stacking) + targeted Shopify ingestion (per §2.12) + DL-17 + **§2.22 Amendment K per-seat entitlement implications** (if K(a-c) implemented, Domain 6 commerce ties to per-seat entitlement) |
+| 7 | Documentation / evidence rules | (deferred) | Round 7 | NOT STARTED | — | — | §2.21 universal kickoff + §2.17 Provider Clinical Context Packet + DL-22 Clinical-Media + DL-20 inv 33-40 + Amendment J(d) substrate evaluation + **§2.22 Amendment K HARD CLOSURE GATE** (party/seat/roster/guest documentation implications must be resolved before Round 7 closes if not resolved in Round 5) |
+| Final | Scenarios validation (10 scenarios end-to-end + 2 cross-vertical) | (deferred) | Final round | NOT STARTED | — | — | §2.21 universal kickoff + ALL prior domain files + scenarios validation framework + **§2.22.5 cross-vertical scenarios** (group sauna party of 4 + patient + caregiver at PT visit) |
 
 **Round cadence:** one domain per round. After each domain lands, STOP and report substrate gap audit + open decisions. User + Knox review BEFORE the next round starts. Final round walks 10 named scenarios end-to-end across all 7 domains to verify no gap.
 
@@ -1321,7 +1321,7 @@ Per chat 2026-05-17 Correction 4 + reliability audit. Substrate work parked for 
 Every round MUST start by reading (in order):
 
 1. **`system_map_three_layers_60706286.plan.md`** — Phase 1 hardening latest version (v10 as of Round 3.5); locked DLs; locked invariants; amendment history
-2. **`00_index.md` §1 + §2.0 through §2.21** — all locked rule-matrix doctrine (binding doctrine sections for prior rounds + cross-cutting compliance)
+2. **`00_index.md` §1 + §2.0 through §2.22** — all locked rule-matrix doctrine (binding doctrine sections for prior rounds + cross-cutting compliance + §2.22 cross-vertical pressure-test + Amendment K closure gate)
 3. **`docs/architecture/scheduling_foundation_post_mortem_2026-05-17.md`** — 10 failure patterns (8 original + Pattern 9 known-pillars-as-discoveries + Pattern 10 narrow-framing-creep per Round 3.5)
 4. **`.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md`** — 18 explicit preferences NEVER re-litigate
 5. **`.cursor/plans/doctrine/coherent_omni_architecture_pattern_2026-05-17.md`** — 3-layer pattern reference
@@ -1353,9 +1353,9 @@ This statement lives in the domain rule file's opening section. It is NOT option
 
 Every round MUST close with a written statement of the form:
 
-> *"Round [N] closing. Authored: [N rules across X sections]. Substrate verdicts: [X OK / Y OK-with-extension / Z NEW SUBSTRATE NEEDED]. New Amendment candidates: [list]. New failure patterns observed: [list — to be added to post-mortem if needed]. New binding doctrine sections to add: [list]. Cross-domain seams identified: [list]. Open decisions for next round: [list]. Recommendation for next round: [authoring direction]."*
+> *"Round [N] closing. Authored: [N rules across X sections]. Substrate verdicts: [X OK / Y OK-with-extension / Z NEW SUBSTRATE NEEDED]. New Amendment candidates: [list]. New failure patterns observed: [list — to be added to post-mortem if needed]. New binding doctrine sections to add: [list]. Cross-domain seams identified: [list]. Open decisions for next round: [list]. Recommendation for next round: [authoring direction]. **Amendment K closure status (Round 5 + 7 only per §2.22.3): [RESOLVED-A-IMPLEMENTED / RESOLVED-B-EXCLUDED / RESOLVED-C-COVERED / UNRESOLVED]. If UNRESOLVED, round closure is REJECTED.**"*
 
-This statement lives in the domain rule file's closing section. It informs the next round's opening checklist.
+This statement lives in the domain rule file's closing section. It informs the next round's opening checklist. **Round 5 + Round 7 closure with Amendment K UNRESOLVED is binding REJECTION per §2.22.3.**
 
 **Companion docs (not duplicated; reference the source of truth):**
 
@@ -1367,6 +1367,122 @@ This statement lives in the domain rule file's closing section. It informs the n
 - 8 reliability guardrails citation: §2.19
 
 §2.21 is the **drift-prevention mechanism**. If Round 4 starts without honoring it, the regression risk that Rounds 1-3.5 surfaced will recur.
+
+### §2.22 Cross-vertical pressure-test doctrine + Amendment K (binding closure gate for Round 5/7; established post-Round-3.5 per user direction 2026-05-18)
+
+Per user direction 2026-05-18 (post-Round-3.5 retrospective):
+
+> *"have we REALLY considered the scheduling piece in terms of what other apps might do REALLY well. im thinking, physical therapy, im thinking personal trainer, im thinking salon. ... are we building OMNI to be versatile enough that it could handle a salon? a physical therapy office? a personal trainer at a gym? ... how do we achieve a basic sauna session, during open times, or a single session one person only. also consider massage apps? ... our current build is so much richer, because it needs to be to do what it does."*
+
+**Binding principle (locked verbatim):**
+
+> *"OMNI is not trying to become a fitness/salon/PT/massage platform, but its scheduling primitives must remain generic enough that those workflows do not require substrate reinvention."*
+
+#### §2.22.1 Cross-vertical applicability matrix
+
+The current substrate (after Rounds 1-3.5 doctrine lock) is broadly capable of serving appointment-based verticals as pressure-test ANALOGIES (NOT product direction). The 5-value `service_type` ENUM (DL-15 amendment 4: appointment / arrival / class / course / membership) + 4-axis composer (DL-15 amendment 30: capacity × staff × room × resource) + provider routing (Amendment F per DL-19) + 3-component time blocks (DL-15 amendment 31: prep + booking + finish) + cancellation policy (DL-17 inv 24) + entitlement substrate (DL-17 inv 22) + 3-layer foundation (planned / actual / linked evidence + commerce) were all designed to admit this breadth.
+
+| Vertical | Substrate that covers it | Coverage |
+|---|---|---|
+| Salon (stylist + chair + add-ons + retail checkout) | `service_type=appointment` + 4-axis composer + provider continuity per Amendment F + 3-component blocks + add-ons via `parent_item_id` + cancellation policy + entitlement | COVERED |
+| Massage (provider + room + duration variants + add-ons + recurring package) | Same as salon + prep/booking/finish blocks (DL-15 amendment 31) | COVERED |
+| Physical therapy 1:1 (therapist + room/table + plan of care + auth count) | Same as massage + care_episode (DL-20 inv 1) for plan of care + entitlement_context.consumption_tracking for auth count (Round 6 substrate) | COVERED (scheduling); plan-of-care depth + insurance auth = Domain 5/6/7 territory |
+| Personal trainer 1:1 | `service_type=appointment` + provider continuity | COVERED |
+| Sauna single-person private | `service_type=appointment` + room/resource axis + optional no-staff (4-axis composer admits 0 staff) | COVERED |
+| Drop-in sauna walk-in | `service_type=arrival` (DL-15 amendment 4) + resource availability check | COVERED |
+| Recurring program (training plan / PT plan of care / weight loss program) | `service_type=course` + care_episode (DL-20 inv 1) + episode_catalog.recommended_cadence (DL-20 inv 5) | COVERED |
+| Group sauna with N seats (party-of-N reservation) | `service_type=class` + capacity axis — BUT party / seat / roster / guest semantics NOT explicit | **GAP — Amendment K candidate** |
+| Class / group fitness with roster | `service_type=class` + capacity — same gap | **GAP — Amendment K candidate** |
+| Caregiver / family observer at PT or medspa visit (non-patient participant at booking time) | `encounter_participant` (DL-20 inv 38) handles encounter-time only; appointment-time non-patient participant NOT explicit | **GAP — Amendment K candidate** |
+| Patient + paid guest (entitlement covers seat 1; guest pays separately for seat 2) | Per-seat entitlement application NOT explicit | **GAP — Amendment K candidate** |
+
+#### §2.22.2 Amendment K candidate — Party / seat / roster / guest semantics
+
+**Substrate gap (binding):** The current `appointment` substrate (DL-20 inv 33) carries `patient_id` + `patient_relationship_id` (1-to-1 with one patient identity). `service_type=class` (DL-15 amendment 4) admits multi-patient capacity at the SERVICE level, but the substrate that translates capacity into:
+
+- One booking reserving N seats (single appointment row owning N seats)
+- Per-seat patient identity (each seat → own patient_id; or guest with no patient_id)
+- Non-patient participant at booking time (caregiver / family / friend observer)
+- Roster check-in per seat (each seat checks in independently)
+- Cancellation of 1-of-N seats (release one seat without cancelling whole class/appointment)
+- Waitlist per seat (waitlist promotes one seat at a time)
+- Per-seat entitlement application (membership covers patient's seat; guest pays for theirs)
+
+is NOT explicit.
+
+**Substrate options for Round 5/7 evaluation:**
+
+- **K(a)** — `appointment_participant` substrate (mirrors `encounter_participant` per DL-20 inv 38). FKs: `appointment_id` + (`patient_id` NULL for guest OR `patient_id` NOT NULL for patient) + `role` ENUM (primary_booker / secondary_participant / guest / observer / caregiver) + `valid_from` / `valid_to` + per-participant entitlement context.
+- **K(b)** — `appointment.seat_count` NUMERIC (default 1) + `appointment_seat` child substrate carrying per-seat: `patient_id` NULL / `guest_name` STRING NULL / `entitlement_applied_id` FK NULL / `check_in_status` ENUM / `commerce_order_line_id` FK NULL.
+- **K(c)** — Both K(a) + K(b) combined: `appointment_seat` holds per-seat reservation + commerce ownership; `appointment_participant` overlays per-seat role + identity.
+- **K(d)** — Intentionally excluded: OMNI scope excludes multi-seat group bookings; party-of-N must split into N separate `appointment` rows. Documented rationale required if this path chosen.
+
+Round 5/7 substrate-evaluates which approach (or proves existing substrate covers).
+
+#### §2.22.3 BINDING CLOSURE GATE for Round 5 + Round 7 (per user direction 2026-05-18)
+
+> *"mark Amendment K as a mandatory Round 5/7 substrate-closure gate, not a deferred nice-to-have. Round 5/7 cannot close until party/seat/roster/guest is resolved as implemented, intentionally excluded, or proven covered by existing substrate."*
+
+**This is binding.** Round 5 (Domain 5 — Encounter creation rules) AND Round 7 (Domain 7 — Documentation / evidence rules) CANNOT CLOSE until Amendment K is resolved as ONE of:
+
+| Resolution | What it means | Required artifact |
+|---|---|---|
+| **A. IMPLEMENTED** | New substrate added per K(a), K(b), or K(c) | Substrate definition committed to relevant DL DRAFT (likely DL-20 amendment) + doctrine cross-link in 00_index.md §2.22.4 + tests-or-scenarios validating the scenarios in §2.22.5 |
+| **B. INTENTIONALLY EXCLUDED** | OMNI Day 0 scope explicitly excludes multi-seat / group / guest semantics; party-of-N must split into N appointments per K(d) | Written rationale committed to 00_index.md §2.22.4 + Day 0 Build Contract addendum + system_map entry noting exclusion |
+| **C. PROVEN COVERED BY EXISTING SUBSTRATE** | Demonstration that current substrate already handles all scenarios in §2.22.5 without extension | Explicit citation to existing DL invariants + worked example mapping each scenario in §2.22.5 to existing substrate fields |
+
+**Round 5 closes its closing-statement template (per §2.21) MUST include Amendment K resolution status.** Round 5 closure WITHOUT Amendment K resolution is REJECTED. Same for Round 7.
+
+This is the binding gate. Not a nice-to-have. Not deferred. Round 5/7 substrate authors are explicitly responsible for closure.
+
+#### §2.22.4 Amendment K resolution log (populated by Round 5/7 substrate authors)
+
+| Date | Resolution path | Author | Linked artifact |
+|---|---|---|---|
+| TBD (Round 5/7) | (A / B / C per §2.22.3) | (Opus / Knox / user joint signoff) | (link to DL amendment OR exclusion rationale OR existing-substrate citation) |
+
+#### §2.22.5 Final Scenarios validation items (added to deferred Final round file)
+
+Final round (10-scenarios end-to-end validation) MUST include the following 2 cross-vertical scenarios as part of the validation suite:
+
+- **Scenario: Group sauna party of 4 (multi-seat reservation + per-seat entitlement)**
+  - Tenant offers 60-min private sauna room with capacity 6
+  - Patient Sarah books for herself + her sister Anna + 2 friends (Mike + Lee — non-patients)
+  - Sarah's BH+ Elite membership covers her seat (1× $50 sauna credit)
+  - Anna also has BH+ membership covering her seat
+  - Mike + Lee pay full price each
+  - All 4 must check in independently
+  - If Lee no-shows, Sarah/Anna/Mike still consume their seats; Lee's seat goes to no-show fee per cancellation_policy
+  - Validates: K(a)/(b)/(c) chosen substrate; per-seat entitlement; per-seat cancellation
+  
+- **Scenario: Patient + caregiver at PT visit (non-patient participant at booking time)**
+  - PT patient Daryl books 60-min visit with Amber
+  - Daryl's adult daughter Lisa wants to attend as caregiver/observer (HIPAA-acknowledged + listed)
+  - Booking must record Lisa's presence WITHOUT charging her, without consuming a 2nd seat
+  - Provider knows ahead of time that family is present
+  - Validates: appointment-time non-patient participant via K(a) `appointment_participant.role=caregiver`
+
+If Final round runs these scenarios and they require substrate not implemented, Amendment K resolution path A (implementation) is forced retroactively.
+
+#### §2.22.6 Anti-patterns (binding rejections)
+
+- ❌ Treating cross-vertical applicability as a product direction (we are NOT building a fitness studio / salon / PT / massage platform)
+- ❌ Chasing Vagaro / Mindbody / Square / Jane / Trainerize feature parity — pressure-test analogies ONLY
+- ❌ Letting "OMNI could support salons" become a sales narrative or marketing scope
+- ❌ Adding party/seat/roster/guest substrate in Round 4 (Round 4 is communications/CNS, not scheduling capacity)
+- ❌ Deferring Amendment K to "M6 / Y1 / Future" — it is a binding Round 5/7 closure gate
+- ❌ Round 5 or Round 7 closing without an Amendment K resolution log entry in §2.22.4
+
+#### §2.22.7 Round 4 is NOT affected by Amendment K
+
+Round 4 (Domain 4 — Confirmation / outbound round-trip rules) authors communications + CNS action orchestration. Capacity / party / seat / roster / guest semantics are NOT a Round 4 concern. Round 4 opens with §2.21 read receipt + §2.22 acknowledgment statement (one sentence: "Round 4 is NOT widening scope to address Amendment K; party/seat/roster/guest is a Round 5/7 closure gate per §2.22") and proceeds with scheduling-domain communications/outbound rule authoring per §2.18 pre-brief Sections A-O.
+
+#### §2.22.8 Cross-link
+
+- Amendment J (4-part) at §2.20 — Context Module Layer + CNS Action Envelope substrate + arbitration substrate + Provider Clinical Context Packet substrate. Deferred to Round 5/7 substrate evaluation; NOT a hard closure gate.
+- **Amendment K (this section) — Party / seat / roster / guest semantics. HARD CLOSURE GATE for Round 5 + Round 7.** Distinct from Amendment J in binding force.
+
+§2.22 is the **cross-vertical guardrail + scheduling-capacity closure gate** for Round 5/7. The principle preserves OMNI's vertical-agnostic primitives without expanding product scope.
 
 ---
 
@@ -1434,9 +1550,11 @@ Round 2 starts ONLY after the substrate gap audit is resolved (any NEW SUBSTRATE
 
 Rule matrix is **substrate-slice-ready** when:
 - All 7 domains are authored
-- All scenarios validation file walks 10 scenarios end-to-end with zero gap
+- All scenarios validation file walks 10 scenarios end-to-end with zero gap + 2 cross-vertical scenarios per §2.22.5 (group sauna party of 4 + patient + caregiver at PT visit)
 - Substrate gap audit shows zero unresolved NEW SUBSTRATE NEEDED verdicts (all either patched into DL DRAFTs or waived with explicit user signoff)
 - DL-17 / DL-18 / DL-19 / DL-20 / DL-21 / DL-22 promoted to LOCKED doctrine in system_map
 - §10.5 stale-existing-OMNI warning has been verified (existing primitives in `lib/auth/capabilities.ts` etc. are current)
+- **Amendment J (4-part) resolved**: Context Module Layer substrate distribution + `orchestration_action` 18-field envelope extension + source-agnostic event normalization/arbitration substrate + Provider Clinical Context Packet assembly substrate. Round 5/7 substrate-decides each part; resolution log committed to §2.20.
+- **Amendment K (HARD CLOSURE GATE) resolved per §2.22.3**: party / seat / roster / guest semantics resolved as IMPLEMENTED (K(a)/(b)/(c) substrate added) OR INTENTIONALLY EXCLUDED (K(d) with documented rationale) OR PROVEN COVERED BY EXISTING SUBSTRATE (explicit citation). Resolution log committed to §2.22.4. **Round 5 AND Round 7 CANNOT close without Amendment K resolution.** Final round MUST validate the 2 cross-vertical scenarios per §2.22.5; if Amendment K resolution path A (implementation) is required by Final-round validation but not yet implemented, substrate slice is BLOCKED until resolved.
 
 Then substrate slice scoping begins.
