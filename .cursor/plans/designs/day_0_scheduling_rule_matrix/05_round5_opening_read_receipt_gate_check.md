@@ -1,40 +1,51 @@
-# Round 5 Opening Read Receipt + Pre-Open Gate Check (No Authoring)
+# Round 5 Opening Package (Formal, No Rules Yet)
 
-**Date:** 2026-05-18  
-**Status:** COMPLETE — opening package only  
-**Round 5 state:** FROZEN (no Domain 5 rule authoring started)
-
----
-
-## 1) Round 5 opening read receipt
-
-Round 5 opening is anchored to the already-locked doctrine and pre-open hardening artifacts:
-
-- `system_map_three_layers_60706286.plan.md` (latest hardening entries, including v13 ontology lock)
-- `00_index.md` §2.21 through §2.25
-- `03_6_cns_orchestration_core.md` (parent CNS contract)
-- `04_domain_confirmation_outbound.md` (accepted D4 slice)
-- `05_preopen_service_occurrence_checkpoint.md` (pre-open ontology checkpoint)
-- `cns_action_orchestration_adr_2026-05-17.md` (with Round 4.2C + Round 5 pre-open addenda)
-- `evolution_narrative_volume_2_2026-05-17.md`
-- `scheduling_foundation_post_mortem_2026-05-17.md`
+**Date:** 2026-05-19  
+**Status:** OPENING PACKAGE ONLY  
+**Round 5 state:** FROZEN (no Domain 5 rule authoring)
 
 ---
 
-## 2) Pre-open gate confirmations
+## 1) Required doctrine citations (explicit)
 
-Confirmed before any D5 authoring:
+This Round 5 opening package is formally anchored to:
 
-- `service_occurrence` is canonical parent container.
-- `service_occurrence_kind` is primary classifier.
-- `encounter_view` is derived projection/view (not parent identity).
-- §2.24.7 D5 pre-open required checks are acknowledged.
-- Mandatory pressure-test set is acknowledged, including:
-  - equipment/resource-only occurrence (device/room primary actor).
+- `00_index.md` §2.23 (Round 3.6 interlude and parent-contract lock)
+- `00_index.md` §2.24 (Domain Slice Template binding inheritance)
+- `00_index.md` §2.24.7 (D5-specific pre-open required checks)
+- `00_index.md` §2.25 (Encounter / Service Occurrence Container Doctrine)
 
 ---
 
-## 3) Explicit stop gate
+## 2) Ontology confirmations (explicit)
 
-This package does **not** authorize Rule authoring for Domain 5.  
-Round 5 remains frozen until explicit user/Knox opening approval.
+Confirmed before any Domain 5 rule authoring:
+
+- canonical parent object: `service_occurrence`
+- primary classifier: `service_occurrence_kind`
+- derived projection only: `encounter_view` (not parent substrate identity)
+
+---
+
+## 3) Pressure-test confirmation (explicit)
+
+Confirmed mandatory Round 5 opening pressure-test set:
+
+- scheduled in-person service occurrence
+- non-provider wellness/service occurrence
+- equipment/resource-only occurrence (device/room primary actor)
+- async intake review occurrence
+- message escalation to provider review occurrence
+- phone/video follow-up occurrence
+- lab-review-initiated occurrence
+- Rx/program follow-up occurrence
+- procedure chain with checkpoints
+- hybrid modality chain (`async -> phone -> video -> in_person`) with explicit create-vs-link policy
+
+---
+
+## 4) Hard stop (explicit go required)
+
+This package formally opens Round 5 **only for pre-open alignment** and does **not** authorize D5 rule writing.
+
+**HARD STOP:** wait for explicit user/Knox GO signal before authoring any Domain 5 rules.

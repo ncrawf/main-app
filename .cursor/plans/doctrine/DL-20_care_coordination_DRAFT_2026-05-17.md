@@ -20,7 +20,7 @@
 
 ---
 
-## Invariants (41 candidates; was 32; +9 for Phase 1 hardening v2 three-layer foundation + appointment substrate + appointment_item + encounter refactor + encounter_line linked_appointment_item_id + encounter creation paths refactor + encounter_participant + appointment_staff_note_entry + appointment_confirmation_event + rejected patterns enumeration)
+## Invariants (44 candidates; was 41; +3 Round 5 closure-execution amendments for K(C) bridge + work-item canonical mapping + occurrence-link typed edges)
 
 ### Care Episode primitive (Q6 partial resolution)
 
@@ -388,6 +388,26 @@
     - simple-event-table confirmation (one row per send) — replaced by CNS round-trip with state machine + cns_classification rows + state_transition rows per inv 40
 
     Full pressure-test arc + rationale preserved at [future_care_obligations_design_2026-05-17.md](future_care_obligations_design_2026-05-17.md).
+
+### Round 5 closure-execution amendments (2026-05-19; bridge + canonical mapping lock)
+
+42. **Amendment R5-KC-1 (K(C) minimal participant/seat substrate lock, binding for Round 5 closure path A).** Appointment-layer composition uses combined `appointment_participant` + `appointment_seat` model:
+    - participant semantics: caregiver / guardian / observer / guest / care_recipient flags + visibility/authority metadata
+    - seat semantics: seat reservation/check-in/release/no-show + per-seat linkage refs
+    - linkage: seat may map to participant/patient; non-seat participants may exist without billable seat
+    - boundary: D5 references these overlays for actualization mapping, but participant/seat rows do not force appointment-dependency for async/walk-in/resource-origin occurrence flows.
+
+43. **Amendment R5-WI-2 (`service_occurrence_work_item` canonical atomic actualized-work mapping; `encounter_line` transition lock).** For Round 5 closure:
+    - canonical D5 atomic actualized-work primitive = `service_occurrence_work_item`
+    - `encounter_line` is not competing canonical truth in D5 closure path
+    - allowed `encounter_line` posture = D7 record-materialized projection OR transitional alias/read model mapped from `service_occurrence_work_item`
+    - forbidden posture = dual canonical write source between encounter_line and work_item
+    - commerce consequence: D6 financial truth links to work-item refs; financial corrections do not rewrite actualized-work truth.
+
+44. **Amendment R5-LK-3 (`service_occurrence_link` minimal Day 0 typed-edge substrate).** Promote from reserved to minimal implementation for closure-critical correction/multi-causal lineage:
+    - shape: `from_occurrence_id`, `to_occurrence_id`, `link_type`, `reason_code`, actor/timestamps
+    - minimum link types: `supersedes`, `depends_on`, `follows`, `caused_by`, `references`, `sibling_of`
+    - scope: no full graph-theory expansion in Round 5; typed edges only where closure scenarios force explicit non-tree lineage (wrong-chart correction, multi-pathway async overlap, merge lineage, etc.).
 
 ---
 
