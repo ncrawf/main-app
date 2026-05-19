@@ -1447,7 +1447,12 @@ This is the binding gate. Not a nice-to-have. Not deferred. Round 5/7 substrate 
 
 | Date | Resolution path | Author | Linked artifact |
 |---|---|---|---|
-| 2026-05-19 (Round 5 closure execution) | **A. IMPLEMENTED (K(C) minimal substrate lock)** | Opus + user review loop (Knox pending async review) | [05_2_kc_minimal_implementation_lock.md](05_2_kc_minimal_implementation_lock.md) + [05_closure_prep_consistency_report.md](05_closure_prep_consistency_report.md) + [DL-20 R5 amendments (inv 42-44)](../../doctrine/DL-20_care_coordination_DRAFT_2026-05-17.md) + [05_3_round5_closure_verdict.md](05_3_round5_closure_verdict.md) |
+| 2026-05-19 (Round 5 closure execution) | **A. IMPLEMENTED (K(C) minimal substrate lock)** | Opus + user + Knox review loop (closure evidence accepted) | [05_2_kc_minimal_implementation_lock.md](05_2_kc_minimal_implementation_lock.md) + [05_closure_prep_consistency_report.md](05_closure_prep_consistency_report.md) + [DL-20 R5 amendments (inv 42-44)](../../doctrine/DL-20_care_coordination_DRAFT_2026-05-17.md) + [05_3_round5_closure_verdict.md](05_3_round5_closure_verdict.md) |
+
+Legacy terminology override (binding after Round 5 closure):
+- Prior `encounter_line` references in this index are interpreted as legacy/transitional references to `service_occurrence_work_item` or D7 record-materialized `encounter_view` projection per DL-20 inv 43.
+- Prior "encounter creation" phrasing is interpreted as `service_occurrence` create/link unless explicitly referring to D7/legal documentation context.
+- No prior index wording should be interpreted as preserving `encounter_line` as competing canonical performed-work truth.
 
 #### §2.22.5 Final Scenarios validation items (added to deferred Final round file)
 
