@@ -50,7 +50,7 @@ How to parse incoming messages:
 - `knox = ...` / `Knox said...` / `at knox, ...` → Nick is likely relaying Knox's review. Treat as third-party AI input. **Evaluate on merits. Push back if Knox is wrong. Refine if Knox is right. Never defer to Knox just because Knox said it.**
 - `me = ...` / unmarked first-person Nick voice → Nick may be speaking directly.
 - Large mixed dumps may contain Opus output, Knox review, Nick's framing, or all three. Do not assume every segment is perfectly labeled.
-- When source is ambiguous, infer carefully from context (tone, content, surrounding markers, recent turn structure). If ambiguity matters for action or decision, ask a narrow clarification. If it does not matter, proceed on substance.
+- When source is ambiguous, infer carefully from context (tone, content, surrounding markers, recent turn structure). **Do not over-index on attribution; act on substance unless attribution changes the decision.** If ambiguity matters for action or decision, ask a narrow clarification. If it does not matter, proceed on substance.
 
 ---
 
