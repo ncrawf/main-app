@@ -7,6 +7,25 @@
 
 ---
 
+## Pointer — Longitudinal Intelligence Doctrine
+
+- Source doctrine (pointer only): `/.cursor/plans/doctrine/longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md`
+- Pressure-test corpus/protocol/result:
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_bank_2026-05-19.md`
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_execution_protocol_2026-05-19.md`
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_result_2026-05-19.md`
+- Rule matrix consumes this doctrine by reference; no doctrine duplication here.
+- Workflow-gate rule: every new round must explicitly prove it did not violate longitudinal doctrine constraints before closure.
+
+**LI-CNS violation (named failure class):**
+- Any rule, decision, or closure artifact that violates longitudinal doctrine constraints (permission/identity gating, action usefulness, D5/D6/D7 ownership separation, contact discipline, traceability) must be labeled `LI-CNS violation` and treated as a blocking defect until resolved or explicitly waived by user/Knox.
+
+**MANIFEST_SCOPE_VIOLATION (named governance failure class):**
+- Any round opening that skips required Tier 0/1/2 reading scope or misdeclares doctrine-read scope per `/.cursor/plans/doctrine/00_doctrine_manifest.md` must be labeled `MANIFEST_SCOPE_VIOLATION`.
+- `MANIFEST_SCOPE_VIOLATION` blocks round progression until corrected.
+
+---
+
 ## §1 Purpose
 
 Convert the patched OMNI scheduling foundation into Day 0 buildable rules across 7 domains. Each rule is:
@@ -1319,6 +1338,8 @@ Per chat 2026-05-17 Correction 4 + reliability audit. Substrate work parked for 
 
 **Why this exists:** During Rounds 1-3.5, the same locked doctrine was repeatedly "re-discovered" instead of cited. CNS bounded autopilot (DL-14 inv 18-22), 32-seed outbound trigger registry (DL-16 amendment 42), actor 4-tuple (DL-16 amendment 43), `appointment_confirmation_event` substrate (DL-20 inv 40), and `communications_topology.md` (3 patient surfaces + 6 outbound channels + 5 inbound channels) were treated as new findings each round. User direction 2026-05-17: *"we already did this work. how many times do i need to remind you guys."* §2.21 binds every round to a mandatory pre-authoring read so future rounds cannot regress.
 
+**Manifest governance (binding):** Doctrine reading scope is selected via `/.cursor/plans/doctrine/00_doctrine_manifest.md`. If everything is mandatory, nothing is mandatory; therefore Tier 0 is always required, and Tier 1/Tier 2 are selected by domain and trigger.
+
 **Universal Round Kickoff Checklist (binding for every new round 4, 5, 6, 7, Final):**
 
 Every round MUST start by reading (in order):
@@ -1333,6 +1354,11 @@ Every round MUST start by reading (in order):
 8. **`docs/architecture/cns_action_orchestration_adr_2026-05-17.md`** — Round 3.5 ADR (CNS Action Envelope + Context Module Layer + 8-guardrail Citation Map)
 9. **All prior Domain rule files** — `01_domain_treatment_menu.md`, `02_domain_booking_composer.md`, `03_domain_appointment_lifecycle.md` for Round 4; ALL prior domain files for later rounds
 10. **Domain-specific MUST READ** per §6 domain status table column — domain-specific DL invariants + DRAFT doctrine + cross-cutting compliance sections
+11. **Doctrine manifest selection step (required):**
+   - Read `/.cursor/plans/doctrine/00_doctrine_manifest.md`
+   - Confirm Tier 0 read completion
+   - Declare selected Tier 1 domain set + Tier 2 trigger set for this round
+   - Declare rationale for any Tier 2 "not applicable" decision
 
 **Per-domain MUST READ** is in the §6 table above. Round 4's list points to §2.18 pre-brief Sections A-O + §2.19 Citation Map + DL-14/16/20 + communications_topology.md + §1F/1G/1G.8/1G.11/1P/1Q.23 + 4h phase work + Round 3.5 ADR.
 
@@ -1340,13 +1366,35 @@ Every round MUST start by reading (in order):
 
 Every round MUST open its work with a written statement of the form:
 
-> *"Round [N] opening. I have read: [list of all checklist items above + domain-specific MUST READ]. Key constraints I am honoring from prior rounds: [list of binding doctrine sections from §2.0 through §2.21]. Key user/Knox preferences I am honoring: [list from user_knox_preferences_locked]. Round [N] scope: [domain]. Open questions for user + Knox before authoring begins: [list]."*
+> *"Round [N] opening. I have read: [list of all checklist items above + domain-specific MUST READ]. Key constraints I am honoring from prior rounds: [list of binding doctrine sections from §2.0 through §2.21]. Key user/Knox preferences I am honoring: [list from user_knox_preferences_locked]. Round [N] scope: [domain]. Open questions for user + Knox before authoring begins: [list]. Likely constitutional guardrail risk points this round: [T0 IDs + rationale]."*
+
+And MUST include this longitudinal acknowledgment block:
+
+> *"Longitudinal Intelligence acknowledgment: This round inherits the longitudinal doctrine and has evaluated whether this domain affects patient/care context, CNS candidate generation, patient/provider messaging, signal ingestion, D5/D6/D7 truth boundaries, permission/identity/visibility, action usefulness, and audit/explainability. Any breach will be labeled `LI-CNS violation`."*
+
+And MUST include this doctrine-manifest declaration:
+
+> *"Doctrine manifest declaration: Tier 0 completed. Tier 1 selected: [list]. Tier 2 selected: [list]. Tier 2 not-applicable items and rationale: [list]. Known doctrine risks: [list]. Violation check: MANIFEST_SCOPE_VIOLATION [none/present + details]; LI-CNS_VIOLATION [none/present + details]."*
 
 This statement lives in the domain rule file's opening section. It is NOT optional. It is the round's audit lineage proof of pre-reading.
 
 **Mandatory checkpoint after read receipt (binding):**
 
 After writing the round opening/read receipt, the author MUST STOP and wait for explicit user/Knox green light before authoring domain rules. "No blocking questions" does NOT authorize proceeding. If the green light is not explicit, rule authoring is blocked.
+
+**Mandatory D6 manifest dry-run (binding before Round 6 authoring):**
+
+Before Round 6 authoring starts, the opening package MUST include a D6 dry-run showing selected Tier 0/Tier 1/Tier 2 scope catches all of:
+
+- D5 work item remains actualized work truth and is not rewritten by commerce state.
+- Same service semantics hold regardless of entitlement/payment route.
+- Commerce signal may inform longitudinal context but cannot masquerade as care necessity.
+- Refunds/returns cannot rewrite D5 actualized work.
+- K(C) per-seat entitlement implications are explicitly checked where applicable.
+- D6 remains source of truth for sale/refund/redeem/tender/entitlement.
+- LI-CNS boundary blocks salesy nudges pretending to be care guidance.
+
+Absent D6 dry-run output is treated as `MANIFEST_SCOPE_VIOLATION`.
 
 **Anti-patterns (Round 3.5 + §2.21 binding rejections):**
 
@@ -1356,12 +1404,15 @@ After writing the round opening/read receipt, the author MUST STOP and wait for 
 - ❌ Re-narrowing scope after wide cross-domain framing is already locked in §2.14 (narrow-framing creep; Pattern 10 in post-mortem)
 - ❌ Re-litigating user/Knox preferences from `user_knox_preferences_locked_2026-05-17.md`
 - ❌ Inventing new substrate for things already covered by communications_topology / §1P / §1Q.23 / 4h phase work / Round 3.5 §2.19 Citation Map
+- ❌ Closing a round with unresolved `LI-CNS violation` findings
+- ❌ Proceeding with unresolved `MANIFEST_SCOPE_VIOLATION`
+- ❌ Treating "read everything" as compliance instead of using the doctrine manifest tier model
 
 **Round closing template (binding):**
 
 Every round MUST close with a written statement of the form:
 
-> *"Round [N] closing. Authored: [N rules across X sections]. Substrate verdicts: [X OK / Y OK-with-extension / Z NEW SUBSTRATE NEEDED]. New Amendment candidates: [list]. New failure patterns observed: [list — to be added to post-mortem if needed]. New binding doctrine sections to add: [list]. Cross-domain seams identified: [list]. Open decisions for next round: [list]. Recommendation for next round: [authoring direction]. **Amendment K closure status (Round 5 + 7 only per §2.22.3): [RESOLVED-A-IMPLEMENTED / RESOLVED-B-EXCLUDED / RESOLVED-C-COVERED / UNRESOLVED]. If UNRESOLVED, round closure is REJECTED.**"*
+> *"Round [N] closing. Authored: [N rules across X sections]. Substrate verdicts: [X OK / Y OK-with-extension / Z NEW SUBSTRATE NEEDED]. New Amendment candidates: [list]. New failure patterns observed: [list — to be added to post-mortem if needed]. New binding doctrine sections to add: [list]. Cross-domain seams identified: [list]. Open decisions for next round: [list]. Recommendation for next round: [authoring direction]. Guardrail digest changes: [added/updated/deprecated IDs or none + rationale]. Stale/contradictory language detected: [list + cleanup owner/date or none]. Unresolved violations: MANIFEST_SCOPE_VIOLATION [none/present + details]; LI-CNS_VIOLATION [none/present + details]. **Amendment K closure status (Round 5 + 7 only per §2.22.3): [RESOLVED-A-IMPLEMENTED / RESOLVED-B-EXCLUDED / RESOLVED-C-COVERED / UNRESOLVED]. If UNRESOLVED, round closure is REJECTED.**"*
 
 This statement lives in the domain rule file's closing section. It informs the next round's opening checklist. **Round 5 + Round 7 closure with Amendment K UNRESOLVED is binding REJECTION per §2.22.3.**
 
@@ -1477,6 +1528,15 @@ Final round (10-scenarios end-to-end validation) MUST include the following 2 cr
 
 If Final round runs these scenarios and they require substrate not implemented, Amendment K resolution path A (implementation) is forced retroactively.
 
+**Longitudinal doctrine validation row (required in Final round report):**
+- "Longitudinal Intelligence Doctrine Check" with explicit PASS/CONDITIONAL/FAIL for:
+  - permission + identity + visibility gating,
+  - action usefulness gating,
+  - D5/D6/D7 ownership separation,
+  - contact discipline (relevance/suppression over cadence),
+  - traceability (candidate/action/no_op/suppression rationale).
+- Any FAIL is reported as `LI-CNS violation` and blocks final closure.
+
 #### §2.22.6 Anti-patterns (binding rejections)
 
 - ❌ Treating cross-vertical applicability as a product direction (we are NOT building a fitness studio / salon / PT / massage platform)
@@ -1576,6 +1636,21 @@ Every future domain slice MUST explicitly address:
 - **Replay/correction behavior:** each domain defines how late, duplicate, replayed, corrected, and reversed events alter candidate emission/suppression and prior decision-record interpretation
 - **Domain authority matrix:** each domain defines AI/staff/provider/medical-director/compliance authority boundaries for candidate families and state proposals
 - **Audience visibility boundary:** each domain classifies outputs/facts as patient-visible, staff-visible, provider-visible, audit-only, or external-vendor-visible
+
+#### §2.24.3A Longitudinal Intelligence Check (required for every domain slice)
+
+Every domain file MUST include a dedicated "Longitudinal Intelligence Check" subsection that answers:
+
+1. Does this domain introduce new patient/care signal?
+2. Can this domain influence CNS candidate generation?
+3. Does this domain require consent/identity/visibility gating?
+4. Can this domain create patient/provider contact?
+5. Does this domain preserve D5/D6/D7 ownership boundaries?
+6. Does this domain avoid cadence-first messaging and signal-dump behavior?
+7. Does this domain produce traceable candidate/action/no_op/suppression rationale?
+
+If any item is marked "not applicable", author must provide explicit rationale.  
+Any failed item must be labeled `LI-CNS violation`.
 
 #### §2.24.4 Domain-slice opening template (required)
 

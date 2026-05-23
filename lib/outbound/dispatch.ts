@@ -246,6 +246,36 @@ interface RenderedSmsPayload {
   body: string;
 }
 
+type OutboundTraceLineage = {
+  source_event_id?: string;
+  candidate_id?: string;
+  resolver_id?: string;
+  commit_id?: string;
+};
+
+function extractTraceLineageRecord(raw: unknown): OutboundTraceLineage | undefined {
+  if (!raw || typeof raw !== 'object') return undefined;
+  const candidate = raw as Record<string, unknown>;
+  return {
+    source_event_id:
+      typeof candidate.source_event_id === 'string' ? candidate.source_event_id : undefined,
+    candidate_id: typeof candidate.candidate_id === 'string' ? candidate.candidate_id : undefined,
+    resolver_id: typeof candidate.resolver_id === 'string' ? candidate.resolver_id : undefined,
+    commit_id: typeof candidate.commit_id === 'string' ? candidate.commit_id : undefined,
+  };
+}
+
+function extractOutboundTraceLineage(job: OutboundJobRow): OutboundTraceLineage | undefined {
+  const payloadLineage = extractTraceLineageRecord((job.payload as Record<string, unknown>).trace_lineage);
+  if (payloadLineage) return payloadLineage;
+  return extractTraceLineageRecord(job.metadata?.trace_lineage);
+}
+
+function buildTraceMetadata(job: OutboundJobRow): Record<string, unknown> {
+  const lineage = extractOutboundTraceLineage(job);
+  return lineage ? { trace_lineage: lineage } : {};
+}
+
 function extractRenderedEmail(job: OutboundJobRow): RenderedEmailPayload | null {
   const p = job.payload as { rendered_email?: unknown; to?: unknown } | null;
   if (!p || typeof p !== 'object') return null;
@@ -279,6 +309,7 @@ async function dispatchPreRenderedEmail(
   job: OutboundJobRow,
   rendered: RenderedEmailPayload,
 ): Promise<{ job_id: string; outcome: DispatchOutcome }> {
+  const traceMetadata = buildTraceMetadata(job);
   const sent = await sendTransactionalEmail({
     to: rendered.to,
     subject: rendered.subject,
@@ -296,6 +327,7 @@ async function dispatchPreRenderedEmail(
         channel: 'email',
         provider: 'resend',
         error_message: sent.error,
+        metadata: traceMetadata,
       });
       return { job_id: job.id, outcome: 'succeeded' };
     }
@@ -306,6 +338,7 @@ async function dispatchPreRenderedEmail(
       channel: 'email',
       provider: 'resend',
       error_message: sent.error,
+      metadata: traceMetadata,
     });
     return { job_id: job.id, outcome: 'failed_retryable' };
   }
@@ -316,6 +349,7 @@ async function dispatchPreRenderedEmail(
     channel: 'email',
     provider: 'resend',
     provider_message_id: sent.id,
+    metadata: traceMetadata,
   });
   return { job_id: job.id, outcome: 'succeeded' };
 }
@@ -324,6 +358,7 @@ async function dispatchPreRenderedSms(
   job: OutboundJobRow,
   rendered: RenderedSmsPayload,
 ): Promise<{ job_id: string; outcome: DispatchOutcome }> {
+  const traceMetadata = buildTraceMetadata(job);
   const sent = await sendPatientSms({
     toE164: rendered.to_phone,
     body: rendered.body,
@@ -337,6 +372,7 @@ async function dispatchPreRenderedSms(
         channel: 'sms',
         provider: 'twilio',
         error_message: sent.error,
+        metadata: traceMetadata,
       });
       return { job_id: job.id, outcome: 'succeeded' };
     }
@@ -347,6 +383,7 @@ async function dispatchPreRenderedSms(
       channel: 'sms',
       provider: 'twilio',
       error_message: sent.error,
+      metadata: traceMetadata,
     });
     return { job_id: job.id, outcome: 'failed_retryable' };
   }
@@ -357,6 +394,7 @@ async function dispatchPreRenderedSms(
     channel: 'sms',
     provider: 'twilio',
     provider_message_id: sent.messageSid,
+    metadata: traceMetadata,
   });
   return { job_id: job.id, outcome: 'succeeded' };
 }
@@ -416,6 +454,7 @@ async function dispatchPreRenderedInApp(
   job: OutboundJobRow,
   rendered: RenderedInAppPayload,
 ): Promise<{ job_id: string; outcome: DispatchOutcome }> {
+  const traceMetadata = buildTraceMetadata(job);
   // Defensive: in_app dispatch requires a patient_id. The OutboundJobRow
   // type allows null (some kinds — e.g. system-cron operational tasks —
   // don't have one), but inbox messages MUST have one.
@@ -427,6 +466,7 @@ async function dispatchPreRenderedInApp(
       channel: 'in_app',
       provider: 'in_app_inbox',
       error_message: 'send_in_app requires patient_id; outbound_job has none',
+      metadata: traceMetadata,
     });
     return { job_id: job.id, outcome: 'failed_terminal' };
   }
@@ -443,6 +483,7 @@ async function dispatchPreRenderedInApp(
       channel: 'in_app',
       provider: 'in_app_inbox',
       error_message: 'send_in_app requires message_intent on outbound_job',
+      metadata: traceMetadata,
     });
     return { job_id: job.id, outcome: 'failed_terminal' };
   }
@@ -456,6 +497,7 @@ async function dispatchPreRenderedInApp(
       provider: 'in_app_inbox',
       error_message:
         'send_in_app requires intended_privacy_exposure_level on outbound_job',
+      metadata: traceMetadata,
     });
     return { job_id: job.id, outcome: 'failed_terminal' };
   }
@@ -485,7 +527,7 @@ async function dispatchPreRenderedInApp(
       // c1 does not propagate metadata from outbound_jobs.payload; future
       // rules that need CTA / structured context will define their own
       // propagation pattern.
-      metadata: {},
+      metadata: traceMetadata,
       // Use the outbound_job's created_at as effective_at (= when the
       // rule fired / when the message became effective in the patient's
       // communication timeline). Differs from the inbox row's created_at
@@ -500,6 +542,7 @@ async function dispatchPreRenderedInApp(
       channel: 'in_app',
       provider: 'in_app_inbox',
       provider_message_id: inbox_message_id,
+      metadata: traceMetadata,
     });
     return { job_id: job.id, outcome: 'succeeded' };
   } catch (err) {
@@ -511,6 +554,7 @@ async function dispatchPreRenderedInApp(
       channel: 'in_app',
       provider: 'in_app_inbox',
       error_message: errorMessage,
+      metadata: traceMetadata,
     });
     return { job_id: job.id, outcome: 'failed_retryable' };
   }
@@ -525,6 +569,7 @@ export interface OutboundJobRow {
   id: string;
   kind: JobKind;
   payload: Record<string, unknown>;
+  metadata?: Record<string, unknown> | null;
   status: string;
   attempts: number;
   max_attempts: number;

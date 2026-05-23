@@ -10,6 +10,17 @@
 
 ---
 
+## Pointer — Longitudinal Intelligence Doctrine
+
+- Referenced doctrine (pointer only): `/.cursor/plans/doctrine/longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md`
+- Pressure-test support artifacts:
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_bank_2026-05-19.md`
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_execution_protocol_2026-05-19.md`
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_result_2026-05-19.md`
+- This ADR references that doctrine by pointer only; no doctrine restatement.
+
+---
+
 ## §1 Context
 
 OMNI's locked architecture across DL-14 / DL-15 / DL-16 / DL-18 / DL-20 / DL-21 / DL-22 + [communications_topology.md](communications_topology.md) + §1F + §1G + §1G.8 + §1G.11 + §1P + §1Q.23 + 8 weeks of prior phase work (4h rich-chat / action-items / inbound-classification builds) already establishes the CNS as decisioning engine, rails as outputs, AI-proposes-deterministic-validates-provider-signs authority gradient, source-agnostic event envelope, actor 4-tuple, 32-seed outbound trigger registry, episode catalog with recommended cadence, and `appointment_confirmation_event` substrate for CNS round-trip orchestration.

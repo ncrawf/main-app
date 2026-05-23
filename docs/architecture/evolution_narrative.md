@@ -15,6 +15,17 @@
 
 ---
 
+## Pointer — Longitudinal Intelligence Doctrine
+
+- Narrative reference (pointer only): `/.cursor/plans/doctrine/longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md`
+- Pressure-test appendix set:
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_bank_2026-05-19.md`
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_execution_protocol_2026-05-19.md`
+  - `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_result_2026-05-19.md`
+- This narrative remains historical context; doctrinal content lives in the doctrine file above.
+
+---
+
 ## How to use this document
 
 Read this when you want to understand the *why-this-codebase-looks-like-it-does* across time. Use it as a map of the rest of the documentation, not a substitute for it. Where this narrative names a section, an audit, or a phase, you can find the binding artifact under `.cursor/plans/` or `docs/architecture/`.

@@ -45,6 +45,13 @@ export {
   type TimelineEventType,
 } from './timeline-event-types'
 
+export type EventTraceLineage = {
+  source_event_id?: string
+  candidate_id?: string
+  resolver_id?: string
+  commit_id?: string
+}
+
 // ---------------------------------------------------------------------------
 // Typed insert helpers
 //
@@ -66,6 +73,8 @@ export type InsertAuditEventInput = {
   /** Per Section 1U — orchestrator populates from session context; manual call sites can leave undefined. */
   orgId?: string | null
   metadata?: Record<string, unknown>
+  /** Optional WP-EXEC-001 trace lineage envelope for source/CNS proofing. */
+  trace_lineage?: EventTraceLineage
 }
 
 /**
@@ -92,7 +101,10 @@ export async function insertAuditEvent(
     resource_type: input.resourceType,
     resource_id: input.resourceId ?? null,
     patient_id: input.patientId ?? null,
-    metadata: input.metadata ?? {},
+    metadata: {
+      ...(input.metadata ?? {}),
+      ...(input.trace_lineage ? { trace_lineage: input.trace_lineage } : {}),
+    },
   }
   if (input.actorKind !== undefined) row.actor_kind = input.actorKind
   if (input.orgId !== undefined) row.org_id = input.orgId

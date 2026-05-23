@@ -1,6 +1,6 @@
 # Data layers reconciliation — v1 (Phase 4B-arch)
 
-**Status:** binding companion to the system map. Cites the map for every claim; introduces no new policy.
+**Status:** routed companion context (non-binding). Cites the map for every claim; introduces no new policy.
 **Source of truth:** [`.cursor/plans/system_map_three_layers_60706286.plan.md`](system_map_three_layers_60706286.plan.md). When this doc and the map disagree, the map wins. New invariants land in the map first; this doc reflects them.
 **Phase:** 4B-arch (architectural reconciliation; markdown only). Ships in front of 4C-pre (primitives + tenancy migration) and 4C-runtime (resolver implementation).
 

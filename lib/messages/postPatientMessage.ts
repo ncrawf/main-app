@@ -36,6 +36,13 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { insertTimelineEvent } from '@/lib/events'
 import { computeMessageRequestFingerprint } from './computeMessageRequestFingerprint'
 
+type MessageTraceLineage = {
+  source_event_id?: string
+  candidate_id?: string
+  resolver_id?: string
+  commit_id?: string
+}
+
 // =====================================================================
 // Errors
 // =====================================================================
@@ -77,6 +84,15 @@ export const PostPatientMessageArgs = z.object({
   metadata: z.record(z.string(), z.unknown()).default({}),
   /** Optional attachment refs (forward-compat; not used in c2). */
   attachment_refs: z.array(z.string()).optional(),
+  /** Optional WP-EXEC-001 outbound/message trace lineage envelope. */
+  trace_lineage: z
+    .object({
+      source_event_id: z.string().optional(),
+      candidate_id: z.string().optional(),
+      resolver_id: z.string().optional(),
+      commit_id: z.string().optional(),
+    })
+    .optional(),
 })
 
 export type PostPatientMessageArgs = z.infer<typeof PostPatientMessageArgs>
@@ -98,6 +114,7 @@ export async function postPatientMessage(
   supabase?: SupabaseClient,
 ): Promise<PostPatientMessageResult> {
   const args = PostPatientMessageArgs.parse(rawArgs)
+  const traceLineage: MessageTraceLineage | undefined = args.trace_lineage
 
   const fingerprint = computeMessageRequestFingerprint({
     threadId: args.thread_id,
@@ -114,7 +131,10 @@ export async function postPatientMessage(
     p_body: args.body,
     p_client_message_id: args.client_message_id,
     p_client_request_fingerprint: fingerprint,
-    p_metadata: args.metadata,
+    p_metadata: {
+      ...args.metadata,
+      ...(traceLineage ? { trace_lineage: traceLineage } : {}),
+    },
   })
 
   if (error) {
@@ -160,6 +180,7 @@ export async function postPatientMessage(
           message_id: result.message_id,
           thread_id: result.thread_id,
           client_message_id: args.client_message_id,
+          ...(traceLineage ? { trace_lineage: traceLineage } : {}),
         },
       },
       sb,

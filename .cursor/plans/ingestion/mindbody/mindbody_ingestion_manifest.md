@@ -2,7 +2,7 @@
 
 **Phase B.5 master index — Step 2 deliverable**
 **Date:** 2026-05-15
-**Status:** scaffold (Step 2); will be incrementally updated during Step 4-N feature-area ingestion batches and Step N+1 Layer 2 synthesis
+**Status:** historical scaffold origin (Step 2) with Step 3 map + Step 4-N ingestion batches completed; maintained as the durable evidence index for replay and future synthesis updates
 
 ---
 
@@ -331,6 +331,6 @@ Per Knox direction (locked in [phase_b5_mindbody_ingestion_4db27449.plan.md](../
 - [mindbody_user_feedback_raw.md](mindbody_user_feedback_raw.md) — user's 9-gap feedback + meta-framing (raw, frozen)
 - [mindbody_settings_room_requirements_raw.md](mindbody_settings_room_requirements_raw.md) — Mindbody Room Requirements settings (raw, frozen)
 - [mindbody_settings_class_course_options_raw.md](mindbody_settings_class_course_options_raw.md) — Mindbody Class and Course Options settings (raw, frozen)
-- [mindbody_chat_navigation_map.md](mindbody_chat_navigation_map.md) — chat line-range index per topic (Step 3 deliverable; not yet built)
-- `mindbody_NN_<area>_raw.md` files — per-feature-area raw screenshot captures (Step 4-N deliverables; not yet built)
-- `../../designs/2026-05-15_mindbody_architecture_understanding.md` — Layer 2 synthesis (Step N+1 deliverable; not yet built)
+- [mindbody_chat_navigation_map.md](mindbody_chat_navigation_map.md) — chat line-range index per topic (Step 3 deliverable; completed and used for Wave 4 evidence routing)
+- `mindbody_NN_<area>_raw.md` files — per-feature-area raw screenshot captures (Step 4-N deliverables; completed corpus referenced in manifest rows)
+- `../../designs/2026-05-15_mindbody_architecture_understanding.md` — Layer 2 synthesis artifact (available as prior synthesis output; this manifest remains the authoritative raw-evidence index)

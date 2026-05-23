@@ -2,6 +2,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { syncLegacyGlp1ToCareModel } from '@/lib/care/syncLegacyGlp1ToCareModel'
 import { onPatientWorkflowEvent } from '@/lib/workflows/onPatientWorkflowEvent'
 import { dispatchRuleTriggerEvent } from '@/lib/rules/runtime/dispatcher'
+import type { EventTraceLineage } from '@/lib/events'
 
 export type DeriveContext = {
   supabase: SupabaseClient
@@ -14,6 +15,8 @@ export type DeriveContext = {
    * idempotency anchor for the typed intake_submitted Rule firing.
    */
   formSubmissionId: string
+  /** Optional WP-EXEC-001 trace lineage envelope from the source boundary. */
+  trace_lineage?: EventTraceLineage
 }
 
 /**
@@ -45,6 +48,12 @@ export async function deriveCanonicalState(ctx: DeriveContext): Promise<void> {
             patient_id: ctx.patientId,
             form_submission_id: ctx.formSubmissionId,
             form_key: ctx.formKey,
+          },
+          trace_lineage: {
+            source_event_id: ctx.trace_lineage?.source_event_id ?? ctx.formSubmissionId,
+            candidate_id: ctx.trace_lineage?.candidate_id,
+            resolver_id: ctx.trace_lineage?.resolver_id,
+            commit_id: ctx.trace_lineage?.commit_id,
           },
         },
         ctx.supabase,

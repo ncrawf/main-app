@@ -31,8 +31,33 @@ import {
 } from './types';
 import { applyDataEnvironmentGateAfterEnqueue } from './dataEnvironmentGate';
 
+type OutboundTraceLineage = {
+  source_event_id?: string;
+  candidate_id?: string;
+  resolver_id?: string;
+  commit_id?: string;
+};
+
+function extractOutboundTraceLineage(metadata: Record<string, unknown>): OutboundTraceLineage | undefined {
+  const raw = metadata.trace_lineage;
+  if (!raw || typeof raw !== 'object') return undefined;
+  const candidate = raw as Record<string, unknown>;
+  return {
+    source_event_id:
+      typeof candidate.source_event_id === 'string' ? candidate.source_event_id : undefined,
+    candidate_id: typeof candidate.candidate_id === 'string' ? candidate.candidate_id : undefined,
+    resolver_id: typeof candidate.resolver_id === 'string' ? candidate.resolver_id : undefined,
+    commit_id: typeof candidate.commit_id === 'string' ? candidate.commit_id : undefined,
+  };
+}
+
 export async function enqueueOutboundJob(rawArgs: unknown): Promise<EnqueueOutboundJobResult> {
   const args = EnqueueOutboundJobArgs.parse(rawArgs);
+  const traceLineage = extractOutboundTraceLineage(args.metadata ?? {});
+  const metadata = {
+    ...(args.metadata ?? {}),
+    ...(traceLineage ? { trace_lineage: traceLineage } : {}),
+  };
 
   const supabase = createAdminClient();
 
@@ -63,7 +88,7 @@ export async function enqueueOutboundJob(rawArgs: unknown): Promise<EnqueueOutbo
     p_org_id: args.org_id ?? null,
     p_data_environment: args.data_environment ?? null,
     p_actor_kind: args.actor_kind ?? null,
-    p_metadata: args.metadata ?? {},
+    p_metadata: metadata,
     // Phase 4H-pre commit 5 — orchestrator extension. The function
     // signature was extended in 20260513130000_phase_4h_pre_extend_enqueue_outbound_job
     // to accept the two columns added by Phase 4H-pre commit 1.

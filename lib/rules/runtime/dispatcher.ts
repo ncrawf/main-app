@@ -57,6 +57,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { enqueueOutboundJob } from '@/lib/outbound/enqueue'
 import { insertAuditEvent } from '@/lib/events'
+import type { EventTraceLineage } from '@/lib/events'
 import {
   findRulesByTriggerEventType,
 } from '@/repo/rules'
@@ -183,6 +184,10 @@ export type RuleTriggerEvent =
       event_type: 'patient.refill_initiated'
       payload: PatientRefillInitiatedPayload
     }
+
+export type RuleTriggerEventEnvelope = RuleTriggerEvent & {
+  trace_lineage?: EventTraceLineage
+}
 
 export interface CommerceCheckoutSessionCompletedPayload {
   /** UUID; the patient record this checkout pertains to. */
@@ -627,7 +632,7 @@ function resolvePathwayForRule(rule: Rule): ResolvedPathway {
  * via ADR amendment.
  */
 export async function dispatchRuleTriggerEvent(
-  event: RuleTriggerEvent,
+  event: RuleTriggerEventEnvelope,
   supabase?: SupabaseClient,
 ): Promise<RuleDispatchResult | RuleDispatchSkipped> {
   if (!isKnownRuleTriggerEventType(event.event_type)) {
@@ -674,7 +679,7 @@ export async function dispatchRuleTriggerEvent(
     return executePaymentReceivedRule(sb, rule, event.payload)
   }
   if (event.event_type === 'patient.intake_submitted') {
-    return executeIntakeSubmittedRule(sb, rule, event.payload)
+    return executeIntakeSubmittedRule(sb, rule, event.payload, event.trace_lineage)
   }
   if (event.event_type === 'patient.case_approved') {
     return executeCaseApprovedRule(sb, rule, event.payload)
@@ -947,6 +952,7 @@ async function executeIntakeSubmittedRule(
   supabase: SupabaseClient,
   rule: Rule,
   payload: PatientIntakeSubmittedPayload,
+  traceLineage?: EventTraceLineage,
 ): Promise<RuleDispatchResult> {
   if (rule.action.kind !== 'notify') {
     throw new Error(
@@ -1070,6 +1076,7 @@ async function executeIntakeSubmittedRule(
       metadata: {
         gate_call_site: 'rule_engine',
         form_key: payload.form_key,
+        ...(traceLineage ? { trace_lineage: traceLineage } : {}),
       },
     })
     enqueuedIds.push(emailResult.outbound_job_id)
@@ -1106,6 +1113,7 @@ async function executeIntakeSubmittedRule(
       metadata: {
         gate_call_site: 'rule_engine',
         form_key: payload.form_key,
+        ...(traceLineage ? { trace_lineage: traceLineage } : {}),
       },
     })
     enqueuedIds.push(smsResult.outbound_job_id)
@@ -1135,6 +1143,7 @@ async function executeIntakeSubmittedRule(
         form_key: payload.form_key,
         enqueued_outbound_job_ids: enqueuedIds,
       },
+      trace_lineage: traceLineage,
     },
     supabase,
   )

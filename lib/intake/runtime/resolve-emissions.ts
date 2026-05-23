@@ -54,6 +54,14 @@ import {
 import type { Question } from '../types';
 import type { InteractionContext } from '../interaction-context';
 import { getConcept } from '@/lib/clinical-concepts';
+import { createHash } from 'node:crypto';
+
+export interface ResolveTraceLineage {
+  source_event_id?: string;
+  candidate_id?: string;
+  resolver_id?: string;
+  commit_id?: string;
+}
 
 /**
  * Context passed to the resolver. Pure inputs only — no DB reads inside.
@@ -75,6 +83,8 @@ export interface ResolveContext {
   prior_responses?: Record<string, unknown>;
   /** Composite-row binding propagated from the question or module. */
   assertion_group_id?: string;
+  /** Optional Phase 1 trace-lineage envelope from the source/CNS boundary. */
+  trace_lineage?: ResolveTraceLineage;
 }
 
 /**
@@ -85,11 +95,16 @@ export interface ResolutionNote {
   field_path: string;
   rule: string;
   resolved_to: unknown;
+  source_event_id?: string;
+  candidate_id?: string;
+  resolver_id?: string;
+  commit_id?: string;
 }
 
 export interface ResolveEmissionsResult {
   emissions: Emission[];
   resolution_notes: ResolutionNote[];
+  trace_lineage: ResolveTraceLineage;
 }
 
 export class ResolveEmissionsError extends Error {
@@ -122,6 +137,7 @@ export function resolveEmissions(
 ): ResolveEmissionsResult {
   const notes: ResolutionNote[] = [];
   const resolved: Emission[] = [];
+  const traceLineage = buildResolveTraceLineage(question, raw_value, context.trace_lineage);
 
   for (let i = 0; i < question.emissions.length; i++) {
     const template = question.emissions[i];
@@ -129,7 +145,16 @@ export function resolveEmissions(
 
     let payload: Record<string, unknown>;
     try {
-      payload = resolveEmissionPayload(target, template.payload, question, raw_value, context, notes, i);
+      payload = resolveEmissionPayload(
+        target,
+        template.payload,
+        question,
+        raw_value,
+        context,
+        notes,
+        i,
+        traceLineage
+      );
     } catch (err) {
       if (err instanceof ResolveEmissionsError) throw err;
       throw new ResolveEmissionsError(
@@ -145,7 +170,7 @@ export function resolveEmissions(
     resolved.push({ target, payload: validated } as Emission);
   }
 
-  return { emissions: resolved, resolution_notes: notes };
+  return { emissions: resolved, resolution_notes: notes, trace_lineage: traceLineage };
 }
 
 /**
@@ -161,11 +186,20 @@ function resolveEmissionPayload(
   raw_value: unknown,
   context: ResolveContext,
   notes: ResolutionNote[],
-  emissionIndex: number
+  emissionIndex: number,
+  traceLineage: ResolveTraceLineage
 ): Record<string, unknown> {
   const t = { ...(template as Record<string, unknown>) };
   const noteWith = (path: string, rule: string, val: unknown) => {
-    notes.push({ field_path: `emissions[${emissionIndex}].${path}`, rule, resolved_to: val });
+    notes.push({
+      field_path: `emissions[${emissionIndex}].${path}`,
+      rule,
+      resolved_to: val,
+      source_event_id: traceLineage.source_event_id,
+      candidate_id: traceLineage.candidate_id,
+      resolver_id: traceLineage.resolver_id,
+      commit_id: traceLineage.commit_id,
+    });
   };
 
   switch (target) {
@@ -375,6 +409,29 @@ function resolveEmissionPayload(
       throw new Error(`resolveEmissions: unhandled emission target: ${JSON.stringify(exhaustive)}`);
     }
   }
+}
+
+function buildResolveTraceLineage(
+  question: Question,
+  raw_value: unknown,
+  traceLineage?: ResolveTraceLineage
+): ResolveTraceLineage {
+  let serializedRaw = '';
+  try {
+    serializedRaw = JSON.stringify(raw_value) ?? '';
+  } catch {
+    serializedRaw = String(raw_value);
+  }
+  const digest = createHash('sha256')
+    .update(`${question.question_id}:${question.question_version}:${serializedRaw}`, 'utf8')
+    .digest('hex')
+    .slice(0, 12);
+  return {
+    source_event_id: traceLineage?.source_event_id,
+    candidate_id: traceLineage?.candidate_id ?? `candidate:${question.question_id}:${digest}`,
+    resolver_id: traceLineage?.resolver_id ?? `resolver:${question.question_id}:${digest}`,
+    commit_id: traceLineage?.commit_id,
+  };
 }
 
 /**
