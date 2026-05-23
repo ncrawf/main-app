@@ -271,6 +271,41 @@ Future work must not remain perpetually deferred after implementation.
 ### Open Review Gap Routing Rule
 When unresolved mechanics/canonical-home gaps remain, create or update explicit open-review rows with owner, closure criteria, and recovery trigger.
 
+### Checkpoint Preservation Rule
+
+**Preservation is the default, not the exception.** At every stop, classify the checkpoint tier by objective markers (table below). Required preservation artifacts scale with the tier. Stop reports alone (which live in conversation) only satisfy Tier 1.
+
+**Default-up rule: if classification is uncertain, choose the higher tier.** Over-preservation is recoverable; under-preservation is not.
+
+#### Tier classification
+
+| tier | objective markers (ANY trigger except Tier 1 which requires ALL) | required output |
+|---|---|---|
+| **1 — micro** | NO commit AND NO Tier 0/0.5/1 governance file touched AND NO new artifact created AND NO doctrine/schema/rule change AND change is truly trivial (typo, comment, single-line note) | stop report only (in conversation) |
+| **2 — work-package** | any commit; OR any meaningful file change beyond typo; OR any new artifact created; OR multiple coherent file changes; OR runtime/code modification | stop report + durable **handoff artifact** (`.cursor/plans/HANDOFF_YYYY-MM-DD_<slug>.md` per §5 Handoff Minimum Contract) |
+| **3 — major arc** | spans 3+ Tier-0 governance artifacts; OR changes boot path / gates / routing semantics / lifecycle / authority boundaries; OR creates or activates an operating layer; OR resolves a repeated agent/process failure mode; OR crosses a phase boundary; OR spans multiple sessions or multiple commits | Tier 2 + **narrative volume** (`docs/architecture/evolution_narrative_volume_N_YYYY-MM-DD.md` per `narrative_or_postmortem` pattern) |
+| **4 — canonization** | binding doctrine added or rule changed (Schema Lock, Enforcement Rules, Operating Contracts, Read-Graph Operating Contract, Archive Operating Contract, etc.) | Tier 3 + **decision ledger row** in `03_decision_extraction_ledger.md` + **supersession/conflict ledger update** if prior interpretation was replaced |
+
+#### Handoff minimum (Tier 2+)
+
+Use the §5 Handoff Minimum Contract: state snapshot + scope complete, changed artifacts/files/commits, verification/proof outputs (or deferred reason), settled decisions not to re-litigate, unresolved assumptions/questions, next gate + stop condition, source-of-truth load order. Add explicit `Stop condition for this handoff` so the next checkpoint can mark it superseded.
+
+#### Narrative minimum (Tier 3+)
+
+Use the existing `narrative_or_postmortem` pattern (see `docs/architecture/evolution_narrative*.md` for shape): where the arc started, why the jump/pivot happened, what was discovered, what got built, what mistakes were corrected, canonical binding pointers (non-binding narrative routes to them, does not become them), what remains unresolved. Non-binding; cite canonical destinations, not the narrative.
+
+#### Canonization minimum (Tier 4)
+
+Per existing §5 Routing Requirements: doctrine/system map/rule slice update in canonical home + decision ledger row (`03_decision_extraction_ledger.md`) + supersession/conflict ledger row (`05_supersession_conflict_ledger.md`) if prior interpretation replaced + catalog row update + read-graph route impact evaluation.
+
+#### Tier-0 Universal Path implication
+
+When a Tier 2+ checkpoint completes, the Read Graph `## Tier 0 Universal Path` **Current Checkpoint Handoff** entry must be updated to point at the new handoff. The prior handoff stays in the catalog as historical reference; future agents booting load the new current handoff alongside the rest of the Tier 0 Universal Path.
+
+#### Why this rule exists
+
+The first major arc closure (Tier-0 governance activation, 2026-05-22 → 2026-05-23) revealed the failure mode: the OS treated preservation as a §5 routing audit ("do we owe an ADR / ledger / handoff?") rather than as routine state preservation. Commit messages, catalog notes, and queue closure notes were treated as sufficient continuity. They are not. Future agents picking up a major arc need narrative-level context AND operational handoff, not just an audit log. This rule prevents the same miss from recurring.
+
 ---
 
 ## 9) Proof and Stop Report
@@ -288,9 +323,15 @@ Stop report must include:
 - `new_artifacts_created` (list of paths, or `none`),
 - `new_artifact_completion_proof` per §5 New Artifact Completion Rule for each path (passport, catalog, read-graph evaluation, authority level, lifecycle role, open-review row if uncertain). If the new artifact is a **governed-stream artifact** (per the definition in `00_architecture_memory_control_plane.md` `## Governed Stream Artifact Operating Contract Rule`), `new_artifact_completion_proof` must additionally include Operating/Maintenance Contract proof covering all Minimum Contract Elements per Enforcement Rule 7,
 - `new_artifact_provisional_items` (`none` or listed with owner and review gate),
+- `checkpoint_tier`: `1` | `2` | `3` | `4` (per §8 Checkpoint Preservation Rule; default UP if uncertain),
+- `checkpoint_artifact_path`: path to durable handoff artifact, or `tier_1_in_conversation_only` if Tier 1,
+- `narrative_artifact_path`: path to narrative volume, or `not_required_for_this_tier` if Tier 1 or 2,
+- `canonical_updates`: list of doctrine/ledger/registry/read-graph paths updated, or `not_required_for_this_tier` if Tier 1, 2, or 3,
 - next gate.
 
 Stop is blocked if `new_artifacts_created` is non-empty and any path lacks completion proof.
+
+**Stop is also blocked if `checkpoint_tier >= 2` and `checkpoint_artifact_path` is missing/blank, or if `checkpoint_tier >= 3` and `narrative_artifact_path` is missing/blank, or if `checkpoint_tier == 4` and `canonical_updates` is missing/blank.** Preservation existence is mandatory at the declared tier; under-declaring the tier to avoid producing artifacts violates the default-up rule.
 
 ---
 

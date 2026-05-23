@@ -191,3 +191,28 @@ This handoff is superseded when **either**:
 - A first implementation lane enters Build Entry Gate v0 (a new handoff captures the implementation-lane entry transition).
 
 Until either occurs, this is the operative continuity artifact.
+
+---
+
+## Closure Addendum (2026-05-23) — Checkpoint Preservation Rule landed
+
+After this handoff was first created, the user surfaced that the OS partially failed during the Tier-0 activation arc: when asked "do we need any artifacts after all that," the agent ran a narrow Protocol §5 owed-artifacts checklist instead of recognizing that a major architectural arc was closing and therefore narrative + handoff were owed by default. Volume 4 narrative + this handoff were produced as the corrective action.
+
+But the corrective action did not close the underlying classifier bug. To prevent recurrence, the **Checkpoint Preservation Rule** was added to `agent_work_protocol.md` §8 as a Tier 4 canonization on the same arc:
+
+- Preservation is the default, not the exception.
+- Every stop classifies a checkpoint tier by **objective markers** (commit / Tier 0 file touched / new artifact / multiple coherent file changes / boot-gate-routing-lifecycle-authority change / phase boundary / multi-session-or-commit / binding doctrine added).
+- Required artifacts scale with the tier (Tier 1 stop-report-only → Tier 2 handoff → Tier 3 + narrative → Tier 4 + canonical ledger updates).
+- Default UP one tier when uncertain. Over-preservation is recoverable; under-preservation is not.
+- §9 Stop Report now requires `checkpoint_tier`, `checkpoint_artifact_path`, `narrative_artifact_path`, `canonical_updates` fields. Stop is blocked if a Tier ≥ 2 stop omits the required preservation paths.
+
+Supporting updates landed in the same closure:
+
+- `04_manifest_read_graph.md` Tier 0 Universal Path gained item #15 **Current Checkpoint Handoff** pointing at this file; the entry updates each Tier 2+ checkpoint cycle; prior handoffs become historical-only via catalog.
+- `00_omni_coordination_charter.md` Lifecycle Freshness Contract gained a one-paragraph pointer to Protocol §8 Checkpoint Preservation Rule (coordination-level reference to the runtime rule).
+- `03_decision_extraction_ledger.md` gained row `D0CKPT-DEC-001` recording the rule promotion.
+- Catalog row notes updated to reflect the new rule on the touched files.
+
+This addendum does **not** invalidate the original handoff above; it records that the failure mode this handoff exists to fix is now structurally prevented at the protocol layer. The original "what was committed / open triggers / source-of-truth load order / stop condition" sections remain accurate.
+
+Next checkpoint cycle: when the OMNI core-thesis refinement work begins, a new handoff will replace this one (per the Stop condition above), and the Read Graph Tier 0 Universal Path #15 will be updated to point at the new handoff.

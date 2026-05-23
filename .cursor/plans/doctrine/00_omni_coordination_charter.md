@@ -107,6 +107,8 @@ At work-package/phase closure, touched artifacts require disposition:
 - Handoffs: processed/routed/demoted as continuity artifacts.
 - Catalog/read graph: current vs stale routing/authority updates.
 
+**Checkpoint preservation is mandatory at every stop above Tier 1**, sized by tier per `agent_work_protocol.md` §8 Checkpoint Preservation Rule. Preservation is the default, not the exception; the only judgment is the tier. See Protocol §8 for the tier classification table and required artifacts per tier (stop report → handoff → narrative → canonization).
+
 No artifact may remain indefinitely in an outdated state without explicit reason.
 
 ---
