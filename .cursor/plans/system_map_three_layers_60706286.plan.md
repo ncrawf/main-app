@@ -2,9 +2,33 @@
 
 **Status:** This file exists so the link in `AGENTS.md` works. A longer narrative (modules 1A–1N, appendices) may live with your team (Notion, Linear, etc.) or can be expanded here over time.
 
+## Architecture Memory Control Plane (Binding Pointer)
+
+- Architecture/process authority is interpreted through:
+  - `.cursor/plans/doctrine/00_architecture_memory_control_plane.md` (canonical boot rule)
+  - `.cursor/plans/doctrine/01_master_corpus_catalog.md`
+  - `.cursor/plans/doctrine/02_authority_routing_map.md`
+  - `.cursor/plans/doctrine/04_manifest_read_graph.md`
+  - `.cursor/plans/doctrine/05_supersession_conflict_ledger.md`
+  - `.cursor/plans/doctrine/08_open_review_queue.md`
+- Do not treat architecture/doctrine files as binding in isolation from catalog/routing/supersession/read-graph state.
+
 **Labs (precedence — locked):** **Section 1L is the canonical foundation** for diagnostics + lab testing. The **Appendix: Lab workflow** (**§11–17**, extended by **§18–§31**) is the **implementation-detail reference** that Section 1L supersedes where they overlap. Labs are **not deferred**: continuation gating per **1L.16** and Intent's clinical-precedence rule (therapy from labs requires `clinical_visits` referencing `diagnostic_report_id` and/or a `treatment_items` state transition that is valid only with a reviewed report) make Section 1L a **v1 foundation module** for any Rx pathway that requires baseline or ongoing labs. The appendix remains a long-form mechanics reference.
 
 **Phase B.5 (2026-05-16) Mindbody reality ingestion COMPLETED:** Layer 2 synthesis at [`.cursor/plans/designs/2026-05-16_mindbody_architecture_understanding.md`](designs/2026-05-16_mindbody_architecture_understanding.md) (13 sections A-M, 185+ findings) feeds Phase B.5+ doctrine sharpening. Section G enumerates DL-15 amendments (7) + DL-16 amendments (4) + 4 new DLs to draft (Commerce DL Phase C / Settings-Infrastructure DL / RBAC DL / Clinical-Coding DL). Section H enumerates ~40 substrate tables for Day 0 substrate slice. **Q1 encounter container architecture explicitly SHELVED** per [mindbody_open_questions_raw.md](ingestion/mindbody/mindbody_open_questions_raw.md). Raw layer at [`.cursor/plans/ingestion/mindbody/`](ingestion/mindbody/) preserves 163 screenshots + 27,982-line Knox chat in 17 raw capture files + manifest + chat nav map + 5 supplemental files. Phase B.5+ doctrine sharpening sequenced AFTER Phase 0 brain audit; will produce concrete DL amendment commits citing Layer 2 section identifiers (G.2.1 Commerce DL / G.2.2 Settings-Infrastructure DL / G.2.3 RBAC DL / G.2.4 Clinical-Coding DL / H.1 substrate primitives / etc.).
+
+---
+
+## Pointer Anchor — Longitudinal Intelligence Doctrine
+
+- Canonical doctrine: `/.cursor/plans/doctrine/longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md`
+- Pressure-test bank (100 cases): `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_bank_2026-05-19.md`
+- Execution protocol: `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_execution_protocol_2026-05-19.md`
+- Latest scored result: `/.cursor/plans/doctrine/longitudinal_intelligence_pressure_test_result_2026-05-19.md`
+- This map consumes that doctrine by reference only (no duplicated doctrine blocks).
+- Scope note: this anchor does not reopen Round 5 and does not start Round 6 authoring.
+- Binding carry-forward: future rounds must preserve permission/identity gating, action-usefulness gating, D5/D6/D7 ownership separation, contact discipline, and rationale traceability.
+- Workflow note: doctrine-read-scope failures are reported as `MANIFEST_SCOPE_VIOLATION`; longitudinal design breaches are reported as `LI-CNS violation` in rule-matrix round gates.
 
 ---
 
@@ -35,6 +59,23 @@
 **Foundation modules underneath the siblings** (Layer 1, referenced by every sibling): system primitives addendum (above Section 1A); Section **1D / 1D.1 / 1D.2** capabilities; Section **1J / 1J.10** identity + safety preflight; Section **1L** labs / diagnostics substrate; Section **1M** longitudinal observations; Section **1O** document routing; Section **1Q** rules engine; Section **1R** search; Section **1S** event-stream readiness; Section **1T** vector / embedding readiness; Section **1U** multi-org / multi-tenant; Section **1V** retention + RTBF; **Section 1W tracked clinical objects + procedure / intervention lifecycle (foundation primitive — referenced by scheduling, charting, fulfillment, billing, communications, and AI; not a sibling)**. The Doctrine locks section below imports the binding architectural commitments that govern these foundation modules and every sibling above them.
 
 **These domains integrate through a shared governance and orchestration substrate, not as disconnected bolt-ons.** The shared substrate includes: **audit lineage**, **authority boundaries**, **disclosure-policy**, **consent**, **deterministic evaluation**, **runtime isolation** (pure-evaluator + async-runtime pattern), **pathway sensitivity**, **idempotent orchestration**, **cross-org tenancy**, and **longitudinal operational memory**. Substrate primitives are **infrastructure every sibling depends on**; substrate is **never** modeled as a sibling alongside operational domains. Adding a "domain folder for audit lineage" or "domain folder for disclosure-policy" is a category error.
+
+**Governed temporary coherence (binding premise extension):**  
+OMNI is not intelligent because it stores source events/signals/atomic inputs.  
+OMNI becomes intelligent when those inputs are arranged over time into governed, reconstructable, authority-owned context that can drive action, suppression/no-op/defer, escalation, and memory.
+
+**Temporary context is not canonical truth by default.**  
+Composed context packets/read models are decision-time arrangements. Canonical truth is committed only through owning-domain commit paths; CNS coordinates arrangement and routing, but does not become universal truth owner.
+
+**Required outcome classification for composed context:**
+- authority-owned commit,
+- D7 evidence/materialization,
+- suppression/no-op/defer memory,
+- reconstructable but non-canonical rationale,
+- stale/expired context excluded from active composition,
+- excluded-from-active-context noise.
+
+Excluded-from-active-context noise does not imply automatic deletion. Retention/deletion remains governed by source retention, legal/audit requirements, and domain policy.
 
 **The platform explicitly rejects modeling all future work as subordinate to intake, notifications, or a universal "case" primitive. A case is one operational object among many, not the parent ontology of the system.** Reusing a payload discriminant across siblings (e.g., extending `case_kind` to cover orders, appointments, prescriptions, lab kits, or marketing journeys) is the canonical canonization-of-wrong-ontology error this premise prevents. Each sibling owns its own discriminant: `case_kind` for clinical-decision, `order_kind` for fulfillment, `appointment_kind` for scheduling, `pharmacy_event_kind` for pharmacy lifecycle, `lab_event_kind` for labs/diagnostics, and so on.
 
