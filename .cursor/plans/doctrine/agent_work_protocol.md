@@ -282,7 +282,7 @@ When unresolved mechanics/canonical-home gaps remain, create or update explicit 
 | tier | objective markers (ANY trigger except Tier 1 which requires ALL) | required output |
 |---|---|---|
 | **1 — micro** | NO commit AND NO Tier 0/0.5/1 governance file touched AND NO new artifact created AND NO doctrine/schema/rule change AND change is truly trivial (typo, comment, single-line note) | stop report only (in conversation) |
-| **2 — work-package** | any commit; OR any meaningful file change beyond typo; OR any new artifact created; OR multiple coherent file changes; OR runtime/code modification | stop report + durable **handoff artifact** (`.cursor/plans/HANDOFF_YYYY-MM-DD_<slug>.md` per §5 Handoff Minimum Contract) |
+| **2 — work-package** | a **work-package close** is reached: session ends; OR user/agent explicitly declares a sub-work-package boundary mid-session; OR a coherent scope completes with one or more commits (e.g., "add feature X", "fix bug Y", "land doctrine update Z"); OR phase boundary is crossed. Intermediate commits inside an open work package roll into the package's final checkpoint; not every micro-commit produces a separate handoff. Default: one work-package per session unless explicitly sub-divided. | stop report + durable **handoff artifact** (`.cursor/plans/HANDOFF_YYYY-MM-DD_<slug>.md` per §5 Handoff Minimum Contract) |
 | **3 — major arc** | spans 3+ Tier-0 governance artifacts; OR changes boot path / gates / routing semantics / lifecycle / authority boundaries; OR creates or activates an operating layer; OR resolves a repeated agent/process failure mode; OR crosses a phase boundary; OR spans multiple sessions or multiple commits | Tier 2 + **narrative volume** (`docs/architecture/evolution_narrative_volume_N_YYYY-MM-DD.md` per `narrative_or_postmortem` pattern) |
 | **4 — canonization** | binding doctrine added or rule changed (Schema Lock, Enforcement Rules, Operating Contracts, Read-Graph Operating Contract, Archive Operating Contract, etc.) | Tier 3 + **decision ledger row** in `03_decision_extraction_ledger.md` + **supersession/conflict ledger update** if prior interpretation was replaced |
 
@@ -293,6 +293,10 @@ Use the §5 Handoff Minimum Contract: state snapshot + scope complete, changed a
 #### Narrative minimum (Tier 3+)
 
 Use the existing `narrative_or_postmortem` pattern (see `docs/architecture/evolution_narrative*.md` for shape): where the arc started, why the jump/pivot happened, what was discovered, what got built, what mistakes were corrected, canonical binding pointers (non-binding narrative routes to them, does not become them), what remains unresolved. Non-binding; cite canonical destinations, not the narrative.
+
+**Prior-narrative consultation obligation (Tier 3+):** A Tier 3+ narrative does NOT replace prior narrative arcs. Each new major narrative volume MUST include a "Prior arcs consulted" section listing relevant prior narrative volumes (or explicitly stating "no prior arcs relevant" with reason). New volumes point backward to relevant prior arcs and forward to current canonical/binding homes. Older narratives remain valid historical rationale; do not assume the latest volume supersedes them unless explicitly so stated.
+
+**Guardrail extraction obligation (Tier 3+):** When a Tier 3+ narrative surfaces timeless lessons, recurring failure modes, or anti-patterns, those lessons MUST be extracted into `06_guardrail_antipattern_digest.md` as new guardrail rows in the same checkpoint. Each new guardrail row must include `source_evidence` pointing back to the narrative volume and `notes` pointing to the canonical binding destination if one exists. Extract only reusable, future-agent-relevant lessons — not vague slogans, not session-specific observations. The narrative is the chronicle (consulted by agents working in the affected domain); the guardrail is the rule (always loaded at boot via Tier 0.5 boot-visible surface). This is the structural answer to recency bias: timeless lessons survive in the always-visible surface, while narrative remains discoverable for context.
 
 #### Canonization minimum (Tier 4)
 
@@ -326,12 +330,14 @@ Stop report must include:
 - `checkpoint_tier`: `1` | `2` | `3` | `4` (per §8 Checkpoint Preservation Rule; default UP if uncertain),
 - `checkpoint_artifact_path`: path to durable handoff artifact, or `tier_1_in_conversation_only` if Tier 1,
 - `narrative_artifact_path`: path to narrative volume, or `not_required_for_this_tier` if Tier 1 or 2,
+- `prior_narratives_consulted`: for Tier 3+, list of prior narrative volume paths consulted (or `no_prior_arcs_relevant` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
+- `guardrail_rows_extracted`: for Tier 3+, list of guardrail row IDs added/updated in `06_guardrail_antipattern_digest.md` (or `no_timeless_lessons_surfaced` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
 - `canonical_updates`: list of doctrine/ledger/registry/read-graph paths updated, or `not_required_for_this_tier` if Tier 1, 2, or 3,
 - next gate.
 
 Stop is blocked if `new_artifacts_created` is non-empty and any path lacks completion proof.
 
-**Stop is also blocked if `checkpoint_tier >= 2` and `checkpoint_artifact_path` is missing/blank, or if `checkpoint_tier >= 3` and `narrative_artifact_path` is missing/blank, or if `checkpoint_tier == 4` and `canonical_updates` is missing/blank.** Preservation existence is mandatory at the declared tier; under-declaring the tier to avoid producing artifacts violates the default-up rule.
+**Stop is also blocked if `checkpoint_tier >= 2` and `checkpoint_artifact_path` is missing/blank; or if `checkpoint_tier >= 3` and `narrative_artifact_path` OR `prior_narratives_consulted` OR `guardrail_rows_extracted` is missing/blank; or if `checkpoint_tier == 4` and `canonical_updates` is missing/blank.** Preservation existence is mandatory at the declared tier; under-declaring the tier to avoid producing artifacts violates the default-up rule.
 
 ---
 

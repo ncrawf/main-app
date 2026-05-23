@@ -216,3 +216,31 @@ Supporting updates landed in the same closure:
 This addendum does **not** invalidate the original handoff above; it records that the failure mode this handoff exists to fix is now structurally prevented at the protocol layer. The original "what was committed / open triggers / source-of-truth load order / stop condition" sections remain accurate.
 
 Next checkpoint cycle: when the OMNI core-thesis refinement work begins, a new handoff will replace this one (per the Stop condition above), and the Read Graph Tier 0 Universal Path #15 will be updated to point at the new handoff.
+
+---
+
+## Closure Addendum Extension (2026-05-23) — Recency-bias correction and guardrail extraction
+
+User pushback on the first closure addendum: the Checkpoint Preservation Rule + Current Checkpoint Handoff routing could create **recency bias** — new agents fixating on the most-recent handoff/narrative and forgetting the hard-won battles in older arcs. The correct response is NOT to make every old narrative mandatory at boot (mud) and NOT to add a soft "may consult historical rationale" rule (judgment-call gap, same bug). The correct response uses the **existing Guardrail Anti-pattern Digest** (Tier 0.5 boot-visible) as the structural answer: timeless lessons live in the always-loaded guardrail surface; narratives stay as chronicle for context.
+
+`D0CKPT-DEC-002` ratifies the refinement. Specifically:
+
+1. **Tier 2 trigger narrowed.** From "any commit" to "work-package close." Intermediate commits inside an open work package roll into the package's final checkpoint. Default one work-package per session unless explicitly sub-divided. Prevents handoff spam from micro-commits.
+
+2. **Tier 3+ prior-narrative consultation obligation.** Each new Tier 3+ narrative must list relevant prior narrative arcs consulted (or explicit "no prior arcs relevant" with reason). New volumes do not replace older arcs; they point backward and forward.
+
+3. **Tier 3+ guardrail-extraction obligation.** When a Tier 3+ narrative surfaces timeless lessons, those lessons MUST be extracted as guardrail rows in `06_guardrail_antipattern_digest.md` with `source_evidence` backpointer to the narrative and `notes` pointer to canonical binding destination if one exists. Extract only reusable future-agent-relevant lessons; not vague slogans.
+
+4. **§9 stop report extended** with `prior_narratives_consulted` and `guardrail_rows_extracted` fields. Stop blocked if missing for declared tier.
+
+5. **Volume 4 lessons extracted.** Five new guardrail rows added (`D0TIER0-GRD-001..005`); two existing rows (`D0-GRD-011`, `D0W3D-GRD-003`) reinforced with Volume 4 source pointer. Demonstrates the rule by executing it on the very arc that produced it.
+
+6. **Narrative discoverability gap closed.** `evolution_narrative*.md` added to D6 commerce / D7 documentation / Longitudinal Intelligence Tier 2 consult sets (previously these 3 workstreams had no narrative consult routing).
+
+The recency-bias risk is now structurally mitigated:
+- Latest handoff = mandatory operational continuity (Tier 0 Universal Path #15).
+- Latest relevant narrative = consult-required per workstream Tier 2 consult set (now covers all 7 workstreams).
+- Timeless lessons = always-loaded via Tier 0.5 Guardrail Digest (David-and-Goliath stays alive at every boot without forcing every agent to read every narrative).
+- Older narratives = discoverable via catalog + per-workstream Tier 2 consult sets when relevant.
+
+Next agent inheriting this handoff: read this handoff first for operational state, then load Tier 0 Universal Path + Tier 0.5 guardrail digest (you get all timeless lessons in one boot read), then consult Volume 4 narrative if your work touches Tier-0 governance or the OMNI Build OS arc.

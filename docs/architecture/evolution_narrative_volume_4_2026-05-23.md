@@ -186,3 +186,19 @@ If the next major arc — the OMNI core-thesis refinement — substantially resh
 ## Pointer for next agent
 
 Begin the next work package by loading the Tier 0 Universal Path per `.cursor/plans/doctrine/04_manifest_read_graph.md`. The Coordination Charter's `## Current Open Debt (Post-Activation Snapshot)` is the authoritative entry summary, with `08_open_review_queue.md` as source of truth if divergent. The operational handoff for this transition lives at `.cursor/plans/HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md`.
+
+---
+
+## Lessons extracted to Guardrail Digest (2026-05-23 closure addendum)
+
+Per Protocol §8 Tier 3+ guardrail-extraction obligation (added 2026-05-23 by `D0CKPT-DEC-002`), the timeless lessons surfaced by this arc were extracted into `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` as boot-visible Tier 0.5 guardrail rows. Future agents see these rules at every boot regardless of whether they read this narrative.
+
+- **`D0-GRD-011` (existing, reinforced)** — Historical narrative treated as binding command source. This arc reinforced the rule by surfacing the closure-stage failure mode and the corrective Volume 4 + handoff response. Volume 4 added to `source_evidence`.
+- **`D0W3D-GRD-003` (existing, reinforced)** — Historical-authority confusion (narratives used as binding authority). Same lesson, different framing. Volume 4 added to `source_evidence`.
+- **`D0TIER0-GRD-001` (NEW)** — Open-review rows treated as managed by tracking alone. The "tracked is not fixed" lesson; closes the open-review-graveyard pattern.
+- **`D0TIER0-GRD-002` (NEW)** — Governed-stream artifact created without Operating Contract. The third-loop pattern (Future Work Registry → Artifact Routing Protocol → Read-Graph History Archive); structurally prevented forward-looking by Control Plane Enforcement Rule 7.
+- **`D0TIER0-GRD-003` (NEW)** — History/archive artifact created as graveyard doc. Special case of `D0TIER0-GRD-002` specific to archive/history patterns; corrected example is the Archive Operating Contract in the History Archive Volume 1.
+- **`D0TIER0-GRD-004` (NEW)** — Protocol/runtime doctrine becomes second schema host. Inlining schema content into a referencing artifact instead of pointing to canonical authority; corrected example is the Protocol §9 Rule 7 pure-pointer thinning.
+- **`D0TIER0-GRD-005` (NEW)** — Preservation treated as exception at meaningful checkpoint close. The failure mode that motivated this narrative volume in the first place; structurally prevented by Protocol §8 Checkpoint Preservation Rule + §9 stop-blocked-if-missing enforcement.
+
+This narrative is now connected to the Guardrail Digest via bidirectional backpointers. Read this narrative for context and the why; read the guardrail rows for the always-loaded rules. Both surfaces serve different purposes and neither replaces the other.
