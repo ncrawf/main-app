@@ -244,3 +244,31 @@ The recency-bias risk is now structurally mitigated:
 - Older narratives = discoverable via catalog + per-workstream Tier 2 consult sets when relevant.
 
 Next agent inheriting this handoff: read this handoff first for operational state, then load Tier 0 Universal Path + Tier 0.5 guardrail digest (you get all timeless lessons in one boot read), then consult Volume 4 narrative if your work touches Tier-0 governance or the OMNI Build OS arc.
+
+---
+
+## Closure Addendum Extension #2 (2026-05-23) — Operator Profile + Collaboration Model codified
+
+Immediately after the first agent handoff attempt, a critical operator-context failure surfaced: a fresh agent reading Nick's relayed-Knox feedback (with `"knox = ..."` discourse markers) could not classify Knox as ChatGPT vs human teammate, and treated Nick as a coder when he is not. The OS we built captured doctrine, narrative, lifecycle, and preservation — but missed the **operator profile itself**. That gap is now closed.
+
+**Per `D0OPER-DEC-001`:**
+
+1. **`.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md` gains §0 Operator Profile + Collaboration Model** (substantive home). Explicitly identifies Nick as operator/non-coder, Knox as ChatGPT review instance, the trifecta workflow (Opus produces → Nick relays → Knox reviews → Nick filters back → Opus refines), and standing default behaviors (address Nick directly, calibrate to non-coder, evaluate Knox feedback on merits, etc.). Title of the doc updated from "User + Knox Preferences" to "Operator Profile + Preferences" to reflect that §2's "Knox" is an AI not a person.
+
+2. **Read Graph Tier 0 Universal Path adds #16** — the operator profile doc is now boot-mandatory. Every new agent loads §0 before responding to any message with `knox =` / `at knox` / `me =` discourse markers.
+
+3. **AGENTS.md Non-Negotiables** prepended with a binding line stating Nick = non-coder operator, Knox = ChatGPT review instance, trifecta = default. AGENTS Operating References reordered to list the operator profile doc FIRST.
+
+4. **Guardrail D0OPER-GRD-001** added to `06_guardrail_antipattern_digest.md` (Tier 0.5 boot-visible) — "Treating Knox as a human teammate / treating operator as a coder." Severity: critical. The lesson is now boot-visible at every session.
+
+5. **AGENTS.md** also updated to mention Checkpoint Preservation Rule (Protocol §8) + Tier 0.5 Boot-Visible Surface (Guardrail Digest) directly in Non-Negotiables — closing the gap where AGENTS.md didn't reference the recently-added rules.
+
+The next fresh agent will, at boot:
+- Auto-load AGENTS.md (via Cursor's CLAUDE.md → @AGENTS.md redirect).
+- Encounter the operator-profile line in Non-Negotiables FIRST.
+- Follow the OMNI Operating References list to `user_knox_preferences_locked_2026-05-17.md` §0.
+- Recognize discourse markers correctly from the first message onward.
+- Calibrate explanations to non-coder operator.
+- Evaluate Knox-relayed feedback as third-party AI review, not human authority.
+
+This addendum extension demonstrates the Checkpoint Preservation Rule's Tier 4 canonization tier executing on itself again: the act of adding the operator-profile rule produces this handoff addendum + decision ledger row + guardrail row + AGENTS update + Read Graph update + the rule itself, in one coherent commit.

@@ -160,6 +160,7 @@ Every workstream MUST load these artifacts at boot. The Domain Routing Table ref
 13. `.cursor/plans/system_map_three_layers_60706286.plan.md`
 14. `.cursor/plans/doctrine/coherent_omni_architecture_pattern_2026-05-17.md`
 15. **Current Checkpoint Handoff:** `.cursor/plans/HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md` (operational state transfer; updated each Tier 2+ checkpoint per `agent_work_protocol.md` §8 Checkpoint Preservation Rule; prior handoffs become historical-only)
+16. **Operator Profile + Collaboration Model:** `.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md` §0 (binding — identifies Nick as non-coder operator, Knox as ChatGPT review instance, trifecta workflow as default; calibration of agent communication style; must be loaded before responding to any message that contains `knox =` / `at knox` / `me =` discourse markers or that addresses the user directly)
 
 Documented exceptions (catalog `add_tier0` but NOT in Universal Path):
 - `CLAUDE.md` — 1-line `@AGENTS.md` redirect; flagged for catalog correction (see `## Catalog Review Items`).

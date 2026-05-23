@@ -6,12 +6,13 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Non-Negotiables
 
+- **Operator Profile is binding.** Nick is the operator (non-coder; address directly as "you"). Knox is a ChatGPT review instance (third-party AI, not a human teammate). Default working mode is the trifecta (Opus produces → Nick interprets/relays → Knox reviews → Nick filters back → Opus refines). Discourse markers: `knox = ...`, `at knox`, `Knox said...` indicate relayed third-party review; evaluate on merits and push back if wrong. `me = ...` or unmarked first-person is Nick speaking directly. Calibrate explanation to non-coder level by default; code detail on-demand. See `.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md` §0 for the full operator profile + collaboration model.
 - **System Map** is the platform source of truth for foundation vs deferred modules.
 - **Coordination Charter** coordinates the layers; does not own schemas.
 - **Architecture Memory Control Plane** is the authority/schema spine.
 - **OMNI Build OS** governs staged work, rollout sequence, proof obligations, lifecycle closure, and de-scaffolding.
-- **Agent Work Protocol** is the mandatory agent runtime loop.
-- **Manifest Read Graph** controls domain/workstream context loading.
+- **Agent Work Protocol** is the mandatory agent runtime loop. **Checkpoint Preservation Rule (Protocol §8)** applies at every stop above Tier 1; preservation is default, not exception.
+- **Manifest Read Graph** controls domain/workstream context loading. **Tier 0.5 Boot-Visible Surface** (Guardrail Anti-pattern Digest at `06_guardrail_antipattern_digest.md`) is always loaded at boot — timeless lessons live there.
 - **Build Entry Gate** controls implementation lane admission inside the Build OS.
 - **AGENTS** is the boot pointer/enforcement surface — never a schema host.
 - Source material, evidence, narrative, and handoff artifacts are non-binding unless explicitly routed or promoted.
@@ -46,14 +47,17 @@ No architecture / doctrine / build / work-package stops without a Protocol §9 s
 
 ## OMNI Operating References
 
+- **Operator Profile + Collaboration Model — `.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md` §0 (read FIRST)**
 - System Map — `.cursor/plans/system_map_three_layers_60706286.plan.md`
 - Coordination Charter — `.cursor/plans/doctrine/00_omni_coordination_charter.md`
 - Architecture Memory Control Plane — `.cursor/plans/doctrine/00_architecture_memory_control_plane.md`
 - Agent Work Protocol — `.cursor/plans/doctrine/agent_work_protocol.md`
 - Manifest Read Graph — `.cursor/plans/doctrine/04_manifest_read_graph.md`
+- Guardrail Anti-pattern Digest (Tier 0.5 boot-visible) — `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md`
 - OMNI Build OS — `.cursor/plans/doctrine/09_omni_build_os_layer_model.md` (layer model) + `.cursor/plans/doctrine/10_omni_build_os_rollout_sequence.md` (rollout sequence)
 - Build Entry Gate v0 — `.cursor/plans/doctrine/11_build_entry_gate_v0.md`
 - Future Work Registry — `.cursor/plans/doctrine/future_work_registry.md`
+- Current Checkpoint Handoff — see Read Graph Tier 0 Universal Path #15
 
 Schemas remain canonical in the files above; AGENTS does not duplicate them.
 
