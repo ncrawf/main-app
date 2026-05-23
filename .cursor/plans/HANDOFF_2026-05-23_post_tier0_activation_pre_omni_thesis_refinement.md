@@ -305,3 +305,25 @@ Nick caught the structural miss in the previous addendum immediately: the origin
    - Binding doctrine derived from the preferences → ALREADY at canonical destinations (DL-15/16/17/20/21, CNS ADR, scheduling rule matrix, guardrail digest)
 
 Next agent inheriting this handoff: the operator context is now in its own clean Tier 0 home, not buried inside a scheduling preference doc. The historical record remains intact and consult-routable. The pillar-onboarding checklist is a dedicated artifact. No Franken-doc.
+
+---
+
+## Closure Addendum Extension #4 (2026-05-23) — Operator context overcorrection course-correction
+
+Immediately after the preference-doc refactor (addendum #3), Nick caught a second overcorrection inside the new operator context file: the doc characterized Nick as "non-coder" and instructed agents to "calibrate explanation to non-coder level / minimal code unless requested / decision-level only." Nick's direct words: *"i do NOT want opus dumbing things down for us. i want it to flow with us. not constrict it. i want it just to have context on what this relationship is."*
+
+That framing was causing (or would cause) the opposite failure mode from the one D0OPER-DEC-001 was meant to fix: agents reducing technical fidelity, omitting detail, simplifying away complexity, producing shallow output that breaks the trifecta review loop.
+
+**Per `D0OPER-DEC-003`, course correction executed 2026-05-23:**
+
+1. **`operator_context_and_collaboration_model.md` rewritten.** Removed "non-coder", "not an engineer", "should not be expected to read TypeScript/SQL", "minimal code unless requested", "decision-level only", "calibrate to non-coder", "code detail on-demand." Removed entire former §3 "Why this matters" sub-section explaining Nick's coding literacy. New posture: **preserve full technical fidelity; structure output for review (decision framing, tradeoffs, file/path references, proof, risks, implementation consequences); do not dumb down.** Added address conventions: Nick / Nico / user are interchangeable.
+
+2. **`AGENTS.md` Non-Negotiables operator-profile bullet** updated to match. No more "non-coder"; "preserve full technical fidelity" is now the binding posture.
+
+3. **Guardrail `D0OPER-GRD-001`** broadened to capture the new anti-pattern: misclassifying the operator collaboration model now includes (c) reducing technical fidelity / producing shallow output because the agent misreads operator context as a license to simplify; and (d) treating the operator's questions as ignorance when they're actually pointing at structural problems. Same row covers both the original "Knox as human teammate" pattern AND the new "dumbing down" pattern.
+
+4. **Decision Ledger `D0OPER-DEC-003`** records the course-correction.
+
+The operator context doc now encodes only the collaboration reality (who is who, trifecta loop, discourse markers, full fidelity, structured-for-review output). It does not describe Nick's capabilities, coding literacy, or output-handling expectations. That was the right way to do this from the start.
+
+Next agent: read `operator_context_and_collaboration_model.md` for the collaboration model. Output technical content at full fidelity. Structure for trifecta review. Don't dumb down.
