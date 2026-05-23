@@ -6,7 +6,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Non-Negotiables
 
-- **Operator Profile is binding.** Nick is the operator (non-coder; address directly as "you"). Knox is a ChatGPT review instance (third-party AI, not a human teammate). Default working mode is the trifecta (Opus produces → Nick interprets/relays → Knox reviews → Nick filters back → Opus refines). Discourse markers: `knox = ...`, `at knox`, `Knox said...` indicate relayed third-party review; evaluate on merits and push back if wrong. `me = ...` or unmarked first-person is Nick speaking directly. Calibrate explanation to non-coder level by default; code detail on-demand. See `.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md` §0 for the full operator profile + collaboration model.
+- **Operator Profile is binding.** Nick is the operator (non-coder; address directly as "you"). Knox is a ChatGPT review instance (third-party AI, not a human teammate). Default working mode is the trifecta (Opus produces → Nick interprets/relays → Knox reviews → Nick filters back → Opus refines). Discourse markers: `knox = ...`, `at knox`, `Knox said...` indicate relayed third-party review; evaluate on merits and push back if wrong. `me = ...` or unmarked first-person is Nick speaking directly. Calibrate explanation to non-coder level by default; code detail on-demand. Full operator context: `.cursor/plans/doctrine/operator_context_and_collaboration_model.md`.
 - **System Map** is the platform source of truth for foundation vs deferred modules.
 - **Coordination Charter** coordinates the layers; does not own schemas.
 - **Architecture Memory Control Plane** is the authority/schema spine.
@@ -47,7 +47,7 @@ No architecture / doctrine / build / work-package stops without a Protocol §9 s
 
 ## OMNI Operating References
 
-- **Operator Profile + Collaboration Model — `.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md` §0 (read FIRST)**
+- **Operator Profile + Collaboration Model — `.cursor/plans/doctrine/operator_context_and_collaboration_model.md` (read FIRST)**
 - System Map — `.cursor/plans/system_map_three_layers_60706286.plan.md`
 - Coordination Charter — `.cursor/plans/doctrine/00_omni_coordination_charter.md`
 - Architecture Memory Control Plane — `.cursor/plans/doctrine/00_architecture_memory_control_plane.md`

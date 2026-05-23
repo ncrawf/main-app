@@ -1,80 +1,83 @@
-# Operator Profile + Preferences — Locked Record (2026-05-17, §0 added 2026-05-23)
+# Scheduling Foundation Preference Record (2026-05-17)
 
-**Status:** Locked reference. Preferences delivered explicitly by Nick (the operator) and Knox (ChatGPT review instance) during the 2026-05-16 + 2026-05-17 scheduling foundation arc. NEVER re-litigate. If a future session proposes anything that contradicts one of these, flag the contradiction explicitly before proceeding. §0 Operator Profile + Collaboration Model added 2026-05-23 after the failure mode "Knox treated as a human teammate" surfaced (per `D0OPER-DEC-001`).
+Document type: `narrative_or_postmortem`
+Authority: historical_nonbinding
+Status: active
+Domain(s): d3_scheduling, d5_actualized_work, d6_commerce, d7_documentation_evidence, federation_topology, cns_orchestration
+Lifecycle role: historical_record (primary-source preference record from the 2026-05-16/17 scheduling foundation arc)
+Source-of-truth relationship: preserves verbatim quotes from Nick and Knox during the scheduling foundation arc; the BINDING decisions derived from these preferences have been routed to canonical destinations (see "Canonical destinations" pointers per sub-section below); this file is a historical primary-source archive, NOT current doctrine
+Supersedes: none
+Superseded by: none (binding decisions superseded into canonical destinations; this file remains the historical record)
+Manifest action: add_tier2
+Review gate: architecture_steward_required (for historical-record disposition only)
+
+agent_read_rule: consult_if_routed
+
+---
+
+## Historical Status Notice (BINDING)
+
+**This file is a HISTORICAL primary-source record. It is NOT current binding doctrine.**
+
+Originally created 2026-05-17 as a locked-preference doc capturing Nick + Knox verbatim positions during the scheduling foundation arc. Renamed 2026-05-23 from `user_knox_preferences_locked_2026-05-17.md` to its current path as part of the preference-doc fitness refactor (`D0OPER-DEC-002`).
+
+Three content classes were extracted to dedicated homes during the refactor:
+
+- **Operator context (former §0)** → `.cursor/plans/doctrine/operator_context_and_collaboration_model.md` (Tier 0 mandatory at every boot).
+- **New-pillar onboarding checklist (former §3)** → `.cursor/plans/doctrine/new_pillar_substrate_onboarding_checklist.md` (consult-routed for new-pillar/substrate-start work).
+- **Binding decisions derived from these preferences** were ALREADY routed at the time of the scheduling foundation arc to canonical destinations (DL-15/16/17/20/21, CNS ADR, scheduling rule matrix, guardrail digest). Per-item "Canonical destination" pointers are inline below.
+
+**What stays here:**
+- Nick's + Knox's verbatim quotes from the scheduling foundation arc. Preserved as primary source for historical reference.
+- §1 (Nick preferences) + §2 (Knox preferences) sub-sections, each with a "Canonical destination" pointer to where the binding form lives.
+- §4 (meta-framing).
+
+**When to read this file:**
+- Scheduling/substrate/commerce/federation work where the historical context informs why a primitive is shaped the way it is.
+- Reviewing the conversational origin of a binding decision in DL-15/16/17/20/21 / CNS ADR / scheduling rule matrix.
+- Pillar-onboarding work (typically alongside the dedicated checklist + architecture pattern + post-mortem).
+
+**When NOT to read this file:**
+- Every boot. This file is consult-routed, not universal.
+- Treating these quotes as current doctrine. They are historical primary source; binding form lives at the canonical destinations.
+
+---
 
 **Companions:**
 - Post-mortem: [scheduling_foundation_post_mortem_2026-05-17.md](../../docs/architecture/scheduling_foundation_post_mortem_2026-05-17.md)
 - Architecture pattern: [coherent_omni_architecture_pattern_2026-05-17.md](coherent_omni_architecture_pattern_2026-05-17.md)
 - Preservation doc: [future_care_obligations_design_2026-05-17.md](future_care_obligations_design_2026-05-17.md)
-
----
-
-## §0 Operator Profile + Collaboration Model (BINDING, READ FIRST)
-
-This section is the most important context for any agent working on this project. Read it before §1, before §2, before any other doc.
-
-### Who is who
-
-- **Nick** — the operator / user / project owner. Communicates in chat. **Non-coder.** Not an engineer. Should not be expected to read TypeScript, SQL DDL, or other code-level details unless explicitly requested. Should be addressed directly as "you" / "Nick" — not in third person ("the user said..."). Nick's frustration when treated as a coder, or when context is dumped on him without filtering, is signal not noise.
-
-- **Opus** — the Claude (Anthropic) instance running inside Cursor as the coding agent. **This is the agent reading this file right now if you are running inside Cursor on this project.** Opus produces output: doctrine drafts, code, doctrine refinements, commits, etc.
-
-- **Knox** — a **ChatGPT instance** (separate AI, accessed in a different tab/app) that Nick uses as a third-party reviewer and sparring partner. Knox is **not a human teammate.** Knox does not have repo access. Knox reads what Nick pastes to it, then responds with review/pushback/refinement suggestions. The name "Knox" is a chosen identifier for this ChatGPT role, used consistently across the doctrine corpus (including this file's §2 and `mindbody_knox_chat_raw*.md` ingestion files).
-
-### Default collaboration model (the trifecta)
-
-Standard working pattern, unless Nick explicitly changes it:
-
-1. **Opus produces.** Output goes into the chat (this Cursor session).
-2. **Nick interprets.** Reads Opus's output, filters / extracts what to share with Knox.
-3. **Nick feeds output to Knox (in a separate ChatGPT tab).**
-4. **Knox reviews.** Provides pushback, refinement, or affirmation.
-5. **Nick relays Knox's response back to Opus**, often quoting Knox directly with markers like `knox =` or `at knox` or `Knox says...`.
-6. **Opus refines** and re-executes, with explicit instructions to push back if needed (not blindly agree with Knox).
-
-This is the loop. Recognizing it changes how Opus reads incoming messages:
-
-- A message that starts with `"knox = ..."` or `"Knox said..."` or `"at knox, ..."` is **Nick relaying Knox's feedback for Opus to consider.** Opus should treat this as third-party review input, evaluate honestly (push back where Knox is wrong; refine where Knox is right), and act.
-- A message that contains `"me = ..."` or starts in Nick's voice without a Knox marker is **Nick speaking directly.** This is the operator's own direction.
-- A message that mixes both (Nick's framing + Knox's quoted review) is a **mediated handoff**. Opus reads Knox's review through Nick's filter, then acts.
-
-### Why this matters
-
-- **Without §0:** a new agent sees `"knox = ..."` and assumes Knox is a teammate whose name happens to be Knox. The agent then either defers to Knox's input as if it were authoritative human review, OR treats Knox's pushback as adversarial because "another person is in the room." Both are wrong.
-- **With §0:** the agent correctly classifies Knox-quoted input as third-party AI review, evaluates it on merits (not on Knox's authority), and acts.
-- **Without §0:** the agent assumes Nick can read code, dumps technical details, and Nick gets frustrated by the over-explanation or by being expected to verify implementation details himself.
-- **With §0:** the agent calibrates explanation to non-coder operator: high-level decisions + tradeoffs + recommended action + minimal code unless requested.
-
-### Standing default behaviors
-
-These are binding for every session unless Nick explicitly opts out:
-
-1. **Address Nick directly.** "You" not "the user." No third-person narration about Nick's intent.
-2. **Non-coder calibration.** Default explanations are decision-level + tradeoff-level + recommendation-level. Code-level detail is on-demand, not by default.
-3. **Knox = AI reviewer, not human.** When Knox feedback arrives, evaluate on merits. Push back if Knox is wrong. Don't defer to Knox just because Knox said it. Don't reject Knox just because Nick is the user. Knox's role is to sharpen Opus's thinking — Nick wants the disagreement to be real, not performative.
-4. **Trifecta is the default, not the only mode.** If Nick says "just answer me directly" or "no Knox round-trip," respect that. If Nick relays Knox feedback, run the relay loop. Read the discourse markers (`knox =`, `me =`, `at knox`, etc.) to know which mode is active.
-5. **Preservation per Checkpoint Preservation Rule.** Per Protocol §8, work-package checkpoints produce handoffs; major arcs produce narrative + guardrail extraction. This applies regardless of who is in the loop.
-6. **Honest pushback.** If Nick or Knox is wrong, say so with evidence. Don't capitulate to either. Don't agree just to be agreeable.
-
-### What this section is NOT
-
-- It is NOT a workflow constraint. Nick can change the working mode any time.
-- It is NOT a hierarchy claim. Nick is the operator; Opus is the agent; Knox is the third-party reviewer. None has authority over the canonical doctrine destinations — those win on conflict.
-- It is NOT a Knox-specific routing rule. It applies whenever ANY external review (ChatGPT-labeled-Knox, another model, another tool) is relayed through Nick.
-
-### Where this is enforced
-
-- This section: `.cursor/plans/doctrine/user_knox_preferences_locked_2026-05-17.md` §0 — substantive home.
-- `AGENTS.md` Non-Negotiables — boot-visible pointer to this section.
-- `.cursor/plans/doctrine/04_manifest_read_graph.md` Tier 0 Universal Path #16 — mandatory load at boot.
-- `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` `D0OPER-GRD-001` — timeless guardrail row.
-- `.cursor/plans/doctrine/03_decision_extraction_ledger.md` `D0OPER-DEC-001` — decision-of-record.
+- New-pillar onboarding checklist (extracted from former §3): [new_pillar_substrate_onboarding_checklist.md](new_pillar_substrate_onboarding_checklist.md)
+- Operator context (extracted from former §0): [operator_context_and_collaboration_model.md](operator_context_and_collaboration_model.md)
 
 ---
 
 ## §1 User preferences (explicit, delivered)
 
-These are direct quotes or paraphrases from the user during the arc. Each was repeated multiple times. Each is binding for future sessions.
+These are direct quotes from Nick during the 2026-05-16/17 scheduling foundation arc. The verbatim text is preserved as historical primary source. The binding form of each preference has been routed to a canonical destination — read the destination as authority, not this file.
+
+### Canonical destinations summary (binding doctrine lives at these paths)
+
+| §1 preference | binding form lives at |
+|---|---|
+| Substrate-first, not doctrine-first | meta workflow rule; reinforced by `D0TIER0-GRD-005` (Preservation as exception at checkpoint close) + Charter Layer 2 (Build OS) |
+| No vendor names in substrate | guardrail `D0-GRD-010` (Vendor-shaped substrate primitives) |
+| No specialty leakage in substrate | scheduling rule matrix + DL-21 federation; encounter.modality enum |
+| Confirmation means PATIENT confirmation | scheduling rule matrix + DL-15 amendment 8 + DL-20 confirmation_state |
+| Promos live on patient account, not visit | DL-20 care_coordination + DL-17 commerce four-layer model |
+| Free-text where free-text is appropriate | DL-16 amendment 38 (appointment.booking_request_note; appointment_staff_note_entry) |
+| Broad-default booking; rich is opt-in | scheduling rule matrix (service.self_bookable_progressive_disclosure_mode; booking_preset) |
+| Pricing on pricing_option, not service or category | DL-17 commerce (service_category / service / pricing_option separation) |
+| Federation Day 0; specialty rollout pinned | DL-21 federation; specialty rollout order pinned in DL-21 |
+| Multi-line visit reality (Bloom is real) | DL-20 care_coordination three-layer model (appointment / appointment_item / encounter / encounter_line / encounter_participant) |
+| Future obligations are real but PARKED | `future_work_registry.md` (care coordination future arc; if not yet seeded, flag as `FWREG-REV-*` for review) |
+| AI routing is parked | `future_work_registry.md` (AI governance future arc; if not yet seeded, flag for review) |
+| Mindbody is reference, not architecture | guardrail family `D0W4*-GRD-*` (Mindbody-specific anti-import patterns); generalizable principle |
+| No more rehashing | meta intent; reinforced by Checkpoint Preservation Rule + `new_pillar_substrate_onboarding_checklist.md` |
+
+The verbatim sub-sections that follow preserve the conversational origin. Do not cite this file as binding authority — cite the canonical destination above.
+
+---
 
 ### Substrate-first, not doctrine-first
 
@@ -184,7 +187,25 @@ These are direct quotes or paraphrases from the user during the arc. Each was re
 
 ## §2 Knox preferences (delivered during cross-AI dialogue)
 
-These are explicit preferences delivered by Knox during the cross-AI dialogue. Each is binding.
+These are preferences delivered by Knox (ChatGPT reviewer; not a human teammate — see `operator_context_and_collaboration_model.md`) during the cross-AI dialogue of the scheduling foundation arc. The verbatim text is preserved as historical primary source. The binding form has been routed to canonical destinations.
+
+### Canonical destinations summary
+
+| §2 preference | binding form lives at |
+|---|---|
+| Substrate evolution path, not parallel substrate | Charter Catalog + Read-Graph Clarity Rule + `coherent_omni_architecture_pattern_2026-05-17.md` (3-layer substrate pattern); generalizable design principle |
+| Decompose compound enums | generalizable design principle; applied across DL-15/16/17/20 enums; flag-candidate for guardrail digest if not yet captured |
+| CNS round-trip, not checkbox | CNS ADR (`docs/architecture/cns_action_orchestration_adr_2026-05-17.md`) + DL-14; binding form |
+| Patient/account/appointment/commerce separation | DL-20 care_coordination + DL-17 commerce four-layer model |
+| Don't make immutability dogmatic | DL-16 amendment 38 (mutable with audit history default) |
+| Confirmation event references rail substrate, doesn't duplicate | CNS ADR + DL-14 (orchestration_action / cns_decision); messaging substrate FK references |
+| Don't preserve bad terminology | generalizable design principle; flag-candidate for guardrail digest if not yet captured |
+| Tenant catalog flexibility | scheduling rule matrix (service catalog config); DL-17/20 substrate primitives provide; tenant chooses depth |
+| Promo intent is auditable, not loose array | DL-20/DL-17 (appointment_promo_intent state machine; promo_reservation child row) |
+
+The verbatim sub-sections that follow preserve the conversational origin. Do not cite this file as binding authority — cite the canonical destination above.
+
+---
 
 ### Substrate evolution path, not parallel substrate
 
@@ -252,33 +273,20 @@ These are explicit preferences delivered by Knox during the cross-AI dialogue. E
 
 ---
 
-## §3 Drop-in checklist for future sessions
+## §3 New-pillar onboarding checklist — EXTRACTED 2026-05-23
 
-When a future session starts a new pillar:
+The former §3 drop-in checklist was extracted to its own home as part of the preference-doc fitness refactor (`D0OPER-DEC-002`). Canonical home:
 
-- [ ] Read this preferences doc
-- [ ] Read the architecture pattern doc
-- [ ] Read the post-mortem doc
-- [ ] Cross-link these three from the new DL DRAFT preamble
-- [ ] Honor every preference above without re-litigation
-- [ ] Use the 3-layer pattern as default substrate shape
-- [ ] No vendor names in substrate enums
-- [ ] No specialty names in substrate enums
-- [ ] No Mindbody UI labels in substrate vocabulary
-- [ ] Check existing OMNI substrate before proposing new (extend, don't replace)
-- [ ] Decompose compound enums into separate fields
-- [ ] Patient-level wallets for cross-visit concerns
-- [ ] CNS round-trip for outbound + inbound flows
-- [ ] State machines for things with lifecycles
-- [ ] FK references between substrates, no content duplication
-- [ ] Tenant catalog flexibility (substrate provides primitives, tenant chooses depth)
-- [ ] Run ≥5 real-world scenarios with user before treating DRAFT as substrate-ready
-- [ ] Switch artifact class when user says "build"
+**`.cursor/plans/doctrine/new_pillar_substrate_onboarding_checklist.md`**
+
+Read that file when starting a new pillar/substrate workstream. It contains the checklist + references to operator context, architecture pattern, post-mortem, and this scheduling foundation record.
 
 ---
 
-## §4 What this doc is not
+## §4 What this doc is (post-refactor)
 
-This is NOT new doctrine. The DLs are doctrine. This is a PREFERENCE RECORD — the explicit user + Knox positions from the 2026-05-17 arc, locked so future sessions don't ignore them.
+This is a HISTORICAL primary-source record of the 2026-05-16/17 scheduling foundation arc. It preserves Nick's + Knox's verbatim positions for conversational-origin context. **It is not current binding doctrine.** The binding form of each preference lives at the canonical destinations listed in the §1 and §2 summary tables above.
 
-If a future Opus or Knox session contradicts one of these preferences without explicit user re-opening, the contradiction must be flagged. The user has already spent 2 days teaching us these. They shouldn't have to teach them again.
+If a future Opus or Knox session contradicts one of these preferences without explicit re-opening, the contradiction must be flagged AGAINST THE CANONICAL DESTINATION (the binding form), not against this file.
+
+**Pre-2026-05-23 framing of this section was:** "This is NOT new doctrine. The DLs are doctrine. This is a PREFERENCE RECORD — the explicit user + Knox positions from the 2026-05-17 arc, locked so future sessions don't ignore them." That framing remains accurate but is sharpened post-refactor: the "lock" is now structurally enforced by the canonical destinations (DLs, ADRs, guardrails, scheduling rule matrix, Future Work Registry); this file is the primary-source archive.

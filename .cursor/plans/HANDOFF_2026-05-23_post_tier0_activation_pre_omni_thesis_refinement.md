@@ -272,3 +272,36 @@ The next fresh agent will, at boot:
 - Evaluate Knox-relayed feedback as third-party AI review, not human authority.
 
 This addendum extension demonstrates the Checkpoint Preservation Rule's Tier 4 canonization tier executing on itself again: the act of adding the operator-profile rule produces this handoff addendum + decision ledger row + guardrail row + AGENTS update + Read Graph update + the rule itself, in one coherent commit.
+
+---
+
+## Closure Addendum Extension #3 (2026-05-23) — Preference Doc Fitness Refactor
+
+Nick caught the structural miss in the previous addendum immediately: the original `user_knox_preferences_locked_2026-05-17.md` was a Franken-doc that mixed (a) universal operator/collaboration context [former §0], (b) scheduling-foundation-arc historical quotes/preferences [§1+§2], (c) new-pillar onboarding checklist [§3], and (d) meta-framing [§4]. Promoting the whole file to Tier 0 mandatory in addendum extension #1 was overcorrection — it would have made every future agent swallow stale scheduling-arc context as universal operator law.
+
+**Per `D0OPER-DEC-002`, the file was refactored 2026-05-23:**
+
+1. **§0 extracted** → `.cursor/plans/doctrine/operator_context_and_collaboration_model.md` (NEW; dedicated Tier 0 mandatory home for operator context only).
+
+2. **Old file renamed via `git mv`** → `.cursor/plans/doctrine/scheduling_foundation_preference_record_2026-05-17.md`. Reclassified from `doctrine/governance_binding/tier0_mandatory` to `narrative_or_postmortem/historical_nonbinding/consult_if_routed`. Header rewritten as historical primary-source record; §1 + §2 verbatim quotes preserved with per-sub-section Canonical destinations summary tables pointing to where the binding form actually lives (DL-15/16/17/20/21, CNS ADR, scheduling rule matrix, guardrail D0-GRD-010, Future Work Registry).
+
+3. **§3 extracted** → `.cursor/plans/doctrine/new_pillar_substrate_onboarding_checklist.md` (NEW; `handoff_or_readiness_gate/derived_nonbinding/consult_if_routed`). Read when starting a new pillar/substrate workstream.
+
+4. **References updated** across:
+   - `AGENTS.md` Non-Negotiables + OMNI Operating References (file pointer swap)
+   - `04_manifest_read_graph.md` Tier 0 Universal Path #16 (file pointer swap; consult-routed siblings noted inline) + DRT D3/D5/D6/D7 Tier 2 consult sets (new entries for renamed file + checklist)
+   - `01_master_corpus_catalog.md` (3 row updates: renamed file row reclassified + 2 new rows)
+   - `03_decision_extraction_ledger.md` D0OPER-DEC-001 (file pointer + notes updated) + D0OPER-DEC-002 NEW
+   - `06_guardrail_antipattern_digest.md` D0OPER-GRD-001 (file pointer + enforced_by updated)
+   - This handoff (this addendum)
+   - `docs/architecture/evolution_narrative_volume_4_2026-05-23.md` (Lessons section will be updated separately if needed)
+
+5. **No verbatim quotes deleted.** Nick's + Knox's positions from the scheduling foundation arc are preserved as historical primary source in the renamed file.
+
+6. **Three clean homes** replace the Franken-doc:
+   - Universal current operator/collaboration context → `operator_context_and_collaboration_model.md` (Tier 0 mandatory)
+   - Historical scheduling-arc preferences → `scheduling_foundation_preference_record_2026-05-17.md` (consult-routed)
+   - New-pillar onboarding checklist → `new_pillar_substrate_onboarding_checklist.md` (consult-routed for pillar-start work)
+   - Binding doctrine derived from the preferences → ALREADY at canonical destinations (DL-15/16/17/20/21, CNS ADR, scheduling rule matrix, guardrail digest)
+
+Next agent inheriting this handoff: the operator context is now in its own clean Tier 0 home, not buried inside a scheduling preference doc. The historical record remains intact and consult-routable. The pillar-onboarding checklist is a dedicated artifact. No Franken-doc.
