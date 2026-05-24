@@ -327,3 +327,107 @@ That framing was causing (or would cause) the opposite failure mode from the one
 The operator context doc now encodes only the collaboration reality (who is who, trifecta loop, discourse markers, full fidelity, structured-for-review output). It does not describe Nick's capabilities, coding literacy, or output-handling expectations. That was the right way to do this from the start.
 
 Next agent: read `operator_context_and_collaboration_model.md` for the collaboration model. Output technical content at full fidelity. Structure for trifecta review. Don't dumb down.
+
+---
+
+## Closure Addendum Extension #5 (2026-05-24) — OMNI Thesis v0 crystallized
+
+On 2026-05-23 → 2026-05-24, the OMNI core-thesis refinement phase produced its first crystallized artifact: **`.cursor/plans/omni_thesis_v0_2026-05-24.md`**.
+
+The thesis is **evidence-routed, non-binding** until Phase F decision gate adopts. The current handoff (this file) remains the operative continuity artifact — Thesis v0 does NOT supersede this handoff per the Stop condition above. The handoff supersedes when either (a) thesis crystallizes through Phase F adoption (binding doctrine work begins), or (b) first implementation lane enters Build Entry Gate v0.
+
+**What Thesis v0 contains:**
+
+- §1-§3: Center of gravity, what OMNI is / is not, substrate-vs-product plane discipline (two planes, two rules)
+- §4-§6: Designed topology family (in/out classification), near-term wedge (async protocolized + in-person procedural under one patient context — first instance Hims-style peptide + medspas + derm), long-term destination (patient-context layer aggregating ongoing coordinated interaction, NOT records — distinguishes OMNI from Google Health-style failures)
+- §7: Core primitive set (composes existing OMNI primitives + 5 surgical additions)
+- §8: Universal CNS flow (mermaid diagram + per-modality mapping — every input modality enters the CNS through one chain; every output exits through one chain; modalities interchangeable at boundary)
+- §9: AI as bounded participant; three rejected paradigms (AI-everything, forms-everything, event-bus-everything); OMNI paradigm (governed state machine + evidence-backed memory + multimodal input under uniform substrate flow + AI as bounded role + deterministic policy as commit gate)
+- §10: Coherence operationalized (Knox's headline + 7-property test)
+- §11: Identity/consent/authority four-tier ladder (v0 owned-single → v1 owned-multi → v2 controlled-network → v3 industrial-grade)
+- §12: Five surgical substrate additions named with doctrine destinations
+- §13-§14: What to build now / what NOT to build yet
+- §15: Unresolved questions (10 open items) for next pressure-test round
+- §16: Relationship to existing OMNI doctrine (survives / extends / becomes stale)
+- §17: Operating Contract for the vN stream per Control Plane Enforcement Rule 7
+- §18-§20: Source evidence; what's preserved from prior work; final position
+
+**Governance scaffolding produced in the same pass (per Protocol §5 NACR + Control Plane Enforcement Rule 7):**
+
+- Document passport at top of v0 (per `00_document_governance_and_taxonomy_2026-05-19.md`)
+- Catalog row in `01_master_corpus_catalog.md` (wave_10_omni_thesis_arc, work_package=omni_thesis_crystallization)
+- Read-graph route in new `Tier 2 Cross-Cutting Consult Artifacts` section of `04_manifest_read_graph.md`
+- Operating Contract embedded as §17 (governs v0 + inherits to v1, v2, ...)
+- Source evidence (Knox-Nick conversational transcript) referenced inside §18; formal `07_evidence_ingestion_ledger.md` row deferred until that ledger lands on main (currently parked on `wip/scheduling-cns-pre-thesis-snapshot-2026-05-23`)
+
+**Guardrails extracted to `06_guardrail_antipattern_digest.md` per Protocol §8 Tier 3+ guardrail-extraction obligation:**
+
+- `D0THES-GRD-001` Premature librarianship before strategic clarity
+- `D0THES-GRD-002` Substrate-product plane conflation
+- `D0THES-GRD-003` Topology-agnostic as unfalsifiable claim
+
+**What is NOT done in this checkpoint (deliberately deferred):**
+
+- No edits to any Tier 0 doctrine, system map, DL, Charter, Protocol, Control Plane, CNS ADR, or Coherent OMNI Architecture Pattern — all canonical destinations remain authoritative
+- No parking-branch reconciliation (deferred to Phase G if Phase F adopts thesis)
+- No new evolution narrative volume yet — Volume 5 would land at Phase F adoption or at the next major arc close (the thesis itself documents its provenance through Operating Contract §17 + §18 source evidence + §19 prior-work preservation)
+- No new handoff replacing this one — this handoff remains operative until Phase F decision or first implementation lane (per the original Stop condition)
+- No Phase F decision yet — Nick + Knox decide adoption, refinement, or rejection at a separate gate
+- Plan file at `/Users/bloomfrontdesk1/.cursor/plans/omni_thesis_pressure-test_9edb5ca8.plan.md` updated to reflect Phase A0 (direct thesis engagement) completed with Thesis v0 as output; A1 onward remain pending depending on whether further pressure-test rounds happen before Phase F
+
+**Tier classification per Protocol §8:** Tier 3 checkpoint (foundational artifact, multi-session arc, binding-adjacent, with narrative arc consultation + guardrail extraction obligations met).
+
+**Stop report fields per Protocol §9:**
+- `checkpoint_tier: 3`
+- `checkpoint_artifact_path: .cursor/plans/omni_thesis_v0_2026-05-24.md`
+- `narrative_artifact_path: docs/architecture/evolution_narrative_volume_4_2026-05-23.md` (prior arc consulted; Volume 5 deferred per above)
+- `canonical_updates: 01_master_corpus_catalog.md (row added); 04_manifest_read_graph.md (Tier 2 Cross-Cutting Consult section added); 06_guardrail_antipattern_digest.md (3 rows added)`
+- `prior_narratives_consulted: docs/architecture/evolution_narrative_volume_4_2026-05-23.md (Tier-0 governance activation arc — context for substrate-vs-product plane discipline and preservation-by-default rule that supported this thesis arc); docs/architecture/evolution_narrative_volume_2_2026-05-17.md (consulted via doctrine manifest reference); docs/architecture/scheduling_foundation_post_mortem_2026-05-17.md (consulted via doctrine manifest reference); docs/architecture/evolution_narrative.md (consulted via doctrine manifest reference). Older volumes not consulted directly; their lessons are captured in current Tier 0 guardrails T0-01..T0-07 and in Coherent OMNI Architecture Pattern.`
+- `guardrail_rows_extracted: D0THES-GRD-001 (Premature librarianship), D0THES-GRD-002 (Substrate-product plane conflation), D0THES-GRD-003 (Topology-agnostic as unfalsifiable claim)`
+- `governed_stream_artifact_touched: omni_thesis_v0 (new stream; Operating Contract §17 of v0 governs)`
+
+Next agent reading this handoff: load Tier 0 Universal Path + Tier 0.5 surface as always, then consult `omni_thesis_v0_2026-05-24.md` if your work touches substrate / architecture / thesis-related concerns. Cite canonical destinations, not the thesis, for binding claims. Phase F decision pending.
+
+---
+
+## Closure Addendum Extension #6 (2026-05-24) — v0 completion pass + founder version
+
+After Closure Addendum Extension #5 (v0 initial crystallization), Knox + Nick surfaced 5 omissions + 3 substrate-hook concerns + 1 dragon-egg pushback through one more pressure-test round (Knox grade: A-). Per Operating Contract §17 active-status completion-pass rule (amended in this pass), v0 was extended in-place with additive completion content. Founder-readable companion artifact produced separately.
+
+**v0 in-place additions** (2026-05-24 ~01:50 ET):
+
+- §1.5 Consumer promise (care that remembers you)
+- §6.1 Dragon egg (patient-context layer strategic primacy)
+- §6.5 Brand architecture (Powered by OMNI substrate-vs-consumer-brand split + 4-phase evolution + substrate-level brand contract)
+- §7 `coordination_case` ownership extension (`coordination_owner` / `monitoring_owner` / `open_loop_owner` / intentional no-owner)
+- §9.5 Learning loop (capability doctrine + anti-data-sale boundary + North Star revenue sentence)
+- §10 8th coherence property (ownership resolution)
+- §13.5 Business engine (money stack + explicit not-in-stack list + doctrine implication)
+- §14.5 Substrate hooks for deferred surfaces (operational counterpart to §4 designed family)
+- §15.k/l/m three new unresolved questions (ownership primitive scope; brand contract minimums; learning loop governance)
+- §17 Operating Contract amendment (allows active-status substantive completion passes from same-arc pressure-test feedback)
+- §21 Companion artifacts (references founder version)
+- §22 Amendment Log (this completion pass documented)
+
+**Founder version produced**: [`.cursor/plans/omni_thesis_v0_founder_version_2026-05-24.md`](.cursor/plans/omni_thesis_v0_founder_version_2026-05-24.md). ~190 lines, prose, no governance scaffolding. NOT canonical; v0 wins on substance disagreement. For at-a-glance reference at decision moments + external sharing.
+
+**Governance scaffolding for both updates**:
+
+- v0 catalog row updated with completion-pass detail (`01_master_corpus_catalog.md`)
+- Founder version catalog row added (`01_master_corpus_catalog.md`)
+- Founder version route added to `04_manifest_read_graph.md` Tier 2 Cross-Cutting Consult Artifacts section (companion entry to v0)
+- Plan file todos updated to reflect v0 completion pass + founder version
+
+**Tier classification per Protocol §8**: Tier 2 (work-package completion, additive to existing Tier 3 artifact). The completion pass does NOT constitute a new Tier 3 checkpoint; no new narrative volume owed; no new guardrail extractions surfaced (existing D0THES-GRD-001/002/003 cover this arc's lessons).
+
+**Stop report fields for this completion pass** (per Protocol §9):
+- `checkpoint_tier`: 2
+- `checkpoint_artifact_path`: `.cursor/plans/omni_thesis_v0_2026-05-24.md` (extended in-place per Operating Contract amendment) + `.cursor/plans/omni_thesis_v0_founder_version_2026-05-24.md` (new derived companion)
+- `governed_stream_artifact_touched`: `omni_thesis_v0` (active-status completion pass per §17 amended rule) + `omni_thesis_v0_founder_version` (new derived companion)
+- `canonical_updates`: `01_master_corpus_catalog.md` (v0 row updated + founder row added); `04_manifest_read_graph.md` (founder version added to Tier 2 Cross-Cutting Consult Artifacts entry #2); this handoff (Closure Addendum Extension #6)
+- `prior_narratives_consulted`: none new (Volume 4 already consulted in Extension #5; this completion pass extends Extension #5 work)
+- `guardrail_rows_extracted`: none new (existing D0THES-GRD-001/002/003 cover this arc; no new timeless lessons surfaced by completion pass)
+- `version_state`: `active` (v0 remains active per Operating Contract; completion pass does not supersede)
+- `non_loss_check`: Knox-surfaced 5 omissions + 3 substrate-hooks + 1 dragon-egg all preserved across §1.5 / §6.1 / §6.5 / §7 / §9.5 / §10 / §13.5 / §14.5 / §15.k-m. Nick's three "yes critical" interjections (patient-context dragon egg + substrate hooks for what-to-quietly-prepare-now + hybrid Hims+medspa wedge generalization) all preserved.
+
+Next agent: v0 remains the operative canonical thesis crystallization. Founder version is companion for at-a-glance use. Phase F decision still pending.
