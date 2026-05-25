@@ -618,3 +618,173 @@ Phase F.2.1 calibration review gate executed by Nick + Knox 2026-05-25 (same day
 **F.2.2.A pre-batch confirmation gate (optional but recommended)**: before starting F.2.2.A audit, Opus should: (1) propose specific 1F section + 1G section lines for the cruft-likely picks via structural scan (similar to pre-F.2.0 structural-scan mini-gate); (2) confirm with Nick + Knox briefly if structural scan reveals scope surprise; (3) proceed to F.2.2.A audit with confirmed picks. If scope is straightforward (small sections, clear scope), proceed directly without pre-batch gate.
 
 Next agent reading this handoff: Phase F.2.1 of OMNI Doctrine Refresh Arc completed (approved-with-one-refinement); F.2.2.A staged batch is the operative next phase. Reconciliation Map v1 has F.2.0 calibration content (6 rows + 7 gap rows + verdict + self-assessment + Operating Contract §17) + F.2.1 approval status — calibration marker removed. F.2.2.A batch appends new rows to existing sections per Operating Contract §17. Cite canonical destinations for binding claims, not the audit map. Phase G refresh executes only after F.3 reconciliation map review gate approves master verdict (master verdict assembled at F.2.2 complete).
+
+---
+
+## Closure Addendum Extension #10 (2026-05-25) — OMNI Thesis v1 spawn cycle complete
+
+Phase v1 spawn cycle executed between F.2.1 calibration approval and F.2.2.A first staged batch, after Nick + Knox + Opus 2026-05-25 case-centered care + AI capability governance + strategic pressure-test discussion surfaced 4 material substrate gaps in v0 that warranted v1 spawn before F.2.2 audit lens scaled.
+
+**Cause** (4 material gaps absorbed by v1):
+
+1. **Case-centered care + ownership-role granularity** (Nick's brother's cancer comment 2026-05-25: *"I want a whole team of specialists looking at it and coming up with a decision"*). Knox case-deliberation analysis surfaced governed multi-actor medical judgment as a missing substrate-level care mode. v0 §7 had lane-only ownership extension; v1 adds case-layer + role-hierarchy granularity (6 HUMAN-only roles: treating / consulting / ordering / supervising / monitoring / open-loop).
+
+2. **Visible-provider deployment posture** (counter-Hims doctrine). Nick: *"the omni model is. the CNS handles the safety. the provider can afford to be visible, and should be visible."* Knox: *"OMNI does not hide providers to create safety. OMNI creates safety so providers can be visible."* v0 §6.5 had brand architecture but didn't articulate visible-provider deployment doctrine; v1 §6.6 names it explicitly.
+
+3. **AI capability + model registry substrate with substrate-vs-care boundary** (Knox refinement). Knox: *"Model-pluggable substrate, not model-choice medicine."* + *"AI models are replaceable substrate participants. AI outputs are provenance-bearing artifacts/candidates. AI does not hold care relationships, own cases, issue consult opinions as clinicians, or commit plans."* v0 §9 had bounded-AI framing; v1 §12.8 adds full primitive set + structurally-enforced substrate-vs-care boundary preventing AI authorship of care-side artifacts.
+
+4. **Strategic pressure-test articulation** (Nick: *"is that the care paradigm that we're actually actually actually solving for? at scale, how does omni look any different than a version of henry ford without the physical infrastructure?"*). Knox + Opus produced direct Henry Ford / Hims / RealSelf / Cursor comparisons; v1 §3.5 articulates the long-term paradigm bet defensibly in writing so future agents / hires / partners / investors can read v1 and see the bet.
+
+Plus F.2.0 calibration Q7 absorption: thesis v0 §12.1 understates existing `1K.5.A patient_clinical_assertions` substrate. v1 §12.1 reframed as doctrine-level naming reconciliation; substrate naming preserved; thesis cross-references. D0THES-REV-010 directionally resolved.
+
+**v1 spawn deliverables**:
+
+- **NEW canonical**: `.cursor/plans/omni_thesis_v1_2026-05-25.md` (~1300+ lines; passport + 22 sections; 6 doctrine lines preserved verbatim; 8 surgical additions; 9 new sections; 11 refined sections)
+- **NEW founder version**: `.cursor/plans/omni_thesis_v1_founder_version_2026-05-25.md` (~280 lines; founder-readable prose compression)
+- **v0 superseded marker**: `omni_thesis_v0_2026-05-24.md` status header updated; v0 → v1 Supersession Note appended to v0 §22 Amendment Log
+- **v0 founder superseded marker**: `omni_thesis_v0_founder_version_2026-05-24.md` status note updated
+- **Catalog updated**: v0 + v0 founder rows updated (superseded_by_v1); v1 + v1 founder rows added with full passport
+- **Read-Graph updated**: Tier 2 Cross-Cutting Consult Artifacts now has 5 entries (v0 #1 superseded; v0 founder #2 superseded; v1 #3 current canonical; v1 founder #4 current canonical; Reconciliation Map v1 #5)
+- **Supersession Ledger row added**: `D0THES-SUP-001` omni_thesis_v0_2026-05-24 → omni_thesis_v1_2026-05-25
+- **Decision Ledger row added**: `D0THES-DEC-002` v1 spawn decision with full rationale
+- **Open Review Queue rows added**: D0THES-REV-014..020 (7 new v1-surfaced unresolveds)
+- **Charter Current Open Debt updated**: v0 → v1 transition recorded; 20 D0THES-REV rows (13 v0 + 7 v1) listed with closure conditions
+- **Reconciliation Map v1 §0 status updated**: v1 lens swap noted; calibration findings preserved (v0-lens audit); F.2.2 batches operate against v1 lens; D0THES-REV-010 directionally resolved by v1 §12.1
+- **Refresh Arc plan updated**: phase_v1_spawn_cycle marked complete; F.2.2 todo updated to reflect v1 lens re-baseline; F.2.2.A audit picks unchanged
+
+**6 doctrine lines preserved verbatim in v1**:
+
+Case-centered care doctrine (4 lines):
+- *"OMNI does not hide providers to create safety. OMNI creates safety so providers can be visible."* (§6.6; T0-08 candidate)
+- *"Not second opinions. Shared evidence, bounded roles, explicit ownership."* (§13.6)
+- *"OMNI should not flatten medical authority. OMNI should make authority explicit."* (§9 + §7.2 + §13.6)
+- *"OMNI makes multi-actor medical judgment coherent."* (§8.5 + §12.6)
+
+AI substrate-vs-care boundary doctrine (2 lines per Knox refinement):
+- *"Model-pluggable substrate, not model-choice medicine."* (§12.8; T0-09 candidate)
+- *"AI models are replaceable substrate participants. AI outputs are provenance-bearing artifacts/candidates. AI does not hold care relationships, own cases, issue consult opinions as clinicians, or commit plans."* (§9 + §12.8; T0-09 candidate)
+
+**Tier 0 promotion candidates** (NAMED in v1; NOT promoted in v1 spawn; separate Tier 0 Change Control gate required per Nick + Knox approval):
+- T0-08 candidate: counter-Hims doctrine per §6.6
+- T0-09 candidate: substrate-vs-care boundary per §12.8
+
+**BROAD-with-paradigm-discipline scope rule (binding)**: every section touched in v1 directly served the case-centered care + visible-provider deployment + ownership granularity + AI substrate-vs-care boundary paradigm. Unrelated rework explicitly rejected during authoring. Sections OUT of v1 scope: §1.5 consumer promise, §6.1 dragon egg, broad §13 business engine rewrite, §14.5 substrate hooks (extended only for §12.6 + §12.8 hooks; otherwise unchanged), §17 Operating Contract substantive changes (lifecycle states updated mechanically only), §20 final position (refresh mechanically with v1 status).
+
+### Tier 2 stop report (Protocol §9) — v1 spawn cycle closure
+
+- `tier`: 2 (work-package; v1 spawn is sub-arc of Phase F.2 of OMNI Doctrine Refresh Arc; inter-batch correction between F.2.1 calibration approval and F.2.2.A first staged batch)
+- `objective_markers`: NEW canonical file `omni_thesis_v1_2026-05-25.md` (~1300+ lines); NEW companion founder version `omni_thesis_v1_founder_version_2026-05-25.md`; v0 + v0 founder status header updates + v0 → v1 Supersession Note; full NACR (catalog 4-row update; read-graph 5-entry restructure; supersession ledger D0THES-SUP-001; decision ledger D0THES-DEC-002; open review queue D0THES-REV-014..020; charter Open Debt update); Reconciliation Map v1 §0 status update (v1 lens swap noted); refresh arc plan updated (phase_v1_spawn_cycle complete; F.2.2 lens-swapped)
+- `default_up_rule_applied`: not invoked
+- `work_summary`: v1 spawn cycle executed 2026-05-25 same day as F.2.0 calibration commit (`f2812e8`) + F.2.1 approval. Nick + Knox + Opus surfaced 4 material substrate gaps in v0 via 2026-05-25 case-centered care + AI capability governance + strategic pressure-test discussion. v1 absorbed all 4 + F.2.0 Q7 §12.1 framing refinement under BROAD-with-paradigm-discipline scope rule. Inherits ~90% of v0; refines 11 sections; adds 9 new sections; preserves all 6 doctrine lines verbatim. 2 Tier 0 promotion candidates NAMED but NOT promoted. 7 new open review queue rows. 8 surgical additions (was 5). NACR satisfied per Control Plane Enforcement Rule 7. F.2.2.A staged batch is next operative phase; audit picks unchanged from pre-v1-spawn; lens swap is the operative change.
+- `canonical_updates`:
+  - `.cursor/plans/omni_thesis_v1_2026-05-25.md` — NEW FILE (~1300+ lines); v1 canonical directional thesis
+  - `.cursor/plans/omni_thesis_v1_founder_version_2026-05-25.md` — NEW FILE (~280 lines); v1 founder-readable companion
+  - `.cursor/plans/omni_thesis_v0_2026-05-24.md` — status header updated to superseded_by_v1; v0 → v1 Supersession Note appended to §22 Amendment Log; content otherwise UNCHANGED
+  - `.cursor/plans/omni_thesis_v0_founder_version_2026-05-24.md` — status note updated to superseded_by_v1; content UNCHANGED
+  - `.cursor/plans/doctrine/01_master_corpus_catalog.md` — v0 + v0 founder rows updated (superseded_by_v1); v1 + v1 founder rows added with full passport
+  - `.cursor/plans/doctrine/04_manifest_read_graph.md` — Tier 2 Cross-Cutting Consult Artifacts restructured to 5 entries (v0 #1 superseded; v0 founder #2 superseded; v1 #3 current canonical; v1 founder #4 current canonical; Reconciliation Map v1 #5)
+  - `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` — D0THES-SUP-001 row added (v0 → v1 supersession)
+  - `.cursor/plans/doctrine/03_decision_extraction_ledger.md` — D0THES-DEC-002 row added (v1 spawn decision)
+  - `.cursor/plans/doctrine/08_open_review_queue.md` — D0THES-REV-014..020 rows added (7 new v1-surfaced unresolveds)
+  - `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt section — v0 → v1 transition recorded; 20 D0THES-REV rows enumerated
+  - `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` §0 status posture — v1 lens swap noted; calibration findings preserved; F.2.2 batches operate against v1 lens
+  - `~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md` — phase_v1_spawn_cycle todo marked complete; F.2.2 todo updated to reflect v1 lens re-baseline
+  - This handoff — Closure Addendum Extension #10 added
+- `prior_narratives_consulted`: Closure Addendum Extension #9 (F.2.1 calibration review gate approved-with-one-refinement) + Reconciliation Map v1 F.2.0 calibration (commit `f2812e8`) + 2026-05-25 case-centered care + AI governance + strategic pressure-test pressure-test round transcript
+- `guardrail_rows_extracted`: candidate D0THES-GRD-004 paradigm-discipline-rule-makes-broad-scope-safe (Knox-Nick refinement; evaluated for promotion at F.2.2 closure) + candidate D0THES-GRD-005 substrate-vs-care-boundary-structurally-enforced (Knox refinement; evaluated for promotion at F.2.2 closure or Tier 0 promotion gate) + candidate D0THES-GRD-006 bidirectional-thesis-feedback-q7-mandatory-per-batch (preserved from F.2.0 calibration discipline) — none promoted yet; all evaluated at F.2.2 closure
+- `governed_stream_artifact_touched`: omni_thesis stream (v0 → v1 transition per Operating Contract §17 lifecycle rule); omni_doctrine_reconciliation_map stream (§0 status note for v1 lens swap; lifecycle remains F.2.2 in progress)
+- `version_state`: v1 `active_adopted_directional_v1`; v0 `superseded_by_v1`
+- `operating_contract_applied`: §17 of v0 (inheriting; v1 inherits unchanged); v1 spawn lifecycle rule triggered per §17 Append/Update/Close Rules ("Substantive structural changes ... require a vN+1")
+- `supersession_link`: omni_thesis_v0_2026-05-24 → omni_thesis_v1_2026-05-25 per D0THES-SUP-001
+- `catalog_row`: v0 + v0 founder updated (superseded_by_v1); v1 + v1 founder added
+- `read_graph_route`: v0 + v0 founder updated; v1 + v1 founder added as Tier 2 Cross-Cutting Consult Artifacts #3 + #4; Reconciliation Map v1 renumbered to #5
+- `non_loss_check`: v0 + v0 founder content preserved (file persists; status header + §22 Amendment Log v0 → v1 Supersession Note appended; content otherwise unchanged); F.2.0 calibration findings preserved (as v0-lens audit; F.2.2 operates against v1 lens but calibration map retains all 6 audit rows + 7 thesis-gap rows + verdict + self-assessment); 6 doctrine lines preserved verbatim in v1 (4 case-centered care + 2 AI substrate-vs-care boundary); all v0 §15.a-m unresolved questions preserved as D0THES-REV-001..013 rows (D0THES-REV-010 directionally resolved by v1 §12.1; row preserved for Phase G ratification); Nick + Knox verbatim quotes preserved in v0 + v1 + handoff + supersession ledger + decision ledger; no doctrine erased; no binding authority changed; preserve-by-default for memory + authority-by-proof discipline upheld through transition.
+
+**Next action**: Phase F.2.2.A begins (coordination spine + scheduling/messaging UI cruft test) against **v1 lens**. Audit picks unchanged (Charter + Protocol + Control Plane + AGENTS + system map §1F scheduling UI + system map §1G messaging UI); lens swap is the operative change. Pre-batch structural scan of §1F + §1G section line ranges (similar to pre-F.2.0 mini-gate). Per-batch closure discipline applies. F.2.2.D batch will exercise v1 §12.8 AI capability governance lens against 1K.5.A three-fan-out narrative pipeline + AI extraction emitter.
+
+Next agent reading this handoff: Phase v1 spawn cycle complete; F.2.2.A is the operative next phase against v1 lens. v1 (`omni_thesis_v1_2026-05-25.md`) is current canonical directional thesis; v0 preserved as `superseded_by_v1` historical reference. Cite v1 for current directional thesis claims; cite canonical destinations for binding doctrine claims after Phase G lands them; cite v0 §X only for what-was-claimed-at-F.1-adoption when needed. F.2.2 batches operate against v1 lens; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules. 20 D0THES-REV-001..020 rows in open review queue; F.3 review gate will eventually need to resolve them (some may resolve via Phase G substantive articulation; D0THES-REV-010 directionally resolved by v1 §12.1).
+
+---
+
+## Closure Addendum Extension #10.1 (2026-05-25 same-day) — v1 in-place completion pass: §7.3 + §7.4 + §7.5 + §7.6
+
+Continued same-day pressure-test between Nick + Knox + Opus 2026-05-25 (immediately after v1 spawn closure) surfaced 4 substrate gaps not covered by v1 spawn. Per Operating Contract §17 active-status completion-pass rule, these were absorbed in-place via v1 completion pass (NOT v2 spawn). Per `D0THES-DEC-003`.
+
+**4 new sections added in-place to v1 §7 family**:
+
+1. **§7.3 Provider choice / assignment / care_commitment / scoped ownership** (~280 lines)
+   - 4-level framework (preference / assignment / care_commitment / scoped_ownership)
+   - Threshold rule: *"Not every event is a care commitment. A care commitment begins when accountability attaches."*
+   - NEW primitive: `care_commitment` + `care_commitment_event` lifecycle (11 event types: assigned / accepted / activated / revised / scope_changed / transferred / shared / completed / cancelled / expired / reopened)
+   - 5 ownership scopes: episode / series-or-plan / therapy-lane / case / deliberation
+   - 8 lifecycle states applied per §7.2 6-role hierarchy
+   - 2-track accountability: clinical (HUMAN-only per §12.8) + operational (brand/team/queue)
+   - Ambiguity-as-commitment pattern (per Knox addition): unknown owner spawns ambiguity-resolution commitment with coordination_owner queue
+   - 5 doctrine lines preserved verbatim
+   - T0-10 candidate PAIR: "Every care commitment has an owner" + "Ownership is scoped, temporal, transferable, and auditable"
+
+2. **§7.4 Boundary modes — runtime policy envelopes** (~160 lines)
+   - 7 orthogonal concepts (brand / location / group / legal entity / tenant / provider / care team — substrate must NOT hardcode as equivalent)
+   - NEW primitive: `care_team_graph` (patient-scoped + per-scope graph)
+   - 7 named boundary modes (within_brand / within_owned_group / cross_brand_same_omni / cross_legal_entity_same_omni / external_partner_network / external_nonpartner_evidence_only / emergency_break_glass)
+   - Patient partitioning discipline (allowed; not hidden; degraded_safety_state surfaced)
+   - Provider safety clause (provider may decline / conditionally accept based on minimum-context-requirement)
+   - 5 doctrine lines (section-level; not T0 candidates per Tier-0-fatigue)
+
+3. **§7.5 Artifact custody / context portability / clinical adoption** (~170 lines)
+   - 8 object-type distinctions (most cross-reference existing primitives; only 1 NEW)
+   - NEW primitive: `clinical_adoption` (provider's explicit acceptance/interpretation of source_artifact)
+   - 4 adoption_kind enum: accept_prior_interpretation / reject_prior_interpretation / reinterpret_independently / view_only_no_adoption
+   - Category-level sharing table (active meds shareable per grant; provider notes NOT auto-shared; receipts NOT auto-shared)
+   - Brand-contract implication (light; deferred to Phase G per D0THES-REV-025)
+   - 4 doctrine lines (section-level)
+
+4. **§7.6 OMNI Network Governance Plane / Platform Oversight** (~100 lines)
+   - Three-level meta-framework (patient care substrate / boundary policy envelope / network governance plane)
+   - 12 governance domains (model registry / templates / rules / safety / quality / audit / support / incident / fraud / metrics / configuration / permissions)
+   - REJECTED behaviors (blanket chart access; superuser model; Henry-Ford-style platform)
+   - 6 named access purposes (support / safety incident / audit / break-glass / explicit grant / contractual oversight)
+   - Differentiator from Henry Ford (institutional clinical OS vs networked clinical OS)
+   - 2 composite doctrine lines (section-level)
+   - No new primitives (composition of existing)
+
+**3 truly new substrate primitives** in completion pass:
+- `care_commitment` (§7.3) + `care_commitment_event` lifecycle
+- `care_team_graph` (§7.4)
+- `clinical_adoption` (§7.5)
+
+**16 doctrine lines added** (preserve verbatim; section-level; no new T0 candidates). v1 keeps 3 NAMED T0 candidates (T0-08 counter-Hims + T0-09 substrate-vs-care boundary PAIR + T0-10 every-commitment-has-owner PAIR). §7.4 / §7.5 / §7.6 doctrine lines stay section-level per Tier-0-fatigue check; Phase G can elevate later if operational practice proves load-bearing.
+
+**6 new open review queue rows** (D0THES-REV-021..026):
+- 021: ambiguity-resolution primitive shape (primitive vs attribute) — Phase G decides
+- 022: boundary modes per tier admission (v0/v1/v2/v3) — Phase G decides
+- 023: one-provider-multi-brand product policy (substrate-permissive; product Day-1 = 1:1) — Phase H decides
+- 024: care_team_graph Day-1 product UX — Phase H decides
+- 025: artifact custody category enumeration (brand contract terms) — Phase G + product/legal decides
+- 026: OMNI Network Governance Plane operational spec (auditor roles + break-glass workflow + transparency surface) — Phase G + product/legal decides
+
+**Discipline upheld**: BROAD-with-paradigm-discipline rule held throughout completion pass. Each new section serves the case-centered care + visible-provider deployment + ownership granularity + AI substrate-vs-care boundary paradigm. No unrelated rework. No primitive sprawl beyond the 3 truly new primitives.
+
+### Tier 2 stop report (Protocol §9) — v1 completion pass closure
+
+- `tier`: 2 (work-package completion; completion pass sub-arc within v1 spawn Tier 2 cycle; same crystallization arc per Operating Contract §17 active-status completion-pass rule)
+- `objective_markers`: §7.3 + §7.4 + §7.5 + §7.6 added to v1 (~520-700 lines); v1 §22 Amendment Log extended with completion-pass entry; v1 founder version extended with completion-pass distillation; 6 new open review queue rows (D0THES-REV-021..026); decision ledger D0THES-DEC-003 row added; charter Open Debt section updated to enumerate 26 D0THES-REV rows; handoff Extension #10.1 added (this section)
+- `default_up_rule_applied`: not invoked
+- `work_summary`: same-day continued pressure-test 2026-05-25 between Nick + Knox + Opus surfaced 4 substrate gaps not covered by v1 spawn. Completion pass absorbed all 4 in-place per Operating Contract §17 active-status completion-pass rule (NOT v2 spawn — same crystallization arc + additive not contradicting). 3 truly new substrate primitives (care_commitment + care_team_graph + clinical_adoption). 16 doctrine lines added preserve verbatim. 6 new open review queue rows. v1 lifecycle state unchanged (`active_adopted_directional_v1`). v1 substrate now expressive enough to handle 5-10-year scaling scenarios per 1BN-company test.
+- `canonical_updates`:
+  - `.cursor/plans/omni_thesis_v1_2026-05-25.md` — §7.3 + §7.4 + §7.5 + §7.6 inserted between §7.2 and §8; §22 Amendment Log extended with completion-pass entry
+  - `.cursor/plans/omni_thesis_v1_founder_version_2026-05-25.md` — completion-pass distillation added before closing line
+  - `.cursor/plans/doctrine/03_decision_extraction_ledger.md` — D0THES-DEC-003 row added
+  - `.cursor/plans/doctrine/08_open_review_queue.md` — D0THES-REV-021..026 rows added (6 new)
+  - `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt — completion-pass note + 26 D0THES-REV rows enumerated
+  - This handoff — Closure Addendum Extension #10.1 added
+- `prior_narratives_consulted`: Closure Addendum Extension #10 (v1 spawn cycle complete) + 2026-05-25 same-day continued pressure-test transcript
+- `guardrail_rows_extracted`: candidate D0THES-GRD-007 ownership-is-scoped-temporal-transferable (substrate invariant) + D0THES-GRD-008 care-team-is-patient-scoped-graph (counter-org-chart discipline) + D0THES-GRD-009 not-every-event-is-care-commitment (threshold rule) + D0THES-GRD-010 network-oversight-is-not-blanket-chart-access (governance plane discipline) — none promoted yet; all evaluated at F.2.2 closure
+- `governed_stream_artifact_touched`: omni_thesis_v1 stream (completion pass additive within active-status; per Operating Contract §17)
+- `version_state`: v1 `active_adopted_directional_v1` (UNCHANGED; completion pass is additive within active status)
+- `operating_contract_applied`: §17 of v0 (inheriting; v1 inherits unchanged); §17 active-status completion-pass rule explicitly applied for §7.3-§7.6 additions
+- `non_loss_check`: All v0 + v1 spawn content preserved (file persists; status header unchanged; content otherwise unchanged); v1 completion pass content is purely additive (no contradictions of prior v1 sections; no removal of prior content); 16 new doctrine lines preserve verbatim; 3 new substrate primitives compose with existing primitives without redundancy; 6 new open review queue rows preserve Knox + Nick verbatim pressure-test framings; no doctrine erased; no binding authority changed; preserve-by-default for memory + authority-by-proof discipline upheld through completion pass.
+
+**Next action**: Phase F.2.2.A begins (coordination spine + scheduling/messaging UI cruft test) against **v1 lens (including completion-pass additions)**. Audit picks unchanged from pre-completion-pass: Charter + Protocol + Control Plane + AGENTS + system map §1F scheduling UI + system map §1G messaging UI. Lens swap is the operative change. Pre-batch structural scan of §1F + §1G section line ranges. F.2.2.D batch will exercise v1 §12.8 AI capability governance + §7.5 clinical_adoption against 1K.5.A three-fan-out narrative pipeline + AI extraction emitter. F.2.2.E batch will exercise §7.4 boundary modes + §7.5 artifact custody + §7.6 governance plane against communications topology + AI Governance Policy + scheduling rule matrix.
+
+Next agent reading this handoff: Phase v1 spawn cycle + completion pass BOTH complete; F.2.2.A is the operative next phase against v1 lens (including §7.3-§7.6 completion-pass additions). v1 (`omni_thesis_v1_2026-05-25.md`) is current canonical directional thesis with completion-pass content; v0 preserved as historical reference. Cite v1 for current directional thesis claims. F.2.2 batches operate against v1 lens (with completion pass absorbed). 26 D0THES-REV-001..026 rows in open review queue.

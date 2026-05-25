@@ -2,12 +2,12 @@
 
 Document type: `doctrine` (candidate; currently evidence-routed; non-binding)
 Authority: `derived_nonbinding` (evidence-routed thesis crystallization; directionally adopted in Phase F.1 2026-05-25 per `D0THES-DEC-001`; binding per-primitive canonical authority remains pending Phase G refresh placement into canonical doctrine homes)
-Status: `active_adopted_directional` (v0 adopted as directional center-of-gravity thesis 2026-05-25 Phase F.1 of OMNI Doctrine Refresh Arc per `D0THES-DEC-001`; canonical doctrine remains pending Phase G refresh; v0 informs all subsequent doctrine work, product translation, existing-build reconciliation; detailed per-primitive binding authority remains at canonical doctrine homes per v0 §16)
+Status: `superseded_by_v1` (v0 was adopted as directional center-of-gravity thesis 2026-05-25 Phase F.1 of OMNI Doctrine Refresh Arc per `D0THES-DEC-001`; v0 superseded 2026-05-25 by `omni_thesis_v1_2026-05-25.md` per `D0THES-DEC-002` to absorb case-centered care + visible-provider deployment + AI capability governance + Q7 §12.1 absorption + strategic pressure-test articulation; v0 preserved as historical reference; cite v1 for current directional thesis claims; cite v0 §X for what-was-claimed-at-F.1-adoption when needed)
 Domain(s): `architecture_governance`, `substrate_thesis`, `cross_cutting`
 Lifecycle role: `workbench_scaffold` (thesis crystallization; pre-doctrine)
 Source-of-truth relationship: crystallized output of the 2026-05-23 → 2026-05-24 OMNI thesis pressure-test arc between Opus (Cursor agent) and Knox (third-party AI reviewer via Nick relay). Directionally adopted in Phase F.1 2026-05-25 per `D0THES-DEC-001`; binding per-primitive canonical authority remains pending Phase G refresh.
 Supersedes: ad-hoc thesis discussion in chat. The Knox-Nick conversational transcript is the source evidence; formal `07_evidence_ingestion_ledger.md` row will land when that ledger lands on main (deferred per `HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md`).
-Superseded by: `omni_thesis_v1` when produced; ultimately by per-primitive canonical doctrine landed at canonical homes during Phase G refresh.
+Superseded by: `omni_thesis_v1_2026-05-25.md` (spawned 2026-05-25 per `D0THES-DEC-002`); ultimately by per-primitive canonical doctrine landed at canonical homes during Phase G refresh.
 Manifest action: `add_tier2`
 Review gate: `user_knox_required` (Phase F.1 directional adoption complete 2026-05-25 per `D0THES-DEC-001`; Phase F.2 structured audit + F.3 Reconciliation Map review gate + Phase G per-primitive canonical landing remain pending)
 
@@ -902,3 +902,40 @@ Per `D0THES-DEC-001` in `.cursor/plans/doctrine/03_decision_extraction_ledger.md
 - `.cursor/plans/HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md` Closure Addendum Extension #7 added
 
 **Tier classification**: Tier 2 per Protocol §8 (work-package completion; F.1 is the first phase of the multi-phase doctrine refresh arc; checkpoint preservation per §8 satisfied).
+
+---
+
+### v0 → v1 Supersession Note (2026-05-25)
+
+v0 superseded 2026-05-25 by `omni_thesis_v1_2026-05-25.md` per `D0THES-DEC-002`.
+
+**Supersession cause**: Phase F.2.0 calibration (commit `f2812e8`) surfaced bidirectional thesis feedback (Q7 finding: v0 §12.1 understates existing `1K.5.A patient_clinical_assertions` substrate). Then 2026-05-25 case-centered care + AI capability governance + strategic pressure-test pressure-test round between Nick + Knox + Opus surfaced 4 material substrate gaps in v0:
+- Case-centered care + ownership-role granularity (Nick's brother's cancer comment; Knox case-deliberation analysis)
+- Visible-provider deployment posture (counter-Hims doctrine: *"OMNI does not hide providers to create safety. OMNI creates safety so providers can be visible."*)
+- AI capability + model registry substrate with substrate-vs-care boundary (Knox refinement: *"Model-pluggable substrate, not model-choice medicine."* + *"AI models are replaceable substrate participants..."*)
+- Strategic pressure-test articulation (Henry Ford / Hims / RealSelf / Cursor comparisons; long-term paradigm bet defensibly in writing)
+
+v1 absorbs all 4 + the Q7 §12.1 framing refinement under BROAD-with-paradigm-discipline scope rule.
+
+**Status transition**: `active_adopted_directional` → `superseded_by_v1` (passport + Status field updated).
+
+**Scope of supersession**: v1 inherits ~90% of v0 content; refines 11 sections; adds 9 new sections (§3.5, §6.6, §7.1, §7.2, §8.5, §12.6, §12.7, §12.8, §13.6); preserves all 6 doctrine lines (4 case-centered care + 2 AI substrate-vs-care boundary) verbatim. v0 content NOT erased — file preserved as historical reference.
+
+**Cite v1 for current directional thesis claims.** Cite v0 §X for what-was-claimed-at-F.1-adoption when needed.
+
+**Tier classification**: Tier 2 per Protocol §8 (work-package completion; v1 spawn is a sub-arc of Phase F.2 of the OMNI Doctrine Refresh Arc; v1 spawn is the inter-batch correction between F.2.1 calibration approval and F.2.2.A first staged batch).
+
+**Companion artifacts updated in v1 spawn pass**:
+- `.cursor/plans/omni_thesis_v1_2026-05-25.md` (CREATED; ~1300+ lines; v1 canonical)
+- `.cursor/plans/omni_thesis_v1_founder_version_2026-05-25.md` (CREATED; v1 founder version)
+- `.cursor/plans/doctrine/01_master_corpus_catalog.md` (v0 + v0 founder rows updated to superseded_by_v1; v1 + v1 founder rows added)
+- `.cursor/plans/doctrine/04_manifest_read_graph.md` (v0 + v0 founder Tier 2 Cross-Cutting entries updated; v1 + v1 founder Tier 2 entries added)
+- `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` (v0 → v1 supersession row added)
+- `.cursor/plans/doctrine/03_decision_extraction_ledger.md` (D0THES-DEC-002 v1 spawn decision row added)
+- `.cursor/plans/doctrine/08_open_review_queue.md` (D0THES-REV-014..020 added; 7 new v1-surfaced unresolveds)
+- `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt section (v0 → v1 transition recorded)
+- `.cursor/plans/omni_thesis_v0_founder_version_2026-05-24.md` (status header updated to superseded_by_v1)
+- `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` §0 status posture (v1 lens swap noted)
+- `.cursor/plans/HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md` Closure Addendum Extension #10 added
+
+If further substantive structural changes are needed after v1, they land as v2.

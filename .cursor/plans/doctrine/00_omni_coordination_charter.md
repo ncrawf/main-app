@@ -156,15 +156,21 @@ This Charter is activation-ready. Remaining open governance debt is tracked in `
 
 **This section is a post-activation snapshot for orientation; `.cursor/plans/doctrine/08_open_review_queue.md` remains the source of truth if queue state diverges from this snapshot.**
 
-### Phase F.1 adoption (2026-05-25)
+### Phase F.1 adoption (2026-05-25) + v1 spawn (2026-05-25)
 
-OMNI Thesis v0 (`.cursor/plans/omni_thesis_v0_2026-05-24.md`) adopted as directional center-of-gravity thesis in Phase F.1 of the OMNI Doctrine Refresh Arc (plan at `~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md`) per `D0THES-DEC-001`. v0 status flipped to `active_adopted_directional`. Per-primitive canonical doctrine remains pending Phase G refresh. Adoption operates under "preserve-by-default for memory; authority-by-proof."
+OMNI Thesis v0 (`.cursor/plans/omni_thesis_v0_2026-05-24.md`) adopted as directional center-of-gravity thesis in Phase F.1 of the OMNI Doctrine Refresh Arc (plan at `~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md`) per `D0THES-DEC-001` 2026-05-25. v0 status flipped to `active_adopted_directional`. Per-primitive canonical doctrine remains pending Phase G refresh. Adoption operates under "preserve-by-default for memory; authority-by-proof."
 
-**OMNI Doctrine Refresh Arc — Phase F.1 closed; Phase F.2 structured audit begins next** (the heavy lift: chunk-read ~30-40 canonical artifacts including the 1.94M-char system map; produce Reconciliation Map with Executive Audit Verdict + per-artifact rows with Knox-category analysis + Thesis Content Gap Table + aggregate metrics + conflict ledger seeds + Phase G sequencing recommendation; Phase F.3 review gate Nick+Knox approves before Phase G refresh executes).
+**v0 → v1 transition (same day, 2026-05-25)** per `D0THES-DEC-002` + supersession ledger row `D0THES-SUP-001`: Thesis v1 (`omni_thesis_v1_2026-05-25.md`) spawned same day to absorb case-centered care + visible-provider deployment + AI capability governance + Q7 §12.1 absorption + strategic pressure-test articulation under BROAD-with-paradigm-discipline scope rule. v0 transitions to `superseded_by_v1` (preserved as historical reference). v1 status: `active_adopted_directional_v1`. v1 inherits ~90% of v0; refines 11 sections; adds 9 new sections; preserves all 6 doctrine lines verbatim (4 case-centered care + 2 AI substrate-vs-care boundary). 2 Tier 0 promotion candidates NAMED but NOT promoted (T0-08 counter-Hims §6.6; T0-09 substrate-vs-care boundary §12.8). 7 new open review queue rows (`D0THES-REV-014..020`). 8 surgical additions (was 5 in v0). F.2.0 calibration findings (commit `f2812e8`) preserved as v0-lens audit; F.2.2 batches re-baseline against v1 lens; `D0THES-REV-010` directionally resolved by v1 §12.1 refinement.
 
-### Thesis v0 unresolved questions (13 rows, `D0THES-REV-001..013`)
+**v1 in-place completion pass (same day, 2026-05-25)** per `D0THES-DEC-003`: same-day continued pressure-test added 4 new §7-family sections in-place per Operating Contract §17 active-status completion-pass rule. §7.3 Provider choice / assignment / care_commitment / scoped ownership + §7.4 Boundary modes runtime policy envelopes + §7.5 Artifact custody / context portability / clinical adoption + §7.6 OMNI Network Governance Plane. 3 truly new substrate primitives (care_commitment + care_team_graph + clinical_adoption). 16 doctrine lines added (section-level; no new T0 candidates per Tier-0-fatigue check). 6 new open review queue rows (`D0THES-REV-021..026`). v1 lifecycle state unchanged (`active_adopted_directional_v1`). v1 substrate now expressive enough for 5-10-year scaling per 1BN-company test (multi-modal care + multi-actor care + multi-brand care + cross-org care + patient agency + provider agency + AI participation + ambiguity absorption + degraded safety surfacing + boundary modes + artifact custody + network governance plane). Further substantive structural changes require v2 spawn.
 
-v0 §15.a-m unresolved questions landed in `08_open_review_queue.md` Phase F.1 with explicit closure conditions:
+**OMNI Doctrine Refresh Arc — Phase F.1 + v1 spawn closed; Phase F.2.2 staged batches begin next** (F.2.0 calibration approved with one refinement 2026-05-25; F.2.2.A coordination spine + scheduling/messaging UI cruft test next operative phase; audit picks unchanged from pre-v1-spawn; lens swap is the operative change. F.2.3 master closure aggregates batch verdicts before Phase F.3 review gate; Phase G refresh executes only after F.3 approval).
+
+### Thesis v0 + v1 unresolved questions (26 rows, `D0THES-REV-001..026`)
+
+v0 §15.a-m (13 rows landed Phase F.1): `D0THES-REV-001..013`. v1 spawn §15.n-t (7 rows): `D0THES-REV-014..020`. v1 completion pass (6 rows): `D0THES-REV-021..026` (021 ambiguity-resolution primitive shape; 022 boundary modes per tier; 023 one-provider-multi-brand product policy; 024 care_team_graph Day-1 UX; 025 artifact custody category enumeration; 026 OMNI Network Governance Plane operational spec). `D0THES-REV-010` directionally resolved by v1 §12.1 (preserve `1K.5.A patient_clinical_assertions` substrate naming); row preserved for Phase G ratification.
+
+All rows landed in `08_open_review_queue.md` with explicit closure conditions. v0 §15.a-m (Phase F.1):
 
 - `D0THES-REV-001` §15.a Protocol definition primitive scope (blocks G.2 DL-24/DL-22)
 - `D0THES-REV-002` §15.b Alert-economy discipline (T0 candidate or lower-tier)
@@ -174,11 +180,21 @@ v0 §15.a-m unresolved questions landed in `08_open_review_queue.md` Phase F.1 w
 - `D0THES-REV-006` §15.f Sensitive category overlay (**blocks G.2 DL-27 + v0 launch**)
 - `D0THES-REV-007` §15.g Surgery readiness wedge boundary (substrate-compatible)
 - `D0THES-REV-008` §15.h Family Practice as separate topology (long-term)
-- `D0THES-REV-009` §15.i Mindbody-style federation depth (**blocks G.2 DL-21 boundary**)
-- `D0THES-REV-010` §15.j observation/extracted_assertion v0 timing (**blocks G.2 DL-23**)
-- `D0THES-REV-011` §15.k Ownership primitive scope (blocks G.2 ownership decision)
-- `D0THES-REV-012` §15.l Brand contract minimums (blocks G.4 brand-contract)
-- `D0THES-REV-013` §15.m Learning loop governance (blocks G.2 learning loop doctrine)
+- `D0THES-REV-009` §15.i Mindbody-style federation depth (**blocks G.2 DL-21 boundary; F.2.0 calibration recommendation: new DL-25 patient-graph**)
+- `D0THES-REV-010` §15.j observation/extracted_assertion v0 timing (**directionally resolved by v1 §12.1 — preserve `1K.5.A patient_clinical_assertions` substrate naming + thesis cross-references; row preserved for Phase G ratification**)
+- `D0THES-REV-011` §15.k Ownership primitive scope (blocks G.2 ownership decision; v1 §7.2 names 6 HUMAN-only roles; promote-vs-attribute decision pending Phase G)
+- `D0THES-REV-012` §15.l Brand contract minimums (blocks G.4 brand-contract; v1 §6.5 extends with visible-provider deployment posture)
+- `D0THES-REV-013` §15.m Learning loop governance (blocks G.2 learning loop doctrine; v1 §9.5 + §12.8 extend with model output training data governance)
+
+v1 §15.n-t (v1 spawn 2026-05-25):
+
+- `D0THES-REV-014` §15.n Default decision-owner heuristic (blocks G.2 ownership primitive operational decision)
+- `D0THES-REV-015` §15.o Conflict-resolution UX flow for overlapping orders (informs G.4 + Phase H product translation)
+- `D0THES-REV-016` §15.p Day-1 MVP scope for case-centered features (blocks Phase H product translation cycle scope)
+- `D0THES-REV-017` §15.q Consulting-without-prescribing scope (blocks G.2 DL-18 extension)
+- `D0THES-REV-018` §15.r Cross-org case-deliberation governance (blocks v2 controlled-network tier substrate definition)
+- `D0THES-REV-019` §15.s Visible-provider deployment Day 1 surface (blocks Powered-by-OMNI brand Day 1 UX implementation)
+- `D0THES-REV-020` §15.t AI model registry governance (blocks G.2 AI governance doctrine + T0-09 promotion gate)
 
 ### Pre-thesis open debt (carried forward)
 

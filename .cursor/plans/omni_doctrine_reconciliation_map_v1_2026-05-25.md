@@ -1,8 +1,12 @@
 # OMNI Doctrine Reconciliation Map v1
 
-> **F.2.1 APPROVED-WITH-ONE-REFINEMENT 2026-05-25 — F.2.2 STAGED BATCHES BEGIN**
+> **F.2.1 APPROVED-WITH-ONE-REFINEMENT 2026-05-25 — F.2.2 STAGED BATCHES (RE-BASELINED AGAINST THESIS v1 LENS)**
 >
-> Phase F.2.0 calibration (6 audit rows + 7 thesis-gap rows + 0 K8 conflicts + executive verdict + self-assessment + Operating Contract §17) approved-in-principle 2026-05-25 by Nick + Knox. Method validated. One required refinement for F.2.2: staged batches (4-6 batches of ~5-7 artifacts each, NOT a monolithic mega-run), with each batch mandatorily mixing substrate-spine + cruft-likely UI/product-drift sections to correct calibration sample-bias. Knox verbatim: *"This calibration is strong. The method worked. The most important finding is that Thesis v0 §12.1 may understate existing substrate."* Reconciliation Map v1 now grows in-place through F.2.2 batches per Operating Contract §17 append rules.
+> Phase F.2.0 calibration (6 audit rows + 7 thesis-gap rows + 0 K8 conflicts + executive verdict + self-assessment + Operating Contract §17) approved-in-principle 2026-05-25 by Nick + Knox. Method validated. One required refinement for F.2.2: staged batches (4-6 batches of ~5-7 artifacts each, NOT a monolithic mega-run), with each batch mandatorily mixing substrate-spine + cruft-likely UI/product-drift sections to correct calibration sample-bias. Knox verbatim: *"This calibration is strong. The method worked. The most important finding is that Thesis v0 §12.1 may understate existing substrate."*
+>
+> **2026-05-25 v1 lens swap**: Thesis v1 (`omni_thesis_v1_2026-05-25.md`) spawned 2026-05-25 per `D0THES-DEC-002` to absorb case-centered care + visible-provider deployment + AI capability governance + Q7 §12.1 absorption + strategic pressure-test. F.2.0 calibration findings preserve substantively (calibration was v0-lens; calibration findings remain valid as v0-lens audit); F.2.2 batches operate against v1 lens. Audit picks for F.2.2.A unchanged (Charter + Protocol + Control Plane + AGENTS + system map §1F + §1G); lens swap is the operative change. Calibration's Q7 finding (thesis v0 §12.1 understates 1K.5.A) ABSORBED into v1 §12.1 refinement; D0THES-REV-010 (observation/assertion naming reconciliation) directionally resolved by v1 §12.1 (preserve `1K.5.A patient_clinical_assertions` substrate naming; thesis cross-references). AI capability governance now in v1 §12.8 — directly relevant for F.2.2.D DL audit batch (audits AI-related substrate including 1K.5.A three-fan-out narrative pipeline + Stage 1.5 multi-question assertion-builder + AI extraction emitter); v1 §12.8 provides doctrine lens for that batch.
+>
+> Reconciliation Map v1 grows in-place through F.2.2 batches per Operating Contract §17 append rules.
 
 Document type: `doctrine_candidate`
 Authority: `derived_nonbinding` (calibration + audit output of OMNI Doctrine Refresh Arc; informs Phase G refresh but is not binding canonical doctrine)

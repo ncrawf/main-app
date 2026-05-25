@@ -4,7 +4,7 @@ A reference card for the operator. Read in 5 minutes. Hold in your head. Reach f
 
 Canonical source: [`.cursor/plans/omni_thesis_v0_2026-05-24.md`](omni_thesis_v0_2026-05-24.md). Cite v0 for **directional thesis claims**. Cite **canonical doctrine homes** (T0-* guardrails, Coherent OMNI Architecture Pattern, DL-1..DL-22, CNS ADR, system map, Build OS — per v0 §16) for **binding doctrine claims** after Phase G refresh lands them. This founder version is a derived compression; if it disagrees with v0 on substance, v0 wins.
 
-**v0 status (2026-05-25)**: `active_adopted_directional` — adopted as directional center-of-gravity thesis in Phase F.1 of OMNI Doctrine Refresh Arc per `D0THES-DEC-001`. Canonical doctrine remains pending Phase G refresh. Detailed per-primitive binding authority lives at canonical doctrine homes per v0 §16.
+**v0 status (2026-05-25)**: `superseded_by_v1` — v0 was adopted as directional center-of-gravity thesis in Phase F.1 of OMNI Doctrine Refresh Arc per `D0THES-DEC-001` 2026-05-25; v0 superseded same day by `omni_thesis_v1_2026-05-25.md` per `D0THES-DEC-002` to absorb case-centered care + visible-provider deployment + AI capability governance + Q7 §12.1 absorption + strategic pressure-test. **For current directional thesis claims, cite v1** (`omni_thesis_v1_2026-05-25.md`) and its founder version (`omni_thesis_v1_founder_version_2026-05-25.md`). v0 + this v0 founder version preserved as historical reference. v0 content unchanged below this header note.
 
 ---
 
