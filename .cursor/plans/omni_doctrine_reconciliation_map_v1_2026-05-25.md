@@ -1,12 +1,14 @@
 # OMNI Doctrine Reconciliation Map v1
 
-> **F.2.1 APPROVED-WITH-ONE-REFINEMENT 2026-05-25 — F.2.2 STAGED BATCHES (RE-BASELINED AGAINST THESIS v1 LENS)**
+> **F.2.0.v1 CALIBRATION REFRESH COMPLETE 2026-05-25 — F.2.2 STAGED BATCHES NEXT (REFRESHED V1 LENS FOUNDATION)**
 >
 > Phase F.2.0 calibration (6 audit rows + 7 thesis-gap rows + 0 K8 conflicts + executive verdict + self-assessment + Operating Contract §17) approved-in-principle 2026-05-25 by Nick + Knox. Method validated. One required refinement for F.2.2: staged batches (4-6 batches of ~5-7 artifacts each, NOT a monolithic mega-run), with each batch mandatorily mixing substrate-spine + cruft-likely UI/product-drift sections to correct calibration sample-bias. Knox verbatim: *"This calibration is strong. The method worked. The most important finding is that Thesis v0 §12.1 may understate existing substrate."*
 >
 > **2026-05-25 v1 lens swap**: Thesis v1 (`omni_thesis_v1_2026-05-25.md`) spawned 2026-05-25 per `D0THES-DEC-002` to absorb case-centered care + visible-provider deployment + AI capability governance + Q7 §12.1 absorption + strategic pressure-test. F.2.0 calibration findings preserve substantively (calibration was v0-lens; calibration findings remain valid as v0-lens audit); F.2.2 batches operate against v1 lens. Audit picks for F.2.2.A unchanged (Charter + Protocol + Control Plane + AGENTS + system map §1F + §1G); lens swap is the operative change. Calibration's Q7 finding (thesis v0 §12.1 understates 1K.5.A) ABSORBED into v1 §12.1 refinement; D0THES-REV-010 (observation/assertion naming reconciliation) directionally resolved by v1 §12.1 (preserve `1K.5.A patient_clinical_assertions` substrate naming; thesis cross-references). AI capability governance now in v1 §12.8 — directly relevant for F.2.2.D DL audit batch (audits AI-related substrate including 1K.5.A three-fan-out narrative pipeline + Stage 1.5 multi-question assertion-builder + AI extraction emitter); v1 §12.8 provides doctrine lens for that batch.
 >
 > Reconciliation Map v1 grows in-place through F.2.2 batches per Operating Contract §17 append rules.
+>
+> **2026-05-25 F.2.0.v1 Calibration Refresh (per Knox three-tier policy)**: Same-day post-v1-spawn refresh of the F.2.0 calibration against v1 lens (v0-lens findings preserved as historical layer in §§0-7; v1-lens findings layered in §8). Outcome: 0 Tier 1 mechanical errata; 5 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-027..031; v1 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 calibration rows STABLE under v1 lens (0 K-category changes; amendment SCOPE grew ~1.5-2x per row). v1 CONFIRMED usable as F.2.2 audit lens. F.2.2.A staged batch begins next against refreshed v1 lens foundation. See §8 for full v1-lens refresh analysis.
 
 Document type: `doctrine_candidate`
 Authority: `derived_nonbinding` (calibration + audit output of OMNI Doctrine Refresh Arc; informs Phase G refresh but is not binding canonical doctrine)
@@ -868,6 +870,325 @@ No rows tagged confidence = low. No rows defaulted to `refresh_action: needs_dee
 
 ---
 
+## §8 F.2.0.v1 Refresh — V1-Lens Layered Analysis
+
+> **F.2.0.v1 CALIBRATION REFRESH COMPLETE 2026-05-25**
+>
+> Same-day post-v1-spawn refresh of the F.2.0 calibration against v1 lens. v0-lens findings (§§0-7 above) preserved as historical layer. v1-lens findings layered here per Operating Contract §17 append rules. Per Knox three-tier policy: mechanical errata = fix as errata; substantive thesis feedback = document + route to Phase G or v2 (do NOT patch v1 mid-audit); materially misleading lens = stop + ask. **Outcome: 0 Tier 1 errata; 5 Tier 2 substantive bidirectional findings (routed); 0 Tier 3 materially-misleading findings.** v1 confirmed usable as F.2.2 audit lens.
+
+### §8.1 V1-Lens Master Executive Audit Verdict
+
+Same 7 questions as §1, scoped to v1-lens refresh + bidirectional feedback discovery.
+
+#### Q1.v1 — What is healthier than expected under v1 lens?
+
+- **1K.5.A is EVEN MORE substantively aligned with v1 than v0-lens calibration revealed.** Multiple v1 sections compose with 1K.5.A substrate operationally: §7.3 care_commitment threshold maps to 1K.5.A Stage 1.5 emit_trigger; §7.5 clinical_adoption maps to 1K.5.A `recordClinicalAssertion` API + `provider_assessment.assertion_action` enum (new_diagnosis / confirmation_of_prior / rejection_of_prior / refinement_of_prior / resolution_of_prior); §12.6 case-deliberation `consult_opinion` maps to 1K.5.A `authored_by=provider_assessed` + `clinical_visit_id` cross-link; §12.8 substrate-vs-care boundary maps to 1K.5.A 9-value authored_by enum + computed authority_rank generated column.
+- **§1Z audit infrastructure is EXACTLY the substrate v1 §7.6 governance plane operates on.** Tamper-evident audit chain (§1Z.6 invariant 38) + operational observability (§1Z.11 invariant 27) + circuit breakers + environment segregation (invariant 28) + reconciliation jobs (invariant 39) + privileged-action elevated approval (§1Z.12 invariant 37) collectively form the substrate that "aggregate-by-default + patient-identifiable access only by named purpose + minimum-necessary + policy-scoped + logged + reviewable" runs on.
+- **CNS ADR §2.17 Provider Clinical Context Packet IS the substrate-level form of v1 §7.5 clinical_adoption.** "AI summarizes/proposes; deterministic validates+flags+blocks; provider signs where clinical authority required" is the operational expression of clinical_adoption decisions (adoption_kind = accept_prior_interpretation / reject_prior_interpretation / reinterpret_independently / view_only_no_adoption).
+- **DL-21 + new DL-25 separation gets cleaner under v1 lens.** v1 §12.4 + §7.4 + §7.5 + §7.6 collectively name concrete primitives for the new DL-25 patient-graph; DL-21 retains tenant-boundary scope cleanly. F.3 decision D0THES-REV-009 has sharper basis to resolve.
+
+#### Q2.v1 — What is worse than expected under v1 lens?
+
+- **v1 may UNDER-CREDIT existing substrate in MORE places than F.2.0 originally found.** Q7 in F.2.0 was the first finding (thesis v0 §12.1 understates 1K.5.A). F.2.0.v1 surfaces 5 additional bidirectional feedback findings:
+  1. v1 §7.3 care_commitment threshold may under-credit 1K.5.A Stage 1.5 emit_trigger semantics (`gating_negative` / `all_required_answered` / `module_complete` / `session_submitted`)
+  2. v1 §7.5 clinical_adoption primitive may under-credit 1K.5.A's `recordClinicalAssertion` API + `provider_assessment.assertion_action` enum
+  3. v1 §7.5 clinical_adoption may under-credit CNS ADR §2.17 Provider Clinical Context Packet doctrine
+  4. v1 §7.6 governance plane may under-credit §1Z audit infrastructure (tamper-evident chain + observability + circuit breakers + reconciliation)
+  5. v1 §12.8 AI capability governance may under-credit 1K.5.A narrative free-text intake three deterministic fan-outs (safety scan + AI extraction emitter + discrepancy detection)
+- These are NOT failures of v1. v1 IS the doctrine-level articulation; existing substrate IS the operational implementation. The pattern is the same as Q7 finding: thesis names what substrate already does. **Tier 2 substantive feedback per Knox policy** → document + route to Phase G; do NOT patch v1 mid-audit.
+
+#### Q3.v1 — What must be refreshed first under v1 lens?
+
+Same priority order as v0-lens, plus 5 new Tier 2 findings added to Phase G work queue:
+
+1. **Coherent Pattern §7 coherence operational test + §2.11-§2.16 cross-cutting disciplines** (v0-lens priority 1; v1-lens scope grows ~3x). v1 needs Coherent Pattern §2 cross-cutting disciplines expansion (was 10; v1 adds visible-provider deployment + boundary modes + artifact custody + substrate-vs-care boundary + anti-realself = 5+ additions).
+2. **F.3 decisions still pending**: D0THES-REV-009 (DL-21 vs new DL-25 split — sharper recommendation now), D0THES-REV-010 (observation/assertion naming — directionally resolved by v1 §12.1), D0THES-REV-011 (ownership primitive scope — now refined by v1 §7.2 + §7.3), D0THES-REV-012 (brand contract minimums — now refined by v1 §6.5 + §6.6 + §7.5 + §7.6).
+3. **Post-F.3 parallel sub-arcs** (v1-lens scope grows ~2x per artifact): §1Z amendments (4 new sub-sections vs original 3); DL-21 + new DL-25 (sharper spec); 1K.5.A amendment (4 cross-link notes vs original 1); CNS ADR §9 addendum (4 cross-references vs original 3).
+4. **NEW Tier 2 findings routed to Phase G** (5 substantive bidirectional feedback findings; D0THES-REV-027 through D0THES-REV-031 to be added).
+
+#### Q4.v1 — What valid decisions must not be lost under v1 lens?
+
+**No change from v0-lens.** All 6 artifacts' `valid_decisions_to_preserve` lists hold under v1 lens. v1 ADDS to v0 (doesn't replace); v0 preserves; calibration findings stable.
+
+#### Q5.v1 — What docs are dangerous if left authoritative under v1 lens?
+
+**No change from v0-lens.** None in calibration set. All 6 are K1/K2/K3 with preserve dispositions. v1 lens doesn't change this.
+
+Slight upgrade: DL-21 DRAFT status now has CLEARER promotion path under v1 lens (DL-25 split recommendation has concrete primitive set from v1 §7.4 + §12.4 + §7.5 + §7.6 to ground it).
+
+#### Q6.v1 — What can safely wait under v1 lens?
+
+**No change from v0-lens priority ordering.** Build OS still light verification. CNS ADR still sequenced after Coherent Pattern + §1Z + 1K.5.A. v1-lens scope growth (~2-3x per artifact) means total effort is higher but priority ordering holds.
+
+#### Q7.v1 — What does the audit teach us about the thesis itself (under v1 lens)?
+
+**This is the bidirectional feedback question for v1-lens refresh. 5 substantive findings (Tier 2 per Knox policy):**
+
+1. **v1 §7.3 care_commitment threshold may under-credit 1K.5.A Stage 1.5 emit_trigger.** v1 names the threshold pattern; 1K.5.A operationalizes it via Stage 1.5 multi-question assertion-builder with explicit emit_trigger enum. **Routed to D0THES-REV-027.**
+
+2. **v1 §7.5 clinical_adoption primitive may under-credit 1K.5.A's recordClinicalAssertion API + provider_assessment.assertion_action enum.** 1K.5.A's existing `assertion_action` enum (5 values: new_diagnosis / confirmation_of_prior / rejection_of_prior / refinement_of_prior / resolution_of_prior) IS the operational form of clinical_adoption.adoption_kind. **Routed to D0THES-REV-028.**
+
+3. **v1 §7.5 clinical_adoption may under-credit CNS ADR §2.17 Provider Clinical Context Packet doctrine.** "AI summarizes/proposes; deterministic validates+flags+blocks; provider signs where clinical authority required" IS the substrate-level expression of clinical_adoption decisions. **Routed to D0THES-REV-029.**
+
+4. **v1 §7.6 governance plane may under-credit §1Z audit infrastructure.** Tamper-evident audit chain + operational observability + circuit breakers + environment segregation + reconciliation jobs collectively form the substrate that "aggregate-by-default + patient-identifiable access only by named purpose + minimum-necessary + policy-scoped + logged + reviewable" runs on. **Routed to D0THES-REV-030.**
+
+5. **v1 §12.8 AI capability governance may under-credit 1K.5.A narrative free-text intake three deterministic fan-outs.** Safety scan + AI extraction emitter + discrepancy detection collectively form the substrate that §12.8 capability_envelope discipline operates within. **Routed to D0THES-REV-031.**
+
+**All 5 are Tier 2 substantive feedback per Knox three-tier policy.** Documented in §8.5 below + routed to Phase G as D0THES-REV-027..031. Do NOT trigger v1 completion pass #2. v1 NOT materially misleading; just under-credits existing substrate in named places. Phase G refresh resolves by EXPLICIT cross-link from v1 sections to substrate destinations.
+
+**Threshold check (Tier 3)**: NONE of the 5 findings rise to "v1 materially misleading as F.2.2 audit lens." v1 is sharper than v0; v1 IS usable as F.2.2 audit lens; v1 under-credits existing substrate in places that get resolved by Phase G cross-link work, not v1 patching. **v1 confirmed usable.** F.2.2.A can proceed.
+
+### §8.2 Per-Artifact Audit Rows — V1-Lens Delta
+
+For each of the 6 calibration artifacts, the v1-lens delta sub-section captures what changed under v1 lens. **Original v0-lens findings in §2 are preserved verbatim.** Layered delta only.
+
+#### Row 1.v1 — Coherent OMNI Architecture Pattern (v1-lens delta)
+
+- **v1_lens_category**: STILL K2 (no category change)
+- **v1_lens_disposition_changes**: memory=preserve / authority=keep_binding / refresh=amend — all unchanged
+- **v1_specific_extensions** (amendment surface grows ~3x):
+  - §3.5 strategic pressure-test (Henry Ford / Hims / RealSelf / Cursor differentiation) → add as Coherent Pattern preamble OR new §3 differentiation context section
+  - §6.6 visible-provider deployment doctrine → add as Coherent Pattern §2.11 cross-cutting discipline
+  - §7.1-§7.2 case/problem ownership + 6-role hierarchy → integrate with Coherent Pattern §3 composition rules (case ownership composes with three-layer substrate)
+  - §7.3 care_commitment + 4-level framework → significantly extends Coherent Pattern §1 three-layer substrate; v1 adds preference + assignment + care_commitment + scoped ownership as orthogonal axes
+  - §7.4 boundary modes + 7 orthogonal concepts → add as Coherent Pattern §2.12 cross-cutting discipline + integrate §3 composition rules
+  - §7.5 artifact custody + clinical_adoption + category-level sharing → add as Coherent Pattern §2.13 cross-cutting discipline
+  - §7.6 governance plane + 3-level meta-framework → add as new Coherent Pattern §4 framing section OR §0.5 preamble
+  - §8.5 multi-actor deliberation → integrate with Coherent Pattern §3 composition rules
+  - §12.6-§12.8 + §13.6 → add to Coherent Pattern §6 pointers + §2.14-§2.16 cross-cutting disciplines
+- **v1_bidirectional_feedback**: NONE substantive. v1 adds; Coherent Pattern §2 expansion is mechanical (cross-cutting disciplines).
+- **v1_classification_evidence**:
+  - v1 §3.5 + §6.6 + §7.3-§7.6 + §13.6 all imply Coherent Pattern §2 cross-cutting discipline additions; v1 §16 explicitly mentions Coherent Pattern survival but doesn't NAME §2 as destination — addressed in Phase G refresh
+  - Coherent Pattern §1 three-layer pattern still preserves; v1 §7.3 care_commitment is orthogonal axis to three-layer substrate (not contradiction)
+  - Coherent Pattern §5 "this is NOT new doctrine" framing still holds
+- **v1_recommended_action_delta**: Phase G.2 sub-arc effort grows ~3x (from ~3-4 hr to ~10-15 hr). Add: differentiation context preamble + §2.11-§2.16 cross-cutting disciplines (5+ additions) + new §4 three-level meta-framework + §7 coherence operational test (9 properties; was planned at 8; v1 adds #9 substrate-vs-care boundary)
+- **v1_effort_estimate_delta**: ~3-4 hr → **~10-15 hr** (~3x growth)
+- **v1_phase_g_subphase_assignment_delta**: STILL G.2
+
+#### Row 2.v1 — Build OS layer model (v1-lens delta)
+
+- **v1_lens_category**: STILL K1
+- **v1_lens_disposition_changes**: all unchanged
+- **v1_specific_extensions**: Layer 1 Truth Layer artifact list expands by v1 substrate primitive destinations:
+  - DL-23 candidate (case-deliberation per §12.6)
+  - DL-24 candidate (conversational intake per §12.3)
+  - DL-25 candidate (patient-graph per §12.4 + §7.4 + §7.5)
+  - DL-26 candidate (Integration Plane per §12.5)
+  - DL-27 candidate (AI capability + model registry per §12.8)
+  - Possibly DL-28/29/30 candidates per §7.3/§7.4/§7.6 (Phase G decides which collapse into existing DLs)
+  - Reconciliation Map vN governed-stream artifact (Layer 5 Governance Cadence)
+  - Thesis vN governed-stream artifact (Layer 5)
+- **v1_bidirectional_feedback**: NONE substantive — Build OS layer model structurally orthogonal to thesis content; expanded artifact list is mechanical
+- **v1_classification_evidence**:
+  - v1 §16 explicitly preserves Build OS triplet untouched
+  - Layer 1 Truth Layer purpose unchanged
+  - 5 layer interaction rules (binding) unchanged
+- **v1_recommended_action_delta**: minor — Layer 1 artifact list grows mechanically in G.3 verification; no rewrite
+- **v1_effort_estimate_delta**: ~1 hr (unchanged)
+- **v1_phase_g_subphase_assignment_delta**: STILL G.3
+
+#### Row 3.v1 — DL-21 Federation DRAFT (v1-lens delta)
+
+- **v1_lens_category**: STILL K3
+- **v1_lens_disposition_changes**: pending_post_refresh resolves more clearly with v1's concrete primitive set
+- **v1_specific_extensions for new DL-25 patient-graph**:
+  - v1 §12.4 `care_relationship` + `shared_context_grant` (core primitives) — already in v0-lens scope
+  - v1 §7.4 boundary modes (cross_brand_same_omni / cross_legal_entity_same_omni / external_partner_network / external_nonpartner_evidence_only / emergency_break_glass operate at patient-graph scope)
+  - v1 §7.4 `care_team_graph` (per-patient-per-scope; composes with shared_context_grant for cross-org care teams)
+  - v1 §7.5 artifact custody categories (cross-org artifact sharing operates within DL-25 patient-graph scope)
+  - v1 §7.5 `clinical_adoption` (cross-org clinical_adoption decisions; Mayo onc adopts Henry Ford imaging interpretation explicit via adoption_kind enum)
+  - v1 §7.6 governance plane (cross-org governance + audit + break-glass operates as governance plane functions; DL-25 cross-references)
+- **v1_specific_extensions for DL-21 (stays tenant-boundary)**:
+  - Explicit cross-link to DL-25 patient-graph scope in DL-21 invariant 4-7 (patient_continuity_policy + federation_permeability_policy at tenant-boundary; patient-graph upstream)
+- **v1_bidirectional_feedback**: NONE substantive — DL-21 and new DL-25 work cleanly together under v1 framework; v1 doesn't under-credit DL-21 substrate
+- **v1_classification_evidence**:
+  - v1 §12.4 explicitly cross-references DL-21 federation as tenant-boundary substrate; patient-graph is upstream
+  - v1 §7.4 boundary modes 3-7 operate at patient-graph scope; explicit composition with shared_context_grant
+  - v1 §16 names DL-25 as candidate destination home
+- **v1_recommended_action_delta**: SHARPER recommendation. DL-25 spec now has 8-10 substantive primitives (care_relationship + shared_context_grant + boundary modes + care_team_graph + artifact custody categories + clinical_adoption + governance plane composition) + 3-5 operational rules + clear DL-21-vs-DL-25 boundary
+- **v1_effort_estimate_delta**: ~12-20 hr → **~15-25 hr** (~25% growth; more substrate to specify)
+- **v1_phase_g_subphase_assignment_delta**: STILL G.2
+
+#### Row 4.v1 — CNS ADR (v1-lens delta)
+
+- **v1_lens_category**: STILL K2
+- **v1_lens_disposition_changes**: all unchanged
+- **v1_specific_extensions to Phase G addendum**:
+  - §12.1 observation/extracted_assertion (already in v0-lens scope)
+  - §10 #8 ownership resolution + #9 substrate-vs-care boundary (#8 in v0-lens; #9 NEW in v1)
+  - §12.2 device/robot/external_system actor subtypes (already in v0-lens scope)
+  - §6.5 brand architecture context (light; v1 adds visible-provider deployment via §6.6)
+  - **NEW v1**: §7.3 care_commitment threshold IS CNS ADR §2.16 envelope's threshold — care_commitment is substrate-named version of authorized_action at scoped-ownership level
+  - **NEW v1**: §7.5 clinical_adoption composes with §2.17 Provider Clinical Context Packet — adoption_kind enum operationalizes "AI summarizes/proposes; deterministic validates; provider signs"
+  - **NEW v1**: §12.8 AI capability + model registry + capability_envelope (Knox substrate-vs-care boundary) — CNS ADR §2.14 AI-proposes-deterministic-validates-provider-signs sharpens with §12.8 + §10 #9
+  - **NEW v1**: §7.6 governance plane composition with CNS ADR — governance plane uses CNS decisions + audit + invariant-monitoring; CNS ADR references but governance plane is not built INTO CNS ADR
+- **v1_bidirectional_feedback** (Tier 2 substantive): **CNS ADR §2.17 Provider Clinical Context Packet IS the substrate-level operational form of v1 §7.5 clinical_adoption + §12.8 substrate-vs-care boundary.** v1 may under-credit CNS ADR substrate. **Routed to D0THES-REV-029** per Knox tier 2 policy. Do NOT patch v1.
+- **v1_classification_evidence**:
+  - CNS ADR §2.14-§2.20 all locked Round 3.5; v1 sections extend / address without contradicting
+  - v1 §7.3 care_commitment maps onto CNS ADR §2.16 authorized_action with explicit scope semantics added
+  - v1 §7.5 clinical_adoption maps onto CNS ADR §2.17 Provider Clinical Context Packet with explicit acceptance/rejection/reinterpretation semantics
+- **v1_recommended_action_delta**: Phase G addendum scope ~2-3x larger. Add: §9.3 v1 §7.3 care_commitment cross-reference + §9.4 v1 §7.5 clinical_adoption cross-reference + §9.5 v1 §12.8 AI capability cross-reference + §9.6 v1 §7.6 governance plane cross-reference (in addition to v0-lens §9.1 observation/assertion + §9.2 ownership resolution + §12.2 actor extension)
+- **v1_effort_estimate_delta**: ~2-3 hr → **~5-7 hr** (~2-3x growth)
+- **v1_phase_g_subphase_assignment_delta**: STILL G.2 (sequenced after Coherent Pattern + §1Z + 1K.5.A per dependency)
+
+#### Row 5.v1 — System map §1Z Universal CNS Event Envelope (v1-lens delta)
+
+- **v1_lens_category**: STILL K2
+- **v1_lens_disposition_changes**: all unchanged
+- **v1_specific_extensions** (sub-section count grows from 3 to 7):
+  - **v0-lens originals preserved**: §1Z.19 observation/extracted_assertion event_kinds + §1Z.20 device/robot/external_system actor_kinds + §1Z.21 coherence operational test cross-link
+  - **NEW v1**: §1Z.22 v1 §12.8 capability_envelope composes with §1Z.3 taxonomy registry (ai_model_registry is registry-of-registries pattern; capability_envelope governs per-capability per-model per-version; substrate-vs-care boundary structurally enforced via §1Z.10 AI content validation + §1Z.14 producer authorization)
+  - **NEW v1**: §1Z.23 v1 §7.4 boundary modes compose with §1Z.5 multi-tenant isolation (the 7 boundary modes ARE the operational policy envelopes for cross-tenant visibility + access; care_team_graph composes with §1Z.5 per-patient-per-scope visibility)
+  - **NEW v1**: §1Z.24 v1 §7.5 clinical_adoption as new event_kind class (clinical_adoption events distinguished from Domain event + canonical state + orchestration_action per §1Z.2; care_commitment events likewise distinguished; both compose with §1Z 7-category partition without breaking it)
+  - **NEW v1**: §1Z.25 v1 §7.6 governance plane uses §1Z audit infrastructure + tamper-evident audit chain (governance plane operates aggregate-by-default via projections over §1Z events; patient-identifiable access logged via §1Z.6 audit chain + §1Z.12 privileged-action elevated approval)
+- **v1_bidirectional_feedback** (Tier 2 substantive): **v1 §7.6 governance plane's "aggregate-by-default + patient-identifiable access only by named purpose + logged + reviewable" is OPERATIONALIZED via §1Z audit infrastructure that already exists** (tamper-evident audit chain per §1Z.6 invariant 38 + observability per §1Z.11 invariant 27 + circuit breakers + per-tenant data residency D2 admitted-deferred + reconciliation jobs invariant 39 + privileged-action elevated approval invariant 37). v1 §7.6 under-credits §1Z substrate. **Routed to D0THES-REV-030** per Knox tier 2 policy.
+- **v1_classification_evidence**:
+  - §1Z 7-category partition preserves; v1 §7.3 care_commitment is the substrate-named threshold between Domain event (pre-accountable) and authorized_action (accountable)
+  - §1Z.3 taxonomy registry IS where v1 §12.8 ai_model_registry composes
+  - §1Z.5 multi-tenant isolation invariant 8 IS where v1 §7.4 boundary modes operate
+  - §1Z.6 action authorization + audit chain IS where v1 §7.6 governance plane reads
+  - §1Z.10 AI content validation IS where v1 §12.8 substrate-vs-care boundary structurally enforces
+- **v1_recommended_action_delta**: §1Z amendments grow from 3 to 7 sub-sections (~2x growth). Add: §1Z.22 capability_envelope + §1Z.23 boundary modes + §1Z.24 clinical_adoption event_kind + §1Z.25 governance plane uses §1Z infrastructure (in addition to v0-lens §1Z.19 + §1Z.20 + §1Z.21)
+- **v1_effort_estimate_delta**: ~6-8 hr → **~12-16 hr** (~2x growth)
+- **v1_phase_g_subphase_assignment_delta**: STILL G.2
+
+#### Row 6.v1 — System map §1K.5.A Clinical concept + assertion layer (v1-lens delta)
+
+- **v1_lens_category**: STRONGER K1 finding. v1 has 4 more sections (§7.3 + §7.5 + §12.6 + §12.8) that all compose with 1K.5.A substrate at fine granularity. K2 secondary classification (naming reconciliation per Q7 absorption) preserves but now extends to multiple v1 sections.
+- **v1_lens_disposition_changes**: STILL preserve / keep_binding / amend; but amend SCOPE grows substantively
+- **v1_specific_extensions to 1K.5.A header cross-reference**:
+  - **v0-lens original preserved**: header cross-reference for v0 §12.1 observation/extracted_assertion = 1K.5.A patient_clinical_assertions naming reconciliation
+  - **NEW v1**: §7.3 care_commitment threshold IS 1K.5.A's commit boundary — patient_clinical_assertions transition from `unconfirmed` to `provider_confirmed` IS care_commitment activation event; care_commitment_event `activated` lifecycle aligned with 1K.5.A status transition
+  - **NEW v1**: §7.5 clinical_adoption composes with 1K.5.A authority precedence — adoption_kind=accept_prior_interpretation maps to inheriting prior `provider_confirmed`; adoption_kind=reject_prior_interpretation maps to new `provider_rejected` superseding; adoption_kind=reinterpret_independently maps to new `provider_assessed` ignoring prior chain. 1K.5.A `recordClinicalAssertion` API IS operational interface for clinical_adoption decisions.
+  - **NEW v1**: §12.6 case-deliberation primitives (consult_opinion) compose with 1K.5.A `authored_by=provider_assessed` + `clinical_visit_id` cross-link
+  - **NEW v1**: §12.8 AI capability + model registry + substrate-vs-care boundary IS substrate that makes 1K.5.A's narrative free-text intake fan-outs governed (Stage 1 + Stage 1.5 + AI extraction emitter all run within capability_envelope; substrate-vs-care boundary structurally enforces `authored_by=ai_suggested` per 1K.5.A schema)
+- **v1_bidirectional_feedback** (Tier 2 substantive; 3 separate findings — highest density of bidirectional feedback in calibration set):
+  1. **v1 §7.3 care_commitment threshold may under-credit 1K.5.A Stage 1.5 emit_trigger** (`gating_negative` / `all_required_answered` / `module_complete` / `session_submitted` semantics). **Routed to D0THES-REV-027.**
+  2. **v1 §7.5 clinical_adoption primitive may under-credit 1K.5.A `recordClinicalAssertion` API + `provider_assessment.assertion_action` enum** (new_diagnosis / confirmation_of_prior / rejection_of_prior / refinement_of_prior / resolution_of_prior — operational form of clinical_adoption.adoption_kind). **Routed to D0THES-REV-028.**
+  3. **v1 §12.8 AI capability governance may under-credit 1K.5.A narrative free-text intake three deterministic fan-outs** (safety scan + AI extraction emitter + discrepancy detection — capability_envelope discipline operationalized). **Routed to D0THES-REV-031.**
+- **v1_classification_evidence**:
+  - 1K.5.A `recordClinicalAssertion` API + provider_assessment context envelope schema explicitly supports new_diagnosis / confirmation_of_prior / rejection_of_prior / refinement_of_prior / resolution_of_prior — IS clinical_adoption.adoption_kind operational form
+  - 1K.5.A 9-value authored_by enum + authority_rank generated column IS substrate-level implementation of v1 §7.5 clinical_adoption + §12.8 substrate-vs-care boundary
+  - 1K.5.A Stage 1.5 multi-question assertion-builder emit_trigger IS substrate-level care_commitment threshold
+  - 1K.5.A narrative free-text intake three deterministic fan-outs IS substrate-level §12.8 capability_envelope operationalization
+- **v1_recommended_action_delta**: header cross-reference grows from 1 to 4+ cross-link notes. Add: 1K.5.A header cross-references v1 §7.3 + §7.5 + §12.6 + §12.8 (each pointing to specific 1K.5.A substrate that operationalizes them).
+- **v1_effort_estimate_delta**: ~3-4 hr → **~5-8 hr** (~2x growth)
+- **v1_phase_g_subphase_assignment_delta**: STILL G.2 (sequenced after Coherent Pattern + §1Z per dependency)
+
+### §8.3 Extended Thesis Content Gap Table — V1 Spawn + Completion-Pass Surfaces
+
+Original §3 had 7 gap rows for v0 surfaces. V1 spawn + completion pass adds 13 more gap rows for new v1 surfaces needing destination homes.
+
+| # | Content area | v0 / v1 spawn / v1 completion pass | Target doctrine home | Phase G sub-phase |
+|---|---|---|---|---|
+| 1-7 | (v0 originals; see §3) | v0 | (see §3) | (see §3) |
+| 8 | §3.5 Strategic pressure-test (Henry Ford / Hims / RealSelf / Cursor) | v1 spawn | Coherent Pattern preamble OR new §3 differentiation context section | G.2 |
+| 9 | §6.6 Visible-provider deployment doctrine | v1 spawn | Coherent Pattern §2.11 cross-cutting discipline | G.2 |
+| 10 | §7.1 Case / problem ownership layer | v1 spawn | Extend v0 §7 coordination_case + Coherent Pattern §3 composition rules | G.2 |
+| 11 | §7.2 Ownership role hierarchy (6 HUMAN-only roles) | v1 spawn | Extend DL-18 RBAC + Coherent Pattern §3 | G.2 |
+| 12 | §7.3 care_commitment + 4-level framework | v1 completion pass | NEW DL-28 candidate (or extend CNS ADR §2.16 envelope + 1K.5.A header) | G.2 |
+| 13 | §7.4 Boundary modes + care_team_graph | v1 completion pass | NEW DL-29 candidate (or extend DL-21 + DL-25) | G.2 |
+| 14 | §7.5 Artifact custody + clinical_adoption | v1 completion pass | NEW DL-30 candidate (or extend 1K.5.A + DL-22 clinical media + DL-17 commerce) | G.2 |
+| 15 | §7.6 OMNI Network Governance Plane | v1 completion pass | NEW DL or Tier 0 candidate; extend §1Z audit + DL-18 RBAC + Operating Contract governance | G.3 + G.4 |
+| 16 | §8.5 Multi-actor deliberation as care mode | v1 spawn | Extend Coherent Pattern §3 composition rules + DL-20 care_coordination | G.2 |
+| 17 | §12.6 Case-deliberation primitives | v1 spawn | NEW DL-23 candidate (case_question + evidence_bundle + consult_opinion + dissent_state + recommendation_packet + decision_owner) | G.2 |
+| 18 | §12.7 Duplicate-therapy guardrail | v1 spawn | Extend 1K.5.A + DL-17 commerce + scheduling rule matrix | G.2 |
+| 19 | §12.8 AI capability + model registry + substrate-vs-care boundary | v1 spawn | NEW DL-27 candidate; extend CNS ADR §2.15 + 1K.5.A narrative fan-outs | G.2 |
+| 20 | §13.6 Anti-realself rule | v1 spawn | Coherent Pattern §2.16 cross-cutting discipline + business engine §13.5 | G.2 |
+
+**Total Thesis Content Gap rows: 20** (was 7 in v0-lens calibration; +13 added under v1-lens refresh).
+
+### §8.4 Aggregate Metrics — V1-Lens Refresh
+
+**Knox category distribution under v1 lens**: NO CHANGES from v0-lens
+- K1: 1 (Build OS) | K2: 3 (Coherent Pattern, CNS ADR, §1Z) | K3: 1 (DL-21) | K1+K2 hybrid: 1 (1K.5.A — now STRONGER K1 finding) | K4: 0 | K6: 0 | K7: 0 | K8: 0
+
+**Memory disposition distribution**: NO CHANGES (5 preserve + 1 preserve_with_extracted_pointer)
+**Authority disposition distribution**: NO CHANGES (5 keep_binding + 1 pending_post_refresh)
+**Refresh action distribution**: NO CHANGES at row level (1 none + 1 partially_refresh + 4 amend); but refresh action SCOPE grew per row (~2-3x amendment surface)
+**Confidence distribution**: NO CHANGES at row level (4 high + 2 medium); HIGHER overall confidence in calibration foundation because v1-lens didn't surface any K-category changes
+
+**Estimated effort distribution (revised under v1 lens)**:
+- S (small; ~1 hr): 1 row (Build OS — unchanged)
+- M (medium; ~5-8 hr): 1 row (1K.5.A — was ~3-4 hr; v1-lens ~5-8 hr)
+- L (large; ~10-15 hr): 2 rows (Coherent Pattern was ~3-4 hr → ~10-15 hr; CNS ADR was ~2-3 hr → ~5-7 hr is M; §1Z was ~6-8 hr → ~12-16 hr is L)
+- XL (extra-large; ~15-25 hr): 1 row (DL-21 was ~12-20 hr → ~15-25 hr)
+- (CNS ADR is M; counted separately)
+
+**Total Phase G.2 + G.3 effort for these 6 artifacts at v1-lens**:
+- v0-lens estimate: ~27-40 hours
+- v1-lens estimate: **~50-75 hours** (~1.5-2x growth due to expanded amendment scope per artifact)
+
+**Extrapolated total F.2.2 audit scope (~30-40 artifacts) at v1-lens**: ~200-350 hours = **5-9 weeks of focused work** (was 3-7 weeks at v0-lens estimate).
+
+### §8.5 Bidirectional Thesis Feedback — Tier 2 Findings (Routed; Not Patching v1)
+
+Per Knox three-tier policy, the following Tier 2 substantive bidirectional feedback findings are documented + routed to Phase G or v2 decision. **DO NOT patch v1 mid-audit.** If a finding rises to Tier 3 (v1 materially misleading), stop + ask Nick + Knox. None did.
+
+| Finding | v1 section | Existing substrate under-credited | Route | Open Review Queue Row |
+|---|---|---|---|---|
+| 1 | §7.3 care_commitment threshold | 1K.5.A Stage 1.5 multi-question assertion-builder emit_trigger (`gating_negative` / `all_required_answered` / `module_complete` / `session_submitted`) | Phase G refresh: cross-link v1 §7.3 to 1K.5.A Stage 1.5 | D0THES-REV-027 |
+| 2 | §7.5 clinical_adoption | 1K.5.A `recordClinicalAssertion` API + `provider_assessment.assertion_action` enum (new_diagnosis / confirmation_of_prior / rejection_of_prior / refinement_of_prior / resolution_of_prior) | Phase G refresh: cross-link v1 §7.5 to 1K.5.A recordClinicalAssertion + assertion_action enum | D0THES-REV-028 |
+| 3 | §7.5 clinical_adoption | CNS ADR §2.17 Provider Clinical Context Packet doctrine (AI summarizes/proposes; deterministic validates+flags+blocks; provider signs) | Phase G refresh: CNS ADR addendum §9 cross-link v1 §7.5 to §2.17 | D0THES-REV-029 |
+| 4 | §7.6 OMNI Network Governance Plane | §1Z audit infrastructure (tamper-evident audit chain §1Z.6 invariant 38 + operational observability §1Z.11 invariant 27 + circuit breakers + reconciliation jobs invariant 39 + privileged-action elevated approval invariant 37) | Phase G refresh: §1Z amendment §1Z.25 cross-link v1 §7.6 to §1Z audit infrastructure | D0THES-REV-030 |
+| 5 | §12.8 AI capability governance | 1K.5.A narrative free-text intake three deterministic fan-outs (safety scan + AI extraction emitter + discrepancy detection) | Phase G refresh: 1K.5.A header cross-link v1 §12.8 to narrative fan-outs | D0THES-REV-031 |
+
+**Pattern**: all 5 findings follow the Q7 pattern from F.2.0 (thesis names what substrate already does). Phase G refresh resolves by EXPLICIT cross-link from v1 sections to substrate destinations. **No v1 patching required.**
+
+**Tier 3 threshold check**: NONE of the 5 findings rise to "v1 materially misleading as F.2.2 audit lens." v1 sections are sharper than v0; v1 sections under-credit existing substrate in named places that Phase G cross-link work resolves. v1 IS usable as F.2.2 audit lens. **F.2.2.A can proceed.**
+
+### §8.6 Refined Phase G Sequencing Recommendation — V1-Lens
+
+Same sequence as v0-lens but EFFORTS revised + 5 Tier 2 findings added to Phase G work queue:
+
+1. **Coherent Pattern §7 + §2.11-§2.16 cross-cutting disciplines expansion** (~10-15 hr; was 3-4 hr at v0-lens; foundational; sequenced first within G.2)
+2. **F.3 decisions** (Nick + Knox):
+   - D0THES-REV-009 DL-21 vs new DL-25 split — RECOMMENDATION (sharper at v1 lens): new DL-25 with concrete §7.4 + §12.4 + §7.5 + §7.6 primitives; DL-21 stays as tenant-boundary
+   - D0THES-REV-010 observation/assertion naming — DIRECTIONALLY RESOLVED by v1 §12.1 refinement
+   - D0THES-REV-011 ownership primitive scope — REFINED by v1 §7.2 + §7.3; consulting_provider role + 6-role hierarchy locked
+   - D0THES-REV-012 brand contract minimums — REFINED by v1 §6.5 + §6.6 + §7.5 + §7.6
+3. **Post-F.3 parallel sub-arcs (v1-lens scope grows ~1.5-2x per artifact)**:
+   - §1Z amendments (~12-16 hr; was 6-8 hr) — 4 new sub-sections (§1Z.19-§1Z.21 v0-lens + §1Z.22-§1Z.25 v1-lens) + bidirectional cross-link to v1 §7.6
+   - DL-21 + new DL-25 (~15-25 hr; was 12-20 hr) — sharper recommendation with §7.4/§7.5/§7.6 primitives
+   - 1K.5.A amendment (~5-8 hr; was 3-4 hr) — 4 cross-link notes for §7.3/§7.5/§12.6/§12.8 + 3 bidirectional Tier 2 finding resolutions
+   - DL-16 amendment 43 actor_kinds extension + new DL-23/DL-25/DL-26/DL-27/DL-28/DL-29/DL-30 candidates per Phase G consolidation decision
+4. **CNS ADR §9 addendum** (~5-7 hr; was 2-3 hr) — sequenced after Coherent Pattern + §1Z + 1K.5.A; covers §9.1-§9.6 (v0-lens §9.1-§9.3 + v1-lens §9.4-§9.6 for care_commitment/clinical_adoption/governance plane composition)
+5. **Build OS layer model G.3 verification** (~1 hr; unchanged) — Layer 1 Truth Layer artifact list updated with v1 DL candidates
+
+**Total estimated F.2.2 effort for these 6 artifacts at v1-lens**: ~50-75 hours.
+**Total estimated F.2.2 audit scope (~30-40 artifacts) at v1-lens**: ~200-350 hours = **5-9 weeks of focused work**.
+
+### §8.7 V1-Lens Refresh Self-Assessment
+
+**All 6 calibration rows STABLE under v1 lens**:
+- 0 K-category changes (still 1 K1 + 3 K2 + 1 K3 + 1 K1+K2 hybrid)
+- 0 memory disposition changes
+- 0 authority disposition changes
+- 0 refresh_action changes at row level
+- 6 amendment SCOPE growths per row (~2-3x larger amendment surface; effort estimates ~1.5-2x larger)
+- 0 confidence changes at row level
+
+**5 Tier 2 substantive bidirectional feedback findings** (Q7 pattern; thesis names what substrate already does):
+- 3 findings on §1K.5.A (high density; §7.3 + §7.5 + §12.8 all under-credit existing 1K.5.A substrate at different granularity)
+- 1 finding on CNS ADR §2.17 (§7.5 under-credits)
+- 1 finding on §1Z audit infrastructure (§7.6 under-credits)
+- ALL 5 routed to Phase G via D0THES-REV-027..031
+- 0 v1 patching triggered (Knox three-tier policy: substantive feedback ≠ v1 patch; route to Phase G or v2)
+
+**0 Tier 1 mechanical errata**: v1 confirmed mechanically clean post the T0-10 alignment fix Knox caught pre-commit at `d3d303d`. Re-checked at refresh: no broken cross-references, no wrong candidate counts, no inconsistent status language.
+
+**0 Tier 3 materially-misleading findings**: v1 is sharper than v0; v1 is usable as F.2.2 audit lens; under-credits resolve at Phase G cross-link work. **v1 IS the operative audit lens for F.2.2.**
+
+**Confidence in calibration foundation under v1 lens**: HIGH (v1-lens refresh confirmed v0-lens findings + added depth; bidirectional findings strengthen rather than weaken the audit method)
+
+**Method validation**: refresh approach (preserve historical layer + layer v1-lens delta) worked cleanly. Schema integrity preserved. Knox three-tier policy held throughout. The "delta-led full refresh" structure produced more efficient analysis than fresh re-audit while surfacing more bidirectional feedback than the original calibration.
+
+**F.2.2.A staged batch can proceed against refreshed v1 lens foundation with HIGH confidence.** Audit picks unchanged. Lens swap is the operative change. F.2.2.A begins with Charter + Protocol + Control Plane + AGENTS + system map §1F + §1G against v1-lens-refreshed foundation.
+
+**Operating Contract §17 lifecycle state**: stays `F.2.2 in progress` (refresh is additive within F.2.2 staged-batch phase per §17 append rules). F.2.0.v1 refresh completion = pre-F.2.2.A inter-batch checkpoint. F.2.2.A begins next.
+
+---
+
 ## §17 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
 
 Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contract Rule), this Reconciliation Map vN stream requires an Operating Contract at creation. This §17 IS that contract. Applies to v1 (this artifact) and inherits to v2, v3, ... unless explicitly amended.
@@ -970,3 +1291,22 @@ Operating Contract §17 governs lifecycle from F.2.0 → F.2.1 → F.2.2 → F.3
 If F.2.1 surfaces schema problems or scope problems, v1 calibration may be re-run as v1.1 (in-place refinement) before F.2.2 begins. If F.2.1 requires fundamentally different approach, v2 (new file) spawns.
 
 Next agent: this artifact is the F.2.0 calibration output. Wait for F.2.1 (Nick + Knox calibration review) approval before any F.2.2 audit work proceeds. v1 status: `F.2.0 calibration; pending F.2.1`.
+
+---
+
+### F.2.0.v1 Calibration Refresh entry (2026-05-25 same-day)
+
+Post v1 spawn + completion pass (commit `d3d303d`), Nick + Knox initiated F.2.0.v1 calibration refresh to re-audit the same 6 artifacts against v1 lens (v1 added 13 new sections including §3.5 + §6.6 + §7.1-§7.6 + §8.5 + §12.6-§12.8 + §13.6 that didn't exist when F.2.0 calibration ran against v0 lens).
+
+**Refresh scope** (locked from plan approval): full re-audit of same 6 artifacts against v1 lens; preserve v0-lens findings as historical layer (§§0-7); layer v1-lens findings (§8); per Knox three-tier policy (mechanical errata = fix; substantive feedback = document + route to Phase G or v2; materially misleading = stop + ask).
+
+**Refresh outcome**:
+- 0 Tier 1 mechanical errata
+- 5 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-027..031; v1 NOT patched per Knox policy)
+- 0 Tier 3 materially-misleading findings
+- All 6 calibration rows STABLE under v1 lens (0 K-category changes; 0 disposition changes; amendment SCOPE grew ~1.5-2x per row)
+- v1 CONFIRMED usable as F.2.2 audit lens
+
+**Operational state**: F.2.0.v1 refresh complete; F.2.2.A staged batch begins next against refreshed v1 lens foundation.
+
+If F.2.2 batches surface schema problems, refresh may re-run as v1.1 (in-place); otherwise this volume grows through F.2.2 per Operating Contract §17 append rules. v2 (new file) spawns only if Phase G refresh materially changes the operational role of the Reconciliation Map vN stream.

@@ -788,3 +788,56 @@ Continued same-day pressure-test between Nick + Knox + Opus 2026-05-25 (immediat
 **Next action**: Phase F.2.2.A begins (coordination spine + scheduling/messaging UI cruft test) against **v1 lens (including completion-pass additions)**. Audit picks unchanged from pre-completion-pass: Charter + Protocol + Control Plane + AGENTS + system map §1F scheduling UI + system map §1G messaging UI. Lens swap is the operative change. Pre-batch structural scan of §1F + §1G section line ranges. F.2.2.D batch will exercise v1 §12.8 AI capability governance + §7.5 clinical_adoption against 1K.5.A three-fan-out narrative pipeline + AI extraction emitter. F.2.2.E batch will exercise §7.4 boundary modes + §7.5 artifact custody + §7.6 governance plane against communications topology + AI Governance Policy + scheduling rule matrix.
 
 Next agent reading this handoff: Phase v1 spawn cycle + completion pass BOTH complete; F.2.2.A is the operative next phase against v1 lens (including §7.3-§7.6 completion-pass additions). v1 (`omni_thesis_v1_2026-05-25.md`) is current canonical directional thesis with completion-pass content; v0 preserved as historical reference. Cite v1 for current directional thesis claims. F.2.2 batches operate against v1 lens (with completion pass absorbed). 26 D0THES-REV-001..026 rows in open review queue.
+
+---
+
+## Closure Addendum Extension #11 (2026-05-25 same-day) — F.2.0.v1 Calibration Refresh complete
+
+Same-day post-v1-spawn refresh of the F.2.0 calibration against v1 lens per `D0THES-DEC-004`. Nick + Knox initiated the refresh after recognizing that F.2.0 calibration ran against v0 lens but v1 added 13 new sections (§3.5 + §6.6 + §7.1-§7.6 + §8.5 + §12.6-§12.8 + §13.6) — F.2.2.A queue should not inherit v0-lens drift. Per Nick: *"rocket can miss the target. what was the point of doing major thesis overhaul if not to use it."* Per Knox three-tier policy refinement: refresh per Knox discipline (mechanical errata = fix; substantive feedback = document + route to Phase G or v2; materially misleading = stop + ask).
+
+**Refresh scope**: full re-audit of same 6 calibration artifacts against v1 lens (preserve v0-lens findings as historical layer §§0-7; layer v1-lens findings §8). No expansion of calibration set. Knox three-tier policy enforced throughout.
+
+**Refresh outcome**:
+
+- **0 Tier 1 mechanical errata** (v1 confirmed mechanically clean post the T0-10 alignment fix Knox caught pre-commit at `d3d303d`)
+- **5 Tier 2 substantive bidirectional findings** (Q7 pattern; thesis names what substrate already does):
+  1. v1 §7.3 care_commitment threshold may under-credit 1K.5.A Stage 1.5 emit_trigger → `D0THES-REV-027`
+  2. v1 §7.5 clinical_adoption may under-credit 1K.5.A `recordClinicalAssertion` + `provider_assessment.assertion_action` enum → `D0THES-REV-028`
+  3. v1 §7.5 clinical_adoption may under-credit CNS ADR §2.17 Provider Clinical Context Packet → `D0THES-REV-029`
+  4. v1 §7.6 governance plane may under-credit §1Z audit infrastructure → `D0THES-REV-030`
+  5. v1 §12.8 AI capability governance may under-credit 1K.5.A narrative free-text intake three deterministic fan-outs → `D0THES-REV-031`
+- All 5 routed to Phase G cross-link work per Knox three-tier policy. **v1 NOT patched.**
+- **0 Tier 3 materially-misleading findings**: v1 confirmed usable as F.2.2 audit lens
+- All 6 calibration rows STABLE under v1 lens (0 K-category changes; 0 disposition changes; amendment SCOPE grew ~1.5-2x per row)
+- Total estimated F.2.2 effort for these 6 artifacts: ~50-75 hr (was ~27-40 hr at v0-lens)
+- Total estimated F.2.2 audit scope (~30-40 artifacts): ~200-350 hr / **5-9 weeks** (was 3-7 weeks at v0-lens estimate)
+
+**Strategic finding**: The Q7 bidirectional feedback pattern (thesis names what substrate already does) repeats systematically — F.2.0 found 1 instance (v0 §12.1 vs 1K.5.A); F.2.0.v1 found 5 more. This is NOT a problem; it's the audit method working. v1 + completion pass are doctrine-level articulations; existing OMNI substrate (1K.5.A, CNS ADR, §1Z, etc.) operationalizes them. Phase G refresh resolves by EXPLICIT cross-link from v1 sections to substrate destinations.
+
+**Strongest signal**: The substrate is even healthier than F.2.0 calibration revealed. Multiple v1 sections compose with existing 1K.5.A + §1Z + CNS ADR substrate at fine granularity. v1 IS the doctrine-level articulation we needed; existing OMNI substrate IS the operational implementation.
+
+### Tier 2 stop report (Protocol §9) — F.2.0.v1 Calibration Refresh closure
+
+- `tier`: 2 (work-package completion; F.2.0.v1 refresh is sub-arc within Phase F.2 of OMNI Doctrine Refresh Arc; pre-F.2.2.A inter-batch checkpoint)
+- `objective_markers`: Reconciliation Map v1 §8 added (~600+ lines: §8.1 v1-lens master verdict + §8.2 per-row v1-lens deltas for 6 rows + §8.3 extended thesis gap table 7→20 rows + §8.4 v1-lens aggregate metrics + §8.5 5 Tier 2 bidirectional findings documented + §8.6 refined Phase G sequencing + §8.7 v1-lens refresh self-assessment); §0 status posture updated to F.2.0.v1 refresh complete; §22 calibration version log entry added; 5 new D0THES-REV-027..031 rows added; D0THES-DEC-004 decision ledger row added; charter Open Debt updated to 31 D0THES-REV rows enumerated; catalog Reconciliation Map row notes updated; read-graph v1 entry #5 notes updated; this handoff Extension #11 added
+- `default_up_rule_applied`: not invoked
+- `work_summary`: F.2.0.v1 calibration refresh executed same-day post v1 spawn + completion pass commit `d3d303d`. Same 6 calibration artifacts re-audited against v1 lens. v0-lens findings preserved as historical layer; v1-lens findings layered as new §8. Per Knox three-tier policy: 0 Tier 1 errata; 5 Tier 2 substantive bidirectional findings routed to Phase G (v1 NOT patched); 0 Tier 3 materially-misleading. v1 confirmed usable as F.2.2 audit lens. Refresh confirmed all 6 calibration rows STABLE under v1 lens with no K-category or disposition changes; amendment SCOPE grew ~1.5-2x per row due to v1 expanded substrate articulation. F.2.2.A can proceed against refreshed v1 lens foundation with HIGH confidence.
+- `canonical_updates`:
+  - `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` — §8 added (~600+ lines: v1-lens layered analysis); §0 + §22 updated
+  - `.cursor/plans/doctrine/08_open_review_queue.md` — D0THES-REV-027..031 rows added (5 new Tier 2 findings)
+  - `.cursor/plans/doctrine/03_decision_extraction_ledger.md` — D0THES-DEC-004 row added
+  - `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt — F.2.0.v1 refresh recorded; 31 D0THES-REV rows enumerated
+  - `.cursor/plans/doctrine/01_master_corpus_catalog.md` — Reconciliation Map v1 row notes updated
+  - `.cursor/plans/doctrine/04_manifest_read_graph.md` — v1 entry #5 (Reconciliation Map) notes updated
+  - This handoff — Closure Addendum Extension #11 added
+- `prior_narratives_consulted`: Closure Addendum Extension #10.1 (v1 completion pass) + Nick's "rocket can miss the target" framing + Knox three-tier policy refinement transcript 2026-05-25
+- `guardrail_rows_extracted`: candidate D0THES-GRD-011 thesis-may-under-credit-existing-substrate (Q7 pattern repeats systematically; evaluated for promotion at F.2.2 closure) + candidate D0THES-GRD-012 knox-three-tier-policy-prevents-endless-re-aiming (audit discipline; evaluated for promotion at F.2.2 closure) — neither promoted yet
+- `governed_stream_artifact_touched`: `omni_doctrine_reconciliation_map_v1` (§8 layered analysis added per Operating Contract §17 append rules; lifecycle remains `F.2.2 in progress`)
+- `version_state`: Reconciliation Map v1 `F.2.0.v1 refresh complete; F.2.2 in progress` (calibration marker stays removed; lifecycle state advances)
+- `operating_contract_applied`: §17 of v1 (inheriting from v0; v1 governed-stream artifact; F.2.0.v1 refresh is additive within F.2.2 staged-batch phase per §17 append rules)
+- `knox_three_tier_policy_applied`: yes — 0 Tier 1 errata; 5 Tier 2 routed; 0 Tier 3 materially-misleading
+- `non_loss_check`: v0-lens calibration findings preserved verbatim in Reconciliation Map v1 §§0-7 (historical layer); v1-lens findings layered as §8 (additive, not replacing); 5 Tier 2 bidirectional findings preserved as D0THES-REV-027..031 with full schema (route to Phase G; v1 NOT patched per Knox policy); v1 substrate primitives preserved (3 new from completion pass: care_commitment + care_team_graph + clinical_adoption); 6 calibration row classifications + dispositions + valid_decisions_to_preserve all unchanged under v1 lens; refresh is audit OUTPUT, not v1 mutation; Knox three-tier policy enforced throughout (substantive feedback ≠ v1 patch; route to Phase G or v2).
+
+**Next action**: Phase F.2.2.A staged batch begins against refreshed v1 lens foundation. Audit picks unchanged: Charter + Protocol + Control Plane + AGENTS.md + system map §1F scheduling UI + system map §1G messaging UI. Lens swap is the operative change (v0 → v1 + completion pass + refresh-confirmed). Pre-batch structural scan of §1F + §1G section line ranges. Per-batch closure discipline applies (executive verdict + self-assessment + checkpoint commit + Tier 2 stop report + handoff Extension #12).
+
+Next agent reading this handoff: F.2.0.v1 calibration refresh complete (post v1 spawn + completion pass commit `d3d303d`). F.2.2.A is the operative next phase against refreshed v1 lens. Reconciliation Map v1 §8 has full v1-lens layered analysis with 5 Tier 2 bidirectional findings routed to Phase G via D0THES-REV-027..031. v1 NOT patched mid-audit per Knox three-tier policy. 31 D0THES-REV-001..031 rows in open review queue (was 26 pre-refresh). F.2.2 batches operate against refreshed v1 lens; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules. Cite v1 for current directional thesis claims; cite canonical destinations for binding doctrine claims after Phase G lands them.
