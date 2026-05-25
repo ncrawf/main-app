@@ -1,15 +1,15 @@
 # OMNI Thesis v0
 
 Document type: `doctrine` (candidate; currently evidence-routed; non-binding)
-Authority: `derived_nonbinding` (evidence-routed thesis crystallization; non-binding until Phase F adoption)
-Status: `active` (v0, open for further pressure-test)
+Authority: `derived_nonbinding` (evidence-routed thesis crystallization; directionally adopted in Phase F.1 2026-05-25 per `D0THES-DEC-001`; binding per-primitive canonical authority remains pending Phase G refresh placement into canonical doctrine homes)
+Status: `active_adopted_directional` (v0 adopted as directional center-of-gravity thesis 2026-05-25 Phase F.1 of OMNI Doctrine Refresh Arc per `D0THES-DEC-001`; canonical doctrine remains pending Phase G refresh; v0 informs all subsequent doctrine work, product translation, existing-build reconciliation; detailed per-primitive binding authority remains at canonical doctrine homes per v0 §16)
 Domain(s): `architecture_governance`, `substrate_thesis`, `cross_cutting`
 Lifecycle role: `workbench_scaffold` (thesis crystallization; pre-doctrine)
-Source-of-truth relationship: crystallized output of the 2026-05-23 → 2026-05-24 OMNI thesis pressure-test arc between Opus (Cursor agent) and Knox (third-party AI reviewer via Nick relay). Non-binding until Phase F decision gate adopts.
+Source-of-truth relationship: crystallized output of the 2026-05-23 → 2026-05-24 OMNI thesis pressure-test arc between Opus (Cursor agent) and Knox (third-party AI reviewer via Nick relay). Directionally adopted in Phase F.1 2026-05-25 per `D0THES-DEC-001`; binding per-primitive canonical authority remains pending Phase G refresh.
 Supersedes: ad-hoc thesis discussion in chat. The Knox-Nick conversational transcript is the source evidence; formal `07_evidence_ingestion_ledger.md` row will land when that ledger lands on main (deferred per `HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md`).
-Superseded by: `omni_thesis_v1` when produced; ultimately by adopted doctrine if Phase F adopts.
+Superseded by: `omni_thesis_v1` when produced; ultimately by per-primitive canonical doctrine landed at canonical homes during Phase G refresh.
 Manifest action: `add_tier2`
-Review gate: `user_knox_required` (Phase F adoption gate)
+Review gate: `user_knox_required` (Phase F.1 directional adoption complete 2026-05-25 per `D0THES-DEC-001`; Phase F.2 structured audit + F.3 Reconciliation Map review gate + Phase G per-primitive canonical landing remain pending)
 
 agent_read_rule: `consult_if_routed`
 
@@ -26,7 +26,7 @@ This is **evidence-routed thesis crystallization, not binding doctrine.**
 
 This thesis does NOT replace any current binding doctrine in OMNI. The Tier 0 guardrails T0-01..T0-07, the Coherent OMNI Architecture Pattern, DL-1..DL-22, the CNS ADR, the system map, and the OMNI Build OS layer model / rollout sequence / Build Entry Gate v0 remain authoritative. This thesis identifies how those binding artifacts already align with the thesis and what surgical additive doctrine work would be needed to crystallize it formally.
 
-If a Phase F decision gate adopts this thesis, a separate Tier 4 doctrine reconciliation arc (per [`.cursor/plans/doctrine/agent_work_protocol.md`](.cursor/plans/doctrine/agent_work_protocol.md) §8) lands the additive changes into the canonical destinations. Until then, this artifact is companion evidence.
+Phase F.1 has directionally adopted this thesis (2026-05-25 per `D0THES-DEC-001` in [`.cursor/plans/doctrine/03_decision_extraction_ledger.md`](.cursor/plans/doctrine/03_decision_extraction_ledger.md)). Phase G refresh (Tier 4 doctrine reconciliation arc per [`.cursor/plans/doctrine/agent_work_protocol.md`](.cursor/plans/doctrine/agent_work_protocol.md) §8) lands per-primitive canonical doctrine changes into canonical destinations. Until Phase G lands them, this artifact remains directional companion evidence — informs all subsequent doctrine work + product translation + existing-build reconciliation, but is NOT binding canonical doctrine for per-primitive claims.
 
 When this thesis is cited, cite canonical destinations for binding claims — not this file.
 
@@ -702,7 +702,7 @@ Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contrac
 
 ### Purpose / Scope
 
-The thesis stream crystallizes the OMNI thesis at successive milestones during the pressure-test arc. Each version is the current best statement of the organism, **non-binding until Phase F decision gate adopts**. The stream exists to:
+The thesis stream crystallizes the OMNI thesis at successive milestones during the pressure-test arc. Each version is the current best statement of the organism. **v0 directionally adopted in Phase F.1 2026-05-25 per `D0THES-DEC-001`; binding per-primitive canonical authority remains pending Phase G refresh landing into canonical doctrine homes.** The stream exists to:
 
 - Preserve full-fidelity thesis statements with their pressure-test history
 - Surface architectural decisions and open questions for round-by-round refinement
@@ -742,25 +742,26 @@ Each thesis version is a separate file at `.cursor/plans/omni_thesis_vN_YYYY-MM-
 
 ### Lifecycle States
 
-- `active`: this version is the current best statement; open for further pressure-test
+- `active`: this version is the current best statement; open for further pressure-test; not yet adopted
+- `active_adopted_directional`: Phase F.1 has directionally adopted this version; v0 informs all subsequent doctrine work + product translation + existing-build reconciliation, but is NOT yet binding canonical doctrine for per-primitive claims (per-primitive binding lands at Phase G canonical placement)
 - `superseded`: a later vN+1 has materially refined this version; this file preserved as historical
-- `adopted_subset`: Phase F adopted portions of this version; binding doctrine routed to canonical destinations
-- `rejected`: Phase F or operator rejected this version; archived
+- `canonicalized_per_primitive`: Phase G refresh has landed per-primitive canonical doctrine at canonical homes (T0-* guardrails, Coherent OMNI Architecture Pattern, DL-1..DL-22, CNS ADR, system map, Build OS per v0 §16); v0 becomes historical-reference for the directional thesis; binding authority moves to canonical homes
+- `rejected`: Phase F operator/Knox rejected this version; archived
 - `archived`: no longer authoritative; preserved for history
 
 ### Append / Update / Close Rules
 
 - Each vN is **immutable once superseded.** Refinements land as vN+1, not in-place edits to vN.
-- Minor corrections to vN (typos, formatting, broken links) may be made in-place while vN is `active`.
-- **Active-status substantive completion passes from same-arc pressure-test feedback may be added in-place to vN while vN is `active`.** A completion pass is an additive extension that fills omissions identified by reviewers (Knox / Nick) within the same crystallization arc as vN's initial production. Completion passes must be documented in the Amendment Log (§22). Substantive structural changes (replacing or contradicting prior sections rather than extending them) require a vN+1.
-- Substantive structural changes after vN leaves `active` status require a vN+1.
-- Status field updates (active → superseded → adopted_subset / rejected / archived) are appended via `Supersession Note:` block at the bottom of the file.
+- Minor corrections to vN (typos, formatting, broken links) may be made in-place while vN is `active` or `active_adopted_directional`.
+- **Active-status substantive completion passes from same-arc pressure-test feedback may be added in-place to vN while vN is `active` or `active_adopted_directional`.** A completion pass is an additive extension that fills omissions identified by reviewers (Knox / Nick) within the same crystallization arc as vN's initial production OR lifecycle-consistency cleanups that align stale pre-adoption language with current adoption status. Completion passes must be documented in the Amendment Log (§22). Substantive structural changes (replacing or contradicting prior sections rather than extending them) require a vN+1.
+- Substantive structural changes after vN leaves active status (i.e., once status reaches `superseded` / `canonicalized_per_primitive` / `rejected` / `archived`) require a vN+1.
+- Status field updates (`active` → `active_adopted_directional` → `canonicalized_per_primitive` / `superseded` / `rejected` / `archived`) are appended via `Supersession Note:` block at the bottom of the file.
 
 ### Authority Boundary
 
 This artifact is `evidence_nonbinding`. It cannot be cited as binding authority for any doctrine, system map, DL, Tier 0 guardrail, Charter, Protocol, Control Plane, or Build OS claim. Citations must route to canonical destinations.
 
-The thesis is **operator-and-Knox** review-gated for adoption. Adoption can only happen at Phase F decision gate.
+The thesis is **operator-and-Knox** review-gated for adoption. Directional adoption happens at Phase F.1 (already executed for v0 on 2026-05-25 per `D0THES-DEC-001`). Binding per-primitive canonical adoption happens at Phase G refresh per-primitive landing into canonical doctrine homes; Phase F.3 review gate (Nick + Knox approves Reconciliation Map produced by F.2 structured audit) precedes Phase G execution.
 
 ### Catalog / Read-Graph Impact
 
@@ -816,7 +817,7 @@ It is:
 
 The thesis survives contact with hard pressure: legal / topology / authority / product / identity / audit / primitive / operational. It does not collapse into AI-healthcare-vague-dreams. It does not collapse into telehealth-SaaS-with-integrations. It becomes sharper.
 
-**Recommendation**: continue pressure-testing through one or two more rounds against §15 unresolved questions, then either land v1 or move to Phase F decision gate. Phase G doctrine reconciliation is a separate Tier 4 work arc that begins only if adoption.
+**Recommendation**: Phase F.1 directional adoption completed 2026-05-25 per `D0THES-DEC-001`. Proceed to Phase F.2 Structured Audit Pass (multi-day audit producing Reconciliation Map with Executive Audit Verdict + per-artifact rows with Knox-category analysis + Thesis Content Gap Table + aggregate metrics + conflict ledger seeds + Phase G sequencing recommendation). Phase F.3 review gate (Nick + Knox approves Reconciliation Map) before Phase G refresh executes. Phase G is the separate Tier 4 work arc that lands per-primitive canonical doctrine at canonical homes (T0-* guardrails, Coherent OMNI Architecture Pattern, DL-1..DL-22, CNS ADR, system map, Build OS per v0 §16).
 
 Standing by.
 
@@ -860,3 +861,44 @@ Additions in this completion pass (2026-05-24 ~01:50 ET):
 **Stop report fields**: handoff updated to reflect the completion pass; catalog row for v0 updated to reflect §22 amendment; founder-version artifact registered separately in catalog + read-graph.
 
 If further substantive structural changes are needed after this completion pass, they land as v1.
+
+---
+
+### Phase F.1 Adoption Note (2026-05-25)
+
+Per `D0THES-DEC-001` in `.cursor/plans/doctrine/03_decision_extraction_ledger.md`, v0 has been **adopted as the directional center-of-gravity thesis** for OMNI in Phase F.1 of the OMNI Doctrine Refresh Arc (plan at `~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md`).
+
+**Status transition**: `active` → `active_adopted_directional` (passport updated 2026-05-25).
+
+**Adoption scope** (what is adopted — all as directional, NOT as binding canonical doctrine; status is `active_adopted_directional`; binding per-primitive authority remains pending Phase G refresh):
+- v0 as the directional thesis for OMNI's center of gravity
+- Substrate-vs-product plane discipline (§3) as directional methodology for the refresh arc
+- Designed family of topologies (§4) as the directional topology bet, mutable by explicit doctrine pass
+- Async-protocolized + in-person-procedural wedge framing (§5) as directional wedge pattern
+- The 5 surgical substrate additions (§12) as the directional additive doctrine commitments to be evaluated and landed at canonical homes in Phase G.2
+- The 8-property coherence operational test (§10) as the directional feature-coherence rubric
+- The 4-tier identity/consent/authority ladder (§11) as the directional sizing framework for v0 → v1 → v2 → v3
+- The universal CNS flow (§8) as the directional flow physics
+- AI as bounded participant doctrine (§9) + three rejected paradigms — directional
+- The learning loop capability doctrine (§9.5) + anti-data-sale boundary — directional
+- Consumer promise (§1.5) + brand architecture (§6.5) + dragon egg (§6.1) + business engine (§13.5) + substrate hooks for deferred surfaces (§14.5) — directional
+
+**Important boundary**: "directional" means *adopted as guiding direction for the refresh arc and all subsequent doctrine work + product translation + existing-build reconciliation*. It does NOT mean binding canonical doctrine. Each item above must survive Phase G refresh (per-primitive thesis-alignment audit + landing at canonical home) before becoming binding for that primitive. Preserve-by-default for memory; authority-by-proof.
+
+**Adoption boundary** (what is NOT yet binding canonical doctrine):
+- Per-primitive canonical homes — Phase G refresh proves per-primitive thesis-alignment + lands new/refreshed DLs/Tier 0 candidates at canonical homes (T0-* guardrails, Coherent OMNI Architecture Pattern, DL-1..DL-22, CNS ADR, system map, Build OS)
+- The 13 unresolved questions §15.a-m — each landed as an open review queue row (`D0THES-REV-001..013`) with explicit closure conditions per Queue Governance Lock
+- Detailed implementation scope per primitive — Phase G sub-arcs decide v0-vs-v1 timing per primitive
+
+**Adoption operates under**: *preserve-by-default for memory; authority-by-proof.* Memory is preserved (this file persists; founder version persists; pressure-test arc preserved in chat history + commit `9576a67`). Authority is provisional pending Phase G per-primitive proof.
+
+**Next phase**: F.2 Structured Audit Pass produces the Reconciliation Map (Executive Verdict + per-artifact rows + Thesis Content Gap Table + aggregate metrics + conflict ledger seeds + Phase G sequencing recommendation). F.3 review gate (Nick + Knox) approves Reconciliation Map before Phase G begins.
+
+**Companion artifacts updated in same pass**:
+- `.cursor/plans/doctrine/03_decision_extraction_ledger.md` (D0THES-DEC-001 row added)
+- `.cursor/plans/doctrine/08_open_review_queue.md` (13 D0THES-REV-001..013 rows added with hardened lifecycle fields per Queue Governance Lock)
+- `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt section (Phase F.1 adoption recorded)
+- `.cursor/plans/omni_thesis_v0_founder_version_2026-05-24.md` (status tracking note added)
+- `.cursor/plans/HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md` Closure Addendum Extension #7 added
+
+**Tier classification**: Tier 2 per Protocol §8 (work-package completion; F.1 is the first phase of the multi-phase doctrine refresh arc; checkpoint preservation per §8 satisfied).

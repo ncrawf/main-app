@@ -156,17 +156,43 @@ This Charter is activation-ready. Remaining open governance debt is tracked in `
 
 **This section is a post-activation snapshot for orientation; `.cursor/plans/doctrine/08_open_review_queue.md` remains the source of truth if queue state diverges from this snapshot.**
 
+### Phase F.1 adoption (2026-05-25)
+
+OMNI Thesis v0 (`.cursor/plans/omni_thesis_v0_2026-05-24.md`) adopted as directional center-of-gravity thesis in Phase F.1 of the OMNI Doctrine Refresh Arc (plan at `~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md`) per `D0THES-DEC-001`. v0 status flipped to `active_adopted_directional`. Per-primitive canonical doctrine remains pending Phase G refresh. Adoption operates under "preserve-by-default for memory; authority-by-proof."
+
+**OMNI Doctrine Refresh Arc — Phase F.1 closed; Phase F.2 structured audit begins next** (the heavy lift: chunk-read ~30-40 canonical artifacts including the 1.94M-char system map; produce Reconciliation Map with Executive Audit Verdict + per-artifact rows with Knox-category analysis + Thesis Content Gap Table + aggregate metrics + conflict ledger seeds + Phase G sequencing recommendation; Phase F.3 review gate Nick+Knox approves before Phase G refresh executes).
+
+### Thesis v0 unresolved questions (13 rows, `D0THES-REV-001..013`)
+
+v0 §15.a-m unresolved questions landed in `08_open_review_queue.md` Phase F.1 with explicit closure conditions:
+
+- `D0THES-REV-001` §15.a Protocol definition primitive scope (blocks G.2 DL-24/DL-22)
+- `D0THES-REV-002` §15.b Alert-economy discipline (T0 candidate or lower-tier)
+- `D0THES-REV-003` §15.c Patient-controlled consent UX (product-deferred)
+- `D0THES-REV-004` §15.d Multi-state operations at v0 (**blocks G.2 DL-18 sizing**)
+- `D0THES-REV-005` §15.e Coordination interrupt primitive (blocks G.2 CNS ADR)
+- `D0THES-REV-006` §15.f Sensitive category overlay (**blocks G.2 DL-27 + v0 launch**)
+- `D0THES-REV-007` §15.g Surgery readiness wedge boundary (substrate-compatible)
+- `D0THES-REV-008` §15.h Family Practice as separate topology (long-term)
+- `D0THES-REV-009` §15.i Mindbody-style federation depth (**blocks G.2 DL-21 boundary**)
+- `D0THES-REV-010` §15.j observation/extracted_assertion v0 timing (**blocks G.2 DL-23**)
+- `D0THES-REV-011` §15.k Ownership primitive scope (blocks G.2 ownership decision)
+- `D0THES-REV-012` §15.l Brand contract minimums (blocks G.4 brand-contract)
+- `D0THES-REV-013` §15.m Learning loop governance (blocks G.2 learning loop doctrine)
+
+### Pre-thesis open debt (carried forward)
+
 Deferred canonical-home decisions (4 keep-open AWP rows):
 - `AWP-REV-CMDS-001` — commands/tooling artifact (architectural status decided in Layer 5; implementation deferred until manual execution becomes a bottleneck).
-- `AWP-REV-TESTINV-001` — Test/Invariants Registry (Build Entry Gate v0 covers D1 readiness; broader registry triggers before first runtime implementation lane enters Build Entry Gate v0).
+- `AWP-REV-TESTINV-001` — Test/Invariants Registry (Build Entry Gate v0 covers D1 readiness; broader registry triggers before first runtime implementation lane enters Build Entry Gate v0). **NOTE 2026-05-25**: implementation lane now deferred to post-Phase-G (Phase I); trigger window extended.
 - `AWP-REV-GLOSSARY-001` — canonical glossary (deferred until repeated terminology drift OR broad implementation wave).
 - `AWP-REV-RUNBOOK-001` — runbook home (deferred until deployment/operations workflow begins).
 
 Overlay-vs-workstream decisions (5 rows, `AWP-REV-WORKSTREAM-OVERLAY-001..005`):
-- RBAC, Settings, Care Coordination, Federation/Topology, AI Governance are currently routed as cross-cutting overlays in `.cursor/plans/doctrine/04_manifest_read_graph.md` `## Workstream Coverage Overlays`. Promotion to full DRT workstream is triggered when matching domain becomes a primary build lane.
+- RBAC, Settings, Care Coordination, Federation/Topology, AI Governance are currently routed as cross-cutting overlays in `.cursor/plans/doctrine/04_manifest_read_graph.md` `## Workstream Coverage Overlays`. Promotion to full DRT workstream is triggered when matching domain becomes a primary build lane. **NOTE 2026-05-25**: Phase G.2 substrate refresh + Phase G.5 existing-build reconciliation will re-examine all five overlay rows against Thesis v0 §4 designed family + §12 surgical additions; some may resolve in Phase G.
 
 Coverage source: `.cursor/plans/doctrine/agent_work_protocol_coverage_audit_2026-05-22.md`.
 
-Near-term trigger: `AWP-REV-TESTINV-001` fires "before first runtime implementation lane enters Build Entry Gate v0." If implementation work begins, this row requires re-examination within the same wave.
+Near-term trigger: `AWP-REV-TESTINV-001` fires "before first runtime implementation lane enters Build Entry Gate v0." Phase G refresh + Phase H product translation come before Phase I implementation; trigger fires later than previously expected.
 
 Closed during P1/P2/follow-through/hygiene work (no longer open debt; referenced here only for traceability): `AWP-REV-NACR-EXTENSION-001` (resolved via Control Plane Enforcement Rule 7 + Governed Stream Artifact Operating Contract Rule), `AWP-REV-SCHEMA-LOCK-VOLUME-STATE-001` (Schema Lock v0 supplemental passport fields), `AWP-REV-CLAUDE-MD-CLASSIFICATION-001` / `AWP-REV-SCHEDULING-MATRIX-CLASSIFICATION-001` / `AWP-REV-CNS-ADR-CLASSIFICATION-001` (catalog corrections), `AWP-REV-BUILDOS-OVERVIEW-001` (resolved via Layer 2 + Read Graph Implementation-Lane Anchors + Boot-Path Sync), `AWP-REV-GAPS-001` (resolved via Protocol §8 Open Review Gap Routing Rule), `AWP-REV-CAT-RG-001`, `AWP-REV-GTC-001`, `AWP-REV-TAGS-001`, `FWREG-REV-001`.

@@ -2,7 +2,9 @@
 
 A reference card for the operator. Read in 5 minutes. Hold in your head. Reach for at decision moments.
 
-Canonical source: [`.cursor/plans/omni_thesis_v0_2026-05-24.md`](omni_thesis_v0_2026-05-24.md). Cite v0 for binding claims. This founder version is a derived compression; if it disagrees with v0 on substance, v0 wins.
+Canonical source: [`.cursor/plans/omni_thesis_v0_2026-05-24.md`](omni_thesis_v0_2026-05-24.md). Cite v0 for **directional thesis claims**. Cite **canonical doctrine homes** (T0-* guardrails, Coherent OMNI Architecture Pattern, DL-1..DL-22, CNS ADR, system map, Build OS — per v0 §16) for **binding doctrine claims** after Phase G refresh lands them. This founder version is a derived compression; if it disagrees with v0 on substance, v0 wins.
+
+**v0 status (2026-05-25)**: `active_adopted_directional` — adopted as directional center-of-gravity thesis in Phase F.1 of OMNI Doctrine Refresh Arc per `D0THES-DEC-001`. Canonical doctrine remains pending Phase G refresh. Detailed per-primitive binding authority lives at canonical doctrine homes per v0 §16.
 
 ---
 

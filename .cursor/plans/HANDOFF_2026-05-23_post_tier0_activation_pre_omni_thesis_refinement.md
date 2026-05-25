@@ -431,3 +431,54 @@ After Closure Addendum Extension #5 (v0 initial crystallization), Knox + Nick su
 - `non_loss_check`: Knox-surfaced 5 omissions + 3 substrate-hooks + 1 dragon-egg all preserved across §1.5 / §6.1 / §6.5 / §7 / §9.5 / §10 / §13.5 / §14.5 / §15.k-m. Nick's three "yes critical" interjections (patient-context dragon egg + substrate hooks for what-to-quietly-prepare-now + hybrid Hims+medspa wedge generalization) all preserved.
 
 Next agent: v0 remains the operative canonical thesis crystallization. Founder version is companion for at-a-glance use. Phase F decision still pending.
+
+---
+
+## Closure Addendum Extension #7 (2026-05-25) — Phase F.1 adoption + OMNI Doctrine Refresh Arc begins
+
+After v0 + completion pass + founder version committed at `9576a67` on 2026-05-24, the operator (Nick) and Knox decided through one more pressure-test round that v0 should be **adopted as the directional center-of-gravity thesis** and that doctrine refresh should proceed as the **OMNI Doctrine Refresh Arc** before any product translation begins. Knox initially proposed a thin-spine-insertion approach; Nick countered that the existing doctrine + system map need substantive cleanup regardless ("the system map is a collection of random UX ideas i was chasing around like a wild man on week 2"). The synthesis: bigger scope than Knox's thin insertion, with Knox's discipline (audit-first, dependency-ordered, per-doc explicit disposition) grafted in as method.
+
+**The arc plan lives at**: `~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md` (outside workspace git; Cursor home `.cursor/plans/`)
+
+**Headline operating principle** (Knox correction absorbed): *Preserve-by-default for memory. Authority-by-proof.* Memory is preserved (files, history, what was thought). Authority is provisional pending audit-proof of thesis-alignment. This extends Control Plane Enforcement Rule 1 (cataloged ≠ binding).
+
+**Phase F.1 adoption (THIS CHECKPOINT, completed 2026-05-25):**
+
+- **`D0THES-DEC-001`** landed in `.cursor/plans/doctrine/03_decision_extraction_ledger.md` formalizing directional adoption of Thesis v0. Status: `active_directional`.
+- **Thesis v0 passport status** flipped from `active` → `active_adopted_directional` with explicit boundary statement (directional adoption; canonical doctrine remains pending Phase G refresh).
+- **Founder version** annotated with v0 status tracking note.
+- **13 D0THES-REV-001..013 open review queue rows** landed in `.cursor/plans/doctrine/08_open_review_queue.md` for v0 §15.a-m unresolved questions, with hardened lifecycle fields (owner, current_disposition, promotion_trigger, closure_condition, next_trigger, next_check_condition, related_canonical_artifacts, blocks_current_work) per Queue Governance Lock. Five flagged as "blocks current work": REV-004 multi-state v0, REV-006 sensitive category overlay, REV-009 Mindbody-style federation depth, REV-010 observation/assertion v0 timing, plus REV-011/REV-012/REV-013 blocking specific Phase G sub-arcs.
+- **Charter Current Open Debt section** updated to reflect Phase F.1 adoption + reference D0THES-REV-001..013 rows + note that overlay rows AWP-REV-WORKSTREAM-OVERLAY-001..005 will be re-examined in Phase G.
+- **v0 §22 Amendment Log** appended with Phase F.1 Adoption Note documenting what is adopted vs what remains canonical-doctrine-pending.
+- **This addendum** records the Phase F.1 closure.
+
+**What was NOT done in Phase F.1**:
+
+- No edits to Tier 0 doctrine, system map, DL-1..DL-22, CNS ADR, Coherent OMNI Architecture Pattern, Charter Layer Model (only Current Open Debt section updated), Protocol, Control Plane, Build OS. All canonical destinations remain unchanged in their binding content.
+- No new Tier 0 guardrails (T0-08/09/10 candidates from v0 evaluated against Tier 0 necessity bar in Phase G.2 per audit, not pre-committed).
+- No parking-branch reconciliation (deferred to Phase G.5).
+- No product translation (deferred to Phase H, post-Phase-G.6 closure).
+- No new evolution narrative volume (Volume 5 lands at Phase G.6 closure, chronicling the full thesis adoption + refresh arc).
+- No new handoff replacing this one (per original Stop condition, this handoff remains operative until thesis adoption closes through Phase G + Phase H product translation OR first implementation lane enters Build Entry Gate; Phase F.1 alone is not closure).
+
+**Stop report fields per Protocol §9 for Phase F.1**:
+
+- `checkpoint_tier`: **2** (Phase F.1 is work-package close within a Tier-3-staged arc; the multi-phase arc itself is Tier 4 at G.6 closure)
+- `checkpoint_artifact_path`: `.cursor/plans/omni_thesis_v0_2026-05-24.md` (status updated; §22 Amendment Log appended)
+- `narrative_artifact_path`: `docs/architecture/evolution_narrative_volume_4_2026-05-23.md` (Tier-0 governance activation arc — context for substrate-vs-product plane discipline + preserve-by-default-for-memory principle)
+- `canonical_updates`:
+  - `.cursor/plans/doctrine/03_decision_extraction_ledger.md` — D0THES-DEC-001 row added
+  - `.cursor/plans/doctrine/08_open_review_queue.md` — 13 D0THES-REV-001..013 rows added
+  - `.cursor/plans/omni_thesis_v0_2026-05-24.md` — status flipped + Phase F.1 Adoption Note appended to §22 Amendment Log
+  - `.cursor/plans/omni_thesis_v0_founder_version_2026-05-24.md` — status tracking note added
+  - `.cursor/plans/doctrine/00_omni_coordination_charter.md` — Current Open Debt section updated with Phase F.1 adoption record + thesis open review row enumeration + overlay re-examination note
+  - This handoff — Closure Addendum Extension #7 added
+- `prior_narratives_consulted`: Volume 4 (Tier-0 governance activation arc — preserve-by-default-for-memory principle traces back here); no other prior arc surfaced new payload for Phase F.1
+- `guardrail_rows_extracted`: none new (existing D0THES-GRD-001..003 cover the thesis arc; D0TIER0-GRD-001..005 cover the Tier-0 arc; Phase F.2 audit may surface candidate D0THES-GRD-004 preserve-memory-authority-by-proof + D0THES-GRD-005 executive-verdict-orients-spreadsheet-review at F.2 closure — evaluated then, not now)
+- `governed_stream_artifact_touched`: `omni_thesis_v0` (status flipped + §22 Amendment Log extended per §17 Operating Contract active-status completion-pass rule); `omni_doctrine_reconciliation_map_v1` (NOT yet created — Phase F.2 deliverable)
+- `version_state`: v0 `active_adopted_directional`
+- `non_loss_check`: All v0 §15.a-m unresolved questions preserved as explicit open review queue rows with closure conditions; Nick's load-bearing concern protected via per-row `valid_decisions_to_preserve` discipline carried forward into F.2 audit row schema; no doctrine erased; no binding authority changed without proof; Knox correction ("preserve-memory-authority-by-proof") preserved as headline operating principle.
+
+**Next action**: Phase F.2 Structured Audit Pass begins. Multi-day. System map (1.94M chars) chunk-read by section. Output: `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-MM-DD.md` with 6 sections (Executive Audit Verdict + Per-Artifact Audit Rows + Thesis Content Gap Table + Aggregate Metrics + Conflict Ledger Seed Rows + Phase G Sequencing Recommendation). When F.2 closes, F.3 review gate (Nick + Knox) approves Reconciliation Map before any Phase G refresh executes.
+
+Next agent reading this handoff: Phase F.1 of OMNI Doctrine Refresh Arc completed; Phase F.2 structured audit is the operative next phase. v0 is now the directional thesis (consult `.cursor/plans/omni_thesis_v0_2026-05-24.md` for substance); Reconciliation Map is the next governed-stream artifact (NOT YET CREATED — Phase F.2 deliverable). Cite canonical destinations for binding claims, not v0. Phase G refresh executes only after F.3 review gate approves Reconciliation Map.
