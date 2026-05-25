@@ -482,3 +482,139 @@ After v0 + completion pass + founder version committed at `9576a67` on 2026-05-2
 **Next action**: Phase F.2 Structured Audit Pass begins. Multi-day. System map (1.94M chars) chunk-read by section. Output: `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-MM-DD.md` with 6 sections (Executive Audit Verdict + Per-Artifact Audit Rows + Thesis Content Gap Table + Aggregate Metrics + Conflict Ledger Seed Rows + Phase G Sequencing Recommendation). When F.2 closes, F.3 review gate (Nick + Knox) approves Reconciliation Map before any Phase G refresh executes.
 
 Next agent reading this handoff: Phase F.1 of OMNI Doctrine Refresh Arc completed; Phase F.2 structured audit is the operative next phase. v0 is now the directional thesis (consult `.cursor/plans/omni_thesis_v0_2026-05-24.md` for substance); Reconciliation Map is the next governed-stream artifact (NOT YET CREATED — Phase F.2 deliverable). Cite canonical destinations for binding claims, not v0. Phase G refresh executes only after F.3 review gate approves Reconciliation Map.
+
+---
+
+## Closure Addendum Extension #8 (2026-05-25) — Phase F.2.0 calibration complete (PENDING F.2.1 REVIEW GATE)
+
+Phase F.2.0 Calibration Batch executed per the OMNI Doctrine Refresh Arc plan (`~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md`) after F.1 adoption + Knox+Nick refinements (preserve-memory-authority-by-proof; executive verdict layer; Tier 0 guardrail necessity test).
+
+Nick + Knox pre-F.2.0 mini-gate (2026-05-25) confirmed calibration set after Opus structural scan of system map. **Final 6-row calibration set per Nick's "test the hard thing, not the clean thing":**
+1. `coherent_omni_architecture_pattern_2026-05-17.md` (Tier 0 spine; preserve+extend test — the doc thesis directly extends)
+2. `09_omni_build_os_layer_model.md` (Build OS; structural orthogonality test)
+3. `DL-21_federation_topology_DRAFT_2026-05-17.md` (DL; K3 valid-decision-trapped vs DL-25-split test)
+4. `cns_action_orchestration_adr_2026-05-17.md` (Architecture; most directly thesis-impacted; addendum pattern test)
+5. System map §1Z Universal CNS Event Envelope + Taxonomy (DL-16 home) lines 11454-11643 (hardest substrate roll-up; CNS event envelope + 7-category partition + 18 sub-sections)
+6. System map §1K.5.A Clinical concept + assertion layer lines 5077-5385 (most thesis-sensitive surgical addition; ~30 substantive locked decisions + ~310 lines)
+
+Per Nick verbatim 2026-05-25: *"1Z tests the hardest substrate roll-up; 1K.5.A tests the most thesis-sensitive surgical addition. The combo tests the exact failure modes we're afraid of: Can Opus preserve old substrate decisions? Can it extend them without bulldozing? Can it separate old-but-valid from stale framing? Can it do system-map section audit without turning into a giant table machine?"*
+
+**Calibration output**: `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` (~1380 lines). Document passport + §0 calibration posture + §1 Executive Audit Verdict (7 mandatory synthesis questions including "what does the audit teach us about the thesis itself") + §2 Per-Artifact Audit Rows (6 rows with full schema: artifact_path / current_state_summary / knox_analysis_category / classification_evidence / memory_disposition / authority_disposition / refresh_action / confidence_level / internal_coherence / dependency_relationships / recommended_action / estimated_effort / priority / valid_decisions_to_preserve / new_thesis_content_to_add / known_stale_content_to_remove / phase_g_subphase_assignment) + §3 Thesis Content Gap Table (7 thesis content areas mapped to target doctrine homes) + §4 Aggregate Metrics + §5 Conflict Ledger Seed Rows (none in calibration; 0 K8) + §6 Phase G Sequencing Recommendation + §7 Self-Assessment + §17 Operating Contract for the omni_doctrine_reconciliation_map_vN stream + §22 Calibration version log.
+
+**F.2.0 calibration findings (synthesized)**:
+
+- **Knox category distribution (calibration set)**: 1 K1 (Build OS), 3 K2 (Coherent Pattern, CNS ADR, §1Z), 1 K3 (DL-21), 1 K1+K2 hybrid (1K.5.A). No K4 stale/wrong, no K6/K7 partial-preserve, no K8 conflicts.
+- **Memory disposition**: 5 preserve + 1 preserve_with_extracted_pointer (DL-21).
+- **Authority disposition**: 5 keep_binding + 1 pending_post_refresh (DL-21 DRAFT).
+- **Refresh action**: 1 none (Build OS), 1 partially_refresh (DL-21), 4 amend (Coherent Pattern, CNS ADR, §1Z, 1K.5.A).
+- **Confidence**: 4 high, 2 medium (DL-21, §1Z); 0 low.
+- **Bidirectional thesis feedback (Q7 mandatory synthesis question)**:
+  - Thesis v0 §12.1 (observation + extracted_assertion) UNDERSTATES existing `1K.5.A patient_clinical_assertions` substrate. Thesis v1 may want to adjust "5 surgical additions" framing — some are "doctrine-level naming reconciliation" not "surgical primitive additions."
+  - Thesis v0 §8 universal flow is a HIGHER-ABSTRACTION FRAMING over existing §1Z 7-category partition. Both are correct; thesis operates at framing layer.
+  - Thesis v0 §10 8-property coherence operational test + v0 §6.5 brand architecture + v0 §12.4 care_relationship/shared_context_grant are GENUINELY NEW doctrine-level articulations.
+  - System map is NOT all "wild man on week 2" cruft at substrate-spine level. Calibration sample bias (substrate-spine focus); F.2.2 must sample stale-suspect sections (1F/1G/1H/1J/1K UI surfaces).
+- **F.2.0 → Phase G sequencing recommendation (scoped to calibration set)**:
+  1. Coherent Pattern §7 coherence operational test addition (priority 1; foundational)
+  2. F.3 decisions required: D0THES-REV-009 (DL-21 vs DL-25 split; rec: new DL-25), D0THES-REV-010 (observation/assertion naming; rec: preserve patient_clinical_assertions naming + thesis v1 adopts), D0THES-REV-011 (ownership primitive scope), D0THES-REV-012 (brand contract minimums)
+  3. Parallel post-F.3: §1Z amendments + DL-21 sub-arc + new DL-25 + 1K.5.A header amendment + DL-16 amendment 43 extension
+  4. CNS ADR §9 Phase G addendum (sequenced after preceding)
+  5. Build OS layer model G.3 verification (light; no rewrite)
+- **F.2.2 full audit scope estimate**: 30-40 canonical artifacts × ~3-4 hours average per substrate-spine / ~6-8 hours per DL / ~2-4 hours per system-map section = ~120-200 hours = ~3-5 weeks of focused work. Matches plan's F.2 estimate.
+- **F.2.0 → F.2.2 calibration teaches**: schema is working; classification_evidence + valid_decisions_to_preserve fields are doing critical work; two-axis disposition (memory + authority + refresh_action) precision was correct; confidence levels work as intended; system-map section approach works for substrate-spine sections but UNTESTED for cruft-likely sections (F.2.2 must sample them).
+
+### Tier 2 stop report (Protocol §9) — Phase F.2.0 calibration complete
+
+- `tier`: 2 (work-package; F.2.0 is a sub-arc of Phase F.2 of the OMNI Doctrine Refresh Arc; calibration only — NOT full F.2.2 audit)
+- `objective_markers`: governed-stream-artifact created (`omni_doctrine_reconciliation_map_v1_2026-05-25.md`) at calibration scope per Operating Contract §17; new file ≥ 200 lines (~1380 lines); 6 audit rows + 7 thesis gap rows + executive verdict + self-assessment; 4 F.3 decisions identified; NACR satisfied (passport + catalog row + read-graph route + Operating Contract §17 in same pass)
+- `default_up_rule_applied`: not invoked
+- `work_summary`: F.2.0 calibration batch executed per the OMNI Doctrine Refresh Arc plan + Knox+Nick staged-review discipline. 6 representative artifacts audited (Coherent Pattern + Build OS + DL-21 + CNS ADR + system map §1Z + §1K.5.A) per "test the hard substrate-decision-preservation problem" criterion. Reconciliation Map v1 calibration deliverable produced with: passport + §0 calibration posture + §1 Executive Audit Verdict (7 synthesis questions) + §2 6 audit rows with full schema + §3 7 thesis gap rows + §4 aggregate metrics + §5 0 K8 conflicts + §6 Phase G sequencing recommendation + §7 self-assessment + §17 Operating Contract for vN stream + §22 calibration version log. Calibration marker present in §0 per plan. No K8 conflicts identified. All 6 audit rows have evidence-grounded classifications with citations to specific artifact content. 4 F.3 decisions surfaced (D0THES-REV-009 DL-21-vs-DL-25 split + D0THES-REV-010 observation/assertion naming + D0THES-REV-011 ownership primitive scope + D0THES-REV-012 brand contract minimums). Bidirectional thesis feedback surfaced: thesis v0 §12.1 understates existing 1K.5.A substrate; thesis v0 §8 universal flow operates at higher abstraction over §1Z 7-category partition; thesis v0 §10 + §6.5 + §12.4 are genuinely new doctrine-level articulations. System map calibration sample (§1Z + §1K.5.A) revealed substrate-spine sections are dense + load-bearing (NOT "wild man on week 2" cruft) but calibration UNTESTED for cruft-likely UI/UX surface sections — F.2.2 must sample them.
+- `canonical_updates`: 
+  - `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` — NEW FILE; F.2.0 calibration output of OMNI Doctrine Refresh Arc; ~1380 lines; calibration marker present; pending F.2.1 review gate
+  - `.cursor/plans/doctrine/01_master_corpus_catalog.md` — Reconciliation Map v1 catalog row added with full 24-column schema (governed_stream_artifact / derived_nonbinding / consult_if_routed / Tier 2 / user_knox_required review_gate / pending F.2.1)
+  - `.cursor/plans/doctrine/04_manifest_read_graph.md` — Reconciliation Map v1 read-graph route added as Tier 2 Cross-Cutting Consult Artifact #3 (consult_if_routed, derived_nonbinding, F.2.0-pending-F.2.1 status)
+  - `.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md` — final calibration set documented (1Z + 1K.5.A two system-map sections confirmed) + F.2.0 todo content updated to reflect 6-row set + system map structural scan documented as completed
+  - This handoff — Closure Addendum Extension #8 added
+- `prior_narratives_consulted`: Volume 4 (Tier-0 governance activation arc — preserve-by-default-for-memory principle); preserve-by-default-for-memory + executive verdict layer + Tier 0 guardrail necessity test from Knox 2026-05-25 refinements; no other prior arc surfaced new payload for Phase F.2.0
+- `guardrail_rows_extracted`: none new (existing D0THES-GRD-001..003 + D0TIER0-GRD-001..005 cover the relevant patterns; candidate D0THES-GRD-004 preserve-memory-authority-by-proof + D0THES-GRD-005 executive-verdict-orients-spreadsheet-review remain candidates pending F.2 closure evaluation per plan; F.2.0 calibration did not surface additional patterns warranting Tier 0 promotion)
+- `governed_stream_artifact_touched`: `omni_doctrine_reconciliation_map_v1` (CREATED; calibration scope; pending F.2.1 review gate per Operating Contract §17 lifecycle state `F.2.0 calibration`); v0 thesis NOT TOUCHED (calibration is non-binding evidence; thesis v0 v1 awaits F.2.2 close + F.3 review-gate decisions)
+- `version_state`: Reconciliation Map v1 `F.2.0 calibration; pending F.2.1`; calibration marker present in §0
+- `operating_contract_applied`: §17 of Reconciliation Map v1 (inheriting for vN stream)
+- `calibration_marker_present`: yes (will be removed at F.2.1 approval)
+- `audit_rows_count`: 6 (F.2.0 calibration; grows through F.2.2)
+- `thesis_gap_rows_count`: 7 (F.2.0 calibration; grows through F.2.2)
+- `k8_conflict_seed_rows_count`: 0
+- `catalog_row`: registered (added 2026-05-25 in F.2.0 closure)
+- `read_graph_route`: registered (added 2026-05-25 in F.2.0 closure as Tier 2 Cross-Cutting Consult Artifact #3)
+- `non_loss_check`: All 6 calibration audits include explicit `valid_decisions_to_preserve` field protecting Nick's load-bearing concern (~30 decisions for 1K.5.A; ~28 invariants for DL-21; 10 cross-cutting disciplines for Coherent Pattern; 18 sub-sections for §1Z; 6 doctrine sections + addenda for CNS ADR; 5-layer model for Build OS). Per-row evidence citations preserve audit-reasoning grounding. No doctrine erased; no binding authority changed; preserve-by-default for memory; authority-by-proof discipline upheld. Calibration is non-binding evidence; classifications inform Phase G but DO NOT bind doctrine. Operating Contract §17 enforces this boundary.
+
+**Next action**: WAIT for F.2.1 calibration review gate (Nick + Knox). 4 possible outcomes per plan:
+- (a) Approve as-is: F.2.2 full audit begins with same schema + discipline + evidence-citation requirements
+- (b) Approve with refinements: F.2.2 re-sequenced or scope-adjusted before execution
+- (c) Re-calibrate: F.2.0 re-runs as v1.1 (in-place refinement) if schema problems surface
+- (d) Reject scope: re-think audit-driven approach (extremely unlikely given calibration findings)
+
+**F.2.2 full audit MUST NOT begin without F.2.1 approval.** Plan explicitly designed this gate to prevent monolithic-audit risk + ensure judgment quality before scale.
+
+**Strongest signal for F.2.1 reviewers**: thesis v0 §12.1 observation/extracted_assertion UNDERSTATES existing `1K.5.A patient_clinical_assertions` substrate. Bidirectional thesis feedback is exactly what Knox+Nick wanted from Q7 audit-teaches-us-about-thesis. Thesis v1 may want to refine §12 framing accordingly.
+
+Next agent reading this handoff: Phase F.2.0 calibration of OMNI Doctrine Refresh Arc completed; F.2.1 review gate is the operative next phase. Reconciliation Map v1 calibration output is at `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` (consult for substance + schema reference). Cite canonical destinations for binding claims, not v1 calibration. F.2.2 full audit begins only after F.2.1 explicit approval. F.3 reconciliation map review gate (separate from F.2.1) approves full audit before Phase G refresh executes.
+
+---
+
+## Closure Addendum Extension #9 (2026-05-25) — F.2.1 calibration review gate APPROVED-WITH-ONE-REFINEMENT
+
+Phase F.2.1 calibration review gate executed by Nick + Knox 2026-05-25 (same day as F.2.0 closure). **Outcome: approve-with-one-refinement.** Method validated. F.2.2 staged batches authorized to begin.
+
+**Knox verbatim on calibration outcome** (relayed by Nick): *"Yeah — I agree with your read. Opus brought it on this one. This is exactly why calibration was worth doing. It did not just puke tables. It produced a meaningful finding: The substrate is healthier than feared. And more importantly: Thesis v0 may have understated what already exists. That is a great outcome. Not because the thesis was wrong, but because the thesis now has to respect that some 'new' ideas were already encoded in the system map / substrate under different names. The 1K.5.A finding is huge: patient_clinical_assertions may already be the real substrate implementation of what we were calling observation / extracted_assertion. That means the audit is doing its job — preserving valid old decisions instead of bulldozing them."*
+
+**F.2.1 method validation (Knox)**: *"The method worked: evidence-grounded classifications, confidence levels, no repair during audit, valid-decision preservation, bidirectional thesis feedback, system-map section handling, clear sample-bias warning. The most important finding is that Thesis v0 §12.1 may understate existing substrate: 1K.5.A / patient_clinical_assertions already carries much of the observation/extracted_assertion logic. That should be treated as thesis feedback, not audit failure."*
+
+**One required refinement for F.2.2** (binding per F.2.1):
+
+1. **Staged batches, not blank check.** F.2.2 executes in 4-6 batches of ~5-7 artifacts each. Per-batch checkpoint commit + per-batch executive verdict + per-batch Tier 2 stop report. Knox: *"Do not unleash a 30–40 artifact mega-run in one go. The method is good; now scale it in batches with short checkpoints."*
+
+2. **Each batch MUST include cruft-likely sections, not only substrate-spine docs.** Specifically sample scheduling UI / messaging UI / intake UI / analytics / identity-merge UX / financial lifecycle material per batch so audit tests BOTH (a) preserve valid decisions inside crufty containers AND (b) identify stale containers themselves. Calibration sample bias (substrate-spine focus) MUST be corrected from F.2.2.A onward. Knox: *"The next batch must include suspected messy / UI / product-drift sections, not just strong substrate-spine docs. Opus itself identified the sample bias: the calibration batch was mostly healthy substrate material, so F.2.2 needs to test the 'wild man week 2' areas too."*
+
+3. **Per-batch bidirectional thesis feedback continues.** Q7 "what does the audit teach us about the thesis itself" is mandatory per-batch.
+
+**F.2.2 batch structure (per OMNI Doctrine Refresh Arc plan §F.2.2; subject to F.2.2.A pre-batch confirmation if needed)**:
+
+- F.2.2.A — coordination spine + scheduling/messaging UI cruft test (Charter + Protocol + Control Plane + AGENTS + system map §1F + §1G; ~5-7 artifacts; ~3-5 days)
+- F.2.2.B — catalog/routing spine + analytics/financial cruft test (Catalog + Authority Routing Map + Read Graph + Open Review Queue + system map §1H + §1I; ~5-7 artifacts)
+- F.2.2.C — ledgers + identity/intake cruft test (Decision Ledger + Supersession Ledger + Evidence Ledger + Guardrail Digest + system map §1J + §1K UI flows; ~5-7 artifacts)
+- F.2.2.D — DL audit + AI layer cruft test (DL-14 CNS orchestration + DL-17 commerce + DL-22 clinical media + remaining DL sampling + system map §1N + §1Q.21; ~5-7 artifacts; heavier)
+- F.2.2.E — architecture + governance + remaining (Document Governance + Operator Context + Build OS rollout + Build Entry Gate v0 + communications topology + AI Governance Policy + scheduling rule matrix + Evolution Narratives V1-4; ~5-7 artifacts)
+- F.2.2.F — (only if needed) parking-branch consult batch (LI corpus; ~3-5 artifacts)
+
+**Operating Contract §17 lifecycle update**: Reconciliation Map v1 moves from `F.2.0 calibration` to `F.2.2 in progress`. Calibration marker REMOVED from §0. Map grows in-place through batches per §17 append rules.
+
+### Tier 2 stop report (Protocol §9) — F.2.1 review gate closure
+
+- `tier`: 2 (work-package; F.2.1 closure is a sub-arc of Phase F.2 of the OMNI Doctrine Refresh Arc; review-gate outcome ratification)
+- `objective_markers`: F.2.1 outcome ratified (approved-with-one-refinement); calibration marker removed from Reconciliation Map v1 §0; lifecycle state advanced from `F.2.0 calibration` to `F.2.2 in progress`; binding F.2.2 batch refinement documented in plan + map + handoff; catalog row + read-graph route updated to reflect F.2.1-approved lifecycle
+- `default_up_rule_applied`: not invoked
+- `work_summary`: F.2.1 calibration review gate executed 2026-05-25 by Nick + Knox. Outcome: approved-with-one-refinement. Method validated (Knox: evidence-grounded classifications + confidence levels + no repair during audit + valid-decision preservation + bidirectional thesis feedback + system-map section handling + clear sample-bias warning all worked). Most important finding from Q7 bidirectional thesis feedback: thesis v0 §12.1 may understate existing 1K.5.A patient_clinical_assertions substrate (treat as thesis feedback, not audit failure). One binding refinement for F.2.2: staged batches (4-6 batches of ~5-7 artifacts; per-batch checkpoint commit + per-batch executive verdict + per-batch Tier 2 stop) with each batch mandatorily including cruft-likely UI/product-drift sections alongside substrate-spine to correct calibration sample bias. Calibration marker removed from Reconciliation Map v1 §0; replaced with `F.2.1 APPROVED — F.2.2 STAGED BATCHES BEGIN` status. F.2.2.A is the next batch (coordination spine + scheduling/messaging UI cruft test).
+- `canonical_updates`:
+  - `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` — calibration marker removed from §0; new §0 status posture documents F.2.1 approved-with-one-refinement; full F.2.2 batch structure documented; header subtitle updated
+  - `~/.cursor/plans/omni_doctrine_refresh_23fb24b1.plan.md` — F.2.1 todo marked completed with Knox verbatim quote + refinement summary; F.2.2 todo updated with batch structure + refinement; §F.2.1 plan body updated with approval outcome + refinement rationale; §F.2.2 plan body restructured into 6 explicit batches with cruft-sampling discipline per Knox refinement
+  - `.cursor/plans/doctrine/01_master_corpus_catalog.md` — Reconciliation Map v1 catalog row notes column updated to reflect F.2.1 approved status + F.2.2 batch refinement + calibration marker removal + thesis v0 §12.1 bidirectional feedback finding
+  - `.cursor/plans/doctrine/04_manifest_read_graph.md` — Reconciliation Map v1 Tier 2 Cross-Cutting Consult Artifact #3 route updated to reflect F.2.1 approved status + F.2.2 batch refinement
+  - This handoff — Closure Addendum Extension #9 added
+- `prior_narratives_consulted`: Closure Addendum Extension #8 (F.2.0 calibration complete) + F.2.0 deliverable (Reconciliation Map v1); no other prior arc surfaced new payload for F.2.1
+- `guardrail_rows_extracted`: candidate D0THES-GRD-006 staged-batches-not-blank-check (Knox's discipline; evaluated for promotion at F.2.2 closure) + candidate D0THES-GRD-007 cruft-sampling-mandatory-per-batch (correction of calibration sample bias; evaluated at F.2.2 closure) — neither promoted yet
+- `governed_stream_artifact_touched`: `omni_doctrine_reconciliation_map_v1` (lifecycle advanced from `F.2.0 calibration` to `F.2.2 in progress` per Operating Contract §17; calibration marker removed; §0 status posture rewritten); F.2.2.A batch will be the first append (next agent action)
+- `version_state`: Reconciliation Map v1 `F.2.2 in progress` (no longer `F.2.0 calibration`); calibration marker REMOVED; next append: F.2.2.A batch
+- `operating_contract_applied`: §17 of Reconciliation Map v1 (lifecycle state transition F.2.0 → F.2.1 → F.2.2 enabled per contract; append rules govern map growth from F.2.2.A onward)
+- `calibration_marker_present`: no (removed at F.2.1 approval per Operating Contract §17 lifecycle rule)
+- `audit_rows_count`: 6 (F.2.0 calibration; grows through F.2.2.A..F)
+- `thesis_gap_rows_count`: 7 (F.2.0 calibration; grows through F.2.2.A..F)
+- `k8_conflict_seed_rows_count`: 0 (F.2.0 calibration; new K8 cases added per-batch if discovered)
+- `catalog_row`: updated (F.2.1 approved lifecycle state reflected in notes column)
+- `read_graph_route`: updated (F.2.1 approved lifecycle state reflected in route notes)
+- `non_loss_check`: Calibration findings preserved in §1-§7 of Reconciliation Map v1; Knox + Nick verbatim quotes preserved in plan + map + handoff; F.2.1 refinement preserved in 3 places (plan §F.2.1 + map §0 + handoff Extension #9); no audit content erased; no binding authority changed; preserve-by-default for memory + authority-by-proof discipline upheld through gate transition; calibration marker removal is lifecycle state advancement per Operating Contract §17, not content loss.
+
+**Next action**: Phase F.2.2.A begins. Coordination spine + scheduling/messaging UI cruft test (~5-7 artifacts; ~3-5 days). Substrate-spine: Charter + Protocol + Control Plane + AGENTS.md. Cruft-likely: system map §1F scheduling UI section + system map §1G messaging UI section. Per-batch closure discipline: per-batch executive verdict (7 questions scoped to batch) + per-batch self-assessment + per-batch checkpoint commit + Tier 2 stop report.
+
+**F.2.2.A pre-batch confirmation gate (optional but recommended)**: before starting F.2.2.A audit, Opus should: (1) propose specific 1F section + 1G section lines for the cruft-likely picks via structural scan (similar to pre-F.2.0 structural-scan mini-gate); (2) confirm with Nick + Knox briefly if structural scan reveals scope surprise; (3) proceed to F.2.2.A audit with confirmed picks. If scope is straightforward (small sections, clear scope), proceed directly without pre-batch gate.
+
+Next agent reading this handoff: Phase F.2.1 of OMNI Doctrine Refresh Arc completed (approved-with-one-refinement); F.2.2.A staged batch is the operative next phase. Reconciliation Map v1 has F.2.0 calibration content (6 rows + 7 gap rows + verdict + self-assessment + Operating Contract §17) + F.2.1 approval status — calibration marker removed. F.2.2.A batch appends new rows to existing sections per Operating Contract §17. Cite canonical destinations for binding claims, not the audit map. Phase G refresh executes only after F.3 reconciliation map review gate approves master verdict (master verdict assembled at F.2.2 complete).
