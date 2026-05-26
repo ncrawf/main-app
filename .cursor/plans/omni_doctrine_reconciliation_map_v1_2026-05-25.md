@@ -1,6 +1,6 @@
 # OMNI Doctrine Reconciliation Map v1
 
-> **F.2.0.v1 CALIBRATION REFRESH COMPLETE 2026-05-25 — F.2.2 STAGED BATCHES NEXT (REFRESHED V1 LENS FOUNDATION)**
+> **F.2.0.v2 CALIBRATION REFRESH COMPLETE 2026-05-26 — F.2.2 STAGED BATCHES NEXT (REFRESHED V2 LENS FOUNDATION)**
 >
 > Phase F.2.0 calibration (6 audit rows + 7 thesis-gap rows + 0 K8 conflicts + executive verdict + self-assessment + Operating Contract §17) approved-in-principle 2026-05-25 by Nick + Knox. Method validated. One required refinement for F.2.2: staged batches (4-6 batches of ~5-7 artifacts each, NOT a monolithic mega-run), with each batch mandatorily mixing substrate-spine + cruft-likely UI/product-drift sections to correct calibration sample-bias. Knox verbatim: *"This calibration is strong. The method worked. The most important finding is that Thesis v0 §12.1 may understate existing substrate."*
 >
@@ -8,7 +8,11 @@
 >
 > Reconciliation Map v1 grows in-place through F.2.2 batches per Operating Contract §17 append rules.
 >
-> **2026-05-25 F.2.0.v1 Calibration Refresh (per Knox three-tier policy)**: Same-day post-v1-spawn refresh of the F.2.0 calibration against v1 lens (v0-lens findings preserved as historical layer in §§0-7; v1-lens findings layered in §8). Outcome: 0 Tier 1 mechanical errata; 5 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-027..031; v1 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 calibration rows STABLE under v1 lens (0 K-category changes; amendment SCOPE grew ~1.5-2x per row). v1 CONFIRMED usable as F.2.2 audit lens. F.2.2.A staged batch begins next against refreshed v1 lens foundation. See §8 for full v1-lens refresh analysis.
+> **2026-05-25 F.2.0.v1 Calibration Refresh (per Knox three-tier policy)**: Same-day post-v1-spawn refresh of the F.2.0 calibration against v1 lens (v0-lens findings preserved as historical layer in §§0-7; v1-lens findings layered in §8). Outcome: 0 Tier 1 mechanical errata; 5 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-027..031; v1 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 calibration rows STABLE under v1 lens (0 K-category changes; amendment SCOPE grew ~1.5-2x per row). v1 CONFIRMED usable as F.2.2 audit lens. See §8 for full v1-lens refresh analysis.
+>
+> **2026-05-26 v2 lens swap**: Thesis v2 (`omni_thesis_v2_2026-05-26.md`) spawned 2026-05-26 per `D0THES-DEC-005` to absorb the vertical-layering structural dimension that v1's horizontal articulation under-named — 4-layer care OS framework + 5-tier vocabulary (OMNI Direct / OMNI Core Capability / OMNI Specialty Line / Powered-by-OMNI Brand / Partner Operator) + 7 per-event ownership dimensions + universal projection doctrine + master CNS scoped-responsibility framing + four coexistent operator-level abilities (Power brands / Connect brands / Govern the network / Operate care domains) + three fail-at-scale guardrails (brand-trust transparency contract-scoped + policy-scoped + consent specificity + model_version_of_record) + patient-source as substrate concept + 1:1 care relationship protection line. v1 transitions to `superseded_by_v2`. v1 + v2 lens findings BOTH preserved in this map. F.2.2 batches operate against v2 lens.
+>
+> **2026-05-26 F.2.0.v2 Calibration Refresh (per Knox three-tier policy)**: Same-day post-v2-spawn refresh of the F.2.0 calibration against v2 lens (v0-lens findings preserved as historical layer in §§0-7; v1-lens findings preserved in §8; v2-lens findings layered in §9). Refresh scope: full re-audit of same 6 artifacts; per Knox three-tier policy (mechanical errata = fix; substantive feedback = document + route to Phase G or v3; materially misleading = stop + ask). Plus three explicit additional v2-lens audit dimensions per Nick's instruction: (a) 1:1 care relationship protection line check; (b) substrate-primitive vs operator-capability layering check; (c) brand-trust transparency contract-scoped + policy-scoped vs DL-21 federation check. **Outcome: 0 Tier 1 mechanical errata; 12 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-045..056; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings.** All 6 calibration rows STABLE under v2 lens (0 K-category changes; amendment SCOPE grew ~2-3x per row vs v1-lens). v2 CONFIRMED usable as F.2.2 audit lens. F.2.2.A staged batch begins next against refreshed v2 lens foundation. See §9 for full v2-lens refresh analysis.
 
 Document type: `doctrine_candidate`
 Authority: `derived_nonbinding` (calibration + audit output of OMNI Doctrine Refresh Arc; informs Phase G refresh but is not binding canonical doctrine)
@@ -30,7 +34,14 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.1 APPROVED-WITH-ONE-REFINEMENT
+## §0 Status Posture — F.2.0.v2 CALIBRATION REFRESH COMPLETE; F.2.2.A NEXT
+
+**F.2.0.v2 Calibration Refresh complete 2026-05-26** per `D0THES-DEC-006` per Operating Contract §17 active-status completion-pass rule. Per Knox three-tier policy: 0 Tier 1 mechanical errata; 12 Tier 2 substantive bidirectional findings (D0THES-REV-045..056 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 calibration rows STABLE under v2 lens (0 K-category changes; 0 disposition changes; amendment SCOPE grew ~2-3x per row vs v1-lens). v2 CONFIRMED usable as F.2.2 audit lens. F.2.2.A staged batch begins next against refreshed v2 lens foundation.
+
+**Calibration version log**:
+- F.2.0 calibration (v0-lens; commit `f2812e8`; 2026-05-25): §§0-7 — 1 Tier 2 bidirectional finding (Q7: thesis under-credits 1K.5.A)
+- F.2.0.v1 refresh (v1-lens; commit `ca047ac`; 2026-05-25): §8 — 5 Tier 2 bidirectional findings (D0THES-REV-027..031)
+- F.2.0.v2 refresh (v2-lens; pending commit; 2026-05-26): §9 — 12 Tier 2 bidirectional findings (D0THES-REV-045..056) + 3 explicit additional dimensions per Nick's instruction
 
 **F.2.1 calibration review gate complete 2026-05-25 by Nick + Knox.** Outcome: **approve-with-one-refinement**. Method validated. Calibration marker REMOVED.
 
@@ -1189,6 +1200,474 @@ Same sequence as v0-lens but EFFORTS revised + 5 Tier 2 findings added to Phase 
 
 ---
 
+## §9 F.2.0.v2 Refresh — V2-Lens Layered Analysis
+
+> **F.2.0.v2 CALIBRATION REFRESH COMPLETE 2026-05-26**
+>
+> Same-day post-v2-spawn refresh of the F.2.0 calibration against v2 lens. v0-lens findings (§§0-7) + v1-lens findings (§8) preserved as historical layers. v2-lens findings layered here per Operating Contract §17 append rules. Per Knox three-tier policy: mechanical errata = fix as errata; substantive thesis feedback = document + route to Phase G or v3 (do NOT patch v2 mid-audit); materially misleading lens = stop + ask. **Outcome: 0 Tier 1 errata; 12 Tier 2 substantive bidirectional findings (routed via D0THES-REV-045..056); 0 Tier 3 materially-misleading findings.** v2 confirmed usable as F.2.2 audit lens.
+>
+> **Three explicit additional v2-lens audit dimensions** (per Nick's 2026-05-26 instruction):
+> (a) 1:1 care relationship protection line check — confirm no calibration artifact violates the daily 1:1 unit of care discipline
+> (b) substrate-primitive vs operator-capability layering check — confirm calibration artifacts respect the distinction (substrate primitives = inherent rails; OMNI Core Capabilities = elective operator entities)
+> (c) brand-trust transparency contract-scoped + policy-scoped vs DL-21 federation check — confirm consistency between v2 §6.10 + §13.7 and DL-21 federation primitives
+>
+> Results of (a)/(b)/(c) summarized in §9.8 below. All 3 dimensions pass cleanly — substrate-spine calibration artifacts respect v2 disciplines.
+
+### §9.1 V2-Lens Master Executive Audit Verdict
+
+Same 7 questions as §1, scoped to v2-lens refresh + bidirectional feedback discovery + 3 additional v2-lens dimensions per Nick's instruction.
+
+#### Q1.v2 — What is healthier than expected under v2 lens?
+
+- **1K.5.A is EVEN MORE substantively aligned with v2 than v1-lens calibration revealed.** v2 adds 14 new sections; multiple compose with 1K.5.A substrate operationally at fine granularity: §7.5.1 per-event ownership dimensions extend 1K.5.A `authored_by` semantics to 7 named primitives; §7.5.2 catalog substrate model composes with 1K.5.A concept registry (assertions reference catalog items via existing schema); §7.5.3 patient-source substrate concept maps cleanly to 1K.5.A `authored_by=patient_self_report` + computed authority_rank; §7.7 master projection doctrine maps 1K.5.A `longitudinal_pattern` rollup view as canonical hard projection example; §9.1 model_version_of_record maps to 1K.5.A `extraction_run.model_version` field.
+- **§1Z audit infrastructure is EVEN MORE substantively aligned with v2 §6.10 brand-trust transparency (contract-scoped + policy-scoped + entitled operator visibility) than v1-lens calibration revealed.** §1Z tamper-evident audit chain (invariant 38) + observability (invariant 27) + privileged-action elevated approval (invariant 37) + multi-tenant isolation (invariant 8) IS the substrate that brand-trust transparency query+audit infrastructure operates on; v2 §6.10 names the discipline; §1Z operationalizes it.
+- **CNS ADR §2.X is the substrate-level form of v2 §7.6 CNS scope architecture REWRITE more deeply than v1-lens revealed.** v2 §7.6 names 4 operator-posture CNS types + 2 always-on CNS scopes + master CNS line + substrate-primitive vs operator-capability layering + CNS depth varies; CNS ADR §2.X operationalizes CNS as scoped coordination responsibility per Nick framing. CNS ADR §2.16 envelope + §2.17 Provider Clinical Context Packet IS the substrate-level CNS execution model that v2 §7.6 names.
+- **DL-21 federation will accommodate v2 §6.7 Partner Operator integration_depth metadata cleanly + v2 §6.10 brand-trust transparency cleanly.** v2 names the doctrine; DL-21 needs to encode integration_depth tier-mapping (artifact_only / substrate_consumer / network_partner / full_partner) + brand-trust transparency query+audit primitives. The bidirectional cross-link is incremental, not contradictory.
+- **Build OS Layer 1 Truth Layer composes cleanly with v2 §3.7 Layer 1 Substrate Physics** at different abstraction (Build OS = development layers; v2 4-layer = runtime substrate layers). No contradiction. Both coexist.
+- **Coherent Pattern §1 three-layer substrate IS the substrate-internal structure within v2 Layer 1 Substrate Physics.** v2 §3.7 4-layer care OS framework frames Coherent Pattern from outside; Coherent Pattern's "planned commitment → actual delivery → linked evidence/commerce" three-layer pattern operates within v2 Substrate Physics + Coordination CNS layers. Compositional, not contradictory.
+
+#### Q2.v2 — What is worse than expected under v2 lens?
+
+- **v2 may UNDER-CREDIT existing substrate in MORE places than v1-lens found.** v1-lens surfaced 5 bidirectional findings (Q7 pattern: thesis names what substrate already does). F.2.0.v2 surfaces 12 additional bidirectional feedback findings:
+  1. v2 §3.7 4-layer care OS framework may under-credit Coherent Pattern §1 three-layer pattern as substrate-internal structure within Layer 1 Substrate Physics
+  2. v2 §7.7 master projection doctrine may under-credit Coherent Pattern §1's planned/actual/evidence pattern as canonical substrate-to-projection-to-event instance
+  3. v2 §3.7 Layer 1 Substrate Physics may under-credit Build OS Layer 1 Truth Layer at different abstraction level
+  4. v2 §6.7 Partner Operator integration_depth metadata may under-credit DL-21 federation existing tenant-boundary substrate primitives
+  5. v2 §6.10 brand-trust transparency may under-credit DL-21 federation existing audit + observability infrastructure
+  6. v2 §13.7 non-competition signaling may under-credit DL-21 federation existing brand-contract terms
+  7. v2 §7.6 CNS scope architecture REWRITE may under-credit CNS ADR §2.X CNS execution model + Nick framing
+  8. v2 §7.5.1 per-event ownership dimensions may under-credit CNS ADR §2.16 envelope existing ownership primitives
+  9. v2 §9.1 model_version_of_record may under-credit CNS ADR §2.14 AI-proposes-deterministic-validates-provider-signs pattern existing model_version field
+  10. v2 §7.5.1 per-event ownership may under-credit §1Z event schema existing fields
+  11. v2 §7.5.4 consent specificity may under-credit §1Z event_kind classes + producer authorization
+  12. v2 §7.5.3 patient-source substrate concept may under-credit 1K.5.A `authored_by=patient_self_report` + computed authority_rank already encoding patient-source
+- These are NOT failures of v2. v2 IS the doctrine-level articulation of vertical-layering structural dimension; existing substrate IS the operational implementation. The pattern is consistent with Q7 finding (F.2.0) + 5 v1-lens findings (F.2.0.v1): thesis names what substrate already does. **Tier 2 substantive feedback per Knox policy** → document + route to Phase G; do NOT patch v2 mid-audit.
+
+#### Q3.v2 — What must be refreshed first under v2 lens?
+
+Same priority order as v1-lens, plus 12 new Tier 2 findings added to Phase G work queue. Plus v2-specific Phase G work:
+
+1. **Coherent Pattern §7 coherence operational test + §2.11-§2.16 cross-cutting disciplines + NEW §3.7 4-layer care OS framework cross-reference** (v1-lens priority 1; v2-lens scope grows ~5x from v0-lens estimate). v2 needs Coherent Pattern §2 cross-cutting disciplines expansion (was 10 in v0; v1 added 5; v2 adds another 5+: 4-layer care OS / operator-pluralism / 5-tier vocabulary / per-event ownership / projection / cross-operator coordination / brand-trust transparency / model_version_of_record / 1:1 protection / substrate-primitive vs operator-capability layering). 11-property coherence test (was 8 in v0; v1 added #9; v2 added #10 substrate-rail-vs-operator-capability + #11 universal projection = 11 total).
+2. **F.3 decisions still pending + v2 informed**:
+   - D0THES-REV-009 DL-21 vs new DL-25 split — STILL CLEAR (v2 doesn't change recommendation; sharpens with integration_depth metadata)
+   - D0THES-REV-010 observation/assertion — DIRECTIONALLY RESOLVED by v1 §12.1 + v2 §7.5.3 patient-source substrate concept extends
+   - D0THES-REV-011 ownership primitive scope — SHARPENED by v2 §7.5.1 per-event ownership (7 dimensions instead of 6 v1 roles)
+   - D0THES-REV-012 brand contract minimums — SHARPENED by v2 §6.5 + §6.6 + §6.8 + §6.10 + §6.7 + §13.7 (Powered-by-OMNI brand contract terms now have substrate-allowed operator-pluralism + non-competition + brand-trust transparency dimensions)
+   - **NEW v2 F.3 decisions**:
+     - D0THES-REV-035 anti-institutional-gravity discipline enforcement mechanism
+     - D0THES-REV-036 brand-trust transparency enforcement mechanism (contract-scoped + policy-scoped)
+     - D0THES-REV-043 model_version_of_record substrate schema (predicted to overlap with 1K.5.A extraction_run.model_version)
+3. **Post-F.3 parallel sub-arcs (v2-lens scope grows ~1.5-2x per artifact vs v1-lens, ~3-4x vs v0-lens)**:
+   - §1Z amendments grow from §1Z.19-§1Z.25 (7 sub-sections) to §1Z.19-§1Z.31+ (~13 sub-sections; +6 v2-specific sub-sections: §1Z.26-§1Z.31 for per-event ownership / consent specificity / catalog event_kind / projection / brand-trust transparency / model_version_of_record extensions)
+   - DL-21 + new DL-25 patient-graph grow with v2 §6.7 integration_depth metadata + §6.10 brand-trust transparency + §13.7 non-competition signaling
+   - 1K.5.A amendment grows from 4 cross-link notes to 6+ (add §7.5.1/§7.5.2/§7.5.3/§7.7/§9.1 cross-links)
+   - CNS ADR §9 addendum grows from §9.1-§9.6 to §9.1-§9.10+ (add §9.7 §7.5.1 per-event ownership + §9.8 §7.6 CNS scope REWRITE + §9.9 §9.1 model_version_of_record + §9.10 §7.7 projection)
+4. **NEW Tier 2 findings routed to Phase G** (12 substantive bidirectional feedback findings; D0THES-REV-045 through D0THES-REV-056 to be added).
+5. **NEW v2 Phase G sub-arc candidates** beyond v1 candidates (DL-23..DL-27 from v1): possibly DL-28/29/30 (for §7.3/§7.4/§7.5) + DL-31/32/33 (for §7.5.1/§7.5.2/§7.5.3) + DL-34/35 (for §7.7/§7.8) + DL-36 (for §9.1) — total potential new DLs from v2 spawn ≈ 6-10 beyond v1's 5 candidates. Phase G consolidates which collapse into existing DLs vs ship standalone.
+
+#### Q4.v2 — What valid decisions must not be lost under v2 lens?
+
+**No change from v1-lens.** All 6 artifacts' `valid_decisions_to_preserve` lists hold under v2 lens. v2 ADDS to v1 (doesn't replace); v1 + v0 preserve; calibration findings stable across all three lens iterations.
+
+#### Q5.v2 — What docs are dangerous if left authoritative under v2 lens?
+
+**No change from v1-lens.** None in calibration set. All 6 are K1/K2/K3 with preserve dispositions. v2 lens doesn't change this.
+
+Slight upgrade vs v1-lens: DL-21 + new DL-25 separation gets EVEN CLEARER under v2 lens — v2 §6.7 Partner Operator integration_depth metadata + §6.10 brand-trust transparency + §13.7 non-competition signaling collectively define the federation policy envelopes that DL-25 patient-graph needs.
+
+#### Q6.v2 — What can safely wait under v2 lens?
+
+**No change from v1-lens priority ordering.** Build OS still light verification (v2 adds new DL candidates to Layer 1 Truth Layer artifact list but doesn't restructure). CNS ADR still sequenced after Coherent Pattern + §1Z + 1K.5.A. v2-lens scope growth (~1.5-2x per artifact vs v1-lens) means total effort is higher but priority ordering holds.
+
+#### Q7.v2 — What does the audit teach us about the thesis itself (under v2 lens)?
+
+**This is the bidirectional feedback question for v2-lens refresh. 12 substantive findings (Tier 2 per Knox policy):**
+
+1. **v2 §3.7 4-layer care OS framework may under-credit Coherent Pattern §1 three-layer substrate** as substrate-internal structure within Layer 1 Substrate Physics. v2 frames Coherent Pattern from outside; Coherent Pattern operates within v2's Substrate Physics + Coordination CNS layers. **Routed to D0THES-REV-045.**
+
+2. **v2 §7.7 master projection doctrine may under-credit Coherent Pattern §1's "planned commitment → actual delivery → linked evidence/commerce" pattern** as canonical substrate-to-projection-to-event instance. v2's universal projection principle generalizes what Coherent Pattern §1 already operationalizes for clinical events. **Routed to D0THES-REV-046.**
+
+3. **v2 §3.7 Layer 1 Substrate Physics may under-credit Build OS Layer 1 Truth Layer.** Both are foundational truth layers at different abstraction (Build OS = development layers; v2 4-layer = runtime substrate layers). Composable, not contradictory; cross-link required. **Routed to D0THES-REV-047.**
+
+4. **v2 §6.7 Partner Operator integration_depth metadata may under-credit DL-21 federation existing tenant-boundary substrate primitives.** integration_depth tier-mapping (artifact_only / substrate_consumer / network_partner / full_partner) operates on DL-21 + new DL-25 federation primitives; v2 names the doctrine, DL-21 + DL-25 encode the operational metadata. **Routed to D0THES-REV-048.**
+
+5. **v2 §6.10 brand-trust transparency may under-credit DL-21 federation existing audit + observability infrastructure.** contract-scoped + policy-scoped + entitled operator visibility operates on §1Z audit chain + DL-21 federation grant scoping; v2 names the discipline, DL-21 + §1Z encode the substrate. **Routed to D0THES-REV-049.**
+
+6. **v2 §13.7 non-competition signaling may under-credit DL-21 federation existing brand-contract terms.** operator-pluralism + non-competition discipline operates on existing Powered-by-OMNI brand-contract semantics; v2 names the discipline, brand-contract terms encode the substrate. **Routed to D0THES-REV-050.**
+
+7. **v2 §7.6 CNS scope architecture REWRITE may under-credit CNS ADR §2.X CNS execution model.** 4 operator-posture CNS types + 2 always-on CNS scopes + master CNS line + substrate-primitive vs operator-capability layering all operate on CNS ADR's existing CNS execution + envelope primitives; v2 names the architecture, CNS ADR encodes the substrate. Major Phase G addendum required. **Routed to D0THES-REV-051.**
+
+8. **v2 §7.5.1 per-event ownership dimensions may under-credit CNS ADR §2.16 envelope existing ownership primitives.** 7 ownership dimensions (surface / channel / operator / clinical / commerce / custody / coordination) extend CNS ADR §2.16 envelope's authorized_action + actor 4-tuple substrate; v2 names the orthogonality, CNS ADR encodes the existing primitives. **Routed to D0THES-REV-052.**
+
+9. **v2 §9.1 model_version_of_record may under-credit CNS ADR §2.14 AI-proposes-deterministic-validates-provider-signs pattern existing model_version field.** v2 names the requirement on clinical_adoption; CNS ADR §2.14 already references model_version + capability_envelope per v1 §12.8. Cross-link extends but does not contradict. **Routed to D0THES-REV-053.**
+
+10. **v2 §7.5.1 per-event ownership may under-credit §1Z event schema existing fields.** §1Z taxonomy + producer authorization + actor 4-tuple already contain seeds of per-event ownership; v2 names the 7-dimension orthogonality, §1Z encodes the existing substrate fields that need extension. **Routed to D0THES-REV-054.**
+
+11. **v2 §7.5.4 consent specificity may under-credit §1Z event_kind classes + producer authorization.** visibility_grant events with scope + purpose + duration + recipient extend §1Z 7-category partition; v2 names the discipline, §1Z encodes the existing event schema. **Routed to D0THES-REV-055.**
+
+12. **v2 §7.5.3 patient-source substrate concept may under-credit 1K.5.A `authored_by=patient_self_report` + computed authority_rank.** 1K.5.A already encodes patient-source as a value in 9-value authored_by enum + computed authority_rank generated column; v2 names the substrate concept (source_authority + patient_initiated + clinical_adoption_state), 1K.5.A operationalizes for the assertion layer. Same Q7 pattern. **Routed to D0THES-REV-056.**
+
+**All 12 are Tier 2 substantive feedback per Knox three-tier policy.** Documented in §9.5 below + routed to Phase G as D0THES-REV-045..056. Do NOT trigger v2 completion pass. v2 NOT materially misleading; just under-credits existing substrate in named places. Phase G refresh resolves by EXPLICIT cross-link from v2 sections to substrate destinations.
+
+**Threshold check (Tier 3)**: NONE of the 12 findings rise to "v2 materially misleading as F.2.2 audit lens." v2 is sharper than v1; v2 IS usable as F.2.2 audit lens; v2 under-credits existing substrate in places that get resolved by Phase G cross-link work, not v2 patching. **v2 confirmed usable.** F.2.2.A can proceed.
+
+### §9.2 Per-Artifact Audit Rows — V2-Lens Delta
+
+For each of the 6 calibration artifacts, the v2-lens delta sub-section captures what changed under v2 lens. **Original v0-lens findings in §2 + v1-lens findings in §8.2 are preserved verbatim.** Layered delta only.
+
+#### Row 1.v2 — Coherent OMNI Architecture Pattern (v2-lens delta)
+
+- **v2_lens_category**: STILL K2 (no category change from v0 or v1 lens)
+- **v2_lens_disposition_changes**: memory=preserve / authority=keep_binding / refresh=amend — all unchanged
+- **v2_specific_extensions** (amendment surface grows ~2x from v1-lens, ~5x from v0-lens):
+  - **v0-lens originals preserved** (per §2 Row 1): §7 coherence operational test (8 properties); §2.11+ cross-cutting disciplines for v0 surfaces
+  - **v1-lens originals preserved** (per §8.2 Row 1.v1): §3.5 strategic pressure-test preamble; §2.11 visible-provider deployment; §7.1-§7.2 case/problem ownership + 6-role hierarchy composition; §7.3 care_commitment + 4-level framework axes; §7.4 boundary modes cross-cutting discipline; §7.5 artifact custody cross-cutting; §7.6 three-level meta-framework (3-CNS-scope); §8.5 multi-actor deliberation composition; §12.6-§12.8 + §13.6 cross-cutting; #9 substrate-vs-care boundary coherence property
+  - **NEW v2**: §3.7 4-layer care OS framework → add as Coherent Pattern preamble OR new §3 framing context section. Coherent Pattern §1 three-layer pattern IS substrate-internal structure within v2 Layer 1 Substrate Physics
+  - **NEW v2**: §3.8 four coexistent operator-level abilities (Power brands / Connect brands / Govern the network / Operate care domains) → add as Coherent Pattern §2.17 cross-cutting discipline OR new §3.5 framing extension
+  - **NEW v2**: §6.7 5-tier vocabulary (OMNI Direct + OMNI Core Capability + OMNI Specialty Line + Powered-by-OMNI Brand + Partner Operator) → add as Coherent Pattern §2.18 cross-cutting discipline (operator-pluralism vocabulary lock)
+  - **NEW v2**: §6.8 OMNI-operated care domain doctrine + anti-institutional-gravity → add as Coherent Pattern §2.19 cross-cutting discipline (substrate-allowed not substrate-limited; anti-institutional-gravity guardrail)
+  - **NEW v2**: §6.9 OMNI Direct branding preservation → add as Coherent Pattern §2.20 cross-cutting discipline (operator-attribution preserved at surface; anti-Hims extension to operator-pluralism)
+  - **NEW v2**: §6.10 brand-trust transparency (contract-scoped + policy-scoped) → add as Coherent Pattern §2.21 cross-cutting discipline (entitled operator visibility; substrate-level enforcement)
+  - **NEW v2**: §7.5.1 per-event ownership (7 dimensions) → significantly extends Coherent Pattern §3 composition rules with new orthogonal axis (surface / channel / operator / clinical / commerce / custody / coordination per event-bearing object)
+  - **NEW v2**: §7.5.2 catalog substrate model → new substrate primitive that Coherent Pattern §1 needs to absorb (catalog_item universal across products/labs/procedures/services/vaccines/screenings/programs/devices)
+  - **NEW v2**: §7.5.3 patient-source substrate concept → add as Coherent Pattern §2.22 cross-cutting discipline (source_authority + clinical_adoption gate; NOT operator posture)
+  - **NEW v2**: §7.5.4 consent specificity → add as Coherent Pattern §2.23 cross-cutting discipline (no blanket consent; per-scope + per-purpose + per-duration + per-recipient)
+  - **NEW v2**: §7.6 CNS scope architecture REWRITE → significantly extends Coherent Pattern §3 composition rules with 4 operator-posture CNS types + 2 always-on CNS scopes + master CNS line ("Workstreams have operators. Patients have coherence. Networks have governance.") + substrate-primitive vs operator-capability layering distinction
+  - **NEW v2**: §7.7 master projection doctrine → add as Coherent Pattern §2.24 cross-cutting discipline (one substrate object, many surface projections; hard vs soft). Coherent Pattern §1 three-layer pattern IS one instance of substrate-to-projection-to-event.
+  - **NEW v2**: §7.8 cross-operator coordination → add as Coherent Pattern §2.25 cross-cutting discipline (default passive coherence + elective active coordination)
+  - **NEW v2**: §9.1 model_version_of_record → add as Coherent Pattern §2.26 cross-cutting discipline (every clinical_adoption of AI-generated content carries model lineage)
+  - **NEW v2**: §13.7 operator-pluralism + non-competition signaling → add as Coherent Pattern §2.27 cross-cutting discipline (substrate-allowed market-decided breadth; non-competition discipline binds)
+  - **NEW v2**: 1:1 care relationship protection line ("The mature network exists to strengthen the 1:1 care relationship, not replace it.") → add as Coherent Pattern §2.28 cross-cutting discipline OR preamble line
+  - **NEW v2**: §10 11-property coherence test (was 9 in v1) → add #10 substrate-rail-vs-operator-capability layering coherence + #11 universal projection coherence
+- **v2_bidirectional_feedback** (Tier 2 substantive; 2 findings):
+  1. **v2 §3.7 4-layer care OS framework may under-credit Coherent Pattern §1 three-layer pattern** as substrate-internal structure within v2 Layer 1 Substrate Physics. **Routed to D0THES-REV-045.**
+  2. **v2 §7.7 master projection doctrine may under-credit Coherent Pattern §1's planned/actual/evidence pattern** as canonical substrate-to-projection-to-event instance. **Routed to D0THES-REV-046.**
+- **v2_classification_evidence**:
+  - v2 §3.7 explicitly does NOT replace Coherent Pattern §1; v2 frames Coherent Pattern from outside as substrate-internal structure within Layer 1 Substrate Physics
+  - v2 §7.7 universal projection doctrine COMPOSES with Coherent Pattern §1 three-layer pattern (planned/actual/evidence IS one canonical projection instance)
+  - v2 §16 explicitly preserves Coherent Pattern survival; doesn't NAME §2 cross-cutting discipline destinations for all v2 additions — addressed in Phase G refresh
+- **v2_recommended_action_delta**: Phase G.2 sub-arc effort grows ~2x from v1-lens. Add: 4-layer care OS framing preamble + §2.17-§2.28 cross-cutting disciplines (12+ additions vs 5 v1-lens additions) + §7 11-property coherence test (was 9 v1; v2 adds #10 + #11) + bidirectional cross-link to Coherent Pattern §1 from v2 §3.7 + §7.7
+- **v2_effort_estimate_delta**: ~10-15 hr (v1-lens) → **~20-30 hr** (~2x growth from v1-lens; ~5-7x growth from v0-lens)
+- **v2_phase_g_subphase_assignment_delta**: STILL G.2
+
+#### Row 2.v2 — Build OS layer model (v2-lens delta)
+
+- **v2_lens_category**: STILL K1
+- **v2_lens_disposition_changes**: all unchanged
+- **v2_specific_extensions**: Layer 1 Truth Layer artifact list expands with v2 NEW DL candidates:
+  - **v0-lens + v1-lens originals preserved**: DL-23..DL-27 (case-deliberation / conversational intake / patient-graph / Integration Plane / AI capability registry)
+  - **NEW v2 DL candidates**: DL-28 candidate (per-event ownership per §7.5.1), DL-29 candidate (catalog substrate per §7.5.2), DL-30 candidate (patient-source substrate per §7.5.3), DL-31 candidate (consent specificity per §7.5.4), DL-32 candidate (CNS scope architecture per §7.6 REWRITE), DL-33 candidate (master projection per §7.7), DL-34 candidate (cross-operator coordination per §7.8), DL-35 candidate (model_version_of_record per §9.1), DL-36 candidate (operator-pluralism + non-competition per §13.7), possibly DL-37 (OMNI Direct shell per §6.7) + DL-38 (brand-trust transparency per §6.10) — Phase G decides which collapse into existing DLs vs ship standalone
+  - Build OS Layer 5 Governance Cadence absorbs v2 §7.6 Network Governance Plane operations + governance-stream artifacts (Reconciliation Map vN + Thesis vN both governed-stream artifacts)
+  - Build OS Layer 3 Coordination Layer absorbs v2 §7.6 4-CNS-scope-type architecture (Brand CNS + OMNI Core Capability CNS + OMNI Specialty Line CNS + Partner Operator CNS as operator-level peers; OMNI Patient CNS as coherence; Network Governance Plane as meta)
+- **v2_bidirectional_feedback** (Tier 2 substantive; 1 finding):
+  - **v2 §3.7 Layer 1 Substrate Physics may under-credit Build OS Layer 1 Truth Layer** at different abstraction level. Both are foundational truth layers; v2 = runtime substrate; Build OS = development. Cross-link needed (NOT contradiction). **Routed to D0THES-REV-047.**
+- **v2_classification_evidence**:
+  - v2 §16 explicitly preserves Build OS triplet untouched
+  - Build OS Layer 1 Truth Layer purpose unchanged; v2 Layer 1 Substrate Physics composes at different abstraction
+  - 5 layer interaction rules (binding) unchanged
+  - v2 §3.7 4-layer framework names runtime substrate layers; Build OS layer model names development/governance layers — different but composable
+- **v2_recommended_action_delta**: minor — Layer 1 artifact list grows with ~10 new DL candidates from v2 (in addition to ~5 v1 DL candidates); G.3 verification effort grows mechanically; add explicit cross-link note between Build OS Layer 1 Truth Layer and v2 §3.7 Layer 1 Substrate Physics
+- **v2_effort_estimate_delta**: ~1 hr (v1-lens) → **~1-2 hr** (small growth; mechanical artifact list addition)
+- **v2_phase_g_subphase_assignment_delta**: STILL G.3
+
+#### Row 3.v2 — DL-21 Federation DRAFT (v2-lens delta)
+
+- **v2_lens_category**: STILL K3
+- **v2_lens_disposition_changes**: pending_post_refresh resolves EVEN MORE clearly with v2's operator-pluralism + brand-trust transparency + non-competition signaling primitive set
+- **v2_specific_extensions for new DL-25 patient-graph + DL-21 federation refresh**:
+  - **v0-lens + v1-lens originals preserved** (per §8.2 Row 3.v1): care_relationship + shared_context_grant + boundary modes + care_team_graph + artifact custody categories + clinical_adoption + governance plane composition
+  - **NEW v2 for DL-21 federation**: Partner Operator integration_depth metadata (artifact_only / substrate_consumer / network_partner / full_partner per §6.7) — DL-21 needs federation tier-mapping primitive
+  - **NEW v2 for DL-21 federation**: brand-trust transparency primitives (contract-scoped query API + per-Brand entitlement scoping + audit trail of transparency queries per §6.10) — DL-21 audit infrastructure encodes
+  - **NEW v2 for DL-21 federation**: non-competition signaling discipline (substrate-level binding per §13.7) — DL-21 brand-contract terms encode
+  - **NEW v2 for new DL-25 patient-graph**: anti-institutional-gravity discipline (substrate guarantees of provider independence + portable artifacts + visible providers + cross-operator coexistence per §6.8) — DL-25 patient-graph respects across operator-pluralism scaling
+  - **NEW v2 for new DL-25 patient-graph**: per-event ownership 7-dimension orthogonality at cross-operator boundaries (per §7.5.1) — DL-25 patient-graph events carry full 7 ownership dimensions
+  - **NEW v2 for new DL-25 patient-graph**: consent specificity at cross-operator boundaries (no blanket consent; per-scope + per-purpose + per-duration + per-recipient per §7.5.4) — DL-25 visibility_grant primitive enforces
+  - **NEW v2 for new DL-25 patient-graph**: cross-operator coordination doctrine (default passive coherence via OMNI Patient CNS + elective active coordination via care_coordination_owner per §7.8) — DL-25 patient-graph encodes coordination posture
+  - **NEW v2 for new DL-25 patient-graph**: model_version_of_record cross-operator transmittal (per §9.1) — DL-25 + Integration Plane encode AI lineage transmittal across integration_depth tiers
+  - **NEW v2 for new DL-25 patient-graph**: master projection doctrine — cross-org artifact projections (hard + soft) per §7.7 — DL-25 patient-graph encodes projection rules
+- **v2_specific_extensions for DL-21 (stays tenant-boundary)**:
+  - Explicit cross-link to DL-25 patient-graph scope in DL-21 invariant 4-7 (preserved from v1-lens)
+  - **NEW v2**: DL-21 invariant 8+ encodes Partner Operator integration_depth metadata as federation tier classification
+  - **NEW v2**: DL-21 invariant 9+ encodes brand-trust transparency query+audit primitives (contract-scoped + policy-scoped)
+- **v2_bidirectional_feedback** (Tier 2 substantive; 3 findings):
+  1. **v2 §6.7 Partner Operator integration_depth metadata may under-credit DL-21 federation existing tenant-boundary substrate primitives.** integration_depth tier-mapping operates on DL-21 + new DL-25 primitives. **Routed to D0THES-REV-048.**
+  2. **v2 §6.10 brand-trust transparency may under-credit DL-21 federation existing audit + observability infrastructure.** contract-scoped + policy-scoped + entitled operator visibility operates on §1Z audit chain + DL-21 federation grant scoping. **Routed to D0THES-REV-049.**
+  3. **v2 §13.7 non-competition signaling may under-credit DL-21 federation existing brand-contract terms.** operator-pluralism + non-competition discipline operates on existing Powered-by-OMNI brand-contract semantics. **Routed to D0THES-REV-050.**
+- **v2_classification_evidence**:
+  - v2 §12.4 + §7.4 explicitly cross-reference DL-21 federation as tenant-boundary substrate; v2 §6.7 + §6.10 + §13.7 extend without contradicting
+  - v2 §6.7 5-tier vocabulary preserves DL-21 multi-tenancy primitives intact; adds integration_depth metadata as orthogonal substrate dimension
+  - v2 §6.10 brand-trust transparency operates on existing DL-21 federation audit infrastructure (not replacement)
+  - v2 §16 names DL-25 as candidate destination home for v2 §7.4 + §7.5 + §7.6 + §6.7 + §6.10 + §13.7 substrate primitives (in addition to v1 §12.4)
+- **v2_recommended_action_delta**: SHARPER recommendation than v1-lens. DL-25 spec now has 12-15 substantive primitives (v1-lens had 8-10) + integration_depth tier-mapping + brand-trust transparency query+audit + non-competition signaling discipline + anti-institutional-gravity discipline + cross-operator coordination doctrine + per-event ownership 7-dimension orthogonality + consent specificity + model_version_of_record transmittal + master projection doctrine
+- **v2_effort_estimate_delta**: ~15-25 hr (v1-lens) → **~25-40 hr** (~1.5-2x growth from v1-lens; ~2-3x growth from v0-lens)
+- **v2_phase_g_subphase_assignment_delta**: STILL G.2
+
+#### Row 4.v2 — CNS ADR (v2-lens delta)
+
+- **v2_lens_category**: STILL K2
+- **v2_lens_disposition_changes**: all unchanged
+- **v2_specific_extensions to Phase G addendum** (~3-4x growth from v1-lens; major addendum):
+  - **v0-lens + v1-lens originals preserved** (per §8.2 Row 4.v1): §12.1 observation/extracted_assertion + §10 #8 ownership resolution + #9 substrate-vs-care boundary + §12.2 actor subtypes + §6.5 brand architecture + §7.3 care_commitment + §7.5 clinical_adoption + §12.8 AI capability + §7.6 governance plane composition
+  - **NEW v2**: §7.6 CNS scope architecture REWRITE — major Phase G addendum required. CNS ADR needs §9.7 addendum cross-link to v2 §7.6 4-CNS-scope-type architecture (Brand CNS + OMNI Core Capability CNS + OMNI Specialty Line CNS + Partner Operator CNS as operator-level peers; OMNI Patient CNS coherence-level; Network Governance Plane meta-level) + master CNS line ("Workstreams have operators. Patients have coherence. Networks have governance.") + substrate-primitive vs operator-capability layering + CNS depth varies by operator type
+  - **NEW v2**: §3.8 four coexistent operator-level abilities — CNS responsibilities map to Power brands / Connect brands / Govern the network / Operate care domains. CNS ADR §9.8 addendum cross-link
+  - **NEW v2**: §7.5.1 per-event ownership 7 dimensions — extends CNS ADR §2.16 envelope + actor 4-tuple existing ownership primitives. Major CNS event schema extension. CNS ADR §9.9 addendum cross-link
+  - **NEW v2**: §9.1 model_version_of_record — extends CNS ADR §2.14 AI-proposes-deterministic-validates-provider-signs pattern with explicit AI lineage on clinical_adoption. CNS ADR §9.10 addendum cross-link
+  - **NEW v2**: §7.7 master projection doctrine — CNS event projections (soft + hard); CNS ADR §9.11 addendum cross-link
+  - **NEW v2**: §7.8 cross-operator coordination — CNS coordination across operators (default passive coherence + elective active coordination); CNS ADR §9.12 addendum cross-link
+  - **NEW v2**: §6.10 brand-trust transparency — CNS query+audit substrate discipline; CNS ADR §9.13 addendum cross-link
+  - **NEW v2**: §6.7 OMNI Direct shell — CNS routing to multiple operator types; CNS ADR §9.14 addendum cross-link
+- **v2_bidirectional_feedback** (Tier 2 substantive; 3 findings — highest density of bidirectional feedback for v2 lens):
+  1. **v2 §7.6 CNS scope architecture REWRITE may under-credit CNS ADR §2.X CNS execution model.** 4 operator-posture CNS types + 2 always-on CNS scopes + master CNS line + substrate-primitive vs operator-capability layering all operate on CNS ADR's existing CNS execution + envelope primitives. Major Phase G addendum required. **Routed to D0THES-REV-051.**
+  2. **v2 §7.5.1 per-event ownership dimensions may under-credit CNS ADR §2.16 envelope existing ownership primitives.** 7 ownership dimensions (surface / channel / operator / clinical / commerce / custody / coordination) extend CNS ADR §2.16 envelope's authorized_action + actor 4-tuple substrate. **Routed to D0THES-REV-052.**
+  3. **v2 §9.1 model_version_of_record may under-credit CNS ADR §2.14 AI-proposes-deterministic-validates-provider-signs pattern existing model_version field.** v2 names the requirement on clinical_adoption; CNS ADR §2.14 already references model_version + capability_envelope per v1 §12.8. **Routed to D0THES-REV-053.**
+- **v2_classification_evidence**:
+  - CNS ADR §2.14-§2.20 all locked Round 3.5; v2 sections extend / address without contradicting
+  - v2 §7.6 CNS scope architecture REWRITE EXTENDS CNS ADR (not replacement); CNS ADR's CNS-as-scoped-coordination posture aligns with v2 master CNS line
+  - v2 §7.5.1 per-event ownership 7-dimension orthogonality maps onto CNS ADR §2.16 envelope authorized_action + extends with 6 additional dimensions
+  - v2 §9.1 model_version_of_record extends CNS ADR §2.14 with explicit per-event field on clinical_adoption
+- **v2_recommended_action_delta**: Phase G addendum scope ~3-4x larger than v1-lens. CNS ADR §9 addendum grows from §9.1-§9.6 to §9.1-§9.14 (8 new sub-sections for v2 cross-references). Major addendum work required to absorb v2 §7.6 CNS scope REWRITE specifically.
+- **v2_effort_estimate_delta**: ~5-7 hr (v1-lens) → **~12-18 hr** (~2-3x growth from v1-lens; major addendum for §7.6 REWRITE)
+- **v2_phase_g_subphase_assignment_delta**: STILL G.2 (sequenced after Coherent Pattern + §1Z + 1K.5.A per dependency)
+
+#### Row 5.v2 — System map §1Z Universal CNS Event Envelope (v2-lens delta)
+
+- **v2_lens_category**: STILL K2
+- **v2_lens_disposition_changes**: all unchanged
+- **v2_specific_extensions** (sub-section count grows from 7 (v1-lens) to 13+ (v2-lens)):
+  - **v0-lens + v1-lens originals preserved**: §1Z.19-§1Z.25 (observation event_kinds + actor_kinds + coherence test + capability_envelope + boundary modes + clinical_adoption event_kind + governance plane uses §1Z infrastructure)
+  - **NEW v2**: §1Z.26 v2 §7.5.1 per-event ownership 7 dimensions composes with §1Z event schemas (every event-bearing object carries surface_of_record + channel_of_record + operator_of_record + clinical_owner + commerce_owner + artifact_custodian + care_coordination_owner; extends §1Z taxonomy fields)
+  - **NEW v2**: §1Z.27 v2 §7.5.4 consent specificity as new event_kind class (visibility_grant events with scope + purpose + duration + recipient specificity extend §1Z 7-category partition; consent_revocation + auto-renewal-forbidden events)
+  - **NEW v2**: §1Z.28 v2 §7.5.2 catalog substrate model composes with §1Z (catalog_item events as new substrate primitive class; catalog projections per §7.7.1 generate event_kind variants)
+  - **NEW v2**: §1Z.29 v2 §7.7 master projection doctrine — soft projection rules + hard projection events compose with §1Z (longitudinal_pattern per 1K.5.A is canonical hard projection; scoped conversation projections per §7.7.2 are soft messaging projections)
+  - **NEW v2**: §1Z.30 v2 §6.10 brand-trust transparency as new query+audit event_kind class (brand_trust_transparency_query + brand_trust_transparency_audit events compose with §1Z observability + tamper-evident audit chain; entitled operator visibility scoped per brand contract)
+  - **NEW v2**: §1Z.31 v2 §9.1 model_version_of_record as new clinical_adoption event field (every clinical_adoption event carrying AI participation has model_version_of_record substrate field encoding ai_capability + ai_model_id + ai_model_version + capability_envelope_id + model_policy_version + ai_run_id + model_output_artifact_id)
+  - **NEW v2**: §1Z.32 (if needed) v2 §6.7 5-tier vocabulary composes with §1Z multi-tenant isolation (Partner Operator integration_depth metadata as new tenancy classification dimension; OMNI Direct surface as new actor_kind for surface_of_record)
+- **v2_bidirectional_feedback** (Tier 2 substantive; 2 findings):
+  1. **v2 §7.5.1 per-event ownership may under-credit §1Z event schema existing fields.** §1Z taxonomy + producer authorization + actor 4-tuple already contain seeds of per-event ownership; v2 names the 7-dimension orthogonality, §1Z encodes the existing substrate fields that need extension. **Routed to D0THES-REV-054.**
+  2. **v2 §7.5.4 consent specificity may under-credit §1Z event_kind classes + producer authorization.** visibility_grant events with scope + purpose + duration + recipient extend §1Z 7-category partition; v2 names the discipline, §1Z encodes the existing event schema. **Routed to D0THES-REV-055.**
+- **v2_classification_evidence**:
+  - §1Z 7-category partition preserves; v2 §7.5.1 per-event ownership extends fields on existing event schemas
+  - §1Z.3 taxonomy registry IS where v2 §7.5.2 catalog substrate composes
+  - §1Z.5 multi-tenant isolation invariant 8 IS where v2 §6.7 integration_depth composes
+  - §1Z.6 action authorization + audit chain IS where v2 §6.10 brand-trust transparency operates
+  - §1Z.10 AI content validation IS where v2 §9.1 model_version_of_record structurally enforces
+  - §1Z.11 observability + circuit breakers IS where v2 §6.10 brand-trust transparency audit operates
+- **v2_recommended_action_delta**: §1Z amendments grow from 7 sub-sections (v1-lens) to 13+ sub-sections (v2-lens; ~2x growth). Add: §1Z.26 per-event ownership + §1Z.27 consent specificity + §1Z.28 catalog substrate event_kind + §1Z.29 projection rules + §1Z.30 brand-trust transparency event_kind + §1Z.31 model_version_of_record field + §1Z.32 (optional) 5-tier vocabulary tenancy
+- **v2_effort_estimate_delta**: ~12-16 hr (v1-lens) → **~20-28 hr** (~1.5-2x growth from v1-lens; ~3-4x growth from v0-lens)
+- **v2_phase_g_subphase_assignment_delta**: STILL G.2
+
+#### Row 6.v2 — System map §1K.5.A Clinical concept + assertion layer (v2-lens delta)
+
+- **v2_lens_category**: STRONGER K1 finding (preserves from v1-lens). v2 has 5+ more sections (§7.5.1 + §7.5.2 + §7.5.3 + §7.7 + §9.1) that all compose with 1K.5.A substrate at fine granularity. K2 secondary classification (naming reconciliation per Q7 pattern) preserves but now extends to multiple v2 sections beyond v1 sections.
+- **v2_lens_disposition_changes**: STILL preserve / keep_binding / amend; but amend SCOPE grows substantively (~2x from v1-lens; ~4x from v0-lens)
+- **v2_specific_extensions to 1K.5.A header cross-reference**:
+  - **v0-lens + v1-lens originals preserved**: header cross-reference for v0 §12.1 observation/extracted_assertion = patient_clinical_assertions naming reconciliation + v1 §7.3 care_commitment threshold + v1 §7.5 clinical_adoption + v1 §12.6 consult_opinion + v1 §12.8 AI capability + model registry
+  - **NEW v2**: §7.5.1 per-event ownership 7 dimensions extends 1K.5.A `authored_by` enum semantics — patient_clinical_assertions records can carry 7 ownership dimensions (existing authored_by + new clinical_owner + commerce_owner + artifact_custodian + care_coordination_owner + surface_of_record + channel_of_record + operator_of_record). 1K.5.A schema extension.
+  - **NEW v2**: §7.5.2 catalog substrate model composes with 1K.5.A — assertions referencing medications / labs / procedures / vaccines / screenings / programs / devices have catalog_item references; 1K.5.A concept registry IS catalog substrate's clinical-concept layer.
+  - **NEW v2**: §7.5.3 patient-source substrate concept MAPS DIRECTLY to 1K.5.A `authored_by=patient_self_report` value + authority_rank substrate. v2's source_authority + patient_initiated + clinical_adoption_state IS the substrate-level articulation of what 1K.5.A `authored_by=patient_self_report` already encodes operationally. Strong Q7 pattern finding.
+  - **NEW v2**: §7.7 master projection doctrine — 1K.5.A `longitudinal_pattern` rollup view IS canonical hard projection example. v2 §7.7.4 names longitudinal_projection as hard projection type; 1K.5.A `longitudinal_pattern` operationalizes for the assertion layer.
+  - **NEW v2**: §9.1 model_version_of_record extends 1K.5.A `extraction_run.model_version` field — 1K.5.A already encodes model_version + capability_envelope per v1 §12.8 + extraction_run substrate. v2 §9.1 names the per-clinical_adoption requirement; 1K.5.A operationalizes via existing extraction_run.model_version field cascaded into clinical_adoption events.
+- **v2_bidirectional_feedback** (Tier 2 substantive; 1 finding — concentrated; other 4 v2 sections compose without bidirectional ambiguity):
+  1. **v2 §7.5.3 patient-source substrate concept may under-credit 1K.5.A `authored_by=patient_self_report` + computed authority_rank.** 1K.5.A already encodes patient-source as a value in 9-value authored_by enum + computed authority_rank generated column; v2 names the substrate concept (source_authority + patient_initiated + clinical_adoption_state), 1K.5.A operationalizes for the assertion layer. **Routed to D0THES-REV-056.**
+  - **Note**: v2 §7.5.2 catalog substrate model + §7.7 master projection doctrine + §9.1 model_version_of_record + §7.5.1 per-event ownership ALL compose with 1K.5.A cleanly without ambiguity — Q7 pattern is recognized but resolves at Phase G cross-link work without bidirectional under-credit finding (D0THES-REV-037 catalog substrate schema + D0THES-REV-040 hard projection lifecycle + D0THES-REV-043 model_version_of_record substrate schema already name the schemas; refresh maps each to 1K.5.A operational implementation as Phase G work).
+- **v2_classification_evidence**:
+  - 1K.5.A 9-value `authored_by` enum + computed authority_rank generated column IS substrate-level implementation of v2 §7.5.3 patient-source substrate concept
+  - 1K.5.A concept registry IS catalog substrate's clinical-concept layer per v2 §7.5.2
+  - 1K.5.A `longitudinal_pattern` rollup view IS canonical hard projection per v2 §7.7.4
+  - 1K.5.A `extraction_run.model_version` field IS substrate field that v2 §9.1 model_version_of_record extends on clinical_adoption events
+  - 1K.5.A schema is forward-compatible with v2 §7.5.1 per-event ownership 7-dimension orthogonality (adds new fields to existing schema)
+- **v2_recommended_action_delta**: header cross-reference grows from 4 cross-link notes (v1-lens) to 6+ (v2-lens). Add: 1K.5.A header cross-references v2 §7.5.1 + §7.5.2 + §7.5.3 + §7.7 + §9.1 (each pointing to specific 1K.5.A substrate that operationalizes them) + extend existing v1 cross-references (§7.3 + §7.5 + §12.6 + §12.8) with v2 sharpenings.
+- **v2_effort_estimate_delta**: ~5-8 hr (v1-lens) → **~8-12 hr** (~1.5-2x growth from v1-lens; ~2.5-3x growth from v0-lens)
+- **v2_phase_g_subphase_assignment_delta**: STILL G.2 (sequenced after Coherent Pattern + §1Z per dependency)
+
+### §9.3 Extended Thesis Content Gap Table — V2 Spawn Surfaces
+
+Original §3 had 7 gap rows for v0 surfaces. §8.3 v1-lens added 13 more gap rows (rows 8-20) for v1 spawn + completion-pass surfaces. V2-lens adds 15 more gap rows (rows 21-35) for v2 spawn surfaces.
+
+| # | Content area | v0 / v1 / v2 | Target doctrine home | Phase G sub-phase |
+|---|---|---|---|---|
+| 1-7 | (v0 originals; see §3) | v0 | (see §3) | (see §3) |
+| 8-20 | (v1 spawn + completion-pass; see §8.3) | v1 | (see §8.3) | (see §8.3) |
+| 21 | §3.7 4-layer care OS framework (Surface / Coordination CNS / Boundary Policy / Substrate Physics) | v2 spawn | Coherent Pattern preamble OR new §3 framing context section + Build OS Layer 1 Truth Layer cross-link | G.2 + G.3 |
+| 22 | §3.8 Four coexistent operator-level abilities (Power brands / Connect brands / Govern the network / Operate care domains) | v2 spawn | Coherent Pattern §2.17 cross-cutting discipline + §13.5 business engine cross-link | G.2 + G.4 |
+| 23 | §6.7 5-tier vocabulary (OMNI Direct / OMNI Core Capability / OMNI Specialty Line / Powered-by-OMNI Brand / Partner Operator) | v2 spawn | NEW DL or extend DL-18 RBAC + DL-21 federation; Coherent Pattern §2.18 cross-cutting discipline | G.2 |
+| 24 | §6.8 OMNI-operated care domain doctrine + anti-institutional-gravity | v2 spawn | Tier 0 promotion candidate (T0-14 NAMED); extend §13.5 + DL-18 + DL-21 + Powered-by-OMNI brand-contract terms | G.2 + G.4 |
+| 25 | §6.9 OMNI Direct branding preservation | v2 spawn | Coherent Pattern §2.20 cross-cutting discipline + extend §6.5 brand architecture | G.2 |
+| 26 | §6.10 Brand-trust transparency (contract-scoped + policy-scoped) | v2 spawn | Tier 0 promotion candidate (T0-16 TRINITY part 1); NEW DL or extend DL-21 + §1Z audit infrastructure | G.2 + G.4 |
+| 27 | §7.5.1 Per-event ownership 7 dimensions (surface / channel / operator / clinical / commerce / custody / coordination) | v2 spawn | Tier 0 promotion candidate (T0-13 PAIR); NEW DL-28 candidate (per-event ownership substrate); extend CNS ADR §2.16 envelope + §1Z event schemas | G.2 |
+| 28 | §7.5.2 Catalog substrate model (universal across products / labs / procedures / services / vaccines / screenings / programs / devices) | v2 spawn | NEW DL-29 candidate (catalog substrate); extend 1K.5.A + DL-17 commerce + DL-22 clinical media | G.2 |
+| 29 | §7.5.3 Patient-source substrate concept (source_authority + clinical_adoption gate) | v2 spawn | NEW DL-30 candidate (patient-source substrate); extend 1K.5.A `authored_by` enum + authority_rank | G.2 |
+| 30 | §7.5.4 Consent specificity (Guardrail B) | v2 spawn | Tier 0 promotion candidate (T0-16 TRINITY part 2); NEW DL-31 candidate (consent specificity) or extend DL-21 + §1Z audit | G.2 |
+| 31 | §7.6 CNS scope architecture REWRITE (4 operator-CNS types + 2 always-on + master scoped-responsibility) | v2 spawn | Tier 0 promotion candidate (T0-11 framework integrity); extend CNS ADR §2.X — MAJOR addendum | G.2 |
+| 32 | §7.7 Master projection doctrine (hard vs soft) | v2 spawn | Tier 0 promotion candidate (T0-15 PAIR); NEW DL-33 candidate (universal projection) or extend Coherent Pattern §3 composition rules + 1K.5.A longitudinal_pattern | G.2 |
+| 33 | §7.8 Cross-operator coordination doctrine | v2 spawn | NEW DL-34 candidate (cross-operator coordination) or extend DL-20 + DL-21 + DL-25 patient-graph + Integration Plane | G.2 |
+| 34 | §9.1 model_version_of_record (Guardrail C) | v2 spawn | Tier 0 promotion candidate (T0-16 TRINITY part 3); extend CNS ADR §2.14 + 1K.5.A extraction_run.model_version + DL-27 candidate (AI capability + model registry) | G.2 |
+| 35 | §13.7 Operator-pluralism + non-competition signaling + brand-trust transparency interlock | v2 spawn | Extend §13.5 business engine + DL-21 federation + Powered-by-OMNI brand-contract terms + §6.5 brand architecture | G.4 |
+| 36 | 1:1 care relationship protection line ("The mature network exists to strengthen the 1:1 care relationship, not replace it.") | v2 spawn pre-commit refinement | Coherent Pattern §2.28 cross-cutting discipline OR preamble line + §13.5 + §13.6 + §13.7 cross-link | G.2 + G.4 |
+
+**Total Thesis Content Gap rows: 36** (was 7 in v0-lens, 20 in v1-lens, +16 in v2-lens).
+
+### §9.4 Aggregate Metrics — V2-Lens Refresh
+
+**Knox category distribution under v2 lens**: NO CHANGES from v0-lens or v1-lens
+- K1: 1 (Build OS) | K2: 3 (Coherent Pattern, CNS ADR, §1Z) | K3: 1 (DL-21) | K1+K2 hybrid: 1 (1K.5.A — STRONGER K1 finding preserves from v1-lens) | K4: 0 | K6: 0 | K7: 0 | K8: 0
+
+**Memory disposition distribution**: NO CHANGES (5 preserve + 1 preserve_with_extracted_pointer)
+**Authority disposition distribution**: NO CHANGES (5 keep_binding + 1 pending_post_refresh)
+**Refresh action distribution**: NO CHANGES at row level (1 none + 1 partially_refresh + 4 amend); but refresh action SCOPE grew per row (~2-3x amendment surface vs v1-lens; ~5-7x vs v0-lens)
+**Confidence distribution**: NO CHANGES at row level (4 high + 2 medium); HIGHER overall confidence in calibration foundation because v2-lens didn't surface any K-category changes (third consecutive lens iteration with zero K-category changes — substrate health stable)
+
+**Estimated effort distribution (revised under v2 lens)**:
+- S (small; ~1-2 hr): 1 row (Build OS — minimal growth)
+- M (medium; ~8-12 hr): 1 row (1K.5.A — was ~5-8 hr v1-lens; v2-lens ~8-12 hr)
+- L (large; ~12-18 hr): 1 row (CNS ADR — was ~5-7 hr v1-lens; v2-lens ~12-18 hr; major §7.6 REWRITE addendum required)
+- XL (extra-large; ~20-30 hr): 2 rows (Coherent Pattern was ~10-15 hr v1-lens → ~20-30 hr v2-lens; §1Z was ~12-16 hr v1-lens → ~20-28 hr v2-lens)
+- 2XL (~25-40 hr): 1 row (DL-21 + new DL-25 was ~15-25 hr v1-lens → ~25-40 hr v2-lens)
+
+**Total Phase G.2 + G.3 effort for these 6 artifacts at v2-lens**:
+- v0-lens estimate: ~27-40 hours
+- v1-lens estimate: ~50-75 hours
+- **v2-lens estimate: ~85-130 hours** (~1.5-2x growth from v1-lens; ~3-4x growth from v0-lens)
+
+**Extrapolated total F.2.2 audit scope (~30-40 artifacts) at v2-lens**: ~350-600 hours = **8-14 weeks of focused work** (was 5-9 weeks at v1-lens; ~+3-5 weeks growth due to v2's expanded amendment surface). Phase G.2 substrate refresh sub-arc becomes substantially heavier under v2 lens.
+
+### §9.5 Bidirectional Thesis Feedback — Tier 2 Findings (Routed; Not Patching v2)
+
+Per Knox three-tier policy, the following Tier 2 substantive bidirectional feedback findings are documented + routed to Phase G or v3 decision. **DO NOT patch v2 mid-audit.** If a finding rises to Tier 3 (v2 materially misleading), stop + ask Nick + Knox. None did.
+
+| Finding | v2 section | Existing substrate under-credited | Route | Open Review Queue Row |
+|---|---|---|---|---|
+| 1 | §3.7 4-layer care OS framework | Coherent Pattern §1 three-layer pattern (planned commitment → actual delivery → linked evidence/commerce) as substrate-internal structure within v2 Layer 1 Substrate Physics | Phase G refresh: cross-link v2 §3.7 to Coherent Pattern §1 + Coherent Pattern §1 preamble note "operates within v2 Layer 1 Substrate Physics + Coordination CNS layers per v2 §3.7" | D0THES-REV-045 |
+| 2 | §7.7 master projection doctrine | Coherent Pattern §1's planned/actual/evidence pattern as canonical substrate-to-projection-to-event instance | Phase G refresh: cross-link v2 §7.7 to Coherent Pattern §1 + Coherent Pattern §3 composition rules extension noting §1 pattern is hard-projection instance | D0THES-REV-046 |
+| 3 | §3.7 Layer 1 Substrate Physics | Build OS Layer 1 Truth Layer at different abstraction level (Build OS = development layers; v2 4-layer = runtime substrate layers) | Phase G refresh: cross-link v2 §3.7 Layer 1 Substrate Physics to Build OS Layer 1 Truth Layer + Build OS Layer 1 artifact list note "runtime substrate primitives operate within Truth Layer per v2 §3.7" | D0THES-REV-047 |
+| 4 | §6.7 Partner Operator integration_depth metadata | DL-21 federation existing tenant-boundary substrate primitives (artifact_only / substrate_consumer / network_partner / full_partner as new federation tier classification dimension) | Phase G refresh: DL-21 invariant 8+ encodes integration_depth metadata; new DL-25 patient-graph spec absorbs | D0THES-REV-048 |
+| 5 | §6.10 brand-trust transparency | DL-21 federation existing audit + observability infrastructure (contract-scoped + policy-scoped operates on §1Z audit chain + DL-21 federation grant scoping; new federation query+audit primitive) | Phase G refresh: DL-21 invariant 9+ encodes brand-trust transparency query+audit primitives; §1Z.30 sub-section adds brand_trust_transparency_query + brand_trust_transparency_audit event_kind classes | D0THES-REV-049 |
+| 6 | §13.7 non-competition signaling | DL-21 federation existing brand-contract terms (operator-pluralism + non-competition discipline operates on existing Powered-by-OMNI brand-contract semantics) | Phase G refresh: DL-21 federation + Powered-by-OMNI brand-contract terms extension noting non-competition discipline binds OMNI election | D0THES-REV-050 |
+| 7 | §7.6 CNS scope architecture REWRITE | CNS ADR §2.X CNS execution model (4 operator-posture CNS types + 2 always-on + master CNS line + substrate-primitive vs operator-capability layering all operate on CNS ADR existing CNS execution + envelope primitives) | Phase G refresh: CNS ADR §9.7 addendum cross-link to v2 §7.6 (4-CNS-scope-type architecture + master CNS line + substrate-primitive vs operator-capability layering + CNS depth varies); major addendum | D0THES-REV-051 |
+| 8 | §7.5.1 per-event ownership 7 dimensions | CNS ADR §2.16 envelope existing ownership primitives (7 ownership dimensions extend authorized_action + actor 4-tuple substrate) | Phase G refresh: CNS ADR §9.8 addendum cross-link to v2 §7.5.1 7-dimension orthogonality + CNS event schema extension to absorb new ownership fields | D0THES-REV-052 |
+| 9 | §9.1 model_version_of_record | CNS ADR §2.14 AI-proposes-deterministic-validates-provider-signs pattern existing model_version field (v2 §9.1 names per-clinical_adoption requirement; CNS ADR §2.14 already references model_version + capability_envelope per v1 §12.8) | Phase G refresh: CNS ADR §9.9 addendum cross-link to v2 §9.1 model_version_of_record + clinical_adoption event field extension | D0THES-REV-053 |
+| 10 | §7.5.1 per-event ownership | §1Z event schema existing fields (§1Z taxonomy + producer authorization + actor 4-tuple already contain seeds; v2 names 7-dimension orthogonality, §1Z encodes existing substrate fields that need extension) | Phase G refresh: §1Z amendment §1Z.26 cross-link v2 §7.5.1 to §1Z event schema extension; new ownership fields on event-bearing objects | D0THES-REV-054 |
+| 11 | §7.5.4 consent specificity | §1Z event_kind classes + producer authorization (visibility_grant events with scope + purpose + duration + recipient extend §1Z 7-category partition) | Phase G refresh: §1Z amendment §1Z.27 cross-link v2 §7.5.4 to §1Z event_kind class extension; new visibility_grant + consent_revocation event_kinds | D0THES-REV-055 |
+| 12 | §7.5.3 patient-source substrate concept | 1K.5.A `authored_by=patient_self_report` + computed authority_rank (1K.5.A already encodes patient-source as value in 9-value authored_by enum + authority_rank generated column; v2 names substrate concept, 1K.5.A operationalizes for assertion layer) | Phase G refresh: 1K.5.A header cross-link v2 §7.5.3 to `authored_by=patient_self_report` + authority_rank substrate + extend 1K.5.A schema with source_authority + patient_initiated + clinical_adoption_state fields where needed | D0THES-REV-056 |
+
+**Pattern**: all 12 findings follow the Q7 pattern from F.2.0 + 5 v1-lens findings (thesis names what substrate already does). Phase G refresh resolves by EXPLICIT cross-link from v2 sections to substrate destinations. **No v2 patching required.** Q7 pattern now confirmed across 3 lens iterations (1 finding F.2.0 + 5 findings F.2.0.v1 + 12 findings F.2.0.v2 = 18 total bidirectional findings across the calibration set; consistent pattern).
+
+**Tier 3 threshold check**: NONE of the 12 findings rise to "v2 materially misleading as F.2.2 audit lens." v2 sections are sharper than v1; v2 sections under-credit existing substrate in named places that Phase G cross-link work resolves. v2 IS usable as F.2.2 audit lens. **F.2.2.A can proceed.**
+
+### §9.6 Refined Phase G Sequencing Recommendation — V2-Lens
+
+Same sequence as v1-lens but EFFORTS revised + 12 Tier 2 findings added to Phase G work queue + v2-specific Phase G work:
+
+1. **Coherent Pattern §7 11-property coherence test + §2.11-§2.28 cross-cutting disciplines expansion + NEW §3.7 4-layer care OS framework cross-reference** (~20-30 hr; was 10-15 hr at v1-lens; foundational; sequenced first within G.2). v2 adds 12 cross-cutting disciplines vs 5 v1; expands coherence test from 9 to 11 properties; needs 4-layer framework cross-link.
+2. **F.3 decisions** (Nick + Knox):
+   - D0THES-REV-009 DL-21 vs new DL-25 split — SHARPER recommendation at v2 lens with integration_depth metadata + brand-trust transparency + non-competition signaling primitives concretized
+   - D0THES-REV-010 observation/assertion naming — DIRECTIONALLY RESOLVED by v1 §12.1 + v2 §7.5.3 patient-source substrate concept extends
+   - D0THES-REV-011 ownership primitive scope — SHARPENED by v2 §7.5.1 7-dimension orthogonality
+   - D0THES-REV-012 brand contract minimums — SHARPENED by v2 §6.5 + §6.6 + §6.8 + §6.10 + §6.7 + §13.7
+   - **NEW v2 F.3 decisions**:
+     - D0THES-REV-035 anti-institutional-gravity discipline enforcement mechanism
+     - D0THES-REV-036 brand-trust transparency enforcement mechanism (contract-scoped + policy-scoped)
+     - D0THES-REV-043 model_version_of_record substrate schema (mapped to 1K.5.A extraction_run.model_version per refresh)
+     - D0THES-REV-037 catalog substrate model operational schema (mapped to 1K.5.A concept registry per refresh)
+3. **Post-F.3 parallel sub-arcs (v2-lens scope grows ~1.5-2x per artifact vs v1-lens)**:
+   - §1Z amendments grow from §1Z.19-§1Z.25 (v1-lens) to §1Z.19-§1Z.32 (v2-lens; +7 v2-specific sub-sections: §1Z.26-§1Z.32 for per-event ownership / consent specificity / catalog event_kind / projection / brand-trust transparency / model_version_of_record / 5-tier vocabulary)
+   - DL-21 + new DL-25 patient-graph (~25-40 hr; was 15-25 hr at v1-lens) — sharper with v2 integration_depth + brand-trust transparency + non-competition signaling primitives
+   - 1K.5.A amendment (~8-12 hr; was 5-8 hr at v1-lens) — 6+ cross-link notes for v1 + v2 sections (§7.3 + §7.5 + §12.6 + §12.8 + §7.5.1 + §7.5.2 + §7.5.3 + §7.7 + §9.1)
+   - DL-16 amendment 43 actor_kinds extension + new DL-23..DL-36 candidates per Phase G consolidation decision (v1 named DL-23..DL-27; v2 adds DL-28..DL-36 candidates per §9.3 thesis content gap table rows 21-35)
+4. **CNS ADR §9 addendum** (~12-18 hr; was 5-7 hr at v1-lens; major §7.6 REWRITE absorption) — sequenced after Coherent Pattern + §1Z + 1K.5.A; covers §9.1-§9.14 (v0-lens §9.1-§9.3 + v1-lens §9.4-§9.6 + v2-lens §9.7-§9.14)
+5. **Build OS layer model G.3 verification** (~1-2 hr; minor growth) — Layer 1 Truth Layer artifact list updated with v2 DL candidates DL-28..DL-36 + cross-link note to v2 §3.7 Layer 1 Substrate Physics
+
+**Total estimated F.2.2 effort for these 6 artifacts at v2-lens**: ~85-130 hours.
+**Total estimated F.2.2 audit scope (~30-40 artifacts) at v2-lens**: ~350-600 hours = **8-14 weeks of focused work**.
+
+### §9.7 V2-Lens Refresh Self-Assessment
+
+**All 6 calibration rows STABLE under v2 lens** (third consecutive lens iteration with zero K-category changes):
+- 0 K-category changes (still 1 K1 + 3 K2 + 1 K3 + 1 K1+K2 hybrid)
+- 0 memory disposition changes
+- 0 authority disposition changes
+- 0 refresh_action changes at row level
+- 6 amendment SCOPE growths per row (~2-3x larger amendment surface vs v1-lens; effort estimates ~1.5-2x larger)
+- 0 confidence changes at row level
+
+**12 Tier 2 substantive bidirectional feedback findings** (Q7 pattern; thesis names what substrate already does):
+- 2 findings on Coherent Pattern (§3.7 + §7.7 under-credit Coherent Pattern §1 three-layer pattern)
+- 1 finding on Build OS layer model (§3.7 Layer 1 Substrate Physics under-credits Build OS Layer 1 Truth Layer)
+- 3 findings on DL-21 federation (§6.7 + §6.10 + §13.7 under-credit DL-21 substrate primitives)
+- 3 findings on CNS ADR (§7.6 + §7.5.1 + §9.1 under-credit CNS ADR §2.X + §2.16 + §2.14 substrate)
+- 2 findings on §1Z (§7.5.1 + §7.5.4 under-credit §1Z event schema + event_kind classes)
+- 1 finding on 1K.5.A (§7.5.3 under-credits 1K.5.A `authored_by=patient_self_report` + authority_rank; other v2 sections compose cleanly via Phase G cross-link work without bidirectional under-credit)
+- ALL 12 routed to Phase G via D0THES-REV-045..056
+- 0 v2 patching triggered (Knox three-tier policy: substantive feedback ≠ v2 patch; route to Phase G or v3)
+
+**0 Tier 1 mechanical errata**: v2 confirmed mechanically clean post the 6 pre-commit canonical-review refinements (Henry Ford softening + employment lock-in tightening + brand-trust transparency contract-scoped + CNS depth varies + terminology discipline + 1:1 protection line; documented in v2 §22 Amendment Log). Re-checked at refresh: no broken cross-references, no wrong section counts, no inconsistent status language, no naming-vocabulary drift.
+
+**0 Tier 3 materially-misleading findings**: v2 is sharper than v1; v2 is usable as F.2.2 audit lens; under-credits resolve at Phase G cross-link work. **v2 IS the operative audit lens for F.2.2.**
+
+**Confidence in calibration foundation under v2 lens**: HIGH (v2-lens refresh confirmed v0-lens + v1-lens findings + added depth; bidirectional findings strengthen rather than weaken the audit method; Q7 pattern confirmed across 3 lens iterations — substrate health is consistently stronger than thesis articulation reveals).
+
+**Method validation**: refresh approach (preserve historical layers + layer v2-lens delta) worked cleanly across 3 lens iterations. Schema integrity preserved. Knox three-tier policy held throughout. The "delta-led layered refresh" structure produces more efficient analysis than fresh re-audit while surfacing more bidirectional feedback than each prior calibration. **Method is proven; method is the operating reference for all future thesis-lens refreshes.**
+
+**F.2.2.A staged batch can proceed against refreshed v2 lens foundation with HIGH confidence.** Audit picks unchanged. Lens swap is the operative change (v1 → v2). F.2.2.A begins with Charter + Protocol + Control Plane + AGENTS + system map §1F + §1G against v2-lens-refreshed foundation.
+
+**Operating Contract §17 lifecycle state**: stays `F.2.2 in progress` (refresh is additive within F.2.2 staged-batch phase per §17 append rules). F.2.0.v2 refresh completion = pre-F.2.2.A inter-batch checkpoint (third such checkpoint after F.2.0 + F.2.0.v1). F.2.2.A begins next.
+
+### §9.8 Three Explicit Additional V2-Lens Audit Dimensions (per Nick's 2026-05-26 Instruction)
+
+Per Nick's request during the F.2.0.v2 refresh approval, three additional v2-lens audit dimensions exercised across the 6 calibration artifacts:
+
+#### Dimension (a): 1:1 care relationship protection line check
+
+**Test**: does any calibration artifact contain doctrine that would violate the v2 1:1 care relationship protection line ("The mature network exists to strengthen the 1:1 care relationship, not replace it. Every future topology must preserve the daily unit of care: patient, accountable owner, context, next step, and follow-up loop.")?
+
+**Per-artifact results**:
+
+| Artifact | 1:1 protection check result | Notes |
+|---|---|---|
+| Coherent OMNI Architecture Pattern | PASSES | §1 three-layer pattern (planned commitment → actual delivery → linked evidence/commerce) IS the substrate-level encoding of the 1:1 care unit (patient + provider + commitment + delivery + evidence). Phase G addendum should add explicit cross-link to v2 1:1 protection line as Coherent Pattern §2.28 cross-cutting discipline. |
+| Build OS layer model | PASSES | Layer model is structural (development layers); doesn't address 1:1 care unit directly. Phase G addendum should add note that runtime substrate (v2 Layer 1) must preserve 1:1 unit per v2 §5 + §3.8 + §6.7 protection lines. |
+| DL-21 federation | PASSES | Federation primitives explicitly preserve per-tenant + per-patient identity + per-care-relationship scoping. Phase G addendum (DL-21 + new DL-25 patient-graph) should add explicit 1:1 protection constraint: cross-org coordination must not break daily 1:1 care unit (patient + accountable owner + context + next step + follow-up loop). |
+| CNS Action Orchestration ADR | PASSES | §2.16 envelope authorized_action + actor 4-tuple + provider commit semantics directly encode 1:1 care unit. Phase G addendum should add explicit cross-link noting CNS ADR substrate IS the 1:1 protection mechanism at runtime. |
+| §1Z Universal CNS Event Envelope | PASSES | §1Z event schema + producer authorization + tamper-evident audit chain + multi-tenant isolation explicitly preserve per-patient + per-event coherence. Phase G addendum (§1Z.X) should add explicit cross-link noting §1Z substrate IS the 1:1 protection mechanism at event-level. |
+| §1K.5.A Clinical concept + assertion layer | PASSES | patient_clinical_assertions + provider_assessment + clinical_visit_id scope explicitly encode 1:1 care relationship semantics. Phase G addendum should add explicit cross-link noting 1K.5.A substrate IS the 1:1 protection mechanism at clinical-assertion level. |
+
+**Dimension (a) outcome**: All 6 calibration artifacts PASS the 1:1 care relationship protection check. Each substrate spine artifact preserves the daily 1:1 unit of care (patient + accountable owner + context + next step + follow-up loop) at its level of abstraction. Phase G addendum adds explicit cross-link from v2 1:1 protection line to each artifact's existing substrate as confirmation of consistency.
+
+#### Dimension (b): Substrate-primitive vs operator-capability layering check
+
+**Test**: does any calibration artifact violate the v2 substrate-primitive vs operator-capability layering distinction (substrate primitives = inherent rails at Layer 1; OMNI Core Capabilities = elective operator entities at Layer 3 running staff/operations on top of substrate primitives)?
+
+**Per-artifact results**:
+
+| Artifact | Substrate-primitive vs operator-capability check | Notes |
+|---|---|---|
+| Coherent OMNI Architecture Pattern | PASSES | §1 three-layer pattern operates at substrate-primitive level (substrate physics); cross-cutting disciplines §2.X operate at substrate principle level. Pattern does NOT conflate substrate with operator. Phase G addendum should add cross-cutting discipline §2.X for explicit layering distinction per v2 §7.6. |
+| Build OS layer model | PASSES | Layer 1 Truth Layer is substrate; Layer 2 Composition + Layer 3 Coordination + Layer 4 Pillars + Layer 5 Governance Cadence are progressive layers; Build OS does NOT conflate substrate primitives with operator capabilities. Build OS layer model COMPOSES with v2 §3.7 4-layer care OS at different abstraction. |
+| DL-21 federation | PASSES | Federation primitives (tenant_boundary + patient_continuity_policy + federation_permeability_policy) are substrate-primitive level; operator-level federation runtime is downstream. DL-21 + new DL-25 patient-graph respect substrate-vs-operator distinction. |
+| CNS Action Orchestration ADR | PASSES | §2.16 envelope + actor 4-tuple + universal CNS flow are substrate-primitive level; CNS ADR §2.X operates at substrate principle level. CNS ADR does NOT conflate substrate primitives with operator-level CNS execution per v2 §7.6 (Brand CNS / OMNI Core Capability CNS / OMNI Specialty Line CNS / Partner Operator CNS are operator-level CNS implementations OF the CNS ADR substrate primitives). |
+| §1Z Universal CNS Event Envelope | PASSES | §1Z event schema + 7-category partition + producer authorization + audit chain are substrate-primitive level; downstream operators consume §1Z events. §1Z does NOT conflate substrate primitives with operator capabilities; v2 §7.6 substrate-primitive vs operator-capability layering distinction aligns with §1Z's existing substrate-only posture. |
+| §1K.5.A Clinical concept + assertion layer | PASSES | 1K.5.A patient_clinical_assertions schema + concept registry + extraction_run primitives are substrate-primitive level; downstream operators (Brand CNS / OMNI Specialty Line CNS / etc.) consume 1K.5.A assertions. 1K.5.A does NOT conflate substrate primitives with operator capabilities. |
+
+**Dimension (b) outcome**: All 6 calibration artifacts PASS the substrate-primitive vs operator-capability layering check. None conflate substrate (Layer 1) with operator (Layer 3). The v2 §7.6 substrate-primitive vs operator-capability layering distinction aligns with the calibration set's existing substrate-only posture. Phase G addendum adds explicit cross-link from v2 §7.6 to each artifact's substrate-primitive layer.
+
+#### Dimension (c): Brand-trust transparency contract-scoped + policy-scoped vs DL-21 federation check
+
+**Test**: does v2 §6.10 brand-trust transparency (contract-scoped + policy-scoped + entitled operator visibility) conflict with DL-21 federation existing tenant-boundary + federation-permeability semantics?
+
+**Result**: NO CONFLICT. Specifically:
+
+- v2 §6.10 brand-trust transparency operates at the BRAND-LEVEL (Powered-by-OMNI Brand entitled to query OMNI's operating posture toward THAT Brand's care domain + geography per contract terms). DL-21 federation operates at the TENANT-BOUNDARY level (multi-tenant isolation + federation-permeability across tenants). Different scopes; compose without conflict.
+- v2 §6.10 explicitly preserves DL-21 multi-tenant isolation semantics: substrate refuses brand-trust transparency queries that would expose OTHER Brand operators' confidential data; substrate refuses to turn into competitor-intelligence surface; per-Brand entitlement scoping enforced at query time.
+- v2 §6.10 brand-trust transparency query+audit primitives operate on §1Z audit chain (tamper-evident invariant 38) + DL-21 federation grant scoping. Compositional.
+- v2 §13.7 non-competition signaling discipline binds OMNI's election to operate care domains; DL-21 brand-contract terms encode the operational expression. Compositional.
+- **Specific symmetry test**: v2 §6.10 contract-scoped + policy-scoped + entitled operator visibility ↔ DL-21 federation tenant_boundary + federation_permeability_policy. Both bind multi-tenant data flow with explicit scope+purpose+entitlement. v2 §6.10 adds Brand-operator query primitive on top of DL-21 substrate; does not replace.
+
+**Dimension (c) outcome**: No conflict between v2 §6.10 brand-trust transparency (contract-scoped + policy-scoped + entitled operator visibility) and DL-21 federation. Both compose cleanly at substrate level. Phase G addendum adds explicit cross-link from v2 §6.10 to DL-21 + new DL-25 patient-graph audit infrastructure; brand-trust transparency query+audit primitives operate on existing federation + §1Z audit chain substrate. **D0THES-REV-049 captures the explicit cross-link work.**
+
+**Three-dimension summary**: All 3 additional v2-lens audit dimensions PASS cleanly across the 6 calibration artifacts. Substrate-spine calibration artifacts respect v2 disciplines (1:1 protection / substrate-primitive vs operator-capability layering / brand-trust transparency vs federation consistency). No new Tier 2 bidirectional findings surfaced beyond the 12 already routed via D0THES-REV-045..056. **F.2.2.A can proceed against v2 lens with HIGH confidence.**
+
+---
+
 ## §17 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
 
 Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contract Rule), this Reconciliation Map vN stream requires an Operating Contract at creation. This §17 IS that contract. Applies to v1 (this artifact) and inherits to v2, v3, ... unless explicitly amended.
@@ -1308,5 +1787,23 @@ Post v1 spawn + completion pass (commit `d3d303d`), Nick + Knox initiated F.2.0.
 - v1 CONFIRMED usable as F.2.2 audit lens
 
 **Operational state**: F.2.0.v1 refresh complete; F.2.2.A staged batch begins next against refreshed v1 lens foundation.
+
+### F.2.0.v2 Calibration Refresh entry (2026-05-26)
+
+Post v2 spawn + pre-commit refinements (commit `8651c04`), Nick + Knox initiated F.2.0.v2 calibration refresh to re-audit the same 6 artifacts against v2 lens (v2 added 14 new sections + REWROTE §7.6 + 18+ doctrine lines + 5-tier vocabulary + per-event ownership orthogonality + universal projection doctrine + master CNS scoped-responsibility + four coexistent abilities + three fail-at-scale guardrails + 1:1 care relationship protection line that didn't exist when F.2.0 + F.2.0.v1 calibration ran against v0/v1 lens).
+
+**Refresh scope** (locked from plan approval): full re-audit of same 6 artifacts against v2 lens; preserve v0-lens findings as historical layer (§§0-7) + preserve v1-lens findings (§8); layer v2-lens findings (§9); per Knox three-tier policy (mechanical errata = fix; substantive feedback = document + route to Phase G or v3; materially misleading = stop + ask). Plus three explicit additional v2-lens audit dimensions per Nick's instruction: (a) 1:1 care relationship protection line check; (b) substrate-primitive vs operator-capability layering check; (c) brand-trust transparency contract-scoped + policy-scoped vs DL-21 federation check.
+
+**Refresh outcome**:
+- 0 Tier 1 mechanical errata (v2 confirmed mechanically clean post 6 pre-commit canonical-review refinements)
+- 12 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-045..056; v2 NOT patched per Knox policy)
+- 0 Tier 3 materially-misleading findings
+- All 6 calibration rows STABLE under v2 lens (0 K-category changes; 0 disposition changes; amendment SCOPE grew ~2-3x per row vs v1-lens; ~5-7x per row vs v0-lens)
+- All 3 additional v2-lens audit dimensions (1:1 protection / substrate-primitive vs operator-capability layering / brand-trust transparency vs DL-21) PASS cleanly across the 6 artifacts (see §9.8)
+- v2 CONFIRMED usable as F.2.2 audit lens
+
+**Q7 pattern confirmed across 3 lens iterations**: 1 finding F.2.0 + 5 findings F.2.0.v1 + 12 findings F.2.0.v2 = 18 total bidirectional findings; consistent pattern (thesis names what substrate already does); Phase G refresh resolves by explicit cross-link, not vN patching.
+
+**Operational state**: F.2.0.v2 refresh complete; F.2.2.A staged batch begins next against refreshed v2 lens foundation.
 
 If F.2.2 batches surface schema problems, refresh may re-run as v1.1 (in-place); otherwise this volume grows through F.2.2 per Operating Contract §17 append rules. v2 (new file) spawns only if Phase G refresh materially changes the operational role of the Reconciliation Map vN stream.
