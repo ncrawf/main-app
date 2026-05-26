@@ -1,5 +1,9 @@
 # OMNI Doctrine Reconciliation Map v1
 
+> **F.2.2.A.1 BATCH COMPLETE 2026-05-26 — COORDINATION SPINE (4 substrate-spine artifacts); F.2.2.A.2 CRUFT TEST NEXT (system map §1F + §1G)**
+>
+> F.2.2.A is split into A.1 (4 substrate-spine docs; this batch) + A.2 (§1F scheduling UI + §1G messaging UI cruft test; next session) per Knox + Nick approval (Option C "proper batching"). F.2.1 cruft-test refinement SATISFIED at F.2.2.A LEVEL (A.1 + A.2 together); A.2 closes the loop. Per Knox three-tier policy + v2 lens (refreshed via §9). **A.1 Outcome: 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (D0THES-REV-057..060 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 4 substrate-spine artifacts STABLE under v2 lens (all K1; ~8-14 hr total Phase G effort). v2 confirmed bidirectionally coherent with coordination spine. See §10 for full F.2.2.A.1 batch analysis. F.2.2.A.2 begins next session.
+
 > **F.2.0.v2 CALIBRATION REFRESH COMPLETE 2026-05-26 — F.2.2 STAGED BATCHES NEXT (REFRESHED V2 LENS FOUNDATION)**
 >
 > Phase F.2.0 calibration (6 audit rows + 7 thesis-gap rows + 0 K8 conflicts + executive verdict + self-assessment + Operating Contract §17) approved-in-principle 2026-05-25 by Nick + Knox. Method validated. One required refinement for F.2.2: staged batches (4-6 batches of ~5-7 artifacts each, NOT a monolithic mega-run), with each batch mandatorily mixing substrate-spine + cruft-likely UI/product-drift sections to correct calibration sample-bias. Knox verbatim: *"This calibration is strong. The method worked. The most important finding is that Thesis v0 §12.1 may understate existing substrate."*
@@ -34,14 +38,19 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.0.v2 CALIBRATION REFRESH COMPLETE; F.2.2.A NEXT
+## §0 Status Posture — F.2.2.A.1 BATCH COMPLETE (Coordination Spine); F.2.2.A.2 CRUFT TEST NEXT
 
-**F.2.0.v2 Calibration Refresh complete 2026-05-26** per `D0THES-DEC-006` per Operating Contract §17 active-status completion-pass rule. Per Knox three-tier policy: 0 Tier 1 mechanical errata; 12 Tier 2 substantive bidirectional findings (D0THES-REV-045..056 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 calibration rows STABLE under v2 lens (0 K-category changes; 0 disposition changes; amendment SCOPE grew ~2-3x per row vs v1-lens). v2 CONFIRMED usable as F.2.2 audit lens. F.2.2.A staged batch begins next against refreshed v2 lens foundation.
+**F.2.2.A.1 Batch complete 2026-05-26** per `D0THES-DEC-007` per Operating Contract §17 append rules. Per Knox three-tier policy + v2 lens (refreshed via §9): 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (D0THES-REV-057..060 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 4 substrate-spine artifacts STABLE under v2 lens (all K1; 0 K-category changes; 0 disposition changes). v2 CONFIRMED bidirectionally coherent with coordination spine. F.2.2.A.2 (system map §1F scheduling UI + §1G messaging UI cruft test) begins next session.
 
-**Calibration version log**:
+**F.2.0.v2 Calibration Refresh complete 2026-05-26** per `D0THES-DEC-006` per Operating Contract §17 active-status completion-pass rule. Per Knox three-tier policy: 0 Tier 1 mechanical errata; 12 Tier 2 substantive bidirectional findings (D0THES-REV-045..056 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 calibration rows STABLE under v2 lens (0 K-category changes; 0 disposition changes; amendment SCOPE grew ~2-3x per row vs v1-lens). v2 CONFIRMED usable as F.2.2 audit lens.
+
+**Calibration + Batch version log**:
 - F.2.0 calibration (v0-lens; commit `f2812e8`; 2026-05-25): §§0-7 — 1 Tier 2 bidirectional finding (Q7: thesis under-credits 1K.5.A)
 - F.2.0.v1 refresh (v1-lens; commit `ca047ac`; 2026-05-25): §8 — 5 Tier 2 bidirectional findings (D0THES-REV-027..031)
-- F.2.0.v2 refresh (v2-lens; pending commit; 2026-05-26): §9 — 12 Tier 2 bidirectional findings (D0THES-REV-045..056) + 3 explicit additional dimensions per Nick's instruction
+- F.2.0.v2 refresh (v2-lens; commit `b0bfb49`; 2026-05-26): §9 — 12 Tier 2 bidirectional findings (D0THES-REV-045..056) + 3 explicit additional dimensions per Nick's instruction
+- **F.2.2.A.1 batch (v2-lens; pending commit; 2026-05-26): §10 — 4 Tier 2 bidirectional findings (D0THES-REV-057..060); coordination spine subset of F.2.2.A**
+
+**Q7 pattern total**: 1 + 5 + 12 + 4 = **22 bidirectional findings to date**. Pattern consistent: thesis names what substrate already does; both calibration set AND coordination spine extend pattern. Phase G refresh resolves all 22 via explicit cross-link work, NOT vN patching.
 
 **F.2.1 calibration review gate complete 2026-05-25 by Nick + Knox.** Outcome: **approve-with-one-refinement**. Method validated. Calibration marker REMOVED.
 
@@ -1668,6 +1677,320 @@ Per Nick's request during the F.2.0.v2 refresh approval, three additional v2-len
 
 ---
 
+## §10 F.2.2.A.1 Batch — Coordination Spine (4 substrate-spine artifacts)
+
+> **F.2.2.A.1 BATCH COMPLETE 2026-05-26**
+>
+> Per F.2.1 refinement: F.2.2.A audits coordination spine (4 substrate-spine artifacts) + scheduling/messaging UI cruft test (2 cruft-likely artifacts). Per Knox + Nick approval (Option C; "proper batching"), F.2.2.A is split into A.1 (this batch — 4 substrate-spine docs now) + A.2 (§1F scheduling UI + §1G messaging UI cruft test — next session). The F.2.1 cruft-test requirement is SATISFIED at F.2.2.A LEVEL (A.1 + A.2 together); A.1 alone covers substrate-spine. A.2 lands the cruft test.
+>
+> **A.1 audit picks** (4 substrate-spine):
+> 1. `00_omni_coordination_charter.md` (Coordination Charter)
+> 2. `agent_work_protocol.md` (Agent Work Protocol)
+> 3. `00_architecture_memory_control_plane.md` (Architecture Memory Control Plane)
+> 4. `AGENTS.md` (boot pointer)
+>
+> **Lens**: v2 (refreshed via §9; commit `b0bfb49`). Per Knox three-tier policy: mechanical errata = fix; substantive feedback = document + route to Phase G or v3 (do NOT patch v2 mid-audit); materially misleading = stop + ask.
+>
+> **A.1 Outcome: 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-057..060; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 4 substrate-spine artifacts STABLE under v2 lens (0 K-category changes; 0 disposition changes). v2 confirmed bidirectionally coherent with substrate-spine coordination doctrine.
+
+### §10.1 Batch Executive Audit Verdict (Q1.A.1 — Q7.A.1)
+
+7 mandatory synthesis questions, scoped to F.2.2.A.1 batch (4 substrate-spine artifacts under v2 lens).
+
+#### Q1.A.1 — What is healthier than expected under v2 lens?
+
+- **The 4 substrate-spine artifacts are STRUCTURALLY ORTHOGONAL to v2's substrate-thesis articulation.** Charter's 5-Layer Model (Control Plane / Build OS / Agent Work Protocol / AGENTS / Commands) governs OMNI's governance/coordination layering; v2 §3.7's 4-Layer care OS framework (Surface / Coordination CNS / Boundary Policy / Substrate Physics) describes runtime substrate layering. These layered abstractions COMPOSE at different abstraction levels (Charter governs the governance of how OMNI is built; v2 governs how OMNI runs). No conflict; just need explicit cross-link.
+- **Agent Work Protocol's runtime loop is fully v2-compatible**: identify gate → classify work → load authority → obey gate → execute within scope → prove stop. v2 introduces new operator postures (5-tier vocabulary) + new substrate primitives (catalog substrate / per-event ownership / projections / cross-operator coordination) — all of these fit cleanly into Protocol's existing 13 work classification classes + routing decision rules + Future Work Registry contract.
+- **Control Plane's schema spine is v2-extensible**: Schema Lock v0 covers `category_enum` + `authority_level_enum` + `current_status_enum` + `manifest_action_enum` + `review_gate_enum` + `agent_read_rule_enum` + `lifecycle_role_enum` + supplemental governed-stream fields. v2 thesis (`active_adopted_directional_v2` status) operates as a governance-stream artifact using the supplemental fields cleanly. Schema Lock v0 doesn't need restructuring; one enum extension proposal surfaces (see Q7.A.1).
+- **AGENTS.md is a pure boot pointer with NO schema content to under-credit.** v2 fits within AGENTS' Non-Negotiables structure (System Map + Charter + Control Plane + Build OS + Protocol + Read Graph + Build Entry Gate). v2 thesis is consult-routed through Manifest Read Graph entry #3a (already in place).
+- **Coordination spine is EXACTLY what F.2.0.v2 refresh confirmed**: v2 vertical-layering doctrine fits within Charter's coordination framework + Protocol's runtime loop + Control Plane's schema spine + AGENTS' boot pointer. The substrate-thesis-vs-governance-coordination boundary is clean.
+
+#### Q2.A.1 — What is worse than expected under v2 lens?
+
+- **The Q7 pattern (thesis names what substrate already does) extends to coordination spine in 4 places** (D0THES-REV-057..060 — see §10.4). These are NOT failures of v2 OR of the substrate-spine artifacts. They are bidirectional cross-link work for Phase G refresh.
+- **Estimated Phase G effort for these 4 artifacts under v2 lens** is moderate (~12-20 hours; see §10.3 + §10.5) — adds to the F.2.2 total but isn't disproportionate given v2's new doctrine surface.
+
+#### Q3.A.1 — What must be refreshed first under v2 lens?
+
+Within the F.2.2.A.1 batch:
+
+1. **Charter Layer Model ↔ v2 §3.7 cross-link** (D0THES-REV-057; foundational; Charter is layer-coordination doctrine; v2 §3.7 is layered architecture; explicit composition cross-reference needed first within Phase G.2 Charter refresh). ~3-5 hr.
+2. **Protocol §5 Routing Requirements + §8 Checkpoint Preservation Tier 4 trigger + v2 cross-links** (D0THES-REV-058 + D0THES-REV-059; Protocol is runtime mechanics; v2 introduces new doctrine that Protocol routing decisions reference). ~3-5 hr.
+3. **Control Plane Schema Lock v0 `current_status_enum` extension + v2 `active_adopted_directional_vN` convention** (D0THES-REV-060; Schema Lock is foundational enum spine; v2/v1/v0 governance-stream status convention needs explicit enum acknowledgment). ~2-3 hr.
+4. **AGENTS.md** — no refresh action required; current boot pointer state is sufficient.
+
+#### Q4.A.1 — What valid decisions must not be lost under v2 lens?
+
+**No valid_decisions_lost concerns** for any of the 4 substrate-spine artifacts. v2 ADDS to Charter + Protocol + Control Plane + AGENTS (doesn't replace any). All existing decisions in these artifacts hold under v2 lens.
+
+#### Q5.A.1 — What docs are dangerous if left authoritative under v2 lens?
+
+**None in F.2.2.A.1 batch.** All 4 are K1 (correct, aligned, complete) under v2 lens. Substrate-spine artifacts respect v2 disciplines (1:1 protection + substrate-primitive vs operator-capability layering + brand-trust transparency vs DL-21 federation — all 3 dimensions pass per §9.8).
+
+#### Q6.A.1 — What can safely wait under v2 lens?
+
+- **AGENTS.md refresh** — no action required.
+- **Protocol §9 Stop Report field additions** for v2 `model_version_of_record` — existing `template_schema_references_used` covers this implicitly; Phase G can add explicit field if F.2.2 batches surface need.
+- **Control Plane Anti-Shrouding Family + v2 brand-trust transparency composition** — anti-Hims posture extended to brand-trust transparency anti-hiding posture; compositional, not blocking; Phase G can add cross-reference.
+
+#### Q7.A.1 — What does the audit teach us about the thesis itself (under v2 lens, in this batch)?
+
+**4 substantive bidirectional findings (Tier 2 per Knox policy)** — Q7 pattern extends from calibration set to coordination spine:
+
+1. **Charter Layer Model may under-credit Charter's existing governance-layering articulation when v2 §3.7 4-layer care OS framework is read as overlapping vocabulary.** Charter governs *governance-of-how-OMNI-is-built*; v2 §3.7 governs *runtime-substrate-of-how-OMNI-runs*. Different abstractions; cross-link needed. Same pattern as D0THES-REV-047 (Build OS Layer 1 Truth Layer). **Routed to D0THES-REV-057.**
+
+2. **Protocol §5 Routing Requirements may under-credit v2 §13.7 operator-pluralism + brand-trust transparency routing implications.** When work touches OMNI-operated care domain election or operator-pluralism boundary, routing decisions should explicitly reference v2 §13.7 brand-contract terms + brand-trust transparency entitlement scoping. Current routing language is generic. **Routed to D0THES-REV-058.**
+
+3. **Protocol §8 Checkpoint Preservation Rule Tier 4 trigger may under-credit v2 1:1 care relationship protection line.** Tier 4 trigger says "binding doctrine added or rule changed." v2 1:1 protection line is currently section-level (NOT Tier 0 promoted); but it functions as a binding discipline for v2 vertical-layering doctrine. Tier classification may need explicit 1:1 protection line reference. **Routed to D0THES-REV-059.**
+
+4. **Control Plane Schema Lock v0 `current_status_enum` may not yet include `active_adopted_directional_vN` governance-stream artifact status convention.** v0/v1/v2 thesis lifecycle uses `active_adopted_directional_v0` / `active_adopted_directional_v1` / `active_adopted_directional_v2` status — these are outside the documented `current_status_enum` (active / draft / review_required / parked / superseded / deprecated / archived / provisional). Need explicit enum extension OR documented vN-pattern acknowledgment. **Routed to D0THES-REV-060.**
+
+**All 4 are Tier 2 substantive feedback per Knox three-tier policy.** Documented in §10.4 below + routed to Phase G as D0THES-REV-057..060. Do NOT trigger v2 completion pass. v2 NOT materially misleading; just under-credits coordination spine in named places. Phase G refresh resolves by explicit cross-link.
+
+**Threshold check (Tier 3)**: NONE of the 4 findings rise to "v2 materially misleading vs coordination spine doctrine." Coordination spine is healthy under v2 lens; bidirectional cross-link work is normal Phase G refresh activity. **v2 confirmed bidirectionally coherent with coordination spine.**
+
+### §10.2 Per-Artifact Audit Rows (F.2.2.A.1 batch)
+
+#### Row F.2.2.A.1-1 — Coordination Charter (`00_omni_coordination_charter.md`)
+
+- **artifact_path**: `.cursor/plans/doctrine/00_omni_coordination_charter.md`
+- **knox_category**: **K1** (correct, aligned, complete)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (Layer Model + Lifecycle Freshness Contract + Current Open Debt cross-references)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**:
+  - 5-Layer Model (Control Plane / Build OS / Agent Work Protocol / AGENTS / Commands) — top coordination doctrine; v2 fits WITHIN this framework
+  - Precedence Contract (5-step precedence resolution) — load-bearing for governance conflict resolution
+  - Catalog and Read-Graph Clarity Rule (00_omni_coordination_charter vs 00_architecture_memory_control_plane disambiguation) — prevents dual-`00` ambiguity
+  - 5 Interface Contracts (Control Plane <-> Build OS / Build OS <-> Agent Work Protocol / Agent Work Protocol <-> AGENTS / Agent Work Protocol <-> Read Graph / Agent Work Protocol <-> Build Entry Gate) — load-bearing
+  - Lifecycle Freshness Contract (work-package/phase closure disposition rules) — work-package closure rules
+  - Protocol Freshness Triggers (6 triggers requiring Charter/Protocol review/update) — meta-governance
+  - Non-Loss Rule (preserve accepted mechanics) — anti-regression discipline
+  - Current Open Debt section (v0/v1/v2 + F.2.0/F.2.0.v1/F.2.0.v2 refresh status) — load-bearing for orientation
+- **v2_lens_extensions_needed**:
+  - Layer Model + v2 §3.7 4-layer care OS framework cross-reference (governance layering vs runtime substrate layering compose; explicit cross-link prevents misframing)
+  - Lifecycle Freshness Contract may need v2 §13.7 operator-pluralism reference for governance-stream artifact lifecycle (operating contracts of governance-stream artifacts in operator-pluralism contexts may require brand-trust transparency entitlement scoping)
+  - Current Open Debt section structurally extensible to track future vN spawns + F.2 refresh iterations (already adapted for v2 + F.2.0.v2)
+- **v2_bidirectional_feedback** (1 Tier 2 finding): Charter Layer Model ↔ v2 §3.7 4-layer care OS framework cross-link → **D0THES-REV-057**
+- **classification_evidence**:
+  - Charter §Layer Model: line 31-53 — locked structurally; v2 doesn't conflict
+  - Charter §Catalog and Read-Graph Clarity Rule: line 67-73 — Control Plane vs Charter dual-`00` disambiguation holds
+  - Charter §Lifecycle Freshness Contract: line 100-112 — work-package closure rules apply to v2 lifecycle artifacts
+  - Charter §Current Open Debt: updated 2026-05-26 for F.2.0.v2 refresh + 56 D0THES-REV rows enumerated
+- **recommended_action**: Phase G.2 Charter refresh — add §Layer Model cross-reference to v2 §3.7 (~3-5 hr effort); update Lifecycle Freshness Contract for governance-stream operator-pluralism implications (~1-2 hr; ties to D0THES-REV-058)
+- **effort_estimate**: M (medium; ~4-7 hr including cross-link + Lifecycle Freshness amendment)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh; sequenced after Coherent Pattern + §1Z + 1K.5.A per dependency)
+
+#### Row F.2.2.A.1-2 — Agent Work Protocol (`agent_work_protocol.md`)
+
+- **artifact_path**: `.cursor/plans/doctrine/agent_work_protocol.md`
+- **knox_category**: **K1** (correct, aligned, complete)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (light extensions for v2 primitives)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**:
+  - Applicability rule (mandatory for architecture/doctrine/build/work-package)
+  - Authority Boundary (runtime behavior; not schema authority; not Build OS gate authority)
+  - Boot artifacts list (`AGENTS.md` + Charter + Control Plane + Read Graph + Build OS triplet 09/10/11)
+  - Identify Gate / Work Package step (declare lane/domain/surface + gate status + runtime/code edits scope)
+  - Work Classification (13 work classes including doctrine/ADR/future work/evidence/narrative/handoff/guardrail/supersession/open review/catalog-read-graph-impact/test-invariant/glossary/runbook)
+  - Classification Decision Contract (destination + update-vs-create + required side-effects + reviewer gate)
+  - Context Loading rules (lane/domain/surface tags through read-graph; non-binding narrative/handoff/evidence)
+  - Row-First Document-Second principle
+  - New Artifact Completion Rule (passport + class + authority + lifecycle + catalog + read-graph + open-review-if-uncertain)
+  - Governed Stream Artifact Operating Contract Pointer (routed through Control Plane Enforcement Rule 7)
+  - Routing Requirements list (ADR / doctrine / decision ledger / evidence ledger / guardrail / supersession / open review / catalog / read-graph / handoff / future work)
+  - Routing Decision Rules (ADR vs Doctrine + Narrative vs Binding + Guardrail vs Open Review vs Supersession + Evidence + Handoff)
+  - Handoff Minimum Contract (state snapshot + scope + changed artifacts + verification + settled decisions + unresolved + next gate)
+  - Build-Entry Checks (lane/domain/surface tags + Future Work Registry retrieval + open review + guardrail + ADR/doctrine anchors + dispositions + proof obligations)
+  - Composition Discipline pointer (Governed Temporary Coherence)
+  - Future Work Registry Contract (17 row fields; no-empty-registry rule)
+  - Execution Constraints (stay in scope + no bypass routing + no unratified primitives + no unauthorized runtime/governance)
+  - Lifecycle Maintenance (future work disposition + open review state + supersession/conflict update + narrative lifecycle + handoff disposition + catalog/read-graph)
+  - **Checkpoint Preservation Rule with 4 Tiers** (Tier 1 micro / Tier 2 work-package / Tier 3 major arc / Tier 4 canonization; default-up rule; required artifacts per tier; prior-narrative consultation obligation; guardrail extraction obligation)
+  - Proof and Stop Report fields (gate declaration + files + proof + routing checklist + lifecycle + unresolved + template schema references + schema deviation + new artifacts + completion proof + checkpoint tier + checkpoint artifact path + narrative artifact path + prior narratives consulted + guardrail rows extracted + canonical updates + next gate)
+  - Non-Loss Requirement
+  - Coverage and Gap Tracking Requirement
+- **v2_lens_extensions_needed**:
+  - §5 Routing Decision Rules may need v2 §13.7 operator-pluralism explicit routing rule (when work touches OMNI Specialty Line / OMNI Core Capability election or brand-trust transparency queries, route to Phase G.4 brand-contract refresh + Phase G.2 substrate refresh — currently generic "appropriate artifacts" language)
+  - §8 Checkpoint Preservation Tier 4 trigger may need v2 1:1 care relationship protection line reference (1:1 protection is section-level in v2 §22 but functions as binding discipline; Tier 4 trigger language could explicitly include it as future Tier 4 candidate when promoted)
+  - §9 Stop Report fields may benefit from explicit `model_version_of_record_logged` field for AI-touched governance work — but existing `template_schema_references_used` covers this implicitly; Phase G can add if F.2.2 batches surface specific need
+- **v2_bidirectional_feedback** (2 Tier 2 findings):
+  1. Protocol §5 Routing Requirements ↔ v2 §13.7 operator-pluralism + brand-trust transparency routing implications → **D0THES-REV-058**
+  2. Protocol §8 Checkpoint Preservation Tier 4 trigger ↔ v2 1:1 care relationship protection line → **D0THES-REV-059**
+- **classification_evidence**:
+  - Protocol §1 Boot artifacts list (line 38-49): v2 thesis routes through Manifest Read Graph Tier 2 #3a entry (consult_if_routed) — current
+  - Protocol §3 Work Classification (line 64-89): 13 work classes cover v2-thesis class implicitly (doctrine + ADR fit; v2 spawn = doctrine class with governance-stream artifact + Operating Contract per Control Plane Enforcement Rule 7)
+  - Protocol §5 Routing Requirements (line 133-188): comprehensive but generic; v2 §13.7 brand-trust transparency + operator-pluralism doctrine warrants explicit routing decision rule
+  - Protocol §8 Checkpoint Preservation Rule (line 274-311): 4-Tier classification + default-up rule + per-Tier required artifacts — v2 lifecycle operations comply (Tier 2 for completion passes / Tier 4 for v2 spawn)
+  - Protocol §9 Stop Report fields (line 315-340): exhaustive list; v2-touched governance work proof obligations met by existing fields
+- **recommended_action**: Phase G.2 Protocol refresh — add v2 §13.7 + 1:1 protection line cross-references (~2-3 hr effort)
+- **effort_estimate**: S-M (small-to-medium; ~2-4 hr including 2 cross-link amendments)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh; sequenced)
+
+#### Row F.2.2.A.1-3 — Architecture Memory Control Plane (`00_architecture_memory_control_plane.md`)
+
+- **artifact_path**: `.cursor/plans/doctrine/00_architecture_memory_control_plane.md`
+- **knox_category**: **K1** (correct, aligned, complete)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (Schema Lock v0 `current_status_enum` extension + Lifecycle Closure governance-stream artifact reference)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**:
+  - Purpose + Boundaries (classification / routing / supersession-tracking / read-graph governance)
+  - Owns scope (10 areas including catalog registration + decision/evidence preservation + supersession/conflict + open review + lifecycle disposition + guardrail memory + schema lock + drift audit)
+  - Does Not Own scope (7 exclusions: layer-coordination Charter / runtime sequencing Protocol / Build OS gates / Build Entry Gate / runtime code Protocol §7)
+  - Mandatory Boot Sequence (5 steps for memory-governance boot)
+  - Coordination Charter Pointer (non-superseding; Charter coordinates layers; Protocol governs runtime; Control Plane owns schemas)
+  - **7 Enforcement Rules** (cataloged-if-not-provisional / decision-routed-if-not-preserved / ingestion=evidence-unless-canonized / handoffs-are-continuity-until-processed-routed / historical-nonbinding-unless-promoted / no-new-markdown-without-passport-+-catalog-+-read-graph / **Rule 7 Governed Stream Artifact Operating Contract**)
+  - New-Document Intake Protocol (always-on; same-change-set passport + catalog + routing-metadata + read-graph-impact)
+  - **Governed Stream Artifact Operating Contract Rule** (9 Minimum Contract Elements; locked; v2 thesis Operating Contract complies)
+  - Classification + Routing (canonical schemas in dedicated files)
+  - Decision/Evidence Preservation (decision routing record `03_decision_extraction_ledger.md` + evidence basis `07_evidence_ingestion_ledger.md`)
+  - Supersession/Conflict + Open Review (`05_supersession_conflict_ledger.md` + `08_open_review_queue.md`)
+  - Lifecycle Closure (future work / open review / supersession-conflict / narrative / handoff / catalog-read-graph dispositions)
+  - Guardrail Memory (`06_guardrail_antipattern_digest.md`; not authority-overriding)
+  - Anti-Shrouding Guardrail Family (3 sub-contracts: Anti-Shrouding Rule + Anti-Shrouding Validation Gate + Anti-Shrouding Stage-Entry Gate + Prospective+Retrospective Application Policy + Retro Re-Scan Trigger Policy)
+  - Scope Discovery Rule (collapsed non-excluding; .cursor/plans + docs + AGENTS + CLAUDE + README)
+  - Control Plane Artifacts (8 canonical files: catalog + authority-routing + decision-ledger + read-graph + supersession + guardrail-digest + evidence-ledger + open-review)
+  - **Schema Lock v0** (7 enums: category / authority_level / current_status / manifest_action / review_gate / agent_read_rule / lifecycle_role + supplemental governed-stream passport fields: Volume / Volume state / Spawned / Next volume)
+  - Boot-Path Synchronization Requirement (AGENTS + system-map + Charter + Protocol + Read Graph + Build OS triplet must share or cross-reference boot-rule semantics)
+  - Drift Audit Requirement (boot-path / stale-document / orphan-decision / supersession-conflict / unprocessed-handoff / evidence-not-routed audits)
+- **v2_lens_extensions_needed**:
+  - Schema Lock v0 `current_status_enum` (line 319-328) currently has 8 values (active / draft / review_required / parked / superseded / deprecated / archived / provisional); v0/v1/v2 thesis lifecycle uses `active_adopted_directional_v0` / `active_adopted_directional_v1` / `active_adopted_directional_v2` status — these are OUTSIDE the documented enum. Need explicit enum extension to include `active_adopted_directional_vN` pattern OR explicit documented vN-status acknowledgment in Supplemental Passport Fields section (line 363-378)
+  - Lifecycle Closure (line 176-193) may benefit from explicit governance-stream artifact lifecycle reference (governance-stream artifacts have additional volume/append lifecycle per Schema Lock v0 supplemental fields)
+  - Anti-Shrouding Guardrail Family may compose with v2 brand-trust transparency anti-hiding posture (extends anti-Hims/anti-marketplace-tyranny doctrine from substrate-vs-product plane to operator-pluralism)
+  - Drift Audit may extend with v2-lens-specific audit categories (operator-pluralism drift / 1:1 protection drift / per-event ownership drift)
+- **v2_bidirectional_feedback** (1 Tier 2 finding): Schema Lock v0 `current_status_enum` ↔ vN governance-stream artifact `active_adopted_directional_vN` status convention → **D0THES-REV-060**
+- **classification_evidence**:
+  - Control Plane §Purpose + Boundaries (line 16-48): scope holds under v2; v2 substrate thesis is doctrine artifact governed by Control Plane schema rules
+  - Control Plane §Enforcement Rule 7 Governed Stream Artifact Operating Contract: v2 thesis Operating Contract §17 complies with 9 Minimum Contract Elements
+  - Control Plane §Schema Lock v0 (line 292-377): 7 enums + supplemental governed-stream passport fields apply to v2 thesis (Volume + Volume state + Spawned + Next volume); but `current_status_enum` doesn't yet include `active_adopted_directional_vN` pattern
+  - Control Plane §Boot-Path Synchronization (line 381-389): v2 thesis routes through Read Graph #3a + Charter #2 + Protocol §5; no broken synchronization
+- **recommended_action**: Phase G.2 Control Plane refresh — Schema Lock v0 `current_status_enum` extension OR Supplemental Passport Fields section addition for `active_adopted_directional_vN` convention (~2-3 hr effort)
+- **effort_estimate**: S (small; ~2-3 hr; mechanical enum extension or supplemental field clarification)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh)
+
+#### Row F.2.2.A.1-4 — AGENTS.md (boot pointer)
+
+- **artifact_path**: `AGENTS.md`
+- **knox_category**: **K1** (correct, aligned, complete)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: **none** (no v2-lens refresh action required)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**:
+  - Operator Profile is binding (Nick / Knox / Opus trifecta + full technical fidelity + structured for trifecta review)
+  - 9 Non-Negotiables (System Map + Coordination Charter + Architecture Memory Control Plane + OMNI Build OS + Agent Work Protocol + Manifest Read Graph + Tier 0.5 Boot-Visible Surface + Build Entry Gate + AGENTS scope statement)
+  - Agent Boot loop (5 work classes table: architecture/doctrine/governance / implementation lane / runtime code-only / new architecture process markdown / evidence handoff narrative future-work)
+  - Stop Proof requirement (no stop without Protocol §9 stop report + new artifact §5 completion proof)
+  - Implementation Rules (System Map source of truth + mutations via requireCapability + npm typecheck before merge)
+  - OMNI Operating References (12 file pointers including v2 thesis through Read Graph #3a)
+  - Document Rules (passport + catalog row + read-graph evaluation; canon_digest derived; needs_classification path)
+  - Schemas-canonical-elsewhere posture (AGENTS does not duplicate schemas)
+- **v2_lens_extensions_needed**: **NONE substantive**
+  - AGENTS.md is a pure boot pointer with no schema content to under-credit
+  - v2 thesis is already consult-routed through Manifest Read Graph entry #3a
+  - v2's vertical-layering doctrine fits within existing Non-Negotiables structure (System Map + Charter + Control Plane + Build OS + Protocol + Read Graph + Build Entry Gate)
+  - Phase G could optionally add `omni_thesis_v2_2026-05-26.md` explicit reference to OMNI Operating References list but this is mechanical-only and Read Graph routing already covers it; not required
+- **v2_bidirectional_feedback**: **NONE**. AGENTS is too thin a pointer to surface Q7 under-credit findings.
+- **classification_evidence**:
+  - AGENTS.md (71 lines): all references are pointers to canonical doctrine; no duplicate schema content; Non-Negotiables list current
+  - Operator Profile binding statement (line 9): full-fidelity discipline + trifecta workflow + discourse markers all current
+  - Agent Boot loop 5 work classes (line 26-32): table complete; covers v2 work classes implicitly
+  - OMNI Operating References (line 50-60): 12 file pointers including Charter + Control Plane + Protocol + Read Graph + Build OS triplet + Future Work Registry + Current Checkpoint Handoff (via Read Graph #15); v2 routing through Read Graph #3a is sufficient
+- **recommended_action**: **NO ACTION REQUIRED** for Phase G. AGENTS.md is current and v2-compatible without modification.
+- **effort_estimate**: **0 hr** (no refresh action)
+- **phase_g_subphase_assignment**: **N/A** (no Phase G action)
+
+### §10.3 Aggregate Metrics — F.2.2.A.1 Batch
+
+**Knox category distribution**: 4 K1 (Charter + Protocol + Control Plane + AGENTS); 0 K2; 0 K3; 0 K4; 0 K6; 0 K7; 0 K8
+
+**Memory disposition distribution**: 4 preserve (all)
+
+**Authority disposition distribution**: 4 keep_binding (all)
+
+**Refresh action distribution**: 3 amend (Charter + Protocol + Control Plane) + 1 none (AGENTS)
+
+**Confidence distribution**: 4 high (all)
+
+**Estimated effort distribution**:
+- S (small; ~2-3 hr): 1 row (Control Plane Schema Lock enum extension)
+- S-M (~2-4 hr): 1 row (Protocol §5 + §8 cross-link amendments)
+- M (~4-7 hr): 1 row (Charter Layer Model cross-link + Lifecycle Freshness amendment)
+- N/A (0 hr): 1 row (AGENTS)
+
+**Total Phase G effort for these 4 artifacts**: ~8-14 hours (G.2 substrate refresh sub-arc)
+
+**Bidirectional findings**: 4 Tier 2 (D0THES-REV-057..060); 0 Tier 1 errata; 0 Tier 3 materially-misleading.
+
+**Q7 pattern total across all F.2 audit work to date** (after F.2.2.A.1): 1 (F.2.0) + 5 (F.2.0.v1) + 12 (F.2.0.v2) + 4 (F.2.2.A.1) = **22 bidirectional findings**. Pattern consistent: thesis names what substrate already does; coordination spine extends pattern to governance layer (substrate-thesis under-credits coordination doctrine in named places that Phase G cross-link work resolves).
+
+### §10.4 Bidirectional Thesis Feedback — Tier 2 Findings (Routed; Not Patching v2)
+
+Per Knox three-tier policy, the following 4 Tier 2 substantive bidirectional feedback findings are documented + routed to Phase G or v3 decision. **DO NOT patch v2 mid-audit.**
+
+| Finding | v2 section | Coordination spine substrate under-credited | Route | Open Review Queue Row |
+|---|---|---|---|---|
+| 1 | §3.7 4-layer care OS framework | Charter Layer Model (Control Plane / Build OS / Agent Work Protocol / AGENTS / Commands) operates at different abstraction (governance/coordination layering vs runtime substrate layering); v2 §3.7 frames runtime substrate from outside Charter's governance framework | Phase G refresh: cross-link v2 §3.7 to Charter Layer Model + Charter Layer Model preamble note "v2 runtime substrate layers operate within Charter's Control Plane + Build OS + Agent Work Protocol governance jurisdiction per v2 §3.7" | D0THES-REV-057 |
+| 2 | §13.7 operator-pluralism + non-competition signaling + brand-trust transparency interlock | Protocol §5 Routing Requirements (lines 133-188) is generic "appropriate artifacts" routing language; v2 §13.7 introduces routing rule that work touching OMNI Specialty Line/Core Capability election OR brand-trust transparency queries routes to Phase G.4 brand-contract refresh + Phase G.2 substrate refresh | Phase G refresh: Protocol §5 Routing Decision Rules extension with v2 §13.7 operator-pluralism explicit routing rule | D0THES-REV-058 |
+| 3 | 1:1 care relationship protection line (v2 §5 + §3.8 + §6.7 + founder pre-commit refinement) | Protocol §8 Checkpoint Preservation Rule Tier 4 trigger ("binding doctrine added or rule changed (Schema Lock, Enforcement Rules, Operating Contracts, Read-Graph Operating Contract, Archive Operating Contract, etc.)") doesn't currently include 1:1 protection line; 1:1 protection is section-level in v2 §22 but functions as binding discipline for v2 vertical-layering doctrine | Phase G refresh: Protocol §8 Tier 4 trigger language extension OR explicit acknowledgment of 1:1 protection line as future Tier 4 candidate when promoted; OR T0-promotion gate decision for 1:1 protection (separate evaluation) | D0THES-REV-059 |
+| 4 | v0/v1/v2 governance-stream artifact `active_adopted_directional_vN` status convention | Control Plane Schema Lock v0 `current_status_enum` (line 319-328) currently has 8 values (active / draft / review_required / parked / superseded / deprecated / archived / provisional); v0/v1/v2 thesis uses `active_adopted_directional_vN` outside enum; Supplemental Passport Fields section (line 363-378) doesn't explicitly cover vN status | Phase G refresh: Control Plane Schema Lock v0 `current_status_enum` extension to include `active_adopted_directional_vN` pattern OR Supplemental Passport Fields section explicit acknowledgment | D0THES-REV-060 |
+
+**Pattern**: all 4 findings follow Q7 pattern from F.2.0 + 5 from F.2.0.v1 + 12 from F.2.0.v2 (thesis names what substrate already does). Phase G refresh resolves by explicit cross-link from v2 sections to coordination spine destinations. **No v2 patching required.**
+
+**Tier 3 threshold check**: NONE of the 4 findings rise to "v2 materially misleading vs coordination spine doctrine." Coordination spine is healthy under v2 lens; bidirectional cross-link work is normal Phase G refresh activity. v2 IS bidirectionally coherent with coordination spine. **F.2.2.A.2 can proceed.**
+
+### §10.5 Refined Phase G Sequencing Recommendation — F.2.2.A.1 Subset
+
+Phase G sub-arcs for these 4 coordination spine artifacts:
+
+1. **Charter Layer Model + v2 §3.7 cross-link + Lifecycle Freshness Contract governance-stream extension** (~4-7 hr; foundational for coordination layer doctrine; sequenced first within G.2 alongside Coherent Pattern + §1Z + 1K.5.A)
+2. **Protocol §5 Routing Decision Rules extension for v2 §13.7 + §8 Checkpoint Preservation Tier 4 trigger extension for 1:1 protection** (~2-4 hr; sequenced after Charter; light Protocol refresh)
+3. **Control Plane Schema Lock v0 `current_status_enum` extension for vN governance-stream status convention** (~2-3 hr; sequenced last in coordination-spine subset; Schema Lock changes are foundational but mechanical here)
+4. **AGENTS.md** — no Phase G action required (current; v2-compatible without modification)
+
+**Total estimated F.2.2.A.1 Phase G effort**: ~8-14 hours (G.2 substrate refresh sub-arc for these 4 artifacts).
+
+**F.2.2.A.2 next** (next session): system map §1F scheduling UI + §1G messaging UI cruft test per F.2.1 refinement. Cruft test SATISFIES F.2.1 refinement at F.2.2.A LEVEL (A.1 + A.2 together).
+
+### §10.6 Self-Assessment + Cruft-Test Deferral Note
+
+**All 4 substrate-spine artifacts STABLE under v2 lens**:
+- 0 K-category changes (all K1)
+- 0 memory disposition changes (all preserve)
+- 0 authority disposition changes (all keep_binding)
+- 0 refresh_action changes at row level (3 amend + 1 none)
+- 4 artifacts with batch-appropriate amendment surface (~8-14 hr Phase G work total)
+- 4 confidence high (no medium or low confidence)
+
+**4 Tier 2 substantive bidirectional feedback findings** (Q7 pattern; thesis names what substrate already does):
+- 1 finding on Charter (Layer Model ↔ v2 §3.7)
+- 2 findings on Protocol (§5 + §8 ↔ v2 §13.7 + 1:1 protection)
+- 1 finding on Control Plane (Schema Lock v0 ↔ vN governance-stream status convention)
+- 0 findings on AGENTS (boot pointer; no schema content)
+- ALL 4 routed to Phase G via D0THES-REV-057..060
+- 0 v2 patching triggered (Knox three-tier policy: substantive feedback ≠ v2 patch; route to Phase G or v3)
+
+**0 Tier 1 mechanical errata**: 4 substrate-spine artifacts confirmed mechanically clean under v2 lens (no broken cross-references, no wrong references, no inconsistent status language).
+
+**0 Tier 3 materially-misleading findings**: coordination spine is bidirectionally coherent with v2 vertical-layering doctrine. **v2 IS the operative audit lens; coordination spine respects v2 disciplines; no Tier 3 escalation.**
+
+**Confidence in F.2.2.A.1 batch outcome**: HIGH (substrate-spine artifacts are foundational + structurally orthogonal to substrate-thesis articulation; v2 fits within coordination framework without conflict).
+
+**Cruft-test status (F.2.1 refinement compliance)**: **DEFERRED to F.2.2.A.2** per Knox Option C "proper batching." F.2.2.A.1 covered substrate-spine only; F.2.2.A.2 (next session) lands the cruft test against system map §1F scheduling UI + §1G messaging UI. F.2.1 refinement requirement is SATISFIED at F.2.2.A LEVEL (A.1 + A.2 together). F.2.2.A.1 alone is INCOMPLETE for cruft-test compliance; A.2 closes the loop.
+
+**Method validation**: Per-batch closure discipline applied (executive verdict Q1.A.1-Q7.A.1 + self-assessment + checkpoint commit + Tier 2 stop report + handoff Closure Addendum Extension #14). F.2.2 batch protocol works as designed.
+
+**F.2.2.A.2 ready to proceed** (next session): system map §1F + §1G cruft test against refreshed v2 lens + F.2.2.A.1 substrate-spine foundation. Audit picks for A.2 unchanged from F.2.2.A original scope.
+
+**Operating Contract §17 lifecycle state**: stays `F.2.2 in progress` (F.2.2.A.1 is sub-arc within F.2.2.A staged batch per §17 append rules).
+
+---
+
 ## §17 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
 
 Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contract Rule), this Reconciliation Map vN stream requires an Operating Contract at creation. This §17 IS that contract. Applies to v1 (this artifact) and inherits to v2, v3, ... unless explicitly amended.
@@ -1805,5 +2128,27 @@ Post v2 spawn + pre-commit refinements (commit `8651c04`), Nick + Knox initiated
 **Q7 pattern confirmed across 3 lens iterations**: 1 finding F.2.0 + 5 findings F.2.0.v1 + 12 findings F.2.0.v2 = 18 total bidirectional findings; consistent pattern (thesis names what substrate already does); Phase G refresh resolves by explicit cross-link, not vN patching.
 
 **Operational state**: F.2.0.v2 refresh complete; F.2.2.A staged batch begins next against refreshed v2 lens foundation.
+
+### F.2.2.A.1 Batch entry (2026-05-26)
+
+Per Knox + Nick approval (Option C "proper batching"), F.2.2.A is split into A.1 (4 substrate-spine docs; this batch) + A.2 (§1F scheduling UI + §1G messaging UI cruft test; next session). F.2.1 cruft-test refinement SATISFIED at F.2.2.A LEVEL (A.1 + A.2 together).
+
+**Batch scope** (locked from Knox Option C approval): 4 substrate-spine artifacts — Coordination Charter (`00_omni_coordination_charter.md`) + Agent Work Protocol (`agent_work_protocol.md`) + Architecture Memory Control Plane (`00_architecture_memory_control_plane.md`) + AGENTS.md. Lens: v2 (refreshed via §9). Per Knox three-tier policy.
+
+**Batch outcome**:
+- 0 Tier 1 mechanical errata (4 substrate-spine artifacts confirmed mechanically clean under v2 lens)
+- 4 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-057..060; v2 NOT patched per Knox policy)
+- 0 Tier 3 materially-misleading findings
+- All 4 substrate-spine artifacts STABLE under v2 lens (all K1; all preserve memory + keep_binding authority; 3 amend refresh_action + 1 none)
+- Total Phase G effort for these 4 artifacts: ~8-14 hr (G.2 substrate refresh sub-arc)
+- v2 CONFIRMED bidirectionally coherent with coordination spine
+
+**4 Tier 2 bidirectional findings** (Q7 pattern; extends from calibration set to coordination spine):
+- D0THES-REV-057: Charter Layer Model ↔ v2 §3.7 4-layer care OS framework cross-link (governance/coordination layering vs runtime substrate layering compose at different abstraction)
+- D0THES-REV-058: Protocol §5 Routing Decision Rules ↔ v2 §13.7 operator-pluralism + brand-trust transparency routing rule extension
+- D0THES-REV-059: Protocol §8 Checkpoint Preservation Tier 4 trigger ↔ v2 1:1 care relationship protection line acknowledgment
+- D0THES-REV-060: Control Plane Schema Lock v0 `current_status_enum` ↔ vN governance-stream artifact `active_adopted_directional_vN` status convention
+
+**Operational state**: F.2.2.A.1 batch complete; F.2.2.A.2 (system map §1F + §1G cruft test) begins next session. F.2.1 cruft-test refinement DEFERRED to A.2 per Knox Option C "proper batching."
 
 If F.2.2 batches surface schema problems, refresh may re-run as v1.1 (in-place); otherwise this volume grows through F.2.2 per Operating Contract §17 append rules. v2 (new file) spawns only if Phase G refresh materially changes the operational role of the Reconciliation Map vN stream.
