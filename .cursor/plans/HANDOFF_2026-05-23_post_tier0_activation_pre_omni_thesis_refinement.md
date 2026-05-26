@@ -840,4 +840,90 @@ Same-day post-v1-spawn refresh of the F.2.0 calibration against v1 lens per `D0T
 
 **Next action**: Phase F.2.2.A staged batch begins against refreshed v1 lens foundation. Audit picks unchanged: Charter + Protocol + Control Plane + AGENTS.md + system map §1F scheduling UI + system map §1G messaging UI. Lens swap is the operative change (v0 → v1 + completion pass + refresh-confirmed). Pre-batch structural scan of §1F + §1G section line ranges. Per-batch closure discipline applies (executive verdict + self-assessment + checkpoint commit + Tier 2 stop report + handoff Extension #12).
 
-Next agent reading this handoff: F.2.0.v1 calibration refresh complete (post v1 spawn + completion pass commit `d3d303d`). F.2.2.A is the operative next phase against refreshed v1 lens. Reconciliation Map v1 §8 has full v1-lens layered analysis with 5 Tier 2 bidirectional findings routed to Phase G via D0THES-REV-027..031. v1 NOT patched mid-audit per Knox three-tier policy. 31 D0THES-REV-001..031 rows in open review queue (was 26 pre-refresh). F.2.2 batches operate against refreshed v1 lens; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules. Cite v1 for current directional thesis claims; cite canonical destinations for binding doctrine claims after Phase G lands them.
+Next agent reading this handoff: F.2.0.v1 calibration refresh complete (post v1 spawn + completion pass commit `d3d303d`). v2 spawn complete (per Extension #12 below; pending final canonical review). F.2.2.A is the operative next phase against v2 lens. Reconciliation Map v1 §8 has full v1-lens layered analysis with 5 Tier 2 bidirectional findings routed to Phase G via D0THES-REV-027..031. v1 NOT patched mid-audit per Knox three-tier policy. **44 D0THES-REV-001..044 rows in open review queue** (13 new v2 rows D0THES-REV-032..044 added with v2 spawn). F.2.2 batches operate against v2 lens; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules. Cite v2 for current directional thesis claims; cite canonical destinations for binding doctrine claims after Phase G lands them.
+
+---
+
+## Closure Addendum Extension #12 (2026-05-26) — v2 spawn complete
+
+v2 spawn executed 2026-05-26 per `D0THES-DEC-005` + supersession ledger row `D0THES-SUP-002`. Per Operating Contract §17 v2-spawn lifecycle trigger to absorb the **vertical-layering structural dimension** that v1's horizontal articulation under-named. Per Nick + Knox + Opus continued pressure-test arc 2026-05-26 with Knox execution model: author end-to-end without mid-flight checkpoints; STOP before commit/push for final Nick/Knox canonical review pass; after approval, single commit + push.
+
+**v2 spawn scope (BROAD with vertical-layering paradigm discipline)**:
+
+v2 spawned under BROAD-with-vertical-layering-paradigm-discipline scope rule. Every section touched must directly serve the 4-layer care OS framework + 5-tier vocabulary + per-event ownership orthogonality + universal projection doctrine + master CNS scoped-responsibility + four coexistent operator-level abilities + three fail-at-scale guardrails paradigm.
+
+**14 new sections added** (§3.7 + §3.8 + §6.7 + §6.8 + §6.9 + §6.10 + §7.5.1 + §7.5.2 + §7.5.3 + §7.5.4 + §7.7 + §7.8 + §9.1 + §13.7):
+
+1. **§3.7 OMNI as a vertically layered care OS** (~150 lines) — 4-layer framework (Surface / Coordination CNS / Boundary Policy / Substrate Physics) + Layer 0 Physical Reality + orthogonal dimensions
+2. **§3.8 OMNI's four coexistent operator-level abilities** (~70 lines) — Power brands / Connect brands / Govern the network / Operate care domains
+3. **§6.7 OMNI Direct shell + 5-tier vocabulary** (~300 lines) — locked 5-tier vocabulary (OMNI Direct surface + OMNI Core Capability + OMNI Specialty Line + Powered-by-OMNI Brand + Partner Operator + Patient-source substrate concept) + compositional structure + worked examples (creatine + GLP-1 + 5-action stool/T/BMP/creatine/Endo flow)
+4. **§6.8 OMNI Specialty Line + OMNI Core Capability doctrine** (~150 lines) — substrate-allowed not substrate-limited; commerce-to-full-clinical spectrum; anti-institutional-gravity guardrail; non-competition discipline
+5. **§6.9 OMNI Direct branding preservation doctrine** (~80 lines) — operator-attribution preserved at surface (anti-Hims doctrine extended to operator-pluralism)
+6. **§6.10 Brand-trust transparency doctrine — v2 NEW guardrail A** (~120 lines) — substrate-level transparency about OMNI's competitive posture toward Brand operators
+7. **§7.5.1 Per-event ownership dimensions** (~120 lines) — 7 orthogonal dimensions (surface / channel / operator / clinical / commerce / custody / coordination) + primitive sprawl criterion + anti-collapse system
+8. **§7.5.2 Catalog substrate model** (~150 lines) — universal catalog substrate model spanning products / labs / procedures / services / vaccines / screenings / programs / devices
+9. **§7.5.3 Patient-source substrate concept** (~120 lines) — source_authority + clinical_adoption gate (NOT operator posture)
+10. **§7.5.4 Consent specificity doctrine — v2 NEW guardrail B** (~80 lines) — no blanket consent; per-scope + per-purpose + per-duration + per-recipient specificity
+11. **§7.6 REWRITE — CNS scope architecture** (~200 lines) — master CNS scoped-responsibility doctrine + 4 operator-level CNS types (Brand CNS + OMNI Core Capability CNS + OMNI Specialty Line CNS + Partner Operator CNS) + 2 always-on CNS scopes (OMNI Patient CNS + Network Governance Plane) + substrate-primitive vs operator-capability layering distinction. v1 §7.6 historical content preserved + extended.
+12. **§7.7 Master projection doctrine** (~250 lines) — hard vs soft projection + 4 subsections (catalog soft + messaging soft + care flow soft + longitudinal hard)
+13. **§7.8 Cross-operator coordination doctrine** (~150 lines) — default passive coherence + elective active coordination
+14. **§9.1 model_version_of_record clinical adoption requirement — v2 NEW guardrail C** (~120 lines) — every clinical_adoption of AI-generated content carries model lineage
+15. **§13.7 Operator-pluralism + non-competition signaling + brand-trust transparency** (~120 lines) — substrate-allowed, market-decided, quality-bounded operator-pluralism + non-competition discipline + brand-trust transparency
+
+**11+ refined sections** (§3 + §3.5 + §4 + §5 + §6.5 + §7 primitives + §10 + §11 + §13.5 + §14 + §14.5 + §16 + §17 + §18 + §19 + §20 + §21).
+
+**18+ doctrine lines preserved verbatim in v2** (locked doctrine lines per v2 §22 Amendment Log v1 → v2 transition entry).
+
+**6 v2 NEW T0 promotion candidates NAMED but NOT promoted**:
+- T0-11 4-layer care OS structural integrity
+- T0-12 four coexistent operator-level abilities
+- T0-13 PAIR per-event ownership orthogonality + primitive sprawl criterion
+- T0-14 anti-institutional-gravity substrate discipline
+- T0-15 PAIR universal projection doctrine
+- T0-16 TRINITY anti-collapse fail-at-scale guardrails (brand-trust transparency + consent specificity + model_version_of_record)
+
+Total Tier 0 promotion candidates NAMED through v0 + v1 + v2: 9 (T0-08..T0-16). NONE promoted; separate Tier 0 Change Control gate required.
+
+**13 new D0THES-REV-032..044 open review queue rows** (v2 NEW unresolveds; total queue: 44 rows).
+
+**v2 NEW substrate primitives**:
+- `catalog_item` + category_tags + domain_associations + protocol_associations + provider_recommendation_refs + projection_rules + commerce_model + fulfillment_model + regulatory_class
+- 7 per-event ownership dimensions: `surface_of_record` + `channel_of_record` + `operator_of_record` + `clinical_owner` + `commerce_owner` + `artifact_custodian` + `care_coordination_owner`
+- `source_authority` + `patient_initiated` + `clinical_adoption_state` (patient-source substrate concept)
+- `model_version_of_record` (per clinical_adoption when AI participated)
+- Hard projection types (longitudinal_projection existing + composition objects: case_evidence_bundle + aggregate_pattern_projection + risk_projection)
+- Soft projection mechanics (projection_rules + category_tag + domain_association + protocol_association + provider_recommendation_ref)
+
+### Tier 2 stop report (Protocol §9) — v2 spawn closure
+
+- `tier`: 2 (work-package completion; v2 spawn cycle within OMNI Doctrine Refresh Arc Phase F.2)
+- `objective_markers`: NEW canonical file `omni_thesis_v2_2026-05-26.md` (4325 lines; passport + 22 sections + §22 Amendment Log v1 → v2 transition entry) + NEW companion founder version `omni_thesis_v2_founder_version_2026-05-26.md` (648 lines) + v1 + v1 founder status marker updates + 6 governance scaffolding updates (catalog + read-graph + supersession ledger + decision ledger + open review queue + charter Open Debt) + this handoff Extension #12
+- `default_up_rule_applied`: not invoked
+- `work_summary`: v2 spawned 2026-05-26 per `D0THES-DEC-005` per Operating Contract §17 v2-spawn lifecycle trigger to absorb the vertical-layering structural dimension. 14 new sections + §7.6 REWRITE + 11+ refined sections. 18+ doctrine lines preserved verbatim. 6 v2 NEW T0 candidates NAMED (T0-11..T0-16). 13 new D0THES-REV rows (032..044). v2 substrate now expressive enough for 1BN-company industrial-grade tier per multi-operator scale + OMNI Direct + OMNI-operated care domain coexistence with Powered-by-OMNI Brands + Partner Operators (anti-institutional-gravity + brand-trust transparency + consent specificity + model_version_of_record all enforced at substrate level). BROAD-with-vertical-layering-paradigm-discipline scope rule held throughout authoring. Knox execution model: STOP before commit/push for final Nick + Knox canonical review pass. Authoring complete; canonical review pending.
+- `canonical_updates`:
+  - `.cursor/plans/omni_thesis_v2_2026-05-26.md` — NEW canonical file (4325 lines)
+  - `.cursor/plans/omni_thesis_v2_founder_version_2026-05-26.md` — NEW founder version (648 lines)
+  - `.cursor/plans/doctrine/01_master_corpus_catalog.md` — v1 + v1 founder marked `superseded_by_v2`; v2 + v2 founder rows added
+  - `.cursor/plans/doctrine/04_manifest_read_graph.md` — v1 + v1 founder entries updated (marked superseded); v2 + v2 founder entries added (#3a + #4a)
+  - `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` — `D0THES-SUP-002` row added (v1 → v2 supersession)
+  - `.cursor/plans/doctrine/03_decision_extraction_ledger.md` — `D0THES-DEC-005` row added (v2 spawn)
+  - `.cursor/plans/doctrine/08_open_review_queue.md` — 13 new D0THES-REV-032..044 rows added
+  - `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt — v1 → v2 transition + 44 D0THES-REV rows enumerated
+  - This handoff — Closure Addendum Extension #12 added
+- `prior_narratives_consulted`: Closure Addendum Extension #10 (v1 spawn) + Extension #10.1 (v1 completion pass) + Extension #11 (F.2.0.v1 calibration refresh) + Nick + Knox + Opus 2026-05-26 vertical-layering + operator-pluralism + 5-tier vocabulary + per-event ownership orthogonality + universal projection + master CNS scoped-responsibility + four coexistent abilities + three fail-at-scale guardrails pressure-test arc
+- `guardrail_rows_extracted`: candidates D0THES-GRD-013 anti-institutional-gravity-substrate-discipline + D0THES-GRD-014 substrate-primitive-vs-operator-capability-layering + D0THES-GRD-015 patient-source-not-operator-posture + D0THES-GRD-016 universal-projection-one-substrate-object-many-projections + D0THES-GRD-017 master-cns-scoped-responsibility + D0THES-GRD-018 anti-collapse-fail-at-scale-trinity — none promoted yet; all evaluated for promotion at F.2.2 closure
+- `governed_stream_artifact_touched`: omni_thesis stream (v1 → v2 transition per Operating Contract §17 v2-spawn rule)
+- `version_state`: v2 `active_adopted_directional_v2`; v1 transitions to `superseded_by_v2`
+- `operating_contract_applied`: §17 of v0 (inheriting; v1 + v2 inherit unchanged)
+- `non_loss_check`: All v0 + v1 content preserved verbatim (file persists; status header updated to `superseded_by_v2` for v1 + v1 founder; content otherwise unchanged); v2 inherits ~95% of v1 content; 22 doctrine lines preserved verbatim from v0 + v1 (6 v1 case-centered care + AI substrate-vs-care + 16 v1 completion-pass section-level); 18+ new v2 doctrine lines added preserve verbatim; 6 v2 NEW T0 promotion candidates NAMED but NOT promoted; 13 new D0THES-REV rows preserve verbatim pressure-test framings; F.2.0 calibration findings preserved as v0-lens audit; F.2.0.v1 refresh findings preserved (5 Tier 2 bidirectional findings D0THES-REV-027..031 routed to Phase G per Knox three-tier policy); no doctrine erased; no binding authority changed; preserve-by-default for memory + authority-by-proof discipline upheld through v2 transition.
+- `knox_execution_model`: author end-to-end without mid-flight checkpoints; STOP before commit/push for final Nick/Knox canonical review pass; after approval, single commit + push.
+- `canonical_review_pending`: yes — Nick + Knox final canonical review of v2 + v2 founder + governance scaffolding required before commit/push.
+
+**Next action**: Pending Nick + Knox final canonical review of:
+- `omni_thesis_v2_2026-05-26.md` (4325 lines)
+- `omni_thesis_v2_founder_version_2026-05-26.md` (648 lines)
+- Governance scaffolding updates (catalog + read-graph + supersession ledger + decision ledger + open review queue + charter Open Debt + this handoff Extension #12)
+
+After approval: single commit bundling all v2 + v2 founder + governance scaffolding; push to origin/main. Phase F.2.2.A staged batch begins against v2 lens foundation. Audit picks unchanged: Charter + Protocol + Control Plane + AGENTS.md + system map §1F scheduling UI + system map §1G messaging UI. Lens swap is the operative change (v1 → v2). Per the F.2.0.v1 refresh precedent (Knox three-tier policy): substrate-already-exists Q7 patterns identified by F.2.2 should be routed to Phase G cross-link work, NOT v2 patching.
+
+Next agent reading this handoff: v2 spawn complete (pending final canonical review). v2 (`omni_thesis_v2_2026-05-26.md`) is current canonical directional thesis at `active_adopted_directional_v2`; v1 + v0 preserved as historical references. Cite v2 for current directional thesis claims. F.2.2 batches operate against v2 lens (with all v0 + v1 + F.2.0.v1 refresh layered analyses preserved as historical layers in Reconciliation Map v1). 44 D0THES-REV-001..044 rows in open review queue. 9 Tier 0 promotion candidates NAMED across v0 + v1 + v2 (T0-08..T0-16); NONE promoted; separate Tier 0 Change Control gate required.
