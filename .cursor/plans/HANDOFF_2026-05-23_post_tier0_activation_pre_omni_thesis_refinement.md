@@ -1057,4 +1057,58 @@ Post-F.2.0.v2-refresh batch per `D0THES-DEC-007`. Per Knox + Nick approval (Opti
 
 **Next action**: F.2.2.A.2 staged batch begins next session — system map §1F scheduling UI + §1G messaging UI cruft test against refreshed v2 lens + F.2.2.A.1 substrate-spine foundation. Pre-batch structural scan of §1F + §1G section line ranges. Per-batch closure discipline applies (executive verdict Q1.A.2-Q7.A.2 + cruft-test outcome + self-assessment + checkpoint commit + Tier 2 stop report + handoff Closure Addendum Extension #15). After A.2 closes, F.2.2.A overall batch is complete; F.2.2.B begins.
 
-Next agent reading this handoff: F.2.2.A.1 batch complete (pending commit + push for canonical review). F.2.2.A.2 is the operative next phase against refreshed v2 lens + A.1 substrate-spine foundation. Reconciliation Map v1 §10 has full F.2.2.A.1 batch analysis with 4 Tier 2 bidirectional findings routed to Phase G via D0THES-REV-057..060. v2 NOT patched mid-audit per Knox three-tier policy. **60 D0THES-REV-001..060 rows in open review queue.** F.2.2 batches operate against refreshed v2 lens; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules.
+Next agent reading this handoff: F.2.2.A.1 batch complete (commit `61b1f2e` pushed). F.2.2.A.2 batch complete (pending commit + push for canonical review). F.2.2.B is the operative next phase. Reconciliation Map v1 §10 has full F.2.2.A.1 batch analysis (4 Tier 2 bidirectional findings D0THES-REV-057..060); §11 has F.2.2.A.2 batch analysis (8 Tier 2 bidirectional findings D0THES-REV-061..068 + cruft-test outcome). v2 NOT patched mid-audit per Knox three-tier policy. **68 D0THES-REV-001..068 rows in open review queue.** F.2.2 batches operate against refreshed v2 lens; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules.
+
+---
+
+## Closure Addendum Extension #15 (2026-05-26) — F.2.2.A.2 Batch complete (Cruft Test); F.2.2.A overall complete
+
+**Cause**: F.2.2.A.2 staged batch executed 2026-05-26 same day, immediately after F.2.2.A.1 commit `61b1f2e` pushed to origin/main. A.2 closes F.2.1 cruft-test refinement requirement at F.2.2.A LEVEL. Audit picks: system map §1F Scheduling, locations, and encounter types (lines 1199-1306; 108 lines) + system map §1G Messaging, escalation, and the clinical loop (lines 1431-3155; 1724 lines; 12 sub-sections + ~50 sub-sub-sections). Lens: v2 (refreshed via §9; commits `b0bfb49` + `61b1f2e`). Per Knox three-tier policy.
+
+**Outcome**: **0 Tier 1 mechanical errata** (both §1F + §1G mechanically clean under v2 lens). **8 Tier 2 substantive bidirectional findings** routed to Phase G via D0THES-REV-061..068; v2 NOT patched per Knox three-tier policy. **0 Tier 3 materially-misleading findings**. Both §1F + §1G STABLE under v2 lens (both K1; 0 K-category changes; 0 disposition changes; 2 amend refresh_action). Total Phase G effort for these 2 artifacts: ~35-58 hr (§1F ~5-8 hr; §1G ~30-50 hr — deepest single-artifact effort in F.2.2 audit so far).
+
+**CRUFT-TEST OUTCOME (binding finding)**: cruft-test prediction was WRONG. §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections. Titles ("Scheduling, locations, and encounter types" / "Messaging, escalation, and the clinical loop") create the illusion of UI scope; actual content is dense substrate doctrine. §1G.6 + §1G.8 explicitly REJECT cruft anti-patterns ("derived views over existing source-of-truth rows — no new queue product, no separate workflow engine, no parallel SoT, no analytics dashboards, no peer comparisons"). System map healthier than F.2.1 refinement expected.
+
+**Strategic recommendation**: F.2.2.B + F.2.2.C should sample candidate-crufty sections that haven't been pre-validated as substrate-spine (e.g., intake UI mockups, identity-merge UX flows, marketing surface scaffolding, analytics dashboard specs — though these may also turn out to be substrate-spine; audit method is correct, prediction targets need refinement).
+
+**8 Tier 2 bidirectional findings** (Q7 pattern; thesis names what substrate already does; pattern extends to system map substrate spine):
+
+1. D0THES-REV-061 v2 §7.5.1 per-event ownership 7 dimensions ↔ §1G case ownership tuple (responsible_party + responsible_user_id + primary_blocker) per care_program — need to extend §1G tuple with 6 additional ownership dimensions
+2. D0THES-REV-062 v2 §7.7.2 scoped conversation projections ↔ §1G one-message_thread-per-care_program + 4-classification taxonomy
+3. D0THES-REV-063 v2 §6.7 5-tier vocabulary ↔ §1G.3 DL-12 thread-kind parameterization (care_team / front_desk / esthetician / injector / billing / support / on_call / location_team / role_queue) — thread_kind maps cleanly to operator-posture vocabulary
+4. D0THES-REV-064 v2 §12.8 substrate-vs-care boundary + §9.1 model_version_of_record ↔ §1G AI layer boundary + §1G.2 active safety enforcement + §1G.3 AI correction feedback loop (ai_model_version + ai_prompt_id + classifier_version pinned per Section 1P.11)
+5. D0THES-REV-065 v2 §7.5.4 consent specificity (Guardrail B) ↔ §1G.3 5-step privacy gate + per-channel max-allowed-exposure + pre-send revalidation + patient notification_channel_preferences
+6. D0THES-REV-066 v2 §7.8 cross-operator coordination + care_coordination_owner ↔ §1G.6.2 queue-routing state machine (5 states: delivered_to_queue / unread_by_queue / seen_by_queue_member / claimed_by_staff / completed) + §1G.9 CoR continuity
+7. D0THES-REV-067 v2 §7.5.2 catalog substrate model ↔ §1F bookable_offering / service entity
+8. D0THES-REV-068 v2 §6.7 surface_of_record + channel_of_record ↔ §1F appointment.modality + interaction_context Hybrid Patch MP1
+
+All 8 routed to Phase G cross-link work, NOT v2 patching, per Knox three-tier policy.
+
+**Strategic finding**: Q7 bidirectional feedback pattern extends from calibration set (substrate spine) to coordination spine (governance layer) to system map (operational substrate). Total Q7 findings across F.2 audit work to date: F.2.0 (1) + F.2.0.v1 (5) + F.2.0.v2 (12) + F.2.2.A.1 (4) + F.2.2.A.2 (8) = **30 bidirectional findings**. Pattern consistent across 5 lens iterations + 3 audit dimensions: thesis names what substrate already does; substrate IS healthier than thesis articulation reveals; Phase G refresh resolves all 30 via explicit cross-link work, NOT vN patching.
+
+**F.2.1 cruft-test refinement compliance**: SATISFIED at F.2.2.A LEVEL (A.1 substrate-spine `61b1f2e` + A.2 cruft test this commit). F.2.2.A overall batch is COMPLETE. Cruft-test refinement requirement closed; future F.2.2 batches sample cruft-likely sections per F.2.1 refinement methodology.
+
+### Tier 2 stop report (Protocol §9) — F.2.2.A.2 Batch closure
+
+- `tier`: 2 (work-package completion; F.2.2.A.2 is sub-arc within F.2.2.A staged batch per Operating Contract §17 append rules; closes F.2.2.A overall)
+- `objective_markers`: Reconciliation Map v1 §11 added (~350 lines: §11.1 batch executive verdict Q1.A.2-Q7.A.2 + Q-Cruft.A.2 cruft-test outcome + §11.2 per-artifact audit rows for 2 cruft-test artifacts + §11.3 aggregate metrics + §11.4 bidirectional thesis feedback table + §11.5 refined Phase G sequencing + §11.6 self-assessment + cruft-test outcome); §0 status posture updated to F.2.2.A.2 batch complete; §22 calibration version log entry added (F.2.2.A.2 batch entry); header updated to F.2.2.A.2 batch complete + F.2.2.A overall complete + F.2.2.B next; 8 new D0THES-REV-061..068 rows added; D0THES-DEC-008 decision ledger row added; charter Open Debt updated to 68 D0THES-REV rows enumerated; this handoff Extension #15 added
+- `commit`: pending (post canonical review by Nick + Knox)
+- `work_summary`: F.2.2.A.2 batch executed 2026-05-26 against 2 system map artifacts (§1F + §1G) under v2 lens. Per Knox three-tier policy: 0 Tier 1 errata; 8 Tier 2 substantive bidirectional findings routed to Phase G (v2 NOT patched); 0 Tier 3 materially-misleading. Both §1F + §1G STABLE under v2 lens (both K1; 0 K-category changes). CRUFT-TEST OUTCOME: prediction was WRONG; §1F + §1G are substrate-spine not UI cruft; system map healthier than F.2.1 refinement expected. F.2.2.A overall batch is COMPLETE (A.1 + A.2). F.2.2.B ready to proceed next session (catalog/routing spine + analytics/financial cruft test per F.2.1 batch structure).
+- `files_changed`:
+  - `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` — §11 added (~350 lines: F.2.2.A.2 batch analysis); §0 + header + §22 updated
+  - `.cursor/plans/doctrine/03_decision_extraction_ledger.md` — D0THES-DEC-008 added
+  - `.cursor/plans/doctrine/08_open_review_queue.md` — D0THES-REV-061..068 added
+  - `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt — F.2.2.A.2 batch recorded; 68 D0THES-REV rows enumerated
+  - This handoff — Closure Addendum Extension #15 added
+- `prior_narratives_consulted`: Closure Addendum Extension #14 (F.2.2.A.1 batch) + Knox Option C "proper batching" approval + Knox three-tier policy precedent (proven across F.2.0 + F.2.0.v1 + F.2.0.v2 + F.2.2.A.1) + F.2.1 cruft-test refinement requirement
+- `guardrail_rows_extracted`: candidate D0THES-GRD-022 q7-pattern-extends-to-system-map-substrate (thesis-names-what-substrate-already-does extends from substrate-thesis to coordination doctrine to operational substrate; substrate health applies across 3 audit dimensions) — not promoted yet; candidate D0THES-GRD-023 cruft-test-prediction-can-be-wrong (UI-titled sections in system map may turn out to be substrate-spine not cruft; audit method is valid but prediction targets need refinement) — not promoted yet
+- `governed_stream_artifact_touched`: `omni_doctrine_reconciliation_map_v1` (§11 batch analysis added per Operating Contract §17 append rules; lifecycle remains `F.2.2 in progress`)
+- `version_state`: Reconciliation Map v1 `F.2.2.A.2 batch complete; F.2.2.A overall complete; F.2.2.B next` (lifecycle state advances within F.2.2 staged-batch phase)
+- `operating_contract_applied`: §17 of v1 (inheriting from v0; v1 governed-stream artifact; F.2.2.A.2 batch is additive within F.2.2 staged-batch phase per §17 append rules)
+- `knox_three_tier_policy_applied`: yes — 0 Tier 1 errata; 8 Tier 2 routed; 0 Tier 3 materially-misleading
+- `knox_option_c_batching_applied`: yes — F.2.2.A split into A.1 (substrate-spine; commit `61b1f2e`) + A.2 (cruft test; this commit); F.2.1 cruft-test refinement satisfied at F.2.2.A LEVEL
+- `non_loss_check`: F.2.0 + F.2.0.v1 + F.2.0.v2 + F.2.2.A.1 findings preserved verbatim (§§0-7 + §8 + §9 + §10 historical layers); F.2.2.A.2 batch findings layered as §11 (additive, not replacing); 8 Tier 2 bidirectional findings preserved as D0THES-REV-061..068 with full schema (route to Phase G; v2 NOT patched per Knox policy); both §1F + §1G valid_decisions_to_preserve preserved unchanged under v2 lens; batch is audit OUTPUT, not system-map mutation; Knox three-tier policy enforced throughout.
+
+**Next action**: F.2.2.B staged batch begins next session — catalog/routing spine + analytics/financial cruft test per F.2.1 batch structure. Per-batch closure discipline applies (executive verdict + cruft-test outcome if applicable + self-assessment + checkpoint commit + Tier 2 stop report + handoff Closure Addendum Extension #16).
+
+Next agent reading this handoff: F.2.2.A.2 batch complete (pending commit + push for canonical review). F.2.2.A overall batch is COMPLETE (A.1 substrate-spine `61b1f2e` + A.2 cruft test pending commit). F.2.2.B is the operative next phase. Reconciliation Map v1 §10 has full F.2.2.A.1 batch analysis; §11 has F.2.2.A.2 batch analysis + cruft-test outcome (PREDICTION WRONG; §1F + §1G substrate-spine not UI cruft). v2 NOT patched mid-audit per Knox three-tier policy. **68 D0THES-REV-001..068 rows in open review queue.** F.2.2 batches operate against refreshed v2 lens; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules.

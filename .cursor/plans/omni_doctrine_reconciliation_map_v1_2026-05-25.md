@@ -1,8 +1,12 @@
 # OMNI Doctrine Reconciliation Map v1
 
+> **F.2.2.A.2 BATCH COMPLETE 2026-05-26 — CRUFT TEST (system map §1F + §1G); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT**
+>
+> F.2.2.A.2 lands the cruft test that satisfies F.2.1 refinement at F.2.2.A LEVEL (A.1 substrate-spine commit `61b1f2e` + A.2 cruft test this commit). Per Knox three-tier policy + v2 lens. **A.2 Outcome: 0 Tier 1 mechanical errata; 8 Tier 2 substantive bidirectional findings (D0THES-REV-061..068 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** Both §1F + §1G STABLE under v2 lens (both K1; ~35-58 hr total Phase G effort). **CRUFT-TEST OUTCOME (binding): cruft-test prediction was WRONG — §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections. System map healthier than F.2.1 refinement expected.** Q7 pattern total: 30 bidirectional findings (1 + 5 + 12 + 4 + 8). See §11 for full F.2.2.A.2 batch analysis. F.2.2.A overall COMPLETE; F.2.2.B begins next session.
+
 > **F.2.2.A.1 BATCH COMPLETE 2026-05-26 — COORDINATION SPINE (4 substrate-spine artifacts); F.2.2.A.2 CRUFT TEST NEXT (system map §1F + §1G)**
 >
-> F.2.2.A is split into A.1 (4 substrate-spine docs; this batch) + A.2 (§1F scheduling UI + §1G messaging UI cruft test; next session) per Knox + Nick approval (Option C "proper batching"). F.2.1 cruft-test refinement SATISFIED at F.2.2.A LEVEL (A.1 + A.2 together); A.2 closes the loop. Per Knox three-tier policy + v2 lens (refreshed via §9). **A.1 Outcome: 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (D0THES-REV-057..060 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 4 substrate-spine artifacts STABLE under v2 lens (all K1; ~8-14 hr total Phase G effort). v2 confirmed bidirectionally coherent with coordination spine. See §10 for full F.2.2.A.1 batch analysis. F.2.2.A.2 begins next session.
+> F.2.2.A is split into A.1 (4 substrate-spine docs; commit `61b1f2e`) + A.2 (§1F scheduling UI + §1G messaging UI cruft test; this commit) per Knox + Nick approval (Option C "proper batching"). F.2.1 cruft-test refinement SATISFIED at F.2.2.A LEVEL (A.1 + A.2 together). Per Knox three-tier policy + v2 lens (refreshed via §9). **A.1 Outcome: 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (D0THES-REV-057..060 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 4 substrate-spine artifacts STABLE under v2 lens (all K1; ~8-14 hr total Phase G effort). v2 confirmed bidirectionally coherent with coordination spine. See §10 for full F.2.2.A.1 batch analysis.
 
 > **F.2.0.v2 CALIBRATION REFRESH COMPLETE 2026-05-26 — F.2.2 STAGED BATCHES NEXT (REFRESHED V2 LENS FOUNDATION)**
 >
@@ -38,9 +42,11 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.2.A.1 BATCH COMPLETE (Coordination Spine); F.2.2.A.2 CRUFT TEST NEXT
+## §0 Status Posture — F.2.2.A.2 BATCH COMPLETE (Cruft Test); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT
 
-**F.2.2.A.1 Batch complete 2026-05-26** per `D0THES-DEC-007` per Operating Contract §17 append rules. Per Knox three-tier policy + v2 lens (refreshed via §9): 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (D0THES-REV-057..060 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 4 substrate-spine artifacts STABLE under v2 lens (all K1; 0 K-category changes; 0 disposition changes). v2 CONFIRMED bidirectionally coherent with coordination spine. F.2.2.A.2 (system map §1F scheduling UI + §1G messaging UI cruft test) begins next session.
+**F.2.2.A.2 Batch complete 2026-05-26** per `D0THES-DEC-008` per Operating Contract §17 append rules. Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 8 Tier 2 substantive bidirectional findings (D0THES-REV-061..068 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. Both §1F + §1G STABLE under v2 lens (both K1; 0 K-category changes; 0 disposition changes). **CRUFT-TEST OUTCOME (binding): cruft-test prediction was WRONG — §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections.** v2 CONFIRMED bidirectionally coherent with system map substrate spine. F.2.2.A overall complete (A.1 substrate-spine + A.2 cruft test). F.2.2.B begins next session.
+
+**F.2.2.A.1 Batch complete 2026-05-26** per `D0THES-DEC-007` per Operating Contract §17 append rules. Per Knox three-tier policy + v2 lens (refreshed via §9): 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (D0THES-REV-057..060 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 4 substrate-spine artifacts STABLE under v2 lens (all K1; 0 K-category changes; 0 disposition changes). v2 CONFIRMED bidirectionally coherent with coordination spine.
 
 **F.2.0.v2 Calibration Refresh complete 2026-05-26** per `D0THES-DEC-006` per Operating Contract §17 active-status completion-pass rule. Per Knox three-tier policy: 0 Tier 1 mechanical errata; 12 Tier 2 substantive bidirectional findings (D0THES-REV-045..056 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 calibration rows STABLE under v2 lens (0 K-category changes; 0 disposition changes; amendment SCOPE grew ~2-3x per row vs v1-lens). v2 CONFIRMED usable as F.2.2 audit lens.
 
@@ -48,9 +54,10 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 - F.2.0 calibration (v0-lens; commit `f2812e8`; 2026-05-25): §§0-7 — 1 Tier 2 bidirectional finding (Q7: thesis under-credits 1K.5.A)
 - F.2.0.v1 refresh (v1-lens; commit `ca047ac`; 2026-05-25): §8 — 5 Tier 2 bidirectional findings (D0THES-REV-027..031)
 - F.2.0.v2 refresh (v2-lens; commit `b0bfb49`; 2026-05-26): §9 — 12 Tier 2 bidirectional findings (D0THES-REV-045..056) + 3 explicit additional dimensions per Nick's instruction
-- **F.2.2.A.1 batch (v2-lens; pending commit; 2026-05-26): §10 — 4 Tier 2 bidirectional findings (D0THES-REV-057..060); coordination spine subset of F.2.2.A**
+- F.2.2.A.1 batch (v2-lens; commit `61b1f2e`; 2026-05-26): §10 — 4 Tier 2 bidirectional findings (D0THES-REV-057..060); coordination spine subset of F.2.2.A
+- **F.2.2.A.2 batch (v2-lens; pending commit; 2026-05-26): §11 — 8 Tier 2 bidirectional findings (D0THES-REV-061..068); cruft test subset of F.2.2.A; CRUFT-TEST OUTCOME = WRONG (§1F + §1G are substrate-spine not UI cruft)**
 
-**Q7 pattern total**: 1 + 5 + 12 + 4 = **22 bidirectional findings to date**. Pattern consistent: thesis names what substrate already does; both calibration set AND coordination spine extend pattern. Phase G refresh resolves all 22 via explicit cross-link work, NOT vN patching.
+**Q7 pattern total**: 1 + 5 + 12 + 4 + 8 = **30 bidirectional findings to date**. Pattern consistent: thesis names what substrate already does; calibration set + coordination spine + system map substrate extend pattern. Phase G refresh resolves all 30 via explicit cross-link work, NOT vN patching.
 
 **F.2.1 calibration review gate complete 2026-05-25 by Nick + Knox.** Outcome: **approve-with-one-refinement**. Method validated. Calibration marker REMOVED.
 
@@ -1988,6 +1995,283 @@ Phase G sub-arcs for these 4 coordination spine artifacts:
 **F.2.2.A.2 ready to proceed** (next session): system map §1F + §1G cruft test against refreshed v2 lens + F.2.2.A.1 substrate-spine foundation. Audit picks for A.2 unchanged from F.2.2.A original scope.
 
 **Operating Contract §17 lifecycle state**: stays `F.2.2 in progress` (F.2.2.A.1 is sub-arc within F.2.2.A staged batch per §17 append rules).
+
+---
+
+## §11 F.2.2.A.2 Batch — Cruft Test (system map §1F + §1G)
+
+> **F.2.2.A.2 BATCH COMPLETE 2026-05-26 — SYSTEM MAP §1F SCHEDULING + §1G MESSAGING; CRUFT-TEST OUTCOME: NOT CRUFTY**
+>
+> Per F.2.1 refinement, F.2.2.A.2 lands the cruft test that satisfies the cruft-test requirement at F.2.2.A LEVEL. F.2.1 verbatim refinement: *"Each batch MUST include cruft-likely sections, not only substrate-spine docs. Specifically sample scheduling UI / messaging UI / intake UI / analytics / identity-merge UX / financial lifecycle material per batch so audit tests BOTH (a) preserve valid decisions inside crufty containers, AND (b) identify stale containers themselves."*
+>
+> **A.2 audit picks** (2 cruft-likely artifacts):
+> 1. System map `§1F Scheduling, locations, and encounter types` (lines 1199-1306 of `system_map_three_layers_60706286.plan.md`)
+> 2. System map `§1G Messaging, escalation, and the clinical loop` (lines 1431-3155 of `system_map_three_layers_60706286.plan.md`; 12 sub-sections §1G.1-§1G.12 + ~50 sub-sub-sections)
+>
+> **Lens**: v2 (refreshed via §9; commits `b0bfb49` + `61b1f2e`). Per Knox three-tier policy.
+>
+> **A.2 Outcome: 0 Tier 1 mechanical errata; 8 Tier 2 substantive bidirectional findings (routed to Phase G via D0THES-REV-061..068; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** Both §1F + §1G STABLE under v2 lens (both K1; 0 K-category changes; 0 disposition changes).
+>
+> **CRUFT-TEST OUTCOME (binding finding): cruft-test prediction was WRONG. §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections. Titles ("Scheduling, locations, and encounter types" / "Messaging, escalation, and the clinical loop") create the illusion of UI scope; actual content is dense substrate doctrine.** §1G.6 + §1G.8 explicitly REJECT cruft ("derived views over existing source-of-truth rows — no new queue product, no separate workflow engine, no parallel SoT, no analytics dashboards, no peer comparisons"). System map is healthier than the F.2.1 refinement expected.
+>
+> **F.2.2.A overall batch is now COMPLETE** (A.1 substrate-spine + A.2 cruft test). F.2.2.B begins next session.
+
+### §11.1 Batch Executive Audit Verdict (Q1.A.2 — Q7.A.2 + cruft-test outcome Q)
+
+7 standard synthesis questions + 1 mandatory cruft-test outcome question.
+
+#### Q1.A.2 — What is healthier than expected under v2 lens?
+
+- **§1F + §1G are SUBSTRATE-SPINE, not UI cruft.** Despite "scheduling UI" + "messaging UI" framing in F.2.1 refinement target, both sections contain dense substrate doctrine:
+  - §1F: appointment vs check-in vs message_thread distinction (anti-conflation); modality + location + service + commerce rail substrate; Hybrid-first cross-link to Section 1Q.23 interaction_context (binding); voice_call telephony substrate primitive
+  - §1G: case ownership tuple (responsible_party + responsible_user_id + primary_blocker) per care_program; canonical case state SoT (no competing narratives); 4-classification taxonomy (clinical_required / clinical_optional / operational / system_notification); permit enforcement in server logic (not UI alone); AI assistant boundary (cannot clear clinical_required); 1G.1 ownership tuple extensions for thread lifecycle + owner cardinality (binding per DL-12 invariants); 1G.2 clinical safety enforcement (active checks, not CDSS); 1G.3 continuation + cadence + 11-tier campaign priority + 5-step privacy gate + pre-send revalidation (binding); 1G.4 provider supply + 1G.4.1 multi-state runtime; 1G.5 major exception handling; 1G.6 provider workspace + admin overlay (derived views, not new queue product); 1G.6.2 queue-routing state machine; 1G.7 provider routing/availability/assignment; 1G.8 minimal workspace v1 (operational only, not dashboard); 1G.9 clinician-of-record (CoR) per care_program; 1G.10 lab operational surfaces; 1G.11 patient_action_items first-class; 1G.12 external-line surface (DL-13 binding).
+- **Both sections explicitly REJECT cruft anti-patterns**: §1G.6 rejects "separate queue product / ticketing tool / standalone workflow engine"; §1G.8 rejects "Analytics / KPI dashboards in the provider workspace + cross-provider performance comparisons or leaderboards + new tables for queue / inbox / status"; §1G.6.3 establishes "Live vs reporting boundary" — workspace = live action; reporting = aggregate analysis; never conflate.
+- **Knox three-tier policy alignment is exceptional**: §1G's "permit assert" + "AI cannot clear clinical_required" + "5-step privacy gate" + "pre-send revalidation" patterns ARE the substrate operational expression of v2 §12.8 substrate-vs-care boundary + §9.1 model_version_of_record + §7.5.4 consent specificity disciplines. v2 doctrine articulates what §1G already operationalizes.
+
+#### Q2.A.2 — What is worse than expected under v2 lens?
+
+- **8 Tier 2 bidirectional findings** (Q7 pattern extends to system map; substrate already does what v2 doctrine names). See §11.4.
+- **§1G effort estimate is heavy at v2-lens**: ~30-50 hr Phase G work to fully cross-link v2 substrate sections to §1G operational substrate. Compounds the existing F.2.2 audit scope.
+
+#### Q3.A.2 — What must be refreshed first under v2 lens?
+
+Within F.2.2.A.2 batch:
+
+1. **§1G case ownership tuple ↔ v2 §7.5.1 per-event ownership 7 dimensions** (D0THES-REV-061; foundational; §1G defines the substrate spine that v2 §7.5.1 names as orthogonality discipline). ~5-8 hr.
+2. **§1G one-message_thread-per-care_program + 1G.3 thread-kind ↔ v2 §7.7.2 scoped conversation projections + §6.7 5-tier vocabulary** (D0THES-REV-062 + D0THES-REV-063; messaging substrate is heart of v2 §7.7 projection doctrine). ~5-8 hr.
+3. **§1G.2 clinical safety enforcement + §1G AI layer + §1G.3 5-step privacy gate ↔ v2 §12.8 + §9.1 + §7.5.4 substrate disciplines** (D0THES-REV-064 + D0THES-REV-065; substrate-vs-care + AI lineage + consent specificity all operationalized in §1G). ~5-8 hr.
+4. **§1G.6.2 queue-routing state machine ↔ v2 §7.8 cross-operator coordination** (D0THES-REV-066; queue-routed work IS active coordination per v2 §7.8). ~3-5 hr.
+5. **§1F bookable_offering / service ↔ v2 §7.5.2 catalog substrate model** (D0THES-REV-067; bookable_offering instance of universal catalog_item). ~3-5 hr.
+6. **§1F appointment.modality + §1G.3 interaction_context redundancy suppression ↔ v2 §6.7 channel_of_record + surface_of_record** (D0THES-REV-068; existing modality + interaction_context substrate is what v2 §6.7 5-tier vocabulary cross-references). ~3-5 hr.
+
+#### Q4.A.2 — What valid decisions must not be lost under v2 lens?
+
+**No valid_decisions_lost concerns.** Both §1F + §1G have substantial substrate decision sets that hold under v2 lens. Specifically preserved:
+
+- §1F: source-of-truth migration model (treatment_items.metadata → first-class appointment); appointment vs check-in vs message_thread anti-conflation; modality + location + service controlled vocabulary; Hybrid-first cross-link binding (Section 1Q.23); voice_call substrate; Required appointment timestamp fields binding
+- §1G: 4-classification taxonomy; case ownership tuple (no global per-patient owner); canonical case state SoT; permit assert in server logic; AI assistant boundary; 1G.1 thread lifecycle + owner cardinality + waiting semantics + queue-routed work + thread-to-task transitions (DL-12 binding); 1G.2 8-row safety enforcement matrix; 1G.3 11-tier campaign priority + 5-step privacy gate + pre-send revalidation + 3-modes coverage disclosure; 1G.4 supply/routing; 1G.4.1 jurisdiction runtime gate; 1G.5 exception handling; 1G.6 workspace + overlay derived-views discipline; 1G.6.2 queue-routing state machine (5 states); 1G.7 provider routing/availability/assignment + 1G.7.5b SLA enforcement; 1G.8 minimal v1 workspace (10 surfaces) + 1G.8.4 same-day-only performance (no historical analytics); 1G.9 CoR + 1G.9.13 transfer reason codes; 1G.10 lab operational surfaces; 1G.11 patient_action_items first-class table; 1G.12 external-line surface (DL-13 binding)
+
+#### Q5.A.2 — What docs are dangerous if left authoritative under v2 lens?
+
+**None.** Both §1F + §1G are K1 (correct, aligned, complete substrate doctrine) under v2 lens. Cruft anti-patterns explicitly rejected.
+
+#### Q6.A.2 — What can safely wait under v2 lens?
+
+- v2 §13.7 operator-pluralism cross-link to §1G case ownership — substantive but lower-priority than per-event ownership orthogonality cross-link
+- §1F voice_call substrate ↔ v2 §7.5.1 per-event ownership — substrate primitive cross-link; light scope
+- §1G.10 lab operational surfaces ↔ v2 §7.7.4 hard projection (longitudinal lab patterns) — fits 1K.5.A cross-link work
+
+#### Q7.A.2 — What does the audit teach us about the thesis itself (under v2 lens, in this batch)?
+
+**8 substantive bidirectional findings (Tier 2 per Knox policy)** — Q7 pattern extends to system map substrate spine:
+
+1. v2 §7.5.1 per-event ownership 7 dimensions ↔ §1G case ownership tuple (responsible_party + responsible_user_id + primary_blocker) per care_program. **Routed to D0THES-REV-061.**
+2. v2 §7.7.2 scoped conversation projections ↔ §1G one-message_thread-per-care_program + §1G.3 thread-kind parameterization. **Routed to D0THES-REV-062.**
+3. v2 §6.7 5-tier vocabulary ↔ §1G.3 thread-kind parameterization (care_team / front_desk / esthetician / injector / billing / support / on_call) — thread_kind maps cleanly to operator-posture vocabulary. **Routed to D0THES-REV-063.**
+4. v2 §12.8 substrate-vs-care boundary + §9.1 model_version_of_record ↔ §1G AI layer boundary + §1G.2 active safety enforcement. **Routed to D0THES-REV-064.**
+5. v2 §7.5.4 consent specificity + Guardrail B ↔ §1G.3 5-step privacy gate + per-channel max-allowed-exposure + pre-send revalidation. **Routed to D0THES-REV-065.**
+6. v2 §7.8 cross-operator coordination + care_coordination_owner ↔ §1G.6.2 queue-routing state machine (5 states: delivered_to_queue / unread_by_queue / seen_by_queue_member / claimed_by_staff / completed) + §1G.9 CoR continuity. **Routed to D0THES-REV-066.**
+7. v2 §7.5.2 catalog substrate model ↔ §1F bookable_offering / service entity. **Routed to D0THES-REV-067.**
+8. v2 §6.7 surface_of_record + channel_of_record ↔ §1F appointment.modality + §1G.3 interaction_context binding (per §1Q.23 + Hybrid Patch MP1). **Routed to D0THES-REV-068.**
+
+**All 8 are Tier 2 substantive feedback per Knox three-tier policy.** Documented in §11.4 + routed to Phase G as D0THES-REV-061..068. Do NOT trigger v2 completion pass. v2 NOT materially misleading; substrate already does what v2 doctrine articulates.
+
+**Tier 3 threshold check**: NONE rise to "v2 materially misleading vs system map substrate." v2 articulates discipline; §1F + §1G operationalize at substrate level. **v2 CONFIRMED bidirectionally coherent with system map substrate spine.**
+
+#### Q-Cruft.A.2 — CRUFT-TEST OUTCOME (mandatory per F.2.1 refinement)
+
+**Outcome: CRUFT-TEST PREDICTION WAS WRONG.** Audit found NO crufty UI/product-drift content in §1F or §1G.
+
+- §1F is **substrate-heavy** despite "Scheduling, locations, and encounter types" title. Substrate decisions dominate: source-of-truth migration model, appointment vs check-in distinction, modality + location + service vocabulary, Hybrid-first interaction_context binding (Section 1Q.23), voice_call telephony, Required appointment timestamp fields.
+- §1G is **deeply substrate-spine** despite "Messaging, escalation, and the clinical loop" title. 12 sub-sections + ~50 sub-sub-sections of substrate doctrine. §1G.6 + §1G.8 explicitly REJECT cruft anti-patterns ("derived views over existing rows — no new queue product, no separate workflow engine, no analytics dashboards, no peer comparisons").
+- **Audit method validated** (a): valid decisions inside potentially-crufty containers — all preserved (substantial preserve lists per §11.4 valid_decisions_to_preserve).
+- **Audit method validated** (b): stale/crufty containers identified — **NONE identified**. §1F + §1G are healthy substrate.
+
+**Strategic finding**: F.2.1 refinement's cruft-likely sampling list (scheduling UI / messaging UI / intake UI / analytics / identity-merge UX / financial lifecycle material) needs revision based on this evidence. **Many "UI" titles in the system map appear to be substrate-spine sections in disguise.** Future F.2.2 batches should NOT default to expecting cruft in UI-titled sections; the cruft-test method is still valid (must include cruft-likely picks per batch) but the predicted cruft locations may need adjustment. **F.2.2.B + F.2.2.C should sample candidate-crufty sections that haven't been pre-validated as substrate-spine** (e.g., intake UI mockups, identity-merge UX flows, marketing surface scaffolding, analytics dashboard specs).
+
+**F.2.2.A overall**: cruft-test requirement SATISFIED (A.1 substrate-spine + A.2 cruft test). A.2 outcome: NOT CRUFTY. Both lessons preserved.
+
+### §11.2 Per-Artifact Audit Rows (F.2.2.A.2 batch)
+
+#### Row F.2.2.A.2-1 — System map §1F Scheduling, locations, and encounter types
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 1199-1306
+- **knox_category**: **K1** (correct, aligned, complete) — substrate-spine despite "scheduling UI" framing
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §6.7 + §7.5.1 + §7.5.2 + §7.7 + §7.8 cross-references)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**:
+  - Source-of-truth migration model (treatment_items.metadata → first-class appointment / scheduled_encounter)
+  - Appointment vs check-in vs message_thread anti-conflation (different persisted shapes; do NOT store booked visit + async form workflow in same table)
+  - Modality + location + service controlled vocabulary (in_person / phone / video / async)
+  - Hybrid-first cross-link binding (Section 1Q.23 interaction_context propagation through ALL state-mutating rows)
+  - Required appointment timestamp fields (binding per Hybrid Patch MP1): checked_in_at + actual_start_at + actual_end_at
+  - bookable_offering / service entity (sellable + bookable + commerce rail distinction)
+  - voice_call substrate primitive (org-owned phone numbers; CPaaS integration; provability discipline)
+  - Distinction between bookable economic rails (1F deposit/prepay) vs treatment_order rails (1I PSP-after-clinical-approval)
+- **v2_lens_extensions_needed**:
+  - v2 §6.7 5-tier vocabulary cross-link: appointment surface_of_record (OMNI Direct / Brand app / provider portal) + operator_of_record (Brand / OMNI Specialty Line / OMNI Core Capability)
+  - v2 §7.5.1 per-event ownership cross-link: appointment row carries 7 ownership dimensions (surface / channel / operator / clinical / commerce / custody / coordination)
+  - v2 §7.5.2 catalog substrate cross-link: bookable_offering IS instance of catalog_item; service entity composes with universal catalog substrate
+  - v2 §7.7 master projection doctrine cross-link: appointment + check-in events project into care_program timeline (hard projection) + multiple discovery surfaces (soft projections)
+  - v2 §7.8 cross-operator coordination cross-link: appointment routing across operators (patient self-schedule via OMNI Direct → routes to Brand / Specialty Line / Partner operator)
+- **v2_bidirectional_feedback** (2 Tier 2 findings):
+  1. v2 §7.5.2 catalog substrate model ↔ §1F bookable_offering / service entity → **D0THES-REV-067**
+  2. v2 §6.7 surface_of_record + channel_of_record ↔ §1F appointment.modality + interaction_context → **D0THES-REV-068**
+- **classification_evidence**:
+  - §1F line 1206: "rejects two competing owners of 'what is the actual booked visit / deadline' in the long run: one wins per surface after migration" — substrate discipline (not UI)
+  - §1F line 1235: "Required appointment timestamp fields (binding; per Hybrid Patch MP1)" — substrate primitive locking
+  - §1F line 1248: "service or bookable_offering — what is being sold or delivered: name, default duration, buffer (turnover), category, modality (in_person here), whether a deposit or full prepay is required" — substrate schema; maps to v2 catalog_item
+  - §1F line 1296: voice_call substrate primitive — substrate-level call log + CPaaS integration discipline
+  - §1F line 1300: "Layer 1 — telephony delivery, webhooks, secrets, vendor BAA, audit hooks. Layer 2 — which UI surfaces (patient chart, follow-up queue) can initiate calls and which roles (requireCapability)" — substrate-vs-UI distinction explicit
+- **recommended_action**: Phase G.2 §1F amendment — cross-link to v2 §6.7 + §7.5.1 + §7.5.2 + §7.7 + §7.8 (~5-8 hr effort; 5-6 cross-references)
+- **effort_estimate**: M (medium; ~5-8 hr)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh)
+
+#### Row F.2.2.A.2-2 — System map §1G Messaging, escalation, and the clinical loop
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 1431-3155
+- **knox_category**: **K1** (correct, aligned, complete) — DEEPLY substrate-spine despite "messaging UI" framing
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (extensive v2 cross-references; major amendment surface — every v2 substrate section likely cross-links to §1G)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve** (selected; full list per system map):
+  - 4-classification taxonomy (clinical_required / clinical_optional / operational / system_notification) on messages.metadata + message_thread.metadata
+  - Case ownership tuple (responsible_party + responsible_user_id? + primary_blocker) per care_program; NEVER global per-patient owner
+  - Canonical case state SoT (no competing narratives; blocker + stage + case_owner = one function output)
+  - One message_thread per care_program (Intent SoT)
+  - Permit assert in server logic (not UI alone) — rejects clinical_required + awaiting_response when blocks intersects intended permit
+  - AI assistant boundary: AI may NOT clear clinical_required + awaiting_response turn; AI suggestions through patient_chart_ai_reviews with provider acceptance path
+  - **1G.1 DL-12 binding**: thread lifecycle ownership; owner cardinality (individual / team / queue / role / coverage_group); waiting status discipline; queue-routed work + thread-to-task transition
+  - **1G.2 active clinical safety enforcement** (8-row safety matrix: contraindication + duplicate therapy + allergy + dosing + enforcement vocabulary + decision surface + override audit)
+  - **1G.3 DL-12 binding**: patient-facing thread lifecycle + thread-kind parameterization + urgent/safety escalation boundary + derived-membership + 3-modes coverage disclosure + rich-media parity
+  - **1G.3 11-tier campaign priority hierarchy** (safety > clinical > billing > fulfillment > active treatment > retention > approved-not-purchased > abandoned-intake > cross-sell > general-promo > holiday)
+  - **1G.3 5-step privacy gate** (action-template alignment + per-channel max-exposure + decision/uplift/block + emergency orchestration + audit) + step 5b in-person-recent-interaction suppression
+  - **1G.3 pre-send revalidation** (evidence freshness + no-contradicting-newer-assertion + provider-decision-freshness + contact-info freshness + jurisdiction freshness)
+  - **1G.4 provider supply / routing / throughput** + **1G.4.1 multi-state runtime jurisdiction gate**
+  - **1G.5 major exception handling** (category taxonomy + first-response ownership + escalation thresholds + auditable closure)
+  - **1G.6 provider workspace + admin overlay** — derived-views discipline + capability-gated drilldown + provider dimension (1H.7.2)
+  - **1G.6.2 queue-routing state machine** (5 states: delivered_to_queue / unread_by_queue / seen_by_queue_member / claimed_by_staff / completed; messaging state vs task state distinction)
+  - **1G.7 provider routing/availability/assignment** + **1G.7.5b SLA enforcement** + **1G.7.6 queue item lifecycle**
+  - **1G.8 minimal workspace v1** (10 surfaces: My Queue / My Status / My Performance same-day-only / patient context drawer / clinical messages inbox / lab review drawer / ops-staff messaging / grouped views / notifications / recent activity) — explicitly NOT analytics + NOT dashboards + NOT peer comparisons
+  - **1G.8 hybrid mode-aware view discipline** (in-room synchronous vs remote async variants share SAME data + SAME rules + SAME authority + SAME audit; single codepath; CI lint enforced)
+  - **1G.9 clinician continuity** (CoR per care_program + 1G.9.13 transfer reason codes structured)
+  - **1G.10 lab operational surfaces** (provider + ops + fulfillment minimal v1)
+  - **1G.11 patient_action_items + pending_patient_input_task** (first-class table; cross-program surface)
+  - **1G.12 external-line surface (DL-13 binding)** + endpoint substrate + voicemail/missed-call state machine
+- **v2_lens_extensions_needed**:
+  - v2 §7.5.1 per-event ownership 7 dimensions ↔ §1G case ownership tuple (responsible_party + responsible_user_id + primary_blocker) — extend tuple semantics with 6 additional dimensions (surface / channel / commerce / custody / coordination)
+  - v2 §7.7.2 scoped conversation projections ↔ §1G one-message_thread-per-care_program — explicit projection mechanics cross-link
+  - v2 §6.7 5-tier vocabulary ↔ §1G.3 thread-kind parameterization (care_team / front_desk / esthetician / injector / billing / support / on_call) — thread_kind maps to operator postures
+  - v2 §12.8 substrate-vs-care boundary ↔ §1G AI layer boundary (cannot clear clinical_required)
+  - v2 §9.1 model_version_of_record ↔ §1G AI layer + §1G.3 5-step privacy gate (AI lineage on clinical_adoption + privacy-gate audit)
+  - v2 §7.5.4 consent specificity ↔ §1G.3 patient channel preferences + per-channel max-allowed-exposure + pre-send revalidation
+  - v2 §7.8 cross-operator coordination ↔ §1G.6.2 queue-routing state machine (claimed_by_staff IS care_coordination_owner transition)
+  - v2 §7.6 CNS scope architecture ↔ §1G.4 provider supply + §1G.7 routing + §1G.8 workspace — operator CNS executes within care_program scope
+  - v2 §13.7 operator-pluralism ↔ §1G.4.1 jurisdiction routing + §1G.9 CoR (operator-pluralism + non-competition discipline applies cross-state)
+- **v2_bidirectional_feedback** (6 Tier 2 findings):
+  1. v2 §7.5.1 per-event ownership 7 dimensions ↔ §1G case ownership tuple → **D0THES-REV-061**
+  2. v2 §7.7.2 scoped conversation projections ↔ §1G one-message_thread-per-care_program → **D0THES-REV-062**
+  3. v2 §6.7 5-tier vocabulary ↔ §1G.3 thread-kind parameterization → **D0THES-REV-063**
+  4. v2 §12.8 substrate-vs-care boundary + §9.1 model_version_of_record ↔ §1G AI layer + §1G.2 active safety enforcement → **D0THES-REV-064**
+  5. v2 §7.5.4 consent specificity ↔ §1G.3 5-step privacy gate + pre-send revalidation → **D0THES-REV-065**
+  6. v2 §7.8 cross-operator coordination ↔ §1G.6.2 queue-routing state machine + §1G.9 CoR continuity → **D0THES-REV-066**
+- **classification_evidence**:
+  - §1G line 1437: "Never a single 'current owner of the person' on patients. Responsibility is per active case unit: care_program is the default line" — substrate discipline (case ownership scope)
+  - §1G line 1445: "No 'status string A' in the UI, 'status B' in a queue, and case_owner = C. Blocker + stage + case_owner are one function output" — substrate SoT discipline
+  - §1G line 1493: "Blocking (enforced in server logic, not UI alone): One permit check (shared assert) on approve / prescribe / continuation" — substrate enforcement, not UI
+  - §1G line 1518: "Not allowed (enforced in permit/1G paths): (1) Imply the model is a care actor ... (2) Clear a clinical_required + awaiting_response turn ... (3) Set patient_diagnostic_reports.reviewed_at, approve or prescribe ... (4) Use released_to_patient_at as a stand-in for Intent-level authorization" — substrate-vs-care boundary enforcement
+  - §1G.1 line 1546+: "Model C (no new architecture): same stance as the capability layer ... no new queues or ticketing product. A 'queue' = a filter / saved view on existing rows" — substrate discipline (no parallel queue product)
+  - §1G.6 line 1976+: "live operational queue, not a report" — explicit substrate-vs-UI separation
+  - §1G.8 line 2304: "It is a work surface, not analytics. ... No analytics dashboards. No reporting UI. No comparisons across providers. All surfaces derive from existing rows" — explicit cruft rejection
+  - §1G.6.2 line 2013+: 5-state queue-routing state machine (delivered_to_queue / unread_by_queue / seen_by_queue_member / claimed_by_staff / completed) — substrate primitive
+  - §1G.1 DL-12 binding paragraphs (lines 1568-1578): thread lifecycle + owner cardinality + waiting semantics + queue-routed work — substrate doctrine
+- **recommended_action**: Phase G.2 §1G amendment — extensive cross-link work across 8+ v2 substrate sections (~30-50 hr effort; every major v2 substrate doctrine cross-links to §1G operational substrate)
+- **effort_estimate**: 2XL (extra-extra-large; ~30-50 hr; deepest single-artifact effort in F.2.2 audit so far)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh; sequenced after Coherent Pattern + §1Z + 1K.5.A per dependency; §1G operational substrate cross-link work is heavy)
+
+### §11.3 Aggregate Metrics — F.2.2.A.2 Batch
+
+**Knox category distribution**: 2 K1 (both §1F + §1G); 0 K2; 0 K3; 0 K4; 0 K6; 0 K7; 0 K8
+
+**Memory disposition distribution**: 2 preserve
+
+**Authority disposition distribution**: 2 keep_binding
+
+**Refresh action distribution**: 2 amend
+
+**Confidence distribution**: 2 high
+
+**Estimated effort distribution**:
+- M (~5-8 hr): 1 row (§1F)
+- 2XL (~30-50 hr): 1 row (§1G — deepest single-artifact effort)
+
+**Total Phase G effort for these 2 artifacts**: ~35-58 hours (G.2 substrate refresh sub-arc; §1G is the heavy lift).
+
+**Bidirectional findings**: 8 Tier 2 (D0THES-REV-061..068); 0 Tier 1 errata; 0 Tier 3 materially-misleading.
+
+**Cruft-test outcome**: PREDICTION WRONG. Both §1F + §1G are substrate-spine, not cruft. Valid decisions all preserved; no stale containers identified.
+
+**Q7 pattern total after F.2.2.A.2**: 1 (F.2.0) + 5 (F.2.0.v1) + 12 (F.2.0.v2) + 4 (F.2.2.A.1) + 8 (F.2.2.A.2) = **30 bidirectional findings to date**. Pattern consistent across calibration set + coordination spine + system map substrate. Substrate IS consistently healthier than thesis articulation reveals.
+
+### §11.4 Bidirectional Thesis Feedback — Tier 2 Findings (Routed; Not Patching v2)
+
+| Finding | v2 section | System map substrate under-credited | Route | Open Review Queue Row |
+|---|---|---|---|---|
+| 1 | §7.5.1 per-event ownership 7 dimensions | §1G case ownership tuple (responsible_party + responsible_user_id + primary_blocker) per care_program; need to extend tuple with 6 additional ownership dimensions (surface / channel / commerce / custody / coordination) | Phase G refresh: §1G amendment + v2 §7.5.1 cross-link; extend §1G tuple with 7-dimension orthogonality | D0THES-REV-061 |
+| 2 | §7.7.2 scoped conversation projections | §1G one-message_thread-per-care_program + 4-classification taxonomy on messages.metadata + message_thread.metadata; messaging substrate already encodes scoped projections; need explicit projection-doctrine cross-link | Phase G refresh: §1G amendment + v2 §7.7.2 cross-link | D0THES-REV-062 |
+| 3 | §6.7 5-tier vocabulary | §1G.3 thread-kind parameterization (care_team / provider_1:1 / front_desk / esthetician / injector / billing / support / post_procedure / location_team / role_queue / on_call); thread_kind maps cleanly to v2 operator-posture vocabulary | Phase G refresh: §1G.3 amendment + v2 §6.7 cross-link | D0THES-REV-063 |
+| 4 | §12.8 substrate-vs-care boundary + §9.1 model_version_of_record | §1G AI layer (cannot clear clinical_required) + §1G.2 active safety enforcement + §1G.3 AI correction feedback loop (ai_model_version + ai_prompt_id + classifier_version pinned) | Phase G refresh: §1G amendment + v2 §12.8 + §9.1 cross-link | D0THES-REV-064 |
+| 5 | §7.5.4 consent specificity (Guardrail B) | §1G.3 5-step privacy gate + per-channel max-allowed-exposure + pre-send revalidation + patient notification_channel_preferences + cross-channel deduplication | Phase G refresh: §1G.3 amendment + v2 §7.5.4 cross-link | D0THES-REV-065 |
+| 6 | §7.8 cross-operator coordination | §1G.6.2 queue-routing state machine (5 states: delivered_to_queue / unread_by_queue / seen_by_queue_member / claimed_by_staff / completed; messaging state vs task state distinction) + §1G.9 CoR continuity (CoR per care_program; never traps work; SLA fallback) | Phase G refresh: §1G.6.2 + §1G.9 amendment + v2 §7.8 cross-link | D0THES-REV-066 |
+| 7 | §7.5.2 catalog substrate model | §1F bookable_offering / service entity (sellable + bookable + commerce rail + modality + duration + buffer + capacity); IS instance of universal catalog_item | Phase G refresh: §1F amendment + v2 §7.5.2 cross-link | D0THES-REV-067 |
+| 8 | §6.7 surface_of_record + channel_of_record | §1F appointment.modality + location_id + Hybrid-first interaction_context (binding per Section 1Q.23 + Hybrid Patch MP1); already encodes channel + surface distinctions | Phase G refresh: §1F amendment + v2 §6.7 cross-link | D0THES-REV-068 |
+
+**Pattern**: all 8 findings follow Q7 pattern (thesis names what substrate already does). Phase G refresh resolves by explicit cross-link. **No v2 patching required.**
+
+**Tier 3 threshold check**: NONE of the 8 findings rise to "v2 materially misleading vs system map substrate." System map substrate is heavily aligned with v2 doctrine via existing operational primitives. **F.2.2.B can proceed.**
+
+### §11.5 Refined Phase G Sequencing Recommendation — F.2.2.A.2 Subset
+
+Phase G sub-arcs for these 2 system map artifacts:
+
+1. **§1G amendment — substantial cross-link work across 8 v2 substrate sections** (~30-50 hr; deepest single-artifact effort; sequenced after Coherent Pattern + §1Z + 1K.5.A per dependency)
+2. **§1F amendment — 5-6 cross-link references** (~5-8 hr; light)
+
+**Total estimated F.2.2.A.2 Phase G effort**: ~35-58 hours (G.2 substrate refresh sub-arc).
+
+**F.2.2.A overall total Phase G effort**: ~43-72 hours (A.1 ~8-14 hr + A.2 ~35-58 hr).
+
+**F.2.2.B begins next session** — catalog/routing spine + analytics/financial cruft test (per F.2.1 batch structure).
+
+### §11.6 Self-Assessment + Cruft-Test Outcome
+
+**Both §1F + §1G STABLE under v2 lens**:
+- 0 K-category changes (both K1)
+- 0 memory disposition changes (both preserve)
+- 0 authority disposition changes (both keep_binding)
+- 2 amend refresh_action
+- 2 confidence HIGH
+
+**8 Tier 2 substantive bidirectional feedback findings** (Q7 pattern continues; 30 total across F.2 work to date):
+- 2 findings on §1F (catalog + per-event ownership cross-links)
+- 6 findings on §1G (per-event ownership + projection + 5-tier vocab + substrate-vs-care + consent + cross-operator coordination cross-links)
+- ALL 8 routed to Phase G via D0THES-REV-061..068
+- 0 v2 patching triggered (Knox three-tier policy)
+
+**0 Tier 1 mechanical errata**: §1F + §1G mechanically clean under v2 lens.
+
+**0 Tier 3 materially-misleading findings**: system map substrate heavily aligned with v2 doctrine.
+
+**Cruft-test outcome**: **PREDICTION WRONG.** §1F + §1G are substrate-spine, not UI cruft. F.2.1 refinement's cruft-likely sampling list needs revision based on this evidence; future F.2.2 batches (B + C + D + E) should sample candidate-crufty sections that haven't been pre-validated as substrate-spine (e.g., intake UI mockups, identity-merge UX flows, marketing surface scaffolding, analytics dashboard specs — though these may also turn out to be substrate-spine; audit method is correct, prediction targets need refinement). **Audit method validated**: (a) valid decisions inside potentially-crufty containers preserved; (b) stale/crufty containers identified — NONE in this batch.
+
+**Confidence in F.2.2.A.2 batch outcome**: HIGH. System map §1F + §1G are foundational substrate sections; v2 doctrine cross-link work is mechanical and bounded. F.2.2.B ready to proceed.
+
+**F.2.2.A overall batch is COMPLETE**: A.1 substrate-spine (4 artifacts; commit `61b1f2e`) + A.2 cruft test (2 artifacts; pending commit). Cruft-test refinement requirement SATISFIED at F.2.2.A LEVEL. F.2.2.B begins next session.
+
+**Operating Contract §17 lifecycle state**: stays `F.2.2 in progress`.
 
 ---
 
