@@ -1,8 +1,12 @@
 # OMNI Doctrine Reconciliation Map v1
 
+> **F.2.2 METHODOLOGY REFINEMENT 2026-05-27 — CONTENT-NOT-TITLE CLASSIFICATION RULE (binding for F.2.2.B onward); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT**
+>
+> Per Nick + Knox 2026-05-26 post-F.2.2.A.2 batch pushback. F.2.2.A.2 cruft-test outcome ("PREDICTION WRONG; §1F + §1G are substrate-spine not UI cruft") surfaced a failure mode in the audit prediction layer (title-based sampling). Methodology refinement (binding for F.2.2.B onward): titles + filenames + section headers serve as **candidate selection (navigation heuristic) only**, NOT as Knox-category classification basis. Content read alone determines K-category classification. Title-deceived cruft predictions are recorded + moved on from; audit does not hunt for cruft to prove prediction right. F.2.2.A.1 + F.2.2.A.2 already audited content-first (classification_evidence cited content not title); refinement doesn't invalidate prior batches. Per D0THES-DEC-009 + D0THES-GRD-021 (Tier 0.5 boot-visible). See §11.7 for full methodology refinement.
+
 > **F.2.2.A.2 BATCH COMPLETE 2026-05-26 — CRUFT TEST (system map §1F + §1G); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT**
 >
-> F.2.2.A.2 lands the cruft test that satisfies F.2.1 refinement at F.2.2.A LEVEL (A.1 substrate-spine commit `61b1f2e` + A.2 cruft test this commit). Per Knox three-tier policy + v2 lens. **A.2 Outcome: 0 Tier 1 mechanical errata; 8 Tier 2 substantive bidirectional findings (D0THES-REV-061..068 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** Both §1F + §1G STABLE under v2 lens (both K1; ~35-58 hr total Phase G effort). **CRUFT-TEST OUTCOME (binding): cruft-test prediction was WRONG — §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections. System map healthier than F.2.1 refinement expected.** Q7 pattern total: 30 bidirectional findings (1 + 5 + 12 + 4 + 8). See §11 for full F.2.2.A.2 batch analysis. F.2.2.A overall COMPLETE; F.2.2.B begins next session.
+> F.2.2.A.2 lands the cruft test that satisfies F.2.1 refinement at F.2.2.A LEVEL (A.1 substrate-spine commit `61b1f2e` + A.2 cruft test commit `abf03a9`). Per Knox three-tier policy + v2 lens. **A.2 Outcome: 0 Tier 1 mechanical errata; 8 Tier 2 substantive bidirectional findings (D0THES-REV-061..068 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** Both §1F + §1G STABLE under v2 lens (both K1; ~35-58 hr total Phase G effort). **CRUFT-TEST OUTCOME (binding): cruft-test prediction was WRONG — §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections. System map healthier than F.2.1 refinement expected.** Q7 pattern total: 30 bidirectional findings (1 + 5 + 12 + 4 + 8). See §11 for full F.2.2.A.2 batch analysis. F.2.2.A overall COMPLETE; F.2.2.B begins next session under content-not-title methodology refinement (§11.7).
 
 > **F.2.2.A.1 BATCH COMPLETE 2026-05-26 — COORDINATION SPINE (4 substrate-spine artifacts); F.2.2.A.2 CRUFT TEST NEXT (system map §1F + §1G)**
 >
@@ -42,9 +46,11 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.2.A.2 BATCH COMPLETE (Cruft Test); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT
+## §0 Status Posture — F.2.2 METHODOLOGY REFINEMENT (Content-Not-Title); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT
 
-**F.2.2.A.2 Batch complete 2026-05-26** per `D0THES-DEC-008` per Operating Contract §17 append rules. Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 8 Tier 2 substantive bidirectional findings (D0THES-REV-061..068 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. Both §1F + §1G STABLE under v2 lens (both K1; 0 K-category changes; 0 disposition changes). **CRUFT-TEST OUTCOME (binding): cruft-test prediction was WRONG — §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections.** v2 CONFIRMED bidirectionally coherent with system map substrate spine. F.2.2.A overall complete (A.1 substrate-spine + A.2 cruft test). F.2.2.B begins next session.
+**F.2.2 methodology refinement 2026-05-27** per `D0THES-DEC-009` per Operating Contract §17 append rules. Per Nick + Knox 2026-05-26 post-F.2.2.A.2 pushback. Binding for F.2.2.B onward: titles + filenames + section headers serve as candidate selection (navigation heuristic) only, NOT as K-category classification basis. Content read alone determines K-category classification. F.2.2.A.1 + F.2.2.A.2 already audited content-first (classification_evidence cited content not title); refinement doesn't invalidate prior batches. See §11.7 + D0THES-GRD-021 (Tier 0.5 boot-visible).
+
+**F.2.2.A.2 Batch complete 2026-05-26** per `D0THES-DEC-008` per Operating Contract §17 append rules. Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 8 Tier 2 substantive bidirectional findings (D0THES-REV-061..068 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. Both §1F + §1G STABLE under v2 lens (both K1; 0 K-category changes; 0 disposition changes). **CRUFT-TEST OUTCOME (binding): cruft-test prediction was WRONG — §1F + §1G are substrate-spine sections with workspace-surface implications, NOT UI cruft sections.** v2 CONFIRMED bidirectionally coherent with system map substrate spine. F.2.2.A overall complete (A.1 substrate-spine + A.2 cruft test). F.2.2.B begins next session under content-not-title methodology refinement.
 
 **F.2.2.A.1 Batch complete 2026-05-26** per `D0THES-DEC-007` per Operating Contract §17 append rules. Per Knox three-tier policy + v2 lens (refreshed via §9): 0 Tier 1 mechanical errata; 4 Tier 2 substantive bidirectional findings (D0THES-REV-057..060 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 4 substrate-spine artifacts STABLE under v2 lens (all K1; 0 K-category changes; 0 disposition changes). v2 CONFIRMED bidirectionally coherent with coordination spine.
 
@@ -55,7 +61,8 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 - F.2.0.v1 refresh (v1-lens; commit `ca047ac`; 2026-05-25): §8 — 5 Tier 2 bidirectional findings (D0THES-REV-027..031)
 - F.2.0.v2 refresh (v2-lens; commit `b0bfb49`; 2026-05-26): §9 — 12 Tier 2 bidirectional findings (D0THES-REV-045..056) + 3 explicit additional dimensions per Nick's instruction
 - F.2.2.A.1 batch (v2-lens; commit `61b1f2e`; 2026-05-26): §10 — 4 Tier 2 bidirectional findings (D0THES-REV-057..060); coordination spine subset of F.2.2.A
-- **F.2.2.A.2 batch (v2-lens; pending commit; 2026-05-26): §11 — 8 Tier 2 bidirectional findings (D0THES-REV-061..068); cruft test subset of F.2.2.A; CRUFT-TEST OUTCOME = WRONG (§1F + §1G are substrate-spine not UI cruft)**
+- F.2.2.A.2 batch (v2-lens; commit `abf03a9`; 2026-05-26): §11 — 8 Tier 2 bidirectional findings (D0THES-REV-061..068); cruft test subset of F.2.2.A; CRUFT-TEST OUTCOME = WRONG (§1F + §1G are substrate-spine not UI cruft)
+- **F.2.2 methodology refinement (pending commit; 2026-05-27): §11.7 — content-not-title classification rule binding for F.2.2.B onward; per D0THES-DEC-009 + D0THES-GRD-021**
 
 **Q7 pattern total**: 1 + 5 + 12 + 4 + 8 = **30 bidirectional findings to date**. Pattern consistent: thesis names what substrate already does; calibration set + coordination spine + system map substrate extend pattern. Phase G refresh resolves all 30 via explicit cross-link work, NOT vN patching.
 
@@ -2272,6 +2279,38 @@ Phase G sub-arcs for these 2 system map artifacts:
 **F.2.2.A overall batch is COMPLETE**: A.1 substrate-spine (4 artifacts; commit `61b1f2e`) + A.2 cruft test (2 artifacts; pending commit). Cruft-test refinement requirement SATISFIED at F.2.2.A LEVEL. F.2.2.B begins next session.
 
 **Operating Contract §17 lifecycle state**: stays `F.2.2 in progress`.
+
+### §11.7 F.2.2 Methodology Refinement — Content-Not-Title Classification Rule (binding for F.2.2.B onward)
+
+**Cause**: F.2.2.A.2 batch cruft-test outcome surfaced a failure mode in the audit prediction layer. The F.2.1 cruft-test refinement directed F.2.2 batches to "sample scheduling UI / messaging UI / intake UI / analytics / identity-merge UX / financial lifecycle material per batch so audit tests BOTH (a) preserve valid decisions inside crufty containers, AND (b) identify stale containers themselves." The sampling targets were specified by **section title / filename / header**. F.2.2.A.2 audit found that both predicted cruft targets (system map §1F "Scheduling, locations, and encounter types" + §1G "Messaging, escalation, and the clinical loop") were **substrate-spine sections with workspace-surface implications, NOT UI cruft sections**. The titles deceived the prediction.
+
+**Nick's pushback (verbatim 2026-05-26 post-F.2.2.A.2)**: *"i dont underasatnd what the point of sampling title s and headers is if we dont know what tin them LMAO. like. how is this a useful reconcilation. why are we not going document by document and updating accordin to the thesis."*
+
+**Knox's correction (verbatim 2026-05-26)**: *"Sampling by title/header alone is weak. It is only useful as a navigation heuristic, not as reconciliation. A title can say 'Scheduling UI' and the section can actually be substrate doctrine. That is exactly what just happened. ... The useful version is: title/header selects candidate docs; content determines classification. That distinction has to be explicit."*
+
+**Methodology refinement (binding for F.2.2.B onward)** — adopted as F.2.2 audit rule with same authority as the F.2.1 cruft-test refinement:
+
+1. **No classification from title, filename, or section header alone.** Every audit row Knox-category classification (K1..K8) MUST be based on actual content read. Titles + filenames + headers serve as **candidate selection (navigation heuristic) only**, NOT as classification basis. CI-equivalent: any audit row whose K-category classification cites only title/filename/header without content evidence is non-compliant and must be re-audited from content.
+
+2. **Candidate-cruft must be proven from content, not assumed from title.** If candidate-cruft turns out substrate-heavy on content read, record the finding + move on. Do **NOT** keep hunting for cruft to prove the prediction was right. The audit's goal is to **know what we actually have**, not to find rot.
+
+3. **Title-based sampling remains useful as a navigation heuristic** to avoid blindly walking the entire 12k-line system map + ~30-40 candidate artifacts in linear order. Sampling lets us pick candidates that LOOK like distinct K-category test cases (substrate-spine vs cruft vs intake UI vs marketing surface), then **content read determines actual K-category**.
+
+4. **F.2.2.B sampling discipline**: pick candidate-crufty sections that haven't been pre-validated as substrate-spine (e.g., intake UI mockups, identity-merge UX flows, marketing surface scaffolding, analytics dashboard specs) — but acknowledge in advance that these MAY also turn out to be substrate-spine; record the finding either way; don't force a cruft classification when content disagrees.
+
+**Rationale for the broader bigger-picture question** ("why are we sampling at all when every doc needs Phase G amendment anyway?"):
+
+- **F.2.2 audit's actual value** (re-stated honestly after A.1 + A.2):
+  - (a) **Per-artifact effort sizing**: §1G turned out to be ~30-50 hr (deepest single-artifact Phase G effort surfaced so far). Phase G needs this to sequence + plan capacity, not guess.
+  - (b) **Sequencing Phase G dependencies**: audit reveals which docs cross-link to which v2 sections, so Phase G amendments can be sequenced cleanly (e.g., §1Z amendment before §1G amendment because §1G depends on §1Z event_kind extensions).
+  - (c) **Preventing duplicate substrate in Phase G**: the 30 Q7 findings to date prevent Phase G from creating duplicate substrate when existing substrate already encodes what v2 names. Without explicit cross-link findings, Phase G amendments could inadvertently spawn new substrate primitives parallel to existing ones (same anti-pattern as `patient_notification_deliveries` parallel to `outbound_jobs` in 4B reconciliation).
+  - (d) **Cataloguing valid_decisions_to_preserve per artifact**: Phase G needs explicit preserve lists to protect against accidentally deleting good decisions while weaving cross-links. Per-batch audit rows produce these.
+- **The system map will NOT be wholesale rewritten.** It is substrate-spine doctrine; wholesale rewrite would discard valid_decisions (the exact thing the audit catalogues to prevent) and produce a v2 with new gaps requiring another audit. The system map gets **amended in place** in Phase G (same as Charter / Protocol / Control Plane / AGENTS). Possibly a v2 system map spawn later IF Phase G surfaces enough structural amendments that current structure becomes the limiting factor; that's a separate gate, not the default.
+- **If audit batches stop yielding incremental signal**, the audit should compress (e.g., abbreviated per-row schema for high-confidence K1 artifacts) rather than keep batching at full depth. This is a Phase F.2 self-monitoring rule.
+
+**Operating contract update**: §11.7 methodology refinement is binding for F.2.2.B onward. F.2.2.A.1 + F.2.2.A.2 already audited under content-read basis (content read is documented in classification_evidence fields per artifact row); methodology refinement doesn't invalidate prior batches.
+
+**Reference**: D0THES-DEC-009 decision ledger row + D0THES-GRD-021 guardrail row (timeless lesson: candidate-cruft classification must be proven from content, not title; preserved at Tier 0.5 boot-visible surface).
 
 ---
 
