@@ -1232,4 +1232,62 @@ All 10 routed to Phase G cross-link work, NOT v2 patching, per Knox three-tier p
 
 **Next action**: F.2.2.C staged batch begins next session — content-first audit of remaining system map sub-sections per §11.7 methodology (e.g., §1K intake architecture, §1L lab testing, §1M patient state observations, §1N AI interpretation layer, §1O document routing, §1P narrative atomization, §1Q rules+templates, §1Z universal CNS event envelope candidates — content-read determines K-category, not title prediction). Per-batch closure discipline applies (executive verdict Q1.C-Q7.C + methodology validation + self-assessment + checkpoint commit + Tier 2 stop report + handoff Closure Addendum Extension #18).
 
-Next agent reading this handoff: F.2.2.B batch complete (pending commit + push for canonical review). F.2.2.A overall complete (`abf03a9`); F.2.2 methodology refinement complete (`53d790b`); F.2.2.B complete this commit. F.2.2.C is the operative next phase. Reconciliation Map v1 §12 has full F.2.2.B batch analysis + methodology validation. v2 NOT patched mid-audit per Knox three-tier policy. **78 D0THES-REV-001..078 rows in open review queue.** F.2.2 batches operate against refreshed v2 lens + §11.7 content-first methodology; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules. **Critical Phase G dependency**: §1J.10 loadPatientCaseSafetySnapshot is BLOCKING gate on first Rx pathway shipment — must be implemented before any Rx pathway launches.
+Next agent reading this handoff: F.2.2.B batch complete (commit `759bf88` pushed). F.2.2.C batch complete (pending commit). F.2.2.A overall complete (`abf03a9`); F.2.2 methodology refinement complete (`53d790b`); F.2.2.B complete (`759bf88`); F.2.2.C complete this commit. F.2.2.D operative mode TBD per Nick's compression decision. Reconciliation Map v1 §12 has full F.2.2.B batch analysis; §13 has full F.2.2.C batch analysis + compression option flag. v2 NOT patched mid-audit per Knox three-tier policy. **88 D0THES-REV-001..088 rows in open review queue.** F.2.2 batches operate against refreshed v2 lens + §11.7 content-first methodology. **Critical Phase G dependency**: §1J.10 loadPatientCaseSafetySnapshot is BLOCKING gate on first Rx pathway shipment.
+
+---
+
+## Closure Addendum Extension #18 (2026-05-27) — F.2.2.C Batch complete (Clinical/Operational Substrate Foundations); F.2 Pattern Fully Established; Compression Option Flagged for Nick
+
+**Cause**: F.2.2.C staged batch executed 2026-05-27 morning per Nick's "let's proceed as you have planned. commit and push after done or whatever" instruction. Second audit batch operating under §11.7 content-not-title classification rule.
+
+**Audit picks** (5 artifacts; clinical/operational substrate foundations axis):
+1. System map §1L Diagnostics + Lab Testing Layer (1211 lines; 23 sub-sections; foundation not appendix)
+2. System map §1M Patient State Observations (106 lines; foundation v1 table)
+3. System map §1N Unified AI interpretation layer (408 lines; one engine + 4 role-scoped surfaces + 14 DL-14 binding subsections)
+4. System map §1O Patient Document & Attachment Routing (220 lines; thin manifest)
+5. System map §1P Inbound narrative atomization (444 lines; 20 hard invariants + 15 sub-sections)
+
+Total content scope: ~2400 lines (heaviest single artifact: §1L at 1211 lines).
+
+**Outcome**: **0 Tier 1 mechanical errata** (all 5 artifacts mechanically clean under v2 lens). **10 Tier 2 substantive bidirectional findings** routed to Phase G via D0THES-REV-079..088; v2 NOT patched per Knox three-tier policy. **0 Tier 3 materially-misleading findings**. All 5 artifacts STABLE under v2 lens (all K1; 0 K-category changes; 0 disposition changes; 5 amend refresh_action). Total Phase G effort for these 5 artifacts: ~58-93 hr (§1L heaviest at ~20-30 hr; §1N + §1P at ~15-25 hr each; §1O ~5-8 hr; §1M ~3-5 hr).
+
+**METHODOLOGY VALIDATION (continued binding finding)**: §11.7 content-not-title rule continues operating correctly on second batch. All 5 picks classified from content (line ranges + quoted evidence); titles served navigation only.
+
+**CUMULATIVE FINDING (binding; pattern FULLY ESTABLISHED)**: 23 artifacts audited across F.2 corpus; 23 substrate-spine classifications; 0 cruft. System map + DL register CONSISTENTLY substrate-spine across 5 audit dimensions. Q7 pattern total: 50 bidirectional findings (1 + 5 + 12 + 4 + 8 + 10 + 10).
+
+**10 Tier 2 bidirectional findings** routed to Phase G via D0THES-REV-079..088 — all Q7 pattern; details in §13.4 of Reconciliation Map v1.
+
+**Critical Phase G dependency carried forward**: §1J.10 loadPatientCaseSafetySnapshot is BLOCKING gate on first Rx pathway shipment (per F.2.2.B finding; reaffirmed by F.2.2.C cross-artifact substrate-vs-care boundary finding D0THES-REV-084).
+
+**F.2 SELF-MONITORING SIGNAL — COMPRESSION OPTION FLAGGED FOR NICK** (per §11.7 self-monitoring rule):
+
+After 7 batches + 23/23 substrate-spine + 50 Q7 findings + 0 cruft + 0 K-category surprises across 5 audit dimensions, **the F.2 audit pattern is FULLY ESTABLISHED**. §11.7 self-monitoring rule explicitly permits compression when "audit batches stop yielding incremental signal."
+
+**Three compression options documented in §13.6 of Reconciliation Map v1 for Nick's decision** after F.2.2.C lands:
+
+- **Option A — CONTINUE FULL-DEPTH AUDIT**: F.2.2.D + F.2.2.E + closure at full depth. ~50-80 hr more audit work. Yields ~80-100 more Q7 findings. Default per §17 if no decision.
+- **Option B — COMPRESS TO ABBREVIATED SCHEMA** (Opus recommendation per §11.7 self-monitoring rule + Nick's "don't fuck me and future-us here" instruction): F.2.2.D + F.2.2.E in light content scan + classification + cross-links + Phase G effort estimate format; skip full Q-question synthesis for K1 substrate-spine. ~20-30 hr more audit work. 2-3x faster. Preserves audit integrity.
+- **Option C — SKIP TO F.2.3 MASTER CLOSURE** (aggressive): trust 23/23 substrate-spine + 50 Q7 findings as sufficient evidence. ~5-10 hr F.2.3 closure synthesis. Risk: some Phase G cross-link gaps surface during execution rather than audit.
+
+**Final compression decision per Nick.**
+
+### Tier 2 stop report (Protocol §9) — F.2.2.C Batch closure
+
+- `tier`: 2 (work-package completion; F.2.2.C is sub-arc within F.2.2 staged-batch phase per Operating Contract §17 append rules)
+- `objective_markers`: Reconciliation Map v1 §13 added (~750 lines: §13.1 batch executive verdict Q1.C-Q7.C + §13.2 per-artifact audit rows for 5 artifacts + §13.3 aggregate metrics + §13.4 bidirectional thesis feedback table + §13.5 refined Phase G sequencing + §13.6 self-assessment + compression option flag); header + §0 + §22 calibration version log updated; 10 new D0THES-REV-079..088 rows added; D0THES-DEC-011 decision ledger row added; charter Open Debt updated to 88 D0THES-REV rows enumerated; this handoff Extension #18 added
+- `commit`: pending (will commit + push per Nick instruction "commit and push after done or whatever")
+- `work_summary`: F.2.2.C batch executed 2026-05-27 against 5 artifacts under v2 lens + §11.7 content-first methodology. 0 Tier 1; 10 Tier 2 routed; 0 Tier 3. All K1. Cumulative: 23 artifacts; 23 substrate-spine; 0 cruft; pattern fully established. F.2 self-monitoring signal triggered; compression option flagged for Nick.
+- `files_changed`: Reconciliation Map v1 (§13 added; header + §0 + §22 updated) + decision ledger (D0THES-DEC-011) + open review queue (D0THES-REV-079..088) + charter Open Debt (F.2.2.C batch + 88 row enumeration) + this handoff (Extension #18)
+- `prior_narratives_consulted`: Closure Addendum Extensions #14-#17 (F.2.2.A.1 + F.2.2.A.2 + F.2.2 methodology refinement + F.2.2.B) + Knox three-tier policy precedent (proven across 6 prior batches)
+- `guardrail_rows_extracted`: candidate D0THES-GRD-026 f2-pattern-fully-established (after 7 batches + 5 audit dimensions + 23/23 substrate-spine + 50 Q7 findings; §11.7 self-monitoring rule triggers compression option) — not promoted yet
+- `governed_stream_artifact_touched`: `omni_doctrine_reconciliation_map_v1` (§13 batch analysis added per §17; lifecycle remains `F.2.2 in progress`)
+- `version_state`: `F.2.2.C batch complete; F.2.2.D operative mode TBD per Nick compression decision`
+- `operating_contract_applied`: §17 of v1
+- `knox_three_tier_policy_applied`: yes — 0 Tier 1 errata; 10 Tier 2 routed; 0 Tier 3
+- `methodology_refinement_validated`: yes — §11.7 content-not-title rule operating correctly on second batch
+- `f2_self_monitoring_signal_triggered`: yes — pattern fully established; compression option flagged in §13.6
+- `non_loss_check`: all prior batch findings preserved verbatim (§§0-13 historical layers); F.2.2.C findings layered as §13 additive; 10 Tier 2 findings preserved as D0THES-REV-079..088 with full schema; v2 NOT patched.
+
+**Next action**: F.2.2.D operative mode TBD per Nick's compression decision. Options documented in §13.6 of Reconciliation Map v1.
+
+Next agent reading this handoff: F.2.2.C batch complete. Reconciliation Map v1 §13 has full analysis + compression option flag. 88 D0THES-REV rows in open review queue. **CRITICAL DECISION POINT**: Nick must choose F.2.2.D operative mode (Option A continue full-depth / Option B compress to abbreviated [Opus recommends] / Option C skip to F.2.3 master closure). Default = Option A if no explicit choice per §17. **CRITICAL Phase G dependency**: §1J.10 loadPatientCaseSafetySnapshot is BLOCKING gate on first Rx pathway shipment.
