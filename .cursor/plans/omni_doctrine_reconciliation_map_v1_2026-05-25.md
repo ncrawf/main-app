@@ -1,5 +1,9 @@
 # OMNI Doctrine Reconciliation Map v1
 
+> **F.2.2.B BATCH COMPLETE 2026-05-27 — CATALOG / ROUTING / FINANCIAL / IDENTITY / ANALYTICS AXIS (6 artifacts; first batch under §11.7 content-not-title methodology); F.2.2.C NEXT**
+>
+> F.2.2.B lands the first audit batch operating under the §11.7 content-not-title classification rule (binding methodology refinement from D0THES-DEC-009). 6 audit picks: DL-17 commerce + DL-20 care coordination + system map §1E commerce + §1H analytics + §1I financial + §1J identity/merge. Per Knox three-tier policy + v2 lens. **B Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-069..078 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 6 artifacts STABLE under v2 lens (all K1; 0 K-category changes; 6 amend refresh_action; ~60-90 hr total Phase G effort). **METHODOLOGY VALIDATION (binding)**: §11.7 content-first rule worked as designed. Three candidates carried titles that would have been title-classified as cruft-likely (§1E "retail" + §1H "Analytics" + §1J "identity/merge"); content read confirmed all 6 are substrate-spine. Recorded + moved on per §11.7 rule 2; no audit theater. **Cumulative finding (binding across F.2.2.A.2 + F.2.2.B = 8 candidate artifacts)**: NONE were cruft. System map + DL register consistently substrate-spine. Q7 pattern total: 40 findings (1 + 5 + 12 + 4 + 8 + 10). See §12 for full F.2.2.B batch analysis. F.2.2.A complete (`abf03a9`); F.2.2 methodology refinement complete (`53d790b`); F.2.2.B complete this commit; F.2.2.C begins next session.
+
 > **F.2.2 METHODOLOGY REFINEMENT 2026-05-27 — CONTENT-NOT-TITLE CLASSIFICATION RULE (binding for F.2.2.B onward); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT**
 >
 > Per Nick + Knox 2026-05-26 post-F.2.2.A.2 batch pushback. F.2.2.A.2 cruft-test outcome ("PREDICTION WRONG; §1F + §1G are substrate-spine not UI cruft") surfaced a failure mode in the audit prediction layer (title-based sampling). Methodology refinement (binding for F.2.2.B onward): titles + filenames + section headers serve as **candidate selection (navigation heuristic) only**, NOT as Knox-category classification basis. Content read alone determines K-category classification. Title-deceived cruft predictions are recorded + moved on from; audit does not hunt for cruft to prove prediction right. F.2.2.A.1 + F.2.2.A.2 already audited content-first (classification_evidence cited content not title); refinement doesn't invalidate prior batches. Per D0THES-DEC-009 + D0THES-GRD-021 (Tier 0.5 boot-visible). See §11.7 for full methodology refinement.
@@ -46,7 +50,9 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.2 METHODOLOGY REFINEMENT (Content-Not-Title); F.2.2.A OVERALL COMPLETE; F.2.2.B NEXT
+## §0 Status Posture — F.2.2.B BATCH COMPLETE (Catalog / Routing / Financial / Identity / Analytics); F.2.2.C NEXT
+
+**F.2.2.B Batch complete 2026-05-27** per `D0THES-DEC-010` per Operating Contract §17 append rules. First audit batch operating under §11.7 content-not-title methodology refinement. Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-069..078 routed to Phase G; v2 NOT patched per Knox three-tier policy); 0 Tier 3 materially-misleading findings. All 6 artifacts STABLE under v2 lens (all K1; 0 K-category changes; 0 disposition changes; 6 amend refresh_action with 2 also requiring promote — DL-17 + DL-20). **METHODOLOGY VALIDATION (binding)**: §11.7 content-first rule worked as designed; three title-cruft-suspects (§1E "retail" + §1H "Analytics" + §1J "identity/merge") confirmed substrate-spine from content. **Cumulative finding (binding)**: 18 artifacts audited across F.2 corpus; 18 substrate-spine classifications; 0 cruft. System map + DL register consistently substrate-spine. v2 CONFIRMED bidirectionally coherent across catalog + commerce + care coordination + analytics + financial + identity dimensions. F.2.2.C begins next session.
 
 **F.2.2 methodology refinement 2026-05-27** per `D0THES-DEC-009` per Operating Contract §17 append rules. Per Nick + Knox 2026-05-26 post-F.2.2.A.2 pushback. Binding for F.2.2.B onward: titles + filenames + section headers serve as candidate selection (navigation heuristic) only, NOT as K-category classification basis. Content read alone determines K-category classification. F.2.2.A.1 + F.2.2.A.2 already audited content-first (classification_evidence cited content not title); refinement doesn't invalidate prior batches. See §11.7 + D0THES-GRD-021 (Tier 0.5 boot-visible).
 
@@ -62,9 +68,12 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 - F.2.0.v2 refresh (v2-lens; commit `b0bfb49`; 2026-05-26): §9 — 12 Tier 2 bidirectional findings (D0THES-REV-045..056) + 3 explicit additional dimensions per Nick's instruction
 - F.2.2.A.1 batch (v2-lens; commit `61b1f2e`; 2026-05-26): §10 — 4 Tier 2 bidirectional findings (D0THES-REV-057..060); coordination spine subset of F.2.2.A
 - F.2.2.A.2 batch (v2-lens; commit `abf03a9`; 2026-05-26): §11 — 8 Tier 2 bidirectional findings (D0THES-REV-061..068); cruft test subset of F.2.2.A; CRUFT-TEST OUTCOME = WRONG (§1F + §1G are substrate-spine not UI cruft)
-- **F.2.2 methodology refinement (pending commit; 2026-05-27): §11.7 — content-not-title classification rule binding for F.2.2.B onward; per D0THES-DEC-009 + D0THES-GRD-021**
+- F.2.2 methodology refinement (commit `53d790b`; 2026-05-27): §11.7 — content-not-title classification rule binding for F.2.2.B onward; per D0THES-DEC-009 + D0THES-GRD-021
+- **F.2.2.B batch (v2-lens; pending commit; 2026-05-27): §12 — 10 Tier 2 bidirectional findings (D0THES-REV-069..078); catalog/routing/financial/identity/analytics axis; first batch under §11.7 content-not-title methodology; METHODOLOGY VALIDATED (3 title-cruft-suspects confirmed substrate-spine from content; recorded + moved on)**
 
-**Q7 pattern total**: 1 + 5 + 12 + 4 + 8 = **30 bidirectional findings to date**. Pattern consistent: thesis names what substrate already does; calibration set + coordination spine + system map substrate extend pattern. Phase G refresh resolves all 30 via explicit cross-link work, NOT vN patching.
+**Q7 pattern total**: 1 + 5 + 12 + 4 + 8 + 10 = **40 bidirectional findings to date**. Pattern consistent: thesis names what substrate already does; calibration set + coordination spine + system map operational substrate + DL register substrate spine + analytics/financial/identity substrate all extend pattern. Phase G refresh resolves all 40 via explicit cross-link work, NOT vN patching.
+
+**Cumulative audit corpus**: 18 artifacts audited (F.2.0 6 calibration + F.2.2.A.1 4 substrate spine + F.2.2.A.2 2 cruft test + F.2.2.B 6 catalog/routing/financial/identity/analytics); 18 substrate-spine classifications; 0 cruft classifications. System map + DL register CONSISTENTLY substrate-spine across the entire F.2 audit corpus.
 
 **F.2.1 calibration review gate complete 2026-05-25 by Nick + Knox.** Outcome: **approve-with-one-refinement**. Method validated. Calibration marker REMOVED.
 
@@ -2311,6 +2320,366 @@ Phase G sub-arcs for these 2 system map artifacts:
 **Operating contract update**: §11.7 methodology refinement is binding for F.2.2.B onward. F.2.2.A.1 + F.2.2.A.2 already audited under content-read basis (content read is documented in classification_evidence fields per artifact row); methodology refinement doesn't invalidate prior batches.
 
 **Reference**: D0THES-DEC-009 decision ledger row + D0THES-GRD-021 guardrail row (timeless lesson: candidate-cruft classification must be proven from content, not title; preserved at Tier 0.5 boot-visible surface).
+
+---
+
+## §12 F.2.2.B Batch — Catalog / Routing / Financial / Identity / Analytics Axis (content-first classification per §11.7)
+
+> **F.2.2.B BATCH COMPLETE 2026-05-27 — 6 ARTIFACTS UNDER v2 LENS + CONTENT-NOT-TITLE METHODOLOGY (§11.7); F.2.2.B IS FIRST BATCH TO OPERATE UNDER REFINED METHODOLOGY**
+>
+> First batch executed under the content-not-title classification rule (§11.7; D0THES-DEC-009; D0THES-GRD-021). Audit picks selected by navigation heuristic; K-category classification driven exclusively by content read (line ranges + quoted evidence per artifact row). Per Knox three-tier policy + v2 lens.
+>
+> **F.2.2.B audit picks** (6 artifacts; catalog/routing/financial/identity/analytics axis):
+> 1. DL-17 Commerce Substrate Spine DRAFT (`.cursor/plans/doctrine/DL-17_commerce_DRAFT_2026-05-17.md`; 233 lines; 38 invariants; DRAFT pending Knox+Opus+user signoff)
+> 2. DL-20 Care-Coordination Substrate DRAFT (`.cursor/plans/doctrine/DL-20_care_coordination_DRAFT_2026-05-17.md`; 459 lines; 44 invariants; DRAFT pending Q1+Q6 joint signoff)
+> 3. System map `§1E Commerce, catalog, and "non-dumbed-down" retail` (lines 1308-1428; 122 lines)
+> 4. System map `§1H Analytics, diagnostics, and derived metrics` (lines 3156-3823; 668 lines; 7 sub-sections §1H.1-§1H.7)
+> 5. System map `§1I Financial lifecycle` (lines 3825-3938; 114 lines; 10 sub-sections §1I.0-§1I.9)
+> 6. System map `§1J Patient identity, duplicates, merge, shared contact, and authority` (lines 3940-4337; 397 lines; 13 sub-sections §1J.1-§1J.13)
+>
+> **Lens**: v2 (refreshed via §9; commits `b0bfb49` + `61b1f2e` + `abf03a9`). Per Knox three-tier policy + F.2.2 methodology refinement §11.7 (content-not-title classification rule binding for F.2.2.B onward).
+>
+> **B Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-069..078 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 6 artifacts STABLE under v2 lens (all K1; 0 K-category changes; 6 amend refresh_action; ~60-90 hr total Phase G effort estimate).
+>
+> **METHODOLOGY VALIDATION (binding finding): content-first classification per §11.7 worked as designed.** Three candidates carried titles that under F.2.1's title-based prediction WOULD have been classified as cruft-likely: §1E "Commerce, catalog, and retail" (Shopify-Admin-inspired framing) + §1H "Analytics" (looks like dashboard/reporting cruft) + §1J "identity, duplicates, merge, shared contact" (looks like UX cruft). Content read confirms ALL 6 are substrate-spine. Per §11.7 rule 2: candidate-cruft must be proven from content; if substrate-heavy on content read, record + move on. **Recorded + moved on; no audit theater hunting for cruft to prove prediction.** §11.7 methodology refinement is working as designed.
+>
+> **Cumulative finding (binding): system map + DL register are CONSISTENTLY substrate-spine across the entire F.2 audit corpus.** F.2.0 calibration (Coherent Pattern, Build OS, CNS ADR, DL-21, §1Z, 1K.5.A) + F.2.2.A.1 (Charter, Protocol, Control Plane, AGENTS) + F.2.2.A.2 (§1F, §1G) + F.2.2.B (DL-17, DL-20, §1E, §1H, §1I, §1J) = **18 artifacts audited; 18 substrate-spine classifications; 0 cruft classifications.** Pattern: substrate IS healthy across calibration set + coordination spine + system map operational substrate + DL register substrate spine + analytics/financial/identity substrate. Phase G work is consistently cross-link weaving in-place, NOT rewriting.
+
+### §12.1 Batch Executive Audit Verdict (Q1.B — Q7.B)
+
+7 standard synthesis questions, scoped to F.2.2.B batch (6 substrate-spine artifacts under v2 lens + first batch under §11.7 content-first rule).
+
+#### Q1.B — What is healthier than expected under v2 lens?
+
+- **DL-17 38-invariant commerce substrate spine is comprehensive.** Catalog primitives (service ↔ pricing_option many-to-many; 4-type pricing option discriminator; entitlement activation strategy 3-enum; entitlement redemption priority 3-enum + deterministic order; quantity strategy 5-enum eliminating Mindbody 7-tier workaround) + sale/line/payment primitives (commerce_order + 1-to-N lines; price-line ≤ subtotal CHECK constraint; refund destination defaults to original method; void vs refund vs account_credit vs adjustment 4-distinct primitives; contract/autopay with lazy template-expansion) + tax/accounting (2-tier tax; commerce order 9-state lifecycle; tenant-defined payment_method label REPLACING vendor-name enum; tip as 1st-class line; revenue categories distinct from service categories; accrual vs cash basis brand-level) + entitlement (5-state lifecycle; non-monetary at booking, monetary at sale close) + cancellation/suspension (cancellation policy 1st-class NOT $0 pricing option workaround; commission per pricing option + per staff; suspension distinct from cancellation) + refund/return (per-line refund scoped to parent sale; add-back-to-inventory) + audit/immutability (sale immutability + correction-via-adjustment; receipt template substrate) + attribution + cross-DL bindings (commerce ↔ scheduling saga + commerce ↔ clinical saga + commerce ↔ federation tenancy isolation + commerce decision record per DL-16 inv 30 + 30+ event_kinds) + patient_promo_claim wallet (3 new invariants 36/37/38 for patient promo wallet + appointment intent + commerce application).
+- **DL-20 44-invariant care-coordination substrate is structurally complete.** Care Episode 1st-class parent (Q6 tentative resolution; 6-state lifecycle; episode_catalog tenant-configurable; operational NOT clinical-coding) + Encounter Container 1st-class (Q1 tentative resolution; lazy materialization; appointment IS container for synchronous trips) + Encounter Profile registry (DL-19 settings + DL-15 4-axis composer cross-link; modality 4-value ENUM: in_person/video/phone/async — NO specialty leakage) + 3-layer foundation (appointment + appointment_item + encounter + encounter_line; specialty/service-type/venue on own axes NOT columns on encounter) + encounter_participant 3-FK substrate (visit-wide vs line-scoped participants; multi-role; mid-encounter handoff) + appointment_staff_note_entry append-only child substrate (Mindbody NC-pattern replacement) + appointment_confirmation_event CNS round-trip orchestration substrate (AI classifies + deterministic rules transition; never silent AI state change) + care_episode_task substrate (recall extension; 3 new recall task_kinds; first-class CNS substrate; full future-care-obligations design parked) + Auto-instantiation rules + closeout atomicity (single atomic action across substrates per DL-16 inv 6) + encounter correction substrate (post-closeout immutability; additive rows only) + Round 5 R5-KC-1/R5-WI-2/R5-LK-3 amendments (participant/seat + service_occurrence_work_item canonical + service_occurrence_link typed edges).
+- **System map §1E + §1H + §1I + §1J are dense substrate-spine despite titles that look like UI/product surface.** §1E one-patient-two-ways-to-pay + compositional checkout discipline (rejects undifferentiated orders row; CI lint forbids one undifferentiated row) + in-person hybrid checkout binding (Hybrid Patch G5 + §1Q.23 Invariant 5; prevents click-button-trivialization). §1H no-new-engine principle + canonical lifecycle metrics + §1H.1-§1H.7 operational/audit/marketing/verification/dashboard/reporting subsections + 4 hard output constraints (aggregated + de-identified + non-reversible + small-cell-suppressed) + §1H.6.1E root-cause classification with `safety_classification_miss` code feeding §1P.11 AI correction feedback loop. §1I payment-rail-agnostic authority (§1I.0 invariants + §1I.1 rail-agnostic vocabulary + §1I.6 reconciliation invariant + §1I.9 multi-rail pressure test). §1J identity precedence (gov-ID > biometric+selfie > payment > email/phone > intake self-report) + committed L→product gating policy + L cross-pathway coverage matrix + L_stale targeted Stage 2 re-entry mechanics + staff-witnessed in-person L3 path + §1J.10 loadPatientCaseSafetySnapshot required contract (BLOCKING gate on first Rx pathway) + Stage 2 forward-only commit + §1J.12 5 visibility classes + anti-panopticon discipline + §1J.13 handle-vs-person identity discipline.
+- **Methodology validation cross-link:** §11.7 content-not-title rule prevented title-based misclassification on §1E "retail" + §1H "Analytics" + §1J "identity/duplicates/merge" — three candidates that would've been title-classified as cruft-likely under F.2.1 sampling.
+
+#### Q2.B — What is worse than expected under v2 lens?
+
+- **10 Tier 2 bidirectional findings (Q7 pattern; thesis names what substrate already does).** Pattern is now consistent across 5 batches (F.2.0 + F.2.0.v1 + F.2.0.v2 + F.2.2.A.1 + F.2.2.A.2 + F.2.2.B = 40 total findings).
+- **DL-17 + DL-20 status = DRAFT pending Knox+Opus+user joint signoff.** Promotion gate not yet executed. Substrate is content-complete but binding authority pending. Q-DL17-1..Q-DL17-5 + Q-DL20-1..Q-DL20-5 still open sub-questions per each DRAFT.
+- **§1J.10 loadPatientCaseSafetySnapshot is REQUIRED before first Rx pathway ships.** This is a hard gate; partial implementation across mutations is NOT acceptable for a live Rx pathway. Phase G effort estimate must include this as foundational dependency.
+- **Phase G effort estimate grows again**: this batch's 6 artifacts add ~60-90 hr to total Phase G effort (DL-17 + DL-20 ~15-25 hr each, §1H ~15-25 hr, §1E + §1I ~5-8 hr each, §1J ~10-15 hr). Cumulative F.2.2 audit Phase G effort estimate: ~150-220 hr (vs original ~3-7 weeks F.2.0 estimate).
+
+#### Q3.B — What must be refreshed first under v2 lens?
+
+Within F.2.2.B batch (Phase G.2 substrate refresh sub-arc):
+
+1. **DL-17 + DL-20 promotion gates** (joint Knox+Opus+user signoff) — substrate is content-complete; needs promotion to locked DL inline in system map. ~5-10 hr coordination.
+2. **§1J.10 loadPatientCaseSafetySnapshot contract** — required before first Rx pathway ships; foundational dependency. ~10-15 hr.
+3. **DL-17 ↔ v2 §7.5.2 catalog substrate cross-link** — D0THES-REV-069; DL-17 38-invariant commerce substrate IS the operational expression of v2 catalog_item universality. ~5-8 hr.
+4. **DL-20 ↔ v2 §7.5.1 per-event ownership cross-link** — D0THES-REV-070; DL-20 encounter_participant 3-FK substrate operationalizes v2 ownership orthogonality. ~5-8 hr.
+5. **DL-20 ↔ v2 §7.6 CNS scope architecture cross-link** — D0THES-REV-071; DL-20 appointment_confirmation_event CNS round-trip + auto-instantiation IS the CNS execution model. ~5-8 hr.
+6. **§1H.4.1 + §1H.4.2 ↔ v2 §7.5.4 consent specificity cross-link** — D0THES-REV-074; hard output constraints (k-anonymity + de-identified + non-reversible) operationalize Guardrail B. ~5-8 hr.
+7. **§1J.10 + §1H.6.1E ↔ v2 §9.1 model_version_of_record cross-link** — D0THES-REV-075; authority-floor enforcement + safety_classification_miss root-cause code operationalize Guardrail C. ~5-8 hr.
+
+#### Q4.B — What valid decisions must not be lost under v2 lens?
+
+**No valid_decisions_lost concerns.** All 6 artifacts carry substantial substrate decision sets that hold under v2 lens. Selected preserve list:
+
+- DL-17: 38 invariants + 4 rejected patterns (closed payment enum / nested pricing array / cancellation fees as $0 options / sale mutability post-close) + pricing-location separation discipline + membership-as-contract-granting-benefits clarification
+- DL-20: 44 invariants + 13 rejected patterns (no Care Episode primitive / Episode kind = ICD-10 / cross-brand episode sharing / single-table-with-NULL-profile / cross-episode encounter / planned + performed collapsed / encounter mutation post-closeout / AI auto-instantiation bypassing deterministic policy / encounter without atomic closeout / encounter_profile_registry specialty-coded ENUM / mandatory encounter_container as separate row / 4-FK participant attachment / new care_obligation substrate for recalls / auto-copy appointment_items to encounter_lines at check-in / reason_for_visit checklist / compound booking_origin enum / array-of-promo-FKs / single-string staff_booking_note / simple-event-table confirmation) + Round 5 closure-execution amendments
+- §1E: compositional checkout discipline + in-person hybrid checkout binding + RBAC capability mapping + financial state machines + dispute/refund/write-off discipline
+- §1H: no-new-engine principle + canonical lifecycle metrics + §1H.4 marketing carve-out + §1H.4.1 defined growth surface + §1H.4.2 4-hard-output-constraints + §1H.5 third-party verification readiness + §1H.5.1 audit operations + §1H.6 full daily operator dashboard (~16 core metrics) + §1H.6.1A-H severity/status/classification/correlation + §1H.7 internal reporting layer + §1H.7.6a continuity-health report slice + §1H.7.6b trackable-derived metrics
+- §1I: payment-rail-agnostic authority + §1I.1 rail-agnostic vocabulary + clinical_visits ≠ payment callback + §1I.6 reconciliation invariant + §1I.9 6-class mismatch detection
+- §1J: §1J.1 precedence + §1J.4 committed L→product gating policy + L cross-pathway coverage matrix + L_stale targeted Stage 2 re-entry mechanics + staff-witnessed L3 path + §1J.6 NEVER auto-merge hard invariant + pre-account fingerprint discipline + Rx-restart-gaming detection + §1J.7 merge authoritative policy + §1J.9 6-actor x 6-action authority matrix + §1J.10 loadPatientCaseSafetySnapshot required contract + Stage 2 forward-only commit + §1J.12 5 visibility classes + anti-panopticon discipline + §1J.13 handle-vs-person identity discipline
+
+#### Q5.B — What docs are dangerous if left authoritative under v2 lens?
+
+**None.** All 6 artifacts are K1 under v2 lens. None contain content that would mislead Phase G work.
+
+#### Q6.B — What can safely wait under v2 lens?
+
+- v2 §13.7 operator-pluralism cross-links to DL-17 inv 34 commerce ↔ federation tenancy isolation + §1J.5 cross-program identity + DL-10 namespace scoping — substantial but lower-priority than per-event ownership orthogonality cross-link
+- §1H.6 daily dashboard 16-metric framework ↔ v2 §7.7 hard projection doctrine — operational metrics are hard projections of canonical state
+- DL-20 inv 27 Federation-Topology DL cross-link ↔ v2 §7.8 cross-operator coordination — venue substrate cross-link work fits with §1G.6.2 queue-routing work from F.2.2.A.2
+
+#### Q7.B — What does the audit teach us about the thesis itself (under v2 lens, in this batch)?
+
+**10 substantive bidirectional findings (Tier 2 per Knox policy)** — Q7 pattern continues; batch extends pattern from system map operational substrate (F.2.2.A.2) to DL register substrate spine (F.2.2.B):
+
+1. v2 §7.5.2 catalog substrate model ↔ DL-17 38-invariant commerce substrate spine. **Routed to D0THES-REV-069.**
+2. v2 §7.5.1 per-event ownership 7 dimensions ↔ DL-20 encounter_participant 3-FK substrate + DL-17 commerce_order ownership + §1J.10 actionContext. **Routed to D0THES-REV-070.**
+3. v2 §7.6 CNS scope architecture ↔ DL-20 inv 28 auto-instantiation + inv 40 appointment_confirmation_event CNS round-trip. **Routed to D0THES-REV-071.**
+4. v2 §7.7 master projection doctrine ↔ DL-20 inv 17 provider_review_queue + §1H.0 derivation stack (metrics as projections) + §1I.6 app DB as projection. **Routed to D0THES-REV-072.**
+5. v2 §6.7 5-tier vocabulary ↔ §1E commerce rails + DL-17 inv 18 payment_method tenant-defined label + DL-20 inv 38 encounter_participant role + §1J.4 L0-L4. **Routed to D0THES-REV-073.**
+6. v2 §7.5.4 consent specificity (Guardrail B) ↔ §1H.4.1 + §1H.4.2 hard output constraints (k-anonymity) + §1J.4 staff-witnessed L3 + §1J.10 narrative safety-scan turns. **Routed to D0THES-REV-074.**
+7. v2 §9.1 model_version_of_record (Guardrail C) ↔ §1J.10 patient_clinical_assertion_current authority-floor enforcement + §1H.6.1E `safety_classification_miss` root-cause code. **Routed to D0THES-REV-075.**
+8. v2 §13.7 operator-pluralism + non-competition ↔ DL-17 inv 34 commerce ↔ federation tenancy isolation + §1H.4 marketing carve-out + §1J.5 cross-program identity + DL-10 namespace scoping. **Routed to D0THES-REV-076.**
+9. v2 §12.8 substrate-vs-care boundary ↔ §1I.2 clinical_visits ≠ payment callback + §1J.10 AI cannot clear clinical_required + §1J.11 fraud abuse account. **Routed to D0THES-REV-077.**
+10. v2 §7.8 cross-operator coordination + care_coordination_owner ↔ DL-20 inv 27 Federation-Topology venue + §1H.7.6a continuity-health report slice (CoR signals). **Routed to D0THES-REV-078.**
+
+**All 10 are Tier 2 substantive feedback per Knox three-tier policy.** Documented in §12.4 + routed to Phase G as D0THES-REV-069..078. Do NOT trigger v2 completion pass. v2 NOT materially misleading; substrate already does what v2 doctrine articulates.
+
+**Tier 3 threshold check**: NONE rise to "v2 materially misleading vs DL register / system map substrate." v2 articulates discipline; DL-17 + DL-20 + §1E + §1H + §1I + §1J operationalize at substrate level. **v2 CONFIRMED bidirectionally coherent with DL register + system map operational substrate.**
+
+### §12.2 Per-Artifact Audit Rows (F.2.2.B batch)
+
+#### Row F.2.2.B-1 — DL-17 Commerce Substrate Spine DRAFT
+
+- **artifact_path**: `.cursor/plans/doctrine/DL-17_commerce_DRAFT_2026-05-17.md`
+- **knox_category**: **K1** (correct, aligned, complete substrate doctrine)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding (pending promotion to locked DL inline in system map per Knox+Opus+user signoff)
+- **refresh_action**: amend (v2 §7.5.2 + §7.5.1 + §6.7 + §13.7 cross-references) + promote (Knox+Opus+user signoff gate)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**: 38 invariants spanning catalog primitives (inv 1-5: service ↔ pricing_option many-to-many + 4-type discriminator + entitlement activation + redemption priority + quantity strategy 5-enum) + sale/line/payment (inv 6-11: commerce_order + 1-to-N lines + price-line ≤ subtotal + sale uniqueness + refund destination + void/refund/credit/adjustment 4-distinct + contract/autopay lazy template-expansion) + package + gift card + promo code + discount program (inv 12-15) + tax/accounting (inv 16-21: 2-tier tax + 9-state commerce order lifecycle + tenant-defined payment_method + tip 1st-class + revenue categories + accrual vs cash basis) + entitlement (inv 22-23: 5-state lifecycle + non-monetary booking, monetary close) + cancellation/suspension (inv 24-26: cancellation policy 1st-class + commission per pricing option + suspension distinct) + refund/return (inv 27-28: per-line refund + add-back-to-inventory) + audit/immutability (inv 29-30: sale immutability + receipt template) + attribution (inv 31: attribution_line Day 0) + cross-DL bindings (inv 32-35: commerce ↔ scheduling/clinical/federation saga + 30+ event_kinds) + patient promo wallet (inv 36-38: patient_promo_claim + appointment_promo_intent + commerce-level promo application) + 4 rejected patterns (closed enum / nested array / fee-as-$0 / mutable sale) + pricing-location separation + membership-as-contract-granting-benefits + entitlement redemption visibility + deposit visibility
+- **v2_lens_extensions_needed**:
+  - v2 §7.5.2 catalog substrate model cross-link: DL-17 inv 1-5 IS the universal catalog substrate (service + pricing_option + entitlement + quantity strategy)
+  - v2 §7.5.1 per-event ownership cross-link: DL-17 inv 6 commerce_order parent (tenant_id / patient_id / staff_id / created_by_actor per DL-16 amendment 43) carries 7-dimension ownership; extend with surface_of_record + channel_of_record + commerce_owner + artifact_custodian + care_coordination_owner
+  - v2 §6.7 5-tier vocabulary cross-link: DL-17 inv 18 payment_method tenant-defined label (replacing 25-vendor-name enum) maps to operator-posture vocabulary
+  - v2 §13.7 operator-pluralism cross-link: DL-17 inv 34 commerce ↔ federation tenancy isolation (strict isolation default; cross-brand entitlement transfer requires explicit permeability per DL-10)
+- **v2_bidirectional_feedback** (1 Tier 2 finding; route 1 = catalog substrate): D0THES-REV-069
+- **classification_evidence**:
+  - Lines 15-23: Scope binding + pricing-location separation + membership-as-contract-granting-benefits + entitlement redemption visibility + deposit visibility — substrate doctrine clarifications
+  - Lines 27-187: 38 invariants spanning 10 substrate domains (catalog / sale-line-payment / package / gift-card / promo / discount / tax / commerce-lifecycle / payment-method / tip / revenue-category / accounting-basis / entitlement / redemption / cancellation / commission / suspension / per-line-refund / add-back-inventory / sale-immutability / receipt / attribution / cross-DL bindings / patient promo wallet)
+  - Lines 201-212: 4 explicit rejected patterns (substrate discipline)
+  - Lines 216-225: Cross-link summary (inherits DL-1 + DL-2 + DL-3 + DL-7 + DL-10 + DL-12 + DL-13 + DL-14 + DL-16; composes with DL-15; future DL composition Clinical-Coding + Accounting-Integration + Inventory + Insurance-Claims; coexists §1E + §1J.9)
+- **recommended_action**: Phase G.2 DL-17 amendment + promotion gate — cross-link work + Knox+Opus+user signoff to promote DRAFT to locked DL inline in system map; ~15-25 hr (substrate is content-complete; work is cross-link + promotion coordination)
+- **effort_estimate**: L (large; ~15-25 hr; includes promotion coordination)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh + DRAFT promotion)
+- **status_marker**: DRAFT_pending_promotion (per artifact line 4 Status field)
+
+#### Row F.2.2.B-2 — DL-20 Care-Coordination Substrate DRAFT
+
+- **artifact_path**: `.cursor/plans/doctrine/DL-20_care_coordination_DRAFT_2026-05-17.md`
+- **knox_category**: **K1** (correct, aligned, complete substrate doctrine)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding (pending Q1+Q6 joint signoff for promotion)
+- **refresh_action**: amend (v2 §7.5.1 + §7.6 + §7.7 + §6.7 + §13.7 + §7.8 cross-references) + promote (Q1+Q6 joint signoff gate)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**: 44 invariants spanning Care Episode primitive (inv 1-4: 1st-class substrate + operational NOT clinical-coding + patient-relationship-scoped + 6-state lifecycle) + Episode Catalog (inv 5: tenant-configurable + 12 specialty seeds + auto_instantiation_rules) + Encounter Container primitive (inv 6-7: 1st-class + 1-to-N child of Care Episode + cross-episode REJECTED) + Encounter Profile registry (inv 8-9: tenant-configurable + composes with DL-15 4-axis booking) + temporal composability (inv 10: scheduled-first vs intake-first creation patterns) + Encounter lifecycle 8-state (inv 11) + Encounter Line as 1st-class child (inv 12-14: planned intent vs performed truth + product/lot/expiration/units + ↔ commerce_order_line linkage) + Encounter closeout atomicity (inv 15: 6-sub-action atomic; saga per DL-16 inv 26) + Care Episode Task substrate (inv 16-17: recall extension + provider review queue) + episode cadence (inv 18: CNS proposes, deterministic validates) + multi-initiator video (inv 19: 4 Day 0 affordances) + Async Encounter (inv 20-21: encounter_profile_id=async_review + cross-channel encounter continuity) + cross-DL bindings (inv 22-27: DL-20 ↔ DL-15/17/18/19/7/Federation) + auto-instantiation rules (inv 28) + audit/immutability (inv 29-30: closeout immutability + correction substrate) + decision record (inv 31) + open-question boundaries (inv 32: Q12 federation Day 0) + 3-layer foundation (inv 33-37: appointment + appointment_item + encounter REFACTORED + encounter_line refactored + encounter creation paths refactored) + encounter_participant (inv 38: 3 FK targets) + appointment_staff_note_entry (inv 39: append-only child) + appointment_confirmation_event (inv 40: CNS round-trip orchestration; AI classifies + deterministic transitions) + Phase 1 hardening v2 explicit rejections (inv 41) + Round 5 closure-execution amendments (inv 42-44: R5-KC-1 participant/seat + R5-WI-2 service_occurrence_work_item canonical + R5-LK-3 service_occurrence_link typed edges) + 5 open sub-questions (Q-DL20-1..Q-DL20-5) + 13+ rejected patterns
+- **v2_lens_extensions_needed**:
+  - v2 §7.5.1 per-event ownership cross-link: DL-20 inv 38 encounter_participant 3-FK substrate (appointment_item / encounter_line / encounter; multi-role; mid-encounter handoff) maps to v2 ownership orthogonality
+  - v2 §7.6 CNS scope architecture cross-link: DL-20 inv 28 auto-instantiation rules (CNS executes per DL-14 deterministic policy) + inv 40 appointment_confirmation_event (CNS round-trip; AI classifies + deterministic rules transition; never silent AI state change) IS the CNS execution model
+  - v2 §7.7 master projection doctrine cross-link: DL-20 inv 17 provider_review_queue is a logical projection of care_episode_task rows (per DL-16 inv 3 category e)
+  - v2 §6.7 5-tier vocabulary cross-link: DL-20 inv 38 encounter_participant role ENUM (primary_rendering_provider / assisting_staff / supervising_provider / checkout_owner / care_team_member / patient_facing_designated / observer / trainee) maps to operator-posture vocabulary
+  - v2 §13.7 operator-pluralism cross-link: DL-20 inv 27 Federation-Topology venue + inv 3 patient-relationship-scoped (cross-brand episode sharing requires federation permeability per A1)
+  - v2 §7.8 cross-operator coordination cross-link: DL-20 inv 24 staff capability + inv 38 encounter_participant + inv 17 provider review queue (auto-reassignment + manager queue fallback + backup provider pools + escalation)
+- **v2_bidirectional_feedback** (3 Tier 2 findings): D0THES-REV-070 (per-event ownership) + D0THES-REV-071 (CNS scope) + D0THES-REV-072 (projection doctrine)
+- **classification_evidence**:
+  - Lines 19: Scope binding (care-coordination substrate spanning DL-7 + DL-14 + DL-16 specializations)
+  - Lines 27-44: Care Episode 1st-class primitive (Q6 partial resolution) + episode catalog tenant-configurable
+  - Lines 41-104: Encounter Container 1st-class (Q1 partial resolution) + encounter profile registry + 8-state lifecycle + encounter ↔ encounter_line planned-vs-performed distinction
+  - Lines 105-148: cross-channel encounter continuity + cross-DL bindings
+  - Lines 149-301: 3-layer foundation (appointment + appointment_item + encounter REFACTORED from v1 overcorrection per Phase 1 hardening v2)
+  - Lines 372-390: Phase 1 hardening v2 explicit rejected patterns (13+ rejections)
+  - Lines 393-410: Round 5 closure-execution amendments (R5-KC-1 + R5-WI-2 + R5-LK-3)
+- **recommended_action**: Phase G.2 DL-20 amendment + promotion gate — cross-link work + Q1+Q6 joint signoff to promote DRAFT to locked DL; ~15-25 hr
+- **effort_estimate**: L (large; ~15-25 hr; includes Q1+Q6 promotion coordination)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh + DRAFT promotion)
+- **status_marker**: DRAFT_pending_Q1_Q6_signoff
+
+#### Row F.2.2.B-3 — System map §1E Commerce, catalog, and "non-dumbed-down" retail
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 1308-1428
+- **knox_category**: **K1** (correct, aligned, complete) — substrate-spine despite "retail" framing (Shopify-Admin-inspired domain checklist could read as cruft; content read confirms substrate)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §7.5.2 + §6.7 cross-references)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**: One-patient-two-ways-to-pay design principle (clinical Rx + retail rails segregated; `treatment_orders` ≠ retail parent) + compositional checkout discipline (each line carries unambiguous rail; rejects undifferentiated orders row; CI lint forbids) + in-person hybrid checkout binding (Hybrid Patch G5 + §1Q.23 Inv 5; 2-settlements-2-rails-1-encounter pattern; prevents click-button-trivialization failure mode) + 9-domain checklist (Catalog + Inventory + Orders + Shipping + Discounts + Customers + Marketing + Sales channels + Finance) + RBAC capability mapping (catalog managers / inventory / discounts / orders / view-only) + integration with patient 360 + timeline + scheduling + PSP linkage + 1I payment state
+- **v2_lens_extensions_needed**:
+  - v2 §7.5.2 catalog substrate cross-link: §1E commerce domain composes with DL-17 catalog substrate (service + pricing_option + commerce_order + product + collection)
+  - v2 §6.7 5-tier vocabulary cross-link: §1E rail discipline (clinical Rx vs 1E retail rails) maps to operator-posture vocabulary (OMNI Direct retail vs OMNI Specialty Line Rx vs Powered-by-OMNI Brand commerce)
+- **v2_bidirectional_feedback**: implicit in batch-level findings 1 (catalog substrate) + 5 (5-tier vocabulary); no new D0THES-REV row for §1E specifically (cross-links carried by DL-17 row)
+- **classification_evidence**:
+  - Line 1314-1315: "Clinical / Rx and regulated path ... Direct retail / supplements & non-Rx — a separate parent order domain" — substrate-rail discipline
+  - Line 1319: "compositional checkout (architectural rule) ... rejects one undifferentiated `orders` row" — substrate-spine discipline
+  - Line 1321: "In-person hybrid checkout discipline (binding; per `2026-05-02_hybrid_care_delivery_stress_test.md` Patch G5 + `Section 1Q.23` Invariant 5 + Hybrid Scenario 5)" — substrate-binding clause; failure mode "click button trivialization" explicitly prevented
+  - Lines 1325-1335: 9-domain catalog checklist with binding cross-link to capabilities + scheduling + payment rails
+  - Line 1349: "Map ↔ DB: capabilities and `requireCapability` are the product enforcement for who may act; coarse RLS in Postgres (all staff see all patients) is not a substitute for 'minimum necessary'" — substrate-discipline (rejects RLS-only approach)
+- **recommended_action**: Phase G.2 §1E amendment — cross-link v2 §7.5.2 catalog substrate + §6.7 5-tier vocabulary; ~3-5 hr
+- **effort_estimate**: S (small; ~3-5 hr)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh)
+- **adjacent_section_note**: §1F.10-§1F.24 (lines 1362-1428) is DL-15 binding scheduling substrate spine NOT covered by F.2.2.A.2 §1F audit (which read §1F original 1199-1306 only). Recommend Phase G.2 includes §1F.10-§1F.24 audit pass as part of DL-15 amendment work; estimate ~5-8 hr additional.
+
+#### Row F.2.2.B-4 — System map §1H Analytics, diagnostics, and derived metrics
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 3156-3823
+- **knox_category**: **K1** (correct, aligned, complete) — substrate-spine analytics doctrine despite "Analytics" title (F.2.1 sampling target; content read confirms NOT cruft)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §7.7 + §7.5.4 + §9.1 + §13.7 cross-references)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**: §1H no-new-engine principle (analytics = read models, queries, scheduled jobs; NOT a parallel metrics product; NO KPI-only columns on patients) + Derivation stack (timeline + audit + canonical state + row state + acquisition metadata) + Canonical lifecycle metrics (durations + funnel + drop-off — all query definitions) + §1H.1 operational traceability (10-row trace matrix; ops-readable webhooks + dead-letter-jobs + 1E2E recon path in owned data) + §1H.2 IT/platform operations (Model C system-level ownership + audit; capability-gated replay/requeue/break-glass) + §1H.3 reconciliation + drift + idempotent retry + §1H.4 acquisition + attribution boundaries + marketing carve-out (rejects ad APIs as clinical SoT; no PHI to ad networks) + §1H.4.1 defined growth surface (one internal route; `can_view_growth_aggregates` capability; view contract) + §1H.4.2 4-hard-output-constraints (aggregated + de-identified + non-reversible + small-cell-suppressed; k≥20 floor pre-scale) + §1H.5 third-party verification readiness (6-theme matrix: provider decision legitimacy + intake validity + active safety enforcement + fulfillment traceability + auditability + marketing separation) + §1H.5.1 audit operations (roles + capabilities + 4 audit surfaces + 4-step audit loop) + §1H.6 Layer 3 daily operational metrics (16 core metrics across 7 categories; all reviewed daily) + §1H.6.1A operator trigger profile (good/bad/action per metric) + §1H.6.1B response-speed tiers (sub-4h / same-day / trended) + §1H.6.1C ownership matrix (primary owner per category) + §1H.6.1D baseline + severity (4-level: Normal/Watch/Action-needed/Critical) + trend (3-direction Up/Flat/Down) + cooldown rule + §1H.6.1E root-cause classification (16+ codes including `vendor_state_conflict` + `safety_classification_miss` per §1P.11) + §1H.6.1F resolution status + §1H.6.1G stale-critical escalation + §1H.6.1H possible-correlation flag + §1H.6.2 full lifecycle visibility (7 dropout points) + §1H.6.3 production model + §1H.6.4 output discipline + §1H.6.5 future-safe segmentation + §1H.7 internal reporting layer (filter/group/aggregate over canonical metrics; no separate BI tool; controlled provider dimension) + §1H.7.6a continuity-health report slice (CoR signals; built-in) + §1H.7.6b trackable-derived metrics
+- **v2_lens_extensions_needed**:
+  - v2 §7.7 master projection doctrine cross-link: §1H "Analytics source of truth" + Derivation stack IS the operational expression of v2 projection mechanics (metrics are projections of timeline + audit + canonical state; NOT new SoT)
+  - v2 §7.5.4 consent specificity (Guardrail B) cross-link: §1H.4.1 + §1H.4.2 4-hard-output-constraints (aggregated + de-identified + non-reversible + small-cell-suppressed; k≥20 floor) operationalize Guardrail B at the analytics surface
+  - v2 §9.1 model_version_of_record (Guardrail C) cross-link: §1H.6.1E `safety_classification_miss` root-cause code (AI correction event with correction_reason ∈ {missed_safety_signal, misrouted_safety_to_nonclinical} per §1P.11) feeds independent SLA + escalation; pins ai_model_version + ai_prompt_id + classifier_version
+  - v2 §13.7 operator-pluralism + non-competition cross-link: §1H.4 marketing carve-out (REJECTS wiring of clinical permits to ad APIs; no PHI to ad networks as default for growth analytics; growth users get aggregate-only via §1H.4.1)
+- **v2_bidirectional_feedback** (1 Tier 2 finding; route 4 = projection doctrine): D0THES-REV-072 (cross-batch finding includes §1H projection); D0THES-REV-074 + D0THES-REV-075 + D0THES-REV-076 also touch §1H
+- **classification_evidence**:
+  - Line 3158: "Layer 2 operational reporting model: KPIs and funnels are read models (queries, scheduled jobs, or a future copy to a warehouse). No parallel 'metrics product' in core architecture; no KPI-only columns on patients for convenience" — substrate discipline (no new engine)
+  - Line 3162-3165: Analytics source of truth (5-source derivation stack); "Forbid storing a KPI in an extra table as if it were an independent fact without traceability to (1)-(4) [and (5) as applicable]" — substrate-discipline
+  - Line 3210: §1H.1 "Having patient_timeline_events is necessary and insufficient" — substrate-spine traceability discipline (10-row matrix)
+  - Line 3266-3275: §1H.4 marketing carve-out + §1Q.13 Module 15 cross-link + hard CI lint forbidding marketing templates referencing clinical chart rows — substrate-spine separation discipline
+  - Line 3293-3306: §1H.4.1 view contract — 4 hard output constraints + server-side enforcement (k≥20 threshold); "AI may read deeper, but cannot output deeper" (§1H.4.2)
+  - Lines 3372+: §1H.6 daily dashboard — full 16-metric across 7 categories; "No metric is 'secondary,' 'weekly only,' or hidden if it affects operations or revenue" — substrate-discipline
+  - Line 3575-3576: §1H.6.1E `vendor_state_conflict` + `safety_classification_miss` codes — feed §1P invariant 8 + §1P invariant 20 cross-source generalization
+- **recommended_action**: Phase G.2 §1H amendment — cross-link v2 §7.7 + §7.5.4 + §9.1 + §13.7 + projection mechanics + Guardrail B operationalization + Guardrail C AI lineage cross-link; ~15-25 hr
+- **effort_estimate**: L (large; ~15-25 hr; deepest §1X system map section after §1G in F.2.2 audit)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh)
+
+#### Row F.2.2.B-5 — System map §1I Financial lifecycle
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 3825-3938
+- **knox_category**: **K1** (correct, aligned, complete) — payment-rail-agnostic substrate
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §7.7 + §12.8 + §7.5.1 cross-references)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**: §1I.0 invariants payment-rail-agnostic authority (external rail = source of truth for movement/settlement; app DB = clinical meaning + entitlement + 1G gating; reconciliation bridges via 1I.1 codes + 1I.5-1I.6) + inbound narrative atomization fan-out per §1P.4 (vendor authority domain-scoped: vendor authoritative for "we charged" subject to deterministic reconciliation; refund DECISIONS remain ours) + structured-first hard constraint (typed JSON payment webhooks ride 1I.5 deterministic handler; AI atomization NEVER runs over typed-schema payment fields) + §1I.1 contract vocabulary (rail-agnostic enum: authorized / captured / voided / payment_failed / refund_full / refund_partial / dispute_open / dispute_lost / write_off / invoice_paid) + §1I.2 order + clinical meaning separation (clinical_visits ≠ payment callback; gating = internal permit + order + 1I.1 codes; off-session post-approval failure handling; recurring/subscription state ≠ care_program continuity) + §1I.3 missing-rail-capability handling + §1I.4 payment-rail capability matrix (card + ACH + manual/invoice + crypto rows) + §1I.5 adapters (not the product ontology; v1 PSP-specific; vendor strings in metadata NOT enums) + §1I.6 reconciliation + idempotency invariant (ledger of record per transaction; inbound idempotency `(provider, event_id)` or hash; exactly-once side effects via `outbound_jobs` + same-transaction timeline + audit) + §1I.7 refunds + disputes + subscription + write-off + staff + §1I.8 Stripe mapping (v1 only) + §1I.9 multi-rail financial reconciliation (7-dimension matrix: recon loops + mismatch detection 6-class + SoT + correction + finance visibility + drift + guardrails)
+- **v2_lens_extensions_needed**:
+  - v2 §7.7 master projection doctrine cross-link: §1I.6 "app DB is a projection that converges (scheduled or event-driven)" — external PSP/chain/bank ledger = source of truth; internal rows project per Hard Projection mechanics
+  - v2 §12.8 substrate-vs-care boundary cross-link: §1I.2 "clinical_visits and approval are not replaced by a payment callback; gating = internal permit + order + 1I.1 codes, not a PSP object name"
+  - v2 §7.5.1 per-event ownership cross-link: §1I.0 vendor authority domain-scoped (vendor authoritative for "we charged" within deterministic reconciliation bounds; refund decisions remain ours) maps to operator_of_record + commerce_owner orthogonality
+- **v2_bidirectional_feedback**: implicit in batch-level findings 4 (projection doctrine) + 9 (substrate-vs-care boundary); no new D0THES-REV row for §1I specifically (cross-links carried by DL-17 + §1J rows)
+- **classification_evidence**:
+  - Line 3829: "External payment rail (PSP API, on-chain, bank, or manual/ops process) is authoritative for movement and settlement of funds on that rail" / "This application (DB + domain) is authoritative for clinical meaning ... order meaning and lifecycle ... entitlement to ship, refill, or continue care" — substrate authority separation
+  - Line 3831: "Vendor authority is domain-scoped — vendor IS authoritative for 'we charged' (subject to deterministic reconciliation against canonical internal record); refund DECISIONS remain ours, not the vendor's, gated by 1I.4 per existing rules" — substrate authority discipline
+  - Line 3851-3852: §1I.2 "*Separation.* `clinical_visits` and approval are not replaced by a payment callback; gating = internal permit + order + 1I.1 codes" — substrate-vs-care boundary
+  - Line 3855: "*Invariant:* a billing or subscription state change does not, by itself, end or void a `care_program`; program continuity is internal and 1G, not a single funding webhook" — substrate discipline
+  - Line 3886: §1I.6 "*Ledger of record* per transaction or invoice: external PSP, chain, bank, or signed manual record; the app DB is a projection that converges" — projection doctrine cross-link
+  - Lines 3914-3922: §1I.9 7-dimension matrix (rail-agnostic invariants must hold for any current or future PSP) — substrate-discipline
+- **recommended_action**: Phase G.2 §1I amendment — cross-link v2 §7.7 projection + §12.8 substrate-vs-care boundary + §7.5.1 per-event ownership; ~5-8 hr
+- **effort_estimate**: S (small; ~5-8 hr)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh)
+
+#### Row F.2.2.B-6 — System map §1J Patient identity, duplicates, merge, shared contact, and authority
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 3940-4337
+- **knox_category**: **K1** (correct, aligned, complete) — DEEPLY substrate-spine identity doctrine despite "identity, duplicates, merge, shared contact" framing (F.2.1 cruft-test sampling target; content read confirms NOT cruft)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §7.5.1 + §6.7 + §13.7 + §9.1 + §12.8 + §7.5.4 cross-references)
+- **confidence_level**: HIGH
+- **valid_decisions_to_preserve**: Identity-namespace scope (binding amendment per DL-10: single canonical patients row within OMNI identity namespace; multiple operational relationships per identity via patient_relationship; cross-namespace matching = explicit federation/linking NOT automatic shared rows; namespace abstraction is the seam future federation rides on) + §1J.1 precedence (5-tier trust rank: gov-ID > biometric+selfie > payment > email/phone > intake self-report; external documents ingest via patient_document with promotion path through precedence; never silent overwrite of locked fields from raw OCR) + §1J.2 conflicts (override + history; never delete prior value; immutable intake snapshots) + §1J.3 immutable vs mutable (legal name + DOB locked after L≥verified; mutable preferred name + comm prefs + email/phone subject to 1J.6/1J.8; allergies/meds not identity; reconciled at merge per §1J.7) + §1J.4 identity confidence L0-L4 + COMMITTED L→product gating policy table (retail/labs/HRT/GLP-1/TRT/propranolol/controlled-substances/mental-health Rx rows; no pathway launches without its row) + L cross-pathway coverage matrix (HRT L3 ↔ GLP-1 L3 ↔ TRT L3 ↔ off-label L3 ↔ mental-health Rx L3 mutually covering; L4 controlled substances NOT covered by L3; pathway-tightened policies honored on target) + L_stale targeted Stage 2 re-entry mechanics (per-pathway freshness; new intake_sessions row with status `identity_uplift_stale_refresh`; forward-only refresh of stale artifact only; supersedes_verification_id chain; never silent downgrade; stale refresh is ONLY post-Stage-3 re-capture pattern unless compliance-grade event fires) + staff-witnessed in-person L3 path (Hybrid Patch G4 + §1Q.23 Inv 4; equivalent assurance to remote photo+selfie; capability `can_witness_in_person_identity` required; CI lint forbids any code path elevating identity_confidence to L3 without structured verification_method enum value) + §1J.5 cross-program identity (one canonical patients row per person; care_programs do NOT own separate legal identity) + §1J.6 duplicate detection (3-tier A/B/C matching; risk derivation R-low/R-med/R-high; NEVER auto-merge hard invariant; pre-account fingerprint discipline at Stage 0.5→Stage 1 with tiered blocking by pathway acuity; Rx-restart-gaming detection cross-account answer-flipping pattern) + §1J.7 merge authoritative policy (capability-gated `can_merge_patient_records`; preconditions L3 + no R-high + second sign-off + no jurisdiction conflict; source vs target direction; deterministic repoint of FK references; conflict reconciliation; irreversible v1; audited per identity.merge_completed event) + §1J.8 shared contact (uniqueness not assumed; allowed sharing with `metadata.shared_contact`; login/session distinguishing via auth.uid()↔patient_id binding + OTP rate limit + ambiguity escalation to staff; comms routing prefers in-app for shared contacts) + §1J.9 authority boundaries 6-actor x 6-action matrix (patient / customer_support / provider / ops_admin / compliance_auditor / break-glass) + §1J.10 loadPatientCaseSafetySnapshot REQUIRED contract (single server function called by all high-risk staff mutations; actionContext vocabulary; snapshot includes 1J identity + 1I payment + 1G clinical + clinical memory + prior treatments + jurisdiction per-mutation re-check + time-sensitive clinical facts including pregnancy_status + authority-floor enforcement per 1K.5.A + active-acute-state floor enforcement + queue priority hint mechanism + narrative safety-scan turns; ESLint no-restricted-imports + audit-write-failure-blocks-mutation enforcement; Stage 2 forward-only commit binding per 1K.13) + §1J.11 fraud abuse account (no third-party fraud platform; behavior classes in existing rows; bypass only via break-glass) + §1J.12 (DL-12 binding) thread search/discoverability/visibility governance + 5 visibility classes (public/internal + private group + 1:1 DMs + patient-linked + restricted/sensitive) + anti-panopticon discipline (1:1 DMs NOT globally searchable; admin/CMO/IT/compliance discovery audited + reason-coded; eDiscovery role doesn't grant ordinary discoverability) + internal-membership-vs-patient-visible-roster distinction (silent internal observers NOT auto-exposed on patient-facing roster) + staff self-join discipline (NEVER curious browse; explicit capability + queue membership + coverage role + assignment + escalation + admin/CMO/reviewer authority + break-glass) + 3-level control hierarchy (org / thread / user) + §1J.13 (DL-13 binding) handle-vs-person identity discipline (phone is handle not always person; contact_identity_handles first-class rows with handle_type + value + confidence + provenance + verified_at) + contact-identity lifecycle 8-operation matrix (create/update/verify/deduplicate/merge/split/link/unlink) + manual-account-creation publishes handles into OMNI (OMNI is master, vendor is convenience) + retroactive projection of unlinked external conversations + external-line access scope (4-axis: endpoint + relationship + sensitivity + queue membership) + search audit + reason-coding on restricted/projected-clinical conversations + identity-altering operations capability-gated + audited + reason-coded
+- **v2_lens_extensions_needed**:
+  - v2 §7.5.1 per-event ownership cross-link: §1J.10 actionContext + loadPatientCaseSafetySnapshot operationalizes 7-dimension ownership at every high-risk mutation choke point
+  - v2 §6.7 5-tier vocabulary cross-link: §1J.4 identity_confidence L0-L4 + L→product gating policy table maps to operator-posture vocabulary (different operator postures may require different L levels)
+  - v2 §13.7 operator-pluralism + non-competition cross-link: §1J.5 cross-program identity + DL-10 namespace scoping (cross-deployment federation explicit operations governed by DL-10; permissioned, consent-aware, audited)
+  - v2 §9.1 model_version_of_record (Guardrail C) cross-link: §1J.10 patient_clinical_assertion_current authority-floor enforcement per 1K.5.A (provider_confirmed > provider_assessed > lab_derived > document_extracted > patient_self_correction > patient_reported > ai_suggested > system_derived; ai_suggested NEVER satisfies provider_confirmed floor)
+  - v2 §12.8 substrate-vs-care boundary cross-link: §1J.10 narrative safety-scan turns + §1J.11 AI cannot clear clinical_required + "the safety scan can route and hold but never confirms clinical truth — provider review is required"
+  - v2 §7.5.4 consent specificity (Guardrail B) cross-link: §1J.4 staff-witnessed L3 path (`can_witness_in_person_identity` capability + structured verification_method enum required) + §1J.10 narrative safety-scan turns per 1K.5.A
+- **v2_bidirectional_feedback** (multiple Tier 2 findings cross-link to §1J): D0THES-REV-070 (per-event ownership) + D0THES-REV-073 (5-tier vocabulary) + D0THES-REV-074 (consent specificity) + D0THES-REV-075 (model_version_of_record) + D0THES-REV-076 (operator-pluralism) + D0THES-REV-077 (substrate-vs-care boundary)
+- **classification_evidence**:
+  - Line 3944: "Identity-namespace scope (binding amendment per DL-10) ... Single canonical patients row per person scopes to within an OMNI identity namespace" — substrate-spine binding
+  - Lines 3946-3956: §1J.1 precedence 5-tier trust rank — substrate-spine discipline
+  - Lines 3969-4023: §1J.4 identity confidence L0-L4 + committed L→product gating policy + L cross-pathway coverage matrix + L_stale targeted Stage 2 re-entry mechanics + staff-witnessed L3 path — substrate-spine binding policy (NOT UI)
+  - Lines 4029-4083: §1J.6 duplicate detection NEVER auto-merge hard invariant + pre-account fingerprint discipline + Rx-restart-gaming detection — substrate-spine
+  - Lines 4087-4103: §1J.7 merge authoritative policy — substrate-spine
+  - Lines 4118-4131: §1J.9 6-actor x 6-action authority matrix — substrate-spine RBAC
+  - Lines 4186-4334: §1J.10 loadPatientCaseSafetySnapshot REQUIRED contract — BLOCKING gate on first Rx pathway; substrate-spine; enforcement classes; high-risk mutations enumerated; Stage 2 forward-only commit; ESLint no-restricted-imports + audit-write-failure-blocks-mutation enforcement
+  - Lines 4132-4158: §1J.12 5 visibility classes + anti-panopticon discipline — substrate-spine
+  - Lines 4160-4184: §1J.13 handle-vs-person identity discipline — substrate-spine
+- **recommended_action**: Phase G.2 §1J amendment — cross-link work across v2 §7.5.1 + §6.7 + §13.7 + §9.1 + §12.8 + §7.5.4 (6 substrate sections cross-link to §1J); ~10-15 hr
+- **effort_estimate**: M (medium; ~10-15 hr)
+- **phase_g_subphase_assignment**: G.2 (substrate refresh)
+
+### §12.3 Aggregate Metrics — F.2.2.B Batch
+
+**Knox category distribution**: 6 K1 (all 6 artifacts content-classified as substrate-spine); 0 K2; 0 K3; 0 K4; 0 K6; 0 K7; 0 K8
+
+**Status marker distribution**: 4 active (§1E + §1H + §1I + §1J); 2 DRAFT_pending_promotion (DL-17 + DL-20)
+
+**Memory disposition distribution**: 6 preserve
+
+**Authority disposition distribution**: 6 keep_binding
+
+**Refresh action distribution**: 6 amend (2 also requiring promote — DL-17 + DL-20)
+
+**Confidence distribution**: 6 high
+
+**Estimated effort distribution**:
+- S (~3-8 hr): 2 rows (§1E + §1I)
+- M (~10-15 hr): 1 row (§1J)
+- L (~15-25 hr): 3 rows (DL-17 + DL-20 + §1H)
+
+**Total Phase G effort for these 6 artifacts**: ~60-90 hours (G.2 substrate refresh sub-arc + DL-17/DL-20 promotion coordination).
+
+**Bidirectional findings**: 10 Tier 2 (D0THES-REV-069..078); 0 Tier 1 errata; 0 Tier 3 materially-misleading.
+
+**Methodology validation outcome**: §11.7 content-not-title rule prevented title-based misclassification on 3 candidates (§1E "retail" / §1H "Analytics" / §1J "identity/merge"). Content read confirmed substrate-spine. **Rule working as designed; recorded substrate finding + moved on; no audit theater.**
+
+**Q7 pattern total after F.2.2.B**: 1 (F.2.0) + 5 (F.2.0.v1) + 12 (F.2.0.v2) + 4 (F.2.2.A.1) + 8 (F.2.2.A.2) + 10 (F.2.2.B) = **40 bidirectional findings to date**. Pattern consistent across 6 batches + 3 audit dimensions (substrate spine + coordination spine + system map operational substrate). Substrate IS consistently healthier than thesis articulation reveals.
+
+**Cumulative audit corpus**: 18 artifacts audited (F.2.0 6 calibration + F.2.2.A.1 4 substrate spine + F.2.2.A.2 2 cruft test + F.2.2.B 6 catalog/routing/financial/identity/analytics axis); 18 substrate-spine classifications; 0 cruft classifications. **System map + DL register + governance spine are CONSISTENTLY substrate-spine across the entire F.2 audit corpus.**
+
+### §12.4 Bidirectional Thesis Feedback — Tier 2 Findings (Routed; Not Patching v2)
+
+| Finding | v2 section | Substrate under-credited | Route | Open Review Queue Row |
+|---|---|---|---|---|
+| 1 | §7.5.2 catalog substrate model | DL-17 38-invariant commerce substrate spine (service ↔ pricing_option many-to-many + 4-type discriminator + entitlement activation + quantity strategy 5-enum + commerce_order + 1-to-N lines + receipt template + tip 1st-class + revenue categories + accrual vs cash basis + entitlement 5-state + cancellation policy 1st-class + commission per pricing option + suspension distinct + patient_promo_claim wallet + commerce ↔ scheduling/clinical/federation saga + 30+ event_kinds) | Phase G refresh: DL-17 amendment + v2 §7.5.2 cross-link + DL-17 promotion gate | D0THES-REV-069 |
+| 2 | §7.5.1 per-event ownership 7 dimensions | DL-20 inv 38 encounter_participant 3-FK substrate (visit-wide vs line-scoped + multi-role + mid-encounter handoff) + DL-17 commerce_order parent (tenant_id / patient_id / staff_id / created_by_actor) + §1J.10 actionContext + loadPatientCaseSafetySnapshot (every high-risk mutation funnels through preflight) | Phase G refresh: DL-20 + DL-17 + §1J amendment + v2 §7.5.1 cross-link | D0THES-REV-070 |
+| 3 | §7.6 CNS scope architecture | DL-20 inv 28 auto-instantiation rules (CNS executes per DL-14 deterministic policy; AI proposes + deterministic commits) + inv 40 appointment_confirmation_event CNS round-trip (AI classifies + deterministic rules transition; never silent AI state change) | Phase G refresh: DL-20 amendment + v2 §7.6 cross-link | D0THES-REV-071 |
+| 4 | §7.7 master projection doctrine | DL-20 inv 17 provider_review_queue (logical projection of care_episode_task rows per DL-16 inv 3 category e) + §1H.0 derivation stack (metrics are projections of timeline + audit + canonical state; "no parallel metrics product in core architecture") + §1I.6 app DB is projection (external PSP/chain/bank ledger = SoT; internal rows converge) | Phase G refresh: DL-20 + §1H + §1I amendment + v2 §7.7 cross-link | D0THES-REV-072 |
+| 5 | §6.7 5-tier vocabulary | §1E commerce rails (clinical Rx vs 1E retail rail discipline) + DL-17 inv 18 payment_method tenant-defined label (replacing 25-vendor-name enum) + DL-20 inv 38 encounter_participant role ENUM (primary_rendering_provider / assisting_staff / supervising_provider / checkout_owner / care_team_member / patient_facing_designated / observer / trainee) + §1J.4 L0-L4 + L→product gating policy | Phase G refresh: §1E + DL-17 + DL-20 + §1J amendment + v2 §6.7 cross-link | D0THES-REV-073 |
+| 6 | §7.5.4 consent specificity (Guardrail B) | §1H.4.1 + §1H.4.2 4-hard-output-constraints (aggregated + de-identified + non-reversible + small-cell-suppressed; k≥20 floor pre-scale; AI may read deeper but cannot output deeper) + §1J.4 staff-witnessed L3 path (capability `can_witness_in_person_identity` + structured verification_method enum required) + §1J.10 narrative safety-scan turns per 1K.5.A | Phase G refresh: §1H + §1J amendment + v2 §7.5.4 cross-link | D0THES-REV-074 |
+| 7 | §9.1 model_version_of_record (Guardrail C) | §1J.10 patient_clinical_assertion_current authority-floor enforcement per 1K.5.A (provider_confirmed > provider_assessed > lab_derived > document_extracted > patient_self_correction > patient_reported > ai_suggested > system_derived; ai_suggested NEVER satisfies provider_confirmed floor) + §1H.6.1E `safety_classification_miss` root-cause code (AI correction event with correction_reason ∈ {missed_safety_signal, misrouted_safety_to_nonclinical} per §1P.11; pins ai_model_version + ai_prompt_id + classifier_version) | Phase G refresh: §1J + §1H amendment + v2 §9.1 cross-link | D0THES-REV-075 |
+| 8 | §13.7 operator-pluralism + non-competition | DL-17 inv 34 commerce ↔ federation tenancy isolation (cross-brand commerce requires explicit permeability per A1; cross-brand entitlement transfer requires explicit transfer event + audit) + §1H.4 marketing carve-out (REJECTS wiring of clinical permits to ad APIs; no PHI to ad networks as default; growth users get aggregate-only via §1H.4.1) + §1J.5 cross-program identity + DL-10 namespace scoping (cross-deployment federation explicit operations) | Phase G refresh: DL-17 + §1H.4 + §1J + DL-10 amendment + v2 §13.7 cross-link | D0THES-REV-076 |
+| 9 | §12.8 substrate-vs-care boundary | §1I.2 clinical_visits ≠ payment callback (gating = internal permit + order + 1I.1 codes, NOT vendor object names) + §1J.10 AI cannot clear clinical_required (narrative safety-scan never confirms clinical truth; provider review required) + §1J.11 fraud abuse account (no third-party fraud platform; behavior classes in existing rows) | Phase G refresh: §1I + §1J amendment + v2 §12.8 cross-link | D0THES-REV-077 |
+| 10 | §7.8 cross-operator coordination + care_coordination_owner | DL-20 inv 27 Federation-Topology venue + inv 3 patient-relationship-scoped + inv 17 provider_review_queue (auto-reassignment + manager queue fallback + backup provider pools + escalation) + §1H.7.6a continuity-health report slice (CoR signals; built-in §1G.9 cross-link) | Phase G refresh: DL-20 + §1H amendment + v2 §7.8 cross-link | D0THES-REV-078 |
+
+**Pattern**: all 10 findings follow Q7 pattern (thesis names what substrate already does). Phase G refresh resolves by explicit cross-link. **No v2 patching required.**
+
+**Tier 3 threshold check**: NONE of the 10 findings rise to "v2 materially misleading vs DL register / system map substrate." Substrate operationalizes v2 doctrine across catalog + commerce + care coordination + analytics + financial + identity dimensions. **F.2.2.C can proceed.**
+
+### §12.5 Refined Phase G Sequencing Recommendation — F.2.2.B Subset
+
+Phase G sub-arcs for these 6 artifacts:
+
+1. **DL-17 commerce substrate spine** — content-complete; cross-link work + Knox+Opus+user signoff promotion to locked DL inline in system map (~15-25 hr)
+2. **DL-20 care-coordination substrate** — content-complete; cross-link work + Q1+Q6 joint signoff promotion (~15-25 hr)
+3. **§1H Analytics** — cross-link v2 §7.7 + §7.5.4 + §9.1 + §13.7 (~15-25 hr)
+4. **§1J Identity** — cross-link v2 §7.5.1 + §6.7 + §13.7 + §9.1 + §12.8 + §7.5.4 (~10-15 hr); CRITICAL DEPENDENCY: §1J.10 loadPatientCaseSafetySnapshot is BLOCKING gate on first Rx pathway shipment — must be implemented before any Rx pathway launches
+5. **§1E Commerce surface** — cross-link v2 §7.5.2 + §6.7 (~3-5 hr; light)
+6. **§1I Financial lifecycle** — cross-link v2 §7.7 + §12.8 + §7.5.1 (~5-8 hr; light)
+
+**Total estimated F.2.2.B Phase G effort**: ~60-90 hours (G.2 substrate refresh sub-arc + DRAFT promotion coordination).
+
+**Cumulative F.2.2 audit Phase G effort estimate**: ~150-220 hours (F.2.0 calibration ~50-75 + F.2.2.A.1 ~8-14 + F.2.2.A.2 ~35-58 + F.2.2.B ~60-90).
+
+**Critical Phase G dependencies surfaced by F.2.2.B**:
+1. **§1J.10 loadPatientCaseSafetySnapshot** is BLOCKING gate on first Rx pathway shipment (per artifact line 4188 verbatim: "no Rx-capable pathway ships to production patients until: loadPatientCaseSafetySnapshot exists ... every high-risk mutation funnels through preflight + requireCapability + assert + durable audit ... ESLint no-restricted-imports rule and AGENTS.md bullet active on default branch and enforced in CI")
+2. **DL-17 + DL-20 promotion gates** (Knox+Opus+user signoff for DL-17; Q1+Q6 joint signoff for DL-20) — content-complete but binding authority pending
+3. **§1H.6.1E + §1P.11 AI correction feedback loop** ties to v2 §9.1 model_version_of_record (Guardrail C); must operate consistently across §1J.10 authority-floor enforcement + §1H.6.1E safety_classification_miss exception class
+
+**F.2.2.C begins next session** — recommend picking from system map sub-sections not yet audited (e.g., §1K intake architecture, §1L lab testing, §1M patient state observations, §1N AI interpretation layer, §1O document routing, §1P narrative atomization, §1Q rules+templates engine, §1Z universal CNS event envelope) — but per §11.7 methodology, content-read determines K-category, not title prediction.
+
+### §12.6 Self-Assessment + Methodology Validation
+
+**All 6 artifacts STABLE under v2 lens**:
+- 0 K-category changes (all K1)
+- 0 memory disposition changes (all preserve)
+- 0 authority disposition changes (all keep_binding)
+- 6 amend refresh_action (2 also requiring promote — DL-17 + DL-20)
+- 6 confidence HIGH
+
+**10 Tier 2 substantive bidirectional feedback findings** (Q7 pattern continues; 40 total across F.2 work):
+- 1 finding on DL-17 (catalog substrate cross-link)
+- 3 findings on DL-20 (per-event ownership + CNS scope + projection doctrine cross-links)
+- §1E + §1I cross-links implicit in batch-level findings (no new D0THES-REV rows)
+- 3 findings on §1H (projection + consent specificity + model_version_of_record cross-links)
+- Multiple findings cross-link to §1J (per-event ownership + 5-tier vocabulary + consent specificity + model_version_of_record + operator-pluralism + substrate-vs-care boundary)
+- ALL 10 routed to Phase G via D0THES-REV-069..078
+- 0 v2 patching triggered (Knox three-tier policy)
+
+**0 Tier 1 mechanical errata**: all 6 artifacts mechanically clean under v2 lens.
+
+**0 Tier 3 materially-misleading findings**: substrate consistently aligned with v2 doctrine across DL register + system map operational substrate.
+
+**Methodology validation outcome (binding)**: **§11.7 content-not-title classification rule worked as designed.** Three candidates carried titles that under F.2.1's title-based prediction would have been classified as cruft-likely: §1E "Commerce, catalog, and retail" + §1H "Analytics" + §1J "identity, duplicates, merge, shared contact." Content read confirms ALL 6 are substrate-spine. Per §11.7 rule 2: candidate-cruft must be proven from content; if substrate-heavy on content read, record + move on. **Recorded substrate finding + moved on; no audit theater hunting for cruft to prove prediction wrong.** §11.7 methodology refinement is operating correctly.
+
+**Cumulative cruft-classification finding (binding across F.2.2.A.2 + F.2.2.B = 8 candidate artifacts)**: NONE were cruft. System map + DL register healthier than F.2.1 cruft-test refinement anticipated. **Strategic recommendation extended**: F.2.2.C + F.2.2.D + F.2.2.E should continue to use title-based navigation for candidate selection (cheap heuristic; finds candidate K-category test cases) but expect content-read classification to consistently return substrate-spine for system map + DL register sources. If audit batches stop yielding incremental signal (i.e., pattern is fully established at ~50+ Q7 findings with no new K-categories surfacing), the audit should compress per §11.7's Phase F.2 self-monitoring rule rather than batching at full depth indefinitely.
+
+**Confidence in F.2.2.B batch outcome**: HIGH. All 6 artifacts content-classified consistently; 10 Tier 2 findings routed to Phase G via D0THES-REV-069..078; methodology refinement validated on first batch under §11.7 binding rule.
+
+**F.2.2.B batch complete; F.2.2.C begins next session.**
+
+**Operating Contract §17 lifecycle state**: stays `F.2.2 in progress`.
 
 ---
 

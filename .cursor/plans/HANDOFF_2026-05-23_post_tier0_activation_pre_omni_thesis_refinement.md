@@ -1165,4 +1165,71 @@ Next agent reading this handoff: F.2.2.A.2 batch complete (commit `abf03a9` push
 
 **Next action**: STOP session 2026-05-27 ~1 AM ET. F.2.2.B begins fresh next session under content-not-title methodology refinement. At 1 AM heavy audit work produces exactly the half-ass output Nick is warning against; opposite of half-ass is to land the methodology refinement now (small focused work) + stop + resume F.2.2.B fresh.
 
-Next agent reading this handoff: F.2.2.A.2 batch complete (commit `abf03a9` pushed). F.2.2 methodology refinement landed (pending commit; binding for F.2.2.B onward). F.2.2.A overall batch is COMPLETE (A.1 substrate-spine `61b1f2e` + A.2 cruft test `abf03a9`). F.2.2.B is the operative next phase under content-not-title methodology refinement. Reconciliation Map v1 §11.7 is binding methodology section. D0THES-GRD-021 is Tier 0.5 boot-visible (load at boot via 06_guardrail_antipattern_digest.md). Address Nick's bigger pushback honestly when continuing F.2.2.B — system map will not be wholesale rewritten; amended in place in Phase G; possibly v2 spawn later as separate gate.
+Next agent reading this handoff: F.2.2.A.2 batch complete (commit `abf03a9` pushed). F.2.2 methodology refinement landed (commit `53d790b` pushed; binding for F.2.2.B onward). F.2.2.B batch complete (pending commit + push). F.2.2.A overall batch is COMPLETE (A.1 substrate-spine `61b1f2e` + A.2 cruft test `abf03a9`). F.2.2.C is the operative next phase under content-not-title methodology refinement. Reconciliation Map v1 §11.7 is binding methodology section; §12 has full F.2.2.B batch analysis. D0THES-GRD-021 is Tier 0.5 boot-visible (load at boot via 06_guardrail_antipattern_digest.md).
+
+---
+
+## Closure Addendum Extension #17 (2026-05-27) — F.2.2.B Batch complete (Catalog / Routing / Financial / Identity / Analytics)
+
+**Cause**: F.2.2.B staged batch executed 2026-05-27 same session as F.2.2 methodology refinement landing. Nick instruction (verbatim 2026-05-27): *"let's proceed with tnext batch ... this will be our last one, im laying down while you work, aprpeciate you. okay to commit and push when you're done. we will pick up tomorrow where this batch ends."* First audit batch operating under §11.7 content-not-title classification rule (binding methodology refinement per D0THES-DEC-009).
+
+**Audit picks** (6 artifacts; catalog/routing/financial/identity/analytics axis):
+1. DL-17 Commerce Substrate Spine DRAFT (`.cursor/plans/doctrine/DL-17_commerce_DRAFT_2026-05-17.md`; 233 lines; 38 invariants; DRAFT pending Knox+Opus+user signoff)
+2. DL-20 Care-Coordination Substrate DRAFT (`.cursor/plans/doctrine/DL-20_care_coordination_DRAFT_2026-05-17.md`; 459 lines; 44 invariants; DRAFT pending Q1+Q6 joint signoff)
+3. System map §1E Commerce, catalog, retail (lines 1308-1428; 122 lines)
+4. System map §1H Analytics, diagnostics, and derived metrics (lines 3156-3823; 668 lines; 7 sub-sections)
+5. System map §1I Financial lifecycle (lines 3825-3938; 114 lines; 10 sub-sections)
+6. System map §1J Patient identity, duplicates, merge, shared contact, and authority (lines 3940-4337; 397 lines; 13 sub-sections)
+
+**Outcome**: **0 Tier 1 mechanical errata** (all 6 artifacts mechanically clean under v2 lens). **10 Tier 2 substantive bidirectional findings** routed to Phase G via D0THES-REV-069..078; v2 NOT patched per Knox three-tier policy. **0 Tier 3 materially-misleading findings**. All 6 artifacts STABLE under v2 lens (all K1; 0 K-category changes; 0 disposition changes; 6 amend refresh_action with 2 also requiring promote — DL-17 + DL-20). Total Phase G effort for these 6 artifacts: ~60-90 hr (G.2 substrate refresh + DRAFT promotion coordination).
+
+**METHODOLOGY VALIDATION (binding finding)**: §11.7 content-not-title rule worked as designed. Three candidates carried titles that under F.2.1's title-based prediction would have been classified as cruft-likely: §1E "Commerce, catalog, and retail" + §1H "Analytics" + §1J "identity, duplicates, merge, shared contact." Content read confirms ALL 6 are substrate-spine. Per §11.7 rule 2: candidate-cruft must be proven from content; if substrate-heavy on content read, record + move on. **Recorded substrate finding + moved on; no audit theater hunting for cruft to prove prediction wrong.** §11.7 methodology refinement operating correctly.
+
+**Cumulative cruft-classification finding (binding across F.2.2.A.2 + F.2.2.B = 8 candidate artifacts)**: NONE were cruft. System map + DL register healthier than F.2.1 cruft-test refinement anticipated. **Cumulative audit corpus**: 18 artifacts audited across F.2 corpus (F.2.0 6 calibration + F.2.2.A.1 4 substrate spine + F.2.2.A.2 2 cruft test + F.2.2.B 6 catalog/routing/financial/identity/analytics); 18 substrate-spine classifications; 0 cruft.
+
+**10 Tier 2 bidirectional findings** (Q7 pattern; pattern extends to DL register substrate spine in this batch; 40 total across F.2 work):
+
+1. D0THES-REV-069 v2 §7.5.2 catalog substrate ↔ DL-17 38-invariant commerce substrate spine
+2. D0THES-REV-070 v2 §7.5.1 per-event ownership 7 dimensions ↔ DL-20 inv 38 encounter_participant 3-FK + DL-17 commerce_order ownership + §1J.10 actionContext
+3. D0THES-REV-071 v2 §7.6 CNS scope architecture ↔ DL-20 inv 28 auto-instantiation + inv 40 appointment_confirmation_event CNS round-trip
+4. D0THES-REV-072 v2 §7.7 master projection doctrine ↔ DL-20 inv 17 provider_review_queue + §1H.0 derivation stack + §1I.6 app-DB-is-projection
+5. D0THES-REV-073 v2 §6.7 5-tier vocabulary ↔ §1E commerce rails + DL-17 inv 18 payment_method tenant-defined + DL-20 inv 38 encounter_participant role + §1J.4 L0-L4
+6. D0THES-REV-074 v2 §7.5.4 consent specificity (Guardrail B) ↔ §1H.4.1 + §1H.4.2 4-hard-output-constraints + §1J.4 staff-witnessed L3 + §1J.10 narrative safety-scan turns
+7. D0THES-REV-075 v2 §9.1 model_version_of_record (Guardrail C) ↔ §1J.10 authority-floor enforcement per 1K.5.A + §1H.6.1E `safety_classification_miss` root-cause code
+8. D0THES-REV-076 v2 §13.7 operator-pluralism + non-competition ↔ DL-17 inv 34 commerce ↔ federation tenancy + §1H.4 marketing carve-out + §1J.5 cross-program identity + DL-10 namespace scoping
+9. D0THES-REV-077 v2 §12.8 substrate-vs-care boundary ↔ §1I.2 clinical_visits ≠ payment callback + §1J.10 AI cannot clear clinical_required + §1J.11 fraud abuse account
+10. D0THES-REV-078 v2 §7.8 cross-operator coordination + care_coordination_owner ↔ DL-20 inv 27 Federation-Topology venue + inv 3 + inv 17 + §1H.7.6a continuity-health report slice
+
+All 10 routed to Phase G cross-link work, NOT v2 patching, per Knox three-tier policy.
+
+**Critical Phase G dependencies surfaced by F.2.2.B**:
+1. **§1J.10 loadPatientCaseSafetySnapshot** is BLOCKING gate on first Rx pathway shipment (per artifact line 4188 verbatim: "no Rx-capable pathway ships to production patients until: loadPatientCaseSafetySnapshot exists ... every high-risk mutation funnels through preflight + requireCapability + assert + durable audit ... ESLint no-restricted-imports rule and AGENTS.md bullet active on default branch and enforced in CI")
+2. **DL-17 + DL-20 promotion gates** (Knox+Opus+user signoff for DL-17; Q1+Q6 joint signoff for DL-20) — content-complete but binding authority pending
+3. **§1H.6.1E + §1P.11 AI correction feedback loop** ties to v2 §9.1 model_version_of_record (Guardrail C); must operate consistently across §1J.10 authority-floor enforcement + §1H.6.1E safety_classification_miss exception class
+
+**Strategic finding**: Q7 bidirectional feedback pattern now extends across 6 batches + 3 audit dimensions (calibration set substrate + coordination spine + system map operational substrate + DL register substrate spine + analytics/financial/identity substrate). Total Q7 findings: F.2.0 (1) + F.2.0.v1 (5) + F.2.0.v2 (12) + F.2.2.A.1 (4) + F.2.2.A.2 (8) + F.2.2.B (10) = **40 bidirectional findings**. Pattern consistent: thesis names what substrate already does; substrate IS healthier than thesis articulation reveals; Phase G refresh resolves all 40 via explicit cross-link work, NOT vN patching.
+
+### Tier 2 stop report (Protocol §9) — F.2.2.B Batch closure
+
+- `tier`: 2 (work-package completion; F.2.2.B is sub-arc within F.2.2 staged-batch phase per Operating Contract §17 append rules)
+- `objective_markers`: Reconciliation Map v1 §12 added (~750 lines: §12.1 batch executive verdict Q1.B-Q7.B + §12.2 per-artifact audit rows for 6 artifacts + §12.3 aggregate metrics + §12.4 bidirectional thesis feedback table + §12.5 refined Phase G sequencing + §12.6 self-assessment + methodology validation); header + §0 + §22 calibration version log updated to F.2.2.B batch complete + F.2.2.C next; 10 new D0THES-REV-069..078 rows added; D0THES-DEC-010 decision ledger row added; charter Open Debt updated to 78 D0THES-REV rows enumerated; this handoff Extension #17 added
+- `commit`: pending (will commit + push per Nick instruction "okay to commit and push when you're done")
+- `work_summary`: F.2.2.B batch executed 2026-05-27 against 6 artifacts (DL-17 + DL-20 + §1E + §1H + §1I + §1J) under v2 lens + §11.7 content-first methodology. Per Knox three-tier policy: 0 Tier 1 errata; 10 Tier 2 substantive bidirectional findings routed to Phase G (v2 NOT patched); 0 Tier 3 materially-misleading. All 6 artifacts STABLE under v2 lens (all K1; 0 K-category changes). METHODOLOGY VALIDATION: §11.7 content-first rule worked as designed; 3 title-cruft-suspects (§1E + §1H + §1J) confirmed substrate-spine from content; recorded + moved on; no audit theater. Cumulative audit corpus: 18 artifacts; 18 substrate-spine; 0 cruft. F.2.2.C ready to proceed next session.
+- `files_changed`:
+  - `.cursor/plans/omni_doctrine_reconciliation_map_v1_2026-05-25.md` — §12 added (~750 lines: F.2.2.B batch analysis); header + §0 + §22 calibration version log updated
+  - `.cursor/plans/doctrine/03_decision_extraction_ledger.md` — D0THES-DEC-010 added
+  - `.cursor/plans/doctrine/08_open_review_queue.md` — D0THES-REV-069..078 added (10 rows)
+  - `.cursor/plans/doctrine/00_omni_coordination_charter.md` Current Open Debt — F.2.2.B batch recorded; 78 D0THES-REV rows enumerated
+  - This handoff — Closure Addendum Extension #17 added
+- `prior_narratives_consulted`: Closure Addendum Extensions #14 (F.2.2.A.1) + #15 (F.2.2.A.2) + #16 (F.2.2 methodology refinement) + Knox three-tier policy precedent (proven across F.2.0 + F.2.0.v1 + F.2.0.v2 + F.2.2.A.1 + F.2.2.A.2) + F.2.1 cruft-test refinement (superseded by §11.7 content-first methodology)
+- `guardrail_rows_extracted`: candidate D0THES-GRD-024 q7-pattern-extends-to-DL-register-substrate-spine (Q7 pattern now confirmed across DL register substrate spine in addition to system map operational substrate; substrate health applies across 4 audit dimensions) — not promoted yet; candidate D0THES-GRD-025 cumulative-substrate-health (18 artifacts audited across F.2 corpus; 18 substrate-spine; 0 cruft; system map + DL register CONSISTENTLY substrate-spine; pattern fully established) — not promoted yet
+- `governed_stream_artifact_touched`: `omni_doctrine_reconciliation_map_v1` (§12 batch analysis added per Operating Contract §17 append rules; lifecycle remains `F.2.2 in progress`)
+- `version_state`: Reconciliation Map v1 `F.2.2.B batch complete; F.2.2.C next` (lifecycle state advances within F.2.2 staged-batch phase)
+- `operating_contract_applied`: §17 of v1 (inheriting from v0; v1 governed-stream artifact; F.2.2.B batch is additive within F.2.2 staged-batch phase per §17 append rules)
+- `knox_three_tier_policy_applied`: yes — 0 Tier 1 errata; 10 Tier 2 routed; 0 Tier 3 materially-misleading
+- `methodology_refinement_validated`: yes — §11.7 content-not-title classification rule operating correctly; 3 title-cruft-suspects confirmed substrate-spine from content; rule prevents title-based misclassification
+- `non_loss_check`: F.2.0 + F.2.0.v1 + F.2.0.v2 + F.2.2.A.1 + F.2.2.A.2 findings preserved verbatim (§§0-7 + §8 + §9 + §10 + §11 historical layers); F.2.2 methodology refinement preserved (§11.7); F.2.2.B batch findings layered as §12 (additive, not replacing); 10 Tier 2 bidirectional findings preserved as D0THES-REV-069..078 with full schema (route to Phase G; v2 NOT patched per Knox policy); all 6 artifacts' valid_decisions_to_preserve preserved unchanged under v2 lens; batch is audit OUTPUT, not substrate mutation; Knox three-tier policy enforced throughout.
+
+**Next action**: F.2.2.C staged batch begins next session — content-first audit of remaining system map sub-sections per §11.7 methodology (e.g., §1K intake architecture, §1L lab testing, §1M patient state observations, §1N AI interpretation layer, §1O document routing, §1P narrative atomization, §1Q rules+templates, §1Z universal CNS event envelope candidates — content-read determines K-category, not title prediction). Per-batch closure discipline applies (executive verdict Q1.C-Q7.C + methodology validation + self-assessment + checkpoint commit + Tier 2 stop report + handoff Closure Addendum Extension #18).
+
+Next agent reading this handoff: F.2.2.B batch complete (pending commit + push for canonical review). F.2.2.A overall complete (`abf03a9`); F.2.2 methodology refinement complete (`53d790b`); F.2.2.B complete this commit. F.2.2.C is the operative next phase. Reconciliation Map v1 §12 has full F.2.2.B batch analysis + methodology validation. v2 NOT patched mid-audit per Knox three-tier policy. **78 D0THES-REV-001..078 rows in open review queue.** F.2.2 batches operate against refreshed v2 lens + §11.7 content-first methodology; Reconciliation Map v1 grows in-place per Operating Contract §17 append rules. **Critical Phase G dependency**: §1J.10 loadPatientCaseSafetySnapshot is BLOCKING gate on first Rx pathway shipment — must be implemented before any Rx pathway launches.
