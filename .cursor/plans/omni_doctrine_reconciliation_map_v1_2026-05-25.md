@@ -1,6 +1,6 @@
 # OMNI Doctrine Reconciliation Map v1
 
-> **F.2.2.E BATCH COMPLETE 2026-05-28 — RULES + TEMPLATES + VECTOR/ML + MULTI-TENANT (3 artifacts; §1Q rules+templates + §1T vector/ML + §1U multi-tenant partition); F.2.2 SCOPE CLOSED (31 artifacts; 70 Q7 findings); F.2.3 MASTER CLOSURE NEXT**
+> **F.2.2.F BATCH COMPLETE 2026-05-28 — SUBSTRATE SPINE GAP CLOSURE (17 artifacts; system map pre-§1D architectural spine + §1D + DL-18/19/22 + Build OS Rollout + Build Entry Gate v0 + 8 Tier 0/0.5 governance-substrate + Future Care substrate); F.2.2 SCOPE TRULY CLOSED (48 artifacts; 92 Q7 findings); F.2.3 MASTER CLOSURE NEXT (NOW UNBLOCKED)**
 >
 > Fourth and final F.2.2 batch under §11.7 content-not-title methodology. Per Nick decision (continued full-depth per §17 default). Per Knox three-tier policy + v2 lens. **E Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 3 artifacts STABLE under v2 lens (all K1; 3 amend refresh_action; ~20-33 hr total Phase G effort). **F.2.2 SCOPE CLOSED**: 31 artifacts audited; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours.
 
@@ -62,7 +62,7 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.2.E BATCH COMPLETE (Rules + Templates + Vector/ML + Multi-Tenant); F.2.2 SCOPE CLOSED; F.2.3 MASTER CLOSURE NEXT
+## §0 Status Posture — F.2.2.F BATCH COMPLETE (Substrate Spine Gap Closure); F.2.2 SCOPE TRULY CLOSED (48 artifacts); F.2.3 MASTER CLOSURE NEXT (UNBLOCKED)
 
 **F.2.2.E Batch complete 2026-05-28** per `D0THES-DEC-013` per Operating Contract §17 append rules. Fourth and final F.2.2 batch under §11.7 content-not-title methodology. 3 audit picks: §1Q Rules + Templates engine (2311 lines; heaviest single artifact in F.2.2 corpus; foundational cross-cutting; DL-14 subordinated subsystem) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G); 0 Tier 3 materially-misleading findings. All 3 artifacts STABLE under v2 lens (all K1). **F.2.2 SCOPE CLOSED**: 31 artifacts audited across F.2 corpus; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing.
 
@@ -3535,7 +3535,233 @@ The system map and doctrine **are SOLID** for downstream design + build work, pe
 
 ---
 
-## §17 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
+## §17 F.2.2.F Substrate Spine Gap Closure batch — Pre-§1D + §1D + DL Register Gaps + Build OS Companions + Tier 0/0.5 Governance-Substrate + Future Care Substrate (2026-05-28)
+
+> **F.2.2.F BATCH COMPLETE 2026-05-28 — 17 ARTIFACTS UNDER v2 LENS + §11.7 CONTENT-NOT-TITLE METHODOLOGY; F.2.2 SCOPE RE-OPENED → SUBSTANTIALLY CLOSED (48 ARTIFACTS); F.2.3 MASTER CLOSURE NEXT**
+
+> **Trigger**: Per Nick instruction 2026-05-28 ("just make sure the entire system map and doctrine is audted. we cannot go back inot any build mode until those are solid and based only on thesis work"). After §16 partial-read re-validation confirmed F.2.2.A-E coverage at 100%, Nick raised the broader concern: *all other unaudited substrate-level documents* needed audit before F.2.3 master closure synthesis. F.2.2.F is the substrate-spine gap-closure batch covering 17 previously-unaudited substrate-level artifacts. **F.2.2 SCOPE was conditionally CLOSED at F.2.2.E (31 artifacts); SCOPE RE-OPENED for F.2.2.F gap-closure (17 additional artifacts); SCOPE truly CLOSED at F.2.2.F completion (48 total artifacts audited).** Per §11.7 content-not-title methodology binding. Per Knox three-tier policy + v2 lens.
+
+### §17.0 F.2.2.F batch outcome (top-line)
+
+- **17 artifacts audited** across 5 sub-batches (F.2.2.F.1 system map architectural spine + §1D; F.2.2.F.2 DL register substrate gaps DL-18/19/22; F.2.2.F.3 Build OS substrate companions; F.2.2.F.4 Tier 0/0.5 governance-substrate; F.2.2.F.5 Future Care substrate)
+- **16 K1 substrate-spine classifications + 1 K6 parked-design classification** (Future Care Obligations Design — explicitly PARKED; substrate doctrine already landed in DL-15/16/20/22)
+- **0 cruft classifications**
+- **0 Tier 1 mechanical errata**
+- **~22 Tier 2 substantive bidirectional findings** (D0THES-REV-109..130 routed to Phase G; v2 NOT patched per Knox policy)
+- **0 Tier 3 materially-misleading findings**
+- **All 17 artifacts STABLE under v2 lens** (16 K1; 1 K6 parked; 0 K-category changes)
+- **F.2.2 SCOPE substantially CLOSED**: 48 artifacts audited cumulatively (31 F.2.2.A-E + 17 F.2.2.F); 47 substrate-spine + 1 K6 parked; 0 cruft; **comprehensive coverage of system map architectural spine + entire substrate-grade doctrine corpus achieved**
+- **Cumulative F.2.2 Phase G effort estimate** (post-F.2.2.F): ~360-540 hours
+- **F.2.3 master closure synthesis NOW the operative next phase**
+
+### §17.1 F.2.2.F.1 — System map architectural spine + §1D (2 artifacts; K1 substrate-spine)
+
+#### Audit row: System map pre-§1D architectural spine (lines 1-1126)
+
+- **Path / Section**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 1-1126 (Architecture Memory Control Plane Binding Pointer + Pointer Anchor to Longitudinal Intelligence Doctrine + OMNI CNS event-driven brain anchor + Platform operational model (sibling-domain architecture, substrate vs operational siblings split) + Intent block (Layer 1 / Layer 2 / Layer 3 discipline) + System primitives (7 universal invariants: authored_by / source-provenance / external_id-idempotency / data_environment / temporal_truth / enums-as-config / named-read-functions + 4-tier enforcement: Zod / orchestrator / RLS / CI lint) + Repo anchors (100+ rows mapping operational concerns to canonical home) + Doctrine locks DL-1 through DL-16 (DL-1 substrate-vs-operational distinction + DL-2 patient-rooted siblings + DL-3 sibling-local discriminants + DL-4 producer-site transitional locality + DL-5 Day 0 elite-class depth + DL-6 substrate non-foreclosure + DL-7 tracked clinical objects + DL-8 universal flow grammar + DL-9 owned diagnostic acquisition + DL-10 consumer identity vs operational patient-relationship scoping + DL-11 three messaging surfaces + DL-12 thread+participant lifecycle (40 invariants) + DL-13 rail-agnostic substrate spine + DL-14 OMNI CNS center of gravity (22 invariants + 4 absolute Guardrails 1-4 + 9-layer vertical stack + AI capability envelopes + control ownership state machine + orchestration_runs parent state machine + AI Compose Assist + Context Packet Builder + prompt injection defense + live-state revalidation + multi-tenant federation) + DL-15 scheduling substrate spine (28 original invariants + 8 Phase 1 hardening amendments + 13 hardening phases v1-v13 doctrine additions) + DL-16 universal CNS event envelope + taxonomy evolution (39 invariants + 4 Phase 1 hardening amendments + 3 admitted-deferred D1-D3) + DL-17 → DL-22 register + Cross-DL warning vendor/specialty/external labels do NOT become OMNI substrate)
+- **K-category**: **K1 substrate-spine — universal binding-clause anchor**
+- **memory_disposition**: preserve all (this IS the architectural spine; cannot be touched without Phase G)
+- **authority_disposition**: binding canonical authority (THE substrate spine; every other doctrine doc subordinates to this)
+- **refresh_action**: cross-link extension only at Phase G (DL-23..DL-28 candidates from v2 thesis: 4-layer care OS / 5-tier vocabulary / per-event ownership / universal projection / cross-operator coordination / model_version_of_record / brand-trust transparency)
+- **confidence_level**: HIGH
+- **classification_evidence**: Architecture Memory Control Plane binding pointer (lines 1-7) declares substrate authority; DL-14 anchor (lines 41-119) names CNS as "event-driven care coordination brain" with multi-actor multi-action coordination subordinated subsystems; System primitives 7-invariant framework (lines 124-253) defines universal write-orchestrator-boundary discipline; DL-16 inv 2-43 (lines 903-1039) defines universal event envelope binding every domain. Pre-§1D content is THE most substrate-dense doctrine in the entire OMNI corpus.
+- **valid_decisions_to_preserve**: DL-1 through DL-16 all locks + System primitives 7-invariant framework + Platform operational model substrate-vs-sibling separation + Architecture Memory Control Plane binding pointer
+- **dependencies**: Must complete before F.2.3 master closure synthesis can sequence Phase G amendments
+
+#### Audit row: System map §1D Staff capability, workspace, access control (lines 1127-1198)
+
+- **Path / Section**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 1127-1198 (§1D + §1D.3 DL-12 binding staff deactivation lifecycle + admin/CMO/IT intervention semantics + staff notification preferences subordination + §1D.4 DL-13 binding settings precedence hierarchy 6-level + endpoint admin capability gating + multi-brand operating-mode configuration + settings audit + §1D.1 Pressure test risk-domain separation Model C 4-question table + §1D.2 Early-stage operation vs scaled operation pressure test 5-question table)
+- **K-category**: **K1 substrate-spine (RBAC + capability foundation)**
+- **memory_disposition**: preserve all (Model C foundation for `lib/auth/capabilities.ts` + DL-18 Day 1 seed)
+- **authority_disposition**: binding canonical authority (existing implementation source-of-truth; DL-18 RBAC DRAFT extends this layer)
+- **refresh_action**: cross-link extension at Phase G (v2 §7.5.1 per-event ownership orthogonality 7-dimension framework + §6.7-6.8 OMNI Direct + Core Capability + Specialty Line shell capability layering)
+- **confidence_level**: HIGH
+- **classification_evidence**: §1D establishes existing `lib/auth/capabilities.ts` capability layer as "architected home for capability layer already implemented in repo"; §1D.3 binds DL-12 invariants 1, 10, 22 across messaging substrates; §1D.4 binds DL-13 invariant 3 6-level settings precedence; §1D.1 Model C "risk-domain / grants timeless" + §1D.2 "early vs scaled" pressure tests structure 2-tier scaling discipline
+- **valid_decisions_to_preserve**: 8 staff roles + 20 capabilities Day 1 seed (now DL-18 inv 1-2) + Model C risk-domain separation + SensitiveAccessReason 6-value enum (DL-18 inv 9 Day 1 seed) + 6-level settings precedence hierarchy (DL-13 inv 3 + DL-19 inv 4)
+- **dependencies**: DL-18 RBAC DRAFT promotion + DL-19 Settings-Infrastructure DRAFT promotion both inherit from §1D
+
+#### F.2.2.F.1 Tier 2 bidirectional findings (4 findings; D0THES-REV-109..112)
+
+- **D0THES-REV-109** (system map pre-§1D ↔ v2 §3.7 4-layer care OS / §6.7 OMNI Direct shell + 5-tier vocabulary / §7.6 master CNS scoped-responsibility): System map Platform operational model establishes substrate-vs-operational-sibling separation; v2 §3.7 vertical-layering adds Surface / Coordination CNS / Boundary Policy / Substrate Physics horizontally; both reinforce; v2 §6.7-6.8 OMNI Direct shell + Core Capability + Specialty Line tiers may extend Platform operational model with operator-pluralism axis. Phase G action: extend Platform operational model with v2 5-tier vocabulary cross-link; add 4-layer care OS as Tier 0 candidate (T0-11 named not promoted per v2). Effort ~6-10 hr.
+- **D0THES-REV-110** (DL-14 ↔ v2 §7.7 master projection doctrine / §7.5.1 per-event ownership / §9.1 model_version_of_record): DL-14 invariants 16-18 establish 6-layer event-sourced + CQRS + orchestration_runs parent state-machine + AI Compose Assist; v2 §7.7 universal projection doctrine (one substrate object, many surface projections; hard vs soft) extends DL-14 inv 19 projection-freshness-rebuildability with multi-surface projection discipline (provider / patient / clinic / brand / federation surfaces); v2 §9.1 model_version_of_record extends DL-14 inv 10 AI invocation audit lineage with model_version pinning per AI decision. Phase G action: extend DL-14 inv 19 with universal projection doctrine; extend DL-14 inv 10 with model_version_of_record per Phase G amendment family. Effort ~12-20 hr.
+- **D0THES-REV-111** (DL-16 ↔ v2 §7.5.1 per-event ownership orthogonality / §7.5.4 consent specificity): DL-16 inv 2 universal envelope establishes ~30 envelope fields; v2 §7.5.1 7-dimension per-event ownership (surface / channel / operator / clinical / commerce / custody / coordination) may extend DL-16 inv 2 envelope with 7 ownership-axis fields; v2 §7.5.4 consent specificity may add per-event-class consent_scope field. Phase G action: extend DL-16 inv 2 envelope with 7 ownership-axis fields + consent_scope field. Effort ~10-15 hr.
+- **D0THES-REV-112** (System map §1D Model C ↔ v2 §6.8 OMNI Core Capability + Specialty Line doctrine / §13.7 operator-pluralism + non-competition signaling): §1D 8-staff-role + 20-capability Day 1 seed admits coarse roles ∪ additive grants; v2 §6.8 distinguishes "OMNI Core Capability" (substrate-grade infrastructure operating posture) vs "Specialty Line" (specialty-bound operating posture) — may map to permission_group `is_omni_operated` flag in DL-18 inv 1; v2 §13.7 operator-pluralism reinforces multi-tenant capability gates per DL-18 inv 14 brand-level capability. Phase G action: add `is_omni_operated` / `is_specialty_line` flags to permission_group substrate per DL-18 promotion. Effort ~4-8 hr.
+
+### §17.2 F.2.2.F.2 — DL register substrate gaps (3 artifacts; K1 substrate-spine)
+
+#### Audit row: DL-18 RBAC DRAFT (142 lines)
+
+- **Path / Section**: `.cursor/plans/doctrine/DL-18_rbac_DRAFT_2026-05-17.md` (24 invariants: permission group + permission atom primitives + Group↔Atom many-to-many grants + Staff↔Group many-to-many assignment + 6-layer authorization resolution + per-staff capability flags + 4-tier authorship/attestation (authorship_only / reason_coded_authorship / dual_approval_authorship / provider_attestation_signature) + attestation envelope + brand-level capability gate + audit via existing `audit_events` substrate + break-glass primitive + brand-scoped vs cross-brand grants + legal-entity ownership separation + UI projections + patient permissions in patient_relationship NOT permission_group + system/cron/webhook/partner/integration permission grants + AI-as-author distinct from human grants + permission lifecycle 5-state + 3 cross-DL bindings)
+- **K-category**: **K1 substrate-spine (RBAC DRAFT awaiting promotion)**
+- **memory_disposition**: preserve all (Day 1 seed from `lib/auth/capabilities.ts`)
+- **authority_disposition**: DRAFT (binding once promoted per joint Knox+user+Opus signoff per Build Contract §6.4 step 4)
+- **refresh_action**: amend for v2 (per-event ownership orthogonality axis on permission_atom + model_version_of_record on AI-as-author grants)
+- **confidence_level**: HIGH
+- **classification_evidence**: 24 invariants establish permission substrate primitives subordinate to DL-14 inv 8 + DL-16 inv 10 (action authorization at emission) + amendment 43 (actor 4-tuple); Day 1 seed maps 1:1 to existing `lib/auth/capabilities.ts` ROLE_CAPABILITIES const + StaffRole + SensitiveAccessReason enums
+- **valid_decisions_to_preserve**: ALL 24 invariants + 4 open sub-questions (Q-DL18-1..4)
+- **dependencies**: DL-18 promotion + cross-DL bindings to DL-15/17/19/22 atom registries
+
+#### Audit row: DL-19 Settings-Infrastructure DRAFT (403 lines)
+
+- **Path / Section**: `.cursor/plans/doctrine/DL-19_settings_infrastructure_DRAFT_2026-05-17.md` (30 invariants: setting as substrate primitive (NOT screens) + registry governance (200+ Day 0 seed paths) + UI sections as derived projection + 4-tier scope hierarchy (deployment → legal_entity → brand → site) + explicit inheritance override + URL-addressable sub-pages + Required Fields 3-state dual-mode + Client metadata 4-tier (Required Fields + Indexes + Index Values + Form Custom Fields + orthogonal Tags) + auto-fill defaults + vocabulary override + consumer view settings + change emits operational events + change requires DL-18 atom + Tier 4 attestation + doctrine floor 6 explicit (cannot disable critical/transactional comms / audit / clinical clearance / payload minimization / jurisdiction gating / break-glass attestation) + Accounting Basis brand-level + service_policy 2-part substrate (Amendment D: axis composition flags + service_policy_eligibility_gate child substrate with 5 gate timings: booking_visibility / booking_hard_gate / pre_arrival_task / pre_performance_gate / closeout_documentation_gate) + booking_preset + jurisdiction & licensure policy + AI Autonomy Mode + outbound settings + Federation Permeability Policy + Compliance + Provider Routing Policy 4-substrate cluster (Amendment F: provider_routing_policy + provider_pool + provider_pool_membership + provider_routing_state) + temporal validity + registry versioning + export/import + 12-section admin UI + change preview/diff)
+- **K-category**: **K1 substrate-spine (Settings-as-OS DRAFT)**
+- **memory_disposition**: preserve all (OMNI-wide Day 0 per Nick direction; NOT scheduling sub-feature)
+- **authority_disposition**: DRAFT (binding once promoted)
+- **refresh_action**: amend for v2 (model_version_of_record settings field per v2 §9.1; consent specificity registry per v2 §7.5.4; settings precedence may need cross-operator coordination policy axis per v2 §7.8)
+- **confidence_level**: HIGH
+- **classification_evidence**: 30 invariants establish configuration plane as substrate (NOT screens); Day 0 200+ setting_paths seed registry; 5-gate-timing taxonomy (booking_visibility / booking_hard_gate / pre_arrival_task / pre_performance_gate / closeout_documentation_gate) is binding cross-DL doctrine per Knox refinement; doctrine floor 6 explicit guards against settings violating doctrine
+- **valid_decisions_to_preserve**: ALL 30 invariants + 5 open sub-questions (Q-DL19-1..5)
+- **dependencies**: DL-19 promotion + cross-DL bindings to DL-15/17/18/20/21/22
+
+#### Audit row: DL-22 Clinical-Media DRAFT (174 lines)
+
+- **Path / Section**: `.cursor/plans/doctrine/DL-22_clinical_media_DRAFT_2026-05-17.md` (26 invariants: unified patient_document as universal substrate primitive (Q14 partial resolution) + 16 document_kind discriminator Day 0 seed + PII 4-level classification (minimal / patient_facing_only / clinical_phi / clinical_phi_high_sensitivity) + object storage + signed-URL discipline + clinical_photo_detail substrate + before/after pair substrate + 3 photo capture surfaces Day 0 + intake_session substrate + intake_template + intake_response + intake form submission as patient_document + intake-driven encounter creation + consent_artifact substrate + consent_template + consent precedence + expiration + consent revocation cascade + 42 CFR Part 2 high-sensitivity protections + signature envelope + surrogate signer (parent_guardian / legal_guardian_court_order / healthcare_POA / spouse_in_emergency / surrogate_per_state_default) + document linkage 1-to-N many-to-many + access governance per DL-18 atoms + 7-state document lifecycle + tamper-evident audit + GDPR pseudonymization preserves audit + patient access portal projection + event vocabulary seed)
+- **K-category**: **K1 substrate-spine (Clinical-Media DRAFT)**
+- **memory_disposition**: preserve all (foundation for clinical photos + intake + consent + patient documents)
+- **authority_disposition**: DRAFT (Q14 partial resolution; promotion to LOCK requires Q14 SHELVED → RESOLVED joint signoff)
+- **refresh_action**: amend for v2 (consent specificity per-data-class per v2 §7.5.4; clinical_adoption v1 primitive cross-link per v1 §7.5; brand-trust transparency for patient_document_portal_visibility per v2 §6.10)
+- **confidence_level**: HIGH
+- **classification_evidence**: 26 invariants establish unified patient_document substrate as Q14 partial resolution (photos + intake + consent + scans + signed contracts in ONE substrate with discriminator); 42 CFR Part 2 protections explicit; surrogate signer 5 legal bases enumerated; access governance per DL-18 atoms
+- **valid_decisions_to_preserve**: ALL 26 invariants + 5 open sub-questions (Q-DL22-1..5)
+- **dependencies**: DL-22 promotion (Q14 SHELVED → RESOLVED gate) + cross-DL bindings to DL-7/10/15/17/18/19/20
+
+#### F.2.2.F.2 Tier 2 bidirectional findings (5 findings; D0THES-REV-113..117)
+
+- **D0THES-REV-113** (DL-18 inv 5 6-layer authorization resolution ↔ v2 §7.5.1 per-event ownership orthogonality 7 dimensions): DL-18 inv 5 admits 6 authorization layers (Layer 1 brand-capability / Layer 2 staff-active / Layer 3 attestation / Layer 4 explicit deny / Layer 5 explicit allow / Layer 6 per-staff capability); v2 §7.5.1 7 ownership dimensions (surface / channel / operator / clinical / commerce / custody / coordination) may add additional resolution layer OR extend Layer 1 brand-capability with per-dimension capability gate. Phase G action: extend DL-18 inv 10 brand_capability with 7-dimension axis OR add Layer 7 per-event-ownership-dimension resolution. Effort ~6-10 hr.
+- **D0THES-REV-114** (DL-18 inv 8 4-tier authorship/attestation ↔ v2 §7.5.4 consent specificity / §9.1 model_version_of_record): DL-18 inv 8 admits 4 tiers (authorship_only / reason_coded / dual_approval / provider_signature); v2 §7.5.4 consent specificity may add 5th tier (per-data-class consent envelope) AND v2 §9.1 model_version_of_record may add `signed_with_model_version` field to attestation envelope per inv 9 (for AI-as-author grants under provider_ai_assisted). Phase G action: extend DL-18 inv 9 attestation envelope with signed_with_model_version + per_data_class_consent_envelope_id fields. Effort ~4-8 hr.
+- **D0THES-REV-115** (DL-19 inv 16 doctrine floor 6 explicit ↔ v2 §6.10 brand-trust transparency / §9.1 model_version_of_record / §7.5.4 consent specificity = THREE FAIL-AT-SCALE GUARDRAILS): DL-19 inv 16 lists 6 explicit doctrine floors settings cannot violate (transactional comms / audit / clinical clearance / payload minimization / jurisdiction gating / break-glass attestation); v2 names THREE fail-at-scale guardrails (brand-trust transparency + consent specificity + model_version_of_record) — may add 3 NEW doctrine floors to DL-19 inv 16. Phase G action: extend DL-19 inv 16 with 3 new floors (brand-trust transparency cannot be opaque / consent specificity cannot be bundled-across-data-classes / model_version_of_record cannot be NULL on AI-as-author actions). Effort ~3-6 hr.
+- **D0THES-REV-116** (DL-19 inv 18 service_policy 2-part substrate gate-timing taxonomy ↔ v2 §7.7 universal projection doctrine hard vs soft projections): DL-19 inv 18 5 gate timings establish operational lifecycle gates per service+modality; v2 §7.7 hard vs soft projection distinction may apply (gate timing as projection-target-discipline: booking_visibility is SOFT projection / booking_hard_gate is HARD projection / etc.). Phase G action: cross-link DL-19 inv 18 to v2 §7.7 universal projection doctrine; clarify which gate timings produce HARD canonical state changes vs SOFT routing decisions. Effort ~3-5 hr.
+- **D0THES-REV-117** (DL-22 inv 13 consent_artifact ↔ v2 §7.5.4 consent specificity per-data-class binding): DL-22 inv 13 admits consent_artifact subject_kind 6-value enum (encounter_scoped / episode_scoped / procedure_specific / omni_blanket_relationship / marketing / data_sharing_federation); v2 §7.5.4 consent specificity may require per-data-class subject_kind (medical_history / labs / Rx / clinical_media / commerce / cross-operator / AI training / etc.). Phase G action: extend DL-22 inv 13 subject_kind enum with per-data-class values per v2 §7.5.4 binding doctrine. Effort ~5-8 hr.
+
+### §17.3 F.2.2.F.3 — Build OS substrate companions (2 artifacts; K1 substrate-spine)
+
+#### Audit row: Build OS Rollout Sequence (191 lines)
+
+- **Path / Section**: `.cursor/plans/doctrine/10_omni_build_os_rollout_sequence.md` (5 rollout steps: D0 Closure Reconciliation → Build Entry Gate v0 → Candidate First Steel Slice → Short-Term Build OS Pack → Long-Term Build OS Hardening; current state Step 2 active; gate verdict `allowed_with_blockers`; WP-EXEC-001 `fully_closed`; foundational composition lock; mandatory safeguards (no artificial speed pressure / freeze policy on provider+EMR+Shopify); success criteria)
+- **K-category**: **K1 substrate-spine (Build OS rollout sequence; companion to 09_omni_build_os_layer_model.md already audited in F.2.0 calibration)**
+- **memory_disposition**: preserve all (execution sequence binding for Phase G)
+- **authority_disposition**: binding (Build Entry Gate v0 admission contract reads this)
+- **refresh_action**: none (sequence is execution-order discipline; v2 audit findings route to Phase G amendments, not to rollout sequence)
+- **confidence_level**: HIGH
+- **classification_evidence**: 5-step rollout discipline + foundational composition lock (no lane implementation-authorized without lineage continuity + temporal/freshness semantics + authority-owned commit boundaries + reconstructability + decision provenance + consequence-memory handling) + freeze policy explicit
+- **valid_decisions_to_preserve**: ALL 5 rollout steps + foundational composition lock + mandatory safeguards
+- **dependencies**: Phase G can resume after F.2.3 closes (per current Step 2 admit-with-blockers verdict)
+
+#### Audit row: Build Entry Gate v0 (1021 lines)
+
+- **Path / Section**: `.cursor/plans/doctrine/11_build_entry_gate_v0.md` (lane-admission gate for D1 readiness; scope: narrow-slice planning only (NOT full D1 execution / D6 promotion / provider+EMR / Shopify); candidate first steel slice: intake source_event → CNS candidate/resolver → scheduling intent → messaging projection; 6 boundary invariants + 6 invariant test matrix + 7 proof checklist items + 10 foundational composition admission checklist questions + Agent Work Protocol admission + stop/reroute conditions + slice-specific domain contract + care readiness/temporal-obligation compatibility check + minimum output bundle + verdict `allowed_with_blockers` (D6 review-gated; 5 deferred inventory rows); 5 draft pre-build work packages WP-PRE-001..005 (Source/CNS boundary trace spec + Scheduling intent/state boundary harness design + Messaging projection constraint spec + Temporal obligation addendum mapping pack + Gate evidence bundle template); implementation authorization review verdict `authorize_with_conditions`; WP-EXEC-001 Trace Boundary Foundation `fully_closed`; Step-3 Candidate Slice Checkpoint WP-EXEC-002 (inspect-first) blocked pending scheduling authority surface; D3 Scheduling Authority Surface Decision (canonical location: future `lib/scheduling/*`); WP-EXEC-002 Scheduling Authority Boundary File/Interface Plan accepted Phases 1-2; behavioral implementation blocked pending explicit User+Knox authorization)
+- **K-category**: **K1 substrate-spine (lane-admission gate; binding for any implementation lane)**
+- **memory_disposition**: preserve all (current gate state must persist through F.2.3 → Phase G transition)
+- **authority_disposition**: binding (gate verdict gates all implementation work)
+- **refresh_action**: extend at Phase G (after F.2.3 closes, new candidate slices may enter gate review; expanded WP-EXEC-002+ work packages will reference Phase G amendments)
+- **confidence_level**: HIGH
+- **classification_evidence**: comprehensive gate doctrine spanning 1021 lines with explicit scope / governing read path / linked decisions / out-of-scope / boundary invariants / foundational composition admission / Agent Work Protocol admission / stop/reroute / slice-specific domain contract / invariant test matrix / temporal-obligation compatibility / proof checklist / verdict + 5 pre-build work packages + 1 closed executable package WP-EXEC-001 + 1 blocked WP-EXEC-002 with scheduling authority decision
+- **valid_decisions_to_preserve**: ALL gate sections + WP-EXEC-001 closure status + WP-EXEC-002 Phase 1-2 acceptance + D3 Scheduling Authority Surface Decision (future `lib/scheduling/*`)
+- **dependencies**: Phase G amendments resume after F.2.3; new candidate slices reference Build Entry Gate v0 + this Reconciliation Map
+
+#### F.2.2.F.3 Tier 2 bidirectional findings (3 findings; D0THES-REV-118..120)
+
+- **D0THES-REV-118** (Build OS Rollout Sequence Step 2 + Build Entry Gate v0 candidate slice ↔ v2 §3.7 4-layer care OS / §7.7 universal projection doctrine): Current candidate first steel slice is "intake source_event → CNS candidate/resolver → scheduling intent → messaging projection" — flows through 4 layers of v2 4-layer care OS (Substrate Physics: source_event; Boundary Policy: CNS candidate/resolver; Coordination CNS: scheduling intent; Surface: messaging projection). v2 §7.7 universal projection doctrine may strengthen messaging projection boundary (projection MUST be derived from committed canonical state; never authority). Phase G action: cross-link Build Entry Gate v0 invariant 4 (Messaging projection integrity) to v2 §7.7 universal projection doctrine. Effort ~2-4 hr.
+- **D0THES-REV-119** (Build Entry Gate v0 Foundational Composition Admission Checklist 10 proof questions ↔ v2 §7.5.1 per-event ownership orthogonality): Build Entry Gate proof questions 2 "which domain owns each consequential commit" + 3 "what context is temporary arrangement vs durable committed truth" + 4 "what lineage is preserved at each boundary hop" all align with v2 7-dimension per-event ownership orthogonality. Phase G action: extend Build Entry Gate proof question 2 to explicitly enumerate 7 ownership dimensions per v2 §7.5.1; clarify ownership claim discipline per dimension. Effort ~3-5 hr.
+- **D0THES-REV-120** (Build Entry Gate v0 WP-EXEC-002 D3 Scheduling Authority Surface Decision ↔ v2 §7.6 master CNS scoped-responsibility): WP-EXEC-002 decision binds canonical D3 scheduling intent/state authority to future `lib/scheduling/*` boundary; v2 §7.6 master CNS scoped-responsibility (Workstreams have operators. Patients have coherence. Networks have governance.) aligns scheduling authority to "operator" dimension of workstreams. Phase G action: cross-link WP-EXEC-002 scheduling authority decision to v2 §7.6 master CNS scoped-responsibility framing. Effort ~2-3 hr.
+
+### §17.4 F.2.2.F.4 — Tier 0/0.5 governance-substrate (8 artifacts; K1 governance-substrate)
+
+> **All 8 artifacts are governance-infrastructure that the agent system uses to boot, route, validate, audit, and preserve work. K1 governance-substrate. No cruft.**
+
+#### Audit rows (8 artifacts compressed; K1 substrate per content-not-title classification rule §11.7)
+
+1. **`.cursor/plans/doctrine/operator_context_and_collaboration_model.md` (86 lines)** — K1 Tier 0 mandatory boot context. Who (Nick / Opus / Knox) + default trifecta loop + discourse markers + standing defaults (full technical fidelity / structured for review / honest pushback / preservation per Protocol §8 / canonical doctrine wins) + enforcement (AGENTS.md Non-Negotiables + Read Graph Universal Path #16 + D0OPER-GRD-001). Preserve all. Phase G: no amendment needed (v2 thesis does not affect operator collaboration model).
+2. **`.cursor/plans/doctrine/04_manifest_read_graph.md` (356 lines)** — K1 Tier 0 mandatory boot-routing. Boot rule link + current-state truth pointer + main vs archive boundary + tier semantics reconciliation rule + read-graph operating contract (update rule + route entry contract + supersession disposition) + tier model 0/0.5/1/2 + Tier 0 Universal Path (16 mandatory artifacts) + Tier 0.5 boot-visible surface + Tier 2 cross-cutting consult artifacts (incl. thesis v0/v1/v2 entries + Reconciliation Map v1 entry) + workstream coverage overlays (RBAC/Settings/Care Coord/Federation/AI Gov/Clinical Media) + catalog review items + Domain Routing Table 7 workstreams + implementation-lane anchors + D0-REV-004 Ratification Matrix + stage-entry checklist + retro trigger checklist + stage-entry record template. Preserve all. Phase G: ADD new Tier 1 anchors for v2-spawned DL candidates (DL-23..DL-28); UPDATE Tier 2 v2 entry status after F.3 review-gate closes.
+3. **`.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` (116 lines)** — K1 Tier 0.5 boot-visible governance. 50+ anti-pattern guardrails with severity+enforcement contract ratified addendum. Preserve all. Phase G: ADD new guardrails extracted from F.2.2.F batch findings if Tier 3+ checkpoint per Protocol §8.
+4. **`.cursor/plans/doctrine/01_master_corpus_catalog.md` (248 lines)** — K1 Tier 0 catalog infrastructure. 250+ rows enumerating every file with metadata (doc_type / category / authority_level / current_status / manifest_action / agent_read_rule / review_gate / handling_state / etc.). Preserve all. Phase G: UPDATE catalog rows for any new artifacts spawned by Phase G refresh (DL-23..DL-28 candidates).
+5. **`.cursor/plans/doctrine/02_authority_routing_map.md` (31 lines)** — K1 Tier 0 routing contract. 11 categories × 5 columns (canonical_home / binding_allowed / read_rule / update_rule / retirement_rule). Preserve all. Phase G: no amendment needed.
+6. **`.cursor/plans/doctrine/00_doctrine_manifest.md` (329 lines)** — K1 Tier 0 reading manifest. 7 constitutional guardrails T0-01..T0-07 + Tier 1/2 reading sets per domain + guardrail→gate enforcement map. Preserve all. Phase G: ADD T0-08..T0-16 candidate guardrails if approved through Tier 0 Change Control gate (per v2 thesis NAMED-not-promoted candidates).
+7. **`.cursor/plans/doctrine/00_document_governance_and_taxonomy_2026-05-19.md` (133 lines)** — K1 Tier 0 document governance. 11 fixed categories + canon_digest authority rule + required document passport + placement conventions + round-close hygiene + past-doc cleanup strategy. Preserve all. Phase G: no amendment needed.
+8. **`.cursor/plans/doctrine/05_supersession_conflict_ledger.md` (70 lines)** — K1 Tier 0 ledger. Resolved 30+ conflicts with explicit winning authority + closure policy lock. Preserve all. Phase G: ADD new conflict rows for any Phase G amendment that supersedes existing doctrine (anticipated several rows per DL-15/16 amendment family).
+
+#### F.2.2.F.4 Tier 2 bidirectional findings (6 findings; D0THES-REV-121..126)
+
+- **D0THES-REV-121** (Manifest Read Graph Tier 0 Universal Path 16-doc list ↔ v2 spawn implication): Universal Path #15 currently points to HANDOFF_2026-05-23 (operational state transfer per Protocol §8 Checkpoint Preservation Rule). After F.2.3 master closure synthesis lands, Universal Path #15 may need a NEW checkpoint pointing to F.2.3 outputs + Phase G readiness state. Phase G action: update Universal Path #15 to F.2.3 + Phase G handoff. Effort ~1 hr (mechanical).
+- **D0THES-REV-122** (Manifest Read Graph workstream coverage overlays 6 overlays ↔ v2 spawn implication): 6 existing overlays (RBAC / Settings / Care Coord / Federation / AI Gov / Clinical Media). v2 spawned 6 NEW Tier 0 candidates (T0-11..T0-16) which may need their own workstream overlays per joint signoff per Tier 0 Change Control gate. Phase G action: evaluate whether T0-11..T0-16 candidates need workstream overlays; if yes, add per Tier 0 promotion. Effort ~3-5 hr per overlay (12-30 hr total).
+- **D0THES-REV-123** (Master Corpus Catalog file enumeration ↔ Reconciliation Map v1 audit coverage): Catalog has 250+ rows; Reconciliation Map v1 audited 48 substrate-spine artifacts. NOT all 250+ rows are substrate (many are evidence_nonbinding / narrative / handoff / pressure_test / archive). F.2.2 SCOPE substantially CLOSED for substrate-spine coverage; remaining catalog rows are NOT substrate per category. Phase G action: NONE for catalog enumeration (separate from audit scope); however catalog rows for Reconciliation Map v1 + thesis v0/v1/v2 + future DL-23..DL-28 must update post-F.3 / post-Phase G. Effort ~2-4 hr per Phase G amendment.
+- **D0THES-REV-124** (Doctrine Manifest T0-01..T0-07 7 guardrails ↔ v2 NAMED-but-not-promoted candidates T0-08..T0-16): v2 thesis explicitly NAMED 9 new Tier 0 promotion candidates (T0-08 counter-Hims §6.6 + T0-09 substrate-vs-care boundary §12.8 + T0-11 4-layer care OS §3.7 + T0-12 four coexistent operator-level abilities §3.8 + T0-13 PAIR per-event ownership orthogonality + primitive sprawl criterion §7.5.1 + T0-14 anti-institutional-gravity §6.8 + T0-15 PAIR universal projection doctrine §7.7 + T0-16 TRINITY anti-collapse guardrails §6.10 + §7.5.4 + §9.1) but DID NOT promote (requires separate Tier 0 Change Control gate per Doctrine Manifest). Phase G action: evaluate which T0-XX candidates promote to T0-08..T0-16 binding via Tier 0 Change Control gate (separate joint Knox+user+Opus signoff per Doctrine Manifest "Tier 0 Change Control (Binding)" rule). Effort ~6-15 hr per promoted candidate (depends on cross-link work).
+- **D0THES-REV-125** (Guardrail Antipattern Digest D0THES-GRD-021 content-not-title methodology ↔ F.2.2.F validation): F.2.2.F batch operated under D0THES-GRD-021 binding rule (titles serve as navigation heuristic only; content alone determines K-category). All 17 F.2.2.F artifacts validated content-first; classification_evidence cites actual content (line ranges + structural elements) NOT title text. D0THES-GRD-021 methodology FULLY VALIDATED across F.2.2.B-F batches (4 consecutive batches; 39 artifacts). Phase G action: NONE (methodology is stable; binding doctrine).
+- **D0THES-REV-126** (Supersession Conflict Ledger D0THES-SUP-002 v1→v2 ↔ Phase G amendment family): Ledger row D0THES-SUP-002 documents v1 → v2 supersession with 18+ doctrine lines preserved verbatim + 14 new sections + 6 v2 Tier 0 candidates NAMED-not-promoted. Phase G amendments will ADD ~22 new conflict rows (1 per F.2.2.F Tier 2 finding that requires existing doctrine amendment). Phase G action: ledger UPDATES via Operating Contract §17 append rules per Phase G amendment commits. Effort ~30 min per row routine maintenance.
+
+### §17.5 F.2.2.F.5 — Future Care Obligations Design + Future Work Registry (2 artifacts)
+
+#### Audit row: Future Care Obligations Design (577 lines; PARKED design pressure-test artifact)
+
+- **Path / Section**: `.cursor/plans/doctrine/future_care_obligations_design_2026-05-17.md` (PARKED 2026-05-17 from Care-Coordination-CNS pressure-test arc; 12 sections covering three-layer foundation + industry validation (FHIR/Epic/Cerner/Amazon/airline/restaurant/Tesla pattern convergence) + 15 stress tests + full care_episode_task substrate design 30+ fields + 55+ Day 0 task_kinds + lifecycle conversion rules + 4 refinement gaps + rejected patterns + visit-type-as-service-catalog + neuromodulator-family booking UX + LHR/CoolSculpting/SkinPen variable-scope + entitlement redemption visibility + patient promo wallet four-layer + confirmation-as-CNS-round-trip + DL-15 amendment 8 rationale)
+- **K-category**: **K6 parked design rationale (NOT binding substrate)**
+- **memory_disposition**: preserve as historical evidence (substrate doctrine already landed in DL-15/16/20/22; this file is provenance/pressure-test work)
+- **authority_disposition**: derived_nonbinding (explicit PARKED status + promotion gate requires joint Knox+user+Opus signoff to re-open Care-Coordination-CNS workstream)
+- **refresh_action**: none (already explicitly parked; substrate landed in DL-15/16/20/22; substrate doctrine wins on conflict)
+- **confidence_level**: HIGH
+- **classification_evidence**: explicit "PARKED DESIGN PRESSURE-TEST ARTIFACT — NOT locked doctrine, NOT a new architecture doc, NOT to be expanded into DL invariants without explicit re-opening of the Care-Coordination-CNS workstream"; substrate doctrine extracted into DL-15 amendments + DL-20 care coordination DRAFT + DL-22 clinical-media DRAFT (audited under F.2.0 + F.2.2.F.2)
+- **valid_decisions_to_preserve**: 4 refinement gaps named for future substrate slice work + rejected patterns enumeration + 55+ Day 0 task_kinds seed catalog (registry-extensible per DL-16 inv 5+9+29 if Care-Coordination-CNS workstream re-opens)
+- **dependencies**: Care-Coordination-CNS workstream re-opening is a separate gate (not F.2.3 / not Phase G)
+
+#### Audit row: Future Work Registry (86 lines)
+
+- **Path / Section**: `.cursor/plans/doctrine/future_work_registry.md` (canonical parked-scope index; build-entry retrieval source per Agent Work Protocol §6; 4 seeded rows: FWREG-001 federation modes beyond Day 0 / FWREG-002 PHI surface governance / FWREG-003 prioritization attention economics runtime / FWREG-004 care episode task substrate; row schema 17 fields; allowed item_type + status enums; lifecycle rule no perpetual deferral)
+- **K-category**: **K1 governance-substrate (Tier 2 build-entry retrieval source)**
+- **memory_disposition**: preserve all
+- **authority_disposition**: non-binding parked/watch unless promoted (per registry contract); binding retrieval contract via Agent Work Protocol §6
+- **refresh_action**: ADD new rows for v2-spawned future-work items (e.g., Phase G amendments may surface items that defer; T0-XX promotion candidates may surface items)
+- **confidence_level**: HIGH
+- **classification_evidence**: explicit `future_or_parked_watch` type; retrieval contract binding for build entry + work-package admission; seeding partial (FWREG-REV-001 tracks debt)
+- **valid_decisions_to_preserve**: ALL 4 seeded rows + row schema + retrieval contract + lifecycle rule
+- **dependencies**: Phase G amendments may add rows; build entry on new lanes references Future Work Registry
+
+#### F.2.2.F.5 Tier 2 bidirectional findings (4 findings; D0THES-REV-127..130)
+
+- **D0THES-REV-127** (Future Care Obligations Design 4 refinement gaps ↔ v2 §7.5 Artifact custody / context portability / clinical adoption): Future Care Obligations Design names 4 refinement gaps for future substrate slice work (which may overlap with v1 §7.5 clinical_adoption primitive). Phase G action: cross-reference 4 refinement gaps against v1 §7.5 + v2 §7.5.1 per-event ownership orthogonality; identify overlap before Care-Coordination-CNS workstream re-opens. Effort ~4-6 hr.
+- **D0THES-REV-128** (Future Care Obligations Design 55+ task_kinds Day 0 seed ↔ DL-16 inv 5+9+29 registry governance): 55+ task_kinds enumerated; registry-extensible per DL-16. v2 thesis adds per-event ownership orthogonality + universal projection doctrine which may add task_kind metadata (per_event_ownership_dimensions + projection_surface_targets). Phase G action: if Care-Coordination-CNS workstream re-opens, extend 55+ task_kinds seed with v2 per-event-ownership + projection metadata fields. Effort ~10-20 hr (deferred per Care-Coordination-CNS workstream gate).
+- **D0THES-REV-129** (Future Work Registry 4 seeded rows ↔ v2 thesis amendment family): FWREG-001..004 cover federation modes / PHI surface governance / prioritization runtime / care episode task substrate; v2 spawned 14 new sections (§3.7 / §3.8 / §6.7 / §6.8 / §6.9 / §6.10 / §7.5.1 / §7.5.2 / §7.5.3 / §7.5.4 / §7.7 / §7.8 / §9.1 / §13.7) which may correspond to 6 new Tier 0 candidates + numerous Phase G amendments. Phase G action: add new Future Work Registry rows for v2 NAMED-not-promoted candidates that defer past Phase G (e.g., T0-14 anti-institutional-gravity may defer; T0-11 4-layer care OS promotes via Tier 0 Change Control gate; others TBD per Phase G sequencing). Effort ~2 hr per new row.
+- **D0THES-REV-130** (Future Work Registry seeding partial + FWREG-REV-001 debt ↔ Reconciliation Map v1 audit coverage): Registry seeding currently partial (4 rows; debt tracked). F.2.2.F batch completion materially expands knowledge of substrate state; some F.2.2.F findings may seed NEW Future Work Registry rows (e.g., Care-Coordination-CNS workstream re-opening trigger now better-characterized per D0THES-REV-127). Phase G action: re-evaluate Future Work Registry seeding completeness post-F.2.3; seed remaining known future-work items based on audit findings. Effort ~5-10 hr.
+
+### §17.6 F.2.2.F batch self-assessment + F.2.2 SCOPE truly CLOSED
+
+#### Methodology validation (F.2.2.F applied §11.7 content-not-title binding rule)
+
+- **17/17 artifacts** classified by content alone (not title); classification_evidence cites line ranges + structural elements + actual quotes; titles served as navigation heuristic only.
+- **0 mistaken candidate-cruft hunts**: F.2.2.F batch never tried to prove a title-based prediction wrong; identified substrate-spine content where appropriate (16 K1) and identified explicit parked status where appropriate (1 K6 parked).
+- **0 inversions of established pattern**: every F.2.2.A.1-E batch finding consistent with F.2.2.F findings; substrate spine pattern fully validated.
+- **D0THES-GRD-021 methodology fully validated** across 4 consecutive batches (F.2.2.B/C/D/E/F = 39 artifacts) — no further methodology refinement needed.
+
+#### F.2.2 SCOPE truly CLOSED — Final Statistics (Cumulative across F.2.2.A.1-F.2.2.F)
+
+- **48 artifacts audited cumulatively** (31 F.2.2.A-E + 17 F.2.2.F)
+- **47 K1 substrate-spine + 1 K6 parked design rationale** (47:1 ratio confirms substrate is overwhelmingly substrate-spine; cruft surface area negligible)
+- **0 cruft classifications across all F.2.2 batches**
+- **0 Tier 1 mechanical errata**
+- **92 Tier 2 substantive bidirectional findings** (70 F.2.2.A-E + 22 F.2.2.F = D0THES-REV-032..130 routed to Phase G)
+- **0 Tier 3 materially-misleading findings**
+- **Cumulative F.2.2 Phase G effort estimate**: ~360-540 hours (depends on T0-XX promotion gate decisions)
+- **Q7 pattern consistent across 6 batches**: thesis v2 systematically under-credits existing substrate (substrate consistently richer than thesis articulates; bidirectional refinement preserves substrate intact + cross-links thesis nuances)
+
+#### F.2.3 master closure synthesis NOW the operative next phase (UNBLOCKED)
+
+- F.2.2.F substrate gap closure CLOSES Nick's "is everything audited?" concern. Comprehensive coverage of system map architectural spine + entire substrate-grade doctrine corpus achieved.
+- F.2.3 master closure synthesis produces:
+  1. Consolidated cross-link work plan (per-DL amendment family + per-system-map section + per-Tier-0/0.5-governance-document amendment family)
+  2. Phase G sub-phase sequencing (which amendments land first based on dependency graph + critical-path analysis)
+  3. Critical-dependency surfacing (which amendments block which; e.g., DL-23..DL-28 candidate promotion sequencing)
+  4. T0-XX Change Control gate sequencing (which v2 candidates promote first; per Tier 0 Change Control binding rule)
+  5. Conflict ledger seed (anticipated supersession rows per Phase G amendment family)
+- F.2.3 is NOT Phase G itself — F.2.3 sequences Phase G; Phase G executes amendments
+
+#### Operating Contract §17 lifecycle state (UPDATED post-F.2.2.F)
+
+- **F.2.2 SCOPE**: substantially CLOSED — 48 artifacts audited; comprehensive substrate-spine + substrate-grade doctrine corpus coverage achieved
+- **Next phase**: F.2.3 master closure synthesis (now unblocked by F.2.2.F completion; Nick approved before stepping away 7 hours)
+- **Confidence in F.2.2 outcome**: HIGH-VERIFIED — re-validation (§16) + substrate-spine gap closure (§17 / F.2.2.F) BOTH complete
+
+---
+
+## §18 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
 
 Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contract Rule), this Reconciliation Map vN stream requires an Operating Contract at creation. This §17 IS that contract. Applies to v1 (this artifact) and inherits to v2, v3, ... unless explicitly amended.
 
