@@ -1,5 +1,9 @@
 # OMNI Doctrine Reconciliation Map v1
 
+> **F.2.2.E BATCH COMPLETE 2026-05-28 — RULES + TEMPLATES + VECTOR/ML + MULTI-TENANT (3 artifacts; §1Q rules+templates + §1T vector/ML + §1U multi-tenant partition); F.2.2 SCOPE CLOSED (31 artifacts; 70 Q7 findings); F.2.3 MASTER CLOSURE NEXT**
+>
+> Fourth and final F.2.2 batch under §11.7 content-not-title methodology. Per Nick decision (continued full-depth per §17 default). Per Knox three-tier policy + v2 lens. **E Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 3 artifacts STABLE under v2 lens (all K1; 3 amend refresh_action; ~20-33 hr total Phase G effort). **F.2.2 SCOPE CLOSED**: 31 artifacts audited; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours.
+
 > **F.2.2.D BATCH COMPLETE 2026-05-27 — INTAKE + SEARCH + EVENT-STREAM + DATA GOVERNANCE + TRACKED CLINICAL OBJECTS (5 artifacts; §1K intake + §1V data governance + §1W tracked clinical objects + §1R search + §1S event-stream); F.2.2.E NEXT**
 >
 > Third batch under §11.7 content-not-title methodology. Per Nick decision (skipped compression question → §17 default = Option A continue full-depth). Per Knox three-tier policy + v2 lens. **D Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-089..098 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 5 artifacts STABLE under v2 lens (all K1; 0 K-category changes; 5 amend refresh_action; ~30-50 hr total Phase G effort). **CUMULATIVE FINDING (binding)**: 28 artifacts audited across F.2 corpus; 28 substrate-spine classifications; 0 cruft. Q7 pattern total: 60 findings (1 + 5 + 12 + 4 + 8 + 10 + 10 + 10). **F.2.2.E remaining**: §1Q Rules + Templates engine (2311 lines; heaviest remaining single artifact) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Estimated F.2.2.E Phase G effort: ~25-40 hr.
@@ -58,7 +62,9 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.2.D BATCH COMPLETE (Intake + Infrastructure Foundations); F.2.2.E NEXT (§1Q + §1T + §1U)
+## §0 Status Posture — F.2.2.E BATCH COMPLETE (Rules + Templates + Vector/ML + Multi-Tenant); F.2.2 SCOPE CLOSED; F.2.3 MASTER CLOSURE NEXT
+
+**F.2.2.E Batch complete 2026-05-28** per `D0THES-DEC-013` per Operating Contract §17 append rules. Fourth and final F.2.2 batch under §11.7 content-not-title methodology. 3 audit picks: §1Q Rules + Templates engine (2311 lines; heaviest single artifact in F.2.2 corpus; foundational cross-cutting; DL-14 subordinated subsystem) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G); 0 Tier 3 materially-misleading findings. All 3 artifacts STABLE under v2 lens (all K1). **F.2.2 SCOPE CLOSED**: 31 artifacts audited across F.2 corpus; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing.
 
 **F.2.2.D Batch complete 2026-05-27** per `D0THES-DEC-012` per Operating Contract §17 append rules. Third batch under §11.7 content-not-title methodology. Per Nick decision (skipped compression question → §17 default = Option A continue full-depth). 5 audit picks: §1K Intake architecture + §1V Data governance + §1W Tracked clinical objects + §1R Search & lookup + §1S Event-stream readiness. Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-089..098 routed to Phase G); 0 Tier 3 materially-misleading findings. All 5 artifacts STABLE under v2 lens (all K1). **Cumulative**: 28 artifacts; 28 substrate-spine; 0 cruft; 60 Q7 findings. F.2.2.E continues full-depth: §1Q (2311 lines) + §1T (66 lines) + §1U (52 lines). After F.2.2.E completes, F.2.2 audit scope CLOSED; F.2.3 master closure synthesizes consolidated cross-link work plan + Phase G subphase sequencing.
 
@@ -83,11 +89,12 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 - F.2.2 methodology refinement (commit `53d790b`; 2026-05-27): §11.7 — content-not-title classification rule binding for F.2.2.B onward; per D0THES-DEC-009 + D0THES-GRD-021
 - F.2.2.B batch (v2-lens; commit `759bf88`; 2026-05-27): §12 — 10 Tier 2 bidirectional findings (D0THES-REV-069..078); catalog/routing/financial/identity/analytics axis; first batch under §11.7 content-not-title methodology; METHODOLOGY VALIDATED (3 title-cruft-suspects confirmed substrate-spine from content; recorded + moved on)
 - F.2.2.C batch (v2-lens; commit `5b531b2`; 2026-05-27): §13 — 10 Tier 2 bidirectional findings (D0THES-REV-079..088); clinical/operational substrate foundations axis (§1L lab + §1M state + §1N AI + §1O doc routing + §1P narrative atomization); second batch under §11.7 methodology; F.2 SELF-MONITORING SIGNAL TRIGGERED + COMPRESSION OPTION FLAGGED FOR NICK
-- **F.2.2.D batch (v2-lens; pending commit; 2026-05-27): §14 — 10 Tier 2 bidirectional findings (D0THES-REV-089..098); intake + infrastructure foundations axis (§1K intake + §1V data governance + §1W tracked clinical objects + §1R search + §1S event-stream); third batch under §11.7 methodology; Nick skipped compression question → §17 default = Option A continue full-depth**
+- F.2.2.D batch (v2-lens; commit `545a7f2`; 2026-05-27): §14 — 10 Tier 2 bidirectional findings (D0THES-REV-089..098); intake + infrastructure foundations axis (§1K intake + §1V data governance + §1W tracked clinical objects + §1R search + §1S event-stream); third batch under §11.7 methodology; Nick skipped compression question → §17 default = Option A continue full-depth
+- **F.2.2.E batch (v2-lens; pending commit; 2026-05-28): §15 — 10 Tier 2 bidirectional findings (D0THES-REV-099..108); rules + templates + infrastructure axis (§1Q rules+templates + §1T vector/ML + §1U multi-tenant partition); fourth + final F.2.2 batch under §11.7 methodology; F.2.2 SCOPE CLOSED**
 
-**Q7 pattern total**: 1 + 5 + 12 + 4 + 8 + 10 + 10 + 10 = **60 bidirectional findings to date**. Pattern fully established across 8 batches + 6 audit dimensions (calibration set substrate + coordination spine + system map operational substrate + DL register substrate spine + analytics/financial/identity substrate + clinical/operational substrate foundations + intake + infrastructure foundations). Phase G refresh resolves all 60 via explicit cross-link work, NOT vN patching.
+**Q7 pattern total**: 1 + 5 + 12 + 4 + 8 + 10 + 10 + 10 + 10 = **70 bidirectional findings to date**. Pattern fully established across 9 batches + 7 audit dimensions (calibration set substrate + coordination spine + system map operational substrate + DL register substrate spine + analytics/financial/identity substrate + clinical/operational substrate foundations + intake + infrastructure foundations + rules + templates + multi-tenant). Phase G refresh resolves all 70 via explicit cross-link work, NOT vN patching.
 
-**Cumulative audit corpus**: 28 artifacts audited (F.2.0 6 calibration + F.2.2.A.1 4 substrate spine + F.2.2.A.2 2 cruft test + F.2.2.B 6 catalog/routing/financial/identity/analytics + F.2.2.C 5 clinical/operational substrate foundations + F.2.2.D 5 intake + infrastructure foundations); **28 substrate-spine classifications; 0 cruft classifications**. System map + DL register CONSISTENTLY substrate-spine across the entire F.2 audit corpus.
+**Cumulative audit corpus (F.2.2 SCOPE CLOSED)**: 31 artifacts audited (F.2.0 6 calibration + F.2.2.A.1 4 substrate spine + F.2.2.A.2 2 cruft test + F.2.2.B 6 catalog/routing/financial/identity/analytics + F.2.2.C 5 clinical/operational substrate foundations + F.2.2.D 5 intake + infrastructure foundations + F.2.2.E 3 rules+templates + vector/ML + multi-tenant); **31 substrate-spine classifications; 0 cruft classifications**. System map + DL register CONSISTENTLY substrate-spine across the entire F.2 audit corpus.
 
 **F.2.1 calibration review gate complete 2026-05-25 by Nick + Knox.** Outcome: **approve-with-one-refinement**. Method validated. Calibration marker REMOVED.
 
@@ -3194,6 +3201,189 @@ Within F.2.2.D batch (Phase G.2 substrate refresh sub-arc):
 **F.2.2.D batch complete. F.2.2.E next:** §1Q Rules + Templates engine (2311 lines; heaviest remaining single artifact) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Per §17 default behavior (no compression choice received), F.2.2.E continues Option A full-depth. Estimated F.2.2.E Phase G effort: ~25-40 hr.
 
 **Operating Contract §17 lifecycle state**: stays `F.2.2 in progress`.
+
+---
+
+## §15 F.2.2.E Batch — Rules + Templates + Vector/ML + Multi-Tenant Partition (final F.2.2 batch; F.2.2 scope CLOSED)
+
+> **F.2.2.E BATCH COMPLETE 2026-05-27 — 3 ARTIFACTS UNDER v2 LENS + §11.7 CONTENT-NOT-TITLE METHODOLOGY; F.2.2 SCOPE CLOSED (31 ARTIFACTS; 70 Q7 FINDINGS); F.2.3 MASTER CLOSURE NEXT**
+>
+> Fourth and final F.2.2 batch under §11.7 content-not-title methodology. Per Nick decision (continued full-depth per §17 default). Per Knox three-tier policy + v2 lens.
+>
+> **F.2.2.E audit picks** (3 artifacts; rules + templates + infrastructure foundations axis):
+> 1. System map `§1Q Rules + Templates engine` (lines 8617-10927; 2311 lines; 23 sub-sections; foundational code-as-config; deterministic decisions + constrained communications; DL-14 subordinated subsystem)
+> 2. System map `§1T Vector/ML/embedding readiness` (lines 11066-11129; 66 lines; future join-key contract; de-identification + retention posture)
+> 3. System map `§1U Multi-org / multi-tenant partition discipline` (lines 11132-11183; 52 lines; org_id everywhere + RLS + brand_id graduation per DL-10)
+>
+> Total content scope: ~2430 lines (heaviest single artifact: §1Q at 2311 lines).
+>
+> **Lens**: v2 (refreshed via §9). Per Knox three-tier policy + §11.7 content-not-title methodology refinement.
+>
+> **E Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 3 artifacts STABLE under v2 lens (all K1; 0 K-category changes; 3 amend refresh_action; ~30-45 hr total Phase G effort estimate).
+>
+> **METHODOLOGY VALIDATION (continued)**: §11.7 content-first rule operating correctly on fourth batch. All 3 picks classified from content (line ranges + quoted evidence); titles served navigation only.
+>
+> **F.2.2 SCOPE NOW CLOSED.** Cumulative F.2 corpus: 31 artifacts audited (F.2.0 6 calibration + F.2.2.A.1 4 substrate spine + F.2.2.A.2 2 cruft test + F.2.2.B 6 catalog/routing + F.2.2.C 5 clinical/operational substrate + F.2.2.D 5 intake + infrastructure + F.2.2.E 3 rules + templates + infrastructure); **31 substrate-spine classifications; 0 cruft classifications**. Q7 pattern total: **70 bidirectional findings** (1 + 5 + 12 + 4 + 8 + 10 + 10 + 10 + 10). Pattern fully established + confirmed across 7 audit dimensions.
+>
+> **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing.
+
+### §15.1 Batch Executive Audit Verdict (Q1.E — Q7.E; abbreviated per §11.7 self-monitoring)
+
+#### Q1.E — What is healthier than expected under v2 lens?
+
+- **§1Q Rules + Templates engine is the densest cross-cutting substrate** — 23 sub-sections with §1Q.0 4-layer separation of concerns ("Rules decide WHAT. Templates define WHAT IS ALLOWED TO BE SAID/DONE. AI decides HOW to phrase/refine within constraints. Humans/providers decide clinical truth.") + 13 hard invariants (binding) + DL-14 subordination note (rules + templates engine is subsystem UNDER OMNI CNS; current adequacy determined by Phase 0 brain hardening audit) + §1Q.1 18 rule categories + §1Q.2 16 template categories + §1Q.3 boundary table (deterministic / AI / human per category with two distinct columns separating PR-time CODEOWNER approval from runtime per-message authority) + §1Q.4 detailed Rule object shape (TypeScript discriminated union with ~30 fields) + §1Q.5 Template object shape (~30 fields including 6-tier privacy_exposure_level + 10-value message_intent + outside_secure_render_strategy + safety_critical_override_allowed + Hybrid Care interaction_context_compatibility) + §1Q.6 7-stage deterministic execution order + §1Q.7 three-tier governance + versioning + audit + §1Q.10 rule recall + template recall + campaign recall (extends §1P.11 model_recall pattern) + §1Q.13 module taxonomy + cross-domain collision handling + §1Q.17 privacy + communication governance gate (5-step deterministic chain) + §1Q.21 Marketing Lifecycle + Growth Orchestration Suite + §1Q.23 Hybrid Care Delivery Capability Map.
+- **§1U brand_id graduation criteria per DL-10** — by default brand_id is marketing distinction NOT PHI/operational boundary; graduates to operational/clinical relationship boundary when brand owns distinct consents/care_programs/messaging_context/memberships/clinical_context/staff_access; canonical mechanism is `patient_relationship` scoping per DL-10 + foundational doc primitive #19, not brand_id-everywhere-on-every-operational-table; anti-pattern rejected per DL-10 + radar zone 36.
+- **§1T future join-key contract** — 6 entities with stable IDs ready for future embedding tables; §1N is only consumer; pgvector default; PHI-equivalent retention; 5 explicit rejections.
+- **Cross-link density extraordinary** — §1Q cross-links to §1G + §1H + §1I + §1J + §1K + §1K.5.A + §1L + §1M + §1N + §1O + §1P; §1U cross-links to §1D + §1J + §1J.6 + §1S + §1H + §1V; §1T cross-links to §1N + §1O + §1P + §1U + §1V + §1H.4.2.
+
+#### Q2.E — What is worse than expected under v2 lens?
+
+- **10 Tier 2 bidirectional findings** (Q7 pattern continues; 70 total across F.2 work; pattern fully established).
+- **§1Q is 2311 lines** — heaviest single-artifact in F.2.2 audit corpus (heavier than §1G at 1724 or §1K at 1887). Phase G effort estimate: ~20-30 hr.
+
+#### Q3.E — What must be refreshed first under v2 lens?
+
+Within F.2.2.E batch:
+
+1. **§1Q ↔ v2 §12.8 substrate-vs-care boundary cross-link** — D0THES-REV-099; §1Q.0 4-layer separation of concerns IS the operational expression of v2 §12.8. ~5-8 hr.
+2. **§1Q ↔ v2 §9.1 model_version_of_record cross-link** — D0THES-REV-100; §1Q.4 rule_version + §1Q.5 template_version pinned at every firing + ai_refinement_log per §1P.11. ~5-8 hr.
+3. **§1Q ↔ v2 §7.5.4 consent specificity cross-link** — D0THES-REV-101; §1Q.5 6-tier privacy_exposure_level + 10-value message_intent + safety_critical_override_allowed + §1Q.17 5-step privacy gate chain. ~5-8 hr.
+
+#### Q4.D-equivalent / Q5.E / Q6.E
+
+- **No valid_decisions_lost concerns.**
+- **No docs dangerous if left authoritative.**
+- **§1T future embedding tables can wait** — Phase G refresh confirms §1T cross-link but full v1 implementation deferred until first concrete need lands.
+
+#### Q7.E — What does the audit teach us about the thesis itself (under v2 lens, in this batch)?
+
+**10 substantive bidirectional findings (Tier 2 per Knox policy)** — Q7 pattern continues; batch closes F.2.2 with rules + templates + infrastructure cross-links:
+
+1. v2 §12.8 substrate-vs-care boundary ↔ §1Q.0 4-layer separation of concerns + §1Q invariant 4 (AI cannot invent clinical recommendations) + §1Q invariant 5 (AI cannot bypass templates; ai_refinement_allowed is template-governance setting, NOT patient consent, NOT runtime override). **Routed to D0THES-REV-099.**
+2. v2 §9.1 model_version_of_record (Guardrail C) ↔ §1Q.4 rule_version + §1Q.5 template_version pinned at every firing + ai_refinement_log with ai_model_version + ai_prompt_id per §1Q.6 stage 6 + §1Q.10 rule recall + template recall + campaign recall (extends §1P.11 model_recall pattern). **Routed to D0THES-REV-100.**
+3. v2 §7.5.4 consent specificity (Guardrail B) ↔ §1Q.5 6-tier privacy_exposure_level + 10-value message_intent + outside_secure_render_strategy + requires_consent_for_exposure_level + requires_consent_for_intent + safety_critical_override_allowed + §1Q.17 5-step privacy gate chain. **Routed to D0THES-REV-101.**
+4. v2 §7.5.1 per-event ownership ↔ §1Q.4 rule authority dimensions (authority_floor + escalation_owner_role) + §1Q.5 template authority (clinical_review_required + ai_refinement_allowed) + §1U org_id everywhere on patient-scoped rows + §1T `generated_by` per primitives addendum #1. **Routed to D0THES-REV-102.**
+5. v2 §7.7 master projection doctrine ↔ §1Q.4 audit_event_type + §1Q.7 three-tier governance + audit (every rule firing reconstructable from rule_version + inputs) + §1T embeddings as derived (replayable from source rows; not source-of-truth) + §1U RLS as DB-layer projection enforcement. **Routed to D0THES-REV-103.**
+6. v2 §7.6 CNS scope architecture ↔ §1Q.0 DL-14 subordination note (rules + templates engine is subsystem UNDER OMNI CNS; CNS is event-driven care coordination brain; §1Q is one of several brain subsystems alongside Marketing Lifecycle §1Q.21 + dynamic-behavior gates §1Q.19 + action substrate primitive #10). **Routed to D0THES-REV-104.**
+7. v2 §13.7 operator-pluralism + non-competition ↔ §1U.3 brand_id graduation criteria per DL-10 (brand_id graduates from marketing-only to operational/clinical relationship boundary; canonical mechanism is `patient_relationship` scoping) + §1Q.21 Marketing Lifecycle 18-value campaign_type taxonomy + 11-tier campaign priority hierarchy + §1U future host-org / tenant-org model. **Routed to D0THES-REV-105.**
+8. v2 §7.8 cross-operator coordination ↔ §1Q.1 clinical_routing rules (provider assignment by jurisdiction + capacity + specialty per §1G.4) + §1Q.14.2 deterministic external-line outbound 8-gate + §1Q.21 cross-channel deduplication + collision discipline (digest + sequencing rule per §1G.3) + §1U capability scoping (org_scope: all_orgs / specific_org / self_org_only). **Routed to D0THES-REV-106.**
+9. v2 §6.7 5-tier vocabulary ↔ §1Q.1 18-domain rule categories (clinical_safety / eligibility / clinical_routing / patient_clarification / lab_requirement / refill_renewal / dose_escalation / adverse_event / fulfillment_exception / billing_subscription / vendor_exception / notification / provider_review / account_lifecycle / patient_education / support_communication / marketing_lifecycle / compliance_audit) + §1Q.5 6-value `allowed_use` enum (patient_facing / provider_facing / staff_internal / vendor_facing). **Routed to D0THES-REV-107.**
+10. v2 §7.5.2 catalog substrate model ↔ §1Q.5 template registry as catalog (template_key stable id + template_version + provider_template_registration_id for external mirror per §1Q.21 V2+ external template platforms like Klaviyo/Customer.io/Braze/Iterable; external NEVER source of truth per §1Q.21 Invariant 19) + §1Q.21 18-value campaign_type taxonomy as marketing-catalog substrate. **Routed to D0THES-REV-108.**
+
+**All 10 are Tier 2 substantive feedback per Knox three-tier policy.** Routed to Phase G as D0THES-REV-099..108.
+
+**Tier 3 threshold check**: NONE rise to "v2 materially misleading vs rules + templates + infrastructure substrate."
+
+### §15.2 Per-Artifact Audit Rows (F.2.2.E batch; abbreviated schema)
+
+#### Row F.2.2.E-1 — System map §1Q Rules + Templates engine
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 8617-10927
+- **knox_category**: **K1** (correct, aligned, complete substrate; foundational cross-cutting; DL-14 subordinated subsystem)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §12.8 + §9.1 + §7.5.4 + §7.5.1 + §7.7 + §7.6 + §13.7 + §7.8 + §6.7 + §7.5.2 cross-references; HEAVIEST cross-link surface in F.2.2.E)
+- **confidence_level**: HIGH
+- **classification_evidence**: §1Q.0 4-layer separation of concerns ("Rules decide WHAT. Templates define WHAT-CAN-BE-SAID. AI decides HOW. Humans decide clinical truth") + 13 hard invariants binding + DL-14 subordination note ("§1Q is a subsystem UNDER the OMNI CNS per DL-14; the rules + templates engine decides which actions to emit within the CNS's coordination model; it does NOT constitute the CNS itself"); §1Q.4 Rule object shape (30+ fields including authority_floor + decision_support_payload minimum-content discipline + intended_privacy_exposure_level + message_intent + interaction_context_aware); §1Q.5 Template object shape (30+ fields including privacy_exposure_level 6-tier + message_intent 10-value + outside_secure_render_strategy + safety_critical_override_allowed + interaction_context_compatibility); §1Q.6 7-stage execution order (Pre-conditions → Safety preflight → Eligibility → Authority floor → Action selection → AI refinement → Audit + side effects); §1Q.10 rule/template/campaign recall pattern (extends §1P.11 model_recall); §1Q.17 5-step privacy + communication governance gate; §1Q.21 Marketing Lifecycle + Growth Orchestration Suite with 18-value campaign_type taxonomy + 11-tier priority hierarchy; §1Q.23 Hybrid Care Delivery Capability Map
+- **effort_estimate**: L (~15-25 hr; HEAVIEST cross-link work across 10 v2 substrate sections)
+- **phase_g_subphase_assignment**: G.2
+
+#### Row F.2.2.E-2 — System map §1T Vector/ML/embedding readiness
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 11066-11129
+- **knox_category**: **K1** (correct, aligned, complete substrate; design-now defer-runtime)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §9.1 + §7.7 + §13.7 cross-references)
+- **confidence_level**: HIGH
+- **classification_evidence**: §1T.2 future join keys (6 entities with stable IDs); §1T.3 future shape (pgvector default; model_name + model_version + generated_at + generated_by per primitives addendum #1); §1T.4 de-identification + retention (PHI-equivalent; same RLS + data_environment + org_id; RTBF cascades); §1T.5 §1N is only consumer; §1T.6 5 explicit rejections
+- **effort_estimate**: S (~2-3 hr)
+- **phase_g_subphase_assignment**: G.2
+
+#### Row F.2.2.E-3 — System map §1U Multi-org / multi-tenant partition discipline
+
+- **artifact_path**: `.cursor/plans/system_map_three_layers_60706286.plan.md` lines 11132-11183
+- **knox_category**: **K1** (correct, aligned, complete substrate; mechanical Phase 4C-pre)
+- **memory_disposition**: preserve
+- **authority_disposition**: keep_binding
+- **refresh_action**: amend (v2 §13.7 + §7.5.1 + §7.7 cross-references)
+- **confidence_level**: HIGH
+- **classification_evidence**: §1U.2 binding discipline (org_id everywhere + PHI never crosses + RLS enforcement + capability scoping respects org boundary + partition-key alignment with §1S); §1U.3 brand_id graduation criteria per DL-10 (binding amendment); §1U.4 future host-org/tenant-org model; §1U.5 5 explicit rejections (schema-per-tenant; separate database-per-tenant; application-only filtering without RLS; nullable org_id; cross-org PHI reads outside SECURITY DEFINER); §1U.6 mechanical Phase 4C-pre implementation
+- **effort_estimate**: S (~3-5 hr)
+- **phase_g_subphase_assignment**: G.2
+
+### §15.3 Aggregate Metrics — F.2.2.E Batch
+
+**Knox category distribution**: 3 K1 (all substrate-spine)
+
+**Memory + Authority + Refresh + Confidence**: 3 preserve / 3 keep_binding / 3 amend / 3 high
+
+**Estimated effort distribution**:
+- S (~2-5 hr): 2 rows (§1T + §1U)
+- L (~15-25 hr): 1 row (§1Q — heaviest)
+
+**Total Phase G effort for these 3 artifacts**: ~20-33 hours.
+
+**Bidirectional findings**: 10 Tier 2 (D0THES-REV-099..108); 0 Tier 1 errata; 0 Tier 3.
+
+**Q7 pattern total after F.2.2.E**: 1 + 5 + 12 + 4 + 8 + 10 + 10 + 10 + 10 = **70 bidirectional findings to date**.
+
+**Cumulative audit corpus (F.2.2 SCOPE CLOSED)**: 31 artifacts audited; **31 substrate-spine classifications; 0 cruft classifications**.
+
+**Cumulative F.2.2 Phase G effort estimate**: ~260-393 hours.
+
+### §15.4 Bidirectional Thesis Feedback — Tier 2 Findings (Routed; abbreviated)
+
+| Finding | v2 section | Substrate under-credited | Route | Open Review Queue Row |
+|---|---|---|---|---|
+| 1 | §12.8 substrate-vs-care boundary | §1Q.0 4-layer separation of concerns + §1Q invariant 4 + invariant 5 (AI cannot invent clinical recommendations; AI cannot bypass templates) | Phase G refresh: §1Q amendment | D0THES-REV-099 |
+| 2 | §9.1 model_version_of_record (Guardrail C) | §1Q.4 rule_version + §1Q.5 template_version pinned at every firing + ai_refinement_log with ai_model_version + ai_prompt_id per §1Q.6 stage 6 + §1Q.10 rule/template/campaign recall pattern | Phase G refresh: §1Q amendment | D0THES-REV-100 |
+| 3 | §7.5.4 consent specificity (Guardrail B) | §1Q.5 6-tier privacy_exposure_level + 10-value message_intent + outside_secure_render_strategy + safety_critical_override_allowed + §1Q.17 5-step privacy gate chain | Phase G refresh: §1Q amendment | D0THES-REV-101 |
+| 4 | §7.5.1 per-event ownership | §1Q.4 authority_floor + escalation_owner_role + §1Q.5 clinical_review_required + ai_refinement_allowed + §1U org_id everywhere + §1T `generated_by` | Phase G refresh: §1Q + §1U + §1T amendment | D0THES-REV-102 |
+| 5 | §7.7 master projection doctrine | §1Q.4 audit_event_type + §1Q.7 three-tier governance + §1T embeddings as derived + §1U RLS as DB-layer projection | Phase G refresh: §1Q + §1T + §1U amendment | D0THES-REV-103 |
+| 6 | §7.6 CNS scope architecture | §1Q.0 DL-14 subordination note (§1Q is subsystem UNDER OMNI CNS; CNS is brain; §1Q is one of several brain subsystems alongside §1Q.21 Marketing Lifecycle + §1Q.19 dynamic-behavior gates + action substrate primitive #10) | Phase G refresh: §1Q amendment | D0THES-REV-104 |
+| 7 | §13.7 operator-pluralism + non-competition | §1U.3 brand_id graduation criteria per DL-10 + §1Q.21 Marketing Lifecycle + §1U future host-org / tenant-org model | Phase G refresh: §1U + §1Q amendment | D0THES-REV-105 |
+| 8 | §7.8 cross-operator coordination | §1Q.1 clinical_routing rules + §1Q.14.2 deterministic external-line outbound 8-gate + §1Q.21 cross-channel deduplication + §1U capability scoping (org_scope enum) | Phase G refresh: §1Q + §1U amendment | D0THES-REV-106 |
+| 9 | §6.7 5-tier vocabulary | §1Q.1 18-domain rule categories + §1Q.5 6-value `allowed_use` enum | Phase G refresh: §1Q amendment | D0THES-REV-107 |
+| 10 | §7.5.2 catalog substrate model | §1Q.5 template registry as catalog (template_key + template_version + provider_template_registration_id; external NEVER source of truth per §1Q.21 Invariant 19) + §1Q.21 18-value campaign_type taxonomy | Phase G refresh: §1Q amendment | D0THES-REV-108 |
+
+**Pattern**: all 10 findings follow Q7 pattern. Phase G refresh resolves by explicit cross-link.
+
+### §15.5 Self-Assessment + F.2.2 SCOPE CLOSED + F.2.3 Master Closure Next
+
+**All 3 artifacts STABLE under v2 lens**:
+- 0 K-category changes (all K1)
+- 0 memory disposition changes (all preserve)
+- 0 authority disposition changes (all keep_binding)
+- 3 amend refresh_action
+- 3 confidence HIGH
+
+**10 Tier 2 substantive bidirectional feedback findings** routed to Phase G via D0THES-REV-099..108.
+
+**0 Tier 1 mechanical errata**; **0 Tier 3 materially-misleading findings**.
+
+**METHODOLOGY VALIDATION (continued)**: §11.7 content-not-title rule continues operating correctly on fourth batch.
+
+**Confidence in F.2.2.E batch outcome**: HIGH.
+
+### F.2.2 SCOPE CLOSED — Final Statistics
+
+**F.2.2 audit corpus (FINAL)**:
+- **31 artifacts audited** across 5 batches: F.2.2.A.1 (4) + F.2.2.A.2 (2) + F.2.2.B (6) + F.2.2.C (5) + F.2.2.D (5) + F.2.2.E (3) + plus 6 calibration artifacts from F.2.0 = 31 total
+- **31 substrate-spine K1 classifications; 0 cruft classifications; 0 Tier 1 errata; 70 Tier 2 bidirectional findings; 0 Tier 3 materially-misleading findings**
+- **Pattern fully established across 7 audit dimensions**: calibration set substrate + coordination spine + system map operational substrate + DL register substrate spine + analytics/financial/identity substrate + clinical/operational substrate foundations + intake + infrastructure foundations + rules + templates + multi-tenant
+- **Cumulative F.2.2 Phase G effort estimate**: ~260-393 hours (G.2 substrate refresh sub-arc + DRAFT promotion coordination)
+- **Critical Phase G dependencies surfaced**: §1J.10 loadPatientCaseSafetySnapshot BLOCKING gate on first Rx pathway shipment; DL-17 + DL-20 promotion gates pending Knox+Opus+user signoff; §1H.6.1E + §1P.11 + §1Q.10 AI correction + recall feedback loops tie to v2 §9.1 model_version_of_record
+
+**F.2.3 master closure synthesis is the operative next phase** — produces:
+1. Consolidated cross-link work plan organized by v2 substrate section (each of 14 v2 substrate sections gets a Phase G refresh plan with explicit ↔ substrate mappings + effort estimate + sequencing)
+2. Phase G subphase sequencing (G.1 thesis spine ratification → G.2 substrate refresh → G.3 coordination refresh → G.4 architecture refresh → G.5 existing-build reconciliation → G.6 closure with Volume 5 narrative)
+3. Critical dependency surfacing (BLOCKING gates: §1J.10 + DL-17 + DL-20 promotions + AI correction feedback infrastructure)
+4. Closure decision: F.2.2 audit scope CLOSED; proceed to F.2.3.
+
+**F.2.2.E batch complete. F.2.2 SCOPE NOW CLOSED. F.2.3 master closure begins next.**
+
+**Operating Contract §17 lifecycle state**: stays `F.2.2 in progress` until F.2.3 master closure formally lands; F.2.2.E commit closes the input gate (no more F.2.2 batches added) but F.2.3 will produce the formal lifecycle transition.
 
 ---
 
