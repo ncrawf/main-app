@@ -1,6 +1,6 @@
 # OMNI Doctrine Reconciliation Map v1
 
-> **F.2.3 MASTER CLOSURE SYNTHESIS COMPLETE 2026-05-28 (§19) — entire F.2 audit corpus (59 artifacts; 100 Tier 2 findings + 2 conflict rows) synthesized into consolidated Phase G work plan: 18 cross-link clusters (C1-C18) by v2 substrate section + Phase G subphase sequencing (G.1-G.6) + critical dependency surfacing (§1J.10 blocking gate) + 6 DL DRAFT promotion gates + 8 T0-XX Change Control candidates + NEUTRAL build inventory (50 migrations + 40 lib dirs) + conflict ledger seed + F.3 review gate readiness. F.2 CLOSED; Phase G ready pending F.3. [Prior: F.2.2.A-G full audit — 59 artifacts; F.2.2 SCOPE FINALLY CLOSED.]**
+> **F.2.3 MASTER CLOSURE SYNTHESIS COMPLETE 2026-05-28 (§19) + KNOX F.3 REVIEW INCORPORATED (§20 F.3 Decision Packet; `D0THES-DEC-018`) — entire F.2 audit corpus (59 artifacts; 100 Tier 2 findings + 2 conflict rows) synthesized into consolidated Phase G work plan: 18 cross-link clusters (C1-C18) + G.1-G.6 sequencing + §1J.10 blocking gate + 6 DL promotion gates + 8 T0-XX candidates + NEUTRAL build inventory + F.3 readiness. KNOX CORRECTION (accepted + refined): G.1 ADJUDICATES T0 candidates — it does NOT pre-assume promotion (Tier 0 stays constitutional + short; criterion = imperative-guardrail-vs-descriptive-framework; Opus pushes back on Knox re T0-14). §20 F.3 Decision Packet structures the 6 human decisions (D1-D7) for Nick + Knox. F.2 CLOSED; Phase G ready pending F.3 ratification. [Prior: F.2.2.A-G full audit — 59 artifacts; F.2.2 SCOPE FINALLY CLOSED.]**
 >
 > Fourth and final F.2.2 batch under §11.7 content-not-title methodology. Per Nick decision (continued full-depth per §17 default). Per Knox three-tier policy + v2 lens. **E Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 3 artifacts STABLE under v2 lens (all K1; 3 amend refresh_action; ~20-33 hr total Phase G effort). **F.2.2 SCOPE CLOSED**: 31 artifacts audited; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours.
 
@@ -3922,7 +3922,7 @@ The 100 findings cluster by the v2 section that DRIVES each. Each cluster lands 
 
 Binding order. Each subphase gates on the prior landing cleanly (mirrors the data-layers 4C+ "primitives first" discipline + Build OS rollout discipline).
 
-- **G.1 — Thesis spine ratification** (`user_knox_required` Tier 0 Change Control gate). Promote the NAMED-not-promoted T0 candidates that the rest of Phase G cross-links AGAINST. Without G.1, G.2-G.4 cross-link to candidates that aren't yet binding. Promotes (subject to F.3 + Change Control decision per §19.6): T0-08 counter-Hims, T0-09 substrate-vs-care boundary, T0-11 4-layer care OS, T0-12 four coexistent abilities, T0-13 per-event ownership orthogonality, T0-14 anti-institutional-gravity, T0-15 universal projection doctrine, T0-16 anti-collapse trinity (brand-trust + consent specificity + model_version_of_record). Clusters: C1, C2, C3, C12, C15, C16 (the framing layer). **First subphase because everything downstream references these as binding.**
+- **G.1 — Thesis spine ADJUDICATION** (`user_knox_required` Tier 0 Change Control gate). **ADJUDICATES (does NOT pre-assume promotion of) the NAMED-not-promoted T0 candidates** that the rest of Phase G cross-links AGAINST. Per Knox F.3 review (`D0THES-DEC-018`) + Doctrine Manifest "Tier 0 Change Control (Binding)" rule ("Tier 0 must remain constitutional and short"), G.1 is a DECISION phase, not a stamping phase. Each candidate may be **promoted to Tier 0 / folded into another guardrail / demoted to architecture-canon body (Coherent Pattern + Doctrine Manifest body + DL canon) / kept named-but-not-promoted.** **Adjudication criterion (binding for G.1):** Tier 0 = imperative constitutional guardrail ("X must / must not Y"); descriptive frameworks, vocabularies, and structural models belong in architecture canon, NOT Tier 0. Candidates entering adjudication (full options + Opus recommendation in §19.6 + the F.3 Decision Packet §20): T0-08 counter-Hims, T0-09 substrate-vs-care boundary, T0-11 4-layer care OS, T0-12 four coexistent abilities, T0-13 per-event ownership orthogonality, T0-14 anti-institutional-gravity, T0-15 universal projection doctrine, T0-16 anti-collapse trinity. Whatever is promoted becomes the binding anchor G.2-G.4 cross-link against; whatever is demoted-to-body still lands as architecture canon (so cross-links have a home either way). Clusters: C1, C2, C3, C12, C15, C16 (the framing layer). **First subphase because everything downstream references the adjudicated outcome.**
 - **G.2 — Substrate refresh** (`architecture_steward_required` + DL promotion gates). Land the per-event-ownership + catalog + patient-source + consent-specificity + projection + model-version + lab-vocabulary cross-links into DL-14/15/16/17/18/19/22 + system map §1J/§1K/§1L/§1M/§1N/§1O/§1P/§1Q. INCLUDES the DL DRAFT promotion gates (§19.5). Clusters: C4, C5, C6, C7, C9, C11, C14. **Largest subphase (~200-280 hr).**
 - **G.3 — Coordination refresh**. Land master-CNS-scope + cross-operator-coordination cross-links into DL-14 + DL-10 + DL-21 + A1 permeability + §1Q/§1U/§1W. Clusters: C8, C10. Depends on G.1 (T0-11/15 framing) + G.2 (envelope + projection landed).
 - **G.4 — Architecture refresh**. Land operator-pluralism + brand-trust-transparency + federation cross-links into DL-21 + §1U + brand contract. Clusters: C13, C15. Depends on G.1 (T0-14/16) + G.3 (cross-operator coordination).
@@ -3952,20 +3952,26 @@ All 6 DL DRAFTs (DL-17 → DL-22) are audited + STABLE under v2 lens but remain 
 | DL-20 Care-Coordination | care episode + encounter container | **joint Knox+user signoff (Q1+Q6 partial resolution)** | Gates care-coordination build |
 | DL-22 Clinical-Media | unified patient_document | **joint Knox+user signoff (Q14 partial resolution)** + consent-specificity amendment (C7) | Gates clinical-media build |
 
-### §19.6 T0-XX Change Control gate sequence (G.1 — `user_knox_required`)
+### §19.6 T0-XX Change Control ADJUDICATION (G.1 — `user_knox_required`)
 
-Per Doctrine Manifest "Tier 0 Change Control (Binding)" rule, Tier 0 additions require explicit Nick + Knox approval + must stay constitutional and short. v2 NAMED 8 candidates NOT promoted. F.3 review gate decides which promote. Recommended G.1 promotion order (framing-first):
+**REVISED per Knox F.3 review (`D0THES-DEC-018`).** Per Doctrine Manifest "Tier 0 Change Control (Binding)" rule, Tier 0 additions require explicit Nick + Knox approval + **must stay constitutional and short**. v2 NAMED 8 candidates NOT promoted. **G.1 ADJUDICATES these — it does NOT pre-assume promotion.** Knox's correction (accepted): "Do not let 'T0 candidate' silently become 'T0 promotion.'" Each candidate has 4 possible F.3 outcomes: **promote to Tier 0 / fold into another guardrail / demote to architecture-canon body / keep named-but-not-promoted.**
 
-1. **T0-11 4-layer care OS** (§3.7) — frames the entire architecture (Surface / Coordination CNS / Boundary Policy / Substrate Physics); everything else layers on it.
-2. **T0-12 four coexistent operator-level abilities** (§3.8) — Power / Connect / Govern / Operate.
-3. **T0-13 per-event ownership orthogonality** (§7.5.1) — 7 dimensions; the most cross-linked substrate finding (C4).
-4. **T0-15 universal projection doctrine** (§7.7) — hard vs soft projection; second-most cross-linked (C9).
-5. **T0-16 anti-collapse trinity** (§6.10 brand-trust + §7.5.4 consent specificity + §9.1 model_version_of_record) — the fail-at-scale guardrails; BLOCKING for scaled cross-operator/AI build (dep #6).
-6. **T0-14 anti-institutional-gravity** (§6.8) — Specialty Line growth must not erode provider independence / portable artifacts / visible providers.
-7. **T0-09 substrate-vs-care boundary** (§12.8 v1) — AI-models-replaceable-substrate / AI-does-not-hold-care-relationships.
-8. **T0-08 counter-Hims visible-provider** (§6.6 v1) — OMNI creates safety so providers can be visible.
+**Adjudication criterion (binding; Opus refinement of Knox's 3-bucket split):** Tier 0 = **imperative constitutional guardrail** ("X must / must not Y"). Descriptive frameworks, vocabularies, and structural models belong in **architecture canon** (Coherent OMNI Architecture Pattern + Doctrine Manifest body + DL canon), NOT Tier 0. This is the discriminator; apply it per candidate.
 
-**Discipline check (per Doctrine Manifest)**: Tier 0 must stay constitutional + short. If 8 promotions would bloat Tier 0, demote lower-value candidates to Tier 1/2 or fold pairs (e.g., T0-13+T0-15 as a "substrate orthogonality + projection" pair; T0-16 trinity as one row). F.3 + Knox decide final Tier 0 count.
+**Opus recommendation by bucket (the DECISION is Nick + Knox's at F.3; this is recommendation + rationale only):**
+
+| Bucket | Candidate | Shape | Rationale |
+|---|---|---|---|
+| **Tier 0 candidate (imperative guardrail)** | T0-08 counter-Hims visible-provider (§6.6) | guardrail | "design must not hide providers to manufacture safety" |
+| | T0-09 substrate-vs-care boundary (§12.8) | guardrail | "AI does not hold care relationships / own cases / commit plans" |
+| | T0-13 per-event ownership orthogonality (§7.5.1) | guardrail | "7 ownership dimensions must not collapse into each other"; most cross-linked finding (C4) |
+| | T0-14 anti-institutional-gravity (§6.8) | guardrail | "Specialty Line growth must not erode provider independence / portable artifacts / visible providers" — **Opus PUSH-BACK on Knox: this is a 'must not erode' imperative, NOT a descriptive framework; it is Tier-0-shaped OR folds into the T0-08/09 anti-collapse family — not demote-to-body** |
+| | T0-15 universal projection doctrine (§7.7) | guardrail | "projection is never authority" (echoes DL-16 inv 19); second-most cross-linked (C9) |
+| | T0-16 anti-collapse trinity (§6.10 brand-trust + §7.5.4 consent specificity + §9.1 model_version_of_record) | 3 guardrails | fail-at-scale "must not" guardrails; BLOCKING for scaled cross-operator/AI build (dep #6); F.3 decides one-row-vs-three |
+| **Architecture-canon body (descriptive — NOT Tier 0)** | T0-11 4-layer care OS (§3.7) | descriptive structural model | Surface / Coordination CNS / Boundary Policy / Substrate Physics — a framework, not an imperative; lands in Coherent OMNI Architecture Pattern / Doctrine Manifest body. **Agree with Knox.** |
+| | T0-12 four coexistent abilities (§3.8) | descriptive capability taxonomy | Power / Connect / Govern / Operate — a taxonomy, not an imperative; lands in architecture-canon body. **Agree with Knox.** |
+
+**Net Opus recommendation**: ~6 Tier 0 candidates (T0-08/09/13/14/15/16) + 2 demote-to-body (T0-11/12). This is one more Tier 0 candidate than Knox's "strong five" (Opus adds T0-14 back as a guardrail, not a framework). **Folding options for F.3 to consider** (constitutional-and-short discipline): T0-14 may fold into T0-08+T0-09; T0-13+T0-15 may pair as "substrate orthogonality + projection"; T0-16 trinity may land as one row or three. **Final Tier 0 count is the F.3 (Nick + Knox) decision — Opus does NOT promote; Opus adjudication-prepares.** Whatever demotes-to-body still lands as architecture canon so G.2-G.4 cross-links have a home.
 
 ### §19.7 NEUTRAL build inventory (ZERO comparison — Phase G.5 target list)
 
@@ -4037,7 +4043,68 @@ F.2 is closed; **F.3 is the human review gate** before Phase G execution. F.3 de
 
 ---
 
-## §20 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
+## §20 F.3 DECISION PACKET — human review gate decision surface (Nick + Knox) (2026-05-28)
+
+> **F.3 is the HUMAN review gate before Phase G execution.** This packet structures the 6 decisions §19.9 names into decision-ready cards. **Opus does NOT decide here — Opus frames options + gives a recommendation per decision; Nick + Knox decide.** Incorporates Knox's F.3 review (`D0THES-DEC-018`): the load-bearing correction is **G.1 ADJUDICATES T0 candidates; it does not pre-assume promotion.** No Phase G amendment runs until F.3 ratifies.
+
+### §20.D1 — Ratify Phase G sequencing (G.1 → G.6)
+
+- **Decision**: accept / amend the G.1-G.6 order in §19.3.
+- **Options**: (a) ratify as-is; (b) ratify with reordering; (c) reject + re-sequence.
+- **Opus recommendation**: **ratify as-is.** The order is dependency-forced: G.1 spine adjudication first (downstream cross-links need adjudicated anchors), G.5 build reconciliation last (needs refreshed doctrine as comparison target per Nick's doctrine-first decision). Knox agrees with the broad order.
+- **Knox position (relayed)**: agrees G.1→G.6; only pushes on G.1 internals (see D2).
+- **Needed from Nick + Knox**: yes/amend.
+
+### §20.D2 — T0 candidate adjudication (the load-bearing decision)
+
+- **Decision**: for each of the 8 NAMED-not-promoted T0 candidates, choose: **promote to Tier 0 / fold into another guardrail / demote to architecture-canon body / keep named-but-not-promoted.**
+- **Binding constraint**: Doctrine Manifest "Tier 0 Change Control (Binding)" — Tier 0 must stay **constitutional and short**.
+- **Adjudication criterion** (§19.6): Tier 0 = imperative guardrail ("must / must not"); descriptive frameworks → architecture-canon body.
+- **Opus recommendation** (full table in §19.6): **6 Tier 0 candidates** (T0-08, 09, 13, 14, 15, 16) + **2 demote-to-body** (T0-11 4-layer care OS, T0-12 four abilities). Opus pushes back on Knox on **T0-14** (it's an imperative "must not erode" guardrail, not a framework → keep as Tier 0 candidate or fold into T0-08/09, NOT demote-to-body). Folding options offered (T0-14→T0-08/09; T0-13+T0-15 pair; T0-16 one-row-vs-three).
+- **Knox position (relayed)**: "do not let 'T0 candidate' silently become 'T0 promotion'"; strong-Tier-0 = T0-08/09/13/15/16; maybe-body = T0-11/12/14. **Delta vs Opus: T0-14 bucketing only.**
+- **Needed from Nick + Knox**: per-candidate disposition + final Tier 0 count. **This is the single decision that most shapes Phase G.**
+
+### §20.D3 — DL DRAFT promotion signoffs
+
+- **Decision**: authorize promotion of the 6 DL DRAFTs (DL-17 → DL-22) DRAFT → LOCKED, in G.2, per the §19.5 gates.
+- **Gated (require explicit closure BEFORE promotion)**: **DL-17** (D6 commerce review gate — sole D6 blocker); **DL-20** (Q1 encounter-container + Q6 Care-Episode-parent joint signoff); **DL-22** (Q14 unified-patient_document joint signoff).
+- **Steward-promotable (architecture_steward)**: DL-18 (promote EARLY — everything depends on RBAC atoms), DL-19, DL-21.
+- **Opus recommendation**: promote DL-18 first; DL-19/DL-21 next; **DL-17/20/22 ONLY after their named Q-gates are explicitly closed by joint Knox+user signoff.** Do NOT promote mechanically.
+- **Knox position (relayed)**: agrees DL promotion in G.2; "don't let Opus promote all mechanically; named gates must actually get signoff." **Aligned.**
+- **Needed from Nick + Knox**: signoff on DL-17 D6 gate + DL-20 Q1/Q6 + DL-22 Q14 (or defer them, promoting only DL-18/19/21 in first G.2 pass).
+
+### §20.D4 — Parking-branch reconciliation (D0THES-CNF-010 + D0THES-CNF-011)
+
+- **Decision**: how to resolve the 2 doc↔build drift findings — LI doctrine source (T0-01..T0-07 cite it; off-main) + `lib/scheduling/*` (Build Entry Gate WP-EXEC-002 claims it; off-main). Both live only on parking branch `d753a64`.
+- **Options per finding**: (a) recover from `d753a64` into main (re-audit LI doctrine under v2 first — it predates v2); (b) re-source / re-author (point T0-01..T0-07 at DL-14 + CNS ADR + §1Z which carry the content on main; rebuild scheduling scaffold fresh in G.5); (c) annotate (add "parked on d753a64" pointers; defer recovery).
+- **Opus recommendation**: **(b) for LI doctrine** (guardrail content is already preserved on main in DL-14/CNS ADR/§1Z — re-source the citations, retire the off-main pointer; avoids dragging a pre-v2 doc back); **(c)→(a) for lib/scheduling** (annotate now; recover/rebuild in G.5 when scheduling authority surface is actually built against refreshed doctrine). Neither blocks F.2.3 or F.3.
+- **Needed from Nick + Knox**: pick resolution path per finding (or defer to G.5/G.6).
+
+### §20.D5 — Phase H boundary confirmation
+
+- **Decision**: confirm that Day-1-product-scope findings (REV-032 OMNI Direct product surface, REV-034 Core Capability election, REV-041 active-coordinator UX, etc.) defer to **Phase H product translation** — OUT of Phase G doctrine scope.
+- **Opus recommendation**: **confirm.** Phase G refreshes doctrine; Phase H translates doctrine → product surface. Keeping product-scope decisions out of Phase G prevents doctrine bloat + premature product commitment.
+- **Needed from Nick + Knox**: confirm the Phase G / Phase H boundary.
+
+### §20.D6 — Open review queue + conflict ledger disposition
+
+- **Decision**: confirm the Phase G subphase routing of the 138 `D0THES-REV` rows + 2 `D0THES-CNF` rows per the §19.2 cluster map (C1-C18 + C-BUILD).
+- **Opus recommendation**: **confirm cluster→subphase routing**; rows close as their Phase G subphase lands the cross-link (per each row's `closure_condition`). No row blocks F.3.
+- **Needed from Nick + Knox**: confirm routing or flag any row for re-prioritization.
+
+### §20.D7 — Authorization to launch Phase G (gated on D1-D6)
+
+- **Decision**: after D1-D6 resolve, authorize Phase G execution starting with **G.1 spine adjudication**.
+- **Hard pre-condition surfaced**: **§1J.10 `loadPatientCaseSafetySnapshot` is the ABSOLUTE BLOCKING gate on first Rx pathway shipment** — independent of Phase G doctrine work; no Rx-pathway build proceeds until implemented + enforced (G.5 build axis).
+- **Needed from Nick + Knox**: explicit "launch Phase G" after D1-D6.
+
+### §20 closing discipline note
+
+Per Knox + operator context: **F.2.3 + this packet are `derived_nonbinding`.** Nothing in Phase G executes until F.3 ratifies. Opus prepares decision surfaces; Nick + Knox decide; Phase G lands binding amendments at canonical homes only after authorization. The anti-pattern this guards: "audit findings silently becoming doctrine changes without a human gate." G.1 adjudicates; it does not auto-stamp.
+
+---
+
+## §21 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
 
 Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contract Rule), this Reconciliation Map vN stream requires an Operating Contract at creation. This §17 IS that contract. Applies to v1 (this artifact) and inherits to v2, v3, ... unless explicitly amended.
 
