@@ -1745,3 +1745,23 @@ Per `D0THES-DEC-019`. The F.3 human review gate is COMPLETE. Nick + Knox worked 
 **Lifecycle state**: `F.2 closed; Phase G ready pending F.3 review gate` → **`F.3 RATIFIED; G.1 authorized pending explicit Nick "begin G.1" go; Phase G NOT launched`**.
 
 **Next action**: Opus STOPS here and awaits Nick's explicit "begin G.1." No Phase G doctrine amendment runs until that word. When Nick says go: launch **G.1 spine adjudication ONLY** (adjudicate T0-08/09/13/15/16 to Tier 0 per criterion; decide T0-14 standalone-vs-fold by drafting it; land T0-11/12 in architecture canon body; do NOT proceed to G.2 without checkpoint). Hard pre-condition binding throughout Phase G build axis: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
+
+---
+
+## Closure Addendum Extension #27 (2026-05-28) — PHASE G.1 EXECUTED (thesis spine adjudication); STOPPED for checkpoint before G.2
+
+Per `D0THES-DEC-020`. Nick said "begin g.1." Executed G.1 (FIRST Phase G execution subphase) per F.3 ratified decisions. **G.1 ONLY — stopped for checkpoint before G.2 per D7.**
+
+**Doctrine edits landed (binding, under F.3 Change Control authorization `D0THES-DEC-019`):**
+- **6 Tier 0 guardrails PROMOTED** into Doctrine Manifest (`00_doctrine_manifest.md`) after T0-07, each per the Tier 0 entry schema: **T0-08** visible-provider/counter-Hims; **T0-09** substrate-vs-care boundary (AI doesn't own care; strengthens T0-04); **T0-13** per-event ownership orthogonality (7 dims must not collapse); **T0-14** anti-institutional-gravity/substrate-neutrality; **T0-15** universal projection (projection never authority; strengthens DL-16 inv 19); **T0-16** anti-collapse trinity (brand-trust transparency + consent specificity + model_version_of_record; one row, 3 sub-clauses; BLOCKING at scale).
+- **T0-14 conciseness draft-test → STANDALONE** (concise + distinct anti-self-dealing concern; **fold-into-T0-09 fallback documented** if Tier 0 judged too long).
+- **T0-16 kept ONE row** (3 sub-clauses) to hold constitutional-and-short.
+- **T0-11 (4-layer care OS) + T0-12 (four abilities) DEMOTED to architecture canon** — landed in Coherent OMNI Architecture Pattern §1.5 (§1.5.1 + §1.5.2) as descriptive frameworks (NOT Tier 0).
+- Enforcement map rows + Tier 0 Change Control log added.
+- **Tier 0 count: 7 → 13.**
+
+**What G.1 did NOT do**: detailed substrate for each promoted guardrail does NOT land in G.1 — it lands at canonical homes (DL-14/16/18/19/21/22 + system map §1G/§1J/§1K.5.A/§1N/§1H/§1V) in Phase G.2-G.4 per Reconciliation Map §19.2 clusters. G.1 landed ONLY the constitutional anchors. No build touched. No DL promoted (that's G.2).
+
+**CHECKPOINT FLAG for Nick/Knox**: Tier 0 is now **13 entries**. If judged too long for "constitutional and short," T0-14 has a documented fold-into-T0-09 fallback (would bring it to 12). Everything else holds.
+
+**Next action**: Opus STOPS. Checkpoint with Nick + Knox before G.2. G.2 (substrate refresh — the largest subphase; ~200-280 hr; includes the 6 DL promotion gates) requires explicit checkpoint approval. Do NOT auto-continue to G.2. Hard pre-condition still binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.

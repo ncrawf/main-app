@@ -118,6 +118,74 @@ Each Tier 0 entry must include:
 - **Last validated:** 2026-05-19
 - **Supersedes/conflicts:** conflicts with opaque automation
 
+> **T0-08 → T0-16 promoted via Phase G.1 (2026-05-28) under F.3 Change Control authorization `D0THES-DEC-019` (Nick + Knox ratified).** These are the OMNI Thesis v2 constitutional guardrails adjudicated through F.3 per the imperative-guardrail criterion (Tier 0 = "must / must not"; descriptive frameworks → architecture canon, see Coherent OMNI Architecture Pattern §1.5 for T0-11 + T0-12 which were DEMOTED, not promoted). Detailed substrate lands at canonical homes in Phase G.2-G.4; these Tier 0 entries are the constitutional anchors those refreshes cross-link against. Numbering note: T0-10, T0-11, T0-12 are intentionally absent from Tier 0 (T0-11 + T0-12 demoted to architecture canon; T0-10 unused).
+
+#### T0-08 — Visible-provider doctrine (counter-Hims)
+- **Guardrail:** OMNI does not hide providers to manufacture safety — it creates safety so providers can be visible. No deployment defaults to faceless / commodity-clinician posture as a safety crutch.
+- **Source docs:** `omni_thesis_v2_2026-05-26.md` `§6.6` (origin); canonical home (lands G.2): system map `§1G` + visible-provider deployment doctrine.
+- **Status:** locked (F.3-promoted 2026-05-28 per `D0THES-DEC-019`)
+- **Applies to:** provider surfaces, messaging, deployment posture, marketing
+- **Violation class:** `CARE-MODEL_VIOLATION`
+- **Enforced at:** opening, domain template, closure, final validation
+- **Owner:** architecture steward
+- **Last validated:** 2026-05-28
+- **Supersedes/conflicts:** rejects faceless-provider-as-safety-mechanism (Hims-style anonymization-for-scale)
+
+#### T0-09 — Substrate-vs-care boundary
+- **Guardrail:** AI models are replaceable substrate participants; AI outputs are provenance-bearing artifacts/candidates. AI does NOT hold care relationships, own cases, issue consult opinions as a clinician, or commit plans. Care authority is HUMAN.
+- **Source docs:** `omni_thesis_v2_2026-05-26.md` `§12.8` (origin; v1 `§12.8`); canonical home (lands G.2): DL-14 + system map `§1K.5.A` + `§1N`.
+- **Status:** locked (F.3-promoted 2026-05-28 per `D0THES-DEC-019`)
+- **Applies to:** all AI-touched designs, clinical surfaces, CNS
+- **Violation class:** `SUBSTRATE-CARE-BOUNDARY_VIOLATION`
+- **Enforced at:** opening, domain template, closure, final validation
+- **Owner:** architecture steward
+- **Last validated:** 2026-05-28
+- **Supersedes/conflicts:** strengthens T0-04 (AI authority boundary); conflicts with AI-as-clinician / model-choice-medicine framings
+
+#### T0-13 — Per-event ownership orthogonality
+- **Guardrail:** every operational event carries 7 orthogonal ownership dimensions (surface / channel / operator / clinical / commerce / custody / coordination); these dimensions MUST NOT collapse into each other. Ownership is per-event + per-dimension, never globally assumed from one dimension.
+- **Source docs:** `omni_thesis_v2_2026-05-26.md` `§7.5.1` (origin); canonical home (lands G.2): DL-16 inv 2 envelope (+7 ownership-axis fields) + DL-18 inv 5 authorization.
+- **Status:** locked (F.3-promoted 2026-05-28 per `D0THES-DEC-019`)
+- **Applies to:** all event-producing/consuming domains, CNS, RBAC, federation
+- **Violation class:** `OWNERSHIP-ORTHOGONALITY_VIOLATION`
+- **Enforced at:** opening, domain template, closure, final validation
+- **Owner:** architecture steward
+- **Last validated:** 2026-05-28
+- **Supersedes/conflicts:** conflicts with single-dimension ownership assumption (e.g., "operator owns everything about its events")
+
+#### T0-14 — Anti-institutional-gravity (substrate neutrality)
+- **Guardrail:** OMNI operating its own care domains (Core Capabilities / Specialty Lines) MUST NOT erode the substrate guarantees it makes to every operator — provider independence, portable artifacts, visible providers, brand autonomy, cross-operator coexistence. OMNI's institutional self-interest must not override substrate neutrality.
+- **Source docs:** `omni_thesis_v2_2026-05-26.md` `§6.8` (origin); canonical home (lands G.2/G.4): DL-21 + DL-18 + substrate enforcement (RLS + capability + audit).
+- **Status:** locked (F.3-promoted 2026-05-28 per `D0THES-DEC-019`; **standalone per G.1 conciseness draft-test** — distinct anti-self-dealing concern, not covered by T0-08 visibility or T0-09 AI-boundary. **Documented fold-fallback**: if Tier 0 length is flagged, fold into T0-09 broadened to "substrate-vs-care + substrate-neutrality." Flagged for Nick/Knox checkpoint.)
+- **Applies to:** OMNI-operated care domains, federation, multi-brand, commerce
+- **Violation class:** `SUBSTRATE-NEUTRALITY_VIOLATION`
+- **Enforced at:** opening, domain template, closure, final validation
+- **Owner:** architecture steward
+- **Last validated:** 2026-05-28
+- **Supersedes/conflicts:** conflicts with OMNI-as-operator self-dealing / institutional-capture of the substrate
+
+#### T0-15 — Universal projection doctrine
+- **Guardrail:** one substrate object, many surface projections. A projection is NEVER authority; canonical state is the single source of truth. Hard projections (durable, composed) vs soft projections (computed, ephemeral) are distinguished; neither becomes a second source of truth.
+- **Source docs:** `omni_thesis_v2_2026-05-26.md` `§7.7` (origin); canonical home (lands G.2): DL-14 inv 19 + DL-16 inv 19 + system map `§1H` read models + `§1V` display-projection.
+- **Status:** locked (F.3-promoted 2026-05-28 per `D0THES-DEC-019`)
+- **Applies to:** all read-side surfaces, dashboards, search, patient/provider/brand projections
+- **Violation class:** `PROJECTION-AUTHORITY_VIOLATION`
+- **Enforced at:** opening, domain template, closure, final validation
+- **Owner:** architecture steward
+- **Last validated:** 2026-05-28
+- **Supersedes/conflicts:** strengthens DL-16 inv 19 (projection-never-authority); conflicts with projection-as-source-of-truth for clinical-decision surfaces
+
+#### T0-16 — Anti-collapse trinity (fail-at-scale guardrails)
+- **Guardrail:** three fail-at-scale guardrails that MUST NOT collapse under growth — **(a) brand-trust transparency**: OMNI's competitive/operating posture toward Brand operators must be substrate-auditable, never marketing-mediated-opaque; **(b) consent specificity**: cross-operator visibility/data grants are per-operator + per-scope + per-purpose + per-duration, never aggregated / auto-renewed / coarse-grained silently; **(c) model_version_of_record**: every AI-influenced clinical artifact carries reconstructable model lineage (capability + model id + version + capability envelope), never null on AI-as-author actions.
+- **Source docs:** `omni_thesis_v2_2026-05-26.md` `§6.10` (a) + `§7.5.4` (b) + `§9.1` (c) (origin); canonical homes (land G.2): DL-19 doctrine floor + DL-22 consent + DL-14 inv 10 + DL-18 inv 9 + `docs/ai-governance-policy.md`.
+- **Status:** locked (F.3-promoted 2026-05-28 per `D0THES-DEC-019`; **one row with 3 named sub-clauses** per F.3 G.1 decision — kept as a single trinity entry to preserve constitutional-and-short discipline)
+- **Applies to:** cross-operator, multi-brand, AI-clinical, consent, federation surfaces
+- **Violation class:** `ANTI-COLLAPSE_VIOLATION`
+- **Enforced at:** opening, domain template, closure, final validation; **BLOCKING for scaled cross-operator / multi-brand / AI-clinical build** (must land before scale activates)
+- **Owner:** architecture steward
+- **Last validated:** 2026-05-28
+- **Supersedes/conflicts:** conflicts with opaque-competitive-posture / bundled-consent / null-model-lineage at scale
+
 ### Tier 0 read targets (section-specific, binding)
 
 - `system_map_three_layers_60706286.plan.md` -> `## Pointer Anchor — Longitudinal Intelligence Doctrine` + immediate carry-forward bullets + CNS parent anchor section.
@@ -132,6 +200,12 @@ Each Tier 0 entry must include:
 - Domain/trigger-specific additions belong in Tier 1/2.
 - If Tier 0 grows too large, demote lower-value entries to Tier 2/3.
 
+**Change Control log — Phase G.1 thesis spine adjudication (2026-05-28, `D0THES-DEC-019` + `D0THES-DEC-020`):** F.3 review gate (Nick + Knox) authorized promotion of OMNI Thesis v2 constitutional guardrails. Adjudication criterion: Tier 0 = imperative guardrail ("must / must not"); descriptive frameworks → architecture canon.
+- **PROMOTED to Tier 0 (6):** T0-08 (visible-provider), T0-09 (substrate-vs-care boundary), T0-13 (per-event ownership orthogonality), T0-14 (anti-institutional-gravity — standalone per G.1 conciseness test, fold-fallback documented), T0-15 (universal projection), T0-16 (anti-collapse trinity — one row, 3 sub-clauses).
+- **DEMOTED to architecture canon (NOT Tier 0):** T0-11 (4-layer care OS) + T0-12 (four coexistent abilities) → Coherent OMNI Architecture Pattern §1.5 (descriptive frameworks, not imperatives).
+- **Tier 0 count: 7 → 13.** Constitutional-and-short discipline check flagged for Nick/Knox checkpoint: if 13 is judged too long, T0-14 folds into T0-09 (documented fallback). T0-16 already compressed to one row (vs three) to hold the line.
+- Detailed substrate for each promoted guardrail lands at canonical homes in Phase G.2-G.4 (per Reconciliation Map §19.2 clusters C1/C3/C4/C7/C9/C11/C12/C15/C16).
+
 ---
 
 ## Guardrail -> Gate Enforcement Map (Binding)
@@ -145,6 +219,12 @@ Each Tier 0 entry must include:
 | T0-05 | required if identity/visibility trigger | required if trigger | required if trigger | required | yes |
 | T0-06 | required if messaging/lifecycle trigger | required if trigger | required if trigger | required | yes |
 | T0-07 | required | required | required | required | yes |
+| T0-08 | required if provider/deployment trigger | required if trigger | required if trigger | required | yes (provider/deployment) |
+| T0-09 | required if AI/clinical trigger | required if trigger | required if trigger | required | yes (AI/clinical) |
+| T0-13 | required | required | required | required | yes (events/CNS/RBAC) |
+| T0-14 | required if OMNI-operated-domain / federation / multi-brand trigger | required if trigger | required if trigger | required | yes (operator-neutrality) |
+| T0-15 | required if projection/read-surface trigger | required if trigger | required if trigger | required | yes (projections) |
+| T0-16 | required if cross-operator / multi-brand / AI-clinical / consent trigger | required if trigger | required if trigger | required | yes (BLOCKING at scale) |
 
 ---
 

@@ -57,6 +57,36 @@ Industry validation: FHIR (Appointment + Encounter + Procedure + DiagnosticRepor
 
 ---
 
+## §1.5 v2 vertical-layering architecture canon (descriptive frameworks — DEMOTED from Tier 0 candidacy per F.3 D2 / Phase G.1)
+
+*Added Phase G.1 (2026-05-28) per F.3 review gate `D0THES-DEC-019` + `D0THES-DEC-020`. These two OMNI Thesis v2 frameworks were adjudicated as **descriptive architecture canon, NOT Tier 0 constitutional guardrails** (Tier 0 = imperative "must/must not"; these are structural/taxonomic frameworks). They live here as architecture-pattern canon. Detailed cross-link into system map Platform operational model lands in Phase G.2 (Reconciliation Map cluster C1).*
+
+### §1.5.1 Four-layer care OS framework (T0-11 — descriptive)
+
+OMNI's architecture reads as four vertical layers (top = closest to humans; bottom = physics):
+
+1. **Surface** — what patients / providers / staff / brand operators actually see + touch (apps, portals, inboxes, dashboards). Projections per T0-15.
+2. **Coordination CNS** — the event-driven care-coordination brain (DL-14): reads the unified event graph, decides multi-actor multi-action, emits orchestration_actions. Rails/surfaces are outputs.
+3. **Boundary Policy** — authority / capability / consent / disclosure / jurisdiction / federation permeability gates (DL-10 + DL-18 + DL-22 + §1J + §1Q.17). What is allowed, by whom, under what consent.
+4. **Substrate Physics** — the canonical primitives + invariants every domain rests on (system primitives 7-invariant framework + DL-1..DL-9 + DL-16 envelope). The Coherent Pattern §1 three-layer pattern is substrate-internal structure WITHIN this layer (per Reconciliation Map §9 finding D0THES-REV-045 — compositional, not contradictory).
+
+This is a *framing* of how the existing substrate + CNS + policy + surfaces relate vertically; it introduces no new primitive. Origin: `omni_thesis_v2_2026-05-26.md` §3.7.
+
+### §1.5.2 Four coexistent operator-level abilities (T0-12 — descriptive)
+
+At the operator level, OMNI simultaneously supports four abilities (not modes — coexistent):
+
+1. **Power brands** — be the substrate under Powered-by-OMNI brands (operator runs care; OMNI is the engine).
+2. **Connect brands** — coordinate across operators (cross-operator coherence + elective active coordination per DL-10 + A1 permeability).
+3. **Govern the network** — operate the network governance plane (aggregate-by-default; access purposes; per v1 §7.6 Network Governance Plane).
+4. **Operate care domains** — run OMNI's own Core Capabilities / Specialty Lines (bounded by T0-14 anti-institutional-gravity guardrail).
+
+A capability taxonomy, not an imperative. Origin: `omni_thesis_v2_2026-05-26.md` §3.8.
+
+**Why these are canon-not-Tier-0**: Tier 0 holds imperative guardrails ("must / must not"). §1.5.1 + §1.5.2 are descriptive structural/capability frameworks — they describe shape, not prohibition. The *imperatives* that protect them (T0-14 anti-institutional-gravity for ability 4; T0-15 projection for the Surface layer; T0-09 substrate-vs-care for the CNS/Boundary layers) ARE in Tier 0.
+
+---
+
 ## §2 Cross-cutting disciplines (every pillar honors)
 
 1. **No vendor names in substrate enums.** Tenant labels, free-form STRING. (Per system_map Cross-DL warning, Phase 1 hardening 2026-05-17.)
