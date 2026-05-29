@@ -1822,3 +1822,19 @@ Per `D0THES-DEC-023`. Nick: "Continue G.2.c, yes okay to keep the BEFORE/AFTER t
 **What G.2.c did NOT do**: full C13 (§1U org_scope neutrality + §1Q.21 marketing-data-use neutrality + brand-operator contract) deferred to G.4 architecture refresh (this batch = DL-21 federation half / C13 prep only); DL-17/20/22 NOT promoted (gated, G.2.f); no build touched.
 
 **Next action**: Opus STOPS. Checkpoint before G.2.d. Same batch-checkpoint pattern + mechanic (b) + BEFORE/AFTER opening artifact. Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
+
+## Closure Addendum Extension #31 (2026-05-28) — PHASE G.2.d EXECUTED (cluster C11 model_version_of_record adoption-time floor; FIRST G.2 batch into an audited operational canonical home); STOPPED before G.2.e
+
+Per `D0THES-DEC-024`. Nick: "proceed… same level of rigor… finish the next." This batch deliberately landed into **DL-14 inv 10 — locked inline doctrine in the system map** (an audited operational canonical home), directly addressing Nick's standing concern that the long-pole audited sections get materially refreshed, not just the new DRAFT-home DLs.
+
+**Honesty check FIRST (the rigorous outcome, not padding):** C11's EMISSION-side model lineage is **ALREADY ENFORCED** by existing substrate — §1N inv 10 pins `ai_model_version`+`ai_prompt_id`+`classifier_version`+`context_snapshot_hash` on every AI invocation; §1P.19 pins lineage on AI-extracted atoms + corrections; §1P prompt/model-versioning binding gives replayability. That is the F.2 Q7 pattern (substrate richer than thesis). I did NOT re-litigate or pad it with redundant text — doing so would be anti-rigor.
+
+**Genuine gap found + landed (substantive — changes what the substrate ENFORCES):**
+- **DL-14 inv 10 extended with the `model_version_of_record` adoption-time floor** (v2 §9.1; T0-16(c)): when a human COMMITS to AI-originated content (provider confirming an `ai_suggested` assertion via `recordClinicalAssertion` per §1K.5.A, status unconfirmed→confirmed; or accept/reinterpret of an AI artifact), the commit `audit_events` row MUST carry the full tuple — `ai_capability` + `ai_model_id` + `ai_model_version` + `capability_envelope_id` + `model_policy_version` + `ai_run_id` + `model_output_artifact_id`. **Substrate REJECTS an AI-originated adoption/confirmation lacking `model_version_of_record`.** This is the substrate-event half of T0-16(c); the settings-plane half (settings cannot waive it) landed DL-19 inv 16 (G.2.b).
+- **Closed REV-043** (model_version_of_record substrate schema — landed). **REV-044 stays open** (cross-operator transmittal across Partner Operators = G.3 coordination, cluster C10 — honestly NOT landed by G.2.d).
+
+**Substance check (Nick's weak-pass warning)**: adds a new required tuple + a new categorical rejection rule at the adoption boundary. New enforceable behavior, not a pointer.
+
+**What G.2.d did NOT do**: did NOT manufacture redundant edits for the already-enforced emission-side lineage; did NOT promote a DL (DL-14 already locked inline); the §1N/§1L insight-versioning sub-findings (REV-082/093/100/110/114/132/134) are confirmed already-substantially-covered (Q7) with remaining specifics landing in the §1N/§1L operational refresh later in G.2; no build touched.
+
+**Next action**: Opus STOPS. Checkpoint before G.2.e. Same batch-checkpoint pattern + BEFORE/AFTER opening artifact + honesty-check-first discipline. Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
