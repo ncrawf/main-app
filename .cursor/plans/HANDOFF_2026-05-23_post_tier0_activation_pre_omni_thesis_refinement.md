@@ -1784,3 +1784,22 @@ Per `D0THES-DEC-021`. Nick said "Tier 0 looks right, continue." Tier 0 confirmed
 **What G.2.a did NOT do**: no other DL promoted; no other cluster landed (C5/C6/C7/C9/C11/C14 = later G.2 batches); per-event-ownership cross-links into operational sections (§1L/§1M/§1N/§1O/§1P/§1K/§1Q/§1U — REV-080/089/102/119/135) land in later batches; no build touched (build recon = G.5).
 
 **Next action**: Opus STOPS. Checkpoint with Nick before G.2.b. **G.2 remaining batches**: G.2.b (DL-19 + C5 catalog + C7 consent-specificity) → G.2.c (DL-21 + C13 prep) → G.2.d (C9 projection + C11 model-version + C14 lab-vocabulary) → G.2.e (C6 patient-source) → G.2.f (gated DL-17/20/22 — only after Q-gates closed). Each batch checkpoints. Confirm promotion mechanic (option a full-inline vs option b register-lock) at this checkpoint.
+
+---
+
+## Closure Addendum Extension #29 (2026-05-28) — PHASE G.2.b EXECUTED (DL-19 promotion + T0-16 anti-collapse floors + universal catalog); promotion mechanic (b) confirmed; STOPPED before G.2.c
+
+Per `D0THES-DEC-022`. Knox + Nick confirmed promotion mechanic (b) (locked DL file + locked register row + cross-links; full-inline relocation deferred to substrate-slice). Nick added a binding warning: G.2 must NOT be a weak/cosmetic pass — every cross-link must change what the substrate ENFORCES. G.2.b held to that bar.
+
+**Doctrine edits landed (binding, substantive — not annotation):**
+- **DL-19 inv 16 doctrine floor extended 6 → 9** with the 3 T0-16 anti-collapse trinity floors: settings substrate STRUCTURALLY REFUSES to write a value that would (a) make brand-trust transparency opaque, (b) aggregate/auto-renew/coarse-grain/silently-extend cross-operator consent (consent-specificity downgrade REJECTED at write time), or (c) null/waive model_version_of_record on AI-as-author clinical artifacts. T0-16 trinity now un-disableable via the configuration plane.
+- **DL-19 inv 31 added — universal catalog substrate** (C5 DL-19 half; T0-15 binding): one `catalog_item` registry-governed substrate (kind + category_tags + domain_associations + protocol_associations + projection_rules + commerce/fulfillment/regulatory); lab panels + products + services + procedures + supplements + memberships are catalog_item projections, NOT per-domain catalog tables; per-domain catalog tables REJECTED.
+- **DL-19 PROMOTED DRAFT → LOCKED** (steward-promotable; mechanic b).
+- **System map DL-17→DL-22 register**: DL-19 marked ✅ LOCKED (~31 invariants).
+- Closed REV-115 (T0-16 floors); REV-037 catalog DL-19-half landed (DL-17 commerce-half deferred to G.2.f).
+
+**Substance check (Nick's weak-pass warning)**: both edits change substrate enforcement (settings reject anti-collapse downgrades at write time; catalog rejects per-domain fragmentation). Neither is a "see v2 §X" pointer.
+
+**What G.2.b did NOT do**: DL-17/20/22 NOT promoted (gated, G.2.f); DL-22 consent_artifact per-data-class half of C7 deferred (Q14-gated); §1L/§1Q catalog halves (C14) deferred; no build touched.
+
+**Next action**: Opus STOPS. Checkpoint before G.2.c (DL-21 promotion + C13 operator-pluralism prep). Same batch-checkpoint pattern + mechanic (b). Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.

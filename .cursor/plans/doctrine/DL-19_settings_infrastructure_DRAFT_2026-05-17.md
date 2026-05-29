@@ -1,7 +1,7 @@
 # DL-19 — Settings-as-Operating-System Substrate (DRAFT)
 
 **Date:** 2026-05-17
-**Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice.
+**Status:** **LOCKED (promoted Phase G.2.b 2026-05-28 per `D0THES-DEC-022`; F.3 Change Control authorization `D0THES-DEC-019` D3 — steward-promotable DL).** Was DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. Joint signoff satisfied via F.3 review gate. **Promotion mechanic (b)** (Knox + Nick confirmed): locked DL file + locked register row + v2 cross-link amendments (inv 16 T0-16 floors + inv 31 universal catalog); full-inline relocation into system map deferred to substrate-slice. This DRAFT file remains the detailed canonical home until substrate-slice relocates inline. Still NOT code. NOT migrations. NOT substrate slice.
 
 **User direction anchor (2026-05-17, verbatim):** *"seettggins sub pages NEED TO BE CONISDERED IN THE BROAD CONTEXT OF OMNI MAN!!!! like. half those fucking setting s are for OMNI at large, not for the fucking scheduling pillar itself. LIKE YES. we need all thos e setting smapped out and usable on day 0."* — Settings-Infrastructure DL is OMNI-wide Day 0, NOT a scheduling sub-feature.
 
@@ -99,8 +99,11 @@ These admit "self-bookable with no structured details" AND "staff-only but with 
     - Cannot override per DL-16 inv 7 payload minimization for PHI events
     - Cannot bypass jurisdiction gating (per DL-15 amendment + Build Contract §3.7 patch 1)
     - Cannot disable break-glass attestation (per DL-18 inv 12)
+    - **(Phase G.2.b, T0-16 anti-collapse trinity binding) Cannot disable or coarsen brand-trust transparency** (per Tier 0 T0-16(a) + v2 §6.10): no setting may make OMNI's competitive/operating posture toward Brand operators opaque or marketing-mediated; the substrate-auditable transparency surface (Brand operator query API + posture audit trail) is floor-protected — a tenant/admin cannot turn it off.
+    - **(Phase G.2.b, T0-16 anti-collapse trinity binding) Cannot disable or coarsen consent specificity** (per Tier 0 T0-16(b) + v2 §7.5.4): cross-operator visibility/data grants MUST remain per-operator + per-scope + per-purpose + per-duration. No setting may aggregate consent across operators, auto-renew without re-grant, coarse-grain a scoped grant into a blanket grant, or silently extend duration. Consent-specificity downgrade is REJECTED at settings write time.
+    - **(Phase G.2.b, T0-16 anti-collapse trinity binding) Cannot null or disable model_version_of_record** (per Tier 0 T0-16(c) + v2 §9.1): no setting may permit an AI-influenced clinical artifact to be written without reconstructable model lineage (ai_capability + ai_model_id + ai_model_version + capability_envelope). model_version_of_record is floor-required on AI-as-author actions; a setting cannot waive it.
     
-    Doctrine floor is enforced at substrate write time via JSON Schema validation (per inv 2 registry `value_schema`) + cross-validation rules. REJECTED: tenant setting any value that violates doctrine.
+    Doctrine floor is enforced at substrate write time via JSON Schema validation (per inv 2 registry `value_schema`) + cross-validation rules. REJECTED: tenant setting any value that violates doctrine. **The three T0-16 floors above make the anti-collapse trinity STRUCTURALLY un-disableable via the configuration plane — they are not policy requests; the settings substrate refuses to write a value that would collapse them.** Cross-link Tier 0 T0-16 + v2 §6.10 + §7.5.4 + §9.1 + D0THES-REV-115.
 
 ### Specific high-value settings substrates
 
@@ -361,6 +364,10 @@ Cross-link: Day 0 Scheduling Rule Matrix Domain 2 BC-09 / BC-09b / BC-09c implem
 
 28. **Settings change preview / diff (binding for high-risk changes).** Per DL-16 inv 30 decision record. High-risk settings changes (Tier 3 / Tier 4 per inv 15) MUST show preview: before-state → after-state diff + downstream impact summary (e.g., "This change will affect 142 pending appointments / 38 active contracts / cancel 17 in-flight outbound messages"). Confirmation requires reason_code + Tier 3/4 attestation per inv 15.
 
+### Phase G.2.b cross-link amendment (universal catalog substrate — T0-15 projection binding)
+
+31. **Universal catalog substrate (v2 §7.5.2 + Tier 0 T0-15 universal projection binding; Phase G.2.b amendment 2026-05-28, `D0THES-DEC-022`).** Catalog is ONE registry-governed universal substrate, NOT per-domain catalog tables. **Substrate**: `catalog_item` carries `id` + `tenant_id` (composite per DL-21) + `catalog_item_kind` (registry-extensible per inv 2: `service` / `lab_panel` / `retail_product` / `supplement` / `procedure` / `medication` / `membership` / `package` / `gift_card` / ...) + `category_tags[]` (the tenant-configured taxonomy, registry-governed per inv 2 + inv 9) + `domain_associations[]` (which operational siblings consume this item — scheduling / commerce / labs / clinical / fulfillment) + `protocol_associations[]` (care-program / pathway links) + `projection_rules` (JSONB — how the item projects to each consuming surface per T0-15 universal projection: patient shelf / provider menu / commerce cart / lab order form) + `commerce_model` + `fulfillment_model` + `regulatory_class`. **Binding rule**: a lab panel (§1L `panel_type`), a retail product (DL-17 catalog), a service (DL-15), a procedure, a supplement, a membership are ALL `catalog_item` rows with different `catalog_item_kind` + projections — they are NOT separate per-domain catalog tables. **REJECTED**: per-domain catalog tables (`lab_catalog` + `product_catalog` + `service_catalog` as separate substrates) — this defeats the universal-substrate purpose, fragments category vocabulary, and forces N-way reconciliation. The patient sees ONE shelf (per T0-15 projection); the substrate has ONE catalog. Settings registry (inv 2) governs `catalog_item` schema + `category_tags` vocabulary + `projection_rules`. The DL-17 commerce-catalog half of this cross-link (catalog_item ↔ pricing_option ↔ entitlement composition) lands when DL-17 promotes (gated; Phase G.2.f); the §1L lab-panel-as-catalog-item half lands in cluster C14. Cross-link v2 §7.5.2 + §7.7 + Tier 0 T0-15 + DL-17 catalog + §1L panel_type + §1Q template registry + D0THES-REV-037 + D0THES-REV-079 + D0THES-REV-108.
+
 ---
 
 ## Open sub-questions (require Knox + user signoff before lock)
@@ -398,6 +405,8 @@ Cross-link: Day 0 Scheduling Rule Matrix Domain 2 BC-09 / BC-09b / BC-09c implem
 
 ## Promotion gate
 
-Per Build Contract §6.4 step 4 + §6.5 step 5: DL-19 (DRAFT) → joint signoff → promotion to LOCKED inline in system_map → substrate slice scoping (setting / setting_registry / required_field_policy / patient_metadata_axis* / tenant_auto_fill_default / tenant_vocabulary_override / consumer_view_setting / encounter_profile_policy / jurisdiction_policy / ai_autonomy_mode / federation_permeability_policy DDL + admin UI components + change event registry). Substrate slice MUST verify existing §1F implementation is current per §10.5 stale-existing-OMNI warning.
+**PROMOTED Phase G.2.b (2026-05-28) per `D0THES-DEC-022`** (promotion mechanic (b) confirmed by Knox + Nick: locked DL file + locked register row + cross-links; full-inline relocation deferred to substrate-slice). Joint signoff satisfied via F.3 review gate (`D0THES-DEC-019` D3: DL-19 steward-promotable). DL-19 is now LOCKED doctrine + carries the T0-16 anti-collapse trinity doctrine floors (inv 16 extended) + the universal catalog substrate (inv 31, T0-15 binding). **NEXT gate (unchanged): substrate slice scoping** (setting / setting_registry / required_field_policy / patient_metadata_axis* / catalog_item / tenant_auto_fill_default / tenant_vocabulary_override / consumer_view_setting / service_policy / jurisdiction_policy / ai_autonomy_mode / federation_permeability_policy DDL + admin UI + change event registry) — Phase G.5; substrate slice MUST verify existing §1F implementation is current per §10.5.
 
-NOT code. NOT migrations. NOT substrate slice. NOT §10.5 warning removal.
+Original gate (historical): DL-19 (DRAFT) → joint signoff → promotion to LOCKED inline in system_map → substrate slice scoping.
+
+Still NOT code. NOT migrations. NOT substrate slice. NOT §10.5 warning removal.
