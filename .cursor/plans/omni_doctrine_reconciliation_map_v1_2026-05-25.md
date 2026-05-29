@@ -62,7 +62,7 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.3 MASTER CLOSURE SYNTHESIS COMPLETE (§19); F.2 CLOSED (59 artifacts audited; entire system map + all binding doctrine); Phase G work plan + sequencing + neutral build inventory landed; Phase G READY pending F.3 review gate
+## §0 Status Posture — F.3 REVIEW GATE RATIFIED (§20 F.3 OUTCOME; Nick + Knox; `D0THES-DEC-019`); F.2 CLOSED + F.2.3 master closure complete (§19); Phase G work plan + G.1-G.6 sequencing + T0 adjudication + DL gates + neutral build inventory landed; **G.1 AUTHORIZED pending explicit Nick "begin G.1" go — Phase G NOT launched (Opus does NOT auto-start)**
 
 **F.2.2.E Batch complete 2026-05-28** per `D0THES-DEC-013` per Operating Contract §17 append rules. Fourth and final F.2.2 batch under §11.7 content-not-title methodology. 3 audit picks: §1Q Rules + Templates engine (2311 lines; heaviest single artifact in F.2.2 corpus; foundational cross-cutting; DL-14 subordinated subsystem) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G); 0 Tier 3 materially-misleading findings. All 3 artifacts STABLE under v2 lens (all K1). **F.2.2 SCOPE CLOSED**: 31 artifacts audited across F.2 corpus; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing.
 
@@ -4101,6 +4101,24 @@ F.2 is closed; **F.3 is the human review gate** before Phase G execution. F.3 de
 ### §20 closing discipline note
 
 Per Knox + operator context: **F.2.3 + this packet are `derived_nonbinding`.** Nothing in Phase G executes until F.3 ratifies. Opus prepares decision surfaces; Nick + Knox decide; Phase G lands binding amendments at canonical homes only after authorization. The anti-pattern this guards: "audit findings silently becoming doctrine changes without a human gate." G.1 adjudicates; it does not auto-stamp.
+
+### §20 F.3 OUTCOME — decisions RATIFIED by Nick + Knox (2026-05-28; `D0THES-DEC-019`)
+
+F.3 review gate executed. Nick + Knox worked the 7 decision cards; decisions of record below. These are the binding inputs G.1-G.6 execute against. **G.1 is AUTHORIZED but NOT YET LAUNCHED — per D7, Opus records these decisions first, then awaits Nick's explicit "begin G.1" before any Phase G execution. G.1 ONLY; not full Phase G automatically.**
+
+- **D1 — RATIFIED**: Phase G sequencing G.1 → G.6 accepted as-is. G.5 build reconciliation stays last (compares code to refreshed doctrine, never half-refreshed).
+- **D2 — RATIFIED (T0 adjudication outcome)**:
+  - **Promote / strong Tier 0 candidates (5)**: **T0-08** (counter-Hims visible-provider), **T0-09** (substrate-vs-care boundary), **T0-13** (per-event ownership orthogonality), **T0-15** (universal projection doctrine), **T0-16** (anti-collapse trinity — F.3-G.1 decides one-row-vs-three).
+  - **T0-14 (anti-institutional-gravity) — CONDITIONAL/FOLD**: promote to Tier 0 ONLY if it can be written as one concise imperative anti-institutional-gravity guardrail ("Specialty Line growth must not erode provider independence / brand autonomy"); otherwise FOLD into T0-08 or T0-09. **The standalone-vs-fold call is made DURING G.1 drafting** (when the guardrail text exists and conciseness is testable), not pre-decided. Knox accepted Opus's push-back that T0-14 is guardrail-shaped (not a descriptive framework to demote-to-body).
+  - **Demote to architecture canon (NOT Tier 0)**: **T0-11** (4-layer care OS) + **T0-12** (four coexistent abilities) → land in Coherent OMNI Architecture Pattern / Doctrine Manifest body. They are frameworks, not imperatives.
+  - **Binding constraint reaffirmed**: Tier 0 must stay constitutional and short. Final Tier 0 net adds = 5 definite + (T0-14 as 6th OR folded) = **5 or 6 Tier 0 entries**, never 8.
+- **D3 — RATIFIED (DL promotion process for G.2)**: DL-18 promoted FIRST (RBAC atoms underpin all); DL-19 + DL-21 steward-promotable; **DL-17 gated on D6 commerce gate**; **DL-20 gated on Q1+Q6 joint signoff**; **DL-22 gated on Q14 joint signoff**. NO mechanical promotion of gated DLs.
+- **D4 — RATIFIED (parking-branch reconciliation)**: **LI doctrine** = re-source/re-author the T0-01..T0-07 citations from current main doctrine (DL-14 + CNS ADR + §1Z carry the content); do NOT drag the pre-v2 branch artifact back wholesale. **lib/scheduling** = annotate now (D0THES-CNF-011 pointer); recover/rebuild during G.5 against refreshed doctrine.
+- **D5 — RATIFIED**: Phase H boundary confirmed. Product-surface decisions (OMNI Direct Day-1 scope, Core Capability election, active-coordinator UX, etc.) stay OUT of Phase G; Phase G refreshes doctrine, Phase H translates to product.
+- **D6 — RATIFIED**: C1-C18 + C-BUILD cluster→subphase routing confirmed for the 138 D0THES-REV + 2 D0THES-CNF rows. Rows close as their Phase G subphase lands the cross-link. No manual relitigation of all 138 rows now; pull individual rows only if one blocks G.1/G.2.
+- **D7 — RATIFIED (launch discipline)**: Opus records these F.3 decisions FIRST (this block + `D0THES-DEC-019`). THEN Opus requests explicit approval to begin **G.1 ONLY**. **Do NOT launch full Phase G automatically. Do NOT begin G.1 until Nick says "begin G.1."**
+
+**Lifecycle state advances**: `F.2 closed; Phase G ready pending F.3 review gate` → **`F.3 RATIFIED; G.1 authorized pending explicit Nick "begin G.1" go; Phase G NOT launched`**. Hard pre-condition still binding: §1J.10 `loadPatientCaseSafetySnapshot` blocks first Rx pathway shipment (G.5 build axis).
 
 ---
 

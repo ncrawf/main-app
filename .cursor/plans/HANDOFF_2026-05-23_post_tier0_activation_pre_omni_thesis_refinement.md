@@ -1726,3 +1726,22 @@ Per `D0THES-DEC-018`. Nick relayed Knox's §19 F.3 review. **Knox's load-bearing
 **Discipline preserved**: F.2.3 + §20 F.3 packet remain `derived_nonbinding`; nothing in Phase G executes until F.3 ratifies; Opus prepares decision surfaces, Nick + Knox decide. Anti-pattern guarded: audit-findings-silently-becoming-doctrine-without-a-human-gate.
 
 **Next action**: F.3 human review gate — Nick + Knox work §20's 7 decision cards (esp. D2 T0 adjudication, the load-bearing one). After D1-D7 resolve, authorize Phase G (G.1 spine adjudication first). No Opus Phase G work until that authorization.
+
+---
+
+## Closure Addendum Extension #26 (2026-05-28) — F.3 REVIEW GATE RATIFIED; G.1 authorized pending explicit "begin G.1"; Phase G NOT launched
+
+Per `D0THES-DEC-019`. The F.3 human review gate is COMPLETE. Nick + Knox worked the §20 F.3 Decision Packet (7 cards); Opus evaluated Knox's relayed decisions on the merits and AGREED with all 7 (only delta — T0-14 standalone-vs-fold — is Knox tightening Opus's flat "6 candidates" into a conciseness-conditional; accepted; the fold call defers to G.1 drafting).
+
+**Decisions of record (Reconciliation Map §20 F.3 OUTCOME)**:
+- **D1** — ratify Phase G sequencing G.1→G.6 as-is (G.5 build-recon stays last).
+- **D2** — T0 adjudication: PROMOTE/strong Tier 0 = T0-08, T0-09, T0-13, T0-15, T0-16; **T0-14 conditional/fold** (Tier 0 only if one concise imperative anti-institutional-gravity guardrail, else fold into T0-08/09 — decided AT G.1 drafting); DEMOTE T0-11 (4-layer care OS) + T0-12 (four abilities) to architecture canon. Tier 0 net adds = 5 or 6, never 8; stays constitutional + short.
+- **D3** — DL promotion in G.2: DL-18 first; DL-19/21 steward; DL-17 D6-gated; DL-20 Q1+Q6-gated; DL-22 Q14-gated; no mechanical promotion of gated DLs.
+- **D4** — LI doctrine re-source from main (DL-14/CNS ADR/§1Z carry content; resolves D0THES-CNF-010 content side); lib/scheduling annotate-now + recover/rebuild in G.5 (D0THES-CNF-011).
+- **D5** — Phase H boundary confirmed (product-surface decisions stay out of Phase G).
+- **D6** — C1-C18 + C-BUILD routing confirmed for 138 REV + 2 CNF rows; close as subphase lands; no relitigation now.
+- **D7** — record F.3 decisions FIRST (done: this Extension + §20 F.3 OUTCOME + `D0THES-DEC-019`), THEN await explicit Nick "begin G.1" before any Phase G execution. **G.1 ONLY; not full Phase G; do NOT auto-launch.**
+
+**Lifecycle state**: `F.2 closed; Phase G ready pending F.3 review gate` → **`F.3 RATIFIED; G.1 authorized pending explicit Nick "begin G.1" go; Phase G NOT launched`**.
+
+**Next action**: Opus STOPS here and awaits Nick's explicit "begin G.1." No Phase G doctrine amendment runs until that word. When Nick says go: launch **G.1 spine adjudication ONLY** (adjudicate T0-08/09/13/15/16 to Tier 0 per criterion; decide T0-14 standalone-vs-fold by drafting it; land T0-11/12 in architecture canon body; do NOT proceed to G.2 without checkpoint). Hard pre-condition binding throughout Phase G build axis: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
