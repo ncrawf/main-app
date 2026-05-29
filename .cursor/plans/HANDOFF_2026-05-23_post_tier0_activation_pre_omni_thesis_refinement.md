@@ -1803,3 +1803,22 @@ Per `D0THES-DEC-022`. Knox + Nick confirmed promotion mechanic (b) (locked DL fi
 **What G.2.b did NOT do**: DL-17/20/22 NOT promoted (gated, G.2.f); DL-22 consent_artifact per-data-class half of C7 deferred (Q14-gated); §1L/§1Q catalog halves (C14) deferred; no build touched.
 
 **Next action**: Opus STOPS. Checkpoint before G.2.c (DL-21 promotion + C13 operator-pluralism prep). Same batch-checkpoint pattern + mechanic (b). Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
+
+## Closure Addendum Extension #30 (2026-05-28) — PHASE G.2.c EXECUTED (DL-21 promotion + operator-neutrality at federation layer = T0-14 federation-half enforcement); STOPPED before G.2.d
+
+Per `D0THES-DEC-023`. Nick: "Continue G.2.c, yes okay to keep the BEFORE/AFTER table as the opening artifact for every batch." BEFORE/AFTER substrate-behavior table is now the standing opening artifact for every G.2 batch. Promotion mechanic (b).
+
+**Honesty check FIRST (per Nick's weak-pass warning):** DL-21 permeability mechanics (inv 6-7) are neutral *by construction* between tenant_ids — but there was NO rule stopping OMNI (which controls the deployment + governance plane) from self-dealing: granting its OWN operated lines privileged cross-operator access a peer third-party Brand operator couldn't get. That is the exact T0-14 anti-institutional-gravity gap and was genuinely NOT already covered → inv 29 is a real new rule, not gardening.
+
+**Doctrine edits landed (binding, substantive — changes what substrate ENFORCES):**
+- **DL-21 inv 29 added — operator-neutrality at the federation layer** (T0-14 + T0-16(a) binding): OMNI-operated operators (Core Capabilities / Specialty Lines) bound by IDENTICAL permeability + consent + Tier-4 + brand-trust-transparency rules as peer Brand operators; substrate REJECTS (a) a permeability grant giving an OMNI-operated line cross-operator access a peer brand couldn't get under equivalent consent, (b) discovery/routing/continuity preference for an OMNI-operated line absent an audited consented basis, (c) any deployment/governance-plane bypass of the consent/permeability gates for OMNI's own lines; NO privileged-operator tier. **New recorded field**: `operator_neutrality_basis` attestation on cross-operator grants where one side is OMNI-operated, surfaced on the brand-trust-transparency audit surface (T0-16(a)).
+- **DL-21 rejected-pattern row added** (OMNI-operated privileged access via deployment/governance control → REJECTED).
+- **DL-21 PROMOTED DRAFT → LOCKED** (steward-promotable; mechanic b; A1 promotion gate marked SATISFIED-with-deferred-inline — FUTURE_ARC/DL-10 ancillary sweeps + full inline deferred to substrate-slice).
+- **System map DL-17→DL-22 register**: DL-21 marked ✅ LOCKED (29 invariants; was 28 + T0-14 federation-layer enforcement amendment).
+- Advanced REV-035 (anti-institutional-gravity enforcement mechanism): **federation-layer half LANDED**; capability-layer (DL-18/RLS) + §1U org_scope + §1Q.21 marketing-data-use halves DEFERRED.
+
+**Substance check (Nick's weak-pass warning)**: inv 29 changes substrate enforcement — federation layer now refuses self-dealing permeability grants + requires the neutrality-basis attestation. NOT a "see v2 §X" pointer.
+
+**What G.2.c did NOT do**: full C13 (§1U org_scope neutrality + §1Q.21 marketing-data-use neutrality + brand-operator contract) deferred to G.4 architecture refresh (this batch = DL-21 federation half / C13 prep only); DL-17/20/22 NOT promoted (gated, G.2.f); no build touched.
+
+**Next action**: Opus STOPS. Checkpoint before G.2.d. Same batch-checkpoint pattern + mechanic (b) + BEFORE/AFTER opening artifact. Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.

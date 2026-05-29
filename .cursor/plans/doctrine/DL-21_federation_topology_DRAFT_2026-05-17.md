@@ -1,7 +1,7 @@
 # DL-21 — Federation Topology Substrate (11-Axis Venue + Permeability Policy + A1 Fulfillment) (DRAFT)
 
 **Date:** 2026-05-17
-**Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice. **EXTENSION of existing FUTURE_ARC A1 (Federation / Permeability / Topology) + DL-10 (multi-tenant) — converts A1 from future arc to Day 0 substrate per user direction.**
+**Status:** **LOCKED** (promoted DRAFT→LOCKED in Phase G.2.c, 2026-05-28, `D0THES-DEC-023`, via promotion mechanic (b): status-flip + register-row-lock + cross-link amendment inv 29; full inline relocation into `system_map_three_layers_60706286.plan.md` deferred to substrate-slice per F.3 D3). Joint Opus + Knox + Nick signoff carried at F.3 review gate (`D0THES-DEC-019`). NOT code. NOT migrations. NOT substrate slice. **EXTENSION of existing FUTURE_ARC A1 (Federation / Permeability / Topology) + DL-10 (multi-tenant) — converts A1 from future arc to Day 0 substrate per user direction.**
 
 **USER DIRECTION ANCHOR (2026-05-17, verbatim):** *"federation ability needs to be day 0 man. like we're gonna have 3 spas using this on day 1. plastics is next after deerm. then GI and cardio etc. attribution substrate needs to be planned for in advance, month 1-2."* — Federation Day 0 (not deferred to e1+) per user direction.
 
@@ -162,6 +162,15 @@
 
 28. **Federation topology browseable as admin projection (binding per DL-16 inv 3 category e).** Admin UI projects tenant hierarchy as tree: deployment → LE → brand → site → location → venue. Browse + edit per DL-18 atoms. Day 0 ships read-only browse; full edit Day 0 (per user direction federation Day 0). Cross-link DL-19 admin surface.
 
+### Phase G.2.c cross-link amendment (operator-neutrality / anti-institutional-gravity — T0-14 + T0-16(a) binding)
+
+29. **Operator-neutrality at the federation layer (Tier 0 guardrail T0-14 anti-institutional-gravity enforcement + T0-16(a) brand-trust-transparency binding; Phase G.2.c amendment 2026-05-28, `D0THES-DEC-023`).** OMNI-operated operators (OMNI Core Capabilities + OMNI Specialty Lines per v2 §6.7-6.8 5-tier vocabulary) are tenants in the topology (inv 1) like any third-party Powered-by-OMNI Brand operator — and are subject to the **IDENTICAL** permeability rules (inv 6-7) + consent gates + Tier-4 attestation + brand-trust-transparency audit. Because OMNI also controls the deployment + governance plane, the substrate must structurally prevent OMNI from self-dealing through that control. **The substrate REJECTS:**
+    - (a) a `federation_permeability_policy` grant (inv 7) that gives an OMNI-operated operator cross-operator visibility / data access NOT obtainable by a peer third-party Brand operator under equivalent consent + attestation;
+    - (b) discovery / routing / patient-continuity preference (inv 5-6 + inv 15-16) for an OMNI-operated operator over a peer Brand operator in shared-market topology, absent an explicit, audited, consented basis;
+    - (c) any deployment- or governance-plane path that bypasses the consent + permeability + Tier-4 gates for OMNI-operated operators (no "OMNI is the deployment owner so it gets access" shortcut).
+    
+    **There is NO privileged-operator tier**: the 6-tier topology (inv 1) admits no "OMNI-operated gets more" exception. **New recorded requirement**: any `federation_permeability_policy` grant (inv 7) where one side is OMNI-operated MUST carry an `operator_neutrality_basis` attestation field (the audited, consented basis for the grant), surfaced on the brand-trust-transparency audit surface (Tier 0 T0-16(a)) so peer Brand operators can verify OMNI is not self-dealing. This is the FEDERATION-LAYER enforcement of the T0-14 constitutional guardrail (the capability-layer enforcement lands in DL-18 / RLS; the marketing-data-use enforcement lands in §1Q.21 — both later G.2/G.4 batches; this invariant is the federation/permeability half). Cross-link Tier 0 T0-14 + T0-16(a) + v2 §6.8 + §13.7 + DL-21 inv 6 + inv 7 + D0THES-REV-035.
+
 ---
 
 ## Open sub-questions (require Knox + user signoff before lock)
@@ -186,6 +195,7 @@
 - **Retention policy uniform across jurisdictions.** Per inv 21 — topology-aware.
 - **Patient relationship merge without consent or Tier 3 attestation.** Per inv 19 — substrate REJECTS.
 - **Cross-tenant action without decision record audit.** Per inv 20 — explicit cns_decision required.
+- **OMNI-operated operator granted privileged cross-operator access via deployment/governance control.** Per inv 29 — substrate REJECTS self-dealing; OMNI-operated operators bound by identical permeability + consent + Tier-4 + brand-trust-transparency rules as peer Brand operators; `operator_neutrality_basis` attestation required (T0-14 + T0-16(a)).
 
 ---
 
@@ -199,12 +209,12 @@
 
 ---
 
-## A1 promotion gate
+## A1 promotion gate — SATISFIED (Phase G.2.c, 2026-05-28)
 
-This DRAFT promotes A1 (Federation / Permeability / Topology) from FUTURE_ARC to Day 0 substrate per user direction 2026-05-17. Promotion to locked doctrine requires:
-1. Knox + user joint signoff on Day 0 federation scope per Q-DL21-1 through Q-DL21-5
-2. `FUTURE_ARC_2026-05-12_federation_permeability_topology.md` updated to reflect Day 0 promotion + reference DL-21
-3. DL-10 cross-link updated to reference DL-21
-4. system_map cross-references updated per cross-link summary
+This DL promoted A1 (Federation / Permeability / Topology) from FUTURE_ARC to Day 0 substrate per user direction 2026-05-17, and was promoted DRAFT→LOCKED in Phase G.2.c (`D0THES-DEC-023`). Promotion-gate disposition:
+1. ✅ Knox + Nick joint signoff carried at F.3 review gate (`D0THES-DEC-019`); Q-DL21-1 through Q-DL21-5 remain open sub-questions resolved at substrate-slice (do not block lock per F.3 D3 status-flip mechanic).
+2. ⏳ `FUTURE_ARC_2026-05-12_federation_permeability_topology.md` header update — deferred to substrate-slice (mechanic b defers full inline + ancillary doc sweeps).
+3. ⏳ DL-10 cross-link reference — deferred to substrate-slice.
+4. ⏳ system_map full inline cross-references — deferred to substrate-slice; register row marked LOCKED in G.2.c.
 
-NOT code. NOT migrations. NOT substrate slice. NOT §10.5 stale-existing-OMNI warning removal.
+**LOCKED-with-deferred-inline** per F.3 D3 promotion mechanic (b). NOT code. NOT migrations. NOT substrate slice. NOT §10.5 stale-existing-OMNI warning removal.
