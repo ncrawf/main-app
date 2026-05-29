@@ -1,6 +1,6 @@
 # OMNI Doctrine Reconciliation Map v1
 
-> **F.2.2.G BATCH COMPLETE 2026-05-28 — FINAL COVERAGE CLOSURE (3 unaudited system map lab sections + 8 binding docs + 2 parking-branch drift findings); ENTIRE system map (34 sections) + ALL binding doctrine now audited; F.2.2 SCOPE FINALLY CLOSED (59 artifacts; 100 Q7 findings + 2 conflict rows); F.2.3 MASTER CLOSURE NEXT (FULLY UNBLOCKED). [Prior: F.2.2.F substrate spine gap closure — 17 artifacts; F.2.2.A-E — 31 artifacts.]**
+> **F.2.3 MASTER CLOSURE SYNTHESIS COMPLETE 2026-05-28 (§19) — entire F.2 audit corpus (59 artifacts; 100 Tier 2 findings + 2 conflict rows) synthesized into consolidated Phase G work plan: 18 cross-link clusters (C1-C18) by v2 substrate section + Phase G subphase sequencing (G.1-G.6) + critical dependency surfacing (§1J.10 blocking gate) + 6 DL DRAFT promotion gates + 8 T0-XX Change Control candidates + NEUTRAL build inventory (50 migrations + 40 lib dirs) + conflict ledger seed + F.3 review gate readiness. F.2 CLOSED; Phase G ready pending F.3. [Prior: F.2.2.A-G full audit — 59 artifacts; F.2.2 SCOPE FINALLY CLOSED.]**
 >
 > Fourth and final F.2.2 batch under §11.7 content-not-title methodology. Per Nick decision (continued full-depth per §17 default). Per Knox three-tier policy + v2 lens. **E Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 3 artifacts STABLE under v2 lens (all K1; 3 amend refresh_action; ~20-33 hr total Phase G effort). **F.2.2 SCOPE CLOSED**: 31 artifacts audited; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours.
 
@@ -62,7 +62,7 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.2.G BATCH COMPLETE (Final Coverage Closure); ENTIRE system map + ALL binding doctrine audited; F.2.2 SCOPE FINALLY CLOSED (59 artifacts); F.2.3 MASTER CLOSURE NEXT (FULLY UNBLOCKED)
+## §0 Status Posture — F.2.3 MASTER CLOSURE SYNTHESIS COMPLETE (§19); F.2 CLOSED (59 artifacts audited; entire system map + all binding doctrine); Phase G work plan + sequencing + neutral build inventory landed; Phase G READY pending F.3 review gate
 
 **F.2.2.E Batch complete 2026-05-28** per `D0THES-DEC-013` per Operating Contract §17 append rules. Fourth and final F.2.2 batch under §11.7 content-not-title methodology. 3 audit picks: §1Q Rules + Templates engine (2311 lines; heaviest single artifact in F.2.2 corpus; foundational cross-cutting; DL-14 subordinated subsystem) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G); 0 Tier 3 materially-misleading findings. All 3 artifacts STABLE under v2 lens (all K1). **F.2.2 SCOPE CLOSED**: 31 artifacts audited across F.2 corpus; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing.
 
@@ -3868,7 +3868,176 @@ Both root-caused to parking branch `wip/scheduling-cns-pre-thesis-snapshot-2026-
 
 ---
 
-## §19 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
+## §19 F.2.3 MASTER CLOSURE SYNTHESIS — consolidated Phase G work plan + sequencing + neutral build inventory (2026-05-28)
+
+> **F.2.3 MASTER CLOSURE SYNTHESIS COMPLETE 2026-05-28 — synthesizes the entire F.2 audit corpus (59 artifacts; 100 Tier 2 findings D0THES-REV-032..138 + 2 conflict rows D0THES-CNF-010..011) into a consolidated cross-link work plan organized by v2 substrate section + Phase G subphase sequencing (G.1-G.6) + critical dependency surfacing + DL DRAFT promotion gate sequence + T0-XX Change Control gate sequence + NEUTRAL build inventory + conflict ledger seed + F.3 review gate readiness. F.2.3 SEQUENCES Phase G; it does NOT execute Phase G. After F.2.3 + F.3 review gate, Phase G executes the amendments.**
+
+### §19.0 What F.2.3 is and is NOT
+
+- **F.2.3 IS**: the master synthesis that converts 100 scattered Tier 2 audit findings + 2 conflict rows into an executable, sequenced Phase G work plan with dependencies surfaced; plus a neutral build inventory (per Nick's doctrine-first-build-second sequencing decision, `D0THES-DEC-016`).
+- **F.2.3 is NOT**: Phase G execution (no doctrine amended here); NOT the F.3 review gate (Nick + Knox ratify F.2.3 + decide T0 promotions before Phase G launches); NOT a build reconciliation (that is Phase G.5, AFTER doctrine refresh produces the comparison target — the build inventory in §19.7 is a NEUTRAL catalog with ZERO comparison).
+- **Authority**: `derived_nonbinding` per Operating Contract §20. Classifications + sequencing inform Phase G; they do NOT bind doctrine until Phase G lands amendments at canonical homes + F.3 ratifies.
+
+### §19.1 Executive synthesis of the entire F.2 audit (the meta-findings)
+
+**Corpus**: 59 artifacts audited across F.2.0 calibration (6) + F.2.0.v1/v2 refresh + F.2.2.A.1-G (7 batches). 58 substrate/binding K1 + 1 K6 parked. **0 cruft. 0 Tier 1 mechanical errata. 0 Tier 3 materially-misleading findings. 100 Tier 2 substantive bidirectional findings. 2 doc↔build drift conflict rows.**
+
+**Meta-finding 1 — the doctrine is SOLID; the work is cross-link, not rewrite.** Across 59 artifacts and 7 audit dimensions, the system map + DL register + governance corpus classified CONSISTENTLY as substrate-spine (47:1 substrate-to-parked ratio; zero cruft). The doctrine does not need rebuilding. This directly satisfies Nick's binding requirement that "the system map and doctrine are SOLID when it comes time to go back into the design and build."
+
+**Meta-finding 2 — the Q7 pattern is the dominant signal: thesis v2 systematically UNDER-credits existing substrate.** 100 of 100 Tier 2 findings are bidirectional "thesis names what the substrate already does, but doesn't cross-link it" (Q7 pattern). The substrate is RICHER than the thesis articulates — NOT staler. Implication: **Phase G is predominantly (a) CROSS-LINK work (land v2 nuances into canonical homes) + (b) PROMOTE work (NAMED-not-promoted T0 candidates through Change Control) — NOT rewrite work.** Estimated ~380-570 hr doctrine-refresh + ~50-90 hr build reconciliation.
+
+**Meta-finding 3 — three work classes.** Every finding routes to one of: **(A) cross-link** v2 §X into canonical home (DL / system map § / governance doc) — ~75 findings, G.2/G.3/G.4; **(B) T0 Change Control promotion** of a NAMED-not-promoted candidate — ~15 findings, G.1, `user_knox_required`; **(C) build reconciliation** of existing code/schema against refreshed doctrine — ~5 findings + the bridge layer, G.5, AFTER G.1-G.4; plus **(D) Phase H product translation** deferrals (Day-1 product scope; out of Phase G scope) — ~8 findings.
+
+**Meta-finding 4 — the existing build is mostly greenfield + the heaviest runtime work is quarantined.** `communications_topology §9` + `FOUNDATIONAL §10` show messaging is mostly shells + empty tables (5 active siblings, not the full sibling set). The scheduling/CNS/LI runtime spine is parked off-main (`d753a64`). So build-divergence risk is LOWER than feared — there is less stale on-main build to reconcile than a mature codebase would carry.
+
+**Meta-finding 5 — a doctrine↔build bridge layer already exists** (5 binding docs per §18.2) carrying the KEEP/RECONCILE/LEGACY-REPLACE methodology. Phase G.5 extends it; it does not invent it.
+
+### §19.2 Consolidated cross-link work plan organized by v2 substrate section (the finding clusters)
+
+The 100 findings cluster by the v2 section that DRIVES each. Each cluster lands at named canonical homes in a named Phase G subphase. (Finding IDs are representative anchors; full per-finding rows in `08_open_review_queue.md` D0THES-REV-032..138 + this map §8-§18.)
+
+| Cluster | v2 driving section(s) | Canonical homes (where Phase G lands the cross-link) | Phase G subphase | T0 candidate | ~Findings |
+|---|---|---|---|---|---|
+| **C1 — 4-layer care OS + four coexistent abilities** | §3.7 + §3.8 | system map Platform operational model + Intent; Coherent OMNI Architecture Pattern §1 (substrate-internal framing) | G.1 (T0 promote) + G.2 | T0-11 + T0-12 | REV-045, 109, 118 |
+| **C2 — 5-tier vocabulary + OMNI Direct shell** | §6.7 | system map Platform operational model; DL-18 permission_group `is_omni_operated` flag | G.1 + G.2 + Phase H (Day-1 product scope) | (T0-11 family) | REV-032, 096, 107, 112, 136 |
+| **C3 — Core Capability / Specialty Line + anti-institutional-gravity** | §6.8 | system map Platform operational model; DL-18 + DL-21; substrate enforcement (RLS + capability + audit) | G.1 (T0 promote) + G.2 + Phase H | T0-14 | REV-033, 034, 035, 112 |
+| **C4 — per-event ownership orthogonality (7 dims)** | §7.5.1 | DL-16 inv 2 envelope (+7 ownership-axis fields); DL-18 inv 5 authorization (Layer 7 or brand_capability extension); DL-15 status×actor; §1L/§1M/§1N/§1O/§1P ownership matrices | G.2 (T0 promote) | T0-13 | REV-080, 089, 102, 111, 113, 119, 135 |
+| **C5 — catalog substrate model** | §7.5.2 | DL-17 commerce catalog; DL-19 settings registry; §1L panel_type; §1Q template registry | G.2 | — | REV-037, 079, 108, 137(bridge) |
+| **C6 — patient-source substrate concept** | §7.5.3 | DL-10 / §1J identity; §1K intake two-stage flow; §1L patient-uploaded labs | G.2 | — | REV-088, 094 |
+| **C7 — consent specificity (per-data-class)** | §7.5.4 | DL-22 inv 13 consent_artifact subject_kind; §1Q privacy gate; §1V retention; DL-18 inv 9 attestation | G.2 (T0 promote — trinity) | T0-16 | REV-038, 086, 095, 101, 114, 117, 133 |
+| **C8 — master CNS scope architecture** | §7.6 | DL-14 (CNS center of gravity; 9-layer stack); §1N CNS vertical; WP-EXEC-002 scheduling authority | G.3 (coordination) | — | REV-085, 091, 104, 120 |
+| **C9 — universal projection doctrine (hard/soft)** | §7.7 + §7.7.1-7.7.4 | DL-14 inv 19 projection-freshness; DL-16; §1H read models; §1V display-projection; §1M/§1O timeline pointers; §1L patient display + category-mapping | G.2 (T0 promote) | T0-15 | REV-039, 040, 081, 090, 103, 110, 116, 118, 132, 133, 135 |
+| **C10 — cross-operator coordination** | §7.8 | DL-10 federation; A1 permeability; DL-21 Federation-Topology; §1Q clinical_routing; §1U capability scoping; §1W reconciliation | G.3 (coordination) + Phase H | — | REV-041, 042, 044, 087, 098, 106 |
+| **C11 — model_version_of_record** | §9.1 | DL-14 inv 10 AI invocation audit; DL-18 inv 9 attestation; `docs/ai-governance-policy.md` (existing seed); §1N/§1K.5.A AI lineage; §1L insight versioning | G.2 (T0 promote — trinity) | T0-16 | REV-043, 044, 082, 093, 100, 110, 114, 132, 134 |
+| **C12 — substrate-vs-care boundary** | §12.8 + §9.5 (v1) | DL-14; §1K.5.A clinical assertions; §1N AI engine; §1Q 4-layer separation; §1L abnormal-without-review | G.1 (T0 promote) + G.2 | T0-09 | REV-084, 092, 099 |
+| **C13 — operator-pluralism + non-competition** | §13.7 | DL-21 Federation-Topology; §1U multi-tenant; §1Q.21 Marketing Lifecycle | G.4 (architecture) | — | REV-097, 105, 112, 136 |
+| **C14 — lab vocabulary + category-mapping + insight versioning** | F.2.2.G.1 (lab sections) | DL-16 taxonomy registry (lab event vocabulary); §1L; v2 §9.1 + §7.7 + §12.8 | G.2 | (T0-15/16 families) | REV-131, 132, 133 |
+| **C15 — brand-trust transparency** | §6.10 | DL-21 brand contract; substrate query API + Brand operator role + notification stream | G.4 (architecture) + G.1 (T0 promote — trinity) | T0-16 | REV-036 |
+| **C16 — counter-Hims visible-provider doctrine** | §6.6 (v1) | system map §1G messaging/provider visibility; §6.6 deployment doctrine | G.1 (T0 promote) | T0-08 | (v1 REV-014..020 family) |
+| **C17 — governance-substrate cross-links** | (F.2.2.F.4 Tier 0/0.5) | Manifest Read Graph Universal Path #15 + workstream overlays; Master Corpus Catalog; Doctrine Manifest T0 set; Supersession ledger | G.6 (closure mechanics) | — | REV-121..126 |
+| **C18 — Future Work / Care-Coordination-CNS seam** | (F.2.2.F.5) | Future Work Registry rows; future_care_obligations_design 4 gaps + 55 task_kinds (Care-Coordination-CNS workstream re-open) | deferred (workstream re-open) | — | REV-127..130 |
+| **C-BUILD — build reconciliation bridge** | (F.2.2.G.2 build-bridge) | data_layers_reconciliation_v1 KEEP/RECONCILE/LEGACY-REPLACE extended to v2; communications_topology §9 + FOUNDATIONAL §10 build-status refresh | G.5 (build recon — AFTER G.1-G.4) | — | REV-137, 138 |
+
+### §19.3 Phase G subphase sequencing (G.1 → G.6)
+
+Binding order. Each subphase gates on the prior landing cleanly (mirrors the data-layers 4C+ "primitives first" discipline + Build OS rollout discipline).
+
+- **G.1 — Thesis spine ratification** (`user_knox_required` Tier 0 Change Control gate). Promote the NAMED-not-promoted T0 candidates that the rest of Phase G cross-links AGAINST. Without G.1, G.2-G.4 cross-link to candidates that aren't yet binding. Promotes (subject to F.3 + Change Control decision per §19.6): T0-08 counter-Hims, T0-09 substrate-vs-care boundary, T0-11 4-layer care OS, T0-12 four coexistent abilities, T0-13 per-event ownership orthogonality, T0-14 anti-institutional-gravity, T0-15 universal projection doctrine, T0-16 anti-collapse trinity (brand-trust + consent specificity + model_version_of_record). Clusters: C1, C2, C3, C12, C15, C16 (the framing layer). **First subphase because everything downstream references these as binding.**
+- **G.2 — Substrate refresh** (`architecture_steward_required` + DL promotion gates). Land the per-event-ownership + catalog + patient-source + consent-specificity + projection + model-version + lab-vocabulary cross-links into DL-14/15/16/17/18/19/22 + system map §1J/§1K/§1L/§1M/§1N/§1O/§1P/§1Q. INCLUDES the DL DRAFT promotion gates (§19.5). Clusters: C4, C5, C6, C7, C9, C11, C14. **Largest subphase (~200-280 hr).**
+- **G.3 — Coordination refresh**. Land master-CNS-scope + cross-operator-coordination cross-links into DL-14 + DL-10 + DL-21 + A1 permeability + §1Q/§1U/§1W. Clusters: C8, C10. Depends on G.1 (T0-11/15 framing) + G.2 (envelope + projection landed).
+- **G.4 — Architecture refresh**. Land operator-pluralism + brand-trust-transparency + federation cross-links into DL-21 + §1U + brand contract. Clusters: C13, C15. Depends on G.1 (T0-14/16) + G.3 (cross-operator coordination).
+- **G.5 — Existing-build reconciliation** (the build axis Nick asked about). Extend the doctrine↔build bridge layer (data_layers_reconciliation_v1 methodology) against the full 50-migration set + 40 lib dirs + refreshed doctrine. Two-way: build-stale → update build; build-ahead → back-port to doctrine. Resolve D0THES-CNF-010/011 parking-branch reconciliation. Clusters: C-BUILD + REV-137/138. **MUST follow G.1-G.4 — needs refreshed doctrine as the comparison target (per Nick's sequencing decision).** ~50-90 hr.
+- **G.6 — Closure**. Governance-substrate cross-links (C17: Read Graph Universal Path #15, workstream overlays, catalog rows); Future Work Registry reseeding (C18); Volume 5 evolution narrative; lifecycle de-scaffolding; supersession ledger finalization. Clusters: C17, C18.
+
+### §19.4 Critical dependency surfacing (BLOCKING gates + ordering)
+
+1. **§1J.10 `loadPatientCaseSafetySnapshot` is the ABSOLUTE BLOCKING gate on first Rx pathway shipment** (named across §1J / §1K / §1L / DL-15 / Build Entry Gate). No Rx-pathway build proceeds until this safety preflight is implemented + enforced. This is the single most-cited blocking dependency in the corpus. Surfaces in G.5 (build) but the doctrine contract is already binding.
+2. **G.1 must precede G.2-G.4** — T0 candidates are the framing the substrate/coordination/architecture refreshes cross-link against.
+3. **G.1-G.4 must precede G.5** — build reconciliation needs the refreshed doctrine as the comparison target (Nick's doctrine-first decision, `D0THES-DEC-016`).
+4. **DL-17 commerce promotion gates the D6 commerce build** (DL-17 is the sole review-gated D6 blocker per Build Entry Gate v0 + Supersession ledger D0D6-CNF-001).
+5. **DL-20 (Q1+Q6) + DL-22 (Q14) require joint Knox+user signoff** before promotion — they carry partial open-question resolutions (encounter container architecture Q1; Care Episode parent Q6; unified patient_document Q14). These gate care-coordination + clinical-media build.
+6. **T0-16 anti-collapse trinity (consent specificity + brand-trust transparency + model_version_of_record)** is the fail-at-scale guardrail set — it must land before any cross-operator / multi-brand / AI-clinical build activates at scale (else trust collapses silently).
+7. **Parking-branch reconciliation (D0THES-CNF-010/011)** must resolve before the LI doctrine source + scheduling authority surface are treated as on-main (G.5 / G.6).
+
+### §19.5 DL DRAFT promotion gate sequence (6 DRAFTs → LOCKED)
+
+All 6 DL DRAFTs (DL-17 → DL-22) are audited + STABLE under v2 lens but remain DRAFT pending promotion. Promotion lands in G.2 (substrate refresh), sequenced by dependency:
+
+| DL | Scope | Promotion gate | Sequence note |
+|---|---|---|---|
+| DL-18 RBAC | permission substrate (Day-1 seed = `lib/auth/capabilities.ts`) | architecture_steward + v2 per-event-ownership amendment (C4) | Promote EARLY — DL-19 + DL-22 + every action authorization depends on DL-18 atoms |
+| DL-19 Settings-Infrastructure | settings-as-OS substrate | architecture_steward + doctrine-floor v2 extension (C7/C15) | After DL-18 (settings edits gated by DL-18 atoms) |
+| DL-21 Federation-Topology | 6-tier topology + permeability | architecture_steward + operator-pluralism amendment (C13) | Gates G.4 architecture refresh |
+| DL-17 Commerce | catalog + sale + refund + contract | **user_knox + D6 review gate** (sole D6 blocker) | Gates D6 commerce build; catalog model amendment (C5) |
+| DL-20 Care-Coordination | care episode + encounter container | **joint Knox+user signoff (Q1+Q6 partial resolution)** | Gates care-coordination build |
+| DL-22 Clinical-Media | unified patient_document | **joint Knox+user signoff (Q14 partial resolution)** + consent-specificity amendment (C7) | Gates clinical-media build |
+
+### §19.6 T0-XX Change Control gate sequence (G.1 — `user_knox_required`)
+
+Per Doctrine Manifest "Tier 0 Change Control (Binding)" rule, Tier 0 additions require explicit Nick + Knox approval + must stay constitutional and short. v2 NAMED 8 candidates NOT promoted. F.3 review gate decides which promote. Recommended G.1 promotion order (framing-first):
+
+1. **T0-11 4-layer care OS** (§3.7) — frames the entire architecture (Surface / Coordination CNS / Boundary Policy / Substrate Physics); everything else layers on it.
+2. **T0-12 four coexistent operator-level abilities** (§3.8) — Power / Connect / Govern / Operate.
+3. **T0-13 per-event ownership orthogonality** (§7.5.1) — 7 dimensions; the most cross-linked substrate finding (C4).
+4. **T0-15 universal projection doctrine** (§7.7) — hard vs soft projection; second-most cross-linked (C9).
+5. **T0-16 anti-collapse trinity** (§6.10 brand-trust + §7.5.4 consent specificity + §9.1 model_version_of_record) — the fail-at-scale guardrails; BLOCKING for scaled cross-operator/AI build (dep #6).
+6. **T0-14 anti-institutional-gravity** (§6.8) — Specialty Line growth must not erode provider independence / portable artifacts / visible providers.
+7. **T0-09 substrate-vs-care boundary** (§12.8 v1) — AI-models-replaceable-substrate / AI-does-not-hold-care-relationships.
+8. **T0-08 counter-Hims visible-provider** (§6.6 v1) — OMNI creates safety so providers can be visible.
+
+**Discipline check (per Doctrine Manifest)**: Tier 0 must stay constitutional + short. If 8 promotions would bloat Tier 0, demote lower-value candidates to Tier 1/2 or fold pairs (e.g., T0-13+T0-15 as a "substrate orthogonality + projection" pair; T0-16 trinity as one row). F.3 + Knox decide final Tier 0 count.
+
+### §19.7 NEUTRAL build inventory (ZERO comparison — Phase G.5 target list)
+
+Per Nick's sequencing decision (`D0THES-DEC-016`): this is a NEUTRAL catalog of what code/schema exists + which doctrine section governs it. **It makes ZERO stale-vs-current judgment** (that is Phase G.5, after refreshed doctrine exists). Its only job: give G.5 a complete target list + surface orphan build (code with no governing doctrine). Source: 50 migrations + 40 `lib/` dirs on `main` @ `a89ec78`.
+
+**A. Migrations (50) → governing doctrine section** (chronological; `data_layers_reconciliation_v1 §4` already audited 20260418→20260505 with KEEP/RECONCILE/LEGACY-REPLACE verdicts; the 14 newer 20260506→20260516 migrations are NOT yet in that audit — G.5 extends):
+
+| Migration era | Migrations | Governing doctrine | data_layers audited? |
+|---|---|---|---|
+| Pre-map exploratory (20260418-20260430) | forms_and_states (LEGACY-REPLACE→§1K) · patients/name/address · staff_audit_rls (§1H.5/§1D) · timeline_events (§1H) · stripe_timeline (§1I) · notification_deliveries (RECONCILE→§1G.3) · care_programs_treatment_items (§1G/§1I) · refill_requests (§1G) · rx_artifacts_storage (RECONCILE→§1O) · supplement_checkout (§1E/§1I) · intake_uploads_storage (RECONCILE→§1O) · lab_orders_and_storage (§1L) · clinical_visits_rx_reviews (§1G) · clinical_visit_pdf_artifacts (RECONCILE→§1O) · clinical_visit_lock_addenda (§1G) · site_search_entries (§1R-adjacent CMS) · provider_profiles_staff_admin (§1D/§1G.4) · enforce_status_transition_triggers (§1G) · patient_ops_support_checkins (§1F) · outbound_jobs (RECONCILE→§1G.3) · chart_ai_reviews_lab_observations (§1L/§1N) · patient_dashboard_alert_dismissals (§1H) · org_rx_presets (§1G) · orders_lifecycle_v1 (§1G/§1I) · stripe_customer_payment_fields (§1I) · system_map_v1_messaging_labs_jurisdiction (§1G/§1L) | §1D/§1E/§1F/§1G/§1H/§1I/§1K/§1L/§1N/§1O/§1R | ✅ YES (data_layers §4) |
+| Phase 3+4A foundation (20260504-20260505) | intake_foundation_v1 (§1K/§1J/§1L/§1M/§1O/§1G/§1I) · intake_emission_orchestrator_v1 (§1K/§1Q.7) | §1K + system primitives | ✅ YES |
+| **Phase 4C-pre → 4H-c2 (20260506-20260516) — NOT in data_layers audit; G.5 extends** | phase_4c_pre_primitives_tenancy (§1U + system primitives) · phase_4c_pre_source_wiring (§1K) · phase_4d_artifact_pipeline (§1O) · phase_4e_outbound_jobs_reconciliation (§1G.3) · phase_4g_search_indexes (§1R) · phase_4h_pre_outbound_jobs_rule_lineage (§1Q.7) · phase_4h_pre_outbound_jobs_env_suppress_fn (§1Q/§1V data_environment) · phase_4h_pre_seed_default_brand (§1U) · phase_4h_pre_extend_enqueue_outbound_job (§1Q.7) · phase_4h_disclosure_policy_suppress_fn (§1Q.17) · phase_4h_in_app_inbox_c1 (§1G/communications_topology §2.2) · phase_4h_communications_c2_chat_rendering (§1G/communications_topology §2.1) | §1G/§1K/§1O/§1Q/§1R/§1U/§1V | ⏸ NO — **G.5 audit target** |
+
+**B. `lib/` modules (40 dirs) → governing doctrine section**:
+
+| lib dir | Governing doctrine | Note |
+|---|---|---|
+| `lib/auth/` | §1D + DL-18 RBAC (Day-1 seed) | capability layer |
+| `lib/intake/` (18 files) | §1K + DL-22 intake | intake orchestrator + views + write-path |
+| `lib/events/` (4) | §1H.5 + §1Z + DL-16 | typed event catalog |
+| `lib/outbound/` (5) | §1G.3 + DL-14 primitive #10 (orchestration_actions) | dispatch + enqueue |
+| `lib/rules/` | §1Q + DL-14 | rule runtime dispatcher (allowlist-bounded per phase_4h ADR §7.6) |
+| `lib/messages/` (5) | §1G + communications_topology + DL-11/12/13 | c2 chat substrate |
+| `lib/disclosure-policy/` | §1Q.17 + substrate primitive #3 | privacy gate |
+| `lib/labs/` | §1L + DL-9 | lab category-mapping + insights |
+| `lib/ai/` | §1N + DL-14 + ai-governance-policy | chart AI review |
+| `lib/clinical/` + `lib/clinical-concepts/` | §1K.5.A + §1W + DL-7 | clinical assertions + tracked objects |
+| `lib/consents/` | substrate primitive #21 + DL-22 | consent capture |
+| `lib/care/` | §1G + care_programs + DL-20 | care program logic |
+| `lib/commerce/` + `lib/orders/` + `lib/supplement/` + `lib/payments/` + `lib/stripe/` | §1E/§1I + DL-17 commerce | commerce + money rails |
+| `lib/refill/` | §1G refill | refill requests |
+| `lib/pathways/` | substrate primitive #8 (pathway sensitivity) | sensitivity registry |
+| `lib/templates/` | §1Q.5 template registry | typed templates |
+| `lib/search/` + `lib/search-entities/` + `lib/entities/` | §1R | search adapter |
+| `lib/timeline/` | §1H + patient_timeline_events | timeline |
+| `lib/dashboard/` + `lib/patient-portal/` + `lib/inbox/` | §1H + communications_topology projections | read-side projections |
+| `lib/internal/` (patient-case) | §1J.10 + §1G | **CARRIES §1J.10 loadPatientCaseSafetySnapshot — the blocking gate** |
+| `lib/staff/` + `lib/admin/` + `lib/ops/` | §1D + §1G.5/§1G.6 | staff/admin/ops surfaces |
+| `lib/patients/` | §1J identity | patient identity |
+| `lib/notifications/` | §1G.3 / §1Q (DELETE-AFTER-PARITY portion: `patientMessages.ts`) | **partial v0 — DELETE-AFTER-PARITY per phase_4h ADR** |
+| `lib/workflows/` | (none — v0) | **ORPHAN/LEGACY: `lib/workflows/*` = implicit engine v0; DELETE-AFTER-PARITY per phase_4h ADR + data_layers §4; NO governing doctrine (target architecture is §1Q)** |
+| `lib/protocol/` + `lib/forms/` + `lib/format/` + `lib/jobs/` + `lib/supabase/` | cross-cutting infra | derive / forms / format / job dispatch / supabase client |
+
+**Orphan/legacy build flagged (NEUTRAL — no judgment beyond "no governing doctrine / explicitly slated for deletion")**: `lib/workflows/*` (4 files) + the `patientMessages.ts` portion of `lib/notifications/` = "implicit rules engine v0" classified DELETE-AFTER-PARITY by phase_4h ADR + data_layers §4. **G.5 confirms parity-migration status of the 11 NotificationTemplateKey cases + deletes when last case migrates.**
+
+**Absent from main (parking branch `d753a64` only)**: `lib/scheduling/*` (per D0THES-CNF-011) + LI doctrine (per D0THES-CNF-010) + CNS runtime work. NOT in this on-main inventory by design.
+
+### §19.8 Conflict ledger seed (anticipated Phase G supersession rows)
+
+Phase G amendment family will generate supersession/conflict rows as v2 cross-links land at canonical homes. Anticipated (seeded for G.6 ledger finalization):
+- ~22 supersession rows from F.2.2.F findings (1 per DL/system-map amendment per D0THES-REV-126).
+- DL-15 amendment 8 already established the `confirmed → scheduled` rename pattern; Phase G v2 amendments follow the same "documentation-level rename / additive amendment, no semantic regression" discipline.
+- D0THES-CNF-010 (LI doctrine source off-main) + D0THES-CNF-011 (lib/scheduling off-main) resolve in G.5/G.6 per the recover-vs-resource-vs-annotate decision.
+- T0 promotions (G.1) generate Doctrine Manifest T0-08..T0-16 additions + supersession of the "NAMED-not-promoted" status.
+
+### §19.9 F.3 review gate readiness (what Nick + Knox decide before Phase G launches)
+
+F.2 is closed; **F.3 is the human review gate** before Phase G execution. F.3 decisions required:
+1. **Ratify F.2.3 sequencing** (G.1-G.6 order + dependency surfacing) — or amend.
+2. **T0 Change Control decisions** (§19.6): which of T0-08..T0-16 promote to binding Tier 0; final Tier 0 count (constitutional-and-short discipline); any fold/demote.
+3. **DL promotion signoffs** (§19.5): DL-17 (D6 gate), DL-20 (Q1+Q6), DL-22 (Q14) joint signoffs; DL-18/19/21 architecture_steward promotions.
+4. **Parking-branch reconciliation** (D0THES-CNF-010/011): recover-from-d753a64 vs re-source vs annotate (for LI doctrine source + lib/scheduling).
+5. **Phase H boundary**: confirm Day-1-product-scope findings (REV-032/034/041, etc.) defer to Phase H product translation, out of Phase G doctrine scope.
+6. **Open review queue disposition**: 138 D0THES-REV rows + 2 D0THES-CNF rows — confirm Phase G subphase routing per §19.2.
+
+### §19.10 F.2 lifecycle closure statement
+
+**F.2 (calibration + full audit + master closure synthesis) is COMPLETE.** F.2.0 calibration → F.2.1 review → F.2.2.A.1-G full audit (59 artifacts; entire system map + all binding doctrine) → re-validation (100% coverage) → F.2.3 master closure synthesis (this section). Reconciliation Map v1 lifecycle state advances: `F.2.2 in progress` → **`F.2 closed; F.2.3 master synthesis complete; Phase G ready to launch pending F.3 review gate`**. Per Operating Contract §20, this artifact remains `derived_nonbinding`; Phase G lands binding amendments at canonical homes; F.3 ratifies before Phase G executes. **System map + doctrine confirmed SOLID + comprehensively audited + sequenced for refresh — Nick's binding requirement satisfied.**
+
+---
+
+## §20 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
 
 Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contract Rule), this Reconciliation Map vN stream requires an Operating Contract at creation. This §17 IS that contract. Applies to v1 (this artifact) and inherits to v2, v3, ... unless explicitly amended.
 

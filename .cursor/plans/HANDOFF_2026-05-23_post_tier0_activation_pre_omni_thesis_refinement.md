@@ -1666,4 +1666,51 @@ STAGE 4 — Phase G.5              Two-way build reconciliation (build-stale →
 
 **F.2.3 master closure synthesis** (now FULLY unblocked — no remaining doctrine/system-map audit gaps): consolidated cross-link work plan by v2 substrate section + Phase G subphase sequencing (G.1 thesis spine → G.2 substrate refresh → G.3 coordination → G.4 architecture → G.5 existing-build reconciliation [seeded by doctrine↔build bridge layer + parking-branch reconciliation D0THES-CNF-010..011] → G.6 closure Volume 5 narrative) + NEUTRAL build inventory (catalog only, zero comparison) + critical dependency surfacing (§1J.10 + DL-17/18/19/20/22 promotions + T0-XX Change Control gate sequencing).
 
-Next agent reading this handoff: F.2.2.G complete (pending commit + push). **F.2.2 SCOPE FINALLY CLOSED at 59 artifacts — ENTIRE system map (34 sections) + ALL binding doctrine audited; coverage proven by ground-truth verification.** Reconciliation Map v1 §18 has full F.2.2.G findings. 138 D0THES-REV rows + 2 D0THES-CNF rows in open review / conflict ledgers. **F.2.3 master closure synthesis is the operative next phase, NOW FULLY UNBLOCKED.** Existing-build reconciliation is Phase G.5 (deferred by design until doctrine refreshed; bridge layer + KEEP/RECONCILE/LEGACY-REPLACE methodology + parking-branch reconciliation already seeded). **CRITICAL Phase G dependency**: §1J.10 loadPatientCaseSafetySnapshot is BLOCKING gate on first Rx pathway shipment. **System map + doctrine confirmed SOLID for downstream design + build work** per Nick's binding 2026-05-28 requirement.
+Next agent reading this handoff: F.2.2.G complete (committed `a89ec78`). **SEE Closure Addendum Extension #24 (below) for F.2.3 master closure synthesis — F.2 is now CLOSED; Phase G work plan + sequencing landed.**
+
+---
+
+## Closure Addendum Extension #24 (2026-05-28) — F.2.3 Master Closure Synthesis; F.2 CLOSED; Phase G work plan + sequencing + neutral build inventory landed; F.3 review gate next
+
+### Why this extension exists
+
+Per Nick: *"okay proceed. do not rush, we need to get all this shit right."* This authorized F.2.3 master closure synthesis — the consolidated output Phase G executes from. F.2.3 synthesizes the entire F.2 audit corpus (59 artifacts; 100 Tier 2 findings D0THES-REV-032..138 + 2 conflict rows D0THES-CNF-010..011) into a sequenced, executable Phase G work plan. **F.2.3 SEQUENCES Phase G; it does NOT execute it** (no doctrine amended).
+
+### Discipline applied ("don't rush, get it right")
+
+F.2.3 was built from ground-truth, NOT memory: read the structure of all 100 D0THES-REV findings + both conflict rows; enumerated the actual build via filesystem (50 migrations + 40 lib dirs). The neutral build inventory is a real catalog of what exists on main @ `a89ec78`.
+
+### F.2.3 deliverables (Reconciliation Map §19)
+
+- **§19.1 — 5 meta-findings**: MF1 doctrine SOLID (47:1 substrate ratio; 0 cruft; cross-link not rewrite); MF2 Q7 pattern dominant (100/100 = thesis under-credits substrate; substrate RICHER than thesis); MF3 three work classes (cross-link ~75 / T0-promotion ~15 / build-recon ~5+bridge / Phase-H-deferral ~8); MF4 build mostly greenfield + heaviest runtime quarantined off-main; MF5 doctrine↔build bridge layer already exists.
+- **§19.2 — 18 cross-link clusters (C1-C18 + C-BUILD)** organized by v2 substrate section → canonical homes → Phase G subphase → T0 candidate.
+- **§19.3 — Phase G subphase sequencing**: G.1 thesis-spine-ratification (T0 promotions; framing-first) → G.2 substrate-refresh (largest ~200-280 hr; includes DL promotion gates) → G.3 coordination-refresh → G.4 architecture-refresh → G.5 existing-build-reconciliation (AFTER G.1-G.4) → G.6 closure (Volume 5 narrative + de-scaffolding).
+- **§19.4 — critical dependency surfacing**: §1J.10 loadPatientCaseSafetySnapshot = ABSOLUTE BLOCKING gate on first Rx pathway shipment (single most-cited dependency) + G.1→G.2-4→G.5 ordering + DL-17 D6 gate + DL-20/22 Q1/Q6/Q14 joint signoff + T0-16 trinity-before-scale + parking-branch reconciliation.
+- **§19.5 — 6 DL DRAFT promotion gate sequence**: DL-18 first (everything depends on RBAC atoms) → DL-19 → DL-21 → DL-17 (D6-gated) → DL-20 (Q1+Q6 joint signoff) → DL-22 (Q14 joint signoff).
+- **§19.6 — 8 T0-XX Change Control candidate sequence**: T0-11 4-layer care OS → T0-12 four abilities → T0-13 per-event ownership → T0-15 universal projection → T0-16 anti-collapse trinity → T0-14 anti-institutional-gravity → T0-09 substrate-vs-care → T0-08 counter-Hims (constitutional-and-short discipline check applies; F.3 + Knox decide final Tier 0 count).
+- **§19.7 — NEUTRAL build inventory** (per Nick doctrine-first sequencing decision D0THES-DEC-016): 50 migrations + 40 lib dirs mapped to governing doctrine section, ZERO stale-vs-current comparison. Flags orphan/legacy (`lib/workflows/*` + `patientMessages.ts` = implicit-engine-v0 DELETE-AFTER-PARITY) + absent-from-main (`lib/scheduling/*` + LI doctrine on parking branch d753a64) + 14 newer migrations (20260506-20260516) NOT yet in data_layers audit (G.5 extends). This is the Phase G.5 target list.
+- **§19.8 — conflict ledger seed**; **§19.9 — F.3 review gate readiness (6 human decisions)**; **§19.10 — F.2 lifecycle closure statement**.
+
+### F.2 lifecycle state
+
+`F.2.2 in progress` → **`F.2 closed; F.2.3 master synthesis complete; Phase G ready to launch pending F.3 review gate`**. F.2 (calibration + full audit + master closure synthesis) is COMPLETE.
+
+### Tier 2 stop report (Protocol §9) — F.2.3 Master Closure Synthesis
+
+- `tier`: 2 (work-package completion + F.2 phase closure)
+- `objective_markers`: Reconciliation Map v1 §19 added (master closure synthesis); §19 Operating Contract renumbered to §20; header + §0 updated; D0THES-DEC-017 decision ledger row added; charter Open Debt updated; this handoff Extension #24 added
+- `commit`: pending (will commit + push)
+- `work_summary`: F.2.3 master closure synthesis executed 2026-05-28 per Nick "proceed, do not rush." Synthesized 59-artifact / 100-finding / 2-conflict-row F.2 corpus into 18 cross-link clusters + G.1-G.6 Phase G subphase sequencing + critical dependency surfacing (§1J.10 blocking gate) + 6 DL promotion gates + 8 T0 Change Control candidates + neutral build inventory (50 migrations + 40 lib dirs, zero comparison) + conflict seed + F.3 readiness. Built from ground-truth (read all finding structures + filesystem build enumeration), not memory. F.2 CLOSED.
+- `files_changed`: Reconciliation Map v1 (§19 master closure added; §19 Operating Contract → §20; header + §0 updated) + decision ledger (D0THES-DEC-017) + charter Open Debt + this handoff (Extension #24)
+- `prior_narratives_consulted`: Closure Addendum Extensions #14-#23 (all F.2.2 batches + re-validation + substrate-spine + final coverage closure) + open review queue D0THES-REV-032..138 + supersession ledger D0THES-CNF-010..011 + Nick "proceed, do not rush, get all this shit right"
+- `governed_stream_artifact_touched`: `omni_doctrine_reconciliation_map_v1` (§19 master closure added; Operating Contract → §20; lifecycle advances to `F.2 closed; F.2.3 complete; Phase G ready pending F.3`)
+- `version_state`: `F.2.3 complete; F.2 CLOSED; Phase G ready pending F.3 review gate`
+- `operating_contract_applied`: §20 of v1 (post-renumbering)
+- `non_loss_check`: all prior batch findings preserved verbatim (§§0-18 historical layers); F.2.3 synthesis layered as §19 additive (§19 Operating Contract → §20 renumbering only); no findings modified; no classifications changed
+- `nick_directive_satisfied`: "do not rush, get all this shit right" — F.2.3 built from ground-truth finding inventory + filesystem build enumeration; doctrine confirmed SOLID + comprehensively sequenced for Phase G refresh
+
+### Next action
+
+**F.3 human review gate** (Nick + Knox) — NOT Phase G execution. F.3 decisions (per §19.9): (1) ratify F.2.3 G.1-G.6 sequencing; (2) T0 Change Control decisions (which of T0-08..T0-16 promote; final Tier 0 count); (3) DL promotion signoffs (DL-17 D6, DL-20 Q1+Q6, DL-22 Q14 joint; DL-18/19/21 steward); (4) parking-branch reconciliation (D0THES-CNF-010/011 recover-vs-resource-vs-annotate); (5) Phase H boundary confirmation; (6) open-review disposition (138 REV + 2 CNF rows). After F.3 ratifies → Phase G executes (G.1 thesis-spine-ratification first).
+
+Next agent reading this handoff: **F.2 is CLOSED.** F.2.3 master closure synthesis complete (Reconciliation Map §19): full Phase G work plan + G.1-G.6 sequencing + 6 DL promotion gates + 8 T0 candidates + neutral build inventory + F.3 readiness. **The operative next phase is the F.3 HUMAN REVIEW GATE** (Nick + Knox), NOT Phase G execution — do not start Phase G amendments until F.3 ratifies sequencing + T0 promotions + DL signoffs. **CRITICAL Phase G dependency**: §1J.10 loadPatientCaseSafetySnapshot is the ABSOLUTE BLOCKING gate on first Rx pathway shipment. Existing-build reconciliation is Phase G.5 (after G.1-G.4 doctrine refresh; neutral build inventory in §19.7 is the target list). **System map + doctrine confirmed SOLID, comprehensively audited, and sequenced for refresh** per Nick's binding requirement.
