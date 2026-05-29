@@ -1765,3 +1765,22 @@ Per `D0THES-DEC-020`. Nick said "begin g.1." Executed G.1 (FIRST Phase G executi
 **CHECKPOINT FLAG for Nick/Knox**: Tier 0 is now **13 entries**. If judged too long for "constitutional and short," T0-14 has a documented fold-into-T0-09 fallback (would bring it to 12). Everything else holds.
 
 **Next action**: Opus STOPS. Checkpoint with Nick + Knox before G.2. G.2 (substrate refresh — the largest subphase; ~200-280 hr; includes the 6 DL promotion gates) requires explicit checkpoint approval. Do NOT auto-continue to G.2. Hard pre-condition still binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
+
+---
+
+## Closure Addendum Extension #28 (2026-05-28) — PHASE G.2.a EXECUTED (DL-18 promotion + cluster C4 per-event ownership / T0-13); STOPPED for checkpoint before G.2.b
+
+Per `D0THES-DEC-021`. Nick said "Tier 0 looks right, continue." Tier 0 confirmed at 13 (T0-14 standalone). Proceeded to G.2 (substrate refresh). **G.2 is BATCHED (G.2.a-f) — NOT one-shot.** This is G.2.a (dependency-first: DL-18 + cluster C4).
+
+**Doctrine edits landed (binding, under F.3 Change Control authorization):**
+- **DL-18 inv 25 added** — per-event ownership orthogonality (T0-13 binding): authorization resolved per ownership dimension across the 7 orthogonal dimensions; a grant on one dimension does NOT confer authority on another; 6-layer resolution + brand-capability + attestation evaluate per-dimension; dimensions never collapse.
+- **DL-18 PROMOTED DRAFT → LOCKED** (steward-promotable per F.3 D3; promoted FIRST — RBAC atoms underpin all). Status header + promotion gate updated.
+- **System map DL-17→DL-22 register**: DL-18 row marked ✅ LOCKED (25 invariants).
+- **System map DL-16 inv 2 universal envelope**: added `ownership_dimensions` 7-axis field (surface/channel/operator/clinical/commerce/custody/coordination; orthogonal; must not collapse) — the DL-16 half of cluster C4.
+- **Cluster C4 (per-event ownership orthogonality) landed at both canonical homes** (DL-16 envelope + DL-18 inv 25). Closed REV-113; REV-111 ownership-half landed (consent_scope half deferred to C7/G.2.b).
+
+**Promotion mechanic (worked template — FLAGGED for Nick/Knox confirmation)**: status-flip DRAFT→LOCKED + v2 amendment + register-row-lock; **full-inline relocation into the 11.6k-line system map body DEFERRED to substrate-slice / G.5** (per DL-18's own Promotion gate naming substrate-slice as NEXT). DRAFT file remains detailed canonical home until relocated. **If Nick/Knox want full-inline-now (option a) instead of register-lock (option b), switch before G.2.b repeats the mechanic ×5.**
+
+**What G.2.a did NOT do**: no other DL promoted; no other cluster landed (C5/C6/C7/C9/C11/C14 = later G.2 batches); per-event-ownership cross-links into operational sections (§1L/§1M/§1N/§1O/§1P/§1K/§1Q/§1U — REV-080/089/102/119/135) land in later batches; no build touched (build recon = G.5).
+
+**Next action**: Opus STOPS. Checkpoint with Nick before G.2.b. **G.2 remaining batches**: G.2.b (DL-19 + C5 catalog + C7 consent-specificity) → G.2.c (DL-21 + C13 prep) → G.2.d (C9 projection + C11 model-version + C14 lab-vocabulary) → G.2.e (C6 patient-source) → G.2.f (gated DL-17/20/22 — only after Q-gates closed). Each batch checkpoints. Confirm promotion mechanic (option a full-inline vs option b register-lock) at this checkpoint.

@@ -1,7 +1,7 @@
 # DL-18 — RBAC / Permission Substrate (DRAFT)
 
 **Date:** 2026-05-17
-**Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice.
+**Status:** **LOCKED (promoted Phase G.2.a 2026-05-28 per `D0THES-DEC-021`; F.3 Change Control authorization `D0THES-DEC-019` D3 — steward-promotable DL).** Was DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. Joint Opus + Knox + user signoff satisfied via F.3 review gate (`D0THES-DEC-019`). **Promotion mechanic (Phase G.2.a worked template, pending Nick/Knox checkpoint confirmation):** status flipped DRAFT → LOCKED + v2 cross-link amendment landed (inv 25, T0-13) + system map DL-17→DL-22 register row marked LOCKED. Full-inline relocation into system map body deferred to substrate-slice scoping (the gate this DRAFT's Promotion gate names as NEXT). This DRAFT file remains the detailed canonical home until substrate-slice relocates inline. Still NOT code. NOT migrations. NOT substrate slice.
 
 **Substrate evolution clause (binding 2026-05-17 — Knox correction REPLACES my prior parallel-substrate proposal):** DL-18 EXTENDS the existing [lib/auth/capabilities.ts](../../lib/auth/capabilities.ts) capability layer; it does NOT replace it with a parallel system. The existing `ROLE_CAPABILITIES` compile-time const (8 roles × 20 capabilities) becomes the Day 1 SEED DATA for `permission_group_atom_grant` rows when the substrate slice lands. The existing `hasCapability()` + `requireCapability()` functions remain the read-side API (no replacement). The existing `audit_events` table (per `emitCapabilityAudit` pattern at [lib/auth/capabilities.ts](../../lib/auth/capabilities.ts) lines 298-353) IS the permission audit log — DL-18 does NOT propose a separate `permission_audit_log` table; the existing audit_events substrate extends with new action values (`capability.grant_modified` / `capability.assignment_modified` / `capability.attestation_emitted`). The existing `SensitiveAccessReason` enum at lines 89-95 (6 values: routine_clinical_review / break_glass_emergency / patient_requested / compliance_audit / cross_state_coverage / training) IS the Day 1 seed for Tier 2 reason_code attestation kind per inv 9. The existing `staff_profiles.role` enum (8 staff roles) is the Day 1 seed for permission_group assignment at inv 5 layer 5. Adoption is incremental: per-staff capability rows (inv 6 layer 6) start empty Day 1; resolution falls through to role-based grants via ROLE_CAPABILITIES seed.
 
@@ -101,6 +101,10 @@
 
 24. **DL-18 + Federation-Topology DL: permeability changes require federation atoms (high-risk, tier 4 attestation).** Modifying federation permeability policy requires `federation.modify_permeability_policy` atom + Tier 4 attestation (legal entity owner signature). Cross-link DL-10 + A1 + Federation-Topology DL.
 
+### Phase G.2 cross-link amendment (T0-13 binding)
+
+25. **Per-event ownership orthogonality (Tier 0 guardrail T0-13 binding; Phase G.2 amendment 2026-05-28, `D0THES-DEC-021`).** Authorization is resolved **per ownership dimension** across the 7 orthogonal per-event ownership dimensions (surface / channel / operator / clinical / commerce / custody / coordination per Tier 0 T0-13 + thesis v2 §7.5.1). **A grant or capability on one ownership dimension does NOT confer authority on another** — e.g., a `commerce_owner` grant (commerce dimension) does NOT confer clinical-write authority (clinical dimension) or custody authority (custody dimension); a coordination grant does not confer commerce authority; etc. The 6-layer authorization resolution (inv 5) + brand-capability gate (inv 10) + attestation tiers (inv 8) evaluate **per-dimension**; ownership dimensions NEVER collapse into a single "owns everything about this event" grant. Permission atoms (inv 2) carry an implicit ownership-dimension scope; cross-dimension authority requires an explicit grant on each dimension. This specializes DL-16 inv 2 (the universal envelope carries the 7 ownership-axis fields per the paired DL-16 G.2 amendment) for the authorization layer. Cross-link Tier 0 T0-13 + thesis v2 §7.5.1 + DL-16 inv 2 (7 ownership-axis fields) + inv 5 + inv 8 + inv 10 + D0THES-REV-113.
+
 ---
 
 ## Open sub-questions (require Knox + user signoff before lock)
@@ -137,6 +141,8 @@
 
 ## Promotion gate
 
-Per Build Contract §6.4 step 4 + §6.5 step 5: DL-18 (DRAFT) → joint signoff → promotion to LOCKED inline in system_map → substrate slice scoping (atom registry seed; permission_group / permission_atom / grant / assignment / capability / attestation DDL; authorization resolver RPC). Substrate slice MUST verify existing §1D `lib/auth/capabilities.ts` implementation is current per §10.5 stale-existing-OMNI warning.
+**PROMOTED Phase G.2.a (2026-05-28) per `D0THES-DEC-021`.** Joint signoff satisfied via F.3 review gate (`D0THES-DEC-019` D3: DL-18 steward-promotable, promote FIRST — RBAC atoms underpin all). DL-18 is now LOCKED doctrine + carries the T0-13 per-event-ownership cross-link (inv 25). **NEXT gate (unchanged): substrate slice scoping** (atom registry seed; permission_group / permission_atom / grant / assignment / capability / attestation DDL; authorization resolver RPC) — happens in Phase G.5 build reconciliation; substrate slice MUST verify existing §1D `lib/auth/capabilities.ts` implementation is current per §10.5 stale-existing-OMNI warning. Full-inline relocation into system map body is part of substrate-slice / G.5 de-scaffolding.
 
-NOT code. NOT migrations. NOT substrate slice. NOT §10.5 warning removal.
+Original gate (historical): Per Build Contract §6.4 step 4 + §6.5 step 5: DL-18 (DRAFT) → joint signoff → promotion to LOCKED inline in system_map → substrate slice scoping.
+
+Still NOT code. NOT migrations. NOT substrate slice. NOT §10.5 warning removal.
