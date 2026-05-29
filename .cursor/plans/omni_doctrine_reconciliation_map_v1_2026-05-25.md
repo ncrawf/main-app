@@ -1,6 +1,6 @@
 # OMNI Doctrine Reconciliation Map v1
 
-> **F.2.2.F BATCH COMPLETE 2026-05-28 — SUBSTRATE SPINE GAP CLOSURE (17 artifacts; system map pre-§1D architectural spine + §1D + DL-18/19/22 + Build OS Rollout + Build Entry Gate v0 + 8 Tier 0/0.5 governance-substrate + Future Care substrate); F.2.2 SCOPE TRULY CLOSED (48 artifacts; 92 Q7 findings); F.2.3 MASTER CLOSURE NEXT (NOW UNBLOCKED)**
+> **F.2.2.G BATCH COMPLETE 2026-05-28 — FINAL COVERAGE CLOSURE (3 unaudited system map lab sections + 8 binding docs + 2 parking-branch drift findings); ENTIRE system map (34 sections) + ALL binding doctrine now audited; F.2.2 SCOPE FINALLY CLOSED (59 artifacts; 100 Q7 findings + 2 conflict rows); F.2.3 MASTER CLOSURE NEXT (FULLY UNBLOCKED). [Prior: F.2.2.F substrate spine gap closure — 17 artifacts; F.2.2.A-E — 31 artifacts.]**
 >
 > Fourth and final F.2.2 batch under §11.7 content-not-title methodology. Per Nick decision (continued full-depth per §17 default). Per Knox three-tier policy + v2 lens. **E Outcome: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G; v2 NOT patched per Knox policy); 0 Tier 3 materially-misleading findings.** All 3 artifacts STABLE under v2 lens (all K1; 3 amend refresh_action; ~20-33 hr total Phase G effort). **F.2.2 SCOPE CLOSED**: 31 artifacts audited; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours.
 
@@ -62,7 +62,7 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
-## §0 Status Posture — F.2.2.F BATCH COMPLETE (Substrate Spine Gap Closure); F.2.2 SCOPE TRULY CLOSED (48 artifacts); F.2.3 MASTER CLOSURE NEXT (UNBLOCKED)
+## §0 Status Posture — F.2.2.G BATCH COMPLETE (Final Coverage Closure); ENTIRE system map + ALL binding doctrine audited; F.2.2 SCOPE FINALLY CLOSED (59 artifacts); F.2.3 MASTER CLOSURE NEXT (FULLY UNBLOCKED)
 
 **F.2.2.E Batch complete 2026-05-28** per `D0THES-DEC-013` per Operating Contract §17 append rules. Fourth and final F.2.2 batch under §11.7 content-not-title methodology. 3 audit picks: §1Q Rules + Templates engine (2311 lines; heaviest single artifact in F.2.2 corpus; foundational cross-cutting; DL-14 subordinated subsystem) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G); 0 Tier 3 materially-misleading findings. All 3 artifacts STABLE under v2 lens (all K1). **F.2.2 SCOPE CLOSED**: 31 artifacts audited across F.2 corpus; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing.
 
@@ -3761,7 +3761,114 @@ The system map and doctrine **are SOLID** for downstream design + build work, pe
 
 ---
 
-## §18 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
+## §18 F.2.2.G Final Coverage Closure batch — 3 unaudited system map lab sections + 8 binding docs + 2 parking-branch drift findings (2026-05-28)
+
+> **F.2.2.G BATCH COMPLETE 2026-05-28 — 11 ARTIFACTS (3 system map sections + 8 binding docs) + 2 DRIFT FINDINGS UNDER v2 LENS + §11.7 CONTENT-NOT-TITLE METHODOLOGY; F.2.2 SCOPE FINALLY CLOSED (59 ARTIFACTS); F.2.3 MASTER CLOSURE NEXT**
+
+> **Trigger**: Per Nick challenge 2026-05-28 — distrust that "substrate-level" framing was excluding parts of the system map / doctrine / existing build. Nick verbatim: *"you need to ultra confirm for me that there are no parts of the system map, no parts of doctrine ... do not fuck me on this do not u fuck future us 5-6 agents down the line on this."* Opus ran ground-truth verification (grepped ALL system map `##` headers + enumerated full doctrine folder + all binding docs in catalog) instead of asserting. Verification surfaced: (1) 3 unaudited system map sections (~700 lines; lines 10226-10927); (2) 8 binding docs never audited against v2; (3) 2 doc↔build drift findings (parking-branch). F.2.2.G closes all three. **This batch is the answer to "is the ENTIRE system map + doctrine audited."**
+
+### §18.0 F.2.2.G batch outcome (top-line)
+
+- **11 artifacts audited** (3 system map sections + 8 binding docs) + **2 drift findings logged**
+- **11 K1 classifications** (3 K1 substrate-implementation-reference + 8 K1 binding doctrine/companion/ADR/rationale-source)
+- **0 cruft classifications** (consistent with all 6 prior F.2.2 batches)
+- **0 Tier 1 mechanical errata**
+- **~8 Tier 2 substantive bidirectional findings** (D0THES-REV-131..138 routed to Phase G)
+- **2 conflict-ledger rows** (D0THES-CNF-010 LI doctrine source off-main; D0THES-CNF-011 lib/scheduling off-main)
+- **0 Tier 3 materially-misleading findings**
+- **All 11 artifacts STABLE under v2 lens** (0 K-category changes); all binding content already reconciled into MAIN system map (audited F.2.2.F.1)
+- **F.2.2 SCOPE FINALLY CLOSED**: 59 artifacts audited cumulatively (31 F.2.2.A-E + 17 F.2.2.F + 11 F.2.2.G); 58 substrate/binding + 1 K6 parked; 0 cruft; **ENTIRE system map (all 34 `##` sections) + ALL binding doctrine + binding companions + binding ADR + binding rationale source now audited**
+- **MAJOR EMERGENT FINDING**: 5 of the 8 binding docs constitute a **doctrine↔build bridge layer** (existing-build reconciliation seed for Phase G.5)
+
+### §18.1 F.2.2.G.1 — 3 unaudited system map sections (K1 substrate-implementation-reference)
+
+#### Audit row: System map 3 lab/injectable appendix sections (lines 10226-10927; ~700 lines)
+
+- **Path / Sections**: `.cursor/plans/system_map_three_layers_60706286.plan.md` — (a) `## Appendix: Injectable / peptide treatment requirements (pressure-test)` (10226-10274; carries LOCKED decision "clinical path stays `treatment_items` + `treatment_orders`; retail ancillaries use §1E; no merging Rx and retail"); (b) `## Appendix: Lab workflow end-to-end` (10277-10513; §11-17 authoritative schema decisions — 6 column additions to patient_diagnostic_reports + patient_lab_observations + lab_orders; explicitly subordinate to §1L operative contract); (c) `## Lab system end-to-end (PARTS 1-10)` (10515-10922; full panel-type enum 16 values + fulfillment flow + ingestion + provider loop + patient display + 25 error/edge cases + care-program linkage + retention loop + capability summary + admin overlay 9 saved views + versioned category-mapping spec + lab event vocabulary `lab.order.*` / `lab.result.*` / `lab.retest.*`)
+- **K-category**: **K1 substrate-implementation-reference** (binding implementation contract for labs; subordinate to §1L operative contract; carries authoritative schema decisions + locked decisions)
+- **memory_disposition**: preserve all (binding schema + locked decisions + lab event vocabulary)
+- **authority_disposition**: §1L is operative contract; these sections supply long-form mechanics (authoritative for the specific schema fields + scenarios they define)
+- **refresh_action**: amend for v2 (lab event vocabulary → DL-16 registry + amendment 40 client-alert vocabulary + amendment 42 outbound trigger vocabulary; versioned category-mapping + insight scoring spec → v2 §9.1 model_version_of_record + §12.8 substrate-vs-care boundary; released_to_patient_at gate → v2 §7.5.4 consent specificity + §7.7 universal projection doctrine)
+- **confidence_level**: HIGH
+- **classification_evidence**: §11 6-column schema decision table (binding); injectable appendix locked-decision-preserved block (line 10273); Lab PARTS 1-10 "no new tables" reuse discipline + full panel-type enum + versioned category-mapping "single source of truth, never per-row metadata" hard rule (line 10725). **DENSEST doc↔build bridge in system map** — names actual migrations (`20260423150000_lab_orders_and_storage.sql` etc.) + functions (`createAndPublishLabOrder`, `submitPatientPortalDocumentUpload`, `processChartAiReviewJob.ts`) + columns; primary lab-build reconciliation target for Phase G.5
+- **valid_decisions_to_preserve**: injectable clinical-path locked decision + §11 6-column schema decisions + 16-value panel_type enum + lab event vocabulary + versioned category-mapping spec + 25 error-case state machine
+
+#### F.2.2.G.1 Tier 2 bidirectional findings (3 findings; D0THES-REV-131..133)
+
+- **D0THES-REV-131** (lab event vocabulary `lab.order.*` / `lab.result.*` / `lab.retest.*` ↔ DL-16 inv 2 envelope + amendment 40 client-alert vocabulary + amendment 42 outbound trigger vocabulary): lab appendix predates DL-16; lab event_kinds must reconcile to DL-16 registry per inv 5+9+29. Phase G action: register lab event vocabulary in DL-16 taxonomy registry; cross-link to amendment 40/42 seeds. Effort ~6-10 hr.
+- **D0THES-REV-132** (versioned category-mapping spec + insight scoring spec ↔ v2 §9.1 model_version_of_record + §12.8 substrate-vs-care boundary): lab insights are deterministic versioned (mapping_version + insight_version carried in server response); v2 §9.1 model_version_of_record reinforces; v2 §12.8 "not a diagnosis" boundary aligns with insight provisional-indicator discipline. Phase G action: cross-link lab insight versioning to v2 §9.1 + §12.8. Effort ~4-6 hr.
+- **D0THES-REV-133** (released_to_patient_at gate + patient display projection ↔ v2 §7.5.4 consent specificity + §7.7 universal projection doctrine): lab patient display is a projection gated by released_to_patient_at; v2 §7.7 universal projection doctrine (hard vs soft) + §7.5.4 consent specificity (per-data-class) extend. Phase G action: cross-link lab display projection + release gate to v2 §7.7 + §7.5.4. Effort ~3-5 hr.
+
+### §18.2 F.2.2.G.2 — 8 binding docs (all K1 binding)
+
+| # | Doc | Lines | K-category | Build-bridge? | refresh_action |
+|---|---|---|---|---|---|
+| 1 | `docs/ai-governance-policy.md` | 37 | K1 binding doctrine (AI Governance overlay) | — | amend v2 (already requires "model provider + version" — existing seed for v2 §9.1 model_version_of_record) |
+| 2 | `docs/architecture/cns_taxonomy_reconciliation.md` | 113 | K1 binding companion (DL-16 20-surface × 7-category map) | — | amend v2 (per-event ownership §7.5.1 + projection §7.7) |
+| 3 | `.cursor/plans/doctrine/agent_work_protocol_tag_taxonomy.md` | 201 | K1 governance-substrate (canonical vocabulary) | — | amend v2 (evaluate whether v2 operator-pluralism spawns new domain_tags) |
+| 4 | `docs/architecture/operational_objects_under_patient.md` | 228 | K1 binding companion (Platform operational model) | **YES (producer-site map)** | none (companion; doctrine binds) |
+| 5 | `.cursor/plans/data_layers_reconciliation_v1.md` | 272 | K1 binding companion | **YES (KEEP/RECONCILE/LEGACY-REPLACE migration audit)** | amend v2 + Phase G.5 build-recon seed |
+| 6 | `docs/architecture/communications_topology.md` | 511 | K1 binding companion | **YES (messaging build status)** | amend v2 (3 messaging surfaces ↔ §7.7 projection) |
+| 7 | `docs/architecture/phase_4h_target_first_decision_record.md` | 1508 | K1 binding ADR (cutover discipline + DL-1..DL-16 rationale) | **YES (DELETE-AFTER-PARITY v0 stance + 4H-pre)** | none (ADR rationale already in MAIN) |
+| 8 | `.cursor/plans/FOUNDATIONAL_ARCHITECTURE_2026-05-10_all_dimensions.md` | 2176 | K1 binding-rationale-source (DL-1..DL-9 + §1W + 21 primitives + 19 siblings) | **YES (§10 built status + §11.0 crosswalk)** | none (rationale source; §11.0 confirms all binding content in MAIN) |
+
+- **memory_disposition**: preserve all (8 docs)
+- **authority_disposition**: all subordinate to MAIN system map (companions/ADR/rationale-source; binding content reconciled into MAIN DL-1..DL-16 + §1Z + §1D + §1F-1W — audited F.2.2.F.1 + F.2.2.A-E)
+- **confidence_level**: HIGH (all 8)
+- **classification_evidence**: ai-governance-policy is binding doctrine (clinician-assist-only + reviewed_accepted gate + model-provider+version audit); cns_taxonomy_reconciliation explicitly "companion reference, registry wins"; tag_taxonomy is governance_binding closed-set vocabulary; operational_objects_under_patient explicitly "companion; doctrine binds"; data_layers_reconciliation explicitly "binding companion; map wins"; communications_topology explicitly "companion synthesis, not binding doctrine"; phase_4h explicitly "preservation/handoff record, not system-map rewrite; binding artifacts = system map"; FOUNDATIONAL explicitly "does not bind by itself; binding commitments reconciled into MAIN DL-1..DL-9 + §1W"
+- **EMERGENT FINDING (doctrine↔build bridge layer)**: docs #4 + #5 + #6 + #7 + #8 collectively document existing-build state + reconciliation methodology: `data_layers_reconciliation_v1` (KEEP/RECONCILE/LEGACY-REPLACE on ~33 migrations + DELETE-AFTER-PARITY `lib/workflows/*`) + `phase_4h ADR` (stale `lib/workflows/onPatientWorkflowEvent.ts` + `notificationRules.ts` + `types.ts` + `patientMessages.ts` = "implicit engine v0" DELETE-AFTER-PARITY + 11 NotificationTemplateKey cases + actual `lib/rules/runtime/dispatcher.ts` allowlist) + `FOUNDATIONAL §10 + §11.0` (5 active siblings: account_lifecycle / billing_subscription / clinical_decision / fulfillment_lifecycle / pharmacy_lifecycle + 21-primitive LANDED/PARTIAL/RESERVED) + `communications_topology §9` (messaging build status: rich chat substrate built+empty / inbox built no-UI / action_items NOT built / send_email+sms+in_app LANDED / voice+fax+push RESERVED / patient_relationship NOT built) + `operational_objects_under_patient` (producer-site map). **This bridge layer + methodology IS the Phase G.5 build-reconciliation starting point.**
+
+#### F.2.2.G.2 Tier 2 bidirectional findings (5 findings; D0THES-REV-134..138)
+
+- **D0THES-REV-134** (ai-governance-policy required audit "model provider + version" ↔ v2 §9.1 model_version_of_record TRINITY guardrail): ai-governance-policy ALREADY requires model provider + version in every recommendation lifecycle audit — this is the EXISTING SEED for v2's model_version_of_record fail-at-scale guardrail. Phase G action: promote ai-governance-policy model-version requirement into v2 §9.1 model_version_of_record binding doctrine (T0-16 candidate); cross-link DL-14 inv 10 + DL-18 inv 9. Effort ~3-5 hr.
+- **D0THES-REV-135** (cns_taxonomy_reconciliation 20-surface × 7-category map ↔ v2 §7.5.1 per-event ownership + §7.7 universal projection): the 7-category partition (domain event / canonical state / orchestration_run / orchestration_action / projection / outcome / cns_decision) is the substrate for v2 §7.5.1 per-event ownership + §7.7 hard-vs-soft projection. Phase G action: extend cns_taxonomy_reconciliation with v2 7-ownership-dimension column + hard/soft projection annotation. Effort ~4-6 hr.
+- **D0THES-REV-136** (tag_taxonomy closed-set domain_tags 13 values ↔ v2 §13.7 operator-pluralism + §6.7 5-tier vocabulary): tag_taxonomy domain_tags does not yet carry operator-pluralism dimensions; v2 may spawn new workstream domain_tags (per D0THES-REV-122 workstream overlay evaluation). Phase G action: evaluate whether v2 T0-XX candidate promotions require new domain_tags (via open-review per tag_taxonomy extension rule). Effort ~2-4 hr.
+- **D0THES-REV-137** (data_layers_reconciliation_v1 KEEP/RECONCILE/LEGACY-REPLACE methodology ↔ Phase G.5 build reconciliation): the migration-audit methodology (KEEP/RECONCILE/LEGACY-REPLACE per migration + DELETE-AFTER-PARITY for stale code) is the EXACT methodology Phase G.5 extends against the full 50-migration set + refreshed v2 doctrine. Phase G.5 action: extend data_layers_reconciliation to v2 (re-audit all 50 migrations + lib dirs against refreshed doctrine; two-way reconciliation — build-stale → update build; build-ahead → back-port to doctrine). Effort ~40-80 hr (Phase G.5 core work).
+- **D0THES-REV-138** (communications_topology §9 + FOUNDATIONAL §10 build status ↔ v2 reconciliation): both docs are point-in-time build-status snapshots (pre-v2); messaging mostly greenfield (shells + empty tables), 5 siblings active. Phase G.5 action: refresh build-status snapshots against current 50-migration state + refreshed v2 doctrine as part of build inventory. Effort ~6-10 hr.
+
+### §18.3 F.2.2.G.3 — 2 doc↔build drift findings (parking-branch; D0THES-CNF-010..011)
+
+Both root-caused to parking branch `wip/scheduling-cns-pre-thesis-snapshot-2026-05-23` (commit `d753a64`); both NON-BLOCKING for F.2.3; both are the named HANDOFF_2026-05-23 "parking-branch reconciliation owed post-thesis" open trigger:
+
+- **D0THES-CNF-010** (logged in `05_supersession_conflict_ledger.md`): Doctrine Manifest T0-01..T0-07 constitutional guardrails cite `longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md` as SOURCE; that file is off-main (parking branch only). Guardrail CONTENT preserved on main in DL-14 + CNS ADR + §1Z; only the cited SOURCE pointer is off-main. F.3/Phase G decides recover-vs-resource-vs-annotate.
+- **D0THES-CNF-011** (logged in `05_supersession_conflict_ledger.md`): Build Entry Gate v0 WP-EXEC-002 claims accepted `lib/scheduling/*` artifacts that are off-main (parking branch only). Substrate posture (scheduling RESERVED) is consistent on main per FOUNDATIONAL §10 + DL-15; only the WP-EXEC-002 status line overstates. F.3/Phase G decides recover-vs-annotate-vs-redo.
+
+**Reassurance finding (directly addresses Nick's existing-build concern)**: the scheduling spine + LI doctrine + CNS runtime work that could be feared "built and going stale" is **deliberately quarantined off-main** on the parking branch pending thesis closure (per HANDOFF_2026-05-23 "do not stage into main"). Less build-divergence risk than feared — the heaviest pre-thesis runtime work is parked, not silently rotting on main.
+
+### §18.4 F.2.2.G self-assessment + F.2.2 SCOPE FINALLY CLOSED
+
+#### Methodology validation
+
+- 11/11 artifacts classified by content (grepped all system map `##` headers + read all 8 binding docs); §11.7 content-not-title rule validated across F.2.2.B-G (6 consecutive batches; 50 artifacts).
+- Ground-truth verification (not assertion) per Nick's "ultra confirm" challenge: grepped ALL 34 system map `##` sections + enumerated full doctrine folder (33 files) + all docs/ + docs/architecture/ binding docs + verified parking-branch state. **No system map section, no binding doctrine doc left unaudited.**
+
+#### F.2.2 SCOPE FINALLY CLOSED — Final Statistics (cumulative F.2.2.A.1-G)
+
+- **59 artifacts audited cumulatively** (31 F.2.2.A-E + 17 F.2.2.F + 11 F.2.2.G)
+- **58 substrate/binding K1 + 1 K6 parked design rationale**
+- **0 cruft classifications across all 7 F.2.2 batches**
+- **0 Tier 1 mechanical errata**
+- **100 Tier 2 substantive bidirectional findings** (92 + 8 = D0THES-REV-032..138)
+- **2 conflict-ledger drift rows** (D0THES-CNF-010..011)
+- **0 Tier 3 materially-misleading findings**
+- **ENTIRE system map (all 34 `##` sections)** + **ALL binding doctrine** (33-file doctrine folder minus ledgers/archives/process-records) + **ALL binding companions + binding ADR + binding rationale source** now audited
+- **Cumulative F.2.2 Phase G effort estimate**: ~380-570 hours (doctrine refresh) + ~50-90 hours (Phase G.5 build reconciliation)
+
+#### Coverage completeness statement (answers Nick's "ultra confirm")
+
+- **System map in toto**: ✅ ALL 34 `##` sections audited (pre-§1D spine + §1D-§1W + §1Z + 3 lab appendices).
+- **Doctrine in toto**: ✅ ALL binding doctrine + companions + ADR + rationale-source audited. Excluded (legitimately): ledgers we WRITE to (03/08 + read-graph history archive), process/audit/patch-spec records (5 files), narratives/postmortems/pressure-tests (evidence, not doctrine).
+- **Existing build**: ⏸ NOT audited against doctrine yet — correctly deferred to Phase G.5 (cannot reconcile build against doctrine until doctrine is refreshed; the doctrine↔build bridge layer + KEEP/RECONCILE/LEGACY-REPLACE methodology already exist as the G.5 starting point). The heaviest pre-thesis runtime work (scheduling/CNS/LI) is parked off-main (quarantined, not stale-on-main).
+
+#### Operating Contract §19 lifecycle state (UPDATED post-F.2.2.G)
+
+- **F.2.2 SCOPE FINALLY CLOSED** — 59 artifacts; entire system map + all binding doctrine audited; comprehensive coverage proven by ground-truth verification.
+- **Next phase**: F.2.3 master closure synthesis (now fully unblocked; no remaining doctrine/system-map audit gaps).
+- **Phase G.5 (existing-build reconciliation)** is named + seeded (doctrine↔build bridge layer + KEEP/RECONCILE/LEGACY-REPLACE methodology + parking-branch reconciliation D0THES-CNF-010..011); executes AFTER Phase G.1-G.4 doctrine refresh produces the stable comparison target.
+
+---
+
+## §19 Operating Contract for the omni_doctrine_reconciliation_map_vN stream
 
 Per Control Plane Enforcement Rule 7 (Governed Stream Artifact Operating Contract Rule), this Reconciliation Map vN stream requires an Operating Contract at creation. This §17 IS that contract. Applies to v1 (this artifact) and inherits to v2, v3, ... unless explicitly amended.
 
