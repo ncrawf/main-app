@@ -62,6 +62,8 @@ Next volume: TBD (Reconciliation Map v2 if F.2.1 requires re-calibration; otherw
 
 ---
 
+## §0 Status Posture — G.2.f DECISION PACKET PREPARED (`D0THES-DEC-026`, §20.G2F); awaiting Nick+Knox per-DL signoff on the 3 GATED DLs (DL-17 Q1/Q2 + C5 catalog; DL-20 Q1+Q6; DL-22 Q14 + C7 consent). Opus did NOT promote — gated DLs require explicit human signoff per F.3 D3 (not steward-promotable). On signoff Opus executes G.2.f (mechanic b + rides-with amendments), then post-G.2 checkpoint before G.3. [G.2.a-e EXECUTED: DL-18/19/21 LOCKED + clusters C4/C5-partial/C7-partial/C9/C11/C13 landed.] Detail below.
+
 ## §0 Status Posture — PHASE G.2.e EXECUTED (`D0THES-DEC-025`); cluster C9 universal projection doctrine landed in DL-16 inv 19 (LOCKED INLINE DOCTRINE — second consecutive batch into an audited operational canonical home): inv 19 extended with hard vs soft projection TYPING + 3 rejection rules — (1) hard projection (derived substrate object) REJECTED without own identity/lifecycle/audit/retention; (2) soft projection (presentation view) REJECTED if given a separate substrate object (per-domain/per-surface/per-brand store = Meta-style sludge, same fragmentation as DL-19 inv 31); (3) projection REJECTED if it erases per-event ownership attribution (inv 2 + DL-18 inv 25). T0-15 substrate enforcement. Honesty: "projection is NEVER authority" core was ALREADY enforced (DL-16 inv 19 + authority-rank + radar 125; Q7) — not re-litigated/padded; only the genuine hard/soft-typing gap landed. REV-039/040 partial (doctrine landed; schema/lifecycle DDL → G.5). **STOPPED for Nick/Knox checkpoint before G.2.f** (the gated DL promotions — DL-17 D6 / DL-20 Q1+Q6 / DL-22 Q14 — require human signoff, not steward-promotable). BEFORE/AFTER substrate-behavior table is the standing opening artifact for every G.2 batch (Nick confirmed). [Prior: G.2.d C11 model_version_of_record adoption floor → DL-14 inv 10 (`D0THES-DEC-024`); G.2.c DL-21 + operator-neutrality (`D0THES-DEC-023`); G.2.b DL-19 + T0-16 floors + universal catalog (`D0THES-DEC-022`); G.2.a DL-18 + C4 (`D0THES-DEC-021`); G.1 Tier 0 → 13; F.3 ratified §20; F.2 closed §19.] G.2 batched G.2.a-f, per-batch checkpoint.
 
 **F.2.2.E Batch complete 2026-05-28** per `D0THES-DEC-013` per Operating Contract §17 append rules. Fourth and final F.2.2 batch under §11.7 content-not-title methodology. 3 audit picks: §1Q Rules + Templates engine (2311 lines; heaviest single artifact in F.2.2 corpus; foundational cross-cutting; DL-14 subordinated subsystem) + §1T Vector/ML/embedding readiness (66 lines) + §1U Multi-org/multi-tenant partition (52 lines). Per Knox three-tier policy + v2 lens: 0 Tier 1 mechanical errata; 10 Tier 2 substantive bidirectional findings (D0THES-REV-099..108 routed to Phase G); 0 Tier 3 materially-misleading findings. All 3 artifacts STABLE under v2 lens (all K1). **F.2.2 SCOPE CLOSED**: 31 artifacts audited across F.2 corpus; 31 substrate-spine; 0 cruft; pattern fully established across 7 audit dimensions. Q7 pattern total: 70 findings. Cumulative F.2.2 Phase G effort estimate: ~260-393 hours. **F.2.3 master closure synthesis is the operative next phase** — produces consolidated cross-link work plan + Phase G subphase sequencing + critical dependency surfacing.
@@ -4119,6 +4121,45 @@ F.3 review gate executed. Nick + Knox worked the 7 decision cards; decisions of 
 - **D7 — RATIFIED (launch discipline)**: Opus records these F.3 decisions FIRST (this block + `D0THES-DEC-019`). THEN Opus requests explicit approval to begin **G.1 ONLY**. **Do NOT launch full Phase G automatically. Do NOT begin G.1 until Nick says "begin G.1."**
 
 **Lifecycle state advances**: `F.2 closed; Phase G ready pending F.3 review gate` → **`F.3 RATIFIED; G.1 authorized pending explicit Nick "begin G.1" go; Phase G NOT launched`**. Hard pre-condition still binding: §1J.10 `loadPatientCaseSafetySnapshot` blocks first Rx pathway shipment (G.5 build axis).
+
+---
+
+## §20.G2F — G.2.f GATED-DL PROMOTION DECISION PACKET (prep; `D0THES-DEC-026`; 2026-05-28)
+
+**Status: `derived_nonbinding` decision PREP.** Per Nick "prep the G.2.f decision packet." G.2.a-e promoted the steward-promotable DLs (DL-18/19/21) + landed the within-deployment substrate clusters (C4/C5-partial/C7-partial/C9/C11/C13). **G.2.f is the three GATED DL promotions — these are NOT steward-promotable; per F.3 D3 they require explicit Nick + Knox signoff on their named blocking questions.** Opus does NOT promote these mechanically (the anti-pattern Knox guards: audit findings silently becoming doctrine without a human gate). This packet lays out the exact decisions. Each tentative resolution below is **already drafted in the DL DRAFT** and is Opus-recommended; the gate is human ratification.
+
+### §20.G2F.1 — DL-17 Commerce (the "D6" commerce-build blocker)
+
+- **Blocking questions** (Q-DL17-1, Q-DL17-2). Q-DL17-3 STRICKEN (Allē = `payment_method.label` string, no substrate); Q-DL17-4 + Q-DL17-5 have non-blocking tentative dispositions.
+- **Q-DL17-1 — Package substrate.** Is a mixed-type bundle ("3 facials + 1 Botox + $50 gift card" sold as one SKU) a **Contract sub-kind** or a **separate `package` substrate**? Tentative + **Opus rec: Option B (separate `package` substrate)** — packages don't share Contract's autopay/recurring-template semantics; forcing them into Contract overloads it. Tradeoff: +1 primitive vs a polluted Contract.
+- **Q-DL17-2 — Financing.** Cherry / GreenSky / CareCredit = **`payment_method`** (with a `financing_lifecycle` sub-state for approval/decline/partial-funded) or a separate **`financing_arrangement`** substrate? Tentative + **Opus rec: `payment_method` + `financing_lifecycle` sub-state** — financing is a tender with extra states, not a parallel substrate. Tradeoff: payment_method gains a sub-state machine vs a new top-level primitive.
+- **Rides-with on promotion (C5 commerce-catalog half).** G.2.b landed the universal catalog registry half (DL-19 inv 31). DL-17 promotion should add the binding cross-link that the **commerce catalog composes FROM `catalog_item`** (pricing_option + entitlement attach to catalog_item; NOT a parallel `product_catalog` table) — closes the commerce half of REV-037 + REV-079.
+- **Needed from Nick + Knox**: signoff on Q1 (Option B) + Q2 (payment_method+lifecycle); ack Q4 (Day-0 `currency_code` field, USD-only operationally) + Q5 (HSA/FSA deferred, not DL-17 scope); authorize the C5 commerce-catalog cross-link to land on promotion.
+
+### §20.G2F.2 — DL-20 Care-Coordination (Q1 + Q6 partial resolutions)
+
+- **Q1 (Q-DL20-1) — Encounter container architecture.** Single **`encounter_container`** table with a **profile discriminator** (`encounter_profile_registry`), Option A — vs per-encounter-type tables. Tentative + **Opus-recommended** (pressure-test §10 + Build Contract feasibility + simplicity per Knox session-2 marker). Tradeoff: one table + profile registry absorbs variation vs N typed tables.
+- **Q6 (Q-DL20-2) — Care Episode parent.** **`care_episode`** as a 1st-class parent primitive owning cross-encounter clinical continuity (lab → visit → Rx adjust → follow-up → lab). Tentative + **Opus-recommended**. Rationale: without an explicit parent, encounters drift unrelated; continuity needs a parent.
+- **Non-blocking tentatives to confirm or flag**: Q-DL20-3 walk-in (encounter created at door, `cancelled_before_start` if retail-only); Q-DL20-4 multi-provider (single encounter + `additional_staff_ids[]` Day 0; revisit M6); Q-DL20-5 specialty depth (12 episode_kind seeds across 7 specialties; depth phased per Build Contract §8).
+- **Needed from Nick + Knox**: joint signoff on Q1 (Option A single-table) + Q6 (Care Episode parent); confirm or flag the 3 non-blocking tentatives. (Per-event-ownership C4 + projection C9 cross-links into DL-20's encounter/episode matrices are operational-section refresh, NOT promotion blockers.)
+
+### §20.G2F.3 — DL-22 Clinical-Media (Q14 partial resolution)
+
+- **Q14 (Q-DL22-1) — Unified document substrate.** **`patient_document`** as ONE universal substrate with a `document_kind` discriminator + typed children (e.g., `clinical_photo_detail`) — vs separate substrates per kind (photos / intake / consent / scans / lab PDFs). Tentative + **Opus rec: unified.** This is the SAME universal-substrate logic as DL-19 inv 31 (one catalog_item) + DL-16 inv 19 (soft projection, one object): separate-per-kind fragments access governance + linkage + audit. Tradeoff: one rich table + discriminator + child tables vs N fragmented document stores (the rejected pattern).
+- **Rides-with on promotion (C7 consent-specificity half).** G.2.b landed the DL-19 settings FLOOR (settings cannot coarsen consent specificity, T0-16(b)). DL-22 promotion should confirm `consent_artifact.subject_kind` carries **per-data-class** granularity (per-operator + per-scope + per-purpose + per-duration) so the substrate-side consent record matches the floor — closes the DL-22 half of C7 (REV-114/117/133).
+- **Needed from Nick + Knox**: joint signoff on Q14 (unified `patient_document`); authorize the C7 `consent_artifact` per-data-class cross-link to land on promotion.
+
+### §20.G2F.4 — sequencing + Opus overall recommendation
+
+- **All three tentative resolutions are sound + Opus-recommended.** If Nick + Knox sign off, G.2.f promotes all three via promotion **mechanic (b)** (locked DL file + register-row lock + the rides-with cross-link amendments), identical to G.2.a-c. Full-inline relocation deferred to substrate-slice/G.5.
+- **Internal dependency**: DL-22 references DL-20's `encounter_container` (clinical media attaches to encounters/episodes). **Promote DL-20 before or with DL-22.** DL-17 is independent.
+- **Partial-signoff path**: if Nick + Knox want to defer any one DL, the others promote independently (respecting the DL-20→DL-22 order). E.g., promote DL-17 + DL-20 now, defer DL-22 if Q14 needs more discussion.
+- **After G.2.f**: all 6 new DLs (DL-17 through DL-22) LOCKED → **G.3 coordination refresh** is next (clusters C8 master-CNS-scope + C10 cross-operator coordination, including the REV-044 cross-operator model-lineage transmittal left open in G.2.d).
+- **Hard pre-condition unchanged**: §1J.10 `loadPatientCaseSafetySnapshot` blocks first Rx-pathway shipment (G.5 build axis) — independent of these promotions.
+
+### §20.G2F closing discipline note
+
+This packet is `derived_nonbinding` PREP. **Opus will not flip DL-17/20/22 to LOCKED until Nick + Knox give per-DL signoff** on the questions above (or authorize a partial-signoff subset). On signoff, Opus executes G.2.f exactly as scoped here (mechanic b + rides-with amendments + BEFORE/AFTER table per batch + governance scaffolding), then stops for the post-G.2 checkpoint before G.3.
 
 ---
 
