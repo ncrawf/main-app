@@ -184,6 +184,8 @@ Tier 0.5 is consult-by-default-visible. Full-read is required only when the acti
 
 The Foundation vNext pivot (per `00_architecture_artifact_index.md`) produces clean canonical artifacts that progressively replace the bloated legacy system map and proto-contract DLs. Routing during transition:
 
+- **`.cursor/plans/foundation_vnext_reconciliation.plan.md`** — **OPERATIVE ROADMAP. Read FIRST for any vNext domain/reconciliation work.** Holds the ordered domain sequence + per-domain method + live status tracker. Supersedes-in-approach the pre-pivot Phase G sequencing (reconciliation map §20 + off-repo `omni_doctrine_refresh` plan), which remain evidence only.
+
 - **`.cursor/plans/OMNI_System_Map_vNext.md`** — emerging canonical architectural MAP. **Transitional:** the legacy `system_map_three_layers_60706286.plan.md` REMAINS Tier 0 Universal Path #13 until System Map vNext is populated across all domains; both coexist meanwhile. When vNext is populated, it supersedes #13 and the legacy map demotes to evidence. Consult vNext first for any domain whose entry is filled (currently: D5).
 - **`.cursor/plans/contracts/<domain>_contract.md`** — Domain Contracts (the cleaned DLs as starting corpus). Each is **Tier 1 binding** for its domain once that domain's pass completes + is ratified. Currently ratified-pending: `D5_service_occurrence_care_coordination_contract.md` (Tier 1 binding for D5 / care-coordination workstream on ratification).
 - **`.cursor/plans/contracts/seams/<seam_id>_*.md`** — Seam/Event Contracts (cross-domain glue). **Tier 1 binding** for BOTH adjacent domains' workstreams. Currently: `SC-D3-D5-001` (D3↔D5).

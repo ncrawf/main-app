@@ -40,7 +40,7 @@ This is the **MAP**: domains, what each owns truth for, what it does NOT own, it
 |---|---|---|---|---|---|
 | D3 | Scheduling / Appointment | planned operational commitments | actualized work; commerce; documentation | `contracts/D3_scheduling_contract.md` | ⏳ pass pending (vocab anchored in D5 proof) |
 | **D5** | **Service Occurrence / Care Coordination** | **`service_occurrence`, `service_occurrence_work_item`, `service_occurrence_link`, `encounter_view` (derived), `care_episode`** | **appointment lifecycle (D3); commerce (D6); documentation (D7); Rx fulfillment** | **`contracts/D5_service_occurrence_care_coordination_contract.md`** | ✅ **proof contract drafted 2026-05-30** |
-| ID | Identity / Patient / Contact / Actor | patient, contact, actor identity + linking | clinical/commerce truth | `contracts/identity_contract.md` | ⏳ pending |
+| **ID** | **Identity / Patient / Contact / Actor** | **`contact_identity`, `patient` (consumer identity), `patient_relationship`, `actor` (+ device/robot/external_system), identity namespaces, identity_resolution** | **clinical/commerce/messaging-content/care truth; care-team membership derivation (CNS)** | **`contracts/identity_contract.md`** | ◑ **contract drafted; ratify-pending** (ladder v0 spine; cross-org deferred; open: REV-143/144/145) |
 | CNS | CNS / Orchestration | candidates, resolver decisions, orchestration actions | owning-domain canonical truth | `contracts/CNS_orchestration_contract.md` | ⏳ pending (LI doctrine off-main `d753a64` — recover first) |
 | MSG | Messaging / Communications | conversation/message substrate, rails | clinical decisions; CNS commit | `contracts/messaging_contract.md` | ⏳ pending |
 | INT | Intake / Patient-Source Data | intake sessions, patient-source assertions | clinical adoption (provider authority) | `contracts/intake_contract.md` | ⏳ pending |
@@ -66,7 +66,7 @@ The map only asserts the seam EXISTS + its `seam_id`. The contract DEFINES it (p
 | `SC-D5-D7-001` | `service_occurrence.completed` / work-item recorded | Service Occurrence → Documentation | D7 | `contracts/seams/…` | ⏳ pending (D7 OPEN) |
 | `SC-D7-CLIN-001` | `document/consent.recorded` | Documents/Consent → Clinical action | owning clinical domain | `contracts/seams/…` | ⏳ pending |
 | `SC-AI-PR-001` | `clinical_adoption.committed` | AI/Adoption → Patient record | owning clinical domain | `contracts/seams/…` | ⏳ pending |
-| `SC-ID-PT-001` | `identity.contact_resolved` | Identity → Patient/Account linking | Identity | `contracts/seams/…` | ⏳ pending |
+| `SC-ID-PT-001` | `contact.inbound_received` / `contact.identity_claim_asserted` | Contact/External-line → Identity | Identity | `contracts/seams/SC-ID-PT-001_contact_identity__to__patient_linking.md` | ✅ drafted 2026-05-30 |
 
 ## Pointers to Open Decision Registry
 

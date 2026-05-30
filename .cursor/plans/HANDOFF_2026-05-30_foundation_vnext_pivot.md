@@ -63,6 +63,10 @@ Extension #33's queue was: DL-20 rewrite → DL-22 → DL-17 → messaging/intak
 - **CNS prerequisite (unchanged):** LI doctrine off-main on parking branch `d753a64` (`D0THES-CNF-010`) — recover before the CNS domain pass.
 - Open seams: `D0THES-REV-139/140/141` (see `08`).
 
+## 6.5 Operative roadmap (READ FIRST)
+
+The ordered domain sequence + per-domain method + live status tracker live in **`.cursor/plans/foundation_vnext_reconciliation.plan.md`** (created 2026-05-30). That plan — not chat memory — is what the next agent works off of for the domain passes. It supersedes-in-approach the pre-pivot Phase G sequencing (reconciliation map §20).
+
 ## 7. Next gate + stop condition
 
 - **Next domain pass: Identity / Patient / Contact / Actor** (everything downstream — CNS/messaging/intake — depends on who/what is acted on). Same output contract per `00_architecture_artifact_index.md` "Domain pass output contract": System Map entry → Identity domain contract (existing identity substrate work as evidence) → decisions/ADR → open seams → seam contracts (e.g., `identity → patient/account linking`) → disposition table. Then STOP.
