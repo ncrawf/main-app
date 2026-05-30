@@ -1855,3 +1855,67 @@ Per `D0THES-DEC-025`. Nick: "continue." Second consecutive batch landing into **
 **What G.2.e did NOT do**: did NOT re-litigate the already-enforced "projection never authority" core; did NOT land the operational projection_rules schema (G.5); §1H/§1V/§1M/§1O projection cross-refs (REV-081/090/103/110/116/118/132/133/135) land in later G.2 operational refresh or are Q7-covered; no DL promoted (DL-16 already locked inline); no build touched.
 
 **Next action**: Opus STOPS. Checkpoint before **G.2.f** — the GATED DL promotions (DL-17 D6 commerce gate / DL-20 Q1+Q6 joint signoff / DL-22 Q14 joint signoff). These are NOT steward-promotable; they require explicit human (Nick + Knox) signoff per F.3 D3. Opus will NOT mechanically promote them. Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
+
+---
+
+## Closure Addendum Extension #33 (2026-05-30) — NEXT-AGENT HANDOFF (read this first; retains everything to prevent drift)
+
+**You are the next agent picking up the OMNI Doctrine Refresh Arc.** A prior agent (Opus) ran the F.2 audit + F.3 gate + Phase G.1–G.2.e, then hit a real failure at G.2.f that reframed the remaining work. Read this whole section before doing anything. Then read the boot artifacts in AGENTS.md + the Read Graph Tier 0 paths. Operate the **trifecta** (Opus produces → Nick relays → Knox [a ChatGPT review instance, NOT a human] reviews → Nick relays back → refine). Per `operator_context_and_collaboration_model.md` + guardrail D0OPER-GRD-001: preserve FULL technical fidelity; do not dumb down; evaluate Knox feedback on merits and push back when wrong.
+
+### 1. The single most important thing to internalize (the meta-problem)
+
+There are **TWO staleness layers running at once**, and missing this is how the project drifts:
+- **(a) Old doctrine / system-map went stale during the build.** Example proven: DL-20's open-question + promotion-gate text stayed stale (`encounter_container` + `encounter_profile_registry`) while the `day_0_scheduling_rule_matrix` Round-5 work moved the ontology forward to `service_occurrence` canonical.
+- **(b) The build work + decisions themselves now need reconciliation against Thesis v2.** Example: `care_episode` may still be right, but v2 adds `care_commitment` (accountability layer) that the episode model alone does not carry.
+
+**A thin "apply the thesis to the docs" pass is DANGEROUS** because it misses layer (a)'s fresher build arcs. Every domain needs **three-layer reconciliation**: L1 old doctrine/system-map ↔ L2 fresher build/design arcs ↔ L3 Thesis v2. This is now binding via **`D0THES-GRD-023`** (Tier 0.5 boot-visible). "Audit complete" ≠ "reconciled."
+
+### 2. Honest status of coverage (do NOT trust "audit complete")
+
+The F.2 audit (59 artifacts) proved **breadth of coverage** of the system-map/doctrine SURFACE. It did **NOT** do the per-domain three-layer reconciliation. **messaging, intake, and CNS substrates are NOT proven reconciled against v2** — and those got "substantial substantial work in the weeds" during the build (Nick's words). The DL-20 miss proved the failure pattern is real; presume it is LIVE in those domains until a freshness map proves otherwise.
+
+### 3. Two new mandatory gates (boot-visible guardrails)
+
+- **`D0THES-GRD-022`** — before any DRAFT→LOCKED promotion OR amendment to locked doctrine, produce a **Freshest Authority Check**: full-body chronological-layer scan + superseding-design-arc search + named controlling sources + active-guardrail non-contradiction. A packet built only from local open-question/promotion-gate/preamble text is INVALID.
+- **`D0THES-GRD-023`** — before declaring any domain reconciled/promoted, produce a **per-domain Freshest-Authority Map** (L1/L2/L3 + stale + what-v2-changes + reconciled-target + what's-OPEN).
+
+### 4. Where the work stands
+
+- **DONE (locked, retro-validated clean in §20.G2F-R3)**: G.1 (Tier 0 → 13 guardrails); G.2.a (DL-18 RBAC LOCKED + T0-13 per-event-ownership); G.2.b (DL-19 Settings LOCKED + T0-16 anti-collapse floors + universal catalog); G.2.c (DL-21 Federation LOCKED + T0-14 operator-neutrality); G.2.d (DL-14 inv 10 model_version_of_record adoption floor); G.2.e (DL-16 inv 19 hard/soft projection typing).
+- **HALTED**: G.2.f (gated DL promotions DL-17/20/22). DL-20 promotion BLOCKED (`D0THES-CNF-012`).
+- **AUTHORIZED, execution deferred to YOU**: the **DL-20 reconciliation rewrite** to the lock target in Reconciliation Map **§20.G2F-R5** (read it). Shape: appointment/appointment_item (planned) + service_occurrence/service_occurrence_work_item (D5 canonical) + encounter (clinical-operational container, NOT canonical D5 truth) + encounter_line (D7 projection) + care_episode (longitudinal thread, nullable) + care_commitment (v2 accountability layer) + D6/D7 sibling truths OPEN. Decisions of record: D6/D7 = option A (lock spine, mark open); care_episode↔care_commitment = mandatory v2 reconciliation. **Must reconcile against v2, not just replace stale DL-20 with Round-5 scheduling.**
+- **DL-17** is independently proceedable on signoff: package = separate `package` substrate (catalog_item/package_composition/bundle-offer, NOT Contract sub-kind); financing = `payment_method` subtype + REQUIRED `financing_arrangement` detail object (NOT a bare sub-state). See §20.G2F-R2.
+- **DL-22** held behind DL-20 (carries 5 stale `encounter_container` refs → `encounter_view`; typed-children-mandatory condition).
+
+### 5. The OWED work (your queue, roughly in order)
+
+1. **DL-20 reconciliation rewrite** to the §20.G2F-R5 authorized target (under GRD-022 + GRD-023). Re-present for lock.
+2. **DL-22** reconcile (ref update + typed-children) → lock after DL-20.
+3. **DL-17** promote on signoff (package + financing-detail-object).
+4. **Domain Freshest-Authority Maps (the big owed work, per GRD-023)** for **messaging**, **intake**, **CNS** — three-layer reconciliation. Doc lists per Knox below.
+5. Remaining Phase G: G.3 coordination (C8 master-CNS-scope + C10 cross-operator coordination incl. REV-044 cross-operator model-lineage transmittal), G.4 architecture (C13 full operator-pluralism + C15 brand-trust), G.5 build reconciliation, G.6 closure.
+
+### 6. Per-domain freshness-map SCAFFOLDS (controlling docs to read — Knox's lists; start here)
+
+- **Scheduling / DL-20** (freshest authority FOUND): `DL-20_care_coordination_DRAFT` + `DL-15` (scheduling spine) + `designs/day_0_scheduling_rule_matrix/00_index.md` + `.../05_domain_service_occurrence.md` + `.../05_3_round5_closure_verdict.md` + v2 §7.3 (care_commitment) §7.5 (clinical_adoption) §7.7 (projection). **Freshest = day_0_scheduling_rule_matrix Round 5** (service_occurrence canonical; encounter_view derived per active guardrail D0W3A-GRD-003). D6/D7 OPEN.
+- **Messaging** (NOT yet mapped): system-map **§1G** (1724 lines) + `docs/architecture/communications_topology.md` + `docs/architecture/cns_action_orchestration_adr_2026-05-17.md` + external-line/portal-chat + message↔contact↔patient identity separation (§1J) + Phase-G messaging rows. v2 layer: messaging projections (§7.7.2 scoped conversation projections) + visible-provider (T0-08) + universal projection (T0-15).
+- **Intake** (NOT yet mapped): system-map **§1K** (1887 lines) + **§1K.5.A** clinical-assertion layer + `designs/2026-04-27_intake_construction_design.md` + `designs/2026-04-27_clinical_assertion_layer_design.md` + §1P narrative atomization. v2 layer: patient-source substrate (§7.5.3), conversational-intake, clinical_adoption (§7.5), model_version_of_record (landed DL-14 inv 10).
+- **CNS** (NOT yet mapped): **DL-14** + **DL-16** + `docs/architecture/cns_action_orchestration_adr_2026-05-17.md` + orchestration_run/orchestration_action + rules/templates **§1Q** (2311 lines) + **LI doctrine** (⚠️ `longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md` is **OFF-MAIN on parking branch `d753a64`** per `D0THES-CNF-010` — recover/re-source first) + `docs/ai-governance-policy.md`. v2 layer: 4-layer care OS (Coordination CNS), AI capability envelope (§12.8), model_version_of_record (§9.1).
+
+### 7. Known drift/parking-branch hazards
+- **Parking branch `wip/scheduling-cns-pre-thesis-snapshot-2026-05-23` (commit `d753a64`)** holds off-main: **LI doctrine** (`D0THES-CNF-010`) + `lib/scheduling/*` (`D0THES-CNF-011`). Reconcile per F.3 D4 (LI = re-source from main DL-14/CNS ADR/§1Z; scheduling = annotate-now, recover/rebuild in G.5).
+- **Hard blocker**: `§1J.10 loadPatientCaseSafetySnapshot` blocks first Rx-pathway shipment (G.5 build axis).
+
+### 8. Canonical artifacts + where things live
+- **Authority spine**: AGENTS.md (boot pointer) → Coordination Charter `00_omni_coordination_charter.md` → Control Plane `00_architecture_memory_control_plane.md` → Agent Work Protocol `agent_work_protocol.md` → Manifest Read Graph `04_manifest_read_graph.md` → Guardrail Digest `06_guardrail_antipattern_digest.md` (Tier 0.5; READ the D0THES-GRD-022/023 + D0W3A/D0W3E/D0W4A rows).
+- **System map** (source of truth, foundation vs deferred): `system_map_three_layers_60706286.plan.md` (DL-1..DL-16 LOCKED inline; DL-17..22 register + DRAFT files).
+- **Thesis v2** (the L3 reconciliation target): `omni_thesis_v2_2026-05-26.md` (+ founder version).
+- **This arc's working artifact**: `omni_doctrine_reconciliation_map_v1_2026-05-25.md` — §0 status, §19 master closure synthesis, §20 F.3 packet, §20.G2F + R2/R3/R4/R5 (gated-DL + gate-review + retro-audit + DL-20 authority map + authorized target).
+- **Decision ledger**: `03_decision_extraction_ledger.md` (D0THES-DEC-001..029; read 027/028/029 for the DL-20 arc).
+- **Open review queue**: `08_open_review_queue.md` (D0THES-REV-032..138; rows close as Phase G subphases land).
+- **Conflict ledger**: `05_supersession_conflict_ledger.md` (D0THES-CNF-010/011 parking-branch + CNF-012 DL-20 ontology contradiction).
+
+### 9. Posture for the next agent (Nick's standing demands)
+- Prove the freshest controlling source BEFORE changing authority (GRD-022). Three-layer-reconcile per domain (GRD-023). Lead every batch with a BEFORE/AFTER substrate-behavior table. Edit the ACTUAL canonical homes with new enforceable invariant text (rejection rules, fields, invariants) — cross-links are bookkeeping. Do NOT manufacture redundant edits where the substrate already covers it (honesty-check first; close as Q7 if already-enforced). Per-batch checkpoint; do not auto-continue. NEVER treat stale open-question/promotion-gate/preamble text as authority.
+
+**This pass deliberately did NOT rewrite DL-20.** It recorded the authorized target + installed the gates + wrote this handoff. The next agent executes.
