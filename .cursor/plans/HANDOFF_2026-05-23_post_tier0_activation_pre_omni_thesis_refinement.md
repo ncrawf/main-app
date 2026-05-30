@@ -1838,3 +1838,20 @@ Per `D0THES-DEC-024`. Nick: "proceed… same level of rigor… finish the next."
 **What G.2.d did NOT do**: did NOT manufacture redundant edits for the already-enforced emission-side lineage; did NOT promote a DL (DL-14 already locked inline); the §1N/§1L insight-versioning sub-findings (REV-082/093/100/110/114/132/134) are confirmed already-substantially-covered (Q7) with remaining specifics landing in the §1N/§1L operational refresh later in G.2; no build touched.
 
 **Next action**: Opus STOPS. Checkpoint before G.2.e. Same batch-checkpoint pattern + BEFORE/AFTER opening artifact + honesty-check-first discipline. Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
+
+## Closure Addendum Extension #32 (2026-05-28) — PHASE G.2.e EXECUTED (cluster C9 universal projection doctrine — hard/soft typing → DL-16 inv 19); STOPPED before G.2.f
+
+Per `D0THES-DEC-025`. Nick: "continue." Second consecutive batch landing into **locked inline doctrine (DL-16 inv 19)** — an audited operational canonical home.
+
+**Honesty check FIRST (rigor as restraint):** C9's core "projection is NEVER authority" rule is **ALREADY ENFORCED** by existing DL-16 inv 19 (+ authority-rank "AI suggests 20, never authoritative" + radar zone 125 + §1G.6.3 live-vs-reporting). F.2 Q7 pattern. NOT re-litigated or padded.
+
+**Genuine gap found + landed (substantive — new enforceable behavior):** v2 §7.7 master projection doctrine adds a binding TYPE distinction the existing invariant lacked. DL-16 inv 19 extended with **hard vs soft projection typing + 3 rejection rules**:
+1. **hard projection** (derived substrate object) → MUST carry own identity + lifecycle + audit lineage + retention class + independent queryability; REJECTED if it lacks that governance.
+2. **soft projection** (presentation/discovery view, no substrate-object existence) → creating a separate substrate object (table/row/store) for it is REJECTED — same fragmentation error as per-domain catalog tables (DL-19 inv 31) + per-surface message stores + per-brand identity stores ("Meta-style sludge").
+3. **ownership preservation** → a projection MAY unify the patient VIEW ("one shelf") but MUST NOT erase/collapse/coarsen per-event ownership attribution (inv 2 ownership_dimensions + DL-18 inv 25); REJECTED if it strips operator attribution.
+
+**REV-039 + REV-040 PARTIAL**: binding doctrine (typing + rejection rules) landed; operational schema (projection_rules data model) + per-object lifecycle DDL (longitudinal_projection / case_evidence_bundle / aggregate_pattern_projection / risk_projection) are substrate-slice/G.5.
+
+**What G.2.e did NOT do**: did NOT re-litigate the already-enforced "projection never authority" core; did NOT land the operational projection_rules schema (G.5); §1H/§1V/§1M/§1O projection cross-refs (REV-081/090/103/110/116/118/132/133/135) land in later G.2 operational refresh or are Q7-covered; no DL promoted (DL-16 already locked inline); no build touched.
+
+**Next action**: Opus STOPS. Checkpoint before **G.2.f** — the GATED DL promotions (DL-17 D6 commerce gate / DL-20 Q1+Q6 joint signoff / DL-22 Q14 joint signoff). These are NOT steward-promotable; they require explicit human (Nick + Knox) signoff per F.3 D3. Opus will NOT mechanically promote them. Hard pre-condition binding: §1J.10 loadPatientCaseSafetySnapshot blocks first Rx pathway shipment.
