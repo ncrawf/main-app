@@ -1561,6 +1561,16 @@ This maps directly to v0 §8 universal CNS flow: the `authorized_action` step IS
 
 **Rule**: observations, signals, events, purchases are CONTEXT until OMNI creates an accountable obligation. At that moment, care_commitment instantiates with scoped owner.
 
+### Lived example — the founding longitudinal-signal case (Alec Harris, 2026-05)
+
+A patient may surface the most important care signal through **ordinary life rather than a formal visit**: a message about sleep, energy, recovery, symptoms, dosing uncertainty, or refill timing — while wearable, lab, and behavioral trends accumulate in the background. A real peptide patient reported dramatically improved sleep (tracked on a wearable — "scores off the chart"), muscle gain, morning energy, and a resolved tennis elbow — *while asking whether his dose was right* — all inside a text thread the provider had to manually notice and act on.
+
+OMNI's job is to turn that **longitudinal operating context into a governed care opportunity**: not by letting raw signal become clinical truth, but by helping the provider recognize when a dose change, lab, follow-up, refill, or `care_commitment` should be considered — at the right time, under the right authority (per the universal flow §8 + patient-source §7.5.3 + substrate-vs-care boundary §12.8).
+
+> **The future is not expecting every provider to manually catch every pattern, every time. The future is OMNI helping providers help patients — surfacing the right signal, at the right moment, under the right authority.**
+
+This is a founding motivating case for OMNI's longitudinal intelligence, analogous to the cancer/case-centered-care example for §7.1. (Provenance + recurring case class: `evidence/omni_field_cases.md` FIELD-001; end-to-end solve-obligation across CNS/Intake/Messaging/LI/care_commitment/AI/Labs: open-review `D0THES-REV-142`.)
+
 ### `care_commitment` primitive (NEW)
 
 Definition: any committed service / procedure / prescription / order / plan / recommendation / monitoring loop / consult opinion / follow-up obligation that creates accountability for an actor within a scope.
@@ -2664,6 +2674,12 @@ Hard projections have:
 - Own audit lineage (per §10 #7)
 - Own retention rules (per §1Z.12)
 - Queryability independent of underlying source artifacts
+
+### §7.7.5 AI-generated / generative projections (Ageless-style surfaces) — v2 emphasis patch 2026-05-30
+
+AI-generated visualizations, simulations, risk renderings, and future-state projections (e.g., predictive aging or treatment-outcome renderings) are **product surfaces over governed substrate — not care authority.** They are produced by a registered `ai_capability` with a pinned `model_version_of_record` (§9.1), bound by `capability_envelope` (§12.8), and consent-scoped (§7.5.4). OMNI **may render such surfaces** when useful — to educate, motivate, or support shared decision-making — but they remain provenance-bearing projections: they never author clinical truth, commit a care plan, mutate a `care_commitment`, or become substrate authority.
+
+This is how OMNI absorbs "Ageless AI"-style surfaces as **governed projections**, not as substrate: the gimmick becomes a cheap, grounded, consent-scoped projection of real longitudinal substrate, rather than a fear-sales engine bolted onto an EMR. Persuasion-as-business-engine remains rejected per §13.6; the surface is permitted, the substrate-authority role is not.
 
 ### The unifying principle (locked)
 
@@ -4098,6 +4114,13 @@ Standing by.
 ---
 
 ## §22 Amendment Log
+
+### v2 in-place emphasis patch (2026-05-30) — AI-generated / generative projection surfaces
+
+Per Operating Contract §17 (additive same-arc emphasis on `active_adopted_directional_v2`, logged here; NOT a structural change → no v3). Trigger: Nick + Knox 2026-05-30 pressure-test on the wearable / lab / patient-reported longitudinal-signal future + the "Ageless AI" future-state-rendering ad.
+
+- **Added §7.7.5** (generative/AI projection surfaces): AI-generated visualizations / simulations / risk-renderings / future-state projections are governed **product surfaces over substrate, not care authority** — `model_version_of_record` + `capability_envelope` + consent-scoped; may educate/motivate/support shared decision-making; never author clinical truth or commit care; persuasion-as-business-engine still rejected per §13.6. This is how OMNI absorbs Ageless-style surfaces as governed projections.
+- **Added §7.3 lived example** (Alec Harris founding longitudinal-signal case): the *doctrine* was already covered (§7.3 threshold + §8 universal flow `wearable` + §7.5.3 patient-source), but the *motivating example* was missing — added a short boxed lived-example (analogous to the cancer/case-centered example for §7.1) because this case crystallizes WHY the longitudinal-intelligence doctrine matters ("OMNI helps providers help patients; not providers catching every pattern every time"). Provenance preserved separately in `evidence/omni_field_cases.md` (FIELD-001); solve-obligation tracked in open-review `D0THES-REV-142`. Primary home = thesis (meaning); field-cases corpus = provenance; open-review = solve-guarantee.
 
 ### v0 → v1 transition (2026-05-25)
 

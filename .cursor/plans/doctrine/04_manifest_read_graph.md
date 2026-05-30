@@ -159,7 +159,7 @@ Every workstream MUST load these artifacts at boot. The Domain Routing Table ref
 12. `.cursor/plans/doctrine/08_open_review_queue.md`
 13. `.cursor/plans/system_map_three_layers_60706286.plan.md`
 14. `.cursor/plans/doctrine/coherent_omni_architecture_pattern_2026-05-17.md`
-15. **Current Checkpoint Handoff:** `.cursor/plans/HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md` (operational state transfer; updated each Tier 2+ checkpoint per `agent_work_protocol.md` §8 Checkpoint Preservation Rule; prior handoffs become historical-only)
+15. **Current Checkpoint Handoff:** `.cursor/plans/HANDOFF_2026-05-30_foundation_vnext_pivot.md` (operational state transfer; updated each Tier 2+ checkpoint per `agent_work_protocol.md` §8 Checkpoint Preservation Rule; prior handoffs become historical-only). Prior current-checkpoint `HANDOFF_2026-05-23_post_tier0_activation_pre_omni_thesis_refinement.md` is now historical/arc reference (its Extension #33 remains useful context; see new handoff §5 for how the Foundation vNext pivot reframes that queue).
 16. **Operator Profile + Collaboration Model:** `.cursor/plans/doctrine/operator_context_and_collaboration_model.md` (binding — identifies Nick as non-coder operator, Knox as ChatGPT review instance, trifecta workflow as default; calibration of agent communication style; must be loaded before responding to any message that contains `knox =` / `at knox` / `me =` discourse markers or that addresses the user directly). Historical/scheduling-arc preferences live in `.cursor/plans/doctrine/scheduling_foundation_preference_record_2026-05-17.md` (consult-routed, not universal). New-pillar onboarding checklist lives in `.cursor/plans/doctrine/new_pillar_substrate_onboarding_checklist.md` (consult-routed for pillar-start work).
 
 Documented exceptions (catalog `add_tier0` but NOT in Universal Path):
@@ -174,8 +174,22 @@ Documented exceptions (catalog `add_tier0` but NOT in Universal Path):
 Boot-visible consult artifacts. Agents do not full-load these by default, but they are visible at boot for anti-pattern recognition and guardrail awareness.
 
 1. `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` — cross-cutting anti-pattern and non-repeatable failure mode memory; consult before routing decisions; does not override doctrine locks.
+2. `.cursor/plans/doctrine/00_architecture_artifact_index.md` — Foundation vNext artifact-role index (what artifact holds what; what is forbidden in each; seam/event contract spec; DL-disposition + disposition-on-demotion rules). Consult before creating or classifying any architecture artifact. Ratifies existing homes; does not fork governance.
 
 Tier 0.5 is consult-by-default-visible. Full-read is required only when the active workstream or guardrail trigger surfaces a row from this digest.
+
+---
+
+## Foundation vNext Artifacts (transitional, 2026-05-30)
+
+The Foundation vNext pivot (per `00_architecture_artifact_index.md`) produces clean canonical artifacts that progressively replace the bloated legacy system map and proto-contract DLs. Routing during transition:
+
+- **`.cursor/plans/OMNI_System_Map_vNext.md`** — emerging canonical architectural MAP. **Transitional:** the legacy `system_map_three_layers_60706286.plan.md` REMAINS Tier 0 Universal Path #13 until System Map vNext is populated across all domains; both coexist meanwhile. When vNext is populated, it supersedes #13 and the legacy map demotes to evidence. Consult vNext first for any domain whose entry is filled (currently: D5).
+- **`.cursor/plans/contracts/<domain>_contract.md`** — Domain Contracts (the cleaned DLs as starting corpus). Each is **Tier 1 binding** for its domain once that domain's pass completes + is ratified. Currently ratified-pending: `D5_service_occurrence_care_coordination_contract.md` (Tier 1 binding for D5 / care-coordination workstream on ratification).
+- **`.cursor/plans/contracts/seams/<seam_id>_*.md`** — Seam/Event Contracts (cross-domain glue). **Tier 1 binding** for BOTH adjacent domains' workstreams. Currently: `SC-D3-D5-001` (D3↔D5).
+- **`.cursor/plans/evidence/omni_field_cases.md`** — Field Case corpus (`FIELD-*`). **Mandatory check** when: starting ANY domain contract pass (pull `FIELD-*` by domain tag); working CNS / Intake / Messaging / LI / care_commitment / AI / Labs (must check `FIELD-001`); working any open-review row referencing a `FIELD-*` case; or handling a user-provided real-world example/failure (append it here as a new `FIELD-NNN`, do not create a new file). Operating Contract lives in the file head.
+
+Per-domain Tier 1 binding-set rows in the Domain Routing Table are updated as each domain's vNext contract is ratified (not retroactively for stubbed domains).
 
 ---
 

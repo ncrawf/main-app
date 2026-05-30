@@ -283,6 +283,8 @@ This is the unifying resolution to operator-pluralism + 7-dimension ownership or
 
 Examples: same catalog_item "OMNI Creatine" appears under OMNI Store + Longevity + Performance + Weight Loss + Men's Health + Bodybuilding + Recovery + CULTURED post-procedure recovery + provider recommendation — same substrate object; many projection paths. Same messaging substrate; many scoped conversation views per recipient + per scope + per purpose + per duration.
 
+**AI-generated / generative surfaces (v2 emphasis 2026-05-30, §7.7.5):** AI visualizations, simulations, and future-state renderings (e.g., "Ageless AI"-style predictive aging) are **governed projections over substrate, not care authority** — model-versioned, capability-bounded, consent-scoped. OMNI can render them to educate/motivate/support shared decisions; they never author clinical truth or commit care. Own the longitudinal substrate and these surfaces become cheap, grounded projections on top — the opposite of a fear-sales gimmick bolted onto an EMR. (Persuasion-as-business-engine still rejected per §13.6.)
+
 ## Cross-operator coordination doctrine (v2 NEW §7.8)
 
 > *"Cross-operator coordination defaults to passive coherence (Patient CNS observe + signal). Active coordination (loop closure, conflict reconciliation, cross-domain follow-ups) requires an explicit `care_coordination_owner`."*
@@ -564,6 +566,8 @@ Every care interaction in OMNI runs through 4 levels:
 The threshold rule: *"Not every event is a care commitment. A care commitment begins when accountability attaches."*
 
 Maps cleanly: wearable signals = observations; retail purchases = commerce; lab kit requests = source events. They become care_commitments only when accountability attaches — when a provider/protocol commits to ordering / interpreting / monitoring / acting on them.
+
+**Founding longitudinal-signal case (Alec Harris, §7.3):** a real peptide patient reported off-the-chart wearable sleep scores, muscle gain, energy, and a resolved tennis elbow — *while asking if his dose was right* — in a plain text thread the provider had to catch manually. That is the lived future OMNI is built for: turn longitudinal context (wearable + patient-reported + dose/refill/lab) into a **governed care opportunity** (dose review / labs / follow-up / care_commitment) — never raw signal as clinical truth. **The future is OMNI helping providers help patients, not providers manually catching every pattern every time.** (Provenance: `evidence/omni_field_cases.md` FIELD-001; solve-obligation: `D0THES-REV-142`.)
 
 Aesthetic medicine is NOT outside this. A Botox visit has episode-scope ownership (provider owns the episode + complication loop). A Sculptra series has series-or-plan scope ownership. HRT has therapy-lane scope ownership. Oncology has case scope ownership. **Same substrate; different scope; always an owner.**
 

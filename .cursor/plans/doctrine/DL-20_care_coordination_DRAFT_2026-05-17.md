@@ -1,7 +1,10 @@
-# DL-20 — Care-Coordination Substrate (Care Episode + Encounter Container + Episode Catalog) (DRAFT)
+> # ⚠️ EVIDENCE / WORKBENCH — NOT a build-facing artifact (demoted 2026-05-30)
+> This file is **reconciliation evidence**, not canonical doctrine and not a lock target. Its clean, build-facing successor is **`contracts/D5_service_occurrence_care_coordination_contract.md`** (the D5 domain contract), per the Foundation vNext pivot + `00_architecture_artifact_index.md`. The `§0` header and body below are the *worksheet* that produced that contract. **Do not build from this file. Do not lock this file.** Use the D5 contract; use this only for provenance/rationale.
+
+# DL-20 — Care-Coordination Substrate (Care Episode + Encounter View + Care Commitment Overlay) (DRAFT — §0 RECONCILIATION 2026-05-30)
 
 **Date:** 2026-05-17
-**Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice. **CONTAINS partial resolution of Q1 (encounter container architecture, SHELVED) and Q6 (Care Episode parent object) — promotion requires explicit Q1+Q6 joint signoff.**
+**Status:** DRAFT — Phase 1 hardening per Day 0 Build Contract commit `6dc1286`. NOT locked doctrine. Joint Opus + Knox + user signoff required before promotion to locked DL in `system_map_three_layers_60706286.plan.md`. NOT code. NOT migrations. NOT substrate slice. **CONTAINS partial resolution of Q1 (encounter container architecture, SHELVED) and Q6 (Care Episode parent object) — promotion requires explicit Q1+Q6 joint signoff.** **→ RECONCILED 2026-05-30: see CONTROLLING §0 below — the live lock target supersedes the original Q1/Q6 framing (encounter→encounter_view derived; service_occurrence canonical; care_episode nullable; care_commitment overlay-relationship-only; D6/D7 OPEN).**
 
 **Phase 1 hardening v2 corrections (2026-05-17 user + Knox refinements REPLACE my prior overcorrections):** The earlier draft (committed as 7e5de53) framed encounter_container as the mandatory primary primitive. Pressure-testing against Hims async / lab review / biopsy recall / multi-day adverse event / GLP-1 multi-modal scenarios proved this overcorrected. The corrected model is THREE distinct layers — appointment + appointment_item (planned) / encounter + encounter_line (actual) / linked evidence + commerce — with the appointment IS the container for synchronous trips; lazy container materializes only when needed for multi-line coordination; encounter created when work begins (scheduled OR walk-in OR async OR lab review). DL-15 amendment 8 renames inv 5 state "confirmed" → "scheduled" so DL-20 confirmation_state can use "confirmed" for patient confirmation. Rejected patterns explicitly enumerated below. Full pressure-test arc preserved at [future_care_obligations_design_2026-05-17.md](future_care_obligations_design_2026-05-17.md).
 
@@ -16,11 +19,113 @@
 - Mindbody raw layer batches 5 / 14 / 19 + open_questions Q1 / Q6 / Q7 / Q8 / Q9 / Q10 / Q11 / Q12 / Q13 / Q14 (collectively the care-coordination question cluster)
 - Synthesis doc `.cursor/plans/designs/2026-05-17_omni_scheduling_operating_model_and_architecture.md` §§3 (canonical object model) + 4 (lifecycle) + 5 (workflow scenarios)
 
+---
+
+## §0 — 2026-05-30 Three-Layer Reconciliation Header (CONTROLLING)
+
+**Status of this section:** CONTROLLING. Reconciles DL-20 against the freshest authority per guardrails `D0THES-GRD-022` (Freshest Authority Check) + `D0THES-GRD-023` (three-layer reconciliation). Where this §0 conflicts with any invariant in the body below, **§0 wins**; superseded invariants are marked in place and retained as historical rationale (NOT deleted). Authorized by Nick + Knox 2026-05-30 (`D0THES-DEC-029`; Reconciliation Map §20.G2F-R5). DL-20 remains DRAFT; this §0 is the lock target to ratify, then re-present for LOCKED promotion.
+
+### §0.1 The three layers reconciled
+
+- **L1 — candidate container (this file body):** DL-20 inv 1-41. Carries a STALE sub-layer (L0: inv 6-8, 11) + a partially-fresh refactor (inv 33-41).
+- **L2 — freshest substrate / governs MECHANICS:** `.cursor/plans/designs/day_0_scheduling_rule_matrix/05_domain_service_occurrence.md` (SO-01..SO-34) + `.../05_3_round5_closure_verdict.md` + DL-20 inv 42-44 (Round 5 import). **Controls substrate mechanics.**
+- **L3 — governing lens / governs MEANING:** `omni_thesis_v2_2026-05-26.md` §7.3 (`care_commitment`) + §7.5.1 (per-event ownership) + §7.7 (universal projection). **Directional, non-binding. Governs meaning; does NOT rename substrate.**
+
+### §0.2 Vocabulary Lock — FROZEN (Nick + Knox, 2026-05-30)
+
+| Term | Source | IS | is NOT |
+|---|---|---|---|
+| `appointment` | inv 33 | planned operational/scheduling commitment; synchronous-trip container | not actualized work; not the encounter |
+| `appointment_item` | inv 34 | planned line under appointment (1-to-N) | not performed truth; not auto-copied to work units |
+| `service_occurrence` | L2 SO-01 / inv 42-44 | **canonical D5 parent** — what actually happened | not derived; not replaced by encounter; not owner of D6/D7 truth |
+| `service_occurrence_work_item` | L2 SO-23 / inv 43 | **canonical atomic** actualized-work unit | not commerce truth; not a dual write source with encounter_line |
+| `service_occurrence_link` | L2 SO-22 / inv 44 | typed lineage edge (Day-0 minimal) | not a full graph engine |
+| `encounter_view` | L2 SO-01/SO-25 / inv 35 (restated) | **derived projection** of actualized work for care/charting/UI; 2 classes (operational_projection · record_materialization) | not canonical D5 work source; not a competing first-class parent |
+| `encounter_line` | L2 SO-23 / inv 36, 43 | **D7 materialized projection / transitional alias** mapped from work_item | not canonical truth; not a dual write source; not final D7 truth (Round 7 pending) |
+| `encounter_participant` | inv 38 | multi-role participant; exactly one of 3 FKs | not a 4-FK attachment; "operational owner" is a projection, not a column |
+| `appointment_staff_note_entry` | inv 39 | append-only staff note with `note_kind` | not a single overwritable string |
+| `appointment_confirmation_event` | inv 40 | CNS round-trip confirmation event (FK refs only) | not a single `confirmed` timestamp; never silently AI-flipped |
+| `appointment_participant` + `appointment_seat` | inv 42 (K(C)) | minimal participant/seat overlay (Amendment K Path A, RESOLVED) | does not force appointment-dependency for async/walk-in/resource occurrences |
+| `care_episode` | inv 1-5 | **longitudinal care thread / therapy-lane / series-or-plan / case continuity**; `care_episode_id` NULLABLE | not a single service event; not killed by v2; not `NOT NULL` |
+| `care_commitment` | v2 §7.3 (directional) | **accountability overlay** — who owns the next step, under what authority, by when | not a parent; not a replacement for episode/occurrence/appointment; not fully designed inside DL-20 |
+
+**Binding rule:** the thesis does NOT rename the appointment/occurrence substrate. The thesis reconciles **TO** this vocabulary. **Any term change requires explicit Nick + Knox approval.**
+
+### §0.3 Supersession discipline (how thesis may / may not beat substrate)
+
+Thesis v2 supersedes prior substrate work ONLY if the thesis claim: (a) preserves the cases the substrate solved; (b) explains additional cases; (c) preserves the distinctions planned/actual · clinical/commerce · document/authority · source/adoption · projection/truth; (d) improves enforceability (fields/invariants/rejection rules/ownership boundaries); (e) is nameable without colliding with a frozen term. **Fail any → it is a pressure note / queued deep-dive, NOT a supersession.**
+
+- **Classify per-claim, not per-primitive.** A primitive may be mature (Bucket 1) at the meaning layer and first-pass (Bucket 2) at the mechanics layer simultaneously.
+- **Run the test against the FRESHEST substrate layer (L2), never a presumed-hard-won-but-stale layer (L0/L1).** This is the exact DL-20 trap; freshest-authority determination precedes the supersession test.
+- Mature thesis invariants govern **meaning/constraints**; they do NOT dictate substrate **mechanics/field layout**.
+
+### §0.4 Canonical model (the lock target)
+
+- `appointment` / `appointment_item` = **planned** operational commitment
+- `service_occurrence` / `service_occurrence_work_item` = **D5 canonical actualized work**
+- `encounter` → `encounter_view` = **derived projection** (care-moment / charting); NOT canonical work truth
+- `encounter_line` = **D7 projection / transitional alias**; NOT dual truth
+- `care_episode` = **longitudinal thread**, nullable
+- `care_commitment` = **accountability overlay** (relationship landed here; full substrate queued)
+- `D6` / `D7` = **sibling truths, OPEN** where not closed
+
+### §0.5 `encounter` → `encounter_view` (the one legitimate supersession)
+
+Per L2 SO-01 + guardrail `D0W3A-GRD-003` + v2 universal projection (T0-15, landed DL-16 inv 19): canonical actualized-work parent = `service_occurrence`; `encounter` is **restated as `encounter_view`, a DERIVED projection**. This is thesis + substrate **agreement** (Round 5 already made encounter derived), not thesis-over-substrate. Two classes (SO-25): `operational_projection` (UI/routing) and `record_materialization`. **The `record_materialization` class MAY be durable / version-pinned as D7 record-grade output (signed chart) — NOT ephemeral UI-only — but it is NOT the canonical D5 actualized-work source.** Canonical work truth stays on `service_occurrence` / `service_occurrence_work_item`. → inv 35 SUPERSEDED.
+
+### §0.6 `encounter_participant` FK re-target (✅ RATIFIED 2026-05-30 — Nick + Knox)
+
+inv 38 attached visit-wide participants via `encounter_id`. Since `encounter` is now a derived view, a canonical FK to a derived projection is invalid (SO-01: never write canonical to derived). **RATIFIED:** the visit-wide FK is re-targeted `encounter_id` → **`service_occurrence_id`** (canonical parent); `encounter_view` projects participants into the chart. The hard-won **3-FK structure is preserved** (`appointment_item_id | encounter_line_id | service_occurrence_id`) — only the third referent changed. (Knox's `encounter_view_id` proposal was rejected: a view-FK would re-introduce the canonical-to-derived smell.)
+
+### §0.7 `care_episode` ↔ `care_commitment` (relationship ONLY; full substrate QUEUED — Finding B)
+
+- `care_episode` = longitudinal care thread (therapy-lane / series-or-plan / case continuity). NOT killed by v2. `care_episode_id` **NULLABLE** on occurrence (per inv 35 L1 + L2; supersedes L0 inv 7 NOT NULL).
+- `care_commitment` (v2 §7.3) = accountability **overlay**. It **attaches to** — does not replace — `care_episode` / `service_occurrence` / `service_occurrence_work_item` / `encounter_view` / lab result / message / intake finding / CNS candidate.
+- **Accountability threshold:** `care_commitment` instantiates when accountability attaches (maps to `service_occurrence.authority_class` + SO-27 candidate→commit handshake). Pre-accountable inputs (`observation` / `source_event` / `commerce_order`) are context until then.
+- `care_commitment` is NOT a parent and does NOT supersede `care_episode` (different problem: longitudinal grouping vs accountability — fails the §0.3 test).
+- **DL-20 lands the RELATIONSHIP only.** The full `care_commitment` substrate (schema, `care_commitment_event` 11-state lifecycle, 5 ownership scopes, 7 per-event ownership dimensions per v2 §7.5.1) is **QUEUED for a dedicated landing pass** — it spans CNS, ownership, clinical authority, commerce, artifacts, follow-up loops; bigger than DL-20.
+
+### §0.8 ⚠️ Episode terminology disambiguation (Finding A — binding)
+
+- **v2 `care_commitment.scope = "episode"` means a SINGLE service event** (e.g., one Botox session 2026-05-15).
+- **DL-20 `care_episode` means a LONGITUDINAL thread** (e.g., GLP-1 management over months).
+- **These are NOT the same — nearly opposite in granularity.** DL-20 `care_episode` maps to v2 `care_commitment.scope ∈ {therapy-lane, series-or-plan, case}`, NOT to v2 "episode" scope.
+- **Do NOT map `care_episode` → v2 "episode" scope. Do NOT rename `care_episode`.** This collision is the documented trap for future agents.
+
+### §0.9 D6 / D7 open status
+
+- **D6** (commerce/entitlement/payment/refund canonical truth): Round 6 never ran. **OPEN.** DL-20 holds references only (SO-11); financial corrections do not rewrite D5 work-item truth.
+- **D7** (documentation/materialization/visibility canonical truth): Round 7 never ran. **OPEN.** `encounter_line` + `encounter_view` `record_materialization` are provisional pending D7 completion.
+
+### §0.10 In-file supersession map
+
+| Body invariant | Disposition |
+|---|---|
+| inv 6 (`encounter_container` 1st-class) | SUPERSEDED → `service_occurrence` canonical (§0.4/§0.5) |
+| inv 7 (`care_episode_id` NOT NULL) | SUPERSEDED → NULLABLE (§0.7) |
+| inv 8 (`encounter_profile_registry` specialty-coded) | SUPERSEDED / RIPPED OUT (already per inv 41; modality = 4 values) |
+| inv 11 (encounter lifecycle on `encounter_container`) | restated onto `service_occurrence` lifecycle (SO-07) + `encounter_view` derivation; container refs historical |
+| inv 35 (`encounter` 1st-class) | SUPERSEDED → `encounter_view` derived (§0.5) |
+| inv 38 (participant `encounter_id` FK) | re-targeted → `service_occurrence_id` (§0.6, ✅ RATIFIED) |
+| Q-DL20-1 + "Q1 + Q6 promotion gate" | rewritten to this §0 lock target |
+| "Phase 1 hardening v2 corrections" preamble + inv 41 rejection list | retained as HISTORICAL rationale (not live model) |
+
+### §0.11 Remaining to lock
+
+- **DONE (2026-05-30 cleanup pass):** body fully demoted — global banner at `## Invariants` + per-cluster reconciliation markers on inv 6, 8, 10, 11, 12-15, 19, 20-21, 22-27, 29-30, 31, Rejected Patterns, Cross-link Summary, and Open Sub-questions. No stale `encounter_container` / `encounter_profile_registry` / first-class-`encounter` text reads binding; all point to `§0`.
+- **DONE:** `§0.6` participant FK RATIFIED (`service_occurrence_id`).
+- **TO LOCK:** transcribe the clean `§0` model into `system_map_three_layers_60706286.plan.md` as the LOCKED DL-20 (the staging body's struck-through layers are NOT transcribed — only the `§0` model). Physical excision of the historical body from this DRAFT is a cosmetic option at transcription time, NOT a safety gate (markers already make it safe).
+- **THEN:** **DL-22** (`encounter_container` → `encounter_view` ref update + typed-children-mandatory).
+
+---
+
 **Scope (binding):** OMNI **care-coordination substrate** — care episodes (longitudinal care relationships covering one or more visits/encounters), encounter containers (the canonical unit at which clinical/operational work attaches), encounter profiles (the 5+ kinds of encounters that admit different policy), and the linkages from these to scheduling (DL-15), commerce (DL-17), clinical (DL-7), Rx, labs, intake, consent, messages, and outbound (DL-16 amendment 42). Specializes against DL-7 + DL-14 + DL-16 — every DL-20 invariant inherits the appropriate disciplines. DL-20 binds the **care-coordination substrate**; it does NOT bind clinical encoding (ICD/CPT — Clinical-Coding DL Phase D); it does NOT bind specific clinical content (clinical_record / progress_notes — DL-7 territory); it does NOT bind specific operational primitives (booking — DL-15; sale — DL-17; intake artifacts — Clinical-Media DL).
 
 ---
 
 ## Invariants (44 candidates; was 41; +3 Round 5 closure-execution amendments for K(C) bridge + work-item canonical mapping + occurrence-link typed edges)
+
+> **⛔ [BODY DEMOTED — 2026-05-30. Everything from here down is PRE-RECONCILIATION DRAFT MATERIAL, retained as historical rationale. `§0` is the CONTROLLING layer. NO statement below is binding except as reconciled in `§0`. In particular, ALL `encounter_container`, `encounter_profile_registry`, first-class `encounter`, `encounter_line`-as-canonical, encounter lifecycle, and encounter-closeout language below is SUPERSEDED — read `§0.4`–`§0.10` for the live model: `service_occurrence` (canonical D5 parent) · `service_occurrence_work_item` (canonical atomic actualized work) · `encounter_view` (derived; record_materialization may be durable D7 output, never canonical work truth) · `encounter_line` (D7 transitional projection, provisional pending Round 7) · `care_episode` (longitudinal, nullable) · `care_commitment` (accountability overlay, relationship-only here) · D6/D7 (sibling truths, OPEN). Per-cluster reconciliation notes follow inline. This body is a staging artifact; the LOCK step transcribes the clean `§0` model into `system_map_three_layers_60706286.plan.md`.]**
 
 ### Care Episode primitive (Q6 partial resolution)
 
@@ -38,15 +143,21 @@
 
 ### Encounter Container primitive (Q1 partial resolution)
 
+> **[SUPERSEDED 2026-05-30 → §0.4/§0.5/§0.10. `encounter_container` is NOT canonical; canonical actualized-work parent is `service_occurrence` (L2 SO-01). Retained below as historical rationale.]**
+
 6. **Encounter Container is a 1st-class substrate primitive (binding tentative resolution of Q1).** `encounter_container` carries: `id`, `tenant_id`, `care_episode_id` FK (each encounter belongs to exactly one episode per inv 7), `encounter_profile_id` FK to `encounter_profile_registry` per inv 8, `patient_id` FK + `patient_relationship_id` FK, `scheduled_appointment_id` FK NULL (if scheduled; FK to scheduling per DL-15), `started_at` NULLABLE, `completed_at` NULLABLE, `closed_at` NULLABLE (post-closeout immutable per inv 26), `status` ENUM per inv 11 lifecycle, `primary_provider_id` FK NULL, `additional_staff_ids[]` ARRAY, `venue_id` FK NULL (per Federation-Topology DL 11-axis venue substrate; null for async/Hims-style), `client_physical_location_at_action_time` STRING NULL (per Build Contract §3.7 patch 1 jurisdiction — patient's actual state during video/async). **Q1 resolution rationale:** clinical reality requires a canonical aggregation primitive that admits 5+ kinds of encounters with different policy (in-person office visit / aesthetic treatment visit / video visit / async review / phone visit). Single-table-with-profile-discriminator (Option A from pressure-test §10.1) wins on simplicity + composability + RPC affordance. **PROMOTION TO LOCK REQUIRES Q1 JOINT SIGNOFF.**
 
 7. **Encounter Container 1-to-N child of Care Episode (binding).** Each `encounter_container.care_episode_id` is NOT NULL. Each episode has 1-to-many encounters. Cross-episode encounter REJECTED at substrate (one encounter belongs to one episode). Linking a previously-orphan encounter to an episode admitted via explicit `encounter_episode_assigned` event + audit (e.g., walk-in encounter retroactively assigned to existing GLP-1 episode by provider judgment). Reassignment between episodes allowed via explicit `encounter_episode_reassigned` event + Tier 3 attestation per DL-18 inv 8 dual approval.
 
 ### Encounter Profile registry (DL-19 settings + DL-15 amendment 30 cross-link)
 
+> **[SUPERSEDED 2026-05-30 → §0.10. `encounter_profile_registry` RIPPED OUT (already per inv 41); modality = 4 values only, no specialty-coded enum. Retained below as historical rationale.]**
+
 8. **Encounter Profile registry is a tenant-configurable substrate (binding per DL-19 + DL-15 amendment 30).** `encounter_profile_registry` carries: `id`, `tenant_id`, `profile_key` STRING (Day 0 seed: `office_visit` / `aesthetic_treatment_visit` / `video_visit` / `phone_visit` / `async_review` + EXTENDED `resource_only_session` (e.g., LHR-only-with-tech-no-provider) / `procedure_visit_with_room` (medspa Botox in private room) / `procedure_visit_without_room` (chair-side derm cyst removal) / `home_visit` / `hospital_visit` (cross-link Federation-Topology venue)), `display_name`, `description`, `policy_axes_required` JSONB (per DL-15 amendment 30 4-axis composer requirements: requires_staff / requires_room / requires_resource / requires_capacity_consume / requires_scheduled_time / requires_clinical_clearance / requires_consent / requires_intake_complete / requires_deposit / allows_walk_in), `default_duration_minutes`, `default_authorship_tier` per DL-18 inv 8 (most encounter profiles default to Tier 4 provider attestation), `commerce_line_kinds_admitted` ARRAY (per DL-17 inv 6; e.g., async_review admits service line; office_visit admits service + product + tip lines). Day 0 seed registry: ≥ 10 profiles per inv 8 list. **NOT a closed enum** — registry extends as new specialty profiles land (Phase D Clinical-Coding DL extends).
 
 9. **Encounter Profile composes with DL-15 booking 4-axis (binding cross-DL).** Booking RPC reads `encounter_profile.policy_axes_required` per DL-15 amendment 30 inv 30 + amendment 32 patch 1. Profile policy determines whether staff/room/resource/capacity axes are required for this encounter; per DL-15 inv 30 + 32 booking REJECTS missing required axis. Cross-link DL-15 inv 30 + DL-15 inv 32 (Service Type enum extension; per amendment 32 service_type='appointment' admits all 5+ profiles).
+
+> **[SUPERSEDED → §0.4/§0.5. No `encounter_container` row. Occurrences are created/linked from source events via `service_occurrence` create-vs-link grammar (L2 SO-04/SO-13/SO-14: scheduled / walk-in / async / lab / message / rx origins); `encounter_view` is derived where clinical (SO-12). Retained as historical rationale.]**
 
 10. **Encounter Container created at booking time (binding when scheduled) OR at intake time (when async/Hims-style) — temporal composability.** Per Build Contract §3.6 visit closeout drawer + §5 workflow scenarios. Two creation patterns:
     - **Scheduled-first** (office_visit / aesthetic_treatment_visit / video_visit / phone_visit): appointment booked → encounter_container created with `status = scheduled_not_started` and FK to appointment_id
@@ -56,9 +167,13 @@
 
 ### Encounter lifecycle (8-state per synthesis §4)
 
+> **[SUPERSEDED → §0.5. `encounter_container.status` 8-state is replaced by `service_occurrence.lifecycle_state` (L2 SO-07: created / active / completed / cancelled / superseded / aborted) plus derived `encounter_view`. Occurrence `completed` ≠ commerce/documentation closure (SO-24). Retained as historical rationale.]**
+
 11. **Encounter Container lifecycle 8-state (binding per synthesis §4).** `encounter_container.status` ENUM: (1) `proposed` (intake received but provider not assigned) / (2) `scheduled_not_started` (appointment booked OR provider assigned; encounter exists but work hasn't started) / (3) `in_progress` (provider has opened encounter; work is happening) / (4) `paused_pending_external` (encounter waiting for external dependency — lab result, prior auth, patient response) / (5) `clinical_work_complete` (provider has done clinical work; pending closeout — chart not signed, attestation not collected, commerce not settled) / (6) `closeout_complete` (chart signed + attestation collected + commerce settled per Build Contract §3.6 visit closeout drawer; encounter is FINAL per inv 26 immutability) / (7) `cancelled_before_start` (cancelled before clinical work began; may emit cancellation fees per DL-15 inv 6) / (8) `archived_post_retention` (post-retention soft-archival per DL-16 inv 13). Transitions are state-machine-validated; illegal transitions emit `illegal_transition_attempted`. Cross-link DL-15 inv 5 appointment lifecycle (NOT identical; appointment + encounter are distinct primitives with related-but-distinct lifecycles).
 
 ### Encounter ↔ Encounter Line (per Q9 + Q10 planned-vs-performed distinction)
+
+> **[RECONCILED → §0. Canonical atomic actualized-work unit = `service_occurrence_work_item` (L2 SO-23 / inv 43). `encounter_line` = D7 materialized projection / transitional alias mapped FROM work_item — NOT canonical, NOT a dual write source, provisional pending D7 (Round 7). Planned-vs-performed is preserved as `appointment_item` (planned) vs `service_occurrence_work_item` (performed). Commerce links are references only; D6 owns commerce truth (OPEN).]**
 
 12. **Encounter Line as 1st-class child of Encounter Container (binding tentative resolution of Q9 + Q10).** Per Knox session 2 + Layer 2 + open Q9 (planned intent vs performed truth). `encounter_line` carries: `id`, `encounter_container_id` FK, `line_kind` ENUM (planned_intent_line / performed_intervention_line / observation_line / order_line / referral_line / followup_action_line / attribution_line per DL-17 inv 31), `line_state` ENUM (`proposed` / `confirmed` / `executed` / `cancelled` / `superseded`), `created_at`, `created_by_actor`, `provider_id` FK NULL, `discriminator_payload` JSONB (per line_kind), `parent_planned_line_id` FK NULL (if this line is the PERFORMED execution of a previously PROPOSED line; preserves planned vs performed audit). Substrate distinguishes **planned intent** (what the encounter intends to do; per booking) from **performed truth** (what actually happened; per provider attestation). REJECTED: collapsing planned + performed into one row — loses audit + analytics + reconciliation per Q10.
 
@@ -67,6 +182,8 @@
 14. **Encounter Line ↔ Commerce Order Line linkage (binding cross-DL).** Each `encounter_line` of `line_kind = performed_intervention_line` (and other commerce-bearing kinds) may carry `commerce_order_line_id` FK NULL — when the work has been settled commercially. Links allow reconciliation between clinical performed truth and commerce sale truth. Composes with DL-17 inv 6 (sale parent + line child) + inv 17 (commerce order 9-state lifecycle).
 
 ### Encounter closeout (Build Contract §3.6 anchor)
+
+> **[RECONCILED → §0.9. "Encounter closeout closes commerce_order atomically" crosses D6 + D7 boundaries — both OPEN. Occurrence completion (L2 SO-24) ≠ commerce settlement ≠ documentation/attestation closure; emit reconciliation candidates, do not collapse. Attestation / record-grade chart = `encounter_view` `record_materialization` class (SO-25, D7-side, version-pinned). Canonical work truth stays on `service_occurrence` / work_item.]**
 
 15. **Encounter closeout drawer is an atomic operation across substrates (binding per Build Contract §3.6).** Closeout = single atomic action (per DL-16 inv 6 atomicity) that:
     - Collects provider attestation (DL-18 inv 9 attestation envelope; Tier 4 provider_signature)
@@ -94,6 +211,8 @@
 
 ### Multi-initiator video + multi-channel encounter creation
 
+> **[RECONCILED → §0.4/§0.5. All 4 initiation affordances create/link a `service_occurrence` (L2 SO-04 grammar; `origin_kind` = scheduled / walk_in / message_triggered / etc.), with `encounter_view` derived where clinical — NOT an `encounter_container` row. The 4-affordance affordance set itself is preserved.]**
+
 19. **Video visit encounter initiation supports 4 affordances Day 0 (binding per user direction 2026-05-17 + Build Contract §3 ledger).** Per user direction verbatim: *"a scheduled visit in a hyvrid clinic can be started by the client, it can be started by the provider, by a suggestino from the system. a Hims patient should always have option to utilize a scheduled visit, video, in clinci or otherwise. a him client should be able to click 'schedule video call now' on Day 0"*. Four affordances at Day 0:
     - **Patient-initiated** ("schedule video call now" button in patient portal → emits booking request → encounter_container with encounter_profile_id=video_visit created)
     - **Provider-initiated** (provider initiates from chart; rare but supported)
@@ -104,11 +223,15 @@
 
 ### Async encounter + cross-channel continuity
 
+> **[RECONCILED → §0.4/§0.5. Async = `service_occurrence` without a synchronous appointment container (L2 SO-32 binding doctrine: "async care is not appointmentless scheduling; it is service occurrence without a synchronous appointment container"), `origin_kind = message_triggered / lab_triggered`. Interaction→occurrence linkage via SO-13/SO-14 + `service_occurrence_link` typed edges (inv 44). Not `encounter_container`. `care_commitment` attaches only at the accountability threshold (§0.7).]**
+
 20. **Async Encounter primitive (binding for Hims-style + chronic-care continuity per user direction).** Per user feedback gap #7 + #8 + Build Contract §5 Hims workflow scenarios. Async encounters have `encounter_profile_id = async_review`; do NOT require scheduled_time per inv 8 `requires_scheduled_time = FALSE`; created from intake or message thread per inv 10 intake-first creation pattern. Lifecycle proceeds: `intake_received_pending_provider_review` → `in_progress` (provider reviews) → either `clinical_work_complete` (provider issues Rx / orders lab / makes decision) OR transitions to `paused_pending_external` (provider requests more info). Async encounters can convert to scheduled visits via `encounter_kind_changed` event + new encounter linked via inv 7 reassignment chain.
 
 21. **Cross-channel encounter continuity (binding per Q11 visit closeout drawer + Q13 Interaction vs Encounter boundary).** Per Knox session 2 marker — interaction (message, call, voicemail) becomes encounter-linked-evidence when it informs/triggers/documents an accountable care action. Substrate captures via `encounter_interaction_link` carrying: `encounter_container_id` FK + `interaction_id` FK (FK to messages / calls / voicemails substrate per §1G + §1V + §1Q) + `link_kind` ENUM (`informed_decision` / `triggered_creation` / `documented_action` / `followup_response`) + `created_by_actor`. Interactions can ALSO exist without encounter linkage (general patient communications). Q13 boundary preserved per Knox marker.
 
 ### Cross-DL bindings
+
+> **[RECONCILED → §0. Read every "encounter_container" below as `service_occurrence`: scheduling (DL-15) creates/links a service_occurrence, not an encounter_container; commerce (DL-17) truth is a D6 sibling (OPEN), linked by reference (L2 SO-11/SO-23), NOT "closed through encounter"; settings (DL-19) no longer own `encounter_profile_registry` (ripped out); clinical-object (DL-7) + venue (DL-21) + RBAC (DL-18) bindings attach to `service_occurrence` / `service_occurrence_work_item`. D6/D7 OPEN.]**
 
 22. **DL-20 ↔ DL-15 Scheduling (binding).** Booking emits scheduling event + creates encounter_container per inv 10 scheduled-first path. Encounter container persists across reschedule (cancel original appointment, book new — encounter stays linked per DL-15 inv 6 compensation; appointment FK updates).
 
@@ -134,11 +257,15 @@
 
 ### Audit + immutability
 
+> **[RECONCILED → §0.5. Immutability/correction reframed onto `service_occurrence` supersession (L2 SO-08: `superseded_at` + `superseded_by_occurrence_id`) + `encounter_view` `record_materialization` snapshot/supersession lineage (SO-25). No post-materialization mutation; additive correction only.]**
+
 29. **Encounter closeout immutability (binding per inv 11 state 6 + DL-16 inv 38 tamper-evident).** Post-`closeout_complete` encounter is immutable; corrections are additive `encounter_correction` rows per inv 30. Provider can amend the chart but the original chart + attestation is preserved (analogous to DL-17 inv 29 sale immutability).
 
 30. **Encounter correction substrate (per DL-12 + DL-16 inv 38).** `encounter_correction` carries: `id`, `original_encounter_container_id` FK, `correction_kind` ENUM (`addendum_to_chart` / `entered_in_error_void` / `clinical_amendment` / `commerce_adjustment`), `correction_text` TEXT, `corrected_by_actor` per DL-16 amendment 43 (must satisfy Tier 4 attestation per DL-18 inv 8), `corrected_at`, `attestation_id` FK. Original encounter not mutated; corrections are additive rows + emit `encounter_corrected` events per DL-16.
 
 ### Decision record per DL-16 inv 30
+
+> **[PRESERVED, re-scoped → §0. The decision/audit-record discipline stands, but records emit per `service_occurrence` lifecycle events (L2 audit/event lines: `create_or_link_decided`, `lifecycle_transitioned`, `superseded`, etc.), not per first-class `encounter` open/close.]**
 
 31. **Every encounter decision (open / close / pause / reassign / amend) emits a `cns_decision` record per DL-16 inv 30 (binding).** Decision record records: triggering event(s), context snapshot (episode state / encounter state / clinical state at decision time), rule versions, AI versions if any, policy resolution layers, alternatives considered, action(s) emitted, reason. Audit lineage appendable post-action; never mutable. Cross-link DL-16 inv 30 + 33 + 38.
 
@@ -258,6 +385,8 @@
             materialized this item)
     ```
 
+> **[SUPERSEDED 2026-05-30 → §0.5. `encounter` is restated as `encounter_view` — a DERIVED projection over `service_occurrence` (L2 SO-01 + guardrail D0W3A-GRD-003), NOT a first-class substrate. `record_materialization` class may be durable D7 output but is never the canonical D5 work source. Field list below retained as historical rationale; `care_episode_id NULL` here is correct and supersedes inv 7's NOT NULL.]**
+
 35. **`encounter` substrate (Layer 2 actual care moment, binding — REFACTORED from prior encounter_container).** Created when work begins. encounter_profile_registry (prior proposal) is RIPPED OUT entirely; specialty-coded enum values were leakage per system_map Cross-DL warning.
 
     ```text
@@ -297,14 +426,16 @@
 
 37. **Encounter creation paths (binding per Knox session 2 marker, REFACTORED from prior inv 10):** scheduled-first (appointment → check-in → encounter with fulfillment_appointment_id); intake-first (intake_session submitted → encounter with arrival_kind=inbound_message_triggered, no appointment); walk-in (encounter at door, arrival_kind=walk_in, no appointment); ad-hoc video (patient or provider initiates → encounter, no appointment); async clinical decision (provider takes action → encounter, modality=async, no appointment); lab review (provider reviews lab result → encounter, arrival_kind=lab_review_initiated, no appointment); message escalation (CNS detects urgency in inbound message → encounter, arrival_kind=cns_initiated_async). Each path produces an encounter with appropriate fulfillment_appointment_id (NULL when no upstream appointment).
 
-38. **`encounter_participant` substrate (NEW Phase 1 hardening; 3 FK targets, NOT 4).** Multi-role participants attach to EITHER appointment_item_id (planned participant for specific item: injector for Dysport line) OR encounter_line_id (performed participant for specific line) OR encounter_id (visit-wide role: checkout_owner, patient_facing_designated, supervising MD on call). Exactly one FK populated.
+> **[RECONCILED 2026-05-30 → §0.6 (✅ RATIFIED Nick + Knox). Third FK re-targeted `encounter_id` → `service_occurrence_id` (canonical parent), because `encounter` is now a derived view and SO-01 forbids canonical FKs to derived projections. The 3-FK structure is preserved; only the third referent changed. `encounter_view` projects participants into the chart.]**
+
+38. **`encounter_participant` substrate (NEW Phase 1 hardening; 3 FK targets, NOT 4).** Multi-role participants attach to EITHER appointment_item_id (planned participant for specific item: injector for Dysport line) OR encounter_line_id (performed participant for specific line) OR `service_occurrence_id` (visit-wide role: checkout_owner, patient_facing_designated, supervising MD on call) — *re-targeted from `encounter_id` per §0.6; RATIFIED*. Exactly one FK populated.
 
     ```text
     encounter_participant
     ├── id
     ├── appointment_item_id FK NULL
     ├── encounter_line_id FK NULL
-    ├── encounter_id FK NULL    (exactly one of the 3 populated)
+    ├── service_occurrence_id FK NULL    (exactly one of the 3 populated; RE-TARGETED 2026-05-30 from encounter_id per §0.6 — RATIFIED Nick + Knox)
     ├── staff_id FK
     ├── role ENUM (registry-extensible per DL-16 inv 5; NOT closed):
     │       primary_rendering_provider / assisting_staff /
@@ -413,6 +544,8 @@
 
 ## Open sub-questions (require Knox + user signoff before lock)
 
+> **[SUPERSEDED → §0.10. Q-DL20-1 / -2 (encounter_container Option A + care_episode parent) are REWRITTEN by §0 — not live open questions. Q-DL20-3/-4/-5 are re-expressed against `service_occurrence` create-vs-link (L2 SO-04/SO-20) + K(C) participant/seat (inv 42). Amendment K is RESOLVED (Path A / K(C) minimal, per `05_3_round5_closure_verdict.md`), NOT open. Do not treat the list below as active.]**
+
 - **Q-DL20-1 (Q1 resolution)**: Single `encounter_container` table with profile discriminator (Option A) — promotion to LOCK requires Q1 SHELVED → RESOLVED commit + Knox + user joint signoff. The tentative resolution (Option A) is **opus-recommended** based on pressure-test §10 + Build Contract feasibility + simplicity per Knox session 2 marker.
 - **Q-DL20-2 (Q6 resolution)**: Care Episode as 1st-class parent (per inv 1) — promotion to LOCK requires Q6 SHELVED → RESOLVED commit + signoff. Tentative resolution: Care Episode IS the parent (per Knox session 2 marker + Layer 2 evidence).
 - **Q-DL20-3**: Walk-in encounter handling — does walk-in create encounter at door OR at first action (e.g., commerce sale)? Tentative: walk-in creates encounter at door with `status = scheduled_not_started`; if no clinical work happens (e.g., retail-only walk-in), encounter `cancelled_before_start` at sale close; clinical reality preserved.
@@ -422,6 +555,8 @@
 ---
 
 ## Rejected patterns
+
+> **[HISTORICAL → §0. These rejections remain valid rationale, but their `encounter_container` / `encounter_profile` framing is pre-reconciliation. Live model is §0; e.g., "single-encounter-table-with-NULL-profile" is moot because `encounter` is now a derived `encounter_view`, not a table. "Out-of-band encounter creation" maps to `service_occurrence` admission boundary (L2 SO-19) + create-vs-link grammar (SO-20).]**
 
 - **No Care Episode primitive (encounters drift orphan).** Per inv 1 — Care Episode is 1st-class.
 - **Episode kind = ICD-10 categorization.** Per inv 2 — operational vs clinical-coding distinct.
@@ -438,6 +573,8 @@
 
 ## Cross-link summary
 
+> **[HISTORICAL → §0. "Specializes DL-7 for the encounter substrate", "appointment ↔ encounter", "encounter closeout closes sale" are pre-reconciliation phrasings. Live: `service_occurrence` is the D5 parent; `encounter_view` derived; commerce (D6) + documentation (D7) are sibling truths, OPEN, linked by reference only.]**
+
 - **Inherits from:** DL-1 + DL-2 + DL-7 (tracked clinical objects) + DL-10 (multi-tenant) + DL-12 + DL-14 + DL-16 (envelope + audit + amendment 42 outbound + amendment 43 actor)
 - **Specializes:** DL-7 foundation primitives for the encounter substrate (encounter_line ↔ clinical_object continuity)
 - **Composes with:** DL-15 (scheduling: appointment ↔ encounter; amendment 30 4-axis composer reads encounter_profile policy) + DL-17 (commerce: encounter closeout closes sale; performed_line ↔ commerce_order_line) + DL-18 (RBAC: encounter atoms + provider attestation) + DL-19 (settings: episode_catalog + encounter_profile_registry live in settings substrate)
@@ -447,6 +584,8 @@
 ---
 
 ## Q1 + Q6 partial resolution promotion gate
+
+> **[REWRITTEN 2026-05-30 → §0. The original Q1/Q6 gate below framed promotion around `encounter_container` Option A — the STALE L0 question. The live lock target is §0 (`service_occurrence` canonical + `encounter_view` derived + `care_episode` nullable longitudinal + `care_commitment` overlay-relationship-only + D6/D7 OPEN). Promotion now gates on §0 ratification + §0.6 RATIFY, not the text below. Retained as historical rationale.]**
 
 This DRAFT contains **tentative resolution of Q1 + Q6**. Promotion to locked doctrine requires:
 1. Knox + user joint signoff on Q1 (single `encounter_container` with profile discriminator) per Q-DL20-1

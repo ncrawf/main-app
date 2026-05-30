@@ -1,0 +1,77 @@
+# OMNI System Map vNext
+
+Document type: `system_map` (architectural map — the MAP, not the territory)
+Authority: `canonical` structural map; source of truth for domains, ownership boundaries, and cross-domain seams
+Status: `active_skeleton` (created 2026-05-30, Foundation vNext pivot; D5 filled as proof; other domains stubbed pending their passes)
+Domain(s): `architecture_governance`, `cross_domain`
+Lifecycle role: the architectural map — what the parts are, who owns truth, how they connect
+Source-of-truth relationship: replaces `system_map_three_layers_60706286.plan.md` (bloated ~5k-line legacy → demoted to **evidence**). Artifact boundaries per `00_architecture_artifact_index.md`.
+Supersedes: `system_map_three_layers_60706286.plan.md` (as the build-facing map; legacy retained as evidence/source)
+Superseded by: none
+Manifest action: `add_tier0` (pending catalog row + read-graph route — owed, see stop report)
+Review gate: `user_knox_required`
+
+---
+
+## What this is (and is NOT)
+
+This is the **MAP**: domains, what each owns truth for, what it does NOT own, its canonical object *names*, primary inputs/outputs, adjacent domains, and a link to its Domain Contract. **It does NOT contain** fields, lifecycles, event detail, open-debt lists, UX, future ideas, rationale, or history — those live in their canonical homes per `00_architecture_artifact_index.md`. If detail starts accreting here, it is a bug; move it to the contract.
+
+## Layer model (from Thesis v2 §3 — 4-layer care OS)
+
+*Summarized here for orientation only. Binding layer doctrine lives in `09_omni_build_os_layer_model.md` + thesis v2 §3 (to be consolidated into Doctrine vNext). The System Map is not a source of doctrine.*
+
+1. **Surface** — product/brand surfaces (CULTURED, NAKED, OMNI Direct, provider portals, partner integrations). Specialize; never re-implement substrate.
+2. **Coordination CNS** — orchestration: candidate → resolver → owning-domain commit; AI proposes, humans/policy commit.
+3. **Boundary Policy** — authority, consent, ownership, operator boundaries.
+4. **Substrate Physics** — identity, scheduling, occurrence, commerce, documents, etc. — owning-domain canonical truth.
+
+## Source-of-truth rules (constitutional pointers — full text in Doctrine)
+
+- One owner per fact; everyone else references it. (control plane)
+- Candidate ≠ commit; AI proposes, owning domain commits. (`D0W3D-GRD-002`)
+- Projection ≠ authority. (`T0-15`, DL-16 inv 19)
+- Per-event ownership dimensions do not collapse. (`T0-13`, thesis §7.5.1)
+- Patient-source ≠ clinical truth until clinical adoption. (thesis §7.5.3)
+
+## Domain index
+
+| # | Domain | Owns truth for | Does NOT own | Contract | Status |
+|---|---|---|---|---|---|
+| D3 | Scheduling / Appointment | planned operational commitments | actualized work; commerce; documentation | `contracts/D3_scheduling_contract.md` | ⏳ pass pending (vocab anchored in D5 proof) |
+| **D5** | **Service Occurrence / Care Coordination** | **`service_occurrence`, `service_occurrence_work_item`, `service_occurrence_link`, `encounter_view` (derived), `care_episode`** | **appointment lifecycle (D3); commerce (D6); documentation (D7); Rx fulfillment** | **`contracts/D5_service_occurrence_care_coordination_contract.md`** | ✅ **proof contract drafted 2026-05-30** |
+| ID | Identity / Patient / Contact / Actor | patient, contact, actor identity + linking | clinical/commerce truth | `contracts/identity_contract.md` | ⏳ pending |
+| CNS | CNS / Orchestration | candidates, resolver decisions, orchestration actions | owning-domain canonical truth | `contracts/CNS_orchestration_contract.md` | ⏳ pending (LI doctrine off-main `d753a64` — recover first) |
+| MSG | Messaging / Communications | conversation/message substrate, rails | clinical decisions; CNS commit | `contracts/messaging_contract.md` | ⏳ pending |
+| INT | Intake / Patient-Source Data | intake sessions, patient-source assertions | clinical adoption (provider authority) | `contracts/intake_contract.md` | ⏳ pending |
+| D7 | Documents / Consent / Media | documentation/materialization/evidence truth, consent records | actualized-work truth (D5); commerce (D6) | `contracts/D7_documents_consent_media_contract.md` | ⏳ pending (Round 7 never ran — OPEN) |
+| D6 | Commerce / Entitlement / Payment | sale/refund/entitlement/payment truth | actualized-work truth (D5); documentation (D7) | `contracts/D6_commerce_contract.md` | ⏳ pending (Round 6 never ran — OPEN) |
+| RBAC | RBAC / Authority / Attestation | capability/role/attestation authority | domain object truth | `contracts/rbac_authority_contract.md` | ⏳ pending (DL-18 LOCKED — likely clean-into-contract) |
+| SET | Settings / Catalog / Registry | tenant config, catalog_item, registries | per-domain canonical truth | `contracts/settings_catalog_contract.md` | ⏳ pending (DL-19 LOCKED) |
+| FED | Federation / Operator / Tenant | tenant/legal-entity/operator boundaries, venue | domain object truth | `contracts/federation_contract.md` | ⏳ pending (DL-21 LOCKED) |
+| AI | AI / Model Lineage / Clinical Adoption | model_version_of_record, clinical_adoption_state | clinical commit (human authority) | `contracts/ai_model_lineage_contract.md` | ⏳ pending |
+
+## Canonical seams (the glue — edges only; contracts in `contracts/seams/`)
+
+The map only asserts the seam EXISTS + its `seam_id`. The contract DEFINES it (per `00_architecture_artifact_index.md` seam spec).
+
+| seam_id | source_event | emitted_by → consumed_by | owner_of_commit | contract | status |
+|---|---|---|---|---|---|
+| `SC-D3-D5-001` | `appointment.checked_in` | Scheduling → Service Occurrence | D5 | `contracts/seams/SC-D3-D5-001_appointment_checked_in__to__service_occurrence.md` | ✅ proof drafted 2026-05-30 |
+| `SC-INT-CNS-001` | `intake.submitted` | Intake → CNS | CNS (candidate) → owning domain (commit) | `contracts/seams/…` | ⏳ pending |
+| `SC-CNS-PT-001` | `cns.provider_task_proposed` | CNS → Provider Task | D5 / provider queue | `contracts/seams/…` | ⏳ pending |
+| `SC-CNS-MSG-001` | `cns.outbound_action` | CNS → Messaging (outbound) | Messaging (send) | `contracts/seams/…` | ⏳ pending |
+| `SC-MSG-CNS-001` | `message.escalated_to_provider_review` | Messaging → CNS | CNS (candidate) | `contracts/seams/…` | ⏳ pending |
+| `SC-D5-D6-001` | `service_occurrence.completed` | Service Occurrence → Commerce | D6 | `contracts/seams/…` | ⏳ pending (D6 OPEN) |
+| `SC-D5-D7-001` | `service_occurrence.completed` / work-item recorded | Service Occurrence → Documentation | D7 | `contracts/seams/…` | ⏳ pending (D7 OPEN) |
+| `SC-D7-CLIN-001` | `document/consent.recorded` | Documents/Consent → Clinical action | owning clinical domain | `contracts/seams/…` | ⏳ pending |
+| `SC-AI-PR-001` | `clinical_adoption.committed` | AI/Adoption → Patient record | owning clinical domain | `contracts/seams/…` | ⏳ pending |
+| `SC-ID-PT-001` | `identity.contact_resolved` | Identity → Patient/Account linking | Identity | `contracts/seams/…` | ⏳ pending |
+
+## Pointers to Open Decision Registry
+
+Registry lives in `08_open_review_queue.md`. Pointers only — this list never grows into a backlog:
+- D6 commerce canonical truth (Round 6 never ran).
+- D7 documentation/materialization canonical truth (Round 7 never ran).
+- Full `care_commitment` substrate (thesis §7.3) — queued dedicated pass.
+- CNS LI doctrine off-main on `d753a64` — `05_supersession_conflict_ledger.md` `D0THES-CNF-010`.
