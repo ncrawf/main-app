@@ -9,6 +9,7 @@ Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.pla
 Supersedes: none (clean distillation; 1L/1M + §12.1 = evidence/spine)
 Superseded by: none
 Manifest action: `add_tier1` · Review gate: `user_knox_required`
+**Consolidation statement (binding):** this contract is the single build-facing home for the measured-value/signal layer. Thesis §8/§12.1 + legacy `1L.*` (the 20-subsection Diagnostics + Lab Testing layer) + `1M` are **evidence/provenance, not required runtime reading.** Build from THIS contract. (Legacy-scatter backfill 2026-05-31: Observation owns the **result VALUE + normalization** layer; the **lab-ORDER lifecycle** — state machine / ownership / expiration / retest / review-release — is a separate diagnostic-order workflow, NOT measurement; its home is an open scope decision, `REV-163`. The diagnostic REPORT/PDF → D7.)
 
 ---
 
@@ -33,7 +34,7 @@ Observation owns the **structured measured value / signal substrate** and the **
 ## §3 Ownership boundary
 
 **Owns:** `observation` (structured measured value/signal); lab results (1L), vitals/trackables (1M), wearable/CGM/device telemetry streams, normalized diagnostic values; units / reference range / method / collection-time / result-time / received-time / abnormal-flag; **the ingestion-verification / data-QC state** (§5); measurement provenance (source device/lab/partner, performing facility).
-**Does NOT own:** the durable artifact/blob (D7 `media_artifact`/`patient_document`); the clinical claim/meaning + adoption (Clinical Memory `extracted_assertion`/assertion); the order/fulfillment of a lab/diagnostic (Labs/Diagnostics Core Capability → Federation/§6.7); commerce/insurance (D6); device/patient identity (Identity — device is an `actor`).
+**Does NOT own:** the durable artifact/blob — diagnostic **report PDF / `report_payload` semi-structured / narrative impression / imaging output** (D7 `media_artifact`/`patient_document`; 1L.3/1L.5); the clinical claim/meaning + adoption (Clinical Memory `extracted_assertion`/assertion); **the lab-ORDER lifecycle** (`lab_orders` state machine 1L.4, ownership 1L.7, expiration 1L.8, retest cadence 1L.9, standalone-vs-program 1L.10, triage/review/release 1L.20) — a **diagnostic-order workflow**, NOT measurement → home open (`REV-163`: own Diagnostics/Lab-Order domain vs decompose across D5 collection-occurrence / CNS workflow+queue+retest / CM review→release / D7 report+release-gate / D6 kit-fee / Federation vendor-adapter / Messaging patient-comms); commerce/insurance (D6); device/patient identity (Identity — device is an `actor`).
 
 ## §4 Three distinct gates — "verification" is NOT one word (Nick + Knox locked — DO NOT collapse)
 
@@ -62,6 +63,8 @@ A measured/extracted value carries a **verification state** meaning *"we believe
 5. **Not a labs bucket** — labs/wearables/CGM/diagnostics/vitals are producers; no narrow `lab_intake` collapse.
 6. **Federation readiness** (§8) — every observation preserves origin/source-authority/performing-facility/operator-practice context + verification state so cross-practice use is possible.
 7. **Reference, don't duplicate** — observation references its source artifact (D7) and feeds assertions (CM) by id; does not copy the blob or own the clinical claim.
+8. **Structured-first carve-out** (1L.16a / §1P): structured-schema diagnostics (HL7/FHIR lab feeds) ride the **deterministic** normalization pipeline (1L.6); AI extraction NEVER runs over typed-schema payload fields where deterministic mapping exists.
+9. **Dual-model — don't require full normalization** (1L.3): structured analyte values are a **derived layer**, not the only layer; when a result doesn't fully decompose (narrative impression, unmapped marker, imaging), the semi-structured `report_payload` lives on the **D7 diagnostic report** — Observation persists the structured analytes it can normalize, never blocks on full normalization, never stores the report blob.
 
 ## §8 Federation / inter-practice readiness
 
@@ -75,9 +78,14 @@ Every observation preserves enough accountability for cross-operator use later: 
 | `patient_state_observations` (1M) | **preserve → name under this domain** | vitals/trackables |
 | §12.1 `observation` (thesis) | **adopt as canonical primitive** | §6 |
 | wearable/CGM/device telemetry | **belongs here as signal/observation** | not D7, not a new bucket |
-| external lab/imaging *report* (the PDF) | **artifact → D7**; structured values → here | DL-22 inv 10 / Q-DL22-5 |
+| external lab/imaging *report* (the PDF / `report_payload` / narrative) | **artifact → D7**; structured values → here | DL-22 inv 10 / 1L.3 / 1L.5 |
 | clinical meaning/diagnosis from a value | **→ Clinical Memory** | §7.1 |
-| lab order/fulfillment | **→ Labs/Diagnostics Core Capability (Federation)** | not substrate-measurement |
+| **1L.6 lab observation normalization** | **place → here (Observation)** | the result-value layer is squarely Observation |
+| **1L.4 `lab_orders` state machine + 1L.2 object model + 1L.7 ownership + 1L.8 expiration + 1L.9 retest loop + 1L.10 standalone-vs-program + 1L.20 triage/review/release** | **NOT Observation — diagnostic-order workflow; home open** (`REV-163`) | own Diagnostics/Lab-Order domain vs decompose D5/CNS/CM/D7/D6/Federation/Messaging |
+| **1L.14 vendor partner adapter** | **→ Federation/partner-adapter** | rail-agnostic (like payment rails / messaging rails); vendor in `metadata.vendor_partner_id`, not enums |
+| **1L.15 patient-facing lab comms** | **→ Messaging** | transport of lab results to patient |
+| **1L.16 continuation gating + retest cadence** | **→ CNS / D5 `care_episode` continuation** | care-coordination, not measurement |
+| **1L.0 future modalities (imaging/stool/device/external-upload)** | **same pipeline shape** | `diagnostic_source_type`; reuse the value/report/observation split |
 
 ## §10 Seams
 
@@ -85,14 +93,19 @@ Every observation preserves enough accountability for cross-operator use later: 
 - **Observation → Clinical Memory** (observation supports an assertion; CM holds `source_observation_ids`; lab_derived assertion stays `unconfirmed`).
 - **Observation → CNS** (context-packet input; authority-labeled; CNS may use for routing/screening, see CNS contract layered-context-packet rule).
 - **Device → Identity** (wearable/CGM device = `actor`; source identity preserved).
-- **Labs/Diagnostics Core Capability → Observation** (fulfilled order produces result values; order/fulfillment owned by the operator/Federation).
+- **Labs/Diagnostics order workflow → Observation** (a fulfilled order produces result VALUES, which land here; the order lifecycle itself is `REV-163`'s home, not Observation).
+- **Observation ↔ D7** (the diagnostic report PDF / `report_payload` is the D7 artifact; Observation holds the normalized analytes + references the report by id; 1L.5 report→order binding).
+- **Diagnostic vendor (Quest/Labcorp) → Federation partner-adapter** (rail-agnostic; result feed lands as observations + report).
+- **Observation → Messaging** (patient-facing lab-result comms = Messaging transport; 1L.15).
+- **lab kit fee → D6** (1L.2 commerce-created order path; the fee is commerce, the values are here).
 
 ## §11 Open items (→ `08`)
 
 - **Ingestion-verification state machine** (`REV-153`): finalize the verification-state set + which sources reach which state automatically (electronic feed vs AI-parsed PDF vs patient screenshot) + the human-QC workflow + who performs QC. Build-shaped.
 - Relationship of 1L/1M existing tables to the unified observation model (build-state, shares `REV-152`).
 - CNS layered-context-packet evidence-authority policy (`REV-154`, cross-domain — see CNS contract).
+- **Lab-ORDER lifecycle home** (`REV-163`): the §1L `lab_orders` workflow (state machine / ownership / expiration / retest / standalone-vs-program / triage-review-release) is NOT measurement and needs a home decision — its OWN Diagnostics/Lab-Order domain (like Observation was split out), OR decomposition across D5 (collection occurrence) / CNS (workflow orchestration + queue + retest cadence) / CM (review→release adoption) / D7 (report + release gate) / D6 (kit fee) / Federation (vendor adapter) / Messaging (patient comms). Surfaced by the 2026-05-31 Observation backfill; trifecta scope decision.
 
 ## §12 Evidence sources
 
-thesis §8 + §12.1 + §1Z + §7.5.3 · `patient_lab_observations` (1L) + `patient_state_observations` (1M) · clinical_assertion_layer_design (evidence layer §B/§G) · intake README (observation routing) · DL-22 inv 10 (external report → opaque PDF; structured ingestion = separate pipeline).
+thesis §8 + §12.1 + §1Z + §7.5.3 · legacy **§1L Diagnostics + Lab Testing layer (1L.0–1L.20)**: 1L.2 object model / 1L.3 structured+semi-structured / 1L.4 state machine / 1L.6 normalization / 1L.7 ownership / 1L.9 retest / 1L.14 vendor adapter / 1L.16/16a continuation+structured-first / 1L.20 triage-review-release · `patient_lab_observations` (1L) + `patient_state_observations` (1M) · clinical_assertion_layer_design (evidence layer §B/§G) · intake README (observation routing) · DL-22 inv 10.
