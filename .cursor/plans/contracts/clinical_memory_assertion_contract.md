@@ -40,6 +40,8 @@ Patient-source is a **substrate concept, not an operator posture**. Patient-sour
 **Owns:** `clinical_concepts` registry (code-as-config; ~50 seed, grow-from-PRs); `patient_clinical_assertions` (append-only); `source_authority` + `authored_by`; **authority precedence**; `status` / `clinical_adoption_state`; `context` + `context_key`; `evidence_refs` (pointers, never copies); conflict/reconciliation policy; `patient_clinical_assertion_current` view; the `patients.*` chart-column **projection trigger**; the `recordClinicalAssertion` write API + the clinical-adoption gate.
 **Does NOT own:** the raw evidence rows (each producer's home — `intake_response`/`patient_state_observations`/`patient_lab_observations`/`patient_document_routing`/`clinical_visits`/AI outputs); intake construction (Intake); identity (Identity); commerce/entitlement; the AI engine that *generates* candidates (AI/Model-Lineage — a producer that must respect the adoption rules, §8.4).
 
+**Anti-junk-drawer boundary (Knox 2026-05-31 — binding):** Clinical Memory is the **assertion / adoption / current-memory substrate — NOT a general clinical-record junk drawer.** It does NOT absorb raw documents, raw labs, clinical notes, encounter documentation, orders, plans, tasks, commerce, or care_commitments. Those remain in their owning domains (D7 docs/consent, Labs, D5 occurrence/work, D6 commerce, care_commitment substrate) and **feed/consume Clinical Memory through seams + projections only** (§10). If a raw artifact or authored document starts living here instead of being *referenced*, that is a bug — move it back to its owning domain.
+
 ## §5 Authority precedence (read-view tie-break, locked)
 
 `provider_confirmed > provider_assessed > lab_derived > document_extracted > patient_self_correction > patient_reported > ai_suggested > system_derived`. The current view returns the highest-authority non-superseded row per `(patient_id, concept_id, context_key)`. **Same concept, different `context_key` = coexisting active assertions** (the GLP-1-nausea-in-4-contexts case), NOT a conflict.
@@ -63,6 +65,7 @@ Confirmation (provider supersedes patient; both preserved) · Conflict (both liv
 7. **No-direct-`patients.*`-write** — chart columns are a trigger projection of the assertion view (`1J.10` REVOKE GRANT preserved); never an independent source of truth.
 8. **No parallel clinical-truth tables** — problem-list / allergy-list / medication-list / diagnoses are **views** (filters on assertions), not tables.
 9. **Provenance survives adoption** (§7.5.3) — `source_authority` stays `patient` even after `clinical_adoption_state = adopted`.
+10. **Not a clinical junk drawer** (§4 boundary) — Clinical Memory holds assertions + references + projections, NEVER raw documents/labs/notes/encounter-docs/orders/plans/tasks/commerce/care_commitments. Those live in owning domains and cross via seams only.
 
 ## §9 Disposition table
 
