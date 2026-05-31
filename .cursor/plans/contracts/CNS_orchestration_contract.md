@@ -24,7 +24,7 @@ CNS is the deepest/most central domain → FAC before draft. Layers + dispositio
 | **Build-state evidence** | §B WP-EXEC-001 `trace_lineage` runtime (branch-ahead, `REV-148`/`CNF-011`) | informs the trace/audit invariant (§11); recover as a bounded BUILD task, NOT in this contract |
 | **Rules/templates** | system map §1Q + `cns_taxonomy_reconciliation.md` (20-surface × 7-category) | folded as coordination substrate; full rules/templates may be its own sub-pass (`REV-149`) |
 
-**§7.6-vs-DL-14 reconciliation (resolved, confirmed from text):** v2 §7.6 is a **scoping REFINEMENT over DL-14, not a demolition** (§7.6 line 2423: *"the §3.7 4-layer architecture is unchanged — all operator CNS instances sit at Layer 3"*). **DL-14's CNS = Operator-level (execution) CNS**; v2 ADDS Coherence-level (Patient CNS) + Meta-level (Network Governance Plane). No conflict → no stop-and-surface. **Confirmed: exactly three CNS scope categories at enterprise level — no other buckets** (verified against thesis §7.6/§3.7 + LI doctrine).
+**§7.6-vs-DL-14 reconciliation (resolved, confirmed from text):** v2 §7.6 is a **scoping REFINEMENT over DL-14, not a demolition** (§7.6 line 2423: *"the §3.7 4-layer architecture is unchanged — all operator CNS instances sit at Layer 3"*). **DL-14's CNS = Operator-level (execution) CNS**; v2 ADDS Coherence-level (Patient CNS) + Meta-level (Network Governance Plane). No conflict → no stop-and-surface. **The current canonical CNS scope model has exactly three enterprise scope categories** (verified against thesis §7.6/§3.7 + LI doctrine). **New CNS scope categories require explicit doctrine promotion** (per the §4 designed-family-expands-by-doctrine-pass discipline / `D0THES-GRD-003`); **workflows/modules do NOT become new CNS scopes by default** (anti-sprawl, §4 inv 4).
 
 ## §1 Purpose
 
@@ -34,7 +34,7 @@ CNS is the **Coordination layer (§3.7 Layer 3)**: it turns source events into c
 
 *"Workstreams have operators. Patients have coherence. Networks have governance."* (§7.6) · candidate ≠ commit (DL-14/DL-16) · AI proposes / humans commit (§12.8) · projection ≠ authority · CNS is scoped, not omniscient.
 
-## §3 The CNS scope model (THE core — exactly 3 categories; no other buckets)
+## §3 The CNS scope model (THE core — current canonical model = 3 enterprise scope categories; new categories require explicit doctrine promotion, not drift)
 
 | Scope category | Action discipline | Instances |
 |---|---|---|
