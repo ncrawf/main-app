@@ -1,7 +1,8 @@
-# Future Care Obligations + Scheduling Foundation — Design Pressure-Test (PARKED)
+# Future Care Obligations + Scheduling Foundation — Design Pressure-Test (UN-PARKED → ACT-LOOP EVIDENCE)
 
 **Date:** 2026-05-17
-**Status:** PARKED DESIGN PRESSURE-TEST ARTIFACT — NOT locked doctrine, NOT a new architecture doc, NOT to be expanded into DL invariants without explicit re-opening of the Care-Coordination-CNS workstream. Preserves the day's foundational pressure-testing arc so future readers (Knox, Opus, user, future maintainers) do not rehash.
+**Status (updated 2026-05-31):** **UN-PARKED → active ACT-LOOP / Ordered-Fulfillment + Care-Obligations EVIDENCE** per `D0THES-DEC-031`. The Care-Coordination-CNS workstream this doc was parked behind has effectively re-opened as the **Act/Fulfillment loop** concept (thesis §8.6 names it; two governed loops §8). This artifact is now the **recovered evidence + stress-test corpus** for that lifecycle: its `care_episode_task` design (§4) = the **`care_obligation`** primitive; its 3-layer model (§1) + the industry-validation table (§2: Amazon/Tesla/FHIR/Epic/Airline/Restaurant) = the act-loop + Lens-B comparator evidence; its 15 stress tests (§3) = the pressure-test corpus. **Still NOT locked doctrine and NOT a contract** — substrate detail promotes via the Ordered-Fulfillment/Care-Obligations contract pass + `D0THES-REV-163` (own-thin-domain-vs-decompose decision). The original PARKED framing below is **superseded by this banner** (preserved as history). Per the disposition discipline: nothing here is deleted; it is recovered into the act-loop lineage.
+**(Historical status, superseded:)** PARKED DESIGN PRESSURE-TEST ARTIFACT — NOT locked doctrine, NOT a new architecture doc, NOT to be expanded into DL invariants without explicit re-opening of the Care-Coordination-CNS workstream. Preserves the day's foundational pressure-testing arc so future readers (Knox, Opus, user, future maintainers) do not rehash.
 
 **Companion artifacts:**
 - Patch round v2 plan: [.cursor/plans/dl-17_to_dl-22_patch_round_v2_a05a2728.plan.md](../dl-17_to_dl-22_patch_round_v2_a05a2728.plan.md)

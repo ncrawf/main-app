@@ -18,6 +18,8 @@ It maintains longitudinal coherence — through identity, consent, authority, ev
 
 The substrate is **future-permissive**. The product is **brutally narrow and concrete**.
 
+**What OMNI replaces (product scope):** in one governed substrate, what today takes seven siloed SaaS products — **Hims** (DTC telehealth) + **Epic** (EMR/records) + **Shopify** (commerce/fulfillment) + **Mindbody** (scheduling + memberships) + **RingCentral** (comms) + **ActiveCampaign** (marketing) + **Oracle** (federation/tenancy). The win isn't feature-parity with any one; it's running all seven on one substrate that shares identity/consent/authority/evidence. (How it behaves + how it differs from each: §3.5. How it operates: the two governed loops, below.)
+
 The invariant: **governed contextual coherence across actors, surfaces, organizations, and authority boundaries.**
 
 ## What OMNI is not
@@ -407,9 +409,17 @@ Most of what we need is already in OMNI doctrine (Tier 0 guardrails T0-01..T0-07
 
 Not 100 new primitives. Not a rebuild. **Eight surgical additions** (was 5 in v0).
 
-## The universal flow
+## The universal flow — two interlocking governed loops
 
-Every input modality enters the CNS through one chain. Every output exits through one chain. The CNS is invariant; modalities are interchangeable at the boundary.
+OMNI runs **two interlocking governed loops, bridged by authority gates** (not one linear chain; the chain below is the unrolled view):
+- **Sense loop (information):** source_event → observation → extracted_assertion → review → committed assertion → context. *What is true, by whom, at what authority.* (Tesla-signal analogy.)
+- **Act loop (fulfillment):** request → authorize → order → fulfill → output → review/release → follow-up. *What was requested, and did it get done.* Its primitives — `fulfillment_order` (lab/Rx/commerce/kit/device specialize it) and `care_obligation` (due/recall/retest/refill) — are co-equal to the sense loop's observation/assertion. (Amazon-fulfillment analogy.)
+- **Authority gates between them** (Houston go/no-go): verification, clinical adoption, eligibility/consent, payment. A signal doesn't become an act, and an act output doesn't become truth, without the gate.
+- **Interlock:** an act's output (lab result, Rx dispense) re-enters the sense loop; a sense result or due obligation triggers an act. CNS coordinates the cycle; owns neither loop's truth.
+
+**Payload-noun ≠ domain:** labs/Rx/commerce/messages/appointments/wearables are use-cases threading BOTH loops + several domains — never one domain. A lab = an act (order/fulfill) producing sense (value→Observation, report→D7, finding→Clinical Memory). Decompose before naming.
+
+Every input modality enters the sense loop through one chain. Every act exits through one fulfillment chain. The CNS is invariant; modalities are interchangeable at the boundary.
 
 ```
 INPUT (form / lab / wearable / voice / live AI conversation /

@@ -26,9 +26,19 @@ This is the **MAP**: domains, what each owns truth for, what it does NOT own, it
 3. **Boundary Policy** — authority, consent, ownership, operator boundaries.
 4. **Substrate Physics** — identity, scheduling, occurrence, commerce, documents, etc. — owning-domain canonical truth.
 
+## How to read this map — the operating model (thesis §8 + §3.5; full rationale there)
+
+Domains below are **ownership surfaces** (who owns which truth). They are threaded by OMNI's operating model — read the map through this lens:
+
+- **Two interlocking governed loops** (thesis §8): the **Sense loop** (information: source → observation/assertion → adoption → context) and the **Act loop** (fulfillment: request → authorize → order → fulfill → output → review/release → follow-up), bridged by **authority gates** (verification, clinical adoption, eligibility/consent, payment). The **Planning axis** (D3 appointment = planned commitment) can initiate/constrain the act loop. **Projections** (EMR/chart/workspace) are views over domain truth (§7.7) — not domains.
+- **Payload-noun ≠ domain (binding; guardrail `D0THES-GRD-026`):** "labs / Rx / commerce / messaging / intake / wearables / forms" are **use-cases that thread both loops + several domains + projections + gates** — never a single domain. Decompose a payload into its concerns and place each primitive with its owner *before* naming a domain. (A lab = an *act* (ordered fulfillment) producing *sense* (value→Observation, report→D7, finding→Clinical Memory), paid via D6, vendored via Federation, communicated via Messaging.)
+- **Product-category → domain mapping (Lens A orientation; "where does the X part live"):** Shopify → D6 + Settings/catalog + Ordered-Fulfillment; Epic/EMR → record-projection + Clinical Memory + Observation + D5/D7; Mindbody → D3 + entitlements (D6); RingCentral/Twilio → Messaging; ActiveCampaign/Klaviyo → outbound/marketing + CNS; Hims → the intake→care→fulfillment slice across loops; Oracle/enterprise → Federation/governance. (OMNI collapses these seven SaaS silos into one substrate — thesis §1 Lens A.)
+- **Ordered Fulfillment / Care Obligations** is a recognized act-loop slot (thin domain/primitive-family: `fulfillment_order` + `care_obligation`, separable) — home/decomposition pending `D0THES-REV-163` + a contract pass (§ Domain index, status `⏳ open — REV-163`).
+
 ## Source-of-truth rules (constitutional pointers — full text in Doctrine)
 
 - One owner per fact; everyone else references it. (control plane)
+- **Payload-noun ≠ domain; decompose-before-naming.** (`D0THES-GRD-026`; thesis §3.5)
 - Candidate ≠ commit; AI proposes, owning domain commits. (`D0W3D-GRD-002`)
 - Projection ≠ authority. (`T0-15`, DL-16 inv 19)
 - Per-event ownership dimensions do not collapse. (`T0-13`, thesis §7.5.1)
@@ -56,6 +66,7 @@ This is the **MAP**: domains, what each owns truth for, what it does NOT own, it
 | SET | Settings / Catalog / Registry | tenant config, catalog_item, registries | per-domain canonical truth | `contracts/settings_catalog_contract.md` | ⏳ pending (DL-19 LOCKED) |
 | FED | Federation / Operator / Tenant | tenant/legal-entity/operator boundaries, venue | domain object truth | `contracts/federation_contract.md` | ⏳ pending (DL-21 LOCKED) |
 | AI | AI / Model Lineage / Clinical Adoption | model_version_of_record, clinical_adoption_state | clinical commit (human authority) | `contracts/ai_model_lineage_contract.md` | ⏳ pending |
+| **OFC** | **Ordered Fulfillment / Care Obligations** (act-loop lifecycle — thin; primitive family) | **`fulfillment_order` (lab/Rx/commerce/kit/device subtypes; request→authorize→order→fulfill→output→release lifecycle STATE) + `care_obligation` (due/recall/retest/refill/monitoring/exception = the parked `care_episode_task`)** | **all truth (delegates): money=D6, actualized work=D5, artifact/report=D7, measured value=Observation, clinical meaning=Clinical-Memory, vendor=Federation, comms=Messaging, who=Identity, planning=D3** | `contracts/ordered_fulfillment_contract.md` (pending) | ⏳ **open — `REV-163`** (own thin domain vs decompose; two separable primitives; NOT per-noun "labs", NOT mega; thesis §8.6) |
 
 ## Canonical seams (the glue — edges only; contracts in `contracts/seams/`)
 

@@ -40,6 +40,8 @@ OMNI is a **governed contextual care substrate** that maintains longitudinal coh
 
 The substrate is **future-permissive** within the designed family at any moment in time. The product is **brutally narrow and concrete**: a hybrid async-protocolized-care plus in-person-procedural-care platform under owned vertical brands, where the wedge product itself is also the first substrate proof point.
 
+**In product-scope terms (what OMNI collapses):** OMNI is, in one governed substrate, what today takes seven siloed SaaS products bolted together — **Hims/Ro** (DTC telehealth + async Rx + subscription) + **Epic/Cerner** (EMR / records / orders) + **Shopify** (commerce / catalog / checkout / fulfillment) + **Mindbody/Boulevard** (scheduling + packages/memberships) + **RingCentral/Twilio** (comms rail) + **ActiveCampaign/Klaviyo** (marketing / campaigns) + **Oracle/enterprise** (federation / tenancy / governance). OMNI does not bolt these together; it runs them on one substrate. *How* it behaves (its architectural shape) and *how* it differs from each: §3.5. *How* it operates structurally (two governed loops + authority gates): §8.
+
 The core invariant is **governed contextual coherence across actors, surfaces, organizations, and authority boundaries.**
 
 The core mantra is:
@@ -271,6 +273,24 @@ OMNI takes Whole Foods + Amazon Basics + third-party brand coexistence as the st
 | Whole Foods | Operator-pluralism + house-brand-alongside-third-party | (Nothing rejected; structural reference) |
 
 OMNI is none of these by design. It takes structural lessons from each (where positive) and inverts each (where negative). The shape is the one that doesn't exist yet because no single comparator has built it.
+
+### Two distinct lenses (do not conflate — this conflation is a recurring failure)
+
+The comparators above answer two DIFFERENT questions. Keeping them separate is load-bearing:
+
+**Lens A — what OMNI IS / replaces (product scope).** OMNI's product collapses into one governed substrate what today takes seven siloed SaaS products: **Hims/Ro** (DTC telehealth + async Rx) + **Epic/Cerner** (EMR/records/orders) + **Shopify** (commerce/catalog/fulfillment) + **Mindbody/Boulevard** (scheduling + packages/memberships) + **RingCentral/Twilio** (comms rail) + **ActiveCampaign/Klaviyo** (marketing/campaigns) + **Oracle/enterprise** (federation/tenancy). The differentiator is not feature parity with any one — it is that OMNI runs all seven on **one coherent substrate with shared identity/consent/authority/evidence**, instead of seven integrations that don't share truth. (Mindbody/Boulevard double as the anti-pattern source: payload-noun tables, fee-as-$0-pricing-option, lost-on-reschedule, staff-must-dig — what NOT to do.)
+
+**Lens B — how OMNI BEHAVES (architecture pattern).** OMNI borrows the correct operating primitive from each reference system and composes them into **two interlocking governed loops + authority gates** (the operating model; full mechanics §8):
+- **Amazon** → the **Act/Fulfillment loop** (ordered things → fulfill → deliver → exceptions; generalized order, payloads specialize).
+- **Tesla self-driving** → the **Sense loop** (continuous signals → state estimation → safety monitor → feedback).
+- **Houston / mission control** → the **authority gates between the loops** (telemetry-vs-command, go/no-go, escalation, audit) — the element no commercial comparator carries.
+- **Airport ops** → the **Planning axis** (scheduling/routing/queues/handoffs/capacity = appointments, D3).
+
+**Why OMNI differs from all of them:** it needs all of this AT ONCE, plus the healthcare authority gates (clinical adoption, consent, eligibility, provider authority, liability) between sense and act. No single metaphor IS OMNI; it takes the right primitive from each and governs the seams.
+
+### Payload-noun ≠ domain (the discipline this framing enforces)
+
+A consequence of both lenses: **"labs / Rx / commerce / messaging / intake / wearables / forms" are payloads (use-cases), NOT domains.** Each threads both loops + several ownership domains + projections + authority gates. A lab is an *act* (ordered fulfillment) producing *sense* (value→Observation, report→D7, finding→Clinical Memory), paid via D6, vendored via Federation, communicated via Messaging. Before creating or naming a domain, **decompose the payload into its concerns and place each primitive with its owner.** (Enforced as a boot-visible guardrail; this is the rule that stops the recurring "labs domain / messaging-owns-the-clinical-loop / commerce-owns-everything" collapse.)
 
 ---
 
@@ -2840,9 +2860,16 @@ When patient has care across operators, the substrate guarantees:
 
 ---
 
-## §8 The universal CNS flow
+## §8 The universal CNS flow — two interlocking governed loops
 
-**Every input — regardless of modality — enters the CNS through the same chain. Every output exits through the same chain. The CNS is invariant; modalities are interchangeable at the boundary.**
+**OMNI runs two interlocking governed loops, bridged by authority gates — not one linear chain.** (The chain below is the unrolled view of the loops.)
+
+- **Sense loop (information):** `source_event → media_artifact → observation → extraction → extracted_assertion → patient/clinician review → committed assertion → context_packet`. Answers *what is true about this patient now, by whom, at what authority.* Owned across Intake/Messaging (capture), D7 (artifact), Observation (measured value), Clinical Memory (assertion/adoption), CNS (context).
+- **Act loop (fulfillment):** `intent/request → authorize/eligibility → order/commit → fulfill → output/result → review/release → follow-up/retest/refill/exception`. Answers *what was requested, and did it get done.* The act loop has its own lifecycle primitives — **`fulfillment_order`** (the requested thing moving through its state machine — lab/Rx/commerce/kit/device specialize it) and **`care_obligation`** (the due/recall/follow-up half) — co-equal to the sense loop's `observation`/`extracted_assertion` (§12.1), and currently under-named (see §8.6). These own lifecycle state only and delegate truth to the owning domains (D6 money / D5 actualized work / D7 artifact / Observation value / Clinical Memory meaning / Federation vendor / Messaging comms).
+- **Authority gates between the loops** (the healthcare-specific element Amazon/Tesla/airports lack — §3.5): verification (Observation/D7), clinical adoption (Clinical Memory §7.5/§7.5.3), eligibility/consent (intake pre-screen + Boundary-Policy), payment authorization (D6). A sense result does not become an act, and an act output does not become truth, without passing the relevant gate.
+- **Interlock:** an act's output (lab result, Rx dispense) re-enters the sense loop as a new `source_event` (the `feedback` edge below); a sense result or a due `care_obligation` triggers an act (`candidate → order`). The two loops form a continuous, governed cycle that CNS coordinates (it owns neither loop's truth).
+
+**Payload nouns are not domains.** "Labs / Rx / commerce / message / appointment / wearable" are use-cases that thread BOTH loops + several domains + projections + gates — never a single domain (§3.5 payload-noun discipline). A lab is an *act* (ordered fulfillment) producing *sense* (value→Observation, report→D7, finding→Clinical Memory). **Every input — regardless of modality — enters the sense loop through the same chain; every act exits through the same fulfillment chain. The CNS is invariant; modalities are interchangeable at the boundary.**
 
 ```mermaid
 flowchart TB
@@ -2975,6 +3002,27 @@ For each new product variant entering the family per §4, the question is: "Does
 v1 substrate primitives (§12.6 case-deliberation + §12.7 duplicate-therapy guardrail + §12.8 AI capability + §7.2 ownership hierarchy + §6.6 visible provider) collectively make most multi-actor deliberation product variants substrate-ready at day 1. Year-5+ product surface expansion doesn't require re-architecting.
 
 ---
+
+## §8.6 The Act / Fulfillment loop, named (v2 NEW — co-equal to the Sense loop)
+
+**v2 NEW** per 2026-05-31 operating-model pressure-test. The thesis historically named the **Sense loop** richly (§8 left side + §12.1 elevating `observation`/`extracted_assertion`) but collapsed the **Act loop** to a single `execution` step. The act side is a co-equal governed lifecycle with its own primitives. This section names it.
+
+### The act-loop lifecycle
+`intent/request → authorize/eligibility → order/commit → fulfill (vendor/OMNI/device) → output/result → review/release → follow-up/retest/refill/exception`. Modalities specialize the same skeleton: a lab order, an Rx order, a commerce order, an at-home kit, a device-study, a procedure-order. (This is the Amazon-fulfillment analogy of §3.5 Q8 — generalized order, payloads specialize.)
+
+### Two SEPARABLE primitives (a family, not one object)
+- **`fulfillment_order`** — the requested thing moving through its state machine (lab/Rx/commerce/kit/device subtypes). Owns lifecycle STATE only; delegates truth (D6 money, D5 actualized work, D7 artifact, Observation value, Clinical Memory meaning, Federation vendor, Messaging comms, Identity who).
+- **`care_obligation`** — the due/recall/retest/refill/monitoring/exception half (the parked `care_episode_task`: ~55 task_kinds; converts to appointment when scheduled, to actualized work when realized, to an outbound action when dispatched).
+
+They are **separable, proven by pressure test**: a **commerce order has fulfillment but no care_obligation**; a **monitoring/recall obligation can exist with no external order**. Therefore a **primitive family**, not one object.
+
+### What is NOT the act loop (anti-collapse)
+- **Appointment = Planning (D3)** — a planned time/resource commitment, distinct from fulfillment and from D5 actualized work. It is the *conversion target* of a `care_obligation` and the *trigger* of D5 work; not an order. (Airport-ops analogy, §3.5 Q10.)
+- **EMR / chart = projection** (§7.7) over D5/D7/Clinical-Memory/Observation/CNS — not a domain, not the act loop.
+- **Messaging = rail** that feeds the sense loop and transports the act loop; owns neither's truth.
+
+### Recovery + status
+Evidence this existed and was dropped: the parked `.cursor/plans/doctrine/future_care_obligations_design_2026-05-17.md` (full `care_episode_task` design + Amazon/Tesla/FHIR table + 15 stress tests) and the shipped-but-triplicated state machines in `lib/orders/` (treatment/lab/supplement, identical shape). **Verdict (pressure-tested):** a **thin "Fulfillment & Obligations" domain / primitive family** owning the two lifecycle-state primitives and delegating all truth — NOT per-noun ("labs domain"), NOT a mega-domain. Final ratification + own-domain-vs-decompose lands at `D0THES-REV-163` and a dedicated contract pass; substrate detail stays in the recovered design (now active evidence) + the eventual contract.
 
 ## §9 AI as bounded participant
 
@@ -4114,6 +4162,10 @@ Standing by.
 ---
 
 ## §22 Amendment Log
+
+### v2 in-place restructure (2026-05-31) — operating model: two governed loops + Act/Fulfillment loop named + product-scope lens + payload≠domain
+
+Provenance pointer only (substance lives in the restructured body, not here). Per Operating Contract §17 (additive same-arc on `active_adopted_directional_v2`; restructures-in-place, supersedes the §8 single-linear-flow framing with disposition, does NOT contradict prior doctrine → no v3). Trigger: Nick + Knox 2026-05-31 operating-model pressure-test (the recurring "labs/Rx/commerce/Amazon/Tesla/Houston/airport" framing + the parked `future_care_obligations_design` + triplicated `lib/orders` recovery). Changes: **§1** (Lens A product-scope: OMNI collapses Hims+Epic+Shopify+Mindbody+RingCentral+ActiveCampaign+Oracle into one substrate); **§3.5** (two-lens split A/B + the Amazon-Tesla-Houston-airport → two-loops+gates synthesis + payload≠domain discipline); **§8** (restructured to two interlocking governed loops + authority gates, superseding "one chain"); **§8.6 NEW** (Act/Fulfillment loop named co-equal to Sense; `fulfillment_order` + `care_obligation` separable primitive family; thin Fulfillment-&-Obligations domain verdict → `REV-163`). Decision rationale: `03_decision_extraction_ledger.md`.
 
 ### v2 in-place emphasis patch (2026-05-30) — AI-generated / generative projection surfaces
 
