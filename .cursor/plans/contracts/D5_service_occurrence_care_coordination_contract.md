@@ -40,7 +40,7 @@ D5 owns the truth of **what actually happened / was actualized** in care and ser
 | `encounter_view` | **derived projection** of occurrence(s) for care/charting/UI — two classes: `operational_projection`, `record_materialization` |
 | `care_episode` | longitudinal care thread (therapy-lane / series-or-plan / case continuity); `care_episode_id` nullable on occurrence |
 
-**Decomposed axes on `service_occurrence`** (prevent compound-enum drift, SO-02/SO-21): `service_occurrence_kind` (primary classifier: `service_delivery`/`review`/`procedure_step`/`resource_session`/`care_coordination_touch`/`monitoring_check`) · `origin_kind` · `trigger_domain` · `authority_class` (`operational`/`clinical`/`provider_required`/`compliance_required`) · `clinicality_level` (`none`/`adjacent`/`clinical`) · `context_domain` · `modality_path` (JSONB sequence) · chain fields (`root_/parent_occurrence_id`, `chain_id`, `link_reason_code`) · `occurrence_identity_key` (revision-safe dedupe).
+**Decomposed axes on `service_occurrence`** (prevent compound-enum drift, SO-02/SO-21): `service_occurrence_kind` (primary classifier: `service_delivery`/`review`/`procedure_step`/`resource_session`/`care_coordination_touch`/`monitoring_check`) · `origin_kind` · `trigger_domain` · `authority_class` (`operational`/`clinical`/`provider_required`/`compliance_required`) · `clinicality_level` (`none`/`adjacent`/`clinical`) · `context_domain` · `modality_path` (JSONB sequence) · chain fields (`root_/parent_occurrence_id`, `chain_id`, `link_reason_code`) · `occurrence_identity_key` (revision-safe dedupe) · **operator/ownership dimension (federation readiness, per §7.5.1 per-event ownership; coverage check 2026-05-31): the performing-operator / `operator_of_record` + venue/practice context** (which operator/practice actualized this work — e.g., Bloom vs NAKED vs Partner; a patient may have occurrences across multiple operators). Exact field shape per §7.5.1; this is the dimension that lets federation/cross-practice queries answer "who performed this, where, under which operator."
 
 ## 5. Lifecycle
 
@@ -64,6 +64,7 @@ D5 owns the truth of **what actually happened / was actualized** in care and ser
 6. Patientless occurrence allowed only for approved non-patient-bound contexts (`resource_session`); no auto-conversion to patient-clinical without explicit provenance event (SO-26).
 7. Candidate emission ≠ commit; canonical commit only on accepted/applied handshake with resolver decision id (SO-15/SO-27).
 8. No hidden one-patient-one-occurrence invariant (Amendment K compatibility; RESOLVED Path A / K(C) minimal) (SO-28).
+9. **Operator-scoped, not auto-cross-operator (federation readiness).** Every occurrence carries its performing-operator/practice context (§4 operator dimension); an occurrence is NOT auto-visible across operators — cross-operator visibility runs through the same scoped-grant / care-relationship layer as artifacts (Federation pass #11; v0 = `patient_relationship` scope + RBAC; `REV-157`). No global shared occurrence chart.
 
 ## 8. Vocabulary lock (frozen — Nick + Knox 2026-05-30)
 

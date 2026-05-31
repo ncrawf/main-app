@@ -74,10 +74,13 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 | 8 | **D6 Commerce / Entitlement / Payment** | `contracts/D6_commerce_contract.md` | ▶ **NEXT** — ⏳ OPEN (Round 6 never ran) | DL-17 + `SC-D5-D6-001` |
 | 9 | **RBAC / Authority / Attestation** | `contracts/rbac_authority_contract.md` | ⏳ | DL-18 LOCKED (likely clean-into-contract) |
 | 10 | **Settings / Catalog / Registry** | `contracts/settings_catalog_contract.md` | ⏳ | DL-19 LOCKED |
-| 11 | **Federation / Operator / Tenant** | `contracts/federation_contract.md` | ⏳ | DL-21 LOCKED |
+| 11 | **Federation / Operator / Tenant** | `contracts/federation_contract.md` | ⏳ | DL-21 LOCKED. **Must canonically OWN the cross-operator grant/visibility primitives** (`shared_context_grant`/`visibility_grant`/`care_relationship`/operator-boundary/break-glass) that Identity/D7/Observation/CNS/D5 currently consume-before-owned (`REV-157`); reconciles the ladder-v0 (patient_relationship scope + RBAC) vs cross-org-deferred (`REV-143`) split |
 | 12 | **AI / Model Lineage / Clinical Adoption** | `contracts/ai_model_lineage_contract.md` | ⏳ | §9.1 model_version_of_record + §12.8; **producer/consumer of Clinical Memory (6a), NOT its owner** |
 
 **Cross-cutting solve-obligations** that must be satisfied across multiple of the above: `D0THES-REV-142` (Alec-Harris longitudinal-signal loop → CNS/Intake/Messaging/LI/care_commitment/AI/Labs); full `care_commitment` substrate (`D0THES-REV-141`).
+
+**Cross-cutting coverage checks (run between domain passes, no new artifact — patch-in-place + open-review only):**
+- **Federation / Privacy / Boundary-Policy coverage check — run 2026-05-31 (between #7 and #8).** Audited all 10 fresh artifacts against 7 dimensions (origin · operator/practice ctx · custody≠visibility · scoped grants · authority/commit · audit lineage · no global-chart). Newer contracts (D7/Observation/CNS/CM) strong; found: **G1** D7/Observation rely on grant primitives Identity defers (reconciled in-place: v0 = `patient_relationship` scope + RBAC, cross-org deferred); **G2** D5 missing `operator_of_record` dimension (patched §4/§7 inv 9); **G3** federation enforcement layer consumed-before-owned → Federation pass #11 must own it (`REV-157`). No rewrites; ledger explicitly rejected (deltas surface at Build Entry Gate; open items live in `08`).
 
 ## 4. Checkpoint / commit discipline
 

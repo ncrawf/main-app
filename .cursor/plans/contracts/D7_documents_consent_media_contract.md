@@ -56,6 +56,8 @@ UI shows all three distinctly: **source artifact · extracted/verified data · c
 - **Duplicate uploads → provenance/upload events + visibility requests, NOT duplicate artifacts**, when fingerprint/source metadata match (PDF hash · accession number · report date · source org · patient-identity confidence · document_kind). Second upload attaches as a new `upload_event`/evidence_ref to the canonical artifact.
 - **Patient-level OMNI custody ≠ universal provider visibility.** Operators see an artifact only via consent / care_relationship / `shared_context_grant` / boundary policy / break-glass.
 
+**Ladder-v0-vs-deferred reconciliation (with Identity §9/§11 — coverage check 2026-05-31):** the cross-operator grant primitives (`shared_context_grant` / `visibility_grant` / `care_relationship`) are **owned by the Federation domain (pass #11, not yet run)** and Identity **defers the cross-ORG layer to ladder v2/v3** (`REV-143`). So: at **ladder v0** (single identity namespace, multiple operator/brand `patient_relationship`s) scoped artifact visibility runs via **`patient_relationship` scoping + RBAC access atoms** (DL-22 inv 21) — buildable now. **Cross-org** artifact sharing (true `shared_context_grant`/MPI) is the **deferred** federation layer. D7's one-canonical-many-grants model is correct as the target; its cross-org enforcement depends on the Federation pass (`REV-157`).
+
 ## §7 Invariants / rejection rules
 
 1. **Unified artifact substrate, open `document_kind`** (DL-22 inv 1/2) — no separate substrate per kind; no closed enum; no narrow "labs"/"documents" bucket.

@@ -86,7 +86,7 @@ Display identity (name/avatar/endpoint label) + conversation status chips are **
 ## §11 Open seams (→ `08`)
 
 - **`SC-ID-PT-001`** `contact_identity → patient / patient_relationship linking` (identity-claim resolution; two-gate: match gates linking, consent gates state-sharing) — seam contract drafted.
-- **Cross-namespace / cross-org federation** (`care_relationship` + `shared_context_grant` + patient-as-MPI) — DEFERRED to identity ladder v2/v3. OPEN (`D0THES-REV-143`).
+- **Cross-namespace / cross-org federation** (`care_relationship` + `shared_context_grant` + patient-as-MPI) — DEFERRED to identity ladder v2/v3. OPEN (`D0THES-REV-143`). **Consumed-before-owned note (coverage check 2026-05-31):** D7 / Observation / Messaging / CNS reference these grant primitives for cross-operator visibility; their **canonical owner is the Federation domain (pass #11, not yet run)**. At ladder v0, cross-operator visibility = `patient_relationship` scoping + RBAC; the cross-org grant layer is deferred. Tracked `REV-157`.
 - **`patient_relationship` substrate migration** — doctrine landed (DL-10), substrate not built. OPEN build item (`D0THES-REV-144`).
 - **`§1J.10 loadPatientCaseSafetySnapshot`** — identity/safety-snapshot; flagged hard blocker for first Rx-pathway shipment. OPEN (`D0THES-REV-145`).
 
