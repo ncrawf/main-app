@@ -35,9 +35,14 @@ D7 owns **durable artifacts, clinical media, consent artifacts, and materialized
 **Owns:** `patient_document` (unified primitive, open `document_kind`); `media_artifact` (image/audio/video/transcript/device_log/report PDF); `clinical_photo_detail` + `before_after_pair`; `consent_artifact` + `consent_template` + `signature_envelope`; `patient_document_linkage`; document lifecycle (7-state) + retention + access projection + GDPR pseudonymization; **materialized records** (`evidence_record`, signed notes, generated PDFs, aftercare/precare packets); artifact custody + scoped visibility (§6).
 **Does NOT own:** structured measured values (Observation); normalized clinical claim + adoption (Clinical Memory); actualized work/service occurrence (D5); commerce/insurance-entitlement/payment truth (D6); intake construction (Intake — D7 stores `intake_form_submission` only); the **consent-gate enforcement** (Boundary-Policy/RBAC — §5); patient/device/operator identity (Identity/Federation); raw inbound message thread (Messaging).
 
-## §4 The two-gate model (shared with Observation + Clinical Memory)
+## §4 Three distinct gates — D7 owns artifact-integrity only ("verification" is not one word)
 
-D7 owns **artifact-level fidelity** (we stored/rendered the durable artifact intact — `checksum_sha256`, signed-URL integrity, lifecycle). The **structured-extraction verification** of values parsed FROM an artifact is the **Observation** ingestion-verification gate (§Observation §4–§5). The **clinical adoption** of meaning is **Clinical Memory's** gate. Three distinct badges the UI must show: **source artifact · extracted/verified data · clinically-adopted truth.** Storing a faithful PDF ≠ verified extraction ≠ clinical adoption.
+Two non-clinical verification levels + a separate clinical-adoption gate; none implies the next:
+1. **Artifact-integrity verification (D7 — THIS domain):** *"Did we store/render the durable artifact faithfully?"* — `checksum_sha256`, signed-URL integrity, lifecycle. About the blob.
+2. **Data/extraction-fidelity verification (Observation §4–§5):** *"Did we extract/normalize/display the VALUE faithfully?"* — about the structured value parsed FROM the artifact.
+3. **Clinical-adoption gate (Clinical Memory):** *"Did a clinician adopt the meaning?"*
+
+UI shows all three distinctly: **source artifact · extracted/verified data · clinically-adopted truth.** A faithfully-stored PDF (D7-integrity OK) ≠ verified extraction ≠ clinical adoption.
 
 ## §5 Consent — artifact here, gate elsewhere
 

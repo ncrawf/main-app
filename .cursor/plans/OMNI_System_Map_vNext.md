@@ -33,7 +33,7 @@ This is the **MAP**: domains, what each owns truth for, what it does NOT own, it
 - Projection ≠ authority. (`T0-15`, DL-16 inv 19)
 - Per-event ownership dimensions do not collapse. (`T0-13`, thesis §7.5.1)
 - Patient-source ≠ clinical truth until clinical adoption. (thesis §7.5.3)
-- **Two gates, never collapsed:** ingestion/data-verification (faithful capture/parse/display — Observation/D7) ≠ clinical adoption (clinician adopts meaning — Clinical Memory). (Nick + Knox 2026-05-31)
+- **Three distinct gates, never collapsed** ("verification" is not one word): artifact-integrity (stored/rendered faithfully — D7) · data/extraction-fidelity (value extracted/displayed faithfully — Observation) · clinical-adoption (clinician adopts meaning — Clinical Memory). None implies the next. (Nick + Knox 2026-05-31)
 - **Layered accountability:** `D7 artifact → Observation (+verification) → Clinical Memory assertion (+adoption) → care_commitment/action`; each layer references, never duplicates, the prior. CNS consumes authority-labeled layered context packets — not raw blobs, not flattened summaries. (CNS §9.1)
 - **One canonical artifact, many scoped visibility grants;** custody ≠ visibility; dedupe by fingerprint. (D7 §6, §7.5/§7.7)
 - **Federation readiness everywhere:** every artifact/observation/assertion/packet preserves origin/source-authority/custody/operator-practice/visibility/verification/adoption/commit lineage; cross-practice via scoped grants + projections, not a flattened shared chart.

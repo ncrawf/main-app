@@ -35,14 +35,15 @@ Observation owns the **structured measured value / signal substrate** and the **
 **Owns:** `observation` (structured measured value/signal); lab results (1L), vitals/trackables (1M), wearable/CGM/device telemetry streams, normalized diagnostic values; units / reference range / method / collection-time / result-time / received-time / abnormal-flag; **the ingestion-verification / data-QC state** (§5); measurement provenance (source device/lab/partner, performing facility).
 **Does NOT own:** the durable artifact/blob (D7 `media_artifact`/`patient_document`); the clinical claim/meaning + adoption (Clinical Memory `extracted_assertion`/assertion); the order/fulfillment of a lab/diagnostic (Labs/Diagnostics Core Capability → Federation/§6.7); commerce/insurance (D6); device/patient identity (Identity — device is an `actor`).
 
-## §4 The two-gate model (the nuance Nick + Knox locked — DO NOT collapse)
+## §4 Three distinct gates — "verification" is NOT one word (Nick + Knox locked — DO NOT collapse)
 
-OMNI distinguishes **two independent gates**; neither implies the other:
+There are **two non-clinical verification levels** plus a **separate clinical-adoption gate**; none implies the next. The word "verification" must never be used ambiguously:
 
-1. **Ingestion / data-verification gate (this domain + D7 extraction):** *"Did OMNI faithfully capture, parse, normalize, and display the source value?"* — a **data-fidelity** question, NOT clinical decision-making.
-2. **Clinical-adoption gate (Clinical Memory + §7.5):** *"Has an authorized clinician adopted this as care-relevant truth or acted on it?"*
+1. **Artifact-integrity verification (D7):** *"Did we store/render the durable artifact faithfully?"* (checksum, signed-URL integrity, lifecycle — D7 §4). About the blob.
+2. **Data/extraction-fidelity verification (THIS domain):** *"Did we extract / normalize / display the measured VALUE faithfully against its source?"* (§5 state). About the structured value.
+3. **Clinical-adoption gate (Clinical Memory + §7.5):** *"Has an authorized clinician adopted this as care-relevant truth or acted on it?"* About clinical meaning.
 
-**`source_feed_verified` / `human_qc_verified` ≠ `clinically_adopted`.** A Quest electronic feed may be source-feed-verified yet un-adopted; an AI-parsed Mayo PDF may need AI-extract → human-QC before display, yet still un-adopted. The provider/patient UI MUST show both badges distinctly (source · extraction/verification · clinical adoption).
+**`source_feed_verified` / `human_qc_verified` ≠ `clinically_adopted`**, and neither equals "artifact stored intact." A Quest feed may be data-fidelity-verified yet un-adopted; an AI-parsed Mayo PDF may be a faithfully-stored artifact (D7-integrity OK) whose *extraction* still needs human-QC before display, and still un-adopted. The provider/patient UI MUST show all three distinctly: **source artifact · extracted/verified value · clinically-adopted truth.**
 
 ## §5 Ingestion-verification state (data-fidelity lifecycle)
 
