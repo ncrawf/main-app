@@ -9,6 +9,7 @@ Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.pla
 Supersedes: scattered CNS framing (DL-14 single-center language refined by §7.6 scoping; CNS ADR + LI doctrine remain spine/evidence)
 Superseded by: none
 Manifest action: `add_tier1` · Review gate: `user_knox_required`
+**Consolidation statement (binding):** this contract is the single build-facing home for the coordination layer. DL-14/16 + CNS ADR + LI corpus + the legacy §1G orchestration/clinical-loop primitives (decomposed here per the 2026-05-31 legacy-scatter backfill, `REV-161`) are **evidence/provenance, not required runtime reading.** Build from THIS contract.
 
 ---
 
@@ -78,6 +79,8 @@ Patient-CNS coherence is informed by the LI **signal-authority-ladder** (LI doct
 
 `orchestration_run` (multi-step journey) · `orchestration_action` (single emitted intent) · `cns_decision` (first-class decision record: triggers/context-snapshot/rule+model versions/alternatives/reason) · `candidate` (proposal; not commit) · `resolver` (deterministic policy) · `context_packet` (composed temporary context; non-canonical — see §9.1) · universal envelope (DL-16) · `trace_lineage` (§11) · scope entities: operator-CNS / Patient-CNS / Network-Governance-Plane.
 
+**Absorbed from legacy §1G (orchestration/clinical-loop surfaces — coordination, not domain truth; `REV-161`):** `provider_task` / work-queue + **deterministic prioritization** (worklist buckets: ready-for-review / lab-review / message-turn / ops; tie-break safety→stale→age→depth→FIFO — §1G.1/§1G.4-1G.8; the provider *workspace UI* is a product surface over this, not a substrate object) · `patient_action_item` (first-class cross-episode pending-patient-input task; §1G.11) · `clinical_required` **permit-gate state** (the orchestration assert — §10.1) · exception/escalation candidate (Stage 4/5 major-failure ownership + escalation + auditable closure; §1G.5). CNS *coordinates* these; D5/owning domains *commit* their truth.
+
 ### §9.1 Layered-context-packet evidence-authority rule (Nick + Knox 2026-05-31; cross-domain — D7/Observation/Clinical Memory/CNS)
 
 CNS consumes **authority-labeled, provenance-preserving layered context packets — NOT undifferentiated raw blobs, and NOT over-compressed flattened summaries.** A packet *references* (does not copy) the underlying objects and preserves their authority: raw `media_artifact` ref (D7) · structured `observation` ids + ingestion-verification state · `extracted_assertion`/assertion ids + `source_authority` + `clinical_adoption_state` · relevant source metadata (dates/specimen/performing-facility/operator-practice) · model_version/extraction lineage where AI-parsed · a context snapshot/hash for audit-replay. (Field names are the contract's to interpret — not a locked list.)
@@ -87,6 +90,10 @@ CNS consumes **authority-labeled, provenance-preserving layered context packets 
 ## §10 The universal CNS flow (DL-14/16; invariant)
 
 `source_event → media_artifact → observation → extraction (AI/rule; model_version+capability_envelope pinned §12.8) → extracted_assertion (candidate) → patient/clinician review (HUMAN; substrate-vs-care boundary) → committed assertion → context_packet update → candidate (prescribe/message/schedule/escalate/coordinate) → policy_resolver → authorized_action (HUMAN-committed; owning-domain) → execution → output → evidence_record → feedback`. CNS is invariant; modalities (form/lab/wearable/voice/message/etc.) are interchangeable at the boundary. **AI participates at extraction/candidate (non-authoritative); humans + owning domains commit.**
+
+## §10.1 `clinical_required` permit-gate (orchestration assert — absorbed from §1G)
+
+An outstanding **`clinical_required` + `awaiting_response`** message turn (classification owned by Messaging §9) **BLOCKS** the orchestration permit for a prescribe / continuation commit on that `care_episode` (+ scoped work_item) when `metadata.blocks` intersects the intended permit → reject with stable reason (`messaging_awaiting_patient` / `messaging_awaiting_resolution`). This is a **safety gate** (provider cannot prescribe while a required patient response is open). Only a patient inbound, an audited staff resolution, or a deterministic policy clears it — **AI output NEVER clears it** (`D0W3B-GRD-003` + §8.3-style discipline). The classification flag is Messaging's; the *permit-assert* is CNS's; the *blocker surfacing* is D5 `care_state_view`. At most one open `clinical_required` turn per episode (dedupe).
 
 ## §11 trace_lineage / audit invariant (incorporates §B build-state)
 
@@ -109,6 +116,11 @@ Every cross-scope/orchestration action carries **`trace_lineage`: `source_event_
 | §B WP-EXEC-001 trace_lineage runtime | **inform invariant (§11); recover as build task** | not contract |
 | "Messaging/Intake/Charting CNS" as sub-brains | **reject** — not in thesis; = domain contracts coordinated by operator CNS | §6 (avoid mini-brain sprawl) |
 | "inter-practice CNS" as 4th scope | **reject** — = Patient-CNS coherence + §7.8 care_coordination_owner | §7 |
+| §1G `clinical_required` permit-gate (1G blocking assert) | **place → §10.1** | orchestration permit-assert; safety gate; AI-never-clears |
+| §1G provider queue/workspace prioritization (1G.1/1G.4-1G.8) | **place → §9 (provider_task + prioritization)** | workspace UI = product surface over it |
+| §1G patient action items (1G.11) | **place → §9 (`patient_action_item`)** | cross-episode pending-patient-input task |
+| §1G exception handling Stage 4/5 (1G.5) | **place → §9 (exception/escalation candidate)** | category ownership + escalation + auditable closure |
+| §1G case-ownership tuple + case-state read model + continuation + clinician continuity | **move → D5** (care_commitment owner / `care_state_view` / `care_episode`) | care-coordination truth, not orchestration |
 
 ## §14 Seams
 

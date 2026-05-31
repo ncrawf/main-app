@@ -9,6 +9,7 @@ Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.pla
 Supersedes: scattered messaging framing (DL-11/12/13 remain LOCKED spine; §1G/§1Q/§1V evidence)
 Superseded by: none
 Manifest action: `add_tier1` · Review gate: `user_knox_required`
+**Consolidation statement (binding):** this contract is the single build-facing home for the messaging substrate. DL-11/12/13 + legacy §1G/§1Q/§1V/§1J.12-13 are **evidence/provenance, not required runtime reading.** Build from THIS contract. (Note: legacy §1G bundles a large *care-coordination / clinical-loop* layer that is NOT messaging — see §3 scope-out + `REV-161`.)
 
 ---
 
@@ -36,6 +37,8 @@ Messaging owns the **message/conversation substrate (3 surfaces), the rail-agnos
 
 **Owns:** the message/conversation substrate across DL-11's 3 surfaces; thread + participant lifecycle (DL-12); rail-agnostic outbound `outbound_job` + the deterministic 8-gate (DL-13); display-projection + scoped conversation projections (§7.7.2); the AI Response Assist *drafting flow* (draft only).
 **Does NOT own:** **contact-identity *resolution*** (Identity; `SC-ID-PT-001`) — Messaging transports, Identity resolves *who*. **Orchestration / escalation / candidate logic** (CNS; `D0-GRD-005` — messaging is input/output, not the brain). **Clinical documentation truth** (D7). **Work / task / care-completion truth** (D5 / provider queue / CNS). **The decision that a care/scheduling/commerce message should exist** (CNS/owning domain authorizes; see §6 + §8.9).
+
+**Legacy §1G scope-out (backfill check 2026-05-31 — binding):** the legacy system map §1G ("Messaging, escalation, **and the clinical loop**") bundles a large **care-coordination / clinical-loop layer** that is explicitly **NOT** messaging substrate and is correctly excluded here: the **case-ownership tuple** (`responsible_party` per `care_program`), **canonical case-state read model** (stage + `primary_blocker` + owner), the **`clinical_required` permit-gate** (a message can BLOCK a prescribe/continuation permit — the *gate* is care-coordination, the *classification flag* is messaging §9), **continuation** (Stage 6), **provider workload/queues + provider workspace** (1G.1/1G.4-1G.8), **clinician continuity** (1G.9), **patient action items** (1G.11), **exception handling** (1G.5). These belong to **D5 (care coordination) + CNS (orchestration/provider-tasks/queue)**; `care_program` + the case-state tuple + the `clinical_required` permit-gate need a verified home. **This hard-won work must not be lost — routed to `REV-161`.** Messaging owns only the message-level `classification` flag (§9), not the permit-gate.
 
 ## §4 Three messaging surfaces (DL-11; shared primitives, separate storage/access/audit/lifecycle)
 
@@ -71,7 +74,7 @@ Display identity + status chips (Unknown/Lead/Booked/Active/Lapsed/Opted-Out/Nee
 
 ## §9 Canonical objects
 
-`messages` + `message_threads` (patient chat) · external-line transport substrate + ops-triage queue (resolution=Identity) · `internal_collaboration` thread + `internal_thread_object_links` (typed object attachment) · `conversation_scope` · thread `class` (6) · `endpoint` · `outbound_job` + 8-gate state · AI Response Assist `draft` (+ `ai_proposal_id` provenance) · display = computed projection (no stored status).
+`messages` + `message_threads` (patient chat) · external-line transport substrate + ops-triage queue (resolution=Identity) · `internal_collaboration` thread + `internal_thread_object_links` (typed object attachment) · `conversation_scope` · thread `class` (6) · **message `classification`** (`clinical_required` / `clinical_optional` / `operational` / `system_notification` — on `messages.metadata`/`message_thread.metadata`; the messaging-substrate flag + `awaiting_response`; the PERMIT-GATE this flag can trigger is care-coordination, not messaging — §3 scope-out) · `endpoint` · `outbound_job` + 8-gate state · AI Response Assist `draft` (+ `ai_proposal_id` provenance) · display = computed projection (no stored status).
 
 ## §10 Disposition table
 
@@ -86,6 +89,8 @@ Display identity + status chips (Unknown/Lead/Booked/Active/Lapsed/Opted-Out/Nee
 | DL-11/13 4 rejected extremes (Twilio-as-substrate / vendor-address-book / chat_status-stored / AI-as-participant) | **preserve rejections** | §8.3/§8.5/§8.6 |
 | contact-identity resolution | **move → Identity** (`SC-ID-PT-001`) | §3/§4.2 |
 | orchestration/escalation | **move → CNS** | §3/§6/§8.4 |
+| legacy §1G care-coordination/clinical-loop (case-ownership tuple, canonical case-state, `clinical_required` permit-gate, continuation, provider queue/workspace 1G.1/1G.4-1G.9, patient action items 1G.11, exception handling 1G.5) | **move → D5 (care coordination) + CNS (orchestration/queue)**; verify landed | `REV-161` — hard-won work; not messaging; must not be lost |
+| legacy §1G/§1J.12-13 message `classification` + thread visibility + handle-vs-person | **preserve (messaging substrate)** | §9 classification enum + DL-13 handle-vs-person |
 
 ## §11 Seams
 
@@ -99,6 +104,7 @@ Display identity + status chips (Unknown/Lead/Booked/Active/Lapsed/Opted-Out/Nee
 - **Internal-collaboration scope** folded here with §8.8 boundary — confirm it shouldn't be its own contract (it's sibling #19, substantial). (`REV-150`)
 - §B trace-lineage build recovery + external-line **e1 execution substrate** (preflight, not built).
 - Rules/templates §1Q (`REV-149`) intersects outbound heavily (templates/8-gate) — coordinate at that pass.
+- **§1G care-coordination / clinical-loop layer homing** (`REV-161`): the large §1G body (case-ownership tuple, canonical case-state read model, `clinical_required` permit-gate, continuation Stage 6, provider queue/workspace, clinician continuity, patient action items, exception handling) is correctly scoped OUT of messaging — but must be verified-landed in D5 (care coordination) + CNS, including a home for `care_program` + the case-state tuple + the permit-gate. Hard-won; route, don't lose.
 
 ## §13 Evidence sources
 

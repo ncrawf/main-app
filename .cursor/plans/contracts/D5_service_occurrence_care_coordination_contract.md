@@ -10,6 +10,7 @@ Supersedes: DL-20 as the build-facing D5 artifact (DL-20 → evidence/workbench)
 Superseded by: none
 Manifest action: `add_tier1` (D5 domain contract; pending catalog row + read-graph route — owed)
 Review gate: `user_knox_required`
+**Consolidation statement (binding):** this contract is the single build-facing home for D5 (service occurrence + care coordination). DL-20 + legacy system-map §1F.10 occurrence content + the §1G care-coordination/clinical-loop layer (decomposed here per the 2026-05-31 legacy-scatter backfill, `REV-161`) are **evidence/provenance, not required runtime reading.** Build from THIS contract.
 
 ---
 
@@ -38,7 +39,7 @@ D5 owns the truth of **what actually happened / was actualized** in care and ser
 | `service_occurrence_work_item` | canonical atomic actualized-work unit under an occurrence |
 | `service_occurrence_link` | typed edge for non-tree lineage (`supersedes`/`depends_on`/`follows`/`caused_by`/`references`/`sibling_of`) |
 | `encounter_view` | **derived projection** of occurrence(s) for care/charting/UI — two classes: `operational_projection`, `record_materialization` |
-| `care_episode` | longitudinal care thread (therapy-lane / series-or-plan / case continuity); `care_episode_id` nullable on occurrence |
+| `care_episode` | longitudinal care thread (therapy-lane / series-or-plan / case continuity); `care_episode_id` nullable on occurrence. **Subsumes the legacy `care_program` unit** (ED / GLP-1 / HRT treatment line; §1G); carries **continuation triggers** (`next_checkin_at` / `next_refill_due_at` / `next_visit_at` — Stage 6, §1G) and **clinician-of-record continuity** (per-episode CoR, continuity-aware for labs/refills/messages, with never-traps-work SLA fallback + urgent override; reads Identity `care_team_graph`, §7.4). Concurrent episodes per patient stay independent (no merged "case state"). |
 
 **Decomposed axes on `service_occurrence`** (prevent compound-enum drift, SO-02/SO-21): `service_occurrence_kind` (primary classifier: `service_delivery`/`review`/`procedure_step`/`resource_session`/`care_coordination_touch`/`monitoring_check`) · `origin_kind` · `trigger_domain` · `authority_class` (`operational`/`clinical`/`provider_required`/`compliance_required`) · `clinicality_level` (`none`/`adjacent`/`clinical`) · `context_domain` · `modality_path` (JSONB sequence) · chain fields (`root_/parent_occurrence_id`, `chain_id`, `link_reason_code`) · `occurrence_identity_key` (revision-safe dedupe) · **operator/ownership dimension (federation readiness, per §7.5.1 per-event ownership; coverage check 2026-05-31): the performing-operator / `operator_of_record` + venue/practice context** (which operator/practice actualized this work — e.g., Bloom vs NAKED vs Partner; a patient may have occurrences across multiple operators). Exact field shape per §7.5.1; this is the dimension that lets federation/cross-practice queries answer "who performed this, where, under which operator."
 
@@ -83,16 +84,24 @@ D5 owns the truth of **what actually happened / was actualized** in care and ser
 | `care_episode` + `episode_catalog` (inv 1-5) | **clean-into-contract** | D5 (this contract) | longitudinal thread is D5 truth; `care_episode_id` nullable | nothing |
 | `care_episode_task` / provider review queue / cadence (inv 16-18) | **queue (care-coordination-CNS)** | dedicated care-coordination + CNS pass | future-care-obligations substrate is bigger than this contract (already parked) | nothing now — preserved as parked design |
 | `care_commitment` (thesis §7.3) | **relationship-landed; full substrate queued** | relationship here; full schema/lifecycle/scopes → dedicated pass | accountability overlay; touches CNS/ownership/commerce/artifacts — bigger than D5 | overlay relationship defined (§10); full mechanics deferred with trigger |
+| **legacy `care_program` unit (§1G)** | **subsume → `care_episode`** | §4 `care_episode` | care_program = treatment-line (ED/GLP-1/HRT) = a care_episode; one message_thread per episode | nothing — episode carries it; concurrent-episode independence preserved |
+| **§1G case ownership tuple (`responsible_party` + `responsible_user_id`)** | **place → `care_commitment` operational owner** | §10 | who-acts-next per episode, single-writer | §1G "one current owner per case" rule preserved |
+| **§1G canonical case state (stage + primary_blocker + owner)** | **place → `care_state_view` projection** | §11 | derived read model, recomputed, single source | the "always-answer who/what/blocker" read model preserved (not a competing SoT) |
+| **§1G continuation (Stage 6) + clinician-of-record continuity (1G.9)** | **place → `care_episode`** | §4 | continuation triggers + CoR + never-traps SLA | longitudinal continuation + continuity preserved |
+| **§1G `clinical_required` permit-gate + provider queue + patient action items + exception handling (1G.1/1G.4-1G.8/1G.11/1G.5)** | **move → CNS** | CNS contract (orchestration/permit-gate/queue/task/escalation) | these are coordination/orchestration, not D5 work-truth | routed to CNS (`REV-161`); not lost |
 
 ## 10. care_episode ↔ care_commitment (relationship)
 
 - `care_episode` = longitudinal thread. `care_commitment` = accountability overlay (who owns the next step, under what authority, by when). A `care_episode` may contain many `care_commitment`s; a `care_commitment` may attach to episode / occurrence / work_item / `encounter_view` / lab / message / intake-finding / CNS-candidate.
 - **Accountability threshold:** `care_commitment` instantiates when accountability attaches (maps to `authority_class` + the SO-27 candidate→commit handshake). Pre-accountable inputs (observation/source_event/commerce_order) are context until then.
+- **Operational ownership expression (absorbed from §1G case ownership):** a `care_commitment`'s owner is the **`responsible_party` tuple** — exactly one of `{patient | provider | staff}` per care_episode (+ optional `responsible_user_id`), never a global per-patient owner, reconciled single-writer (no two competing owners for the same episode/work_item scope). This is the structural home for §1G's "one current owner per active case" rule; oversight roles (CMO/QA) are NOT a fourth `responsible_party`.
 - **⚠️ Episode terminology (binding):** thesis `care_commitment.scope = "episode"` = a SINGLE service event; D5 `care_episode` = a LONGITUDINAL thread. They are NOT the same. D5 `care_episode` maps to thesis `care_commitment.scope ∈ {therapy-lane, series-or-plan, case}`. Do not map `care_episode → "episode" scope`; do not rename `care_episode`.
 
 ## 11. Projections
 
 `encounter_view` (SO-25): `operational_projection` (UI/routing; recomputable) and `record_materialization` (legal/clinical chart; version-pinned, durable; supersession lineage; **never** the canonical D5 work source).
+
+**`care_state_view` (absorbed from §1G canonical case state — derived projection, NOT a source of truth):** the single recomputed read model per `care_episode` answering *(1) which stage, (2) what is the `primary_blocker`, (3) who must act next (`responsible_party`)* — as ONE consistent tuple recomputed server-side from messages + permits + occurrences/work_items + labs (or one single-writer cached snapshot, invalid unless it matches recompute). `primary_blocker` illustrative enum: `none | messaging_awaiting_patient | messaging_awaiting_resolution | lab_awaiting_patient_action | lab_awaiting_provider_review | payment_or_fulfillment | internal_ops | continuation_due`. No competing status narratives (one function output). Per-episode; concurrent episodes never share one case-state row.
 
 **Sharp D5/D7 boundary (per Knox):** D5 owns the *derivation/projection concept* (`encounter_view` and when it derives). **D7 owns record-grade materialization / attestation / legal-documentation truth.** The `record_materialization` class is *produced under* D5 derivation but its canonical legal-record truth is **D7-owned** — this boundary is nailed in seam `SC-D5-D7-001` (OPEN, Round 7 never ran).
 
