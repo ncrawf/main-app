@@ -76,7 +76,13 @@ Patient-CNS coherence is informed by the LI **signal-authority-ladder** (LI doct
 
 ## §9 Canonical objects (DL-14/16/ADR physics + §7.6 scopes)
 
-`orchestration_run` (multi-step journey) · `orchestration_action` (single emitted intent) · `cns_decision` (first-class decision record: triggers/context-snapshot/rule+model versions/alternatives/reason) · `candidate` (proposal; not commit) · `resolver` (deterministic policy) · `context_packet` (composed temporary context; non-canonical) · universal envelope (DL-16) · `trace_lineage` (§11) · scope entities: operator-CNS / Patient-CNS / Network-Governance-Plane.
+`orchestration_run` (multi-step journey) · `orchestration_action` (single emitted intent) · `cns_decision` (first-class decision record: triggers/context-snapshot/rule+model versions/alternatives/reason) · `candidate` (proposal; not commit) · `resolver` (deterministic policy) · `context_packet` (composed temporary context; non-canonical — see §9.1) · universal envelope (DL-16) · `trace_lineage` (§11) · scope entities: operator-CNS / Patient-CNS / Network-Governance-Plane.
+
+### §9.1 Layered-context-packet evidence-authority rule (Nick + Knox 2026-05-31; cross-domain — D7/Observation/Clinical Memory/CNS)
+
+CNS consumes **authority-labeled, provenance-preserving layered context packets — NOT undifferentiated raw blobs, and NOT over-compressed flattened summaries.** A packet *references* (does not copy) the underlying objects and preserves their authority: raw `media_artifact` ref (D7) · structured `observation` ids + ingestion-verification state · `extracted_assertion`/assertion ids + `source_authority` + `clinical_adoption_state` · relevant source metadata (dates/specimen/performing-facility/operator-practice) · model_version/extraction lineage where AI-parsed · a context snapshot/hash for audit-replay. (Field names are the contract's to interpret — not a locked list.)
+
+**Authority-by-action-class (do not collapse):** CNS MAY use **lower-authority** evidence (unverified extraction, unadopted observation, patient language, raw artifact present) for **routing / prioritization / suppression / review-candidate** generation (workflow, not care truth). CNS MUST require the **appropriate authority** for **clinical action** (care change / Rx / dose / diagnosis / patient-facing medical instruction): provider adoption (Clinical Memory) / owning-domain commit / explicit policy gate. *"AI says pathology suggests X"* ≠ sufficient; *"provider adopted finding X"* is the threshold (§7.5.3 + Clinical Memory §8.3–§8.5). **Do not duplicate raw artifacts into CNS records** — reference + snapshot only the decision-relevant context (`trace_lineage`, §11). This preserves the **layered accountability** chain `D7 artifact → Observation (+verification) → Clinical Memory assertion (+adoption) → care_commitment/action` without flattening or unsafe blob-dumping.
 
 ## §10 The universal CNS flow (DL-14/16; invariant)
 
