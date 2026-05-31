@@ -53,7 +53,7 @@ Foundation-first. For each domain: inventory its evidence → distill a clean **
 
 Per the Artifact Index "Domain pass output contract" + "domain-pass mandatory pull":
 
-1. **Inventory + pull evidence** (mandatory, cite in contract §Evidence): relevant DL(s); `designs/` + `audits/` pressure-test/scenario corpora by domain tag; `omni_field_cases.md` `FIELD-*` by domain tag; open-review rows (`08`) by domain tag.
+1. **Inventory + pull evidence** (mandatory, cite in contract §Evidence): relevant DL(s); **grep the legacy system map (`system_map_three_layers_60706286.plan.md`) for the domain's scattered sections — a DL usually does NOT contain all of a domain's doctrine** (e.g., commerce lives in §1E + §1I + §1J.9 + §1K.11 + §12-labs *alongside* DL-17; the DL even punts the money-movement layer to §1I). Skipping this is how scattered doctrine gets dropped; `designs/` + `audits/` pressure-test/scenario corpora by domain tag; `omni_field_cases.md` `FIELD-*` by domain tag; open-review rows (`08`) by domain tag.
 2. **(If on a multi-round superseding arc)** produce a Freshest-Authority Check first (per `D0THES-GRD-022/023`) — e.g., DL-20 needed it; most domains won't.
 3. **Draft the clean Domain Contract** (`contracts/<domain>_contract.md`): objects · lifecycle · events · invariants/rejection-rules · vocabulary lock · **disposition table** · projections · open seams · evidence sources.
 4. **Seam contracts** (`contracts/seams/<seam_id>_*.md`) for the domain's outward edges.
