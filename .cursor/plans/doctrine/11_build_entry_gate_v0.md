@@ -13,6 +13,10 @@ Review gate: User/Knox approval required before any change to gate verdict seman
 
 ---
 
+## ⚠️ FREEZE — pre-vNext read path (2026-05-31, `REV-158`)
+
+This gate predates the **Foundation vNext pivot**. Its Governing Read Path + Slice-binding anchors below still cite the **demoted legacy `system_map_three_layers_60706286.plan.md`** (now evidence) instead of `OMNI_System_Map_vNext.md` + the domain/seam contracts. `WP-EXEC-001`/`WP-EXEC-002` shipped against that stale target. **Do NOT resume any build lane against the legacy map.** At the Foundation vNext **ratification gate**, re-point this gate to the vNext foundation and re-check shipped WP-EXEC code (per `foundation_vnext_reconciliation.plan.md` §7, `REV-158`).
+
 ## Scope
 
 This gate issues **Build Entry readiness for narrow-slice planning only**.

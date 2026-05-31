@@ -105,6 +105,21 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 
 Artifact taxonomy + rules: `00_architecture_artifact_index.md` · Map: `OMNI_System_Map_vNext.md` · Current checkpoint: `HANDOFF_2026-05-30_foundation_vnext_pivot.md` · Pre-pivot audit evidence: `omni_doctrine_reconciliation_map_v1_2026-05-25.md` · Guardrails: `06_guardrail_antipattern_digest.md` (esp. `D0THES-GRD-022/023/024`) · Thesis: `omni_thesis_v2_2026-05-26.md` (pinned lens).
 
-## 7. Owed
+## 7. Transition to Build OS — "when does the existing substrate/code actually get fixed against the thesis?"
+
+This answers the recurring, legitimate anxiety: *the foundation contracts define the TARGET; when do Messaging/Intake/CNS/scheduling code etc. get forced to conform?* **Answer: through the existing Build OS (`09`/`10`/`11`), re-anchored to the vNext foundation — NOT a new parallel phase, NOT a new ledger.** Two currently-missing links make this explicit:
+
+**Sequence (binding):**
+1. **Draft** all domain contracts (in progress; `§3`).
+2. **Ratification gate (Nick + Knox):** flip the relevant contracts `draft_for_ratification → target-stable`. Build Reconciliation cannot run against a moving target. (Currently EVERY contract is ratify-pending.)
+3. **Re-point the Build OS at vNext (`REV-158`):** the Build Entry Gate (`11`) governing read path + slice-binding anchors currently point at the **demoted legacy `system_map_three_layers_60706286.plan.md`**, and `WP-EXEC-001` (trace-plumbing) + `WP-EXEC-002` (`lib/scheduling/*` skeleton) already shipped against that stale target. At the ratification gate these MUST be re-pointed to `OMNI_System_Map_vNext.md` + the domain/seam contracts, and the already-shipped WP-EXEC code re-checked against vNext. **Until re-pointed: do not resume build lanes against the legacy map** (freeze banner on `11`).
+4. **Build Reconciliation / Substrate Alignment (per domain, via the Build Entry Gate):** for each domain with pre-vNext shipped substrate, the FIRST build-entry obligation is a delta of existing code/schema/migrations vs its contract + seams → `keep / patch / migrate / supersede / port-from-parked-branch / new-seam / new-migration / tests`, produced as **Build OS work packages** (not a tracking drawer). **High-priority (real shipped substrate predating the target):** Messaging (`lib/messages/*` + `lib/outbound/*`, c2), Intake (`lib/intake/*` + `record_intake_emissions_batch`), CNS trace-lineage (§B / `d753a64`), scheduling (`lib/scheduling/*`), clinical-assertion code.
+5. **Product build** — only after a domain's reconciliation delta is resolved; no slice starts from pre-vNext assumptions.
+
+**Dependency ordering (Knox):** Messaging reconciliation needs Identity + CNS + Federation/RBAC stable; Intake needs CM + Observation + D7 + CNS + Identity; CM needs AI/model-lineage + adoption authority; D7/Observation need Federation/RBAC. So substrate alignment for the early-shipped domains realistically starts **after the remaining drafts (D6, RBAC, Settings, Federation, AI) + ratification.**
+
+**Anti-ceremonial mechanism already working:** build deltas are NOT being lost — they accumulate honestly in `08` as build-state open-reviews with triggers (`REV-148` trace-lineage, `REV-152` intake/CM build-state, `REV-153` verification-state, etc.). Those ARE the first reconciliation deltas, surfaced during drafting. They execute as Build OS work packages at step 4.
+
+## 8. Owed
 
 Tier-3 narrative volume for the Foundation vNext pivot arc (per handoff §6).
