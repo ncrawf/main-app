@@ -44,6 +44,13 @@ Foundation-first. For each domain: inventory its evidence → distill a clean **
 
 **Step 0.5 (every pass, not optional): apply §1.5** — reconcile the three layers; disposition every prior primitive; stop-and-surface on thesis↔substrate conflict.
 
+**Step 0.6 (every pass, MANDATORY before any contract draft): Thesis Doctrine Pressure Check** (guardrail `D0THES-GRD-025`). §1.5 is *local* reconciliation and is structurally blind to *cross-domain* thesis doctrine — so before drafting, every FAC MUST include a 4-row check with **PASS / GAP / PATCHED / N/A (+why)** for:
+1. **Federation / operator boundary** — can this object move across brands / practices / core-capabilities / specialty-lines / partners / future-cross-org without losing origin · operator/practice context · custody · visibility · authority · audit lineage?
+2. **Layered accountability** — is the chain `artifact → observation → data-fidelity verification → assertion → clinical adoption → care/action` preserved with NO layer collapsed (incl. artifact-integrity ≠ extraction-fidelity ≠ clinical-adoption)?
+3. **CNS usefulness** — would an intelligent CNS have enough **authority-labeled** context to act safely (origin · reliability · who-can-see · who-can-act · adoption state · who owns the next step) — not just "data exists"?
+4. **Domain-truth boundary (anti-silo)** — is this domain quietly becoming a junk drawer (Messaging≠care-logic · CM≠raw-evidence · D7≠observations · Observation≠clinical-truth · CNS≠domain-truth · D6≠D5-work)?
+**Watch-list — late/deferred cross-cutting owners** most likely to be shed (account for them explicitly): federation (#11) · `care_commitment` (deferred `REV-141`) · boundary-policy enforcement (RBAC #9 / Federation #11) · Network Governance Plane. Gaps patch **in-place** (contract/System Map); only genuinely-unresolved → `08`. **No contract draft proceeds without this check.**
+
 Per the Artifact Index "Domain pass output contract" + "domain-pass mandatory pull":
 
 1. **Inventory + pull evidence** (mandatory, cite in contract §Evidence): relevant DL(s); `designs/` + `audits/` pressure-test/scenario corpora by domain tag; `omni_field_cases.md` `FIELD-*` by domain tag; open-review rows (`08`) by domain tag.
