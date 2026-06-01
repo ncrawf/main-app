@@ -2,7 +2,7 @@
 
 Document type: `domain_contract` (build-facing canonical truth for one domain)
 Authority: `canonical` for the durable-artifact / media / consent-artifact / materialized-record substrate + artifact custody/visibility
-Status: `draft_for_ratification` (created 2026-05-31, Foundation vNext; domain pass #7; Nick + Knox review gate)
+Status: `draft_for_ratification` (created 2026-05-31, Foundation vNext; domain pass #7; Nick + Knox review gate) · **legacy-scatter backfill done 2026-06-01** (grepped legacy map beyond DL-22: added §1O capture→classify→route + unified routing API + 1O.9 reclassification + 1O.10 surface-projection §3; DL-12 inv 31 5-disposition + no-auto-file-to-chart §7 inv 10; §1O-vs-DL-22 reconciliation §7 inv 11; fax = rail/artifact/queue + 5-disposition seam `REV-168`)
 Domain(s): `documents`, `consent`, `media`, `evidence`
 Lifecycle role: the ARTIFACT / MATERIALIZATION layer — the durable thing produced, received, or stored (PDF, image, photo, report, signed form, consent, generated note, aftercare packet, `media_artifact`, `evidence_record`) + its custody, retention, access, and scoped visibility. The first stage of the universal flow (`media_artifact`), and the materialization sink for completed work. It owns *the durable artifact*, NOT the measured value (Observation), NOT the clinical claim/adoption (Clinical Memory), NOT the actualized work (D5).
 Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.plan.md` §1.5. **Controlling spine: DL-22 (clinical media + intake artifacts + consent + patient_document — DRAFT, Round 7 never ran) + thesis §7.5 artifact custody/portability + §7.5.4 consent specificity + §7.7 projection doctrine.** Method per `00_architecture_artifact_index.md`.
@@ -34,7 +34,7 @@ D7 owns **durable artifacts, clinical media, consent artifacts, and materialized
 
 ## §3 Ownership boundary
 
-**Owns:** `patient_document` (unified primitive, open `document_kind`); `media_artifact` (image/audio/video/transcript/device_log/report PDF); `clinical_photo_detail` + `before_after_pair`; `consent_artifact` + `consent_template` + `signature_envelope`; `patient_document_linkage`; document lifecycle (7-state) + retention + access projection + GDPR pseudonymization; **materialized records** (`evidence_record`, signed notes, generated PDFs, aftercare/precare packets); artifact custody + scoped visibility (§6).
+**Owns:** `patient_document` (unified primitive, open `document_kind`); `media_artifact` (image/audio/video/transcript/device_log/report PDF); `clinical_photo_detail` + `before_after_pair`; `consent_artifact` + `consent_template` + `signature_envelope`; `patient_document_linkage`; **document capture→classify→route lifecycle + ONE unified routing API (legacy §1O: intake / messaging / action-items / ops-upload / partner-integration all route through it) + staff reclassification (§1O.9) + surface-projection (§1O.10: provider sees the doc via the right domain surface — lab-review drawer / identity drawer / chart)**; document lifecycle (7-state) + retention + access projection + GDPR pseudonymization; **materialized records** (`evidence_record`, signed notes, generated PDFs, aftercare/precare packets); artifact custody + scoped visibility (§6).
 **Does NOT own:** structured measured values (Observation); normalized clinical claim + adoption (Clinical Memory); actualized work/service occurrence (D5); commerce/insurance-entitlement/payment truth (D6); intake construction (Intake — D7 stores `intake_form_submission` only); the **consent-gate enforcement** (Boundary-Policy/RBAC — §5); patient/device/operator identity (Identity/Federation); raw inbound message thread (Messaging).
 
 ## §4 Three distinct gates — D7 owns artifact-integrity only ("verification" is not one word)
@@ -71,6 +71,8 @@ UI shows all three distinctly: **source artifact · extracted/verified data · c
 7. **GDPR/erasure preserves audit** (DL-22 inv 24) — pseudonymize, don't delete; tamper-evident access audit (inv 23).
 8. **Federation readiness** (§8) — every artifact preserves origin/source/custodian/operator-practice/received-authored-performed times.
 9. **Materialization seam, not work-truth** — D7 materializes documentation FROM completed work; D5 owns that the work occurred (§10).
+10. **No auto-file to chart; 5-disposition for pre-account artifacts** (legacy DL-12 inv 31). An external-line/unknown-contact artifact (voicemail/MMS/PDF/annotated image) is dispositioned via exactly five outcomes — **link · attach · chart_file · safety_task · reject_spam** — and **chart_file is a separate explicit capability-gated + audited step**; projection-linking a contact→patient NEVER auto-files to the chart.
+11. **Unified `patient_document` supersedes the §1O "data-on-targeted-domain-row" model** — DL-22's unified artifact substrate is canonical; §1O contributes the capture→classify→route + reclassification + surface-projection *discipline*, not a competing storage location.
 
 ## §8 Federation / inter-practice readiness
 
@@ -96,6 +98,8 @@ Every artifact preserves: source organization/operator, originating facility/pra
 - **DL-22 Q-DL22-1..5 promotion gates** (unified substrate lock, before/after pairing, consent in-flight versioning, surrogate evidence, external-report OCR) — carry forward.
 - Consent-gate enforcement boundary with RBAC (confirm at RBAC pass).
 - Intake-overlap: demote DL-22 `intake_session`/`template`/`response` framing to Intake's (`REV-156`).
+- **Fax canonical placement** (legacy DL-12): fax = **rail (Messaging external-line) + artifact (D7 `media_artifact`/`patient_document`) + queue (ops)** — D7 owns the fax artifact only; rail + queue are Messaging/ops. Confirm at Messaging/Federation pass. (legacy-scatter backfill 2026-06-01)
+- **§1O 5-disposition placement** (`REV-168`): the link/attach/chart_file/safety_task/reject_spam disposition straddles Messaging external-line (origin) + D7 (chart_file step) + CNS (safety_task) — confirm the seam ownership at the Messaging/Federation pass. (legacy-scatter backfill 2026-06-01)
 
 ## §12 Evidence sources
 
