@@ -2,7 +2,7 @@
 
 Document type: `domain_contract` (build-facing canonical truth for one domain)
 Authority: `canonical` for the clinical-memory substrate (concept registry + assertion layer + adoption gate + current-memory view)
-Status: `draft_for_ratification` (created 2026-05-31, Foundation vNext; domain pass #6a; Nick + Knox review gate)
+Status: `draft_for_ratification` (created 2026-05-31, Foundation vNext; domain pass #6a; Nick + Knox review gate) · **legacy-scatter backfill done 2026-06-01** (grepped legacy map beyond §1K.5/§1G: SURFACED the unowned DL-7/§1W `tracked_clinical_objects` layer — `REV-167`; related the five-layer provenance axis to DL-7's four-layer epistemic axis §3; routed structured-authoring→D7, encounter/intervention→D5, billing-artifact→D6, recall/surveillance→OFC `REV-163`)
 Domain(s): `clinical_memory`, `clinical_assertion`
 Lifecycle role: the SUBSTRATE that answers *"what is true about this patient now, by whom, at what authority?"* — the normalized clinical-memory layer that every evidence source writes into and every clinical consumer reads from. It is **not** owned by any one producer (intake, labs, docs, provider, AI all author into it).
 Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.plan.md` §1.5. **Controlling spine: `clinical_assertion_layer_design` (2026-04-27, audited + sign-off — "the most important design decision in the system to date") + system map `1K.5.A`** (LOCKED) + **shipped substrate** (Phase 3 foundation `lib/intake/assertion-types.ts` + `clinical_assertion` emission target + `record_intake_emissions_batch` Phase 4A orchestrator). **Thesis lens: §7.5.3 patient-source substrate concept** (`source_authority` + `clinical_adoption_state` gate) — which the design and thesis already point at each other (see §1.5). Method per `00_architecture_artifact_index.md`.
@@ -36,6 +36,8 @@ Patient-source is a **substrate concept, not an operator posture**. Patient-sour
 ## §3 The five-layer model (design §B)
 
 `Evidence (raw, immutable, in its domain home) → Concept (normalized, code-as-config) → Assertion (one claim about a concept, with provenance/authority/status/context) → Context (envelope; coexisting assertions per context_key) → Current Clinical Memory (view: latest non-superseded/non-rejected per (patient, concept, context_key), authority-ranked)`. Provider assessment is **not a separate layer** — it is just another assertion at highest authority that supersedes lower-authority claims.
+
+**Relation to legacy DL-7 / §1W four-layer epistemic model (orthogonal axis — must not be conflated):** the five layers above are the **provenance/authority axis**. Legacy DL-7's `tracked finding → assertion atom → diagnosis entity → billing artifact` is an **epistemic-promotion axis**. They intersect at the **assertion atom = Clinical Memory's assertion** (CM owns it; `diagnosis entity` = a `provider_confirmed` condition assertion, §9). But DL-7's **`tracked_clinical_object`** (the durable longitudinal per-patient object — "*this* patient's glabellar rhytid" — with `object_id` + anatomical anchoring + `clinical_object_aliases` + AI-assisted identity reconciliation + continuity history) is **NOT the same as CM's normalized `concept`** and currently has **no owner**. Scope decision pending — see §12 `REV-167`.
 
 ## §4 Ownership boundary
 
@@ -83,6 +85,10 @@ Confirmation (provider supersedes patient; both preserved) · Conflict (both liv
 | FHIR full reification (laterality/body-site/ICD severity-grade/encounter-scoped) | **reject (overbuild)** | design §P |
 | separate "diagnosis" table | **reject** | provider_confirmed condition assertion = diagnosis |
 | per-pathway concept silos | **reject** | one normalized layer is the point |
+| DL-7/§1W `tracked_clinical_objects` + `clinical_object_aliases` + `object_id` + anatomical anchoring + clinical-identity reconciliation | **scope decision pending (`REV-167`)** | the durable longitudinal-object layer ≠ CM normalized `concept`; own primitive/domain vs fold into CM concept+context — analogous to `REV-163` |
+| DL-7 four-layer epistemic model (tracked finding → assertion atom → diagnosis entity → billing artifact) | **split across domains** | assertion atom = CM (here); diagnosis entity = CM `provider_confirmed` view; tracked finding/object = `REV-167`; billing artifact = D6 |
+| DL-7 structured-first authoring + note-as-rendered-output | **route → D7** | the note is a rendered projection (D7 documents/charting), not a CM table |
+| DL-7 encounter → intervention → checkout continuity chain | **route → D5** (+ OFC `REV-163` for recall/surveillance) | actualized-work + procedure/intervention lifecycle is D5; recall/surveillance hooks = care_obligation |
 
 ## §10 Seams (producers → Clinical Memory; Clinical Memory → consumers)
 
@@ -99,6 +105,7 @@ Confirmation (provider supersedes patient; both preserved) · Conflict (both liv
 - **Vocabulary unification** (`REV-151`): lock the exact mapping `authored_by`/`status` (substrate, 9+8 values) ↔ `source_authority`/`clinical_adoption_state` (thesis §7.5.3, 6+4 values) — same gate, must not fork into two parallel enums at build.
 - **Build-state truth:** which of {`patient_clinical_assertions` table, current view v2, `patients.*` rewire, lab/doc/AI emitters, reconciliation UI} are shipped vs designed (design §O build order 1–14); confirm before build.
 - `loadPatientCaseSafetySnapshot` authority-aware-gate Rx blocker (shared with Identity `REV-145`).
+- **Tracked-clinical-object / DL-7 §1W home** (`REV-167`): the durable longitudinal `tracked_clinical_object` layer (object_id + anatomical anchoring + aliases + clinical-identity reconciliation + continuity history) has no owner. Decide: own foundation primitive/domain vs fold into CM `concept`+`context_key`. Then place the four-layer epistemic model across CM/D5/D7/D6/OFC. (legacy-scatter backfill 2026-06-01)
 
 ## §13 Evidence sources
 
