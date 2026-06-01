@@ -10,15 +10,15 @@ OMNI is a **governed contextual care + business operating substrate** that prese
 
 ## Strategic orientation — two comparison lenses (top-5 boot context; NOT the definition above)
 
-Recorded once so it's never re-derived (canonical narrative: thesis §3.5; full classified index: `.cursor/plans/doctrine/comparator_analogy_registry.md`). **A ≠ B — do not conflate:**
-- **Lens A = the product stack OMNI replaces / matches / beats:** Hims/Ro (telehealth+Rx) · Hims-Labs/Quest (labs) · Epic/Cerner (EMR) · Shopify (commerce) · WordPress (site/content) · Mindbody (scheduling/memberships) · RingCentral (comms) · ActiveCampaign (marketing) · Oracle/Workday/QuickBooks (back-office) · Stripe (payments) · + the ChatGPT-screenshot-then-confirm workaround it displaces.
-- **Lens B = the substrate/build concepts OMNI borrows:** Amazon (Act loop) · Tesla (Sense loop) · NASA/Houston (authority gates / go-no-go) · Airport-ATC (planning/routing) · Airplane-as-object (redundancy/checklists/fail-safe/black-box) · Stripe (idempotency/immutable-audit) · FHIR/HL7/DICOM/LOINC (structured ingestion) · **Anthropic** (the build-OS engineering discipline) · Apple HealthKit (contributions-to-a-record) · Salesforce/Zendesk (one-interaction→many-intents) · Mirth/Rhapsody (route-then-store).
-- **Payload-noun ≠ domain** (`D0THES-GRD-026`): labs/Rx/commerce/etc. are use-cases threading the model, not domains — decompose before naming. **Cite §3.5; append new comparators to the registry — never re-scatter or re-derive them.**
+The canonical tables (with "what we take / where it lands") + the full ~75-item index live in **thesis §3.5** and `.cursor/plans/doctrine/comparator_analogy_registry.md`. These are the boot-visible spine; **cite §3.5, append new comparators to the registry — never re-derive or re-scatter.** **A ≠ B — do not conflate:**
+- **Lens A = the product stack OMNI replaces / matches / beats** (examples; full table §3.5): Hims/Ro · Hims-Labs/Quest · Epic/Cerner · Shopify · WordPress · Mindbody/Boulevard · RingCentral/Twilio · ActiveCampaign/Klaviyo · Oracle/Workday/QuickBooks · Stripe/payments · + the ChatGPT-screenshot-then-confirm workaround it displaces.
+- **Lens B = the substrate/build concepts OMNI borrows** (examples; full table §3.5): Amazon (Act loop) · Tesla (Sense loop) · NASA/Houston (authority gates) · Airport/ATC (planning) · Airplane-as-object (fail-safe/checklists/black-box) · Stripe (idempotency/immutable-audit) · FHIR/HL7 (structured ingestion) · **Anthropic** (build-OS engineering discipline) · + Apple HealthKit / Salesforce-Zendesk / Mirth-Rhapsody (§3.5).
+- **Payload-noun ≠ domain** (`D0THES-GRD-026`): labs/Rx/commerce/etc. are use-cases threading the model, not domains — decompose before naming.
 
 ## Non-Negotiables
 
 - **Operator Profile is binding.** Nick is the operator / project owner (address as Nick, Nico, or user — interchangeable). Knox is a ChatGPT review instance (third-party AI, not a human teammate). Default working mode is the trifecta (Opus produces → Nick relays → Knox reviews → Nick relays back → Opus refines). Discourse markers: `knox = ...`, `at knox`, `Knox said...` indicate relayed third-party review — evaluate on merits and push back if wrong. `me = ...` or unmarked first-person is Nick speaking directly. **Preserve full technical fidelity — do not dumb down, omit, or simplify away detail. Structure output for trifecta review (decision framing, tradeoffs, file/path references, proof, risks, implementation consequences).** Full operator context: `.cursor/plans/doctrine/operator_context_and_collaboration_model.md`.
-- **System Map** is the platform source of truth for foundation vs deferred modules.
+- **System Map (Foundation vNext):** `OMNI_System_Map_vNext.md` + the current domain **contracts** are the canonical architectural source of truth for migrated domains. The legacy `system_map_three_layers_60706286.plan.md` is **transitional evidence** — authoritative ONLY for not-yet-migrated modules + implementation appendices (per the read-graph transitional note); never canonical for a domain that has a vNext contract.
 - **Coordination Charter** coordinates the layers; does not own schemas.
 - **Architecture Memory Control Plane** is the authority/schema spine.
 - **OMNI Build OS** governs staged work, rollout sequence, proof obligations, lifecycle closure, and de-scaffolding.
@@ -52,14 +52,14 @@ No architecture / doctrine / build / work-package stops without a Protocol §9 s
 
 ## Implementation Rules
 
-- **System map** (three layers, modules 1A–1N, locked decisions, appendices): `.cursor/plans/system_map_three_layers_60706286.plan.md` — source of truth for foundation vs deferred modules (e.g. disputes, HSA/FSA, FHIR export, care tasks, D19–D24). **Deferred lab implementation spec:** *Lab workflow* appendix §11–17 in that file.
+- **System map (transitional authority):** canonical = `.cursor/plans/OMNI_System_Map_vNext.md` + the current domain contracts (for migrated domains). The legacy `.cursor/plans/system_map_three_layers_60706286.plan.md` is **evidence**, still authoritative ONLY for not-yet-migrated modules + implementation appendices not yet carried into a contract (e.g. disputes, HSA/FSA, FHIR export, care tasks, D19–D24) — including the **deferred lab implementation spec** (*Lab workflow* appendix §11–17 in the legacy file) until those land in vNext contracts. When both speak to the same domain, the vNext contract wins.
 - **Mutations from staff/cron:** Prefer `requireCapability` from `lib/auth/capabilities.ts` (audited). Keep RLS as coarse `is_staff_user` / `is_staff_admin` unless a migration explicitly adds capability-aware RLS.
 - **Scripts:** `npm run typecheck` runs `tsc --noEmit` alongside `npm run lint` before merge when touching TS.
 
 ## OMNI Operating References
 
 - **Operator Profile + Collaboration Model — `.cursor/plans/doctrine/operator_context_and_collaboration_model.md` (read FIRST)**
-- System Map — `.cursor/plans/system_map_three_layers_60706286.plan.md`
+- System Map — `.cursor/plans/OMNI_System_Map_vNext.md` (canonical, emerging) + domain contracts in `.cursor/plans/contracts/`; legacy `.cursor/plans/system_map_three_layers_60706286.plan.md` (transitional evidence + un-migrated appendices)
 - Coordination Charter — `.cursor/plans/doctrine/00_omni_coordination_charter.md`
 - Architecture Memory Control Plane — `.cursor/plans/doctrine/00_architecture_memory_control_plane.md`
 - Agent Work Protocol — `.cursor/plans/doctrine/agent_work_protocol.md`
