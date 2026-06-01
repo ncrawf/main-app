@@ -50,7 +50,11 @@ The "how does OMNI compare to Amazon / Tesla / Epic / Shopify / Mindbody / NASA 
 | **Google Ads / Meta / TikTok** | Attribution OBSERVERS only — gclid/fbclid/ttclid; never source-of-truth | system map; marketing audits |
 | **Calendly / Cal.com / Zoom Scheduler** | NOT a generic calendar widget (rejected clone) — but scheduling patterns borrowed (see §B) | system map (rejected); designs |
 | **LegitScript** | Auditability/verification-readiness posture (not a full module) | system map |
-| **Workday / ADP / Gusto** | (GAP — not yet in corpus) the workforce/HR/payroll stack OMNI's future **Business-Ops** domain would span (see Business-Ops note + `REV-164`) | this registry (named 2026-06-01) |
+| **Workday / ADP / Gusto** | the workforce/HR/payroll stack OMNI's future **Business-Ops** domain would span (`REV-164`) | this registry (named 2026-06-01) |
+| **WordPress** | site / content / CMS / brand-marketing surfaces — the Surface layer (brand sites + patient-facing content over substrate) | thesis §1/§3.5 Lens A (named 2026-06-01) |
+| **Hims Labs** | DTC lab ordering + result-delivery product (alongside Quest/LabCorp) — diagnostics fulfillment silo | thesis §3.5 Lens A (named 2026-06-01) |
+| **Stripe / payment processors (as a stack category)** | payments / billing — a stack function OMNI owns as D6 money truth (Stripe = rail/adapter, not truth; see §D) | thesis §3.5 Lens A |
+| **ChatGPT (the displaced workaround)** | today staff screenshot PHI into ChatGPT then confirm with the doctor; OMNI's governed substrate + AI Response Assist replaces this ungoverned PHI-leaking behavior | thesis §3.5 Lens A; FUTURE_ARC phi; system map (Response Assist) |
 
 ## §B — ARCHITECTURE ANALOGIES (Lens B: how OMNI behaves structurally)
 
@@ -83,6 +87,8 @@ The "how does OMNI compare to Amazon / Tesla / Epic / Shopify / Mindbody / NASA 
 | **Six-layer CNS / event-sourced + CQRS** | $1B-scale architectural pattern for the CNS spine | system map |
 | **Joint Commission (via Epic CDS)** | Change-control / audit analogy | system pressure-test |
 | **AWS-for-care** | Out-of-family platform topology (others build on OMNI substrate) | thesis §4 |
+| **Anthropic (engineering / build OS)** | how a disciplined eng org builds: doctrine-first, guardrails, decision records, review gates, no silent drift — the "how would Anthropic build this?" lens. NOT substrate-handling; this is OMNI's **build-process** analogy (the OMNI Build OS, doctrine/guardrail/ledger discipline) | thesis §3.5 Lens B + AGENTS boot anchor (named 2026-06-01); Build OS docs |
+| **Airplane (as object)** | redundancy, preflight checklists, fail-safe defaults, black-box recorder → defense-in-depth + audit/evidence; no single point of failure (distinct from airport/ATC = the coordination system) | thesis §3.5 Lens B (named 2026-06-01) |
 
 ## §C — FEATURE-IDEA REFERENCES (specific patterns to match, improve, or forbid)
 

@@ -40,7 +40,7 @@ OMNI is a **governed contextual care substrate** that maintains longitudinal coh
 
 The substrate is **future-permissive** within the designed family at any moment in time. The product is **brutally narrow and concrete**: a hybrid async-protocolized-care plus in-person-procedural-care platform under owned vertical brands, where the wedge product itself is also the first substrate proof point.
 
-**In product-scope terms (what OMNI collapses):** OMNI is, in one governed substrate, what today takes seven siloed SaaS products bolted together — **Hims/Ro** (DTC telehealth + async Rx + subscription) + **Epic/Cerner** (EMR / records / orders) + **Shopify** (commerce / catalog / checkout / fulfillment) + **Mindbody/Boulevard** (scheduling + packages/memberships) + **RingCentral/Twilio** (comms rail) + **ActiveCampaign/Klaviyo** (marketing / campaigns) + **Oracle/enterprise** (federation / tenancy / governance). OMNI does not bolt these together; it runs them on one substrate. *How* it behaves (its architectural shape) and *how* it differs from each: §3.5. *How* it operates structurally (two governed loops + authority gates): §8.
+**In product-scope terms (what OMNI collapses):** OMNI is, in one governed substrate, what a clinic/network today stitches from a dozen siloed SaaS products — Hims/Ro (telehealth+Rx), Hims-Labs/Quest (labs), Epic/Cerner (EMR), Shopify (commerce), WordPress (site/content), Mindbody (scheduling/memberships), RingCentral (comms), ActiveCampaign (marketing), Oracle/Workday/QuickBooks (back-office), Stripe (payments) — plus the ChatGPT-screenshot-then-confirm workaround it displaces. The win is **one coherent substrate with shared identity/consent/authority/evidence**, not feature parity. **The canonical stack table (Lens A) and the substrate-concept borrows (Lens B) are §3.5 — recorded once, do not re-derive.** *How* it operates structurally (two governed loops + authority gates): §8.
 
 **OMNI is also a business-operations OS, not only care delivery.** Beyond the clinical loops, OMNI spans **business operations** (workforce scheduling, time-clock, payroll, compensation, commissions, incentives, provider productivity — the Workday/ADP/Gusto + QuickBooks layer) and **operating intelligence** (metrics, analytics, management reporting). Discipline: **business-operations is its own substrate truth** (a future Business-Ops / Workforce domain family, consuming D3/D5/D6/RBAC events, never corrupting clinical/care truth); **operating intelligence is a projection** over domain truth (analytics never owns the underlying revenue/booking/work truth — §7.7). Admin/provider *access* is **authority** (RBAC / Boundary-Policy: §7.2 ownership roles + §11 authority ladder + §12.8 capability envelope), not a dashboard. Status: named as a future substrate family, not yet a contract — `D0THES-REV-164`.
 
@@ -280,15 +280,45 @@ OMNI is none of these by design. It takes structural lessons from each (where po
 
 The comparators above answer two DIFFERENT questions. Keeping them separate is load-bearing:
 
-**Lens A — what OMNI IS / replaces (product scope).** OMNI's product collapses into one governed substrate what today takes seven siloed SaaS products: **Hims/Ro** (DTC telehealth + async Rx) + **Epic/Cerner** (EMR/records/orders) + **Shopify** (commerce/catalog/fulfillment) + **Mindbody/Boulevard** (scheduling + packages/memberships) + **RingCentral/Twilio** (comms rail) + **ActiveCampaign/Klaviyo** (marketing/campaigns) + **Oracle/enterprise** (federation/tenancy). The differentiator is not feature parity with any one — it is that OMNI runs all seven on **one coherent substrate with shared identity/consent/authority/evidence**, instead of seven integrations that don't share truth. (Mindbody/Boulevard double as the anti-pattern source: payload-noun tables, fee-as-$0-pricing-option, lost-on-reschedule, staff-must-dig — what NOT to do.)
+### Lens A — the PRODUCT STACK OMNI replaces / matches / beats (the silos we collapse)
 
-**Lens B — how OMNI BEHAVES (architecture pattern).** OMNI borrows the correct operating primitive from each reference system and composes them into **two interlocking governed loops + authority gates** (the operating model; full mechanics §8):
-- **Amazon** → the **Act/Fulfillment loop** (ordered things → fulfill → deliver → exceptions; generalized order, payloads specialize).
-- **Tesla self-driving** → the **Sense loop** (continuous signals → state estimation → safety monitor → feedback).
-- **Houston / mission control** → the **authority gates between the loops** (telemetry-vs-command, go/no-go, escalation, audit) — the element no commercial comparator carries.
-- **Airport ops** → the **Planning axis** (scheduling/routing/queues/handoffs/capacity = appointments, D3).
+OMNI's product is, in one governed substrate, what a real clinic/network today stitches together from a dozen siloed SaaS products that do NOT share truth. **This is the competitive stack — the products we are siloing-and-surpassing:**
 
-**Why OMNI differs from all of them:** it needs all of this AT ONCE, plus the healthcare authority gates (clinical adoption, consent, eligibility, provider authority, liability) between sense and act. No single metaphor IS OMNI; it takes the right primitive from each and governs the seams.
+| Today's siloed product | What it does | OMNI collapses it into |
+|---|---|---|
+| **Hims / Ro** | DTC telehealth + async Rx + subscription | intake → care → fulfillment slice across the loops |
+| **Hims Labs / Quest / LabCorp** | lab ordering + result delivery | Ordered Fulfillment (act) → Observation (value) + D7 (report) |
+| **Epic / Cerner / Athena / MyChart** | EMR / records / charting / orders | record-projection over Clinical Memory + Observation + D5 + D7 |
+| **Shopify** | commerce / catalog / checkout / fulfillment | D6 + Settings/catalog + Ordered Fulfillment |
+| **WordPress** | site / content / CMS / brand surfaces | the Surface layer (brand sites + patient-facing content over substrate) |
+| **Mindbody / Boulevard** | scheduling + packages / memberships / medspa booking | D3 + entitlements (D6) |
+| **RingCentral / Klara / Twilio** | comms / telephony / messaging rail | Messaging |
+| **ActiveCampaign / Klaviyo** | marketing automation / campaigns / CRM | outbound/marketing + CNS (external platforms are observers, never source-of-truth) |
+| **Oracle / Workday / ADP / QuickBooks** | enterprise back-office: tenancy + workforce/payroll + accounting | Federation + future Business-Ops/Workforce (`REV-164`) |
+| **Stripe / payment processors** | payments / billing | D6 money truth (Stripe = the rail/adapter, not the truth) |
+| **ChatGPT (the workaround we displace)** | staff screenshot PHI into ChatGPT, then confirm with the doctor | governed substrate + AI Response Assist (§9) — bounded, audited, no PHI exfiltration; AI drafts, human commits |
+
+The differentiator is **not** feature parity with any one — it is that OMNI runs them all on **one coherent substrate with shared identity / consent / authority / evidence**, instead of a dozen integrations that don't share truth. (Mindbody/Boulevard also double as the anti-pattern source — payload-noun tables, fee-as-$0-pricing-option, lost-on-reschedule, staff-must-dig — i.e. what NOT to do.)
+
+### Lens B — the SUBSTRATE / BUILD CONCEPTS OMNI borrows (how great systems work)
+
+This is a DIFFERENT question from Lens A. Lens A = "which products do we replace." Lens B = **"how does OMNI behave at the substrate/data-flow level, and how do we build it" — concepts taken from how proven systems are engineered.** OMNI composes these into **two interlocking governed loops + authority gates** (the operating model; full mechanics §8):
+
+| Borrowed from | The concept OMNI takes | Where it lands in OMNI |
+|---|---|---|
+| **Amazon** | ordered things → fulfillment → delivery → exceptions; generalized order, payloads specialize | the **Act / Fulfillment loop** |
+| **Tesla (self-driving)** | sensor signals → state estimation → safety monitor → feedback; one CNS spine, no mini-brains | the **Sense loop** |
+| **NASA / Houston (mission control)** | telemetry-vs-command, authority gates, go/no-go, escalation, audit | the **authority gates** between the loops (human commits) |
+| **Airport / ATC** | scheduling, routing, queues, handoffs, capacity; multi-operator coordination | the **Planning axis** (D3) + Network Governance Plane |
+| **Airplane (as object)** | redundancy, preflight checklists, fail-safe defaults, black-box recorder | defense-in-depth + audit/evidence; no single point of failure |
+| **Stripe** | idempotency, immutable audit, reconciliation, payment-state separated from order/clinical meaning | commerce/money-movement discipline (D6 §5) |
+| **FHIR / HL7 / DICOM / LOINC** | structured ingestion standards; planned→actual→evidence; coded observations | Observation + D7 + the universal flow |
+| **Anthropic (engineering / build OS)** | how a disciplined eng org builds: doctrine-first, guardrails, decision records, review gates, no silent drift ("how would Anthropic build this?") | the OMNI Build OS + doctrine/guardrail/ledger discipline (NOT substrate — this is our **build-process** analogy) |
+| **Apple HealthKit** | "contributions to a record" — atomized proposals in a review queue, not auto-chart-write; high-trust minimal notifications | Clinical Memory adoption gate + intake/observation candidate discipline |
+| **Salesforce / Zendesk** | one interaction → many intents → case→tasks; shared engine, segregated governance | CNS orchestration + atomization |
+| **Mirth / Rhapsody (integration engines)** | route-then-store, source-of-truth discipline, reconciliation | the ingestion pipeline (Section 1O / D7 → Observation → CM) |
+
+**Why OMNI is none of them and all of them:** it needs everything in Lens A and Lens B **at once**, plus the healthcare-specific **authority gates** (clinical adoption, consent, eligibility, provider authority, liability) between sense and act that none of the comparators carry. No single metaphor IS OMNI; it takes the right product-territory from Lens A and the right operating concept from Lens B and **governs the seams**. (The complete ~75-80-item classified index is the registry below; these two tables are the canonical, always-true core — they do not need re-deriving.)
 
 ### Payload-noun ≠ domain (the discipline this framing enforces)
 
