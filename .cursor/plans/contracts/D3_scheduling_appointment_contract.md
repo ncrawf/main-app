@@ -2,7 +2,7 @@
 
 Document type: `domain_contract` (build-facing canonical truth for one domain)
 Authority: `canonical` for the planned scheduling/appointment layer (booking composer + appointment lifecycle + confirmation outbound)
-Status: `draft_for_ratification` (created 2026-05-30, Foundation vNext; domain pass #3; Nick + Knox review gate)
+Status: `draft_for_ratification` (created 2026-05-30, Foundation vNext; domain pass #3; Nick + Knox review gate) · **legacy-scatter backfill done 2026-06-01** (grepped legacy map outside DL-15: §1G.7 provider-routing → Workforce `REV-164`/`SC-WF-D3-001`; DL-3 discriminant-locality → §7.10; class/waitlist-engine → Layer-3 `REV-165`; DL-5/DL-6 depth → §2/§6)
 Domain(s): `d3_scheduling`, `appointment`, `booking`, `confirmation`
 Lifecycle role: the TERRITORY for **planned** scheduling — how an appointment is composed, moves through its lifecycle, and gets confirmed. Hands off to D5 (actualized work) at check-in via `SC-D3-D5-001`.
 Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.plan.md` §1.5 from the FULL appointment arc (embedded FAC §1.5 below). **Controlling spine = DL-15 inv 1-35 (LOCKED) + DL-20 inv 33-34/38-40/42 (appointment substrate)**; elaborated by rule-matrix `day_0_scheduling_rule_matrix/` D2 (BC-*) + D3 (LC-*) + D4 + Day 0 Build Contract (`6dc1286`); off-main `lib/scheduling/*` authority-boundary shape ported (stale enum superseded). Method/boundaries per `00_architecture_artifact_index.md`.
@@ -39,7 +39,7 @@ Appointment = planned operational commitment (not actualized work, not the encou
 ## §3 Ownership boundary
 
 **Owns:** booking composition (4-axis), `appointment` + `appointment_item` lifecycle (13-state machine), `availability_window`, slot/hold lifecycle, `status_flags` *shape + projection discipline*, cancellation/no-show/reschedule/waitlist mechanics, confirmation round-trip (`appointment_confirmation_event`), `appointment_staff_note_entry`, appointment-layer participant/seat (K(C)).
-**Does NOT own:** actualized work / encounter (D5; linked via `fulfillment_encounter_id`, never collapsed) · commerce/fees/entitlement/deposit-substrate (D6; D3 emits lifecycle events, D6 applies consequences) · documentation/attestation/lot capture (D7) · **service/treatment catalog taxonomy AND canonical `service_policy` / `service_policy_eligibility_gate` DEFINITIONS (Settings/Catalog-owned per DL-19; D3 consumes via seam `SC-SET-D3-001`)** · clinical-clearance truth (reads canonical, never owns).
+**Does NOT own:** actualized work / encounter (D5; linked via `fulfillment_encounter_id`, never collapsed) · commerce/fees/entitlement/deposit-substrate (D6; D3 emits lifecycle events, D6 applies consequences) · documentation/attestation/lot capture (D7) · **service/treatment catalog taxonomy AND canonical `service_policy` / `service_policy_eligibility_gate` DEFINITIONS (Settings/Catalog-owned per DL-19; D3 consumes via seam `SC-SET-D3-001`)** · clinical-clearance truth (reads canonical, never owns) · **provider LIVE operational-state + routing/eligibility (legacy §1G.7: offline / signed_in / open_for_queue / paused / at_capacity / unavailable; license/state/capability/Rx-authority eligibility; derived assignment/routing) — Workforce/BIZOPS + Identity/`staff_profiles`-owned (`REV-164`); D3 CONSUMES it as a booking input via `SC-WF-D3-001` (open). This is distinct from `availability_window` (planned bookable time, D3-owned) and `staff_service_assignment` (capability/duration, D3-owned): §1G.7 is the real-time "is this provider takeable right now" layer.**
 
 **Ownership boundary — service policy (binding):** Settings/Catalog owns the *canonical service/treatment policy definitions* (`service_policy` + `service_policy_eligibility_gate` rows: which axes/gates exist per service/modality). **D3 owns only the scheduling-time EVALUATION/APPLICATION** of those definitions — eligibility-gate firing, holds, lifecycle transitions, slot composition, and appointment consequences. `service_policy` is NOT a D3-owned object; D3 reads + evaluates it.
 
@@ -81,7 +81,8 @@ Capacity × Staff (availability_window ∩ staff_service_assignment) × Room × 
 7. **`status` ≠ `confirmation_state` ≠ `status_flags`** — never collapse.
 8. **Reschedule = atomic compensation** (cancel + book as one orchestration_run), not silent rollback (DL-15 inv 6).
 9. **Per-resource concurrency locks** (DL-15 inv 21); scheduler is the arbiter; AI cannot reserve outside it.
-10. **Confirmation ownership split (binding).** **D3 owns `confirmation_state`** (the appointment-confirmation truth). **Messaging owns message transport** (delivery of the outbound/inbound). **CNS may classify/propose** (interpret the patient response). **Only D3 commits the appointment confirmation state** — CNS/AI never silently mutates it (per DL-20 inv 40: AI classifies; deterministic rules + staff/D3 transition). D3 does NOT absorb messaging transport or CNS classification logic; it references them by FK.
+10. **Sibling-discriminant locality (legacy DL-3).** Scheduling's payload discriminant is sibling-local (`appointment_kind` / here `service_type`); **no cross-sibling discriminant leakage** — never extend `case_kind`/`order_kind`/etc. to cover appointments, and never extend `service_type` to cover non-scheduling siblings.
+11. **Confirmation ownership split (binding).** **D3 owns `confirmation_state`** (the appointment-confirmation truth). **Messaging owns message transport** (delivery of the outbound/inbound). **CNS may classify/propose** (interpret the patient response). **Only D3 commits the appointment confirmation state** — CNS/AI never silently mutates it (per DL-20 inv 40: AI classifies; deterministic rules + staff/D3 transition). D3 does NOT absorb messaging transport or CNS classification logic; it references them by FK.
 
 ## §8 Events
 
@@ -109,12 +110,17 @@ Preserve the boundary + lineage SHAPE (the one valuable thing in the off-main st
 | D1 treatment-menu / service catalog | **move → Settings/Catalog (DL-19)** via seam `SC-SET-D3-001` | unless drafting found a scheduling-owned function (none did) |
 | off-main `lib/scheduling/*` authority-boundary + trace shape | **port as design** (§9) | shape preserved |
 | off-main `SchedulingState` 5-enum | **reject/supersede** | DL-15 13-state + confirmation_state win |
+| legacy §1G.7 provider operational-state + routing/eligibility | **move → Workforce/BIZOPS + Identity** (`REV-164`); D3 consumes via `SC-WF-D3-001` | live-availability ≠ `availability_window` (§3) |
+| legacy DL-3 sibling-discriminant locality | **preserve as invariant** | §7.10 |
+| legacy DL-5 Mindbody-class depth + DL-6 scheduling-depth non-foreclosure (single/multi/equipment-gated/waitlist) | **preserve** | depth bar §2; 4-axis composer §6 admits all four depths without rewrite |
+| legacy Layer-3 deferral: full **class scheduling** + **waitlist engine** | **substrate hooks present, depth deferred** | `service_type=class` + waitlist mechanics (§4) are hooks; auto-fill/optimization engine is Layer-3 (`REV-165`) |
 
 ## §11 Seams
 
 - `SC-D3-D5-001` (`appointment.checked_in` → service_occurrence) — **drafted.**
 - `SC-D3-D6-001` (appointment lifecycle event → commerce fee/entitlement consequence) — OPEN (D6 not yet passed; `REV-139`).
 - `SC-SET-D3-001` (Settings/Catalog → D3: service catalog/treatment-menu consumed by booking) — OPEN (Settings pass; `REV-147`).
+- `SC-WF-D3-001` (Workforce/BIZOPS + Identity → D3: provider live operational-state + routing/eligibility consumed by booking, legacy §1G.7) — OPEN (`REV-164`).
 - confirmation round-trip (D4) is folded into D3 here, with the §7.10 ownership split: **D3 owns `confirmation_state` + commits it; Messaging owns transport; CNS classifies/proposes** (FK references, not absorption). A dedicated Messaging↔D3 confirmation seam may be formalized when the Messaging domain passes.
 
 ## §12 Open items (→ `08`)
@@ -122,6 +128,8 @@ Preserve the boundary + lineage SHAPE (the one valuable thing in the off-main st
 - `REV-146` rule-matrix D2/D3/D4 authored-not-closure-ratified (only D5 closed Round 5) — ratify or formally fold.
 - `REV-147` D1 treatment-menu → Settings/Catalog seam (`SC-SET-D3-001`).
 - `CNF-011` off-main `lib/scheduling/*` classified (this contract §9); whole parking-branch disposition manifest still owed (tracked).
+- `REV-165` full class-scheduling + waitlist-engine depth = legacy Layer-3 deferred; D3 holds substrate hooks only. (legacy-scatter backfill 2026-06-01)
+- Provider live operational-state/routing (§1G.7) routed to `REV-164` (Workforce/BIZOPS) via `SC-WF-D3-001`. (legacy-scatter backfill 2026-06-01)
 
 ## §13 Evidence sources
 
