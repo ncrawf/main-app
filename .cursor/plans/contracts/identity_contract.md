@@ -2,7 +2,7 @@
 
 Document type: `domain_contract` (build-facing canonical truth for one domain)
 Authority: `canonical` for the Identity domain (who/what is acted on + linking)
-Status: `draft_for_ratification` (created 2026-05-30, Foundation vNext; domain pass #2; Nick + Knox review gate)
+Status: `draft_for_ratification` (created 2026-05-30, Foundation vNext; domain pass #2; Nick + Knox review gate) · **legacy-scatter backfill done 2026-06-01** (grepped legacy map outside DL-10/§1J.10: added L0–L4 assurance ladder + `patient_identity_verifications` + field/source precedence §4; DL-10 handle-vs-person + `contact_identity_handles` §4/§7-inv9; `jurisdiction_of_care` §4/§7-inv10/`REV-166`; §1J.9 break-glass → RBAC)
 Domain(s): `identity`, `patient`, `contact`, `actor`
 Lifecycle role: the TERRITORY for Identity — the objects/relationships/resolution that everything downstream (CNS, messaging, intake, scheduling, commerce, care) references
 Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.plan.md` §1.5 from evidence — **DL-10** (system map §1J + DL-10 lock) is the freshest controlling authority; `HANDOFF_2026-05-11_phase_4h_identity_relationship_doctrine.md` + FOUNDATIONAL §7.13 (four-layer model) + primitives #5/#19/#1 + thesis v2 §7.5.3/§7.2/§12.2/§11/§7.4 + radar zones 34-37 + guardrail `D0W3B-GRD-001`. Method/boundaries per `00_architecture_artifact_index.md`.
@@ -38,8 +38,9 @@ Patient-source ≠ operator (§7.5.3); patient is ultimate authority over who tr
 
 | Object | One-line |
 |---|---|
-| `contact_identity` | **pre-account / unknown inbound** layer (Twilio main-line, unknown number, lead form, fax) — exists before/without a `patient`; resolved → patient via explicit identity-claim match |
-| `patient` (consumer identity) | **reusable identity-claim layer** — one canonical row per person **within an identity namespace** (deployment / org PHI boundary). Holds: legal name, DOB, phone, email, portal login, identity-verification status, duplicate/merge candidates, demographics, global prefs (where legally appropriate) |
+| `contact_identity` | **pre-account / unknown inbound** layer (Twilio main-line, unknown number, lead form, fax) — exists before/without a `patient`; resolved → patient via explicit identity-claim match. **Handle-vs-person discipline (DL-10 extension):** a phone/email is a **handle, not always one person** (family / assistant / spouse / shared office line / reused number / typo / fraud-substituted). `phone_e164` normalized+indexed; future `contact_identity_handles` admits phone/email/WhatsApp/social handles **without JSONB stuffing**; **ambiguous-handle / shared-handle / typo states are first-class** (matching is high-confidence, never blind) |
+| `patient` (consumer identity) | **reusable identity-claim layer** — one canonical row per person **within an identity namespace** (deployment / org PHI boundary). Holds: legal name, DOB, phone, email, portal login, **identity-verification status (L0–L4 assurance ladder, §1J.1-1J.9) + field/source precedence**, duplicate/merge candidates, demographics, **declared `jurisdiction_of_care` (or verified-address child) — single canonical field for eligibility gates, never ship-to/billing/IP mixing (legacy line 107)**, global prefs (where legally appropriate) |
+| `patient_identity_verifications` (§1J.1-1J.9) | identity-assurance substrate — graduated **L0–L4** verification levels + match-confidence + the audited evidence behind verification status |
 | `patient_relationship` (primitive #19) | **scoped operational relationship** — owns consents, intake, memberships/packages, appointments, care_programs, messaging thread context, clinical chart context, assigned care team, communication endpoint, relationship prefs, lifecycle status (active / disengaged / lost-to-follow-up / churned / transferred / merged) |
 | `actor` (primitive #1 + DL-16 amд 43 4-tuple) | who/what performed an action — `staff` / `staff_with_ai_assist` / `provider` / `patient` / `system` + **`device` / `robot` / `external_system`** subtypes (thesis §12.2). Only humans may occupy §7.2 care-ownership roles |
 | `identity_resolution` | identity-claim match + merge/link (contact→patient; duplicate dedupe; post-merger linking) — explicit, permissioned, consent-aware, audited |
@@ -64,6 +65,8 @@ A scoping dimension (brand / clinic / practice_entity / location / specialty / l
 6. Patient is NEVER `operator_of_record`; patient-source data enters `source_authority=patient` + `clinical_adoption_state=not_adopted` until a clinical operator adopts (§7.5.3).
 7. Only human actors occupy §7.2 care-ownership roles; `device`/`robot`/`external_system` actors cannot.
 8. Cross-namespace identity = explicit federation/linking, never automatic shared rows.
+9. **Handle ≠ person (DL-10 extension).** A phone/email handle may map to several people (shared/family/typo/fraud); resolution treats shared-handle/ambiguous-handle/typo as first-class states and never blind-matches a handle to one patient.
+10. **Single declared `jurisdiction_of_care` (legacy line 107).** Eligibility joins prescriber license × patient jurisdiction on ONE canonical declared field (on `patient` or a verified-address child) — never a per-screen mix of ship-to zip / billing address / ad-hoc IP.
 
 ## §8 Vocabulary lock (frozen 2026-05-30)
 
@@ -80,6 +83,10 @@ A scoping dimension (brand / clinic / practice_entity / location / specialty / l
 | §1J.10 `contact_identity` separation | **preserve → `contact_identity`** | §4 + seam `SC-ID-PT-001` | pre-account inbound layer | external-line collapse (`D0W3B-GRD-001`) |
 | `brand_id` as relationship boundary | **demote-to-attribute** unless it owns distinct state | §6 admission guardrail | brand is one of 11 dims, not the only one (zone 36) | brand-hardcoded primitive |
 | cross-namespace federation (`care_relationship`/`shared_context_grant`/MPI) | **queue (deferred, ladder v2/v3)** | open-review + §9 below | bigger than v0 owned-single; substrate-hooked via namespace abstraction | nothing now (substrate-hook present); cross-org coherence deferred |
+| §1J.1-1J.9 L0–L4 assurance ladder + `patient_identity_verifications` + field/source precedence | **preserve → §4/§7** | this contract | graduated identity assurance + which source wins per field | verification depth + precedence lost; identity becomes a flat boolean |
+| DL-10 handle-vs-person extension + `contact_identity_handles` | **preserve → §4 `contact_identity` + inv 9** | this contract | phone/email = handle, not person; shared/ambiguous/typo first-class | blind handle→patient matching (fraud/family/typo collisions) |
+| jurisdiction-of-care declared field (legacy line 107) | **preserve → §4 `patient` + inv 10** (scope identity-vs-relationship = `REV-166`) | this contract | one canonical eligibility jurisdiction | per-screen jurisdiction drift → eligibility leaks |
+| §1J.9 break-glass / admin-intervention / legal-hold | **route → RBAC/Boundary-Policy + Retention §1V** | RBAC + (future) Federation | authority/retention concern, not identity-resolution | (owned elsewhere; identity references) |
 
 ## §10 Projections / cross-refs
 
@@ -91,6 +98,7 @@ Display identity (name/avatar/endpoint label) + conversation status chips are **
 - **Cross-namespace / cross-org federation** (`care_relationship` + `shared_context_grant` + patient-as-MPI) — DEFERRED to identity ladder v2/v3. OPEN (`D0THES-REV-143`). **Consumed-before-owned note (coverage check 2026-05-31):** D7 / Observation / Messaging / CNS reference these grant primitives for cross-operator visibility; their **canonical owner is the Federation domain (pass #11, not yet run)**. At ladder v0, cross-operator visibility = `patient_relationship` scoping + RBAC; the cross-org grant layer is deferred. Tracked `REV-157`.
 - **`patient_relationship` substrate migration** — doctrine landed (DL-10), substrate not built. OPEN build item (`D0THES-REV-144`).
 - **`§1J.10 loadPatientCaseSafetySnapshot`** — identity/safety-snapshot; flagged hard blocker for first Rx-pathway shipment. OPEN (`D0THES-REV-145`).
+- **`jurisdiction_of_care` scope** — identity-level (`patient`/verified-address) vs relationship-level (care can differ per `patient_relationship` / state). Held at identity per legacy line 107; relationship lens may require scoping. OPEN (`D0THES-REV-166`). (legacy-scatter backfill 2026-06-01)
 
 ## §12 Evidence sources
 
