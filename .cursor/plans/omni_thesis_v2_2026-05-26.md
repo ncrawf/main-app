@@ -42,6 +42,8 @@ The substrate is **future-permissive** within the designed family at any moment 
 
 **In product-scope terms (what OMNI collapses):** OMNI is, in one governed substrate, what today takes seven siloed SaaS products bolted together — **Hims/Ro** (DTC telehealth + async Rx + subscription) + **Epic/Cerner** (EMR / records / orders) + **Shopify** (commerce / catalog / checkout / fulfillment) + **Mindbody/Boulevard** (scheduling + packages/memberships) + **RingCentral/Twilio** (comms rail) + **ActiveCampaign/Klaviyo** (marketing / campaigns) + **Oracle/enterprise** (federation / tenancy / governance). OMNI does not bolt these together; it runs them on one substrate. *How* it behaves (its architectural shape) and *how* it differs from each: §3.5. *How* it operates structurally (two governed loops + authority gates): §8.
 
+**OMNI is also a business-operations OS, not only care delivery.** Beyond the clinical loops, OMNI spans **business operations** (workforce scheduling, time-clock, payroll, compensation, commissions, incentives, provider productivity — the Workday/ADP/Gusto + QuickBooks layer) and **operating intelligence** (metrics, analytics, management reporting). Discipline: **business-operations is its own substrate truth** (a future Business-Ops / Workforce domain family, consuming D3/D5/D6/RBAC events, never corrupting clinical/care truth); **operating intelligence is a projection** over domain truth (analytics never owns the underlying revenue/booking/work truth — §7.7). Admin/provider *access* is **authority** (RBAC / Boundary-Policy: §7.2 ownership roles + §11 authority ladder + §12.8 capability envelope), not a dashboard. Status: named as a future substrate family, not yet a contract — `D0THES-REV-164`.
+
 The core invariant is **governed contextual coherence across actors, surfaces, organizations, and authority boundaries.**
 
 The core mantra is:
@@ -291,6 +293,8 @@ The comparators above answer two DIFFERENT questions. Keeping them separate is l
 ### Payload-noun ≠ domain (the discipline this framing enforces)
 
 A consequence of both lenses: **"labs / Rx / commerce / messaging / intake / wearables / forms" are payloads (use-cases), NOT domains.** Each threads both loops + several ownership domains + projections + authority gates. A lab is an *act* (ordered fulfillment) producing *sense* (value→Observation, report→D7, finding→Clinical Memory), paid via D6, vendored via Federation, communicated via Messaging. Before creating or naming a domain, **decompose the payload into its concerns and place each primitive with its owner.** (Enforced as a boot-visible guardrail; this is the rule that stops the recurring "labs domain / messaging-owns-the-clinical-loop / commerce-owns-everything" collapse.)
+
+**Complete comparator/analogy index:** §3.5 holds the narrative comparison; the *complete* classified inventory of every real-world comparator, architecture analogy, and feature-idea reference ever used to explain OMNI (~75-80, swept from the full corpus 2026-06-01) lives in **`.cursor/plans/doctrine/comparator_analogy_registry.md`** — so the comparison is recorded once and never re-derived. New comparators get appended there, not re-scattered.
 
 ---
 
