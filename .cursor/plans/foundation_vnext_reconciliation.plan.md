@@ -62,9 +62,56 @@ Per the Artifact Index "Domain pass output contract" + "domain-pass mandatory pu
 7. **Conformance**: catalog row (`01`) + read-graph route (`04`).
 8. **Checkpoint + stop** (commit at work-package boundaries; no auto-continue).
 
+## 2.5 The four reconciliation layers (every domain passes all four before ratify)
+
+A domain is not ratification-ready until it clears four layers. This is the formal statement of the macro flow ("thesis/doctrine→contract, then old system map, then misc-doc gems, bidirectionally"):
+
+- **L1 — Contract draft:** thesis v2 + doctrine + freshest-substrate synthesis (the FAC + draft per §2). *(Accepted as working.)*
+- **L2 — System-map backfill:** legacy `system_map_three_layers_60706286.plan.md` scatter reconciled in (6-way disposition; §3 tracker).
+- **L3 — Corpus gem-pull:** the ~60 gem-rich misc docs (`audits/`, `designs/`, DL-drafts, LI, future-arcs, specs) mined **bidirectionally** (§3.5).
+- **L4 — Cross-cutting checks:** operating-model, federation/privacy/boundary, layered-accountability + the cross-cutting REV placements (`REV-169` privacy spine, `REV-157` federation, etc.).
+
+```mermaid
+flowchart LR
+  L1[L1 contract draft] --> L2[L2 system-map backfill]
+  L2 --> L3[L3 corpus gem-pull bidirectional]
+  L3 --> L4[L4 cross-cutting checks]
+  L4 --> Ratify[ratify target-stable]
+  Ratify --> Repoint[re-point Build OS REV-158]
+  Repoint --> Recon[build reconciliation code vs contract]
+  Recon --> Build[build resumes]
+```
+
+**Drafted domains** (L1 done) get L2/L3/L4 as retro passes. **Untouched domains** (no L1 yet) draft **native single-pass** — L2+L3+L4 baked into the first draft, NOT retrofitted (§3 + §4 untouched-domain note).
+
 ## 3. Ordered domain sequence + status
 
 Rationale for order: foundation dependencies first (who/what is acted on → how it's planned/actualized → coordination → channels → inputs → outputs → cross-cutting). D5 went first as the **process-proof / pain-tax** domain (the DL-20 mess was already exposed there); from here the dependency order applies.
+
+**Scope count (Knox precision):** **10 drafted domains** + **4 pending core contracts** (RBAC #9, Settings #10, Federation #11, AI #12) + **2 gated future/pending substrate families** (OFC — gated on `REV-163`; BIZOPS — gated on `REV-164`). Not a flat "15."
+
+### Layer-status grid (domain × L1–L4)
+
+| Domain | L1 draft | L2 map-backfill | L3 corpus-pull | L4 cross-cutting |
+|---|---|---|---|---|
+| D5 Service Occurrence | ✅ | ◑ partial | ✗ | partial |
+| Identity | ✅ | ✅ | ✗ | ✅ (fed check) |
+| D3 Scheduling | ✅ | ✅ | ✗ | partial |
+| CNS | ✅ | ◑ partial | ✗ | partial |
+| Messaging | ✅ | ✅ | ✗ | partial |
+| Intake | ✅ | ✅ | ✗ | partial |
+| Clinical Memory | ✅ | ✅ | ✗ | ✅ |
+| D7 Documents | ✅ | ✅ | ✗ | ✅ |
+| Observation | ✅ | ✅ | ✗ | ✅ |
+| D6 Commerce | ✅ | ✅ | ✗ | ✅ |
+| RBAC #9 (pending core) | ✗ | native | native | native |
+| Settings #10 (pending core) | ✗ | native | native | native |
+| Federation #11 (pending core) | ✗ | native | native | native |
+| AI/Model-Lineage #12 (pending core) | ✗ | native | native | native |
+| OFC (gated `REV-163`) | ✗ | — | — | — |
+| BIZOPS (gated `REV-164`) | ✗ | — | — | — |
+
+**L3 corpus-pull is not started for ANY domain** — that is the main remaining body of work (§3.5). The detailed per-domain notes follow.
 
 | # | Domain | Contract | Status | Notes / prereqs |
 |---|---|---|---|---|
@@ -79,9 +126,9 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 | 7 | **D7 Documents / Evidence / Consent / Media / Materialized Records** | `contracts/D7_documents_consent_media_contract.md` | ◑ **contract drafted; ratify-pending** | DL-22 spine (open `document_kind` — NOT a labs bucket); two-gate (data-verification ≠ clinical-adoption); one-canonical-artifact-many-scoped-grants (custody ≠ visibility; dedupe by fingerprint); consent artifact here / gate at Boundary-Policy; materialization seam `SC-D5-D7-001` (drafted); federation-ready; **open:** dedupe build (`REV-155`), intake-overlap demotion (`REV-156`), DL-22 Q-gates |
 | 7a | **Observation / Measurement / Signal** | `contracts/observation_measurement_contract.md` | ◑ **contract drafted; ratify-pending** | **new domain (Nick + Knox 2026-05-31 — the `+` in "D7 + observation" was a real domain)**; §8 flow `media_artifact→observation→extracted_assertion`; §12.1 `observation` + 1L labs + 1M trackables + wearable/CGM/device telemetry; owns the **ingestion-verification (data-fidelity) gate** (NOT clinical adoption); NOT a labs bucket; federation-ready; **open:** verification-state machine (`REV-153`), CNS layered-context-packet policy (`REV-154`) |
 | 8 | **D6 Commerce / Entitlement / Payment** | `contracts/D6_commerce_contract.md` | ◑ **contract drafted; ratify-pending** | **consolidated** DL-17 + §1E/§1I/§1J.9/§1K.11/§12 → one build-facing home (NOT a pointer maze; legacy sources = evidence). 3 sub-layers (spine + money-movement + rail separation); pressure-check PASS; invariants payment≠care / commerce≠care_commitment / no-charge-until-eligibility / external-rail-owns-money / no-undifferentiated-blob; Settings(DL-19)↔D6 catalog/price split; seam `SC-D5-D6-001` drafted; **deferred:** insurance/Medicare/HSA-FSA (`REV-159`), Q-gates (`REV-160`) |
-| 9 | **RBAC / Authority / Attestation** | `contracts/rbac_authority_contract.md` | ▶ **NEXT** | DL-18 LOCKED (likely clean-into-contract) + grep legacy §1J authority sections (step 1) |
-| 10 | **Settings / Catalog / Registry** | `contracts/settings_catalog_contract.md` | ⏳ | DL-19 LOCKED |
-| 11 | **Federation / Operator / Tenant** | `contracts/federation_contract.md` | ⏳ | DL-21 LOCKED. **Must canonically OWN the cross-operator grant/visibility primitives** (`shared_context_grant`/`visibility_grant`/`care_relationship`/operator-boundary/break-glass) that Identity/D7/Observation/CNS/D5 currently consume-before-owned (`REV-157`); reconciles the ladder-v0 (patient_relationship scope + RBAC) vs cross-org-deferred (`REV-143`) split |
+| 11 | **Federation / Operator / Tenant** | `contracts/federation_contract.md` | ▶ **FIRST untouched to draft (NEXT pointer moved here from RBAC, 2026-06-01)** | DL-21 LOCKED. **Must canonically OWN the cross-operator grant/visibility primitives** (`shared_context_grant`/`visibility_grant`/`care_relationship`/operator-boundary/break-glass) that Identity/D7/Observation/CNS/D5 currently consume-before-owned (`REV-157`); reconciles the ladder-v0 (patient_relationship scope + RBAC) vs cross-org-deferred (`REV-143`) split. **Reorder rationale (Knox):** RBAC/privacy enforcement cannot fully close until the grant layer has an owner — so Federation precedes RBAC. Native single-pass (L1+L2+L3+L4) |
+| 9 | **RBAC / Authority / Attestation** | `contracts/rbac_authority_contract.md` | ⏳ **pending core — was NEXT; reordered AFTER Federation** | DL-18 LOCKED (likely clean-into-contract) + grep legacy §1J authority sections; absorbs the `REV-169` consent/authority-enforcement slice. Native single-pass |
+| 10 | **Settings / Catalog / Registry** | `contracts/settings_catalog_contract.md` | ⏳ pending core | DL-19 LOCKED. Native single-pass |
 | 12 | **AI / Model Lineage / Clinical Adoption** | `contracts/ai_model_lineage_contract.md` | ⏳ | §9.1 model_version_of_record + §12.8; **producer/consumer of Clinical Memory (6a), NOT its owner** |
 
 **Cross-cutting solve-obligations** that must be satisfied across multiple of the above: `D0THES-REV-142` (Alec-Harris longitudinal-signal loop → CNS/Intake/Messaging/LI/care_commitment/AI/Labs); full `care_commitment` substrate (`D0THES-REV-141`).
@@ -91,7 +138,29 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 - **Legacy-Scatter Backfill Check — run 2026-05-31ff (triggered by the commerce/§1I scatter discovery; before treating any contract as target-stable).** For each already-drafted contract: grep the legacy system map (full section index built 2026-05-31) + plans corpus for the domain's scatter → 6-way disposition per material item (captured / missing→patch-contract / map-or-seam / `08` / future-feature→future-work-registry / rejected-superseded) → patch real gaps + add the D6-style consolidation banner. NOT a restart, NOT a new ledger; the prior breadth-audit's section index is the coverage checklist. Risk order + status: **Messaging ✅ (banner + §1G scope-out + `classification` primitive)** · **D5 ◑ (§1G care-coordination DECOMPOSED in: `care_episode` subsumes `care_program`+continuation+CoR §4, `care_commitment` owner tuple §10, `care_state_view` projection §11; banner) — own full legacy-scatter check still pending** · **CNS ◑ (§1G orchestration DECOMPOSED in: `clinical_required` permit-gate §10.1, provider_task/queue + patient_action_item + exception §9; banner) — own full check pending** · **Intake ✅ (absorbed §1K scatter the first draft missed: 1K.5 freshness, 1K.7 safety pre-screen + gate-staging + re-entry-recheck + version-pin, 1K.8 labs-routing seam, 1K.9 scoring/derived-values layer [trackables→Observation], 1K.10 treatment_plan_candidate, 1K.12 provider-packet assembly, 1K.18 out-of-scope; banner; `REV-162` = 1K.19 home open)** · **Observation ✅ (§1L confirmed scatter bomb: Observation keeps the result-VALUE + normalization layer [1L.6] + structured-first/dual-model [1L.3/1L.16a]; the lab-ORDER lifecycle (state machine 1L.4 / ownership 1L.7 / expiration 1L.8 / retest 1L.9 / triage-review-release 1L.20) is a diagnostic-order WORKFLOW needing a home — scope decision `REV-163`: own Diagnostics domain vs decompose D5/CNS/CM/D7/D6/Federation/Messaging; report-PDF→D7, vendor→Federation, comms→Messaging, fee→D6 routed; banner)** · D3 ⏳ · Identity ⏳ · CM ⏳ · D7 ⏳ · D6 ✅. **All decomposed surgically per-section (not appended); `REV-161` decomposed-and-placed; `REV-163` = lab-order-lifecycle home (trifecta decision, like Observation-vs-D7).** **Key finding:** §1G and §1L are the big scatter risks (a section's title under-describes its true breadth).
 - **Federation / Privacy / Boundary-Policy coverage check — run 2026-05-31 (between #7 and #8).** Audited all 10 fresh artifacts against 7 dimensions (origin · operator/practice ctx · custody≠visibility · scoped grants · authority/commit · audit lineage · no global-chart). Newer contracts (D7/Observation/CNS/CM) strong; found: **G1** D7/Observation rely on grant primitives Identity defers (reconciled in-place: v0 = `patient_relationship` scope + RBAC, cross-org deferred); **G2** D5 missing `operator_of_record` dimension (patched §4/§7 inv 9); **G3** federation enforcement layer consumed-before-owned → Federation pass #11 must own it (`REV-157`). No rewrites; ledger explicitly rejected (deltas surface at Build Entry Gate; open items live in `08`).
 
-- **Corpus-Pull / Ledger→Contract Bridge — method corrected + started 2026-06-01 (the "did we lose gems in the 200 docs?" confidence layer).** **Veracity finding (spot-check, dispositive):** the 3-day corpus audit (`01_master_corpus_catalog.md`, 100 docs) was a rigorous **classify + preserve + pointer** pass, NOT a content-extraction-into-canon pass — ledger entries (`03`) are **one-line pointers with `canonical_destination = the source doc`**, NOT gem stores. Proof: `D0W10-DEC-010` = one line; its source `audits/2026-04-30_privacy_communication_governance.md` = ~490 lines of founder-MD-approved triple-axis privacy/comms governance, in NO contract (`REV-169`). **Therefore a ledger-ID→contract bridge would LOSE gems.** **Corrected method:** catalog/ledger = NAVIGATION ONLY (which docs are gem-rich, by domain, + summaries) → **READ the gem-rich source doc (targeted) → pull into contract** → coverage row (`domain · source doc · result · landed home · open-review`) appended to THIS tracker (no new ledger). Priority source-doc targets = `audits/` + `designs/` + DL-drafts + `PREFLIGHT` (gem-dense); `ingestion/`/handoffs/superseded = trusted-as-classified (comparative/continuity only). **Acceptance bar (Knox):** no domain is ratification-ready until every domain-tagged gem-rich source doc is incorporated / routed / stale / deferred-with-reason. **Risk order (Knox):** CNS → Messaging → D6 → CM → D7 → Observation → Intake → D5 → D3 → Identity (CNS/Messaging/D6 hide the most cross-cutting audit decisions). **Started:** D7 spot-check surfaced `REV-169` (privacy/comms governance spine, cross-cutting → Messaging/RBAC/D7/CNS). NOT a new scrub of 200 docs; NOT trusting ledger summaries; targeted source-read of the gem-rich subset (~30 docs) navigated by the catalog.
+- **Corpus gem-pull (L3) — see §3.5** (promoted to its own section: it is the main remaining body of work, not a between-passes check).
+
+## 3.5 Corpus gem-pull (L3) — bidirectional, document-by-document
+
+**Veracity finding (dispositive, 2026-06-01):** the 3-day corpus audit (`01_master_corpus_catalog.md`, 100 docs) was a rigorous **classify + preserve + pointer** pass, NOT extraction-into-canon. Ledger entries (`03`) are one-line pointers with `canonical_destination = the source doc`. Proof: `D0W10-DEC-010` = one line; its source `audits/2026-04-30_privacy_communication_governance.md` = ~490 lines of founder-MD-approved governance, in NO contract (`REV-169`). **A ledger-ID→contract bridge would LOSE gems — that shortcut is killed.**
+
+**Bidirectional method (one read, both axes of proof):** catalog/ledger = **NAVIGATION ONLY** (which docs are gem-rich, by domain). Then: **read each gem-rich source doc once (document-centric) → route every gem to a coverage row → verify per-domain by reading DOWN each domain's rows (domain-centric).** Cross-cutting docs (e.g. the privacy spine) are read once and routed to all their homes — which a pure domain-by-domain read would miss.
+
+**Coverage table = disposition only, NOT a mini-ledger or extraction dump (Knox):** each row is `source doc · domains-fed · disposition (incorporated/routed/stale/deferred) · landed home · open-review-if-deferred`. The actual doctrine lands in **contracts / seams / `08` / canonical homes** — never in the matrix. Table lives in this plan (no new drawer). Reading across a row proves the doc was fully mined; reading down a domain proves the contract is complete.
+
+**Gem-rich inventory (~60 docs, by cluster + primary domain tag):**
+- **`audits/` (33):** CM/clinical-assertion (clinical_assertion_layer/analytics/followup, concept_naming, static_clinical_facts, glp1_concept_registry, authority_vs_longitudinal_confidence, lab_authored_by_mapping, acute_states_promotion_threshold); Intake (intake_construction, intake_coherence, free_text_intake, mode_j_spot); Messaging/comms (privacy_communication_governance, inbound_narrative_atomization, rules_templates_framework); Commerce/marketing (marketing_lifecycle_growth_orchestration, marketing_system_pressure_test, dynamic_behavior_*); Observation/labs (care_management_source_field, retrievability, lab_authored_by_mapping); pathway slices (glp1/trt/female_hrt_first_slice — multi-domain); system-level (system_pressure_test, adversarial_slice_pre_runtime, system_map_alignment, future_blocks_long_term, build_pattern_assessment, module_taxonomy, hybrid_care_delivery_stress_test).
+- **`designs/` (~12 substantive):** clinical_assertion_layer_design (CM), intake_construction_design (Intake), day_0_scheduling_rule_matrix/* (D3/D5/CNS), scheduling operating_model + architecture_pressure_test + day_0_build_contract (D3/D5), mindbody_architecture_understanding (cross-cutting).
+- **DL-drafts (6):** DL-17 (D6), DL-18 (RBAC), DL-19 (Settings), DL-20 (D5), DL-21 (Federation), DL-22 (D7) — also feed the untouched-domain native drafts.
+- **LI (5):** longitudinal_intelligence pressure_test bank/protocol/result/corpus + cns_patient_operating_context (CNS / Patient-CNS).
+- **FUTURE_ARC (3, flagged deferred/un-mined in catalog):** phi_surface_governance, prioritization_attention_economics, federation_permeability_topology.
+- **`specs/` (5):** glp1_pathway / domain / universal / clinical_core / conversion_funnel modules (cross-domain feature lists).
+
+**Doc-processing order:** (1) `audits/2026-04-30_privacy_communication_governance.md` — the 490-line `REV-169` bomb, **first, as the worked example** (it proved the ledger shortcut unsafe); (2) cross-cutting bombs (LI corpus, rules_templates_framework, authority/confidence audits, system_map_alignment); (3) CM/Intake cluster; (4) scheduling/D5 designs; (5) commerce/marketing; (6) pathway slices + system-level; (7) DL-drafts feed their untouched-domain drafts (§4 native pass).
+
+**Acceptance bar (hard — Knox):** no domain is ratification-ready until every domain-tagged gem-rich source doc is **incorporated / routed / stale / deferred-with-reason**. "Read" ≠ enough. "Cataloged" ≠ enough. "Mentioned in a ledger" ≠ enough.
+
+**Domain risk order for the verify axis (Knox):** CNS → Messaging → D6 → CM → D7 → Observation → Intake → D5 → D3 → Identity (CNS/Messaging/D6 hide the most cross-cutting audit decisions).
 
 ## 4. Checkpoint / commit discipline
 
@@ -109,12 +178,22 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 
 Artifact taxonomy + rules: `00_architecture_artifact_index.md` · Map: `OMNI_System_Map_vNext.md` · Current checkpoint: `HANDOFF_2026-05-30_foundation_vnext_pivot.md` · Pre-pivot audit evidence: `omni_doctrine_reconciliation_map_v1_2026-05-25.md` · Guardrails: `06_guardrail_antipattern_digest.md` (esp. `D0THES-GRD-022/023/024`) · Thesis: `omni_thesis_v2_2026-05-26.md` (pinned lens).
 
+## 6.5 Master sequence to build-ready (what remains before build resumes)
+
+- **Phase 1 — Corpus gem-pull (L3), bidirectional, document-by-document (§3.5)** across the 10 drafted domains; finish L2 (system-map backfill) for D5 + CNS as their docs surface. **Starts with `audits/2026-04-30_privacy_communication_governance.md` (`REV-169`) as the worked example.**
+- **Phase 2 — Draft the 4 pending core contracts, native single-pass** (L1+L2+L3+L4 baked in): **Federation #11 → RBAC #9 → Settings #10 → AI #12.** (Federation first per the `REV-157` reorder.)
+- **Phase 3 — Resolve the cross-cutting bundles** (reviewed through the trifecta loop = Nick sets intent / Knox pressure-tests / Opus executes):
+  - **Boundary/Privacy bundle (now):** `REV-169` privacy/comms spine placement + `REV-157` Federation grant-layer ownership + RBAC consent/authority enforcement. These interlock — close together.
+  - **Substrate-scope trio (next):** `REV-163` OFC (own-domain-vs-decompose) + `REV-167` tracked-clinical-objects home + `REV-141` full `care_commitment` substrate.
+  - **BIZOPS (`REV-164`):** named/future — scope only if intentionally pulled forward; otherwise stays gated.
+- **Phase 4-6 — Ratification → re-point Build OS → build reconciliation → build (§7).**
+
 ## 7. Transition to Build OS — "when does the existing substrate/code actually get fixed against the thesis?"
 
 This answers the recurring, legitimate anxiety: *the foundation contracts define the TARGET; when do Messaging/Intake/CNS/scheduling code etc. get forced to conform?* **Answer: through the existing Build OS (`09`/`10`/`11`), re-anchored to the vNext foundation — NOT a new parallel phase, NOT a new ledger.** Two currently-missing links make this explicit:
 
 **Sequence (binding):**
-1. **Draft** all domain contracts (in progress; `§3`).
+1. **Complete §6.5 Phases 1-3** (corpus gem-pull L3 across drafted domains + draft the 4 pending core contracts native + resolve the cross-cutting bundles). Only then is the contract set whole.
 2. **Ratification gate (Nick + Knox):** flip the relevant contracts `draft_for_ratification → target-stable`. Build Reconciliation cannot run against a moving target. (Currently EVERY contract is ratify-pending.)
 3. **Re-point the Build OS at vNext (`REV-158`):** the Build Entry Gate (`11`) governing read path + slice-binding anchors currently point at the **demoted legacy `system_map_three_layers_60706286.plan.md`**, and `WP-EXEC-001` (trace-plumbing) + `WP-EXEC-002` (`lib/scheduling/*` skeleton) already shipped against that stale target. At the ratification gate these MUST be re-pointed to `OMNI_System_Map_vNext.md` + the domain/seam contracts, and the already-shipped WP-EXEC code re-checked against vNext. **Until re-pointed: do not resume build lanes against the legacy map** (freeze banner on `11`).
 4. **Build Reconciliation / Substrate Alignment (per domain, via the Build Entry Gate):** for each domain with pre-vNext shipped substrate, the FIRST build-entry obligation is a delta of existing code/schema/migrations vs its contract + seams → `keep / patch / migrate / supersede / port-from-parked-branch / new-seam / new-migration / tests`, produced as **Build OS work packages** (not a tracking drawer). **High-priority (real shipped substrate predating the target):** Messaging (`lib/messages/*` + `lib/outbound/*`, c2), Intake (`lib/intake/*` + `record_intake_emissions_batch`), CNS trace-lineage (§B / `d753a64`), scheduling (`lib/scheduling/*`), clinical-assertion code.
