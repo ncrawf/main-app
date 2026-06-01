@@ -128,7 +128,7 @@ The global lens (above) is not enough for a builder — each domain contract car
 | **Observation** | **Athena-lab-module-class** labs depth + FHIR/HL7/DICOM/LOINC + Quest/LabCorp ingestion |
 | **CNS** | **Tesla-autopilot** one-spine (no mini-brains) + **NASA/Houston** authority gates + Salesforce/Zendesk case→tasks |
 | **D5 Service Occurrence** | FHIR + Epic/Cerner + Amazon/airline/restaurant 3-layer (planned→actual→evidence); outpatient-EMR-class, not hospital-grade |
-| **Clinical Memory** | a **fraction of an EMR (~10% of Epic)** — assertion/current-truth/adoption layer + Apple HealthKit contributions-to-a-record |
+| **Clinical Memory** | a **distinct assertion/current-truth/adoption layer — NOT an EMR, NOT a slice of one** (the clean governed memory EMRs never built) + Apple HealthKit contributions-to-a-record |
 | **D7 Documents/Media/Consent** | clinical media (Canfield/VECTRA) + consent/e-sign + outpatient-EMR-class document/materialization (chart-as-projection) |
 | **Identity** | Mindbody-analogy (RIGHT shape) vs Epic-enterprise-everywhere (WRONG shape) for identity/relationship scoping |
 | **OFC (Ordered Fulfillment)** | Amazon fulfillment (order→fulfill→deliver→exceptions) — pending `REV-163` |

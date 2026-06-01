@@ -31,7 +31,7 @@ Clinical Memory owns the **normalized clinical-truth substrate**: the concept re
 
 Patient-source is a **substrate concept, not an operator posture**. Patient-source data enters with `source_authority = patient`, `clinical_adoption_state = not_adopted`; **`care_commitment` does NOT attach until a clinical operator explicitly clinically-adopts** (§7.5 `clinical_adoption`; care_commitment threshold §7.3). Provenance is preserved across the gate (`source_authority` stays `patient` even after adoption).
 
-**Build depth bar (Lens B; registry + thesis §3.5):** the *actual build* is a **fraction of an EMR (~10% of Epic)** — the normalized clinical-assertion / current-truth / adoption layer (the Epic "problem list" concept, not its full encounter/billing/regulatory bulk), with **Apple HealthKit "contributions-to-a-record"** adoption discipline (atomized candidates in a review queue, provider commits — never auto-chart-write). Deliberately NOT an EMR. This is the build-facing comparator for Clinical Memory.
+**Build depth bar (Lens B; registry + thesis §3.5):** the *actual build* is a **distinct architectural layer — the normalized clinical-assertion / current-truth / adoption substrate — NOT an EMR and NOT a slice of one.** It is the thing EMRs never built cleanly: one governed memory of what is currently true about a patient, with provenance + adoption lineage. Adoption discipline mirrors **Apple HealthKit "contributions-to-a-record"** (atomized candidates in a review queue, provider commits — never auto-chart-write). This is the build-facing comparator for Clinical Memory.
 
 ## §3 The five-layer model (design §B)
 
