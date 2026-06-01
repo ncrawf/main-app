@@ -31,6 +31,8 @@ Clinical Memory owns the **normalized clinical-truth substrate**: the concept re
 
 Patient-source is a **substrate concept, not an operator posture**. Patient-source data enters with `source_authority = patient`, `clinical_adoption_state = not_adopted`; **`care_commitment` does NOT attach until a clinical operator explicitly clinically-adopts** (§7.5 `clinical_adoption`; care_commitment threshold §7.3). Provenance is preserved across the gate (`source_authority` stays `patient` even after adoption).
 
+**Build depth bar (Lens B; registry + thesis §3.5):** the *actual build* is a **fraction of an EMR (~10% of Epic)** — the normalized clinical-assertion / current-truth / adoption layer (the Epic "problem list" concept, not its full encounter/billing/regulatory bulk), with **Apple HealthKit "contributions-to-a-record"** adoption discipline (atomized candidates in a review queue, provider commits — never auto-chart-write). Deliberately NOT an EMR. This is the build-facing comparator for Clinical Memory.
+
 ## §3 The five-layer model (design §B)
 
 `Evidence (raw, immutable, in its domain home) → Concept (normalized, code-as-config) → Assertion (one claim about a concept, with provenance/authority/status/context) → Context (envelope; coexisting assertions per context_key) → Current Clinical Memory (view: latest non-superseded/non-rejected per (patient, concept, context_key), authority-ranked)`. Provider assessment is **not a separate layer** — it is just another assertion at highest authority that supersedes lower-authority claims.

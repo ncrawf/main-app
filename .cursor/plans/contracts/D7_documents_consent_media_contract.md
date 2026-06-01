@@ -30,6 +30,8 @@ D7 owns **durable artifacts, clinical media, consent artifacts, and materialized
 
 §7.5: **artifact custody / portability** — custodian, source, and visibility are **separate dimensions** (per-event ownership §7.5.1); artifacts are patient-portable via `shared_context_grant`. §7.7: one artifact substrate, **many scoped projections**. §7.5.4: **consent specificity** (per-recipient/scope/purpose/duration; per-category for 42 CFR Part 2).
 
+**Build depth bar (Lens A/B; registry + thesis §3.5):** the *actual build* covers **clinical media** (before/after + Canfield-Visia/VECTRA partner-imaging ingestion), **consent/e-signature artifacts** (versioned, revocable), and **outpatient-EMR-class document/materialization** depth — the chart/record as a **projection** (Epic-as-projection, not hospital-grade EMR bulk). Stripe-like immutable-audit + retention discipline on artifacts. This is the build-facing comparator for D7.
+
 ## §3 Ownership boundary
 
 **Owns:** `patient_document` (unified primitive, open `document_kind`); `media_artifact` (image/audio/video/transcript/device_log/report PDF); `clinical_photo_detail` + `before_after_pair`; `consent_artifact` + `consent_template` + `signature_envelope`; `patient_document_linkage`; document lifecycle (7-state) + retention + access projection + GDPR pseudonymization; **materialized records** (`evidence_record`, signed notes, generated PDFs, aftercare/precare packets); artifact custody + scoped visibility (§6).

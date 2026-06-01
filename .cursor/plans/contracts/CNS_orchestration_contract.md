@@ -66,6 +66,8 @@ CNS is the **coordination layer OVER** the owning-domain contracts — it does n
 - The operator CNS routes candidates to these domains; **each domain commits its own truth** (D5 commits occurrences, D6 commerce, Identity resolution, etc.).
 - "Messaging CNS / Intake CNS / Charting CNS" (operator-internal workflow surfaces) = the **Messaging / Intake / D7 domain contracts**, coordinated by the operator CNS via the universal flow — **not** sovereign sub-CNS brains.
 
+**Build depth bar (Lens B; registry + thesis §3.5):** the *actual build* follows the **Tesla-autopilot pattern** (one CNS spine, domain slices, NO mini-brains) + **NASA/Houston mission-control** authority gates (telemetry-vs-command, go/no-go, escalation, audit; human commits) + **Salesforce/Zendesk** case→tasks orchestration (one interaction → many intents, shared engine, segregated governance). This is the build-facing comparator for CNS.
+
 ## §7 Cross-operator coordination (§7.8 — the inter-practice-efficiency answer)
 
 - **Default = passive coherence:** `care_coordination_owner` = OMNI Patient CNS. Observes across operators; signals gaps/conflicts/missing-follow-ups/duplicate-therapy (§12.7). Does NOT close loops.

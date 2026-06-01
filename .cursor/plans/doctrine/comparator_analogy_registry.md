@@ -115,6 +115,26 @@ The "how does OMNI compare to Amazon / Tesla / Epic / Shopify / Mindbody / NASA 
 
 Stripe · authorize.net · Adyen (PSPs) · Twilio · MessageBird · Bandwidth · Sinch (SMS/voice) · Resend · Postmark · SendGrid (email) · Expo (push) · SRFax (fax) · Quest · LabCorp · Olink (labs) · DoseSpot · Surescripts (Rx) · Zoom · Daily (video) · Google Calendar · iCal (calendar). **Rule:** vendor names are labels/adapters in `metadata.payment_rail.<provider>` / `lib/external-rails/<vendor>/`; never substrate enums, never coupling points (DL-13 + Cross-DL warning).
 
+## §F — Per-domain BUILD BARS (placed in each contract's §2, 2026-06-01)
+
+The global lens (above) is not enough for a builder — each domain contract carries its OWN build-facing depth bar (the comparator the actual build must match/beat). Placed 2026-06-01 so a future agent building a domain sees its bar in-contract, not just here:
+
+| Contract | Build bar (the comparator the build must hit) |
+|---|---|
+| **D3 Scheduling** | **Mindbody/Boulevard-class** scheduling depth Day 0 (NOT a Calendly clone) + airline/restaurant/Epic-OpTime composer patterns |
+| **D6 Commerce** | **Shopify-class** commerce/catalog/checkout + **Stripe-class** money-movement internals + ActiveCampaign/Klaviyo marketing edge |
+| **Messaging** | **better than Hims-async** Day 1 + **Klara/RingCentral-class** comms; quality bar = Slack-with-patient-context + Epic Secure Chat + iMessage |
+| **Intake** | **Hims-class** intake then beyond — the conversational AI-mediated triage wedge |
+| **Observation** | **Athena-lab-module-class** labs depth + FHIR/HL7/DICOM/LOINC + Quest/LabCorp ingestion |
+| **CNS** | **Tesla-autopilot** one-spine (no mini-brains) + **NASA/Houston** authority gates + Salesforce/Zendesk case→tasks |
+| **D5 Service Occurrence** | FHIR + Epic/Cerner + Amazon/airline/restaurant 3-layer (planned→actual→evidence); outpatient-EMR-class, not hospital-grade |
+| **Clinical Memory** | a **fraction of an EMR (~10% of Epic)** — assertion/current-truth/adoption layer + Apple HealthKit contributions-to-a-record |
+| **D7 Documents/Media/Consent** | clinical media (Canfield/VECTRA) + consent/e-sign + outpatient-EMR-class document/materialization (chart-as-projection) |
+| **Identity** | Mindbody-analogy (RIGHT shape) vs Epic-enterprise-everywhere (WRONG shape) for identity/relationship scoping |
+| **OFC (Ordered Fulfillment)** | Amazon fulfillment (order→fulfill→deliver→exceptions) — pending `REV-163` |
+
+Rule: a domain contract references the registry/§3.5 only via its own build bar — domain-relevant only, not the whole list (no noise).
+
 ## §E — Lens A product-scope collapse (canonical short form, thesis §1)
 
 OMNI collapses into one governed substrate what today takes a stack of siloed SaaS: **Hims/Ro** (DTC telehealth) + **Epic/Cerner/Athena** (EMR/records/orders) + **Shopify** (commerce/fulfillment) + **Mindbody/Boulevard** (scheduling/memberships) + **RingCentral/Klara/Twilio** (comms) + **ActiveCampaign/Klaviyo** (marketing) + **Oracle** (federation/tenancy) + **[future] Workday/ADP/Gusto + QuickBooks** (business-ops: workforce/payroll/accounting — see Business-Ops gap, `REV-164`). The win is shared identity/consent/authority/evidence, not feature parity with any one.

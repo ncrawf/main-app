@@ -33,6 +33,8 @@ Messaging owns the **message/conversation substrate (3 surfaces), the rail-agnos
 
 §7.7.2: *"One messaging substrate, many scoped conversation projections — not one global chat, not brand-only silos."* · per-event `channel_of_record` + `surface_of_record` (§7.5.1) · AI is a bounded participant: drafts, never autonomously sends (§12.8).
 
+**Build depth bar (Lens A/B; registry + thesis §3.5):** the *actual build* must be **better than Hims async messaging on Day 1** and **Klara/RingCentral-class comms depth** (rich media, daily-care workflows, external-line) — messaging-only competitors (Klara/OhMD) lack clinical depth; OMNI has it via the substrate underneath. Quality bar = **Slack-with-patient-context + Epic Secure Chat + iMessage** (rich rendering, read-state, attachments). This is the build-facing comparator for Messaging.
+
 ## §3 Ownership boundary
 
 **Owns:** the message/conversation substrate across DL-11's 3 surfaces; thread + participant lifecycle (DL-12); rail-agnostic outbound `outbound_job` + the deterministic 8-gate (DL-13); display-projection + scoped conversation projections (§7.7.2); the AI Response Assist *drafting flow* (draft only).

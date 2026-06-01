@@ -39,6 +39,8 @@ D6 owns **commercial + financial + entitlement truth**: catalog commercializatio
 
 §7.5.2 catalog substrate (catalog_item + projections + ownership fields, universal across operators). §7.5.3 patient-initiated commerce (buying ≠ operator role; `commerce_owner` = OMNI Store / brand / partner, never patient). **§7.3 commerce ≠ care_commitment** (purchases/diagnostic orders do NOT auto-create care_commitments; accountability attaches separately).
 
+**Build depth bar (Lens A/B; registry + thesis §3.5):** the *actual build* must be **Shopify-class commerce/catalog/checkout/fulfillment depth on Day 0** (variants, discounts, gift cards, packages, compositional checkout), with **Stripe-class money-movement internals** (idempotency, immutable audit, reconciliation, payment-state separated from order/clinical meaning), plus the **ActiveCampaign/Klaviyo-class** edge for lifecycle/marketing (marketing platforms are observers, never source-of-truth). Payment-method labels (Allē/Aspire/Cherry/CareCredit) are tenant catalog rows, NOT substrate enums. This is the build-facing comparator for D6.
+
 ## §3 Ownership boundary
 
 **Owns:** `pricing_option` + commerce variant + price; `commerce_order`+line (retail rail); the **financial-lifecycle / money-movement** layer (rail-agnostic payment state, reconciliation, adapters); `entitlement` + redemption; promo wallet (claim/intent/application); gift card; discount program; tax; revenue category; accounting basis; commission; cancellation/suspension fee policy + application; refund/void/credit/adjustment; attribution.

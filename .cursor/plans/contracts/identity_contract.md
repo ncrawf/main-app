@@ -27,6 +27,8 @@ Identity owns **who or what is being acted on, and how one human's identity rela
 
 Patient-source ≠ operator (§7.5.3); patient is ultimate authority over who treats them (§7.2); only humans occupy care-ownership roles — device/robot/external_system are actors but not owners (§7.2/§12.2); identity portability expands by explicit ladder pass, not drift (§11).
 
+**Build depth bar (Lens B; registry + thesis §3.5):** the *actual build* follows the **Mindbody-analogy = the RIGHT shape** (reusable identity + per-relationship scoped operational state) and explicitly **rejects the Epic-enterprise-everywhere = WRONG shape** (global auto-share on identity match). Consumer-marketplace / Mindbody-style cross-clinic discovery is deferred (ladder v2/v3). This is the build-facing comparator for Identity.
+
 ## §3 Ownership boundary
 
 **Owns:** `contact_identity`, `patient` (consumer identity), `patient_relationship`, `actor`, identity namespaces, identity-resolution/merge/linking.

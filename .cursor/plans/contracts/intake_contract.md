@@ -32,6 +32,8 @@ Intake owns the **construction, capture, and routing** of patient-source input: 
 
 §7.5.3: intake-emitted clinical claims enter substrate as **patient-source** (`source_authority = patient`, `patient_initiated = true`, `clinical_adoption_state = not_adopted`) — never auto-clinical-truth. Adoption is a downstream clinical-operator act (Clinical Memory + §7.5).
 
+**Build depth bar (Lens A/B; registry + thesis §3.5):** the *actual build* must match **Hims-class intake on Day 0** and then go **beyond** it via the **conversational AI-mediated intake/triage wedge** (`conversation_session → observation → extracted_assertion → clinician confirmation → selective materialization`) — versioned, reconstructable, atomized. This is the build-facing comparator for Intake.
+
 ## §3 Ownership boundary
 
 **Owns:** question-bank / modules / pathways (code-as-config, git-versioned, PR+CODEOWNERS); the **resolver** (pure fn over `SessionContext`); **branching predicates** (named, composable, testable); the **write-API dispatcher** + emission orchestration (`record_intake_emissions_batch`); the **atomization boundary** (`1K.0.5`); **version-pinning + reconstructability** (`branch_path_token`, pinned question/module/pathway/engine versions, `rendered_template_snapshot`); **answer reuse/freshness/re-prompting** (1K.5); **session lifecycle** + entry-moments (Mode E/F/J); the **intake-time deterministic clinical-safety pre-screen** (1K.7 — §7.1); the **deterministic scoring + derived-values layer** (1K.9 — §7.2); the **`treatment_plan_candidate`** provisional recommendation (1K.10 — §7.2); the **provider-review submission-packet assembly** (1K.12 — §7.2); **patient-source capture** posture (§7.5.3).

@@ -31,6 +31,8 @@ Observation owns the **structured measured value / signal substrate** and the **
 
 §8 universal flow: `observation` sits between `media_artifact` (D7) and `extracted_assertion` (CM); it is **pre-accountable substrate** (§1548 — left of the authorized_action threshold). §12.1: observation is structured/coded/temporal with provenance. §7.5.3: a measured value is patient/device-source data — `source_authority` preserved; not clinical truth until adopted.
 
+**Build depth bar (Lens A/B; registry + thesis §3.5):** the *actual build* must be **Athena-lab-module-class labs depth on Day 0** (panels, normalization, reference ranges, abnormal flags, trends) on **FHIR/HL7/DICOM/LOINC structured-ingestion standards**, ingesting **Quest/LabCorp** result feeds + wearable/CGM streams. This is the build-facing comparator for Observation.
+
 ## §3 Ownership boundary
 
 **Owns:** `observation` (structured measured value/signal); lab results (1L), vitals/trackables (1M), wearable/CGM/device telemetry streams, normalized diagnostic values; units / reference range / method / collection-time / result-time / received-time / abnormal-flag; **the ingestion-verification / data-QC state** (§5); measurement provenance (source device/lab/partner, performing facility).

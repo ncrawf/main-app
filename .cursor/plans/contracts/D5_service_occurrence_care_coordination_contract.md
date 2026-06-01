@@ -25,6 +25,8 @@ D5 owns the truth of **what actually happened / was actualized** in care and ser
 - **Candidate ≠ commit** (`D0W3D-GRD-002`): D5 emits candidates into CNS; only the owning domain commits.
 - **care_commitment is an accountability OVERLAY** (§7.3), not a parent — relationship landed here; full substrate queued.
 
+**Build depth bar (Lens B; registry + thesis §3.5):** the *actual build* validates against the **FHIR + Epic/Cerner + Amazon + airline + restaurant** three-layer convention (planned commitment → actual delivery → linked evidence/commerce) — **outpatient-EMR-class** actualized-work depth, NOT hospital-grade Epic. `service_occurrence`/`encounter_view` is the OMNI shape of that convention. This is the build-facing comparator for D5.
+
 ## 3. Ownership boundary
 
 **Owns truth for:** `service_occurrence` (canonical parent) · `service_occurrence_work_item` (atomic actualized work) · `service_occurrence_link` (typed lineage edges) · `encounter_view` (derived projection) · `care_episode` (longitudinal thread).

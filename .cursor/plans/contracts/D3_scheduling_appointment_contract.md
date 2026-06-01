@@ -34,6 +34,8 @@ D3 owns the **planned scheduling/appointment layer**: composing a booking (which
 
 Appointment = planned operational commitment (not actualized work, not the encounter). Per-event ownership: `status` vs `status_flags` vs `confirmation_state` are distinct, non-collapsing. Projection ≠ authority (status_flags are derived).
 
+**Build depth bar (Lens A/B; registry §A/§B + thesis §3.5):** the *actual build* must be **Mindbody/Boulevard-class scheduling depth on Day 0** (multi-resource booking, packages/memberships, recurring availability) — NOT a Calendly clone. Booking-composer patterns borrow from **airline** (fare-class = pricing variant of one service), **restaurant** (add-ons/modifiers/party-size), **hospital-OR / Epic-OpTime** (multi-axis atomic resource booking), **Calendly/Google-Calendar** (RRULE recurrence, round-robin pools). This is the build-facing comparator for D3.
+
 ## §3 Ownership boundary
 
 **Owns:** booking composition (4-axis), `appointment` + `appointment_item` lifecycle (13-state machine), `availability_window`, slot/hold lifecycle, `status_flags` *shape + projection discipline*, cancellation/no-show/reschedule/waitlist mechanics, confirmation round-trip (`appointment_confirmation_event`), `appointment_staff_note_entry`, appointment-layer participant/seat (K(C)).
