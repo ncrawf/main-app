@@ -168,7 +168,7 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 
 | source doc | domains fed | disposition | landed home | open-review |
 |---|---|---|---|---|
-| `audits/2026-04-30_privacy_communication_governance.md` (490-line privacy/comms governance) | Messaging · CNS · D7 · (RBAC) · (Settings) · (rules-engine) | **partially-placed** (3 drafted owners incorporated; 3 not-yet-drafted owners staged) | Messaging §6.1/§8 inv10-12/§9 (send-policy) · CNS §10.2 (6-step safety orchestration) · D7 §5 (typed consents + 6-toggle) | `REV-169` (RBAC consent-gate enforcement + Settings `pathway_sensitivity` staged; `REV-149` rules-engine declaration) |
+| `audits/2026-04-30_privacy_communication_governance.md` (490-line privacy/comms governance) | Messaging · CNS · D7 · (RBAC) · (Settings) · (rules-engine) | **partially-placed** (3 drafted owners incorporated; 3 not-yet-drafted owners staged). **Governing rules/objects/invariants incorporated into contracts; source examples/library + patch list retained in the audit doc as evidence — NOT transcribed, NOT lost.** | Messaging §6.1/§8 inv10-12/§9 (send-policy) · CNS §10.2 (6-step safety orchestration) · D7 §5 (typed consents + 6-toggle) | `REV-169` (RBAC consent-gate enforcement + Settings `pathway_sensitivity` staged; `REV-149` rules-engine declaration) |
 
 ## 4. Checkpoint / commit discipline
 
