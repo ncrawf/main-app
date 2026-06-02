@@ -55,6 +55,18 @@ Legend: ◆ Nick-seeded · ○ repo-evidenced candidate · type ∈ {dashboard, 
 | Analytics / Operating Intelligence | ○ | admin/owner | dashboard | `operating_metrics` projection (REV-174) | later | `surfaces/analytics_operating_intelligence_surface_contract.md` |
 | Support / Internal Inbox | ○ | support/ops | workspace | Messaging (external-line), Identity, D7, CNS | next | `surfaces/support_inbox_surface_contract.md` |
 
+### Operational / functional-module surfaces (P5 `workflow`/`app_surface` — the UX home for the core modules; TO CARVE in `REV-175`)
+
+The second flavor of P5 (vs the composite dashboards/consoles above): the interaction/UX design of the core functional modules, each coupled to ONE primary domain. These are **not yet carved** as surface contracts; their rich UX design notes already exist as **evidence** (listed) and must be **deposited** into these contracts in the `REV-175` sweep. Truth stays in the domain contract; the UX/flow/screens live here.
+
+| Module surface | Primary domain | UX design-note evidence to deposit | Status |
+|---|---|---|---|
+| **Scheduling / Booking flow** | D3 | `designs/day_0_scheduling_rule_matrix/*` (booking composer, appointment lifecycle, treatment menu) · `designs/2026-05-17_omni_scheduling_*` · future_care_obligations (neuromodulator/injectable-menu + booking-preset UX) · Mindbody appointments-grid raws (04/05) | ⏳ to-carve |
+| **Messaging / Thread** | Messaging | chat-rendering handoffs (`HANDOFF_2026-05-11_phase_4h_communications_c2_chat_rendering`, in-app-inbox C1/C2) · communications topology · confirmation round-trip UX | ⏳ to-carve |
+| **Intake Flow (patient-facing)** | Intake | `designs/2026-04-27_intake_construction_design` · `specs/conversion_funnel_modules_v1` · `specs/*_modules_v1` · intake coherence/free-text/mode-J audits | ⏳ to-carve (distinct from provider-side Intake Review Workspace) |
+| **Checkout / POS** | D6 | Mindbody POS raws (06/07/12) · DL-17 commerce · promo-wallet/entitlement-redemption UX (future_care_obligations §6/§7) | ⏳ to-carve |
+| **Charting / Encounter Closeout** | D5 / Clinical Memory | DL-20 closeout drawer · encounter/encounter_line UX · service_occurrence work-item UX | ⏳ to-carve |
+
 ## Projection index (P4)
 
 | Projection | Composes | Consumed by | Contract |
