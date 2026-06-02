@@ -146,6 +146,8 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 
 **Bidirectional method (one read, both axes of proof):** catalog/ledger = **NAVIGATION ONLY** (which docs are gem-rich, by domain). Then: **read each gem-rich source doc once (document-centric) → route every gem to a coverage row → verify per-domain by reading DOWN each domain's rows (domain-centric).** Cross-cutting docs (e.g. the privacy spine) are read once and routed to all their homes — which a pure domain-by-domain read would miss.
 
+**Integration bar (binding — NOT bolt-on; the whole point of the pull):** a gem is "incorporated" only when it is **worked into the contract's RIGHT section** so the contract reads as if it were authored knowing the gem all along. This means: **rework/restructure existing contract text** to absorb the gem natively; **remove or supersede stale contract material the gem conflicts with** (with a disposition note saying what/why); **never** append an orphan "addendum" line, a trailing "extracted from X" bullet, or a dumping section. Coherent and logical for future readers is the bar. (This is `D0THES-GRD-024` anti-Frankenstein applied at gem-pull granularity — a contract with bolted-on gem-lines is the same failure as a system-map with supersession banners over a stale body.) Cross-cutting gems split across their true owners; if an owning domain is not yet drafted (RBAC/Settings/Federation/AI), the slice is **staged in `08` against that domain's native draft**, not jammed into a drafted neighbor.
+
 **Coverage table = disposition only, NOT a mini-ledger or extraction dump (Knox):** each row is `source doc · domains-fed · disposition (incorporated/routed/stale/deferred) · landed home · open-review-if-deferred`. The actual doctrine lands in **contracts / seams / `08` / canonical homes** — never in the matrix. Table lives in this plan (no new drawer). Reading across a row proves the doc was fully mined; reading down a domain proves the contract is complete.
 
 **Gem-rich inventory (~60 docs, by cluster + primary domain tag):**
@@ -161,6 +163,12 @@ Rationale for order: foundation dependencies first (who/what is acted on → how
 **Acceptance bar (hard — Knox):** no domain is ratification-ready until every domain-tagged gem-rich source doc is **incorporated / routed / stale / deferred-with-reason**. "Read" ≠ enough. "Cataloged" ≠ enough. "Mentioned in a ledger" ≠ enough.
 
 **Domain risk order for the verify axis (Knox):** CNS → Messaging → D6 → CM → D7 → Observation → Intake → D5 → D3 → Identity (CNS/Messaging/D6 hide the most cross-cutting audit decisions).
+
+### Corpus-pull coverage log (disposition-only)
+
+| source doc | domains fed | disposition | landed home | open-review |
+|---|---|---|---|---|
+| `audits/2026-04-30_privacy_communication_governance.md` (490-line privacy/comms governance) | Messaging · CNS · D7 · (RBAC) · (Settings) · (rules-engine) | **partially-placed** (3 drafted owners incorporated; 3 not-yet-drafted owners staged) | Messaging §6.1/§8 inv10-12/§9 (send-policy) · CNS §10.2 (6-step safety orchestration) · D7 §5 (typed consents + 6-toggle) | `REV-169` (RBAC consent-gate enforcement + Settings `pathway_sensitivity` staged; `REV-149` rules-engine declaration) |
 
 ## 4. Checkpoint / commit discipline
 

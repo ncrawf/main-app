@@ -97,6 +97,19 @@ CNS consumes **authority-labeled, provenance-preserving layered context packets 
 
 An outstanding **`clinical_required` + `awaiting_response`** message turn (classification owned by Messaging §9) **BLOCKS** the orchestration permit for a prescribe / continuation commit on that `care_episode` (+ scoped work_item) when `metadata.blocks` intersects the intended permit → reject with stable reason (`messaging_awaiting_patient` / `messaging_awaiting_resolution`). This is a **safety gate** (provider cannot prescribe while a required patient response is open). Only a patient inbound, an audited staff resolution, or a deterministic policy clears it — **AI output NEVER clears it** (`D0W3B-GRD-003` + §8.3-style discipline). The classification flag is Messaging's; the *permit-assert* is CNS's; the *blocker surfacing* is D5 `care_state_view`. At most one open `clinical_required` turn per episode (dedupe).
 
+## §10.2 Safety / emergency communication orchestration (the 6-step deterministic flow)
+
+A `message_intent = safety` event drives a **deterministic 6-step orchestration sequence** (CNS owns the SEQUENCE; Messaging EXECUTES each send under its §6.1 content caps — safety-vague never raises the channel ceiling):
+
+1. **SMS vague companion** fires at tier_2 ("URGENT: please call our care team or open MAIN now") **regardless of patient SMS preference** — immediate.
+2. **Push header-only** ("Urgent provider message") if app installed — parallel.
+3. **Provider/staff phone-outreach SLA** starts (default 15-min for tier_5 urgent symptoms, 30-min for tier_4 critical-lab).
+4. **Email vague follow-up** ONLY if SMS bounced or no patient action in 30 min (conditional).
+5. **Routine-notification suppression window** — marketing/billing-reminder/education/non-urgent-operational SUPPRESSED for the patient during the active safety window (default 24h).
+6. **Window close** — on provider-documented resolution OR 24h elapsed with no further safety event; routine notifications resume.
+
+Each step emits an audit event (`safety.*` / `notification.*`); the whole sequence is a `cns_decision`-recorded `orchestration_run`. **Crisis carveout (future):** a pathway flagged `pathway_crisis_carveout` (mental-health/self-harm) routes urgent comms phone-first + 988 + on-call escalation, bypassing the standard 6-step. (Source gem: `audits/2026-04-30_privacy_communication_governance.md` Part 8; `REV-169`.)
+
 ## §11 trace_lineage / audit invariant (incorporates §B build-state)
 
 Every cross-scope/orchestration action carries **`trace_lineage`: `source_event_id → candidate_id → resolver_id → commit_id` (+ state_change / projection refs)** threaded through events/intake/messages/outbound/rules (the §B WP-EXEC-001 runtime). Plus `cns_decision` (DL-16 inv 30) appendable-not-mutable audit. This makes "which signal, which model_version, which resolver, which human commit produced this action?" always answerable. *(§B runtime code recovery is a bounded BUILD task, not this contract — `REV-148`.)*
@@ -123,6 +136,7 @@ Every cross-scope/orchestration action carries **`trace_lineage`: `source_event_
 | §1G patient action items (1G.11) | **place → §9 (`patient_action_item`)** | cross-episode pending-patient-input task |
 | §1G exception handling Stage 4/5 (1G.5) | **place → §9 (exception/escalation candidate)** | category ownership + escalation + auditable closure |
 | §1G case-ownership tuple + case-state read model + continuation + clinician continuity | **move → D5** (care_commitment owner / `care_state_view` / `care_episode`) | care-coordination truth, not orchestration |
+| privacy/comms 6-step safety/emergency orchestration (source `audits/2026-04-30_privacy_communication_governance.md` Part 8, `REV-169`) | **incorporated → §10.2** | CNS owns the sequence + routine-suppression window; Messaging executes sends under §6.1 caps; send-policy itself = Messaging §6.1 |
 
 ## §14 Seams
 
