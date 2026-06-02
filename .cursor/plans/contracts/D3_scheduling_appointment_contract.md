@@ -18,13 +18,13 @@ D3 is a deep multi-layer build arc (DL-20 situation) → FAC required before dra
 
 | Layer | Source | Disposition |
 |---|---|---|
-| **Controlling spine (LOCKED)** | DL-15 inv 1-35 (incl. amд 29-35) + DL-20 inv 33-34/38-40/42 | **clean-into-contract** — the canonical appointment substrate |
+| **Controlling spine (LOCKED)** | DL-15 inv 1-35 (incl. amd 29-35) + DL-20 inv 33-34/38-40/42 | **clean-into-contract** — the canonical appointment substrate |
 | **Freshest detailed design** | rule-matrix D2 (BC-*) + D3 (LC-*) + D4 | **AUTHORED, not closure-ratified** (only D5 reached Round-5 closure) → folded as elaboration under the LOCKED spine; non-closure noted (`REV-146`) |
 | **Design evidence** | Day 0 Build Contract `6dc1286` + pressure-test + operating model + brain audit + post-mortem + Mindbody appt raws | evidence (recognized, not copied) |
 | **Off-main code** | `lib/scheduling/{types,authority,trace}.ts` (d753a64, `CNF-011`) | **port authority-boundary + trace-lineage SHAPE** (§9); **supersede** stale 5-value `SchedulingState` enum (DL-15 13-state + DL-20 confirmation_state win); no behavior, no merge |
 | **Thesis v2** | appointment = planned operational commitment; per-event ownership | lens; consonant (adds, doesn't bulldoze) |
 
-No stale-vs-fresh inversion (DL-15 already absorbed amд 29-35). Thesis adds, no conflict → no stop-and-surface.
+No stale-vs-fresh inversion (DL-15 already absorbed amd 29-35). Thesis adds, no conflict → no stop-and-surface.
 
 ## §1 Purpose
 
@@ -49,21 +49,21 @@ Appointment = planned operational commitment (not actualized work, not the encou
 |---|---|
 | `appointment` (DL-20 inv 33) | planned operational/scheduling commitment; synchronous-trip container; carries `status`(13) + `status_flags`(bitmask) + `confirmation_state` + booking provenance + `fulfillment_encounter_id` |
 | `appointment_item` (DL-20 inv 34) | planned line under appointment (1-to-N); `planned_details` JSONB canonical; sequence/add-on/bundle support |
-| `availability_window` (DL-15 amд 34-35) | **4-axis** (What `services[]` / Where `venue_ids[]` / When `recurrence_rule` / Other-Privacy `booking_visibility`+`patient_visibility`+`auto_release`); `availability_kind` recurring / one_time_override / blocked_time; `override_supersedes_recurring` |
+| `availability_window` (DL-15 amd 34-35) | **4-axis** (What `services[]` / Where `venue_ids[]` / When `recurrence_rule` / Other-Privacy `booking_visibility`+`patient_visibility`+`auto_release`); `availability_kind` recurring / one_time_override / blocked_time; `override_supersedes_recurring` |
 | `service_policy` + `service_policy_eligibility_gate` (DL-19 — **Settings/Catalog-owned DEFINITION; D3 evaluates, does NOT own**) | axis-composition flags + per-(service,modality,requirement_kind) gates; **5 gate-timings** (booking_visibility / booking_hard_gate / pre_arrival_task / pre_performance_gate / closeout). D3 *applies* these at booking time; canonical definitions live in Settings/Catalog (`SC-SET-D3-001`) |
-| `staff_service_assignment` (DL-15 amд 31) | **3-component block**: `prep_time` + `booking_time` + `finish_time` (per staff per service); patient sees booking_time only; resource lock spans all 3 |
+| `staff_service_assignment` (DL-15 amd 31) | **3-component block**: `prep_time` + `booking_time` + `finish_time` (per staff per service); patient sees booking_time only; resource lock spans all 3 |
 | `room_service_compatibility` / `resource_service_compatibility` | room/device axes for the 4-axis composer |
 | slot / hold | `slot_offered` → `slot_held` (per-class TTL) → `appointment_booked`; live-state reval gates hold→book |
 | `appointment_confirmation_event` (DL-20 inv 40) | CNS round-trip confirmation (outbound/inbound/classification/state-transition); references messaging/orchestration/cns_decision by FK; AI never silently flips state |
 | `appointment_staff_note_entry` (DL-20 inv 39) | append-only staff notes, `note_kind` discriminator |
 | `appointment_participant` + `appointment_seat` (DL-20 inv 42, K(C)) | multi-participant + seat reservation (group/caregiver/guest) |
 
-**Axes/enums preserved:** `service_type` (appointment / arrival / class / course / membership; DL-15 amд 32) · `pricing_option_scheduling_restrictions` (5: max_sessions_per_period / disallow_consecutive_days / daily_max_count / day_of_month_opens / time_access_window; DL-15 amд 33) · booking provenance decomposed into `booking_channel` + `attribution_source` + `trigger_source` (DL-20 inv 33).
+**Axes/enums preserved:** `service_type` (appointment / arrival / class / course / membership; DL-15 amd 32) · `pricing_option_scheduling_restrictions` (5: max_sessions_per_period / disallow_consecutive_days / daily_max_count / day_of_month_opens / time_access_window; DL-15 amd 33) · booking provenance decomposed into `booking_channel` + `attribution_source` + `trigger_source` (DL-20 inv 33).
 
 ## §5 Lifecycle / state model
 
-- **`status` (13-state, DL-15 inv 5 + amд 8):** proposed → held → hold_expired → **scheduled** → scheduled_pending_deposit → checked_in → in_progress → completed → cancelled → no_showed → rescheduled → disputed → archived. State-machine-validated; illegal → `illegal_transition_attempted` audit.
-- **`status_flags` (BITMASK, 16 flags, DL-15 amд 29) — DERIVED, orthogonal to `status`.** Compose independently within a lifecycle state.
+- **`status` (13-state, DL-15 inv 5 + amd 8):** proposed → held → hold_expired → **scheduled** → scheduled_pending_deposit → checked_in → in_progress → completed → cancelled → no_showed → rescheduled → disputed → archived. State-machine-validated; illegal → `illegal_transition_attempted` audit.
+- **`status_flags` (BITMASK, 16 flags, DL-15 amd 29) — DERIVED, orthogonal to `status`.** Compose independently within a lifecycle state.
 - **`confirmation_state` (DL-20 inv 33, D4-owned) — SEPARATE from `status`.** `scheduled` = slot committed; `confirmed` = patient acknowledged. Orthogonal.
 
 ## §6 Booking composer (4-axis, atomic)
@@ -97,12 +97,12 @@ Preserve the boundary + lineage SHAPE (the one valuable thing in the off-main st
 | Prior decision / primitive | Disposition | Note |
 |---|---|---|
 | DL-15 inv 1-28 (slot/hold/book, 13-state, waitlist, deposit-coupling, multi-resource, clearance, reval, jurisdiction, concurrency, audit) | **preserve (LOCKED spine)** | §4-§8 |
-| DL-15 amд 29 status_flags BITMASK (16 flags) | **preserve** | §5/§7 (DERIVED) |
-| DL-15 amд 30 4-axis composer + encounter_profile_policy | **preserve** | §6 |
-| DL-15 amд 31 3-component prep/booking/finish | **preserve** | §4 |
-| DL-15 amд 32 service_type enum (5) | **preserve** | §4 |
-| DL-15 amд 33 pricing-option 5 scheduling restrictions | **preserve** | §4 |
-| DL-15 amд 34-35 availability_window 4-axis + recurring/override | **preserve** | §4 |
+| DL-15 amd 29 status_flags BITMASK (16 flags) | **preserve** | §5/§7 (DERIVED) |
+| DL-15 amd 30 4-axis composer + encounter_profile_policy | **preserve** | §6 |
+| DL-15 amd 31 3-component prep/booking/finish | **preserve** | §4 |
+| DL-15 amd 32 service_type enum (5) | **preserve** | §4 |
+| DL-15 amd 33 pricing-option 5 scheduling restrictions | **preserve** | §4 |
+| DL-15 amd 34-35 availability_window 4-axis + recurring/override | **preserve** | §4 |
 | DL-20 inv 33-34 appointment / appointment_item | **preserve (moved D5→D3)** | §4 |
 | DL-20 inv 38-40 participant / staff_note / confirmation_event | **preserve (moved D5→D3)** | §4 |
 | DL-20 inv 42 K(C) participant/seat | **preserve** | §4 |
