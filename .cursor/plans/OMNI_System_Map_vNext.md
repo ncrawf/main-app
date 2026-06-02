@@ -42,6 +42,7 @@ Domains below are **ownership surfaces** (who owns which truth). They are thread
 - One owner per fact; everyone else references it. (control plane)
 - **Payload-noun ≠ domain; decompose-before-naming.** (`D0THES-GRD-026`; thesis §3.5)
 - Candidate ≠ commit; AI proposes, owning domain commits. (`D0W3D-GRD-002`)
+- **4-way authority composition (mantra; none replaces the others):** **Federation** admits cross-boundary *possibility* · **RBAC** decides actor *capability* (+ attestation + consent-gate) · the **owning domain** decides the *commit* · **CNS Meta** *enforces/audits*. (RBAC §5; Federation §5)
 - Projection ≠ authority. (`T0-15`, DL-16 inv 19)
 - Per-event ownership dimensions do not collapse. (`T0-13`, thesis §7.5.1)
 - Patient-source ≠ clinical truth until clinical adoption. (thesis §7.5.3)
