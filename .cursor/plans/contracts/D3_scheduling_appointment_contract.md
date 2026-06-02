@@ -2,7 +2,7 @@
 
 Document type: `domain_contract` (build-facing canonical truth for one domain)
 Authority: `canonical` for the planned scheduling/appointment layer (booking composer + appointment lifecycle + confirmation outbound)
-Status: `draft_for_ratification` (created 2026-05-30, Foundation vNext; domain pass #3; Nick + Knox review gate) · **legacy-scatter backfill done 2026-06-01** (grepped legacy map outside DL-15: §1G.7 provider-routing → Workforce `REV-164`/`SC-WF-D3-001`; DL-3 discriminant-locality → §7.10; class/waitlist-engine → Layer-3 `REV-165`; DL-5/DL-6 depth → §2/§6)
+Status: `draft_for_ratification` (created 2026-05-30, Foundation vNext; domain pass #3; Nick + Knox review gate) · **legacy-scatter backfill done 2026-06-01** (grepped legacy map outside DL-15: §1G.7 provider-routing → Workforce `REV-164`/`SC-WF-D3-001`; DL-3 discriminant-locality → §7.10; class/waitlist-engine → Layer-3 `REV-165`; DL-5/DL-6 depth → §2/§6) · **corpus gem-pull (scheduling cluster) done 2026-06-01** (D3 owns PLANNED side; 2026-05-17 operating-model encounter-container framing = superseded pre-rule-matrix evidence; 27+45 workflow scenarios = build-validation corpus §10; map-change = none)
 Domain(s): `d3_scheduling`, `appointment`, `booking`, `confirmation`
 Lifecycle role: the TERRITORY for **planned** scheduling — how an appointment is composed, moves through its lifecycle, and gets confirmed. Hands off to D5 (actualized work) at check-in via `SC-D3-D5-001`.
 Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.plan.md` §1.5 from the FULL appointment arc (embedded FAC §1.5 below). **Controlling spine = DL-15 inv 1-35 (LOCKED) + DL-20 inv 33-34/38-40/42 (appointment substrate)**; elaborated by rule-matrix `day_0_scheduling_rule_matrix/` D2 (BC-*) + D3 (LC-*) + D4 + Day 0 Build Contract (`6dc1286`); off-main `lib/scheduling/*` authority-boundary shape ported (stale enum superseded). Method/boundaries per `00_architecture_artifact_index.md`.
@@ -114,6 +114,8 @@ Preserve the boundary + lineage SHAPE (the one valuable thing in the off-main st
 | legacy DL-3 sibling-discriminant locality | **preserve as invariant** | §7.10 |
 | legacy DL-5 Mindbody-class depth + DL-6 scheduling-depth non-foreclosure (single/multi/equipment-gated/waitlist) | **preserve** | depth bar §2; 4-axis composer §6 admits all four depths without rewrite |
 | legacy Layer-3 deferral: full **class scheduling** + **waitlist engine** | **substrate hooks present, depth deferred** | `service_type=class` + waitlist mechanics (§4) are hooks; auto-fill/optimization engine is Layer-3 (`REV-165`) |
+| 2026-05-17 scheduling operating-model/pressure-test `encounter_container`/`encounter_profile` parent framing | **superseded (pre-rule-matrix layer)** | D3 owns the PLANNED side (`appointment`); the actualized parent = D5 `service_occurrence` (not `encounter_container`); collapse-zone held by inv 2 (appointment ≠ encounter). Durable scheduling concepts already carried via the rule-matrix D2/D3/D4 spine |
+| 27+45 scheduling workflow scenarios (operating-model §5 / pressure-test) | **preserve as build-validation corpus** (evidence) | the booking/lifecycle/cancellation/no-show/reschedule/waitlist/recurring/package validation suite for D3 build; not contract text |
 
 ## §11 Seams
 
