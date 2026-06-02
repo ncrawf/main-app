@@ -9,6 +9,7 @@ Lifecycle role: the MONEY + ENTITLEMENT truth — what was sold, what it grants,
 Source-of-truth relationship: distilled per `foundation_vnext_reconciliation.plan.md` §1.5 + §2 step-1 (legacy-map grep). Compiles: **DL-17** (38-invariant commerce spine) + **§1E** (retail/clinical rail separation + catalog/checkout) + **§1I** (financial lifecycle / payment rails / reconciliation / Stripe-v1) + **§1J.9** (commerce authority) + **§1K.11** (checkout authorization) + **§12** (commerce↔lab_orders money-ownership) + thesis §7.5.2/§7.5.3/§7.3 + shipped code.
 Supersedes: DL-17 + legacy §1E/§1I/§1J.9/§1K.11/§12 as the build-facing commerce artifact (→ evidence)
 Superseded by: none · Manifest action: `add_tier1` · Review gate: `user_knox_required`
+**Corpus gem-pull (commerce/marketing cluster) done 2026-06-01:** commerce (DL-17/§1E/§1I) already consolidated here + verified; **marketing decomposed (NOT a domain, `GRD-026`)** — D6 owns only the commercial slice (promo/discount/attribution/supplement, §4/§6); campaign orchestration → CNS §9.3; send → Messaging; consent → D7/RBAC; segmentation = projection (`REV-170`). map-change = none.
 
 ---
 
@@ -96,6 +97,7 @@ Spine (§4) + money-movement state + `payment_method` (tenant free-form label + 
 | shipped `lib/commerce/*` + intake commerce/treatment/subscription writes + orders_lifecycle migration | **preserve (build-state)** | reconcile at Build Reconciliation (`REV-152`-class) |
 | insurance/Medicare/HSA-FSA mechanics | **defer (v0)** | `REV-159`; D6 is the future home, not solved now |
 | DL-17 Q-gates (package-vs-contract, financing) | **carry forward** | `REV-160` |
+| marketing/growth-orchestration suite (`marketing_lifecycle_growth_orchestration` + `marketing_system_pressure_test`) | **decompose — D6 owns only the COMMERCIAL slice** | D6 OWNS: promo wallet / `discount_program` / `attribution_line` (Invariant 19 attribution = source of truth) / supplement standalone-commerce (retail rail §6) — all already in §4/§6. D6 does NOT own: campaign orchestration (CNS §9.3) · send (Messaging) · offer catalog (Settings) · consent (D7/RBAC). **Marketing is not a domain (`GRD-026`); marketing platforms = observers.** |
 
 ## §11 Seams
 
