@@ -34,6 +34,18 @@ OMNI's truth plane (14 domain contracts + System Map) answers *where canonical t
 4. **Distributed truth, unified surface** (the Tesla/Amazon pattern): a coherent operator/patient experience composed over separate truth owners — not a blob.
 5. **No surface forks by alias.** "Provider dashboard / profile / workspace" are not 3 surfaces unless intentionally split; aliases tracked in the index.
 
+## Surface KINDS + composition (how P5 is organized — NOT a flat list)
+
+A serious org groups surfaces by persona workspace + factors out shared workflows (Salesforce apps+flows, Amazon buyer/seller experiences + shared checkout). OMNI uses **surface kinds**, and the map encodes the composition hierarchy (no rigid file-tree, no flat namespace):
+
+- **Workspace surface** = an authenticated persona container; **composes** workflow surfaces + projections. (Patient App · Provider Workspace · Admin/Ops Console · Owner/Executive View · Marketing/Growth Workspace · IT Console · Workforce Intelligence.)
+- **Workflow surface** = a reusable cross-context flow, instantiated inside ≥1 workspace with **persona-scoped variants** (NOT forked per workspace). (Booking · Messaging Thread · Intake Flow · Checkout/POS · Charting/Closeout.)
+- **Public / content surface** = unauthenticated brand/marketing layer (brand sites, landing pages, public booking-link pages — the WordPress-layer; different rules: no-auth, SEO, content/CMS, edge consent capture). *(Future 4th kind: embedded/partner surfaces rendered inside a partner-operator context — Federation-flavored, deferred.)*
+
+**Promotion rule (when a workflow earns its own contract):** reused across ≥2 workspaces, OR crosses many domains, OR carries material UX/safety/authority risk. Otherwise it's a section inside its workspace contract. **Anti-fork:** a shared workflow is ONE contract with per-persona variants (booking-as-patient / booking-as-staff / booking-as-provider = variants, not 3 surfaces) — same discipline as the provider profile/workspace/task aliases.
+
+**Reconciliation owed (`REV-175`):** the index below was drafted before this taxonomy; several entries are mis-cast — `provider_task_workspace` + `intake_review_workspace` = workflows *inside* Provider Workspace; `conversion_funnel` = a workflow *inside* Patient App; `ops_command_center` likely folds into Admin/Ops. Reclassify into Workspace vs Workflow vs Public at the alias-merge step. (Nick + Knox 2026-06-02.)
+
 ## Surface index (P5)
 
 Legend: ◆ Nick-seeded · ○ repo-evidenced candidate · type ∈ {dashboard, console, profile, workspace, app_surface}. Confirm/extend at the review gate — the non-obvious set is Nick's to finalize; ambiguous gems land in `surfaces/_surface_inbox_unassigned.md`, not a guessed surface.
