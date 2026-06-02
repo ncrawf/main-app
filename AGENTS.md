@@ -59,7 +59,8 @@ No architecture / doctrine / build / work-package stops without a Protocol §9 s
 ## OMNI Operating References
 
 - **Operator Profile + Collaboration Model — `.cursor/plans/doctrine/operator_context_and_collaboration_model.md` (read FIRST)**
-- System Map — `.cursor/plans/OMNI_System_Map_vNext.md` (canonical, emerging) + domain contracts in `.cursor/plans/contracts/`; legacy `.cursor/plans/system_map_three_layers_60706286.plan.md` (transitional evidence + un-migrated appendices)
+- System Map (P1 Truth plane) — `.cursor/plans/OMNI_System_Map_vNext.md` (canonical, emerging) + domain contracts in `.cursor/plans/contracts/`; legacy `.cursor/plans/system_map_three_layers_60706286.plan.md` (transitional evidence + un-migrated appendices)
+- **Surface + Projection Map (P5 Surface + P4 Projection planes)** — `.cursor/plans/OMNI_Surface_Map_vNext.md` (how humans see/operate truth + how truth is composed for viewing) + `.cursor/plans/surfaces/` (surface contracts) + `.cursor/plans/projections/` (read-model contracts). Surfaces/projections own NO canonical truth (`D0THES-DEC-033`). The 7-plane taxonomy (P0-P6 + evidence) lives in the Surface Map header.
 - Coordination Charter — `.cursor/plans/doctrine/00_omni_coordination_charter.md`
 - Architecture Memory Control Plane — `.cursor/plans/doctrine/00_architecture_memory_control_plane.md`
 - Agent Work Protocol — `.cursor/plans/doctrine/agent_work_protocol.md`

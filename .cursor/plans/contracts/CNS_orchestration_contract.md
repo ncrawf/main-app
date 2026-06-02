@@ -101,6 +101,14 @@ The deterministic surface that turns coordination into governed actions/communic
 
 "Marketing" is a **payload/use-case, not a domain** — it decomposes across the operating model, and its orchestration brain is **CNS** (legacy §1Q.21 = a sub-area of the rules/templates engine, §9.2). CNS owns the **campaign orchestration**: `campaign_definition`/`campaign_step`/`CampaignBranch` (a drip **state-machine**, code-as-config in `repo/campaigns/` — analogous to the rules engine, `REV-149` family), the **11-tier campaign priority + collision-resolution** (incompatible campaigns MUST exit), and **cadence/burnout caps + cooldowns** (hard-capped; an adverse-event/safety window **suppresses** routine marketing — §10.2). The rest is owned elsewhere (decompose-before-naming): **send/execution** → Messaging (8-gate + send-policy §6.1/§6.2) · **promo/offer/discount/attribution/supplement-commerce** → D6 (§4: promo wallet, `discount_program`, `attribution_line`) · **offer/campaign catalog** → Settings · **marketing consent + privacy-safe UTM/copy** → D7 consent + RBAC gate + send-policy (`REV-169`) · **segmentation / lead-state / cohorts = DERIVED projection** (NOT a stored marketing data store) · **contact email/phone/address changes** → Identity (handle-vs-person). **Marketing platforms (ActiveCampaign/Klaviyo) are observers, never source-of-truth.** Home of the campaign engine (CNS sub-area vs part of the rules-templates-policy engine) = `REV-170`. (Source: `marketing_lifecycle_growth_orchestration` + `marketing_system_pressure_test`; ~80 templates + 18 campaign types + scenario set = build-validation corpus, evidence.)
 
+### §9.4 Workforce Intelligence — `workforce_operating_context` (the workforce-subject projection; `REV-173`)
+
+Thesis §8 admits **workforce-as-subject**: the same Sense / observe / context machinery serves the OPERATORS (providers / front desk / ops / marketers / management), not only patients. CNS assembles the **`workforce_operating_context`** — the unified workforce projection/profile, the workforce-subject counterpart to the patient `context_packet` (§9.1) — built on the **same machinery but NOT equivalent: different authority, privacy, and purpose-of-use constraints (staff context ≠ patient context; never conflate).** It **references, never owns** — composing Identity (person) + Federation (license) + RBAC (capability) + BIZOPS (`workforce_intelligence_state` / employment / comp-tier / operational-state) + D7 (signed artifacts) + Settings (requirements) + D3/D5/D6 (schedule/work/sales evidence). **Provider / admin profiles are instances of this projection (actor-scoped), NOT domains.** This is the Tesla/Amazon pattern (distributed truth, one unified surface), not a back-office silo.
+
+**AI workforce coaching/intervention (recognized now; detailed substrate DEFERRED → AI #12):** CNS/AI may OBSERVE the `workforce_operating_context` and PROPOSE coaching/interventions ("your Botox conversion is down," "next comp tier requires X," "blocked from laser until competency complete," "this month's promo — how to sell it"), deployed to staff via Messaging. **AI proposes, never commits (§12.8)** — same discipline as patient-facing. The concrete coaching/intervention substrate is owned by the AI/Model-Lineage pass (#12); CNS recognizes the capability + the projection now, no more.
+
+**Weight discipline (binding):** Workforce Intelligence is a **SUPPORTING** organism layer (proof-of-organism, not a pillar) — present enough that agents don't forget it, never prominent enough to reweight the patient/service/commerce engine.
+
 ## §10 The universal CNS flow (DL-14/16; invariant)
 
 `source_event → media_artifact → observation → extraction (AI/rule; model_version+capability_envelope pinned §12.8) → extracted_assertion (candidate) → patient/clinician review (HUMAN; substrate-vs-care boundary) → committed assertion → context_packet update → candidate (prescribe/message/schedule/escalate/coordinate) → policy_resolver → authorized_action (HUMAN-committed; owning-domain) → execution → output → evidence_record → feedback`. CNS is invariant; modalities (form/lab/wearable/voice/message/etc.) are interchangeable at the boundary. **AI participates at extraction/candidate (non-authoritative); humans + owning domains commit.**
@@ -152,6 +160,12 @@ Every cross-scope/orchestration action carries **`trace_lineage`: `source_event_
 | rules/templates engine framework (source `audits/2026-04-30_rules_templates_framework.md`) | **principle + 7-stage incorporated → §9.2** (provisional CNS substrate) | four-layer principle + execution order placed; full Rule/Template schemas + own-domain decision = `REV-149`; template-render→Messaging §6; AI-refinement→AI #12 |
 | marketing/growth-orchestration suite (source `marketing_lifecycle_growth_orchestration` + `marketing_system_pressure_test`; legacy §1Q.21) | **decomposed → §9.3** (campaign orchestration = CNS); NOT a marketing domain (`GRD-026`) | send→Messaging · promo/discount/attribution/supplement→D6 · catalog→Settings · consent/UTM→D7/RBAC (`REV-169`) · segmentation=projection · contact-changes→Identity; campaign-engine home = `REV-170` |
 
+### §13.1 Workforce Intelligence disposition
+
+| Prior decision / primitive | Disposition | Note |
+|---|---|---|
+| Workforce Intelligence / `workforce_operating_context` (thesis §8 workforce-as-subject; `REV-173`) | **place → §9.4** (workforce-subject projection; references-never-owns; same machinery as `context_packet`, different constraints) | BIZOPS owns WI-state; Settings defines; D7 artifacts; RBAC competency-gate; AI coaching DEFERRED → #12; provider/admin profiles = projections (not domains); SUPPORTING layer (weight discipline) |
+
 ## §14 Seams
 
 - Inbound to CNS: every domain emits source_events/candidates (D3 `appointment.checked_in`→`SC-D3-D5-001`; messaging escalation; intake submission; lab/Rx events).
@@ -164,6 +178,7 @@ Every cross-scope/orchestration action carries **`trace_lineage`: `source_event_
 - `REV-148` §B trace_lineage runtime recovery (build task) + remaining parking-branch reconciliation.
 - LI doctrine re-verification vs current Tier-0 + thesis v2 (evidence → limited-use authority) before any LI claim binds.
 - `REV-141` full care_commitment substrate + `REV-142` Alec longitudinal loop both run THROUGH CNS (Patient-CNS signals → operator commit).
+- `REV-173` Workforce Intelligence: `workforce_operating_context` projection placed here (§9.4); the AI coaching/intervention substrate (observe workforce → propose, never commit; deploy via Messaging) resolves at the **AI/Model-Lineage pass #12**; provider/admin profiles = actor-scoped projections (not domains). `REV-174` (Operating Intelligence / Analytics Projection layer) stays a sweep item.
 
 ## §16 Evidence sources
 

@@ -2979,6 +2979,16 @@ flowchart TB
 
 **Output modalities** — same universal exit chain through `authorized_action` → `execution` → rail/surface adapter → `delivery_receipt`. All commits are HUMAN-authored per §12.8.
 
+### Workforce-as-subject — the organism observes its operators, not only its patients (NEW; founder-grade, weight-calibrated)
+
+Everything above takes the *patient* as the subject of the machinery. A consequence of the substrate's generality — and a deliberate claim — is that **the same Sense / observe / contextualize / coach machinery also applies to the workforce: providers, front desk, ops, marketers, management.** They are not merely "users with logins"; they are **actors-with-context** inside the organism — with state (employment, competency, training completion, attestation, comp tier), authority (what they may perform / sell / prescribe / earn), performance evidence (treatments, sales, utilization, Rx/retail patterns), and coaching context (what guidance they need next).
+
+This is **proof-of-organism, not a new pillar.** Core OMNI remains patient care + scheduling + occurrence + commerce + messaging + evidence + consent + follow-up; the workforce layer is a **supporting** organism layer that helps the humans operate the system safely and effectively (the 50-question laser-competency gate is real, but it is downstream of getting the appointment, consent, charge, and follow-up right). It earns thesis ink because the *capability* — running the same governed machinery over the operators — is exactly what a 2035-grade care OS does and a 2015-grade EMR cannot.
+
+**The mechanism is shared; the constraints are not.** The workforce context surface uses the **same machinery** as the patient `context_packet` but is **NOT equivalent to it** — staff context carries **different authority, privacy, and purpose-of-use constraints** (staff context ≠ patient context; never conflate the two). The workforce's truths stay distributed across their owners (employment/competency state → BIZOPS; definitions → Settings; signed artifacts → D7; authority gates → RBAC; performance evidence → D3/D5/D6; coaching → CNS/AI, which *proposes, never commits* per §12.8) and compose into one unified surface (`workforce_operating_context`) that **references, never owns** — the Tesla/Amazon pattern (distributed truth, unified surface), not a back-office silo.
+
+**Market gap (operator truth):** the inability to organize a team and observe its work — training, competency-gating, policy attestation, comp-tier coaching, productivity context — is the vastly under-served glue of real small/medium businesses, ignored across the Mindbody / Epic / Hims realm. OMNI can do it because it sees care, commerce, scheduling, and workforce on one substrate. (Recognized capability: **Workforce Intelligence**; `D0THES-REV-173`. Weight discipline: present enough that agents don't forget it, never prominent enough to distract from the patient/service/commerce engine.)
+
 ---
 
 ## §8.5 Multi-actor deliberation as a care mode (NEW)

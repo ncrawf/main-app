@@ -73,6 +73,7 @@ Eligibility requirements (consent/intake/clearance/age/license/jurisdiction/prio
 - **`SC-SET-D3-001`** Settings → D3: service catalog + `service_policy`/gate + **compatibility (service↔room/resource, service↔staff eligibility, §4a)** DEFINITIONS (D3 evaluates at booking + owns `staff_service_assignment` timing/locks; venue-level compatibility = Federation; `REV-147` + boundary-confirm at D3 ratification).
 - **`SC-SET-D6-001`** Settings → D6: `catalog_item` definition → `pricing_option` commercialization (D6 prices).
 - **`SC-SET-MSG-001`** Settings → Messaging: `pathway_sensitivity` + outbound-comm overrides (Messaging computes send-policy §6.1).
+- **`SC-SET-BIZOPS-001`** Settings → BIZOPS (Workforce Intelligence, `REV-173`): training-module / quiz (+passing-score/version/retake/expiration) / policy-doc / dress-code / competency-requirement / comp-tier-criteria / promo-playbook **DEFINITIONS** (config-as-code `catalog_item`/registry kinds). BIZOPS measures `workforce_intelligence_state` against them; D7 stores the signed artifacts; RBAC gates. **Settings defines, never owns the state** (anti-junk-drawer §3).
 - **Settings ↔ Federation:** Settings HOSTS `federation_permeability_policy` values; **Federation defines the cross-operator meaning/shape + Tier-4 admission** (Federation §3; Settings must NOT reinterpret it as mere tenant config). **Binding even at the code level (Knox):** when the policy object physically lives in a settings table, its **semantic owner is still Federation** — storage location ≠ ownership; a future Settings implementation may NOT degrade a federation permeability policy into a tenant preference because it happens to be row-stored in settings.
 - **Settings ↔ RBAC:** every settings_path write gated by `settings.edit_*` atom + (for floors/high-risk) Tier-3/4 attestation (RBAC §6); doctrine-floor downgrades rejected at write.
 - **Settings ↔ labs/Observation:** `catalog_item_kind=lab_panel` (the §1L panel-as-catalog-item half).
@@ -91,6 +92,7 @@ Eligibility requirements (consent/intake/clearance/age/license/jurisdiction/prio
 | `federation_permeability_policy` | **HOST values; Federation owns meaning** (inv 22) | Knox boundary; §3 / §7 |
 | campaign/rule/template config (marketing/REV-149/170) | **host config locations; engine owns logic** | not the firing engine |
 | catalog item / service policy = D3 evaluation / D6 pricing | **NOT owned here** (anti-junk-drawer) | Settings defines shapes only |
+| Workforce Intelligence DEFINITIONS (training/quiz/policy/competency/comp-tier; `REV-173`) | **own DEFINITIONS** (config-as-code catalog/registry kinds) | BIZOPS owns the STATE; D7 the artifacts; RBAC the gate; CNS/AI the coaching — Settings defines only |
 
 ## §9 Open items (→ `08`)
 

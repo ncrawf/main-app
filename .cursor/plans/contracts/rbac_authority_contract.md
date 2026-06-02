@@ -52,6 +52,8 @@ RBAC owns **the authority/capability/attestation substrate**: the granular permi
 
 **6-layer authorization resolution (RBAC's piece; DL-18 inv 5; first DENY blocks; absence = default-deny):** (1) brand-capability enabled · (2) staff active · (3) required attestation present (§6) · (4) explicit-deny grant · (5) explicit-allow grant · (6) per-staff capability flag (most specific). Re-run at **emission AND execution** (DL-16 inv 10; defense-in-depth) — UI hiding ≠ enforcement (§8).
 
+**Competency-gating (composed input; Workforce Intelligence `REV-173`):** a registered action MAY declare `requires_competency` — the actor's `workforce_intelligence_state` (BIZOPS) must carry the active competency/attestation. This is a **fourth composed input to the capability decision, distinct from the RBAC grant and the Federation license:** a provider may hold the `clinical.perform_laser` atom AND a valid license yet still be blocked solo until the BIZOPS laser-competency is active. So "can perform solo / earn laser commission" = role-capability (RBAC) AND license (Federation) AND **competency/attestation (BIZOPS)** AND consent-gate — composed; D3/D5/D6 enforce downstream. **RBAC reads the competency state (BIZOPS owns it; Settings defines the requirement; D7 holds the signed artifact); RBAC never stores training/competency.**
+
 ## §6 Attestation tiers + break-glass (DL-18 inv 8/9/12; the staged 4-tier + teeth)
 
 **4-tier authorship/attestation** (each registered action declares `requires_authorship_tier`): **T1 authorship_only** (FYI; all actor_kinds; no attestation) · **T2 reason_coded** (e.g. cancellation/policy override, sensitive read — `attestation.reason_code`; Day-1 seed = the shipped `SensitiveAccessReason` 6-enum) · **T3 dual_approval** (e.g. refund>threshold, ICD modify, **data-privacy unmask** — two independent attestation envelopes, co-attestor ≠ first) · **T4 provider/owner signature** (Rx, encounter closeout, lab order, **federation permeability change** — `provider_signature` with `signed_with_credential_kind` ∈ {dea_signature/legal_entity_owner_signature/webauthn/password_re_auth} + evidence hash). Attestation envelopes are immutable (hash-chained, DL-16 inv 38), 1:1-bound to the action they authorize.
@@ -99,6 +101,7 @@ RBAC/Boundary-Policy owns **the gate, not the record**: for an action that requi
 - **RBAC ↔ Settings (DL-19):** editing a settings sub-page requires `settings.edit_*` atoms (inv 23).
 - **RBAC ↔ CNS Meta:** the Network Governance Plane enforces/audits over RBAC resolution; CNS calls RBAC at action emission.
 - **RBAC ↔ D6 / Clinical-Memory:** high-liability commerce mutations (refund/void/write-off) capability-gated (D6 §8.11); `recordClinicalAssertion`/`clinical_assertion_write` capability + provider-adoption authority (CM).
+- **`SC-BIZOPS-RBAC-001`** BIZOPS ↔ RBAC (Workforce Intelligence `REV-173`): `workforce_intelligence_state` competency/attestation feeds the competency-gate (§5 composed input); RBAC reads, BIZOPS owns the state, Settings defines the requirement, D7 holds the signed artifact.
 
 ## §11 Open items (→ `08`)
 

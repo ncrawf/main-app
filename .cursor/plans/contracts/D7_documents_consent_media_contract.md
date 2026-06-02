@@ -94,6 +94,7 @@ Every artifact preserves: source organization/operator, originating facility/pra
 - **D7 ↔ Federation** (scoped visibility grants across operators/practices; §6/§8).
 - **D7 ↔ RBAC** (access atoms; consent-gate enforcement; §5).
 - **Intake → D7** (`intake_form_submission` artifact; `routePatientDocument` uploads).
+- **`SC-D7-BIZOPS-001`** D7 ↔ BIZOPS (Workforce Intelligence `REV-173`): staff signed contracts / policy-acknowledgments / certificates / signed attestations / materialized quiz-result PDFs are artifacts with **`subject = workforce_member`** (the open `document_kind` + `signature_envelope` + one-canonical-many-grants shape, reused for the workforce subject — staff context ≠ patient context, different access/purpose constraints). **D7 owns the ARTIFACT; BIZOPS owns the competency/attestation STATE that references it; Settings defines the requirement; RBAC gates.** (Same-table-vs-sibling = build detail; the subject-agnostic artifact discipline is the contract.)
 
 ## §11 Open items (→ `08`)
 
