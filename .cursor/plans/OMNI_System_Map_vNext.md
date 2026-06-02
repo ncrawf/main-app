@@ -95,6 +95,8 @@ The map only asserts the seam EXISTS + its `seam_id`. The contract DEFINES it (p
 | `SC-D7-CLIN-001` | `document/consent.recorded` | Documents/Consent → Clinical action | owning clinical domain | `contracts/seams/…` | ⏳ pending |
 | `SC-AI-PR-001` | `clinical_adoption.committed` | AI/Adoption → Patient record | owning clinical domain | `contracts/seams/…` | ⏳ pending |
 | `SC-ID-PT-001` | `contact.inbound_received` / `contact.identity_claim_asserted` | Contact/External-line → Identity | Identity | `contracts/seams/SC-ID-PT-001_contact_identity__to__patient_linking.md` | ✅ drafted 2026-05-30 |
+| `SC-INT-OBS-001` | intake trackable derived value (BMI/score, 1K.9) + `report_concern` patient-initiated side-effect | Intake → Observation | Observation (`patient_state_observations`) | `contracts/seams/…` | ◑ defined in intake contract §11 (added to map 2026-06-01) |
+| `SC-INT-D5-001` | care_episode minted at Stage-2→3 provider approval; `intake_sessions.care_program_id` back-pointer + Stage-1 observation backfill | Intake ↔ Service Occurrence | D5 (care_episode mints; intake carries back-pointer) | `contracts/seams/…` | ⏳ pending (defined in intake §11; confirm at D5 ratification) |
 
 ## Pointers to Open Decision Registry
 
