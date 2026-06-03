@@ -35,8 +35,8 @@ Source-of-truth relationship: a Surface Contract answers *how does a human opera
 ## §8 Workflow states (if console/workspace)
 *State machine of the operating workflow, if any.*
 
-## §9 Recovered design / prior gems  ← THE DEPOSIT BOX (rich detail, not bullets)
-*The brilliant prior brainstorm/design work for this surface, deposited in full. Cite the source doc per gem.*
+## §9 Recovered prior work  ← MANDATORY, RICH (a contract is NOT "drafted" until this is filled)
+*Evidence-led recovery, not transcription: deposit the actual prior requirements/UX/design thinking for this surface — examined, improved, expanded — in real detail. Primary vein = the OLD system map operational sections (§1G/§1K/§1Q/§1F/dashboard-grid + admin-vs-ops), then designs/audits/specs/handoffs/mindbody. Cite the source per recovered item. "Deposit box (sweep)" / one-line citations do NOT count — that is the failure mode this plane exists to fix.*
 
 ## §10 Source docs feeding this surface
 *Citations to audits/specs/raws/handoffs/transcripts that fed this surface.*

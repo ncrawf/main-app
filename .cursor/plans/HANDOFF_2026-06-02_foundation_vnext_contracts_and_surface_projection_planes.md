@@ -69,6 +69,10 @@ D3 (scheduling) · D5 (service_occurrence / care-coordination) · D6 (commerce) 
 | `REV-175` | **Surface/Projection plane completion gate** | open | **YES — blocks parallel-agent build** |
 | `REV-158` | re-point Build OS at vNext | open | gates Build-OS transition |
 
+## 6b. UPDATE 2026-06-03 — Surface Map re-authored clean (read `OMNI_Surface_Map_vNext.md` first)
+
+The 2026-06-02 surface stand-up was reactive/stitched (a `GRD-024` Frankenstein risk on our own map). Per Nick+Knox it was **re-authored clean** 2026-06-03: 3 stable surface KINDS (Workspace/Workflow/Public; Analytics + AI-Trace-Review are *instances*, not kinds); persona model; persona×surface×metric-pack composition; **Admin Console ≠ Ops Command Center** (recover old admin-vs-ops, don't fold); **Analytics = first-class workspace** + per-persona metric packs; **AI/CNS Trace Review Workbench** named; candidate enterprise surfaces named-not-graveyarded; and a **scope boundary** naming two DEFERRED families so the map isn't single-practice-only: **Federation/Multi-Operator** (→ Federation pass) and **Agentic-Runtime/CNS-Control** (→ AI #12, bounded-agent guardrail: agents = bounded runtime workers, capabilities = governed interfaces, CNS orchestrates, domains commit, surfaces observe/control, evals prove). **Frame is authored; evidence-led recovery is the NEXT pass** (primary vein = OLD system map §1G/§1K/§1Q/§1F operational sections; examine/improve/expand, not transcribe; rich `Recovered prior work` per surface; bidirectional coverage matrix). The 14 reactive stubs are to be reconciled/re-authored into this structure during recovery.
+
 ## 7. RESUME HERE TOMORROW — `REV-175` gate, in order
 
 1. **Nick red-lines the surface seed set** (the non-obvious ~25% only he holds). Confirm/extend the 14 surfaces in `OMNI_Surface_Map_vNext.md`; ambiguous → `surfaces/_surface_inbox_unassigned.md`. **Everything downstream waits on this.**

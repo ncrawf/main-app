@@ -1,112 +1,115 @@
-# OMNI Surface + Projection Map (vNext)
+# OMNI Surface + Experience Map (vNext)
 
-Document type: `architecture_map` (the index/hub for the P5 Surface + P4 Projection planes)
-Authority: `canonical` for *which surfaces and projections exist, who uses them, what they read/write, and build priority.* It is the surface-plane equivalent of `OMNI_System_Map_vNext.md` (which indexes the truth plane). It owns NO canonical truth and NO UI spec — it is the map, not the territory.
-Status: `draft` (created 2026-06-02, Foundation vNext; surface/projection plane stand-up; Nick + Knox review gate)
-Source-of-truth relationship: per `surface_projection_planes_a2e6c7c0.plan.md`. Hub + spokes: this map indexes; the rich detail lives in `surfaces/<surface>_surface_contract.md` (P5) + `projections/<name>_projection_contract.md` (P4). Same Map+Contracts pattern proven on the truth plane.
+Document type: `architecture_map` (canonical hub/index for the **P5 Surface** + **P4 Projection** planes — the expressed-product layer)
+Authority: `canonical` for *which surfaces and projections exist, who they serve, what they compose/read/write, and build priority.* The surface-plane peer of `OMNI_System_Map_vNext.md` (truth plane). Owns NO canonical truth and NO UI spec — the map, not the territory.
+Status: `draft_authoring` (this is the CLEAN authored frame — `D0THES-DEC-033`; **supersedes the 2026-06-02 reactive stand-up of this file**, which is preserved in git history as working-draft/evidence per `GRD-024` author-clean discipline). Frame authored 2026-06-03; **evidence-led recovery + rich per-surface contracts are the NEXT pass (not yet done)**.
+Source-of-truth relationship: per `surface_projection_planes_a2e6c7c0.plan.md`. Hub + spokes: this map indexes; rich detail lives in `surfaces/<surface>_surface_contract.md` (P5) + `projections/<name>_projection_contract.md` (P4). Same Map+Contracts pattern proven on the truth plane.
 
 ---
 
-## Why this exists (the plane gap it closes)
+## 1. Why this plane exists (the expressed-product layer)
 
-OMNI's truth plane (14 domain contracts + System Map) answers *where canonical truth lives.* It is necessary but not the whole architecture. A 1BN-grade product also needs to say *how humans see, operate, and act on that truth* (P5 Surface) and *how truth is composed for viewing* (P4 Projection). Those two planes were missing — so the large body of prior dashboard / profile / marketing / analytics / ops / IT design work had nowhere clean to land and could not be certified as covered. This map + its contracts are that home.
+The truth plane (domain contracts + System Map) answers *where canonical truth lives.* It is necessary but not the whole architecture — and OMNI under-built the rest for two nights, even though months of product/UX thinking already existed (provider views, ops vs admin views, dashboards, intake/messaging/booking UX, analytics, marketing). This plane is the durable home for *how humans (and, later, agents) see, operate, and act on the truth.* Its job is **recovery without graveyarding**: every prior surface/UX idea lands in a real home or is dispositioned with reason.
 
-## The OMNI architecture planes (settled taxonomy — name them once)
+## 2. The architecture planes (where this sits)
 
-| Plane | What it answers | Artifacts | Status |
-|---|---|---|---|
-| **P0 Doctrine/Thesis** | WHY OMNI exists | thesis v2 + doctrine ledgers | have |
-| **P1 Truth** | WHERE canonical truth lives | Domain Contracts + `OMNI_System_Map_vNext.md` | have (14) |
-| **P2 Seam** | HOW truth moves between domains | `contracts/seams/SC-*.md` | have |
-| **P3 Capability** | cross-cutting compositions over domains | capabilities (Workforce Intelligence, conversational intake, rules/campaigns) | started |
-| **P4 Projection** | HOW truth is composed for viewing/decision | `projections/<name>_projection_contract.md` (+ this map) | **NEW (this pass)** |
-| **P5 Surface** | HOW humans see/operate truth (by persona) | `surfaces/<surface>_surface_contract.md` (+ this map) | **NEW (this pass)** |
-| **P6 Build** | WHAT we implement, in what order | Build OS / build slices | partial |
-| **Evidence** | demoted source material (non-binding) | audits / designs / raws / handoffs / specs | have |
+P0 Doctrine/Thesis · P1 Truth (domain contracts + System Map) · P2 Seam · P3 Capability · **P4 Projection** (read-models; own no truth) · **P5 Surface** (this map) · P6 Build · Evidence. Conscious folds (not planes): Actions/Commands = RBAC atoms + domain write-APIs; Evals = Build-OS proof.
 
-**Consciously NOT new planes (decisions, not silent omissions):** **Actions/Commands** (the guarded write-verb catalog) = already covered by RBAC permission-atoms (~80) + each domain's write-API; a surface's §5 names which atoms it invokes. **Evals/quality** = Build-OS proof obligations + the audits-as-evidence. If either later proves to need its own artifact family, that is a deliberate future decision (`08`).
+## 3. Surface KINDS — exactly three (stable; do not invent sub-kinds)
 
-## Binding rules for P4/P5 (so they never corrupt the truth plane)
+| Kind | What it is |
+|---|---|
+| **Workspace** | an authenticated persona container; **composes** workflows + projection-fed views |
+| **Workflow** | a reusable cross-context flow, instantiated in ≥1 workspace with **persona-scoped variants** (never forked) |
+| **Public / content** | unauthenticated brand/marketing layer (sites, landing pages, public booking links) |
 
-1. **Surfaces and projections own NO canonical truth.** They reference P1 truth; they commit nothing. Every write routes through the owning domain + RBAC gate.
-2. **Metrics are projections, never source truth** (`T0-15`; `REV-174`). A metric/profile/context-packet that becomes a primary store is the bug.
-3. **A surface invokes verbs; the domain commits them.** UI never grants authority, never recomputes another domain's truth (commission/price/occurrence), never bypasses consent/eligibility.
-4. **Distributed truth, unified surface** (the Tesla/Amazon pattern): a coherent operator/patient experience composed over separate truth owners — not a blob.
-5. **No surface forks by alias.** "Provider dashboard / profile / workspace" are not 3 surfaces unless intentionally split; aliases tracked in the index.
+**Binding (Knox):** "Analytics", "AI/CNS Trace Review", "Finance", etc. are **instances** classified into these three kinds — NOT new kinds. (Analytics = a Workspace; AI/CNS Trace Review = a Workspace/Workflow.) If we feel the urge to add a 4th kind, stop — it's an instance.
 
-## Surface KINDS + composition (how P5 is organized — NOT a flat list)
+## 4. Persona model (who the surfaces serve)
 
-A serious org groups surfaces by persona workspace + factors out shared workflows (Salesforce apps+flows, Amazon buyer/seller experiences + shared checkout). OMNI uses **surface kinds**, and the map encodes the composition hierarchy (no rigid file-tree, no flat namespace):
+Patient · Provider · Provider-Manager · Front-desk/Coordinator (Ops) · Admin · IT/System-Admin · Marketer · Owner/Executive · Support · Analyst. **Deferred personas:** Operator/Network-Governance, Partner/Federated-Operator (Federation pass). The persona is the access+experience grouping; **authority is RBAC's, not the surface's.**
 
-- **Workspace surface** = an authenticated persona container; **composes** workflow surfaces + projections. (Patient App · Provider Workspace · Admin/Ops Console · Owner/Executive View · Marketing/Growth Workspace · IT Console · Workforce Intelligence.)
-- **Workflow surface** = a reusable cross-context flow, instantiated inside ≥1 workspace with **persona-scoped variants** (NOT forked per workspace). (Booking · Messaging Thread · Intake Flow · Checkout/POS · Charting/Closeout.)
-- **Public / content surface** = unauthenticated brand/marketing layer (brand sites, landing pages, public booking-link pages — the WordPress-layer; different rules: no-auth, SEO, content/CMS, edge consent capture). *(Future 4th kind: embedded/partner surfaces rendered inside a partner-operator context — Federation-flavored, deferred.)*
+## 5. Composition model
 
-**Promotion rule (when a workflow earns its own contract):** reused across ≥2 workspaces, OR crosses many domains, OR carries material UX/safety/authority risk. Otherwise it's a section inside its workspace contract. **Anti-fork:** a shared workflow is ONE contract with per-persona variants (booking-as-patient / booking-as-staff / booking-as-provider = variants, not 3 surfaces) — same discipline as the provider profile/workspace/task aliases.
+A **Workspace composes Workflows + per-persona projection views.** A **Workflow** is one contract with persona variants. Metrics are never owned by a surface — each persona gets a **metric pack** defined in the Operating-Intelligence projection plane (§9) and embedded in its workspace. The organizing artifact is the **persona × surface × metric-pack matrix** (built during recovery, §10).
 
-**Reconciliation owed (`REV-175`):** the index below was drafted before this taxonomy; several entries are mis-cast — `provider_task_workspace` + `intake_review_workspace` = workflows *inside* Provider Workspace; `conversion_funnel` = a workflow *inside* Patient App; `ops_command_center` likely folds into Admin/Ops. Reclassify into Workspace vs Workflow vs Public at the alias-merge step. (Nick + Knox 2026-06-02.)
+## 6. Binding rules (so P5/P4 never corrupt the truth plane)
 
-## Surface index (P5)
+1. Surfaces/projections own **NO canonical truth**; they reference P1 and commit nothing.
+2. **Metrics are projections, never source truth** (`T0-15`).
+3. A surface **invokes verbs; the domain commits** (UI never grants authority, recomputes commission/price/occurrence, or bypasses consent/eligibility).
+4. **Distributed truth, unified surface** (Tesla/Amazon) — coherent experience over separate truth owners, not a blob.
+5. **Anti-fork:** a shared workflow is ONE contract + persona variants.
 
-Legend: ◆ Nick-seeded · ○ repo-evidenced candidate · type ∈ {dashboard, console, profile, workspace, app_surface}. Confirm/extend at the review gate — the non-obvious set is Nick's to finalize; ambiguous gems land in `surfaces/_surface_inbox_unassigned.md`, not a guessed surface.
+## 7. Scope boundary (CRITICAL — this map is NOT single-practice-only)
 
-| Surface | ◆/○ | Persona | Type | Reads (primary) | Priority | Contract |
-|---|---|---|---|---|---|---|
-| Patient App / Home | ◆ | patient | app_surface | Identity, D3, D5, D6, D7, CM, Observation, OFC, CNS | day_1 | `surfaces/patient_app_home_surface_contract.md` |
-| Provider Operating Profile / Workspace | ◆ | provider/manager | workspace+profile | Identity, Federation, RBAC, BIZOPS, D3, D5, D6, D7, Settings, CM/Obs, CNS, OFC | day_1 | `surfaces/provider_operating_profile_surface_contract.md` |
-| Admin Operating Console | ◆ | admin | console | RBAC, BIZOPS, D3, D5, D6, Settings, Messaging, CNS, Federation | day_1 | `surfaces/admin_operating_console_surface_contract.md` |
-| Ops Command Center | ◆ | ops | console | D3, D5, CNS queues, BIZOPS, Messaging, OFC | day_1 | `surfaces/ops_command_center_surface_contract.md` |
-| IT / System Admin | ◆ | IT | console | RBAC, Federation, Settings, audit, integrations | later | `surfaces/it_system_admin_surface_contract.md` |
-| Marketing / Growth Dashboard | ◆ | marketer/owner | dashboard | D6 (attribution/promo), CNS (campaigns), Messaging, Settings, Identity (lead), Operating-Intelligence | next | `surfaces/marketing_growth_dashboard_surface_contract.md` |
-| Owner / Executive Dashboard | ◆ | owner | dashboard | Operating-Intelligence projection over D5/D6/D3/BIZOPS | next | `surfaces/owner_executive_dashboard_surface_contract.md` |
-| Workforce Intelligence Surface | ◆ | provider/admin/owner | profile+dashboard | `workforce_operating_context` projection (BIZOPS/RBAC/D3/D5/D6/D7/Settings/Fed) | next | `surfaces/workforce_intelligence_surface_contract.md` |
-| Campaign Performance Console | ○ | marketer | console | CNS campaigns, D6 attribution, Messaging sends, Operating-Intelligence | next | `surfaces/campaign_performance_console_surface_contract.md` |
-| Conversion Funnel (patient) | ○ | patient/prospect | app_surface+workflow | Intake, D6 (membership/pricing), Identity (lead), CNS | day_1 | `surfaces/conversion_funnel_surface_contract.md` |
-| Intake Review Workspace | ○ | provider | workspace | Intake, Observation, CM, D7, CNS (`clinical_required`), OFC | day_1 | `surfaces/intake_review_workspace_surface_contract.md` |
-| Provider Task Workspace | ○ | provider/staff | workspace | CNS (`provider_task`/queue), D5 (`care_state_view`), Messaging, OFC | day_1 | `surfaces/provider_task_workspace_surface_contract.md` |
-| Analytics / Operating Intelligence | ○ | admin/owner | dashboard | `operating_metrics` projection (REV-174) | later | `surfaces/analytics_operating_intelligence_surface_contract.md` |
-| Support / Internal Inbox | ○ | support/ops | workspace | Messaging (external-line), Identity, D7, CNS | next | `surfaces/support_inbox_surface_contract.md` |
+- **NOW (this pass):** single-practice / single-operator surfaces (one staff team, one owner). The §8 index below.
+- **LATER — Federation / Multi-Operator surface family** (deferred → Federation pass): operator/practice view · brand/multi-location view · network-governance view · partner/federated-operator portal · cross-operator consent/grant/visibility review · federation admin/topology. These are NOT "admin but bigger" — they involve Federation + RBAC + D7 grants + operator boundaries + scoped visibility + break-glass. **Named here so the map never implies single-practice-only.**
+- **LATER — Agentic Runtime / CNS Control surface family** (deferred → AI #12): which agent/AI path fired · which capability/tool/MCP was invoked · which model/prompt/rule/template version ran · what was proposed vs committed vs by-whom · eval/trace pass-fail · which capabilities/agents are active/disabled. **Guardrail (Knox — do NOT make this agent-mesh product doctrine):** *agents are bounded runtime workers; capabilities/tools are governed interfaces; CNS orchestrates; domains commit; surfaces observe/control; evals/traces prove.* The single-practice **AI/CNS Trace Review Workbench** (§8.A) is the buildable-now slice of this; the full control plane is AI #12.
 
-### Operational / functional-module surfaces (P5 `workflow`/`app_surface` — the UX home for the core modules; TO CARVE in `REV-175`)
+## 8. Surface index (by kind — frame only; status honest; recovery fills the contracts)
 
-The second flavor of P5 (vs the composite dashboards/consoles above): the interaction/UX design of the core functional modules, each coupled to ONE primary domain. These are **not yet carved** as surface contracts; their rich UX design notes already exist as **evidence** (listed) and must be **deposited** into these contracts in the `REV-175` sweep. Truth stays in the domain contract; the UX/flow/screens live here.
+Status: `stub` = placeholder file exists, needs recovery · `to-carve` = no contract yet · `candidate` = named, not yet confirmed. **Nick confirms/extends the set (`REV-175` step 1).** Ambiguous → `surfaces/_surface_inbox_unassigned.md`.
 
-| Module surface | Primary domain | UX design-note evidence to deposit | Status |
-|---|---|---|---|
-| **Scheduling / Booking flow** | D3 | `designs/day_0_scheduling_rule_matrix/*` (booking composer, appointment lifecycle, treatment menu) · `designs/2026-05-17_omni_scheduling_*` · future_care_obligations (neuromodulator/injectable-menu + booking-preset UX) · Mindbody appointments-grid raws (04/05) | ⏳ to-carve |
-| **Messaging / Thread** | Messaging | chat-rendering handoffs (`HANDOFF_2026-05-11_phase_4h_communications_c2_chat_rendering`, in-app-inbox C1/C2) · communications topology · confirmation round-trip UX | ⏳ to-carve |
-| **Intake Flow (patient-facing)** | Intake | `designs/2026-04-27_intake_construction_design` · `specs/conversion_funnel_modules_v1` · `specs/*_modules_v1` · intake coherence/free-text/mode-J audits | ⏳ to-carve (distinct from provider-side Intake Review Workspace) |
-| **Checkout / POS** | D6 | Mindbody POS raws (06/07/12) · DL-17 commerce · promo-wallet/entitlement-redemption UX (future_care_obligations §6/§7) | ⏳ to-carve |
-| **Charting / Encounter Closeout** | D5 / Clinical Memory | DL-20 closeout drawer · encounter/encounter_line UX · service_occurrence work-item UX | ⏳ to-carve |
+### 8.A Workspace surfaces
 
-## Projection index (P4)
+| Workspace | Persona | Composes (workflows) | Projection views | Priority | Status |
+|---|---|---|---|---|---|
+| Patient App | patient | Intake-Flow, Booking, Messaging-Thread, Checkout, Treatment-Journey | patient `context_packet` | day_1 | stub |
+| Provider Workspace | provider/manager | Provider-Task-Queue, Intake-Review, Charting/Closeout, Messaging-Thread | `provider_profile`, patient `context_packet`, provider metric-pack | day_1 | stub |
+| **Admin Console** | admin | Settings/Catalog-Admin, Staff/Access-Admin, Doc/Consent-Review, Reports/Exports | admin metric-pack | day_1 | stub (SEPARATE from Ops) |
+| **Ops Command Center** | front-desk/coordinator | Schedule-Grid (Booking on-behalf), Check-in, Room/Provider-State, Exceptions/No-show, Urgent-Queues, Support-Inbox | ops metric-pack (floor throughput/bottlenecks) | day_1 | stub (SEPARATE from Admin — recover the old admin-vs-ops requirements) |
+| Marketing / Growth | marketer/owner | Campaign-Performance, Conversion-Funnel (view), Lead-Lifecycle, Promo-Playbooks | `marketing_attribution`, marketing metric-pack | next | stub |
+| Owner / Executive | owner | (read-mostly; drills into others) | `operating_metrics`, owner metric-pack | next | stub |
+| Workforce Intelligence | provider/admin/owner | (renders WI; AI coaching → AI #12) | `workforce_operating_context` | next | stub |
+| IT / System Admin | IT | Access-Provisioning, Integration/Adapter-Health, Break-Glass, Audit | system-health metric-pack | later | stub |
+| **Analytics / Operating Intelligence** | analyst/admin/owner | (dedicated explorer over the metric layer) | `operating_metrics` (full) | next | stub — **first-class workspace, NOT deferred** (per-persona packs embed elsewhere too) |
+| **AI / CNS Trace Review Workbench** | provider/admin/IT/clinical-ops | (inspect why-a-path-fired; replay request) | reads `orchestration_run`/`cns_decision`/`ai_run`/`trace_lineage`/`context_packet`/eval bundles | next-ish | candidate — buildable-now slice of the Agentic-Runtime family (§7); writes only notes/review-status/replay-request, **never alters truth** |
+
+### 8.B Workflow surfaces (reusable; one contract + persona variants)
+
+Booking/Scheduling (D3) · Messaging/Thread (Messaging) · Intake-Flow (Intake) · Checkout/POS (D6) · Charting/Encounter-Closeout (D5/CM) · Provider-Task-Queue (CNS) · Intake-Review (Intake/CM) · Conversion-Funnel (Intake/D6) · Campaign-Performance (CNS/D6) · Support-Inbox (Messaging) · Doc/Consent-Review (D7) · Reports/Exports (D6/BIZOPS). Status = mostly to-carve / stub; UX evidence vein = §10.
+
+### 8.C Public / content surfaces
+
+Brand site/content (WordPress-layer) · Landing/campaign pages · Public booking link · Lead-capture · Promo/content pages. Status = to-carve.
+
+### 8.D Candidate enterprise surfaces (named, NOT graveyarded — confirm/route in recovery)
+
+Finance / reconciliation / exports (D6/BIZOPS/accounting) · Settings/Catalog administration (→ likely Admin Console module) · Compliance / audit / risk (RBAC/D7 grants/break-glass/trace) · Inventory / supply / device / room ops · Partner / referral / affiliate · (Integration/adapter health → IT). Each → confirmed surface, workspace-module, or inbox item — never dropped.
+
+### 8.E Deferred surface families (named per §7; do not solve now)
+
+Federation / Multi-Operator (→ Federation pass) · Agentic Runtime / CNS Control (→ AI #12).
+
+## 9. Projection plane index (P4) + per-persona metric packs
 
 | Projection | Composes | Consumed by | Contract |
 |---|---|---|---|
-| `workforce_operating_context` | BIZOPS WI-state + RBAC + Federation + D3/D5/D6/D7 + Settings | Workforce-Intelligence, Provider, Admin, Owner | `projections/workforce_operating_context_projection_contract.md` |
-| patient `context_packet` | Observation + CM + D7 + Intake + D3/D5 (per CNS §9.1) | Patient App, Provider, Intake-Review | `projections/patient_context_packet_projection_contract.md` |
+| `workforce_operating_context` | BIZOPS WI-state + RBAC + Federation + D3/D5/D6/D7 + Settings | WI, Provider, Admin, Owner | `projections/workforce_operating_context_projection_contract.md` |
+| patient `context_packet` | Observation + CM + D7 + Intake + D3/D5 (CNS §9.1) | Patient, Provider, Intake-Review | `projections/patient_context_packet_projection_contract.md` |
 | `provider_profile` | Identity + Federation + RBAC + BIZOPS + D3/D5/D6/D7 + Settings | Provider, Admin, Owner, WI | `projections/provider_profile_projection_contract.md` |
-| `marketing_attribution` | D6 (attribution/promo/revenue) + Identity (lead) + CNS (campaign) + Messaging | Marketing, Campaign-Performance, Owner | `projections/marketing_attribution_projection_contract.md` |
-| `operating_metrics` | D3/D5/D6/BIZOPS/RBAC/Settings/CM/Observation (derived; never source) | Owner, Analytics, Admin, Ops, Marketing | `projections/operating_metrics_projection_contract.md` |
+| `marketing_attribution` | D6 + Identity(lead) + CNS(campaign) + Messaging | Marketing, Owner | `projections/marketing_attribution_projection_contract.md` |
+| `operating_metrics` (Operating-Intelligence layer) | D3/D5/D6/BIZOPS/RBAC/Settings/CM/Observation (derived; never source) | Analytics, Owner, Admin, Ops, Marketing, Provider | `projections/operating_metrics_projection_contract.md` |
 
-## Coverage table (bipartite proof — source family x disposition)
+**Per-persona metric packs** (subsets of `operating_metrics`, defined in the projection plane, embedded per workspace): provider (production/conversion/comp) · ops (throughput/bottleneck/utilization/no-show) · marketing (funnel/attribution/campaign) · owner (revenue/labor/margin/growth) · IT (system-health/integration/audit) · admin (config/management). `REV-174` scopes the full layer.
 
-The proof that the surface/projection-relevant source material is accounted for. Disposition ∈ deposited-rich / routed / landed-elsewhere / evidence-only / future / pending-deeper-deposit. Updated as the sweep proceeds (todo `repo-sweep-deposit`).
+## 10. Recovery method (the NEXT pass — evidence-led, examine/improve/expand)
 
-| Source family / doc | Surface/Projection relevance | Disposition |
+Recovery is contract-grade rigor, adapted. **Not transcription** — examine, improve, and expand the prior thinking (Nick: "not perfect, not complete, but substantial real back-and-forth worth building from").
+
+- **Primary recovery vein = the OLD system map operational sections** (`system_map_three_layers_60706286.plan.md`): §1G (provider loop/queues/workspace), §1K (intake), §1Q (messaging/comms UX), §1F (settings/admin), dashboard/grid/drill-downs, and the **admin-vs-ops** discussions. THEN designs/ (scheduling rule matrix, intake_construction), audits/, specs/, handoffs (C1/C2 chat), mindbody raws.
+- **Each surface contract gets a mandatory `## Recovered prior work` section** — rich deposited requirements, not citations.
+- **Bidirectional coverage matrix** (below): every source → its surface/projection home; every surface → what fed it. A source with no home = miss; a surface with no feed = under-recovered.
+
+### Coverage matrix (to fill during recovery)
+| Source (old-map section / doc) | Surface/Projection home | Disposition |
 |---|---|---|
-| `audits/2026-05-01_marketing_lifecycle_growth_orchestration.md` (16 parts) | marketing/campaign/attribution surfaces + projection | **routed** — domain truth already landed (CNS §9.3 campaigns / D6 promo+attribution / Messaging sends / Settings catalog); the dashboard/console/attribution VIEWS deposited to marketing_growth + campaign_performance + `marketing_attribution` (pending-deeper-deposit on the ~80-template + 18-campaign visualization detail) |
-| `audits/2026-05-01_marketing_system_pressure_test.md` | marketing surfaces | **routed** (same homes; pressure-test = build-validation corpus) |
-| `audits/2026-05-01_dynamic_behavior_pressure_test_post_marketing.md` | marketing/runtime behavior | **evidence-only** (pressure-test) — cite in marketing surfaces |
-| `specs/conversion_funnel_modules_v1.md` (mod 22-26 + pricing) | conversion funnel surface + D6 membership pricing | **deposited-rich** → conversion_funnel surface; pricing → D6 (already) |
-| `doctrine/longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md` | patient context_packet projection | **landed-elsewhere** (CNS §8 Patient-CNS coherence + §9.1) → `patient_context_packet` projection references it |
-| `specs/domain_modules_v1.md` / `universal_modules_v1.md` / `glp1_pathway_modules_v1.md` / `clinical_core_modules_v1.md` | intake/funnel module surfaces | **pending-deeper-deposit** → intake_review + conversion_funnel + patient surfaces |
-| Mindbody raws (04 dashboard, 10/11 profile/cockpit, 12/14/16 admin) | competitor surface evidence (provider/admin/profile/dashboard) | **evidence-only** (anti-pattern + feature reference) — cite in admin/provider/patient surfaces; do not chase parity |
-| `FUTURE_ARC_2026-05-12_phi_surface_governance.md` | PHI surface governance | **future** → cited in patient/provider/admin surfaces (privacy floors) |
-| `audits/.../analytics`/`metrics` (assertion-analytics, authority-vs-longitudinal) | analytics/metrics surfaces | **routed** → `operating_metrics` projection + analytics surface; `REV-174` |
-| handoffs / preflights | mostly process; check for unlanded surface decisions | **evidence-only** unless the sweep finds a binding surface decision (then route) |
+| *(populated in the recovery pass — `REV-175`)* | | |
 
-## Pointers
-- Plane decision of record: `03_decision_extraction_ledger.md` (`D0THES-DEC-033`).
-- Truth plane: `OMNI_System_Map_vNext.md`. Projection-layer open item: `REV-174`. Workforce capability: `REV-173`.
-- Unassigned gem inbox: `surfaces/_surface_inbox_unassigned.md`.
+## 11. Status + what's owed (honest — frame ≠ done)
+- **Done:** clean frame authored (kinds, personas, composition, scope boundary incl. federation/agentic deferrals, binding rules, index skeleton, projection index + metric-pack model).
+- **Owed (`REV-175`):** Nick confirms/extends the surface set + admin-vs-ops + candidate enterprise surfaces; evidence-led recovery (old-map-first) into rich `Recovered prior work` sections; reconcile/re-author the 14 reactive stubs into this structure; coverage matrix filled; catalog/read-graph for artifacts; ratify → then Federation surfaces / AI #12.
+
+## 12. Pointers
+Plane decision: `03` `D0THES-DEC-033`. Truth plane: `OMNI_System_Map_vNext.md`. Open gate: `REV-175`. Projection layer: `REV-174`. WI capability: `REV-173`. Inbox: `surfaces/_surface_inbox_unassigned.md`. Deferred: Federation pass + AI #12.
