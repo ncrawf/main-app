@@ -78,9 +78,36 @@ Brand site/content (WordPress-layer) · Landing/campaign pages · Public booking
 
 Finance / reconciliation / exports (D6/BIZOPS/accounting) · Settings/Catalog administration (→ likely Admin Console module) · Compliance / audit / risk (RBAC/D7 grants/break-glass/trace) · Inventory / supply / device / room ops · Partner / referral / affiliate · (Integration/adapter health → IT). Each → confirmed surface, workspace-module, or inbox item — never dropped.
 
-### 8.E Deferred surface families (named per §7; do not solve now)
+### 8.E Federation / Multi-Operator surface family (SCAFFOLDED now; FLESHED at the Federation pass)
 
-Federation / Multi-Operator (→ Federation pass) · Agentic Runtime / CNS Control (→ AI #12).
+Mapped, not solved. These are **surfaces over Federation truth** — Federation still owns topology/grants/permeability/operator-boundaries; these let humans see/manage it. Crystallized so the map reflects the thesis (multi-operator), not a single-practice assumption.
+
+| Surface (candidate) | Persona | Reads (truth) | Must NOT own | Pass |
+|---|---|---|---|---|
+| Operator / Practice Workspace | operator-admin | Federation (this operator scope) + the practice's workspaces | cross-operator grants (Federation) | Federation |
+| Brand / Multi-Location Command Center | brand owner/ops | Federation (brand→sites/venues) + per-location `operating_metrics` | location truth (each site's domains) | Federation |
+| Network Governance Console | network-governance | RBAC + D7 grants + CNS-Meta audit + Federation policy | care/commerce truth (aggregate-by-default; named-purpose only) | Federation |
+| Partner / Federated Operator Portal | partner operator | scoped Federation grants + `shared_context_grant` | host-operator truth beyond grant scope | Federation |
+| Cross-Operator Patient Continuity View | provider/coordinator | patient `context_packet` composed across operators (consent-gated) | any operator's truth without grant | Federation |
+| Grant / Visibility Review Surface | admin/compliance | `shared_context_grant`/`visibility_grant`/break-glass (Federation/RBAC/D7) | the grants themselves (Federation owns; this reviews) | Federation |
+| Federation Topology / Venue / Legal-Entity Admin | operator-admin/IT | Federation (legal_entity/brand/site/venue/jurisdiction) | the topology truth (Federation owns; this manages-via-it) | Federation |
+
+### 8.F Vertical / Program surface family (SCAFFOLDED now — LENSES, not per-vertical rebuilds)
+
+**Binding discipline (anti-silo, payload≠domain one level up):** a vertical/program surface is NOT a new app. It is a **lens** = `(base workspace/workflow) + pathway filter + program metric-pack + care_journey projection`. ONE booking flow / intake flow / provider workspace, **pathway-parameterized** — never six. (A provider thinks "show me my GLP-1 patients at risk," not "D3/D5/D6" — the lens gives them that view over the same substrate.)
+
+| Vertical lens (candidate) | = base surfaces + | Program pack / projection | Pass |
+|---|---|---|---|
+| GLP-1 Program Workspace | Provider/Ops workspace + intake/booking/messaging, pathway=GLP-1 | `program_performance_metrics` + `care_journey_status` (titration/labs/adherence) | per program-slice build |
+| TRT / Hormone Program Workspace | same base, pathway=TRT/HRT | follow-up-gap + lab-monitoring pack | per program-slice build |
+| Aesthetic / Medspa Procedure Workspace | same base, pathway=aesthetic | aftercare/recall + injectable-menu pack | per program-slice build |
+| Labs / Diagnostics Program View | OFC + Observation + Provider workspace, lens=labs | result-turnaround + abnormal-review pack | per program-slice build |
+| Membership / Longevity Program View | D6 entitlement + Patient/Provider workspace, lens=membership | grant-utilization + due-service pack | per program-slice build |
+| Post-Procedure / Care-Journey Ops View | Ops + CNS + OFC, lens=journey | `care_journey_status` (recalls/follow-ups/exceptions) | per program-slice build |
+
+### 8.G Agentic Runtime / CNS Control surface family (NAMED; FLESHED at AI #12)
+
+The full agent/MCP/capability monitoring + enable-disable control plane (vs the buildable-now AI/CNS Trace Review Workbench in §8.A). **Bounded-agent guardrail (Knox):** agents = bounded runtime workers; capabilities/tools = governed interfaces; CNS orchestrates; domains commit; surfaces observe/control; evals/traces prove. Do NOT design agent-mesh product doctrine here — park for the AI dive (`REV-171`/AI #12, Nick has more context).
 
 ## 9. Projection plane index (P4) + per-persona metric packs
 
@@ -93,6 +120,8 @@ Federation / Multi-Operator (→ Federation pass) · Agentic Runtime / CNS Contr
 | `operating_metrics` (Operating-Intelligence layer) | D3/D5/D6/BIZOPS/RBAC/Settings/CM/Observation (derived; never source) | Analytics, Owner, Admin, Ops, Marketing, Provider | `projections/operating_metrics_projection_contract.md` |
 
 **Per-persona metric packs** (subsets of `operating_metrics`, defined in the projection plane, embedded per workspace): provider (production/conversion/comp) · ops (throughput/bottleneck/utilization/no-show) · marketing (funnel/attribution/campaign) · owner (revenue/labor/margin/growth) · IT (system-health/integration/audit) · admin (config/management). `REV-174` scopes the full layer.
+
+**Candidate projections for the deferred families (named now; defined at their pass — own no truth):** `operator_operating_context` + `network_operating_metrics` + `cross_operator_visibility_projection` + `federation_grant_review_projection` (→ Federation pass) · `vertical_pathway_context` + `program_performance_metrics` + `care_journey_status_projection` (→ program-slice builds; the lens read-models for §8.F). Placeholders so future agents don't treat a single-practice projection set as complete.
 
 ## 10. Recovery method (the NEXT pass — evidence-led, examine/improve/expand)
 
