@@ -69,7 +69,7 @@ No architecture / doctrine / build / work-package stops without a Protocol §9 s
 - OMNI Build OS — `.cursor/plans/doctrine/09_omni_build_os_layer_model.md` (layer model) + `.cursor/plans/doctrine/10_omni_build_os_rollout_sequence.md` (rollout sequence)
 - Build Entry Gate v0 — `.cursor/plans/doctrine/11_build_entry_gate_v0.md`
 - Future Work Registry — `.cursor/plans/doctrine/future_work_registry.md`
-- Current Checkpoint Handoff — see Read Graph Tier 0 Universal Path #15
+- Current Checkpoint Handoff — `.cursor/plans/HANDOFF_2026-06-03_surface_plane_and_pre_ai_immersion.md` (2026-06-03; Foundation vNext contracts + Surface/Projection planes done; **active next = `REV-178` AI-substrate grounding / thesis revamp**) + see Read Graph Tier 0 Universal Path #15
 
 Schemas remain canonical in the files above; AGENTS does not duplicate them.
 
