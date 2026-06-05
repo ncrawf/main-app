@@ -100,6 +100,71 @@ Principle: **use v2 as the preservation source, not the final table of contents.
 
 ---
 
+## Constitutional Reconciliation Ledger (anti-flattening; FOUR lanes; resolved at §A/§B/§C + Final Assembly Gate step 7)
+
+The last 1–2 weeks produced gems across MORE than AI/GCE — the **surface plane, projection plane, the two governed loops, operator capability exchange, business-ops/workforce/operating-intelligence, domain contracts, the System Map, and Build OS**. Not all of that becomes thesis content (contracts/surfaces/Build-OS keep their mechanics), but its **consequences must land and must not be flattened**. This ledger has **four lanes**; each item is dispositioned **(a)** already landed · **(b)** section-local / stays-in-contracts-or-Build-OS · **(c)** MISSING → must land at the named destination before ratification.
+
+### Lane 1 — Primitive reconciliation (→ §7 catalog)
+Trust-axis / AI-axis / GCE primitives (`REV-176` §3 + GCE capstone `DEC-036`): **(a)** already in §7 · **(b)** section-local (§A/§B/§C) · **(c)** missing → add to §7.
+
+| Candidate primitive | source | provisional home | provisional disposition |
+|---|---|---|---|
+| `non_human_actor` (+ `represented_principal`) | REV-176 §3; v17/v41 | §A (Identity) | §7 has `actor`+subtypes; `represented_principal` is NEW → **(c)** add to §7 identity family |
+| `delegation_chain` | REV-176 §3; GCE | §A (Identity/RBAC) | **(c)** likely missing → add to §7 |
+| `delegated_authority_envelope` / `agentic_consent` | REV-176 §3; v20/25/29/38 | §A (RBAC) | **(c)** new authority/consent primitive → §7 consent/authority family |
+| `delegated_authority_envelope` (preferred term; not bare `authority_envelope`) | GCE capstone + RBAC | §A (RBAC) | **DISTINCT from `capability_envelope` (Knox 2026-06-05, LOCKED):** `delegated_authority_envelope` = what an actor/agent may do *for a represented principal* under scope/purpose/TTL/revocation/escalation; `capability_envelope` = what a *model/tool/capability* may technically/policy-wise do (AI #12). A tool may be *capable* of ordering a lab while the actor is not *authorized* to order this lab for this patient now. **(c)** new → §7 authority family. |
+| `capability_contract` | GCE; v08 | §C | **(c)** new → add to §7 (capability family) |
+| `capability_server`/`_tool`/`_resource`/`_prompt`/`_call`/`_trace`/`_version`/`_visibility_policy` | REV-176 §3; v07/v08 | §B/§C (AI #12 plane) | §7 has `ai_capability`/`capability_envelope`; full taxonomy is **(b)/(c)** — decide which are constitutional vs registry-internal |
+| `context_mode` / `context_strategy` (+ Context Router) | REV-176 §3; v02/03/04/16 | §B | **(b)** section-local unless referenced as substrate primitive |
+| `context_packet_exchange` / `purpose_bound_context_packet` | GCE; v04/v35 | §C | §7 has `context_packet`; exchange variant **(c)** → add |
+| `trust_transfer_record` | REV-176 §3; v39; `GRD-030` | §A/§C | **(c)** new constitutional primitive → add to §7 |
+| `external_return_classification` + `returned_artifact`/`_status`/`_observation_candidate`/`_commit_ack` | GCE; §10 coherence | §C/§10 | **(c)** new → the "classified before it counts" mechanism; add to §7 |
+| `short_lived_credential` / vault-bridge | REV-176 §3; v20 | §A/§B | **(b)** likely section-local (security mechanism) |
+| `agent_control_plane` / AgentOps | REV-176 §3; v17/v22 | §B (CNS) | **(b)** CNS mechanism, not a new primitive |
+| `eval_bundle` / `llm_judge_rubric` / `autonomy_level` (A0–X) / `compiled_skill` / `prompt_template` / `few_shot_example_set` | REV-176 §3; v01/v22/v43 | §B + Build-OS (`REV-158`) | mostly **(b)** Build-OS; `model_version_of_record` already in §7 |
+
+*Lane-1 rule:* when §A/§B/§C are authored, finalize dispositions; the Gate folds every **(c)** back into §7's catalog.
+
+### Lane 2 — Projection / Surface reconciliation (→ §7.7 [HIGHEST watch] + §C + §3 planes; sources: `OMNI_Surface_Map_vNext.md`, `projections/*`, `surfaces/*`, System Map P4/P5)
+**Knox correction 2026-06-05: projection must NOT absorb capability.** The exchange decomposes — §7.7 owns the PROJECTION element; §C owns the rest:
+- **canonical truth** → P1 (owning domain) · **projection** → governed read-model (exposes, does NOT act) · **ingestion pathway** → inbound evidence/candidates · **capability endpoint** → permitted actions · **owning domain** → commits · **audit/proof** → records the crossing.
+- Meta-principle (one line in §7.7): **"Projections expose. Capabilities act. Domains commit. Audit proves."**
+- Division of labor: §7.7 = the projection (read) element + exposure/gating/degradation; **the full governed exchange surface (ingestion + capability + commit + trust-transfer) = §C.** "Exchangeable projections" is reframed → a domain's **governed exchange surface, of which the projection is the read element** (not an umbrella for read+write+act+audit).
+
+Consequences of the P4/P5 plane work that MUST land (mostly §7.7 + §C, NOT §7.1–§7.5.4):
+- surfaces own **no** canonical truth; surfaces **operate projections** and **route actions to owning domains** — they never commit truth — **(c)** §7.7
+- the "≠" set, explicit in §7.7: projection ≠ truth · projection ≠ authority · surface ≠ projection · **projection ≠ capability** · external-projection ≠ raw-substrate
+- projections are **views / read-models** over domain truth (P4); `hard_projection` / `soft_projection` / `scoped_conversation_projection` / `care_flow_projection` — **(a)** primitives in §7; doctrine **(c)** in §7.7
+- **exposure gating:** projection existence ≠ exposure. truth exists → projection generable → `visibility_grant`/`shared_context_grant` gates who-sees → RBAC/Federation gates who-operates → surface renders → domain commits writes — **(c)** §7.7 (wires to §7.5 grants + consent specificity)
+- **degrade-declare:** a projection with incomplete consent/freshness/provenance/authority must self-declare state (hidden / partial / stale / redacted / unverified / patient-source-not-adopted / not-actionable) — never silently present partial as whole; critical for external agents — **(c)** §7.7 (ties to §7.4 degraded_safety_state + §7.5.3 patient-source-not-truth)
+- external agents/surfaces receive **purpose-scoped governed projections + permitted capabilities, NOT raw substrate** — **(c)** §7.7/§C
+- patient `context_packet` = a projection (authority-labeled, references/summarizes, **not a chart dump/clone**) — **(c)** §7.7
+- metrics are projections, never source truth (`T0-15`); every projected value carries **lineage / freshness / source** — **(c)** §7.7
+
+### Lane 3 — Loop / Flow reconciliation (→ §8 / §8.5 / §8.6 + §C + §10; sources: System Map two-loops, `DEC-036`)
+The two governed loops + gates that MUST land:
+- **Sense loop:** source → observation/assertion → adoption → context — **(c)** §8
+- **Act loop:** request → authorize → order → fulfill → output → review/release → follow-up — **(c)** §8/§8.6
+- **authority gates** bridge the loops (human commits; NASA/Houston go/no-go) — **(c)** §8
+- planning axis (D3) can constrain/initiate Act; `fulfillment_order` / `care_obligation` — **(c)** §8.6
+- **external exchange touches BOTH loops:** Sense ingests inbound capability calls **classified before they count** (evidence / observation / proposed-meaning / `externally_committed_truth` — committed in source system, NOT OMNI-committed); Act emits outbound calls via capability contract + owning-domain commit — **(c)** §8 + §C + §10. *(Term renamed from "committed-truth" per Knox 2026-06-05; propagate to §C/§10 + align DEC-036 pipeline at §C retrofit.)*
+- context-as-routed-strategy at the sense/assembly gate — **(b/c)** §8 + §B
+
+### Candidate guardrail for §A (Knox-pattern, 2026-06-05) — propose, ratify at §A
+**"No single domain owns a cross-cutting concern."** Three caught instances of the same disease (a domain swallowing a cross-cutting concern → god-domain one level down): (1) Partner Operator absorbing *non-human actor* (§6.7, fixed); (2) projection absorbing *capability* (§7.7, fixed); (3) AI #12 absorbing *non-human authority* (posture (c), fixed). Generalizes `GRD-031` (Federation-not-god-domain). Candidate §A line: *the trust axis is decomposed and owned by no single domain; non-human authority is not "AI's"; capability is not "projection's"; actor identity is not "operator's." Each cross-cutting concern is composed across its owners, never absorbed by one.* Mint as a guardrail at §A if Nick/Knox approve.
+
+### Lane 4 — Contract / Domain-boundary reconciliation (stays in contracts/maps/Build-OS — thesis carries the INVARIANT only, does NOT overwrite)
+Invariants the thesis preserves as posture; detail stays in P1 contracts + Foundation vNext roadmap + Build OS:
+- one owner per fact · projection ≠ authority · payload-noun ≠ domain · candidate ≠ commit · AI proposes / owning domain commits — **(a)** thesis carries these as invariants (§3/§7.2/§7.7/§B/§C); **never** re-author contract schemas in the thesis
+- domain sequence/schemas → Foundation vNext roadmap, not thesis — **(b)**
+- Build OS (agentic build, evals, autonomy levels, proof gates, Agent Work Protocol) → **posture only** in §Build-OS pointer; practice → `REV-158` — **(b)**
+
+**§C precision nuance (Knox 2026-06-05; deferred from §7.8 to §C):** sharpen "external processors execute, never own" at §C into → *"external processors may execute delegated work under a capability contract; OMNI / the owning domain retains source-of-truth, authority, audit, and commit semantics — UNLESS a specific external source is being accepted as evidence/observation through the ingestion pathway"* (the two faces: outbound-delegated-execution vs inbound-accepted-evidence). Do NOT patch §7.8; lands in §C.
+
+**Overall rule:** at §A/§B/§C authoring, update all four lanes to final dispositions; the Final Assembly Gate (step 7) verifies every **(c)** landed at its destination and every **(b)** stayed out of the body. No lane may be silently skipped.
+
+---
+
 ## Part I — Identity & framing (what OMNI is)
 
 | v3 § | v2 source | disp | new concept woven in | anchor | future contract |
