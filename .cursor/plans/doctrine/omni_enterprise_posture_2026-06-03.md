@@ -43,7 +43,24 @@ Output of two pressure tests (`audits/2026-06-03_outward_omni_agentic_interop_pr
 
 "Governed handshake layer" is a useful **descriptive facet, NOT the identity.** Handshake connotes exchange/broker/route; OMNI is context + authority + ownership + proof + commit. Do not let the metaphor optimize the company toward thin brokering. (`D0THES-GRD-032`.)
 
-## The 7 guardrails (constrain v3)
+## Governed Capability Exchange (operational capstone — `D0THES-DEC-036`)
+
+The operational mechanism of the posture (NOT a new pivot — the *how* of binding statement #1): the universal pattern by which OMNI safely emits to and ingests from any actor/system — **internal and external** — through ONE governed spine:
+
+`actor / represented-principal → capability contract → Identity → Federation boundary → RBAC capability → delegated authority → context packet → consent/grant → CNS orchestration → owning-domain commit → audit/proof → returned artifact/status (classified as evidence | observation | proposed-meaning | committed-truth BEFORE it counts)`
+
+- **Two faces, one spine:** internal (D7→Observation→Clinical Memory; D5→D6→BIZOPS; Settings→D3) and external (OMNI ↔ lab / Rx / insurance / payroll / supplier / marketplace / external EMR / portal / scheduling agent / partner operator). External adds **trust-transfer + metadata-custody** risk (`D0THES-GRD-030`); the governance spine is identical.
+- **Subfamilies:** clinical (labs/Rx/imaging/EMR/portals) · administrative (insurance/prior-auth/billing/claims) · **operator / business-ops** (payroll/HR/time-clock/credentialing/schedule-out) · commerce/supply (inventory/supplier/catalog/marketplace feeds) · communication (Twilio/email/external assistants).
+- **Each domain owns: canonical truth + internal projection + external projection + ingestion pathway + action capability + audit/proof.** Projections are exchangeable; external systems are rails/processors/counterparties, **never source-of-truth owners** (anti-corruption layer — PayChex executes payroll; BIZOPS still owns labor truth).
+
+### Keeper doctrine lines (preserve verbatim — future-us must KNOW)
+> *"OMNI is rail-agnostic, protocol-agile, vendor-replaceable, and semantics-stable. MCP / A2A / API / FHIR / EDI / portals / browser-and-voice agents / future protocols are replaceable adapters. OMNI owns the capability contract, authority envelope, context packet, trust-transfer record, domain-commit boundary, and audit/proof."* (`D0THES-GRD-033`)
+
+> *"Governed Capability Exchange is how OMNI breathes across the outside world. OMNI is NOT measured by number of integrations; it is measured by whether every exchange preserves identity, authority, consent, context, ownership, commit, and proof. Bounded, designed surface — expanded by doctrine pass, never connect-everything."* (`D0THES-GRD-034`)
+
+Pattern lineage (Lens B — borrowed, not invented): ports-and-adapters / hexagonal architecture + anti-corruption layer (DDD) + stable-semantics-vs-unstable-mechanisms + capability-based security + read-model projections. OMNI's differentiator = applying them with **care-governance semantics as the stable core**; the moat stays care-governance, not exchange breadth.
+
+## The 9 guardrails (constrain v3)
 
 1. Co-primary, not substrate-only (owned care leads GTM; anti platform-with-no-users).
 2. Designed bounded capability surface (`D0THES-GRD-003` extension; anti unfalsifiable "shake hands with everything").
@@ -52,6 +69,8 @@ Output of two pressure tests (`audits/2026-06-03_outward_omni_agentic_interop_pr
 5. Stabilize after v3 (the two pressure tests did their job; no third pre-v3 pass; no reflexive v4).
 6. **Trust-transfer & metadata governance** (`D0THES-GRD-030`).
 7. **Federation-not-god-domain / trust-is-a-decomposed-axis** (`D0THES-GRD-031`); **architectural≠economic center + metaphor≠identity** (`D0THES-GRD-032`).
+8. **Rail-agnostic / protocol-agile / vendor-replaceable / semantics-stable** (`D0THES-GRD-033`) — never bind the architecture to one protocol/vendor/model/agent-framework.
+9. **Governed Capability Exchange is bounded, not connect-everything; measured by preservation (authority/context/ownership/commit/proof), not integration count** (`D0THES-GRD-034`).
 
 ## v3 authoring contract (Knox instruction, binding)
 
@@ -61,4 +80,4 @@ v3 = **re-ground**, not rewrite. Required method: **explicit v2→v3 diff** (wha
 Phase 3 lossless source-anchored AI extraction (no cap + coverage audit) → Phase 4 author v3 (diff-disciplined) → Phase 5 route residual + sequence contract retrofits (Federation non-human-actor/delegated-grant/agent-boundary → RBAC delegated-authority → Identity non-human actor → AI #12 capability/model/tool registry → CNS control plane → context-packet exchange → Agentic-Runtime surfaces).
 
 ## Cross-references
-Decision `D0THES-DEC-035`; supersession `D0THES-CNF-014`; guardrails `D0THES-GRD-030/031/032`; AI frame `ai_substrate_frame_2026-06-03.md` (`D0THES-DEC-034`); pressure tests `audits/2026-06-03_*`; thesis touchpoints §1/§2/§3/§6.7/§7.6/§7.8/§9/§12.8; narrative `docs/architecture/evolution_narrative_volume_5_2026-06-03.md` (addendum).
+Decisions `D0THES-DEC-035` (posture) + `D0THES-DEC-036` (Governed Capability Exchange capstone); supersession `D0THES-CNF-014`; guardrails `D0THES-GRD-030/031/032/033/034`; AI frame `ai_substrate_frame_2026-06-03.md` (`D0THES-DEC-034`); pressure tests `audits/2026-06-03_*`; concept inventory `ai_substrate_routing_spine_REV-176.md` + `ingestion/ai_substrate_2026/inventory/` (tracked, non-blocking-but-not-optional); thesis touchpoints §1/§2/§3/§6.7/§7.6/§7.8/§9/§12.8; narrative `docs/architecture/evolution_narrative_volume_5_2026-06-03.md` (addendum).
