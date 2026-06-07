@@ -17,7 +17,7 @@ agent_read_rule: tier0_mandatory
 
 ## Read this first
 
-This frame settles a fork that surfaced after ingesting the spring-2026 IBM/Stanford AI corpus (47 videos + a Nick↔ChatGPT strategy thread; evidence at `.cursor/plans/ingestion/ai_substrate_2026/`). The corpus exposed that OMNI's AI/agentic-runtime layer was materially under-modeled (~20-30%) relative to its domain architecture (~60%). The question was: **patch the thesis, invert to an AI-first target, or something else?** Ratified answer below.
+This frame settles a fork that surfaced after ingesting the spring-2026 IBM/Stanford AI corpus (47 videos + a Nick↔ChatGPT strategy thread; evidence at `.cursor/plans/ingestion/outside_learning/sources/2026-spring_ai_substrate/`). The corpus exposed that OMNI's AI/agentic-runtime layer was materially under-modeled (~20-30%) relative to its domain architecture (~60%). The question was: **patch the thesis, invert to an AI-first target, or something else?** Ratified answer below.
 
 ## The ratified frame (preserve verbatim)
 
@@ -65,7 +65,7 @@ AI moves from **"deferred domain #12 + a thin §9 bounded participant"** to a **
 - Decision of record: `03_decision_extraction_ledger.md` `D0THES-DEC-034`.
 - Supersession: `05_supersession_conflict_ledger.md` `D0THES-CNF-013`.
 - Guardrails: `06_guardrail_antipattern_digest.md` `D0THES-GRD-028`, `D0THES-GRD-029`.
-- Evidence corpus: `.cursor/plans/ingestion/ai_substrate_2026/00_index.md` (47 videos + `knox_strategy/`); evidence rows `D0AI-EVD-001`/`-002`.
+- Evidence corpus: `.cursor/plans/ingestion/outside_learning/sources/2026-spring_ai_substrate/00_index.md` (47 videos + `knox_strategy/`); evidence rows `D0AI-EVD-001`/`-002`.
 - Open workstreams: `REV-178` (AI-substrate grounding), `REV-176` (routing spine / translation map), `REV-158` (Build OS revamp), `REV-177` (Federation recalibration — fed by corpus agent-security / delegation / A2A material).
 - Thesis touchpoints to re-ground: `omni_thesis_v2_2026-05-26.md` §8 / §9 / §9.1 / §12.8 / §7.6.
 - Narrative: `docs/architecture/evolution_narrative_volume_5_2026-06-03.md` (AI-substrate pivot arc).

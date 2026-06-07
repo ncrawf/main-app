@@ -1,7 +1,7 @@
 # HANDOFF — 2026-06-03 — AI-substrate corpus landed + AI-substrate FRAME ratified
 
 Document type: `checkpoint_handoff` (continuity artifact; non-binding — binding decisions in `03_decision_extraction_ledger.md`, schemas in the frame/contracts). Per Agent Work Protocol §8.
-Created: 2026-06-03. **This is the CURRENT checkpoint** (supersedes `HANDOFF_2026-06-03_surface_plane_and_pre_ai_immersion.md` as the boot point; that one remains valid for surface/projection plane detail). Read-graph Tier 0 Universal Path #15 repointed here.
+Created: 2026-06-03. **HISTORICAL — superseded as the CURRENT checkpoint by `HANDOFF_2026-06-06_evidence_plane_and_knowledge_reservoirs.md` (2026-06-06).** Remains valid for AI-substrate-frame detail (it superseded `HANDOFF_2026-06-03_surface_plane_and_pre_ai_immersion.md`, which remains valid for surface/projection detail).
 Purpose: clean boot at the start of the AI-substrate workstream (`REV-178`), with the frame ratified and the next step (routing spine) teed up.
 
 ---
@@ -13,11 +13,11 @@ OMNI = one governed care + business substrate for a multi-brand medspa/telehealt
 Unchanged. Nick = operator/owner; Knox = ChatGPT review instance; trifecta loop; full fidelity + honest pushback. This checkpoint's frame was ratified A/A by Nick + Knox, including Nick's CNS refinement (orchestration/control plane, not mega-brain).
 
 ## 2. State snapshot + scope complete
-- **Evidence landed (non-binding):** `.cursor/plans/ingestion/ai_substrate_2026/` — 47 videos (`videos/v01.md`..`v47.md`, transcript + ChatGPT distillation each) + `knox_strategy/thread_01.md`. `00_index.md` backfilled with titles/orgs/tags. Digested via parallel explore agents (per-video gist/implication/within-on-ongoing/durable-vs-hype). Overwhelmingly durable substrate, not hype. Duplicates preserved: v02=v03, v25=v29; transcript-only: v25/v31/v34/v39/v41. Evidence rows `D0AI-EVD-001`/`002`.
+- **Evidence landed (non-binding):** `.cursor/plans/ingestion/outside_learning/sources/2026-spring_ai_substrate/` — 47 videos (`videos/v01.md`..`v47.md`, transcript + ChatGPT distillation each) + `knox_strategy/thread_01.md`. `00_index.md` backfilled with titles/orgs/tags. Digested via parallel explore agents (per-video gist/implication/within-on-ongoing/durable-vs-hype). Overwhelmingly durable substrate, not hype. Duplicates preserved: v02=v03, v25=v29; transcript-only: v25/v31/v34/v39/v41. Evidence rows `D0AI-EVD-001`/`002`.
 - **Frame ratified + routed:** `.cursor/plans/doctrine/ai_substrate_frame_2026-06-03.md` (`D0THES-DEC-034`); supersession `D0THES-CNF-013`; guardrails `D0THES-GRD-028`/`029`; catalog rows; read-graph Tier 0 Universal Path #17 (frame) + #15 (this handoff); narrative `docs/architecture/evolution_narrative_volume_5_2026-06-03.md`.
 
 ## 3. Changed artifacts/files this checkpoint
-- NEW: `ingestion/ai_substrate_2026/` (48 raw files + index); `doctrine/ai_substrate_frame_2026-06-03.md`; `docs/architecture/evolution_narrative_volume_5_2026-06-03.md`; this handoff.
+- NEW: `ingestion/outside_learning/sources/2026-spring_ai_substrate/` (48 raw files + index); `doctrine/ai_substrate_frame_2026-06-03.md`; `docs/architecture/evolution_narrative_volume_5_2026-06-03.md`; this handoff.
 - EDITED: `03_decision_extraction_ledger.md` (+DEC-034); `05_supersession_conflict_ledger.md` (+CNF-013); `06_guardrail_antipattern_digest.md` (+GRD-028/029); `01_master_corpus_catalog.md` (+4 rows); `04_manifest_read_graph.md` (#17 add + #15 repoint); `07_evidence_ingestion_ledger.md` (+D0AI-EVD-001/002).
 
 ## 4. Verification/proof
@@ -42,7 +42,7 @@ Unchanged. Nick = operator/owner; Knox = ChatGPT review instance; trifecta loop;
 - **Stop condition for THIS handoff:** superseded when the routing spine is authored + ratified, or when thesis v3 re-grounding begins (whichever first).
 
 ## 8. Source-of-truth load order
-Tier 0 Universal Path (incl. #17 AI-substrate frame) → `ai_substrate_frame_2026-06-03.md` (the lens) → `omni_thesis_v2_2026-05-26.md` §8/§9/§9.1/§12.8/§7.6 → `contracts/CNS_orchestration_contract.md` + `rbac_authority`/Federation contracts → `OMNI_Surface_Map_vNext.md` §8.G (Agentic-Runtime) → evidence corpus `ingestion/ai_substrate_2026/00_index.md` (consult-only).
+Tier 0 Universal Path (incl. #17 AI-substrate frame) → `ai_substrate_frame_2026-06-03.md` (the lens) → `omni_thesis_v2_2026-05-26.md` §8/§9/§9.1/§12.8/§7.6 → `contracts/CNS_orchestration_contract.md` + `rbac_authority`/Federation contracts → `OMNI_Surface_Map_vNext.md` §8.G (Agentic-Runtime) → evidence corpus `ingestion/outside_learning/sources/2026-spring_ai_substrate/00_index.md` (consult-only).
 
 ## 9. Addendum (later 2026-06-03) — enterprise posture ratified; next gate moved
 Since this handoff was written, the AI-frame provoked the deeper enterprise-posture fork, now resolved + ratified: **`D0THES-DEC-035`** (`doctrine/omni_enterprise_posture_2026-06-03.md`) — OMNI = governed care+business substrate; **trust + AI = first-class cross-cutting axes**; Federation = bounded topology-owner (not god-domain); OMNI Direct architecturally one rail / economically NOT demoted; moat = care-governance. Two pressure-test audits (`audits/2026-06-03_*`), guardrails `D0THES-GRD-030/031/032`, supersession `D0THES-CNF-014`, read-graph Tier 0 #18, narrative vol 5 addendum. **The next gate is no longer "REV-176 routing spine" in isolation — it is the ratified sequence: Phase 3 lossless source-anchored AI extraction (no cap + coverage audit) → Phase 4 author thesis v3 (diff-disciplined per Knox) → Phase 5 route residual + contract retrofits.** See `.cursor/plans/outward-omni_posture_and_thesis_v3_7fb8085d.plan.md`.

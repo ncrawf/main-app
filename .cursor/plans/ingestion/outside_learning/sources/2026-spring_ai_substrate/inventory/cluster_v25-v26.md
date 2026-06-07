@@ -1,6 +1,6 @@
 # Cluster Inventory — v25–v26
 
-- cluster: ai_substrate_2026 / v25–v26 (agentic consent / Delegated-Authority Envelope; digital certificate lifecycle / machine trust)
+- cluster: 2026-spring_ai_substrate / v25–v26 (agentic consent / Delegated-Authority Envelope; digital certificate lifecycle / machine trust)
 - sources: videos/v25.md (IBM — "Agentic Consent Explained: How AI Agents Act Safely and Responsibly", Grant Miller), videos/v26.md (IBM — "Your Certs Are Expiring: Digital Certificate Management Explained", Jeff Crume)
 - date: 2026-06-04
 - status: lossless concept inventory — non-binding evidence

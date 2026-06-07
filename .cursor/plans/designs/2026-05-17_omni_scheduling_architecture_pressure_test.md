@@ -62,10 +62,10 @@ Plus, per the Session 2 Turn 17 OPUS PROMPT deliverable format:
 
 For verbatim source material:
 
-1. [Session 1 Turns 1-6](../ingestion/mindbody/mindbody_to_omni_direction_raw.md) — Knox direction + Q1 SHELVE (binding)
-2. [Session 2 Turns 1-30](../ingestion/mindbody/mindbody_to_omni_direction_raw.md) — progressive scheduler-builder discussion + OPUS PROMPT in Turn 17 (REFERENCE / IDEAS only)
-3. [Q1-Q14 open questions](../ingestion/mindbody/mindbody_open_questions_raw.md) — indexed; 45 cumulative pressure-test scenarios
-4. [User feedback raw](../ingestion/mindbody/mindbody_user_feedback_raw.md) — 9 gaps
+1. [Session 1 Turns 1-6](../ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) — Knox direction + Q1 SHELVE (binding)
+2. [Session 2 Turns 1-30](../ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) — progressive scheduler-builder discussion + OPUS PROMPT in Turn 17 (REFERENCE / IDEAS only)
+3. [Q1-Q14 open questions](../ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) — indexed; 45 cumulative pressure-test scenarios
+4. [User feedback raw](../ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md) — 9 gaps
 5. [Layer 2 synthesis](2026-05-16_mindbody_architecture_understanding.md) — 13 sections A-M, 185+ findings cited back to 17 raw capture files
 
 For doctrine anchors:
@@ -75,7 +75,7 @@ For doctrine anchors:
 8. [omni_brain_hardening](../omni_brain_hardening_d1ef429b.plan.md) — phase sequencing
 9. [FUTURE_ARC federation/topology](../FUTURE_ARC_2026-05-12_federation_permeability_topology.md) — federation-mode taxonomy
 
-For raw evidence per substrate concept: 17 raw capture files at [`.cursor/plans/ingestion/mindbody/mindbody_NN_*.md`](../ingestion/mindbody/) (Batches 4-21).
+For raw evidence per substrate concept: 17 raw capture files at [`.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_NN_*.md`](../ingestion/competitor_product_evidence/mindbody/) (Batches 4-21).
 
 ---
 
@@ -270,7 +270,7 @@ Concepts asserted across Layer 2 / Sessions / Knox direction that have NOT been 
 
 ## 6. Bucket 3 — Unresolved (Q1-Q14 + new questions surfaced by composing this doc)
 
-All 14 questions Q1-Q14 from [mindbody_open_questions_raw.md](../ingestion/mindbody/mindbody_open_questions_raw.md) remain **OPEN**. This doc does NOT resolve them. New questions Q15-Q21 are surfaced below.
+All 14 questions Q1-Q14 from [mindbody_open_questions_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) remain **OPEN**. This doc does NOT resolve them. New questions Q15-Q21 are surfaced below.
 
 ### 6.1 Q1-Q14 status (verbatim from open-questions log)
 

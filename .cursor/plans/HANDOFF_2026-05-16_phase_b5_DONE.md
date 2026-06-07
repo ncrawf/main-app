@@ -19,10 +19,10 @@
    [`.cursor/plans/designs/2026-05-16_mindbody_architecture_understanding.md`](designs/2026-05-16_mindbody_architecture_understanding.md) — 13 sections A-M, 185+ findings.
 
 2. **Open questions log** (Q1-Q5 explicitly SHELVED):
-   [`.cursor/plans/ingestion/mindbody/mindbody_open_questions_raw.md`](ingestion/mindbody/mindbody_open_questions_raw.md) — Knox + user joint direction to defer encounter container architecture for Phase B.5+ doctrine sharpening.
+   [`.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md`](ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) — Knox + user joint direction to defer encounter container architecture for Phase B.5+ doctrine sharpening.
 
 3. **Manifest** (master index — all 163 rows COMPLETED):
-   [`.cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md`](ingestion/mindbody/mindbody_ingestion_manifest.md)
+   [`.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md`](ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md)
 
 4. **Raw capture files** (17 files, frozen archive — do NOT edit):
    - Desktop area: `mindbody_04_dashboard_and_appointments_grid_raw.md` (Batch 4, thread 1)
@@ -31,10 +31,10 @@
    - Mobile area: `mindbody_17` through `mindbody_21` (Batches 17-21, thread 3 — full mobile iOS Business app)
 
 5. **OMNI direction supplemental sessions** (verbatim Knox/chat ↔ user conversations):
-   [`mindbody_to_omni_direction_raw.md`](ingestion/mindbody/mindbody_to_omni_direction_raw.md) — Session 1 (Turn 1-6, post-Batch-4, with explicit Q1 shelve) + Session 2 (Turn 1-30, post-Phase-B.5-DONE scheduler-builder progressive discussion, REFERENCE / IDEAS only). Session 2 EXPANDS Q1 + Q2 understanding and surfaces Q6-Q14 (Care Episode parent / Encounter-vs-Interaction boundary / Planned-vs-Performed substrate / 3-lane source-of-truth / 4-tier provider authorship + attestation / Visit Closeout drawer 7 lanes / 11-axis location taxonomy / false-equivalence audit meta-principle / clinical-media-intake-consent separate substrates). **Per Knox + user joint discipline: Session 2 is REFERENCE / IDEAS, NOT truth, NOT build plan, NOT doctrine.** Q1 remains SHELVED. Session 2 implications fold at Phase B.5+ doctrine sharpening, NOT by retroactively rewriting Layer 2.
+   [`mindbody_to_omni_direction_raw.md`](ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) — Session 1 (Turn 1-6, post-Batch-4, with explicit Q1 shelve) + Session 2 (Turn 1-30, post-Phase-B.5-DONE scheduler-builder progressive discussion, REFERENCE / IDEAS only). Session 2 EXPANDS Q1 + Q2 understanding and surfaces Q6-Q14 (Care Episode parent / Encounter-vs-Interaction boundary / Planned-vs-Performed substrate / 3-lane source-of-truth / 4-tier provider authorship + attestation / Visit Closeout drawer 7 lanes / 11-axis location taxonomy / false-equivalence audit meta-principle / clinical-media-intake-consent separate substrates). **Per Knox + user joint discipline: Session 2 is REFERENCE / IDEAS, NOT truth, NOT build plan, NOT doctrine.** Q1 remains SHELVED. Session 2 implications fold at Phase B.5+ doctrine sharpening, NOT by retroactively rewriting Layer 2.
 
 6. **User feedback raw** (9 gaps — feeds Layer 2 Section E):
-   [`mindbody_user_feedback_raw.md`](ingestion/mindbody/mindbody_user_feedback_raw.md)
+   [`mindbody_user_feedback_raw.md`](ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md)
 
 7. **Phase B.5 master plan** (todos all marked COMPLETED except final review):
    [`phase_b5_mindbody_ingestion_4db27449.plan.md`](phase_b5_mindbody_ingestion_4db27449.plan.md)
@@ -147,7 +147,7 @@ Cumulative Phase B.5 commits: ~22+ commits across raw + Layer 2 + integration.
 
 > "Preserve everything. Move duplicates out of the way, don't delete them. Create a manifest, raw ingestion files by feature area, then synthesize into Layer 2. We need full screenshot/chat granularity available later, not just a polished summary."
 
-Raw layer at `.cursor/plans/ingestion/mindbody/` is the durable archive:
+Raw layer at `.cursor/plans/ingestion/competitor_product_evidence/mindbody/` is the durable archive:
 - 163 root screenshots + 20 duplicates preserved in `_duplicates/`
 - 17 raw capture files (frozen — do NOT edit)
 - Manifest with 163 rows COMPLETED (durable index)
@@ -160,7 +160,7 @@ Layer 2 + integration are DERIVED from raw layer; raw layer CANNOT be re-derived
 
 ## Open questions Q1-Q5 (SHELVED — do not resolve during Phase B.5)
 
-Per [`mindbody_open_questions_raw.md`](ingestion/mindbody/mindbody_open_questions_raw.md):
+Per [`mindbody_open_questions_raw.md`](ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md):
 
 - **Q1 Encounter container architecture** — PRIMARY shelved question (Knox + user explicitly agreed). Resolved at Phase B.5+ doctrine sharpening with Opus + Knox + user joint review.
 - **Q2 8 pressure-test scenarios** for chosen architecture — OPEN until Q1 resolves.

@@ -12,9 +12,9 @@
 1. Read this handoff file in full.
 2. Read [.cursor/plans/HANDOFF_2026-05-15_phase_b5_mindbody_ingestion_thread2.md](./HANDOFF_2026-05-15_phase_b5_mindbody_ingestion_thread2.md) — the original thread-1-to-thread-2 handoff that this file extends. Critical lessons + Knox's binding direction + commit cadence still apply.
 3. Read [.cursor/plans/phase_b5_mindbody_ingestion_4db27449.plan.md](./phase_b5_mindbody_ingestion_4db27449.plan.md) — Phase B.5 master plan with Knox's preserve-everything direction note locked at the top.
-4. Read [.cursor/plans/ingestion/mindbody/mindbody_to_omni_direction_raw.md](./ingestion/mindbody/mindbody_to_omni_direction_raw.md) + [mindbody_open_questions_raw.md](./ingestion/mindbody/mindbody_open_questions_raw.md) — the Step 0.5 supplemental dump from 2026-05-16 (encounter container architecture + 5 open questions, **explicitly shelved** for post-Layer-2 review).
-5. Read [.cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md](./ingestion/mindbody/mindbody_ingestion_manifest.md) — manifest with 183 rows; **52 rows COMPLETED (rows 50-101 except row 87 = 87 actually, wait — let me re-state: rows 50-54 + 55-61 + 63-70 + 71-79 + 80-87 + 88-94 + 62 + 95-101 = 52 COMPLETED**). Find next PENDING row.
-6. Read [.cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md](./ingestion/mindbody/mindbody_chat_navigation_map.md) — chat nav map (still accurate; v2 chat content committed at thread 2 commit `86c5b58`).
+4. Read [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) + [mindbody_open_questions_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) — the Step 0.5 supplemental dump from 2026-05-16 (encounter container architecture + 5 open questions, **explicitly shelved** for post-Layer-2 review).
+5. Read [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md](./ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md) — manifest with 183 rows; **52 rows COMPLETED (rows 50-101 except row 87 = 87 actually, wait — let me re-state: rows 50-54 + 55-61 + 63-70 + 71-79 + 80-87 + 88-94 + 62 + 95-101 = 52 COMPLETED**). Find next PENDING row.
+6. Read [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md](./ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md) — chat nav map (still accurate; v2 chat content committed at thread 2 commit `86c5b58`).
 7. Request agent mode if not already in it (user will flip).
 8. Resume **Step 4 Batch 11** — next chronological screenshots starting at manifest row 102.
 
@@ -34,7 +34,7 @@ User has built up a multi-month doctrine stack (DL-10 through DL-16, locked thro
 
 This is non-negotiable. The raw layer is the durable archive. Layer 2 synthesis is **derived** from the raw layer; the raw layer **cannot** be re-derived from Layer 2.
 
-**Additionally:** Knox + user joint direction in [mindbody_to_omni_direction_raw.md](./ingestion/mindbody/mindbody_to_omni_direction_raw.md) Turn 6 — **shelve the encounter container architecture question**. Do not resolve during Phase B.5. Capture as Open Question Q1 in [mindbody_open_questions_raw.md](./ingestion/mindbody/mindbody_open_questions_raw.md). Layer 2 Section G + H + Phase B.5+ doctrine sharpening will resolve.
+**Additionally:** Knox + user joint direction in [mindbody_to_omni_direction_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) Turn 6 — **shelve the encounter container architecture question**. Do not resolve during Phase B.5. Capture as Open Question Q1 in [mindbody_open_questions_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md). Layer 2 Section G + H + Phase B.5+ doctrine sharpening will resolve.
 
 ---
 
@@ -83,7 +83,7 @@ Total pending: 111 of 163 screens.
 - H: Refined substrate slice scope
 - I: OMNI competitive moats (the 15% gaps reframed) — **Botox-in-Products + Schedulable/Clinical/Billable/Resource separation is the canonical moat anchor**
 - J: Cross-domain implications
-- K: Industry analogy insights — **must reference [mindbody_to_omni_direction_raw.md](./ingestion/mindbody/mindbody_to_omni_direction_raw.md) Turn 2 (airlines + restaurants + Amazon + hospital OR + Uber + hotels + EHR + Shopify-Stripe)**
+- K: Industry analogy insights — **must reference [mindbody_to_omni_direction_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) Turn 2 (airlines + restaurants + Amazon + hospital OR + Uber + hotels + EHR + Shopify-Stripe)**
 - L: Multi-modality + scaling vision
 - M: Mobile vs desktop UX distinction
 
@@ -121,7 +121,7 @@ Thread 2 ran 6 batches (Batches 5-10) at ~15-20 minutes each. Each batch = read 
 Batches 5-6 had heavy architectural commentary because patterns were being established. Batches 7-10 had tighter commentary focused on NEW findings only (cumulative findings already documented in earlier batches; cross-reference rather than re-explain). This preserves context for more batches. Apply this pattern in thread 3.
 
 ### 14. POS / Checkout flow has 8+ commerce primitives (NOT 4 per Knox's split)
-Cumulative finding from Batches 6-9: Mindbody's POS surfaces Products + Services-as-entitlement + Contracts (Autopays) + Packages-parent + Package-items + Gift Cards + Account payments + Tips = 8 distinct commerce primitives. Plus 23 distinct payment methods (4 card variants + cash + check + paper methods + 4 medical financing rails + 2 brand-loyalty + 4 digital wallets + clinic-loyalty + 3rd-party). Knox's 4-entity split (Schedulable / Clinical / Billable / Resource-Inventory) per [mindbody_to_omni_direction_raw.md](./ingestion/mindbody/mindbody_to_omni_direction_raw.md) Turn 1 is INSUFFICIENT — Layer 2 Section G must scope expansion. **Do NOT resolve which exact entity decomposition wins; capture in [mindbody_open_questions_raw.md](./ingestion/mindbody/mindbody_open_questions_raw.md) Q3** for post-Layer-2 review.
+Cumulative finding from Batches 6-9: Mindbody's POS surfaces Products + Services-as-entitlement + Contracts (Autopays) + Packages-parent + Package-items + Gift Cards + Account payments + Tips = 8 distinct commerce primitives. Plus 23 distinct payment methods (4 card variants + cash + check + paper methods + 4 medical financing rails + 2 brand-loyalty + 4 digital wallets + clinic-loyalty + 3rd-party). Knox's 4-entity split (Schedulable / Clinical / Billable / Resource-Inventory) per [mindbody_to_omni_direction_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) Turn 1 is INSUFFICIENT — Layer 2 Section G must scope expansion. **Do NOT resolve which exact entity decomposition wins; capture in [mindbody_open_questions_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) Q3** for post-Layer-2 review.
 
 ### 15. Botox-in-Products is the canonical user-feedback-gap-#2 anchor (Batch 8 row 87 + Batch 9 row 88)
 The single most architecturally significant findings in the POS flow:
@@ -149,11 +149,11 @@ Thread 2 wrapped at ~3:00 AM after 6 batches because context was getting tight. 
 1. **This file** — to understand thread-2 state + lessons
 2. **[HANDOFF_2026-05-15_phase_b5_mindbody_ingestion_thread2.md](./HANDOFF_2026-05-15_phase_b5_mindbody_ingestion_thread2.md)** — original thread-1-to-thread-2 handoff
 3. **[phase_b5_mindbody_ingestion_4db27449.plan.md](./phase_b5_mindbody_ingestion_4db27449.plan.md)** — phase plan with Knox direction note
-4. **[mindbody_user_feedback_raw.md](./ingestion/mindbody/mindbody_user_feedback_raw.md)** — 9 gaps + meta-framing
-5. **[mindbody_to_omni_direction_raw.md](./ingestion/mindbody/mindbody_to_omni_direction_raw.md)** — Step 0.5 supplemental OMNI-direction dump (verbatim 6-exchange + critical discipline section + STATUS shelved)
-6. **[mindbody_open_questions_raw.md](./ingestion/mindbody/mindbody_open_questions_raw.md)** — 5 indexed open architectural questions (Q1-Q5); all OPEN, no resolution
-7. **[mindbody_chat_navigation_map.md](./ingestion/mindbody/mindbody_chat_navigation_map.md)** — chat nav map (committed at thread 2 `86c5b58`; v2 chat content NOW in git)
-8. **[mindbody_ingestion_manifest.md](./ingestion/mindbody/mindbody_ingestion_manifest.md)** — 183-row manifest, find next PENDING row (likely row 102)
+4. **[mindbody_user_feedback_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md)** — 9 gaps + meta-framing
+5. **[mindbody_to_omni_direction_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md)** — Step 0.5 supplemental OMNI-direction dump (verbatim 6-exchange + critical discipline section + STATUS shelved)
+6. **[mindbody_open_questions_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md)** — 5 indexed open architectural questions (Q1-Q5); all OPEN, no resolution
+7. **[mindbody_chat_navigation_map.md](./ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md)** — chat nav map (committed at thread 2 `86c5b58`; v2 chat content NOW in git)
+8. **[mindbody_ingestion_manifest.md](./ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md)** — 183-row manifest, find next PENDING row (likely row 102)
 9. **Recent raw capture files (skim 1-2 for format consistency):** `mindbody_10_clients_directory_and_profile_cockpit_raw.md` (most recent format) + `mindbody_09_pos_payment_methods_and_entitlement_attachment_raw.md` (concise architectural commentary example)
 10. **Optional but recommended:** read Knox marker 6 (lines 2598-3721 of chat) for settings architecture analysis. Likely the canonical anchor for Batches 11+ (Staff / Settings / Memberships admin surfaces).
 
@@ -167,7 +167,7 @@ Process per batch (unchanged from thread 1 + thread 2 handoff):
 1. Read 5-10 chronologically-next screenshots
 2. Identify feature area boundaries
 3. Cross-reference to chat sections via navigation map (Knox markers + supplemental files)
-4. Write raw capture file at `.cursor/plans/ingestion/mindbody/mindbody_NN_<area>_raw.md` (NN = batch number, increment from 10)
+4. Write raw capture file at `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_NN_<area>_raw.md` (NN = batch number, increment from 10)
 5. Update manifest rows
 6. Commit + push with `git -c http.postBuffer=524288000 push origin main`
 7. Move to next batch
@@ -263,7 +263,7 @@ These are NOT doctrine; they are observations to feed Layer 2 sections. Captured
 
 8. **Service catalog mirrored across multiple contexts.** Same catalog projected into: appointment-grid filter (Batch 5) + POS Browse > Services (Batch 7) + per-client schedule listing (Batch 10). Single source of truth, multi-context projection.
 
-9. **Classes is a separate service modality.** Batch 7 row 71. Knox encounter-profile enumeration in [mindbody_to_omni_direction_raw.md](./ingestion/mindbody/mindbody_to_omni_direction_raw.md) Turn 5 missing `group_class` profile.
+9. **Classes is a separate service modality.** Batch 7 row 71. Knox encounter-profile enumeration in [mindbody_to_omni_direction_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) Turn 5 missing `group_class` profile.
 
 10. **Per-clinic Client Indexes.** Batch 10 row 62. Massage Pressure / Music Preference / Reason for visiting are CONFIGURABLE per-clinic taxonomies.
 
@@ -291,7 +291,7 @@ If you find a contradiction between this handoff and the actual state on disk, t
 - Continue from manifest row 102.
 - Apply cumulative pattern recognition (lesson 13) — tighter architectural commentary on NEW findings only.
 - Mobile screens (rows 1-49) can be batched separately once you find a natural break in the desktop chronology, OR after all desktop work completes.
-- The 5 open questions in [mindbody_open_questions_raw.md](./ingestion/mindbody/mindbody_open_questions_raw.md) are SHELVED. Do not resolve. Cite from raw captures where evidence is concrete; defer to Layer 2.
+- The 5 open questions in [mindbody_open_questions_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) are SHELVED. Do not resolve. Cite from raw captures where evidence is concrete; defer to Layer 2.
 - Encounter container architecture is THE explicitly shelved primary question. Knox + user agreed. Respect.
 
 Push to wrap-clean if you hit context. Don't exhaust mid-batch.

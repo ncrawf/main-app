@@ -250,7 +250,7 @@ Apply prospectively starting Wave 3D:
   - **Wave 4B**: Hims ingestion evidence
   - **Wave 4C**: remaining evidence/pressure-test leftovers
 - Wave 4A executed first using high-signal Mindbody evidence indices:
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md`, `.cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md`, `.cursor/plans/ingestion/mindbody/mindbody_open_questions_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md`.
 - Route caveat (reinforced): these artifacts are evidence/routing inputs only; no doctrine authority promotion without decision/review closure.
 - Route caveat (new): manifest step-state wording drift identified and routed as non-blocking review (`D0W4A-REV-001` / `D0W4A-CNF-001`) to protect provenance quality.
 - D6 remains excluded and blocked by `D0-REV-009`.
@@ -265,7 +265,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4B Proposed Updates (Not Canonized)
 
 - Wave 4B executed second using bounded Hims evidence corpus:
-  - Tier2 consulted: `.cursor/plans/ingestion/hims/_pressure_test_main_vs_hims.md`, `.cursor/plans/ingestion/hims/hims_weight_loss.md`, `.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md`, `.cursor/plans/ingestion/hims/hims_trt.md`, `.cursor/plans/ingestion/hims/hims_labs.md`, `.cursor/plans/ingestion/hims/hers_menopause.md`, `.cursor/plans/ingestion/hims/hims_anxiety.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/hims/_pressure_test_main_vs_hims.md`, `.cursor/plans/ingestion/competitor_product_evidence/hims/hims_weight_loss.md`, `.cursor/plans/ingestion/competitor_product_evidence/hims/hims_weight_loss_new_patient.md`, `.cursor/plans/ingestion/competitor_product_evidence/hims/hims_trt.md`, `.cursor/plans/ingestion/competitor_product_evidence/hims/hims_labs.md`, `.cursor/plans/ingestion/competitor_product_evidence/hims/hers_menopause.md`, `.cursor/plans/ingestion/competitor_product_evidence/hims/hims_anxiety.md`.
 - Durable evidence routed for:
   - identity-gate variance by pathway/risk context,
   - resume-incomplete-visit / action-items continuity pattern,
@@ -285,7 +285,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C Proposed Updates (Not Canonized)
 
 - Wave 4C started as a bounded leftovers tranche (**Wave 4C-alpha**) focused on high-signal unread Mindbody evidence artifacts:
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_knox_chat_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_knox_chat_raw_v1_with_duplicates_preserved.md`, `.cursor/plans/ingestion/mindbody/mindbody_settings_class_course_options_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_settings_room_requirements_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_to_omni_direction_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_knox_chat_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_knox_chat_raw_v1_with_duplicates_preserved.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_settings_class_course_options_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_settings_room_requirements_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md`.
 - Durable evidence routed for:
   - exploratory chat corpus governance and ideation-vs-authority boundary,
   - high-density policy-surface constraints (booking/waitlist/sign-in mode complexity),
@@ -304,7 +304,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C-beta Proposed Updates (Not Canonized)
 
 - Wave 4C-beta executed as a second bounded leftovers slice (Mindbody operations/checkout/user-gap artifacts):
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_09_pos_payment_methods_and_entitlement_attachment_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_user_feedback_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_09_pos_payment_methods_and_entitlement_attachment_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md`.
 - Durable evidence routed for:
   - dashboard + appointments as multi-substrate aggregation/projection surface,
   - checkout multi-rail payment + entitlement-attachment seam complexity,
@@ -323,7 +323,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C-gamma Proposed Updates (Not Canonized)
 
 - Wave 4C-gamma executed as a third bounded leftovers slice (Mindbody appointment-overlays + checkout-entry + services/contracts/packages continuation):
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_05_appointments_grid_overlays_and_detail_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_06_pos_checkout_entry_and_products_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_07_pos_checkout_services_contracts_packages_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_05_appointments_grid_overlays_and_detail_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_06_pos_checkout_entry_and_products_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_07_pos_checkout_services_contracts_packages_raw.md`.
 - Durable evidence routed for:
   - appointment as workflow-hub surface (lifecycle + commerce + note + booking actions),
   - checkout entry seam (PAID vs UNPAID entitlement split and cart-composition behavior),
@@ -342,7 +342,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C-delta Proposed Updates (Not Canonized)
 
 - Wave 4C-delta executed as a fourth bounded leftovers slice (Mindbody checkout-completion + client cockpit + client ledger/account-ops):
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_08_pos_checkout_completion_and_botox_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_10_clients_directory_and_profile_cockpit_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_11_clients_profile_visits_purchases_account_documents_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_08_pos_checkout_completion_and_botox_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_10_clients_directory_and_profile_cockpit_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_11_clients_profile_visits_purchases_account_documents_raw.md`.
 - Durable evidence routed for:
   - checkout completion primitives (gift cards/account payments/promo + Botox quantity workaround),
   - client cockpit projection of identity/consent/membership/billing surfaces,
@@ -361,7 +361,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C-epsilon Proposed Updates (Not Canonized)
 
 - Wave 4C-epsilon executed as a fifth bounded leftovers slice (Mindbody POS entry + advanced service/pricing + global pricing/retail/staff admin):
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_12_pos_entry_clients_admin_more_service_catalog_editor_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_13_service_edit_advanced_pricing_options_staff_assignment_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_14_pricing_options_global_retail_products_staff_admin_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_12_pos_entry_clients_admin_more_service_catalog_editor_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_13_service_edit_advanced_pricing_options_staff_assignment_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_14_pricing_options_global_retail_products_staff_admin_raw.md`.
 - Durable evidence routed for:
   - configurable client/admin taxonomy and context-aware staff/service binding entry patterns,
   - high-density pricing-option rule mesh (activation/commission/discount/scheduling constraints),
@@ -380,7 +380,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C-zeta Proposed Updates (Not Canonized)
 
 - Wave 4C-zeta executed as a sixth bounded leftovers slice (Mindbody staff setup/availability + settings final desktop sweep + first mobile business-app tranche):
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_15_staff_appointment_setup_availability_settings_master_surface_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_16_settings_master_surface_final_sections_plus_admin_drill_downs_plus_mystery_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_17_mobile_business_app_schedule_appointment_detail_edit_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_15_staff_appointment_setup_availability_settings_master_surface_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_16_settings_master_surface_final_sections_plus_admin_drill_downs_plus_mystery_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_17_mobile_business_app_schedule_appointment_detail_edit_raw.md`.
 - Durable evidence routed for:
   - composable staff availability and assignment constraint patterns,
   - high-density settings policy/taxonomy signals (permissions, required-fields dual-mode, alerts, fee controls),
@@ -399,7 +399,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C-eta Proposed Updates (Not Canonized)
 
 - Wave 4C-eta executed as a seventh bounded leftovers slice (Mindbody mobile client-cockpit + account/refund/schedule + retail/reports/payment-processing tranche):
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_18_mobile_client_picker_new_client_profile_long_form_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_19_mobile_client_account_tab_purchases_refund_schedule_raw.md`, `.cursor/plans/ingestion/mindbody/mindbody_20_mobile_documents_retail_pos_clients_reports_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_18_mobile_client_picker_new_client_profile_long_form_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_19_mobile_client_account_tab_purchases_refund_schedule_raw.md`, `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_20_mobile_documents_retail_pos_clients_reports_raw.md`.
 - Durable evidence routed for:
   - mobile client picker/new-client/profile compression patterns and reusable client-selection primitives,
   - account operation semantics (refund defaults/restock toggle) plus receipt-integrity variance signals,
@@ -418,7 +418,7 @@ Apply prospectively starting Wave 3D:
 ## D0 Wave 4C-theta Proposed Updates (Not Canonized)
 
 - Wave 4C-theta executed as an eighth bounded leftovers slice (final Mindbody mobile tranche: payment-processing detail + sales/return detail + business snapshot + mobile settings/more surfaces):
-  - Tier2 consulted: `.cursor/plans/ingestion/mindbody/mindbody_21_mobile_final_payment_card_network_detail_sales_report_business_snapshot_more_settings_raw.md`.
+  - Tier2 consulted: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_21_mobile_final_payment_card_network_detail_sales_report_business_snapshot_more_settings_raw.md`.
 - Durable evidence routed for:
   - payment entry-method and settlement-detail visibility,
   - actor multiplicity on sales/returns (staff/system/clinic/integration) and tip-as-line-item semantics,
@@ -437,8 +437,8 @@ Apply prospectively starting Wave 3D:
 
 - Closed `D0W4C-REV-001` with explicit closure-row contract fields and resolved linked conflict `D0W4C-CNF-001`.
 - Citation precedence locked for chat corpora:
-  - primary: `.cursor/plans/ingestion/mindbody/mindbody_knox_chat_raw.md` (v2 clean),
-  - audit fallback only: `.cursor/plans/ingestion/mindbody/mindbody_knox_chat_raw_v1_with_duplicates_preserved.md` (duplicate-preserved archive).
+  - primary: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_knox_chat_raw.md` (v2 clean),
+  - audit fallback only: `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_knox_chat_raw_v1_with_duplicates_preserved.md` (duplicate-preserved archive).
 - Promotion verdict for this stage:
   - promote: none,
   - reject: direct chat-text authority promotion,

@@ -4,7 +4,7 @@
 **Stage:** 2 Phase 1 — Layer B authoring (3 modules; 8 questions)
 **Clinical CODEOWNER:** founder (board-certified MD)
 **Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; multi-instance entity modeling) + `Section 1K.19` (intake repository + control model)
-**Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md)
+**Reference funnel:** [.cursor/plans/ingestion/competitor_product_evidence/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/competitor_product_evidence/hims/hims_weight_loss_new_patient.md)
 
 ## Scope
 

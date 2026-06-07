@@ -13,7 +13,7 @@ The truth plane (domain contracts + System Map) answers *where canonical truth l
 
 ## 2. The architecture planes (where this sits)
 
-P0 Doctrine/Thesis · P1 Truth (domain contracts + System Map) · P2 Seam · P3 Capability · **P4 Projection** (read-models; own no truth) · **P5 Surface** (this map) · P6 Build · Evidence. Conscious folds (not planes): Actions/Commands = RBAC atoms + domain write-APIs; Evals = Build-OS proof.
+P0 Doctrine/Thesis · P1 Truth (domain contracts + System Map) · P2 Seam · P3 Capability · **P4 Projection** (read-models; own no truth) · **P5 Surface** (this map) · P6 Build · Evidence (intake/processing tier → `ingestion/00_evidence_router.md`; learning/reference workbench, owns no truth). Conscious folds (not planes): Actions/Commands = RBAC atoms + domain write-APIs; Evals = Build-OS proof.
 
 ## 3. Surface KINDS — exactly three (stable; do not invent sub-kinds)
 

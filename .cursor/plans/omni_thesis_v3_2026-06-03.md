@@ -14,7 +14,7 @@ Manifest action: add_tier2 (Cross-Cutting Consult; read-graph #3a repointed v2�
 
 ## §0.1 What changed and why (the one-paragraph story)
 
-After v2, the spring-2026 IBM/Stanford AI corpus (47 sources; `ingestion/ai_substrate_2026/`) was ingested and pressure-tested twice (`audits/2026-06-03_*`). It surfaced that OMNI's AI/agentic-runtime layer was ~20-30% under-modeled and that the thesis was inward-skewed (OMNI Direct implicitly the center; Federation as operator plumbing). The resolution (ratified `D0THES-DEC-035`): AI is a **cross-cutting axis** (not domain #12, not the target), trust/authority/permeability is **also a cross-cutting axis**, and OMNI points **outward under governance**. None of v2's substrate truth was invalidated — it was affirmed and sharpened. v3 writes down what we discovered.
+After v2, the spring-2026 IBM/Stanford AI corpus (47 sources; `ingestion/outside_learning/sources/2026-spring_ai_substrate/`) was ingested and pressure-tested twice (`audits/2026-06-03_*`). It surfaced that OMNI's AI/agentic-runtime layer was ~20-30% under-modeled and that the thesis was inward-skewed (OMNI Direct implicitly the center; Federation as operator plumbing). The resolution (ratified `D0THES-DEC-035`): AI is a **cross-cutting axis** (not domain #12, not the target), trust/authority/permeability is **also a cross-cutting axis**, and OMNI points **outward under governance**. None of v2's substrate truth was invalidated — it was affirmed and sharpened. v3 writes down what we discovered.
 
 ## §0.2 The thesis in one sentence (re-grounded)
 
@@ -146,7 +146,7 @@ OMNI exposes and consumes a **designed, bounded set** of governed capabilities (
 
 - **Operating Contract:** inherits v2 §17 (the `omni_thesis_vN` stream contract) unchanged. v3 is immutable once superseded; v4 (if ever) lands as a new file. **Meta-discipline (`D0THES-DEC-035` guardrail 5):** the two pressure tests did their job; the substrate now stabilizes — the next work is *building the wedge*, not a reflexive v4. AI/trust are now grounded; stop re-litigating physics.
 - **Amendment log:** v3 spawned 2026-06-03 per `D0THES-DEC-035` to re-ground around the trust axis + AI axis + outward posture, preserving v2 core verbatim (§0.3). Supersession `D0THES-SUP-003`.
-- **Companion artifacts:** posture `omni_enterprise_posture_2026-06-03.md`; AI frame `ai_substrate_frame_2026-06-03.md`; routing spine `ai_substrate_routing_spine_REV-176.md`; pressure tests `audits/2026-06-03_*`; evidence corpus `ingestion/ai_substrate_2026/`; v2 `omni_thesis_v2_2026-05-26.md` (inherited core).
+- **Companion artifacts:** posture `omni_enterprise_posture_2026-06-03.md`; AI frame `ai_substrate_frame_2026-06-03.md`; routing spine `ai_substrate_routing_spine_REV-176.md`; pressure tests `audits/2026-06-03_*`; evidence corpus `ingestion/outside_learning/sources/2026-spring_ai_substrate/`; v2 `omni_thesis_v2_2026-05-26.md` (inherited core).
 - **Guardrails live:** `D0THES-GRD-028` (AI-axis-not-target) · `029` (CNS-not-sovereign-brain) · `030` (trust-relocation/metadata) · `031` (Federation-not-god-domain) · `032` (architectural≠economic + metaphor≠identity).
 
 End of v3.

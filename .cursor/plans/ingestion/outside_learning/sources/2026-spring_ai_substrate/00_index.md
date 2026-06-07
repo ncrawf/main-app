@@ -4,7 +4,7 @@ Document type: `evidence_or_ingestion` (manifest / access map for the IBM/Stanfo
 Authority: non-binding evidence index. Binds nothing until synthesized + routed per `07_evidence_ingestion_ledger.md`.
 Status: `landed` (47 videos + 1 strategy thread filled + digested; evidence rows `D0AI-EVD-001`/`-002`; frame ratified `D0THES-DEC-034`; next = routing spine `REV-176`)
 Domain(s): architecture_governance, evidence_processing, ai_substrate
-Source-of-truth relationship: access map / table-of-contents for `videos/vNN.md`. Companion to the evidence ledger rows (`D0AI-EVD-NNN`) and the eventual synthesis map. Mirrors the Mindbody ingestion precedent (`.cursor/plans/ingestion/mindbody/`).
+Source-of-truth relationship: access map / table-of-contents for `videos/vNN.md`. Companion to the evidence ledger rows (`D0AI-EVD-NNN`) and the eventual synthesis map. Mirrors the Mindbody ingestion precedent (`.cursor/plans/ingestion/competitor_product_evidence/mindbody/`).
 Created: 2026-06-03
 Related: `HANDOFF_2026-06-03_surface_plane_and_pre_ai_immersion.md` (`REV-178`), `omni_thesis_v2_2026-05-26.md` (§8 / §9 / §9.1 / §12.8), `ai_substrate_ingestion_staging_78db612c.plan.md`
 
@@ -27,6 +27,8 @@ For each video: open `videos/vNN.md`, paste the transcript under section 1, past
 
 ## Status legend
 `raw_unprocessed` = file created, awaiting paste · `filled` = transcript + distillation pasted · `landed` = evidence row created · `synthesized` = carried into the synthesis map.
+
+> **EVSRC mapping (2026-06-06):** this closed collection now lives under `sources/` and occupies `EVSRC-2026-000001 … 000047` in the lane registry `../../00_index.md` — `v01`=`000001`, `v02`=`000002`, … `v47`=`000047`. The `vNN` ids below remain the **citation keys** (used across `REV-176` / guardrails / `inventory/` / evidence ledger); EVSRC is the registry identity. New (post-spring) sources start at `000048`.
 
 ## Video manifest
 

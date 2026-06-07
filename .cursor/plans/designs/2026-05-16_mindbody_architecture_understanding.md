@@ -2,7 +2,7 @@
 
 **Phase B.5 Step N+1 deliverable**
 **Date:** 2026-05-16
-**Source layers:** raw ingestion at [.cursor/plans/ingestion/mindbody/](../ingestion/mindbody/) (163 screenshots across 17 raw capture files mindbody_04 through mindbody_21 + 5 supplemental raw files + manifest + chat nav map)
+**Source layers:** raw ingestion at [.cursor/plans/ingestion/competitor_product_evidence/mindbody/](../ingestion/competitor_product_evidence/mindbody/) (163 screenshots across 17 raw capture files mindbody_04 through mindbody_21 + 5 supplemental raw files + manifest + chat nav map)
 **Status:** Layer 2 — agent's first-pass synthesis of Mindbody's architecture inferred from raw ingest layer. NOT OMNI-flavored doctrine yet; that's Phase B.5+.
 
 ---
@@ -22,7 +22,7 @@ This Layer 2 does NOT amend doctrine. Phase B.5+ doctrine sharpening + Phase 0 b
 Per [phase_b5_mindbody_ingestion_4db27449.plan.md](../phase_b5_mindbody_ingestion_4db27449.plan.md) "Knox direction note (2026-05-15 evening, locked)":
 > "Preserve everything. Move duplicates out of the way, don't delete them. Create a manifest, raw ingestion files by feature area, then synthesize into Layer 2. We need full screenshot/chat granularity available later, not just a polished summary."
 
-Per [.cursor/plans/ingestion/mindbody/mindbody_open_questions_raw.md](../ingestion/mindbody/mindbody_open_questions_raw.md):
+Per [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md):
 > Q1 (encounter container architecture) is **EXPLICITLY SHELVED** for Phase B.5+ doctrine sharpening. Layer 2 does not resolve it.
 
 5 open questions (Q1-Q5) are cited where Layer 2 evidence is relevant; they are NOT resolved here.
@@ -95,7 +95,7 @@ Mindbody uses BOTH numeric IDs (legacy ASP, e.g., service=88, pricing_option=101
 
 ### A.4 Q3 4-entity split SCOPING (concrete from evidence)
 
-Knox's original 4-entity split per [mindbody_to_omni_direction_raw.md](../ingestion/mindbody/mindbody_to_omni_direction_raw.md) Turn 1:
+Knox's original 4-entity split per [mindbody_to_omni_direction_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) Turn 1:
 - Schedulable Service / Clinical Service / Billable Item / Resource-Inventory Item
 
 **Cumulative evidence from Phase B.5 expands this to 12+ commerce primitives** (mindbody_15 Step 10 enumeration + cumulative Batches 6-21):
@@ -239,7 +239,7 @@ staff_permission_group_assignment { staff_id, permission_group_id }
 
 ### C.10 Q5 capability flags (per-brand vs per-staff)
 
-Per [mindbody_open_questions_raw.md](../ingestion/mindbody/mindbody_open_questions_raw.md) Q5: per-brand capability flags (async messaging enabled / external-line enabled / scheduling enabled / room/resource scheduling / POS / memberships / Rx / labs / video visits) compose with per-staff capability flags (Desk staff / Provider appointments / Provider group lessons / etc.).
+Per [mindbody_open_questions_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) Q5: per-brand capability flags (async messaging enabled / external-line enabled / scheduling enabled / room/resource scheduling / POS / memberships / Rx / labs / video visits) compose with per-staff capability flags (Desk staff / Provider appointments / Provider group lessons / etc.).
 
 Status: OPEN. Layer 2 Section J + G must reason about whether existing OMNI capability layer covers + how 2-layer composes.
 
@@ -384,7 +384,7 @@ OMNI must scaffold all 11 concerns from Day 0 (some shallow, some deep).
 
 ## Section E — User's 9 gaps with architectural root causes
 
-Source: [.cursor/plans/ingestion/mindbody/mindbody_user_feedback_raw.md](../ingestion/mindbody/mindbody_user_feedback_raw.md).
+Source: [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md).
 
 | Gap | User's words | Architectural root cause | OMNI fix scope (preview) |
 |---|---|---|---|
@@ -463,7 +463,7 @@ Format: COVERED (cite invariant) / GAP-doctrine (extension needed) / GAP-substra
 
 ## Section G — Refined doctrine sharpening scope
 
-**Status of all OPEN questions: shelved per [.cursor/plans/ingestion/mindbody/mindbody_open_questions_raw.md](../ingestion/mindbody/mindbody_open_questions_raw.md). Phase B.5+ doctrine sharpening resolves.**
+**Status of all OPEN questions: shelved per [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md). Phase B.5+ doctrine sharpening resolves.**
 
 ### G.1 DL-15 amendments needed (current 28 invariants)
 
@@ -802,7 +802,7 @@ OMNI system map 1J + 1U.
 
 ## Section K — Industry analogy insights
 
-Per user feedback raw + [.cursor/plans/ingestion/mindbody/mindbody_to_omni_direction_raw.md](../ingestion/mindbody/mindbody_to_omni_direction_raw.md) Turn 2:
+Per user feedback raw + [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md) Turn 2:
 
 ### K.1 Airlines (reservation / yield management / availability)
 
@@ -941,12 +941,12 @@ Per Batches 17-21 mobile inventory (49 screenshots) + cross-ref to desktop:
 
 ## Cross-references
 
-- **Raw ingestion layer**: [.cursor/plans/ingestion/mindbody/](../ingestion/mindbody/) — 17 raw capture files (mindbody_04 through mindbody_21) + manifest (163 rows) + chat nav map + 5 supplemental files
+- **Raw ingestion layer**: [.cursor/plans/ingestion/competitor_product_evidence/mindbody/](../ingestion/competitor_product_evidence/mindbody/) — 17 raw capture files (mindbody_04 through mindbody_21) + manifest (163 rows) + chat nav map + 5 supplemental files
 - **Phase B.5 master plan**: [.cursor/plans/phase_b5_mindbody_ingestion_4db27449.plan.md](../phase_b5_mindbody_ingestion_4db27449.plan.md)
-- **Open questions** (5 shelved): [.cursor/plans/ingestion/mindbody/mindbody_open_questions_raw.md](../ingestion/mindbody/mindbody_open_questions_raw.md)
-- **Step 0.5 OMNI direction**: [.cursor/plans/ingestion/mindbody/mindbody_to_omni_direction_raw.md](../ingestion/mindbody/mindbody_to_omni_direction_raw.md)
-- **User feedback raw**: [.cursor/plans/ingestion/mindbody/mindbody_user_feedback_raw.md](../ingestion/mindbody/mindbody_user_feedback_raw.md)
-- **Chat nav map**: [.cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md](../ingestion/mindbody/mindbody_chat_navigation_map.md)
+- **Open questions** (5 shelved): [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md)
+- **Step 0.5 OMNI direction**: [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_to_omni_direction_raw.md)
+- **User feedback raw**: [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md](../ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md)
+- **Chat nav map**: [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md](../ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md)
 - **System map**: [.cursor/plans/system_map_three_layers_60706286.plan.md](../system_map_three_layers_60706286.plan.md)
 - **Foundational architecture**: [.cursor/plans/FOUNDATIONAL_ARCHITECTURE_2026-05-10_all_dimensions.md](../FOUNDATIONAL_ARCHITECTURE_2026-05-10_all_dimensions.md)
 - **OMNI brain hardening**: [.cursor/plans/omni_brain_hardening_d1ef429b.plan.md](../omni_brain_hardening_d1ef429b.plan.md)

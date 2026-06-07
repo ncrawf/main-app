@@ -86,7 +86,7 @@ References [mindbody_chat_navigation_map.md](mindbody_chat_navigation_map.md) (b
 
 ## Inventory summary
 
-**Final state at .cursor/plans/ingestion/mindbody/screenshots/ as of Step 1 correction (commit 3c149cb):**
+**Final state at .cursor/plans/ingestion/competitor_product_evidence/mindbody/screenshots/ as of Step 1 correction (commit 3c149cb):**
 
 | Source | Count | Range / characteristic |
 |---|---|---|

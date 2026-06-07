@@ -1,6 +1,6 @@
 # Cluster Inventory — v17–v24
 
-- cluster: ai_substrate_2026 / v17–v24 (Agent OS, context economics, agent teams, agentic zero-trust, OWASP-LLM, agentic control plane, Glasswing/Mythos harness, skills-compiler/security)
+- cluster: 2026-spring_ai_substrate / v17–v24 (Agent OS, context economics, agent teams, agentic zero-trust, OWASP-LLM, agentic control plane, Glasswing/Mythos harness, skills-compiler/security)
 - sources: videos/v17.md, v18.md, v19.md, v20.md, v21.md, v22.md, v23.md, v24.md
 - date: 2026-06-04
 - status: lossless concept inventory — non-binding evidence

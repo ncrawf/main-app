@@ -76,4 +76,4 @@ The reframe — **OMNI = the governed handshake layer for care; OMNI Direct = on
 - Full lossless extraction of all 47 sources (Phase 3 — this test only reread the ~16 load-bearing clusters).
 
 ## 7. Source anchors
-Per-video verbatim anchors preserved in the 3 explore-agent returns (this session). Full lossless source-anchored ledger = Phase 3. Evidence corpus: `.cursor/plans/ingestion/ai_substrate_2026/`.
+Per-video verbatim anchors preserved in the 3 explore-agent returns (this session). Full lossless source-anchored ledger = Phase 3. Evidence corpus: `.cursor/plans/ingestion/outside_learning/sources/2026-spring_ai_substrate/`.

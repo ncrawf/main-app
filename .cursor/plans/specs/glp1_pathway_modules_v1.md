@@ -4,7 +4,7 @@
 **Stage:** 2 Phase 2.2.2 — Layer D authoring (8 of 8 planned modules — Phase 2.2.2 COMPLETE; Module 21 contraindication_acknowledgments DEFERRED to future Rx Confirmation flow spec per Hims-parity architectural decision — see Deferred scope section)
 **Clinical CODEOWNER:** founder (board-certified MD)
 **Architecture pin:** `Section 1K.3` (atomization + 4-layer module taxonomy + answer mechanics + pathway override + directly-answered-fields rule) + `Section 1K.4` (question bank + versioning) + `Section 1K.5.A` (clinical assertion layer; concept registry organized by domain) + `Section 1K.19` (intake repository + control model) + `Section 1Q.15` (GLP-1 vertical slice; 24 rules / 25 templates) + `Section 1Q.16` (adversarial pre-runtime gate)
-**Reference funnel:** [.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md)
+**Reference funnel:** [.cursor/plans/ingestion/competitor_product_evidence/hims/hims_weight_loss_new_patient.md](.cursor/plans/ingestion/competitor_product_evidence/hims/hims_weight_loss_new_patient.md)
 
 ## Scope
 

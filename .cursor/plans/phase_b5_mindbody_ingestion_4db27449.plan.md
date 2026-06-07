@@ -4,7 +4,7 @@ overview: "Mirror the Hims intake precedent for Mindbody. Four-step workflow: cl
 preserve_everything_principle: "Full screenshot/chat granularity must remain available later, not just the polished Layer 2 summary. Raw capture files are the durable archive that Layer 2 references. Never delete, never summarize away — move duplicates into _duplicates/ subfolder rather than deleting; rename misplaced inputs into properly-named raw files; preserve all chat text verbatim across multiple raw files when needed."
 todos:
   - id: user_drops_screenshots
-    content: "USER: drop screenshots into .cursor/plans/ingestion/mindbody/screenshots/"
+    content: "USER: drop screenshots into .cursor/plans/ingestion/competitor_product_evidence/mindbody/screenshots/"
     status: completed
   - id: user_paste_knox_chat
     content: "USER: paste full user <-> chat/knox back-and-forth into mindbody_knox_chat_raw.md"
@@ -13,13 +13,13 @@ todos:
     content: "USER: write 15% gap list into mindbody_user_feedback_raw.md (rough bullets, include WHY each is a gap)"
     status: completed
   - id: agent_cleanup_pass
-    content: "AGENT: cleanup pass (preserve everything). Move 49 ' 2.PNG' duplicate screenshots to .cursor/plans/ingestion/mindbody/screenshots/_duplicates/ (do not delete). Move Pasted text (4).txt + Pasted text (6).txt out of screenshots/ and rename to mindbody_settings_room_requirements_raw.md + mindbody_settings_class_course_options_raw.md with frozen-ingest headers. Commit + push cleanup."
+    content: "AGENT: cleanup pass (preserve everything). Move 49 ' 2.PNG' duplicate screenshots to .cursor/plans/ingestion/competitor_product_evidence/mindbody/screenshots/_duplicates/ (do not delete). Move Pasted text (4).txt + Pasted text (6).txt out of screenshots/ and rename to mindbody_settings_room_requirements_raw.md + mindbody_settings_class_course_options_raw.md with frozen-ingest headers. Commit + push cleanup."
     status: completed
   - id: agent_build_manifest
-    content: "AGENT: build .cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md (master index). Columns: screenshot filename, screen title (inferred from content), feature area, raw capture file it lands in, chat sections referencing it, mobile/desktop indicator, batch number, ingestion status. This is the durable index Layer 2 and future contributors traverse to find granularity. Commit + push manifest scaffold."
+    content: "AGENT: build .cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md (master index). Columns: screenshot filename, screen title (inferred from content), feature area, raw capture file it lands in, chat sections referencing it, mobile/desktop indicator, batch number, ingestion status. This is the durable index Layer 2 and future contributors traverse to find granularity. Commit + push manifest scaffold."
     status: completed
   - id: agent_chat_navigation_map
-    content: "AGENT: read chat transcript in offset/limit passes to build a navigation map at .cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md (line ranges per topic / per Knox-takeaway-batch / per screenshot batch user dropped). Preserves chat granularity without summarizing — just indexes it. Commit + push."
+    content: "AGENT: read chat transcript in offset/limit passes to build a navigation map at .cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md (line ranges per topic / per Knox-takeaway-batch / per screenshot batch user dropped). Preserves chat granularity without summarizing — just indexes it. Commit + push."
     status: completed
   - id: agent_raw_capture_batches
     content: "AGENT: ingest screenshots in feature-area batches (~5-10 per pass). 163 of 163 (100%) COMPLETED across 17 raw capture files (mindbody_04 through mindbody_21) over 3 threads (Batch 4 thread 1; Batches 5-10 thread 2; Batches 11-21 thread 3). 185+ cumulative findings encoded."
@@ -61,14 +61,14 @@ DL-15's 28 invariants capture the *shape* of scheduling but not the *operational
 
 ## Layer 1 — Raw ingestion (frozen, verbatim, do-not-edit, do-not-analyze)
 
-Lives in `.cursor/plans/ingestion/mindbody/` (mirroring [.cursor/plans/ingestion/hims/](.cursor/plans/ingestion/hims/) structure).
+Lives in `.cursor/plans/ingestion/competitor_product_evidence/mindbody/` (mirroring [.cursor/plans/ingestion/competitor_product_evidence/hims/](.cursor/plans/ingestion/competitor_product_evidence/hims/) structure).
 
 Files to be created in this phase:
 
-- `.cursor/plans/ingestion/mindbody/screenshots/` — directory; you drop the 60 PNG/JPG files here. Any filename convention is fine.
-- `.cursor/plans/ingestion/mindbody/mindbody_knox_chat_raw.md` — **the full back-and-forth between you and Knox** pasted verbatim. This is richer than the 300-feature distilled output because it captures your observations during each screen review, Knox's analytical framing per round, iterative refinement, AND the text copy you pasted from the Mindbody app during the conversation. Header: `Source: user ↔ chat/knox back-and-forth (verbatim). Status: raw ingest — do not edit, do not analyze.` Same convention as [.cursor/plans/ingestion/hims/hims_trt.md](.cursor/plans/ingestion/hims/hims_trt.md). The distilled 300-feature inventory will be embedded within this chat transcript naturally — no separate inventory file needed.
-- `.cursor/plans/ingestion/mindbody/mindbody_user_feedback_raw.md` — your verbatim narration of pain points, 15% gaps, and "things we want to make better than Mindbody." Rough bullets are fine. Distinct from the chat-back-and-forth file because this is your direct gap articulation rather than the discovery dialogue. Header: `Source: user (verbatim). Status: raw ingest — do not edit, do not analyze.`
-- `.cursor/plans/ingestion/mindbody/mindbody_screens_raw_01_to_NN.md` (one or more files, organized by feature area) — produced by me. Per-screenshot capture: filename + visible text content + UI elements + settings exposed + visual markers, exactly as the Hims pattern captures verbatim screen content per step. Cross-references back to the relevant rounds in `mindbody_knox_chat_raw.md` where each screen was discussed.
+- `.cursor/plans/ingestion/competitor_product_evidence/mindbody/screenshots/` — directory; you drop the 60 PNG/JPG files here. Any filename convention is fine.
+- `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_knox_chat_raw.md` — **the full back-and-forth between you and Knox** pasted verbatim. This is richer than the 300-feature distilled output because it captures your observations during each screen review, Knox's analytical framing per round, iterative refinement, AND the text copy you pasted from the Mindbody app during the conversation. Header: `Source: user ↔ chat/knox back-and-forth (verbatim). Status: raw ingest — do not edit, do not analyze.` Same convention as [.cursor/plans/ingestion/competitor_product_evidence/hims/hims_trt.md](.cursor/plans/ingestion/competitor_product_evidence/hims/hims_trt.md). The distilled 300-feature inventory will be embedded within this chat transcript naturally — no separate inventory file needed.
+- `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md` — your verbatim narration of pain points, 15% gaps, and "things we want to make better than Mindbody." Rough bullets are fine. Distinct from the chat-back-and-forth file because this is your direct gap articulation rather than the discovery dialogue. Header: `Source: user (verbatim). Status: raw ingest — do not edit, do not analyze.`
+- `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_screens_raw_01_to_NN.md` (one or more files, organized by feature area) — produced by me. Per-screenshot capture: filename + visible text content + UI elements + settings exposed + visual markers, exactly as the Hims pattern captures verbatim screen content per step. Cross-references back to the relevant rounds in `mindbody_knox_chat_raw.md` where each screen was discussed.
 
 ## Layer 2 — Architecture understanding (my synthesis)
 

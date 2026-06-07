@@ -91,7 +91,7 @@ Everything that was uncommitted at the time of the Tier-0 push. Specifically:
 - `.cursor/plans/doctrine/major_architecture_inflection_preservation_protocol_patch_spec_2026-05-22.md`
 
 **Ingestion:**
-- `.cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md`
+- `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md`
 
 ---
 

@@ -348,7 +348,7 @@ Blockers (explicit and bounded):
   - `.cursor/plans/FUTURE_ARC_2026-05-12_federation_permeability_topology.md`
   - `.cursor/plans/FUTURE_ARC_2026-05-12_phi_surface_governance.md`
   - `.cursor/plans/FUTURE_ARC_2026-05-12_prioritization_attention_economics.md`
-  - `.cursor/plans/ingestion/mindbody/screenshots/README.md`
+  - `.cursor/plans/ingestion/competitor_product_evidence/mindbody/screenshots/README.md`
   - `README.md`
 
 Interpretation:

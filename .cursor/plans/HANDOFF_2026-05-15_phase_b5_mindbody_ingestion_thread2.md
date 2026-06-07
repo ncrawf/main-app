@@ -11,8 +11,8 @@
 
 1. Read this handoff file in full.
 2. Read [.cursor/plans/phase_b5_mindbody_ingestion_4db27449.plan.md](./phase_b5_mindbody_ingestion_4db27449.plan.md) (Phase B.5 master plan with Knox's preserve-everything direction note locked at the top).
-3. Read [.cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md](./ingestion/mindbody/mindbody_chat_navigation_map.md) (the 14-marker index over the chat — tells you what to read in the chat and what to skim).
-4. Read [.cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md](./ingestion/mindbody/mindbody_ingestion_manifest.md) (manifest with 183 rows; rows 50-54 are COMPLETED, all others PENDING).
+3. Read [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md](./ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md) (the 14-marker index over the chat — tells you what to read in the chat and what to skim).
+4. Read [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md](./ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md) (manifest with 183 rows; rows 50-54 are COMPLETED, all others PENDING).
 5. Request agent mode if not already in it (user will flip).
 6. Resume **Step 4 Batch 2** — next chronological screenshots starting at manifest row 55.
 
@@ -36,7 +36,7 @@ This is non-negotiable. The raw layer is the durable archive. Layer 2 synthesis 
 
 | commit | step | what landed |
 |---|---|---|
-| `33eb516` | scaffold | Created `.cursor/plans/ingestion/mindbody/` directory + empty raw files with paste-instruction headers |
+| `33eb516` | scaffold | Created `.cursor/plans/ingestion/competitor_product_evidence/mindbody/` directory + empty raw files with paste-instruction headers |
 | `53abd8c` | Step 1 | Cleanup pass: 49 ` 2.PNG` Mac/iCloud-sync duplicates moved to `_duplicates/`; 14 ` (1).png` duplicates moved; mystery png file renamed to `screenshot_unnamed_2048x1440.png`; 2 `Pasted text (N).txt` files renamed to proper raw markdown files with frozen-ingest headers (mindbody_settings_room_requirements_raw.md + mindbody_settings_class_course_options_raw.md) |
 | `3c149cb` | Step 1 correction | Rescued 44 unique IMG_ files (9127-9170) from false-positive dedup — the ` 2.PNG` suffix on those files was iCloud-sync artifact, not real duplication. Renamed them to drop ` 2` suffix. Net: 163 unique screenshots at root, 20 byte-identical duplicates in `_duplicates/` |
 | `82bd333` | Step 2 | Manifest scaffold with 183 rows (163 main inventory + 20 duplicates archive). All 183 have filename + source; 163 main rows have feature_area/screen_title/raw_capture/chat_nav/batch/status columns initially marked TBD/PENDING |
@@ -61,13 +61,13 @@ Batches should be feature-area-coherent. Use the timestamp ordering as a startin
 - B: Event vocabulary
 - C: Configuration surface
 - D: Operational depth
-- E: User's 9 gaps with architectural root causes (gaps in [mindbody_user_feedback_raw.md](./ingestion/mindbody/mindbody_user_feedback_raw.md))
+- E: User's 9 gaps with architectural root causes (gaps in [mindbody_user_feedback_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md))
 - F: Coverage matrix (Mindbody concept → OMNI doctrine bucket: COVERED / GAP-doctrine / GAP-substrate-only / IMPROVEMENT-OPPORTUNITY)
 - G: Refined doctrine sharpening scope (DL-15 amendments + new commerce/RBAC/settings DL drafts)
 - H: Refined substrate slice scope
 - I: OMNI competitive moats (the 15% gaps reframed)
 - J: Cross-domain implications (features informing Phase C commerce / Phase D Rx-labs / RBAC / settings infrastructure / CRM / marketing engine / etc.)
-- K: Industry analogy insights (CPU/RAM, airports, Amazon, Ford assembly line, restaurant POS — per user's explicit invitation in [mindbody_user_feedback_raw.md](./ingestion/mindbody/mindbody_user_feedback_raw.md))
+- K: Industry analogy insights (CPU/RAM, airports, Amazon, Ford assembly line, restaurant POS — per user's explicit invitation in [mindbody_user_feedback_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md))
 - L: Multi-modality + scaling vision (medspa Day 0 → sleep labs / cardio / endocrine / plastics / $10k/mo SaaS)
 - M: Mobile vs desktop UX distinction
 
@@ -87,7 +87,7 @@ If you do further dedup work, the test is `md5 -q file1 file2` (macOS) — only 
 
 ### 2. The chat (v2) has 8x recycling of Knox markers 6-13
 
-Markers 6-13 all start with the SAME Knox intro phrase ("Ingested. This batch adds several important layers..."). The substantive content is mostly recycled with minor formatting variations. You don't need to read all 8 marker blocks. Read marker 6 (lines 2598-3721) as the canonical version, skim markers 7-13 only for unique additions. The navigation map at [.cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md](./ingestion/mindbody/mindbody_chat_navigation_map.md) tells you exactly what to read.
+Markers 6-13 all start with the SAME Knox intro phrase ("Ingested. This batch adds several important layers..."). The substantive content is mostly recycled with minor formatting variations. You don't need to read all 8 marker blocks. Read marker 6 (lines 2598-3721) as the canonical version, skim markers 7-13 only for unique additions. The navigation map at [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md](./ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md) tells you exactly what to read.
 
 The original v1 chat had EVEN WORSE duplication (verbatim 7-9x repetitions). It's archived at `mindbody_knox_chat_raw_v1_with_duplicates_preserved.md` for full audit trail (preserve-everything direction) but you shouldn't need it.
 
@@ -111,7 +111,7 @@ You may see a system reminder about "Workspace folders changed from file:///User
 
 ### 7. User feedback file is 9 numbered gaps PLUS critical meta-framing
 
-Don't just read the 9 numbered gaps. The closing paragraphs of [mindbody_user_feedback_raw.md](./ingestion/mindbody/mindbody_user_feedback_raw.md) contain:
+Don't just read the 9 numbered gaps. The closing paragraphs of [mindbody_user_feedback_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md) contain:
 - HYBRID Hims + medspa + procedural outpatient framing
 - Multi-modality scaling vision (sleep labs, cardio, endocrine, plastics, $10k/mo SaaS)
 - Explicit invitation to use industry analogies (CPU/RAM scheduling, airports, Amazon, Ford assembly line)
@@ -137,11 +137,11 @@ If you're a fresh agent picking this up:
 
 1. **This file** — to understand context + state + lessons
 2. **[.cursor/plans/phase_b5_mindbody_ingestion_4db27449.plan.md](./phase_b5_mindbody_ingestion_4db27449.plan.md)** — phase plan with Knox direction note
-3. **[.cursor/plans/ingestion/mindbody/mindbody_user_feedback_raw.md](./ingestion/mindbody/mindbody_user_feedback_raw.md)** — 9 gaps + meta-framing (the user-truth signal)
-4. **[.cursor/plans/ingestion/mindbody/mindbody_chat_navigation_map.md](./ingestion/mindbody/mindbody_chat_navigation_map.md)** — index over the 28k chat
-5. **[.cursor/plans/ingestion/mindbody/mindbody_ingestion_manifest.md](./ingestion/mindbody/mindbody_ingestion_manifest.md)** — 183-row manifest, find next PENDING row
-6. **[.cursor/plans/ingestion/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md](./ingestion/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md)** — the template for what a batch raw capture file looks like (mirror this format)
-7. **[.cursor/plans/ingestion/mindbody/mindbody_settings_room_requirements_raw.md](./ingestion/mindbody/mindbody_settings_room_requirements_raw.md)** + [.cursor/plans/ingestion/mindbody/mindbody_settings_class_course_options_raw.md](./ingestion/mindbody/mindbody_settings_class_course_options_raw.md) — two "gold" raw inputs (verbatim Mindbody settings pages) that already contain ~221 named settings + 132-service room compatibility matrix
+3. **[.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md)** — 9 gaps + meta-framing (the user-truth signal)
+4. **[.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md](./ingestion/competitor_product_evidence/mindbody/mindbody_chat_navigation_map.md)** — index over the 28k chat
+5. **[.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md](./ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md)** — 183-row manifest, find next PENDING row
+6. **[.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md)** — the template for what a batch raw capture file looks like (mirror this format)
+7. **[.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_settings_room_requirements_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_settings_room_requirements_raw.md)** + [.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_settings_class_course_options_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_settings_class_course_options_raw.md) — two "gold" raw inputs (verbatim Mindbody settings pages) that already contain ~221 named settings + 132-service room compatibility matrix
 8. **Optional but recommended:** read Knox marker 1 (lines 380-700 of chat) + Knox pre-marker (lines 1-379) before starting Batch 2 — gives you the architectural lens. Skim Knox marker 6 (lines 2598-3721) for the canonical Knox "settings architecture" analysis. Read Knox marker 14 (lines 27597-27982) for the final synthesis cluster.
 
 ---
@@ -154,7 +154,7 @@ Process per batch:
 1. Read 5-10 chronologically-next screenshots
 2. Identify feature area boundaries (group coherent feature-area)
 3. Cross-reference to relevant chat sections via navigation map
-4. Write raw capture file at `.cursor/plans/ingestion/mindbody/mindbody_NN_<area>_raw.md` (NN = batch number, increment from 04)
+4. Write raw capture file at `.cursor/plans/ingestion/competitor_product_evidence/mindbody/mindbody_NN_<area>_raw.md` (NN = batch number, increment from 04)
 5. Update manifest rows: feature_area / screen_title / raw_capture_file / chat_nav_lines / batch / status=COMPLETED
 6. Commit + push with `git -c http.postBuffer=524288000 push origin main`
 7. Move to next batch
@@ -165,7 +165,7 @@ Repeat until all 163 main rows are COMPLETED.
 
 ## Per-batch raw capture file format (mirror this)
 
-See [mindbody_04_dashboard_and_appointments_grid_raw.md](./ingestion/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md) for the template. Each batch file has:
+See [mindbody_04_dashboard_and_appointments_grid_raw.md](./ingestion/competitor_product_evidence/mindbody/mindbody_04_dashboard_and_appointments_grid_raw.md) for the template. Each batch file has:
 
 ```
 # Mindbody — Batch N raw capture: <area names>

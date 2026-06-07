@@ -1,7 +1,7 @@
 # GLP-1 Starter Concept Registry — Extraction + Cross-Funnel Analysis
 
 **Date:** 2026-04-27
-**Source material:** `.cursor/plans/ingestion/hims/hims_weight_loss_new_patient.md` (Hims new-patient GLP-1 intake, Steps 1-78)
+**Source material:** `.cursor/plans/ingestion/competitor_product_evidence/hims/hims_weight_loss_new_patient.md` (Hims new-patient GLP-1 intake, Steps 1-78)
 **Scope:** concept registry work only — no question writing yet
 **Verdict:** ~95 concepts needed for v1 GLP-1 + ~50 SHARED CORE for cross-funnel reuse; system map's "~50 starter concepts" estimate was aspirational and needs revision
 

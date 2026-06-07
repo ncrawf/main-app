@@ -1768,10 +1768,10 @@ Anti-pattern rejections (binding):
 - **User + Knox preferences locked** — [user_knox_preferences_locked_2026-05-17.md](../../doctrine/user_knox_preferences_locked_2026-05-17.md) — 18 explicit preferences (12 user + 8 Knox) — NEVER re-litigate
 
 ### Mindbody ingestion evidence
-- **Ingestion manifest** — [mindbody_ingestion_manifest.md](../../ingestion/mindbody/mindbody_ingestion_manifest.md)
+- **Ingestion manifest** — [mindbody_ingestion_manifest.md](../../ingestion/competitor_product_evidence/mindbody/mindbody_ingestion_manifest.md)
 - **Layer 2 synthesis** — [2026-05-16_mindbody_architecture_understanding.md](../2026-05-16_mindbody_architecture_understanding.md) — 13 sections A-M, 185+ findings
-- **User 15% gap list** — [mindbody_user_feedback_raw.md](../../ingestion/mindbody/mindbody_user_feedback_raw.md) — 9 explicit gap items
-- **Open questions** — [mindbody_open_questions_raw.md](../../ingestion/mindbody/mindbody_open_questions_raw.md) — Q1-Q24 with tentative resolutions
+- **User 15% gap list** — [mindbody_user_feedback_raw.md](../../ingestion/competitor_product_evidence/mindbody/mindbody_user_feedback_raw.md) — 9 explicit gap items
+- **Open questions** — [mindbody_open_questions_raw.md](../../ingestion/competitor_product_evidence/mindbody/mindbody_open_questions_raw.md) — Q1-Q24 with tentative resolutions
 
 ### Preservation docs
 - **Future care obligations design** — [future_care_obligations_design_2026-05-17.md](../../doctrine/future_care_obligations_design_2026-05-17.md) — parked 30+ field care_episode_task substrate

@@ -3,7 +3,7 @@
 Source: Mindbody settings page (verbatim, copied from Mindbody admin app during user discovery 2026-05-15)
 Status: raw ingest — do not edit, do not analyze
 Date: 2026-05-15
-Original location: was at `.cursor/plans/ingestion/mindbody/screenshots/Pasted text (4).txt`; moved + renamed during Phase B.5 Step 1 cleanup.
+Original location: was at `.cursor/plans/ingestion/competitor_product_evidence/mindbody/screenshots/Pasted text (4).txt`; moved + renamed during Phase B.5 Step 1 cleanup.
 
 Architectural significance (preserved as ingest note; the analytical pass happens in Layer 2):
 
