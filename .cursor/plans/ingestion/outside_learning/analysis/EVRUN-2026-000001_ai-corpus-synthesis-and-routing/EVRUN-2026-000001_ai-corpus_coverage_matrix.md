@@ -4,8 +4,10 @@
 > No re-check of `covered` sources (we trust the B1-B6 subagent extractions). Gap sources get the SAME deep read standard (full §1+§3, no light reads), registry-first.
 
 ## Summary
-- **Covered: 38** (B1-B6 + G7 + G8 + G9 + G10 + G11 068/061/048) · **Gap: 4** · **Weak: 0** · **Total: 42**
-- **G7 · G8 · G9 · G10 · G11 DONE** (registry-first). G11: ★068 OpenEvidence = highest care-adjacent authority (clinical-evidence + clinician-wisdom reservoir spine; FWREG-006/007 anchor, reread MANDATORY at contract); 061 Sequoia-2025 = software→labor-budget + agent-economy spine; 048 Sequoia-2026 = market YoY (mostly folds/watch). Remaining gap batch: G12 (075/076/078/082 IBM explainers).
+- **Covered: 42 / 42 — CORPUS COMPLETE** (B1-B6 + G7 + G8 + G9 + G10 + G11 + G12) · **Gap: 0** · **Weak: 0**
+- **ALL 12 batches DONE** (registry-first, full §3+§1 reads per G4). Highlights: ★068 OpenEvidence = highest care-adjacent authority (clinical-evidence + clinician-wisdom reservoir spine; FWREG-006/007 anchor, reread MANDATORY at contract); 050 voice = 21-cluster spine surface; 049/074 = safety-case/sim/physical-API spine; 063/057/061 = outcomes/services-as-software + agent-economy; 053/067 = human-context sensing reservoir.
+- **G12 (075/082/076/078 IBM explainers) = Lens-B teaching vocabulary, AFFIRM-only, 0 net-new spine/primitives** (OMNI delta: authority/commit family IBM taxonomies omit). 052 Senra + 051 Neuralink + 066 Crusoe correctly tiered watch/no-op.
+- **NEXT: Phase 5 — declare thesis-ready; contract-input note (esp. FWREG-006/007 clinical-evidence reservoir); hand to v4 thesis plan.**
 
 ## Covered (19) — already in the registry
 | EVSRC | source | batch |

@@ -1224,6 +1224,10 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 | EVSRC-2026-000068 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G11 ★CARE-ADJACENT — clinical-evidence + clinician-wisdom reservoir spine; FWREG-006/007 anchor (reread MANDATORY at contract) [agent 16043c77] |
 | EVSRC-2026-000061 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G11 — Sequoia 2025; software→labor budget + agent-economy spine [agent 0b3d6703] |
 | EVSRC-2026-000048 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G11 — Sequoia 2026; YoY merge-sheet (mostly folds/watch) [agent 0a890b6d] |
+| EVSRC-2026-000075 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G12 IBM — AI-stack, Lens-B vocabulary AFFIRM [agent 9cf181ee] |
+| EVSRC-2026-000082 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G12 IBM — periodic-table; authority-family delta [agent 8b75be6e] |
+| EVSRC-2026-000076 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G12 IBM — LLM/SLM/FM; AFFIRM inference-budget/model-plurality [agent 60a5b629] |
+| EVSRC-2026-000078 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G12 IBM — 10 agent use-cases; AFFIRM autonomy/AOP/front-door [agent 35bb0fb2] |
 
 > **G7+ (gap sources) are registry-first** (`GRD-044`): per Nick's "no quote-inventory grind," gap-source concepts + their verbatim anchors live in the **concept registry** (§1 clusters + §1A anchors), not as quote rows here. This ledger holds the B1-B6 receipts; the registry holds the meaning for all 22+ sources.
 
