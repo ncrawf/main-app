@@ -24,7 +24,16 @@ This run obeys the four-layer **Reservoir Ingestion Contract** (canonical in `..
 **Filename convention (durable):** run artifacts carry the `{EVRUN-id}_{slug}_…` prefix. Generic bare names (`inventory.md`, `routing_addendum.md`, `concept_registry.md`) are forbidden for runs (template excepted).
 
 ## Status
-`registry-first reframe (per concept_registry_reframe_and_coverage plan). Routing of B1-B6 (19/42 sources, ~1055 concepts) complete and folded into the concept registry. Remaining sources are gap-filled per the coverage matrix at the SAME deep read standard (no light reads), registry-first. Anchor ledger frozen as receipts.`
+`EXTRACTION COMPLETE — 42/42 sources covered (registry-first, full §3+§1 G4 reads). All 12 batches folded into the concept registry: B1-B6 proof clusters + gap batches G7 (dev-substrate) · G8 (business-model) · G9 (customer/voice — 050 voice = 21-cluster spine) · G10 (embodied/compute — 049/074 spine, 051/066 watch) · G11 (★068 OpenEvidence clinical-evidence + clinician-wisdom reservoir spine; 061 agent-economy; 048 market) · G12 (IBM Lens-B vocabulary, AFFIRM-only). Anchor ledger = receipts; coverage matrix = 42/42, Gap 0. NEXT = Phase 5 thesis-ready declaration + contract-input handoff to v4 thesis plan (see Contract-input note below).`
+
+## Contract-input note (Phase 5 — for v4 thesis + domain-contract authoring)
+Highest-pressure routed outputs, by destination home (author FROM the concept registry per the authoring gate; reopen the cited source packets):
+- **FWREG-006/007 — Clinical-evidence + clinician-wisdom Reservoir (★ highest care-adjacent priority, EVSRC-068):** clinical-evidence-reservoir doctrine (literature-grounded, citation-traceable, retrieval≠authority, clinical-adoption gate, source-authority hierarchy, reservoir-family separation firewall) + new clinician-wisdom reservoir member w/ aggressive governance. **Reread 068 verbatim + §3 MANDATORY when authoring the FWREG-006/007 contracts.** Boundary decided: ABSORB doctrine / INTEGRATE OpenEvidence-like service behind capability envelope / DIFFERENTIATE (OMNI = governed longitudinal substrate, not literature-Q&A).
+- **§C / capability-topology (unpause pressure):** physical-API→GCE + robot/device actors (074), agent-economy prerequisites (persistent identity/value-transfer/trust protocols, 061), customer-is-agent + agent-facing legibility (055/063), builder/runtime split + published-capability registry (056). Reconcile at the Capability Topology Gate.
+- **§A/§8 + CNS:** safety-case + driver/sim/critic + autonomy-graduation (049), voice-intent→confirm→authority-gate + voice-engine real-time loop (050), authenticated-real/default-fake + voice identity (050, pair 080), build-discovery + human-context sensing reservoir (053/067).
+- **§2/§10 + D6:** outcomes-based pricing / services-as-software / business-model-as-moat (063/057/061), software→labor-budget shift, vertical-beats-horizontal AFFIRM.
+- **Build-OS:** AOP (SOP→care-operating-procedure, 057/056), learned-simulators/proving-grounds + compute=environment=data + sim≠truth (074/049/088), GTM admission gates (use-case-first/buyer-access/core-before-Act-Two, 073), eval-harness/governed-feedback (G7).
+- **AFFIRM-only (no new spine):** G12 IBM explainers (Lens-B vocabulary; OMNI delta = authority/commit family generic AI maps omit); 052/051/066 watch/no-op.
 
 ## Reads (inputs) — `read_NNN_<analyst>_<purpose>`, numbered + attributed + append-only
 - `read_001_knox_strategic.md` — captured Knox/ChatGPT strategic plan for the corpus (`captured_interpretation_nonbinding`).
@@ -43,3 +52,4 @@ This run obeys the four-layer **Reservoir Ingestion Contract** (canonical in `..
 ## Change log
 - `2026-06-07` — run opened; B1-B6 routed (19/42).
 - `2026-06-08` — registry-first reframe: run artifacts renamed to the `{EVRUN}_{slug}_…` convention; concept registry declared the primary workbench; anchor ledger demoted to receipts-only; authority order + authoring gate + cardinality recorded here per `GRD-044`.
+- `2026-06-08` — gap batches G7-G12 extracted registry-first (full §3+§1 G4 reads) + folded; stale labels cleaned; **EXTRACTION COMPLETE 42/42** (commits c95d97c·9e13c79·516a667·a939580·f44b583·44c90eb). Phase-5 contract-input note added. ★068 OpenEvidence flagged for MANDATORY reread at FWREG-006/007 contract authoring.
