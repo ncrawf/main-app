@@ -375,6 +375,74 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 
 ---
 
+## EVSRC-2026-000089 — Boris Cherny (Sequoia): Why Coding Is Solved / loops  (60 concepts) — Batch 3 (Build-OS/loops pillar)
+> Loop primitive (cron routines, server-side, fleets) = **spine** → Build-OS + CNS-contract. "Coding is solved" + "safety-gates-obsolete" = builder-optimism → **low-authority-watch / REJECT for clinical** (balance vs verifiability+security). NOTE: "Claude Code→100 lines" is metadata/description ONLY, not in §1 transcript — not doctrine. Extraction agent [fc0fe373].
+
+| # | anchor | concept | diluted | why | omni_impact | landing | tier | conf | reread |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | "product overhang" (3:22) | product-overhang | model capability exceeds what products expose | winning products = harnesses for the NEXT model | architect care/workflow harnesses so each model gen unlocks more w/o rebuild | §B · Build-OS | spine | 5 | N |
+| 2 | "building for the next model" (4:43) | build-for-next-model | ship pre-PMF harness before models catch up | durable platform bet vs premature abandon | register loops/surfaces now that compound w/ model gains; gates contain risk | Build-OS · §A | spine | 5 | N |
+| 3 | "wouldn't have PMF for 6 months" (4:40) | pre-pmf-patience | tolerate weak early product if arch bets on trajectory | durable vs premature | reservoirs/patrols/surfaces may feel early — keep if gates contain risk | Build-OS · §B | vocabulary | 4 | N |
+| 4 | "exponential growth started [Opus 4]" (4:22) | model-inflection-curve | capability releases drive step-change adoption | value cliff-jumps per model gen | autonomy levels/loop scopes versioned to capability; eval gates before ramps | §A · CNS-contract | spine | 4 | N |
+| 5 | "agent write all of the code" (3:57) | agent-writes-code | typeahead→full agent authorship | post-IDE paradigm | agents = primary authors; human → objectives/gates/review | Build-OS · §B | spine | 5 | N |
+| 6 | "for me it's just solved" (6:37) | coding-is-solved-personal | author claims 100% agent-written for his stack | builder-optimism from tool creator | **DO NOT import into clinical autonomy**; build-lane signal only | §B · security | low-authority-watch | 4 | N |
+| 7 | "wait for the next model" (6:47) | wait-for-next-model | hard codebases lag until models improve | honest boundary on "solved" | clinical/complex domains stay gated; optimism ≠ relax authority | §A · security | low-authority-watch | 4 | N |
+| 8 | "on distribution for the model" (5:55) | on-distribution-stack | choose stacks the model's training favors | agent-legibility rule | favor boring agent-legible patterns (markdown contracts, explicit schemas, tests) | Build-OS · §B | vocabulary | 5 | N |
+| 9 | "model writes 100% of my code" (6:22) | full-agent-authorship | human stops typing; agents own implementation | bottleneck → taste/process/domain | build agents write code; moat = contracts/ontology/gates | §B · Build-OS | spine | 5 | N |
+| 10 | "few dozen PRs every day" (6:26) | high-velocity-pr-shipping | extreme merge throughput from agents | scale beyond chat sessions | Build-OS: PR babysitters, merge gates, audit, cost caps | Build-OS | spine | 5 | N |
+| 11 | "150 PRs in a day" (6:30) | pr-throughput-record | upper bound of parallelization | not norm for governed systems | informs fleet sizing; clinical truth ≠ scale w/o gates | Build-OS · §A | vocabulary | 4 | N |
+| 12 | "most of my work… from my phone" (7:12) | phone-first-agent-ops | human interface shrinks to session mgmt | operator = orchestrator, not IDE resident | steer CNS/Build-OS from lightweight surfaces; loops run server-side | Build-OS · CNS-contract | spine | 4 | N |
+| 13 | "five to 10 sessions" (7:34) | multi-session-parallelism | many concurrent agent contexts | parallel decomposition at session layer | CNS needs session registry, scope boundaries, cross-session dedup/conflict | CNS-contract · Build-OS | spine | 4 | N |
+| 14 | "a few hundred agents going" (7:41) | agent-fleet-scale | hundreds of concurrent subagents daytime | fleet-scale present-tense | design for fleets: identity/scope/cost/kill-switch/audit | Build-OS · CNS-contract | spine | 5 | N |
+| 15 | "few thousand… deeper work [overnight]" (7:44) | overnight-deep-agent-work | nightly batch of heavier autonomous runs | interactive vs batch autonomy | overnight loops (drift/reservoir patrol) w/ budget caps + morning summaries | Build-OS · Knowledge-Reservoirs | spine | 5 | N |
+| 16 | "loop… simplest thing that works" (8:01) | loop-primitive | recurring scheduled agent objective via cron | **CORE operational primitive** | `loop_agent` in CNS-contract + Build-OS registration/monitor/kill | Build-OS · CNS-contract | spine | 5 | N |
+| 17 | "Claude use cron to schedule a job" (8:03) | cron-scheduled-agent-job | time-triggered repeat in harness | persistence w/o human re-prompt | `recurring_agent_job`/`agent_routine`; survives laptop close | Build-OS · CNS-contract | spine | 5 | N |
+| 18 | "dozens of loops that are running" (8:16) | loop-fleet-operations | many loops, distinct objectives | normal ops = loop portfolio | CNS loop registry: scoped objectives, escalation, dashboard | CNS-contract · Build-OS | spine | 5 | N |
+| 19 | "babysitting my PRs… fixing CI auto rebasing" (8:19) | pr-babysitter-loop | loop watches PRs, fixes CI, rebases | concrete loop archetype | `PR_babysitter`/`CI_health_agent`; never auto-merge care truth w/o gates | Build-OS | spine | 5 | N |
+| 20 | "keeps CI healthy… flaky test… fix it" (8:23) | ci-health-loop | loop repairs test/CI drift | infra hygiene as autonomous patrol | CI patrol loops; separate from care-domain monitors | Build-OS | spine | 5 | N |
+| 21 | "clusters it for me every 30 minutes" (8:31) | feedback-cluster-loop | periodic ingest+cluster of signals | noisy streams → digestible themes | reservoir/CNS: evidence clustering, message themes, ingestion-gap patrol | Knowledge-Reservoirs · CNS-contract | spine | 5 | N |
+| 22 | "loops are the future at this point" (8:37) | loops-are-the-future | explicit strategic bet on recurring agents | loops = paradigm, not feature | OMNI agents PATROL, not only respond | CNS-contract · Build-OS | spine | 5 | N |
+| 23 | "launched routines… on the server" (8:42) | server-side-routines | persistence decoupled from client | laptop-close ≠ stop work | server routines w/ tenant scope, PHI policy, kill-switch | CNS-contract · Build-OS | spine | 5 | N |
+| 24 | "generalists that are cross-disciplinary" (9:38) | cross-disciplinary-generalists | one person spans eng/design/product/data | team shape flattens | operators express workflows; promotion stays governed | §B · §2 | vocabulary | 4 | N |
+| 25 | "every single person… writes code" (10:07) | everyone-codes | non-eng roles ship code | org literacy shift | domain experts draft; CNS/Build-OS govern promote/monitor/rollback | §B · Build-OS | spine | 4 | N |
+| 26 | "writing code 10 or 100x cheaper" (10:36) | code-cost-collapse | AI collapses implementation cost | reframes moat sources | moat ≠ "we encoded workflows"; = context/trust/governance/memory | §10 · §2 | spine | 5 | N |
+| 27 | "SAS apocalypse on our hands?" (10:41) | saas-apocalypse | point-SaaS value destruction | strategic comparator (silo collapse) | §3.5 Lens-A: point-SaaS → agentic substrate; §10/§2 | §10 · §2 | spine | 4 | N |
+| 28 | "switching costs… less important" (11:34) | switching-cost-decay | models port workflows across vendors | weakens lock-in moat | defensibility = governed context + outcomes data, not UI stickiness | §10 · §2 | spine | 4 | N |
+| 29 | "process power… less important" (11:42) | process-moat-decay | workflow expertise commoditized | hill-climbable processes erode | own domain truth/authority/audit, not procedural UI | §10 · §8 | spine | 5 | N |
+| 30 | "hill climb anything" (11:55) | agent-hill-climb-process | give target + iterate until done | agents replicate playbooks | low-risk ops loops auto; clinical/PHI need objective-metric-boundary gates | §A · CNS-contract | vocabulary | 4 | N |
+| 31 | "network effects… still matter" (12:05) | durable-moats-survive | some seven-powers survive AI | corrects "everything dies" | invest in network/trust/outcomes-learning, not UI alone | §10 · §2 | vocabulary | 4 | N |
+| 32 | "startups… disrupt… 10x" (12:20) | startup-disruption-10x | AI-native entrants outpace incumbents | incumbent resistance = structural drag | OMNI AI-native vs retrofit EMR/SaaS | §10 · §2 | spine | 4 | N |
+| 33 | "large company… evolve their business process" (12:30) | incumbent-process-inertia | big orgs slow to adopt agent-native ops | moat = ops-redesign speed | advantage = workflow redesign + doctrine preservation | §B · Build-OS | spine | 5 | N |
+| 34 | "build something people love" (13:57) | product-love-over-model | product taste still decisive | model ≠ PMF | surfaces need operator/provider love; agents ≠ taste/empathy | §B | vocabulary | 3 | N |
+| 35 | "harness kind of gets less important" (14:15) | harness-diminishing-claim | better models reduce harness need | **contested — opposite of overhang** | WATCH: OMNI still needs gates/registry/provenance; don't shrink harness in care | security · §A | low-authority-watch | 3 | N |
+| 36 | "make loops more of a first class thing" (14:23) | loops-first-class | roadmap elevates loops in harness | loops = product architecture | Build-OS + CNS treat loops as first-class registered primitives | Build-OS · CNS-contract | spine | 5 | N |
+| 37 | "safety mechanisms… less important" (14:37) | safety-gates-obsolete-PREDICTION | models "do the right thing"; fewer HITL/checks | **DANGEROUS for healthcare** | **REJECT for clinical/PHI/payment/security**: models reduce friction, never eliminate authority gates | security · §A | low-authority-watch | 5 | N |
+| 38 | "skill like… Microsoft Office" (15:25) | software-as-baseline-literacy | building software = universal skill | democratization | controlled creation: draft→sandbox→test→review→promote | §B · §2 | vocabulary | 4 | N |
+| 39 | "skill like… send a text message" (15:37) | software-as-texting-skill | even more casual than Office | lowers authoring barrier | wrap casual builders w/ authority envelopes; can't mutate care truth | §A · capability-topology | vocabulary | 4 | N |
+| 40 | "printing press in Europe" (15:54) | printing-press-analogy | 1400s literacy explosion parallel | historical inflection magnitude | §3.5 comparator + §10 narrative (10%→70% literacy, 100x book cost) | §10 · §2 | spine | 5 | N |
+| 41 | "more literature… than the thousand years before" (16:20) | output-volume-explosion | post-press output step-change | software/output volume jump | reservoirs/evidence must scale ingestion/promotion gates, not just generation | Knowledge-Reservoirs · §10 | spine | 4 | N |
+| 42 | "cost of a book went down 100x" (16:27) | cost-100x-drop | parallel to cheaper code | software as commodity input | value → domain knowledge/trust/governed context | §10 · §2 | vocabulary | 4 | N |
+| 43 | "best person… is a really good accountant" (17:10) | domain-expert-builder | domain knowledge > eng for vertical software | coding easy, domain hard | moat = clinical/operational nuance; operator context strategic | §B · §2 | spine | 5 | N |
+| 44 | "coding is the easy part" (17:14) | coding-easy-domain-hard | inversion of build bottleneck | validates governed substrate over codegen | CNS/contracts/ontology scarcer than React; agents need domain-legible memory | §B · §8 | spine | 5 | N |
+| 45 | "bigger lead in… organizational structure" (18:55) | org-process-moat | same models; process redesign is the gap | tech parity; ops structure = advantage | moat = architecture memory/loops/gates/reservoirs, not Claude access | §B · Build-OS | spine | 5 | N |
+| 46 | "no more manually written code anywhere" (18:32) | zero-manual-code-org | company-wide agent authorship incl SQL | extreme org commitment | build substrate yes; care truth still needs gates + human authority | Build-OS · §A | spine | 4 | N |
+| 47 | "communicate over Slack… running in a loop" (18:24) | a2a-coordination | Claudes coordinate while looping | multi-agent org comms | governed inter-agent messaging, not ad-hoc Slack for PHI | CNS-contract · capability-topology | spine | 4 | N |
+| 48 | "really just comes down to prompting" (19:52) | parallelization-via-prompting | product parallelization = prompt eng today | harness still matters at product layer | Build-OS prompt/harness registry; eval before autonomy | Build-OS | vocabulary | 3 | N |
+| 49 | "4.7… starts a loop [unprompted]" (20:04) | model-initiated-loops | model proposes recurring monitoring on its own | loop creation shifts operator→agent | **policy for agent-proposed loops: approve scope/budget/kill-switch before activation** | CNS-contract · §A | spine | 4 | Y |
+| 50 | "not on users to figure out… tools" (20:25) | product-not-user-burden | parallelization/loops = product+model job | don't make humans orchestrate fleets manually | expose governed loop templates; operators set objectives not cron syntax | Build-OS · CNS-contract | vocabulary | 4 | N |
+| 51 | "model… doing all the code" (21:38) | engineer-decisions-obsolete-claim | engineers won't choose infra | radical autonomy prediction | WATCH: OMNI retains authority/tenancy/PHI decisions; never fully delegate | security · §A | low-authority-watch | 3 | N |
+| 52 | "simplest answer it's just MCP" (22:41) | mcp-knowledge-work-access | MCP connectors unify tool access | programmatic access layer | §C governed exchange: tool registry, permission envelopes, PHI policy | §C · capability-topology | spine | 5 | N |
+| 53 | "computer use is kind of a catch-all" (23:02) | computer-use-fallback | UI automation when no API/MCP | last-resort broad access | risk tiers: API/MCP preferred; computer-use heavily gated for clinical | capability-topology · security | vocabulary | 4 | N |
+| 54 | "to the model is just tokens" (23:31) | tokens-indifferent-surface | model treats MCP/CLI/API/UI uniformly | OMNI must enforce risk differentiation | same action, different authority/audit/PHI path per surface | §C · security | spine | 5 | N |
+| 55 | "massively paralyzing agents" (24:19) | massive-agent-parallelization | batch/loop roadmap for fleet parallelism | near-term product direction | agent run queues, merge gates, cost limits for build agents | Build-OS | spine | 4 | N |
+| 56 | "plan one week out" (13:38) | planning-horizon-shrink | Anthropic plans ~1 week; long-horizon unreliable | humility on forecasting | build harnesses that compound, not brittle 2-yr agent fantasies | Build-OS | vocabulary | 3 | N |
+| 57 | "hadn't written a single line… in 2026" (1:38) | zero-hand-code-2026 | Boris stopped hand-coding in 2026 | personal proof of "solved" | build-lane evidence only; not license for clinical autonomy | Build-OS | low-authority-watch | 4 | N |
+| 58 | "permission modes human in the loop" (14:43) | hitl-permission-modes | current safety stack Boris expects to fade | controls OMNI must KEEP in care-grade | permission modes/static-verify/HITL remain binding regardless of model gen | security · §A | spine | 5 | N |
+| 59 | "prompt injection… static verification of commands" (14:39) | prompt-injection-static-verify | named threats in current harness | overlaps OMNI security posture | agent tool allowlists, command verification, injection defense — NOT deprecated | security | spine | 5 | N |
+| 60 | "dog fooding is really really important" (17:48) | dogfooding-same-models | internal team uses same models as customers | gap = process not secret weights | dogfood Build-OS loops on own doctrine/code w/ same gates as production | Build-OS | vocabulary | 4 | N |
+
+---
+
 ## Coverage audit (losslessness proof)
 | source | concepts | read §1 verbatim | read §3 Knox | order | nothing-vaporized | batch |
 |---|---|---|---|---|---|---|
@@ -383,9 +451,10 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 | EVSRC-2026-000086 | 82 | yes (full) | yes (full) | Knox→verbatim | ✓ | 1 (proof) |
 | EVSRC-2026-000087 | 34 | yes (full) | yes (full) | Knox→verbatim | ✓ | 2 (CNS/neural) |
 | EVSRC-2026-000088 | 55 | yes (full) | yes (full) | Knox→verbatim | ✓ | 2 (CNS/sim) |
-| **TOTAL (so far)** | **336** | — | — | — | ✓ G4 · uniform deep | — |
+| EVSRC-2026-000089 | 60 | yes (full) | yes (full) | Knox→verbatim | ✓ | 3 (Build-OS/loops) |
+| **TOTAL (so far)** | **396** | — | — | — | ✓ G4 · uniform deep | 6/42 sources |
 
-Per-source verbatim-adds-beyond-Knox / net-new primitives / reread flags in extraction-agent returns: 084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a] · 087 [9835c467] · 088 [2fc14535]. Consolidated routing in `routing_addendum.md`.
+Per-source verbatim-adds-beyond-Knox / net-new primitives / reread flags in extraction-agent returns: 084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a] · 087 [9835c467] · 088 [2fc14535] · 089 [fc0fe373]. Consolidated routing in `routing_addendum.md`.
 
 Verbatim-adds-beyond-Knox, candidate net-new primitives, and reread flags per source captured in the extraction-agent returns (084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a]); consolidated in `routing_addendum.md`.
 
