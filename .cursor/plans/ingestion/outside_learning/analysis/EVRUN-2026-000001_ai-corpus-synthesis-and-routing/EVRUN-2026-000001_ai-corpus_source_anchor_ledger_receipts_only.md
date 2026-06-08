@@ -1221,6 +1221,9 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 | EVSRC-2026-000051 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G10 — BCI horizon, mostly watch/no-op [agent a98a6da6] |
 | EVSRC-2026-000066 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G10 — compute macro, AFFIRM inference-budget [agent 5848b179] |
 | EVSRC-2026-000074 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G10 — sim/proving-grounds + physical-API in registry [agent 12ca1a6e] |
+| EVSRC-2026-000068 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G11 ★CARE-ADJACENT — clinical-evidence + clinician-wisdom reservoir spine; FWREG-006/007 anchor (reread MANDATORY at contract) [agent 16043c77] |
+| EVSRC-2026-000061 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G11 — Sequoia 2025; software→labor budget + agent-economy spine [agent 0b3d6703] |
+| EVSRC-2026-000048 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G11 — Sequoia 2026; YoY merge-sheet (mostly folds/watch) [agent 0a890b6d] |
 
 > **G7+ (gap sources) are registry-first** (`GRD-044`): per Nick's "no quote-inventory grind," gap-source concepts + their verbatim anchors live in the **concept registry** (§1 clusters + §1A anchors), not as quote rows here. This ledger holds the B1-B6 receipts; the registry holds the meaning for all 22+ sources.
 
