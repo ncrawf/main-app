@@ -1204,7 +1204,12 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 | EVSRC-2026-000071 | 58 | yes (full) | yes (full) | Knox→verbatim | ✓ | 6 (orch: Ng patterns) |
 | EVSRC-2026-000072 | 43 | yes (full) | yes (full) | Knox→verbatim | ✓ | 6 (orch: Zapier rails) |
 | EVSRC-2026-000083 | 37 | yes (full) | yes (full) | Knox→verbatim | ✓ | 6 (orch: paradox·low-auth) |
-| **TOTAL (so far)** | **1055** | — | — | — | ✓ G4 · uniform deep | 19/42 sources |
+| **TOTAL (B1-B6 quote-inventoried)** | **1055** | — | — | — | ✓ G4 · uniform deep | 19/42 sources |
+| EVSRC-2026-000054 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G7 — clusters in concept registry [agent e4ecb804] |
+| EVSRC-2026-000058 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G7 — clusters in concept registry [agent 068d3c88] |
+| EVSRC-2026-000077 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G7 — clusters in concept registry [agent 07a5b35a] |
+
+> **G7+ (gap sources) are registry-first** (`GRD-044`): per Nick's "no quote-inventory grind," gap-source concepts + their verbatim anchors live in the **concept registry** (§1 clusters + §1A anchors), not as quote rows here. This ledger holds the B1-B6 receipts; the registry holds the meaning for all 22+ sources.
 
 Per-source extraction-agent returns: 084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a] · 087 [9835c467] · 088 [2fc14535] · 089 [fc0fe373] · 079 [bf21ae54] · 080 [6e7df0c5] · 081 [8ec8b181] · 064 [07b88593] · 065 [c4aa4bb6] · 069 [92b03592] · 070 [c0235e96] · 060 [5a2df8c4]. Consolidated meaning + routing in `EVRUN-2026-000001_ai-corpus_concept_registry_and_routing_map.md`.
 
