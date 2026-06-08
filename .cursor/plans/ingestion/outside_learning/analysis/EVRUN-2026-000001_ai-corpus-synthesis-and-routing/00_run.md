@@ -6,8 +6,9 @@
 - run_date: `2026-06-07` (opened)
 - analyst: `Knox (ChatGPT)` [strategic read — input] + `Opus` [synthesis/routing — pending]   # multi-author; never baked into source files
 - source_set: `EVSRC-2026-000048 … 000089` (the June 2026 batch — 42 sources, captured + content-verified + audit-clean 2026-06-07). Prior context: spring collection `EVSRC-2026-000001…000047` already routed via `REV-176`.
-- purpose: `synthesis + routing + §-impact triage + next-steps planning` (intake Knox's batch-level strategic read → reconcile with Opus synthesis → produce routing proposals into Thesis v3 / Build OS / contracts / CNS, all gated)
-- status: `open` (awaiting Knox strategic read paste → then Opus synthesis pass)
+- purpose: `AI corpus → OMNI ARCHITECTURE routing (multi-home, NOT thesis-only)` — every concept cluster routes to all homes it pressures: v4 thesis (first assembly target) · CNS contract · Build-OS · §C/security · Federation/capability-topology · domain contracts (D3/D5/D6/D7/Obs/CM/Identity/RBAC/Messaging/Settings) · Knowledge Reservoirs · UX/surfaces · product/feature · future-watch. This routing map is the durable bridge so downstream passes read the MAP, not the transcripts again. All proposals; gated.
+- status: `proof-of-shape complete (cluster 084/085/086) → AWAITING NICK APPROVAL of format before remaining 39`
+- proof outputs: `inventory.md` (247 source-anchored concepts, lossless, G4) + `routing_addendum.md` (consolidation + net-new primitives + stale-vs-v3 VERDICT + weight-tiers + reread). Verdict: batch concepts ABSENT/PARTIAL in v3 AI/CNS/Build-OS/learning; care core affirmed → confirms v4 center-of-gravity reweight.
 
 ## Reads (inputs) — `read_NNN_<analyst>_<purpose>`, numbered + attributed + append-only
 - `read_001_knox_strategic.md` — captured Knox/ChatGPT strategic plan for the corpus (`captured_interpretation_nonbinding`). **PASTE TARGET.**
