@@ -272,13 +272,120 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 
 ---
 
+## EVSRC-2026-000087 — Naveen Rao (Sequoia): Brain vs GPU / neural substrate  (34 concepts) — Batch 2 (CNS/neural pillar)
+> Honest tiering: CNS-as-live-dynamic-system metaphor = **spine**; hardware/energy/chip = **§B macro-watch/no-op** (NOT an OMNI build primitive). Extraction agent [9835c467].
+
+| # | anchor | concept | diluted | why | omni_impact | landing | tier | conf | reread |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | "fundamental substrate… how I do information processing" (1:30) | substrate-level-efficiency | ASI needs physics-level info processing, not just algos | separates agent-opt from substrate question | long-run agent cost envelope; not a build primitive | §B | low-authority-watch | 4 | N |
+| 2 | "80 years… digital abstraction… floating point" (2:00) | digital-abstraction-misfit | von Neumann+FP chosen for a different era | why "more GPUs" may not solve coordination | analogy: event-router CNS may be wrong shape | §B · CNS-contract | vocabulary | 3 | N |
+| 3 | "thousand agents on your phone" (2:31) | agent-scale-efficiency-paradox | app-level agent proliferation worsens total cost | pressure on Build-OS fan-out + bounded loops | cap concurrent loops; energy/compute as NFR | Build-OS · §B | vocabulary | 4 | N |
+| 4 | "2 3 4 years… don't have any more energy" (2:40) | near-term-energy-wall | AI demand hits grid limits in ~2-4 yrs | macro constraint on hosted inference | §B substrate availability/cost; DoS/abuse | §B · security | low-authority-watch | 3 | N |
+| 5 | "electrical energy versus food… two energy sources" (3:09) | dual-energy-sources | bio vs electrical intelligence compete for energy | intelligence thermodynamically bounded | weak direct care impact | §B | low-authority-watch | 2 | N |
+| 6 | "fusion reactors… fundamental physics apply" (3:24) | physics-persists | space/fusion won't remove thermo limits | caution vs infinite-compute planning | long-horizon posture, no compute-abundance bet | §B · §10 | low-authority-watch | 2 | N |
+| 7 | "8 billion… 20 watts each… 160 gigawatt" (3:28) | humanity-brainpower-budget | all human brains ≈160GW vs ~9000GW grid | intelligence can be far more efficient | comparator for agent economics | §B | low-authority-watch | 3 | N |
+| 8 | "50% more… paradigm… vastly more inefficient" (3:55) | paradigm-inefficiency | grid expansion won't fix orders-of-mag inefficiency | substrate shape > raw watts | CNS metaphor: linear orchestration = inefficient shape | §B | vocabulary | 3 | N |
+| 9 | "how quickly can we build intelligence on… energy" (4:33) | learning-rate-per-joule | binding limit = intelligence-formation rate | aligns w/ bounded loops + proof-gated quality | ingestion/analysis cost discipline | Build-OS · Knowledge-Reservoirs | vocabulary | 3 | N |
+| 10 | "assumptions… 80 years ago are not quite valid" (5:06) | question-inherited-assumptions | wrong abstractions preserved by product cycles | parallel to questioning event→route→commit | doctrine pass on CNS middle-layer dynamics | CNS-contract · §7.6/§12 | spine | 5 | Y |
+| 11 | "thermodynamic limit to intelligence" (5:25) | thermo-intelligence-ceiling | Landauer-defined max compute/energy | outer bound on infinite-agents | horizon; no near-term impl | §B · §10 | low-authority-watch | 2 | N |
+| 12 | "biology… two orders of magnitude" (5:44) | biology-near-asymptote | bio ~10²× above floor; GPUs ~10³× below bio | quantifies efficiency gap | macro; "different shape" analogy | §B | no-op | 2 | N |
+| 13 | "limits of 2D lithography" (6:02) | lithography-ceiling | hardware scaling hits fab physics | external compute-cost evidence | watch w/ Crusoe/Dean | §B | no-op | 2 | N |
+| 14 | "not about a machine that runs matrix math" (6:33) | beyond-matrix-math | substrate may need to abandon FP-matmul core | **Knox import: CNS ≠ matmul-router** | redefine "neural-network CNS" as dynamic coordination | CNS-contract · §7.6/§12 | spine | 5 | Y |
+| 15 | "energy per flop with memory access… not gotten better" (6:58) | memory-access-stagnation | per-flop energy w/ memory barely moved | von Neumann read/write loops dominate waste | reduce cross-service context-fetch chains | CNS-contract · Build-OS | vocabulary | 4 | N |
+| 16 | "biology really does provide an existence proof" (7:16) | biological-existence-proof | lower throughput, higher discovery, far less watts | different arch does more w/ less | CNS = governed nervous system is the software proof | §A · CNS-contract | spine | 5 | N |
+| 17 | "wattage… scales with the… weight" (7:38) | wattage-scales-with-mass | efficiency holds across mammal/insect scale | coordination efficiency scales w/ scope | scoped CNS depth (Operator/Patient/Meta) matches scale | §7.6/§12 · capability-topology | vocabulary | 3 | N |
+| 18 | "squirrel… 1/100th of your phone" (8:03) | milliwatt-embodied-intelligence | rich sensorimotor behavior at <<1W | rich behavior ≠ heavy orchestration | lightweight reflex paths vs full agent loops | Build-OS | vocabulary | 3 | N |
+| 19 | "the brain is dynamic… nonlinear dynamics to do compute" (8:44) | brain-nonlinear-dynamics | compute lives in time-varying interactions, not matmul | **Knox banger: CNS = dynamic activation, not router** | activation/convergence layer between event and commit | CNS-contract · §7.6/§12 · §8 | spine | 5 | Y |
+| 20 | "time varying interaction… where the compute lies" (8:53) | time-domain-compute | intelligence = temporal coupling dynamics | pressures recurrent, time-aware CNS | temporal context field + recurrent loop before commit | CNS-contract · Build-OS | spine | 5 | Y |
+| 21 | "stochastic… not a strict one and zero" (9:13) | stochastic-vs-brittle | bio compute tolerates noise; digital fails on bit errors | graded confidence/suppression, not binary route | confidence thresholds + suppression + audit | CNS-contract · security | vocabulary | 4 | N |
+| 22 | "no matter how you start it, it converges" (9:49) | dynamical-convergence | coupled oscillators converge to attractors | metaphor: signal-kick → bounded convergence | `convergence_candidate` step before commit | CNS-contract · §8 | spine | 5 | Y |
+| 23 | "trainable coupling… move through state space" (9:55) | trainable-coupling | flexible coupling traverses dynamic trajectories | learnable attention/coupling, not hard routes | evidence/doctrine nodes as trainable coupling | CNS-contract · Knowledge-Reservoirs | spine | 4 | Y |
+| 24 | "going back and forth… burns most of the energy" (10:56) | memory-shuttling-cost | read/write state loops dominate energy | analog: repeated cross-domain fetches | projection packets as pre-coupled context, not N+1 queries | CNS-contract · §7.7 | spine | 4 | Y |
+| 25 | "initial state, kick it and let it run" (11:04) | kick-and-run | set initial conditions; time evolves state | **bounded loop from goal+context+authority** | recurrent agentic loop w/ stop conditions; gates at commit | Build-OS · CNS-contract | spine | 5 | Y |
+| 26 | "state is… implicit… not an explicit write" (11:12) | implicit-state | state in ongoing dynamics, not serialized blocks | CNS maintains live activation state | split durable domain truth vs live `CNS_activation_state` | CNS-contract · §7.6/§12 | spine | 5 | Y |
+| 27 | "use the time… axis… to do computing" (11:19) | time-axis-as-compute | computation in temporal evolution | CNS must be time-aware (decay/recurrence) | temporal coherence across Sense/Act | §8 · CNS-contract | spine | 4 | Y |
+| 28 | "no separation between state and computation" (13:38) | state-compute-overlap | function + state co-reside in dynamic substrate | **context participates in reasoning, not passive retrieval** | live context field shapes activation; domains still commit | CNS-contract · Knowledge-Reservoirs | spine | 5 | Y |
+| 29 | "CPU… faster than a GPU… singlethreaded" (13:08) | paradigm-ladder | compute paradigms optimize different shapes | don't map CNS to one call pattern | agent runtime heterogeneity, not one template | §B · Build-OS | vocabulary | 3 | N |
+| 30 | "Compute in memory… more fine grain" (13:25) | compute-in-memory | CIM reduces but doesn't remove memory/compute split | incremental vs paradigm shift | analogy only | §B | no-op | 2 | N |
+| 31 | "at t equals 1… let the system run naturally" (11:49) | steer-then-freerun | brief error at t=1, then trajectory morphs | CNS: initial policy kick → emergent candidate | eval loops + convergence semantics | Build-OS · CNS-contract | vocabulary | 4 | Y |
+| 32 | "clumped its representation into… meaningful" (12:31) | emergent-semantic-clustering | converges to class-manifold, morphs among related | context resonance: related nodes co-activate | `context_resonance` / suppression of irrelevant | CNS-contract | spine | 4 | Y |
+| 33 | "from no team… prototype in six months" (10:31) | ai-accelerated-iteration | AI tooling → 6-mo chip from standing start | build-velocity evidence | meta-lesson on agent-accelerated loops only | Build-OS | no-op | 2 | N |
+| 34 | "now we can build them [brains]" (14:01) | build-to-understand | synthetic circuits to reverse-engineer neural compute | CNS matures by running governed loops, not spec-only | CNS matures via governed loops | §10 · CNS-contract | vocabulary | 3 | N |
+
+## EVSRC-2026-000088 — Demis Hassabis (Sequoia): Three Quarters to AGI / AI-for-science  (55 concepts) — Batch 2 (CNS/simulation pillar)
+> GRD-026 guardrail applied: AI-for-science/drug-discovery is ADJACENT, NOT OMNI's domain; "information as fundamental substance" + learned-simulators are the high-signal §B/CNS parts. Extraction agent [2fc14535].
+
+| # | anchor | concept | diluted | why | omni_impact | landing | tier | conf | reread |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | "decided it was the most important thing" (0:58) | lifelong-ai-mission | chose AI at ~15 | science-first not hype-first credibility | CNS = multi-decade substrate bet | §B · §10 | vocabulary | 4 | N |
+| 2 | "picked things to study… would help me build" (1:17) | deliberate-capability-stack | career staged toward AI company | validates staged substrate building | Build OS = deliberate capability stacking | Build-OS · §10 | spine | 5 | N |
+| 3 | "games… early proving ground for our AI ideas" (2:47) | games-as-proving-ground | sim env w/ rules, feedback, measurable outcomes | safe rehearsal before high-stakes | CNS/agent runtime needs replay sandboxes before live care | Build-OS · CNS-contract | spine | 5 | N |
+| 4 | "simulation of an amusement park… economics AI" (2:08) | sim-plus-agent-economics | emergent micro-agents + economic substrate | pattern for multi-actor emergent systems | care ops = many weak actors; CNS models emergent workflow econ | CNS-contract · §7.6/§12 | spine | 4 | N |
+| 5 | "funding AI… through the backdoor through games" (3:34) | backdoor-research-funding | commercial surface subsidizes deep research | wedge finances substrate R&D | OMNI wedge funds CNS/sim R&D w/o claiming drug-discovery | Build-OS · §10 | vocabulary | 4 | N |
+| 6 | "5 years ahead… not 50 years ahead" (3:48) | five-year-wedge-discipline | too-far-ahead products fail | direct OMNI strategy guardrail | 50-year-aware architecture; ~5-year-buildable wedge | Build-OS · §10 | spine | 5 | N |
+| 7 | "simulated a whole country… on a Pentium" (3:55) | over-ambitious-sim-caution | country-scale sim before substrate ready | warn vs simulating full care OS too early | defer country-scale; start bounded replay | Build-OS · §A | spine | 4 | N |
+| 8 | "2009… AGI" (4:43) | early-agi-conviction | AGI declared achievable ~15yr early | timeline foil, not schedule | AGI-by-2030 = vision/foil; autonomy scales w/ verification | §2 · §B | low-authority-watch | 3 | Y |
+| 9 | "combining… deep learning… reinforcement learning" (5:31) | dl-plus-rl-synthesis | mixing paradigms unlocked progress | compositional breakthrough pattern | CNS composes retrieval+planning+RL loops under envelopes | §B · CNS-contract | vocabulary | 4 | N |
+| 10 | "we would fail in an original way" (7:07) | fail-original-not-repeat | reject 90s expert-system failure mode | institutional learning | OMNI avoids one-oracle chart-dump; governed domains + gates | §A · §2 | vocabulary | 4 | N |
+| 11 | "20 year mission… exactly on track" (7:51) | twenty-year-horizon | field progress matched long plan | legitimizes substrate timelines | CNS/CM/federation = decadal, not quarterly churn | §10 · Build-OS | vocabulary | 3 | N |
+| 12 | "step one solve intelligence… step two use it" (8:13) | solve-then-apply | meta-tool first, domain second | AI-for-X without domain sovereignty | build care intelligence layer, then improve ops | §B · §8 | spine | 5 | N |
+| 13 | "analysis tool… comparison… controlled experiment" (8:41) | ai-as-comparison-instrument | AI enables controlled study | scientific method for complex systems | CNS replays/compares workflow variants before commit | CNS-contract · §A | spine | 4 | N |
+| 14 | "build the ultimate tool and then come back" (9:20) | meta-tool-then-domain | defer domain claims until tool matures | anti-premature-domain-capture | Evidence Plane + CNS mature as tools before adjacency claims | Knowledge-Reservoirs · Build-OS | spine | 5 | N |
+| 15 | "cracking go was that point… ready to apply" (10:03) | readiness-gate-before-domain | AlphaGo = readiness threshold | prove competence in sandbox before expansion | CNS passes eval-clean grounds before high-risk care autonomy | §A · Build-OS | spine | 5 | N |
+| 16 | "AI for science group… nearly a decade" (9:40) | durable-science-division | standing lane, not one-off | org precedent for long-horizon lane | reserve Reservoirs + eval lanes as standing org | Knowledge-Reservoirs · Build-OS | vocabulary | 4 | N |
+| 17 | "cure diseases… healthier lifespans" (10:20) | ai-for-medicine-horizon | stated ultimate benefit | health adjacency, not domain claim | §10 horizon/foil only; OMNI = care-coordination (GRD-026) | §10 · §2 | low-authority-watch | 3 | N |
+| 18 | "AlphaFold… 50-year grand challenge" (10:58) | alphafold-moment | protein folding "language moment" happened | model for explore→validate in complex domain | analog: structured CM/observation breakthroughs, NOT drug discovery | §10 | vocabulary | 3 | N |
+| 19 | "only one part of the drug discovery process" (11:13) | partial-domain-breakthrough | one slice ≠ whole pipeline | **GRD-026 discipline** | don't conflate one AI win (sched/doc AI) w/ "care solved" | §2 · §A | spine | 4 | N |
+| 20 | "99%… in silico… wet lab… validation step" (11:56) | silico-explore-wetlab-validate | most exploration in sim; humans/labs commit | canonical explore→validate for high-stakes | CNS drafts/simulates; provider/domain validates+commits | §A · CNS-contract | spine | 5 | N |
+| 21 | "10 years down to months… weeks… days" (12:16) | drug-discovery-collapse | order-of-mag time compression claim | adjacent vision/hype; corroborate | §10 foil only; NOT product wedge or clinical claim | §10 · §2 | low-authority-watch | 2 | Y |
+| 22 | "all disease could be in reach" (12:24) | all-disease-horizon | maximal medicine vision | extreme horizon | watch only; reject as near-term posture | §10 | no-op | 2 | N |
+| 23 | "understanding… AI systems… whole science" (13:12) | ai-systems-as-science | studying AI artifacts = engineering science | interpretability as first-class | CNS/runtime needs introspection/lineage/eval, not black-box | §B · CNS-contract | spine | 4 | N |
+| 24 | "AI itself will… unlock new sciences" (13:45) | ai-unlocks-new-sciences | AI enables previously-impossible sciences | expands Sense loop beyond ingestion | Evidence Plane + sim may discover new "sciences" of care coordination | §8 · Knowledge-Reservoirs | vocabulary | 4 | Y |
+| 25 | "social sciences… hard to do control studies" (14:06) | emergent-control-gap | econ/social lack repeatable experiments | **defines OMNI's problem class** | patient journeys/clinic ops = emergent; CNS sim fills control gap | CNS-contract · §7.6/§12 | spine | 5 | N |
+| 26 | "simulate things really accurately… rigorously sample" (14:34) | accurate-sim-sampling | simulators enable repeated sampling | decision under uncertainty | care-path replay tests policy before rollout | CNS-contract · §8 | spine | 5 | N |
+| 27 | "learning simulators… can't write… mathematics" (15:04) | learned-simulator | ML-learned sim where hand-coded math fails | **major CNS primitive candidate** | patient-journey/clinic-ops simulators as learned models | CNS-contract · §B | spine | 5 | Y |
+| 28 | "most accurate… weather simulator… WeatherNext" (15:26) | weathernext-precedent | learned sim beats classical | existence proof at scale | precedent for ops simulators; still decision-support not truth | CNS-contract · §B | vocabulary | 4 | N |
+| 29 | "virtual cell… dynamical emergent system" (15:43) | virtual-cell-analog | learned model of emergent bio system | analogy only, NOT bio claim | analog = virtual care environment/journey replay | CNS-contract · §10 | vocabulary | 4 | Y |
+| 30 | "machine learning is the perfect tool… biology" (15:53) | ml-as-description-language | ML may describe emergent systems like math describes physics | strongest OMNI-relevant framing | CNS treats care reality as weak-signal emergent field needing ML | §B · CNS-contract | spine | 5 | N |
+| 31 | "loads of weak signals… tons of data" (16:01) | weak-signal-field | many weak correlations exceed human analysis | **data physics of care coordination** | CNS ingests partial/inconsistent longitudinal signals→governed context | CNS-contract · §7.6/§12 | spine | 5 | N |
+| 32 | "expressive power of maths is not enough" (16:31) | math-insufficient | classical math fails on emergent dynamical systems | blocks rules-only substrate | resist static-workflow-rules without learning layer | §B · §2 | spine | 4 | N |
+| 33 | "extract some equations from the… simulator" (16:50) | implicit-to-explicit-extraction | learned sims may yield explicit laws via sampling | interpretability path | distill sim runs into auditable policies | CNS-contract · §A | vocabulary | 3 | Y |
+| 34 | "information… more fundamental… than matter or energy" (17:24) | information-as-fundamental | information may be primary lens on reality | **high-signal §B + longitudinal-coherence moat** | CNS = information engine over care reality; moat = governed info coherence | §B · CNS-contract | spine | 5 | Y |
+| 35 | "biology… resisting entropy… information processing" (17:50) | biology-as-info-processing | living systems = entropy-resisting info processors | extends info lens to health-adjacent | CM/observations = info objects under entropy/decay (not drug discovery) | §B · §7.6/§12 | spine | 4 | N |
+| 36 | "AI is all about information processing" (18:41) | ai-is-info-processing | AI organizes/understands/constructs info objects | canonical CNS identity | reframe CNS task-router → governed info constructor w/ lineage | §B · CNS-contract | spine | 5 | N |
+| 37 | "constructing informational objects" (18:38) | informational-object-construction | AI builds structured info artifacts | aligns w/ observations/projections/packets | CNS outputs governed info objects w/ authority labels | §7.7 · CNS-contract | spine | 5 | N |
+| 38 | "classical… Turing machine… model… quantum system" (19:46) | classical-models-quantum | classical NN approximates quantum-scale biology | substrate feasibility argument | classical governed runtime + good representation suffices | §B | vocabulary | 3 | N |
+| 39 | "build a tool first… intelligent and precise" (21:03) | tool-first-before-agency | precise tool before agency/consciousness | governance restraint | agents = tools under authority gates; defer moral agency | §A · §B | spine | 5 | N |
+| 40 | "We're in the midst of that agent era now" (21:20) | agent-era-now | agenticity is current phase | validates agentic runtime as present | CNS orchestration + envelopes = current-build | §B · CNS-contract | spine | 4 | N |
+| 41 | "does it have agency? Is it conscious?" (21:26) | agency-consciousness-deferred | consciousness deferred to phase 2 | explicit sequencing | never route accountability to "conscious" agents | §A · §2 | spine | 4 | N |
+| 42 | "never have… substrate equivalence with… artificial system" (23:14) | substrate-equivalence-gap | behavioral mimicry ≠ experiential parity | anti-anthropomorphic anchor | external agents/CNS never inherit human moral substrate | §A · §7.8 | spine | 5 | N |
+| 43 | "self-awareness… continuity over time" (22:09) | consciousness-checklist | necessary-not-sufficient components | agent design w/o consciousness claims | longitudinal context + identity continuity echo; not consciousness | §A | vocabulary | 3 | N |
+| 44 | "the mind creates reality" (24:10) | kant-mind-creates-reality | perception/mind shapes experienced reality | epistemology for projection plane | projections are constructed views; declare degradation | §7.7 · §A | vocabulary | 3 | Y |
+| 45 | "reading the language of the universe" (24:57) | reading-universe-language | science/AI as decoding structure | aspirational, not operational | tone ref for Sense loop; avoid mysticism in contracts | Knowledge-Reservoirs | no-op | 2 | N |
+| 46 | "2030. I've been pretty consistent" (25:24) | agi-2030 | reaffirms AGI by 2030 | vision timeline | §10/§2 foil; no schedule coupling | §2 · §10 | low-authority-watch | 3 | N |
+| 47 | "The Fabric of Reality by David Deutsch" (25:41) | post-agi-reading | reading list item | low routing | no-op unless Evidence wants reading list | §10 | no-op | 1 | N |
+| 48 | "probably Alpha Fold" (25:57) | proudest-alphafold | names AlphaFold proudest | science-not-chatbot identity | durable moat = substrate breakthroughs, not UI | §10 · §B | vocabulary | 3 | N |
+| 49 | "interact with the AI… delighted people" (2:25) | delight-from-agent-behavior | delight from believable agent behavior | adoption signal | agent UX earns trust via useful behavior, not persona theater | §7.7 | vocabulary | 3 | N |
+| 50 | "decisions in these… uncertain domains" (14:50) | sim-for-uncertain-decisions | simulators improve decisions under uncertainty | decision-support doctrine | CNS sims inform Sense/Act; commit stays gated | §8 · §A | spine | 4 | N |
+| 51 | "personalized medicine will become possible" (12:27) | personalized-medicine-horizon | AI-enabled personalization | adjacent clinical horizon | §10 watch; OMNI doesn't own pharmacology pipeline | §10 | low-authority-watch | 2 | N |
+| 52 | "stochastic nature" (16:40) | stochastic-emergent | messiness/randomness in emergent systems | care data inherently stochastic | CNS tolerates partial/noisy signals; rules insufficient | §B · CNS-contract | spine | 4 | N |
+| 53 | "define… consciousness… more precisely [via tool]" (21:45) | tool-assists-definition | use AI tool to sharpen definitions later | meta-research sequencing | use eval tooling to sharpen authority/consent defs before expanding autonomy | §A · Build-OS | vocabulary | 3 | N |
+| 54 | "keepers of a secret… no one… believed" (6:15) | contrarian-thesis | early belief despite skepticism | strategy pattern | supports contrarian substrate bet; requires proof not faith | §2 · Build-OS | vocabulary | 3 | N |
+| 55 | "simulation_not_truth" (Knox keeper; 14:50) | simulation-not-truth | simulators sample hypotheses; don't become truth | **critical guardrail for learned sims** | virtual replay informs; domains commit truth; projections declare sim-derived | §A · §7.7 | spine | 5 | N |
+
+---
+
 ## Coverage audit (losslessness proof)
-| source | concepts | read §1 verbatim | read §3 Knox | order | nothing-vaporized |
-|---|---|---|---|---|---|
-| EVSRC-2026-000084 | 90 | yes (full) | yes (full) | Knox→verbatim | ✓ |
-| EVSRC-2026-000085 | 75 | yes (full) | yes (full) | Knox→verbatim | ✓ |
-| EVSRC-2026-000086 | 82 | yes (full) | yes (full) | Knox→verbatim | ✓ |
-| **TOTAL (proof cluster)** | **247** | — | — | — | ✓ G4-compliant |
+| source | concepts | read §1 verbatim | read §3 Knox | order | nothing-vaporized | batch |
+|---|---|---|---|---|---|---|
+| EVSRC-2026-000084 | 90 | yes (full) | yes (full) | Knox→verbatim | ✓ | 1 (proof) |
+| EVSRC-2026-000085 | 75 | yes (full) | yes (full) | Knox→verbatim | ✓ | 1 (proof) |
+| EVSRC-2026-000086 | 82 | yes (full) | yes (full) | Knox→verbatim | ✓ | 1 (proof) |
+| EVSRC-2026-000087 | 34 | yes (full) | yes (full) | Knox→verbatim | ✓ | 2 (CNS/neural) |
+| EVSRC-2026-000088 | 55 | yes (full) | yes (full) | Knox→verbatim | ✓ | 2 (CNS/sim) |
+| **TOTAL (so far)** | **336** | — | — | — | ✓ G4 · uniform deep | — |
+
+Per-source verbatim-adds-beyond-Knox / net-new primitives / reread flags in extraction-agent returns: 084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a] · 087 [9835c467] · 088 [2fc14535]. Consolidated routing in `routing_addendum.md`.
 
 Verbatim-adds-beyond-Knox, candidate net-new primitives, and reread flags per source captured in the extraction-agent returns (084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a]); consolidated in `routing_addendum.md`.
 
