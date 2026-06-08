@@ -4,8 +4,8 @@
 > No re-check of `covered` sources (we trust the B1-B6 subagent extractions). Gap sources get the SAME deep read standard (full §1+§3, no light reads), registry-first.
 
 ## Summary
-- **Covered: 22** (B1-B6 + G7 054/058/077) · **Gap: 20** · **Weak: 0** · **Total: 42**
-- **G7 dev-substrate DONE** (054/058/077 routed into concept registry, registry-first). Remaining gap batches: G8 (055/056/057/063/073) · G9 (050/052/053/067) · G10 (049/051/066/074) · G11 (068/048/061) · G12 (075/076/078/082).
+- **Covered: 27** (B1-B6 + G7 054/058/077 + G8 055/056/057/063/073) · **Gap: 15** · **Weak: 0** · **Total: 42**
+- **G7 dev-substrate DONE · G8 business-model DONE** (registry-first). Remaining gap batches: G9 (050[VOICE]/052/053/067) · G10 (049/051/066/074) · G11 (068[OpenEvidence flag]/048/061) · G12 (075/076/078/082).
 
 ## Covered (19) — already in the registry
 | EVSRC | source | batch |

@@ -1208,6 +1208,11 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 | EVSRC-2026-000054 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G7 — clusters in concept registry [agent e4ecb804] |
 | EVSRC-2026-000058 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G7 — clusters in concept registry [agent 068d3c88] |
 | EVSRC-2026-000077 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G7 — clusters in concept registry [agent 07a5b35a] |
+| EVSRC-2026-000055 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G8 — clusters in concept registry [agent 3b0612c9] |
+| EVSRC-2026-000056 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G8 — clusters in concept registry [agent 2390065b] |
+| EVSRC-2026-000057 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G8 — clusters in concept registry [agent af5be690] |
+| EVSRC-2026-000063 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G8 — clusters in concept registry [agent 28774ce4] |
+| EVSRC-2026-000073 | (registry-first) | yes (full) | yes (full) | Knox→verbatim | ✓ | G8 — clusters in concept registry [agent ffaa1320] |
 
 > **G7+ (gap sources) are registry-first** (`GRD-044`): per Nick's "no quote-inventory grind," gap-source concepts + their verbatim anchors live in the **concept registry** (§1 clusters + §1A anchors), not as quote rows here. This ledger holds the B1-B6 receipts; the registry holds the meaning for all 22+ sources.
 
