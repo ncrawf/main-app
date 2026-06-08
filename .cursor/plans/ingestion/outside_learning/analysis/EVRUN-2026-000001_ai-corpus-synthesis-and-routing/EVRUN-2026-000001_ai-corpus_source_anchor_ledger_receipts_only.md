@@ -1,10 +1,12 @@
-# EVRUN-2026-000001 · inventory.md — source-anchored concept inventory
+# EVRUN-2026-000001 · ai-corpus — SOURCE ANCHOR LEDGER · RECEIPTS ONLY
+
+> **RECEIPTS ONLY — NOT an authoring source, NOT the concept workbench (`GRD-044`).** This is the per-source extraction trail / anchor ledger: it proves sources were read and gives anchor handles back to the verbatim. The cross-source **meaning/intelligence lives in the Concept Registry** (`EVRUN-2026-000001_ai-corpus_concept_registry_and_routing_map.md`). Do NOT author thesis/contract/doctrine prose from rows here; author from the registry → reopen the Source Packet → verify against these anchors.
 
 Part of analysis run `EVRUN-2026-000001` (June AI corpus → v4 routing). Layer: `omni_analysis_nonbinding`.
 Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) · concept · diluted · why · omni_impact · landing_zone · weight_tier · confidence · reread`.
-**weight_tier:** `spine` (earns foundational v4 prose) · `vocabulary` (term/definition) · `low-authority-watch` (corroborate-first) · `no-op`.
-**Method (G4):** each source read Knox-§3-first (orienting) then §1 verbatim IN FULL (ground/verify); lossless, no cap. Extraction agents: 084 [7c42b756], 085 [4eef1444], 086 [75f6f90a].
-**Status:** PROOF-OF-SHAPE cluster (084/085/086) — the format to reuse for the remaining 39. Consolidation + stale-vs-v3 verdict in `routing_addendum.md`.
+**weight_tier:** `spine` · `vocabulary` · `low-authority-watch` · `no-op`.
+**Method (G4):** each source read Knox-§3-first (orienting) then §1 verbatim IN FULL (ground/verify); lossless, no cap.
+**Coverage:** receipts for B1–B6 (19/42 sources). Coverage status in `EVRUN-2026-000001_ai-corpus_coverage_matrix.md`; consolidated meaning + stale-vs-v3 verdict in the concept registry.
 
 ---
 
@@ -1204,8 +1206,8 @@ Schema (REV-176-style): `# · anchor (verbatim §1 quote + chapter/timestamp) ·
 | EVSRC-2026-000083 | 37 | yes (full) | yes (full) | Knox→verbatim | ✓ | 6 (orch: paradox·low-auth) |
 | **TOTAL (so far)** | **1055** | — | — | — | ✓ G4 · uniform deep | 19/42 sources |
 
-Per-source extraction-agent returns: 084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a] · 087 [9835c467] · 088 [2fc14535] · 089 [fc0fe373] · 079 [bf21ae54] · 080 [6e7df0c5] · 081 [8ec8b181] · 064 [07b88593] · 065 [c4aa4bb6] · 069 [92b03592] · 070 [c0235e96] · 060 [5a2df8c4]. Consolidated routing in `routing_addendum.md`.
+Per-source extraction-agent returns: 084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a] · 087 [9835c467] · 088 [2fc14535] · 089 [fc0fe373] · 079 [bf21ae54] · 080 [6e7df0c5] · 081 [8ec8b181] · 064 [07b88593] · 065 [c4aa4bb6] · 069 [92b03592] · 070 [c0235e96] · 060 [5a2df8c4]. Consolidated meaning + routing in `EVRUN-2026-000001_ai-corpus_concept_registry_and_routing_map.md`.
 
-Verbatim-adds-beyond-Knox, candidate net-new primitives, and reread flags per source captured in the extraction-agent returns (084 [7c42b756] · 085 [4eef1444] · 086 [75f6f90a]); consolidated in `routing_addendum.md`.
+Verbatim-adds-beyond-Knox, candidate net-new primitives, and reread flags per source captured in the extraction-agent returns; consolidated in the concept registry (`…_concept_registry_and_routing_map.md`).
 
 

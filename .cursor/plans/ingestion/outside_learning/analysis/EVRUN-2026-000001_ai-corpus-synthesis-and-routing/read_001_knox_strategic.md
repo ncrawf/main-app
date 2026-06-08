@@ -380,4 +380,4 @@ That is the architecture.
 
 ## Pointer
 - Opus reconciliation of this read → `read_002_opus_synthesis.md` (created after paste).
-- Routes → `routing_addendum.md` · thesis deltas → `thesis_impact.md` · concept rows → `inventory.md`.
+- Routes + concept meaning → `EVRUN-2026-000001_ai-corpus_concept_registry_and_routing_map.md` (primary workbench) · receipts/anchors → `EVRUN-2026-000001_ai-corpus_source_anchor_ledger_receipts_only.md`.

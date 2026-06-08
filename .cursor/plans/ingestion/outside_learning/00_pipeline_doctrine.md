@@ -32,7 +32,10 @@ outside_learning/
   sources/<YYYY-MM>/             <- raw, immutable, global EVSRC ids                 [SOURCE]
     EVSRC-YYYY-NNNNNN_<slug>.md
   analysis/EVRUN-YYYY-NNNNNN_<slug>/   <- derived, multi-author, cites source ids   [ANALYSIS]
-    00_run.md  inventory.md  routing_addendum.md
+    {EVRUN}_{slug}_00_run.md
+    {EVRUN}_{slug}_concept_registry_and_routing_map.md   <- PRIMARY workbench (meaning + convergence + homes)
+    {EVRUN}_{slug}_source_anchor_ledger_receipts_only.md <- receipts/anchors ONLY
+    {EVRUN}_{slug}_coverage_matrix.md                    <- coverage status
   sources/2026-spring_ai_substrate/      <- legacy corpus (vNN layout); see _MIGRATION_STATUS.md
 ```
 
@@ -53,8 +56,8 @@ Keep the layers separate (never collapse them):
 1. **Source (raw)** — *immutable evidence.* Preserve it; never overwrite it with interpretation. A summary is never a substitute for the raw. Lives in `sources/`.
 2. **Analysis (derived, multi-author)** — everything produced by *thinking about* sources, in `analysis/EVRUN-…/`:
    - **distillation** — interpretive synthesis / OMNI-relevance pass (e.g., a Knox/ChatGPT third-party review). Valuable, not canonical by itself; may be absent.
-   - **extraction / scoring / mapping** (`inventory.md`) — the concept ledger: gems, scores, classification, OMNI mapping, contradictions, pressure-tests.
-   - **routing addendum** (`routing_addendum.md`) — what should affect thesis / §A / §B / §C / Build OS / security / surfaces-projections / features, or be ignored, + the **§C-impact triage**.
+   - **concept registry + routing map** (`{EVRUN}_{slug}_concept_registry_and_routing_map.md`) — the **PRIMARY workbench**: usable concepts/claims, OMNI meaning, **cross-source convergence**, stale-vs-current verdicts, net-new primitives, downstream homes (thesis / §A / §B / §C / CNS / Build OS / security / surfaces-projections / domain-contracts / features / ignore), promotion posture, + the **§C-impact triage**. **This is where the intelligence lives** — concept-level synthesis lives HERE, NOT in the anchor ledger.
+   - **source anchor ledger** (`{EVRUN}_{slug}_source_anchor_ledger_receipts_only.md`) — **receipts ONLY**: coverage proof + per-source extraction trail + anchor handles back to verbatim. NOT the concept ledger; never an authoring source. (Legacy runs may name it `inventory.md`, but its role is receipts.)
 3. **Promotion** — doctrine / contract / Build OS / feature / security rule / surface / projection / ignore. **Nothing is binding until it lands in its home and passes that home's review gate** (`GRD-036`).
 
 Attribution: tag every analysis with its `analyst` (Opus | Knox/ChatGPT | agent | human). Authorship lives on the run, not the source.
@@ -90,10 +93,10 @@ Plus per concept: **gem · source anchor (`EVSRC-… ¶N`) · importance (1-5) �
 capture source (raw, immutable, EVSRC id) -> register in 00_index.md
   -> open an analysis run (EVRUN; analyst attributed; source_set cited)
     -> [optional] distillation (interpretive; e.g. Knox/ChatGPT)
-      -> concept extraction in inventory.md (no cap; mid-paragraph gems count)
+      -> concept extraction (no cap; mid-paragraph gems count) -> concepts land in the concept registry; raw anchors logged in the source anchor ledger (receipts)
         -> importance + confidence scoring (1-5 each)
           -> OMNI mapping (one or more homes) + classification (7-way) + relationship + maturity
-            -> routing_addendum.md (what changes thesis / §A / §B / §C / Build OS / security / contracts / surfaces / features / ignore) + §C-impact triage
+            -> concept_registry_and_routing_map (what changes thesis / §A / §B / §C / Build OS / security / contracts / surfaces / features / ignore) + §C-impact triage
               -> Constitutional Reconciliation Ledger (when primitives/projection/loop/contract-boundary touched)
                 -> promotion to destination home THROUGH that home's review gate (user/Knox)
                   -> periodic adoption + pruning gate (re-review; stale concepts pruned; rarely, one re-steers)
@@ -119,8 +122,18 @@ capture source (raw, immutable, EVSRC id) -> register in 00_index.md
 
 **Epistemic-weight calibration:** `content_type` + `source_reliability_context` exist so future-us weights sources honestly — a Stanford lecture and a vendor-marketing clip should NOT carry equal authority. `source_reliability_context` is a *lens, not credential-worship*; optional (default `unknown`), and never the basis for ignoring a real gem — only for calibrating confidence (`GRD-039` Tier 1: unverified lowers confidence, never forbids use).
 
-## Analysis-run schema (every `analysis/EVRUN-…/00_run.md`)
-`evrun_id · run_date · analyst (Opus | Knox/ChatGPT | agent | human) · source_set ([EVSRC ids]) · purpose (extraction | distillation | scoring | routing | §C-triage | re-review) · status (open | routed | gated)` + `inventory.md` (concept rows) + `routing_addendum.md` (routing + §C-impact triage). Runs are **multi-author**: many runs may cite the same source. **Reads (inputs) within a run follow `read_NNN_<analyst>_<purpose>.md`** — numbered + attributed + append-only (Knox=001, Opus=002, future angle passes=003+); mirrors the source-file Review-00N convention. Never a singular "the read" — every batch/reservoir gets re-read repeatedly from multiple angles/planes over time.
+## Analysis-run schema + artifact naming (every run)
+`evrun_id · run_date · analyst (Opus | Knox/ChatGPT | agent | human) · source_set ([EVSRC ids]) · purpose (extraction | distillation | scoring | routing | §C-triage | re-review) · status (open | routed | gated)`.
+
+**Run artifacts (Reservoir Ingestion Contract `GRD-044`) — filenames carry the `{EVRUN}_{slug}_` prefix; generic bare names are forbidden except in `_RUN_TEMPLATE/`:**
+- `{EVRUN}_{slug}_00_run.md` — manifest + artifact authority order + authoring gate.
+- `{EVRUN}_{slug}_concept_registry_and_routing_map.md` — **PRIMARY workbench** (concept meaning + cross-source convergence + homes + verdicts + primitives). *Intelligence lives here.*
+- `{EVRUN}_{slug}_source_anchor_ledger_receipts_only.md` — receipts/anchors ONLY (legacy: `inventory.md`).
+- `{EVRUN}_{slug}_coverage_matrix.md` — coverage status.
+
+Runs are **multi-author**: many runs may cite the same source. **Reads (inputs) within a run follow `read_NNN_<analyst>_<purpose>.md`** — numbered + attributed + append-only (Knox=001, Opus=002, future angle passes=003+); mirrors the source-file Review-00N convention. Never a singular "the read" — every batch/reservoir gets re-read repeatedly from multiple angles/planes over time.
+
+**Authoring gate:** thesis/CNS/§C/Build-OS/Federation/domain-contract work authors from the **concept registry** → reopens the **source packet(s)** for authority/verbatim/interpretation → verifies anchors → reconciles vs canon → writes. No quote-driven authoring; meaning = source packet + cross-source convergence, not a single §3 read. Never author from the anchor ledger.
 
 ## Cadence
 Recurring. Process **~5-10 sources per analysis run** as material accumulates; a run may span months or a single source. Sources are captured continuously and independently of runs.
