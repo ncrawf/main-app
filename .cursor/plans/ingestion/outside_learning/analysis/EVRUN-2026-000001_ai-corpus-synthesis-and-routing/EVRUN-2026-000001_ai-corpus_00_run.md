@@ -44,6 +44,7 @@ Highest-pressure routed outputs, by destination home (author FROM the concept re
 - `EVRUN-2026-000001_ai-corpus_concept_registry_and_routing_map.md` — PRIMARY workbench (concept clusters → OMNI meaning + cross-source convergence + downstream homes + stale-vs-v3 + net-new primitives).
 - `EVRUN-2026-000001_ai-corpus_source_anchor_ledger_receipts_only.md` — receipts/anchor ledger (coverage proof; per-source extraction trail). NOT an authoring source.
 - `EVRUN-2026-000001_ai-corpus_coverage_matrix.md` — 42-source coverage status (covered/weak/missing).
+- `extractions/EVRUN-2026-000001_ai-corpus_extraction_G7…G12_*.md` — **full per-source concept extractions (preservation record)**, one file per gap batch. The COMPLETE deep-read clusters (concept · OMNI-meaning · homes · anchors · tier · status · net-new primitives · reread flags) the concept registry compresses; preserved so nothing lives only in chat transcripts and each registry row is auditable against the underlying source extraction. Not an authoring base on its own (author from the registry → reopen Source Packet).
 
 ## Scope fence (what this run does NOT do)
 - Does **not** edit any source file (immutable, `GRD-042`).

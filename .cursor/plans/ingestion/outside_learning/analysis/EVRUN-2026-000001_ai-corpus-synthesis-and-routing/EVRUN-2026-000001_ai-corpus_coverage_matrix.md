@@ -8,6 +8,7 @@
 - **ALL 12 batches DONE** (registry-first, full §3+§1 reads per G4). Highlights: ★068 OpenEvidence = highest care-adjacent authority (clinical-evidence + clinician-wisdom reservoir spine; FWREG-006/007 anchor, reread MANDATORY at contract); 050 voice = 21-cluster spine surface; 049/074 = safety-case/sim/physical-API spine; 063/057/061 = outcomes/services-as-software + agent-economy; 053/067 = human-context sensing reservoir.
 - **G12 (075/082/076/078 IBM explainers) = Lens-B teaching vocabulary, AFFIRM-only, 0 net-new spine/primitives** (OMNI delta: authority/commit family IBM taxonomies omit). 052 Senra + 051 Neuralink + 066 Crusoe correctly tiered watch/no-op.
 - **NEXT: Phase 5 — declare thesis-ready; contract-input note (esp. FWREG-006/007 clinical-evidence reservoir); hand to v4 thesis plan.**
+- **Preservation pass (2026-06-08):** full per-source concept extractions for all gap batches written to `extractions/EVRUN-2026-000001_ai-corpus_extraction_G7…G12_*.md` (G7 re-extracted 054/058/077; G12 075 + G11 048 re-extracted from prior thin/merge-only outputs; rest from in-context full reads). Registry G12 row re-expanded from 1 collapsed row → 3 rows (§B-substrate vocab / model-tier routing / authority-commit-family delta). Nothing lives only in transcripts; every registry row auditable against its batch extraction file.
 
 ## Covered (19) — already in the registry
 | EVSRC | source | batch |
