@@ -39,7 +39,7 @@ outside_learning/
   sources/2026-spring_ai_substrate/      <- legacy corpus (vNN layout); see _MIGRATION_STATUS.md
 ```
 
-- **Source** = one raw artifact, preserved once, **immutable**, global id `EVSRC-YYYY-NNNNNN`, in a month bucket. The folder is shelving; the id is identity. Templates: `sources/_SOURCE_TEMPLATE.md`. A Source may be a single artifact OR a **collection** — a coherent bulk capture (a campaign / photo-dump) is ONE `EVSRC` *folder* holding many files + a `_source.md` manifest = one index row, many extracted concepts (router §4). The source FILE is the **captured record**: §1 raw transcript + §2 any captured third-party commentary (the ChatGPT/Knox take that arrived *with* the drop) + §3 operator notes — all *captured* evidence, not OMNI-derived. OMNI's **derived** work (extraction / scoring / topic-tagging / **inventory clusters** / routing) lives in the `analysis/EVRUN-…` run, never in the source. (Old-format `vNN` files co-mingled both; the spring collection keeps that legacy shape.)
+- **Source** = one raw artifact, preserved once, **immutable**, global id `EVSRC-YYYY-NNNNNN`, in a month bucket. The folder is shelving; the id is identity. Templates: `sources/_SOURCE_TEMPLATE.md`. A Source may be a single artifact OR a **collection** — a coherent bulk capture (a campaign / photo-dump) is ONE `EVSRC` *folder* holding many files + a `_source.md` manifest = one index row, many extracted concepts (router §4). The source FILE holds §1 raw transcript (immutable) + §2 captured source details + a **§3 append-only review log** + §4 analysis pointers. §3 carries, in order: **Review 001 = Knox/ChatGPT strategic read** (rich source-local interpretation, pasted as-is), **Review 002 = Nick gut note** (optional), **Review 003 = Opus/agent formal deep extraction** (the per-source concept extraction — formalizes Review 001). **Per-source meaning lives in §3 (the source packet); CROSS-source synthesis (convergence, scoring, the routing map) lives in the `analysis/EVRUN-…` concept registry.** Do NOT put cross-source synthesis in a source; do NOT put a per-source deep-read in a separate sidecar/extraction file (`GRD-044` — dissolved the per-batch `extractions/` bolt-on 2026-06-09). (Old-format `vNN` files co-mingled layers; the spring collection keeps that legacy shape.)
 - **Index** = `00_index.md`, the queryable registry. Topics are tags/columns here — never folder names (`GRD-037`).
 - **Analysis** = an `EVRUN-YYYY-NNNNNN` run: "on this date, this analyst processed these EVSRC ids → these outputs." **Multi-author** — Knox/ChatGPT, Opus, future agents, humans each analyze the same source if useful; attribution lives on the run (`analyst:`), never in the source. One source ↔ many runs. Templates: `analysis/_RUN_TEMPLATE/`.
 - **"Batch" is retired.** Capture grouping = the `captured_at` field + month bucket; processing grouping = an analysis run. Neither is a topic or an id.
@@ -87,19 +87,35 @@ Plus per concept: **gem · source anchor (`EVSRC-… ¶N`) · importance (1-5) �
 
 ---
 
+## Two-tier read model (interpret → formalize → synthesize) — tiered by signal
+
+Two **roles**, not necessarily two agents: **Reader 1 interprets · Reader 2 formalizes · the registry synthesizes.** The anti-pattern to avoid is "Knox summary → Opus summary → summary-of-summary." These are *different jobs*:
+- **§3 Review 001 — interpretive strategic read** (Knox/ChatGPT today): catches the human/strategic meaning — why the source matters, why Nick flagged it, how it applies to OMNI, which concepts are real gems, what NOT to import, what to watch/promote/reject. Pasted **as-is**, however rich (do not reformat). Spec: `sources/_KNOX_STRATEGIC_READ_PROMPT.md`.
+- **§3 Review 003 — structured formal extraction** (Opus/agent): makes the source machine-/repo-usable — structured concept clusters, downstream homes, source anchors, stale-vs-v3 verdicts, primitive candidates (dedup vs registry), promotion posture. **The extractor MUST read §3 Review 001 first, preserve its strategic insights, then ground against §1 verbatim — it formalizes, it does NOT re-summarize.**
+- **EVRUN concept registry — cross-source synthesis** (convergence across sources). The per-source extraction is NOT the registry.
+
+**Depth follows signal (set by Review 001's `priority`/`depth` or operator flag):**
+- **low / watch / duplicate** → source packet + a single formal extraction (Review 003 may be brief, or a one-line no-op/watch note); a separate Review 001 is optional. (e.g. generic IBM explainer, simple vendor demo, low-authority hype.)
+- **medium** → source packet + a short Review 001 + Review 003.
+- **high / spine / full_semantic** → source packet + **rich Review 001 + full Review 003 + registry synthesis**. Use for thesis-spine candidates, technical-architecture lectures, clinical-evidence/regulatory/safety sources, OpenEvidence-class material, naming/doctrine/contract-pressure sources, and anything Nick flags. (e.g. the Pertsch long-horizon-robot-autonomy lecture: non-obvious robotics source whose strategic read reveals transferable memory/latency/primitive-reliability/deterministic-timer architecture — exactly a two-tier source.)
+
+Future: one mature ingestion agent may do both passes (even pulling the transcript from a URL) — but it still outputs the **two sections separately** (Review-001 interpretation + Review-003 extraction). The issue is never one-agent-vs-two; it is the two roles.
+
 ## The pipeline (stages)
 
 ```
 capture source (raw, immutable, EVSRC id) -> register in 00_index.md
-  -> open an analysis run (EVRUN; analyst attributed; source_set cited)
-    -> [optional] distillation (interpretive; e.g. Knox/ChatGPT)
-      -> concept extraction (no cap; mid-paragraph gems count) -> concepts land in the concept registry; raw anchors logged in the source anchor ledger (receipts)
+  -> §1 transcript (immutable) + §0/§2 metadata from screenshot
+    -> §3 Review 001 = Knox strategic read (rich source-local interpretation, pasted as-is)  [+ §3 Review 002 = Nick gut note, optional]
+      -> §3 Review 003 = Opus/agent FORMAL deep extraction (formalizes Review 001; per-source concept clusters live HERE, not a sidecar)
+        -> open/attach an analysis run (EVRUN) -> fold per-source clusters into the cross-source concept registry; raw anchors -> source anchor ledger (receipts)
         -> importance + confidence scoring (1-5 each)
           -> OMNI mapping (one or more homes) + classification (7-way) + relationship + maturity
             -> concept_registry_and_routing_map (what changes thesis / §A / §B / §C / Build OS / security / contracts / surfaces / features / ignore) + §C-impact triage
               -> Constitutional Reconciliation Ledger (when primitives/projection/loop/contract-boundary touched)
-                -> promotion to destination home THROUGH that home's review gate (user/Knox)
-                  -> periodic adoption + pruning gate (re-review; stale concepts pruned; rarely, one re-steers)
+                -> CLOSEOUT: fill source §4 pointers (EVRUN / concept_registry / source_anchor_ledger / impact / promotion) + update coverage matrix  [the "linked once analyzed" step]
+                  -> promotion to destination home THROUGH that home's review gate (user/Knox)
+                    -> periodic adoption + pruning gate (re-review; stale concepts pruned; rarely, one re-steers)
 ```
 
 ## Classification taxonomy (7)

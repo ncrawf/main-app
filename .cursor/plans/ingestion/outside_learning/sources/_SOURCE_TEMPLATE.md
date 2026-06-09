@@ -6,8 +6,10 @@ Authority: `evidence_nonbinding` — captured source + interpretations only; bin
 
 > **HOW TO USE THIS FILE — two kinds of marks:**
 > • `TK` = a field the normalizer (Opus) fills from the screenshot — **leave it alone.**
-> • **⬇️ PASTE blocks = the ONLY spots Nick touches.** Exactly **3**: transcript (§1), Knox read (§3 Review 001, optional), gut note (§3 Review 002, optional). Plus: **drop the screenshot in chat** → Opus fills §0.
+> • **⬇️ PASTE blocks = the ONLY spots Nick touches.** Exactly **3**: transcript (§1), **Knox read (§3 Review 001)**, gut note (§3 Review 002, optional). Plus: **drop the screenshot in chat** → Opus fills §0.
 > Copy this into `sources/<YYYY-MM>/`, rename `EVSRC-YYYY-NNNNNN_<slug>.md` (id = highest EVSRC + 1), add a row to `../../00_index.md`.
+>
+> **Per-source flow (the standard):** Nick pastes transcript (§1) + Knox's strategic read (§3 **Review 001** — paste it AS-IS, however rich Knox makes it; do NOT reformat into fields) + optional gut note (§3 Review 002). Then the agent (Opus) writes **§3 Review 003 — formal deep extraction** (formalizing Review 001, NOT rediscovering it), updates the run's **concept registry** (cross-source synthesis), the coverage matrix, and fills **§4 pointers** at closeout. **The per-source deep read lives HERE in §3 — never in a separate sidecar/extraction file** (`GRD-044`). Cross-source synthesis lives in the EVRUN concept registry.
 
 ## §0 — Source identity / metadata  *(normalizer fills from the screenshot — leave `TK`)*
 - evsrc_id: `EVSRC-YYYY-NNNNNN`  ·  filename: `EVSRC-YYYY-NNNNNN_<slug>.md`
@@ -26,8 +28,8 @@ Authority: `evidence_nonbinding` — captured source + interpretations only; bin
 > **Authority is descriptive, not worship** (`GRD-039`): record *who* said it (raises relevance), but every claim still routes through evidence → interpretation → gated promotion. (Clinical reservoir extends this block heavily — authors / affiliations / journal / DOI-PMID / study-type / evidence-level / COI / retraction — `FWREG-006`.)
 
 ## §0.5 — Processing checklist
-**Nick drops:** [ ] transcript → §1 · [ ] screenshot in chat · [ ] gut note → §3 Review 002 · [ ] (optional) Knox read → §3 Review 001
-**Normalizer (Opus) confirms:** [ ] id+filename · [ ] §0 metadata from screenshot · [ ] takes labeled · [ ] EVRUN needed? · [ ] linked once analyzed
+**Nick drops:** [ ] transcript → §1 · [ ] screenshot in chat · [ ] **Knox strategic read → §3 Review 001** (paste as-is) · [ ] (optional) gut note → §3 Review 002
+**Agent (Opus) does:** [ ] id+filename · [ ] §0 metadata from screenshot · [ ] takes labeled · [ ] **§3 Review 003 formal deep extraction** (formalize Review 001) · [ ] update EVRUN concept registry (cross-source) · [ ] update coverage matrix · [ ] **fill §4 pointers (closeout)** · [ ] NO sidecar extraction file (`GRD-044`)
 
 ## §1 — Verbatim transcript  ·  layer: `raw_source`  ·  IMMUTABLE
 
@@ -47,10 +49,12 @@ Authority: `evidence_nonbinding` — captured source + interpretations only; bin
 
 ## §3 — Interpretations & review log  ·  append-only (each reviewer adds a new entry; never overwrite)
 
-### Review 001 — captured Knox / ChatGPT take  ·  layer: `captured_interpretation_nonbinding`
-- reviewer: `Knox / ChatGPT` · type: `AI assistant` · at: `TK` · purpose: `initial relevance scan`
+### Review 001 — Knox / ChatGPT strategic read  ·  layer: `captured_interpretation_nonbinding`
+- reviewer: `Knox / ChatGPT` · type: `AI assistant` · at: `TK` · purpose: `strategic source-local interpretation`
 
-⬇️⬇️⬇️  PASTE KNOX'S / CHATGPT'S READ BELOW  (optional — leave empty if none)  ⬇️⬇️⬇️
+> Knox's read is the **strategic source-local interpretation** — paste **exactly what Knox outputs**, however rich, in ONE block. Do NOT split it into fields or trim it. Knox's output typically already carries: priority/depth · source type + authority context · why this matters for OMNI · core takeaway · OMNI translation · likely landing zones · doctrine/primitive pressure · keeper doctrine · what-not-to-import · hard read. (What we ASK Knox to produce = `_KNOX_STRATEGIC_READ_PROMPT.md`.) The agent's §3 Review 003 **formalizes** this (it does not re-derive it).
+
+⬇️⬇️⬇️  PASTE KNOX'S / CHATGPT'S FULL READ BELOW (as-is)  ⬇️⬇️⬇️
 
 
 
@@ -73,8 +77,23 @@ Authority: `evidence_nonbinding` — captured source + interpretations only; bin
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
-## §4 — Analysis pointers  *(normalizer fills later — derived work lives in EVRUN; leave `TK`)*
-- EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
+### Review 003 — Opus / agent formal deep extraction  ·  layer: `analysis_nonbinding`  ·  (agent-authored, NOT a Nick paste)
+- reviewer: `Opus` (or agent) · type: `AI assistant` · at: `TK` · purpose: `formalize Review 001 → structured per-source extraction → feed EVRUN concept registry` · binds nothing (`GRD-036`/`GRD-044`)
+
+> The agent reads §1 verbatim + §3 Review 001 (Knox) IN FULL, then writes the formal per-source extraction HERE (not a sidecar). Formalize Review 001's strategic read — verify/sharpen it, do not re-derive. Per concept cluster: **concept · OMNI meaning · why · downstream homes (thesis §x / CNS / Build-OS / §C / capability-topology / Knowledge-Reservoirs / security / domain-contracts / UX-surfaces / product / future-watch) · source anchors (verbatim ≤12 words + timestamp) · stale-vs-v3 (ABSENT/PARTIAL/AFFIRM) · weight_tier (spine/vocabulary/low-authority-watch/no-op) · status (promote/watch/reject).** Then: **net-new primitives** (dedup vs registry — don't re-mint) + **reread flags**. Cross-source convergence is folded into the EVRUN **concept registry**, not duplicated here.
+
+⬇️⬇️⬇️  AGENT WRITES THE FORMAL EXTRACTION BELOW  ⬇️⬇️⬇️
+
+
+
+&nbsp;
+
+
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
+## §4 — Analysis pointers  *(agent fills at CLOSEOUT once analyzed — the "linked" step; leave `TK` until then)*
+- EVRUN(s): `TK` (e.g. `EVRUN-2026-000001` ai-corpus) · concept_registry: `TK` (`{EVRUN}_{slug}_concept_registry_and_routing_map.md`) · source_anchor_ledger: `TK` (`…_source_anchor_ledger_receipts_only.md`) · per-source deep-read: §3 Review 003 (this file) · impact: `TK` (§A/§B/§C/CNS/Build-OS/security/domain-contracts/surfaces) · promotion: `TK` (watch | promote | reject | no-op)
 
 ## §5 — Change log
 - `YYYY-MM-DD` — source file created.
