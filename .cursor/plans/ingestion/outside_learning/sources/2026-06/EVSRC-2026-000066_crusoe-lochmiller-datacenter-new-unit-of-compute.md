@@ -1460,6 +1460,27 @@ I would not make this a full core doctrine source unless the thesis has an AI-in
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
+### Review 003 — Opus deep-read extraction  ·  layer: `analysis_nonbinding`  ·  EVRUN-2026-000001 (G10 embodied-compute)
+- reviewer: `Opus` · type: `AI assistant` · at: `2026-06-08` · purpose: `registry-first concept extraction → routing` · binds nothing (`GRD-036`/`GRD-044`)
+
+**12 clusters, 1 AFFIRM, rest watch/no-op. Crusoe/Lochmiller datacenter. Physical-infra macro backdrop for §B compute realism; OMNI does NOT build datacenters.**
+1. **Inference-budget / compute-is-finite (AFFIRM existing spine)** — intelligence physically/economically constrained; ambient agents/traces/deep-inference carry real cost/latency; reinforces `inference_budget_policy`/`risk_weighted_compute_route` (default cheap, escalate by risk; denial-of-wallet). §B (pairs 064/065), CNS reasoning-escalation/loop-depth-cap, Build-OS token-throughput meter + fleet caps, security denial-of-wallet. "data center is the new unit of compute" 16:28 · "manufacture intelligence with silicon" 11:04. **AFFIRM → vocabulary → promote (append to inference-budget cluster only).**
+2. **AI-abstraction-blindness / physical-substrate awareness** — runtime architecture includes substrate economics (cost/latency/availability); OMNI budgets against datacenter constraints. §B color, Build-OS budget caps. "steel servers and power" 1:01. **PARTIAL → low-authority-watch → watch.**
+3. **Energy wall / power-as-bottleneck (pairs 087, 064)** — AI demand = step-function on flat generation; power/steel/permitting displace chips; frontier inference won't trend to zero. §B/§10 (50yr-aware/5yr-buildable), future-watch. "I need a gigawatt of power" 9:50. **PARTIAL → low-authority-watch → watch (append anchor to inference-budget + future-watch).**
+4. **Datacenter-as-computer / unit-of-compute shift (do not spine)** — Lochmiller speaks PHYSICAL cluster scale, not care orchestration; do NOT canonize "workflow-system-as-computer"/"care-compute-unit." §B foil/comparator only, CNS reject direct import. "one coherent cluster" 16:50. **ABSENT (stay absent as spine) → no-op → watch (reject Knox care-compute-unit inflation).**
+5. **Industrial AI buildout / gigawatt factories** — none for OMNI product; market context for why inference stays expensive. §10/future-watch backdrop. "2 gigawatts of capacity" 3:30. **ABSENT → no-op → reject (Evidence Plane only).**
+6. **Vertical-integration-when-existential (Crusoe-specific — reject)** — own the bottleneck layer when lead times kill speed; valid TEST, wrong exemplar (OMNI = clinical authority/CNS/promotion gates, not switchgear). Build-OS posture (from others), else no-op. "speed is a critical advantage" 4:30. **AFFIRM (covered elsewhere) → no-op → reject.**
+7. **Energy-first site selection / curtailment arbitrage** — OMNI constraint-first = provider attention/consent/authority, NOT ERCOT curtailment. future-watch, §B macro. "negatively priced power" 7:40. **ABSENT → no-op → reject (infra market color).**
+8. **Sovereign AI / data-locality / jurisdictional compute (weak federation corroboration)** — weak parallel to healthcare federation (state rules/custody/consent); registry has stronger federation sources. §C/Federation indirect color, future-watch, security residency (pairs 069). "can't leave the four walls" 8:29. **PARTIAL → low-authority-watch → watch.**
+9. **Manufacturing-intelligence rhetoric (guardrailed — reject over-import)** — directionally true for reasoning CAPACITY; FALSE for authority/trust/consent/responsibility; must not excuse skipping HITL/gates. §A anti-anthropomorphic-trust AFFIRM, §B capacity≠legitimacy. "manufacture intelligence" 10:48. **AFFIRM → low-authority-watch → watch (guardrail quote only).**
+10. **Capex–revenue asymmetry / $600B question** — macro timing context for OMNI wedge (governed accountable care vs capex-heavy general AI). §2/§10 foil/timing, future-watch. "AI's $600 billion question" 0:45. **PARTIAL → low-authority-watch → watch (§10 color).**
+11. **Cooling / power-density / liquid-cooling engineering** — none for OMNI. **ABSENT → no-op → reject.**
+12. **Resilience / plan-B / mountaineer culture** — aligns w/ existing resilience posture but 066 = founder-culture anecdote, redundant. Build-OS resilience (from others), §8. "plan for things to go wrong" 18:09. **AFFIRM → no-op → watch (optional color).**
+
+**Net-new: likely NONE.** `runtime_compute_economics`/`inference_capacity_planning`→dedupe `inference_budget_policy`/`risk_weighted_compute_route` (064/065); `infrastructure_bottleneck`→no-op; `constraint_first_architecture`→reject (energy-first = wrong exemplar); `data_locality_constraint`/`sovereign_ai_boundary`→dedupe federation; `workflow_system_as_computer`/`care_compute_unit`→REJECT (Knox inflation). **Single registry action:** append 066 anchors to §1A inference-budget row (066-16:28, 066-9:44, 066-11:04). **Reread:** do NOT reread before CNS/Build-OS spine authoring (no spine here); reread ONLY for §B macro compute-finiteness paragraph (+ pair 087 energy-wall + 064 inference-budget); reject Knox items 2-6 for promotion; guardrail on "manufacturing intelligence" (10:48 alongside trust-posture 085/070).
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
 ## §4 — Analysis pointers  *(I fill later — derived work lives in EVRUN; leave `TK`)*
 - EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
 

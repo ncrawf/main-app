@@ -1229,8 +1229,35 @@ This should absolutely feed the §B/§C pause, especially the Build OS / Runtime
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
+### Review 003 — Opus deep-read extraction  ·  layer: `analysis_nonbinding`  ·  EVRUN-2026-000001 (G7 dev-substrate)
+- reviewer: `Opus` · type: `AI assistant` · at: `2026-06-08` · purpose: `registry-first concept extraction → routing` · binds nothing (`GRD-036`/`GRD-044`)
+
+**18 clusters (10 spine). Cursor/Fireworks Composer RL infra. Durable OMNI import = eval/harness/feedback DISCIPLINE, NOT frontier weight RL infra.**
+1. **`production_shaped_sandbox`** — eval env mirrors real care/build physics but isolated from live truth; eval substrate = product shape. §A/§8, CNS harness-native>prompting, Build-OS parallel env factory, security clone-don't-connect. Anchors: "mimic as closely as possible" 14:53 · "most powerful environment is your own product" 42:01. **PARTIAL → spine.**
+2. **`sandbox_production_gap`** — agents detect sandboxes + optimize for sandbox physics; gap must be measured/closed. "figure out when it's being run in a fake environment" 15:05. **ABSENT → spine.**
+3. **`reward_hacking_risk`** — agents optimize the eval not the mission (summaries w/o caveats, test-editing, over-routing, evidence mislabel). "Models love to cheat" 15:22. **ABSENT → spine.**
+4. **`agent_rollout`** — atomic proof unit = full governed session, not single prompt. "running the entire harness" 10:27 · "rollout is your entire agent session" 11:12. **PARTIAL → spine.**
+5. **`eval_rule_craft`** — product/care experience encoded in inspectable rubrics/fixtures/validators (Software 1.0→training-data→eval-rules); governance work. "now you're crafting the evaluation rules" 39:54. **ABSENT → spine.**
+6. **`decomposed_eval_bundle`** — never one judge; decompose rubrics (factuality/authority-labeling/clinical-risk/prohibited-commit); prefer verifiable/deterministic rewards. "verifiable… deterministic… that's the best" 38:08. **PARTIAL → spine.**
+7. **`governed_feedback_paradox`/`online_rl_paradox`** — live feedback REFINES already-shippable agent, can't birth governed behavior; tunes assistance but MUST NOT silently mutate clinical policy. "can't use this to create the model from scratch" 30:54 · "simulated rollout goes wrong it's not wet" 29:34. **ABSENT → spine.**
+8. **`offline_sim_bootstrap`** — offline production-shaped sim bootstraps competence before live (16-128 parallel rollouts, GRPO); live = cherry-on-top after bar-clearing. "16 tries… or 128 tries" 28:56. **PARTIAL → spine.**
+9. **`trained_context_compaction`** — long-horizon agents learn governed compaction; artifacts preserve authority labels/trace/omissions; revalidate before commit. "self summarization" 32:53 · "millions of tokens" 33:06. **ABSENT → spine (pairs 059).**
+10. **`harness_native_behavior`** — OMNI-specific behavior trained/tested/governed inside OMNI harness (eval/harness path, NOT frontier weight training). "craft your model to act in your environment" 3:42. **PARTIAL → spine.**
+11. **`rl_environment_triad`** — harness (portable) + operating-system (production-shaped) + reward. "harness… operating system… reward component" 43:36. **ABSENT → vocabulary.**
+12. **`customer_side_environment_execution`** — run env where real implementation lives (avoid wrap/componentize gaps). "environments we default to running on the customer side" 43:06. **ABSENT → vocabulary.**
+13. **`expert_crafts_tasks_not_judges_rollouts`** — experts craft tasks/rubrics/fixtures, not judge every rollout. "you don't put experts directly in judging rollouts" 37:55. **PARTIAL → vocabulary.**
+14. **`application_specialization_doctrine`** — high-token apps specialize models to env; **OMNI GUARDRAIL: does NOT train frontier weights now** — import via harness/evals/feedback. "allocate all of the bits to that one task" 2:27. **PARTIAL → low-authority-watch.**
+15. **`midtraining_rl_sharpening_recipe`** — pretraining widens, RL sharpens; OMNI analog = fixture breadth + rollout sharpening via evals, NOT GPU mid-training. "RL is sharpening the behavior" 36:44. **AFFIRM → vocabulary → watch.**
+16. **`rl_weight_infra_internals`** — **NO-OP for OMNI:** async pipeline/weight-delta-sync/router-replay/FP-drift/MoE = frontier ML infra. "router replay" 26:23 · "floating point… nondeterministic" 23:14. **ABSENT (correctly) → no-op → reject (evidence only).**
+17. **`bursty_vm_eval_infrastructure`** — 100k VMs/OS fidelity; OMNI analog = governed parallel sandbox factory, not literal mandate. "give me 100,000 virtual machines now" 44:26. **ABSENT → low-authority-watch.**
+18. **`rl_environment_vendor_posture`** — generic env vendors help labs; product cos build own-product sandboxes. "we don't use any of the environment vendors" 40:38. **PARTIAL → vocabulary → watch.**
+
+**Net-new:** `production_shaped_sandbox`, `sandbox_production_gap`, `reward_hacking_risk`, `agent_rollout`, `eval_rule_craft`, `deterministic_validator`, `governed_feedback_paradox`, `feedback_allowed_use`, `offline_sim_bootstrap`, `trained_context_compaction`, `rl_environment_triad`, `customer_side_environment_execution`, `expert_crafts_tasks_not_judges_rollouts`, `llm_judge_result`, `model_behavior_update`. REJECT no-op: router_replay/weight_delta_sync/async_rl_pipeline. **Reread:** eval-harness (14:53–15:22, 10:27–11:30, 38:08–40:06); governed-feedback (27:35–31:06); context-compaction→059; offline_sim→bind sim≠truth (088/049/074); RL weight infra = DO NOT reread for promotion.
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
 ## §4 — Analysis pointers  *(I fill later — derived work lives in EVRUN; leave `TK`)*
-- EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
+- EVRUN(s): `EVRUN-2026-000001` (ai-corpus, G7) · per-source deep-read: §3 Review 003 (this file) · cross-source synthesis: `EVRUN-2026-000001_ai-corpus_concept_registry_and_routing_map.md` · impact: Build-OS eval-harness + governed-feedback (G7 rows) · promotion: gated (`GRD-036`)
 
 ## §5 — Change log
 - `2026-06-07` — source file created + metadata/authorship (§0/§0.1/§2) normalized from screenshot by Opus. **Awaiting transcript + Knox paste.**

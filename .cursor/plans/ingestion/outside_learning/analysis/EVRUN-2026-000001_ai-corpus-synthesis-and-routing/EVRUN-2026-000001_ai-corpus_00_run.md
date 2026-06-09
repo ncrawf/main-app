@@ -44,10 +44,10 @@ Highest-pressure routed outputs, by destination home (author FROM the concept re
 - `EVRUN-2026-000001_ai-corpus_concept_registry_and_routing_map.md` — PRIMARY workbench (concept clusters → OMNI meaning + cross-source convergence + downstream homes + stale-vs-v3 + net-new primitives).
 - `EVRUN-2026-000001_ai-corpus_source_anchor_ledger_receipts_only.md` — receipts/anchor ledger (coverage proof; per-source extraction trail). NOT an authoring source.
 - `EVRUN-2026-000001_ai-corpus_coverage_matrix.md` — 42-source coverage status (covered/weak/missing).
-- `extractions/EVRUN-2026-000001_ai-corpus_extraction_G7…G12_*.md` — **full per-source concept extractions (preservation record)**, one file per gap batch. The COMPLETE deep-read clusters (concept · OMNI-meaning · homes · anchors · tier · status · net-new primitives · reread flags) the concept registry compresses; preserved so nothing lives only in chat transcripts and each registry row is auditable against the underlying source extraction. Not an authoring base on its own (author from the registry → reopen Source Packet).
+- **Per-source full deep reads live in each Source Packet's §3** (`Review 003 — Opus deep-read extraction`, `analysis_nonbinding`, append-only review log) — NOT a separate run artifact. The run's derived artifacts are cross-source only (registry/ledger/coverage); source-local meaning lives with the source (template §3). [Prior `extractions/` per-batch side-files were a bolt-on — dissolved 2026-06-09; content folded into each EVSRC §3 Review 003.]
 
 ## Scope fence (what this run does NOT do)
-- Does **not** edit any source file (immutable, `GRD-042`).
+- Does **not** mutate any source's §1 raw transcript or existing interpretations (immutable, `GRD-042`). **MAY append new labeled interpretation reviews** to a Source Packet's §3 review log (e.g. `Review 003 — Opus deep-read`, `analysis_nonbinding`) — that is the sanctioned append-only operation per the source template (same pattern as the Knox §3 Review 001), not a source edit.
 - Does **not** edit Thesis / Build OS / contracts directly — it produces **routing proposals**; the actual doctrine edits happen in those planes after their gate (`GRD-036`/`GRD-038`). This run is the **bridge**, the gate is the **control**.
 
 ## Change log

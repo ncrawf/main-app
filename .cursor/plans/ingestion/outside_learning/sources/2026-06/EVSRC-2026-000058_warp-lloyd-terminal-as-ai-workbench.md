@@ -1276,6 +1276,37 @@ This should feed the Build OS / CNS / §C workbench and agent runtime model imme
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
+### Review 003 — Opus deep-read extraction  ·  layer: `analysis_nonbinding`  ·  EVRUN-2026-000001 (G7 dev-substrate)
+- reviewer: `Opus` · type: `AI assistant` · at: `2026-06-08` · purpose: `registry-first concept extraction → routing` · binds nothing (`GRD-036`/`GRD-044`)
+
+**22 clusters. Warp terminal-as-AI-workbench. Import workbench/cockpit/trace PHYSICS, not terminal chrome.**
+1. **`agent_workbench`** — governed surface where humans+agents co-execute (not read-only dashboard). "workbench for building software with agents" 2:07 · "orchestration platform" 27:39. **ABSENT → spine.**
+2. **`agent_cockpit`** — fleet orchestration surface (status/logs/ownership across team agents); pairs agent-inbox 062. "cockpit for managing… your team's agents" 27:46. **ABSENT → spine.**
+3. **`human_takeover_state`** — inspect/pause/redirect/assume control of in-flight run w/o losing trace; clinical = takeover before authority commit. "take it over or see its progress" 29:37 · "best results when the agent is really steered" 31:12. **ABSENT → spine.**
+4. **`agent_trace`** — agentic work as ordered input→output→retry→result (terminal time-physics as trace architecture); epistemic continuity. "everything is like timebased" 5:04. **PARTIAL → spine.**
+5. **IDE–terminal convergence → prompting-first form factor** — surfaces reorganize around prompting/context/diff-review; hand-edit = fallback. "primary interface now is the prompting interface" 8:13. **ABSENT → vocabulary → watch (no terminal chrome).**
+6. **`system_event_triggered_agent`/`ambient_agent`** — events (crash/incident/Slack-tag) launch cloud agents; OMNI: event → CANDIDATE (trigger ≠ action). "system event that triggers an agent" 27:06 · "do the work in the cloud" 32:52. **PARTIAL → spine.**
+7. **agent platform stack** — SDK · hosting (optional) · status/takeover API · management layer (fleet/PRs/ownership). "agent SDK… agent hosting" 29:01 · "management layer… what states" 29:44. **ABSENT → spine.**
+8. **cloud-to-local handoff** — pick up cloud-initiated work in same workbench w/o context reassembly; care: ambient draft → human finishes governed. "bring it onto your local machine" 33:05. **ABSENT → vocabulary → watch.**
+9. **team-scoped agent orchestration** — event/team-launched agents need team concept + shared visibility + coordinated review. "strong team concept" 27:53 · "agents are going to push PRs" 28:01. **PARTIAL → vocabulary → watch (merge cockpit).**
+10. **intent-expression bottleneck** — limit shifts to humans clearly expressing intent (constraints/success-criteria/"done"); English ambiguous vs code. "limiting factor… expression of intent from humans" 40:02 · "English is ambiguous" 40:15. **PARTIAL → spine (pairs 086).**
+11. **ask-and-adjust loop** — human asks outcome → agent produces → human adjusts (reprompt/edit); AI proposes/domain commits. "ask the app to do the thing… adjusting" 45:02. **PARTIAL → vocabulary → promote (§A/§7.7).**
+12. **user-perspective verification** — verify from user/operator perspective (computer/browser-use), not just compile-correct; care: did the flow work? did the appointment book? "verify the change from the user's perspective" 38:45 · "behaviorally correct, not just static compile correct" 39:32. **PARTIAL → spine.**
+13. **steered long-horizon agents** — long runs need upfront plan + check-ins + bounded scope (anti set-loose-swarm); ~20-30min real coding today. "best results when the agent is really steered" 31:12 · "will start going in circles" 30:53. **PARTIAL → spine.**
+14. **harness as first-class product** — prompts/tools/context-mgmt/subagents/summarize/truncate/RAG/MCP/evals determine quality; "agent only as good as the harness." "harness is like how you prompt" 23:35 · "alpha that goes into that" 24:31. **PARTIAL → spine.**
+15. **context summarization/truncation policy** — governed selection of what giant tool outputs enter context; never truncate authority/consent silently. "gigantic output and you don't want that all" 24:13. **ABSENT → spine.**
+16. **eval-measured harness improvement** — internal evals + public benchmarks + production failure replay (not vibe-tuning); no-eval→no-autonomy. "make that good is by measuring" 24:38 · "100% necessary to do it data driven" 25:33. **PARTIAL → spine (merge G7 054).**
+17. **model routing / multi-model orchestration** — route by task (latency/cost/quality); defaults + raw control. "mixture of models and more model routing" 20:30. **PARTIAL → vocabulary → watch (dedupe inference-budget).**
+18. **shared operational knowledge for agents** — runbooks/incident-manuals/commands embedded for human+agent → OMNI governed care runbooks/`program_md`. "super useful not just for people but for agents" 3:47. **PARTIAL → vocabulary → watch.**
+19. **pro-use-case focus** — economically-valuable hard software vs vibe projects; OMNI = care-grade authority-bound ops. "distinguish from vibe coding" 7:50. **AFFIRM → low-authority-watch → watch.**
+20. **"coding will be solved" optimism** — **REJECT as authority relaxation:** better codegen ≠ dissolve consent/liability/clinical-adoption/audit (counter-doctrine, anti-089). "coding will be solved by models" 39:55. **AFFIRM → spine(defend) → reject as doctrine, promote counter-guardrail.**
+21. **dev-tools competitive dynamics** — brutally competitive; providers subsidize app layer; differentiate on harness/orchestration. §3.5 market color. "most brutally competitive subs of software" 10:26. **no-op → low-authority-watch → watch.**
+22. **terminal product chrome = explicit no-op** — do NOT make OMNI clinical/operator surfaces look like a CLI; import trace/time physics only. "look more like a terminal than an IDE" 7:07. **no-op (guardrail) → reject as UX, promote guardrail.**
+
+**Net-new:** `agent_workbench`, `agent_cockpit`, `agent_management_layer`, `human_takeover_state`, `agent_trace`, `system_event_triggered_agent`/`ambient_agent`, `agent_sdk`, `agent_hosting`, `agent_status_api`, `agent_run_handoff`, `intent_candidate`, `user_perspective_verification`, `harness_version`, `context_truncation_policy`, `offload_large_tool_output`, `subagent_invocation`. SHARPEN: `steered_run`, `ask_adjust_loop`. GUARDRAIL/REJECT: terminal chrome (22), coding-solved (20), dev-market (21). **Reread:** workbench-vs-dashboard-vs-cockpit (Build-OS); takeover × ambient(062)/zero-click(081)/HITL(070); intent × attention(086); user-perspective-verify × eval-harness(054)/safety-case(049); harness/truncation × context-engineering(059); ambient cloud agents = highest zero-click surface (081); "coding solved" × anti-089 at §A.
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
 ## §4 — Analysis pointers  *(I fill later — derived work lives in EVRUN; leave `TK`)*
 - EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
 

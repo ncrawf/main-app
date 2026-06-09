@@ -542,6 +542,33 @@ I’d mark it full_semantic if we are building the Knowledge Reservoir / Build O
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
+### Review 003 — Opus deep-read extraction  ·  layer: `analysis_nonbinding`  ·  EVRUN-2026-000001 (G9 customer-voice)
+- reviewer: `Opus` · type: `AI assistant` · at: `2026-06-08` · purpose: `registry-first concept extraction → routing` · binds nothing (`GRD-036`/`GRD-044`)
+
+**18 clusters (companion to 053; vocabulary-heavy, spine-light — sharpens HOW the discovery loop runs; 053 carries WHY + simulation governance). MERGE w/ 053 at promotion; don't duplicate registry rows.**
+1. **Research-workbench agent (workflow orchestrator)** — governed discovery agent runs full pipeline (scope/guide/recruit/interview/synthesis/deliverables), not Q&A bot. §8 Sense, CNS `discovery_agent_run`, Build-OS discovery-loop, KR, UX research workbench. "AI customer researcher" 0:20 · "all the way from your business question" 0:31. **PARTIAL → vocabulary → promote.**
+2. **Business-question → insight deliverable in hours** — compress expert research (weeks) to hours-scale Sense input. §8, Build-OS discovery gate, KR, §10 wedge. "within a couple hours" 0:35. **PARTIAL → vocabulary → promote.**
+3. **Discussion guide as governed research artifact** — versioned AI-assisted human-reviewable instrument before contact. Evidence Plane, KR, Build-OS, user_operator_research. "created a discussion guide" 1:48. **ABSENT → vocabulary → promote.**
+4. **Embedded research-ops best practices (expert replacement)** — encode qualitative method so untrained operators run valid studies. Build-OS, KR, §8, UX guided setup. "not have the external researcher" 1:40. **PARTIAL → vocabulary → promote.**
+5. **Participant segment targeting from profile reservoir** — recruit by structured segment from consented store. KR `participant_segment`/`audience_segment`. MERGE w/ 053; vendor panel DB ≠ OMNI consented cohort. "database of millions of people" 3:06. **ABSENT → vocabulary → watch.**
+6. **Parallel scale interviews (thousands simultaneous)** — fan out concurrent structured conversations; bottleneck → synthesis/governance. §8, CNS burst, KR. MERGE w/ 053. "thousands of them at the same time" 0:25. **PARTIAL → low-authority-watch → watch.**
+7. **Video-response facilitated probing interview** — async video + AI follow-up; `interview_session`+`video_response_artifact`. §8, Evidence Plane, KR, UX, consent/PHI. "respond with a video" 2:08 · "get the full context" 2:34. **ABSENT → vocabulary → promote (consent/PHI mandatory).**
+8. **Stimulus presentation inside interview** — show images/landing-pages/copy/mockups, collect reactive feedback; test education copy/portal flows/aftercare. Build-OS prototype eval, UX. "show you images, show your website" 2:40. **ABSENT → vocabulary → promote.**
+9. **Traceable synthesis → human artifact (anti-hallucination)** — every insight links to quote/transcript/clip/question/session. Evidence Plane, KR, §C lineage. MERGE w/ 053. "quotes in context" 4:12. **AFFIRMS → spine → promote.**
+10. **Qualitative→quantitative conversion (coded charts)** — open-ended → charts/counts as INTERPRETATION artifact, not clinical measurement. KR `coded_insight`/`insight_confidence`, §A authority labels. "open-ended conversations into quantitative insights" 4:06. **ABSENT → vocabulary → promote (mandatory metadata: segment/n/question/method/bias).**
+11. **Multi-format research deliverable auto-generation** — exec summary + charts + quote index + reels + decks, provenance-linked. Build-OS, Evidence Plane, KR, UX. "video highlight reels" 4:15. **ABSENT → vocabulary → promote.**
+12. **Bring care-reality to every build decision** — patient/provider/staff lived experience informs every decision. §10, Build-OS, KR, §8. MERGE w/ 053 `build_discovery_loop`. "bring the customer to every decision" 4:51. **PARTIAL → vocabulary → promote.**
+13. **Longitudinal human-context accumulation** — repeated interviews compound; reservoir grows. KR, CM (analogy only), §8. MERGE w/ 053. "build the most complete understanding" 4:48. **ABSENT/frontier → vocabulary → promote.**
+14. **Human context captured as evidence, not vibes** — operator/patient intelligence = traceable artifacts, never persona imagination. KR, Evidence Plane, §A/§8. MERGE w/ 053 (053 primary spine). **ABSENT/frontier → spine → promote.**
+15. **Research quantification ≠ raw truth** — coded charts/AI decks = gated interpretation needing segment/n/method/confidence/bias; never clinical/policy truth. §A, Evidence Plane, KR, domain-contracts. **PARTIAL → vocabulary → promote.**
+16. **Build-OS discovery loop (safe vs unsafe routing)** — research synthesis valid for product-wedge/copy/workflow/training-tone; UNSAFE for clinical policy/diagnosis/eligibility w/o separate governance. Build-OS, §A, Evidence Plane, domain-contracts. **PARTIAL → vocabulary → promote (research→clinical firewall).**
+17. **Listen Labs vendor product surface (comparator)** — commercial reference impl; comparator only. future-watch, product scan, Evidence Plane. **ABSENT → low-authority-watch → watch.**
+18. **AI video interview honesty/engagement claim** — "people love talking to AI interviewer"; may lower participation friction; needs validation + consent in care. product, UX, future-watch. "people love talking about talking to it" 3:54. **ABSENT → low-authority-watch → watch.**
+
+**Net-new (067-specific):** `discussion_guide`, `research_project`/`research_question`, `interview_session`, `video_response_artifact`, `stimulus_artifact`, `quote_evidence`/`clip_evidence`, `coded_insight`+`insight_confidence`+`sample_scope`+`research_bias_note`, `research_deliverable`, `discovery_agent_run`, `decision_evidence_packet`. ALREADY 053 (don't re-register): `human_context_reservoir`, `participant_profile`, `audience_segment`, `human_api`, `preference_model`, `build_discovery_loop`, `traceable_insight`. **Reread:** 053 owns spine — route 067 as operational companion; 067 has NO simulation (don't infer sim doctrine from 067); process 053+067 as ONE Listen pair; GRD-026/clinical-boundary before user_operator_research contract; PHI/consent before patient video interview primitive.
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
 ## §4 — Analysis pointers  *(I fill later — derived work lives in EVRUN; leave `TK`)*
 - EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
 

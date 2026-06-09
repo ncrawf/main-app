@@ -893,6 +893,27 @@ I would not make this core §B technical doctrine, but I would route it strongly
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
+### Review 003 — Opus deep-read extraction  ·  layer: `analysis_nonbinding`  ·  EVRUN-2026-000001 (G8 business-model)
+- reviewer: `Opus` · type: `AI assistant` · at: `2026-06-08` · purpose: `registry-first concept extraction → routing` · binds nothing (`GRD-036`/`GRD-044`)
+
+**12 clusters. Profound/Cadwallader agent-led growth. Import 'customer-is-agent' + agent-facing legibility; no-op GEO/marketing chrome.**
+1. **Visitor-is-agent** — first "user" at the door is often an external agent; discover/compare/pre-decide before any human. §C, §2 foil, §7.7, capability-topology. "the person going through the door has changed" 2:36 · "Claude represents a user" 11:56. **PARTIAL → spine.**
+2. **Agent-facing legibility layer** — publish scoped structured authoritative packets (services/eligibility/contraindications/policy/provenance) so agents RETRIEVE truth not invent it. §7.7 `agent_facing_surface`, §C, Settings/D6/Identity, KR. "make your company and products legible to an agent" 15:34. **ABSENT → spine.**
+3. **Publish truth, reject agent-SEO** — don't play ranking/listicle games for clinical/entitlement truth. §A, §2/§3.5 foil, security (poisoning). "not to poison the models or manipulate" 15:17. **PARTIAL → spine.**
+4. **Agent long-tail retrieval + stale-public-content risk** — agents consume orders-of-magnitude wider web; freshness/deprecation labels needed. KR `source_freshness_state`, §A/§8, §16. "used 65 different web pages" 6:38 · "agents will consume 100x more internet" 12:41. **PARTIAL → spine.**
+5. **Model/platform speciation (multi-engine visibility divergence)** — engines recommend differently; truth engine-agnostic at source; audits observational. §B, §3.5 (Profound Lens-A). "huge differences between the platforms" 9:04. **PARTIAL → vocabulary/low-auth → watch.**
+6. **Agent-as-purchaser / dev-tool steering** — pharmacy/insurance/EHR/procurement agents request/compare OMNI capabilities; objectivity norm. §C, capability-topology, CNS (external agent → candidate). "the agent is really steering the purchase decision" 26:53. **PARTIAL → spine (sharpen §C).**
+7. **Original operational insight vs generic slop** — value = differentiated truth humans uniquely supply (Bloom protocols/outcomes), not "What is GLP-1?" slop. KR promotion candidate, §A/§8, §10 moat. "humans are this fleshy API between reality" 14:36. **PARTIAL → spine.**
+8. **Dead internet / first-party content collapse** — external knowledge may turn noisier/synthetic/circular; reservoirs need provenance/human-origin/freshness. future-watch, KR, §A. "dead internet outcome in the next three years" 18:32. **ABSENT → low-authority-watch → watch.**
+9. **Agent-mediated advertising + sponsorship/provenance** — surface paid-vs-organic, sponsored-vs-objective, conflict-of-interest, consent impact. §A, security/§C, Messaging/consent. "most effective form of advertising ever" 25:17 · "build a system prompt as an ad campaign" 26:05. **ABSENT → spine (`sponsored_recommendation_signal`).**
+10. **Agent-led marketing operations** — agents as new capability class; OMNI analog = governed ops loops drafting (never silent policy mutation). Build-OS, §8, CNS. "gong transcripts… builds battle cards every day" 29:55. **PARTIAL → vocabulary/low-auth → watch.**
+11. **Path-of-least-resistance reasoning + comparative-content gaming** — security watch: spoofed comparisons/SEO gaming care categories. security (indirect injection), KR canonical-packet, §A. "path of least resistance maybe" 17:23. **PARTIAL → vocabulary/watch.**
+12. **GEO / AI visibility audit (market category)** — Lens-A vocabulary; OMNI analog = canonical-truth audit not "rank #1 in ChatGPT." §3.5, §2, product (bounded). "agentled growth" 1:20. **ABSENT → vocabulary/low-auth → watch (§3.5 only).**
+
+**Net-new:** `agent_facing_surface`, `agent_legibility_packet`, `agent_discovery_context`, `source_freshness_state`, `stale_public_content_risk`, `sponsored_recommendation_signal`, `canonical_answer_packet`, `public_context_grant`. EXISTS-AS sharpen: `canonical_public_truth`(KR), `machine_readable_service_policy`(Settings/D6), `external_agent_request`(§C — Capability Topology Gate). REJECT (anti-pattern only): comparative_listicle_optimization, ai_seo_ranking_target, content_slop_volume_play. **Reread:** visitor-is-agent (2:36/2:50/11:56 → §C/capability-topology/§7.7); agent legibility (15:17/15:34/15:41 → surfaces/§C/legibility-packet); long-tail stale (4:42/6:18/6:38 → KR/§A freshness); agent-as-purchaser (12:10/26:53/27:05 → §C gate); dead-internet (watch, don't canonize timeline); sponsored recs (25:17/26:05 → §A trust/security); anti-GEO doctrine (16:17/17:11/28:38 → §A defend).
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
 ## §4 — Analysis pointers  *(I fill later — derived work lives in EVRUN; leave `TK`)*
 - EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
 

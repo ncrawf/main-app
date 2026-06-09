@@ -1400,6 +1400,27 @@ I would not mark this as full_semantic unless you are doing a founder/company-bu
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
+### Review 003 — Opus deep-read extraction  ·  layer: `analysis_nonbinding`  ·  EVRUN-2026-000001 (G9 customer-voice)
+- reviewer: `Opus` · type: `AI assistant` · at: `2026-06-08` · purpose: `registry-first concept extraction → routing` · binds nothing (`GRD-036`/`GRD-044`)
+
+**12 clusters. David Senra mute-the-world. Operator-philosophy — 0 spine promotions; watch/no-op. Do NOT inflate motivational content into architecture.**
+1. **Active frontier limit / mute-the-world discipline** — not every valid OMNI frontier may be an active build center; park/route so wedge stays sharp. operator-context, Build-OS admission/`core_before_act_two`, light pairing w/ attention-routing 086. "focus is saying no to a good idea" 4:57 · "we can only do three things" 31:43. **PARTIAL → vocabulary → watch.**
+2. **Explore broadly w/ AI; build narrowly w/ focus** — AI raises exploration bandwidth not committed-lane count. Build-OS `focus_vs_speed_check`, Evidence Plane broad-capture. "working on 15 different products" 34:12. **PARTIAL → vocabulary → watch.**
+3. **Founder-problem-fit / anti-imitation** — fit operator's actual problem; extract comparator patterns w/o imitating shape/persona. §3.5 (GRD-039), operator-context. "founder problem fit" 10:14 · "try to imitate Steve Jobs… wasted years" 9:23. **ABSENT → vocabulary → watch.**
+4. **Infinite leverage amplifies judgment not sloppiness** — leverage raises returns to craft/eval/judgment. §B, Build-OS harness-first, operator-context. AFFIRM (overlaps 059/054/086). **low-authority-watch → watch (dedupe; no standalone promote).**
+5. **Biography-as-useful-ideas (not historical truth)** — outside-learning supplies useful ideas; provenance + promotion gates; EVSRC rows aren't history exams. KR/Evidence Plane (GRD-036), §A retrieval≠authority. "is this a useful idea" 40:25. **AFFIRM → vocabulary → watch.**
+6. **Generative fuel / fuel-source shift** — long-horizon work shouldn't run on panic. operator-context ONLY. **no-op for architecture → reject.**
+7. **Dorsey mode / AI-centered org (caution foil)** — "AI in the middle of the company" = metaphor only; OMNI rejects AI-as-authority. §A/§8 (AI proposes/domain commits), CNS coordination-amplifier-not-truth-owner. **PARTIAL → low-authority-watch → reject (foil if cited).**
+8. **Durable-business skepticism / longevity over exit** — prefer proving durable substrate over fast multi-product demos. product wedge durability, Build-OS `core_before_act_two`. **ABSENT → no-op → reject.**
+9. **Professional listening / taste as judgment proxy** — taste amplified-not-replaced by AI. Build-OS eval rule craft, §A irreducible judgment. **PARTIAL → low-authority-watch → watch.**
+10. **Bet-on-founder / reject VC rubric** — no OMNI substrate relevance. **no-op → reject.**
+11. **Founder psychology tropes** — motivational/VC narrative, weak claims. **no-op → reject.**
+12. **Platform-shift / "this time is different"** — covered better by 087/089/073. **AFFIRM (covered elsewhere) → no-op → reject.**
+
+**Net-new: likely none.** `active_frontier_limit`/`focus_gate`→Build-OS admission alias; `idea_parking_lot`→Evidence Plane deferred + Future Work Registry; `founder_problem_fit`→operator-context vocab; `anti_imitation_guardrail`→§3.5+GRD-039; `ai_leverage_amplifier`→dedupe inference-budget/eval. If anything: `focus_vs_speed_check` Build-OS lane-admission checklist label (non-schema). **Reread:** focus-as-saying-no (4:34–5:03, Build-OS prose only); mute-the-world × attention-routing 086 (1:26–1:44); focus-vs-speed (31:43–32:36); founder-problem-fit (9:23–10:26, operator-context); Dorsey-mode anti-pattern foil only; SKIP immigrant/autism/balance/taste anecdotes.
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
 ## §4 — Analysis pointers  *(I fill later — derived work lives in EVRUN; leave `TK`)*
 - EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
 

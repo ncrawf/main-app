@@ -445,6 +445,37 @@ Useful as a framework vocabulary / implementation-pattern source. Not a spine so
 
 ⬆️⬆️⬆️  END  ⬆️⬆️⬆️
 
+### Review 003 — Opus deep-read extraction  ·  layer: `analysis_nonbinding`  ·  EVRUN-2026-000001 (G7 dev-substrate)
+- reviewer: `Opus` · type: `AI assistant` · at: `2026-06-08` · purpose: `registry-first concept extraction → routing` · binds nothing (`GRD-036`/`GRD-044`)
+
+**22 clusters (vocabulary-tier). LangChain/LangGraph = Lens-B comparators (GRD-039); import orchestration GRAMMAR, not frameworks.**
+1. **`chain_workflow`** — forward-only ordered sequence (DAG); OMNI linear pipeline for bounded ingestion/extraction. "executing a sequence of functions in a chain" 0:48. **PARTIAL → vocabulary.**
+2. **`retrieve_summarize_answer_pipeline`** — retrieve→summarize→answer; template for Evidence Plane/KR ingestion, NOT patient-care orchestration. "retrieve, summarize, and answer" 1:21. **PARTIAL → vocabulary (KR/Build-OS).**
+3. **`langchain_component_modularity`** — composable stages, each typed capability w/ own model/tool envelope; supports inference-budget routing. "modular architecture… high level components" 3:08. **AFFIRM → vocabulary → watch.**
+4. **`stateful_graph_workflow`** — nodes/edges/shared-state for nonlinear/branchy/revisiting = primary CNS orchestration grammar. "stateful multi-agent systems… nonlinear workflows" 3:24. **PARTIAL → vocabulary(elevated).**
+5. **`graph_node`** — bounded action unit (classify/escalate/draft/invoke/review-gate/commit-candidate) w/ ownership+envelope+trace. "each action is considered as a node" 4:21. **ABSENT → vocabulary.**
+6. **`graph_edge`** — governed transition/routing between nodes (branch conditions/authority gates/risk), auditable. "transitions between these things… edges" 4:29. **ABSENT → vocabulary.**
+7. **`orchestration_run_state`** — run-state guides work across nodes; **is NOT committed domain truth.** "state component… maintain the task list" 4:49 · "all nodes can access and modify the state" 5:12. **PARTIAL → vocabulary(spine-adjacent).**
+8. **`hub_intent_router_with_loopback`** — central process-input node → routes to action nodes → always returns to hub; matches interactive care re-entry. "always returning back to the process input node" 5:25. **PARTIAL → vocabulary.**
+9. **`cyclic_loops_and_state_revisit`** — loops + revisiting prior states for clarification/edit/reprocess; checkpoints required. "allows for loops and revisiting previous states" 7:05. **PARTIAL/AFFIRM → vocabulary (pairs 089).**
+10. **`chain_dag_vs_graph_loops_structural_contrast`** — chains for known sequential pipelines; graphs for interactive evolving; don't graph everything. "chain structure… DAG" 6:24. **ABSENT → vocabulary.**
+11. **`state_management_spectrum`** — limited pass-through vs robust shared core state; OMNI needs care-grade persistent run-state. "state management… more robust" 8:29. **PARTIAL → vocabulary.**
+12. **`use_case_allocation_sequential_vs_interactive`** — pipeline-class → chain; interactive care/build → graph. "excels at sequential tasks" 8:48. **PARTIAL → vocabulary.**
+13. **`orchestration_state_not_domain_truth`** — **(AFFIRM keeper)** orchestration state guides; owning domains commit via APIs + authority gates; LangGraph state ≠ clinical truth. (Knox) "do not assume LangGraph state equals clinical truth". **AFFIRM (GRD-029) → spine.**
+14. **`framework_comparator_lens_b_not_canon`** — import grammar; don't canonize framework APIs/brand; impl may be LangGraph/custom/Temporal. "open source frameworks" 0:42. **AFFIRM (GRD-039) → no-op(guardrail) → watch.**
+15. **`multi_agent_systems_primary_focus`** — LangGraph = multi-agent; CNS coordinates fleets bounded (GRD-029), not sovereign brains. "primary focus of LangGraph… multi agent systems" 6:02. **PARTIAL → vocabulary → watch (pairs 089).**
+16. **`care_workflow_branching_taxonomy`** — (Knox) care messages branch (routine/clarify/provider-review/urgent/scheduling/payment/consent/doc/no-op) then loop; CNS routing vocabulary. **PARTIAL → vocabulary → watch (exemplar not canon).**
+17. **`loop_capable_checkpoints_not_single_pass`** — (Knox) interactive care/build needs loops w/ checkpoints (Protocol §8); anti single-pass. "loops and revisiting previous states" 7:05. **PARTIAL/AFFIRM → vocabulary.**
+18. **`node_authority_envelope_no_direct_domain_mutation`** — (Knox guardrail) nodes emit candidates to owning domains; commit needs authority gate; prevents LangGraph-state-as-EHR. **AFFIRM (GRD-029) → spine.**
+19. **`implementation_pattern_taxonomy_not_spine_source`** — (Knox) this = implementation-pattern taxonomy complementing Chase 059/062; ~3.5/5 priority. **AFFIRM → low-authority-watch → watch.**
+20. **`langchain_memory_vs_graph_state_distinction`** — conversation memory ≠ orchestration run-state ≠ domain truth. "memory component… conversation history" 2:40 · "state is a core component" 8:36. **PARTIAL → vocabulary.**
+21. **`graph_orchestration_trace`** — explicit nodes/edges/state enable traceability (which node/state-delta/edge); first-class audit. (Knox) "graphs still need… traces". **PARTIAL → vocabulary → watch (pairs 058 cockpit).**
+22. **`anti_graph_everywhere_minimal_chain_doctrine`** — (Knox guardrail) don't graph what a chain suffices; minimal-sufficient topology. "great where you know the exact sequence" 6:47. **PARTIAL → vocabulary.**
+
+**Net-new:** `chain_workflow`, `stateful_graph_workflow`, `graph_node`, `graph_edge`, `orchestration_run_state`, `hub_loopback_transition`, `loopback_transition`, `node_access_scope`, `workflow_topology_allocation`, `graph_orchestration_trace`(partial). AFFIRM (not new): `orchestration_state_vs_domain_truth` (GRD-029). REJECT as primitives: LangChain/LangGraph/document_loader/text_splitter/memory (Lens-B only). **Reread:** Chase 059/062; live-dynamic CNS 087 (graph=topology, 087=physics); loops/fleets 089; cockpit 058; AOP tension 057/056; CNS contract draft (node/edge/state/loopback vocab w/o framework coupling); comparator registry (append LangChain+LangGraph Lens-B); zero-click 081 (node write scope).
+
+⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
+
 ## §4 — Analysis pointers  *(I fill later — derived work lives in EVRUN; leave `TK`)*
 - EVRUN(s): `TK` · inventory: `TK` · routing_addendum: `TK` · impact §B/§C/security/Build-OS/contract: `TK` · promotion: `TK`
 
