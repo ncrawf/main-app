@@ -4,7 +4,7 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 **Status: PROCESSING.** Created 2026-06-11. Batch 1 (090–094) covered 2026-06-12.
 
 ## Summary
-- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 35** (090–124) · Weak: 0.
+- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 40** (090–129) · Weak: 0.
 - Cumulative baseline: `EVRUN-2026-000001` (42 sources covered) — wave-2 adds on top; combined corpus target ≈ 150 sources.
 
 ## Per-source status
@@ -45,7 +45,12 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 | `000122` | karl-pertsch-physical-intelligence-long-horizon-autonomy | `covered` (time_scale_aware_memory; exemplar) |
 | `000123` | stanford-observing-the-user-experience-2026 | `covered` (full_semantic; ground-truth counterweight) |
 | `000124` | stanford-cs25-representation-learning-world-modeling | `covered` (consequence_model; NEW family) |
-| `000125…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
+| `000125` | baxi-chong-stanford-mechanical-intelligence-locomotion | `covered` (analogy AFFIRM; embodied_intelligence) |
+| `000126` | danfei-xu-robot-learning-from-human-experience | `covered` (spine; experience_alignment) |
+| `000127` | stanford-aa228v-explainability | `covered` (spine; proof_of_fix; fairness/proxy) |
+| `000128` | stanford-cs221-l19-ai-supply-chains-bommasani | `covered` (NEW AI-economics spine; complementary_innovation) |
+| `000129` | stanford-cs221-l14-bayesian-networks-liang | `covered` (uncertainty glossary; watch) |
+| `000130…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
 
 > Individualize rows during processing (one row per source once it has a title/content). Per-source slug firms up from §0 metadata at processing time.
 
