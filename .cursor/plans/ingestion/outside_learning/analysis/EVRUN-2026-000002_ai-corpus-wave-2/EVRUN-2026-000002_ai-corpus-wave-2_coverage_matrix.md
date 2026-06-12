@@ -4,7 +4,7 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 **Status: PROCESSING.** Created 2026-06-11. Batch 1 (090–094) covered 2026-06-12.
 
 ## Summary
-- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 15** (090–104) · Weak: 0.
+- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 20** (090–109) · Weak: 0.
 - Cumulative baseline: `EVRUN-2026-000001` (42 sources covered) — wave-2 adds on top; combined corpus target ≈ 150 sources.
 
 ## Per-source status
@@ -25,7 +25,12 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 | `000102` | langchain-interrupt-langsmith-fleet | `covered` (vendor convergence node) |
 | `000103` | carlos-pereira-cisco-cx-ai-native-workflow | `covered` (workflow recomposition + adoption physics) |
 | `000104` | geng-sng-cogent-autonomous-cyber-defense | `covered` (spine_candidate; trust_ladder/blast_radius) |
-| `000105…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
+| `000105` | benchling-context-first-agent-substrate | `covered` (context-first sequencing law; task_verifiability) |
+| `000106` | langchain-managed-deep-agents-interrupt-26 | `covered` (model_plus_harness; build-vs-buy) |
+| `000107` | uber-dev-platform-langgraph-agents | `covered` (intentional_tech_transfer; Build-OS) |
+| `000108` | listen-labs-langsmith-engine-trace-review | `covered` (trace-review loops; watch) |
+| `000109` | arize-alyx-context-management | `covered` (eval ladder; long_session_eval) |
+| `000110…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
 
 > Individualize rows during processing (one row per source once it has a title/content). Per-source slug firms up from §0 metadata at processing time.
 
