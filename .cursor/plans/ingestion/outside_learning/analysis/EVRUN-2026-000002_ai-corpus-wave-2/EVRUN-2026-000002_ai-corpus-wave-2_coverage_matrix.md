@@ -4,7 +4,7 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 **Status: PROCESSING.** Created 2026-06-11. Batch 1 (090–094) covered 2026-06-12.
 
 ## Summary
-- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 25** (090–114) · Weak: 0.
+- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 30** (090–119) · Weak: 0.
 - Cumulative baseline: `EVRUN-2026-000001` (42 sources covered) — wave-2 adds on top; combined corpus target ≈ 150 sources.
 
 ## Per-source status
@@ -35,7 +35,12 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 | `000112` | langsmith-engine-agent-development-lifecycle | `covered` (vendor receipt; fix_destination_routing) |
 | `000113` | smithdb-langchain-agent-observability | `covered` (vendor receipt; trace_classification) |
 | `000114` | factory-missions-luke-alvoeiro | `covered` (mission_object; validation_contract) |
-| `000115…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
+| `000115` | langsmith-engine-founder-explainer | `covered` (improvement_route_target; watch) |
+| `000116` | langchain-choosing-multi-agent-architecture | `covered` (single_agent_first; anti-agent-theater) |
+| `000117` | langchain-agent-builder-ux | `covered` (expose_work_state; vendor demo watch) |
+| `000118` | harrison-chase-observability-evals-for-agents | `covered` (full_semantic; trace-governance family) |
+| `000119` | langsmith-context-hub-demo | `covered` (context-engineering AFFIRM; watch) |
+| `000120…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
 
 > Individualize rows during processing (one row per source once it has a title/content). Per-source slug firms up from §0 metadata at processing time.
 
