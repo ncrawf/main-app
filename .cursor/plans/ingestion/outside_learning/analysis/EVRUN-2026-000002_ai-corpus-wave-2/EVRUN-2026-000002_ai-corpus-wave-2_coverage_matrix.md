@@ -4,7 +4,7 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 **Status: PROCESSING.** Created 2026-06-11. Batch 1 (090–094) covered 2026-06-12.
 
 ## Summary
-- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 30** (090–119) · Weak: 0.
+- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 35** (090–124) · Weak: 0.
 - Cumulative baseline: `EVRUN-2026-000001` (42 sources covered) — wave-2 adds on top; combined corpus target ≈ 150 sources.
 
 ## Per-source status
@@ -40,7 +40,12 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 | `000117` | langchain-agent-builder-ux | `covered` (expose_work_state; vendor demo watch) |
 | `000118` | harrison-chase-observability-evals-for-agents | `covered` (full_semantic; trace-governance family) |
 | `000119` | langsmith-context-hub-demo | `covered` (context-engineering AFFIRM; watch) |
-| `000120…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
+| `000120` | anjney-midha-stanford-cs153-frontier-systems | `covered` (taste_as_verifier; context-as-moat) |
+| `000121` | mati-elevenlabs-voice | `covered` (architecture_inspectability_gate; voice 050) |
+| `000122` | karl-pertsch-physical-intelligence-long-horizon-autonomy | `covered` (time_scale_aware_memory; exemplar) |
+| `000123` | stanford-observing-the-user-experience-2026 | `covered` (full_semantic; ground-truth counterweight) |
+| `000124` | stanford-cs25-representation-learning-world-modeling | `covered` (consequence_model; NEW family) |
+| `000125…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
 
 > Individualize rows during processing (one row per source once it has a title/content). Per-source slug firms up from §0 metadata at processing time.
 
