@@ -4,7 +4,7 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 **Status: PROCESSING.** Created 2026-06-11. Batch 1 (090–094) covered 2026-06-12.
 
 ## Summary
-- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 40** (090–129) · Weak: 0.
+- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 45** (090–134) · Weak: 0.
 - Cumulative baseline: `EVRUN-2026-000001` (42 sources covered) — wave-2 adds on top; combined corpus target ≈ 150 sources.
 
 ## Per-source status
@@ -50,7 +50,12 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 | `000127` | stanford-aa228v-explainability | `covered` (spine; proof_of_fix; fairness/proxy) |
 | `000128` | stanford-cs221-l19-ai-supply-chains-bommasani | `covered` (NEW AI-economics spine; complementary_innovation) |
 | `000129` | stanford-cs221-l14-bayesian-networks-liang | `covered` (uncertainty glossary; watch) |
-| `000130…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
+| `000130` | stanford-cs221-l9-policy-gradient-liang | `covered` (RL reward-governance; watch) |
+| `000131` | stanford-cs221-l8-reinforcement-learning-liang | `covered` (RL; constraint_not_reward; HARDENS §A) |
+| `000132` | stanford-hai-landay-human-centered-ai | `covered` (NEW trust/adoption/care-design family) |
+| `000133` | andy-slavitt-healthcare-ai-demand-wedge | `covered` (bottom_up_adoption; patient_ai_bridge) |
+| `000134` | healthcare-between-visit-care-wedge | `covered` (NEW care-domain family; between_visit_care_layer) |
+| `000135…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
 
 > Individualize rows during processing (one row per source once it has a title/content). Per-source slug firms up from §0 metadata at processing time.
 
