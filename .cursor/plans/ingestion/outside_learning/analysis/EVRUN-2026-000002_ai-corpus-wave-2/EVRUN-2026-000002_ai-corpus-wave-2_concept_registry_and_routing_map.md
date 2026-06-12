@@ -33,6 +33,11 @@ Each row = a cross-source cluster. `action_type` ∈ {NEW-spine, sharpen, affirm
 | capability runtime profile | per-capability runtime metadata {context,model,latency,cost,tools,trace,eval,retry,fallback,HITL,safety} | sharpen (capability_envelope · 064 heterogeneous-path-cost) | §C/capability-topology | PARTIAL | none | promote-candidate |
 | capacity-aware routing | routing = capacity/load/latency/authority mgmt, not just semantic classification (MoE load-balance analogy) | sharpen (086 attention-routing) | CNS routing · §C | PARTIAL | none | watch |
 | transformer/ML mechanics (CME295) | tokenize→embed→attend→encode/decode→generate; reference-free metrics | no-op (vocabulary floor) | Knowledge-Reservoirs glossary (future onboarding pack) | n/a | none | no-op |
+| product-builder workforce (095) | AI collapses the info-mover; product-builder (judgment/taste/systems/hands-on) rises; flatter org | **NEW-lane** | Build-OS workforce · operator-topology · §2 | ABSENT | tension (flat-org vs accountability) | promote-candidate |
+| incident governance — human layer (096) | incident as composed cross-domain object + crisis-authority matrix + pre-authored transparency posture | **NEW-spine** | security-lane · CNS-escalation · RBAC/§A · D7 · Messaging | ABSENT | tension (transparency vs PHI) · direct_conflict (vibe-coding vs gates) | promote-candidate |
+| infra operating discipline / goodput (097) | capacity≠capability, activity≠goodput; reliability sized to risk; route scarce attention/compute to useful committed outcomes | sharpen (087 CNS · 064 inference-budget · 086 attention-routing) | §B · CNS · Build-OS | PARTIAL | tension (reliability-tradeoff vs clinical fail-closed) | watch→promote |
+| multimodal evidence substrate (098+099) | media as first-class evidence (natural representations); media→observation candidates; learn-from-usage, not artifact-absorption | **NEW-spine** | D7 · Observation · Clinical-Memory · Knowledge-Reservoirs · §B (pair voice 050) | ABSENT | tension (unified-model vs distributed-truth) | promote-candidate |
+| guardrail non-negotiability (099) | guardrails not purchasable/bypassable by size/revenue/privilege | **NEW** (candidate GRD) | §A · Federation · security-lane | PARTIAL | none | promote-candidate |
 
 ## §1A — Per-source anchors (reopen before promotion)
 - **090** Garry Tan/Diana Hu · Stanford CS153 "The AI-Native Company" — full_semantic/spine; sibling-spine to 084/085/089. Net ADD = closed-loop-company operating layer.
@@ -40,6 +45,11 @@ Each row = a cross-source cluster. `action_type` ∈ {NEW-spine, sharpen, affirm
 - **092** Jensen Huang · NVIDIA "Compute Behind Intelligence" — infrastructure spine (not product); net-new `systems_codesign`; rest AFFIRMS 087/064-065/054/069-079/074.
 - **093** Nouamane Tazi · HuggingFace Ultra-Scale Playbook · Stanford CS25 — constraint-literacy; Build-OS disciplines `minimum_sufficient_mechanism` + `capability_runtime_profile`; no thesis-spine.
 - **094** Stanford CME295 Transformers & LLMs L1 — vocabulary-tier primer; 0 net-new; promotion no-op.
+- **095** Nikhyl Singhal · Skip — AI-era product management — product-execution/workforce lane (NOT AI-substrate); keeper "AI kills the info-mover, raises the product-builder." `GRD-039` ceiling: product operator, not substrate authority.
+- **096** Joe Sullivan — security/incident governance — the human/operational face of family H (sibling-spine to 079/080/081/050). `GRD-039` caveat: US v. Sullivan defendant + AppSec/BreachRX stake → weigh descriptively.
+- **097** Amin Vahdat · Google — value-per-gigawatt — infra operating-discipline hardening for §B/CNS/Build-OS; sibling/disciplined-correction to Jensen 092 + compute-wall 066.
+- **098** Amit Jain · Luma — Unified Intelligence Systems — net-new multimodal axis (media-as-evidence); direct sibling to 099; pair with voice 050.
+- **099** Andreas Blattmann · Black Forest Labs — visual intelligence — `natural_representation` + `guardrail_nonnegotiability`; direct sibling to 098 (the multimodal-substrate pair).
 
 ## §2A — Net-new primitive promotion set (vs `EVRUN-2026-000001 §2A` baseline)
 **NEW (mint at destination gate):**
@@ -58,8 +68,20 @@ Each row = a cross-source cluster. `action_type` ∈ {NEW-spine, sharpen, affirm
 
 **REJECT (as doctrine; watch as evidence only):** `one_person_company`/`boil_the_ocean` (090), `tokens_per_watt` (092 → folds into `outcome_per_attention` as analogy), `first_principles_forecasting`/NVIDIA optimism (092 low-authority-watch).
 
+### Batch 2 (095–099) — vs baseline
+**NEW (mint at destination gate):**
+- `product_builder_role`, `information_mover_collapse`, `pm_theater_antipattern` (095) — product-execution/workforce lane (open a new doctrine lane; §2A was AI-substrate-heavy). `pm_theater_antipattern` SHARPENS the existing anti-dashboard-theater guardrail (§2A-H) — bind as ONE.
+- `incident_response_record`, `crisis_authority_matrix`, `transparency_posture`, `disclosure_decision`, `responsible_disclosure_intake`, `operational_resilience_event`, `capability_rollout_governance`, `production_merge_authority`, `regulatory_legibility`, `authorization_timing_boundary` (096) — human/operational governance layer over family-H technique sources.
+- `goodput`/`useful_committed_work`, `system_balance`, `reliability_class`+`degradation_policy`, `workflow_coupling_class`, `bottleneck_detection`, `dynamic_replanning`, `capacity_envelope` (097) — infra operating discipline (§B/CNS/Build-OS).
+- `media_artifact_intelligence`, `media_to_observation_pipeline`, `visual_assertion_candidate`/`audio_assertion_candidate`, `multimodal_context_packet`, `no_train_artifact_zone`, `interaction_trace_learning` (098) — the multimodal axis the text-centric corpus lacked.
+- `natural_representation` (099, targeted spine), `guardrail_nonnegotiability` (099, candidate GRD).
+
+**SHARPEN (existing host):** 095 `product_signal_loop`→build-discovery/human-context(053/067)+attention-routing(086); `system_fit_judgment`→intent-bottleneck(058)+abundant-cognition-keystone(048/061)+authority-family(082). 096 `purpose_bound_agent_access`/`short_lived_credential`→least-privilege-agent(081); `agent_runtime_anomaly`→AI_threat_monitor(079)+autonomy-attack-surface(081); `external_server_detection`→shadow_AI_discovery(079); `vibe_coding_risk`→family-H gates+089 counter-doctrine. 097 `value_per_capacity`→`value_per_attention` (generalizes attention-routing 086); `runtime_profile`→`capability_runtime_profile`(093)/capability_envelope; `capacity_aware_routing`→087 CNS-activation+064. 098 skills→`skillify_lifecycle`(090/056); trace-learning→054/059; context-outside-model→`memory_mode_router`(091)/059. 099 `media_context_packet`→059/087+D7; `open_model_customization_policy`→model-plurality(069/064); `model_packaging_tier`→capability_envelope+inference-budget(§2A-F).
+**EXISTS-AS:** 095 builder/manager-split→operator-topology(086); 096 incident-comm/bug-bounty→`incident_response_record`/`responsible_disclosure_intake`; "docs as protective infra"→D7 `trace_as_evidence` (AFFIRM); 097 serving/training-runtime + smallest-sufficient→inference-budget(§2A-F)+076; 099 action-prediction/physical-loop→physical-agents(074).
+**REJECT (as doctrine):** 095 `career_chapter_strategy`/`environment_growth_rate` (operator-context, speaker COI). 096 offensive/"hack-back" (care-grade defensive-only) + retroactive-authorization legal verdict (import the *question* `authorization_timing_boundary`, reject the verdict). 098 copyright/platform-liability stance (direct_conflict → reject as legal doctrine).
+
 ## §3 — Stale-vs-v3 verdict lane
-- **ABSENT in v3 (genuine gaps):** closed-loop-company operating layer (090); memory-mode router / memory-mode-as-a-choice (091). These are the two batch-1 items v3 has no home for.
+- **ABSENT in v3 (genuine gaps):** closed-loop-company operating layer (090); memory-mode router / memory-mode-as-a-choice (091); product-execution/workforce doctrine lane (095); incident-governance human/operational layer (096); multimodal-evidence-as-substrate (098/099, pair voice 050); guardrail-non-negotiability as a named principle (099).
 - **PARTIAL:** systems-codesign (foundation-vNext implies it, not named); minimum-sufficient-mechanism (076 has the model-tier slice only); skillify/resolver (056/059 partial); capability-runtime-profile (envelope exists, runtime metadata not).
 - **AFFIRM:** continuous-generative-computing (087); inference-budget realism (064/065); model-plurality + open/closed control-plane (069/079); physical-agents (074); eval-harness (054).
 
@@ -74,8 +96,19 @@ Each row = a cross-source cluster. `action_type` ∈ {NEW-spine, sharpen, affirm
 | T6 | open vs closed models (092 Jensen holds both) | closed-frontier-leads ↔ open-is-inspectable/securable | tension | route-by-usefulness AND inspectability; capture both (model control-plane 069/079). |
 | T7 | check-resolvable = audit/compliance (090) vs §A real authority/commit (the IBM-omitted 6th family, 082) | dedup-gate ↔ clinical/legal authority gate | tension | dedup gate ≠ authority gate; keep distinct. Route → §A authority family. |
 | T8 | GBrain typed-KG as truth (090) vs retrieval≠authority (`GRD-042`) | retrieval-surface ↔ committed-truth | tension | Lens-B build technique only; never authority. Route → Knowledge-Reservoirs. |
+| T9 | flat-org / "no more management" (095) vs accountability + accountable-commit + ownership spine | role-compression ↔ ownership | tension | import role compression; KEEP accountability/review. |
+| T10 | pre-authored transparency posture (096) vs PHI + legal duty + patient-safety | disclose-fast ↔ privacy/accuracy-bounded | tension | transparency must be PHI/legal-bounded. Route → Messaging/§A. |
+| T11 | responsible-disclosure intake (096): contributor ≠ trusted | open good-faith intake ↔ untrusted external actor | tension | governed intake + verification. Route → §C/security. |
+| T12 | authorization timing (096): retroactive "come-on-in" verdict vs deterministic point-in-time grant/consent | retroactive ↔ point-in-time | tension | reject the verdict; reread at RBAC authoring (also clinical break-glass). |
+| T13 | vibe-coding / non-eng prod-merge (096) vs Build-OS gates + care-grade discipline | velocity ↔ gates | **direct_conflict** | keep gates regardless of model generation; reinforces 089 counter-doctrine. |
+| T14 | offensive "hack-back" (096) vs care-grade defensive-only sovereignty | active-response ↔ defensive-only | tension → **reject** | do not import active-response. |
+| T15 | reliability/capacity tradeoff "take the downtime" (097) vs §A clinical fail-closed + HITL-permanence (070) | access-over-reliability ↔ fail-closed | **tension (load-bearing)** | allowed for train/build/ingest; FORBIDDEN on clinical/payment/consent gates. Resolve at §A. |
+| T16 | unified multimodal backbone (098/099) vs distributed domain-truth ownership | one-model-system-of-record ↔ domain-owned truth | **tension (load-bearing)** | bind across 098+099: no single model owns the system; media = evidence, domains commit. |
+| T17 | end-to-end automated work (098) vs clinical authority | automation-speed ↔ commit-authority | tension | every action commit gated; AI proposes. |
+| T18 | open-weights ideology vs closed-frontier sovereignty (098/099) | open ↔ closed | tension | treat both as governed tactics; route by task-shape + preference-heterogeneity. |
 
 ## §6 — Status + coverage pointer
-- **Batch 1 (090–094) folded 2026-06-12.** 2 spine elevations (closed-loop-company, memory-mode-router), 1 spine design-law (systems-codesign), 1 Build-OS law (minimum-sufficient-mechanism), 8 tensions registered (2 direct_conflict). 094 = no-op primer.
-- Cumulative baseline intact: all NEW checked EXISTS-AS vs `EVRUN-2026-000001 §2A`; nothing re-minted.
-- Coverage: `EVRUN-2026-000002_ai-corpus-wave-2_coverage_matrix.md`. Remaining: 095–199 (105 sources).
+- **Batch 1 (090–094) folded 2026-06-12.** 2 spine elevations (closed-loop-company, memory-mode-router), 1 spine design-law (systems-codesign), 1 Build-OS law (minimum-sufficient-mechanism). 094 = no-op primer.
+- **Batch 2 (095–099) folded 2026-06-12.** New doctrine lanes opened: product-execution/workforce (095), incident-governance human layer (096), multimodal-evidence substrate (098+099). Infra operating-discipline hardening (097). Tensions T9–T18 added (2 direct_conflict: vibe-coding, + 2 load-bearing: reliability-tradeoff, unified-multimodal-vs-distributed-truth).
+- Running totals: **10/110 covered**; 18 tensions registered; cumulative baseline intact (all NEW checked EXISTS-AS vs `EVRUN-2026-000001 §2A`; nothing re-minted).
+- Coverage: `EVRUN-2026-000002_ai-corpus-wave-2_coverage_matrix.md`. Remaining: 100–199 (100 sources).

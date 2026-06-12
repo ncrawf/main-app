@@ -4,7 +4,7 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 **Status: PROCESSING.** Created 2026-06-11. Batch 1 (090–094) covered 2026-06-12.
 
 ## Summary
-- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 5** (090–094) · Weak: 0.
+- **Scaffolded: 110 / 110** (`000090…000199`) · Pasted: 110 (all populated w/ §1 transcript + §3 Review 001) · **Covered: 10** (090–099) · Weak: 0.
 - Cumulative baseline: `EVRUN-2026-000001` (42 sources covered) — wave-2 adds on top; combined corpus target ≈ 150 sources.
 
 ## Per-source status
@@ -15,7 +15,12 @@ Tracks which of the 110 wave-2 sources (`EVSRC-2026-000090…000199`) are repres
 | `000092` | jensen-huang-nvidia-compute-behind-intelligence | `covered` (infra-spine) |
 | `000093` | tazi-huggingface-ultra-scale-playbook-cs25 | `covered` (constraint-literacy) |
 | `000094` | stanford-cme295-transformers-llms-lecture-1 | `covered` (vocabulary primer, no-op) |
-| `000095…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
+| `000095` | nikhyl-singhal-skip-ai-era-product-management | `covered` (product-execution/workforce lane) |
+| `000096` | joe-sullivan-security-incident-governance | `covered` (security/incident-governance spine) |
+| `000097` | amin-vahdat-google-value-per-gigawatt | `covered` (infra operating-discipline) |
+| `000098` | amit-jain-luma-unified-intelligence-systems | `covered` (multimodal-evidence substrate) |
+| `000099` | andreas-blattmann-black-forest-labs-visual-intelligence | `covered` (multimodal; natural_representation) |
+| `000100…000199` | `_TK` (firms up at paste/processing) | `pasted` (awaiting Review 003) |
 
 > Individualize rows during processing (one row per source once it has a title/content). Per-source slug firms up from §0 metadata at processing time.
 
