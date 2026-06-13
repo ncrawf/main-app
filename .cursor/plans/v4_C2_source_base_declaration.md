@@ -2,7 +2,7 @@
 
 Document type: `plan_or_roadmap` (a Build-OS work-package gate artifact for the v4 authoring sequence; the C2 deliverable named in the controlling plan)
 Authority: `analysis_nonbinding` — declares + reconciles the source base; binds nothing, promotes nothing (`GRD-036`). Disposition tags below cite each source's own authority; they do not re-confer it.
-Status: `reconciled_pending_signoff` 2026-06-13 — full-estate reconciliation DONE (all §2 categories accounted for incl. the surfaced Cat 9 `designs/`; supersession §6 resolved against the ledger; code/ADR lane enumerated with findings). C2 gate closes on Nick (+ Knox) sign-off + the owed governance rows in §8.
+Status: `CLOSED / accepted` 2026-06-13 (Nick + Knox sign-off, relayed) — full-estate reconciliation DONE (all §2 categories accounted for incl. the surfaced Cat 9 `designs/`; supersession §6 resolved against the ledger; code/ADR lane enumerated with findings; owed governance rows in §8 done). The v4 source base is the accepted estate for C3.5/C4. (Living: the v4 Source Stack still grows as new captures land — `GRD-036`.)
 Domain(s): `architecture_governance`
 Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` (HOME dir) → phase **C2**. Sequence: C2 (this) → C3 method recovery → C3.5 Care-Setting Expansion + Execution-Substrate Pressure Test → C4 v4 spine.
 Inherits: `omni_thesis_v3_integrated_spine.md` **§0 — Canonical Source Stack** + its **"v4 carry-forward inputs — the v4 Source Stack"** block (this file is the gated, completeness-reconciled execution of that block — NOT a new stack).
