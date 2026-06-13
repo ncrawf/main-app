@@ -1,6 +1,8 @@
-# v4 — C4.0 Depth Preservation Protocol (the anti-flattening authoring RULE for C4)
+# v4 — C4.0 Depth Preservation Protocol (the anti-flattening authoring RULE for the WHOLE v4 write — spine, full thesis, and downstream contracts)
 
-Document type: `plan_or_roadmap` (an authoring rule for the C4 spine + downstream contract prose; NOT a new phase, NOT thesis prose itself)
+> **Scope note (Nick 2026-06-13):** this is NOT scoped to "sections that map to a C3.1 lens row." It is the **standing depth-preservation discipline for the entire v4 authoring effort** — the thesis spine, the full thesis prose, AND (carried forward, named-not-yet-specified) the downstream domain/control-plane **contract** + primitive + schema authoring. The C3.1 lens rows are ONE entry point; the rule applies whenever ANY section is authored from ANY source. (Contract-specific authoring rules are NOT written here now — this just declares the discipline governs them too.)
+
+Document type: `plan_or_roadmap` (an authoring rule for the whole v4 write + downstream contract/primitive prose; NOT a new phase, NOT thesis prose itself)
 Authority: `analysis_nonbinding` — a process rule; binds nothing; promotes nothing (`GRD-036`).
 Status: `draft_for_review` 2026-06-13. Pairs with C3.1 (coverage) — **C3.1 proves nothing major is MISSING; C4.0 proves nothing major gets FLATTENED.**
 Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` → applies at **C4** (and to downstream contract/primitive authoring). Builds on the C3.1 audit (`v4_C3_1_lens_coverage_audit.md`) + `GRD-044`.
@@ -9,7 +11,7 @@ Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` �
 The corpus + our reads describe big ideas at varying depth — sometimes the FULL `a→b→c…→m` loop with tensions and implementation consequences, sometimes a boiled-down one-liner. With a large source base, the danger is reading the **boiled-down version once and losing the brilliant full-body articulation** the idea got elsewhere. C3.1's lens row is a **routing map** — it tells you *where* a concept lives, not *how deep* it goes. Writing a section from the lens row alone produces a label ("AI governance," "RAG," "learning loop," "action substrate") instead of the actual architecture.
 
 ## Core rule
-**No C4 section may be authored from the C3.1 lens row alone.** Before writing a section, pull a compact **Depth Packet** for it — and write from the packet, not the row. (This extends `GRD-044`: don't author from the anchor-ledger receipts; reopen the registry rows + the cited source packets — and pull the *fullest* articulation, not the shortest.)
+**No section of the v4 write — spine, full-thesis prose, or (later) a domain/control-plane contract — may be authored from a routing pointer alone** (a C3.1 lens row, a section title, a one-line summary). Before writing any section, pull a compact **Depth Packet** and write from the packet, not the pointer. (This extends `GRD-044`: don't author from the anchor-ledger receipts; reopen the registry rows + the cited source packets — and pull the *fullest* articulation, not the shortest.) The C3.1 lens row is one common trigger; the rule binds wherever authoring touches a concept that has depth.
 
 ## The Depth Packet (pull what's relevant — judgment, not a form to fill)
 Assemble, for the section's concept(s), as much of the following as actually exists. **Not every field applies to every section** — a thin/vocabulary lens needs little; a load-bearing lens (loops, AI-substrate, reservoirs/learning, action-substrate, federation, eval) needs most of it:
@@ -43,4 +45,4 @@ Registry §1 row → its `downstream homes` + the cited source ids → **reopen 
 - **The checklist guides, it doesn't gate every field:** Knox's field list is a prompt to look in the right places, not a form whose every box must be ticked.
 
 ## Scope / out of scope
-Applies to C4 spine authoring (and reused for downstream contract/primitive authoring). It is an authoring RULE, not a phase: no separate gate, no new deliverable beyond the per-section packets used while writing. Does NOT change the sequence (C2 → C3 → C3.1 → C3.5 → C4) or authorize any C4 prose now.
+Applies to the **entire v4 write** — the C4 thesis spine AND the full thesis prose — and **carries forward as the depth discipline for downstream C5 contract / primitive / schema authoring** (declared now; the contract-specific authoring rules are NOT written here). It is an authoring RULE, not a phase: no separate gate, no new deliverable beyond the per-section packets used while writing. Does NOT change the sequence (C2 → C3 → C3.1 → C3.5 → C4) or authorize any C4 prose now.
