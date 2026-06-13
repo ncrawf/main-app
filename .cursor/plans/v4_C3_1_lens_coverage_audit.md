@@ -2,7 +2,7 @@
 
 Document type: `plan_or_roadmap` (a coverage gate; NOT thesis prose, NOT the C3.5 matrix, NOT contract edits)
 Authority: `analysis_nonbinding` — proves coverage; binds nothing; promotes nothing (`GRD-036`).
-Status: `draft_for_review` 2026-06-13 — answers the meta-problem Knox+Nick flagged: lenses were being surfaced only when Nick *remembered* them. This forces every major concept family from the estate into a v4 landing zone, defer queue, or explicit exclusion.
+Status: `passed_reviewed` 2026-06-13 (Nick + Knox) — answers the meta-problem flagged: lenses were being surfaced only when Nick *remembered* them. This forces every major concept family from the estate into a v4 landing zone, defer queue, or explicit exclusion. **Follow-throughs done:** the 5 open-review items are WRITTEN to `08_open_review_queue` (`D0THES-REV-179..183`); the C4 spine gate now carries a binding acceptance criterion that the 4 `covered-thin` families be visibly handled (controlling plan C4 (h)).
 Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` → inserts as **C3.1** (between C3 and C3.5). Next gated step is C3.1 review; only then C3.5 plan.
 Builds on: C3 note (`v4_C3_method_recovery_ratification_note.md`) §7 candidate C4 section map.
 
@@ -49,7 +49,8 @@ All 20 of Knox's families map to a row above (several merged: his "context routi
 
 ## What the audit changes (and does NOT)
 - **C4 section map:** no *missing* lens found (every family has a landing zone) — so the map is **not** rewritten. Three rows are `covered-thin` (#2 Prove/Learn, #7 provider/biz learning, #16 BIZOPS, #10 classic-security) and must be **forced first-class** at C4, not added as new sections.
-- **Open-review → `08`:** (a) elevate `evaluation_shapes_system_law` (#14), (b) elevate `runtime_cost_dominates_law` + the high-risk-no-cheap-route rule (#22), (c) commission a classic infra-security source (#10, registry 139 gap-flag), (d) data-platform retention/deletion/provenance doctrine scope (#18), (e) Knox-Q #4 multi-axis-scaling + memory-routing≠capability-routing (169) naming.
+- **Open-review → `08` (WRITTEN 2026-06-13 as `D0THES-REV-179..183`):** (a) `D0THES-REV-179` elevate `evaluation_shapes_system_law` (#14), (b) `D0THES-REV-180` elevate `runtime_cost_dominates_law` + the high-risk-no-cheap-route rule (#22), (c) `D0THES-REV-181` commission a classic infra-security source (#10, registry 139 gap-flag), (d) `D0THES-REV-182` data-platform retention/deletion/provenance doctrine scope (#18), (e) `D0THES-REV-183` multi-axis-scaling + memory-routing≠capability-routing (169) naming.
+- **C4 acceptance criterion (binding, from this audit):** the C4 spine gate is not passed until the 4 `covered-thin` families (#2 Prove/Learn+effect-sensing · #7 provider/staff/inventory/business learning · #16 BIZOPS · #10 classic-security) are VISIBLY handled with a reviewer able to point to where each lands (controlling plan C4 (h)).
 - **needs-C3.5:** #17 care-setting/Epic/Big-Tech/robotics — that IS the C3.5 matrix.
 - **defer-C5 (correctly):** #20 repo taxonomy, vendor/tool picks (#8), data-platform warehouse/analytics build (#18).
 - **No** thesis prose, **no** C3.5 matrix, **no** contract edits, **no** repo restructure.
