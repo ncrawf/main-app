@@ -1,0 +1,69 @@
+# v4 — C3 Method Recovery / Ratification Note (comprehension gate; pass/fail)
+
+Document type: `plan_or_roadmap` (the C3 deliverable named in the controlling plan; a ratification + comprehension proof, NOT a method re-derivation and NOT thesis prose)
+Authority: `analysis_nonbinding` — ratifies the already-recovered method; binds nothing; promotes nothing (`GRD-036`).
+Status: `passed_reviewed` 2026-06-13 — **C3 comprehension gate PASSED (Nick + Knox)**, with the §5 action-loop wording fix + the §4/§12 tool-ownership "tracked-for-C4" note applied. Next gated step = the **C3.5 plan** (not the matrix itself). Still binds nothing; no C4 prose authorized.
+Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` → phase **C3**. Sequence: C2 → **C3 (this)** → C3.5 → C4.
+Primary input: `ORIENTATION-2026-06-10_…v4-refocus.md` §2 (the after-read Method-Recovery Report) — C3 ratifies it, does not re-derive it.
+Scope discipline: **C3 ONLY. No C3.5 matrix. No v4 spine prose. No contract edits. No commit until reviewed.**
+
+---
+
+## 1. Co-primary method inputs loaded (C2.0)
+- `omni_thesis_v3_integrated_spine.md` — the v3 spine: §0 Canonical Source Stack, the **4-lane Constitutional Reconciliation Ledger**, Authoring Safeguards (2026-06-05), FINAL v3 TOC weave table, Final Assembly Gate. **+ `omni_thesis_v2_2026-05-26.md`** (verbatim preservation source).
+- **`ORIENTATION-2026-06-10` §2** — the Method-Recovery Report (§2.1 methods · §2.3 what-v4-adds · §2.4 Option B · §2.5 no-pre-stage · §2.6 sequence · §2.7 wave-2 · §2.8 pushback).
+- `EVRUN-2026-000001` registry **§2A** baseline + `EVRUN-2026-000002` registry / §1 / §2A / **tension register** (AI corpora = peer pressure).
+- `OMNI_System_Map_vNext.md` + live `contracts/` (P1 ownership the thesis must not contradict) + legacy system map as transitional evidence.
+- Build-OS (`09`/`10`/`11`) + Architecture Memory Control Plane (`00`) + Evidence-Plane (`00_evidence_router`, `00_pipeline_doctrine`) + Foundry lineage (`cns_and_knowledge_reservoirs_frontier` + `FWREG-007`).
+- `foundation_vnext_reconciliation.plan.md` (method (B) source) + `omni_doctrine_reconciliation_map_v1` (method (C), superseded-in-approach).
+
+## 2. The broad v4 move (in my own words)
+v3/v2 correctly settled **domain physics** — *who owns which truth, and how truth is kept separate*. What they under-specified is **execution physics** — *how OMNI safely turns signals into authorized action and proves it, with AI in the loop*. v4's job is to keep the domain-truth skeleton intact and add the operating layers the corpus exposed: the **Sense → Decide → Act → Prove/Learn loops** running over the domains, plus the cross-cutting **control planes** that make those loops safe at scale (AI substrate + runtime/context routing, Intelligence Foundry, connector/tool governance, security-as-continuous-lane, assurance/evals, federation-as-boundary-policy, Build-OS/agent-harness), with **OMNI-Core vs Federation-Network vs layered-CNS** named explicitly. One-line frame (to be sharpened in C4, not canonized here): *OMNI is a governed care/business **execution** substrate that turns fragmented signals, evidence, people, systems, and AI into authorized action through domain-owned truth, custody, longitudinal context, policy, human/domain authority, runtime controls, and audit.*
+
+## 3. What v3 PRESERVES — domain physics (validated by the corpus, not invalidated)
+Domain-owned truth (one owner, one authority path, one audit trail per fact) · CNS **orchestrates, does not own** domain truth · AI proposes / deterministic policy validates / domain+human commits · **candidate ≠ commit** · source-event ≠ candidate · patient-source ≠ clinical truth · D3 ≠ D5 ≠ D6 ≠ D7 · the **D7 / Observation / Clinical-Memory** three-gate separation · projection ≠ authority · messaging is a rail/action-output, not the decision substrate · federation/tenant/operator/visibility boundaries · system-centric (not person-centric) architecture. These get **sharpened**, not rewritten.
+
+## 4. What v4 ADDS — execution physics (the layer v3's method didn't fully carry)
+- **The loops as first-class:** Sense (raw→custody→extraction→observation→verification→context-eligibility), Decide (context→candidate→resolver→policy/authority→action-envelope), Act (authorized→owning-domain commit), Prove/Learn (evidence→outcome→eval→governed memory/policy update).
+- **AI substrate / runtime:** model + context + retrieval routing; capability envelopes; cost/latency/quality lanes; model/prompt/context lineage; evals; output-authority limits. ("The model call is not the unit of architecture; the workflow lane is.")
+- **Intelligence Foundry:** continuous governed ingestion (≈ the ratified Evidence Plane + a Karpathy-style compiled-wiki layer — **extend, don't rebuild**; `FWREG-007` reserves the frontier).
+- **Connector/tool governance + observability**, **security as a continuous lane** (scan→proof→remediation→audit→guardrail), **assurance/eval/proof** as first-class.
+- **HCI burden/receptivity/timing** doctrine for Patient-CNS; **multimodal/source fidelity**; **federation-as-boundary-policy-for-AI-context** ("federation prevents context collapse").
+- **Build-vs-buy-vs-wrap / gateway model — tool-fluid but doctrine-sovereign.** *Tracked-for-C4 (Nick 2026-06-13): vendor/tool PICKS are downstream (C5), but the OWNERSHIP LAW is v4 — OMNI may buy/wrap/integrate/partner for capabilities, yet must own the authority model, domain-truth boundary, context contract, evidence/proof path, connector observability, security envelope, and user-facing action semantics. The prior strategic-read/video tool-ownership discussion gets baked into the spine here — not flattened into a throwaway phrase. (Ownership doctrine in v4; the full capability×posture lens is a C5 detail, NOT built now.)*
+- **Repo-as-OS** — carried as a thesis *implication/posture*; the actual taxonomy is a v4-**derived** C5 output, not an input.
+
+## 5. Why action-substrate / Epic / care-lanes is ONE lens + ONE mechanism — NOT the whole frame
+- **One mechanism:** the action loop (`signal → context packet → candidate → resolver/policy → authority gate → action envelope → owning-domain commit → evidence/proof → obligation/follow-up → learning`) is the **operational thread that crosses Sense → Decide → Act → Prove/Learn** (and depends on Sense for its inputs). It is central — it shows how OMNI turns context into authorized, evidenced action — but it is still **one mechanism inside** the broader execution substrate (which also runs the control planes), not the whole frame. Elevating it to "the higher-order object" silently drops the other loops + AI-substrate/Foundry/security/federation.
+- **One lens:** "make the EMR less central" / Epic *beside→above→replacement-shaped* is a **strategic positioning lens**, pressure-tested in **C3.5** across care settings + threat lanes. It tells us how the substrate competes; it does not define what the substrate *is*.
+- The honest tell of the prior drift: it let the **loudest recent care-lanes/Epic phrase** become the C4 headline. The frame is the **execution substrate**; action + Epic live inside it.
+
+## 6. Recovered authoring method — RATIFIED (Option B: reuse v3 method + targeted v4 augmentations; NO pre-stage Foundry)
+Two hard-won methods, recovered from repo evidence (not memory):
+- **(A) Spine-first authoring** — write a controlling spine → review → weave section-by-section against it; protected by the **4-lane Constitutional Reconciliation Ledger** (anti-flattening), the Authoring Safeguards, and the **Final Assembly Gate**. Source: `omni_thesis_v3_integrated_spine.md`.
+- **(B) Bidirectional 4-layer reconciliation** — gather ALL sources → **Freshest-Authority Check over the whole set FIRST** → author once integrated → disposition sweep; lanes **L1** contract←thesis (top-down) · **L2** system-map backfill · **L3** corpus gem-pull (bottom-up) · **L4** cross-cutting checks. Source: `foundation_vnext_reconciliation.plan.md` §1.5/§2/§2.5 + step-0.6 Thesis Doctrine Pressure Check.
+- Enforced at boot by `GRD-001` (no premature librarianship), `GRD-021/022` (Freshest-Authority), `GRD-023` (audit≠reconciled), `GRD-024` (no Frankenstein-in-place), `GRD-025` (cross-cutting-doctrine-shed → Pressure Check), `GRD-026` (payload≠domain).
+
+**v4 augmentations (the only changes):** (i) broader **source stack** = the full C2.0/C2 estate (ALL sources — never "just videos"/"just system map"); (ii) the reconciliation ledger gains lanes/sections for the **execution control planes**; (iii) the corpus-tagging vocabulary (`stable_existing` / `new_pressure` / `candidate_canon` / `implementation_pattern` / `future_seam` / `do_not_import_blindly` / `conflict` / `requires_review`) folds into source-base disposition; (iv) **timeless-output** default + **no standalone "stale" deliverable** (supersede inline); (v) bind authority-tiering to existing machinery (doctrine-manifest tiers + `05` ledger + `GRD-036`) — no parallel memory system.
+
+**Operating sequence:** spine-first draft (top-down, full source base, care-first order) → bottom-up pressure pass (against contracts + System Map vNext + EVRUN §2A + corpus) → bidirectional reconciliation → open-review queue (`08`) → acceptance gate (Nick+Knox). Worktable = before/pressure/after in the reconciliation ledger; **final prose is timeless** ("what OMNI IS," positioning kept, no dated journey narrative).
+
+## 7. Candidate C4 spine SECTION MAP (section list ONLY — NO prose authored here)
+Order = v3 care-first + ORIENTATION §2.6 (subject to refinement at C4):
+1. What OMNI is · 2. What OMNI is not · 3. Architecture planes (P0–P6 + evidence) + the cross-cutting axes (preview) · 4. **OMNI-Core / Main** · 5. **Federation / Network** (OMNI-Main vs federations) · 6. **CNS layers** (doctrine/runtime/capabilities/workflows/boundaries/audit) · 7. Domain-owned truth · 8. **The four loops** (Sense/Decide/Act/Prove-Learn) · 9. **AI substrate** · 10. **Runtime / context / knowledge routing** · 11. **Intelligence Foundry** · 12. **External-Capability Ownership + Tool Ecosystem** (build-vs-buy-vs-wrap · gateways · what OMNI must own vs what it may let others do — the ownership LAW, vendor picks deferred to C5) · 13. **Build-OS / agent harness** (posture, not practice) · 14. **Security / privacy / assurance / eval** · 15. D7 / Observation / Clinical-Memory fidelity (multimodal) · 16. Patient-CNS / HCI / burden · 17. Product surfaces (projections, not authority) · 18. Contract-rewrite implications · 19. Repo implications (derived; not the taxonomy) · 20. Non-goals + anti-patterns · 21. Open review questions.
+*(The action loop lives inside §8/§6; Epic/EMR-less-central is referenced where §1/§2/§5 positioning needs it, sourced from the C3.5 result — not as its own headline section.)*
+
+## 8. Full-corpus guardrail method (NO cherry-picking)
+Cautions/anti-patterns/guardrails for the spine's non-goals section are pulled **as a class**, not as a memorable handful:
+- **Sources harvested:** `EVRUN-2026-000002` registry §1/§2A + **tension register** · the 200+ per-source §3 Review-003 reads · `ORIENTATION §2.8` + Knox's cautions list · the existing **Guardrail Anti-pattern Digest (`06`)** + `D0THES-GRD-*` family.
+- **Method:** harvest all candidate cautions → **dedupe against existing `GRD-*`** (don't re-mint) → **route each** `settled-by-existing-doctrine` (cite it) / `v4-decision` (state it + why) / `open-review` (→ `08`) → promote only the **load-bearing** ones into the spine; the rest stay as registry/tension rows. `GRD-036`: pressure, not auto-canon. **No single narrow item (e.g. a specific world-model like JEPA) is elevated to plan-level.**
+
+## 9. Failure modes this method prevents
+Latest-insight hijack · video-only authoring · system-map-only authoring · **Epic/action-lane overfocus** · repo-as-OS becoming the product · Build-OS becoming the product · generic AI-agent-company framing · dated "how we got here" thesis prose · (also, from the v3 method) overfitting to newest sources · losing old doctrine in a rewrite · rewriting contracts before the spine is stable · burying decisions in prose · System-Map bloat · evidence-as-canon (`GRD-036`) · Frankenstein-in-place (`GRD-024`) · cross-cutting doctrine silently shed (`GRD-025`).
+
+## 10. Explicitly OUT OF SCOPE for C3
+The C3.5 pressure-test matrix · any v4 spine/thesis prose · domain/control-plane contract edits · repo restructure or final taxonomy · tool/vendor selection · primitive registry / schemas / tests · permanent Intelligence Foundry build · committing to git. All are downstream of a passed C3 + accepted C4 spine.
+
+---
+
+## Ratification decision (no hedge)
+**Option B — reuse the v3 spine-first + bidirectional method with the targeted v4 augmentations above. No pre-stage Foundry.** The method is legitimate and battle-tested; it is precisely what guards the v4 failure modes in §9. C3 is a comprehension/ratification proof — not a license to start C4. **Next, on a passing review: confirm C2 close + greenlight C3.5 (bounded matrix).**

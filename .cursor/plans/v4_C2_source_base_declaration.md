@@ -4,7 +4,7 @@ Document type: `plan_or_roadmap` (a Build-OS work-package gate artifact for the 
 Authority: `analysis_nonbinding` — declares + reconciles the source base; binds nothing, promotes nothing (`GRD-036`). Disposition tags below cite each source's own authority; they do not re-confer it.
 Status: `reconciled_pending_signoff` 2026-06-13 — full-estate reconciliation DONE (all §2 categories accounted for incl. the surfaced Cat 9 `designs/`; supersession §6 resolved against the ledger; code/ADR lane enumerated with findings). C2 gate closes on Nick (+ Knox) sign-off + the owed governance rows in §8.
 Domain(s): `architecture_governance`
-Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` (HOME dir) → phase **C2**. Sequence: C2 (this) → C3 method recovery → C3.5 care-setting/action-substrate pressure-test → C4 v4 spine.
+Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` (HOME dir) → phase **C2**. Sequence: C2 (this) → C3 method recovery → C3.5 Care-Setting Expansion + Execution-Substrate Pressure Test → C4 v4 spine.
 Inherits: `omni_thesis_v3_integrated_spine.md` **§0 — Canonical Source Stack** + its **"v4 carry-forward inputs — the v4 Source Stack"** block (this file is the gated, completeness-reconciled execution of that block — NOT a new stack).
 Supersedes / Superseded by: none.
 Review gate: `user_knox_required`.
@@ -49,6 +49,8 @@ The v4 source base **starts as the v3 §0 Canonical Source Stack, unchanged.** R
 
 ## §2 — Category coverage (full-estate reconciliation; counts current as of 2026-06-13)
 
+> **★ C2.0 — Co-primary v4 inputs (READ FIRST; peers, not a ranking):** (1) `omni_thesis_v3_integrated_spine.md` + `omni_thesis_v2_2026-05-26.md` (preservation source); (2) **`ORIENTATION-2026-06-10_…v4-refocus.md` §2 Method-Recovery Report** — the BROAD v4 move (execution substrate; loops; control-plane stack; Intelligence Foundry; build-vs-buy; OMNI-Core/Federation/CNS split; repo-as-OS); (3) `EVRUN-000001 §2A` + `EVRUN-000002` registry/§1/§2A/tension register (AI corpora = peer pressure); (4) `OMNI_System_Map_vNext` + live `contracts/`; (5) Build-OS + Architecture Memory + Evidence-Plane + Foundry lineage. Everything in §2 below is the full inventory the declaration still checks off — C2.0 is what you open first.
+>
 > Each row = a source family, its current file count, the v3 §0 entry it maps to, its disposition, and the v4 sections that consult it. `[ ]` = reconciliation against `01_master_corpus_catalog` still owed; `[x]` = confirmed loaded + named. The fresh post-v3 docs are emphasized but enter **as peers in their category**, never as a replacement spine.
 
 ### Cat 1 — Thesis lineage  (maps to v3 §0 #1, #6)
@@ -143,8 +145,8 @@ A clearly-fenced lane so the v4 thesis is pressured against **shipped reality**,
 ## §7 — Gate-close criteria + what feeds the next phases
 **C2 closes when:** §2 checkboxes all `[x]` (catalog reconciliation complete) · §4 code/ADR lane enumerated to area-level · §6 supersession resolved · Nick (+ Knox) sign-off.
 **Then, in order (each its own gate):**
-- **C3 method recovery** consumes: the v3 spine §0 safeguards + **the `ORIENTATION-2026-06-10` Knox strategic read (co-primary method input)** + this declared base → converges ONE recovered spine-first method (v3 method + Knox's section-rewrite-contract / authority-tiering / control-planes-before-domains / execution-physics frame), with Nick's 3 binding corrections (draw on ALL sources · no standalone "stale" deliverable · timeless output — before/pressure/after is worktable only).
-- **C3.5 pressure-test** consumes: this FULL base (its stated prerequisite — "FULL current-OMNI understanding") + the `raw_unprocessed` care-lanes doc → the bounded action-substrate matrix.
+- **C3 method recovery** consumes: the v3 spine §0 safeguards + **the `ORIENTATION-2026-06-10` Knox strategic read (co-primary method input)** + this declared base → converges ONE recovered spine-first method (v3 method + Knox's section-rewrite-contract / authority-tiering / control-planes-before-domains / execution-physics frame), with Nick's 3 corrections (draw on ALL sources · no standalone "stale" deliverable · timeless output as a strong default — positioning is fine, but no dated arrival/journey narrative baked into the prose; before/pressure/after stays in the worktable).
+- **C3.5 pressure-test** consumes: this FULL base (its stated prerequisite — "FULL current-OMNI understanding") + the `raw_unprocessed` care-lanes doc → the bounded matrix that stress-tests the clinical/business action loop as ONE core mechanism of the execution substrate (feeds C4; does not define v4).
 - **C4 v4 spine** consumes: everything above → the spine, then thesis. **No v4 prose before C2+C3+C3.5 close.**
 
 ---
