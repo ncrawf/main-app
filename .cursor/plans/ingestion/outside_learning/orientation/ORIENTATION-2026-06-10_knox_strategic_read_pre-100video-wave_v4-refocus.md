@@ -3,7 +3,7 @@
 source:        Nick ⟷ ChatGPT (Knox) long strategic chat (~300 pages in Word)
 topic:         rough read of the next ~100-video ingestion wave + state of OMNI
 captured:      2026-06-10
-status:        `raw_unprocessed` — **not yet read.** Verbatim drop pending in §1; nothing distilled, routed, or decided.
+status:        `read_synthesized` — **§1 read in full 2026-06-12 (Opus).** §2 holds the after-read synthesis + v4 Method-Recovery Report. Still non-binding; downstream reshaping decided WITH Nick (report proposes, does not canonize).
 document_type: `strategic_orientation_read` (continuity/steering evidence; **non-binding** — a wave-level analog of a per-source `Review 001`, not doctrine). Per Agent Work Protocol §8 (preservation) + `GRD-044` (raw input ≠ analysis ≠ canon).
 authority:     binds nothing.
 
@@ -7954,11 +7954,80 @@ That was the drift. You already did a massive manual ingestion/synthesis pass. T
 
 ---
 
-## 2. AFTER THE READ — our work goes here (EMPTY until §1 is read)
+## 2. AFTER THE READ — our work goes here
 
-> Left intentionally empty. Once §1 is dropped and read in full, this is where we capture what it actually says, what it means for OMNI, and — only then — decide how (and whether) it reshapes anything downstream. Do not pre-populate.
+> §1 read in full by Opus 2026-06-12 (all 7,972 lines). This section is the "after the read" synthesis + the **v4 Method-Recovery Report** Nick endorsed at the end of the chat (§1 lines 7664–7939: *"prompt opus broadly to look back and see what we did… is previous method legitimate still"*). Non-binding continuity work; binding decisions still route to `03_decision_extraction_ledger.md`, open items to `08_open_review_queue.md`. Per the doc's own rule, downstream reshaping is decided WITH Nick — this report proposes; it does not canonize.
 
-_(nothing yet — §1 not read)_
+### 2.0 What the orientation actually concludes (the chat evolves — Nick's tail interjections control)
+
+Knox opens with a strong frame + a 24-section v4 spine, then he and Nick iterate ~6× on repo-as-OS (each pass richer: "organized folders" → Anthropic-grade → 1BN-grade → packages-not-files → OMNI-Core/Federation/CNS split → Intelligence Foundry). The chat **lands somewhere different than it starts.** Controlling signal = Nick's final three interjections:
+
+1. **v4 = execution physics atop v2/v3 domain physics.** OMNI reframes from "care operating system" → **governed care/business *execution* substrate.** v2/v3 domain-owned-truth doctrine is *validated, not invalidated*; what's thin is the execution layer (Build OS, AI runtime/model/context routing, connector/tool governance, security-as-continuous-lane, evals/proof, HCI/burden, multimodal ingestion, federation-as-boundary-policy).
+2. **Corpus = pressure, not doctrine.** Tag everything (`stable_existing_doctrine` / `new_pressure` / `candidate_v4_doctrine` / `implementation_pattern` / `future_seam` / `do_not_import_blindly` / `conflict_with_existing` / `requires_user_review`). Don't let AI/agents/RAG/Build-OS become *the product*.
+3. **The "light Foundry pre-stage" is KILLED (Nick, §1 line 7451+; Knox conceded 7454+).** *"Doing a light read is how you guys miss concepts… we're over-informed and under-structured… structure the thesis, don't reprocess the evidence."*
+4. **Agreed next step = a METHOD-RECOVERY pass, not a thesis-writing pass** (§1 lines 7664–7939). Recover the hard-won v3 method, decide reuse-vs-modify, decide whether any pre-stage is truly needed, declare the FULL source base (ALL sources, not just videos), THEN author v4.
+
+### 2.1 Prior Method Recovery (from repo evidence — not memory)
+
+Two distinct-but-linked methods were hard-won and are recoverable verbatim:
+
+| # | Method | Canonical evidence | Binding status | Confidence |
+|---|---|---|---|---|
+| A | **Spine-first thesis authoring** (write a controlling spine → review → section-by-section weave against it) | `omni_thesis_v3_integrated_spine.md` — §0 Canonical Source Stack, the **4-lane Constitutional Reconciliation Ledger** (anti-flattening), Authoring Safeguards (Knox 2026-06-05), the FINAL v3 TOC weave table, **Final Assembly Gate step 7**, Anti-compression rule, GCE weave-check | `plan_nonbinding`, **accepted 2026-06-05**; the method that produced v3 Part I | HIGH |
+| B | **Bidirectional 4-layer reconciliation** (the contract/domain method) | `foundation_vnext_reconciliation.plan.md` §1.5 (3-layer reconciliation hierarchy), §2 (native single-pass: **gather ALL sources → Freshest-Authority Check over the whole set FIRST → author once integrated → disposition sweep**), §2.5 (**L1 contract draft ← thesis top-down · L2 system-map backfill · L3 corpus gem-pull "bidirectional" · L4 cross-cutting checks**), step 0.6 **Thesis Doctrine Pressure Check** | `governance_binding` | HIGH |
+| C | **Content-based classification + Freshest-Authority discipline** | `omni_doctrine_reconciliation_map_v1_2026-05-25.md` (F.2.2 method); origin of `GRD-021/022/023` | approach superseded by (B); findings retained as evidence | MED-HIGH |
+| — | Term origin: "bidirectional thesis feedback" | `omni_thesis_v1_2026-05-25.md` line 2038 (F.2.0 calibration Q7) | historical | MED |
+
+Enforced at boot by Tier-0.5 guardrails: `GRD-001` (no premature librarianship), `GRD-022` (Freshest-Authority Check), `GRD-023` (audit≠reconciled / three-layer), `GRD-024` (no Frankenstein-in-place / clean-vNext-artifact), `GRD-025` (cross-cutting-doctrine-shed → Thesis Doctrine Pressure Check), `GRD-026` (payload≠domain / decompose-before-naming).
+
+### 2.2 What the prior method actually protected against
+
+Overfitting to the latest sources · losing old doctrine during a rewrite · rewriting contracts before the thesis is stable · burying decisions in prose (everything routes to `03`/`08`) · the System Map bloating into a dumping ground · confusing evidence with canon (`GRD-036`) · collapsing domain boundaries · producing a beautiful-but-unreviewed essay · **Frankenstein-in-place** stale bodies under clean headers (`GRD-024`) · cross-cutting concerns silently shed by domain-by-domain production (`GRD-025`).
+
+### 2.3 What v4 adds that v3's method did not fully carry
+
+Execution-layer first-classing: Build OS / Agent Harness as systems (not pointers) · AI runtime/model/context **router** + capability envelopes · connector/tool-governance + observability · security as a continuous Build-OS lane (not a later audit) · evals/proof/assurance · HCI/burden/receptivity for Patient-CNS · multimodal/source-ingestion fidelity · federation-as-boundary-policy-for-AI-context · the **Intelligence Foundry** (continuous ingestion) · **build-vs-buy-vs-wrap / tool-fluid-but-doctrine-sovereign** posture + gateway model · OMNI-Core vs Federation-Network vs layered-CNS made explicit · repo-as-OS.
+
+### 2.4 Reuse vs Modify — DECISION (no hedge): **Option B — reuse the v3 method with targeted v4 augmentations.**
+
+The spine-first + bidirectional method is legitimate and battle-tested; it is exactly what protects against the v4 failure modes Knox himself warns about. **Do not invent a new method.** Augmentations: (i) the v4 **source stack** is broader (ALL sources, per Nick's repeated "ALL available resources" correction — v2/v3 + contracts + ADRs + Control Plane + Foundation vNext + System Map vNext + EVRUN-000001 registry + 200+ strategic reads + 12 weeks of chat + this orientation); (ii) the 4-lane reconciliation ledger gains lanes/sections for the new execution-control-planes; (iii) the corpus-tagging vocabulary (§2.0 #2) is folded into the source-stack disposition; (iv) `GRD-028/029/033/034` (AI-as-target / CNS-sovereign / rail-lock-in / connect-everything) become explicit authoring guards.
+
+### 2.5 Pre-stage decision — EXPLICIT: **NO pre-stage Foundry before v4.**
+
+Per Nick's standard (§1 7886–7898) and `GRD-001`: a pre-stage is required ONLY if existing source analysis is insufficient to author v4 without major concept loss. It is not. EVRUN-2026-000001 (`§2A` net-new primitive set), the per-source Review 001/003 reads, the registry+routing map, the v3 spine, and the drafted contracts ARE the pre-digest. Building a "light Foundry" first would add an intermediate flattening layer = a new place to lose hard-won analysis. **The permanent Intelligence Foundry is a v4-DEFINED system (downstream), not a v4 prerequisite.** (It is also ~80% the already-ratified Evidence Plane `ingestion/` + a Karpathy-style compiled-wiki layer — extend, don't rebuild; `FWREG-007` already reserves the CNS/Knowledge-Reservoirs frontier it touches.)
+
+### 2.6 Proposed v4 authoring sequence (spine-first + bidirectional, augmented)
+
+1. **Method-recovery (this report).** ✅
+2. **v4 Source-Base Declaration** — name ALL inputs + binding status (no re-reading; inventory only).
+3. **Top-down v4 spine draft** — write the controlling spine from the source base, care-first (v3's care-first order preserved), with the 4-lane reconciliation ledger extended for execution control planes; corpus tagged as pressure.
+4. **Bottom-up pressure pass** — pressure-test the spine against the drafted contracts, System Map vNext, EVRUN-000001 `§2A`, and the new corpus; run `GRD-022` Freshest-Authority + step-0.6 Thesis Doctrine Pressure Check.
+5. **Bidirectional reconciliation** — patch the spine where pressure reveals stale/missing language; do NOT rewrite contracts yet.
+6. **Open-review queue** — unresolved decisions blocking canonization → `08`.
+7. **v4 spine acceptance gate** (Nick + Knox).
+8. **Derive downstream** — permanent repo taxonomy · Intelligence Foundry design · Build OS / Agent Harness · Tool Ecosystem / Tool Radar · control-plane contracts → domain-contract rewrite order → primitives/schemas/tests/WPs. (Repo restructure obeys `GRD-024`: clean vNext artifacts, old → evidence with disposition.)
+
+### 2.7 The wave-2 reconciliation (the one tension the chat left open)
+
+`sources/2026-06_wave-2/` holds ~`EVSRC-…000091…000179`+ as **`_TK` placeholders** (transcripts-to-come) — **captured/staged but NOT processed into an EVRUN.** The handoff + v3-spine call wave-2 "the largest single v4 input, once processed"; the orientation's tail concludes "author v4 now, don't reprocess." **Reconciled position (recommended, pending Nick):** author the v4 spine now from the processed 42-corpus + existing reads; treat wave-2 as a **targeted bottom-up pressure pass (step 4)** folded in where it sharpens specific sections — NOT a blocking full re-ingestion. This honors both: no flattening pre-stage, but wave-2 isn't silently dropped.
+
+### 2.8 Honest pushback on Knox (per trifecta — recorded, not deferred)
+
+- Knox's repo-as-OS "laws" (passports, decision ledgers, evidence custody, source registry, review gates, read-graph boot path, guardrail digest) are **already implemented** in `.cursor/plans/doctrine/` (Control Plane, `03`, `06`, `04`, `07`, Build OS `09`/`10`/`11`, Future Work Registry). v4 = reconcile/sharpen/relocate, NOT greenfield. Nick flagged this ("Knox doesn't see the repo").
+- His "Intelligence Foundry" ≈ the ratified Evidence Plane + a compiled-wiki layer. Extend, don't rebuild.
+- v4 is **promote, not from-scratch**: the v3 spine already carries §B AI axis, §C Governed Capability Exchange, Build-OS pointer → `REV-158`, `REV-176` routing spine. The real v4 question is narrower — *does corpus pressure justify promoting Build-OS / AI-runtime / security / connector-governance from pointer/axis status to first-class control-plane contracts?*
+
+### 2.9 Output artifacts (proposed; created on Nick's go)
+
+Per row-first discipline, this report lives in §2 first. On acceptance it can graduate to standalone canonical artifacts (each needs passport + catalog row + read-graph route per Protocol §5): `01_v4_authoring_method.md` · `02_v4_source_base_declaration.md` · `03_v4_spine_outline.md` · `04_v4_open_questions_before_draft.md`.
+
+### 2.10 FINAL RECOMMENDATION + exact next work package
+
+**"Use prior v3 method with v4 augmentations" (Option B). No pre-stage Foundry.**
+
+**Next WP — `WP-v4-001: v4 Source-Base Declaration + v4 Spine Outline`:** declare the full source base (with binding status, no re-reading) and draft the v4 spine *outline* (section list + the augmented reconciliation-ledger lanes) for Nick + Knox review BEFORE any prose. This is the spine-first method's step-1, scoped so nothing binding is decided unilaterally.
+
+_Blocking gates before that WP: (a) Nick/Knox confirm Option B; (b) confirm the §2.7 wave-2 reconciliation; (c) confirm where the v4 spine is authored (in-place under `.cursor/plans/` per current discipline vs. a `docs/architecture/00_foundation/` move per Knox's repo-as-OS — recommend stay in-place for now; repo move is itself a v4-derived step per §2.6.8 + `GRD-024`)._
 
 ---
 

@@ -4,6 +4,11 @@ Document type: `checkpoint_handoff` (continuity artifact; non-binding — bindin
 Created: 2026-06-10. **This is the CURRENT checkpoint** (supersedes `HANDOFF_2026-06-03_surface_plane_and_pre_ai_immersion.md` as the boot point; that one remains valid for the Surface/Projection-plane + pre-AI-pivot detail).
 Purpose: clean boot before the **next ingestion wave (~100 more videos)** that Nick expects to **strongly reshape thesis + contracts + Build-OS**. Next session: Nick drops a long chat → we **map the 100-video ingestion process** (best steps + any changes) → then drive thesis/contract/downstream from it. A fresh agent or future-Nick resumes here with zero loss.
 
+> ## ★★ CONTROLLING PLAN + CURRENT STATE (2026-06-13 update — DO NOT SKIP) ★★
+> **The controlling plan for everything after this handoff is `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md`** — it lives in the **HOME `.cursor/plans/` dir, NOT the workspace tree** (so `glob`/`grep` of `main-app/.cursor/plans/` will NOT find it; an agent missed it once and nearly drifted into "promote concepts into v3"). It defines the phase-gate sequence **A/B scaffolds → C1 process-wave → C2 Source Base Declaration → C3 method recovery → C3.5 Care-Setting/Clinical-Action-Substrate pressure-test → C4 v4 spine → C5 downstream**, each downstream phase **plan-before-execute at its own informed gate**.
+> - **Wave-2 ran and is COMPLETE: `EVRUN-2026-000002` = 110/110** (`EVSRC-090…199`; the wave grew from the planned 108/090–197 to 110/090–199). C1 = **conformance-verified 2026-06-13** (registry §1/§2A + coverage matrix + per-source-receipt anchor ledger; 194 tensions routed). See `ingestion/outside_learning/analysis/EVRUN-2026-000002_ai-corpus-wave-2/…_coverage_matrix.md` §C1-Conformance.
+> - **NEXT = C2 + C3 + C3.5, then v4 spine.** NOT "promote 7 concepts into v3." v4 = full-estate re-author; AI/Build-OS/CNS/Reservoirs co-central; care-core preserved; the governed **clinical/business action substrate** is the v4 higher-order object ("make the EMR less central"). v4 Source Stack (carry-forward inputs incl. Evidence-Plane/Foundry/reservoir lineage, the planes, federation/website/care-lanes audits) = `omni_thesis_v3_integrated_spine.md` §0 + the wave-2 plan C2.
+
 ---
 
 ## 0. Boot in 60 seconds
