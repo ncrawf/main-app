@@ -314,6 +314,8 @@ Per existing §5 Routing Requirements: doctrine/system map/rule slice update in 
 5. add owed **catalog (`01`) / read-graph (`04`)** rows for new artifacts, or explicitly mark them owed;
 6. mark prior checkpoints **historical-only**.
 
+**"Closeout commit" = the commit that CLAIMS the gate/phase/arc closed — NOT every intermediate commit.** Intermediate commits inside an open work package roll up into the package's final checkpoint (per the §8 Tier classification + `D0CKPT-DEC-002`); the repoint obligation fires only at the closure that declares the work done.
+
 **Law (burned in): work is not complete until the next agent boots to the right state.** This hardens the Control Plane `## Boot-Path Synchronization Requirement` for the current-checkpoint pointer specifically; the boot-side detector is §1 **Boot Freshness Check**, and the timeless guardrail is `06` `D0CKPT-GRD-001`. The prior handoff stays in the catalog as historical reference.
 
 #### Why this rule exists

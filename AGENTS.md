@@ -34,7 +34,7 @@ Loop, every architecture / doctrine / build / work-package:
 
 `identify work package/gate → classify work → load authority → obey gate → execute within scope → prove stop`
 
-**Boot Freshness Check (do FIRST).** The Current Checkpoint Handoff named below in `## OMNI Operating References` MUST equal the one in `04_manifest_read_graph.md` Tier-0 #15 and agree with the named controlling plan's current-state banner (checkpoint · active plan · gate/state · next allowed action). **If they disagree, STOP and report before substantive work.** Closeout side: Agent Work Protocol §8 **Checkpoint Closeout Rule** (no Tier-2+ work is "closed" until the handoff + AGENTS + read-graph + controlling-plan banner are repointed in the same commit). Timeless guardrail: `06` `D0CKPT-GRD-001`. **Work is not complete until the next agent boots to the right state.**
+**Boot Freshness Check (do FIRST).** The Current Checkpoint Handoff named below in `## OMNI Operating References` MUST equal the one in `04_manifest_read_graph.md` Tier-0 #15 and agree with the named controlling plan's current-state banner (checkpoint · active plan · gate/state · next allowed action). **If they disagree, STOP and report before substantive work.** Closeout side: Agent Work Protocol §8 **Checkpoint Closeout Rule** (no Tier-2+ work is "closed" until the handoff + AGENTS + read-graph + controlling-plan banner are repointed in the same **closeout** commit — the one claiming the gate/phase/arc done, not every intermediate commit). Timeless guardrail: `06` `D0CKPT-GRD-001`. **Work is not complete until the next agent boots to the right state.**
 
 | work class | load (authority) | gate / proof |
 |---|---|---|
