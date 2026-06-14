@@ -19,10 +19,10 @@ Manifest action: `add_tier2`; repoints AGENTS.md current-checkpoint + Read-Graph
 | C3.1 — Lens Coverage Audit (anti-evaporation) | ✅ PASSED — `v4_C3_1_lens_coverage_audit.md` (no missing lens; 4 covered-thin; 5 open-review = `D0THES-REV-179..183`; 1 needs-C3.5; 3 defer-C5) |
 | C4.0 — Depth Preservation Protocol (anti-flattening) | ✅ ACCEPTED, standing authoring rule — `v4_C4_0_depth_preservation_protocol.md` (whole v4 write + downstream contracts) |
 | C3.5 — Hospital-Grade EHR-Gravity Pressure-Test Arc | ⏳ SET UP (not run) — separate agent next at Gate 1 |
-| C4 — v4 spine | ⏳ blocked until C3.5 returns |
+| C4 — v4 spine | ⏳ blocked until C3.5 G4 returns. **Lane preserved (not built) by `v4_C4_readiness_bridge.md`** — after G4, continuity agent writes the real C4 authoring plan; then a FRESH v4 agent must pass a **C4 Author Readiness Note** (Nick+Knox review) before any spine prose. |
 
 ## 2. The v4 artifact set (all in WORKSPACE `.cursor/plans/`)
-`v4_C2_source_base_declaration.md` · `v4_C3_method_recovery_ratification_note.md` · `v4_C3_1_lens_coverage_audit.md` · `v4_C4_0_depth_preservation_protocol.md` · `v4_C3_5_hospital_ehr_gravity_pressure_test_plan.md` (+ shells `v4_C3_5A..G_*` `shell_pending_population`) · `v4_C3_5_KICKOFF_PROMPT.md`. (The controlling plan that sequences them is in the HOME dir — see §0.)
+`v4_C2_source_base_declaration.md` · `v4_C3_method_recovery_ratification_note.md` · `v4_C3_1_lens_coverage_audit.md` · `v4_C4_0_depth_preservation_protocol.md` · `v4_C3_5_hospital_ehr_gravity_pressure_test_plan.md` (+ shells `v4_C3_5A..G_*` `shell_pending_population`) · `v4_C3_5_KICKOFF_PROMPT.md` · `v4_C4_readiness_bridge.md` (C4 lane-preserver — see §1 C4 row). (The controlling plan that sequences them is in the HOME dir — see §0.)
 
 ## 3. The guardrail stack now binding on v4 authoring (read before any prose)
 - **C2.0** read-first set + draw-on-ALL-sources + authority-tiering (no input pre-ranked) — `GRD-036`.
