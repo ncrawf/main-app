@@ -1,0 +1,56 @@
+# v4 — C3.5 Topology Reconciliation Note (corrects F5; locates the real gap; feeds G4)
+
+Document type: `analysis` (C3.5 arc — reconciles the F-batch topology/continuity findings against existing canonical contracts) · Authority: `analysis_nonbinding` (`GRD-036`)
+Status: `complete` 2026-06-14 (C3.5 pressure-test agent). Trigger: Nick's reconciliation flag ("we surely have prior federation/location concepts — reconcile before this sneaks into the thesis half-baked"). Sources read in full: `federation_contract.md`, `identity_contract.md`, `D5_service_occurrence_care_coordination_contract.md`; grepped `settings_catalog`, `CNS_orchestration`, `ordered_fulfillment`, `clinical_memory`.
+Purpose: prevent G4 from introducing a **parallel topology vocabulary** that contradicts locked contracts. Per doctrine, **domain contracts are canonical for migrated domains** — the F-batches must reconcile *to* them.
+
+## Headline
+Most of the F-batch "topology/continuity" content (F5's **P36 operator-graph**, F3/F5 **P26 blocker-state**, F2 **P4 care-obligation**, and the operator/node/setting/location debate) is a **re-derivation of already-locked canon**, not new architecture. The pressure-test independently arriving at the existing contracts is **validation**, not waste. But the honest G4 framing is **confirm/extend**, not "new family." Only a **small set genuinely survives reconciliation as net-new** (§C).
+
+## §A — What canon ALREADY holds (the rediscovery list)
+| F-batch concept | Already owned by | Disposition |
+|---|---|---|
+| **P36 "operator-graph / institution-topology"** | `federation_contract` — **6-tier topology** (`deployment · legal_entity · brand · site · location · venue`), composite `tenant_id` ("never flat", inv 1–2), 11-axis `venue`, `legal_entity`/`brand` M:N, jurisdiction/license/credentialing | **CONFIRMS canon; NOT a new family.** Reframe P36 as "validates DL-21 federation topology." |
+| "node = accountability boundary, not building" (Knox) | `legal_entity` = "tax/compliance/**liability** boundary" (Fed §4); **Identity §6 admission guardrail**: "a scoping dimension becomes a boundary *only when it owns distinct operational state*" | **ALREADY canon.** Knox's refinement = Identity §6 + Federation `legal_entity`. Not new. |
+| orthogonal coordinates / "a fact is a tuple" | **CNS §7.5.1 — 7 per-event ownership dimensions** (`operator_of_record / clinical_owner / commerce_owner / care_coordination_owner / artifact_custodian / source_authority / surface_of_record`) | **ALREADY canon.** |
+| "federation = cross-operator grant relationship, default isolated, operator-neutral, gates COMPOSE" | `federation_contract` §5–§6 (inv 8–9), `T0-14` operator-neutrality | **ALREADY canon, verbatim.** |
+| async = "virtual node" (the part Nick disliked) | **modality is an AXIS, not identity** (D5 inv 4; `modality_path`); `venue.mode_of_practice` (Fed §4); `service_policy` keyed by `(service_id, modality)` (Settings); modality-switch re-checks licensure (Fed inv 16) | **ALREADY resolved better than "virtual node."** Async = a modality/setting with `location=null`, same operator. Not a node. |
+| **P26 "care-blocker-state / what are we waiting on"** | **D5 `care_state_view`** — recomputed per `care_episode`: *(stage, `primary_blocker`, `responsible_party`)*; `primary_blocker` enum already incl. `lab_awaiting_provider_review / payment_or_fulfillment / messaging_awaiting_patient / continuation_due …` | **EXTEND existing `care_state_view`** (add blocker kinds: transport, bed, auth, SNF, supply, room-turnover). NOT a new family. |
+| **P4 `care_obligation`** | **`ordered_fulfillment_contract`** — `care_obligation` (obligation_strength, due/window/recurrence, escalation, conversion rule: obligation → appointment(D3)/occurrence(D5)/orchestration(CNS)) | **ALREADY canon.** F2 re-derived it. |
+| `care_relationship` / `shared_context_grant` / `visibility_grant` | `federation_contract` §3/§4 (`REV-157` — Federation owns them) | **ALREADY canon.** |
+| identity reusable-vs-scoped, handle≠person, patient-source/adoption, device/robot/external actors | `identity_contract` §4–§7 | **ALREADY canon.** |
+| continuity across settings (P37) | partially: Identity (single patient, many `patient_relationship`) + Federation grants + D5 `care_episode` + modality-switch | **EXTEND** (see §C — the cross-setting *binding chain* is the new framing, but the parts exist). |
+
+## §B — The node vocabulary, reconciled to canon (the answer to "is a hospital a federation?")
+Use the **existing** words, not a new set:
+- **Operator** = `legal_entity` (liability/tax/compliance boundary) + `brand` (consumer operator), M:N. A hospital, ASC, anesthesia group, lab, SNF, physician group, vendor are each **legal_entity/brand** rows (some co-owned → M:N with `ownership_percent`).
+- **"Is it a node?"** = does it own **distinct operational state / an authority boundary** (Identity §6 admission guardrail) — legal responsibility, licensure, credentialing, billing stream, a `source_authority` fact-class, policy, data-use, resource ownership? If yes → it's a tenancy boundary (legal_entity/brand/site). If its authority is fully *derived from its parent* → it's a **scope/attribute** (venue/location/department), not a node. **This is already the guardrail; Knox's refinement matches it.**
+- **Setting/care-context** = the **`modality` axis** (+ D5 `authority_class`/`clinicality_level`) — async / in-office / video / and (newly) inpatient-acute / ED / peri-op / home. It carries authority *physics*, and it is **not** a place (`location` is the place; `venue` is the resource bundle).
+- **Federation** = the cross-operator (cross-`legal_entity`/`brand`) grant/permeability relationship; **within one operator, multiple sites/locations/modalities are NOT federated** — they share identity/clinical-memory/commerce under one tenancy. (Resolves "Bloom Farmington + Bloom Birmingham + Bloom async = one operator, no federation; Bloom ↔ hospital = federation.")
+- **Universal query (already canon, CNS §7.5.1 + Fed §6):** *for any fact — who owns it (which per-event owner), who may see it (grant), who may act (authority+RBAC), under which operator/jurisdiction, at which venue/location or external capability, with what proof.*
+
+## §C — What genuinely survives reconciliation as NET-NEW (the real v4 input)
+Three things, all small and precise:
+1. **Movement-stateful inpatient encounter → a D5 EXTENSION (the real gap; = the long-standing E/F/F2 "undesigned" gap, now located).** D5 **explicitly scopes itself "outpatient-EMR-class actualized-work depth, NOT hospital-grade Epic"** (D5 §2). Its `service_occurrence` is a *bounded* unit; `encounter` is a *derived projection*; `care_episode` is a *thread*. **None carries a live MOVEMENT-STATE** = `(current location × level-of-care × responsible unit/team × authority-context)` **recomputed on each ADT move** (ED→OR→ICU→floor). That is the inpatient physics the outpatient model never had to express. **v4 action:** extend D5 with a movement-stateful encounter object/axis (not a new topology primitive, not P36). This is where "inpatient is the stress-case of one substrate" becomes concrete.
+2. **External Capability / Signal-Command Boundary (P35) → genuinely new; no current owner.** Federation owns operators/grants; Identity owns actors (incl. `device`/`robot`/`external_system` *as actor subtypes*) — but **no contract owns the integration contract + capability-mode + provenance + command-authority-boundary** for an external system (watch/vent/robot/lab-analyzer/phone/cafeteria/API/MCP). **v4 action:** new substrate (or Observation+Federation extension) for `external_capability` with modes `{read-only · write-back · request-only · bounded-command · human-confirmed · prohibited · break-glass · vendor-operated}`. OMNI owns link/data/loop/authority/proof; the device owns actuation.
+3. **Care-setting as an authority-physics carrier → a D5 axis ELEVATION (not a new entity).** Today `modality` + `authority_class` + `clinicality_level` are D5 axes tuned for outpatient. **v4 action:** generalize to a first-class `care_setting` axis that parameterizes authority physics (cadence, presence, escalation, titration authority) so inpatient/ED/peri-op settings are expressible alongside async/in-office. Pairs with #1.
+
+Plus the smaller carries from the convergence probe: chains **HH** (genomic cross-person duty-to-warn) and **II** (law-enforcement/forensic access), and extension candidates `risk_contract` (P20/P38), `social_determinant_state` (P9). None are new families.
+
+## §D — Corrections to F-batch claims (so G4 inherits truth, not inflation)
+- **F5 P36** "Operator-Graph / Institution-Topology (NEW family)" → **CORRECT TO: confirms `federation_contract` 6-tier topology + CNS 7-dimension ownership; adds nothing at the topology layer.**
+- **F5/F3 P26** "Care-Blocker-State (NEW family)" → **CORRECT TO: extend D5 `care_state_view` (`primary_blocker` enum) with non-clinical blocker kinds.**
+- **F2 P4** "care_obligation (NEW primitive)" → **CORRECT TO: already owned by `ordered_fulfillment_contract`; F2 re-derived it.**
+- **F4 P35** "Device-Link" → **already corrected to External Capability / Signal-Command Boundary; confirmed genuinely net-new (no owner).**
+- **General:** the "40 families" count from F2–F5 includes an unknown number of re-derivations. **G4 must run each P-family against the contract set and tag confirm / extend / net-new** before any of it is called thesis-shaping. (This note does that for the topology cluster; G4 does it for the rest — a desk check against 15 contracts, not new rows.)
+
+## §E — What G4 must carry (canon-grounded)
+1. **Topology answer = existing federation model**, stated in canon vocabulary (§B). Do NOT mint operator/care-node/location as new nouns. "Node = legal_entity/brand owning distinct operational state (Identity §6)." Async = modality. Federation = cross-operator only.
+2. **The real net-new v4 work (§C):** (a) D5 movement-stateful inpatient encounter extension [= the undesigned gap, now located], (b) `external_capability` / signal-command-boundary substrate [genuinely new], (c) D5 `care_setting` authority-physics axis elevation.
+3. **Honesty correction:** G4 tags every F2–F5 family confirm/extend/net-new against the contracts; the headline "100x is mostly relationship-design + a small net-new-object set" gets *stronger*, because most "new objects" turn out to be existing canon → the net-new set is even smaller and sharper.
+4. **Decision (binding for G4):** hospital is the **stress-case of the one substrate** (validated: D5 is outpatient-scoped *by its own §2*, and the inpatient gap is a bounded D5/`external_capability` extension — NOT a separate substrate). This is now *evidence-backed*, not assertion.
+
+## Stop / authority
+- `analysis_nonbinding` (`GRD-036`); not truth until promoted via v4/contract review. Corrects F5's topology claims for G4 intake; does not edit the locked contracts.
+- **Remaining diligence for G4 (not row work):** desk-check the *non-topology* F-families (P18–P25, P27–P34, P37–P40) against the 15 contracts the same way (confirm/extend/net-new) so G4's family list is canon-true. This is reading, not generation.
+- Standing flag: git identity unset (`Bloom Health <…@Blooms-Desktop-11.local>`) — no commit attempted.
