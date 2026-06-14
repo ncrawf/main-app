@@ -46,6 +46,8 @@ Required boot artifacts:
 
 The implementation-lane triad (09/10/11) is also routed in `04_manifest_read_graph.md` `## Implementation-Lane Anchors`. Boot-path synchronization across these artifacts is required by `00_architecture_memory_control_plane.md` `## Boot-Path Synchronization Requirement`.
 
+**Boot Freshness Check (do this before any architecture / doctrine / thesis / Tier-2+ work).** Compare the **Current Checkpoint Handoff** named in (a) `AGENTS.md` `## OMNI Operating References`, (b) `04_manifest_read_graph.md` Tier-0 Universal Path #15, and (c) the current-state banner of any named controlling plan. They MUST agree on: the current checkpoint, the active controlling plan, the current gate/state, and the next allowed action. **If they disagree, STOP and report the mismatch before substantive work** — a stale or duplicate pointer is the known 2026-06-13 failure (an agent booted from a stale checkpoint because two pointers had drifted). The closeout side of this rule is §8 **Checkpoint Closeout Rule**; timeless guardrail `06` `D0CKPT-GRD-001`.
+
 If boot artifacts conflict, follow precedence defined in `00_omni_coordination_charter.md`.
 
 ---
@@ -302,9 +304,17 @@ Use the existing `narrative_or_postmortem` pattern (see `docs/architecture/evolu
 
 Per existing §5 Routing Requirements: doctrine/system map/rule slice update in canonical home + decision ledger row (`03_decision_extraction_ledger.md`) + supersession/conflict ledger row (`05_supersession_conflict_ledger.md`) if prior interpretation replaced + catalog row update + read-graph route impact evaluation.
 
-#### Tier-0 Universal Path implication
+#### Checkpoint Closeout Rule (the boot path must move with the work)
 
-When a Tier 2+ checkpoint completes, the Read Graph `## Tier 0 Universal Path` **Current Checkpoint Handoff** entry must be updated to point at the new handoff. The prior handoff stays in the catalog as historical reference; future agents booting load the new current handoff alongside the rest of the Tier 0 Universal Path.
+**A Tier 2+ gate / handoff / phase / control-plane update / major planning arc is NOT "closed" until the boot path points the next agent to the new state — even if the work product already exists.** On every Tier 2+ checkpoint, in the **SAME closeout commit**:
+1. write or update the **current checkpoint handoff** (§5 Handoff Minimum Contract);
+2. repoint **`AGENTS.md` `## OMNI Operating References` Current Checkpoint Handoff** to it;
+3. repoint **`04_manifest_read_graph.md` Tier-0 Universal Path #15 Current Checkpoint Handoff** to it — **(2) and (3) MUST name the same file; duplicate-pointer drift between them is the known failure (2026-06-13: AGENTS on 06-10, read-graph on 06-06, both stale)**;
+4. update the **named controlling plan's current-state banner** (gate/state + next allowed action), if one exists;
+5. add owed **catalog (`01`) / read-graph (`04`)** rows for new artifacts, or explicitly mark them owed;
+6. mark prior checkpoints **historical-only**.
+
+**Law (burned in): work is not complete until the next agent boots to the right state.** This hardens the Control Plane `## Boot-Path Synchronization Requirement` for the current-checkpoint pointer specifically; the boot-side detector is §1 **Boot Freshness Check**, and the timeless guardrail is `06` `D0CKPT-GRD-001`. The prior handoff stays in the catalog as historical reference.
 
 #### Why this rule exists
 
