@@ -11,6 +11,8 @@ Review gate: `user_knox_required`.
 
 ---
 
+> **★ THIS FILE IS THE CANONICAL REFERENT FOR "THE SOURCE BASE."** Whenever the controlling plan or any v4 doc says "source base" / "full estate" / "all sources," it means **the full 9-category estate enumerated here** (§2) — CLOSED/accepted 2026-06-13, current (EVRUN-000002 = 110/110), living per `GRD-036`. **The VIDEO CORPUS is in-base (Cat 6): EVSRC sources + §3 Review-001 (Knox) + §3 Review-003 (Opus) + EVRUN-000001/000002 registries + tension register + anchor ledger + coverage matrix.** C4 authoring must **actively MINE** it (the registry is the workbench), not merely cite the §2A summary — proven load-bearing twice in REV-184.
+
 ## §0 — Purpose + what "done" means
 
 **Purpose.** Prove — not assert — that the full estate the v4 spine will be authored from is **loaded, named, and dispositioned**, so C3/C3.5/C4 cannot silently drop a load-bearing input or cite a dead one. This is the **same source base v3 authored from** (the spine §0 stack), reconciled for completeness against the canonical catalog, plus the post-v3 captures v3's own §0 already pre-declared, plus one new reality-check lane (shipped code/ADRs) per Nick's 2026-06-13 scope decision.

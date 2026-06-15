@@ -2,7 +2,7 @@
 
 Document type: `handoff` + `analysis` (C3.5 arc closing synthesis) · Authority: `analysis_nonbinding` (`GRD-036`) — feeds v4 thesis/contract shaping; **does not edit contracts**.
 Status: `complete_pending_review` 2026-06-14 (C3.5 pressure-test agent). Gate **G4 (Handoff)** — final gate of the C3.5 arc. Closes G1 (A/B/C) → G2 (D) → G3 (E/F) → G3.5 (F2/F3/F4/F5 + convergence-check + topology-reconciliation) → **G4**.
-Inputs synthesized: `v4_C3_5A..F` (E/F survivability), `v4_C3_5F2/F3/F4/F5` (superiority), `v4_C3_5_convergence_check_pre_G4`, `v4_C3_5_topology_reconciliation_note`. Contracts read for reconciliation: `federation`, `identity`, `D5` (full) + `settings_catalog`, `CNS`, `ordered_fulfillment`, `clinical_memory` (grep). **Remaining 8 contracts = desk-check owed (§9).**
+Inputs synthesized: `v4_C3_5A..F` (E/F survivability), `v4_C3_5F2/F3/F4/F5` (superiority), `v4_C3_5_convergence_check_pre_G4`, `v4_C3_5_topology_reconciliation_note`. Contracts read for reconciliation: `federation`, `identity`, `D5` (full) + `settings_catalog`, `CNS`, `ordered_fulfillment`, `clinical_memory` (grep). **Desk-check is CLOSED — all 15 contracts read; finalized in `v4_C3_5G4_1_contract_deskcheck_addendum.md`. (Original phrasing said "8 contracts owed"; that is resolved — no reading owed to the v4 agent.)**
 
 ## §0 What G4 IS / is NOT
 - **IS:** the C3.5 closing **verdict + disposition ledger**. It states what the hospital pressure-test proved, and **dispositions every F2–F5 family/chain/decision** into one of: `confirmed-canon` · `contract-extension` · `net-new` · `open-review` · `build-os/eval` · `C5-build-only` · `duplicate`. It routes each finding to its canon owner or to `08`. **The ledger (§3) is the integrity mechanism — nothing from 1,158 rows is lost or silently inflated.**
@@ -148,6 +148,28 @@ The 33 chains are carried forward as **canonical relationship patterns** v4/cont
 ## §10 Wedge (outpatient/async strengthening — the dragon doesn't wait for hospitals)
 The hospital pressure-test's biggest *practical* payoff is the wedge: the substrate that survives inpatient also makes Bloom/async stronger **now**. Highest-value wedge carries: `continuity_binding` (home/async data follows the patient), attention-economy + over-message-shield (async review queues), `care_obligation`/protocol-followup (already canon — deepen), `ai_consent_scope` (async AI trust), `external_capability` (home wearables under one boundary), `outcome_intelligence` (async RWE flywheel), `simulation_harness` (async staff onboarding + regression). **~50%+ of all rows were wedge-tagged. The hospital was the stress-test; the wedge is the immediate dividend.**
 
+## §11 Artifact Use Map / Non-Graveyard Routing
+*(Added 2026-06-14, parity with C3.6 G §8.5.)* G4 + G4.1 are the verdict + verified ledger; **the A–F2–F5 corpus is evidence, relationship-pattern source, and the 1,158-row regression seed — NOT background.** *(At promotion these get catalog rows + Manifest-Read-Graph routes per the Stop-Proof; this is the interim human index that becomes those routes.)*
+
+| Artifact(s) | What it is | When future agents MUST open it | Feeds |
+|---|---|---|---|
+| **A/B/C** | hospital reality field · actor/authority grounding · map grounding (cited public refs) | hospital-reality / evidence rationale | evidence; "format-not-content" baseline |
+| **D** (101 HCASE) | stratified scenario library + coverage manifest | tests, contract examples, harness seeds | seed corpus |
+| **E** (40 traces) | survivability deep traces + breakpoints (physics-holds / objects-missing) | justifying a gap/object as real | trace evidence |
+| **F** | first-pass disposition/gap matrix | **with G4.1** (F superseded where G4.1 verifies) | canon routing (first pass) |
+| **F2** (503; 17 fams, chains A–H) | primitive-sufficiency universe; "100x = relationship design" | primitive/chain design; act-loop (chain A) | core relationship patterns |
+| **F3** (255; P18–26, chains I–Q) | hospital-organism layer (bedside/family/service/legal/rights) | patient-surface, service-ops, rights/consent work | family + chain seeds |
+| **F4** (250; P27–35, chains R–Z) | network/research/digital-twin layer; **P35 external-capability** | external-systems, RWE, twin, network-governance work | P35 + network seeds |
+| **F5** (150; P36–40, chains AA–GG) | topology/continuity/enterprise-ops closure | continuity, workforce, security, topology work | closure-family seeds |
+| **convergence-check** | why manual row generation stopped (0 new families / 24 domains) | before proposing ANY new row batch | "row phase is closed" guard |
+| **topology-reconciliation** | why operator-graph reconciled to Federation 6-tier canon | any topology / operator / node / setting question | **do-not-mint-parallel-vocabulary** guard |
+| **G4** | binding verdict + disposition ledger + chains + harness obligation + wedge | start here for synthesis | directional C4 input |
+| **G4.1** | verified desk-check (all 15 contracts); FINAL dispositions; net-new ~6 | **REQUIRED** before promoting any C3.5 family into C4/contracts | canon-true ledger |
+
+**Read-depth by task:** thesis positioning → **G4 + G4.1 + topology-reconciliation** · contract shaping → **G4.1 §A/§B + F + E + the relevant F2–F5 families** · sim/eval harness → **D + F2/F3/F4/F5 + G4 §7 + G4.1 §D** · scenario examples → **D/F2/F3/F4/F5 by P-family/chain** · canon reconciliation → **G4.1 §A + F** · relationship patterns → **G4 §5 chains + F2** · evidence/citations → **B**.
+
+**Hard rule:** for C3.5 contract work, cite **G4.1 (not G4 alone)** as the disposition authority — G4.1 is the verified ledger; G4 §3 is first-pass. **Seed-corpus rule:** the 1,158 rows (D+F2+F3+F4+F5) are Build-OS harness seeds tagged by P-family/chain — **seed corpus, not coverage** (§7) — necessary-not-sufficient.
+
 ---
 
 ## G4 Stop-Proof (Agent Work Protocol §9)
@@ -158,6 +180,6 @@ The hospital pressure-test's biggest *practical* payoff is the wedge: the substr
 - **Integrity:** nothing lost — confirmed items cited to canon owners, extensions routed to contracts, net-new flagged, decisions stated, open-review → `08`, coverage → harness. **Disposition is now canon-true: all 15 contracts read; every `~deskcheck` item finalized in G4.1 §A (net-new shrank ~11 → ~6).** No reading owed to the v4 agent.
 - **Artifacts produced this arc:** A–F, F2, F3, F4, F5, convergence-check, topology-reconciliation, **G4 (this)**. No edits to locked contracts.
 - **Authority:** `analysis_nonbinding` (`GRD-036`). Not truth until promoted via v4/contract review gates.
-- **Next:** v4 continuity agent — finish desk-check (§9.1), then thesis/contract shaping (§9.2). **No more row batches.**
+- **Next:** v4 continuity agent uses **G4.1 as the verified disposition ledger — NO desk-check remains** (all 15 contracts read; §9.1 closed). Proceed directly to thesis/contract shaping (§9.2). **No more row batches.**
 - **New-artifact completion (Protocol §5):** G4 + convergence-check + topology-reconciliation owe a catalog row + read-graph evaluation in the same pass as their promotion; flagged for the v4 agent's intake (not performed here, as these are `analysis_nonbinding` C3.5-arc artifacts pending review).
 - **Standing flag:** git identity unset (`Bloom Health <…@Blooms-Desktop-11.local>`) — no commit attempted.
