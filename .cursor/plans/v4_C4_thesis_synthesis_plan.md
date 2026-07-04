@@ -10,7 +10,7 @@ Status: `accepted` 2026-06-15 (Nick + Knox). C4 runway package. Runs AFTER the s
 ## §1 Inputs per section (what feeds the deepening)
 For each accepted spine section, the synthesis pulls (C4.0 Depth Packet discipline):
 - the section's **worktable** (from the authoring pass) + its accepted claim;
-- the **richest full-body source articulation** (registry §1 + per-source §3 Review-003 + ORIENTATION verbatim + v2/v3 body + the relevant arc artifacts via their use-maps) — **actively mined, not one-liners**;
+- the **richest full-body source articulation** (registry §1 + per-source §3 Review-003 + ORIENTATION verbatim + v2/v3 body + the relevant arc artifacts via their use-maps — incl. the **C3.8 `G4` ledger** + the **`v4_C4_spine_watch_list.md`** items as landed in the accepted spine) — **actively mined, not one-liners**;
 - the **contracts** the section composes/pressures (P1 truth boundaries — cite, do not contradict);
 - the **tension-register** entries for that section (carry the named tension + its resolution: settled-by-doctrine | v4-decision | open-review);
 - the **ownership-law** for that section (who owns what; the "X owns truth, Y owns lifecycle-state" decompositions).
