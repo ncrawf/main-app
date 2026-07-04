@@ -8,6 +8,7 @@ Status: `accepted` 2026-06-15 (Nick + Knox). C4 runway package. Runs AFTER the s
 - **Thesis** = the full-body articulation of each accepted spine section — the mechanism, the depth, the reconciled evidence, the named tensions + resolutions, the ownership-laws — still timeless prose. **Synthesis does NOT re-open the spine's claims;** it deepens them. If synthesis surfaces a spine-level contradiction → route to the spine gate, do not silently rewrite.
 
 ## §1 Inputs per section (what feeds the deepening)
+> **Canonical set:** the global "load EXACTLY this" list is **read-graph #9a (CANONICAL v4-AUTHORING INPUT SET)** — shared with the spine author; thesis ADDS the *accepted spine* + per-section Depth Packets. If lists differ, **#9a wins.**
 For each accepted spine section, the synthesis pulls (C4.0 Depth Packet discipline):
 - the section's **worktable** (from the authoring pass) + its accepted claim;
 - the **richest full-body source articulation** (registry §1 + per-source §3 Review-003 + ORIENTATION verbatim + v2/v3 body + the relevant arc artifacts via their use-maps — incl. the **C3.8 `G4` ledger** + the **`v4_C4_spine_watch_list.md`** items as landed in the accepted spine) — **actively mined, not one-liners**;

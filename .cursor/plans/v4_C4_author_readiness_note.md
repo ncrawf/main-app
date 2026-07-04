@@ -7,6 +7,8 @@ Owed (New-Artifact §5): catalog row + read-graph eval — deferred to package a
 
 > I am writing this from a cold boot — no prior-conversation context — which is exactly the condition the gate is designed for. Below, in my own words: what the source base is, what v4 *is* (the frame), the method, why the pressure arcs are inputs and not the frame, REV-184's seven lines, what I will not do, and the covered-thin families + acceptance gate I will be held to.
 
+> **★ FORWARD-POINTER (added 2026-07-04, post-C3.8) — this note is a PARTIALLY-STALE baseline.** It was written 2026-06-15, **before** the C3.8 Enterprise-AI-OS convergence pass. The comprehension it proves still holds, but the current boot state is **`HANDOFF_2026-07-04_c3_8_complete_pre_spine.md`** (not the 06-14 handoff named above), and the spine author MUST ALSO carry: **C3.8 `G4`** (disposition ledger + operator-ratified posture decisions + governed data-value economy) · the **`v4_C4_spine_watch_list.md`** (7 items + framing — the operator/business/config/semantic/legal/copilot cluster; HELD until Nick+Knox close it) · **field cases** (`FIELD-*`, esp. `FIELD-002`). **The authoritative "load exactly this" list is read-graph #9a (CANONICAL v4-AUTHORING INPUT SET).** Do not treat this note's original read-first list as complete.
+
 ---
 
 ## 1. What "the source base" is
