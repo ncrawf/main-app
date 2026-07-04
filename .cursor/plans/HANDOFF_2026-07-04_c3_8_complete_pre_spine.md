@@ -1,0 +1,60 @@
+# HANDOFF — 2026-07-04 — C3.8 (Enterprise-AI-OS Convergence Pass) COMPLETE — pre-spine
+
+Document type: `checkpoint_handoff` (continuity artifact; non-binding — binding decisions in `doctrine/03_decision_extraction_ledger.md`, open items in `08_open_review_queue.md`, schemas in contracts/maps). Per Agent Work Protocol §8 (Tier 2 — C3.8 lane CLOSED; boot NEXT changes).
+Created: 2026-07-04. **This is the CURRENT checkpoint.** Supersedes `HANDOFF_2026-07-02_c3_8_charter_accepted_pre_g1a.md` (which stays valid for the charter-acceptance + G1a-approval detail; earlier handoffs remain historical).
+
+> ## ★★ CONTROLLING PLAN + CURRENT STATE (2026-07-04 — DO NOT SKIP) ★★
+> **Controlling plan = `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md`** (HOME dir, NOT the workspace tree). Phase sequence now: … C4 runway (accepted) → readiness gate (passed) → **C3.8 Enterprise-AI-OS Convergence Pass (COMPLETE 2026-07-04)** → **v4 spine draft 0** → C5.
+> - **Gate state (2026-07-04):** C2 CLOSED · C3 PASSED · C3.1 PASSED · C4.0 ACCEPTED · C3.5/3.6/3.7 COMPLETE · REV-184 CLOSED · C4 runway ACCEPTED · Readiness PASSED · **C3.8 charter ACCEPTED → G1a APPROVED → G1b/G2/G3/G4 all gate-approved → C3.8 COMPLETE (Nick + Knox).**
+> - **C3.8 verdict (the same-room test result):** enterprise-AI-OS pressure (Palantir/OpenAI/Anthropic/MSFT/Google/IBM + NIST/SLSA/OWASP/OPA/Zanzibar + 4 CEO primary-source transcripts) **did NOT break OMNI's core physics** (48 doctrine breakers: 15 held / 20 bent / 5 broke / 8 open — no core invariant broke). Findings = **a pervasive naming/legibility layer + two substantive deltas (tenant-ownership doctrine · supply-chain proof-fabric) + a meta-delta (governed data-value economy) + a small set of decisions.** OMNI survives AND is legible as a governed care/business execution substrate in the same room as the big boys.
+> - **NEXT (the only authorized next step): fold the C3.8/G4 disposition ledger into the C4 v4 spine — a FRESH-context spine author resumes (v4 spine draft 0), per `v4_C4_spine_authoring_plan.md` + `…spine_shape_plan.md`.** The C3.8 execution agent was enterprise-hot by design (anti-hijack split); the spine author resumes from the clean G4 handoff with fresh context. **HARD STOPS unchanged: no thesis synthesis before spine acceptance; no contract/schema edits (C5); no more scenario/enterprise batches; no authoring from memory.**
+
+---
+
+## 0. Boot in 60 seconds
+OMNI = one governed care + business **execution** substrate atop preserved v2/v3 domain physics; planes authored; no production code yet. The pre-spine runway was cleared (C4 runway + readiness, 06-15). C3.8 was a bounded, gated pre-spine enterprise-AI-OS convergence/pressure pass — **now COMPLETE (07-04).** The immediate task is **v4 spine draft 0**, folding C3.8's G4 disposition ledger + posture decisions into C4.
+
+## 1. Operator + collaboration model
+`doctrine/operator_context_and_collaboration_model.md`. Nick = operator/owner (full fidelity, pushback). Knox = ChatGPT review instance (no repo access — surface substance for relay). Trifecta default. C3.8 ran the trifecta hard, gate-by-gate, with Knox review + patch at every gate.
+
+## 2. What just happened (C3.8, delta vs 07-02)
+Charter accepted (07-02) → **G1a shortlist APPROVED** → the grounded agent (this session) ran **G1b→G2→G3→G4 MANUALLY, Nick-driven, gate-by-gate**, each gate STOPPING for Nick + Knox review + patch:
+- **G1b** (`v4_C3_8_G1b_source_concept_reality_map.md`): 6-axis source/concept reality map (current cited primary sources) + §CORR (4 off-shortlist CEO transcripts as corroboration) + §BATCH3-X (continuous-operating candidate). Gate-approved after closeout patch (citations · MCP-date correction: `2026-07-28` is an RC/scheduled, not shipped · corroboration-only guard).
+- **G2** (`v4_C3_8_G2_convergence_and_translation_map.md`): Convergence Matrix (20) + Enterprise Translation/Equivalence Map + plain-language ownership answers. Gate-approved after ZTA false-confidence patch.
+- **G3** (`v4_C3_8_G3_doctrine_breakers.md`): 48 doctrine breakers vs the pre-registered invariants (6 × 8 tensions). Verified tally 15 held / 20 bent / 5 broke / 8 open. Gate-approved after OMNI-native-moat wording + tally-verification patches.
+- **G4** (`v4_C3_8_G4_disposition_ledger_and_handoff.md`): the terminus — every finding routed into the 6 disposition categories + **operator-ratified posture decisions** + the **Governed Data Value / Learning Economy posture** (5 loops) + the bodybuilder worked example. Gate-accepted after §3 source-authority precision patch.
+
+## 3. NEXT — v4 spine draft 0 (fresh-context spine author)
+Fold C3.8/G4 into C4 and author the v4 spine, section-by-section (worktable/C4.0 Depth Packet before prose), per `v4_C4_spine_authoring_plan.md` + `v4_C4_spine_shape_plan.md`. **Carry from G4:** the six-bucket disposition ledger (§1) · the posture decisions (§2) · the data-value economy (§3) · the worked example (§4) · the G2 Translation Map + plain-language answers. **Reconcile the C3.8 postures against the FULL care-first estate** (thesis v3 §A/§B/§C — §C still PAUSED/undrafted, a *primary* landing zone for tenant-ownership + data-economy — + contracts + REV-184 + arcs). C3.8 was an enterprise lens; the spine is care-first + whole-estate. **Distribute findings** across Federation/Identity/D7/`source_authority_map`/Knowledge-Reservoirs/RBAC/§C + the C4 spine — not a single §C dump.
+
+## 4. The C3.8 ship-heading decisions (operator-ratified DIRECTION; spine author lands prose + C4 gate)
+1. **Moat = trusted local adoption + patient-authorized continuity + governed execution + longitudinal care/business truth + proof; REJECT coercive artifact lock-in; portability is a trust feature.** (Entailed by OMNI's own invariants — not vendor-borrowed.)
+2. **Layered tenant-ownership doctrine:** patient authority governs care access/relationship/consent/visibility/personal-context portability; operator/tenant owns local operational data + semantic config + policy overlays + business/workforce records + local memory within lawful scope; OMNI owns execution substrate + contracts/schemas + safety envelope + model-governance + proof fabric + capability governance; **facts retain `source_authority` + adoption lineage; no global owner of truth.**
+3. **BYOM = substrate-model-pluggable, NOT care-level model-choice medicine;** any model passes `capability_envelope`/lineage/evals/authority/safety; AI never commits clinical truth.
+4. **Proof fabric extends to supply-chain provenance** (build/model/dependency; SBOM/FDA §524B); mechanics → Build-OS/C5.
+5. **Security/assurance is continuous** (LAW); exact lane shape OPEN (Defend-loop vs cross-cutting vs Prove/Learn vs distributed) → C4/C5.
+6. **Semantic/ontology layer = named, enterprise-legible, COMPOSED over domain-owned truth/source-authority/contracts/projections — NOT a god-domain, NOT proprietary lock-in.**
+7. **Governed Data Value / Learning Economy:** OMNI monetizes governed execution + authorized learning, NOT covert data extraction; 5 loops (personal-care · local-operator · network · research/RWE/pharma · model/product), each permission/beneficiary/prohibition-bounded; the C3.7 economically-blind firewall binds.
+
+## 5. Required inputs (C3.8 layer adds to the 06-15 C4 runway package)
+C4 runway (5 docs, accepted) + readiness note (passed) + REV-184 §0 + C3.5/6/7 G-verdicts + **the C3.8 G1b/G2/G3/G4 artifacts** + `v4_C2_source_base_declaration.md` + thesis v3 §0. Evidence: the CEO-transcript capture (`ingestion/competitor_product_evidence/2026-07_enterprise_ai_os_ceo_interviews/`, `analysis_nonbinding`; raw `EVSRC` materialization owed).
+
+## 6. OWED / tracked (this closeout)
+- Boot repoint (AGENTS + read-graph #15 + HOME controlling-plan banner + this handoff) — done in this closeout.
+- Catalog rows + read-graph routes for G1b/G2/G3/G4 + this handoff + the CEO-evidence capture — done/owed in this closeout pass.
+- `REV-181` (classic-security source) — **close-eligible** (NIST 800-207 + SLSA + OWASP-MCP captured in G1b axis 6).
+- CEO raw-`EVSRC` transcript materialization + evidence-lane normalization — **promotion hygiene, deferred** (not spine/C5 work).
+- AI/Model-Lineage contract DRAFT — owed at C5 (BYOM + model provenance home).
+
+## 7. Pointers
+- C3.8: charter `v4_C3_8_enterprise_ai_os_convergence_pass_plan.md` · G1a `v4_C3_8_G1a_source_shortlist_and_axis_coverage.md` · G1b/G2/G3/G4 (above) · kickoff `v4_C3_8_G1b_KICKOFF_PROMPT.md`.
+- C4 runway + readiness: `v4_C4_spine_authoring_plan` · `…spine_shape_plan` · `…thesis_synthesis_plan` · `…thesis_shape_plan` · `v4_C4_author_readiness_note` (PASSED).
+- Doctrine: `agent_work_protocol` (§1/§8) · `01_master_corpus_catalog` · `04_manifest_read_graph` #10/#15 · `08_open_review_queue`. Controlling plan (HOME).
+
+## 8. Stop condition for this handoff
+Superseded when the v4 spine author repoints the boot path to a spine-draft-in-progress state. Until then this is the boot point and the only authorized forward work is **v4 spine draft 0 (folding C3.8/G4 into C4)** — no C5 contract edits, no more enterprise batches.
+
+## 9. Standing flags
+- **git identity unset** — closeout committed via system-fallback attribution (`Bloom Health <…@Blooms-Desktop-11.local>`); if a real author is wanted, set `git config user.name/user.email` and amend.
+
+End of handoff.
