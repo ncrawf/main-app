@@ -39,6 +39,7 @@ Per the recovered method (C3 §2.1; ORIENTATION §2.1–2.8):
 - **Tension register fully adjudicated** (no unrouted tensions).
 - **C4.0 depth check passed** per section (no flattened lenses).
 - **Timeless prose** (no journey narrative).
+- **Watch-list DISPOSITION GATE (`GRD-043`):** every `v4_C4_spine_watch_list.md` item (WI1–WI9) + the C4.1 OMNI+Polaris lock + the C3.1 covered-thin families is given an **explicit disposition** (landed-in-§X / contract-extension / C5 / open-review / rejected-with-reason) — **no unrouted item**, mirroring C3.8 G4. (Anti-flatten forcing-function so the hard-won watch items are surfaced, not skimmed.)
 - **Nick (+ Knox) sign-off.** No C5 contract work before the spine is accepted.
 
 ## §5 Failure modes this method prevents (carry into the readiness gate, doc #5)
