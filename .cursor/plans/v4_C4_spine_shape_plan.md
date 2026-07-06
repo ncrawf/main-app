@@ -28,7 +28,7 @@ Status: `accepted` 2026-06-15 (Nick + Knox); **frame-patched 2026-07-06 (§1.5, 
 | 13 | Product surfaces (P4/P5) | how humans/agents see+operate truth; projection-not-authority | Surface/Projection maps · `DEC-033` | C3.7 patient/clinician/site/sponsor surfaces |
 | 14 | Evaluation / assurance / outcome-intelligence | what-you-evaluate-is-what-the-system-becomes; REV-174 | `08` REV-179 · REV-174 | C3.6/C3.7 outcome_intelligence; REV-184 outcome-reads-context |
 | 15 | Contract-rewrite requirements (→ C5) | what the spine demands of domain contracts | all contracts | REV-184 field-set/state-machine → C5; arc net-new → C5 |
-| 16 | Open questions | unresolved → `08` | `08` queue | REV-185…199 (incl. 191–194 bet-check · 195–198 thin-spots/reframed · 199 reflexive-build) |
+| 16 | Open questions | unresolved → `08` | `08` queue | REV-185…200 (incl. 191–194 bet-check · 195–198 thin-spots/reframed · 199 reflexive-build · 200 data-substrate carry-forward [NOT a gap — reconcile legacy 4B-arch data-layers into v4]) |
 
 ## §1.5 FRAME PATCH — Verdict B (accepted Nick + Knox 2026-07-06; from the C4-pre bet-check)
 The bet adjudication (`v4_C4_pre_bet_adjudication_packet.md` §6) + Strategic Bet Memo (`v4_C4_pre_strategic_bet_memo_ai_native_care.md`) survived all six breaker-trials. **Foreground these in the TOP-LEVEL "what OMNI is" (rows 0–1), NOT buried in Federation/surfaces:**
