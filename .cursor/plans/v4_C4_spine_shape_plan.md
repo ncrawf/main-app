@@ -1,7 +1,7 @@
 # v4 — C4 Spine Shape Plan (the provisional SECTION MAP — list + purpose only, NOT prose)
 
 Document type: `plan_or_roadmap` (C4 named gate #2) · Authority: `analysis_nonbinding` (`GRD-036`) — a **section map only**; **NOT spine prose, NO section content authored.** Subject to revision during authoring.
-Status: `accepted` 2026-06-15 (Nick + Knox). Builds on the candidate section map from C3 (`v4_C3_method_recovery_ratification_note.md` step 5) + the controlling-plan C4 "How" (a). The shape is **provisional** — the authoring pass (doc #1) may add/split/merge sections through the gate.
+Status: `accepted` 2026-06-15 (Nick + Knox); **frame-patched 2026-07-06 (§1.5, C4-pre bet-check Verdict B) — membrane law / boundary-fluid / alpha / agent-native-edge foregrounded into top-level "what OMNI is"; the spine names NO wedge (seed OPEN, `08` REV-191).** Builds on the candidate section map from C3 (`v4_C3_method_recovery_ratification_note.md` step 5) + the controlling-plan C4 "How" (a). The shape is **provisional** — the authoring pass (doc #1) may add/split/merge sections through the gate.
 
 ## §0 Discipline
 - This is the **skeleton**, not the body. Each row = a section + its purpose + its primary inputs + where pressure-arc/REV-184 findings land. **No prose. No claims authored.**
@@ -28,7 +28,17 @@ Status: `accepted` 2026-06-15 (Nick + Knox). Builds on the candidate section map
 | 13 | Product surfaces (P4/P5) | how humans/agents see+operate truth; projection-not-authority | Surface/Projection maps · `DEC-033` | C3.7 patient/clinician/site/sponsor surfaces |
 | 14 | Evaluation / assurance / outcome-intelligence | what-you-evaluate-is-what-the-system-becomes; REV-174 | `08` REV-179 · REV-174 | C3.6/C3.7 outcome_intelligence; REV-184 outcome-reads-context |
 | 15 | Contract-rewrite requirements (→ C5) | what the spine demands of domain contracts | all contracts | REV-184 field-set/state-machine → C5; arc net-new → C5 |
-| 16 | Open questions | unresolved → `08` | `08` queue | REV-185…190 |
+| 16 | Open questions | unresolved → `08` | `08` queue | REV-185…196 (incl. 191–194 bet-check · 195–196 thin-spots) |
+
+## §1.5 FRAME PATCH — Verdict B (accepted Nick + Knox 2026-07-06; from the C4-pre bet-check)
+The bet adjudication (`v4_C4_pre_bet_adjudication_packet.md` §6) + Strategic Bet Memo (`v4_C4_pre_strategic_bet_memo_ai_native_care.md`) survived all six breaker-trials. **Foreground these in the TOP-LEVEL "what OMNI is" (rows 0–1), NOT buried in Federation/surfaces:**
+- **The MEMBRANE LAW (5 faces) — "preserved without extraction":** patients get continuity without captivity · operators get alpha without leakage · external agents get open rails without authority · OMNI gets platform learning without extraction · OMNI gets model capability without alpha surrender. **The sharpest single articulation of the category → §0 one-sentence + §1 core.**
+- **Boundary-fluid / dimensionality-aware governed care:** one patient identity · one governed context · MANY computed regimes (cash↔insurance · wellness↔medical · procedure↔consult · retail↔care · local↔referral · request↔indication · AI-suggestion↔commit); light when simple, governed-federation when multi-actor/ambiguous/longitudinal/procedural/high-risk; dimensionality DISCOVERED not fixed. → §1 core + §4 (Sense-Act) + §2 (topology).
+- **The alpha (fractal + firewall):** operator alpha-without-leakage + operator-private-alpha vs platform-generalizable-learning (L0–L5 ladder) + the AI Alpha Firewall (data-class routing; scalpel not straitjacket). → §1 core + §3b (business) + §9 (P35) + §6/§11 (AI/security).
+- **Agent-native edge / open-rails-closed-authority membrane:** every in/out edge (patient/clinic/payer/vendor/regulator/OMNI-own agents) governed; connect freely, commit only past authority. → §10 (Federation boundary) + §13 (surfaces) + §5 (CNS).
+- **Non-goals (§0):** NOT a crown/god-domain · NOT captive-continuity (anti-Epic-lock-in) · NOT the generalist life-context layer · NOT a 2001 EMR · NOT generic interop (Zapier-for-PHI).
+
+**★ The spine names NO wedge.** Derm / medspa / wellness are GTM/C5 decisions (seed OPEN, `08` REV-191) — the spine states the universal boundary-fluid nature; downstream decides where to prove it first. **Absorb the FRAME, not the seed.** New primary inputs for rows 0–1: `v4_C4_pre_strategic_bet_memo_ai_native_care.md` · `v4_C4_pre_bet_adjudication_packet.md` · watch-list WI10–WI13.
 
 ## §2 C3.1 covered-thin guard (must be VISIBLY placed — not buried)
 - **Prove/Learn + effect-sensing** → §4 + §14 (not collapsed into "feedback loop").

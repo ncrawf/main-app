@@ -12,7 +12,7 @@ A fresh v4 authoring agent boots without this conversation's context. Before it 
 - **Method:** C3 ratification note · C3.1 lens audit · **C4.0 Depth Protocol** · this runway package (`v4_C4_spine_authoring_plan` · `…spine_shape_plan` · `…thesis_synthesis_plan` · `…thesis_shape_plan`).
 - **Frame:** ORIENTATION-2026-06-10 §2 (execution substrate) + v3 integrated spine §0 + v2 preservation source.
 - **Pressure inputs (via their artifact-use maps, NOT as the frame):** C3.5 `G4 §11` · C3.6 `G §8.5` · C3.7 `G §7`; **REV-184** — §0 is **canonical for claims/spine-lines**; §1–§R3.x are **derivation/evidence** (consult when building a C4.0 Depth Packet for the governed-resolution section; never resurrect superseded Round-1 clinical-only framing).
-- **`08`** REV-179…190 (REV-184 CLOSED; others open inputs).
+- **`08`** REV-179…196 (REV-184 CLOSED; others open inputs; **191–194 = C4-pre bet-check · 195–196 = thin-spots [care-harm loop · death/succession]**).
 
 ## §2 The Readiness Note the fresh agent MUST produce (then Nick + Knox review)
 The agent writes a short note demonstrating, in its OWN words:
