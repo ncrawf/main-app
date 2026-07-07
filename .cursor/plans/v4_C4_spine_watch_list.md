@@ -575,7 +575,7 @@ That is how OMNI earns money without betraying the trust layer it needs to win.
 ## §3b CAPTURED — the Knox trifecta discussion (status: DONE 2026-07-04)
 The full Knox chat behind these watch items **is captured** (Nick pasted it inline below §1 and §2, demarcated as **CAPTURED RATIONALE — evidence, hostile-by-default `GRD-039`, NOT doctrine**). Its load-bearing points are distilled into Watch Items 1–3.
 - **Raw-chat normalization** to the Evidence Plane (`ingestion/`) with a global `EVSRC` id = **optional promotion hygiene, deferred** (mirrors the CEO-transcript handling — not done now to avoid file proliferation; the demarcated inline capture is the holding location).
-- **Gate (unchanged):** v4 spine draft 0 does NOT start until this list is CLOSED (Nick + Knox) — more "final final" items may still be appended. This list is the container.
+- **Gate (REFRAMED 2026-07-06 — Nick + Knox):** Draft 0 STARTS NOW; this list is no longer a pre-draft blocker. Every item is dispositioned DURING the per-section chunked worktables + the post-draft pressure pass (that IS the `GRD-043` acceptance gate — no unrouted item at Draft-0 acceptance). More "final final" items may still be appended (post-Draft-0 = deltas). This list is the container. See handoff §3 THE BUILD PLAN.
 - **Routing:** where a watch item needs a genuine decision (e.g. which value-loop the front-door/exchange revenue rides — Watch Item 2), open an `08` row at spine authoring; otherwise the spine author routes each like a G4 finding.
 
 ---
