@@ -35,6 +35,16 @@ CNS is the **Coordination layer (§3.7 Layer 3)**: it turns source events into c
 
 *"Workstreams have operators. Patients have coherence. Networks have governance."* (§7.6) · candidate ≠ commit (DL-14/DL-16) · AI proposes / humans commit (§12.8) · projection ≠ authority · CNS is scoped, not omniscient.
 
+### §2.1 CNS ↔ Polaris ↔ AI-substrate (relationship LOCK — trifecta-ratified 2026-07-06; full note in `v4_C4_1_omni_polaris_product_surface_and_alignment_core.md` §1a; register CP2)
+
+CNS is **MOTION** (orchestration/coordination). It is NOT Polaris, NOT the AI model, and NOT renamed Polaris. Distinct roles:
+- **CNS** = orchestration control plane (this contract): routes candidates through resolver/policy/authority → owning-domain commit.
+- **AI substrate (§B)** = the capability layer (models/tools/harness) CNS *uses* to generate candidates — capability, never authority.
+- **Polaris** = the **cross-cutting alignment/trust/proof composition** — the newly-*named* enterprise/proof layer (strategically new as a NAME; not a new owner/mechanism) that packages `source_authority_map` · RBAC · REV-184 · semantic reconciliation [WI6] · D7 · legal overlays [WI4] · capability/model envelopes · proof · projection≠authority (≈ thesis §A+§B). CNS's `resolver/policy/authority` step (§10) *is* CNS **resolving candidates through the Polaris-named constraint stack** — **NOT calling a central Polaris service, and Polaris is NOT contained by CNS** (it also constrains surfaces, projections, external/agent edges, model calls, semantic reconciliation, Build-OS, data-value). **Polaris COMPOSES; it does not enforce by itself** — the owners enforce (RBAC/D7/domains/REV-184/…); Polaris has no objects of its own (`GRD-026`/`GRD-035`).
+- **Domains** = commit truth.
+
+CNS *uses/consults* Polaris; Polaris is broader than CNS. Daily verb = **OMNI**; boardroom trust line = **"OMNI is powered by Polaris."** (Do not rename CNS; do not make Polaris a domain/agent/sovereign-brain.)
+
 ## §3 The CNS scope model (THE core — current canonical model = 3 enterprise scope categories; new categories require explicit doctrine promotion, not drift)
 
 | Scope category | Action discipline | Instances |
