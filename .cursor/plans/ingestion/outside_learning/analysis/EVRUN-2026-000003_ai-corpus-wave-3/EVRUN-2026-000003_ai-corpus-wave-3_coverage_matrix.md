@@ -1,0 +1,80 @@
+# EVRUN-2026-000003 · ai-corpus wave-3 — COVERAGE MATRIX
+
+Tracks which of the wave-3 sources (`EVSRC-2026-000201…000246`) are represented in the concept registry. Status per source: `scaffolded` (file exists, awaiting paste) → `pasted` (transcript + Knox read in) → `covered` (Review 003 written + folded to registry) → `weak` (thin, revisit) → `void_duplicate` (content deleted).
+**Status:** shell created 2026-07-07. **★★ WAVE FULLY COMPLETE + RECONCILED 2026-07-08 — Scaffolded 50 (201–250) · Covered 50 · 48 distinct · 0 pending · wave-close reconciliation DONE (≈92 raw → ≈31 genuine net-new; §C1-Conformance below = passable)** (**218/226 = voided-duplicate**). All 45 video sources (201–245) processed with two-tier reads folded to the registry. **★★ ALL 50 SCAFFOLDS PROCESSED + RECONCILED** — 246 (Anthropic article) + 247–250 (enterprise CEO interviews) done 2026-07-08 (~0 net-new each). Wave-close reconciliation DONE.
+
+### §C1-Conformance — verification pass (2026-07-08, mirrors wave-2)
+- ✅ **50/50 scaffolds processed** (`201–250`); 48 distinct covered, 2 exact voided-dups (218→217, 226→201), 0 pending. Verified by registry §1 batch tables + §1A per-source anchors.
+- ✅ **Wave-close reconciliation held (registry-to-registry):** every wave-3 net-new candidate re-checked NAME+meaning vs `EVRUN-000001 §2A` (A–J) + `EVRUN-000002 §2A` (090–199); **≈92 raw → ≈31 GENUINE-NET-NEW** (≈15 duplicate-of · ≈33 sharpen-of · ≈6 within-wave-dup · ≈11 defer-to-authoring), each DUPLICATE/SHARPEN citing a prior mint. Corrections logged where per-source dedup over-counted vs baseline (crypto-agility/PQC→wave-2 100, ai_gateway/llm-judge/prefix-cache/capability-placement→prior mints). **No canon adjudication performed — that is the spine author's job (authoring gate).**
+- ✅ **No sidecar / `extractions/` files;** registry §1 / §1A / §2 / §2R / §3 Tension Register (T1–T17, all routed `GRD-043`) / coverage matrix / anchor ledger all synced.
+- ✅ **Dedup-vs-prior held** — cumulative baseline (000001 + 000002) intact; nothing re-minted.
+- ⚠️ **Residual (accepted, NOT a failure):** ≈11 DEFER-TO-AUTHORING candidates map to OMNI thesis/contract/REV-199/Settings PROSE → resolve at spine authoring, not registry-matchable. Metadata-TK cosmetic flags on 230/236/239. 242's exact member names live in `EVSRC-000242` §3 (registry lists illustratively).
+- **Verdict:** reconciliation carried out to the wave-2 C1 method; genuine net-new set bounded + auditable. **Reconciliation GATE = passable.** NEXT = downstream treatment per handoff (PROPOSE-ONLY; nothing promoted). 237–239 subagent-extracted, Opus-main folded. **237 = the primary Google white paper** (now captured; 6 figures preserved at `EVSRC-2026-000237_figures/`); 236 is its video commentary. **238/239 = the OKF (Open Knowledge Format) pair** (238 commentary → 239 primary spec). Metadata-TK (transcript/repo-derived, awaiting operator paste): **230, 236** (239 url✅ resolved by operator 2026-07-08 → org = Google Cloud Platform confirmed; authors/date still TK, no Knox read). ⚑ 234 = external Databricks "Omnigent" (≠ internal OMNI). Cumulative baseline: `EVRUN-2026-000001` §2A + `EVRUN-2026-000002` registry.
+**Controlling plan:** `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` (HOME). This run = the ONE pre-Draft-0 wave (2026-07-06 BUILD PLAN step 1).
+
+## Summary
+- **★★ WAVE-3 FULLY COMPLETE — Covered: 50 / 50** (`000201…000250`) · **48 distinct covered** · **Pending: 0** · **Voided-duplicate: 2** (`218`, `226`) · Weak: 0. *(246 Anthropic article + 247–250 enterprise CEO interviews all processed 2026-07-08.)*
+  - 201 Satya/CS153 frontier-ecosystem (full_semantic, §B/enterprise-frame) · 202 AI-code-refactoring loop (medium, Build-OS) · 203 IBM Q-Day/PQC (medium-full, §C — C3.1 crypto half) · 204 KV-cache/paged-attention (medium-full, §B runtime) · **205 promptware kill-chain (full_semantic, §C — NEW AI-security dimension; the batch's spine source)** · 206 MoE orchestration/token-economics (full, §B/BIZOPS) · 207 data-science periodic table (vocabulary, **watch**) · 208 AI-native SDLC (full, Build-OS; superset of 202) · 209 3-2-1-1-0 backup/DR (medium, §C — C3.1 backup half) · 210 AI-agents-IRL coordination-layers (full, CNS spine-affirmer).
+  - 211 Kagenti/confused-deputy (full_semantic, §A/§C — **authorization-plumbing SPINE**) · 212 AI-pair-programming (medium, Build-OS) · 213 design-systems+MCP (medium, Build-OS/Surface) · 214 agentic-AI-scaling (full, CNS anti-god-agent) · 215 Harbor+LangSmith agent-eval (full_semantic, **Build-OS agent-eval SPINE**) · 216 LangSmith-Engine self-improving loop (full_semantic, **REV-199 reflexive-build MECHANISM**).
+  - 217 Harbor×LangChain eval stack (full_semantic, Build-OS eval; near-twin of 215) · 218 **EXACT DUPLICATE of 217** (same video) · 219 OpenWiki repo-docs agent (full, Build-OS/REV-199) · 220 RLMs in Deep Agents (full, §B recursion mechanic).
+  - 221 GLM5.2+dcode (medium, §B bundles) · 222 Pendo/Novus×LangSmith (medium, product-eval) · 223 LATAM Cosmos/Compass (full_semantic, enterprise-ops — "product is the intelligence") · 224 Dynamic Subagents (full, orchestration patterns) · 225 Levie/Box×Chase (full, adoption capstone) · 226 **EXACT DUP of 201** · 227 LangSmith-Engine+Context-Hub (full_semantic, **agent MEMORY model**) · 228 Clay 350M GTM agents (full_semantic, **market-scale runtime/backpressure**) · 229 voice agents (full, modality adapter) · 230 Chime "Jade" (full, **authority-authors-evals + llm-as-judge → fills T6**).
+  - 231 Sierra simpler-agents (full_semantic, **monolith-first counter-pole to 214**) · 232 Andrew Ng (full, enterprise capstone + **agent-ready data-layer**) · 233 Google Agents CLI+Skills (medium) · 234 Databricks "Omnigent" meta-harness (full; ⚑name-collision) · 235 loop-vs-harness (full, convergence) · 236 Google AI-coding masterclass (vocabulary; ⚑metadata-TK + white-paper-pending).
+  - 237 Google "New SDLC With Vibe Coding" (full, **PRIMARY paper**, 6 figures preserved; ~0 net-new, authority+figures) · 238 OKF explainer (Cole Medin, vocabulary) · 239 Open Knowledge Format v0.1 spec (**PRIMARY**, vocabulary; ⚑repo/metadata-TK).
+  - 240 Cole-Medin 5-levels (vocabulary; ~0 frame) · 241 Logan Kilpatrick "model eats harness" (spine counter-pole) · 242 Simile behavioral-simulation (**orthogonal new axis**; watch) · 243 Engram memory/continual-learning (**SPINE**) · 244 Dylan Patel co-design economics (spine-AFFIRMER) · 245 Rohan Sinha trustworthy-autonomy (**SPINE**; 2 new legs: semantic-anomaly + counterfactual-attribution).
+  - **Wave yield: ~60 confirmed + ~32 candidate (240–245) = ~92 raw net-new** (43 distinct sources); **17 tensions T1–T17** (all routed). ★ net-new heavily inflated/candidate — reconciliation pass collapses to genuine set. Care-critical/spine standouts: 230 `llm_as_judge_evaluator`, 227 `memory_authority_state`, 232 `agent_ready_unstructured_data_substrate`, **243 `internalize_externalize_policy`** (PHI-stays-external), **245 `semantic_anomaly_detection` + `counterfactual_data_attribution`**. Care-critical standouts: 230 `llm_as_judge_evaluator`/`owner_authored_risk_definition`, 227 `memory_authority_state`, 232 `agent_ready_unstructured_data_substrate`. ★ 237/238/239 are the strongest reflexive mirror: the industry (Google/OKF) is standardizing OMNI's own evidence-plane/read-graph/passport pattern — net-new leg = cross-org PORTABILITY (`knowledge_interchange_format`); T12 = OKF-no-central-authority vs OMNI-mandatory-passport (OMNI governance wins for truth).
+  - **Wave yield so far (superseded line): ~34 net-new primitives** (heavily §C/§A-security 205/211/209/203 + Build-OS-eval/reflexive 215/216 + §B-runtime 204/206); **8 tensions T1–T8** (all routed, none unresolved). Zero-mechanism/vocabulary sources: 201, 202, 207, 210, 212, 213. **Co-heaviest homes: §C/§A Security + Build-OS/Agent-Eval.** ★ Keystone: the agent RUNTIME is a governed, isolatable, provable resource (cache/memory/credential/eval/write-access isolation across 204·205·211·215·216).
+- Each source gets: §1 transcript (Nick) + §3 Review 001 (Knox) + §3 Review 003 (Opus, incl. the two-axis reality-check: `doctrine_status` + `build_status`) → folded to registry.
+
+## Per-source status
+| EVSRC | slug | status |
+|---|---|---|
+| `000201` | satya-nadella-stanford-cs153-frontier-ecosystem | `covered` (full_semantic; §B/Reservoirs/Build-OS spine-vocabulary + doctrine→build gap ledger; 11 AFFIRM·absent; ~0 net-new doctrine) |
+| `000202` | ai-code-refactoring-agentic-loop | `covered` (medium; Build-OS/Agent-Work-Protocol refactor-loop vocabulary; 7 AFFIRM·absent; 0 net-new) |
+| `000203` | ibm-security-intelligence-q-day-post-quantum-cryptography | `covered` (medium-full; §C classic-infra-security — fills C3.1 covered-thin; 5 net-new §C primitives; links 08 REV-181) |
+| `000204` | kv-cache-paged-attention-llm-inference | `covered` (medium-full; §B inference-runtime economics; 3 net-new §B primitives + T1 prefix-cache-boundary tension) |
+| `000205` | promptware-kill-chain | `covered` (full_semantic; §C AI-security SPINE — promptware kill-chain; ~8 net-new §C; T2 infected-memory) |
+| `000206` | moe-orchestration-token-economics | `covered` (full; §B/BIZOPS model-routing + outcome-per-token; 3 net-new; T3) |
+| `000207` | data-science-periodic-table | `covered` (vocabulary/**watch**; eval-method taxonomy; 0 spine net-new; companion to 000082) |
+| `000208` | ai-native-sdlc-redesign | `covered` (full; Build-OS/Agent-Work-Protocol; superset of 000202; 2 net-new) |
+| `000209` | 3-2-1-backup-rule-data-resilience-disaster-recovery | `covered` (medium; §C backup/DR — C3.1 backup half w/ 203; 3 net-new §C/DR) |
+| `000210` | ai-agents-real-world-coordination-layers | `covered` (full; CNS spine-affirmer; 0 net-new mechanisms; T4 HITL) |
+| `000211` | kagenti-multi-agent-security-confused-deputy | `covered` (full_semantic; §A/§C authorization-plumbing SPINE; ~4 net-new; pairs w/ 205) |
+| `000212` | ai-pair-programming-developer-inner-loop | `covered` (medium; Build-OS inner-loop AFFIRM; 0 net-new) |
+| `000213` | bridging-design-systems-code-mcp-ai-agents | `covered` (medium; Build-OS/Surface context-delivery; 0 net-new; twin of 205) |
+| `000214` | agentic-ai-scaling-bounded-responsibility | `covered` (full; CNS anti-god-agent AFFIRM; 1 net-new) |
+| `000215` | harbor-langsmith-agent-eval-pipeline | `covered` (full_semantic; Build-OS agent-eval SPINE; 2 net-new; T5/T6) |
+| `000216` | langsmith-engine-self-improving-agent-loop | `covered` (full_semantic; REV-199 reflexive-build MECHANISM; ~5 net-new; T7/T8) |
+| `000217` | harbor-langchain-unified-agent-eval-stack | `covered` (full_semantic; Build-OS eval; near-twin of 215; 1 net-new `agent_manifest`) |
+| `000218` | harbor-langchain-agent-eval-stack-dup | `void_duplicate` (**exact-duplicate of 217**; content DELETED per operator 2026-07-08; slot left empty, not reclaimed; net-new attributed to 217) |
+| `000219` | openwiki-agent-readable-repo-docs | `covered` (full; Build-OS/REV-199; 1 net-new `git_history_to_context_loop`) |
+| `000220` | rlm-deep-agents-recursive-orchestration | `covered` (full; §B recursion mechanic; 1 net-new `deterministic_coverage_mode`) |
+| `000221` | glm-5-2-dcode-model-agnostic-coding-agent | `covered` (medium; §B model-bundles; 0 mech) |
+| `000222` | pendo-novus-langsmith-product-trace-to-eval-loop | `covered` (medium; product-behavior telemetry plane) |
+| `000223` | latam-airlines-cosmos-compass-conversation-intelligence | `covered` (full_semantic; enterprise-ops; 2 net-new incl. out_of_scope_as_product_gap) |
+| `000224` | dynamic-subagents-deep-agents-parallel-orchestration | `covered` (full; orchestration patterns on 220; typed_subagent_result_contract) |
+| `000225` | aaron-levie-box-enterprise-ai-adoption-gap | `covered` (full; enterprise-adoption capstone; near-twin of 201) |
+| `000226` | satya-nadella-cs153-frontier-ecosystem-dup-of-201 | `void_duplicate` (**exact-duplicate of 201**; content DELETED per operator 2026-07-08; slot left empty, not reclaimed; net-new attributed to 201) |
+| `000227` | langsmith-engine-context-hub-agent-memory | `covered` (full_semantic; agent MEMORY model; ~3 net-new incl. memory_authority_state) |
+| `000228` | clay-350m-gtm-agents-market-scale-runtime | `covered` (full_semantic; market-scale runtime; 3 net-new incl. adaptive_inference_backpressure) |
+| `000229` | voice-agent-modality-adapter | `covered` (full; voice modality pipeline; ~2 net-new modality leg) |
+| `000230` | chime-jade-legal-writes-evals | `covered` (full; authority-authors-evals + llm_as_judge → fills T6; 4 net-new) — **⚑ metadata TK (no operator block)** |
+| `000231` | sierra-lifecycle-agents-simpler-is-better | `covered` (full_semantic, 30 clusters; **monolith-first counter-pole to 214**; ~5 net-new) |
+| `000232` | andrew-ng-interrupt26-coding-agents-enterprise-ai | `covered` (full; enterprise capstone; 1 net-new `agent_ready_unstructured_data_substrate`) |
+| `000233` | google-agents-cli-cli-plus-skills | `covered` (medium; Build-OS harness tactics; 2 net-new) |
+| `000234` | omnigent-databricks-meta-harness-orchestration | `covered` (full; Build-OS AFFIRMER; 0 mech; ⚑external "Omnigent"≠OMNI) |
+| `000235` | loop-vs-harness-engineering | `covered` (full; convergence AFFIRM; 0 mech) |
+| `000236` | google-ai-coding-masterclass-harness-sdlc | `covered` (vocabulary; convergence/commentary; 0 mech; ⚑metadata-TK + Google white paper = separate source pending) |
+| `000237` | google-day1-new-sdlc-vibe-coding-whitepaper | `covered` (full, **PRIMARY Google paper**; 24 clusters + 6 preserved figures at `EVSRC-2026-000237_figures/`; ~0 net-new — authority + figure anchors; sibling of 236) |
+| `000238` | open-knowledge-format-karpathy-llm-wiki | `covered` (vocabulary; OKF explainer/commentary; ~1 net-new portability leg; sibling of 239) |
+| `000239` | open-knowledge-format-okf-spec | `covered` (vocabulary, **PRIMARY OKF spec** — `GoogleCloudPlatform/knowledge-catalog`, official Google; `knowledge_interchange_format` + T12; url✅ resolved, authors/date TK, no Knox read) |
+| `000240` | cole-medin-five-levels-ai-coding-harness-dark-factory | `covered` (vocabulary; 5-levels/trust-ladder; ~0 net-new frame) |
+| `000241` | logan-kilpatrick-model-eats-the-harness | `covered` (spine/strategy; harness-alpha-decays counter-pole; ⚑Google "Omni" name-collision) |
+| `000242` | simile-joon-sung-park-human-behavior-simulation | `covered` (**orthogonal new axis** — behavioral simulation; ~11 net-new family, all watch; projection≠truth-bounded) |
+| `000243` | engram-memory-continual-learning | `covered` (**SPINE**; `internalize_externalize_policy` keystone; unifies 204/205/227; PHI-stays-external) |
+| `000244` | dylan-patel-semianalysis-hardware-software-codesign | `covered` (vocabulary/economics; spine-AFFIRMER of runtime-economics+eval legs) |
+| `000245` | rohan-sinha-trustworthy-autonomy-runtime-monitors | `covered` (**SPINE**; 2 new legs — semantic-anomaly monitor + counterfactual data attribution) |
+| `000246` | anthropic-claude-code-best-practices | `covered` (**referenced-artifact from 236 [7:44]**; 15 clusters; ~0 net-new but **`doctrine=AFFIRM · build=PRESENT`** — harness source OMNI has most built; 3 Build-OS gaps: hooks/Stop-gates · headless CI · context-file hygiene) |
+| `000247` | alex-karp-palantir-ownership-ontology | `covered` (**enterprise CEO**; 8 clusters; ~0 net-new — grounds C3.8 tenant-ownership delta, AFFIRMS `GRD-028`/`GRD-033`; pole A of 247↔248 tension) |
+| `000248` | dario-amodei-anthropic-security-no-stickiness | `covered` (**enterprise CEO**; 10 clusters; ~0 net-new [flag `frontier_capability_admission_risk`]; pole B = C3.8 G3 lock-in-vs-quality breaker, grounded) |
+| `000249` | sam-altman-openai-intelligence-as-utility | `covered` (**enterprise CEO**; 14 clusters; ~0 net-new — reconciles 201/228/244/`GRD-033`) |
+| `000250` | jensen-huang-nvidia-continuous-compute-open-security | `covered` (**enterprise CEO**; 12 clusters; ~0 net-new — grounds C3.8 §BATCH3-X/axis-6/§6.6/axis-5/REV-184) |

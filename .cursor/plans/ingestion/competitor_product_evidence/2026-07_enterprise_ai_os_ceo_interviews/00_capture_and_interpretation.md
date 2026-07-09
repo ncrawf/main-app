@@ -4,21 +4,23 @@ Document type: `evidence_capture` (Evidence Plane / `competitor_product_evidence
 Lane rationale (`GRD-037` lane=provenance): provenance = **external CEO strategic interviews** (comparator/competitor companies). Filed by source family, not by topic; concepts are topic-tagged at the row level.
 Trust posture (`GRD-039`): **interested sources — CEO positioning on live TV/stage. High-signal PRESSURE, hostile-by-default, NOT truth.** Learn freely; process-as-data; never execute/adopt without the destination gate.
 Captured: 2026-07-03 (provided in-session by Nick during C3.8/G1b). Analyst: grounded agent (Opus), C3.8 manual G1b run.
-> **★ CLEANUP MARKER (Nick + Knox, 2026-07-03):** CEO transcripts captured as **TEMPORARY competitor/market-strategy evidence**; **final evidence-lane normalization and raw `EVSRC` materialization are OWED before promotion.** Lane/folder choice is provisional governance hygiene — normalize later; not a blocker for G1b/G2.
+> **★ CLEANUP MARKER (Nick + Knox, 2026-07-03) — LANE CORRECTED 2026-07-08.** CEO transcripts were provisionally filed here as competitor/market-strategy evidence. **★ OPERATOR CORRECTION 2026-07-08: these are CEO strategic INTERVIEWS — the SAME genre as the wave-3 `outside_learning` corpus (Satya `000201`, Ng `000232`, Levie `000225`, Kilpatrick `000241`, Patel `000244`), NOT competitor product evidence.** They have been **re-homed to `outside_learning` and materialized as EVSRC source packets `247–250`** (part of `EVRUN-2026-000003` wave-3). This file is now the **C3.8 interpretation-v1 + capture-index**; the immutable source packets live in `outside_learning/sources/2026-07_wave-3/`.
 
-Status: `captured_temporary` — consumed as **corroboration** by `v4_C3_8_G1b_source_concept_reality_map.md` §CORR. **Owed:** (a) full raw-transcript materialization into per-source `EVSRC` files (below); (b) global `EVSRC` id assignment by the lane registry (next after wave-2 199 — do NOT collide); (c) catalog row + read-graph note at promotion (Protocol §5). This file is a **capture-index + versioned interpretation**, not the immutable raw (that materialization is the owed step).
+Status: `captured_temporary` → **materialized + PROCESSED as `outside_learning` EVSRC sources 2026-07-08** (`247–250`, Review 003 written) — consumed as **corroboration** by `v4_C3_8_G1b_source_concept_reality_map.md` §CORR. **Owed status:** (a) raw-transcript paste into §1 of each EVSRC = **still OWED** (transcripts were not preserved; re-fetch from the URLs below); (b) global `EVSRC` id assignment = **DONE (`247–250`, no collision)**; (c) catalog row + read-graph note at promotion = pending. This file = **capture-index + interpretation-v1** (prior analysis to *formalize* into each EVSRC's §3 Review 003 — NOT to author from).
 
 > `GRD-040` note: ideally source(raw)/index/analysis are separate objects. This single file is a proportionate manual capture during a live gate; when the evidence lane formalizes video ingestion, split into: raw `EVSRC` source files + `00_index.md` registry rows + an `EVRUN` analysis run. Flagged, not faked.
 
 ---
 
-## Source registry (provisional refs; real global `EVSRC` ids owed)
-| Ref | Speaker / role | Venue | URL | Provenance/type |
-|---|---|---|---|---|
-| CEO-KARP | Alex Karp — Palantir co-founder/CEO | CNBC interview | https://www.youtube.com/watch?v=0A3sGymV6kY | competitor/comparator CEO; live-TV positioning |
-| CEO-DARIO | Dario Amodei — Anthropic CEO | "Inside Anthropic" interview | https://www.youtube.com/watch?v=x2VHFgyawPE | frontier-lab CEO; long-form interview |
-| CEO-ALTMAN | Sam Altman — OpenAI CEO | Stanford CS class (guest) | https://www.youtube.com/watch?v=F_7M4Hc-usM | frontier-lab CEO; class Q&A |
-| CEO-JENSEN | Jensen Huang — NVIDIA CEO | Stanford class (guest) | https://www.youtube.com/watch?v=tsQB0n0YV3k | compute-platform CEO; class Q&A |
+## Source registry (materialized as `outside_learning` wave-3 EVSRC packets 2026-07-08)
+| Ref | EVSRC (outside_learning wave-3) | Speaker / role | Venue | URL | Provenance/type |
+|---|---|---|---|---|---|
+| CEO-KARP | **`EVSRC-2026-000247`** | Alex Karp — Palantir co-founder/CEO | CNBC interview | https://www.youtube.com/watch?v=0A3sGymV6kY | frontier/enterprise CEO interview; live-TV positioning |
+| CEO-DARIO | **`EVSRC-2026-000248`** | Dario Amodei — Anthropic CEO | "Inside Anthropic" interview | https://www.youtube.com/watch?v=x2VHFgyawPE | frontier-lab CEO; long-form interview |
+| CEO-ALTMAN | **`EVSRC-2026-000249`** | Sam Altman — OpenAI CEO | Stanford CS class (guest) | https://www.youtube.com/watch?v=F_7M4Hc-usM | frontier-lab CEO; class Q&A |
+| CEO-JENSEN | **`EVSRC-2026-000250`** | Jensen Huang — NVIDIA CEO | Stanford class (guest) | https://www.youtube.com/watch?v=tsQB0n0YV3k | compute-platform CEO; class Q&A |
+
+*Each EVSRC §3 links back to the matching §CEO-* interpretation below. ✅ 2026-07-08: §1 raw transcripts pasted + §3 Review 003 written (this interpretation-v1 formalized against them; ~0 net-new — grounding).*
 
 ---
 
@@ -57,4 +59,4 @@ Status: `captured_temporary` — consumed as **corroboration** by `v4_C3_8_G1b_s
 ## Disposition (this capture)
 - **Consumed as corroboration** in G1b §CORR (analysis_nonbinding). **Overturns nothing; sharpens axis 2 + strengthens the axis-6 candidate; surfaces one G3 tension (lock-in vs quality).**
 - **Promotion gated** (`GRD-036`): nothing here changes doctrine/thesis/contracts until routed through G4 + the destination home's review gate.
-- **Owed (not done here):** raw-transcript `EVSRC` materialization + global-id assignment + `00_index.md` lane row + catalog/read-graph at promotion. If we scale video ingestion, run it as a proper `EVRUN` per the lane doctrine (`GRD-040`/`GRD-044`) rather than ad hoc.
+- **Owed status (updated 2026-07-08):** ✅ **DONE** — EVSRC materialization + global-id assignment (`EVSRC-2026-000247…250`, `outside_learning` wave-3 / `EVRUN-2026-000003`) + **raw §1 transcripts pasted + §3 Review 003 written** (this interpretation-v1 formalized against the real transcripts; ~0 net-new each — pure grounding of the C3.8 deltas, cross-linked NOT double-counted). Lane-correction (competitor→outside_learning) resolved. **Remaining:** catalog/read-graph note at promotion (`GRD-036`) — not before v4 spine.
