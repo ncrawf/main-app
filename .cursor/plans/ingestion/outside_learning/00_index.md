@@ -2,6 +2,10 @@
 
 The **authoritative registry** of every Source and Analysis run in this lane. This is the database; the folders are just shelving (`D0THES-GRD-040`). Lane doctrine: `00_pipeline_doctrine.md`. Plane standard (Source/Index/Analysis + global IDs): `../00_evidence_router.md` §4.
 
+## Checkpoint — 2026-07-11
+- **Wave-4 scaffolds created:** `EVSRC-2026-000253…000256` (4 placeholder video source files, provisional `_TK` slugs) in `sources/2026-07_wave-4/`, awaiting Nick's transcript + Knox-read + URL paste (video-by-video). Created per operator directive during the pre-spine physics-of-care continuation (`HANDOFF_2026-07-11…`). **EVRUN to open at processing = `EVRUN-2026-000005`** (settled registry-first two-tier read; cumulative w/ `EVRUN-000001 §2A` + `000002` + `000003` registries) — OR fold into `EVRUN-2026-000003` if a continuation (operator to decide at processing).
+- **Global EVSRC allocation note:** highest across the Evidence Plane is now `000256`. **`EVSRC-2026-000252` is RESERVED** for the pending Task-A care-physics specimen in the `user_operator_research` lane (per `HANDOFF_2026-07-11…`) — do NOT reuse it for a video.
+
 ## Checkpoint — 2026-07-08
 - **Wave-3 processing in progress — 39 covered.** Batches 201–239 processed (two-tier reads folded to `EVRUN-2026-000003` registry/coverage/anchor). Notable: **237** = the primary Google "New SDLC With Vibe Coding" white paper (24 clusters + 6 preserved figures at `EVSRC-2026-000237_figures/`; 236 is its video commentary); **238/239** = the OKF (Open Knowledge Format) pair (`239` = official `GoogleCloudPlatform/knowledge-catalog`, url resolved by operator).
 - **Duplicates voided:** `EVSRC-2026-000218` (dup of 217) and `EVSRC-2026-000226` (dup of 201) had their content **deleted per operator instruction** — slots left empty, NOT reclaimed; status `void_duplicate`.
@@ -80,6 +84,7 @@ The **authoritative registry** of every Source and Analysis run in this lane. Th
 | `EVSRC-2026-000201`…`000245` | 2026-07-07 | varies | YouTube | **Wave-3 high-yield AI corpus — 45 video scaffolds** (39 covered; **218/226 voided-duplicate**; provisional `_TK` slugs firm at processing; in `sources/2026-07_wave-3/`) | varies (same accounts as prior waves; new ~2-week drops) | lecture / interview | varies | mixed (`analyzed` / `raw_dropped` / `void_duplicate`) | per-source | `EVRUN-2026-000003` (open) | — |
 | `EVSRC-2026-000246` | 2026-07-08 | TK | Anthropic docs | **Anthropic "Best practices for Claude Code"** — referenced-artifact from `000236` [7:44]; ~0 net-new, `doctrine=AFFIRM · build=PRESENT` + 3 Build-OS gaps | Anthropic | engineering article | TK | `analyzed` | Build-OS/Agent-Work-Protocol | `EVRUN-2026-000003` (open) | — |
 | `EVSRC-2026-000247`…`000250` | 2026-07-08 (cap. 2026-07-03) | TK | YouTube | **Enterprise CEO interviews — re-homed from C3.8** (Karp/Palantir · Dario/Anthropic · Altman/OpenAI · Jensen/NVIDIA); transcripts pasted + Review 003 written (~0 net-new — grounding); linked to C3.8 capture + G1b §CORR + G4 | Palantir/Anthropic/OpenAI/NVIDIA | interview / Q&A | TK | `analyzed` | per-source | `EVRUN-2026-000003` (open) | — |
+| `EVSRC-2026-000253`…`000256` | 2026-07-11 | varies | YouTube | **Wave-4 video scaffolds — 4 placeholders** (awaiting transcript + Knox-read + URL paste; provisional `_TK` slugs; in `sources/2026-07_wave-4/`; per-source rows individualize at processing) | TK | TK | TK | `raw_dropped` (awaiting paste) | TK (per-source at processing) | `EVRUN-2026-000005` (to open at processing, or fold to `000003`) | — |
 | _(next new source: copy `sources/_SOURCE_TEMPLATE.md` → `sources/<YYYY-MM>/EVSRC-2026-000251_<slug>.md`)_ | | | | | | | | | | | |
 
 ## Analysis runs

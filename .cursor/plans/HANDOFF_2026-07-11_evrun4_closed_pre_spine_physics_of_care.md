@@ -24,7 +24,7 @@ OMNI = one governed contextual care + business execution substrate; Foundation v
 ## 2. NEXT AGENT — the three pre-spine tasks (propose-only)
 
 ### Task A — Additional physics-of-care specimen (another real-world clinical example, nuanced)
-- Capture + decompose another real clinical exchange with nuances, in the **`user_operator_research`** lane. **Next id = `EVSRC-2026-000252`** (scan the whole Evidence Plane +1 to confirm; highest EVSRC currently `000251`).
+- Capture + decompose another real clinical exchange with nuances, in the **`user_operator_research`** lane. **Id = `EVSRC-2026-000252` (RESERVED for this specimen)** — it was deliberately held back when the wave-4 video scaffolds were created (highest EVSRC across the Evidence Plane is now `000256`; `252` is the one reserved gap, noted in `outside_learning/00_index.md` + `user_operator_research/00_index.md`). Use `252`; do NOT reallocate it.
 - Method: same as 251 — §0 metadata + §1 manifest + §2 verbatim (de-identified) + §3 Review 001 (Knox) + Review 003 (Opus physics decomposition). PHI: de-identify before any promotion.
 - Fold genuinely-new mechanics into **`EVRUN-2026-000004`** (append; do NOT bloat the source §3). **§0.5 is the naming/ontology baseline — dedup, don't re-mint.**
 
@@ -36,9 +36,10 @@ The operator flagged a distinct mechanic not yet fully described: **how the AI S
 - **Why it matters:** 251 (provider ↔ ChatGPT-as-3rd-party loop), `EVSRC-000200` (Kyle: friend-as-advisor), `FIELD-001` (Alec) all *point at* this but none fully describes the three-party conversation dynamics + its governance.
 - **Candidate label: "M7 — AI-in-the-loop conversation dynamics" (PROVISIONAL — dedup first).** Before minting anything, reconcile against existing canon: candidate≠commit + `authorized_action` (§7/§8) · §B AI-substrate (AI proposes, never commits) · `provider_nudge_with_authority_preserved` (251 Review 003) · `assumption_invalidation` (the 18→46 error) · the M2 communication-event fabric (view/use/send/commit as distinct events — the "used-by / relied-on / ignored" states may already live here) · `replayable_proof`. The likely finding: this is a SHARPENING of M2 + §B + candidate≠commit, not a new plane — but that must be *established*, not assumed. Describe it as a mechanic to carry into thesis/build; route into EVRUN-000004 (new § or a new mechanic row) or, if it grows, `EVRUN-2026-000005`.
 
-### Task C — Ingest 3 additional videos
-- **`outside_learning`** lane; next ids `EVSRC-2026-000253…000255` (confirm +1 across the Evidence Plane). Settled registry-first two-tier read (`ingestion/outside_learning/00_pipeline_doctrine.md` + the wave-3 method: §3 Review 001 Knox → §1 verbatim → §3 Review 003 Opus → fold to registry; two-axis `doctrine_status × build_status` reality-check).
-- If they form a coherent wave, open **`EVRUN-2026-000005`**; if they're a continuation of wave-3's themes, the operator may prefer folding into the `EVRUN-2026-000003` registry — **ask the operator** which.
+### Task C — Ingest the additional videos  ·  **★ SCAFFOLDS ALREADY MADE (2026-07-11)**
+- **✅ 4 wave-4 video scaffolds already created:** `EVSRC-2026-000253 · 000254 · 000255 · 000256` in `sources/2026-07_wave-4/` (provisional `_TK` slugs, `raw_dropped`, registered in `outside_learning/00_index.md` — checkpoint 2026-07-11 + Sources range-row). *(Operator said "3 additional videos," then "make 4 new video files" — 4 slots stand ready; if only 3 fill, leave the 4th as an empty scaffold or void it, operator's call.)* The next agent does NOT re-create these — just **normalize each** as Nick pastes transcript + Knox-read + URL per video.
+- **`outside_learning`** lane; settled registry-first two-tier read (`ingestion/outside_learning/00_pipeline_doctrine.md` + the wave-3 method: §3 Review 001 Knox → §1 verbatim → §3 Review 003 Opus → fold to registry; two-axis `doctrine_status × build_status` reality-check).
+- If they form a coherent wave, open **`EVRUN-2026-000005`** (the scaffolds already name it as the likely run); if they're a continuation of wave-3's themes, the operator may prefer folding into the `EVRUN-2026-000003` registry — **ask the operator** which.
 
 ## 3. Key artifacts for the next agent
 - **`EVRUN-2026-000004` §0.5** — the settled ontology/naming + disposition ledger (the baseline everything new dedups against). §1–§9.9 = derivation.
@@ -47,7 +48,7 @@ The operator flagged a distinct mechanic not yet fully described: **how the AI S
 - Boot: `AGENTS.md` + read-graph Tier-0 (+ #9a input set, #11 route) + `operator_context_and_collaboration_model.md` + this handoff + the HOME controlling plan.
 
 ## 4. Stop posture (governance)
-Propose-only (`GRD-036`); no promotion; no spine/thesis/C5. **Next allowed action = the three pre-spine physics-of-care tasks above** (A: specimen `EVSRC-252` · B: the conversation-mechanic study · C: 3 videos `EVSRC-253+`). Spine Draft 0 resumes only after the operator says the physics-of-care work is sufficient.
+Propose-only (`GRD-036`); no promotion; no spine/thesis/C5. **Next allowed action = the three pre-spine physics-of-care tasks above** (A: specimen `EVSRC-252` reserved · B: the conversation-mechanic study · C: normalize the 4 wave-4 video scaffolds `EVSRC-253…256` — **already created 2026-07-11**, awaiting Nick's per-video paste). Spine Draft 0 resumes only after the operator says the physics-of-care work is sufficient.
 
 ## 5. Boot-repoint (this closeout)
 AGENTS `## OMNI Operating References` Current Checkpoint Handoff + read-graph Tier-0 #15 + HOME controlling-plan CURRENT STATE banner all repointed to THIS handoff in the same closeout commit (Protocol §8 Checkpoint Closeout Rule). Prior handoffs (07-08 wave-3, 07-04 C3.8) remain valid as historical detail. Boot Freshness Check: the three must name this file; if they disagree, STOP.

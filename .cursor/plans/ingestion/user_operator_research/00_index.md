@@ -22,5 +22,5 @@ Lane status: **live** (first source captured 2026-07-05). Was `latent` placehold
 Artifact: `analysis/EVRUN-2026-000004_async-care-substrate-crystallization/EVRUN-2026-000004_00_run_and_crystallization_map.md`. Owed evidence-ledger/catalog/read-graph rows flagged post-Knox (see run §10).
 
 ## Notes
-- Next global ids: highest `EVSRC` = `000251` (this lane) / `000250` was the wave-3 outside_learning top → **`000251` is the current global max; allocate next = `000252`**. Highest `EVRUN` = `EVRUN-2026-000003` (next = `000004`). Allocate by scanning the whole Evidence Plane (+1).
+- Next global ids: highest `EVSRC` across the whole Evidence Plane = **`000256`** (wave-4 video scaffolds `000253…000256` created 2026-07-11 in `outside_learning/sources/2026-07_wave-4/`). **`EVSRC-2026-000252` is RESERVED for the pending Task-A care-physics specimen in THIS lane** (deliberate gap; see `HANDOFF_2026-07-11…` Task A) — use `252` for it, do NOT reallocate. Any *other* new source scans the whole Evidence Plane +1 (= `000257`). Highest `EVRUN` = `EVRUN-2026-000004` (next = `000005`).
 - Privacy: **both `EVSRC-2026-000200` and `EVSRC-2026-000251` contain identifiable third-party health info (251 = PHI: real prospective patient + TRT + labs)** — de-identify before any promotion (see each `_source.md` privacy flag).
