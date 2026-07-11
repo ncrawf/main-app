@@ -91,6 +91,7 @@ The v4 source base **starts as the v3 §0 Canonical Source Stack, unchanged.** R
 - [x] **2026-06 bucket** (the 42 source captures behind EVRUN-000001).
 - [x] **Competitor evidence (Lens-A):** `competitor_product_evidence/mindbody/*` + `hims/_pressure_test_main_vs_hims`.
 - [x] **Orientation:** `ORIENTATION-2026-06-10_…v4-refocus` (★ high-yield, **pressure not canon**).
+- [x] **User/operator research + async-care crystallization:** `ingestion/user_operator_research/` — `EVSRC-2026-000251` (the canonical TRT + ChatGPT-loop async-care specimen) + `EVSRC-2026-000200` (Kyle pre-clinical) + analysis run **`EVRUN-2026-000004`** (async-care substrate cross-arc crystallization; its **§0.5 SETTLED STATE** = the disposition ledger the spine author consults — identity/boundary/resolution ontology + the async-care build mandate). `analysis_nonbinding` (`GRD-036`); also in read-graph #9a input set.
 
 ### Cat 7 — Repo / Foundry / future-build (the "repo plans")  (net-new vs v3 §0; same estate, declared for the gate)
 - [x] `foundation_vnext_reconciliation.plan.md` + `HANDOFF_2026-05-30_foundation_vnext_pivot` (the vNext pivot that drives contract sequence).

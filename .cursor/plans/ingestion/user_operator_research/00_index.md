@@ -15,7 +15,11 @@ Lane status: **live** (first source captured 2026-07-05). Was `latent` placehold
 
 ## Analysis runs
 
-*(none yet — 200 + 251 captured as single field specimens. ⚑ `EVSRC-2026-000251` (canonical TRT exchange) may warrant a dedicated `EVRUN-2026-000004` "substrate-physics decomposition" once both threads are pasted + the trifecta physics pass runs — its analysis is heavier than a §3 note. Open per `GRD-040`/`GRD-044` if it grows.)*
+| EVRUN id | opened | scope | primary specimen | status | promotion |
+|---|---|---|---|---|---|
+| `EVRUN-2026-000004` | 2026-07-09 | **Canonical Async-Care Substrate: Cross-Arc Crystallization** — reconciles the `EVSRC-251` physics decomposition (M1–M6 mechanics) against the full accepted estate (thesis v3-integrated · contracts/maps · C3.5/6/7 arcs · C3.8 enterprise/Palantir · C4 bet/watch/Polaris · Phase-4H messaging); per-mechanic coverage map + import list + Relationship/Subject verdict + broad-awareness 3-radius decision + routing-to-CNS-framework | `EVSRC-2026-000251` (+ siblings `EVSRC-2026-000200` Kyle, `FIELD-001` Alec) | `analyzed_draft` → **trifecta next** | `not_promoted` (`GRD-036`) |
+
+Artifact: `analysis/EVRUN-2026-000004_async-care-substrate-crystallization/EVRUN-2026-000004_00_run_and_crystallization_map.md`. Owed evidence-ledger/catalog/read-graph rows flagged post-Knox (see run §10).
 
 ## Notes
 - Next global ids: highest `EVSRC` = `000251` (this lane) / `000250` was the wave-3 outside_learning top → **`000251` is the current global max; allocate next = `000252`**. Highest `EVRUN` = `EVRUN-2026-000003` (next = `000004`). Allocate by scanning the whole Evidence Plane (+1).
