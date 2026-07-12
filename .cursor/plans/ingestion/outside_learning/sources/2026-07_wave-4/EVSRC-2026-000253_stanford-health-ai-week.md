@@ -1,7 +1,7 @@
 # EVSRC-2026-000253 — <title or TK>
 
 Document type: `source_capture` · Lane / reservoir: `outside_learning`
-**Status:** `raw_dropped` → `normalized` → `reviewed` → `analyzed` → `promoted | deferred`  ·  **current: `raw_dropped` (SCAFFOLD — awaiting transcript + Knox-read + URL paste)**
+**Status:** `raw_dropped` → `normalized` → `reviewed` → `analyzed` → `promoted | deferred`  ·  **current: `analyzed` (Review 003 written 2026-07-11; folded to `EVRUN-2026-000005`; propose-only)**
 Authority: `evidence_nonbinding` — captured source + interpretations only; binds nothing until routed + promoted.
 
 > **HOW TO USE THIS FILE — two kinds of marks:**
@@ -11,18 +11,22 @@ Authority: `evidence_nonbinding` — captured source + interpretations only; bin
 >
 > **Per-source flow (the standard):** Nick pastes transcript (§1) + Knox's strategic read (§3 **Review 001** — AS-IS) + optional gut note (§3 Review 002). Then Opus writes **§3 Review 003 — formal deep extraction** (formalizing Review 001, NOT rediscovering it), updates the run's **concept registry**, coverage matrix, and fills **§4 pointers** at closeout. Deep read lives HERE in §3 — never a sidecar (`GRD-044`).
 
-## §0 — Source identity / metadata  *(normalizer fills from the screenshot — leave `TK`)*
-- evsrc_id: `EVSRC-2026-000253`  ·  filename: `EVSRC-2026-000253_TK.md` *(rename to `_<slug>` at processing)*
-- source_platform: `YouTube`  ·  source_url: `TK`  ·  source_title: `TK`
-- channel_or_org: `TK`  ·  speaker: `TK`  ·  published_at: `TK`
-- captured_at: `2026-07-11`  ·  captured_by: `Nick`  ·  capture_method: `transcript paste + screenshot`
-- content_type: `TK`  ·  source_reliability_context: `academic | practitioner | vendor | founder | investor | security-researcher | unknown`  ·  topic_tags_light: `[TK]`
+## §0 — Source identity / metadata  *(normalized by Opus from Knox §3 rough-metadata + transcript)*
+- evsrc_id: `EVSRC-2026-000253`  ·  filename: `EVSRC-2026-000253_stanford-health-ai-week.md` *(renamed from `_TK` 2026-07-11 wave-close)*
+- source_platform: `YouTube`  ·  source_url: `https://www.youtube.com/watch?v=y81IfY-Cc1U`  ·  source_title: `Live from Stanford Health AI Week`
+- channel_or_org: `Stanford Online / Stanford Medicine Health AI Week`  ·  speaker: `Matt Lungren + Justin Norden (hosts) with Sue Sheridan, Chris Boerner, Kimberly Powell, Ed Kim, Arati Prabhakar`  ·  published_at: `2026-07-09`
+- captured_at: `2026-07-11`  ·  captured_by: `Nick`  ·  capture_method: `transcript paste + screenshot + YouTube URL`
+- content_type: `multi-speaker interview compilation / event coverage (~1h36m)`  ·  source_reliability_context: `mixed high-authority — patient-safety leader · pharma CEO · infra vendor exec · oncology system physician · former federal science adviser (treat vendor/predictive claims as examples)`  ·  topic_tags_light: `[patient_AI, diagnostic_safety, patient_reported_outcomes, longitudinal_context, AI_adoption, shadow_AI, ROI_measurement, hybrid_capability_placement, agent_harness, data_readiness, clinical_trials, trial_matching, provider_workforce, patient_empowerment, evidence, knowing_doing_gap]`
 
-## §0.1 — People / authorship / authority context  *(normalizer fills from screenshot + description + transcript)*
+## §0.1 — People / authorship / authority context
 - primary speaker(s):
-  - name: `TK` · role_in_source: `TK` · affiliation_at_publication: `TK` · speaker_type: `TK` · authority_context: `TK` · identity_confidence: `TK`
-- publisher / channel: `TK`  ·  interviewer / moderator / host: `TK`
-- event_context: `TK`  ·  perspective / conflict notes: `TK`
+  - name: `Sue Sheridan` · role_in_source: `interviewee` · affiliation_at_publication: `Patients for Patient Safety US (President/CEO)` · speaker_type: `patient-safety advocate/operator` · authority_context: `demand-side + lived diagnostic-failure authority; NOT model/systems evaluator` · identity_confidence: `high`
+  - name: `Chris Boerner` · role_in_source: `interviewee` · affiliation_at_publication: `Bristol Myers Squibb (Board Chair/CEO)` · speaker_type: `enterprise operator (regulated pharma)` · authority_context: `enterprise change-mgmt, shadow-AI, ROI, capital allocation` · identity_confidence: `high`
+  - name: `Kimberly Powell` · role_in_source: `interviewee` · affiliation_at_publication: `NVIDIA (VP Healthcare)` · speaker_type: `infrastructure vendor exec` · authority_context: `hybrid/edge placement, harness, domain models — vendor incentives noted` · identity_confidence: `high`
+  - name: `Ed Kim` · role_in_source: `interviewee` · affiliation_at_publication: `City of Hope Orange County (Physician-in-Chief/SVP)` · speaker_type: `oncology + trial-system operator` · authority_context: `trial access/accrual, frontline burden — highest-value operational segment` · identity_confidence: `high`
+  - name: `Arati Prabhakar` · role_in_source: `interviewee` · affiliation_at_publication: `former Director, White House OSTP` · speaker_type: `science-policy leader` · authority_context: `national R&D, institutional trust, labor timelines — the techno-optimism counterweight` · identity_confidence: `high`
+- publisher / channel: `Stanford Online / Stanford Medicine Health AI Week`  ·  interviewer / moderator / host: `Matt Lungren + Justin Norden (Stanford Medicine healthcare-AI)`
+- event_context: `anthology of 5 recorded interviews from Stanford Medicine Health AI Week — 5 authority lenses on one question (where healthcare AI produces value, what constrains it, what must change)`  ·  perspective / conflict notes: `institutionally pro-AI/optimistic venue; value = contrast among speakers, do NOT flatten to one consensus voice`
 
 > **Authority is descriptive, not worship** (`GRD-039`): record *who* said it, but every claim still routes through evidence → interpretation → gated promotion.
 
@@ -1927,391 +1931,531 @@ captured_at: 2026-07-11
 capture_method: YouTube URL + screenshot metadata + full transcript paste
 content_type: multi-speaker interview compilation / event coverage
 duration: approximately 1h 36m
-source_reliability_context:
-  academic_hosted_multi_authority:
-    - patient_advocate
-    - healthcare_executive
-    - infrastructure_vendor
-    - clinician_research_leader
-    - science_policy_leader
-topic_tags_light:
-  - patient_side_ai
-  - diagnostic_safety
-  - patient_reported_outcomes
-  - enterprise_ai_adoption
-  - shadow_ai
-  - agent_harness
-  - hybrid_edge_runtime
-  - clinical_trials
-  - research_infrastructure
-  - workforce_change
-  - ai_measurement
+1. Rough metadata
 
-The source is a sequence of five interviews recorded at Stanford Medicine’s Health AI Week rather than one continuous argument, so the formal extractor should preserve speaker-local claims and authority rather than flattening the video into one unified Stanford position.
+source_platform: YouTube · source_url: https://www.youtube.com/watch?v=y81IfY-Cc1U · source_title: Live from Stanford Health AI Week · channel_or_org: Stanford Online / Stanford Medicine Health AI Week · speaker: Matt Lungren and Justin Norden with Sue Sheridan, Chris Boerner, Kimberly Powell, Ed Kim, and Arati Prabhakar · published_at: Jul 9, 2026 · captured_at: 2026-07-11 · capture_method: YouTube screenshot + pasted full transcript · content_type: multi-interview healthcare-AI roundtable / patient AI use / enterprise adoption / agent infrastructure / clinical trials / science policy · source_reliability_context: mixed high-authority practitioner and policy panel — patient-safety leader, pharmaceutical CEO, healthcare-AI infrastructure executive, oncology-system physician leader, and former White House science adviser. Strong for lived institutional constraints, strategy, adoption, research operations, patient experience, and enterprise architecture; weaker where speakers make broad predictive or vendor-positioned claims without evidence. · topic_tags_light: [patient_AI, diagnostic_safety, patient_reported_outcomes, longitudinal_context, AI_adoption, shadow_AI, enterprise_change_management, ROI_measurement, hybrid_AI, edge_agents, domain_specific_models, agent_harness, data_readiness, clinical_trials, trial_matching, research_access, provider_workforce, patient_empowerment, evidence, public_R&D, knowing_doing_gap]
 
 2. People / authority context
-person	role and affiliation	authority context	perspective limits
-Sue Sheridan	President and CEO, Patients for Patient Safety US	High authority on patient experience, diagnostic-harm reporting, dismissal, and patient advocacy; lived-experience basis	Quantitative national claims and the proposition that “AI is the answer” require independent evidence
-Chris Boerner	Board Chair and CEO, Bristol Myers Squibb	Strong firsthand authority on global-enterprise adoption, investment allocation, regulated-company change management, AI portfolio measurement, and shadow AI	Corporate success stories and ROI claims are self-reported
-Kimberly Powell	Vice President of Healthcare, NVIDIA	Strong infrastructure authority on hybrid deployment, edge compute, open models, agent harnesses, local inference, and scientific computing	Clear commercial interest in accelerated computing, local hardware, and model ecosystems
-Ed Kim	Physician-in-Chief, City of Hope Orange County; clinical-trials system leader	Strong operational authority on oncology, trial activation, community trial access, workflow design, and research operations	His views on regulatory thresholds, historical controls, and digital twins include personal policy judgment
-Arati Prabhakar	Former US Science and Technology Advisor and former OSTP Director	High authority on federal R&D, technology policy, institutional capacity, public trust, and workforce implications	Macro-policy perspective; less direct authority over specific care-runtime mechanics
-Matt Lungren / Justin Norden	Stanford hosts	Strong healthcare-AI framing and cross-industry synthesis	Questions occasionally lean toward techno-optimism
 
-Event context: academic-hosted, but not an academic lecture or peer-reviewed presentation. This is a high-quality practitioner anthology containing advocacy, executive testimony, vendor framing, clinical operations, and policy interpretation.
+Matt Lungren — co-host; Stanford Medicine / healthcare-AI physician and educator. Authority context: experienced translator between clinical operations, research, and AI deployment. He frequently pushes guests from broad enthusiasm toward measurable outcomes and real institutional adoption. His perspective is pro-deployment and optimistic, but generally grounded in healthcare delivery constraints.
+
+Justin Norden — co-host; Stanford / healthcare-AI operator and investor-adjacent perspective. Authority context: strong on enterprise adoption, product deployment, and the changing healthcare technology market. He helps surface the product and organizational implications, though his framing is generally technology-forward.
+
+Sue Sheridan — President and CEO, Patients for Patient Safety US; patient-safety advocate with direct family experience of diagnostic and system failures. Authority context: unusually relevant to OMNI’s patient-context, diagnostic-safety, longitudinal-memory, patient-reported-signal, and external-AI-companion questions. She is not speaking as a model evaluator or systems architect; her strength is exposing the demand-side and lived-care failure that institutional AI discussions often underweight.
+
+Chris Boerner — Board Chair and CEO, Bristol Myers Squibb. Authority context: senior operator of a globally regulated pharmaceutical company making large AI investments. High relevance for enterprise change management, bottom-up experimentation, capital allocation, shadow AI, ROI measurement, data curation, and scaled organizational deployment. His examples are strategically valuable but naturally reflect a large-pharma executive perspective.
+
+Kimberly Powell — Vice President of Healthcare, NVIDIA. Authority context: technically informed infrastructure/vendor executive. Strong relevance for hybrid deployment, edge/on-device inference, open and domain-specific models, agent harnesses, data locality, and compute architecture. Vendor incentives matter: treat specific NVIDIA models, hardware, and deployment claims as examples, not OMNI commitments.
+
+Ed Kim — Physician-in-Chief and Senior Vice President, City of Hope Orange County; oncology and clinical-trial system leader. Authority context: particularly strong for oncology operations, distributed trial access, site activation, frontline-provider burden, research enrollment, patient empowerment, evidence delivery, and system-level trial infrastructure. His operational examples are among the highest-value parts of the source.
+
+Arati Prabhakar — former Director of the White House Office of Science and Technology Policy and former science adviser to President Biden. Authority context: high relevance for national R&D systems, public institutional trust, labor effects, evidence cadence, and the difference between rapid model improvement and slower human/institutional adaptation. She provides the strongest counterweight to the panel’s techno-optimism.
+
+Publisher / host: Stanford Online / Stanford Medicine Health AI Week.
+
+Event context: recorded interviews from Stanford Medicine’s Health AI Week. This is not one coherent lecture; it is an anthology of five distinct strategic lenses joined by a common question: where healthcare AI is actually producing value, what constrains deployment, and what must change next.
+
+Perspective / conflict notes: the video is institutionally pro-AI and hosted in a highly optimistic environment. Its value comes from the contrast among the speakers: patient advocate, pharma CEO, infrastructure vendor, oncology operator, and science-policy leader. The source should not be flattened into one consensus voice.
 
 3. Suggested processing
-priority: 4/5
+
+priority: 4.75/5
+
 depth: full_semantic
-EVRUN_needed: yes
-target_run: EVRUN-2026-000005
-promotion_posture:
-  - section_sharpening
-  - Build_OS_practice
-  - product_idea
-  - analogy_spine_candidate
-  - low_authority_watch
 
-Why 4 rather than 5: the source contains several excellent OMNI gems, including one unusually direct enterprise analogue for the Dan real-time-assist mechanic. But it is broad, interview-driven, partially promotional, and does not itself provide a coherent care architecture.
+EVRUN needed?: yes
 
-Sibling relationships:
+duplicate/sibling relationship:
+Strong sibling to prior enterprise-AI adoption sources, agent-harness and hybrid-runtime sources, patient-companion / external-agent posture, oncology-trial-access work, outcome-intelligence, Knowledge Reservoirs, and the OMNI-as-workbench thesis. It is not a duplicate because it brings five different authority positions into one source and repeatedly grounds them in care failures, organizational friction, trial operations, patient demand, and national research infrastructure.
 
-EVSRC-2026-000251 and 252: patient-side AI, parallel workbenches, live conversational context, external signals, and AI influence.
-EVSRC-000068 OpenEvidence: clinician evidence reservoir.
-Voice/ambient and agent-harness corpus: model plurality, local agents, orchestration, on-premises deployment.
-C3.6/C3.7: clinical-trial access, research authority, outcome intelligence, and patient-facing research integrity.
-C3.8/Task D: enterprise adoption, ontology, control-plane, proof, and build-versus-buy posture.
+likely landing zones:
+Thesis §1/§2 product identity · §5 wedge · §8 Sense/Decide/Act/Prove-Learn · §10 destination · §A trust/authority/permeability · §B AI substrate · §C governed capability exchange · CNS · Governed Resolution Lifecycle / REV-184 · Knowledge Reservoirs · Outcome Intelligence · Patient CNS · Federation · P35 external capabilities · BIZOPS/workforce · D7/Evidence Plane · Clinical Memory/Observation · trial-access and trial-execution deltas · Surface/Projection Map · Product/Operator Intelligence · Build-OS/eval · enterprise adoption/change-management posture.
 
-Likely landing zones: Thesis §2, §3.5, §7.6, §8, §10, §A and §B · CNS · Knowledge Reservoirs · D7/evidence · Clinical Memory/Observation · research/trials · Build-OS · capability topology · voice/ambient · BIZOPS.
+4. The strategic read
 
-4. Strategic read
 Classification
 
-This is a multi-cluster section-sharpening source, with three major OMNI contributions:
+Priority: 4.75/5
+Depth: full_semantic
+Authority context: unusually strong multi-perspective source; mixed patient, clinician, enterprise, infrastructure, research-operations, and federal-policy authority.
+OMNI relevance: major.
+Promotion posture: analogy_spine_candidate + section_sharpening + product_posture + Build-OS-practice + enterprise-adoption + patient-context + research-access.
 
-Patient-side AI is becoming a longitudinal care input and an unobserved safety-data layer.
-Real value comes from closing and measuring operating loops—not providing model access.
-A direct nonclinical precedent already exists for the Dan “AI listening live and feeding the human” interaction pattern.
-
-The infrastructure and multi-agent material is strong external confirmation, but largely AFFIRM rather than net-new. The clinical-trial material strongly sharpens existing research-plane work.
+This is not one new architectural revelation. It is more valuable than that: it is a multi-angle field validation of why OMNI’s care-first governed execution substrate is necessary, where it will face resistance, and what the product must feel like to become indispensable.
 
 Core takeaway
 
-The keeper is: the gap is no longer access to an intelligent model; it is converting patient-, clinician-, instrument-, and enterprise-side AI activity into measurable, governed closed loops without losing context, authority, accountability, or learning.
+The keeper is: healthcare AI wins when it closes a real care or work loop inside the user’s existing reality — remembering the person, surfacing the right evidence, reducing the knowing-doing gap, and producing measurable action — while preserving human judgment, institutional trust, and proof.
 
-A. Patients are already running longitudinal AI care journeys outside the health system
+The source repeatedly rejects AI as a model demonstration. Patients use AI because institutions forget them, dismiss them, or cannot see them soon enough. Clinicians adopt AI when it gives them time back or puts the correct evidence in front of them. Enterprises scale AI when projects have accountable owners, measurable effects, and governed access to usable data. Trial programs improve when eligibility and availability become visible at the point of care. Public trust improves through “facts on the ground,” not marketing.
 
-Sue Sheridan’s segment contains the source’s strongest patient-side material.
-
-She argues that most research studies AI used by clinicians or institutions, while very little studies who patients are using AI, why, across what journey, and with what outcomes. She describes the patient diagnostic interaction as more than a single query: it is a remembered, longitudinal process. She also says patients may be “outpacing the health care system” and must help define the research questions and outcomes.
-
-The deepest phrase is:
-
-“AI can’t dismiss me.”
-
-Patients are using AI partly because the system is inaccessible, time-constrained, forgetful, and sometimes dismissive. AI supplies attention, continuity, recall, and unlimited questioning—whether or not its clinical conclusions are reliable. That changes the patient who arrives in the clinical relationship: the person now brings wearable data, external research, AI interpretations, and a different expectation of partnership.
+That is highly consonant with OMNI.
 
 OMNI translation
+A. Patients are already building a parallel longitudinal care layer outside healthcare
 
-This directly reinforces the 251/252 physics:
+Sue Sheridan identifies the most strategically important demand-side fact in the source: patients are not using AI merely for isolated questions. They use it as a diagnostic journey, and it “remembers” them. She contrasts that continuity with clinical encounters in which the physician may not remember the patient’s history, has limited time, and may dismiss concerns. Patients arrive differently now: with wearable data, research, longitudinal conversations, and a stronger expectation of partnership.
 
-Patient-side AI is not merely external noise.
-Its output is also not patient truth or clinician truth.
-It is a provenance-bearing contribution from a patient-side actor or private workspace.
-OMNI needs to admit, attribute, reconcile, and govern the contribution without dismissing it or silently adopting it.
-The patient’s AI journey may extend across weeks or months, not one encounter.
-The patient should be able to contribute evidence, disagreement, unanswered questions, suspected errors, and eventual outcomes back into the governed care resolution.
+This directly confirms the strategic threat behind OMNI’s patient-context thesis:
 
-Sheridan identifies a missing feedback plane: there was historically “no mechanism” for patients to report diagnostic errors or feed their experiences back into learning. She calls patient-reported measures a new data layer.
+The parallel AI conversation is becoming the patient’s most coherent longitudinal record of concern, interpretation, and intent — even when it is not the authoritative clinical record.
 
-That maps strongly to:
+That is why OMNI cannot be only the authorized action backend while ChatGPT owns the workbench. The product must receive, preserve, structure, compare, and govern the patient’s lived reasoning journey without blindly adopting it as truth.
 
-patient-reported safety signals;
-Human-Context and Patient-Wisdom reservoirs;
-outcome intelligence;
-external-AI participation;
-three-gate admission;
-and replayable_proof.
-Keeper doctrine
-The informed patient is a participant in care intelligence, not a contamination event.
-Patient-side AI output is a candidate contribution—never automatically patient fact, clinical fact, or authorized plan.
-Patient AI use is a longitudinal diagnostic journey, not a one-query interaction.
-A care system that cannot learn from patient-reported harm is not a closed-loop system.
-B. Enterprise AI succeeds through governed experimentation, consolidation, and measurable value
+This sharpens the Patient CNS / external-agent posture. Patient-generated and external-AI-generated material should enter as source-attributed candidates and signals. But OMNI must also preserve why the patient asked, what evolved, what was dismissed, what became more concerning, and what outcome eventually occurred.
 
-Chris Boerner’s BMS segment is useful because it describes the actual organizational path from general AI enthusiasm to operational value:
+Keeper doctrine:
 
-broad access for experimentation;
-bottom-up use-case emergence;
-concentrated investment in selected verticals;
-organizational owners who break barriers;
-later measurement of spend and return;
-and active suppression or absorption of duplicate shadow-AI projects.
+A patient’s AI conversation may lack clinical authority while still containing clinically consequential longitudinal signal.
+Patient-generated context is not noise around the encounter; it may be the only durable record of the journey between encounters.
+External AI does not become the clinical owner, but OMNI must not discard the coherence it created.
 
-BMS reportedly began with roughly a thousand executives, expanded access across the company, let many use cases emerge, and then concentrated resources in manufacturing, research, development, and commercialization. Boerner also describes blanket restriction as counterproductive because employees will use external tools through phones and create shadow systems anyway.
+Candidate pressure:
 
-OMNI translation
+patient_ai_journey
+patient_reported_diagnostic_signal
+external_companion_context_packet
+dismissed_concern_signal
+diagnostic_journey_lineage
 
-This is a Build-OS pattern:
+These should be deduplicated against patient-source assertions, conversation sessions, external-agent interop, Clinical Memory, and REV-184 rather than minted casually.
 
-broad governed experimentation
-→ use-case evidence
-→ evaluation
-→ approved capability
-→ shared substrate
-→ scaled deployment
-→ value measurement
-→ retire duplicate/shadow implementations
+B. Patient-reported outcomes and safety events are a missing sensing layer
 
-The right enterprise control posture is neither:
+Sheridan makes a second major point: the healthcare system often has no mechanism to capture a patient’s report that a diagnostic failure occurred. Her family’s harms did not automatically become learning signals. She describes patient-reported measures as a “new layer of data.”
 
-ban everything;
-nor allow unmanaged “thousand flowers” indefinitely.
+OMNI translation:
 
-It is:
+This is not simply “collect more surveys.” It is a missing post-action and post-non-action sensing surface.
 
-explore broadly, admit narrowly, consolidate deliberately, and measure the loop.
+The Prove/Learn loop remains incomplete if the system only reads structured clinical outcomes, claims, clinician documentation, and operational events. It also needs governed patient-reported discrepancy and harm signals:
 
-Boerner’s best substantive example is not the budget rhetoric. It is the account of curated manufacturing and study data being used to investigate an emerging safety signal, trace it to a process change between trial phases, and preserve the study. That is a closed Sense→Decide→Act→Learn loop over proprietary evidence—not merely chatbot productivity.
+“My concern was dismissed.”
+“The diagnosis was delayed.”
+“The treatment did not match what was explained.”
+“The result never reached me.”
+“I deteriorated after being told to monitor.”
+“I sought care elsewhere and the decision changed.”
 
-The Dan-adjacent gem
+These reports are not automatically adjudicated truth. But they are high-value candidates for reconciliation, safety review, outcome linkage, and system learning.
 
-Boerner describes an earnings-call system being trained to:
+Keeper doctrine:
 
-listen to a live analyst question;
-understand the expected answer;
-evaluate the executive’s spoken response;
-and show whether anything important was missed.
+A care system that cannot hear the patient after the decision cannot honestly claim to learn from outcomes.
+Patient-reported harm is a governed safety signal, not merely satisfaction feedback.
 
-That is almost exactly the interaction form Nick envisioned for the provider earpiece: an AI monitoring a live conversation and offering a private completeness check while the human retains authority.
+Likely homes: Outcome Intelligence, CNS Prove/Learn, D7 evidence, Clinical Memory, REV-184 outcome linkage, safety-event workflow, operating intelligence.
 
-This does not prove that clinical use is safe. It proves that the interaction pattern is already operationally legible outside healthcare.
+C. The product must solve a problem so well that “AI” disappears
 
-Healthcare adds the difficult parts:
+Kimberly Powell’s strongest product observation is not technical. Abridge and OpenEvidence are adopted because users experience them as solutions to acute work problems, not as AI projects. Once the tool works, people stop calling it AI; it becomes “my solution for notes” or “my solution for evidence.”
 
-provisional speech and correction;
-speaker identity;
-patient consent;
-clinical source authority;
-interruption priority;
-stale-guidance withdrawal;
-AI influence logging;
-and provider/domain commit.
-Keeper doctrine
-The live-copilot pattern is not speculative; healthcare’s problem is governing it, not imagining it.
-AI access is not transformation. Transformation requires use-case admission, shared substrate, ownership, measurement, and retirement of shadow implementations.
-Small experiments may buy literacy; consequential programs must prove operating value.
-C. The model is only one component of the agentic substrate
+This strongly supports OMNI as the daily product and verb:
 
-Kimberly Powell’s segment externally confirms several already-strong OMNI positions.
+OMNI should be experienced as where the work gets done, not as a collection of AI capabilities.
 
-Her deployment topology is:
+Polaris, model routing, agent harnesses, source authority, and proof matter enormously, but they should recede into the substrate. The user should say:
 
-general cloud model
-→ domain-specialized model/agent
-→ core-IP or patient-critical local runtime
+“Put the patient in OMNI.”
+“OMNI found the missing result.”
+“OMNI says this cannot clear yet.”
+“OMNI showed the open trial.”
+“OMNI prepared the next step.”
 
-with movement among cloud, on-premises infrastructure, edge systems, and desktop environments. She argues that the closer the work gets to proprietary domain expertise or patient-specific data, the more organizations will want control over data, models, and execution locality.
+Not: “I am invoking the AI governance layer.”
 
-Her most important technical statement is that AI is not merely the model. The working system surrounds the model with:
+This also supports the wedge discipline. An elegant substrate without a painful daily problem solved at near-zero friction does not earn adoption.
 
-a knowledge base;
-tools;
-skills;
-and application-specific orchestration.
+Keeper doctrine:
 
-She explicitly describes this as the agent harness, with the local organization specifying how its workflow operates.
+AI becomes infrastructure only after the user experiences it as indispensable work.
+The product earns trust by removing a real burden before asking users to understand the architecture.
+Do not sell AI. Deliver the missing action, memory, evidence, or time.
+D. OMNI needs a governed experimentation and adoption loop, not just a deployment plan
 
-OMNI translation
+Chris Boerner’s segment is an enterprise-adoption field study. Bristol Myers Squibb enabled broad employee access, encouraged bottom-up discovery, then concentrated investment in high-value verticals. The recurring problem was not lack of ideas; it was organizational accountability, shadow projects, duplicate spend, unclear ownership, and difficulty measuring return.
 
-This AFFIRMS rather than reinvents:
+This has two OMNI implications.
 
-model registry and lineage;
-capability envelopes;
-model-pluggable substrate;
-domain-specific harness;
-deploy-where-data-lives;
-local versus cloud routing;
-knowledge reservoirs;
-tools and skills;
-orchestration;
-and harness≠authority.
+First, OMNI’s customers will not adopt through one centrally designed workflow. Providers, staff, owners, coordinators, and managers will discover local uses. The platform needs a governed way to capture those uses without allowing uncontrolled shadow AI.
 
-Her scientific-instrument example is also useful: a local agent reads instrument metadata, recognizes deviation, and corrects the process in a tight real-time loop. That is a clean Lens-B example of Sense→Decide→Act at the edge. The transfer to healthcare requires stronger authority and safety constraints, but the loop physics are relevant.
+Second, the system should distinguish:
 
-Powell also describes always-on agents reversing the prompt direction: rather than the user asking the system, the system senses changed data and prompts the user.
+cheap experimentation and literacy-building,
+bounded local workflow customization,
+organization-wide production capability,
+high-risk clinical use,
+capital-intensive strategic programs.
 
-That is CNS/ambient-agent territory:
+Boerner explicitly says small experiments may not justify detailed ROI accounting; large programs do. That implies a tiered evaluation burden rather than one universal approval process.
 
-An agent may listen continuously and surface candidates continuously; it still commits nothing continuously.
+Keeper doctrine:
 
-Her Abridge and OpenEvidence examples reinforce use-case-first adoption: clinicians adopt tools that remove acute pain with almost no workflow friction, and eventually stop thinking of them as “AI.”
+Experimentation should be cheap; authority should not be.
+Evaluation burden should rise with spend, blast radius, irreversibility, and clinical consequence.
+Shadow AI is often unmet workflow demand expressed outside governance. The answer is neither prohibition nor surrender; it is a faster governed path.
 
-What is genuinely new here?
+Candidate pressure:
 
-Very little ontology. The source mainly provides a strong practitioner/vendor confirmation of already-surveyed architecture:
+experiment_to_capability_lifecycle
+local_workflow_candidate
+adoption_risk_tier
+shadow_ai_demand_signal
+benefit_realization_record
+capability_investment_class
 
-hybrid runtime;
-model plurality;
-harness anatomy;
-data proximity;
-always-on sensing;
-use-case-first adoption.
+These likely compose onto capability governance, Product Intelligence, Build-OS, tenant configuration, eval rigor, and trust-horizon rather than forming a new domain.
 
-The formal extractor should dedup, not mint.
+E. Outcome measurement must attach to the loop, not float as analytics after the fact
 
-D. Clinical-trial access is an active projection, routing, and obligation problem
+Across the panel, the hardest recurring question is: what changed because AI was used?
 
-Ed Kim’s section is strongest when it leaves broad “AI will transform trials” rhetoric and describes actual operating friction.
+Examples include:
 
-A community oncologist may face hundreds of potentially relevant trials across many tumor types. Expecting that clinician to search and remember the whole portfolio guarantees under-referral. His operational answer was a simple site-specific trial view:
+diagnostic errors decreasing,
+clinician time returned,
+drug-development time reduced,
+manufacturing variance identified,
+trial enrollment accelerated,
+knowledge delivered at the right moment,
+care gaps found and closed.
 
-relevant trials surfaced in a few clicks;
-current open/closed state presented visually;
-a direct inquiry routed to a centralized coordinator;
-response obligation within 24 hours.
+Boerner describes the need to track spend and account for impact. Sheridan argues diagnostic error can and should be measured. Ed Kim translates faster trial enrollment into months saved and lives potentially reached sooner. The panel repeatedly moves from “interesting use case” to “what is the measurable delta?”
 
-That is not merely search. It is a governed projection plus work routing and follow-up ownership.
+OMNI translation:
 
-His doctrine line is:
+Outcome Intelligence cannot be an executive dashboard attached later. Each governed workflow should, where meaningful, define:
 
-“Speed, scale, serve.”
+baseline state,
+intended effect,
+action or non-action,
+accountable owner,
+proof that the workflow occurred,
+observed effect,
+time horizon,
+confidence and confounders,
+benefit recipient,
+economic and clinical tradeoffs.
 
-Speed to activation, scale across sites, serve the patient, and empower the frontline provider. He also welcomes patient research and AI-assisted questions as a force that makes clinicians and institutions improve rather than treating informed patients as adversaries.
+The source supports the v4 elevation of Prove/Learn and effect observability.
 
-OMNI translation
+Keeper doctrine:
 
-This maps to:
+A workflow is not improved because AI participated; it is improved only when the intended effect becomes visible.
+Every important capability needs a declared outcome hypothesis before its success can be measured honestly.
+The system should preserve stories, but it must graduate important stories into repeatable measures.
+F. Hybrid deployment is not merely security architecture; it is capability placement
 
-trial_opportunity_projection;
-patient and provider research surfaces;
-research-eligibility candidates;
-site-specific trial availability;
-coordinator routing;
-response obligation;
-research versus standard-of-care authority;
-and longitudinal outcome intelligence.
+Powell’s “inverted triangle” is useful: general cloud models at the broad layer, domain-specific agents/models closer to proprietary knowledge, and the most sensitive or real-time work placed locally or at the edge. She also emphasizes closed-loop instruments, local agents, domain post-training, agent harnesses, and choice across cloud, on-prem, and desk-level execution.
 
-The key is that trial matching is not complete when the model says “possibly eligible.”
+The hardware/vendor specifics should not become doctrine. The architectural lesson is stronger:
 
-The loop is:
+Capability placement should follow data locality, latency, privacy, resilience, cost, and action-loop requirements — not a blanket cloud-versus-on-prem ideology.
 
-possible match
-→ eligibility review
-→ site and slot availability
-→ human research authority
-→ patient consent
-→ referral
-→ enrollment or reason for failure
-→ outcome and learning
+This confirms capability_placement_policy, workflow-lane-as-unit, model-pluggable substrate, and BYOM posture. It also sharpens trust-horizon: a local model may have lower latency and better privacy but still lack authority. Placement and authority remain orthogonal.
 
-Kim also supplies a necessary counterweight: raw results without expert context can create harm or confusion. Genetic and imaging outputs should not simply be released without the right interpretive pathway.
+Keeper doctrine:
 
-E. Capability moves faster than institutions—and proof must be “facts on the ground”
+Where a capability runs does not determine what it may commit.
+Model placement follows workflow physics; authority follows governance.
+The tightness of the loop, sensitivity of the context, and cost of delay should shape runtime placement.
 
-Arati Prabhakar provides the source’s strongest counterweight to the more exuberant executive and vendor segments.
+Do not import blindly:
 
-Her central distinction is:
+“Every instrument becomes a robot” as a literal OMNI product commitment.
+NVIDIA’s named model stack.
+open models as inherently safer or more governable.
+domain post-training as the default answer when retrieval, tools, deterministic logic, or workflow design may be superior.
+G. The model is a component; the harness, knowledge, tools, skills, and orchestration produce work
 
-The pace of AI technology is not the pace of change in the world.
+Powell explicitly says AI is not just a model. Useful agents require knowledge bases, tools, skills, and application-specific orchestration. The application developer encodes how the hospital works.
 
-The world contains people, organizations, institutions, law, review, incentives, and trust. Scientific rigor cannot simply be replaced by chatbot speed.
+This strongly affirms existing OMNI doctrine. The source is valuable because it states the enterprise-facing version plainly:
 
-She also rejects the idea that public skepticism is merely a marketing problem. It is a “facts on the ground” problem: productivity gains may create real benefits while also destroying or destabilizing livelihoods. Organizations should treat workforce transformation as an explicit experiment, involve the workers who understand the task, and share learning and gains.
+models reason or generate;
+knowledge provides context;
+tools expose capabilities;
+skills package repeatable behavior;
+orchestration expresses workflow;
+the organization supplies local semantics and authority;
+proof determines whether the result can be trusted.
 
-Finally, the hosts give a concrete healthcare example of AI scanning structured and unstructured records to identify care gaps that clinicians lack time to detect—closing part of the knowing-doing gap without pretending AI solves broader structural inequality.
+The caution is that “the application developer specifies orchestration” is incomplete for OMNI. In care, workflow authorship must include domain owners, clinical owners, policy owners, and operational users—not only software developers.
 
-OMNI translation
-Task D should test operational facts, not company vocabulary or demos.
-Build-OS should treat adoption as a measured practice with employee participation.
-Model improvement does not equal organizational transformation.
-AI may close specific care gaps while leaving access, inequality, public health, and institutional capacity unresolved.
-OMNI must measure whether loops improve patient outcomes, not merely whether AI usage rises.
+Keeper doctrine:
+
+The model is not the workflow, and the workflow is not the authority.
+The organization’s craft is encoded in governed orchestration, not merely in model weights.
+Knowledge, tools, and skills become care only when ownership, authority, and follow-up are attached.
+H. Data readiness is not an ingestion problem; it is an operational truth problem
+
+The panel repeatedly says healthcare data is fragmented, poorly structured, and not agent-ready. Powell discusses ontologies and bringing compute closer to data. Kim warns that rushing over flawed data can produce biased decisions and destroy trust.
+
+OMNI should resist a generic “data platform” interpretation.
+
+The deeper lesson is:
+
+Agent-ready data is not merely parseable data. It is data with known ownership, source authority, semantics, freshness, permissions, adoption state, and fitness for the proposed action.
+
+This is Polaris territory as a composed trust layer, not a new ontology god-domain.
+
+It strongly supports:
+
+source_authority_map,
+semantic reconciliation,
+Clinical Memory adoption gates,
+Observation verification,
+D7 provenance,
+field-level freshness,
+trust-horizon,
+knowledge partitions,
+domain-owned truth.
+
+Keeper doctrine:
+
+Readable is not reliable; structured is not authoritative; available is not admissible.
+Data becomes action-ready only when provenance, meaning, freshness, permission, and authority survive assembly.
+I. “Always running” agents sharpen the Sense loop, but proactive sensing is not autonomous care
+
+Powell describes agents that continuously notice changes and prompt the human, moving from “you prompt the computer” to “the computer prompts you.”
+
+This is a direct affirmation of Patient CNS and proactive orchestration, but it needs OMNI’s guardrails:
+
+Always-on sensing does not imply always-on intervention.
+Detection creates a candidate signal.
+The signal’s authority depends on source, freshness, model reliability, and context.
+The next step may be monitor, request more data, notify, escalate, or do nothing.
+Patient burden and alert fatigue are part of the decision.
+
+The source reinforces the governed-resolution lifecycle rather than requiring a new proactive-agent primitive.
+
+Keeper doctrine:
+
+Continuous sensing creates more candidates, not more automatic authority.
+A proactive system is safe only when it can govern silence, suppression, uncertainty, and non-action as carefully as escalation.
+J. Clinical-trial access is an information-and-workflow problem before it is an AI problem
+
+Ed Kim’s City of Hope segment is one of the strongest in the video. He describes the operational reality: distributed sites, frontline clinicians covering many cancer types, hundreds of possible trials, and no time to hunt. His solution starts with “brute strength,” centralized operations, current trial availability, a simple visual interface, and rapid coordinator response. AI can later amplify that functioning operating model.
+
+This is a direct validation of C3.7:
+
+availability truth matters,
+source authority belongs with the site/CTMS,
+the clinician needs current, local, site-specific options,
+matching must create a navigation obligation,
+one-click inquiry is more important than an impressive explanation,
+frontline workflow fit determines accrual.
+
+The line “speed, scale, serve” also maps well to OMNI’s wedge philosophy, though it should remain attributed rather than adopted wholesale.
+
+Keeper doctrine:
+
+Trial matching without current slot truth and a closed navigation loop is search, not access.
+The best research intelligence is useless if the frontline clinician cannot act on it within the visit.
+First make the operational highway real; then let intelligence increase traffic quality and speed.
+
+This source should be cross-linked heavily to the trial-access addendum rather than generating parallel primitives.
+
+K. Patient empowerment is not a threat to clinical authority; it changes the relationship around it
+
+Both Sheridan and Kim reject the idea that informed patients are the problem. Patients arrive with research, AI conversations, biomarker data, and treatment hypotheses. Kim explicitly welcomes this because it forces clinicians and researchers to “up their game.”
+
+OMNI should preserve the distinction:
+
+patient authority governs consent, relationship, preference, and what treatment they accept;
+patient-supplied information enters with provenance;
+desire does not become indication;
+clinician authority does not permit dismissing or erasing the patient’s reasoning;
+disagreement should become visible and resolvable.
+
+This is REV-184 in product form.
+
+Keeper doctrine:
+
+An informed patient is not an authority violation; they are another actor bringing evidence, preference, and hypotheses into the governed resolution lifecycle.
+OMNI should make disagreement legible without flattening the difference between lived experience, evidence, preference, and clinical commitment.
+L. Trust will be earned through facts on the ground, not AI marketing
+
+Arati Prabhakar offers the necessary counterweight. She argues that public concern is not merely a communication problem. People are reacting to real labor displacement, harmful applications, institutional distrust, and uneven benefit distribution. She warns against confusing rapid model progress with rapid change in the human world. Human judgment, organizations, research rigor, and institutions move on different timelines.
+
+This is extremely important for OMNI.
+
+The company cannot claim trust merely because Polaris exists, AI is governed, or clinicians remain in the loop. Trust will depend on visible consequences:
+
+Does care improve?
+Are patients heard?
+Are workers augmented or merely surveilled?
+Are incentives disclosed?
+Can decisions be challenged?
+Can artifacts move?
+Does the system admit uncertainty?
+Who benefits from the learning economy?
+Are harmful outcomes detectable and repairable?
+
+Keeper doctrine:
+
+Trust is an observed outcome of system behavior, not a brand claim or governance diagram.
+The speed of model improvement does not erase the slower physics of institutions, evidence, labor, and care relationships.
+OMNI should be technologically fast and institutionally honest.
+
+This also sharpens the anti-hype posture. “AI as normal technology” is a useful comparator: powerful, consequential, uneven, and governed through ordinary human institutions rather than magical exception.
+
+M. The knowing-doing gap may be a better care thesis than “AI answers questions”
+
+Near the end, Lungren describes using AI to scan structured and unstructured records, identify cardiovascular-care gaps, and bring patients back for known interventions. The issue is not absence of medical knowledge; it is the inability of clinicians to apply every guideline to every patient under current constraints.
+
+This is highly OMNI-native.
+
+The long-term value is not only generating smarter recommendations. It is closing the gap between:
+
+what is known,
+what applies,
+what has been done,
+what remains unresolved,
+who owns the next step,
+whether the patient completed it,
+what happened afterward.
+
+That is Sense → Governed Resolution → Act → Proof → Obligation → Learn.
+
+Keeper doctrine:
+
+The durable care opportunity is not merely better answers; it is making known care reliably happen for the right person at the right time.
+Knowledge without ownership, action, and follow-up is not care.
 Where it lands
-home	weight	source contribution
-Thesis §2 / §3.5 / §10	major	Patient-led AI adoption, operating-physics moat, use-case-first adoption, institutional pace
-§A / D7 / Clinical Memory	major	Patient contribution authority, AI influence, patient-reported safety, expert interpretation
-§B / CNS / capability topology	major	Hybrid deployment, local agents, model+harness, always-on sensing, orchestration
-Knowledge Reservoirs	major	Patient experience, medical evidence, proprietary enterprise data, research/trial knowledge
-C3.6/C3.7 research plane	major	Trial discovery, eligibility, site availability, coordinator obligations, outcome feedback
-Build-OS / BIZOPS	major	Broad experimentation, shadow-AI absorption, use-case admission, value realization, workforce learning
-M2 / M7 / live-assist runtime	medium-major	Nonclinical proof of live listening plus completeness nudging
-Task D enterprise test	medium-major	Measure real capability, integration, accountability, and facts on the ground
+
+Major
+
+Patient CNS / Longitudinal Intelligence: patient diagnostic journeys, patient-reported safety signals, always-on sensing, care-gap detection.
+REV-184 Governed Resolution Lifecycle: patient-generated hypotheses, disagreement, non-action, escalation, outcome linkage.
+Outcome Intelligence / Prove-Learn: measure diagnostic error, workflow benefit, trial access, care-gap closure, workforce impact.
+Product / Surfaces / OMNI workbench: solve painful work; AI disappears into the product; capture the patient and provider journey inside OMNI.
+Clinical-trial access and execution: availability truth, matching, navigation obligations, frontline provider workflow.
+AI substrate / capability placement: cloud/on-prem/edge by workflow physics; model is one component of the harness.
+Knowledge Reservoirs / data readiness: agent-ready means semantically reconciled, source-attributed, fresh, permissioned, and action-fit.
+
+Medium
+
+BIZOPS / workforce: literacy, job redesign, employee experimentation, augmentation versus displacement, incentive design.
+Build-OS / Product Intelligence: experimentation tiers, user-discovered workflows, feature-demand signals, adoption telemetry, rapid correction.
+Federation / P35: industry and health-system partnerships, localized capability, external agents and systems.
+Polaris: trust as proof and alignment across every seam; no governance-by-brand-claim.
+
+Minor / contextual
+
+public R&D and national science policy,
+energy and compute-resource planning,
+historical control arms and regulatory modernization,
+open-model ecosystem specifics.
+
+These matter strategically but should not hijack the care-first spine.
+
 Doctrine / primitive pressure
 
-Candidate names only; formal extraction must dedup:
+Candidate names for formal deduplication:
 
 patient_ai_journey
 patient_reported_safety_signal
-diagnostic_journey_trace
-live_response_completeness_nudge
-ai_value_realization_ledger
-shadow_ai_discovery
-hybrid_agent_runtime_profile
-instrument_closed_loop
-trial_opportunity_projection
-care_gap_detection_candidate
+diagnostic_journey_lineage
+dismissed_concern_signal
+external_companion_context_packet
+experiment_to_capability_lifecycle
+shadow_ai_demand_signal
+capability_investment_class
+benefit_realization_record
+workflow_outcome_hypothesis
+capability_placement_policy
+action_ready_data_state
+frontline_trial_navigation_obligation
+workforce_ai_experiment
+care_gap_candidate
 
-Most likely dispositions:
+Most are likely names or specializations over existing primitives, not genuinely new substrate objects.
 
-patient_ai_journey → M2 + participation topology + D7, not a new domain.
-live_response_completeness_nudge → M7/D7/attention routing, likely a candidate subtype rather than a primitive.
-hybrid_agent_runtime_profile → existing capability runtime/profile and model-routing work.
-instrument_closed_loop → analogy/pattern, not healthcare ontology.
-trial_opportunity_projection → research surface/projection plus obligation routing.
-ai_value_realization_ledger → Build-OS/BIZOPS, not care truth.
 Keeper doctrine
-Patients are already using AI as a longitudinal care workbench; the health system must govern the crossing rather than deny it exists.
-Patient-generated AI interpretation is neither noise nor truth—it is a provenance-bearing candidate.
-A patient-safety system is incomplete until patients can report errors and later outcomes back into learning.
-The live-copilot interaction exists; healthcare’s differentiator is the context, authority, and proof architecture around it.
-The model is replaceable. The domain harness, governed context, authority, and closed loop are the system.
-Always-on sensing may prompt the human; it does not inherit the human’s authority.
-Trial access is not a search result. It is eligibility, availability, routing, consent, obligation, enrollment, and outcome.
-Adoption is proven when the tool becomes the work—not when the organization announces an AI strategy.
-Technology can move exponentially while institutions move humanly; the architecture must accommodate both clocks.
-Trust is earned through facts on the ground: lower harm, shorter loops, fulfilled obligations, and replayable proof.
-What not to import blindly
-Do not promote source-stated numerical claims—diagnostic-harm totals, time savings, adoption multiples, prediction accuracy, or drug-development reductions—without primary evidence.
-Do not convert Sheridan’s advocacy line that “AI is the answer” into authority or autonomy doctrine.
-Do not accept NVIDIA’s infrastructure and adoption claims without accounting for vendor incentives.
-Do not infer that open models, on-premises deployment, or local hardware automatically solve governance.
-Do not import Kim’s arguments for lower regulatory thresholds, historical controls, or synthetic comparators without a dedicated clinical-research and regulatory evidence pass.
-Do not equate patient empowerment with patient-side AI correctness.
-Do not reduce the constraint to “culture.” The source itself demonstrates interacting data, workflow, accountability, resource, regulatory, measurement, and institutional constraints.
-Do not mint generic agent-harness concepts that are already present in the corpus.
-Do not assume AI productivity benefits automatically translate into patient benefit or fair workforce outcomes.
-Tiering tags
-concept cluster	stale-vs-v3	weight	status
-Patient-side AI journey + patient-reported safety layer	PARTIAL	spine	promote
-Live inline completeness assist	PARTIAL	spine/build mandate	promote
-Enterprise experimentation → consolidation → value loop	PARTIAL	section-sharpening	promote
-Hybrid/local agent runtime and harness anatomy	AFFIRM	vocabulary/build	watch→reconcile
-Always-on agent sensing	PARTIAL	CNS/runtime	promote
-Trial opportunity projection + coordinator obligation	PARTIAL	section-sharpening	promote
-Patient empowerment and changed care relationship	AFFIRM/PARTIAL	spine	promote
-Public R&D, workforce, and institutional-trust argument	PARTIAL	low-authority watch / §2	watch
-Numerical vendor/executive outcome claims	ABSENT/unverified	no-op until sourced	reject-as-fact
-Do-not-miss lesson
+The patient’s external AI may not own clinical truth, but it may hold the most coherent record of the patient’s unresolved journey.
+A care system that cannot hear the patient after the decision cannot honestly learn from outcomes.
+Experimentation should be cheap; authority should not be.
+Shadow AI is often unmet workflow demand expressed outside governance.
+A workflow is improved only when its intended effect becomes visible.
+Where a capability runs does not determine what it may commit.
+The model is not the workflow, and the workflow is not the authority.
+Readable is not reliable; structured is not authoritative; available is not admissible.
+Continuous sensing creates candidates, not automatic authority.
+Trial matching without current availability and navigation closure is search, not access.
+An informed patient is not the problem; unmanaged authority and untraceable claims are the problem.
+Trust is an observed outcome of system behavior, not a governance slogan.
+Knowledge without ownership, action, and follow-up is not care.
+OMNI succeeds when the user stops thinking “AI” and starts thinking “this is where my work gets done.”
+What NOT to import blindly
+Do not turn patient AI enthusiasm into automatic clinical adoption.
+Do not assume patient-reported experience is adjudicated truth; preserve it as high-value signal with provenance.
+Do not import “let a thousand flowers bloom” without risk tiers, data boundaries, evals, and authority gates.
+Do not make ROI the sole value measure for safety, literacy, trust, and care-quality capabilities.
+Do not make NVIDIA’s infrastructure stack, open models, or on-prem hardware OMNI doctrine.
+Do not equate local execution with safety or authority.
+Do not canonize “always-on agents” without suppression, uncertainty, burden, and non-action semantics.
+Do not mistake a trial catalog for trial access.
+Do not let pharma economics influence patient-facing trial recommendations.
+Do not frame workforce disruption as a marketing problem; some harms are real.
+Do not let rapid model cadence erode scientific review, longitudinal validation, or institutional accountability.
+Do not let the science-policy section expand v4 into a national innovation manifesto. Its value is the institutional-timeline and trust lesson.
+Tiering tags per concept
 
-The video’s real convergence is that AI creates value only after intelligence is attached to a governed loop: patient journey, enterprise decision, scientific instrument, trial referral, care-gap closure, or workforce practice. The model is never the whole system.
+Patient AI as longitudinal diagnostic journey
+stale-vs-v3: PARTIAL · weight_tier: spine · status: promote
+
+Patient-reported safety/outcome sensing
+stale-vs-v3: PARTIAL · weight_tier: spine · status: promote
+
+Problem-first product adoption / AI disappears
+stale-vs-v3: AFFIRM · weight_tier: spine · status: promote
+
+Enterprise experimentation, shadow AI, and tiered evaluation
+stale-vs-v3: PARTIAL · weight_tier: spine · status: promote
+
+Outcome hypothesis and benefit realization
+stale-vs-v3: PARTIAL · weight_tier: spine · status: promote
+
+Hybrid capability placement
+stale-vs-v3: AFFIRM · weight_tier: spine · status: promote
+
+Model + knowledge + tools + skills + orchestration
+stale-vs-v3: AFFIRM · weight_tier: spine · status: no-op / cite as external convergence
+
+Action-ready data state
+stale-vs-v3: AFFIRM · weight_tier: spine · status: promote naming only
+
+Always-on proactive sensing
+stale-vs-v3: AFFIRM · weight_tier: spine · status: no-op / sharpen
+
+Trial access and frontline navigation
+stale-vs-v3: AFFIRM after C3.7 · weight_tier: spine · status: cite as field validation
+
+Patient empowerment and governed disagreement
+stale-vs-v3: AFFIRM · weight_tier: spine · status: promote product language
+
+Trust through facts on the ground
+stale-vs-v3: PARTIAL · weight_tier: spine · status: promote
+
+National R&D system redesign
+stale-vs-v3: ABSENT · weight_tier: low-authority-watch for OMNI scope · status: watch / do not import into care thesis
 
 5. Hard read
 
-Verdict: full_semantic, but segment-aware rather than uniformly deep.
+This is full-semantic spine material, but not because it reveals a brand-new technical architecture.
 
-This is not one spine-defining source. It is a five-part anthology with:
+Its strength is convergence across five realities that OMNI must reconcile:
 
-one spine-grade patient-side AI and safety layer;
-one major Build-OS/enterprise adoption layer;
-one strong AFFIRM of the agent-harness and hybrid-runtime corpus;
-one major research/trial-access sharpening;
-and one useful macro counterweight against AI-speed determinism.
+the patient already has an external longitudinal AI relationship;
+the enterprise is struggling to turn experimentation into accountable value;
+useful AI is a harness around knowledge, tools, workflow, and local craft—not a model;
+clinical-trial access fails at the point where information does not become navigable work;
+trust will be earned through measurable benefit, honest labor effects, preserved judgment, and institutional proof.
 
-The strongest new OMNI line is:
+The source’s strongest OMNI line is:
 
-Patients and clinicians are already running parallel AI workbenches. OMNI’s job is to absorb those journeys into governed closed loops—and prove whether they improve care—without mistaking contribution for authority.
-
+OMNI should become the governed place where patient context, institutional knowledge, and AI-generated candidates cross into owned action and measurable follow-up—so seamlessly that users stop calling it AI and simply call it how care and work get done.
 &nbsp;
 
 
@@ -2323,8 +2467,7 @@ Patients and clinicians are already running parallel AI workbenches. OMNI’s jo
 
 ⬇️⬇️⬇️  YOUR GUT NOTE BELOW  (optional)  ⬇️⬇️⬇️
 
-ah this knox agent gave a less than like, spot on read for this transcript, but whaetever, its fine... it was like skweing everything towards a recent discussion on Dan
-
+meh whatever, fuck these guys... i hate these healthcare standford vids... because just fuck them.. but we have to examine them
 &nbsp;
 
 
@@ -2336,18 +2479,62 @@ ah this knox agent gave a less than like, spot on read for this transcript, but 
 
 ⬇️⬇️⬇️  AGENT WRITES THE FORMAL EXTRACTION BELOW  ⬇️⬇️⬇️
 
+reviewer: `Opus` · at: `2026-07-11` · run: `EVRUN-2026-000005` · formalizes Review 001 (Knox), grounded vs §1 · cumulative dedup baseline: `EVRUN-000001 §2A` + `000002` + `000003` + post-v3 rounds (C3.5/6/7/8 · REV-184 · `EVRUN-000004 §0.5`).
 
+**HEADLINE VERDICT.** Full-semantic **field-validation** source, NOT an architecture reveal. Five authority lenses (patient-safety · pharma · infra-vendor · oncology-ops · science-policy) independently re-derive OMNI's care-first governed-execution thesis. **~0 genuinely net-new primitives** — the yield is confirmation + a few sharpenings + strong spine-prose anchors. Dominant reality-check: **`doctrine=AFFIRM/PARTIAL · build=absent`**. Keeper law: *healthcare AI wins when it closes a real care/work loop inside the user's existing reality — remembering the person, surfacing the right evidence, closing the knowing-doing gap, producing measurable action — while preserving human judgment, trust, and proof.*
+
+**Framing note (what Knox got right / what I sharpen):** Knox's 13-finding A–M read is accurate and I preserve it. I formalize by (a) collapsing his ~15 candidate names to `EXISTS-AS` verdicts against the estate (almost all are names over existing primitives), and (b) separating the two genuine *sharpenings* (patient post-non-action safety sensing; tiered evaluation-burden) from the AFFIRM mass.
+
+### A. Concept clusters (formalized from Knox A–M; grounded in §1)
+
+| concept (Knox term) | OMNI meaning | downstream homes | source anchor (≤12w + ts) | doctrine | build | conflict | weight | status |
+|---|---|---|---|---|---|---|---|---|
+| **Patient AI journey = parallel longitudinal record** (A) | The patient's external-AI conversation is often their most coherent longitudinal record of concern/intent — enters as source-attributed candidate, never clinical truth; OMNI must preserve the journey (why asked, what evolved, what dismissed) not discard it | Patient CNS · §A/§B external-agent · Clinical Memory (patient-source) · `EVRUN-000004 §0.5` participation topology + three-gate context-admission | "it's a journey and then it remembers me" [3:30]; "AI can't dismiss me…AI remembers me" [6:20] | PARTIAL | absent | tension (platform-owns-context foil, T81-class) | spine | promote (as sharpening) |
+| **Patient-reported safety/discrepancy sensing** (B) | A missing **post-action / post-non-action** sensing surface: governed patient-reported harm/discrepancy signals ("concern dismissed", "result never reached me", "deteriorated after monitor") feed Prove/Learn — high-value candidate, not adjudicated truth | Outcome Intelligence/RWE (REV-174) · CNS Prove/Learn · Observation (`patient_state_observations`) · REV-184 outcome linkage · D7 | "getting dismissed…AI remembers me" [6:20]; Sheridan patient-reported "new layer of data" | PARTIAL | absent | none | spine | **promote (genuine sharpening — see B in §B primitives)** |
+| **Problem-first adoption — "AI disappears"** (C) | Tools win when experienced as the solved work problem, not an AI project ("my solution for notes"); OMNI = the verb/where-work-gets-done; Polaris/routing/harness recede into substrate | Thesis §1/§2 product identity · §5 wedge · Surfaces | "stop calling it AI…my solution for notes" (Powell, Abridge/OpenEvidence) | AFFIRM | partial | none | spine | promote (product language) |
+| **Governed experimentation + shadow-AI = unmet demand** (D) | Shadow AI is unmet workflow demand outside governance; answer = a faster *governed* path, not prohibition/surrender; capture local uses without uncontrolled sprawl | Build-OS · Product Intelligence · tenant-config · C3.8 §3 data-value | "shadow IT problem, everyone's got it on their phone" [18:42]; "shadow organization…twice as much" [19:17] | PARTIAL | absent | tension (089 builder-optimism / "thousand flowers" vs governance) | spine | promote |
+| **Tiered evaluation burden** (D) | Evaluation rigor rises with spend · blast-radius · irreversibility · clinical-consequence — not one universal approval; cheap experiments ≠ ROI-accounted, large programs are | C3.8 §2.1 (spend/blast-radius) · C3.5 risk tiers · Build-OS | Boerner: small experiments may not justify detailed ROI; large do | PARTIAL | absent | none | spine | **promote (sharpening)** |
+| **Outcome hypothesis attached to the loop** (E) | Outcome Intelligence is not a later dashboard: each meaningful workflow declares baseline · intended-effect · action/non-action · owner · proof · observed-effect · horizon · confounders · beneficiary | Outcome Intelligence (REV-174) · CNS Prove/Learn · REV-184 | "what changed because AI was used?" (recurring panel Q) | PARTIAL | absent | none | spine | promote |
+| **Capability placement ≠ authority** (F) | Placement (cloud/on-prem/edge) follows data-locality/latency/privacy/cost/loop-tightness; a local model is not thereby authoritative — placement and authority orthogonal | §B AI substrate · C3.8 §2.3 BYOM · REV-184 `trust_horizon` · `capability_placement_policy` | "inverted triangle" [32:33]/[38:32] | AFFIRM | absent | none | spine | promote (naming) |
+| **Model is a component; harness+knowledge+tools+skills+orchestration = work** (G) | Affirms harness doctrine; BUT care workflow authorship must include domain/clinical/policy owners + users, not only "the application developer" | §B · CNS · Build-OS · Polaris | Powell: "AI is not just a model" | AFFIRM | partial | none | spine | no-op / cite convergence |
+| **Agent-ready data = operational-truth problem** (H) | Agent-ready ≠ parseable; = known ownership · source-authority · semantics · freshness · permissions · adoption-state · fitness-for-action. Polaris composed trust layer, NOT a new ontology god-domain | `source_authority_map` (C3.6) · Polaris · Clinical Memory adoption · Observation · D7 · wave-3 232 `agent_ready_unstructured_data_substrate` | Kim: rushing over flawed data → bias → destroys trust | AFFIRM | absent | none | spine | promote (naming only) |
+| **Always-on sensing → candidate, not autonomous care** (I) | "Computer prompts you" affirms Patient CNS/proactive orchestration under guardrails: detection = candidate; next step may be monitor/notify/escalate/nothing; govern silence + burden as carefully as escalation | Patient CNS · CNS proactive · candidate≠commit · `EVRUN-000004 §0.5` three-gate | "the computer prompts you" (Powell) | AFFIRM | absent | none | spine | no-op / sharpen |
+| **Trial access = information+workflow before AI** (J) | Direct C3.7 field validation: availability truth (site/CTMS source-authority), current local options, matching→navigation obligation, one-click inquiry > explanation, frontline fit determines accrual; "brute strength" operating model first, AI amplifies | C3.7 (`cohort_slot_state`, `research_navigation_obligation`, `trial_match_candidate`, `honest_null_terminal`, economically-blind firewall) | "No AI here. This is just brute…strength" [59:59]; "brute strength" [1:00:44] | AFFIRM (post-C3.7) | absent | none | spine | cite as field validation |
+| **Informed patient = actor in the resolution, not a threat** (K) | Patient empowerment changes the relationship around clinical authority, doesn't violate it: patient authority governs consent/preference; patient info enters with provenance; desire≠indication; disagreement becomes legible/resolvable = REV-184 in product form | REV-184 · §A · Identity patient-source · `EVRUN-000004 §0.5` | "up their game…that's what competition builds" [1:09:37] | AFFIRM | absent | none | spine | promote (product language) |
+| **Trust = facts on the ground, not marketing** (L) | Public concern is real (labor, harm, distrust, uneven benefit), not a comms problem; don't confuse rapid model progress with rapid human/institutional change; "AI as normal technology" comparator | Polaris/proof · anti-hype posture · §3.5 comparator · C3.8 governed-data-economy | "facts on the ground problem" [1:20:31]; "facts on the ground versus marketing" [1:27:57] | PARTIAL | absent | none | spine | promote |
+| **Knowing-doing gap as the care thesis** (M) | The durable opportunity ≠ smarter answers; = making *known* care reliably happen for the right person at the right time = Sense→Governed Resolution→Act→Proof→Obligation→Learn (Chain A) | Chain A (C3.5) · `governed_decision_lifecycle` (C3.7) · CNS proactive · OFC `care_obligation` | "this knowing doing gap…AI can move us" [1:34:04] | AFFIRM | absent | none | spine | promote |
+
+**Doctrine roll-up:** ~7 AFFIRM · 6 PARTIAL · 0 ABSENT · 0 direct_conflict (2 tensions). **Build roll-up:** 0 present · 2 partial · 11 absent → textbook `doctrine=AFFIRM/PARTIAL · build=absent` wave pattern (the gap is BUILD, not ideas).
+
+### B. Net-new primitive candidates (dedup vs cumulative baseline — verdicts)
+- `patient_ai_journey` / `external_companion_context_packet` / `diagnostic_journey_lineage` — **EXISTS-AS**: `EVRUN-000004 §0.5` (patient private-AI = actor→participant on admission; three-gate context-admission) + Patient CNS + Identity patient-source + wave-3 `227 memory_authority_state`. **DO NOT MINT** — sharpening of the participation-topology + Patient-CNS external-agent posture.
+- `patient_reported_safety_signal` / `dismissed_concern_signal` — **partial exists-as** Observation `patient_state_observations` + C3.7 `outcome_intelligence` + Prove/Learn; **the genuine sharpening** = an explicit **post-non-action patient-reported discrepancy/harm sensing input to Prove/Learn** ("a care system that cannot hear the patient after the decision cannot learn"). Ground vs REV-184 outcome-reads-original-context + `EVRUN-000004` replayable_proof. Route as sharpening, not mint.
+- `experiment_to_capability_lifecycle` / `shadow_ai_demand_signal` / `adoption_risk_tier` / `capability_investment_class` / `benefit_realization_record` — **EXISTS-AS**: C3.8 §3 (governed data-value/experimentation) + C3.5 P39 + Build-OS + tenant-config. The **tiered-evaluation-burden** rule (rigor ∝ spend·blast-radius·irreversibility·clinical-consequence) sharpens C3.8 §2.1 — flag as sharpening.
+- `capability_placement_policy` — **EXISTS-AS** wave-2/3 + C3.8 BYOM/hybrid (§2.3). AFFIRM; sharpen "placement ⟂ authority".
+- `action_ready_data_state` — **EXISTS-AS** wave-3 `232 agent_ready_unstructured_data_substrate` + C3.6 `source_authority_map` + Polaris. Naming only.
+- `frontline_trial_navigation_obligation` / `care_gap_candidate` — **EXISTS-AS** C3.7 (`research_navigation_obligation`) / Chain A + `governed_decision_lifecycle` (C3.7) + OFC `care_obligation`. Field validation, no mint.
+- `workflow_outcome_hypothesis` — **partial exists-as** REV-174 Outcome Intelligence + C3.7 outcome-testable-without-retroactive-judgment; sharpening (declared hypothesis before measuring).
+
+**Net genuine mints = 0.** Two sharpenings to carry (both `analysis_nonbinding`, propose-only): (1) patient post-non-action discrepancy/harm sensing → Prove/Learn; (2) tiered evaluation-burden → C3.8 §2.1. No re-mint of `EVRUN-000004 §0.5` retired terms.
+
+### C. Reread flags
+- Anchors here are transcript-verbatim with timestamps (grounded), EXCEPT speaker attributions of paraphrased segments (Powell "inverted triangle", Boerner ROI) — verified by segment position, exact quote-level attribution to firm at wave-close if needed.
+- **Sibling cross-refs (fold to registry, do not duplicate):** patient-AI journey → `EVSRC-000200` (Kyle), `EVSRC-000251` (TRT/ChatGPT loop), `EVRUN-000004 §0.5`; trial access → C3.7 + `000068` (OpenEvidence); enterprise adoption → wave-3 `225` (Levie/Box), `232` (Ng); harness → 254/256/257 (this wave). 
+- **Tension to register:** shadow-AI "let a thousand flowers bloom" (D) vs governance = the recurring 089/wave-2 T2 builder-optimism family — route to governed-fast-path, do not adopt literally.
+- Nick's Review 002 note ("hate these stanford vids…but we have to examine them") = do-not-over-weight the optimistic venue; the value is the 5-lens contrast + Prabhakar counterweight.
+
+### D. One-line hard read
+Full-semantic **spine-prose + field-validation**, ~0 net-new: it proves — from patient, pharma, vendor, oncology, and policy angles at once — that OMNI's care-first governed execution substrate is the right bet, and hands the spine author quotable anchors. **Strongest OMNI line:** *OMNI should be the governed place where patient context, institutional knowledge, and AI candidates cross into owned action and measurable follow-up — so seamlessly the user stops calling it AI and calls it how care gets done.*
 
 &nbsp;
 
-
-
 ⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
 
-## §4 — Analysis pointers  *(agent fills at CLOSEOUT once analyzed; leave `TK` until then)*
-- EVRUN(s): `TK` (likely `EVRUN-2026-000005`) · concept_registry: `TK` · source_anchor_ledger: `TK` · per-source deep-read: §3 Review 003 (this file) · impact: `TK` · promotion: `TK` (watch | promote | reject | no-op)
+## §4 — Analysis pointers
+- EVRUN(s): `EVRUN-2026-000005` · concept_registry: `analysis/EVRUN-2026-000005_ai-corpus-wave-4/EVRUN-2026-000005_ai-corpus-wave-4_concept_registry_and_routing_map.md` · source_anchor_ledger: `…_source_anchor_ledger_receipts_only.md` · per-source deep-read: §3 Review 003 (this file) · impact: `field-validation of care-first governed-execution thesis (§1/§2/§5/§8/§A/§B + REV-184 + Outcome Intelligence + Patient CNS + C3.7); ~0 net-new; 2 sharpenings (patient post-non-action safety sensing; tiered eval-burden)` · promotion: `watch` (propose-only; spine-prose anchors + 2 sharpenings routed to registry)
 
 ## §5 — Change log
 - `2026-07-11` — wave-4 scaffold created (id `EVSRC-2026-000253`, provisional `_TK` slug); awaiting Nick transcript + Knox-read + URL paste.
+- `2026-07-11` — transcript (§1) + Knox Review 001 (§3) + Nick Review 002 pasted; **Opus Review 003 written** (`EVRUN-2026-000005`); §0/§0.1 normalized from Knox rough-metadata + transcript; status `raw_dropped → analyzed`. Folded to `EVRUN-2026-000005` registry/coverage/anchor.
 
 > Authority/retrieval labels are defined once in `../../00_evidence_router.md`.
