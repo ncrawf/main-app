@@ -21,9 +21,11 @@ OMNI = one governed contextual care + business execution substrate; Foundation v
 - Closed the artifact (`§0.5` settled state + 4-status disposition ledger), fixed all internal contradictions, **wired it into the source list** so it can't leak at the pivot, and committed/pushed (`49f3363`).
 - Also parked a **Build-OS taxonomy/file-types capture** (`build_os_taxonomy_and_filetypes_capture_2026-07-10.md`, `FWREG-008`) for the future C5 repo-taxonomy gate.
 
-## 2. NEXT AGENT — the three pre-spine tasks (propose-only)
+## 2. NEXT AGENT — the pre-spine tasks (propose-only)
 
-### Task A — Additional physics-of-care specimen (another real-world clinical example, nuanced)
+> **★ STATUS (2026-07-11, late):** **Task A ✅ DONE + Task B ✅ DONE** — the Dan specimen `EVSRC-2026-000252` was captured, decomposed (trifecta, multiple rounds), and folded into `EVRUN-2026-000004` (§9.10 derivation + §0.5 ②/③ canonical dispositions + §0.6 Required Consumption Protocol + §0.6.1 extraction ledger); the "M7" conversation-mechanic resolved as an analysis handle (context-admission gate + participation topology + AI-influence lineage + harness≠substrate + offensive-ontology posture), NOT a new plane. `FIELD-004` + registries + evidence-ledger `D0UOR-EVD-003` + comparator-registry Palantir row + spine-plan/read-graph wiring done. **Remaining: Task C (videos) → Task D (NEW — enterprise pressure test) → spine.** Sequence in §4.
+
+### Task A — ✅ DONE — Additional physics-of-care specimen (the "Dan" case, `EVSRC-2026-000252`)
 - Capture + decompose another real clinical exchange with nuances, in the **`user_operator_research`** lane. **Id = `EVSRC-2026-000252` (RESERVED for this specimen)** — it was deliberately held back when the wave-4 video scaffolds were created (highest EVSRC across the Evidence Plane is now `000256`; `252` is the one reserved gap, noted in `outside_learning/00_index.md` + `user_operator_research/00_index.md`). Use `252`; do NOT reallocate it.
 - Method: same as 251 — §0 metadata + §1 manifest + §2 verbatim (de-identified) + §3 Review 001 (Knox) + Review 003 (Opus physics decomposition). PHI: de-identify before any promotion.
 - Fold genuinely-new mechanics into **`EVRUN-2026-000004`** (append; do NOT bloat the source §3). **§0.5 is the naming/ontology baseline — dedup, don't re-mint.**
@@ -41,6 +43,12 @@ The operator flagged a distinct mechanic not yet fully described: **how the AI S
 - **`outside_learning`** lane; settled registry-first two-tier read (`ingestion/outside_learning/00_pipeline_doctrine.md` + the wave-3 method: §3 Review 001 Knox → §1 verbatim → §3 Review 003 Opus → fold to registry; two-axis `doctrine_status × build_status` reality-check).
 - If they form a coherent wave, open **`EVRUN-2026-000005`** (the scaffolds already name it as the likely run); if they're a continuation of wave-3's themes, the operator may prefer folding into the `EVRUN-2026-000003` registry — **ask the operator** which.
 
+### Task D — ★ NEW (2026-07-11) — Enterprise Full-Stack Adversarial Pressure Test (the FINAL pre-spine gate)
+- **Runs AFTER Task C (`EVRUN-2026-000005`), BEFORE v4 Spine Draft 0.** Controlling artifact (method shell authored): **`v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md`** (`shell_pending_population` · `required_pre_spine_input`).
+- **Why:** earn-or-falsify the **offensive ontology posture** (`EVRUN-2026-000004` §0.5 ② — *own the governed care physics, not the words; claim is UNDER TEST*). It is NOT an evidence wave → do NOT number it `EVRUN-000006`; it's an architecture audit consuming `EVRUN-000001…000005` + C3.8 + contracts.
+- **Method (do not flatten — see the artifact):** STEELMAN each comparator (assume Palantir + Epic + Microsoft excellent, 24 months, resources — build the strongest Palantir implementation of OMNI, then find what's left); deep full-stack = **Palantir (deepest) · ServiceNow · Epic · Microsoft/Nuance Dragon · Salesforce** + pattern donors **Amazon · Stripe · Waymo/Tesla · NASA/ATC**; replay the SAME fixtures (**251 · 252 · hospital · federation/research**) against each — a named feature ≠ a passed fixture; run the **composite** (Palantir+Epic+Dragon+FHIR); produce §0–§7 (verdict · steelman maps · fixture matrix · appropriation ledger · **brutally-honest OMNI deficiency register** · moat falsification · contract/spine consequences [§0.6 governs] · **admission verdict** `SPINE_READY`/`…WITH_NAMED_RECONCILIATIONS`/`NOT_READY`).
+- Trifecta gate (Nick + Knox + Opus). **No Draft 0 before its §7 admission verdict.**
+
 ## 3. Key artifacts for the next agent
 - **`EVRUN-2026-000004` §0.5** — the settled ontology/naming + disposition ledger (the baseline everything new dedups against). §1–§9.9 = derivation.
 - Specimens: `EVSRC-2026-000251` (canonical TRT/async) · `EVSRC-2026-000200` (Kyle) · `FIELD-001` (Alec, in `evidence/omni_field_cases.md`).
@@ -48,7 +56,7 @@ The operator flagged a distinct mechanic not yet fully described: **how the AI S
 - Boot: `AGENTS.md` + read-graph Tier-0 (+ #9a input set, #11 route) + `operator_context_and_collaboration_model.md` + this handoff + the HOME controlling plan.
 
 ## 4. Stop posture (governance)
-Propose-only (`GRD-036`); no promotion; no spine/thesis/C5. **Next allowed action = the three pre-spine physics-of-care tasks above** (A: specimen `EVSRC-252` reserved · B: the conversation-mechanic study · C: normalize the 4 wave-4 video scaffolds `EVSRC-253…256` — **already created 2026-07-11**, awaiting Nick's per-video paste). Spine Draft 0 resumes only after the operator says the physics-of-care work is sufficient.
+Propose-only (`GRD-036`); no promotion; no spine/thesis/C5. **PRE-SPINE SEQUENCE (locked 2026-07-11):** **Task A ✅ → Task B ✅ → Task C (normalize the 4 wave-4 video scaffolds `EVSRC-253…256` as Nick pastes transcript+Knox-read+URL → `EVRUN-2026-000005`) → Task D (Enterprise Full-Stack Adversarial Pressure Test, `v4_C4_2_…`, `required_pre_spine_input`) → v4 SPINE DRAFT 0.** **Next allowed action = Task C.** Spine Draft 0 begins only after Task D's §7 admission verdict passes (Nick + Knox). Gate-state unchanged (C3.8 COMPLETE · C4 runway accepted).
 
 ## 5. Boot-repoint (this closeout)
 AGENTS `## OMNI Operating References` Current Checkpoint Handoff + read-graph Tier-0 #15 + HOME controlling-plan CURRENT STATE banner all repointed to THIS handoff in the same closeout commit (Protocol §8 Checkpoint Closeout Rule). Prior handoffs (07-08 wave-3, 07-04 C3.8) remain valid as historical detail. Boot Freshness Check: the three must name this file; if they disagree, STOP.
