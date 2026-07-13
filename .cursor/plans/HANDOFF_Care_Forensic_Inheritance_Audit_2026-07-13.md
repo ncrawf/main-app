@@ -12,7 +12,7 @@ Created 2026-07-13. **This is the BOOT PACKAGE for resuming the Care inheritance
 1. **THIS handoff** (boot package).
 2. **`v4_C4_care_inheritance_evidence_ledger.md`** (frozen workbench — detailed evidence, tables, dispositions). Read its top banner + the lane it assigns; do NOT re-derive it.
 3. **`v4_C4_care_operating_model_capture.md`** — the artifact under audit — **FROZEN; do not edit.**
-4. Only the source files for the **currently assigned bounded lane** (see §I).
+4. The **assigned Lane-5 sources** (see §I), **plus narrowly necessary current-carrier passages** used to verify comparison/routing (these comparison reads do NOT open Lane 1).
 
 ## C. Forensic method (binding for this audit)
 - **Chronology proves LINEAGE, not AUTHORITY** (two axes: lineage `origin→refinement→pressure-test→contract→correction`; present-authority `historical·candidate(named-unpromoted)·limited-use·binding-at-scope·signed-off·superseded·rejected·open`).
@@ -20,7 +20,7 @@ Created 2026-07-13. **This is the BOOT PACKAGE for resuming the Care inheritance
 - **Search = navigation.** A grep proves neither conceptual absence nor faithful inheritance.
 - **Subagents locate/extract; the PARENT reads every verdict-changing source** and writes every verdict. No subagent prose becomes a Care verdict.
 - **Registry keeper statement ≠ source-packet-supported formulation** (a registry is already an interpretation; reopen the packet for meaning; meaning = source packet + cross-source convergence).
-- **Six-test Care-impact classification** (below) replaces the single "did it mint a new primitive?" test.
+- **Care-impact taxonomy** (below) replaces the single "did it mint a new primitive?" test.
 - **No Care-capture edits · no cross-lane synthesis before the assigned lane closes · one bounded source-family at a time → evidence disposition → Nick+Knox review → next family.**
 - **Context % is a RISK SIGNAL, not a stop condition.** Stop only when the assigned transaction is complete, the runtime blocks continuation, or the operator stops you. Do NOT self-declare "milestone / natural stop / reserve context / deserves another pass." If capacity becomes genuinely unsafe: finish the current source, reconcile the ledger transactionally, emit an exact unread manifest.
 
@@ -36,7 +36,7 @@ Created 2026-07-13. **This is the BOOT PACKAGE for resuming the Care inheritance
 | Clinical Memory contract | full | **§5.1 authority≠longitudinal-pattern (current carrier)**; §6.2 care_management_source; patient-source; provider-only-adopter; AI-never-commits; tracked_clinical_object = **REV-167 OPEN** | no |
 | Observation contract | full | 3-gate (artifact≠data-fidelity≠adoption); observation≠truth; §1M/§1L now Observation-owned | no |
 | CNS contract | full | CNS scope+limits; universal flow; §9.1 authority-by-action-class; §2.1 CNS↔Polaris lock; LI = limited-use; §1G decomposed→D5+CNS (REV-161) | no |
-| OFC contract | §6/7/10 | 5 non-collapsing authority gates; **release=STATE-not-AUTHORITY**; obligation≠commitment (**REV-141 OPEN**) | no |
+| OFC contract | §6/7/10 | 5 non-collapsing authority gates; **release=STATE-not-AUTHORITY**; later OFC distinguishes `care_obligation` from `care_commitment` — final canonical relationship **OPEN under REV-141** | no |
 | D5 contract | §5/10 | completion≠closure (SO-24); care_commitment overlay; **episode-terminology trap** | no |
 | 2026-04-30 audits | authority_vs_longitudinal + care_management_source | origin of the longitudinal law (current carrier = CM §5.1) + care-ownership dimension | no |
 | Late-Builder register | full | the "idea field"; V-series (video-gate-never-run) + VT-series (v3 re-derivation risk) + Care-relevant rows A–U | no |
@@ -57,7 +57,7 @@ Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messag
 ## F. INVALIDATED conclusions — the next agent must NOT inherit these
 - "full video estate audited" — FALSE (run-self-verdicts reviewed; packet/row adjudication incomplete).
 - "the video estate is mostly cross-cutting" / "Care-core contribution is narrow" — **only a SUGGESTION from run-self-verdicts + Wave-1/2 detail; NOT earned** as a whole-estate verdict.
-- "zero net-new primitives = no Care impact" — WRONG (six-test lens, §C).
+- "zero net-new primitives = no Care impact" — WRONG (Care-impact taxonomy, §C).
 - "RUN-LEVEL SYNTHESIS = PARENT-COMPLETE / draft-complete / five-part package complete / foundational coverage sufficient / secondary carriers" — all **withdrawn** (premature closure).
 - "Care definition novelty fully proven" — only that no promoted standalone "Care is X" was found across v0→v3-integrated; §1CP remains a labeled NOVEL_COMPOSITION pending full adjudication.
 - "large un-inherited Care-governance corpus" — **withdrawn.**
@@ -67,7 +67,7 @@ Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messag
 2. **OFC firewall** — 5 non-collapsing authority gates + release=STATE-not-AUTHORITY; **the Care capture's authority-table cell ("clinician + payer/eligibility") is the defect** (OC-AUTHZ).
 3. **Care-commitment / Care-obligation lineage split (neutral — REV-141 OPEN, do NOT prejudge):** thesis §7.3 modeled obligation forms INSIDE `care_commitment`; later OFC deliberately extracted `care_obligation` as a due/owed/in-flight lifecycle. Whether the current architecture should retain **two primitives, one primitive with typed states, or linked interface/projection semantics** remains **OPEN under REV-141.** Related: the thesis USED `authorized_action` as the accountability threshold; whether current architecture represents that threshold as `authorized_action`, a resolution-commit, a commitment-event, or another authorized accountable transition is part of the same open reconciliation.
 4. **REV-184** — signed-off governed-resolution gate grammar (7–8 spine lines, two axes, out-of-band branch).
-5. **Consent-specificity (§7.5.4)** — "consent does not aggregate; scope/purpose/duration/recipient; no blanket; auto-renewal forbidden" is **deeply authored AND substantially implemented through current contract mechanics** (Identity/Federation/D7/Messaging enforce it); its **constitutional promotion remains UNRESOLVED under T0-16.** Preserve the mechanics during reconciliation **without silently claiming constitutional promotion.** Plus a 2nd locked doctrine (`privacy_communication_governance`: pathway-sensitivity caps · consent-can't-override-safety-floor · preference-tightens-never-loosens).
+5. **Consent-specificity (§7.5.4)** — "consent does not aggregate; scope/purpose/duration/recipient; no blanket; auto-renewal forbidden" is **deeply authored in thesis §7.5.4** (parent-read). Constitutional promotion remains **UNRESOLVED under T0-16.** Preserve the mechanics during reconciliation without claiming promotion. *(Whether current contracts substantially IMPLEMENT it, and the alleged 2nd doctrine in `privacy_communication_governance`, are extractor-indicated but parent-UNVERIFIED → pending source adjudication §H2, NOT a proven finding — per this handoff's own "no subagent prose becomes a Care verdict" rule.)*
 6. **care_commitment** — deep thesis §7.3 semantics (4-level · 5 scopes · threshold=authorized_action) but present canonical CARRIER unresolved (overlay in D5; REV-141).
 7. **EVSRC-149** — clinical-action-ladder COMPOSES existing; `rubber_stamp_guard`/`review_meaningfulness_audit` = sharp net-new (class 4/6/7 → §A/RBAC/E&V; wedge-load-bearing).
 8. **EVSRC-155** — value-from-action = sharpening; capacity-aware-threshold = class 6 → CNS/BIZOPS/E&V.
@@ -83,11 +83,12 @@ Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messag
 
 ### H2 — Pending SOURCE adjudication — do NOT ask Nick/Knox yet (return source-backed options + consequences FIRST)
 - **T0-16 consent-specificity promotion status** — read the promotion record before framing a decision.
+- **Consent enforcement + alleged 2nd doctrine** — whether Identity/Federation/D7/Messaging substantially IMPLEMENT §7.5.4, and whether `privacy_communication_governance` is a distinct locked doctrine (pathway-sensitivity caps · consent-can't-override-safety-floor · preference-tightens-never-loosens): extractor-indicated only → parent-read those contract bodies + the audit before asserting.
 - **C3.8 tenant-ownership vs patient-authority-over-care-truth** — currently extractor-only; parent-verify the G3/G4 rows, then present options.
 - **Care-bearing video tensions** T40/T41/T65/T72/T90/T121/T172–175/T194 — adjudicate from the source rows, then surface as framed choices.
 
 ## I. EXACT NEXT-AGENT PROMPT — "Care Forensic Auditor — Lane 5 Completion"
-> You are the **Care Forensic Auditor**. Scope = ONE bounded tranche: **finish Lane 5** (run-level gaps + async + Care packets). Do NOT touch the Care capture / Platform / Accountability / Agent Runtime / contracts / scenarios. Do NOT open Lane 2 (System Map / thesis lineage / LI / DL-20). Read this handoff + the frozen ledger's Lane-5 sections; do not re-derive them.
+> You are the **Care Forensic Auditor**. Scope = ONE bounded tranche: **finish Lane 5** (run-level gaps + async + Care packets). Do NOT **edit** the Care capture, sibling captures, contracts, scenarios, Platform, Accountability, or Agent Runtime. You MAY **parent-read narrowly relevant current-carrier sections** when required to verify comparison/routing — that reading does NOT open Lane 1 and you must not rewrite those carriers or start another contract lane. Do NOT open Lane 2 (System Map / thesis lineage / LI / DL-20). Read this handoff + the frozen ledger's Lane-5 sections; do not re-derive them.
 >
 > **ASSIGNED SOURCES (parent-read; this is the WHOLE unfinished Lane 5, not a subset):**
 > - **Run-level gaps:** `EVRUN-000002` coverage matrix + the complete Care-domain block (rows 130–157) · every Care-/patient-/provider-/authority-/consent-/context-/memory-/burden-/HCI-/eval-/proof-relevant row + tension in `EVRUN-000003` · the equivalent Care-relevant rows + W4 tensions in `EVRUN-000005` · spring `v25` · `v40` · `v43` · `v44`.
