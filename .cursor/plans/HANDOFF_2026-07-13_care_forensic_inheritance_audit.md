@@ -15,7 +15,7 @@ Created 2026-07-13. **This is the BOOT PACKAGE for the Care inheritance audit.**
 1. **THIS handoff** (boot package).
 2. **`v4_C4_care_inheritance_evidence_ledger.md`** (frozen workbench — detailed evidence, tables, dispositions). Read its top banner + the lane it assigns; do NOT re-derive it.
 3. **`v4_C4_care_operating_model_capture.md`** — the artifact under audit — **FROZEN; do not edit.**
-4. The **assigned Lane-5 sources** (see §I), **plus narrowly necessary current-carrier passages** used to verify comparison/routing (these comparison reads do NOT open Lane 1).
+4. The source files assigned by the **currently authorized bounded-lane instruction.** **Lane 5 is ACCEPTED; §I is HISTORICAL and must not be rerun.** The next permitted transaction is **Lane 2**, whose exact source assignment must be supplied separately (this handoff does not re-authorize Lane-5 reading).
 
 ## C. Forensic method (binding for this audit)
 - **Chronology proves LINEAGE, not AUTHORITY** (two axes: lineage `origin→refinement→pressure-test→contract→correction`; present-authority `historical·candidate(named-unpromoted)·limited-use·binding-at-scope·signed-off·superseded·rejected·open`).
@@ -61,8 +61,8 @@ Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messag
 > **★ Lane-5 correction (2026-07-13):** the video-matrix rows are **no longer in this parent-unverified set** — the assigned Lane-5 Care packets (068/133/134/143/145/146/148/153/183 + 251/252) were parent-read + adjudicated (ledger §5C; manifest §5C.8.1). This §E now scopes ONLY the Lane-1 (contracts) + Lane-3 (pressure/enterprise) items still owed. Non-assigned lower-impact video packets are deferred with rationale (ledger §5C.5), not "parent-unverified pending Lane 5."
 
 ## F. INVALIDATED conclusions — the next agent must NOT inherit these
-- "full video estate audited" — FALSE (run-self-verdicts reviewed; packet/row adjudication incomplete).
-- "the video estate is mostly cross-cutting" / "Care-core contribution is narrow" — **only a SUGGESTION from run-self-verdicts + Wave-1/2 detail; NOT earned** as a whole-estate verdict.
+- "**Every** video/source packet in the **entire estate** was audited" — remains FALSE. Lane 5 adjudicated its explicitly-assigned run-level rows + packet tranche; lower-impact packets were deliberately DEFERRED with rationale (ledger §5C.5). *(Estate-wide completeness is NOT claimed.)*
+- **Within the ACCEPTED Lane-5 tranche:** much of the contribution routes cross-cutting while a narrower set shapes Care directly (parent-adjudicated, §5C). **Do NOT generalize that bounded result** to every outside-learning source or the entire OMNI estate.
 - "zero net-new primitives = no Care impact" — WRONG (Care-impact taxonomy, §C).
 - "RUN-LEVEL SYNTHESIS = PARENT-COMPLETE / draft-complete / five-part package complete / foundational coverage sufficient / secondary carriers" — all **withdrawn** (premature closure).
 - "Care definition novelty fully proven" — only that no promoted standalone "Care is X" was found across v0→v3-integrated; §1CP remains a labeled NOVEL_COMPOSITION pending full adjudication.

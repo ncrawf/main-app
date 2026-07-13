@@ -720,12 +720,12 @@ thesis v0 · thesis v2 §7.1/7.2/7.3/7.5.3/7.5.4 · thesis v3 + v3-integrated §
 **Next (unchanged): after Nick/Knox ACCEPTANCE of Lane 5** → Lane 2 lineage → Lane 1 contract bodies → pressure/enterprise parent-verify. Do NOT begin Lane 2 until acceptance.
 
 ## CROSS-CUTTING FINDINGS THIS SESSION (provisional; strengthen the case that the capture under-inherits)
-- **Video lane (current state — supersedes any earlier "remain unread" phrasing):** run-level self-verdict review is COMPLETE across Wave-1, Wave-2, Wave-3, EVRUN-000005, spring inventories, orientation, and partial EVRUN-000004 (§0.5). **Lane 5 remains OPEN** because Care-row, coverage-matrix, async-detail (§9.9/9.10 + 251/252), and packet-level adjudication are incomplete. The prior "large un-inherited corpus" phrasing is WITHDRAWN. **See HANDOFF §I for controlling state (assignment + closure contract).**
+- **⛔ HISTORICAL PRE-COMPLETION FINDING — SUPERSEDED BY §5C. Lane 5 is ACCEPTED.** *(This bullet was written mid-audit when Care-row/coverage/async/packet adjudication was still incomplete; that work is now DONE + ACCEPTED — §5C.0–§5C.15.)* The pressure-arc, C3.8, and v3-reconciliation observations below remain **provisional inputs to Lanes 3 and 2** — they are NOT Lane-5 reopen instructions.
 - **The pressure arcs hold un-migrated care mechanics** the capture only thinly lists (administration_event · movement_state/ADT · degraded_mode-as-designed-model · source_authority_map · knowledge_partition · operator_graph · continuity_binding · surrogate-hierarchy).
 - **C3.8 raises a genuine Care adjudication:** tenant-ownership vs patient-authority-over-care-truth (OPEN).
 - **v3 thesis re-derivation risk (from Late-Builder VT3):** the capture may be re-deriving care_commitment/boundary-modes/projection-doctrine already authored in v3-integrated §7.3/7.4/7.7 — reconcile as peers.
 
-*Resume at NEXT PARENT ACTIONS. Spend context on reading + integration, not reports. Never a premature package; if near the floor, extend this handoff with exact unread carriers.*
+*(Historical session note — superseded. Lane 5 is ACCEPTED; the current-state authority is the top banner + §5C.)*
 
 ---
 ---
