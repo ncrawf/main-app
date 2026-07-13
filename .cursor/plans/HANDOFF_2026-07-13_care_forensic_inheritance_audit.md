@@ -15,7 +15,7 @@ Created 2026-07-13. **This is the BOOT PACKAGE for the Care inheritance audit.**
 1. **THIS handoff** (boot package).
 2. **`v4_C4_care_inheritance_evidence_ledger.md`** (frozen workbench — detailed evidence, tables, dispositions). Read its top banner + the lane it assigns; do NOT re-derive it.
 3. **`v4_C4_care_operating_model_capture.md`** — the artifact under audit — **FROZEN; do not edit.**
-4. The source files assigned by the **currently authorized bounded-lane instruction.** **Lane 5 is ACCEPTED; §I is HISTORICAL and must not be rerun.** The next permitted transaction is **Lane 2**, whose exact source assignment must be supplied separately (this handoff does not re-authorize Lane-5 reading).
+4. The source files assigned by the **currently authorized bounded-lane instruction.** Lane 5 is accepted; historical §I must not be rerun. The next permitted transaction is **Lane 2**, governed by its separately authorized source assignment and closure contract.
 
 ## C. Forensic method (binding for this audit)
 - **Chronology proves LINEAGE, not AUTHORITY** (two axes: lineage `origin→refinement→pressure-test→contract→correction`; present-authority `historical·candidate(named-unpromoted)·limited-use·binding-at-scope·signed-off·superseded·rejected·open`).
