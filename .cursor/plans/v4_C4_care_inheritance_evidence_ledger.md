@@ -708,14 +708,15 @@ thesis v0 · thesis v2 §7.1/7.2/7.3/7.5.3/7.5.4 · thesis v3 + v3-integrated §
 - **LANE 6 residue:** Build Entry Gate v0 · C2 Source-Base Declaration · lens audit · read-graph/catalog routes.
 - **LANE 4 reopen:** "Mike" sub-item (5th specimen vs alias) · TRT source EVSRC-251 (parent-verify).
 
-## NEXT PARENT ACTIONS — Lane 5 RUN-LEVEL DONE; packet-level + Lanes 2/1/3 remain
-**✅ DONE (steps 1–5,7 — the run-level cross-run pass Knox required):** parent-read EVRUN-000001 (baseline, full) · EVRUN-000002 (registry) · EVRUN-000003 (Wave-3 verdicts) · EVRUN-000005 (Wave-4 verdicts) · spring (00_index + inventories) · orientation (care-conclusions) · EVRUN-000004 §0.5 · + the CROSS-RUN synthesis (earned verdict). Packet-level done: EVSRC-149, 155.
-**Remaining to CLOSE Lane 5 (packet-level):**
-6. Finish **EVRUN-000004 §9.9/§9.10** + **EVSRC-251/252** (action hierarchy · 3 gates · TRT/Dan detail).
-8. Reopen **Care-native packet cluster** for source-packet-supported formulations: **068 · 133 · 134 · 143 · 145 · 146 · 148 · 183** (+ cross-cutting packets only where needed to move a verdict).
-9. Route each vs current CM/Observation/CNS/OFC/D5/RBAC/GCE/AI/Platform carriers via the EVRUN-000004 four-status model + destination field.
-10. Declare Lane-5 disposition ("run-level synthesis COMPLETE; Care-native packet adjudication complete; lower-impact reads deferred with reason").
-**Only after Lane 5:** Lane 2 lineage (System-Map §1G/1K.5.A/1M/1W bodies · full LI · thesis v1/§8/§12.8 · clinical-assertion origin) → Lane 1 contract bodies → pressure/enterprise parent-verify → re-run all verdicts + finalize the 5-part package.
+## NEXT PARENT ACTIONS — Lane 5 NOT closed (run-level VERDICTS reviewed ≠ Lane-5 done); see HANDOFF §I for the runnable prompt
+**✅ Run-level VERDICTS reviewed** (`run_self_verdict_reviewed`, NOT `care_impact_adjudicated`): EVRUN-000001 (baseline, full) · EVRUN-000002 (§1/§2A/§3T) · EVRUN-000003 (verdicts) · EVRUN-000005 (verdicts + §6) · spring (00_index + inventories) · orientation · EVRUN-000004 §0.5. Packets done: EVSRC-149, 155.
+**Remaining to CLOSE Lane 5 (the WHOLE unfinished lane — run-level GAPS + async + packets; per HANDOFF §I closure contract):**
+- **Run-level gaps:** EVRUN-000002 **coverage matrix + full Care block (130–157)** · EVRUN-000003 **Care-ROW depth + tensions** (not just the closing verdict) · EVRUN-000005 **Care-ROW depth + W4 tensions** · spring **v25/v40/v43/v44**.
+- **Async:** EVRUN-000004 **§9.9/§9.10** + **EVSRC-251/252**.
+- **Care packets:** **068 · 133 · 134 · 143 · 145 · 146 · 148 · 183** (source-packet-supported formulation; packet-read depth per HANDOFF §I).
+- Route each via the Care-impact TAXONOMY (primary class + secondary implications + primary destination) vs the expanded comparison homes (HANDOFF §I).
+- **REWRITE the video verdict from packet + row evidence** (not run self-descriptions); satisfy the 10-condition closure contract; ensure no source is marked both read+unread.
+**Only after Lane 5 + Nick/Knox review:** Lane 2 lineage (System-Map §1G/1K.5.A/1M/1W bodies · full LI · thesis v1/§8/§12.8 · clinical-assertion origin) → Lane 1 contract bodies → pressure/enterprise parent-verify → re-run all verdicts + finalize the package.
 Keep subagents for LOCATING + coverage checks only; parent-read the synthesis carriers + verdict-changing packets.
 
 ## CROSS-CUTTING FINDINGS THIS SESSION (provisional; strengthen the case that the capture under-inherits)
