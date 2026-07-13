@@ -1,7 +1,10 @@
 # HANDOFF — Care Forensic Inheritance Audit — 2026-07-13 (terminal continuity closeout)
 
 Document type: `checkpoint_handoff` (continuity artifact; **non-binding** — binding decisions live in `doctrine/03_decision_extraction_ledger.md`, open items in `08_open_review_queue.md`, schemas in contracts/maps). Authority: `analysis_nonbinding` (`GRD-036`). Per Agent Work Protocol §8.
-Created 2026-07-13. **This is the BOOT PACKAGE for resuming the Care inheritance audit.** The detailed workbench is `v4_C4_care_inheritance_evidence_ledger.md` (frozen checkpoint). Gate-state unchanged (C3.8 COMPLETE · C4 runway accepted); this is pre-spine forensic reconciliation, propose-only.
+Created 2026-07-13. **This is the BOOT PACKAGE for the Care inheritance audit.** The detailed workbench is `v4_C4_care_inheritance_evidence_ledger.md`.
+
+> ## ★★ CURRENT STATE (2026-07-13, updated by the acceptance-normalization pass) — read FIRST
+> **LANE 5 = ACCEPTANCE-READY — awaiting Nick + Knox sign-off.** The Lane-5 video/outside-learning/async adjudication was completed + gap-closed + acceptance-normalized (ledger §5C.0–§5C.15; commit `be4fa68` + the acceptance-normalization commit). All 10 closure conditions PASS on corrected repo state (ledger §5C.15). **§I below (the runnable "Care Forensic Auditor — Lane 5 Completion" prompt) is now HISTORICAL — do NOT re-run it; Lane 5 is done pending acceptance.** **Next allowed action = Nick + Knox ACCEPTANCE of Lane 5.** On acceptance → Lane 2 (lineage). Do NOT begin Lane 2 before sign-off. Everything else in this handoff (mission, method, forensic discipline, §A–§H, remaining-lanes) remains valid as the audit's standing frame. Gate-state unchanged (C3.8 COMPLETE · C4 runway accepted); propose-only; Care capture FROZEN/untouched.
 
 ---
 
@@ -87,7 +90,8 @@ Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messag
 - **C3.8 tenant-ownership vs patient-authority-over-care-truth** — currently extractor-only; parent-verify the G3/G4 rows, then present options.
 - **Care-bearing video tensions** T40/T41/T65/T72/T90/T121/T172–175/T194 — adjudicate from the source rows, then surface as framed choices.
 
-## I. EXACT NEXT-AGENT PROMPT — "Care Forensic Auditor — Lane 5 Completion"
+## I. ⛔ HISTORICAL (DO NOT RE-RUN) — EXACT NEXT-AGENT PROMPT — "Care Forensic Auditor — Lane 5 Completion"
+> **This runnable prompt is SPENT. Lane 5 was executed + completed + acceptance-normalized (ledger §5C.0–§5C.15); Lane 5 = ACCEPTANCE-READY awaiting Nick+Knox sign-off (see CURRENT STATE banner at top). Do NOT boot a new agent on this prompt. Retained for provenance only.**
 > You are the **Care Forensic Auditor**. Scope = ONE bounded tranche: **finish Lane 5** (run-level gaps + async + Care packets). Do NOT **edit** the Care capture, sibling captures, contracts, scenarios, Platform, Accountability, or Agent Runtime. You MAY **parent-read narrowly relevant current-carrier sections** when required to verify comparison/routing — that reading does NOT open Lane 1 and you must not rewrite those carriers or start another contract lane. Do NOT open Lane 2 (System Map / thesis lineage / LI / DL-20). Read this handoff + the frozen ledger's Lane-5 sections; do not re-derive them.
 >
 > **ASSIGNED SOURCES (parent-read; this is the WHOLE unfinished Lane 5, not a subset):**
