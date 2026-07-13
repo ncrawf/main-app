@@ -4,7 +4,7 @@ Document type: `checkpoint_handoff` (continuity artifact; **non-binding** — bi
 Created 2026-07-13. **This is the BOOT PACKAGE for the Care inheritance audit.** The detailed workbench is `v4_C4_care_inheritance_evidence_ledger.md`.
 
 > ## ★★ CURRENT STATE (2026-07-13, updated by the acceptance-normalization pass) — read FIRST
-> **LANE 5 = ACCEPTANCE-READY — awaiting Nick + Knox sign-off.** The Lane-5 video/outside-learning/async adjudication was completed + gap-closed + acceptance-normalized (ledger §5C.0–§5C.15; commit `be4fa68` + the acceptance-normalization commit). All 10 closure conditions PASS on corrected repo state (ledger §5C.15). **§I below (the runnable "Care Forensic Auditor — Lane 5 Completion" prompt) is now HISTORICAL — do NOT re-run it; Lane 5 is done pending acceptance.** **Next allowed action = Nick + Knox ACCEPTANCE of Lane 5.** On acceptance → Lane 2 (lineage). Do NOT begin Lane 2 before sign-off. Everything else in this handoff (mission, method, forensic discipline, §A–§H, remaining-lanes) remains valid as the audit's standing frame. Gate-state unchanged (C3.8 COMPLETE · C4 runway accepted); propose-only; Care capture FROZEN/untouched.
+> **✅ LANE 5 ACCEPTED — Nick + Knox 2026-07-13; Care capture unchanged; Lane 2 is the next permitted forensic transaction.** The Lane-5 video/outside-learning/async adjudication was completed + gap-closed + acceptance-normalized (ledger §5C.0–§5C.15; commits `be4fa68` + `5692f57` + this normalization checkpoint); all 10 closure conditions PASS on corrected repo state (ledger §5C.15). **§I below (the runnable "Care Forensic Auditor — Lane 5 Completion" prompt) is HISTORICAL/SPENT — do NOT re-run it. Do NOT re-run any Lane-5 audit.** **The AUTHORITATIVE Lane-5 read-state is ledger §5C.8.1 (carrier manifest)** — the §D table below is corrected to point there. **Next permitted forensic transaction = Lane 2 (lineage).** Everything else in this handoff (mission, method, forensic discipline, §A–§H, remaining-lanes) remains the audit's standing frame. Gate-state unchanged (C3.8 COMPLETE · C4 runway accepted); propose-only; Care capture FROZEN/untouched.
 
 ---
 
@@ -44,18 +44,21 @@ Created 2026-07-13. **This is the BOOT PACKAGE for the Care inheritance audit.**
 | 2026-04-30 audits | authority_vs_longitudinal + care_management_source | origin of the longitudinal law (current carrier = CM §5.1) + care-ownership dimension | no |
 | Late-Builder register | full | the "idea field"; V-series (video-gate-never-run) + VT-series (v3 re-derivation risk) + Care-relevant rows A–U | no |
 | field cases | Alec/SNF/Kyle/Dan (full) | founding-validation + counterexamples (carry-forward, outside-OMNI, streaming) | no |
-| EVRUN-000004 | §0.5/0.6/0.6.1/§2 | async-care = "no new foundational primitives"; four-status model; 3-gate/participation/AI-lineage = REQUIRED_RECONCILIATION | **§9.9/9.10 + EVSRC-251/252 UNREAD** |
+| EVRUN-000004 | §0.5/0.6/0.6.1/§2 + §9.9/§9.10/§9.10.1 | async-care = "no new foundational primitives"; four-status model; 3-gate/participation/AI-lineage = REQUIRED_RECONCILIATION | ✅ Lane-5 COMPLETE — §9.9/§9.10 + EVSRC-251/252 parent-read FULL (ledger §5C.9; manifest §5C.8.1) |
 | EVRUN-000001 (Wave-1) | registry full | baseline; "does NOT touch care core"; only care-adjacent = 068 reservoirs | no (run-self-verdict) |
-| EVRUN-000002 (Wave-2) | §1/§2A/§3T | the clearest Care cluster (130–157); mostly cross-cutting routing + narrow Care-core | **coverage matrix + full Care block UNREAD** |
-| EVRUN-000003 (Wave-3) | §-level convergence + verdicts | harness/eval/security; cross-cutting | **Care-ROW depth + packets UNREAD** |
-| EVRUN-000005 (Wave-4) | §-level convergence + §6 | "0 net-new; gap is BUILD not ideas" | **Care-ROW depth + packets UNREAD** |
-| spring AI-substrate | 00_index + cluster inventories | = EVSRC-000001–047 (the Wave-1 source trove); all cross-cutting | v25/v40/v43/v44 packets UNREAD |
+| EVRUN-000002 (Wave-2) | §1/§2A/§3T + coverage_matrix + full Care block | the clearest Care cluster (130–157); mostly cross-cutting routing + narrow Care-core | ✅ Lane-5 COMPLETE — coverage matrix + Care block + §3T (T1–T194) parent-read (ledger §5C.2/§5C.8.2; manifest §5C.8.1) |
+| EVRUN-000003 (Wave-3) | §-level convergence + Care rows + tensions | harness/eval/security; cross-cutting | ✅ Lane-5 COMPLETE — Care rows (230/243/245) + T1–T17 parent-read (ledger §5C.2) |
+| EVRUN-000005 (Wave-4) | §-level convergence + §6 + Care rows + W4 tensions | "0 net-new; gap is BUILD not ideas" | ✅ Lane-5 COMPLETE — 253 + W4-T1–T6 parent-read (ledger §5C.2) |
+| spring AI-substrate | 00_index + cluster inventories + v25/v26/v40/v43/v44 | = EVSRC-000001–047 (the Wave-1 source trove); all cross-cutting | ✅ Lane-5 COMPLETE — v25/26/40/43/44 parent-read (ledger §5C.2); rest deferred (ledger §5C.5) |
 | orientation (Knox 2026-06-10) | care-conclusions | AFFIRMS OMNI definition + three-gate; adds burden/receptivity HCI | no |
 | EVSRC-000149 | §3 Review 003 | clinical-action-ladder = COMPOSES; `rubber_stamp_guard` = sharp net-new (→§A/RBAC/E&V) | no |
 | EVSRC-000155 | §3 + keepers | value-from-action = sharpening; capacity-aware-threshold → CNS/BIZOPS/E&V | no |
 
+> **★ AUTHORITATIVE Lane-5 read-state = ledger §5C.8.1 (carrier manifest).** This §D table is the mission's founding parent-verified set; the assigned Lane-5 Care packets (068/133/134/143/145/146/148/153/183 + 251/252) and run-level carriers were subsequently parent-read + adjudicated in ledger §5C.0–§5C.15 (Lane 5 ACCEPTED). Do NOT treat any "UNREAD" wording that may remain in deeper historical sections as current; the manifest §5C.8.1 controls.
+
 ## E. SUBAGENT-EXTRACTED, PARENT-UNVERIFIED (located/quoted only — NOT Care verdicts until parent-read)
-Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messaging** (session-1 extractor tables); **C3.5/C3.6/C3.7 deep-trace mechanics** (E/F rows); **C3.8 G1–G4** enterprise breakers (incl. tenant-ownership-vs-patient-authority OPEN); **video matrix rows V-01..V-20** beyond 149/155/EVRUN-000004; **`privacy_communication_governance`** (2nd consent doctrine). All carry exact citations in the ledger; parent-verify before any verdict.
+Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messaging** (session-1 extractor tables; Lane 1); **C3.5/C3.6/C3.7 deep-trace mechanics** (E/F rows; Lane 3); **C3.8 G1–G4** enterprise breakers (incl. tenant-ownership-vs-patient-authority OPEN; Lane 3); **`privacy_communication_governance`** (2nd consent doctrine; Lane 1). All carry exact citations in the ledger; parent-verify before any verdict.
+> **★ Lane-5 correction (2026-07-13):** the video-matrix rows are **no longer in this parent-unverified set** — the assigned Lane-5 Care packets (068/133/134/143/145/146/148/153/183 + 251/252) were parent-read + adjudicated (ledger §5C; manifest §5C.8.1). This §E now scopes ONLY the Lane-1 (contracts) + Lane-3 (pressure/enterprise) items still owed. Non-assigned lower-impact video packets are deferred with rationale (ledger §5C.5), not "parent-unverified pending Lane 5."
 
 ## F. INVALIDATED conclusions — the next agent must NOT inherit these
 - "full video estate audited" — FALSE (run-self-verdicts reviewed; packet/row adjudication incomplete).
@@ -84,11 +87,22 @@ Contract bodies **D3 · D7 · Identity · RBAC · Federation · Intake · Messag
 3. **Care-definition posture** — accept §1CP as labeled novel synthesis built on the inherited distinctions (patient-source · care_management_source · threshold)?
 4. **`care_graph`** — confirm it stays a projection/composition term (no truth-owning object). *(Forensic recommendation: yes.)*
 
-### H2 — Pending SOURCE adjudication — do NOT ask Nick/Knox yet (return source-backed options + consequences FIRST)
-- **T0-16 consent-specificity promotion status** — read the promotion record before framing a decision.
-- **Consent enforcement + alleged 2nd doctrine** — whether Identity/Federation/D7/Messaging substantially IMPLEMENT §7.5.4, and whether `privacy_communication_governance` is a distinct locked doctrine (pathway-sensitivity caps · consent-can't-override-safety-floor · preference-tightens-never-loosens): extractor-indicated only → parent-read those contract bodies + the audit before asserting.
-- **C3.8 tenant-ownership vs patient-authority-over-care-truth** — currently extractor-only; parent-verify the G3/G4 rows, then present options.
-- **Care-bearing video tensions** T40/T41/T65/T72/T90/T121/T172–175/T194 — adjudicate from the source rows, then surface as framed choices.
+### H2 — Pending SOURCE adjudication (still genuinely require later-lane source work — do NOT ask Nick/Knox yet)
+- **T0-16 consent-specificity promotion status** — read the promotion record before framing a decision. *(Lane 2 — still owed.)*
+- **Consent enforcement + alleged 2nd doctrine** — whether Identity/Federation/D7/Messaging substantially IMPLEMENT §7.5.4, and whether `privacy_communication_governance` is a distinct locked doctrine: extractor-indicated only → parent-read those contract bodies + the audit before asserting. *(Lane 1 — still owed.)*
+- **C3.8 tenant-ownership vs patient-authority-over-care-truth** — currently extractor-only; parent-verify the G3/G4 rows, then present options. *(Lane 3 — still owed.)*
+
+### H2-LANE5 — ✅ Lane-5 video-tension source adjudication COMPLETE (2026-07-13; do NOT re-adjudicate)
+The complete Care-relevant/Care-constraining §3T tension inventory (T1–T194) was parent-read + adjudicated (ledger §5C.8.2); the durable principles are recorded and each is routed to its owning home. **What remains is NOT more source adjudication — only the specific implementation/authority CHOICES**, framed in ledger §5C.3 as `durable principle (supported) + unresolved implementation/authority choice`:
+- **T72** review-must-be-meaningful (durable) → choice: evidence threshold + workflow + enforcement of `rubber_stamp_guard`.
+- **T90** silent care-denial prohibited (durable) → choice: detection/proof/remedy/authority mechanism (`care_denial_guard`).
+- **T41** availability ≠ clinical authority (durable) → choice: patient-facing AI role + escalation boundary.
+- **T65** longevity-only-via-proof (durable, Bloom-load-bearing) → choice: exact longevity/medspa firewall spec + owner.
+- **T121** promotion-time vs capture-time rights gate → genuinely broader architectural decision (pressures `GRD-036`).
+- **T172** authority ≤ trusted-horizon (durable) → choice: horizon-axis binding to `blast_radius_class`.
+- **front-desk chart-access vs LOCKED §7.6** (from EVSRC-251 §G) → NOT operator-decidable yet; needs Lane-1 (Identity/RBAC/D7) + Lane-2 (consent/relationship) evidence first.
+- **T39/T45/T46/T194** no-production-RL-on-patient-care → candidate constraint (owning packets 130/131/137 NOT parent-read); ratify in the AI/Platform-governance lane; Care consumes if/when ratified.
+*(T40 augment↔replace = strategy/§2-§10; T183 = Architecture-Memory — not Care decisions.)*
 
 ## I. ⛔ HISTORICAL (DO NOT RE-RUN) — EXACT NEXT-AGENT PROMPT — "Care Forensic Auditor — Lane 5 Completion"
 > **This runnable prompt is SPENT. Lane 5 was executed + completed + acceptance-normalized (ledger §5C.0–§5C.15); Lane 5 = ACCEPTANCE-READY awaiting Nick+Knox sign-off (see CURRENT STATE banner at top). Do NOT boot a new agent on this prompt. Retained for provenance only.**
