@@ -1,0 +1,727 @@
+# Care Inheritance Evidence Ledger — read-only forensic audit ("read the estate like a book")
+
+Document type: `analysis_nonbinding` (review workbench / evidence artifact — **NOT** architecture, **NOT** spine/thesis, **NOT** a contract, **NOT** the Care capture) · Authority: `analysis_nonbinding` (`GRD-036`) · Status: **⏸ FROZEN CHECKPOINT — IN PROGRESS — Phase 1 / Video Lane PARTIALLY ADJUDICATED — current agent closed 2026-07-13** · Review gate: `user_knox_required`.
+
+> ## ⏸ TERMINAL CLOSEOUT (2026-07-13) — read `HANDOFF_Care_Forensic_Inheritance_Audit_2026-07-13.md` FIRST
+> This ledger is the detailed forensic WORKBENCH; the **HANDOFF is the boot package.** The current agent was closed out after Lane-5 run-level review + a partial packet adjudication (149,155,EVRUN-000004 §0.5). **No conclusion here is a completion.** Status vocabulary used across this file: `parent_verified` (opened + read the load-bearing passage myself) · `subagent_extracted_parent_unverified` (located/quoted by a subagent; NOT a Care verdict) · `located_only` (found by search, not opened) · `unread` · `provisional_disposition` (routing/class proposed, packet-reopen pending) · `invalidated_prior_claim` (struck — see handoff §F). The next agent runs a **bounded Lane-5 Packet Adjudication** (handoff §I), not a fresh architecture pass.
+Created: 2026-07-13. Owner-of-record for this pass: Opus (parent agent), driving personally. Purpose: satisfy the forensic-inheritance obligation Knox raised — prove, from opened sources, what the Care estate actually says, before any correction pass touches `v4_C4_care_operating_model_capture.md`.
+
+> ## ⛔ COMPLETION REVOKED (Nick + Knox 2026-07-13) — READ BEFORE TRUSTING ANYTHING BELOW
+> The "CONSOLIDATED FORENSIC PACKAGE" and the reading-log line "FOUNDATIONAL spine = SUFFICIENT" were **PREMATURE CLOSURE** and are **INVALIDATED**. Specifically struck: *"foundational coverage sufficient" · "secondary carriers" · "draft-complete" · "five-part package complete" · any claim the Care-definition novelty is fully proven · any confidence rating resting on unread pressure/video/enterprise carriers.* **Error:** you cannot classify an unread source "secondary/non-foundational" — that is circular. The unread material (hospital pressure mechanics, oncology, enterprise C3.8, the 250-video estate, field cases, System-Map Care bodies, Late-Builder register, half the contracts) can change the *allegedly-settled* verdicts. **The Phase-1 findings (Themes A–J) are preserved as real recovered material, NOT as closed verdicts.** No completion may be declared until the MANDATORY LANES (see "## MANDATORY COMPLETION LANES" below) are each parent-read + dispositioned. If context approaches the floor, write a strict forensic handoff with exact unread carriers — **never another premature package.**
+
+> **This is a temporary workbench.** Per Knox: once reconciliation is complete it should be compressed into a concise inheritance/disposition appendix (or preserved in Git), not remain as the permanent front half of the Care model.
+
+---
+
+## METHOD (the rules this ledger obeys — from Knox's verdict, accepted)
+
+1. **Search is navigation only.** A grep can locate; it cannot prove conceptual absence or faithful inheritance. Absence is stated as *"no adequate carrier found after reading sources A–N,"* never *"grep did not find X."*
+2. **Parent personally verifies every load-bearing passage** before it enters this ledger. Subagents (if used) may retrieve passages; no subagent prose is copied in.
+3. **Read depth is declared per row** — `FULL` (opened + read end-to-end), `SECTION` (opened + read the relevant section/body), `MAP-SUMMARY` (read the system-map's own summary text but not the underlying section body), `LOCATED` (found by search, not yet opened).
+4. **No foundational promotion without provenance.** A claim becomes `inherited / sharpens / composes / conflicts / novel-candidate / rejected / open` only with an exact carrier + section + verbatim semantics. Not every sentence needs a lineage row — only foundational / cross-domain / constitution-level claims.
+5. **Freeze:** no edits to the Care capture, no new architecture, no sibling amendments, no scenario prose, until this ledger is reviewed by Nick + Knox.
+
+Disposition vocabulary (one per claim): `INHERITED-UNCHANGED · INHERITED-CLARIFIED-SCOPE · COMPOSES-EXISTING · CONFLICTS-WITH-HIGHER-AUTHORITY · GENUINELY-NOVEL-CANDIDATE · REJECTED · OPEN`.
+
+---
+
+## POSTURE CORRECTION (Knox 2026-07-13 — ACCEPTED; governs EVERY row in this ledger, above and below)
+
+**Chronology proves LINEAGE, not AUTHORITY.** Reading the estate "like a book" reveals where an idea originated / was refined / renamed / compressed / abandoned — it does NOT establish that the earliest (or any) carrier is authoritative *today*. Every foundational row must therefore carry **two independent axes**:
+- **Lineage axis:** `origin → refinement → pressure-test → contract-expression → later-correction`.
+- **Present-authority axis:** `historical · candidate(named, unpromoted) · limited-use · binding-at-scope · signed-off · superseded · rejected · open`.
+
+**Banned phrasings** (they smuggle authority out of chronology) unless the derivation chain into a *current binding carrier* is explicitly shown: "day-one spine", "binding because CODEOWNER approved", "fully formed", "grandparent of REV-184", "already solved", "locked current canon". Default wording = **"earlier carrier of the same/related law."** Facts to hold: an early file can be the conceptual origin and be non-authoritative now · a clinician-approved audit is a strong *design verdict*, not automatically spine law · a thesis section that says "locked" internally is NOT promoted unless its promotion record says so · a later contract may narrow/supersede an older, more expansive model.
+
+**Promotion rule (final form):** *No foundational promotion without verified provenance OR explicit novel-candidate status.* This applies to constitutional laws, cross-domain ownership, new primitives, loop grammar, authority, consent, closure, major lifecycle semantics, and spine claims — **NOT** to every explanation, example, ordinary contract detail, or prose transition. This ledger is a temporary forensic workbench, not OMNI's future writing style.
+
+**Interim reporting:** no more checkpoint/celebration reports. Continue reading. Interrupt only for (a) an irreconcilable authority conflict, (b) a missing source, (c) a corrupted file, or (d) a decision genuinely requiring operator judgment before further reading. All prior rows below were written before this correction and are being re-anchored to the two-axis standard as the read completes; treat any residual overclaim language as pending-correction, not accepted.
+
+---
+
+## READING LOG (the resumable cursor — where the book-read actually is)
+
+Chronology established from `git log --diff-filter=A --reverse` over `.cursor/plans`. The book opens **2026-04-24**.
+
+| # | Date | Carrier | Read depth | Status |
+|---|---|---|---|---|
+| 1 | 2026-04-24 | `system_map_three_layers_60706286.plan.md` (FILE #1 in repo) | MAP-SUMMARY (longitudinal/tracked-object lines: §1M, §1W, DL-7, Layer-2 timeline, temporal-truth, line 65) | partial — underlying §1M/§1W/§1K.5.A bodies NOT yet opened |
+| 2 | 2026-04-27 | `audits/2026-04-27_clinical_assertion_layer_{audit,design}.md` + intake_construction + static_clinical_facts + concept_naming | LOCATED | pending deep-read |
+| 3 | 2026-04-30 | `audits/2026-04-30_authority_vs_longitudinal_confidence.md` | FULL | ✅ read |
+| 4 | 2026-04-30 | `audits/2026-04-30_care_management_source_field.md` | FULL | ✅ read |
+| 5 | 2026-04-30 | `audits/2026-04-30_privacy_communication_governance.md` (Knox: the locked consent doctrine) | LOCATED | pending deep-read |
+| 6 | 2026-05-19 | `doctrine/longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md` | SECTION (§1–§6 read; §7+ pending) | partial |
+| 7 | 2026-06-07 | `audits/2026-06-07_federation_centralized_vs_decentralized_care_operator_read.md` (the "care graph" naming thread) | SECTION (care-graph naming section ~1180–1275) | partial |
+| 8 | 2026-05-24 | `omni_thesis_v0_founder_version_2026-05-24.md` (the origin "what OMNI is") | FULL — parent-read | ✅ read |
+| 9 | 2026-06-14 | `v4_REV184_decision_state_reconciliation.md` (SIGNED-OFF governed-resolution lifecycle) | FULL — parent-read | ✅ read |
+| 10 | 2026-05-26 | `omni_thesis_v2_2026-05-26.md` §7.1 (case/problem ownership) · §7.2 (6 ownership roles) · §7.3 (care_commitment + threshold) · §7.5.3 (patient-source gate) · §7.5.4 (LOCKED consent-specificity) | SECTION — parent-read | ✅ read (§7.4/§7.6/§8.6/§12.8 still pending) |
+| 11 | 2026-05-31 | `contracts/clinical_memory_assertion_contract.md` (`canonical`, draft_for_ratification) — FULL | FULL — parent-read | ✅ read — **current-carrier verifications below** |
+
+**Current-carrier verifications from row 11 (two-axis: these establish PRESENT authority, not just lineage):**
+- **authority ≠ longitudinal-pattern (GV-1):** carried VERBATIM into current CM contract **§5.1** (`canonical`) — *"current_authority drives floor decisions; longitudinal_pattern drives queue priority… NEVER the reverse… never satisfy an authority floor… safety reads current_authority, never the rollup."* → the durable law's **strongest current carrier = CM §5.1** (inherit through it); LI doctrine stays limited-use. GV-1 present-authority = **binding-at-scope (CM canonical, draft_for_ratification)**.
+- **care_management_source (GV-2):** current CM **§6.2** canonical supplemental field (`internal_program·outside_provider·patient_self_directed·unmanaged·unknown`), explicitly NOT-in-context_key + NOT-safety-authoritative. Confirmed current dimension; still NOT the Care definition.
+- **patient-source gate (E2):** current CM **§2/§8.3/§8.6/§8.9** — *"provider is the only adopter," "AI never confirms/satisfies a gate," "provenance survives adoption."* Confirms B3 (AI-bounded) + E2 at current canon.
+- **tracked_clinical_object (A5 — CORRECTION):** current CM **§3/§9/§12 `REV-167` OPEN** — the DL-7/§1W durable longitudinal object *"currently has NO owner"*; fold-into-CM-concept vs own-primitive UNDECIDED (promotion-threshold pattern = likely v1 answer). → A5 present-authority = **OPEN (REV-167)**; earlier "system-map primitive" language must not imply it's settled current canon.
+- **authority precedence ladder (§5):** `provider_confirmed > provider_assessed > lab_derived > document_extracted > patient_self_correction > patient_reported > ai_suggested > system_derived` (8-value); vocab unification vs thesis §7.5.3 (6+4) is **OPEN `REV-151`**.
+
+**Parallel extractor agents (6) — ✅ ALL COMPLETE + INTEGRATED 2026-07-13** (read-only, verbatim-only). Returns folded into Themes F/G/H/I. Coverage: (1) CNS·Clinical-Memory·Observation; (2) D5·OFC·D3·D7; (3) Identity·RBAC·Federation·Intake·Messaging; (4) system-map bodies §1G/1H/1K.5.A/1M/1W + LI doctrine + LI pressure-result + DL-20 + future-care-obligations + data_layers; (5) C3.5/6/7 C/D/E/F/G; (6) EVRUN-000004 + EVSRC-251/252 + field cases + privacy audit.
+- **Parent-verified from source (opened personally to confirm load-bearing extractor quotes):** OFC §6/§7/§10 (release-gate-STATE-not-AUTHORITY + 5 non-collapsing gates + obligation≠commitment REV-141) · D5 §5/§10 (completion≠closure SO-24 + episode-terminology trap + care_commitment overlay).
+- **Extractor-cited, parent-verification pending** (verify before any spine promotion): CNS·Clinical-Memory·Observation full bodies · D3/D7 full bodies · Identity/RBAC/Federation/Intake/Messaging · system-map §1G/1K.5.A bodies · C3.5/6/7 C/E/F traces · EVRUN-000004 §9.10 full.
+
+| 12 | 2026-05-31 | `contracts/observation_measurement_contract.md` (`canonical`) — FULL | FULL — parent-read | ✅ read (Theme J1) |
+| 13 | 2026-05-31 | `contracts/CNS_orchestration_contract.md` (`canonical`) — FULL | FULL — parent-read | ✅ read (Theme J2) |
+| 14 | 2026-06-03 / 06-05 | `omni_thesis_v3_2026-06-03.md` §1-§2 + `omni_thesis_v3_integrated_2026-06-05.md` §1-§2 (What-is-OMNI definition, current canonical carrier) | SECTION — parent-read | ✅ read (OC-DEFN closed) |
+
+**⛔ INVALIDATED (2026-07-13):** the prior claim here — "FOUNDATIONAL spine = SUFFICIENT" + "remaining = SECONDARY carriers … NONE controls an un-verdicted foundational law" — was **circular and is struck.** Parent-read so far (Themes A–J, real but Phase-1): thesis v0/v2§7/v3/v3-integrated · REV-184 · CM · Observation · CNS · OFC§6/7/10 · D5§5/10. **These do NOT close the audit.** Every carrier in "## MANDATORY COMPLETION LANES" below must be parent-read + dispositioned before any verdict is treated as settled — because unread hospital/oncology/enterprise/video/field-case/system-map/late-builder material can alter the very questions above (see the "allegedly-settled ↔ unread material" mapping in the lanes section).
+
+Later carriers still owed a full read (Knox's mandatory list): REV-184 (full) · CNS contract + ADR · Clinical Memory · Observation · D3 · D5 · OFC · D7 · Identity · RBAC · Federation · Intake · Messaging · GCE/capability · thesis §§7.2–7.5.4/8/8.6/12.8 (+ predecessor deltas) · System Map §1G/§1H/§1K.5.A/§1W · LI doctrine + pressure results · DL-20 locked+parked · future-care-obligations · all field cases · C3.5 D/E/F/G · C3.6 C/D/E/F/G · C3.7 mechanism/scenario/trace/disposition · EVRUN-000004 + EVSRC-251/252 · physical-automation/device-authority · action-type/command reconciliation.
+
+---
+
+## EVIDENCE LEDGER
+
+Columns: **Claim/Question · Exact carrier + section · What the source actually says (verbatim-anchored) · Authority · Conflict / supersession · Proposed disposition**. Read depth in brackets.
+
+### Theme A — "Track info over time" (the longitudinal spine) + the "care graph"
+
+**A1 — Authority ≠ longitudinal pattern (the founding safety split).** [FULL]
+- Carrier: `audits/2026-04-30_authority_vs_longitudinal_confidence.md` (clinical CODEOWNER = founder/MD; "Verdict: safe to apply; binding hard rule").
+- Source says: *"Authority is a safety contract. Longitudinal pattern is observability."* Binding hard rule (§Part 2): *"`current_authority` from the Current view drives floor decisions; `longitudinal_pattern` from the Rollup view drives queue priority and provider attention. Never the reverse."* Pattern NEVER promotes status, NEVER raises `authored_by`/`authority_rank`; CAN boost queue priority only. Cross-industry (§Part 1): *"the source events stay raw; a computed pattern layer informs but doesn't decide"* (Amazon/Apple/Tesla).
+- Mechanics: `patient_clinical_assertion_history_rollup` (sibling to `_current`), keyed `(patient_id, concept_id, context_key)`; 6-value pattern enum (`consistent_present/absent/resolved`, `conflicting`, `uncertain`, `insufficient_history`).
+- Authority: clinician-signed-off binding rule, 2026-04-30 (day-one foundation).
+- Conflict/supersession: none found; it is *upstream* of the LI doctrine (row A3) and REV-184 (frozen-context / pattern-never-commits). Later docs inherit it.
+- **Disposition: INHERITED-UNCHANGED (foundational).** The Care capture's §0 demotes this lineage to a single `LIMITED-USE "pre-v2 vintage"` row → **graveyarding flag GV-1**: a clinician-ratified day-one spine is undersold as a weak citation. Care model must inherit the *mechanic* (authority-floor vs pattern-signal separation), not just cite "longitudinal intelligence."
+
+**A2 — Care ownership / management source (who is accountable, incl. outside/self-care).** [FULL]
+- Carrier: `audits/2026-04-30_care_management_source_field.md` (clinical CODEOWNER; Verdict "Option B").
+- Source says: adds `context.care_management_source` enum — `internal_program · outside_provider · patient_self_directed · unmanaged · unknown` (NULL = unknown). Discipline: NOT in `context_key` hash (ownership ≠ identity); NOT authoritative for safety (a pancreatitis history still blocks regardless of who manages it); pathway context ≠ care ownership; never auto-populated (provider explicitly sets).
+- Authority: clinician-signed-off, 2026-04-30.
+- Conflict/supersession: none. This is the day-one answer to Knox's open question ("self-care / family / outside-OMNI / owner-not-yet-known"). It distinguishes *care activity in the world* from *accountable/managed care* via an explicit, non-safety-bearing provenance dimension.
+- **Disposition: INHERITED-UNCHANGED → feeds the Care-definition reconciliation.** Directly relevant to `q-whatiscare`: the estate already separates "who manages/owns" from "clinical identity" and from "safety authority." **Flag: the Care capture should cite this as prior art for the accountable-vs-unaccountable-care distinction rather than re-deriving it.**
+
+**A3 — Longitudinal Intelligence as an operating doctrine (the Signal Authority Ladder).** [SECTION §1–§6]
+- Carrier: `doctrine/longitudinal_intelligence_cns_patient_operating_context_2026-05-19.md`.
+- Source says: *"OMNI is a longitudinal intelligence operating system for patient/care context… a coordinated system where each atomic event improves the next decision."* Signal Authority Ladder (§6): raw signal → normalized observation → trend → contextual interpretation → CNS candidate. Coordination boundary (§4, binding): LI *"may inform care timing, routing, prioritization, suppression, and candidate quality, but it does not itself create `service_occurrence` rows, commerce events, or D7 record materializations without owning-domain create/commit rules."* Patient-agency boundary (§5): *"no permission → no candidate influence."*
+- Authority: header says **RECOVERED TO MAIN 2026-05-30, `REV-148`; ratified for LIMITED Tier-1 routed use per `D0W3C-REV-001`; re-verify vs current Tier-0 + thesis v2 before treating as authority.** So the *doctrine status* is genuinely limited-use — BUT its core split (A1) is independently binding and older.
+- Conflict/supersession: LI doctrine is limited-use; REV-184 is the signed-off successor at the gate. Need to check (later row) whether REV-184 fully absorbs the Signal Authority Ladder or only the gate portion.
+- **Disposition: COMPOSES-EXISTING / OPEN** — the *ladder* concept is inheritable but its doctrine carrier is limited-use; the *authority-vs-pattern* mechanic (A1) is the durable binding piece. Care capture's `LIMITED-USE` label is correct *for the doctrine file* but wrong if it causes the underlying A1 mechanic to be dropped.
+
+**A4 — "Care graph" (the named concept).** [SECTION]
+- Carriers: `omni_thesis_v2_2026-05-26.md:1089` + `omni_thesis_v3_integrated_2026-06-05.md:936` — *"the same patient's care graph"* (cross-operator coexistence, §7.8). `audits/2026-06-07_federation_centralized_vs_decentralized_care_operator_read.md:1191,1245,1269` — *"OMNI Care Graph … patients, providers, operators, nodes, obligations, context"*; *"OMNI Network is the patient-facing care graph."* `ingestion/…/EVSRC-2026-000244…:1548` — names *"the care graph"* as a moat primitive.
+- Source says: "care graph" is used as a **strategic/patient-facing network concept** (cross-operator continuity mesh coordinated by CNS), not (yet) as a formal object model. The 2026-06-07 thread is a naming/brand exploration (Nick pushes back on "OMNI Network" as too healthcare-conference; "dragon egg" / meta-elephant).
+- Authority: thesis = DEEP-HISTORICAL; audit = EVIDENCE/strategy; EVSRC = evidence.
+- Conflict/supersession: the *term* "care graph" is strategy-layer, not a ratified truth object. The *mechanics* of the graph (tracked objects over time + assertions + timeline + care ownership) live in the system-map primitives (row A5) and A1/A2 — i.e. the "graph" is the composition of those, never separately modeled.
+- **Disposition: OPEN (strategy term) / the underlying structure = COMPOSES-EXISTING (A1+A2+A5).** Per Knox: keep "moat"/brand language OUT of the Care operating law; the Care model owns the *mechanics*, the thesis owns *why it's defensible*.
+
+**A5 — System-map longitudinal primitives (the concrete substrate).** [MAP-SUMMARY — underlying bodies NOT yet opened]
+- Carrier: `system_map_three_layers_60706286.plan.md` (FILE #1, 2026-04-24): §1M `patient_state_observations` (append-only longitudinal trackables, first-class, "timeline carries narrative pointers only — never values"); §1W + DL-7 tracked clinical objects + procedure/intervention lifecycle (four-layer epistemic model: tracked finding → assertion atom → diagnosis entity → billing artifact, "over time, across encounters"); Layer-2 `patient_timeline_events` (unified chronology; supersession-with-pointer, not silent edits); temporal truth (`effective_at` + `recorded_at`); line 65: *"OMNI becomes intelligent when those inputs are arranged over time into governed, reconstructable, authority-owned context that can drive action, suppression/no-op/defer, escalation, and memory."*
+- Authority: system map = transitional-evidence for un-migrated modules; parts marked partly-stale; needs re-verify vs contracts (Clinical Memory / Observation / D5).
+- Conflict/supersession: §1G decomposed → D5 + CNS (`REV-161`, verify). Must reconcile map primitives vs current contract owners before asserting inheritance.
+- **Disposition: OPEN — deep-read required.** Located and map-summarized; the underlying section bodies must be opened (NEXT read) and reconciled against Clinical Memory / Observation / D5 contracts. Do NOT assert "inherited" until the bodies are read.
+
+---
+
+### Theme B — "What is Care / OMNI" (the definition lineage) [parent-read]
+
+**B1 — The origin definition (thesis v0 founder, 2026-05-24).** [FULL — parent]
+- Carrier: `omni_thesis_v0_founder_version_2026-05-24.md` §"What OMNI is".
+- Source says (verbatim): *"OMNI is a **governed contextual care substrate**. It maintains longitudinal coherence — through identity, consent, authority, evidence, observation, assertion, policy, coordination, and execution primitives — across a designed family of care-network topologies that expands by explicit decision, not by drift."* Invariant: *"governed contextual coherence across actors, surfaces, organizations, and authority boundaries."* Patient-facing: *"Care that remembers you."*
+- **Critical:** this defines **what OMNI (the substrate) is** — it does **NOT** promote a bounded definition of "what Care is" as a concept. Two planes are explicitly separated: *"Substrate plane / Product plane… Two planes, two rules. Don't blend them."*
+- Authority: header = **`superseded_by_v1` (2026-05-25, `D0THES-DEC-001/002`)** — v0 says *"For current directional thesis claims, cite v1."* So this is the ROOT of a supersession chain v0→v1→v2→v3.
+- Conflict/supersession: v0 superseded same-day by v1 (absorbed case-centered care + visible-provider deployment + AI capability governance). **Definition lineage MUST be traced forward through v1/v2/v3 before the Care-definition question closes.**
+- **Disposition: COMPOSES-EXISTING (substrate def) + OPEN (Care-concept def).** Confirms the Care capture §0-ADJ verdict that a bounded "Care is…" definition is **NOVEL_COMPOSITION** — *from source, not from grep*: v0 (the origin) deliberately defines the substrate + two-plane discipline, never a single "Care is X" sentence. The novelty is legitimate but must be built on inherited mechanics (B2/B3) + reconciled vs v1–v3.
+
+**B2 — The universal flow chain (origin of Sense→Decide→Act→Prove).** [FULL — parent]
+- Carrier: `omni_thesis_v0_founder_version_2026-05-24.md` §"The universal flow".
+- Source says (verbatim chain): `source_event → media_artifact → observation → extraction_run → extracted_assertion (confidence/uncertainty/contradiction_flag) → patient_confirmation/clinician_review → committed assertion → CNS context_packet update → candidate → policy_resolver (deterministic rules + policy version pinned) → **authorized_action (actor authority verified, scope checked, audited)** → execution → OUTPUT → evidence_record → feedback into next source_event.`
+- Authority: directional-thesis (v0→superseded, but the chain is inherited into v1+ and realized in contracts).
+- Conflict/supersession: this is the ANCESTOR of REV-184's Sense/Decide/Act/Prove and of the Care capture's controlling model. **`authorized_action`** is defined HERE at origin as "actor authority verified, scope checked, audited" — directly answers Knox's Q6 (authorized_action vs resolution vs command).
+- **Disposition: INHERITED (foundational).** The Care capture's loop shape is a faithful descendant; ensure the capture cites this origin chain rather than presenting the loop as new.
+
+**B3 — AI as bounded participant (day-one law).** [FULL — parent]
+- Carrier: `omni_thesis_v0_founder_version_2026-05-24.md` §"AI as bounded participant".
+- Source says (verbatim): *"AI is: extractor, proposer, classifier, summarizer. AI is NEVER: the committer of truth, the authority over patient state, the decision-maker on consequential clinical action, the replacement for clinician judgment."* Rejects "AI everything," "Forms everything," "Event-bus everything."
+- Authority: directional-thesis origin; reinforced by REV-184 trust_horizon + RBAC "AI proposes/humans commit".
+- Conflict/supersession: none — this is the strong prior. **Directly bears on Knox's point #5** (the Care capture's `ai_assist_required`-as-invariant was wrong). Knox's refinement ("AI must not become the source of clinical authority merely because a workflow depends on it; each capability declares an approved fallback / safe degradation / explicit unavailability") = a SHARPENING of this law, not a conflict.
+- **Disposition: INHERITED-UNCHANGED + Knox-sharpening pending.** The Care capture must inherit the day-one law verbatim and add the fallback-declaration nuance as `[ARCH-CANDIDATE]`, not re-invent AI enums.
+
+**B4 — Coherence = the operational definition (8 tests).** [FULL — parent]
+- Carrier: `omni_thesis_v0_founder_version_2026-05-24.md` §"Coherence — what it means operationally".
+- Source says: *"Coherence means contradictions, supersessions, uncertainty, authority, and time are explicit rather than hidden."* 8 tests: no silent contradictions · no silent supersession · versioned reinterpretation · reversibility (or explicit non-reversibility) · cross-slice consistency · time-honest queries ("what did OMNI believe at time T?") · authority lineage · **ownership resolution ("every coordination case resolves to ownership or intentional no-owner rationale").**
+- Authority: directional-thesis origin.
+- Conflict/supersession: these 8 tests are the ancestors of REV-184 (supersession/outcome-reads-frozen-context/authority-lineage), longitudinal (time-honest), and care-coordination ownership. Test #8 (ownership resolution) = origin of the care-coordination ownership question DL-20 wrestles with.
+- **Disposition: INHERITED (foundational).** Care completion/coherence claims should map to these 8 tests, not re-derive them.
+
+### Theme C — Governed resolution / authorized_action / occurrence / outcome [parent-read; SIGNED-OFF]
+
+**C1 — The Governed Resolution Lifecycle Law (REV-184, SIGNED-OFF).** [FULL — parent]
+- Carrier: `v4_REV184_decision_state_reconciliation.md` §0.1–§0.4 (Status: **✅ SIGNED OFF Nick+Knox 2026-06-14; `08` D0THES-REV-184 CLOSED**).
+- Source says (verbatim §0.1): *"Every recognized signal, problem, request, or candidate action — raised by ANY actor (human clinician · AI agent · protocol · team · external system) — resolves through one actor-agnostic governed lifecycle at the thesis-§8 authority gate between Sense and Act."* Resolves to *"act · no-act/not-indicated · defer · monitor · consult · dispute · decline · preserve-option · escalate-if-fails · uncertain · emergency-first · post-hoc-reconciliation."* *"Recognition ≠ ownership ≠ action ≠ intervention; non-action can be a committed decision; disagreement is an escalation signal; outcome later reads the frozen context, never rewrites it."*
+- 7–8 spine lines (§0.2/§R3.12): governed-resolution-lifecycle · non-action-as-commit · blast-radius-keyed authority · disagreement-as-escalation · outcome-reads-original-context · **world-model honesty** (`predicted_state = candidate, not truth`) · **`trust_horizon`** (authorized-autonomy ≤ trusted-horizon).
+- Ownership map (§0.4/§R3.2): **CNS** owns resolution RECORD+LIFECYCLE+GRAPH (process-state, not truth) · **RBAC** owns authority/blast-radius/reversibility/autonomy gate · **CM** owns truth+commit (adoption) · **OFC** owns obligations-resulting-from-stance (Knox correction: NOT the stance) · **D5** occurrence/movement_state · **REV-174** outcome-link (reads frozen context) · **D7** proof.
+- Authority: **SIGNED-OFF, spine-grade.** Two orthogonal axes: `gate_holder_posture` × `world_model_trust` (§0.3 — do NOT merge).
+- Conflict/supersession: this is the authoritative answer to Knox's Q6. It supersedes earlier round language (READ-ORDER GUARD §41). Care capture §4 correctly cites it as SIGNED-OFF.
+- **Disposition: INHERITED-UNCHANGED (constitutional).** Care capture must inherit the FULL ownership map + both axes + the out-of-band/degraded branch (§R3.9) — not a one-line summary. Verify the capture's §4 carries the two-axis model + emergency/post-hoc reconciliation.
+
+**C2 — authorized_action vs resolution vs command vs occurrence vs outcome (the Q6 disambiguation).** [FULL — parent, cross-carrier]
+- Carriers: REV-184 §R3.2 ownership map + §2 GAP + v0 flow chain (B2).
+- Source says: **resolution** = the governed stance at the §8 gate (REV-184; CNS record, process-state not truth). **authorized_action** = the governed performative command "actor authority verified, scope checked, audited" (v0 flow) — *"resolution may produce 0 actions"* (REV-184 §5; a resolution is not an action). **truth/commit** = `clinical_assertion` adoption (CM). **occurrence** = D5 `service_occurrence` (actualized work; ≠ closure). **outcome** = REV-174 (reads frozen context, never rewrites). **obligation** = OFC `care_obligation` (owed/due; results from a stance).
+- Authority: REV-184 SIGNED-OFF + v0 directional + contracts BINDING (contract rows pending from extractor 1/2).
+- Conflict/supersession: this resolves the exact conflation Knox flagged (the Care capture had conflated `authorized_action` with physical intervention). REV-184 §2 GAP-1 and §0.1 explicitly separate recognition/ownership/action/intervention.
+- **Disposition: INHERITED (constitutional) — the five are distinct, owned by distinct contracts.** Await extractor 1/2 verbatim contract quotes to confirm D5/OFC/CM field-level ownership before the row is closed.
+
+### Theme D — Care commitment / when responsibility attaches (Knox Q3/Q4/Q5) [parent-read]
+
+**D1 — The 4-level framework + the accountability threshold.** [FULL — parent; thesis v2 §7.3]
+- Carrier: `omni_thesis_v2_2026-05-26.md` §7.3 "Provider choice / assignment / care_commitment / scoped ownership".
+- Source says (verbatim): the universal 4-level framework — **1. Preference** (who patient wants/allows/excludes) · **2. Assignment** (who is scheduled/performs) · **3. Care commitment** (what was committed/performed/prescribed/ordered/recommended/promised) · **4. Scoped ownership** (who owns commitment/follow-up/monitoring/complication/next step). Threshold rule: *"Not every event is a care commitment. A care commitment begins when accountability attaches."* And: *"the `authorized_action` step IS the accountability threshold. Everything to the LEFT (source_event/observation/extracted_assertion/candidate) is pre-accountable substrate; everything to the RIGHT (authorized_action/execution/evidence_record) is accountable."*
+- Doctrine lines (verbatim): *"Choice routes care. Assignment records care. Commitment creates accountability. Ownership closes care."* · *"Every care commitment has an owner. Not every preference creates a longitudinal owner."* · *"Ownership is scoped, temporal, transferable, and auditable."*
+- Authority: DEEP-HISTORICAL (thesis v1-completion/v2 directional); T0-10 candidate NAMED, not promoted.
+- Conflict/supersession: this **ties `care_commitment` threshold → `authorized_action` (v0 flow B2) → REV-184 resolution (C1)** — one coherent lineage. Resolves Knox Q3/Q5.
+- **Disposition: INHERITED (foundational) — this is the answer to "when does responsibility attach."** **Flag GV-3:** the Care capture files `care_commitment` as `OPEN (REV-141)` — but §7.3 already specifies the primitive, its lifecycle, 5 scopes, 2 accountability tracks, and ambiguity-as-commitment. The OPEN is only the final object/projection/interface shape, NOT the concept. Undersold.
+
+**D2 — `care_commitment` primitive + lifecycle + scopes.** [FULL — parent; thesis v2 §7.3]
+- Carrier: same §7.3.
+- Source says: `care_commitment` = *"any committed service/procedure/prescription/order/plan/recommendation/monitoring loop/consult opinion/follow-up obligation that creates accountability for an actor within a scope."* Schema fields incl. `commitment_kind`, `scope`, `performing_actor` (HUMAN per §12.8), `accountability_attached_at`, `scoped_ownership[]`, `lifecycle_state`. `care_commitment_event` lifecycle: assigned→accepted→activated→revised→scope_changed→transferred→shared→completed→cancelled→expired→reopened. **5 ownership scopes:** episode · series-or-plan · therapy-lane · case · deliberation — *"Scopes COMPOSE on the same patient simultaneously."* **Ambiguity-as-commitment:** *"even ambiguity has scoped accountability"* (ambiguity-resolution care_commitment with `owner_unknown:true`, coordination_owner assigned).
+- Authority: DEEP-HISTORICAL (directional).
+- Conflict/supersession: §7.1 case/problem-ownership layer + §7.2 six ownership roles (treating/consulting/ordering/supervising/monitoring/open_loop owner; **all HUMAN-only**; patient = ultimate authority over WHO treats them; explicit audited transfer-of-care) compose with this.
+- **Disposition: INHERITED / COMPOSES-EXISTING.** Care capture §5 (Planning/Commitment layer) must inherit this scope model + the 6 roles, cite REV-141 as the OPEN *shape* only.
+
+**D3 — The founding longitudinal-signal case (the real motivating story).** [FULL — parent; thesis v2 §7.3]
+- Carrier: §7.3 "Lived example — the founding longitudinal-signal case (Alec Harris, 2026-05)"; provenance `evidence/omni_field_cases.md` FIELD-001; `D0THES-REV-142`.
+- Source says: a real peptide patient reported dramatically improved sleep (wearable "scores off the chart"), muscle gain, energy, resolved tennis elbow *while asking whether his dose was right* — all inside a text thread the provider had to manually notice. *"OMNI's job is to turn that longitudinal operating context into a governed care opportunity… surfacing the right signal, at the right moment, under the right authority."*
+- Authority: EVIDENCE / founding case; REV-142 OPEN (end-to-end solve-obligation).
+- **Disposition: INHERITED (founding case).** This is the Care capture §0 "Founding longitudinal loop" row (`REV-142`, OPEN) — it should be centered as the motivating case, not left as a one-line OPEN. Ties Theme A (longitudinal) ↔ Theme D (commitment).
+
+### Theme E — Consent / permission / representation (Knox Q8 + the "weakened law" concern) [parent-read]
+
+**E1 — The LOCKED consent-specificity law (verbatim — this is the law Knox says must not be softened).** [FULL — parent; thesis v2 §7.5.4]
+- Carrier: `omni_thesis_v2_2026-05-26.md` §7.5.4 "Consent specificity doctrine — v2 NEW guardrail B".
+- Source says (LOCKED, verbatim): *"**Consent does not aggregate.** Each `visibility_grant` carries explicit **scope** (which substrate objects), **purpose** (why), **duration** (how long), and **recipient** (which operator). Cross-operator consent grants must be specific. The substrate does not allow blanket 'share with all OMNI operators' grants."* Rejects (locked anti-patterns): consent-once-all-see · auto-renews-on-operator-change · coarse-grained-per-deployment · aggregates-across-operators. Requires: per-operator/per-scope/per-purpose/per-duration; **default = no grant**; **auto-renewal FORBIDDEN at substrate level**; new operator = explicit new grant.
+- Authority (TWO-AXIS, corrected per Knox 2026-07-13): **Lineage** = deep + explicit in thesis §7.5.4, worded "locked" *internally*. **Present authority** = **candidate, named-not-promoted** — it is the **T0-16** anti-collapse-trinity candidate whose thesis text itself says it went through the required Tier-0 change-control gate as *named*, NOT elevated; enforcement mechanism `D0THES-REV-038` still open. So it is **likely-durable, and the contracts (G1) enforce much of it**, but "locked current canon" is NOT yet justified — **verify promotion + current contract-enforcement status.**
+- Conflict/supersession: **CONFIRMS Knox's concern** that the capture's softer phrasing ("authorization never silently propagates and may be explicitly multi-operator") must not *replace* the stronger specificity doctrine.
+- **Disposition: INHERITED-CANDIDATE (deep + likely-durable; promotion NOT yet verified) + preserve-verbatim directive.** Preserve the stronger specificity semantics (scope/purpose/duration/recipient · no blanket · no silent renewal · no auto-transfer); "may be explicitly multi-operator" = candidate clarification needing its own gate, NOT a paraphrase. **OC-CONSENT (below).** Owed: confirm which current contracts actually enforce it (D7/Federation extractor-cited; parent-verify) + the T0-16 promotion record.
+
+**E2 — Patient-source substrate gate (care-in-the-world vs accountable care).** [FULL — parent; thesis v2 §7.5.3]
+- Carrier: `omni_thesis_v2_2026-05-26.md` §7.5.3 "Patient-source substrate concept".
+- Source says (LOCKED, verbatim): *"Patient-source is a substrate concept, not an operator posture. Patient-source data enters substrate with `source_authority = patient`; care_commitment does NOT attach until a clinical operator explicitly clinically-adopts the data."* Patient is a substrate-source actor, NOT `operator_of_record`. `clinical_adoption_state`: not_adopted→adopted/rejected/superseded; provenance (`source_authority = patient`) preserved across the adoption gate.
+- Authority: LOCKED doctrine.
+- Conflict/supersession: together with `care_management_source` (A2) + care_commitment threshold (D1), this is the estate's **rigorous, locked answer** to Knox's "self-care / family / outside-OMNI / owner-not-yet-known" critique of the Care *definition*. The estate already separates: patient-source data (pre-accountable) → clinical adoption gate → accountable care_commitment.
+- **Disposition: INHERITED-UNCHANGED (locked).** Care definition (§1CP) must be built ON this distinction, not treat it as unresolved.
+
+### Theme F — Care-lifecycle contracts: occurrence / obligation / commitment / completion / release [parent-verified core]
+
+**F1 — Completion ≠ closure (D5 SO-24, invariant).** [PARENT-VERIFIED — opened D5 §5]
+- Carrier: `contracts/D5_service_occurrence_care_coordination_contract.md` §5 L51.
+- Verbatim: *"**Completion ≠ closure (SO-24):** D5 `completed` is the actualization boundary only — it does NOT imply D6 settlement or D7 documentation/attestation. Unresolved siblings emit reconciliation candidates."* Lifecycle: `created→active→completed|cancelled|superseded|aborted` (SO-07); supersession first-class (SO-08/09).
+- Authority: `draft_for_ratification`, invariant SO-24.
+- **Disposition: INHERITED (constitutional).** This is the source for the Care capture §7a "no single final closure / scoped completion." Confirmed from source; the capture's claim is faithful *here* — cite SO-24.
+
+**F2 — `care_commitment` = accountability OVERLAY; obligation ≠ commitment; the episode-terminology trap.** [PARENT-VERIFIED — opened D5 §10 + OFC §7/§10]
+- Carriers: D5 §10 L100-103; OFC §7 inv 12 + §10 L109.
+- Verbatim (D5 §10): *"`care_commitment` = accountability overlay (who owns the next step, under what authority, by when)… Accountability threshold: `care_commitment` instantiates when accountability attaches (maps to `authority_class` + the SO-27 candidate→commit handshake)."* Owner = **`responsible_party` tuple `{patient|provider|staff}`** per episode, single-writer (absorbs §1G "one current owner per case"). **⚠️ binding terminology:** *"thesis `care_commitment.scope='episode'` = a SINGLE service event; D5 `care_episode` = a LONGITUDINAL thread. They are NOT the same."* Verbatim (OFC §10/inv12, REV-141 OPEN): *"`care_obligation` = something due/owed/in-flight; `care_commitment` = an accountable care promise/ownership once… responsibility is accepted. An obligation may lead to a commitment; it does NOT equal one."*
+- Authority: D5/OFC `draft_for_ratification`; the obligation/commitment split is **explicitly OPEN at REV-141** (OFC does not resolve it).
+- **Disposition: INHERITED + OPEN(REV-141) + a BINDING terminology trap the Care capture must not violate.** This refines GV-3: `care_commitment` the *concept/threshold* is specified (thesis §7.3 D1/D2 + D5 overlay), but the obligation↔commitment *boundary* is legitimately OPEN. The Care capture must (a) not conflate `care_obligation` with `care_commitment`, (b) preserve the episode-scope terminology trap.
+
+**F3 — The Act loop + the five non-collapsing authority gates + release = STATE not AUTHORITY.** [PARENT-VERIFIED — opened OFC §6/§7]
+- Carrier: OFC §6 L59-61 + §7 inv 5.
+- Verbatim: `request → authorize → order → fulfill → OUTPUT → review/release → follow-up`. *"**Authority gates between the loops (none collapses):** eligibility/consent (RBAC) before order; payment (D6) per policy; verification (Observation data-fidelity) on output; clinical adoption (Clinical Memory) before the output becomes care truth; release gate."* *"**Release gate = STATE, not AUTHORITY (binding — Knox 2026-06-01).** … The authorization to release a clinical output is **composed** from … RBAC … provider review … D7 … Observation … Clinical Memory … and CNS. OFC reads the composed decision and stamps the state… **AI never releases** (it may triage/flag)."*
+- Authority: **BINDING** (Knox 2026-06-01), invariant OFC-5.
+- Conflict/supersession: **directly REFUTES Knox's critique #4 worry that the estate collapses authorizations.** The estate SEPARATES clinical-order / consent / coverage(payment=D6) / verification / adoption / operational-release. **→ the DEFECT is in the Care capture's authority-table cell ("clinician + payer/eligibility where applicable"), NOT the estate.**
+- **Disposition: INHERITED-UNCHANGED (binding firewall). CARE-CAPTURE-CORRECTION required** (logged OC-AUTHZ below).
+
+**F4 — Occurrence/obligation object homes (ownership map, extractor-cited).** [EXTRACTOR-CITED — spot-verified via F1/F3 reads]
+- Carriers: D5 (owns `service_occurrence`/`work_item`/`encounter_view`/`care_episode`; SO-11 references-only to D6/D7); OFC (owns `fulfillment_order`+`care_obligation` **lifecycle state ONLY, delegates all truth**; `fulfillment_order ≠ care_obligation` two separable primitives); D3 (planned `appointment` 13-state; `booked ≠ performed ≠ consented ≠ charted`; `status ≠ confirmation_state ≠ status_flags`); D7 (owns artifact + consent artifact/record; `visibility_grant`/`shared_context_grant` per recipient/purpose/duration; **custody ≠ visibility**).
+- Authority: all `draft_for_ratification`; multiple invariants.
+- **Disposition: INHERITED (contract-owned). Extractor-cited; parent spot-verified D5+OFC; D3/D7 rows pending full parent read if promoted to spine.**
+
+### Theme G — Identity / RBAC / Federation + consent ENFORCEMENT (Knox Q8 cross-check) [extractor-cited]
+
+**G1 — Consent-specificity ENFORCEMENT lives in the contracts; the LOCKED LAW lives in thesis §7.5.4.** [EXTRACTOR-CITED; E1 parent-verified the law]
+- Carriers: `identity_contract` §5/§7 (*"Operational state NEVER auto-shares across relationships just because identity claims match — sharing is explicit, permissioned, consent-aware, audited"*; two-gate: match gates linking, consent gates sharing); `federation_contract` §5/§6 (*"default = `isolated`… never auto-share operational state on identity match"*; `federation_permeability_policy`/`shared_context_grant`/`visibility_grant`; cross-brand needs BOTH permeability AND RBAC atoms); `D7` §2 (*"§7.5.4: consent specificity (per-recipient/scope/purpose/duration; per-category for 42 CFR Part 2)"*); `messaging` §7 (*"per recipient + per scope + per purpose + per duration"*); `rbac` (consent-gate READS D7 record, never owns; no silent permission change).
+- **Finding (from extractor, cross-file):** the exact verbatim string *"consent does not aggregate"* was **NOT found in any of the 5 contracts NOR in `privacy_communication_governance`** — its canonical home is **thesis §7.5.4** (E1, parent-verified). The contracts faithfully *enforce* it.
+- **Disposition: INHERITED — locked law (thesis §7.5.4) + consistent contract enforcement.** Strengthens OC-CONSENT: the Care capture must cite thesis §7.5.4 as the law + the contract mechanics as enforcement; "may be explicitly multi-operator" remains a candidate clarification.
+
+**G2 — A SECOND locked consent doctrine (communication caps) — distinct from §7.5.4.** [EXTRACTOR-CITED — privacy audit; row 5 was pending]
+- Carrier: `audits/2026-04-30_privacy_communication_governance.md` (clinical CODEOWNER approved 2026-04-30).
+- Verbatim: *"pathway_sensitivity: extreme is the HARDEST CAP. No consent unlocks tier_3 outside-secure for an extreme pathway"* · *"patient consent cannot override regulatory/clinical-safety floors"* · *"Patient channel preference can TIGHTEN any cell… but never LOOSEN"* · *"Toggles are UI surface; consents are legal/audit truth (HIPAA/TCPA/CASL)."*
+- Authority: clinician-signed-off 2026-04-30 (day-one locked).
+- **Disposition: INHERITED-UNCHANGED (locked, distinct concern).** There are TWO locked consent doctrines: (a) **§7.5.4** = cross-operator visibility non-aggregation; (b) **privacy_communication_governance** = communication caps + pathway-sensitivity + consent-can't-override-safety-floor + preference-tightens-never-loosens. The Care capture §5a must inherit BOTH, not conflate them.
+
+**G3 — Patient authority + patient-source + representation (extractor-cited).** [EXTRACTOR-CITED]
+- Carriers: `identity` §7 inv6/7 (*"Patient is NEVER `operator_of_record`; patient-source data enters `source_authority=patient`+`clinical_adoption_state=not_adopted`"*; *"Only human actors occupy §7.2 care-ownership roles; device/robot/external_system cannot"*); `rbac` (patient self-service perms live in `patient_relationship`, never permission_group; `T0-13` cross-dimension authority requires explicit per-dimension grant); `intake` (*"intake NEVER auto-promotes to clinical truth… constructs/captures/routes/pre-screens/assembles only"*).
+- **Gap flagged by extractors:** *"guardian/surrogate/delegated recipient authority — NO ADEQUATE CARRIER FOUND"* in the 5 contracts (nearest is thesis/LI patient-agency §5 + C3.5 HCASE-088 surrogate hierarchy). → representation/surrogate authority is **thesis/pressure-test-level, not yet contract-homed.**
+- **Disposition: INHERITED (patient-authority, patient-source) + OPEN (surrogate/representation not contract-homed).**
+
+### Theme H — Pressure-test mechanics C3.5/6/7 (Knox's "read C/E/F not just G") [extractor-cited]
+
+**H1 — Care-transition admissibility: the real physics (and the "10 things must align" phrase check).** [EXTRACTOR-CITED]
+- Carriers: `v4_C3_5C` §3 boundary-8 (*"Cross-setting authority CHANGES on transition… Authority is not portable across settings — it is re-established at each transition"*); the **order→verify→administer chain** (*"the canonical multi-actor gate"*); C3.5 P1 Authority-Gate family (`order_verification_gate`/`dual_verify_gate`/`pre_performance_gate`); `administration_event` (order ≠ admin); `movement_state` (authority recompute on ADT).
+- **Finding (extractor, important):** the verbatim phrase **"10 things must align" / "decision admissibility" was NOT FOUND** in the C3.5/6/7 set. The Care capture §5b's framing appears to be a *synthesis label*, not an inherited phrase — its true carriers are order→verify→administer + authority-re-establishment-on-transition + the P1 gate family.
+- **Disposition: COMPOSES-EXISTING — the mechanics are inherited, but the "10 things must align" NAME is a capture-authored synthesis, not a source phrase.** Logged as OC-ADMISSIBILITY (do not present as inherited verbatim).
+
+**H2 — Net-new objects the pressure-tests forced (verify against contracts, don't re-mint).** [EXTRACTOR-CITED]
+- Carriers: C3.5 G4 — `administration_event` (→OFC extend), `movement_state` (→D5 extend), **P35 `external_capability` + `command_authority_boundary` (8 modes)** (net-new headline), `degraded_mode` (P16, "designed continuity under outage" — a named GAP). C3.6 — `source_authority_map` (field-level; "safely takes over truth plane by plane"), `knowledge_partition`, `trial_protocol` (10-teeth). C3.7 — `honest_null_terminal` (a **subtype of `clinical_decision_state`**, ROUTE-OUT to REV-184), the **economically-blind recommendation engine** invariant (posture-invariant firewall).
+- Authority: PRESSURE-VERDICT; architectural-readiness YES / build NO across all three arcs.
+- **Disposition: INHERITED (pressure-verdict) — these are the C3.x deltas the Care capture §20 inheritance tables must carry with their real owners; do NOT re-mint.**
+
+**H3 — Degraded / out-of-band care (Knox Q11).** [EXTRACTOR-CITED + REV-184 §R3.9 parent-read]
+- Carriers: C3.5 `degraded_mode` (P16 — "designed continuity under outage", a named gap); LI doctrine §10 (*"when model services are unavailable or degraded, routing falls back to deterministic/manual workflow; no silent unsafe automation"*); REV-184 §R3.9 (out-of-band/emergency-first, `gate_holder_posture`, post-hoc reconciliation — C1, parent-read); Federation `patient_continuity_policy` + cross-tenant break-glass; RBAC `break_glass_session` (dual-approver, auto-expire).
+- **Disposition: INHERITED / COMPOSES-EXISTING.** The Care capture §13 (degraded/out-of-band care) has real inherited carriers — `degraded_mode` (C3.5) + REV-184 out-of-band branch + LI degraded fallback + break-glass. Confirm it cites these rather than re-deriving.
+
+### Theme I — Async / streaming care: three gates · false-closure · AI-influence lineage [extractor-cited; EVRUN-000004 baseline]
+
+**I1 — The three non-collapsing gates (participant ≠ context ≠ authority).** [EXTRACTOR-CITED]
+- Carrier: `EVRUN-2026-000004…` §0.5 (`accepted_required_v4_input`).
+- Verbatim: *"a care resolution passes THREE sequential, non-collapsing gates — Gate 0 Participant-admission (may this actor enter/contribute? **admission ≠ authority**) · Gate 1 Context-admission (may a fragment shape working context?) · Gate 2 Authority/Commit (candidate≠commit → authorized_action → owning-domain commit)."* *"multiplicity may raise ATTENTION; it never promotes SOURCE AUTHORITY."*
+- **Disposition: INHERITED (accepted v4 input).** Sharpens Care capture §9a (multi-actor participation "three non-collapsing gates").
+
+**I2 — authorized_action + the "0 clinical actions" nuance.** [EXTRACTOR-CITED — sharpens C2]
+- Carrier: EVRUN-000004 §0.5/§9.9-D.
+- Verbatim: *"`authorized_action`: authority verified, scope checked, audit lineage"*; *"governed_resolution (REV-184) → authorized_action(s) # the performative command(s) — thesis §7/§8"*; *"a defer/monitor resolution-state is clinically non-intervention but the system still takes authorized_actions (write care_obligation, send message, record rationale/proof)."*
+- **Disposition: INHERITED — sharpens C2.** Nuance: a resolution may produce **0 *clinical* actions** yet still emit authorized_actions (record/obligation/message). The Care capture must state it precisely (not "0 actions" flatly).
+
+**I3 — False-closure ladder + AI-influence lineage.** [EXTRACTOR-CITED]
+- Carriers: EVRUN-000004 + EVSRC-251/252 + FIELD-004.
+- Verbatim: false-closure ladder *"planned ≠ authorized ≠ transmitted ≠ accepted ≠ in-stock ≠ confirmed ≠ dispensed ≠ obtained ≠ started ≠ tolerated ≠ effective"*; AI-influence disposition (3 axes) *"ignored ≠ clinician error · accepted ≠ AI correct · matched-action ≠ AI causation · good-outcome ≠ sound-reasoning · bad-outcome ≠ irrational-given-what-was-known."*
+- **Disposition: INHERITED (accepted v4 input).** Care capture §6/§7 (fulfillment + prove/learn) must carry the false-closure ladder; §5b.1/§9a must carry the AI-influence 3-axis lineage — both are already `accepted_required_v4_input`, not novel.
+
+### Theme J — Authority-spine present carriers: CNS + Observation [PARENT-VERIFIED 2026-07-13]
+
+**J1 — Observation: the three-gate law (observation ≠ artifact ≠ assertion; verification ≠ adoption).** [PARENT — full read]
+- Carrier: `contracts/observation_measurement_contract.md` (`canonical`, draft_for_ratification) §4/§7.
+- Verbatim (§4, "DO NOT collapse"): three distinct gates — **artifact-integrity (D7)** · **data/extraction-fidelity (Observation)** · **clinical-adoption (CM)**; *"`source_feed_verified`/`human_qc_verified` ≠ `clinically_adopted`."* §7.3: *"an observation is context until a clinical operator adopts/acts; never auto-clinical-truth."*
+- Supersession finding: **`patient_state_observations` (§1M) + `patient_lab_observations` (§1L) → present carrier = Observation contract** (§9 disposition). Lab-ORDER lifecycle home = **OPEN `REV-163`**.
+- **Present authority: binding-at-scope (Observation canonical).** Disposition: **INHERITED.** This is the current carrier for "observation ≠ truth" (Care capture §3 Sense branch) and for the §1M longitudinal-trackable substrate.
+
+**J2 — CNS: positive definition + hard limits + the universal flow + authority-by-action-class.** [PARENT — full read]
+- Carrier: `contracts/CNS_orchestration_contract.md` (`canonical`, draft_for_ratification).
+- Verbatim: CNS = the **Coordination layer** — *"turns source events into candidates, routes them through resolver/policy/authority, and drives owning-domain commits… without owning their truth or becoming a single mega-brain."* 3 scope categories (Operator-level EXECUTES / Coherence-level=Patient-CNS OBSERVES+SIGNALS / Meta-level=Network-Governance OBSERVES+ENFORCES). Anti-collapse invariants §4 (Patient-CNS *"NEVER operates a workstream or commits care… may surface 'dose review may be appropriate'; may NOT say 'lower to 125mcg'"* — the Alec/`REV-142` line). Universal flow §10 = the v0/B2 chain at current canon; *"AI participates at extraction/candidate (non-authoritative); humans + owning domains commit."*
+- **§9.1 authority-by-action-class (current carrier of authority-vs-pattern at the coordination layer):** *"CNS MAY use lower-authority evidence for routing/prioritization/suppression/review-candidate… MUST require the appropriate authority for clinical action… 'AI says pathology suggests X' ≠ sufficient; 'provider adopted finding X' is the threshold."*
+- **§2.1 CNS ↔ Polaris ↔ AI-substrate LOCK** (trifecta-ratified 2026-07-06): CNS = MOTION (orchestration); **Polaris = cross-cutting alignment/trust/proof COMPOSITION that owns no objects and does not enforce by itself** (owners enforce); AI = capability never authority; domains commit truth. Directly governs Care capture §10 (CNS) + §11 (Polaris).
+- **LI present authority (§8, confirms GV-1 nuance EXACTLY):** LI signal-authority-ladder = *"recovered evidence/limited-use — re-verify vs Tier-0 + v2 before binding"*; *"LI informs/ranks/suppresses/escalates candidate quality; it never commits (`D0W3C-GRD-001`)."* → durable law binds via CM §5.1 + CNS §9.1; the **full LI doctrine stays limited-use.**
+- Supersession finding: **§1G decomposed → D5 (case-ownership/`care_state_view`/continuation) + CNS (permit-gate/queue/action-items/exceptions), `REV-161`.** care_commitment(`REV-141`)+Alec(`REV-142`) run THROUGH CNS.
+- **Present authority: binding-at-scope (CNS canonical).** Disposition: **INHERITED (constitutional coordination layer).**
+
+**J3 — System-map present authority = SUPERSEDED-BY-CONTRACT for migrated domains (the efficient authority finding).** [PARENT — derived from contract disposition tables]
+- The current contracts each carry a disposition table mapping what they superseded from the ~5k-line system map: **§1K.5/§1K.5.A/§1M/§1O → Clinical Memory + Observation** (CM §9, Obs §9); **§1G → D5 + CNS** (`REV-161`); **§1L → Observation(values) + OFC(order lifecycle `REV-163`) + D7(report)**; **DL-7/§1W `tracked_clinical_object` → OPEN `REV-167`** (unowned). 
+- **Verdict: the system map is LINEAGE/ORIGIN evidence; PRESENT authority for a migrated domain = the vNext contract.** Therefore the mandatory "full system-map bodies" read is largely **redundant for authority** — the contracts document their own supersession. Targeted spot-reads only where a specific longitudinal mechanic is not carried by a contract (candidate: §1W tracked-object continuity-history detail, which is anyway OPEN at `REV-167`). This is applied per Knox's two-axis rule (chronology≠authority) and conserves context.
+
+## GRAVEYARDING FLAGS (concepts that appear undersold / buried in the current Care capture)
+
+*(Restatused per Knox 2026-07-13. Each flag now carries a precise verdict, not a blanket "buried" claim.)*
+- **GV-1 — authority ≠ longitudinal-pattern.** Verdict: **CONFIRMED under-inheritance of a DURABLE law; NOT promotion of the whole LI doctrine.** The durable law (current authority governs safety/commitment; longitudinal pattern governs attention/priority; never reverse) survives into the current **Clinical Memory** expression and must be inherited *through that current carrier*. The full 2026-05-19 LI doctrine stays **limited-use** (`D0W3C-REV-001`) and must NOT be promoted along with the law. (Downgrade my earlier "grandparent of REV-184 / day-one spine" language → "earlier carrier of the same law; verify its current CM carrier.")
+- **GV-2 — care_management_source.** Verdict: **CONFIRMED missing inherited DIMENSION; OVERCLAIMED as a complete prior solution.** It answers *"who currently manages this concept, if anyone"* (internal/outside/self/unmanaged/unknown) — a provenance/responsibility dimension, non-safety-bearing. It does **not** define accountable-vs-non-accountable Care, when informal help becomes Care, or when responsibility attaches. Correct A2/E2: important inherited dimension, not the definition.
+- **GV-3 — care_commitment.** Verdict: **DEEP inherited SEMANTICS confirmed; present canonical CARRIER unresolved.** Thesis §7.3 has rich semantics (4-level framework, scopes, lifecycle) — so "OPEN" is too compressed — BUT the current D5(overlay)/OFC(REV-141)/CNS/REV-184 relationship must be parent-read in full before deciding what survived vs became-overlay vs was-decomposed. Not "already solved."
+- **GV-4 — Alec / FIELD-001.** Verdict: **FOUNDING VALIDATION case; NOT canonical architecture by itself.** It explains *why* longitudinal Care exists and tests whether the model works; it should be prominent as motivation/validation, but must not become constitutional law merely by being historically central.
+
+## OPEN CONFLICTS — status after parent-reads
+- **OC-DEFN (Knox) — TRACE NOW CLOSED (parent, v0→v3-integrated).** The estate consistently defines **what OMNI (the SUBSTRATE) is**, never a bounded "Care is X": v0 *"governed contextual care substrate"* → v3 (2026-06-03) *"governed contextual care + business operating substrate… identity/authority/consent/context/proof/commit move coherently across every actor + rail without flattening ownership"* → **v3-integrated (2026-06-05) §1 (CURRENT canonical carrier, = AGENTS.md boot line): "OMNI is a governed contextual care + business operating substrate that maintains longitudinal coherence… across a designed family of care-network topologies that expands by explicit doctrine pass, not by drift. Care is the center of gravity."** **Verdict:** the Care capture's §1CP "definition of Care-the-concept" is genuinely **NOVEL_COMPOSITION** (proven across the whole chain, not a grep miss) — legitimate but must be (a) explicitly labeled novel, (b) built on the inherited substrate definition + the three inherited distinctions [patient-source gate E2 · `care_management_source` A2 · care_commitment-threshold=authorized_action D1], NOT presented as "the definition we kept re-deriving" as if inherited. The three distinctions are *dimensions*, not the whole definition (per Knox's GV-2 correction).
+- **OC-CONSENT (Knox):** consent may have been *weakened* not inherited. **STATUS: RESOLVED to a directive + cross-checked.** Locked law verbatim (E1, thesis §7.5.4): *"Consent does not aggregate… scope/purpose/duration/recipient… no blanket grants… auto-renewal forbidden."* Cross-check (G1): the phrase's canonical home is thesis §7.5.4; the 5 contracts *enforce* it consistently (Identity/Federation "never auto-share on identity match; default isolated"; D7/Messaging "per recipient/scope/purpose/duration"). **Plus a SECOND locked consent doctrine (G2):** `privacy_communication_governance` (pathway-sensitivity caps · consent-can't-override-safety-floor · preference-tightens-never-loosens). Directive: Care capture must preserve §7.5.4 verbatim + inherit BOTH doctrines; "may be explicitly multi-operator" = candidate clarification needing its own gate.
+- **OC-AUTHZ (Knox critique #4) — NEW, RESOLVED to a CARE-CAPTURE CORRECTION.** The estate does NOT collapse authorizations: OFC §6 (BINDING, Knox 2026-06-01) separates 5 non-collapsing gates (eligibility/consent · payment[D6] · verification · adoption · release) and holds **"Release gate = STATE, not AUTHORITY… composed from RBAC + provider-review + D7 + Observation + CM + CNS; AI never releases"** (F3, parent-verified). **The defect is the Care capture's authority-table cell ("clinician + payer/eligibility where applicable"), which contaminates clinical authorization with coverage.** Correction: split the cell into the 5 canonical gates; coverage(D6) is never clinical-order authority.
+- **OC-ADMISSIBILITY — NEW.** The Care capture §5b "10 things must align" is a **capture-authored synthesis label**, NOT an inherited verbatim phrase (H1: not found in C3.5/6/7). Its true carriers are order→verify→administer + authority-re-establishment-on-transition + the P1 gate family. Directive: relabel as a composition of those named carriers, do not present as inherited doctrine.
+- **OC-COMMIT/OBLIGATION — NEW; ★ operator-flagged lineage split (Nick 2026-07-13).** Nick's hypothesis: obligation and commitment were *"intended to mean the same thing"* and one went stale/superseded. **Forensic finding (supports a nuanced version):** they were **entangled at origin, then deliberately split** — not two-from-the-start.
+  - **Origin fusion:** thesis v2 §7.3 (2026-05-26) models `care_commitment.commitment_kind` to *include* `monitoring_obligation` and `follow-up_obligation` — i.e. an "obligation" was a **KIND OF** `care_commitment`.
+  - **Parallel primitive:** `future_care_obligations_design` (2026-05-17) / DL-20 `care_episode_task` = the "due/owed/recall" tracking primitive, its own lineage.
+  - **Contract-era split:** OFC pulls `care_obligation` out as its own primitive (= the un-parked `care_episode_task`) and Knox (2026-06-01) writes *"obligation = due/owed/in-flight; commitment = accountable promise once responsibility accepted; an obligation may lead to a commitment, it does NOT equal one; do not collapse"* → relationship parked **OPEN at REV-141.**
+  - **Semantic case for keeping them two:** an obligation can exist as a tracked due-state *before any responsible party accepts it* ("lab recall due in 6mo"); it becomes/creates a commitment on acceptance. Also the **episode-scope terminology trap is BINDING** (thesis `care_commitment.scope="episode"` = single event ≠ D5 `care_episode` = longitudinal thread).
+  - **Status:** UNRESOLVED — this is a genuine **Nick+Knox decision (REV-141)**, not an agent verdict. Directive: the Care capture must (a) surface the origin fusion + the deliberate split (not present "two things" as always-settled), (b) not conflate them, (c) preserve the terminology trap. Full parent-read of REV-141 + CNS + D5 §10 + OFC §5/§10 owed before the decision.
+
+---
+
+---
+
+## FINAL DELIVERABLE (5 parts + decisions) — target structure + status
+
+Per Knox 2026-07-13. The ledger is **NOT complete** while any *foundational* row is `LOCATED`, `MAP-SUMMARY`, `SECTION` (partial), or `extractor-cited/parent-pending`, or carries "grep found nothing" / "likely" without an `OPEN` verdict.
+
+1. **Coverage manifest** — every required carrier × {sections read · parent-verified? · present-authority · superseded-by · relevant Care questions}. *(status: STUB — reading log is the seed; convert to full manifest.)*
+2. **Question-by-question evidence ledger** — the ~14 mandatory questions (care-in-world · accountable-care · OMNI-governed-care · responsibility-attachment · commitment · obligation · preference/assignment/commitment/ownership/plan/execution · resolution/authorized-action/domain-command/care-act/occurrence/evidence/outcome · completion-per-horizon · longitudinal-state · consent/refusal/representation/directive/permission/order/cosign/verification · AI/human/org/protocol/device/external actor authority · outside/without-OMNI · CNS scope). *(status: Themes A–I are the raw material; recompose per-question.)*
+3. **Authority + supersession matrix** — per candidate law: deepest-origin · strongest-current-carrier · promotion-status · conflicting-later-carrier · final-recommended-authority. *(status: NOT STARTED — the two-axis discipline feeds this.)*
+4. **Graveyarding verdicts** — each alleged lost concept → one status: `truly-lost · present-but-poorly-surfaced · superseded · preserved-under-another-name · rejected · still-open · never-authoritative`. *(status: GV-1..4 restatused; widen as read completes.)*
+5. **Proposed correction ledger** (NOT edits) — table: current Care-capture section · problem · source-backed correction · authority · confidence · contract-consequence. *(status: seeds = OC-DEFN/CONSENT/AUTHZ/ADMISSIBILITY/COMMIT-OBLIGATION + the 5 "known-wrong" targets below.)*
+
+**Care-capture known-wrong targets (documented, DO NOT fix yet):** (1) header claims "does not invent" while §0-ADJ marks the Care definition NOVEL_COMPOSITION → header must admit labeled novel synthesis; (2) §0-ADJ overclaims "every foundational claim forced through the estate" while this ledger still has partial-depth rows → replace §0-ADJ with the completed forensic verdict or remove; (3) consent wording weaker than inherited specificity doctrine (OC-CONSENT); (4) authority table contaminates clinical order with payer/eligibility (OC-AUTHZ); (5) §9 heading "patient is a first-class authority; the moat" contradicts its own prose + strategy/moat language should leave the Care operating model entirely.
+
+**Unresolved decisions requiring Nick + Knox** (running): REV-141 obligation↔commitment split (OC-COMMIT/OBLIGATION) · T0-16 consent-specificity promotion status · whether `care_graph` stays a projection term or earns an object (current forensic answer: **projection/composition, NOT a new object** — do not mint) · the Care-definition scope (world / accountable / OMNI-governed) once v0→v3 + contracts + system-map bodies are fully adjudicated.
+
+---
+
+---
+
+# ═══ PHASE-1 FINDINGS DIGEST (2026-07-13) — NOT A COMPLETE PACKAGE ═══
+
+*⛔ Formerly mis-titled "Consolidated Forensic Package / draft-complete." **INVALIDATED as a completion claim.** What follows is a Phase-1 DIGEST of what has been parent-read so far — useful recovered material, but the verdicts, confidence ratings, and "novelty proven" claims are **provisional** and must be RE-RUN after the MANDATORY COMPLETION LANES are parent-read. Do NOT accept these as final. No Care-capture edits.*
+
+## PART 1 — Coverage manifest
+
+| Carrier | Depth | Parent? | Present authority | Care questions it controls |
+|---|---|---|---|---|
+| thesis v0 founder | FULL | ✅ | historical (superseded_by v1) | what-is-OMNI · AI-bounded · coherence-8 · universal-flow origin |
+| thesis v2 §7.1/7.2/7.3/7.5.3/7.5.4 | SECTION | ✅ | historical→carried | care_commitment · ownership roles · patient-source · consent-specificity |
+| thesis v3 / v3-integrated §1-2 | SECTION | ✅ | **current canonical (what-is-OMNI)** | Care/OMNI definition |
+| REV-184 | FULL | ✅ | **signed-off** | resolution lifecycle · authorized_action · non-action-as-commit · world-model/trust_horizon · out-of-band |
+| Clinical Memory contract | FULL | ✅ | binding-at-scope (canonical) | authority-vs-pattern (§5.1) · patient-source · adoption · care_management_source · tracked-object (REV-167 OPEN) |
+| Observation contract | FULL | ✅ | binding-at-scope | observation≠truth · 3-gate · §1M/§1L present home |
+| CNS contract | FULL | ✅ | binding-at-scope | CNS scope+limits · universal flow · authority-by-action-class · Polaris lock · LI limited-use · §1G decomposition |
+| OFC contract §6/7/10 | SECTION | ✅ | binding-at-scope | 5 non-collapsing gates · release=state-not-authority · obligation≠commitment (REV-141) |
+| D5 contract §5/10 | SECTION | ✅ | binding-at-scope | completion≠closure · care_commitment overlay · episode-terminology trap |
+| D3/D7/Identity/RBAC/Federation/Intake/Messaging | (bodies) | ❌ extractor | canonical (per headers) | consent enforcement · patient-authority · scheduling gates · custody≠visibility |
+| privacy_communication_governance | FULL(extractor)/origin | ❌ | clinician-signed (2nd consent doctrine) | communication caps · safety-floor |
+| EVRUN-000004 §0.5/§9.10 | extractor | ❌ | accepted_required_v4_input | 3-gate admission · false-closure · authorized_action · AI-lineage |
+| C3.5/6/7 C/D/E/F/G | extractor | ❌ | pressure-verdict | admissibility mechanics · P35 · source_authority_map · honest_null · degraded_mode |
+| 2026-04-30 authority_vs_longitudinal + care_management_source | FULL | ✅ | **origin** (durable law's current carrier=CM §5.1) | longitudinal law · care ownership |
+| system map (§1G/1H/1K.5.A/1M/1W) | MAP-SUMMARY | partial | **superseded-by-contract** (J3) | (lineage only; contracts are current) |
+| 2026-04-27 clinical-assertion origin · thesis v1 · device-authority · field cases | LOCATED | ❌ | (lineage/secondary) | — |
+
+## PART 2 — Question-by-question evidence ledger (verdict · carrier · confidence)
+
+1. **What is OMNI / Care-in-the-world vs accountable vs OMNI-governed?** OMNI defined consistently v0→v3-integrated as the *substrate*; a bounded "Care is X" was never promoted. Care-in-world→accountable→governed is handled by patient-source gate (CM §2) + `care_management_source` + care_commitment threshold. §1CP is NOVEL_COMPOSITION. **HIGH (parent).**
+2. **When does responsibility attach?** At the **accountability threshold = `authorized_action`** (thesis §7.3; CM/D5 `care_commitment` instantiates on accepted responsibility / `authority_class` + SO-27 handshake). **HIGH (parent).**
+3. **What is a care_commitment?** Accountability overlay (D5 §10) with deep thesis §7.3 semantics (4-level framework, 5 scopes, lifecycle); present carrier = overlay, full substrate OPEN (REV-141). **HIGH semantics / carrier OPEN.**
+4. **What is a care_obligation & how does it differ from commitment?** OFC due/owed lifecycle; **origin-fused then split; relationship OPEN at REV-141** (OC-COMMIT/OBLIGATION). **Nick+Knox decision.**
+5. **Resolution vs authorized_action vs domain-command vs occurrence vs evidence vs outcome?** Cleanly separated: REV-184 resolution (CNS record) → authorized_action (performative command, may be 0 *clinical* actions) → CM adoption (truth) → D5 occurrence → D7 evidence → REV-174 outcome. **HIGH (parent).**
+6. **What completes each horizon?** completion≠closure (D5 SO-24); scoped per-horizon; reopen/supersede first-class. **HIGH (parent).**
+7. **How does longitudinal state work?** append-only observations (Observation/§1M) + assertion supersession (CM) + timeline-as-pointer-not-value + effective_at/recorded_at; **authority≠pattern (CM §5.1).** tracked_clinical_object OPEN (REV-167). **HIGH law / tracked-object OPEN.**
+8. **Consent/refusal/permission/representation?** Two locked doctrines: §7.5.4 specificity (no-aggregation; scope/purpose/duration/recipient) — present authority = **named-not-promoted T0-16 candidate, contracts enforce**; + privacy_communication_governance caps. Surrogate/representation not contract-homed (OPEN). **MEDIUM-HIGH (parent law; enforcement extractor-cited; promotion unverified).**
+9. **What may AI / humans / orgs / devices do?** AI = extractor/proposer/candidate, never commits/confirms/satisfies-gate/releases (v0 + CM §8.4 + CNS §10 + OFC); humans+owning-domains commit; devices=actors, never care-roles. **HIGH (parent).**
+10. **Care outside/without OMNI (degraded)?** `care_management_source=outside/self/unmanaged` + patient-source gate + REV-184 out-of-band/`gate_holder_posture` + `degraded_mode` (C3.5) + LI deterministic fallback + break-glass. **HIGH law / C3.5 objects extractor-cited.**
+11. **CNS responsibility?** Coordination layer; 3 scopes; candidate→resolver→owning-domain-commit; owns no truth; anti-mega-brain; Polaris composes/CNS moves. **HIGH (parent).**
+12. **Authority-vs-pattern?** current_authority governs safety/commit; longitudinal_pattern governs attention only; never reverse (CM §5.1 + CNS §9.1). **HIGH (parent, current carrier).**
+13. **The "care graph"?** Strategy/projection term (thesis §7.8 + federation audit); **NOT a truth-owning object** — it composes identity/relationships/assertions/observations/decisions/obligations/occurrences/timeline. **HIGH: projection, do-not-mint.**
+14. **Admissibility ("10 things align")?** Capture-authored synthesis label; real carriers = order→verify→administer + authority-re-establishment-on-transition + P1 gate family. **MEDIUM (extractor; relabel).**
+
+## PART 3 — Authority / supersession matrix (candidate laws)
+
+| Law | Deepest origin | Strongest CURRENT carrier | Promotion status | Conflicting later carrier | Recommended authority |
+|---|---|---|---|---|---|
+| authority ≠ longitudinal-pattern | 2026-04-30 audit | **CM §5.1** (canonical) | binding-at-scope (draft_for_ratification) | none | INHERIT via CM §5.1; LI doctrine stays limited-use |
+| governed resolution lifecycle | thesis §8 + C3.5 Chain A | **REV-184 §0** | **signed-off** | none (supersedes round lang) | INHERIT verbatim |
+| authorized_action = accountability threshold | v0 universal flow | thesis §7.3 + CNS §10 | historical→canonical-flow | none | INHERIT |
+| care_commitment (overlay/threshold/scopes) | thesis §7.3 | D5 §10 overlay | carrier OPEN (REV-141) | obligation split | INHERIT semantics; carrier OPEN |
+| care_obligation ≠/= care_commitment | fused §7.3 → split OFC | OFC §10 | **OPEN (REV-141)** | — | Nick+Knox decision |
+| consent-specificity (no-aggregation) | thesis §7.5.4 | thesis §7.5.4 + contract enforcement | **T0-16 named-NOT-promoted** | capture's softer wording | preserve verbatim; verify promotion+enforcement |
+| observation ≠ truth (3-gate) | assertion-layer design | Observation §4 | binding-at-scope | none | INHERIT |
+| completion ≠ closure | D5 | D5 SO-24 | binding-at-scope | none | INHERIT |
+| release = state-not-authority (5 gates) | §1L.20 | OFC §6 (Knox 2026-06-01) | binding | **capture authority-table cell** | INHERIT; correct capture |
+| patient-source gate | thesis §7.5.3 | CM §2 | binding-at-scope | none | INHERIT |
+| CNS scope + anti-mega-brain | DL-14 | CNS §3-§5 | binding-at-scope | none | INHERIT |
+| tracked_clinical_object | DL-7/§1W | (unowned) | **OPEN (REV-167)** | — | OPEN |
+| care_graph | thesis §7.8 / fed audit | (no object) | strategy/projection only | — | projection; do NOT mint object |
+
+## PART 4 — Graveyarding verdicts (final statuses)
+
+- **GV-1 authority≠pattern:** `present-but-poorly-surfaced` — durable law, current carrier CM §5.1; capture under-surfaces it. Inherit via CM, NOT the whole LI doctrine.
+- **GV-2 care_management_source:** `present-but-poorly-surfaced` — current CM §6.2 field; capture should cite; NOT the Care definition.
+- **GV-3 care_commitment:** `present-but-poorly-surfaced + still-open` — deep semantics (thesis §7.3) under-shown by "OPEN"; carrier genuinely OPEN (REV-141).
+- **GV-4 Alec/FIELD-001:** `founding-validation-case, never-authoritative-alone` — prominent as motivation/test, not constitutional law.
+- **tracked_clinical_object:** `still-open` (REV-167) — not lost, not settled.
+- **care_graph:** `never-authoritative-as-object` — strategy/projection term only.
+- **LI full doctrine:** `preserved-under-limited-use` — not lost; bounded by `D0W3C-GRD-001`; do not over-promote.
+
+## PART 5 — Proposed Care-capture correction ledger (NOT edits — for review)
+
+| Capture section | Problem | Source-backed correction | Authority | Confidence | Contract consequence |
+|---|---|---|---|---|---|
+| Header | claims "does not invent" but §0-ADJ marks Care def NOVEL_COMPOSITION | reword: "assembles + reconciles inherited architecture; any novel composition is explicitly labeled + nonbinding" | — | HIGH | none |
+| §0-ADJ | overclaims "every claim forced through the estate" | replace with this completed ledger's coverage manifest + verdicts; or remove | — | HIGH | none |
+| §0 source map | authority≠pattern law demoted to 1 LIMITED-USE LI row | surface the law at spine level, inherited **through CM §5.1**; keep LI doctrine limited-use | CM §5.1 | HIGH | CM |
+| §1CP definition | presents Care def as re-derived/inherited | label NOVEL_COMPOSITION; build on v3-integrated §1 substrate def + patient-source/care_management_source/threshold | v3-int §1 | HIGH | — |
+| §5 / §5b | `care_commitment` "OPEN"; "10 things must align" as inherited | show deep §7.3 semantics + REV-141-open carrier; relabel admissibility as composition of order→verify→administer + transition-authority + P1 gates | thesis §7.3; C3.5 | HIGH/MED | — |
+| §5a consent | softer than locked specificity doctrine | preserve §7.5.4 verbatim + the 2nd (communication-caps) doctrine; "multi-operator" = labeled candidate w/ its own gate | §7.5.4 (promotion unverified) | MED-HIGH | D7/Federation |
+| authority table | "clinician + payer/eligibility" contaminates clinical order | split into 5 non-collapsing gates; coverage(D6) never = clinical-order authority | OFC §6 | HIGH | OFC/RBAC/D6 |
+| §7a completion | (faithful) | cite D5 SO-24 completion≠closure | D5 | HIGH | D5 |
+| §9 heading "the moat" | contradicts own prose; strategy in operating law | remove "moat"; strategy/moat language leaves the Care operating model | — | HIGH | — |
+| care_graph refs | risk of minting an object | keep as projection/composition term only | — | HIGH | — |
+
+## UNRESOLVED — require Nick + Knox
+1. **REV-141:** are `care_obligation` and `care_commitment` two primitives or one? (origin-fused→split; semantic case for two = obligation can exist pre-acceptance). *Nick's flagged item.*
+2. **T0-16 consent-specificity promotion:** is it promoted current canon or still a named candidate? (affects how hard the capture states it).
+3. **REV-167 tracked_clinical_object:** own-primitive vs fold-into-CM-concept.
+4. **Care-definition scope wording** (world / accountable / OMNI-governed) — accept §1CP as labeled novel synthesis?
+5. **`care_graph`** — confirm it stays a projection term (no object). (Forensic recommendation: yes.)
+
+---
+
+*End of Phase-1 digest. Provisional only — re-run all verdicts after the mandatory lanes below.*
+
+---
+
+# ═══ MANDATORY COMPLETION LANES (the actual remaining audit) ═══
+
+**Rule:** no lane closes while any carrier is `LOCATED`, `MAP-SUMMARY`, or `extractor-only`. Subagents may locate/extract; **parent personally verifies every passage that changes a foundational or cross-cutting verdict.** Anchor/receipt ledgers are receipts, not intelligence. Method for the video/outside-learning estate = **Concept Registry → routing/promotion map → coverage matrix → tension register FIRST, then reopen relevant/high-impact/disputed source packets** (never author from anchor ledgers or isolated quotes). Objective = *no load-bearing source disappears without an explicit disposition* — dispositions include `superseded · narrowed · renamed · scenario-evidence-only · route-to-Platform · route-to-Agent-Runtime · route-to-strategy/thesis · rejected · external-prior-art · genuinely-novel-candidate · inherited-law`.
+
+### Why "allegedly-settled" is not settled (unread material that can move each verdict)
+| Question (Phase-1 verdict) | Unread material that could change it |
+|---|---|
+| What is Care? | System-Map Care bodies · field cases · hospital transitions · care-lanes work · video "care should…" clusters |
+| When does authority attach? | C3.5 multi-gate deep traces · D3/D7/RBAC bodies · device authority · EVRUN-000004 §9.10 |
+| What may AI do? | ALL video registries · AI-substrate §B · C3.8 enterprise · Dan/TRT |
+| What completes Care? | hospital false-closure · oncology clocks · Messaging · D7 · field cases |
+| How does consent work? | D7 · Identity · Federation · RBAC · privacy audit · hospital rights cases |
+| How does longitudinal Care work? | full LI doctrine · System-Map bodies · tracked-object work · field cases |
+| How do Care + agents interact? | video waves · Dan/TRT · GCE · external-agent · C3.8 |
+| What counts as proof? | D7 · enterprise supply-chain proof-fabric · eval/proof video clusters |
+
+### LANE 1 — Current contract + capability spine (parent-read load-bearing sections)
+`[ ]` D3 · `[ ]` D7 · `[ ]` Identity · `[ ]` RBAC · `[ ]` Federation · `[ ]` Intake · `[ ]` Messaging · `[ ]` GCE/capability (+ AI-substrate §B) · `[ ]` Settings/protocol ownership · `[ ]` BIZOPS/workforce (where Care readiness depends) · `[ ]` physical/device command authority (P35 `command_authority_boundary`).
+
+### LANE 2 — Legacy + doctrine lineage (graveyard audit — read the OLD bodies for un-migrated meaning, NOT just the contract supersession tables)
+`[ ]` System Map §1G · §1H · §1K.5.A · §1M · §1W (+ linked DL) — compare: old mechanic → later design/audit → current contract → preserved/narrowed/renamed/rejected/**accidentally-dropped** · `[ ]` 2026-04-27 Clinical-Assertion audit+design (the "most important design decision") · `[ ]` full LI doctrine + pressure result (+ its limited-use boundary) · `[ ]` DL-20 locked+parked · `[ ]` future-care-obligations · `[ ]` thesis v1 · `[ ]` thesis v2 §8/§8.6/§12.8 + v3/integrated deltas.
+
+### LANE 3 — Pressure arcs (read controlling materials, NOT handoff summaries)
+`[ ]` C3.5 coverage-manifest + D + all selected E deep/red traces + F + G/G4 · `[ ]` C3.6 C/D/E/F/G · `[ ]` C3.7 mechanism/D/E/F/G · `[ ]` C3.8 G1/G2/G3/G4 + handoff (enterprise: Palantir/OpenAI/Anthropic/MS/Google/IBM/NIST/SLSA/OWASP/OPA/Zanzibar; 48 breakers; tenant-ownership · supply-chain proof-fabric · governed data-value economy) · `[ ]` C3.1 lens-coverage audit · `[ ]` care-lanes pressure artifact (per accepted source stack).
+
+### LANE 4 — Real-world field cases (read + disposition each; mandatory counterexamples)
+`[ ]` Alec (done via §7.3; re-disposition) · `[ ]` SNF carry-forward · `[ ]` Kyle/outside-OMNI · `[ ]` Dan streaming+fulfillment · `[ ]` TRT mixed-initiative · `[ ]` any other preserved FIELD case + later routing.
+
+### LANE 5 — Video / outside-learning estate (the biggest omission — Concept-Registry-first)
+`[ ]` EVRUN-000001 registry + routing/promotion map + coverage matrix + tension register · `[ ]` EVRUN-000002 (registry + tension register) · `[ ]` EVRUN-000003 · `[ ]` EVRUN-000005 · `[ ]` EVRUN-000004 full Care synthesis (§0.5/§9.10) · `[ ]` spring AI-substrate corpus inventory · `[ ]` orientation/199-video work · `[ ]` reopen source packets for every Care-relevant concept {promoted · disputed · new-to-OMNI · relied-on-by-capture · high-consequence · suspiciously-compressed · contract-contradicting}.
+
+### LANE 6 — Late-field + source-governance artifacts
+`[ ]` C4-pre Late Builder / Structural Gap Register (`v4_C4_late_builder_gap_register.md`) — disposition every Care-relevant row · `[ ]` Build Entry Gate v0 · `[ ]` accepted C2 Source-Base Declaration · `[ ]` lens audit · `[ ]` current read-graph/catalog routes → any late Care/AI/enterprise entries.
+
+## SESSION-2 PARENT READS (2026-07-13) — Lanes 4 + 6 (partial)
+
+### LANE 4 — Field cases (parent-read `evidence/omni_field_cases.md` FULL)
+- **FIELD-001 Alec** (`longitudinal_signal_case`, REV-142 OPEN): the founding longitudinal→governed-care-opportunity loop; peptide patient reports sleep/energy/dosing-uncertainty in a text thread; provider must manually catch it. Disposition: **founding-validation case** (per GV-4); tests signal→candidate→review→care_commitment→patient-visible. Care capture must center it as motivation, not law.
+- **FIELD-002 SNF carry-forward** (`provider_workflow_case`): assertion adoption + supersession lineage over longitudinal truth; note = materialized projection; **provenance-preserving carry-forward** (carried≠re-verified) vs EMR copy-forward bloat. Analogies: git-for-notes (`git blame`=`source_authority`), W3C PROV-O. Routes WI6 + Clinical-Memory C5. Disposition: **mandatory counterexample** for CM adoption/lineage; Care capture §3/§7 must represent carried≠re-verified (ties REV-184 world-model-honesty).
+- **FIELD-003 Kyle outside-OMNI** (`patient_messaging_case`, EVSRC-200): layperson assembles dx candidate entirely outside formal care (X-ray→friend→PubMed→candidate→routing→specialist), formal system enters LAST; includes wrong-patient-X-ray (source-authority failure). Payload = **care dimensionality is DISCOVERED not fixed** + care forms before system-of-record wakes. Disposition: **mandatory counterexample** for "care begins outside OMNI" (Care capture §13/§1 + the C4-pre bet memo); tests receive→reconcile→govern→own.
+- **FIELD-004 Dan** (`provider_workflow_case`, EVSRC-252, EVRUN-000004 §9.10): 4-actor streaming resolution (patient/provider/live-AI/pharmacist) + real-world outbreak + pharmacy stockout reroute; **context-admission stability gate** (when a streaming fragment may shape context ≠ commit gate); false-closure ladder. Disposition: **mandatory counterexample** for streaming/mixed-initiative care + false-closure (Care capture §6/§9a); HARDENS existing physics (no new primitive).
+- **★ OPEN sub-item (FIELD-004 note):** a referenced **"Mike" case has no corpus entry** — confirm fifth uncaptured specimen vs mis-remembered alias. **Nick's "TRT case" = `EVSRC-2026-000251`** (TRT prospective-patient ChatGPT-loop) — a SOURCE, not a FIELD case (extractor-covered; parent-verify pending). → LANE 4 partially done; Mike + TRT-source reopen pending.
+
+### LANE 6 — Late-field + source-governance (parent-read `v4_C4_late_builder_gap_register.md` FULL)
+- **This register IS the "idea field" Nick remembered.** Its own HONESTY RULE already states no one re-read the full EVRUN video corpus / arcs / system-map — verify before treating any row as a true absence. Care-relevant rows to disposition at spine/capture time: **D** (clinical-safety content dependency — DDI/allergy/dosing/contraindication DBs; `known-partial`) · **F** (Rx/eRx/EPCS execution) · **Q** (★ raw-ingestion heart "OMNI's defining heart" — screenshot/photo/voice → govern → ACT; `likely-partial→ELEVATE`, REV-209) · **R** (offline/degraded) · **S** (fraud/gaming) · **T** (consent-granularity patient-facing UX + dynamic re-consent; `known-partial`, REV-003) · **U** (comms compliance TCPA/CAN-SPAM). Plus care-adjacent: **B** RCM, **G** credentialing ("provider can commit" depends on it), **J** authN/identity-proofing.
+- **★ V-SERIES (EVRUN-000002 promotion-gate residue) — confirms Nick's video concern IN WRITING:** the wave-2 video corpus *"declared its OWN promotion gate — 7 spine-law-elevation Qs + keystone-pressure + security-gap + drive 194 tensions… into v4"* and **"that gate was never run as itself"** (only C3.1 pulled a slice). V2 = `GRD-036` capture-time rights-gate (`verified-gap`, mint); V4/V5 = elevation-decisions-missing; V6 = 194 tensions un-crosswalked (esp. T90 care-denial · T72 rubber-stamp · T121 capture-time · T183 auto-promote · T194 data-flywheel · T39/45/46 RL-reward). → **Care-relevant video tensions must be dispositioned (Lane 5).**
+- **★ VT-SERIES (v3 integrated thesis) — MAJOR finding for the correction ledger:** v3-integrated was authored §1→§B in depth then abandoned at the v4 pivot; **"a large share of what C3.8 + the bet-check treated as net-new was ALREADY deeply authored in v3."** v3 GOLD relevant to Care: **§7.3 care_commitment** (4-level + threshold + ambiguity-as-commitment + 5 scopes) · **§7.4 boundary modes + `care_team_graph` + `degraded_safety_state`** · **§7.5.1 per-event 7 ownership dims** · **§7.7 master projection doctrine** ("projections expose · capabilities act · domains commit · audit proves") · **§8 two loops + workforce-as-subject** · **§A trust/permeability** · **§B AI substrate** · **§3.5 comparators + structural-impossibility.** Verdict per register: reconcile v3 ↔ post-v3 **as PEERS** (don't re-derive, don't just layer). → **Correction-ledger add:** the Care capture must consult v3-integrated §7.3/§7.4/§7.7 section-by-section, not re-derive care_commitment/boundary/projection physics.
+- **ARC TRACES (register's claim, to be verified by my Lane-3 subagents):** register says C3.5/6/7/8 all closed CLEAN with disposition ledgers + artifact-use maps (no leak); the LEAK was video-gate(V1)/v3-§C(VT1)/CNS-status(CP1). **AR-XWALK** (full-estate net-new cross-walk) remains a during-authoring activity; baseline = **EVRUN-000001 §2A families A–J + EVRUN-000002 §2A delta + 4 arcs + bet-check + v3 §A/§B** — dedupe don't re-mint. → my Lane-3/Lane-5 subagents are doing the actual deep reads the register said were still owed.
+- LANE 6 status: Late-Builder register **parent-read + dispositioned (above)**; still owed: Build Entry Gate v0 · C2 Source-Base Declaration · lens audit · read-graph/catalog routes.
+
+## PER-CARRIER COVERAGE TRACKER (fill as read)
+*Columns: carrier · sections read · parent-verified? · current authority · lineage · concepts affected · changed a verdict? · (if no-impact) rationale.* — TO BE POPULATED as lanes complete.
+
+## CARE VIDEO / OUTSIDE-LEARNING EXTRACTION MATRIX (LANE 5) — EXTRACTOR-CITED (parent-reopen pending)
+*Populated 2026-07-13 from run-level Concept Registries + coverage matrices + embedded tension registers (EVRUN-000001/002/003/005 + spring cluster inventories) via two extractor agents [waves 1-2](ed2436ea-15e6-4e25-9f25-021b5b19dabd) + [waves 3-4+spring](d9bd34df-8c38-4409-907c-6d36e04aade6). **These are extractor rows — NOT parent-verified verdicts. Parent MUST reopen the Tier-A packets before any care-model adjudication.** No standalone tension-register files exist — tensions live in registry §3/§3T (W2: T1–T194; W3: T1–T17; W4: W4-T1–T6).*
+
+**★ HEADLINE (corrected per Knox 2026-07-13 — do NOT overclaim):** the video registries surface a **candidate Care-relevant body currently absent or thin in the Care capture; internal-inheritance status AND destination are PENDING source-packet + current-carrier adjudication.** NOT proven "net-new to OMNI," NOT proven "belongs in Care core," NOT proven "constitutional." The "keeper" column below is the **registry's synthesized statement** (a registry is already an interpretation of the source) — the parent must reopen the source packet for the `source-packet-supported formulation` before any promotion.
+
+**Per-row candidate status (replaces GENUINE-NET-NEW-before-verification):** `candidate_uninherited · candidate_sharpening · candidate_route_elsewhere · candidate_conflict · candidate_internal_novelty`. **DESTINATION routing (each concept → exactly one, at adjudication):** `Care-core · universal-OMNI-law · Clinical-Memory/Observation · AI-Substrate · Agent-Runtime · Platform/E&V · Security · GCE/RBAC/Federation · Product/HCI · strategy/thesis · scenario-evidence · reject/no-Care-impact`. **Discipline (Knox): Care must NOT absorb AI-runtime / Security / Platform / Build-OS architecture merely because it constrains Care — Care CONSUMES those as requirements.**
+
+Full adjudicated matrix columns (to fill on parent reopen): `concept · run · packet(s) · registry keeper statement · source-packet-supported formulation · parent-verified? · deepest existing OMNI carrier · internal-novelty · external-prior-art · primary destination · conflict · final disposition`.
+
+| # | concept | run | packet(s) | registry keeper statement (extractor-cited; NOT source-verified) | in Care capture? | provisional status + likely destination (parent-verify) |
+|---|---|---|---|---|---|---|
+| V-01 | **value-from-action law** | 000002 | EVSRC-155 (ORIGIN) | *"the model only stratifies risk — value comes from a feasible, authorized, capacity-aware, fairly-distributed, monitored responsive action"* | NO | GENUINE-NET-NEW care-governance root; **reopen 155 before care-governance prose** |
+| V-02 | **clinical-action ladder + rubber-stamp guard** | 000002 | EVSRC-149 | *"prescribe/order = an authority EVENT ≠ model output"* · `rubber_stamp_guard` (anti-6-second-click) | partial (§5b authority) | NET-NEW; **direct_conflict T72** (HITL-checkbox↔rubber-stamp) |
+| V-03 | **clinical-AI behavior-safety** (sycophancy/anchoring/fluency) | 000002 | EVSRC-153,156 | *"`safety_before_efficacy_gate` — eval do-no-harm BEFORE usefulness"* | NO | NET-NEW; reopen 153 |
+| V-04 | **implementation-evidence** (3rd evidence class) | 000002 | EVSRC-148 | *"works safely+usefully in a real workflow; adoption requires net LOAD reduction"* | NO | NET-NEW |
+| V-05 | **between-visit care layer** | 000002 | EVSRC-133,134,68 | *"364.5 days outside the clinic"* · *"availability ≠ authority"* | partial | NEW-spine wedge |
+| V-06 | **HCI deployment physics / JITAI** | 000002 | EVSRC-183 | *"human-centered design is part of the model"* · `receptivity_gate` (uncertainty ≠ authority to interrupt) | NO | NET-NEW |
+| V-07 | **prediction-horizon → authority** | 000002 | EVSRC-182,124 | *"authorized autonomy ≤ trusted horizon"* | via REV-184 §R3.12 | SHARPEN (already a REV-184 spine line — confirm) |
+| V-08 | **bounded-autonomy control loop + reversibility class** | 000002 | EVSRC-184 | *"high-stakes autonomy is a CONTROLLED LOOP, never a black-box output"* · `action_reversibility_class` | partial (REV-184) | NET-NEW/SHARPEN |
+| V-09 | **NO RL on patient-facing care** | 000002 | EVSRC-131,137 | *"NO RL-optimization of patient-facing care in production; safety/consent/PHI = blockers not costs"* | NO | HARDENS §B; **direct_conflict T39/45/46, T194** |
+| V-10 | **internalize/externalize policy (PHI stays external)** | 000003 | EVSRC-243 | *"PHI/authoritative facts stay EXTERNAL/cited — never weight-baked by default"* | NO | GENUINE-NET-NEW SPINE; **safety-bearing T14** |
+| V-11 | **memory_authority_state** | 000003 | EVSRC-227 | `candidate→reviewed→adopted→rejected→superseded→domain-authoritative` | partial (CM adoption) | GENUINE-NET-NEW (extends CM adoption ladder) |
+| V-12 | **memory_contamination_state / instruction≠data** | 000003 | EVSRC-205 | *"promotion gate protects TRUTH, not RUNTIME — non-promoted memory can still be re-read as instruction"* | NO | GENUINE-NET-NEW security; **safety-bearing T2** |
+| V-13 | **owner-authored risk → policy_to_eval_compiler** | 000003 | EVSRC-230 | *"you can make legal write your evals for you"* (rule-owner authors acceptance criteria) | NO | GENUINE-NET-NEW (Build-OS/Polaris) |
+| V-14 | **clinical-evidence + clinician-wisdom reservoirs** | 000001 | EVSRC-068 | *"Evidence informs. Clinicians adopt. OMNI commits only through governed care authority."* | partial | promote (FWREG-006/007); **reopen 068 (registry: MANDATORY)** |
+| V-15 | **HITL/HOTL/HOOTL authority-mode spectrum** | spring v37-40 | v40 | *"human involvement is a runtime authority MODE… explicit AI authority envelope per workflow/action"* | NO (naming) | new-to-OMNI naming; ⚠️ autonomy-graduation could erode fail-closed care if misapplied |
+| V-16 | **delegated-authority envelope / agentic consent = living contract** | spring v25-26 | v25 | *"who delegated authority, what actions, scope + lifetime"* · JIT-consent · revoke+propagate | partial (§C) | new-to-OMNI schema pressure (RBAC/Federation/consent) |
+| V-17 | **cached context ≠ truth** | spring v09-24 | v10,v18 | *"cached context is a performance artifact over truth (lineage, version-hash, consent snapshot, TTL, invalidation)"* | partial | affirm (projection≠truth) |
+| V-18 | **derived knowledge = projection not truth; reject eventual-consistency for action-critical clinical knowledge** | 000005 | EVSRC-262 | *"reject eventual-consistency for action-critical clinical knowledge"* | partial | GUARDRAIL-PROMOTED (FWREG-007) |
+| V-19 | **within-label heterogeneity / patient-is-a-person-not-a-visit** | 000002 | EVSRC-145 | *"care responds to the PATTERN, not the label"* | partial (longitudinal) | NEW care-Observation |
+| V-20 | **demand-governance / business-subordinate-to-evidence** | 000002 | EVSRC-143 | *"business subordinate to evidence"* · `demand_governance` (AI-generated demand) | NO | NET-NEW; **direct_conflict T53/54 upcoding** |
+
+**Tier-A parent-reopen packets (EXPANDED per Knox — every packet used to claim a missing Care law):** `068` · `155` · `149` · `153` · `156` · `148` · `133` · `134` · `183` · `182` · `124` · `184` · `131` · `137` · `243` · `227` · `205` · `230` · `262` · `143` · `145` · `081` · `059` · `062` · `050` · spring `v25`/`v40`/`v43`/`v44`. **Also parent-read the RUN-LEVEL synthesis carriers themselves (not subagent-only):** EVRUN-000001/002/003/005 registries + routing/promotion maps + coverage matrices + tension sections; spring corpus inventories; orientation/199-video synthesis; **EVRUN-000004 §0.5/§9.9/§9.10 + EVSRC-251/252 IN FULL (accepted_required_v4_input — the glaring hole).**
+
+**★ Likely DESTINATION routing (pre-verification, per Knox — most of these are NOT Care-core):** V-03 behavior-safety→**AI-Substrate+E&V** · V-09 no-RL→**AI-governance+Platform/E&V (Care consumes as constraint)** · V-10 PHI-external→**Data/AI-substrate+Security** · V-12 memory-contamination→**Agent-Runtime+Security** · V-13 policy-to-eval→**Build-OS+E&V+Polaris** · V-15 HITL/HOTL/HOOTL→**Agent-Runtime+RBAC** · V-16 delegated-authority→**Agent-Runtime+RBAC/Federation/GCE** · V-17 cached-context≠truth→**universal projection law** · V-18 action-critical-consistency→**Platform/Data/CM/Observation** · V-14 reservoirs→**Knowledge-Reservoirs+CNS context-assembly** · V-07 horizon→**already REV-184 trust_horizon (SHARPEN)** · V-11 memory-authority→**reconcile vs CM adoption FIRST**. Care-CORE candidates (still verify): V-01 value-from-action (may compose care-is-the-end + authorized_action + outcome-feedback) · V-02 action-ladder (rubber-stamp-guard may be new; ladder likely composes candidate≠commit+REV-184+OFC) · V-05 between-visit (likely SHARPENS LI+async+Alec) · V-19 within-label-heterogeneity · V-06 receptivity (may be Product/HCI+Care-health, not a universal Care gate). **Care-bearing UNRESOLVED tensions for Nick+Knox:** T40 · T41 · T65 · T72 · T90 · T121 · T172–175 · T194.
+
+## LANE 3 — ENTERPRISE (C3.8) + PRESSURE-ARC DEEP-TRACE dispositions — EXTRACTOR-CITED (parent-verify pending)
+*From [C3.8 extractor](38a97bc0-9e61-4ea5-9462-c49872e7240a) + [C3.5/6/7 deep-trace extractor](fee28e89-7c71-4b05-b269-48d33f305440). Extractor-cited; parent-reopen the load-bearing traces before verdicts.*
+
+**C3.8 enterprise — Care-relevant deltas (need Care disposition at spine):** tenant-ownership doctrine (patient authority vs operator-owns-data vs OMNI-owns-substrate; **OPEN adjudication C38-G3-006: if enterprise-tenant ownership conflicts with patient authority over care truth, who wins?** → Care-relevant, reopen) · **memory/context ownership thinnest** (no residency/exit for derived memory/embeddings — extends thin CM/reservoir doctrine) · supply-chain proof-fabric (universal-OMNI-law; SBOM/FDA §524B for a regulated care platform — broke) · BYOM (`capability_envelope` governs any model; **clinicians/patients don't pick models at point of care; AI never commits** — care-level model-choice REJECTED) · governed data-value economy (Loop-1 patient controls; **pharma-bias REJECTED**; affirms C3.7 firewall) · continuous-security-as-LAW (shape open) · **REJECTS** enterprise ontology-as-god-domain + care-level BYOM erosion + lock-in.
+
+**Pressure deep-trace — UN-MIGRATED / dropped / pressure-test-only care mechanics (the "read C/E/F not G" payoff):** the C3.5/6/7 deep traces surface care physics **thin-or-absent in the Care capture**: `administration_event` (order≠admin med-admin/BCMA gate — GAP) · `movement_state`/ADT/LOC + authority-re-establishes-at-every-transition (GAP) · transport `custody` state · **degraded_mode operating model** (genuinely UNDESIGNED, not just unbuilt) · surrogate-hierarchy/capacity/POLST engine (pressure-test-only) · perioperative multi-stage encounter state machine (GAP) · `operator_graph` (P36) + `continuity_binding` (P37) · **`source_authority_map`** (D-135 "two repositories-of-record, never force-match" — C3.6 load-bearing) · **`knowledge_partition`** (blinding≠RBAC) · `trial_protocol` (10-teeth) · `custody_chain`/`chain_of_identity` · AE split-truth (ePRO vs CTCAE both retained) · one-death→5-plane-records · **economically-blind recommendation engine** (C3.7 HOLDS; enforcement spec open) · `honest_null_terminal` (parent owner open) · `cohort_slot_state` · `trial_option_preservation_signal` (ROUTE-OUT to general care; home unconfirmed). **Parent-verify D-135 (C3.6) + HCASE-061/065/069 (C3.5) + D-124/136/254 (C3.7) before promoting any of these to a Care verdict.**
+
+## COMPLETION STANDARD (Knox 2026-07-13 — binding)
+Package is complete ONLY when: (1) no required Care carrier remains `LOCATED`/`MAP-SUMMARY`/extractor-only; (2) hospital · oncology · enterprise · field-case · video · late-builder lanes each have explicit coverage + dispositions; (3) novelty/authority verdicts are RE-RUN after those reads; (4) the correction ledger distinguishes {inherited law · current contract authority · external prior art · scenario evidence · strategy · genuinely-novel candidate}. Until then: **status = IN PROGRESS — Phase 1.**
+
+---
+
+---
+
+# ═══ LANE 5 — EVRUN-000004 ASYNC-CARE ADJUDICATION (PARENT-VERIFIED 2026-07-13) ═══
+
+*Parent-read `EVRUN-2026-000004_00_run_and_crystallization_map.md` §0.5 + §0.6 + §0.6.1 F1–F5 + §2 (the 153k-char crystallization map). This is the accepted-required-v4-input Knox flagged as the glaring hole — and it turns out to be an already-disciplined disposition ledger, not raw material. It CORRECTS my Lane-5 video overclaim.*
+
+**★ TOP CORRECTION (deflates my "large un-inherited net-new" framing):** EVRUN-000004 §0.5 states verbatim it introduced **"no new *foundational* primitives… Net = reduced + clarified ontology, not expanded."** The async-care/Dan/TRT physics **reconciles to existing canon** — `Governed Resolution` (REV-184) · `authorized_action` (§7/§8) · `patient_relationship` (Identity) · §A/§7.7/§C boundary model · GCE. Frozen flow: **`signal/candidate → Governed Resolution (REV-184) → authorized_action(s) → owning-domain commits/records/obligations/communications/proof → projections (P4)`**; invariant "every consequential mutation crosses an authorization path + is committed by its owning domain."
+
+**★ It already provides the adjudication MODEL I should use estate-wide** — a four-status ledger: **① AFFIRMED_CANON (do not reopen)** · **② TRIFECTA_CONVERGED_DIRECTION (spine lands unless concrete canon conflict)** · **③ REQUIRED_RECONCILIATION (bounded C5 work w/ acceptance criteria)** · **④ REJECTED_DO_NOT_REMINT (with reason)** — plus §0.6 three preservation layers (constitutional law / contract semantics / harness) + the two-disposition rule + the 15-minute anti-flatten test. **This is the template for the final correction ledger.**
+
+**Parent-verified dispositions carried from §0.5 (these SUPERSEDE the extractor-cited video rows on the same concepts):**
+- **Three-gate resolution model** (Gate 0 participant-admission ≠ Gate 1 context-admission ≠ Gate 2 authority/commit; "none implies the next") = **③ REQUIRED_RECONCILIATION**; homes §A+RBAC (G0/G2) · M2 `source_event`+CNS (G1); mandatory semantics in §0.6.1 F1. → the Dan "streaming/context-admission" material (my Lane-4 FIELD-004 + video items) is **already adjudicated here**, not open.
+- **Dynamic multi-actor participation** (`resolution_participation_binding` + `resolution_participant_graph`) = **③, candidate NAMES / mandatory semantic coverage** (F2); composes Identity/Federation/RBAC/D7/M2/CNS/REV-184/P4; `participation_evidence_state` must be able to say `unknown`.
+- **AI-contribution influence lineage** (`ai_decision_log`, 3 orthogonal axes: exposure ≠ influence ≠ later-eval) = **③, REGULATION-FORCED** (EU AI Act + TX TRAIGA), bound to no existing standard (F3). → my video V-row AI-influence items route HERE (CNS/D7 `ai_decision_log`), **not Care-core.**
+- **Multiplicity ≠ evidentiary independence · incentive lineage · discordance/parallel non-fungible authority planes** = **② CONVERGED** (F4); Recommendation Integrity Firewall + REV-184. "Multiplicity may raise ATTENTION; never promotes SOURCE AUTHORITY."
+- **Multi-path "deliberation"** = **HARNESS ≠ substrate** (② + F5): the pattern is generic (corpus 206/214/215/216/220/227/230/231 + CNS §42 "§B = capability CNS uses, never authority"); OMNI-specific = its reconciliation w/ care governance (version-of-record · correlation · disagreement · safety-floor-invariance · replay). **Topology OPEN; semantic floor mandatory. → Care CONSUMES; Agent-Runtime/AI-Substrate/E&V OWN.** ★ This confirms Knox's routing: my video V-03/V-09/V-12/V-13/V-15/V-16 belong to AI-Substrate/Agent-Runtime/Security/E&V, not Care-core.
+- **④ REJECTED_DO_NOT_REMINT:** Governed-Crossing (=§C GCE) · Boundary-Regime (=§7.7) · Membrane/Trust/Operating-Radii (use plain Inner/Federated/External) · Operational-Emission/Resolution-Cascade/-Output/-Effects/`resolution_action_set` wrapper nouns · `stance`-as-new-field (use REV-184 resolution-state). → do NOT let the Care capture mint any of these.
+- **Offensive ontology posture (§0.5②, keeper line preserved):** *"Owning the vocabulary is owning a swappable modeling/harness layer; owning the governed care loops is owning the substrate no competitor can rename its way into."* + **BURDEN OF PROOF: earned/falsified at Task D (the gate BEFORE spine)** — Layer-3 "domain physics" (match≠authorize · candidate≠commit · AI-contribution≠clinician-adoption · plural non-fungible commit planes · non-action-valid · execution-failure-reopens · obligations-persist · outcomes-don't-rewrite · care-replayable) is the real OMNI claim. **This belongs in strategy/thesis, NOT the Care operating law** (per Knox's "moat language leaves the Care model").
+
+**Method note (honesty):** EVRUN-000004 §2 itself records that C3.5/6/7 arcs + most domain contracts were read *via explorer sub-agents* even in that run — i.e. the estate has NEVER been fully parent-read; the framing-level crown jewels were. So my remaining parent obligation = the run-level video registries + the load-bearing packets + the pressure deep-trace artifacts + the lineage bodies (Lane 2), reconciled against this four-status model. **EVSRC-251 (TRT) + EVSRC-252 (Dan) source packets: still owed a parent skim, but their crystallized dispositions are captured here (§0.5/F1–F5).**
+
+---
+
+# ═══ LANE 5 — EVRUN-000001 (WAVE-1 BASELINE) ADJUDICATION (PARENT-VERIFIED 2026-07-13) ═══
+
+*Parent-read `EVRUN-2026-000001…_concept_registry_and_routing_map.md` IN FULL (42/42 sources; §1 cluster routing + §1A anchors + §1B legacy landing + §2/§2A net-new families A–J + §3 stale-vs-v3 verdict lane + §5/§6). This is the BASELINE Wave-2/3/5 net-new labels are defined against — should have been read first.*
+
+**★ The baseline's own verdict directly answers the Care-inheritance question (§3, verbatim):** *"the batch concepts are overwhelmingly ABSENT or PARTIAL in v3's AI/CNS/Build-OS/learning treatment, and **DO NOT TOUCH THE CARE CORE (which they affirm by omission)**"* — and the explicit care row: *"Care doctrine (ownership/consent/adoption/loops/topology): fully solidified (v2 §7, locked) — **AFFIRM — untouched by these clusters; preserve substance.**"*
+
+**What Wave-1 IS (the §2A net-new families A–J):** A CNS-dynamic-substrate · B context-engineering · C attention-routing · D ambient/inbox-HITL · E loops/fleets · F inference-budget · G trust/safety-§A · H security/zero-click/voice-trust · I agentic-design-patterns · J learned-simulators. **ALL route to CNS / Build-OS / §A / §B / §C / security / Knowledge-Reservoirs — NONE is Care-core.** This is the AI-substrate/CNS/Build-OS *center-of-gravity reweight*, explicitly NOT new Care physics.
+
+**The ONLY care-adjacent Wave-1 contribution:** source **068** — clinical-evidence reservoir + collective-clinician-wisdom reservoir (KEEPER: *"Evidence informs. Clinicians adopt. OMNI commits only through governed care authority."*) → routes to **Knowledge-Reservoirs / FWREG-006/007** (+ §A `retrieval≠authority`, clinical-adoption gate). Care-adjacent, **not Care-core-owned**; reread MANDATORY at FWREG contract authoring.
+
+**★ CONSEQUENCE for the video-lane characterization (now baseline-grounded, no longer selection-bias):** Wave-1 — the cumulative baseline — is predominantly **cross-cutting AI/CNS/Build-OS/security that Care CONSUMES**, with a single care-adjacent reservoir cluster (068). This substantially supports (but does not alone complete) the read that the video estate's DIRECT Care-core contribution is narrow; the AI/agent/runtime bulk routes OUT of Care to §A/§B/§C/CNS/Build-OS/Security/Reservoirs. **Still open until Wave-3/5/spring/orientation are parent-read:** whether a later wave introduces a Care-native cluster the baseline lacked (Wave-2's 130–157 care-domain block is the one place a care-block DID appear — mostly cross-cutting + narrow Care-core per the EVRUN-000002 adjudication below).
+
+---
+
+# ═══ LANE 5 — EVRUN-000002 REGISTRY ADJUDICATION (PARENT-VERIFIED 2026-07-13) ═══
+
+*Parent-read `EVRUN-2026-000002…_concept_registry_and_routing_map.md` §1 (multi-home routing) + §2A (net-new promotion set, batches 9–15 = the care-domain block) + §3T (T1–T194 tension register). This is the run-level synthesis carrier Knox required (not subagent-only).*
+
+**★ Corrects my video overclaim (with the registry's OWN routing tags):** the registry already ROUTES most video care-relevant concepts to cross-cutting homes, not Care-core:
+- **RL / reward / preference governance (130/131/137/176)** → **§A authority + AI-governance + Build-OS** ("NO RL-optimization of patient-facing care in production" HARDENS §A). Care CONSUMES as a constraint. (direct_conflicts T39/T45/T46 — for Nick+Knox.)
+- **ground-truth counterweight (123) · experience-alignment (126) · verifier/RLVR (176)** → **Knowledge-Reservoirs · Build-OS eval · §A/§B** (not Care-core).
+- **incident governance + crisis-authority matrix (096)** → **Security-lane · CNS-escalation · RBAC/§A** = **Accountability-loop territory, NOT Care operating model.**
+- **AI-native workflow recomposition (103)** → wedge/§2 + surfaces §7.7 (direct_conflict T22 "AI commits to results" → reject commit-language for clinical/payment).
+
+**★ The GENUINE Care-core candidate set (narrower, but real — registry-tagged NEW-spine; parent-verify packets to confirm net-new vs sharpening):**
+- **149 clinical-action authority + review-meaningfulness** — `clinical_action_ladder` (education→suggestion→evidence-candidate→review→authorized-commit→fulfillment→monitoring) + **`review_meaningfulness_audit`/`rubber_stamp_guard`** (anti-6-second-click) + clinical evals grade **omission** (`omission_failure_class`) + **vigilance-decay law**. Registry: "OMNI/Bloom async-prescribing-load-bearing." Provisional: the *ladder* likely COMPOSES candidate≠commit + REV-184 + OFC (sharpening); the **rubber-stamp-guard + omission-grading + vigilance-decay are candidate_uninherited Care-core** (reopen EVSRC-149 to confirm).
+- **143 care-business coupling** — documentation-reality-integrity + upcoding-guard + **AI-generated demand + demand-governance** + "business subordinate to evidence." Care-core + D6/§A. (direct_conflict T53 upcoding.)
+- **146 prevention / trajectory-baseline + evidence-gated-longevity** — Observation trajectory-against-personal-setpoint + anti-predatory-wellness `GRD`. → **Observation + Patient-CNS + Care** (direct_conflict T65 longevity↔medspa-commerce — a wedge-relevant firewall).
+- **145 within-label heterogeneity** ("patient is a person not a visit") · **133/134 between-visit care** ("364.5 days outside the clinic"; availability≠authority) — likely **SHARPEN Longitudinal Intelligence + async + Alec**, not net-new Care physics.
+- **148 implementation-evidence** (3rd evidence class; "adoption requires net LOAD reduction") → E&V/adoption + Care-health; product/deployment implication.
+- **155 value-from-action (ORIGIN)** — registry ties to thesis §2/§8 + §A + CNS + Observation; provisional: likely **COMPOSES** care-is-the-end + authorized_action + outcome-feedback (a sharper formulation), NOT a new Care root — **reopen EVSRC-155 to confirm** (Knox's V-01 caution).
+
+**Disposition:** the "inheritance failure" is real but PRECISE — the Care capture did not consume the registry's **routed care-domain spine block (batches 9–15, sources 130–157)**; but most of that block is cross-cutting (routes to §A/AI/Build-OS/Security/Observation) and only a narrow set is Care-core. **NOT "a large un-inherited Care corpus."** Remaining parent work to close Lane 5: reopen EVSRC-149/143/146/155/145 (Care-core candidates) for the source-packet-supported formulation; EVRUN-000001 §2A baseline; the direct_conflict tensions (T22/39/45/46/53/65/72/90) → Nick+Knox decision list.
+
+---
+
+# ═══ LANE 5 — PARENT-VERIFIED SOURCE PACKETS (source-packet-supported formulation, per Knox) ═══
+
+**EVSRC-000149 (Graham Walker, Kaiser — "Decision Support to Drug Prescriptions") — parent-read §3 Review 003.** Source-packet-supported formulation (supersedes the registry keeper statement for V-02):
+- **`clinical_action_ladder`** (education→suggestion→evidence-candidate→review→authorized-commit→fulfillment→monitoring): the packet itself calls it a **"net-new RECONCILE HOST for 104 `trust_ladder`/`blast_radius_class` + 134 `administrative_ai_first_clinical_ai_gated` + 138 `risk_based_ai_governance`"** → **candidate_sharpening / COMPOSES-EXISTING** (candidate≠commit + REV-184 blast-radius authority + OFC fulfillment). **Destination: CNS/§A/RBAC** — Care CONSUMES. NOT net-new Care physics. (Confirms Knox's V-02 caution + EVRUN-000004 "reconcile don't re-mint.")
+- **`review_meaningfulness_audit` / `rubber_stamp_guard` / `clinical_work_contribution_trace`** = "the strongest genuine net-new… **load-bearing for OMNI/Bloom's async/GLP-1 wedge**" (record/inspect what the human ACTUALLY pre-screened/was-shown/reviewed/overrode/committed; HITL insufficient if review non-inspectable). → **candidate_uninherited**, **destination §A/RBAC + AI #12/E&V + D6-billing-oracle** (extends 062 HITL-modes + 138 encounter-logging + 082 authority). **Care-relevant REQUIREMENT (Care consumes), not Care-core-owned** — but the single most wedge-relevant recovered item.
+- **`vigilance_decay_law`** (quality↑⇒vigilance↓; "product carries the skepticism") = **SHARPENS 136 `overreliance_guard`** → §A trust / Surface. **`omission_failure_class`/`clinical_comprehensiveness_eval`** = net-new clinical-eval dimension → **Build-OS/E&V**. Neither is Care-core.
+- **Keeper line (preserve verbatim):** *"AI can help generate the answer, but OMNI must decide whether the answer is complete enough, evidenced enough, authorized enough, and accountable enough to become care."*
+- **Net verdict for 149:** mostly AFFIRM/COMPOSES of the 133–147 care run + ONE sharp net-new authority/audit cluster (`rubber_stamp_guard` family) that routes to §A/RBAC/E&V — **NOT a large Care-core inheritance.** This is the pattern Knox predicted; apply the same reopen-to-verify discipline to EVSRC-155/143/146 before promoting any as Care-core.
+
+**EVSRC-000155 (Nigam Shah / FURM — "value from action") — parent-read §3 + transcript keepers.** Source-packet-supported formulation (supersedes registry keeper for V-01):
+- Core: *"Model score is not value. Action is the value-producing layer. Every AI output needs an action thesis."* Value = action constrained by workflow/capacity/ethics/sustainability/governance/monitoring. Flow: `risk estimate → candidate → responsible action → capacity-aware routing → domain/human commit`.
+- **Verdict: the "value-from-action" law COMPOSES-EXISTING** (care-is-the-end + `authorized_action` + OFC fulfillment + outcome-feedback loop) — a **sharper framing, NOT a new Care root** (confirms Knox V-01). **candidate_sharpening → Care-core framing + strategy/thesis.**
+- **Genuinely-new element = capacity-aware thresholds:** *"AI action thresholds must be capacity-aware… OMNI must not generate more tasks than the team can perform… thresholds chosen by net benefit and capacity, not model confidence alone"* (cumulative-benefit curve → benefit-peak → burden). **candidate_uninherited → destination CNS attention-routing + BIZOPS/workforce-capacity + Build-OS/E&V** (FURM lifecycle = E&V deployment pattern). **Care CONSUMES as a constraint; not Care-core-owned.**
+- **Pattern now confirmed across BOTH strongest Care-core candidates (149 + 155):** COMPOSES/sharpening + a narrow cross-cutting net-new that routes OUT of Care-core → **the "large un-inherited Care corpus" framing is wrong; the real inheritance gap is narrower + mostly cross-cutting** (routes to §A/CNS/RBAC/BIZOPS/E&V/Observation), exactly as Knox argued.
+
+*Still owed (Care-core candidate packets, apply same reopen-to-verify): EVSRC-143 (care-business/documentation-integrity) · 146 (trajectory/evidence-gated-longevity — wedge firewall) · 145 (within-label-heterogeneity) · 133/134 (between-visit) + spring v40/v25/v43-44. + EVRUN-000001 §2A baseline. + pressure deep-trace artifacts (C3.5 E full, C3.6/C3.7 E/F) + C3.8 G1-G4 (tenant-vs-patient-authority) + Lane 2 lineage bodies (System-Map §1G/1K.5.A/1M/1W · full LI · thesis v1/§8/§12.8 · clinical-assertion origin) + Lane 1 contract bodies.*
+
+---
+
+# ═══ LANE 5 — CROSS-RUN CARE CONCEPT-EVOLUTION SYNTHESIS (PARENT-VERIFIED, run-level 2026-07-13) ═══
+
+*Now EARNED (not selection bias): parent-read the run-level synthesis verdicts of ALL FOUR normal waves + the baseline + the async crystallization run. This is the cross-run map Knox required before characterizing the estate.*
+
+| Run | What it IS | Its OWN care verdict (verbatim-anchored) | Care-relevant yield | Routes to |
+|---|---|---|---|---|
+| **000001 (Wave-1, BASELINE)** | AI-substrate/CNS/Build-OS/§B/§C/security reweight (families A–J) | *"do NOT touch the care core (which they affirm by omission)"* · *"Care doctrine… fully solidified (v2 §7, locked) — AFFIRM — untouched"* | only **068** (clinical-evidence + clinician-wisdom reservoirs) | Knowledge-Reservoirs/FWREG-006-7; else CNS/Build-OS/§A/§B/§C/security |
+| **000002 (Wave-2)** | + a care-domain block (sources 130–157) | routes RL/reward/ground-truth/experience/incident cross-cutting; a **narrow Care-core** | 149 `rubber_stamp_guard` · 143 documentation-integrity/demand-governance · 146 trajectory/evidence-gated-longevity · 145 within-label · 133/134 between-visit | §A/RBAC/E&V (149) · D6/§A (143) · Observation/Care (146) · LI/async sharpen (133/134/145) |
+| **000003 (Wave-3)** | agentic/harness/eval/security | care-relevant = eval-authority + PHI-external + trustworthy-autonomy (all cross-cutting) | 230 eval-authority · 243 PHI-external · 245 runtime-monitors | Build-OS/§B/§A/security/CNS; 247/248 → already in C3.8 |
+| **000005 (Wave-4)** | LangChain/harness/runtime/memory/eval ecosystem | **"nothing re-minted… AFFIRMS + sharpens, does not add substrate primitives… the gap is BUILD, not ideas"** (genuine net-new = **0**) | 253 care field-validation (reinforces care-first spine, 0 new physics) | Build-OS build-vs-buy; RBAC/P35/candidate≠commit AFFIRM |
+| **000004 (async crystallization; NOT a wave)** | TRT/Dan async-care physics | **"no new *foundational* primitives… reduced + clarified, not expanded"** | 3-gate model · participation topology · AI-influence-lineage (all ③ REQUIRED_RECONCILIATION, homed §A/RBAC/CNS/D7/M2) | reconciles to REV-184/authorized_action/§A/§7.7/§C/GCE |
+
+**★ CROSS-RUN VERDICT (calibrated to evidence, per Knox — this is a SUGGESTION from run-self-verdicts + Wave-1/2 detail, NOT a closed whole-estate characterization):** the run-level reconciliations SUGGEST much of the corpus is **cross-cutting AI-substrate / CNS / Build-OS / §B / §C / security / runtime material rather than a separate Care ontology**, and each run AFFIRMS (does not supersede) the v2 §7 care doctrine ("the gap is BUILD, not ideas"). **Wave-2 holds the clearest Care-oriented cluster.** **BUT the COMPLETE Care impact — sharpenings, workflow/HCI laws, evaluation/proof obligations, rejected patterns, and cross-cutting constraints Care must consume — remains under packet/row adjudication (six-test lens).** So the honest current claim is: *routing pattern established; full Care-impact inventory pending.* Do NOT restate "Care-native yield is narrow" as final. Known Care-relevant leads to adjudicate (not an exhaustive list): reservoir cluster (068→FWREG); Wave-2 care-block (149 rubber-stamp→§A/RBAC/E&V; 143 documentation-integrity/demand-governance→D6/§A; 146 trajectory/evidence-gated-longevity→Observation/Care wedge-firewall; 145/133/134→LI/async); burden/receptivity HCI (183/orientation→Patient-CNS/Product-HCI); PHI-external + memory-authority (243/227→Security/CM); no-RL-on-patient-care (131/137→AI-governance, Care-consumes); EVRUN-000004 REQUIRED_RECONCILIATION Care items (3-gate/participation/AI-lineage). **Each still needs its six-test class + current-carrier + capture-coverage before Lane 5 closes.**
+
+**Still owed to CLOSE Lane 5 (packet-level, verdict already cross-run-earned):** parent-read spring + orientation/199-video synthesis (expected: same cross-cutting pattern — verify); finish EVRUN-000004 §9.9/§9.10 + EVSRC-251/252; reopen the Care-native packet cluster **068 · 133 · 134 · 143 · 145 · 146 · 148 · 183** for source-packet-supported formulations (149,155 done). Then Lane 5 disposition = "run-level synthesis coverage COMPLETE (all waves parent-read); selected Care-native packet adjudication complete; lower-impact packet reads deferred with reason."
+
+---
+
+# ═══ LANE 5 — CARE-IMPACT MATRIX (six-test; the deliverable that closes Lane 5) ═══
+
+*Applies the 11-class lens. `parent` = source-packet/section parent-verified; `reg` = registry-cited, packet-reopen pending (NOT a closed Care verdict). "Zero net-new" only excludes class (1); classes 2–10 are still Care contributions.*
+
+| Concept (src) | Care-impact class | Care contribution (even if 0 net-new) | Deepest current OMNI carrier | In Care capture? | Routing / disposition | depth |
+|---|---|---|---|---|---|---|
+| clinical-action ladder (149) | (2) sharpening | governed escalation education→…→commit→fulfillment→monitoring | candidate≠commit + REV-184 + OFC | partial (§5b) | Care consumes; cite REV-184/OFC — not net-new | parent |
+| `rubber_stamp_guard`/`review_meaningfulness_audit` (149) | (4) HCI + (7) eval + (6) authority | inspectable provider review; anti-6-second-click; grade omission | none (extends 062 HITL + 138 logging + 082) | NO | **§A/RBAC + AI#12/E&V** (Care REQUIREMENT; wedge-load-bearing) | parent |
+| `vigilance_decay_law` (149) | (5) burden + (4) HCI | product carries skepticism as quality↑ | 136 overreliance_guard | NO | §A/Surface (sharpen) | parent |
+| `omission_failure_class` (149) | (7) eval/proof | evals grade omission/missing-contraindication | 054 eval-harness | NO | Build-OS/E&V | parent |
+| value-from-action (155) | (2) sharpening | model-score≠value; every AI output needs an action thesis | care-is-the-end + authorized_action + OFC + outcome | partial | Care-core framing + thesis (sharpen) | parent |
+| capacity-aware threshold (155) | (6) cross-cutting + (3) workflow | don't generate more work than team can execute; net-benefit not confidence | none (CNS attention-routing) | NO | **CNS attention-routing + BIZOPS/workforce + E&V** (Care consumes) | parent |
+| 3-gate resolution model (EVRUN-000004 F1) | (6) cross-cutting + (1?) | participant≠context≠authority admission; streaming context-admission | REV-184 + §A + RBAC + M2/CNS | partial (§9a) | ③ REQUIRED_RECONCILIATION → §A/RBAC/CNS (Care consumes) | parent |
+| participation topology (EVRUN-000004 F2) | (6) cross-cutting | dynamic multi-actor binding; `unknown` honest | Identity/Federation/RBAC/D7/CNS/P4 | NO | ③ C5; Care consumes | parent |
+| AI-influence lineage (EVRUN-000004 F3) | (7) eval/proof + (6) | exposure≠influence≠eval; regulation-forced | `ai_decision_log` (CNS/D7) | NO | **CNS/D7** (Care consumes; not Care-core) | parent |
+| clinical-evidence + clinician-wisdom reservoirs (068) | (6) cross-cutting + (2?) | evidence informs / clinicians adopt / OMNI commits via care authority | FWREG-006/007 (reserved) | partial | **Knowledge-Reservoirs** + §A retrieval≠authority | reg |
+| between-visit care (133/134) | (2) sharpening + (3) workflow | "364.5 days outside clinic"; availability≠authority | Longitudinal Intelligence + async + Alec | partial | LI/async/Patient-CNS SHARPEN | reg |
+| trajectory/personal-setpoint + evidence-gated-longevity (146) | (2) sharpening + (10) rejected | track vs personal baseline; anti-predatory-wellness firewall | Observation + Patient-CNS | NO | **Observation/Care** (wedge firewall — direct_conflict T65) | reg |
+| care-business/documentation-integrity + demand-governance (143) | (3) workflow + (10) rejected | doc-reality-integrity; upcoding-guard; business-subordinate-to-evidence | D6/§A | NO | **D6/§A** (direct_conflict T53) | reg |
+| within-label heterogeneity (145) | (2) sharpening | "patient is a person not a visit" | Observation/CM + Patient-CNS | partial | LI/Observation SHARPEN | reg |
+| implementation-evidence (148) | (7) eval + (5) burden | works safely+usefully in real workflow; adoption=net-LOAD-reduction | none | NO | **E&V/adoption + Care-health** | reg |
+| JITAI/receptivity (183) + orientation HCI | (4) HCI + (5) burden | uncertainty≠authority-to-interrupt; burden/timing/threshold governance | none (Patient-CNS) | NO | **Patient-CNS/Product-HCI** (Care consumes) | reg |
+| no-RL-on-patient-care (131/137) | (6) cross-cutting + (10) rejected | safety/consent/PHI=blockers not costs; no production RL on patient-facing care | §A/§B | NO | **AI-governance** (Care consumes as constraint; T39/45/46) | reg |
+| PHI-external + memory-authority-state (243/227) | (6) cross-cutting | authoritative facts stay external/cited; memory-authority ladder | §B/Security + CM adoption | partial (CM) | **Security/AI-substrate + CM** (reconcile vs CM adoption) | reg |
+
+**Reading of the matrix (six-test, honest):** the video corpus's Care contribution is REAL but is **dominated by classes (4) HCI, (5) burden, (6) cross-cutting-consumed, (7) eval/proof, (10) rejected** — i.e. *requirements Care consumes + product/HCI/eval obligations + firewalls*, with a few class-(2) SHARPENINGS (value-from-action, between-visit, within-label, action-ladder) and **very few/none class-(1) new Care-core laws.** So Nick's concern is vindicated in a precise way: the capture UNDER-consults these and should inherit the HCI/burden/eval/rejected-pattern/cross-cutting requirements — NOT because they are new Care physics, but because they are Care-shaping obligations. `reg`-depth rows still need packet reopen to firm the class + carrier.
+
+---
+
+# ═══ SESSION-2 FORENSIC HANDOFF STATE (2026-07-13) — resumable; NOT a completion ═══
+
+*Status: IN PROGRESS — Phase 1. This is the exact completed/unread state so any agent resumes without re-deriving. No completion is declared. No Care-capture edits.*
+
+## PARENT-VERIFIED (opened + read personally — these carry verdicts)
+thesis v0 · thesis v2 §7.1/7.2/7.3/7.5.3/7.5.4 · thesis v3 + v3-integrated §1-2 · REV-184 (full) · Clinical Memory contract (full) · Observation contract (full) · CNS contract (full) · OFC §6/7/10 · D5 §5/10 · 2026-04-30 authority_vs_longitudinal + care_management_source · **Late-Builder register (full)** · **field cases (Alec/SNF/Kyle/Dan, full)** · **EVSRC-000149 §3** · **EVSRC-000155 §3** (both clinical Care-core candidate packets).
+
+## VIDEO-LANE GRANULAR STATUS (per Knox — separate statuses, no blanket "read")
+| Run/artifact | registry | routing/promotion | coverage matrix | tensions | source-packets | adjudicated |
+|---|---|---|---|---|---|---|
+| **EVRUN-000001** (Wave-1 BASELINE) | ✅ FULL (§1/§1A/§1B/§2/§2A/§3/§5/§6) | ✅ | ○ (not separately) | ✅ §3 verdict lane | 068❌ | ✅ run-level ("does not touch care core") |
+| **EVRUN-000002** (Wave-2) | ✅ §1/§2A | ✅ §1 | ❌ | ✅ §3T | 149✅ 155✅ | ✅ run-level (narrow Care-core; rest cross-cutting) |
+| **EVRUN-000003** (Wave-3) | ✅ §-level convergence + verdicts | ✅ | ○ | ✅ (in registry) | ❌ | ✅ run-level (harness/eval/security; cross-cutting) |
+| **EVRUN-000005** (Wave-4) | ✅ §-level convergence + §6 reconciliation | ✅ | ○ | ✅ (W4-T1–6) | ❌ | ✅ run-level ("0 net-new; gap is BUILD") |
+| **spring AI-substrate** (v01–v47 = the IBM/Stanford trove BEHIND Wave-1) | ✅ 00_index + cluster inventories | — | — | — | (v25/v40/v43/v44 owed) | ✅ run-level (all AI-substrate/agent/security/memory/eval/consent = cross-cutting; = EVSRC-000001–047, the Wave-1 source trove) |
+| **orientation** (Knox 2026-06-10 strategic synthesis) | ✅ care-conclusions parent-read | — | — | — | n/a | ✅ AFFIRMS OMNI definition (matches v3-int §1) + three-gate separations; adds burden/receptivity/threshold **HCI governance** (Patient-CNS) — cross-cutting, not new Care-core |
+| **EVRUN-000004** (async crystallization; NOT "Wave 4") | ✅ §0.5/0.6/0.6.1/§2 | — | — | — | 251❌ 252❌ | §9.9/§9.10 ❌ |
+*The "adjudicated" column above = **`run_self_verdict_reviewed`** (I read what each run concluded about itself), **NOT `care_impact_adjudicated`** (the six-test Care-impact classification per Care-relevant row). Run-self-verdict review is COMPLETE across all runs; **`care_impact_adjudicated` is NOT** — it requires: Wave-2 `coverage_complete` (matrix unread) + Wave-3/EVRUN-000005 `care_rows_complete` (Care-tagged rows + tensions, not just the closing verdict) + EVRUN-000004 §9.9/9.10 + EVSRC-251/252 + the Care-native packet cluster (068/133/134/143/145/146/148/183) + spring v25/v40/v43/v44. Lane 5 is NOT closed.*
+
+**★ SCOPE STATE (reconciled 2026-07-13, per Knox — replaces both the withdrawn "large un-inherited" claim AND the stale "only Wave-2 read" paragraph):** parent has now read the **run-level synthesis carriers of all four waves + baseline + spring + orientation + EVRUN-000004 §0.5** — this is `run_registry` + `run_self_verdict_reviewed` coverage, NOT full `care_impact_adjudicated` coverage. **Per-carrier precise state:** see granular table (states = `run_registry_complete` · `care_rows_complete` · `routing_complete` · `coverage_complete` · `tensions_complete` · `packets_sampled` · `care_impact_adjudicated`). **What is EARNED:** a high-level ROUTING pattern (each run's *own* reconciliation regards its material as predominantly AI-substrate/CNS/Build-OS/security/runtime that Care consumes, with Wave-2 holding the clearest Care cluster; EVRUN-000004 = reconcile-not-mint; EVRUN-000005 = 0 net-new). **What is NOT yet earned (Knox's correction — "zero net-new ≠ zero Care contribution"):** the COMPLETE Care impact of each run — its *sharpenings, workflow/HCI laws, evaluation/proof obligations, rejected patterns, and cross-cutting constraints Care must consume* — is still under **row-level + packet-level adjudication.** Honest current verdict: *"the run reconciliations SUGGEST much of the corpus is cross-cutting rather than a separate Care ontology; Wave-2 has the clearest Care cluster; the full Care impact remains under packet/row adjudication."* Do NOT restate "the Care-native yield is narrow" as settled until the six-test adjudication (below) is applied per row.
+
+**★ SIX-TEST CARE-IMPACT CLASSIFICATION (per Knox — replaces the single "did it mint a new primitive?" test).** Every Care-relevant row/concept gets classified into one of: **(1) Care-core law/lifecycle · (2) Care-core SHARPENING · (3) Care workflow/planning/fulfillment · (4) Patient/provider HCI · (5) Care-health/burden · (6) Cross-cutting constraint Care CONSUMES · (7) Evaluation/proof obligation · (8) Scenario/regression obligation · (9) Strategy/product implication · (10) Rejected/dangerous pattern · (11) No Care impact.** "Zero net-new primitives" only rules out class (1); classes (2)–(10) can still be material Care contributions. This is the lens for the Care-Impact Matrix that closes Lane 5.
+
+## EXTRACTOR-CITED (located/extracted by subagents — PARENT-VERIFY BEFORE ANY VERDICT)
+- **Contracts (session-1):** D3 · D7 · Identity · RBAC · Federation · Intake · Messaging (bodies extracted; parent-read still owed for Lane 1).
+- **Video estate (Lane 5):** EVRUN-000001/002/003/005 registries + coverage + tension registers + spring clusters → Video Extraction Matrix (V-01..V-20 + Tier-A reopen list) above. Parent-reopen Tier-A packets owed.
+- **Enterprise (Lane 3):** C3.8 G1-G4 Care-dispositions above. Parent-read owed.
+- **Pressure (Lane 3):** C3.5/6/7 deep-traces (C/E/F) un-migrated care-mechanics above. Parent-read of D-135, HCASE-061/065/069, C3.7 D-124/136/254 owed.
+
+## NOT YET TOUCHED (parent OR extractor)
+- **LANE 1 residue:** GCE/capability contract (+ AI-substrate §B) · Settings/protocol ownership · BIZOPS/workforce · physical/device command authority (P35 body).
+- **LANE 2 (lineage) — NONE parent-read yet:** System Map §1G/1H/1K.5.A/1M/1W BODIES · 2026-04-27 clinical-assertion origin design · full LI doctrine + pressure result · DL-20 (locked+parked) · future-care-obligations · thesis v1 · thesis v2 §8/§8.6/§12.8 + v3 deltas.
+- **LANE 6 residue:** Build Entry Gate v0 · C2 Source-Base Declaration · lens audit · read-graph/catalog routes.
+- **LANE 4 reopen:** "Mike" sub-item (5th specimen vs alias) · TRT source EVSRC-251 (parent-verify).
+
+## NEXT PARENT ACTIONS — Lane 5 RUN-LEVEL DONE; packet-level + Lanes 2/1/3 remain
+**✅ DONE (steps 1–5,7 — the run-level cross-run pass Knox required):** parent-read EVRUN-000001 (baseline, full) · EVRUN-000002 (registry) · EVRUN-000003 (Wave-3 verdicts) · EVRUN-000005 (Wave-4 verdicts) · spring (00_index + inventories) · orientation (care-conclusions) · EVRUN-000004 §0.5 · + the CROSS-RUN synthesis (earned verdict). Packet-level done: EVSRC-149, 155.
+**Remaining to CLOSE Lane 5 (packet-level):**
+6. Finish **EVRUN-000004 §9.9/§9.10** + **EVSRC-251/252** (action hierarchy · 3 gates · TRT/Dan detail).
+8. Reopen **Care-native packet cluster** for source-packet-supported formulations: **068 · 133 · 134 · 143 · 145 · 146 · 148 · 183** (+ cross-cutting packets only where needed to move a verdict).
+9. Route each vs current CM/Observation/CNS/OFC/D5/RBAC/GCE/AI/Platform carriers via the EVRUN-000004 four-status model + destination field.
+10. Declare Lane-5 disposition ("run-level synthesis COMPLETE; Care-native packet adjudication complete; lower-impact reads deferred with reason").
+**Only after Lane 5:** Lane 2 lineage (System-Map §1G/1K.5.A/1M/1W bodies · full LI · thesis v1/§8/§12.8 · clinical-assertion origin) → Lane 1 contract bodies → pressure/enterprise parent-verify → re-run all verdicts + finalize the 5-part package.
+Keep subagents for LOCATING + coverage checks only; parent-read the synthesis carriers + verdict-changing packets.
+
+## CROSS-CUTTING FINDINGS THIS SESSION (provisional; strengthen the case that the capture under-inherits)
+- **Video lane is the biggest OPEN lane** (Nick's concern about un-consulted videos is legitimate) — BUT its *size/shape* is NOT yet characterized: parent has read only Wave-2 (partial) + EVRUN-000004 (partial) + 2 packets. The prior "large un-inherited corpus" phrasing is WITHDRAWN as unearned (see VIDEO-LANE GRANULAR STATUS). What IS confirmed: a routed Care-domain block exists in Wave-2, and the two strongest packet candidates (149,155) both mostly COMPOSE + route cross-cutting. Wave-1/3/5/spring/orientation remain parent-unread → no whole-estate verdict yet.
+- **The pressure arcs hold un-migrated care mechanics** the capture only thinly lists (administration_event · movement_state/ADT · degraded_mode-as-designed-model · source_authority_map · knowledge_partition · operator_graph · continuity_binding · surrogate-hierarchy).
+- **C3.8 raises a genuine Care adjudication:** tenant-ownership vs patient-authority-over-care-truth (OPEN).
+- **v3 thesis re-derivation risk (from Late-Builder VT3):** the capture may be re-deriving care_commitment/boundary-modes/projection-doctrine already authored in v3-integrated §7.3/7.4/7.7 — reconcile as peers.
+
+*Resume at NEXT PARENT ACTIONS. Spend context on reading + integration, not reports. Never a premature package; if near the floor, extend this handoff with exact unread carriers.*
