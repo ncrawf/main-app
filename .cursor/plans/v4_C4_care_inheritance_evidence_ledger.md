@@ -1505,3 +1505,77 @@ degraded_safety_state semantic-equivalence to the historical boundary/context-de
 | 10 | findings needing Lane-3 | per §F |
 
 **No contract or Care-capture edit occurred in Checkpoint 3.** LANE 1 COMPLETE + persisted; next authorized transaction = Lane 3 (fresh context, accepted preflight packet); Lane 6 follows Lane 3.
+
+---
+
+# ═══ LANE 3 — CARE PRESSURE (hospital · oncology · trial-access · enterprise) ═══
+
+## L3-A — ACCEPTED: Hospital / cross-setting / care-lanes pressure (Nick + Knox 2026-07-14, after correction pass)
+
+Checkpoint 1 of 3 (L3 = L3-A hospital · L3-B oncology/trial-access · L3-C C3.8/cross-arc). **Read-only; no contract/Care-capture/spine/thesis edit.** Accepted after the Knox correction pass (A–K): the source acquisition + hospital mechanics were strong on first pass; acceptance required de-overclaiming several representations + independently dispositioning the care-lanes artifact. Discipline: search=navigation; parent-read every verdict-changing passage; `located ≠ verified`; propose-only (`GRD-036`); REV-141/167/188 kept OPEN; Care capture FROZEN.
+
+### A. Source / read-depth manifest (parent-read)
+Routing controls: C3.5 **G4** (full incl. §11 artifact-use map + verdict) + **G4.1** (verified disposition authority — cite G4.1 not G4) + **topology-reconciliation-note** (§A–E, do-not-mint-parallel-vocabulary control). Reality/authority: **C3.5B** (F1–F14 hospital reality) + **C3.5C** (actor/dept/authority; "See≠act≠review/sign≠release"; authority-not-portable-across-settings) — direct. Coverage: **C3.5D** full (manifest 34×45 strata + 100 HCASE + operating contract). Traces: **C3.5E** full (28 deep + 12 red-team + cross-cutting break patterns; physics-holds/object-missing; 0 red-team `✗`). Disposition: **C3.5F** (Care-relevant rows) + **C3.5F5** (topology/continuity/3 decisions) — direct. **Exact F2 rows** (P10 §7.4; SUP-044/049/053/062/086/101/111/115/120/123/132/134/154/298/300/468; Chains A–H). **Exact F4 rows** (P35 family FS4-1; command-mode B3-234/237/245/250; "command authority is a per-device boundary" L12/285/383). Frozen capture (§0–§22). REV-184 §0 (signed-off law). **Care-lanes pressure test — full parent-read (all 4,768 lines of §1; header line 6 + §2 line 4756).** Not read (out of scope): F2/F3/F4 full bodies, C3.6/C3.7 (L3-B), C3.8 (L3-C), C3.1 (Lane 6).
+
+### B. Care-lanes disposition (independently dispositioned)
+Header line 6 states the artifact is `raw_unprocessed`, **"SLATED FOR PROCESSING IN PHASE C3.5,"** entering "as **one pressure lens + one core mechanism**." So C3.5 is the **designated** processing venue (source-backed) — *not proof of complete absorption.* Framing: C3.5 substantially overlaps + operationalizes the hospital/cross-setting portions; complete absorption proven **lane by lane** below. **§2 status:** carries "Left intentionally empty" (L4756) but completion marker `_(nothing yet — §1 not read)_` is stale; **no completed in-file synthesis found** — undistilled source surface, designated venue = C3.5.
+
+| Lane | Represented in C3.5 | Residue | Disposition |
+|---|---|---|---|
+| Acute inpatient | B/C, HCASE-011/014/015/020/065/066/071, E, F | strategy-class only | absorbed |
+| ASC/procedural | HCASE-009/010/023/024/071 + 002/003/058 | multi-stage encounter (see §J) | absorbed |
+| PT/rehab | HCASE-034/035 | episode/outcomes/POC mechanics THIN | absorbed-thin |
+| Clinic/ambulatory | HCASE-001/005/008 + wedge | none | absorbed |
+| SNF | HCASE-036/037/050 | none | absorbed |
+| ECF/LTC | HCASE-038 | long-horizon renewal THIN | absorbed-thin |
+
+**Cross-lane residue NOT in C3.5 = strategy-class** (care-lane model + capability packs + wedge ladder; "clinical action substrate / make EMR less central"; Epic coexist→above→replace; big-tech threat lanes) → route to thesis/Lane-6, NOT Care-core. **One care-mechanism candidate:** transition-as-first-class-episode (`care_transition_episode` etc., L922–935) — C3.5 handles by composition (care_obligation + continuity_binding + D7 + CNS); minting is OPEN candidate, not a proven gap.
+
+### C. care_setting (corrected — crosswalk, not "absent")
+Capture **already names setting** as a validation variation axis (§21a). Earned finding: recognized as validation dimension, **not elevated** into §5b decision/execution admissibility, carrier vocabulary unreconciled. Crosswalk (topology-note §B/§C): place=`site`/`location`; resource=`venue`+`mode_of_practice`; **setting authority-physics = D5 `modality`+`authority_class`+`clinicality_level`** (outpatient-tuned) + Settings `service_policy(service_id,modality)`; operator=`legal_entity`/`brand`. **Reclassification: existing composition needing explicit elevation → D5 axis ELEVATION** (topology-note §C item 3) — NOT a new axis, NOT P36, NOT genuinely-new.
+
+### D. care_team_graph (corrected — decomposition; owner OPEN)
+F2: `care_team_graph` EXISTS (§7.4), covered-doctrine+extend, distributed CNS/Identity/RBAC/BIZOPS/Federation. Families (not one graph): care-role assignments→D5/CNS records (SUP-120/298/086); patient relationship→Identity (P10); cross-operator→Federation grant (SUP-123, **grant≠membership**); visibility→Fed+D7+RBAC (SUP-154); custody/coverage→BIZOPS `coverage_state` (SUP-049); surrogate/representation→OPEN (family/POA via visibility_grant+surrogate_authority, **not auto team-member**); resolution participants→participant projection (not necessarily care team). **Verdict: hospital confirms need for a computed scoped relationship topology; derivation contract + accountable owner OPEN (SC-L1-09); CNS is a candidate (Identity attributes derivation there) but L3-A does NOT select owner, does NOT prove no additional relationship record needed, does NOT fold grants/POA into clinical team membership.**
+
+### E. Degraded-state (corrected — transformation table; no object minted)
+historical `degraded_safety_state` (no carrier, OPEN SC-L1-06) · C3.5 `degraded_mode` (outage posture, pressure-verified, undesigned gap) · `instrumentation_health_state` (capture §13 candidate, partial input) · REV-184 world_model/trust_horizon (signed-off) · `clinical_required` (permit gate, different semantic) · user-visible degradation indicator (no settled representation, pressure strengthened). **Conclusion: material degradation must be explicit to the relevant actor + change admissibility/communication; representation (named projection vs context_packet field vs Care-health projection vs composition) + audience remain OPEN. `degraded_safety_context` NOT minted. Pressure proves no-silent-false-reassurance, not universal patient disclosure (policy-scoped audience).**
+
+### F. Surrogate/capacity/directive (corrected — composition gap, not one carrier)
+8 separate elements: represented-principal (Identity partial) · legal authority basis (none first-class, OPEN SC-L1-07) · **decision-specific/time-bound capacity assessment** (candidate CM assertion — NOT a global patient flag) · directive artifact (D7 — artifact≠authority) · directive applicability/constraint (none, OPEN) · visibility (Fed+D7+RBAC) · consent/refusal authority (RBAC enforces, basis OPEN) · emergency exception+post-hoc reconcile (REV-184+break-glass). **Composition gap, NOT one object/owner. No global `capacity_state`, no universal surrogate object proposed.**
+
+### G. Front-desk (corrected — architecture/contract/build split)
+Architecture law: `role × data-class × purpose-of-use × relationship × care-setting × operator-boundary × exception` (C §3.1); **workspace visibility (Surface, owns no truth) ≠ permission authority (RBAC).** Contract shaping: RBAC groups/atoms + attestation + reason-code policy. Build detail (only this): shipped `customer_support` + coarse `can_view_clinical_history` + Phase-0m reason-code deferred (SC-L1-10). Dimensions are architecture/contract, not build gaps.
+
+### H. P35 (corrected — two-axis; source enum)
+Axis 1 `interaction_kind` (ingest/observe/request/propose/write-back/execute/command/ack/override/emergency). Axis 2 `command_authority_mode`: **F4 (originating) = 3 modes** (read-only·bounded-control·prohibited); **F5-rename+G4 §1.5 = 8 modes** (read-only·write-back·request-only·bounded-command·human-confirmed-command·prohibited-command·emergency-break-glass·vendor-operated). Exact enum confirmation **deferred to L3-B (C3.6 terminus)**; not invented. Map: ingest/observe→read-only; request/propose→request-only(CNS candidate); write-back/execute→write-back/bounded(owning domain); command→bounded/human-confirmed(RBAC); override/emergency→break-glass(+post-hoc); vendor system→vendor-operated. **P35 net-new, no owner (SC-L1-03), `REV-188` OPEN — source does not resolve ownership.**
+
+### I. REV-141 (corrected — two overclaims fixed)
+Corrected discriminator: *a committed no-action stance may produce zero physical actions/fulfillment orders; it may still generate documentation/communication/monitoring/reassessment/escalation/option-preservation/proof obligations* (NOT "zero obligations"). Post-due `overdue/breached/reassessment_required` = frozen-capture/C5 candidates, **not current OFC law** (OFC = `expired`/`expired_unfulfilled` audited + `overdue` consequence, L2-GC.13b); hospital confirms missed-window ≠ silent terminalization, does not promote the enum. "Acceptance is the threshold" = pressure hypothesis under OPEN_RECONCILIATION (authorized_action/resolution-commit/care_commitment_event). **REV-141 OPEN.**
+
+### J. Multi-stage stateful encounter (added — 2nd undesigned gap)
+Scope: ED→OR→PACU→floor; unit/LOC transitions (065); one occurrence vs linked stages (071); authority recompute per stage; plan/commitment continuity; per-stage documentation+obligation closure. Carrier: D5 **§2 = outpatient-EMR-class, NOT hospital-grade**; `service_occurrence`=bounded, `encounter`=derived projection, `care_episode`=thread — **none carries live movement-state `(location × LOC × responsible unit/team × authority-context)` recomputed per ADT move.** Care §14 `encounter_view`+§8+§17 hold the law; carrying substrate = **D5 contract extension (movement-stateful encounter), pairs with care_setting axis (§C).** **NOT a third Care loop** (stateful object/axis in the Act/occurrence layer under the existing Sense→gate→Act→Prove model). design-now.
+
+### K. REV-167 · capture corrections · PASS/OPEN
+- **REV-167 OPEN (unchanged):** decomposition holds under hospital pressure; C3.5 mints no `tracked_clinical_object`; implant-UDI recall (072) = durable binding/index only; **decisive test = L3-B (C3.6C).**
+- **Proposed capture corrections (uncommitted, propose-only):** (1) elevate `care_setting` §21a→§5b as D5-axis-elevation candidate; (2) degraded-state per §E table, no object minted, audience policy-scoped; (3) §5a surrogate/capacity/directive per §F 8-element decomposition; (4) front-desk per §G split; (5) §18/§5b.1 P35 two-axis + net-new/no-owner/REV-188; (6) §5 REV-141 discriminators, no enum promotion; (7) multi-stage-encounter D5-extension note (§J); (8) Federation cross-operator verified-draft/re-point-pending (REV-157)/enforcement-partial (REV-038). Capture FROZEN.
+- **Scope-tightened language:** "no contradiction found between the directly read C3.5 pressure mechanics, the frozen Care capture, and signed-off REV-184 within L3-A scope" (full thesis not reread); estate-wide phrasings → "no current positive carrier/implementation found after the named contract/map/queue/bounded-code reads."
+
+| Question | Verdict |
+|---|---|
+| continuity/transfer/false-closure | PASS (physics)/carrier design-now |
+| care_team_graph need | PASS |
+| care_team_graph owner/shape | OPEN (distributed; CNS candidate only) |
+| degraded-context | OPEN (visibility required; representation+audience OPEN; no object) |
+| surrogate/incapacity/emergency | OPEN (8-element composition gap; no single object/owner) |
+| front-desk | OPEN (architecture+contract stated; build coarse SC-L1-10) |
+| P35 | OPEN (REV-188; two-axis; 8-mode confirmation → L3-B) |
+| REV-141 | OPEN (distinction strengthened; no-action≠obligation-free; no enum; threshold OPEN) |
+| REV-167 | OPEN (partial/non-decisive; decisive test L3-B) |
+| multi-stage encounter | design-now (D5 extension); not a new loop |
+| care_setting | under-elevated+unreconciled → D5-axis-elevation candidate |
+| movement/administration/clocks | PASS/CONFIRM |
+| overall C3.5 verdict | PASS held (scope-qualified) |
+
+**Carried to L3-B:** REV-167 decisive test (C3.6C source-authority map); `trial_protocol`/regimen-state (C3.6/C3.7); recommendation-integrity/honest-null/navigation-obligation (C3.7); P35 8-mode enum confirmation (C3.6 terminus). **Carried to L3-C:** tenant/operator-ownership vs patient-authority-over-care-truth (C3.8 mandatory first backward-trace). **Lane 6:** C3.1. **C3.9/Task-D:** future_not_current.
+
+**No contract or Care-capture edit occurred in L3-A.** Accepted + persisted per Knox 2026-07-14; L3-B authorized. Propose-only (`GRD-036`); REV-141/167/188 OPEN; capture FROZEN; not pushed at persist (commit only).
