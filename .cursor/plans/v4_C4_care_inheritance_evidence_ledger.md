@@ -1285,3 +1285,91 @@ The v1 §7.2 six roles (treating / consulting / ordering / supervising / monitor
 - **UNCHANGED (held after deeper reads):** §1G decomposition (REV-161 placed); Clinical-Assertion→§1K.5.A→CM lineage; authority≠longitudinal survives / LI limited-use; consent-specificity promoted+locked (Tier-0 + settings floor; enforcement REV-038 open); care_commitment↔care_obligation origin-fusion→split (REV-141 open); tracked_clinical_object explicit-open (REV-167); care_graph stays projection; Care capture proposed-only.
 
 **STOP. Do NOT begin Lane 1** (nor Care capture, Platform, Accountability, Agent Runtime, C3.9, Task D). Propose-only (`GRD-036`); Care capture untouched; NOT pushed.
+
+---
+
+# ═══ LANE 1 — CURRENT-CONTRACT VERIFICATION ═══
+
+## L1-CP1 — ACCEPTED: Authority, Consent, Identity & Representation (Nick + Knox 2026-07-14)
+
+Checkpoint 1 of 3 (Lane 1 = 3 bounded checkpoints). **Read-only; no contract or Care-capture edit occurred.** Discipline: absence from an index/grep = *not-yet-located*, never an absence verdict; located ≠ parent-read; "attributed to" ≠ verified carrier; `draft_for_ratification` = current build-facing carrier, not ratified law or code proof.
+
+### A. Source / status manifest (parent-read, by authority class)
+- **Domain contracts (canonical at domain scope · `draft_for_ratification`):** `D7_documents_consent_media` (§3–§11), `identity` (§1.5/§3–§7/§9–§11), `rbac_authority` (§1/§3/§5/§6/§7/§8/§9/§10/§11), `federation` (§1.5/§3/§4/§5/§6/§7/§8/§9).
+- **Design/control evidence (`analysis`):** `audits/2026-04-30_privacy_communication_governance.md` (Parts 1–14 structure; 5/6/9/10/11/13 read).
+- **Decision/open-review records (authority per individual status):** `DEC-019/020/022` accepted-locked; `D0THES-REV-038` **open** (`08` L117), `D0THES-REV-114` **open** (`08` L196), `D0THES-REV-117` **open** (`08` L199), `D0THES-REV-115` **closed** (`08` L197 / `DEC-022`), `REV-169` (RBAC §7 landing), `REV-143/144/145` (Identity §11/§1J.10), `REV-151/157/167` (per rows).
+- **Not read in CP1 (owed CP2):** CNS, Intake, Messaging, D3, Settings, BIZOPS, AI-§B, GCE/§C, P35, D5/OFC bodies.
+
+### B. Exact REV receipts (parent-read from live `08` queue)
+| REV | Home | Live status | Controlling meaning |
+|---|---|---|---|
+| `D0THES-REV-038` | `08` L117 (src v2 §7.5.4/§15.aa) | **open** | consent-specificity **enforcement mechanism** (substrate query-rejection + audit + patient consent-mgmt UX); deferred to Phase G. *(Row's "T0-16 promotion gate" clause is stale — T0-16 already promoted via DEC-019/020; trinity floor landed via REV-115/DEC-022. Live residue = enforcement only.)* |
+| `D0THES-REV-114` | `08` L196 | **open** (Phase-G-routed) | *proposed* DL-18 attestation-envelope amendment (possible 5th per-data-class tier + `signed_with_model_version`); routed amendment, not a blocking gap. |
+| `D0THES-REV-117` | `08` L199 | **open** (Phase-G-routed) | *proposed* DL-22 `subject_kind` enum extension — one possible finer-scope implementation, **not** the constitutional doctrine itself. |
+| `D0THES-REV-115` | `08` L197 | **closed** (`DEC-022`) | DL-19 inv 16 floor 6→9; T0-16 anti-collapse trinity landed (un-disableable). |
+| `REV-169` | RBAC §7 | landed-in-draft | consent-**gate** (action-requires-consent-X → reject-if-missing). **No supersession link appears in the controlling queue and contract rows read** connecting it to REV-038/114/117. |
+
+### C. Five-layer consent status
+| Layer | Status | Receipt |
+|---|---|---|
+| Constitutional doctrine | **Promoted + LOCKED** (`T0-16`, `DEC-019/020` + trinity floor `DEC-022`/`REV-115` closed, un-disableable); requires explicit scope/purpose/duration/recipient | Lane-2 (L2-GC.2) |
+| Drafted contract architecture | D7 §5 = durable consent **artifact/record** (+6-toggle map); RBAC §7 = drafted permission **gate** (`REV-169`); Federation = drafted cross-operator **grant/permeability owner** (`REV-157`). **Messaging send-policy computation = candidate placement inherited from prior routing; CP2 verification owed.** | D7 §5; RBAC §7; Fed §3/§9 |
+| Enforcement-coverage completeness | **Incomplete/open** — `REV-038` + surviving `REV-114`/`REV-117` Phase-G work | `08` |
+| Runtime/code implementation | **Not established** (contracts draft; no code read) | — |
+| Patient-facing operation & audit | consent-mgmt UX / explicit renewal / query audit / revocation propagation = REV-038 closure conditions; **runtime implementation was not evidenced in CP1** | `08` L117 |
+
+### D. Privacy-audit transformation table
+**Disposition:** Historical design/control precursor with **partial verified landing in D7, RBAC, and Federation**; **candidate routing into Messaging**; the **Settings anti-collapse floor is independently verified through accepted Lane-2 evidence** (DEC-022). Remaining **channel, exposure, vendor, and emergency-orchestration** mechanics require CP2 verification. Not a separate current constitutional doctrine; it **sharpens** §7.5.4 at the dispatch/exposure layer (no conflict found).
+
+| Audit mechanic | Current carrier (draft) | Verdict |
+|---|---|---|
+| 6 exposure tiers | Messaging send-policy + D7 access class | candidate-distributed → CP2 |
+| Channel policy matrix | Messaging §6.1 | candidate → CP2 |
+| 6-toggle patient model | D7 §5 (`patient_consents` + toggle→row map) | **landed (draft) in D7** |
+| Minimum-necessary / vendor scope | Messaging template + RBAC gate | candidate → CP2 |
+| Prohibited-outside-secure | Messaging send-policy + RBAC gate | candidate → CP2 |
+| Emergency/crisis orchestration | (routing/CNS) | open → CP2 |
+
+### E. Identity / front-desk / care_team_graph / degraded_safety_state
+- **`contact_identity`** = pre-patient identity carrier (Identity §4); contact→patient identity-claim transition via seam **`SC-ID-PT-001`** (drafted); no auto-merge / no contact→patient collapse (`D0W3B-GRD-001`).
+- **Surrogate/representation:** No first-class surrogate/guardian/represented-principal authority carrier was found in the CP1 sources read; artifact-level surrogate signing exists (D7 `signature_envelope`). Current authority carrier remains **OPEN**.
+- **Front-desk/staff chart access:** the generic authorization + sensitive-access substrate exists at **draft-contract depth** (RBAC ~80 atoms · default-deny · 6-layer resolution · re-run emission+execution · 4-tier attestation + `SensitiveAccessReason` · Tier-4 for 42 CFR Part 2 · `patient_relationship` chart-context scoping · Federation permeability). **Exact front-desk chart-access policy is unverified** — missing: exact role assignment · permission atom set · data-class scope · purpose-of-use · relationship requirement · care-setting rule · cross-operator condition. → CP2.
+- **`care_team_graph`:** Identity §10 supplies primitives (`patient_relationship` + assignment layer) and assigns membership **derivation** responsibility to CNS/care-coordination — **provisional derived-projection placement only; actual CNS derivation unverified until CP2.** D5 consumption (care_episode CoR continuity §7.4) = **prior accepted Lane-2 evidence** (D5 §4/§10), not a new CP1 read.
+- **`degraded_safety_state`:** **not yet located within CP1 scope.** `REV-145 loadPatientCaseSafetySnapshot` = **search lead only, no equivalence.** → CP2 (CNS / boundary-mode).
+
+### F. Seam / contradiction ledger (SC-L1-01 … 08)
+| ID | Item | Status |
+|---|---|---|
+| SC-L1-01 | Surface-map filename mismatch (`OMNI_Surface_Experience_Map_vNext` named vs real `OMNI_Surface_Map_vNext.md`) | clerical only |
+| SC-L1-02 | No standalone GCE contract located | open → CP2 |
+| SC-L1-03 | No standalone P35/device-command contract located | open candidate gap → CP2 |
+| SC-L1-04 | REV-038/114/117 ↔ REV-169 | REV-169 = RBAC consent-**gate** landing; REV-038 = enforcement mechanism (open); REV-114/117 = live-open Phase-G-routed proposed amendments. Related but distinct; no supersession link in queue/contract rows read; none closed by REV-169. |
+| SC-L1-05 | `REV-157` consume-before-owned re-point (Identity/D7/Obs/CNS/D5 still say "consumed-before-owned") | open until Federation ratifies |
+| SC-L1-06 | `degraded_safety_state` no located carrier; `REV-145` = lead only | open → CP2 |
+| SC-L1-07 | No first-class surrogate/guardian/represented-principal authority carrier was found in the CP1 sources read; artifact-level surrogate signing exists. Current authority carrier remains OPEN. | open → CP2 |
+| SC-L1-08 | Messaging send-policy computation = inherited pointer, not CP1-verified | open → CP2 |
+
+### G. CP1 PASS / OPEN table
+| Item | Verdict |
+|---|---|
+| Consent doctrine promoted+locked; enforcement open | PASS |
+| D7 = durable consent artifact/record | PASS |
+| RBAC = drafted consent-gate mechanism | PASS |
+| Federation = drafted cross-operator grant/permeability owner | PASS |
+| `contact_identity` pre-patient carrier + controlled conversion (`SC-ID-PT-001`) | PASS |
+| Artifact-level surrogate signing in D7 | PASS |
+| First-class surrogate/guardian/represented-principal authority | OPEN → CP2 |
+| REV-038/114/117 live-open; REV-115 closed; no supersession by REV-169 | PASS (source-proven) |
+| Privacy audit = historical design/control precursor, partial verified landing | PASS |
+| REV-141 / REV-167 open | PASS (unchanged) |
+| Messaging send-policy computation carrier | OPEN → CP2 |
+| Front-desk chart-access exact policy | OPEN → CP2 |
+| `care_team_graph` current derivation carrier (CNS) | OPEN → CP2 |
+| `degraded_safety_state` carrier | OPEN → CP2 |
+| GCE / P35 carrier existence | OPEN → CP2 |
+| No contract / Care-capture work performed | PASS |
+
+### H. CP2 carry-forward questions
+CNS `care_team_graph` derivation? · `degraded_safety_state` carried/renamed/decomposed/unowned? · exact front-desk chart-access policy? · surrogate/represented-principal authority carrier? · GCE semantics distributed vs carrier gap? · P35/device-command authority = pressure doctrine only or present enforcement carrier? · which §1G placements now verified? · current contract constraints on REV-141/REV-167? · which consent mechanics drafted/implemented/partial/absent in build evidence?
+
+**No contract or Care-capture edit occurred in Checkpoint 1.** Persisted per Knox 2026-07-14; Checkpoint 2 authorized.
