@@ -1373,3 +1373,57 @@ Checkpoint 1 of 3 (Lane 1 = 3 bounded checkpoints). **Read-only; no contract or 
 CNS `care_team_graph` derivation? · `degraded_safety_state` carried/renamed/decomposed/unowned? · exact front-desk chart-access policy? · surrogate/represented-principal authority carrier? · GCE semantics distributed vs carrier gap? · P35/device-command authority = pressure doctrine only or present enforcement carrier? · which §1G placements now verified? · current contract constraints on REV-141/REV-167? · which consent mechanics drafted/implemented/partial/absent in build evidence?
 
 **No contract or Care-capture edit occurred in Checkpoint 1.** Persisted per Knox 2026-07-14; Checkpoint 2 authorized.
+
+## L1-CP2 — ACCEPTED: Care Operations, Capability & Command Authority (Nick + Knox 2026-07-14)
+
+Checkpoint 2 of 3. **Read-only; no contract or Care-capture edit occurred.** Accepted after the bounded integrity patch (BIZOPS parent-read; GCE/P35/`degraded_safety_state` de-overclaimed; front-desk reworded; Messaging code inspected; REV constraint matrices). Discipline: `draft` ≠ built; code absence = "not evidenced after reading [named sources]," never "does not exist."
+
+### A. Source manifest (by class)
+- **Parent-read current contracts:** CNS, Messaging, Settings, Intake, D3, BIZOPS (§1.5/§3/§4/§5/§6/§7/§8/§9).
+- **Shipped-code evidence:** `lib/auth/capabilities.ts`; `lib/outbound/dispatch.ts` + `dataEnvironmentGate.ts` (+ `lib/outbound/*`/`lib/messages/*` listing).
+- **Directional/nonbinding doctrine:** `ai_substrate_frame`; thesis v3-integrated §A/§7.8/§C (Governed Capability Exchange); Late Builder VT1/VT3.
+- **Live open-review rows:** `D0THES-REV-188` (P35/degraded-mode/command owner), `REV-164` (BIZOPS family).
+- **Bounded pressure disposition:** C3.5 G4.1 §B (P35 row only). **Not opened:** full C3.5/6/7/8 bodies; `ai_model_lineage_contract` (pending/absent); Polaris (CP3).
+
+### B. Current-carrier findings
+| Q | Verified status |
+|---|---|
+| Q1 care_team_graph | **OPEN seam** — Identity attributes derivation to CNS; CNS body defines no derivation; D5 §44 reads it "from Identity." Not confirmed. (SC-L1-09) |
+| Q2 degraded_safety_state | **OPEN → Lane 3** — no named current carrier after CP1/CP2 reads; CNS `loadPatientCaseSafetySnapshot`/`clinical_required`/safety-window = adjacent/partial mechanics; equivalence to historical boundary/context-degradation projection unproven; `REV-145` adjacent, not renamed carrier; degraded-mode authority open under `REV-188`. |
+| Q3 front-desk | **vocabulary + authorization-granularity gap** (SC-L1-10 renamed) — code role=`customer_support` (`front_desk`→`customer_support`@location, DL-18 §1 / FOUNDATIONAL L1406); coarse `can_view_clinical_history`; reason-code optional (Phase 0m); data-class/purpose/relationship/care-setting/cross-operator constraints not implemented/evidenced. |
+| Q4 surrogate | **OPEN** — D7 `signature_envelope` signer + DL-22 Q4 open; no first-class authority carrier. |
+| Q5 GCE | **OPEN — partial §C realization** — directional grammar (§C Governed Capability Exchange), not a domain; distinct primitives `capability_envelope` ≠ `delegated_authority_envelope` ≠ `capability_contract`; §C never authored/un-paused (VT1/VT3), `ai_model_lineage_contract` ⏳ pending, P35 unresolved. SC-L1-02 OPEN. |
+| Q6 P35/device-command | **pressure-verified net-new, no current owner; `REV-188` live open** (C3.5 G4.1 §B); no positive enforcement carrier at contract depth; Identity inv 7 = negative constraint only. |
+| Q7 §1G placements | **VERIFIED** across D5 (case-ownership/care_state_view/continuation) + CNS (provider_task/prioritization §1G.1/4-8, patient_action_item §1G.11, `clinical_required` §10.1, exception §1G.5, decision-time safety §1G.2) + D5 §44 clinician-continuity §1G.9 + Messaging §4 external-line §1G.12 + **BIZOPS §3 provider operational-state §1G.7** (owner identified; `SC-WF-D3-001` re-point + `REV-164` closure open). |
+| Q8 REV-141/167 | **narrowed, still OPEN** (constraint matrices below). |
+| Q9 consent impl | **PARTIAL (evidenced)** — Settings §6 inv 16 floor (reject-at-write, draft); RBAC §7 gate (draft, not in shipped code); Messaging send-policy exposure computation **partially implemented** (`dispatch.ts` `runSendPolicyGate`→`disclosure-policy` steps 1+2min+3+5; 4/5b/prefs/windows/freshness deferred; adapters stubbed except pre-rendered); typed-`patient_consents` gate (REV-169) runtime **not evidenced** in paths read; REV-038 engine + REV-114/117 extensions open. |
+
+### C. REV-141 constraint matrix
+| Source | Rules out | Requires | Remaining Q |
+|---|---|---|---|
+| D3 | appointment/planning ≠ care accountability | commitment ≠ scheduling object | — |
+| CNS | never commits (candidate/permit); REV-141 runs through | candidate→owning-domain commit | which domain commits care_commitment |
+| Messaging | transport/projection ≠ commitment | `clinical_required`=flag; permit-gate=CNS | — |
+| Settings | config ≠ runtime commitment | — | — |
+| BIZOPS | workforce readiness ≠ care responsibility (inv 1) | — | — |
+| D5/OFC (accepted) | OFC §10 forbids obligation↔commitment collapse; D5 §10 `responsible_party` overlay | central current seam | 2-primitive vs typed-states vs linked-interface → REV-141 decision |
+
+### D. REV-167 constraint matrix
+| Source | Rules out | Requires | Remaining Q |
+|---|---|---|---|
+| Intake | emits patient-source; no tracked-object; no `patients.*` write (1J.10) | provisional emit only | — |
+| CNS | coordinates; owns no clinical truth | — | — |
+| Messaging/D3/Settings/BIZOPS | none own it (transport/planning/config/workforce) | — | — |
+| CM (accepted) | owns assertion-atom, not tracked-object | — | durable tracked-object **unowned** → REV-167 decision (four-layer split = candidate, not inherited) |
+
+### E. Seam ledger (post-CP2)
+SC-L1-02 GCE **OPEN (partial §C)** · SC-L1-03 P35 **→ REV-188 live-open, net-new, no owner** · SC-L1-05 REV-157 open · SC-L1-06 degraded_safety_state **OPEN → Lane 3** · SC-L1-07 surrogate open · SC-L1-08 Messaging send-policy **verified draft carrier + partially implemented** · SC-L1-09 care_team_graph derivation **OPEN seam** · SC-L1-10 **front-desk/customer-support vocabulary+granularity gap** · **SC-L1-11 (NEW): §1G.7 owner verified (BIZOPS); `SC-WF-D3-001` re-point + REV-164 closure open.**
+
+### F. Changed vs unchanged
+- **Changed/sharpened:** §1G.7 → owner=BIZOPS verified (was "still open"); Messaging send-policy → verified draft carrier + partially implemented; front-desk → vocabulary+granularity gap (customer_support coarse grant); care_team_graph → derivation not evidenced in CNS (open seam); degraded_safety_state → OPEN unproven-equivalence (not "decomposed"); GCE → partial §C realization (not "no gap"); P35 → REV-188 live-open net-new.
+- **Unchanged:** REV-141 open (no-collapse); REV-167 unowned/open; consent doctrine-locked / enforcement-open; surrogate OPEN; no supersession link in rows read.
+
+### G. CP3 / Lane-3 carry-forward
+**CP3:** Surface Map P4/P5 (front-desk workspace projection; care_team_graph as projection) · `contracts/seams/` re-point status (`SC-WF-D3-001`/`SC-D7-MSG-001`/`SC-SET-MSG-001`) · Polaris (nonbinding, last) · final Lane-1 consolidation. **Lane-3:** degraded_safety_state equivalence; care_team_graph derivation home; front-desk under care-setting/enterprise pressure; P35/REV-188; REV-141/167 scenario pressure; tenant-vs-patient authority (C3.8). **Operator/build:** REV-038 engine; REV-114/117; RBAC granular atoms + Phase-0m reason-code; ai_model_lineage_contract (#12); REV-164/SC-WF-D3-001.
+
+**No contract or Care-capture edit occurred in Checkpoint 2.** Persisted per Knox 2026-07-14; Checkpoint 3 authorized.
