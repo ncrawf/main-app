@@ -2,7 +2,7 @@
 
 Document type: `plan_or_roadmap` (a tiny lane-preserver / gate note; NOT the C4 authoring package, NOT a section map, NOT prose)
 Authority: `analysis_nonbinding` — preserves the C4 lane; binds nothing (`GRD-036`).
-Status: `lane_preserved_pending_C3_5_G4` 2026-06-13. **Deliberately minimal** (Nick+Knox: don't build the lane while C3.5 is still v4-forming). Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` → C4.
+Status: `active` 2026-06-13 (**Lane-6 L6-B status correction** from the non-enum `lane_preserved_pending_C3_5_G4`: the C3.5-G4 blocking dependency is FULFILLED and this bridge no longer controls admission; it is **retained as historical/runway navigation** — its source-base def, method framing, and REV-184 read-order guard remain current. **Forward pointer:** the canonical authoring-input set is now read-graph **#9a**; current C4/spine state lives there + the current checkpoint handoff). **Deliberately minimal** (Nick+Knox: don't build the lane while C3.5 is still v4-forming). Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` → C4.
 
 ## Why this exists
 We considered writing the C4 planning package now (current grounded agent) to de-risk the agent switch. Decision: **NOT yet.** C3.5 is explicitly v4-forming and may reshape the spine; a "provisional" package would start behaving like a settled container before C3.5 finishes. So this note only **preserves the lane**.

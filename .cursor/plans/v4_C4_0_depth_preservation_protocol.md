@@ -4,7 +4,7 @@
 
 Document type: `plan_or_roadmap` (an authoring rule for the whole v4 write + downstream contract/primitive prose; NOT a new phase, NOT thesis prose itself)
 Authority: `analysis_nonbinding` — a process rule; binds nothing; promotes nothing (`GRD-036`).
-Status: `draft_for_review` 2026-06-13. Pairs with C3.1 (coverage) — **C3.1 proves nothing major is MISSING; C4.0 proves nothing major gets FLATTENED.**
+Status: `active` 2026-06-13 (ACCEPTED as the standing anti-flattening discipline; **Lane-6 L6-B status correction** from the file's earlier `draft_for_review` header to match the catalog `active` + downstream treatment). Pairs with C3.1 (coverage) — **C3.1 proves nothing major is MISSING; C4.0 proves nothing major gets FLATTENED.**
 Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` → applies at **C4** (and to downstream contract/primitive authoring). Builds on the C3.1 audit (`v4_C3_1_lens_coverage_audit.md`) + `GRD-044`.
 
 ## Why this exists

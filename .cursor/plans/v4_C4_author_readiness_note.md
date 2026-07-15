@@ -1,7 +1,7 @@
 # v4 — C4 Author Readiness Note (the comprehension proof; pass BEFORE any spine prose)
 
 Document type: `plan_or_roadmap` (the output of C4 named gate #5, `v4_C4_fresh_agent_readiness_prompt.md`) · Authority: `analysis_nonbinding` (`GRD-036`) — a comprehension proof, **NOT spine prose, NOT a section map, NO contract edits.**
-Status: `draft_for_review` 2026-06-15 — written by the fresh v4 authoring agent (this session) for **Nick + Knox** review. PASS unlocks v4 spine prose; FAIL → back to this note. Mirrors the C3 comprehension gate.
+Status: `passed_reviewed` 2026-06-15 (✅ PASSED Nick + Knox; **Lane-6 L6-B status correction** from the file's earlier `draft_for_review` header — the note passed and unlocked spine draft 0; the partial-staleness forward-pointer immediately below remains in force). Originally written by the fresh v4 authoring agent for **Nick + Knox** review; PASS unlocked v4 spine prose. Mirrors the C3 comprehension gate.
 Controlling plan: `~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md` → C4. Boot-freshness triad checked at session start (AGENTS ↔ read-graph #15 ↔ HOME controlling-plan banner agree on `HANDOFF_2026-06-14_…pre_c4.md`).
 Owed (New-Artifact §5): catalog row + read-graph eval — deferred to package acceptance, consistent with the other C4 runway docs (`analysis_nonbinding` pending Nick+Knox). Flagged, not silently skipped. Standing flag: git identity unset.
 
