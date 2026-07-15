@@ -1,0 +1,23 @@
+# EVRUN-2026-000006 · ai-corpus wave-5 — COVERAGE MATRIX
+
+Tracks which wave-5 sources (`EVSRC-2026-000268…000278`) are represented in the concept registry. Status per source: `scaffolded` (file exists, awaiting paste) → `pasted` (transcript + Knox read in) → `covered` (Review 003 written + folded to registry) → `weak` (thin, revisit) → `void_duplicate` (content deleted).
+**Status:** run opened 2026-07-14 (scaffolding); processing in progress 2026-07-15. Processing video-by-video as Nick pastes. Cumulative baseline: `EVRUN-2026-000001 §2A` + `EVRUN-2026-000002` + `EVRUN-2026-000003` + `EVRUN-2026-000005` registries.
+
+## Summary
+- **★★ WAVE-5 COMPLETE — Covered: 11 / 11** (`000268…000278`) · Pending: 0 · Weak: 0 · Void: 0. **Processed + reconciled 2026-07-15.**
+- **All 11 sources processed 2026-07-15** (Review 003 written + renamed to firm slugs + folded to registry; §6 reconciliation done). **Genuine net-new DOMAIN objects across all 11 ≈ 0** (dominant `doctrine=AFFIRM/PARTIAL · build=absent/partial`, identical to waves 2/3/4). Yield: **4 operator-flagged spine sources** (270 ontology/federation ULTRA · 275 ISO-42001 AI-management-system · 278 Anthropic platform "DNA of OMNI" · [272 build-signal elevated]) + ~40 sharpenings + a few thin named gaps (`objective_candidate[_set]` · `canonical_coordination_grammar` · `claimable_work_item` · `AI_management_system` wrapper · `eval_confidence_contract` · `knowledge_execution_coordination_stack`) + 2 net-new guardrails (`model_legibility_bias` · `illusion_of_correctness_guard`) + net-new policies/eval-families (`reasoning_budget_profile` · `multi_evidence_synthesis_eval` · `capability_evidence_epoch` · `epistemic_challenge_event`) + a Build-OS build-vs-buy signal (provider-neutral observability). Wave spine: **plurality with one governed resolution** (objectives 269 · ontologies 270 · governance layers 275) + **the token has a job, the domain has authority** (278) + **apparent intelligence ≠ system assurance** (277). NEXT = wave-close routing feeds the v4 spine author + C3.9 federation test (270/278) + Build-OS (271/276) + governance (275) — all PROPOSE-ONLY.
+
+## Per-source status
+| EVSRC | slug (firm) | paste state | processing status |
+|---|---|---|---|
+| `000268` | ghodsi-databricks-enterprise-ai-context-refactoring | transcript + Knox read | `covered` (full_semantic; enterprise-adoption; 0 net-new + ~6 sharpenings; context/process = the bottleneck) |
+| `000269` | michelle-lam-just-in-time-objectives-specialized-ai | transcript + Knox read | `covered` (full_semantic; ★ objective+surface spine; ~0 net-new + `objective_candidate[_set]` gap + `model_legibility_bias` guardrail) |
+| `000270` | nava-haghighi-ontological-multiplicity-ai-computing | transcript + Knox read + Nick note | `covered` (full_semantic; ★★ ULTRA — constitutional ontology/federation/anti-lock-in; 0 net-new domain objects; operator revisit source) |
+| `000271` | rippling-flat-agent-generated-sql-eval-driven-development | transcript + Knox read | `covered` (full_semantic; production receipt; 1 net-new eval-governance cluster + ~5 sharpenings) |
+| `000272` | codex-langsmith-session-tracing-provider-neutral | transcript + Knox read + Nick note | `covered` (light-semantic; near-dup of 260; 0 net-new + Build-OS build-vs-buy signal) |
+| `000273` | langchain-agent-vocabulary-faq | transcript + Knox read + Nick note | `covered` (semantic-light; vocabulary; 0 net-new; public-vocab map + checksum) |
+| `000274` | cole-medin-archon-harness-generalization-work-factory | transcript + Knox read + Nick note | `covered` (full_semantic; AFFIRM harness; ~0 net-new mechanism + `claimable_work_item` + staged-generation SHARPEN) |
+| `000275` | iso-42001-ai-management-system-governance | transcript + Knox read + Nick note | `covered` (full_semantic; ★ governance spine, operator-flagged; low net-new + `AI_management_system` wrapper + `AI_control_runtime_binding` differentiator) |
+| `000276` | ibm-ai-code-generator-translation-illusion-of-correctness | transcript + Knox read | `covered` (full_semantic; Build-OS; ~0 net-new + `illusion_of_correctness_guard` + generated_change_candidate) |
+| `000277` | ibm-5-ai-myths-apparent-intelligence-not-assurance | transcript + Knox read | `covered` (full_semantic; AI-substrate master law; ~0 net-new domain objects + reasoning_budget/multi-evidence-eval/capability-epoch policies) |
+| `000278` | anthropic-platform-ecosystem-not-walled-garden-three-layer | transcript + Knox read + Nick note | `covered` (full_semantic; ★★ SPINE "DNA of OMNI"; knowledge→execution→coordination + internal=external same primitives; ~0 net-new domain objects) |

@@ -1,0 +1,31 @@
+# EVRUN-2026-000006 — ai-corpus wave-5 (10 new-drop videos)
+
+> Run opened 2026-07-14 (scaffolding stage). Per-source flow: Nick pastes §1 transcript + §3 Review 001 (Knox) + optional §3 Review 002 gut note into each wave-5 source file; Opus writes §3 Review 003 (formal deep extraction), folds cross-source synthesis into THIS run's concept registry, updates coverage matrix + anchor ledger, fills each source's §4 pointers at closeout. Method = the settled registry-first two-tier read (`00_pipeline_doctrine.md`) **+ the wave-3 two-axis reality-check** (`doctrine_status × build_status`). Cumulative with `EVRUN-2026-000001 §2A` + `EVRUN-2026-000002` + `EVRUN-2026-000003` + `EVRUN-2026-000005` registries.
+
+- evrun_id: `EVRUN-2026-000006`
+- run_date: `2026-07-14` (scaffolded)
+- analyst: `Opus` (setup + per-source Review 003 + registry fold) · Knox/ChatGPT (per-source Review 001) · Nick (per-source Review 002 gut notes)
+- source_set: `EVSRC-2026-000268 … EVSRC-2026-000278` (11 scaffolds; in `sources/2026-07_wave-5/`; provisional `_TK` slugs firm at processing)
+- purpose: `extraction → cross-source synthesis → routing` (the wave-5 new-drop evidence input)
+- status: **★★ COMPLETE + RECONCILED 2026-07-15 — all 11/11 processed + folded** (`000268…000278`: renamed to firm slugs · §0 metadata · §3 Review 003 · registry/coverage/anchor folds · §4 pointers · §6 reconciliation). **0 genuine net-new DOMAIN objects; ~40 sharpenings; 2 net-new guardrails (`model_legibility_bias`, `illusion_of_correctness_guard`); net-new policies/eval-families (`eval_confidence_contract`, `reasoning_budget_profile`, `multi_evidence_synthesis_eval`, `capability_evidence_epoch`, `AI_management_system`, `claimable_work_item`, `objective_candidate[_set]`, `canonical_coordination_grammar`, `knowledge_execution_coordination_stack`); 1 build-vs-buy signal. 4 operator-flagged spine sources (270 · 275 · 278 · 272). Wave spine: plurality-with-one-governed-resolution + apparent-intelligence≠system-assurance + the-token-has-a-job-the-domain-has-authority. Reconciliation = registry §6. PROPOSE-ONLY (nothing promoted; §C PAUSED).**
+- reads (inputs, append-only):
+  - **per-source** — Knox = §3 Review 001 (paste as-is), Opus = §3 Review 003 (formal extraction), Nick = §3 Review 002 (gut note, optional).
+
+## Cumulative-with-prior-runs (the dedup rule)
+This run does **not** restart synthesis. Its concept registry builds **on top of** `EVRUN-2026-000001 §2A` (full-corpus net-new primitive set, families A–J) **+** the `EVRUN-2026-000002` wave-2 registry **+** the `EVRUN-2026-000003` wave-3 registry (§2R reconciled) **+** the `EVRUN-2026-000005` wave-4 registry. New concepts check `EXISTS-AS` against ALL prior registries before minting — nothing re-minted, nothing orphaned. Also dedups against the post-v3 rounds the corpus keeps re-deriving: C3.5/C3.6/C3.7/C3.8, REV-184/GRR, and `EVRUN-000004` §0.5 (naming baseline — do NOT re-mint retired terms).
+
+## Outputs (Reservoir Ingestion Contract `GRD-044`)
+- `EVRUN-2026-000006_ai-corpus-wave-5_concept_registry_and_routing_map.md` — PRIMARY workbench (cross-source intelligence; built on the cumulative baseline).
+- `EVRUN-2026-000006_ai-corpus-wave-5_source_anchor_ledger_receipts_only.md` — receipts/anchors only.
+- `EVRUN-2026-000006_ai-corpus-wave-5_coverage_matrix.md` — coverage status (268–278).
+- Per-source extraction contract: `../../sources/_OPUS_REVIEW_003_PROMPT.md` + the wave-3 two-axis reality-check.
+
+## Processing method (settled standard + wave-3 two-axis reality-check)
+Per source: read §3 Review 001 (Knox) IN FULL → then §1 verbatim IN FULL → write §3 Review 003 = structured concept clusters (concept · OMNI meaning · why · downstream homes · anchors ≤12 words+timestamp · **reality-check (doctrine_status × build_status)** · conflict_status · weight_tier · status) + net-new primitives (dedup vs the full cumulative baseline) + reread flags + one-line hard read, folded into the source's own §3 (NEVER a sidecar). Fold cross-source synthesis up into this registry; maintain the Tension/Conflict Register; update coverage matrix + anchor ledger; fill each source's §4 pointers at closeout. No quote-driven authoring.
+
+**Two-axis reality-check (carried from wave-3/4):**
+- **`doctrine_status`** — `AFFIRM` / `PARTIAL` / `ABSENT` vs thesis v3 (§0→§B) + current domain contracts + post-v3 layer (C3.5/6/7/8 · REV-184/GRR · `EVRUN-000004` §0.5 · Polaris/C4.1).
+- **`build_status`** — `present` / `partial` / `absent` in the repo (grep/inspect `app/`, `lib/`, `components/`, `middleware.ts`, `supabase/`).
+- Interesting rows = the mismatches (esp. `doctrine=AFFIRM · build=absent`, the wave-2/3/4 dominant pattern).
+
+> This run can PROPOSE; it cannot promote (`GRD-036`). Watched/external evidence cannot build or execute (`GRD-038`/`GRD-039`). Authoring gate (`GRD-044`): downstream work authors from the concept registry → reopens source packets → verifies anchors → reconciles vs canon → writes. Never author from the anchor ledger.

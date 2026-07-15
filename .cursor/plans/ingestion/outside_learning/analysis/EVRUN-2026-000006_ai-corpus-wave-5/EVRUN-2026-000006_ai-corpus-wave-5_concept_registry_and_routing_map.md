@@ -1,0 +1,130 @@
+# EVRUN-2026-000006 · ai-corpus wave-5 — CONCEPT REGISTRY + ROUTING MAP (PRIMARY workbench)
+
+The cross-source intelligence for wave-5. Concept meaning · cross-source convergence · stale-vs-canon verdicts · net-new primitives (deduped) · downstream homes · promotion posture. **This is the workbench** (`GRD-044`). PROPOSE-ONLY (`GRD-036`); nothing promoted. Built **on top of** `EVRUN-2026-000001 §2A` + `EVRUN-2026-000002` + `EVRUN-2026-000003` + `EVRUN-2026-000005` registries (dedup baseline) + the post-v3 rounds (C3.5/6/7/8 · REV-184/GRR · `EVRUN-000004` §0.5).
+
+**Dedup discipline:** every net-new candidate gets an `EXISTS-AS` check vs the full cumulative baseline BEFORE minting. `EVRUN-2026-000004` §0.5 naming baseline is binding (do NOT re-mint retired terms).
+
+---
+
+## §0 — Wave-5 headline (★★ COMPLETE — 11 of 11 covered: `268…278` · reconciled 2026-07-15 — see §6)
+Wave-5's set: **enterprise-adoption + harness** (268 Ghodsi/Databricks · 271 Rippling · 274 Cole Medin/Archon) · **objective + surface plurality** (269 Michelle Lam JIT objectives) · **ontology / federation / anti-lock-in** (270 Nava Haghighi — ★★ ULTRA) · **governance / AI-management-system** (275 ISO 42001 — ★) · **AI-substrate + Build-OS** (276 IBM code-generator · 277 IBM 5-AI-myths) · **platform strategy / internal=external** (278 Anthropic platform — ★★ "DNA of OMNI") · **observability** (272 Codex/LangSmith) · **public vocabulary** (273 LangChain FAQ). **Dominant reality-check = `doctrine=AFFIRM/PARTIAL · build=absent/partial`** (identical to waves 2/3/4 — the corpus keeps re-deriving OMNI's harness/authority/proof/memory/safety/governance physics in vendor + academic language). **Genuine net-new DOMAIN objects ≈ 0.** Yield = strong external convergence + ~40 sharpenings + a handful of thin NAMED gaps + 2 net-new guardrails + net-new policies/eval-families + 1 Build-OS build-vs-buy signal. **Four operator-flagged spine sources: 270 (ontology/federation — revisit) · 275 (AI-management-system — incorporate at numerous levels) · 278 (platform stack + internal=external — DNA of OMNI, revisit) · [272 build-signal elevated].** Two deepest through-lines: **(1) plurality with one governed resolution** — objectives (269), ontologies (270), governance layers (275) are plural-in-description but require ONE governed authority at commit; **(2) apparent intelligence ≠ system assurance** (277) + **the token has a job, the domain has authority** (278) — OMNI governs the seam where organized intelligence becomes authorized reality.
+
+---
+
+## §1 — Per-source concept clusters (folded from each §3 Review 003)
+*(Each source's full 4-axis cluster table lives in its own §3 Review 003. This section carries the cross-source-relevant summary + verdict. Anchors in the anchor ledger.)*
+
+### `EVSRC-2026-000268` — Ghodsi/Databricks enterprise-AI economics — `full_semantic` · **0 net-new, ~6 sharpenings**
+Keeper: *intelligence has outrun organizational context + process design* — enterprise AI fails on context/workflow, not model capability (Databricks connector case: 9mo→7 connectors/quarter via first-principles process redesign, not a smarter model). Sharpenings: context-is-the-bottleneck (§B/Knowledge-Reservoirs) · redesign-before-automate / "don't automate the steam factory" (§8/operator-transformation) · tacit-knowledge-as-governed-candidate (`source_authority_map`) · risk-keyed requirements depth (REV-184/Build-OS) · portability/surface-switching (C3.8) · model-commoditization → governed-system-is-the-asset (AFFIRM 256). REJECT: "AGI already here," data-as-moat, patient-scale-as-moat. Sibling of 103/105/201/223/225/232/256.
+
+### `EVSRC-2026-000269` — Michelle Lam Just-in-Time Objectives — `full_semantic` · **★ objective+surface spine; ~0 net-new domain objects**
+Distinct axis the corpus hadn't centered: **the objective organizing an interaction** (silent/baked-in = the "spork"; make it explicit/inspectable/steerable/provenance-bearing). Load-bearing correction: **inferred objective = CANDIDATE, never authority**. Thin gap: `objective_candidate[_set]` (candidate-state; feeds existing goals/prefs/resolutions). Net-new guardrail: `model_legibility_bias` ("don't redefine the goal to make it computable"). Sharpenings: spork↔surface-specialization (AFFIRM `DEC-033`) · objective-as-router (context/capability/eval/surface) · just-in-time generated surfaces · composition≠activation≠commit (sharpen 267/P35) · owner-authored runtime objective (sharpen 230) · output≠outcome (AFFIRM Prove/Learn) · Loom↔evidence-method (AFFIRM GRD-044). Massive Surface/Projection + Polaris.
+
+### `EVSRC-2026-000270` — Nava Haghighi Ontological Multiplicity — `full_semantic` · **★★ ULTRA (operator-flagged); constitutional ontology/federation; 0 net-new domain objects**
+The constitutional answer to C3.8 Palantir "we own the ontology" + the C3.9 plastics/medspa/Epic federation question. Keeper: **own the grammar of safe coordination, not everyone's reality**; a schema is a theory of what exists disguised as implementation. The 6-layer federation model (canonical coordination grammar → domain contracts → operator overlays → preserved source vocabularies → versioned mapping assertions → actor projections) = "shared grammar, plural vocabularies." First-class ambiguity/unmapped states + ontology-failure-signal (sharpen 245) · living classifications with lineage (append-only; Settings/Catalog) · ontology-admission-gate (GRD-036 for semantics) · relational-subject (patient-centered ≠ patient-isolated) · federated-object-context-envelope · Build-OS `ontological_assumption_review` + generated-schema checks (strongest net-new-ish artifacts). MASTER GUARDRAIL: plurality of description ≠ abolition of the discipline of truth at commit. Revisit source (v4 spine + C3.9).
+
+### `EVSRC-2026-000271` — Rippling flat-agent / generated-SQL / eval-driven-dev — `full_semantic` · **production receipt; 1 net-new eval cluster**
+Keeper: *the agent gets simpler only when the substrate gets stronger* (complexity moved out of agent topology into identity/data/skills/query/proof). Genuine net-new: **statistical eval-sufficiency** — `eval_confidence_contract` + `minimum_detectable_regression` + `cost_uncertainty_lag_policy` + `tiered_eval_cadence` (+ a net-new `runtime_health_eval` lane). Sharpenings: `entity_resolution_gate` (Identity) · `agent_decomposition_gate` (sharpen 231 monolith-first) · skill≠capability≠authority≠truth · generalize-reads-not-writes · model-writes-plan-not-answer (read plane + `purpose_scoped_schema_view` + cache≠truth). AFFIRM substrate-coherence. REJECT single-company-graph / generic-SQL-on-prod / "evals=truth" / "remove all glue."
+
+### `EVSRC-2026-000272` — Codex/LangSmith session tracing — `light-semantic` · **near-dup of wave-4 260; 0 net-new**
+3rd vendor (Codex, after Claude Code + Cursor) proving provider-neutral coding-agent tracing → **Build-OS build-vs-buy SIGNAL (operator-elevated): if OMNI won't use LangSmith, it must BUILD a provider-neutral trace contract + adapters.** Minor lifecycle sharpenings: `run_termination_state` / `partial_trace_finalization` / cancelled-run-evidence · `instrumentation_health_state` (observability needs observability). AFFIRM: trace inherits captured sensitivity; trace≠correctness/authority; traces→learning (261). REJECT LangSmith-as-canonical-proof.
+
+### `EVSRC-2026-000273` — LangChain agent-vocabulary FAQ — `semantic-light` · **vocabulary; 0 net-new (operator: too basic)**
+Public agent vocabulary (agent/RAG/MCP/memory/HITL/evals/lifecycle) stabilized but under-specified for a governed care substrate. Only durable value = a public-vocabulary MAP + a "what OMNI adds to each term" checksum (if OMNI can't state its care-grade delta, v4 is describing agent products, not physics). 2 AFFIRM lines: agentic-error compounds (candidate≠commit); runtime-governance-is-the-product. REJECT vendor-stack-as-architecture + trace-as-reasoning-access.
+
+### `EVSRC-2026-000274` — Cole Medin / Archon harness generalization — `full_semantic` · **AFFIRM harness; ~0 net-new mechanism**
+Keeper: *the reusable asset is the governed WORK FACTORY around the agent* (queue · durable `claimable_work_item` · worker profile · validation · approval · budget · lineage) — AFFIRM 235 ("workflow owns the loop"). Operator build-question answered: **own the pattern; Archon is a replaceable implementation to out-build.** Care-relevant SHARPEN: `staged_generation` = *cheap reversible artifacts earn permission for expensive/consequential actions* (candidate→commit + REV-184). `workload_topology_decomposition` (parallelize items not truth) resolves the multi-agent tension WITH 271. REJECT Archon/Higgsfield/Markdown-state as architecture/production evidence.
+
+### `EVSRC-2026-000275` — ISO 42001 AI Management System — `full_semantic` · **★ governance spine (operator-flagged); low net-new + missing wrapper**
+Keeper: *governance is a continuously-operated management system, not a checklist*; models are components, AI use cases are governed systems. Missing WRAPPER: `AI_management_system` (+ scope + `AI_management_review` + `AI_internal_audit`) — OMNI has the organs, not the declared accountable program (likely v4 constitutional statement). DIFFERENTIATOR SHARPEN: `AI_control_runtime_binding` — governance must compile into runtime controls + proof ("policy that can't block/constrain/route/recall/prove is documentation, not control"). Sharpenings: risk taxonomy + OMNI-extend authority/consequence risk (ties 271 eval-reps-by-risk) · residual-risk-acceptance = authority-bearing + rights-bounded · supplier oversight + model-change-is-a-system-change · nonconformity≠defect≠incident≠harm (Accountability) · appeals/contestability · NIST(guidance)/ISO(cert)/EU-law/OMNI(operationalize) layering. REJECT certification-as-safety / ISO-as-architecture / governance-god-domain / PDCA-as-ontology.
+
+### `EVSRC-2026-000276` — IBM AI Code Generator (Bri Kopecki) — `full_semantic` · **Build-OS; ~0 net-new domain objects**
+Keeper metaphor: *AI didn't learn to write code, it learned to translate it* — but a compiler preserves defined semantics while an LLM guesses the missing spec. Correction: NL → governed **change candidate** before accepted code. `generated_change_candidate` (candidate≠commit for software) · `illusion_of_correctness_guard` (net-new guardrail — clean syntax hides wrong reality; tests can pass while the WRONG thing was asked) · decision-to-code lineage · provenance layers (generation/decision/dependency/source/training) + `unknown_origin_state` · generated-code = untrusted supply-chain input · governed placement (not on-prem absolutism) + `code_context_data_classification`+`model_route_approval` · agentic engineering. REJECT AI-as-compilation/senior-engineer, tests-pass=safe, on-prem-absolutism.
+
+### `EVSRC-2026-000277` — IBM 5 AI Myths (Martin Keen) — `full_semantic` · **AI-substrate master law; ~0 net-new domain objects**
+Master law: **apparent intelligence ≠ system assurance** (answer-changed≠verified · tool-used≠true · reasoning-narrated≠computation-revealed · context-present≠synthesized · step-succeeded≠trajectory-reliable). Net-new policies/guardrails/eval-families: `epistemic_challenge_event`+`answer_revision_reason` (challenge≠verification/sycophancy) · `sycophancy_resistance_policy`+`answer_stability_under_challenge_eval` · `refusal_calibration_profile` · `reasoning_budget_profile` (inference is the cost; reasoning is governed) · `multi_evidence_synthesis_eval` (context≠DB; retrieval≠synthesis) · `trajectory_risk_profile`+semantic checkpoints+short-burst autonomy (compounding error) · `capability_evidence_epoch` (autonomy tied to versioned evidence). AFFIRM audit-observable-work-not-CoT. REJECT global-hallucination-rate/ask-again=verification/CoT-as-audit/0.95^n-as-score.
+
+### `EVSRC-2026-000278` — Anthropic platform (Katelyn Lesse + Angela Jiang) — `full_semantic` · **★★ SPINE "DNA of OMNI"; ~0 net-new domain objects**
+Two spine keepers: **(1) AI execution stack = knowledge → execution → coordination** (meta-harness; "tokens not fungible" → each token has a JOB; coordination ≠ more agents — reconciles 271/274); **(2) internal builders = external builders on the SAME primitives** (ecosystem not walled garden — ★ Nick's DNA; AFFIRM 251 internal/external membrane + §C open-rails-closed-authority). Build-vs-buy boundary: **own meaning/strategy/verification/authority; rent interchangeable sandboxes/caches/model-servers/rails** (AFFIRM 256 harness-sovereignty). Load-bearing correction: **the stack ends at coordinated intelligence; OMNI's governance BEGINS where that intelligence touches care/money/truth/obligation — "the token has a job; the domain has authority."** Knowledge layer = candidate understanding, not canonical truth (keep Reservoir authority classes). REJECT three-layer-as-whole-ontology / flat-knowledge-layer / token-economics-forecasts.
+
+---
+
+## §2 — Cross-source convergence (through-lines across wave-5 + prior registries)
+1. **Plurality with one governed resolution (the wave's spine).** Objectives (269), ontologies/semantics (270), and AI-governance layers (275) are all plural-in-description but demand ONE governed resolution/authority at COMMIT. Unifies candidate≠commit + GRR (signal ≠ qualified case ≠ decision) + Polaris (composition, not god-domain) at three different layers. **Strongest v4-spine convergence.**
+2. **The durable asset = the governed system around the model, not the model** (268 context/process · 271 substrate-coherence · 274 work-factory · 275 management-system) — direct AFFIRM of wave-4 256 (harness-sovereignty) + model-commoditization. OMNI IS that governed system.
+3. **Substrate/surface separation.** Product surfaces specialize (269 spork; just-in-time generated projections); substrate functions unify (270 canonical coordination grammar); AFFIRM `DEC-033`.
+4. **Governance/authority must be enforced, not documented.** 275 (`AI_control_runtime_binding`) + 270 (own machinery not reality; ontology-admission-gate) + 269 (objective ≠ authority) + 271 (entity-resolution-gate) + 274 (staged-generation gates) — all converge on runtime-bound authority + candidate→commit.
+5. **Proof/eval rigor scales with consequence.** 271 (statistical eval-sufficiency; cost-uncertainty-lag) + 275 (risk-tier→controls/eval-reps) + 269 (manual-before-scale; output≠outcome) — AFFIRM Build-OS Runtime Proof + Release Ops.
+6. **LangChain-ecosystem cluster (271/272/273 + 274-adjacent)** → Build-OS build-vs-buy: OMNI should own provider-neutral observability + work-factory + eval-governance rather than depend on LangChain products (operator signal on 272).
+7. **Enterprise-adoption reality** (268 Ghodsi + wave-3 201/225/232): AI value needs organizational refactoring + agent-ready governed context; "don't automate the steam factory."
+
+---
+
+## §3 — Net-new primitive candidates (deduped vs `EVRUN-000001 §2A` + `000002`/`000003`/`000005` + C3.5–3.8 + GRR + `EVRUN-000004 §0.5`)
+**Genuine net-new DOMAIN objects: ~0.** Thin NAMED gaps + guardrail + differentiator candidates (all PROPOSE-ONLY, dedup-checked):
+- `objective_candidate` / `objective_candidate_set` (269) — thin gap; candidate-state; feeds existing goals/prefs/resolutions; NOT a new Objective domain. **watch → promote-after-reconciliation.**
+- `model_legibility_bias` / `goal_representation_loss` (269) — **net-new GUARDRAIL** ("don't redefine the goal to make it computable"). **promote to guardrail digest (evaluate).**
+- `canonical_coordination_grammar` + 6-layer shared-grammar/plural-vocabularies model (270) — thin named-doctrine gap; NOT a domain/product name. **promote-after-reconciliation.**
+- `ontological_assumption_review` (+ `ontological_assumption_manifest`/`semantic_boundary_diff`/`generated_model_boundary_review`/`omitted_relation_check`) (270) — strongest genuine net-new **Build-OS REVIEW ARTIFACTS** (not domain objects). **promote-as-review-method (Build-OS + Build Entry Gate).**
+- `living_classification` / `classification_lineage` (270) — thin gap for Settings/Catalog (append-only). **promote-after-Settings-reconciliation.**
+- `eval_confidence_contract` + `minimum_detectable_regression` + `cost_uncertainty_lag_policy` + `tiered_eval_cadence`/`runtime_health_eval` (271) — genuine net-new **eval-governance** cluster (sharpen 215). **promote-after-dedup.**
+- `claimable_work_item` (274) — thin net-new durable work-item contract (queues seeded 089). **promote-after-dedup.**
+- `AI_management_system` (+ `AI_management_system_scope` / `AI_management_review` / `AI_internal_audit`) (275) — thin net-new org WRAPPER/declaration (organs exist; program undeclared). **promote-after-boundary-reconciliation (v4 constitutional statement).**
+- `AI_control_runtime_binding` (275) — key net-new **differentiator SHARPEN** (governance→runtime+proof). **promote-as-differentiator.**
+- `staged_generation` / `preview_before_commit` (274) — care-relevant SHARPEN of candidate→commit + REV-184. **promote.**
+- `entity_resolution_gate` (271) · `agent_decomposition_gate` (271/274) · `run_termination_state`/`instrumentation_health_state` (272) · `residual_risk_authority` + authority/consequence-risk (275) · `federated_object_context_envelope`/`semantic_mapping_assertion` (270) — all **SHARPEN existing**.
+
+*(No retired terms re-minted; `EVRUN-000004 §0.5` naming baseline honored.)*
+
+---
+
+## §4 — Tension / Conflict Register (wave-5)
+- **T-w5-1 (resolved, complementary):** Rippling flat-agent (271) ↔ Archon multi-worker fan-out (274). Resolution: decompose by **workload topology** (partitionable/bounded/independently-verifiable/parallelizable work) — NOT by org chart. Both AFFIRM monolith-first (231); multiplicity earned by task physics.
+- **T-w5-2 (guardrail, held):** ontological/objective **plurality** (270/269) ↔ **discipline of truth** at commit. Resolution: multiplicity lives in representation/interpretation; commit requires source authority + evidence + professional authority + policy + safety (candidate≠commit + GRR). The wave's master guardrail.
+- **T-w5-3 (tension, watch):** "user-owned AI" (269) + operator/tenant semantic ownership (270) ↔ multi-principal care authority (clinician duty / consent capacity / law / public health). Resolution: user/operator-**governed** objectives+permissions+portability, NOT user/operator-**sovereign** clinical truth. → Polaris + Federation + C3.8.
+- **T-w5-4 (tension, watch):** vendor-tooling convergence (271/272/273 LangChain) ↔ vendor-neutrality/anti-lock-in (270 own-machinery-not-reality). Resolution: use vendor tools behind stable OMNI gateways; own the contracts/authority/proof; build provider-neutral where dependence is strategic (observability). → Build-OS build-vs-buy.
+
+---
+
+## §5 — Routing / promotion posture (PROPOSE-ONLY — `GRD-036`)
+### §C-impact triage (REQUIRED)
+Does any concept touch §C (Governed Capability Exchange)? **YES — §C stays PAUSED (unchanged).** §C-affecting concepts: 269 (objective-conditioned capability assembly; composition≠activation≠commit — sharpen 267/P35) · 270 (capability/ontology admission; federation semantics) · 271 (generalize-reads-not-writes; capability envelopes) · 274 (`claimable_work_item` + worker capability) · 275 (`AI_control_runtime_binding`; capability recall/kill-switch). **§C absorption-plan change: NONE this run** — all logged as PROPOSE-ONLY sharpenings for the §C author to consume when §C unpauses; no schema/contract edits (pre-spine HARD STOP).
+
+### Routing table (proposals only — each gate = destination home review)
+| concept | promotion_target (+detail) | classification | gate | status |
+|---|---|---|---|---|
+| plurality-with-governed-resolution | thesis v4 spine (§A/§8; GRR; Polaris) | doctrine-changing | spine author review | propose |
+| `AI_management_system` + runtime-binding | thesis §A/§B + §C control plane + Platform Loop | doctrine-changing | spine + Platform review | propose (★ operator) |
+| canonical coordination grammar + 6-layer federation | Federation contract + thesis ontology posture | section-sharpening | Federation review | propose (★ operator; C3.9 input) |
+| `ontological_assumption_review` + generated-schema checks | Build-OS + Build Entry Gate | Build-OS-practice | Build-OS review | propose |
+| `objective_candidate[_set]` + objective-as-router | Surface/Projection + Polaris + Context Router | section-sharpening | surface/Polaris review | propose |
+| `model_legibility_bias` guardrail | guardrail digest (`06`) | security/guardrail | guardrail review | propose |
+| statistical eval-sufficiency (`eval_confidence_contract` …) | Build-OS Runtime Proof + Release Ops | Build-OS-practice | E&V/Release review | propose |
+| `staged_generation` (cheap-reversible-earns-expensive) | §A candidate→commit + REV-184 + CNS | section-sharpening | §A review | propose |
+| `claimable_work_item` + workload-topology decomposition | Agent Runtime + CNS | section-sharpening | Agent Runtime review | propose |
+| provider-neutral observability | Build-OS build-vs-buy decision | product/build decision | Build-OS review | propose (build signal) |
+| living classifications + lineage | Settings/Catalog | section-sharpening | Settings review | propose |
+| enterprise-adoption / operator-transformation | thesis §2/§8 + product/BIZOPS | section-sharpening | product review | propose |
+
+## Constitutional Reconciliation Ledger touch
+- Primitives: `objective_candidate[_set]`, `canonical_coordination_grammar`, `claimable_work_item`, `AI_management_system`, `eval_confidence_contract` — route through the thesis-spine 4-lane ledger when the spine author consumes this wave.
+- Projection-surface: 269 just-in-time generated projections + 270 actor-specific projections → Surface Map (owns no truth, `DEC-033`).
+- Contract-boundary: 270 federation 6-layer semantics → Federation contract (C3.9 pressure-test input).
+
+---
+
+## §6 — Wave-close reconciliation (★★ COMPLETE — 11/11; 2026-07-15)
+**Status: all 11 processed + folded + reconciled (2026-07-15).** Final tally:
+- **0 genuine net-new DOMAIN objects** across all 11 (dominant `doctrine=AFFIRM/PARTIAL · build=absent/partial` — waves 2/3/4 pattern holds; the external corpus keeps re-deriving OMNI's physics).
+- **~40 sharpenings** routed (§5 table).
+- **2 net-new GUARDRAILS:** `model_legibility_bias` (269) · `illusion_of_correctness_guard` (276) → guardrail digest.
+- **Net-new POLICIES / eval-families / frames** (all compose existing physics, PROPOSE-ONLY): `objective_candidate[_set]` (269) · `canonical_coordination_grammar` + 6-layer federation + `ontological_assumption_review` (270) · `eval_confidence_contract`+`cost_uncertainty_lag_policy`+`runtime_health_eval` (271) · `claimable_work_item`+`staged_generation` (274) · `AI_management_system`+`AI_control_runtime_binding` (275) · `intent_to_change_compilation`+`generated_change_candidate`+decision-to-code lineage (276) · `epistemic_challenge_event`+`reasoning_budget_profile`+`multi_evidence_synthesis_eval`+`capability_evidence_epoch` (277) · `knowledge_execution_coordination_stack`+meta-harness/token-job (278).
+- **4 tensions** (§4) — all resolved/watch.
+- **1 Build-OS build-vs-buy signal** (provider-neutral observability, 272; reinforced by 278 own-meaning-not-rails).
+- **4 operator-flagged spine sources:** 270 (ontology/federation ULTRA, revisit) · 275 (AI-management-system, "numerous levels") · 278 (platform stack + internal=external, "DNA of OMNI", revisit) · 272 (build-signal elevated). Plus 277 master law + 276 Build-OS pair.
+- **Wave spine (2 through-lines):** (1) **plurality with one governed resolution** (objectives 269 · ontologies 270 · governance 275); (2) **apparent intelligence ≠ system assurance** (277) + **the token has a job, the domain has authority** (278) — OMNI governs the seam where organized intelligence becomes authorized reality.
+- **REJECTs (recorded, not dropped — `GRD-043`):** AGI-already-here · data/patient-scale-as-moat (268) · LangSmith-as-proof-layer (272) · vendor-stack-as-architecture (273) · Archon/Higgsfield-as-architecture (274) · certification-as-safety / ISO-as-architecture / governance-god-domain / PDCA-as-ontology (275) · AI-as-compilation/senior-engineer / on-prem-absolutism / tests-pass=safe (276) · global-hallucination-rate / ask-again=verification / CoT-as-audit / 0.95^n-as-score (277) · three-layer-as-whole-ontology / flat-knowledge-layer / token-economics-forecasts (278).
+
+**PROPOSE-ONLY (`GRD-036`); nothing promoted; §C PAUSED (unchanged).** NEXT: routing (§5) feeds the v4 spine author (270/275/278 spine inputs + plurality-with-resolution) + C3.9 plastics/medspa federation test (270 6-layer + 278 internal=external + don't-over-fit-one-operator) + Build-OS (271/276 + eval-governance + generated-change-candidate) + governance (275 AI-management-system + runtime-binding) + guardrail digest (2 new guardrails). Authoring gate `GRD-044`: author from this registry → reopen source packets → verify anchors → reconcile vs canon → write.
+
+> Authoring gate (`GRD-044`): downstream work authors from THIS registry → reopens source packets → verifies anchors → reconciles vs canon → writes. Never author from the anchor ledger.
