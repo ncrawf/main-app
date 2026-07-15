@@ -227,6 +227,8 @@ Within every lane, keep the **four object types** separate — they used to get 
 
 **Global IDs:** `EVSRC-` (sources) and `EVRUN-` (runs) are sequential and **global across the whole Evidence Plane** — not per-lane, not per-batch — which kills the duplicate-`v01`-across-folders problem permanently. Allocate the next by scanning the plane for the highest existing number + 1. **The `EVSRC` id is assigned at raw-source capture — before extraction or routing — so a thing always has a stable identity from the moment it lands** (the human-readable `_<slug>` can stay provisional and firm up after analysis; the id never changes). (Optional `EVCPT-YYYY-NNNNNN` later, if an individual concept row needs a citeable handle.)
 
+> **⚠️ Known gap — id-allocation ledger + plane-wide index (tracked: `FWREG-012`).** The "next id" today lives only in scattered per-lane `00_index.md` notes, which drift (evidenced 2026-07-14: a lane note was off by 20+ vs the real high-water mark). **Until the plane-wide index exists, the binding rule is: allocate by scanning the WHOLE Evidence Plane for the highest `EVSRC`/`EVRUN` +1 — treat any per-lane "next id" note as advisory only.** The future single-source id-ledger + cross-lane index (and this plane's placement in the 7-plane taxonomy) is captured at `FWREG-012`; do not pre-build it (router §9).
+
 Standard lane shape (same for `outside_learning/`, `competitor_product_evidence/`, all lanes):
 
 ```
