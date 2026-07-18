@@ -18,6 +18,7 @@ This run does **not** restart synthesis. Its concept registry builds **on top of
 - `EVRUN-2026-000006_ai-corpus-wave-5_concept_registry_and_routing_map.md` — PRIMARY workbench (cross-source intelligence; built on the cumulative baseline).
 - `EVRUN-2026-000006_ai-corpus-wave-5_source_anchor_ledger_receipts_only.md` — receipts/anchors only.
 - `EVRUN-2026-000006_ai-corpus-wave-5_coverage_matrix.md` — coverage status (268–278).
+- `EVRUN-2026-000006_ai-corpus-wave-5_nugget_preservation_restore_ledger.md` — ★ recovery record from the 2026-07-15 operator-directed nugget-preservation audit (11 per-source audits: transcript + Knox §3 Review 001 vs Review 003). Anchor-clean (0 fabrications) but ~60 nuggets dropped/flattened (2 SIGNIFICANT: 274 missed synthetic-UGC guardrail · 278 ~17 incl. §AH healthcare degraded-rails; 1 inverted caution 271). Dedup verdict ("~0 net-new DOMAIN objects") STANDS; recoveries = cautions/sharpenings/primitive-candidates/guardrails. Read alongside the concept registry for any downstream authoring (`GRD-044`).
 - Per-source extraction contract: `../../sources/_OPUS_REVIEW_003_PROMPT.md` + the wave-3 two-axis reality-check.
 
 ## Processing method (settled standard + wave-3 two-axis reality-check)

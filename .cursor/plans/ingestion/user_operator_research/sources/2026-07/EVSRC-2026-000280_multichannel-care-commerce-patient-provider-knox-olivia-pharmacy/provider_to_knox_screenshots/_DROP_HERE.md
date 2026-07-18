@@ -1,0 +1,8 @@
+# DROP HERE — provider ↔ Knox/ChatGPT parallel AI loop (channel B)
+![alt text](<Screen Shot 2026-07-16 at 12.32.40 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.33.10 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.12 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.34 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.59 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.33.23 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.31.56 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.33.18 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.21 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.27 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.31.33 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.31.47 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.47 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.53 PM.png>) ![alt text](<Screen Shot 2026-07-16 at 12.32.04 PM.png>)
+Drop the raw screenshots of the **Knox/ChatGPT thread** (the ungoverned parallel reasoning loop) here.
+- Keep sequential + batch-labeled (e.g. `gpt_b1_01.png`, `gpt_b1_02.png`, `gpt_b2_01.png`…). Suggested: `gpt_bN_NN_<short-desc>.png`.
+- **Raw, immutable source** (`GRD-040`/`GRD-042`) — do not edit images.
+- ⚑ Anything pasted INTO the AI (labs, iMessages, formulary, pricing) captured here = **channel-B payload** even if its content originated elsewhere (`DTP-12` — note it, do not re-file by content).
+- Authority layer = `captured_interpretation_nonbinding` — a Knox/ChatGPT statement is NEVER an OMNI finding.
+- After dropping, transcribe into `_source.md` §2B + add §1 inventory rows.
