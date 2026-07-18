@@ -3,7 +3,7 @@
 Document type: `evidence_or_ingestion` (Evidence Plane · run receipts) · Authority: `analysis_nonbinding` (`GRD-036`). **Receipts only — NEVER author from this file (`GRD-044`).** The workbench is the concept registry; meaning = source packets + convergence, not these quotes.
 Run: `EVRUN-2026-000007` · 2026-07-15 (patched post-drop). De-identified: `[PT]`=patient, `N`=provider, `chat`=ChatGPT/Knox (`captured_interpretation_nonbinding`). Verbatim ≤~15 words where possible. Raw immutable per `GRD-042`/PHI flag.
 
-> **★ Canonical id for analysis = `EVSRC-2026-000279`; `278-*` anchor prefixes below are a one-time ALIAS/tombstone** (the specimen collided with the wave-5 Anthropic video at `000278`; physical rename = a separately-logged source-governance action, pending). **Narrative carrier for meaning = `_02` (this ledger is receipts ONLY; do not author from it — `GRD-044`).**
+> **★ Canonical specimen id = `EVSRC-2026-000279` (rename RESOLVED, commit `f07121d`; the earlier `278` collision with the wave-5 Anthropic video is settled). The `278-*` anchor prefixes below are a historical ALIAS for the SAME specimen — no action owed.** **Narrative carrier for meaning = `_02` (this ledger is receipts ONLY; do not author from it — `GRD-044`).**
 
 ## A — `EVSRC-2026-000278` (episode 2)
 | anchor id | channel | verbatim (de-identified) | supports finding |

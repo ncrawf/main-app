@@ -1,6 +1,6 @@
 # EVRUN-2026-000007 — Coverage Matrix (LIVING)
 
-Document type: `evidence_or_ingestion` (Evidence Plane · run coverage) · Authority: `analysis_nonbinding` (`GRD-036`). Propose-only. **STATUS `active_debate_not_closure`.** Patched 2026-07-15 (post-drop + multi-principal reframe). Reflects the LIVING registry; the numeric yield tally is **RETIRED** (counts detect inflation; not a thesis to defend).
+Document type: `evidence_or_ingestion` (Evidence Plane · run coverage) · Authority: `analysis_nonbinding` (`GRD-036`). Propose-only. **STATUS `analysis_closed`** (2026-07-16; candidate `OMNI Reactor` frozen/unpromoted — `_06`; was `active_debate_not_closure` during the trifecta). Reflects the registry; the numeric yield tally is **RETIRED** (counts detect inflation; not a thesis to defend). Open rows here are carried to `EVRUN-2026-000008`, not unresolved-run state.
 
 ## §1 — Coverage by finding (verdict/status + residual)
 | id | cluster | status | residual owed |
@@ -51,7 +51,7 @@ Document type: `evidence_or_ingestion` (Evidence Plane · run coverage) · Autho
 ## §3 — Evidence + governance state
 - **Channel C (phone):** INCORPORATED (relayed via Knox; `operator_reconstructed_nonbinding`). **OWED:** verbatim §2C paste into the `EVSRC` source packet (immutable record). No native artifact; do not fabricate.
 - **Full ChatGPT thread:** INCORPORATED (basis for EVAL-279-A; the fabricated-fertility-rationale specimen).
-- **Source-ID collision:** RESOLVED for analysis (canonical `EVSRC-2026-000279`; `278` = tombstone/alias). Physical folder/file rename = separately-logged source-governance action, PENDING (not silently done).
+- **Source-ID collision:** ✅ FULLY RESOLVED (2026-07-18). Physical source is `EVSRC-2026-000279` (rename landed `f07121d`); `278` refs in the artifacts = historical alias for the same specimen. No rename owed.
 - **PII custody:** quarantine recommended (reverses earlier leave-flag; awaiting operator confirm) — OPEN GOVERNANCE ACTION, not an evidence gap.
 - **Numeric tally:** RETIRED.
 
@@ -60,6 +60,6 @@ Document type: `evidence_or_ingestion` (Evidence Plane · run coverage) · Autho
 - `deliberation_accountability_boundary`, `correlated_confidence_guard`, `principal_loyalty_binding`, AI-uplift attestation = proposed, not authored (spine/C5 + Knox).
 - DTP-07 C5 dedup; per-contract dedup (Identity/D7/D6/OFC/RBAC/CNS/CM) owed at authoring.
 - Successor run (EVRUN-000008) charter drafted (see `_04`); run NOT executed.
-- PII physical quarantine + 278→279 physical rename = logged source-governance actions, pending.
+- PII physical quarantine = logged source-governance action, pending operator confirm (278→279 rename is DONE — no longer owed).
 
-> Nothing promoted. Care capture untouched. 07-12 gate unchanged. Run `active_debate_not_closure`.
+> Nothing promoted. Care capture untouched. 07-12 gate unchanged. Run `analysis_closed` (2026-07-16); successor = `EVRUN-2026-000008`.
