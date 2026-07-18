@@ -51,7 +51,7 @@ Opened 2026-07-18 (Opus, at Nick + Knox direction, quadrifecta checkpoint). **Cu
 ---
 
 ## §5 — NEW meta-eval: `assignment_source_fidelity` (Build-OS / Agent-Runtime eval memory)
-Surfaced by Gemini Round 1's source substitution. **An agent may not claim "completion" (analysis, adversarial review, build) until requested-source-IDs, actually-opened-source-IDs, and declared-read-depth RECONCILE.** Minimum checks: requested IDs · opened IDs · declared read depth · missing sources · substitutions · whether completion claims are permitted · whether tool/system-context leaked and displaced the substantive task. **Universal (applies to Opus, Knox-relayed, Gemini alike).** Route: Build-OS / Agent-Runtime eval memory (candidate; propose-only). Owed: a durable row where the estate keeps agent-runtime evals.
+Surfaced by Gemini Round 1's source substitution. **An agent may not claim "completion" (analysis, adversarial review, build) until requested-source-IDs, actually-opened-source-IDs, and declared-read-depth RECONCILE.** Minimum checks: requested IDs · opened IDs · declared read depth · missing sources · substitutions · whether completion claims are permitted · whether tool/system-context leaked and displaced the substantive task. **Universal (applies to Opus, Knox-relayed, Gemini alike).** **ROUTED 2026-07-18 → `FWREG-013`** (Future Work Registry — the estate's canonical parked-scope home; sibling of the agent-runtime row `FWREG-010`). No standalone eval registry created (per directive). The row registers the eval as a `candidate` and NAMES the missing canonical destination: an agent-runtime evaluation suite / E&V, to be authored WITH the Agent Runtime contract at C5 (`FWREG-010` → `v4_C4_agent_runtime_and_harness_capture.md`). Until then the check is applied by discipline (V1 in `§6A`).
 
 ---
 
@@ -63,5 +63,78 @@ Inspected `supabase/migrations` (50) + `app/` + `lib/` for the cash-pay Rx/payme
 
 ---
 
+## §6A — Knox Pre-Registered Builder-vs-Adversary Adjudication Rubric v1
+
+> **★ PRE-REGISTRATION STATEMENT (Knox, authored + frozen 2026-07-18, BEFORE any Builder or Adversary submission exists).**
+> - This rubric was **frozen before the fresh Builder or fresh Adversary produced their submissions.**
+> - It **must not be changed after either submission is visible**, except to correct a mechanical error, which requires an explicit amendment record (dated, reason stated, appended — never a silent edit).
+> - It contains **no predetermined expectation that either architecture must win.**
+> - It **evaluates the same neutral traces and outcomes**, not brand prestige or rhetorical elegance.
+
+### A. Submission-validity gates
+- **V1 — Source fidelity.** The submission must identify the required sources, sources actually opened, sections/read depth, missing material, and any substitution. Undisclosed substitution or a false completion claim invalidates the submission.
+- **V2 — Role purity.** The Builder may not read the fresh Adversary submission before freezing the Builder submission. The Adversary may not read the OMNI Reactor candidate, the fresh Builder submission, or prior Reactor adjudication. The Adjudicator authors neither submission.
+- **V3 — No external-party fiat.** No architecture may state or imply that an external pharmacy, provider, payer, bank, patient agent, network, or regulator accepted custody, semantics, authority, proof, or responsibility without an actual acknowledgment mechanism or an explicitly labeled assumption.
+- **V4 — No ownership collapse.** The architecture must distinguish authoritative state ownership, professional/legal duty, commit authority, execution custody, coordination, visibility, and proof. A universal case, workflow, obligation, or action object that silently becomes the source of truth fails this gate.
+- **V5 — Pre-consequence safety.** An inadmissible consequential candidate must be blocked, deferred, narrowed, or escalated before prescription transmission, payment capture, or fulfillment begins.
+- **V6 — Historical integrity.** A payment capture, prescription transmission, custody offer, refusal, execution failure, refund, remedy, or clinical reconsideration remains historically real. Compensation may not be represented as rollback or erasure.
+- **V7 — Risk proportionality.** The low-risk reversible trace must not incur the same governance burden as the consequential clinical/financial trace.
+- **V8 — Claim evidence.** Product, standard, implementation, and legal-capability claims must cite primary documentation, live repository evidence, or clearly labeled assumptions. Product-name enumeration without native object/state/mechanism detail does not satisfy this gate.
+
+**Disposition of gate failures:**
+- Failure of **V1 or V2**: submission is methodologically invalid and must be rerun.
+- Failure of **V3–V7**: the architecture cannot receive an overall superiority verdict, regardless of numerical score.
+- Failure of **V8**: unsupported claims are scored as unproven, not accepted.
+
+### B. Common 0–5 maturity scale (applied independently to every scored dimension)
+- **0 — absent or contradictory:** omits the requirement or directly violates it.
+- **1 — asserted:** language/intention exists, but no owner, state, mechanism, or failure behavior is supplied.
+- **2 — representable:** the model can describe the requirement, but runtime enforcement, transition mechanics, or boundary behavior remain unspecified.
+- **3 — coherent design:** owners, records, states, transitions, failure paths, and assumptions are specified well enough to implement.
+- **4 — implementable and evidenced:** mapped to concrete standards or live repository carriers, includes negative cases, and is executable or testable within the architecture's managed boundary.
+- **5 — externally demonstrated:** independently executed, measured, or accepted by a real counterparty. A design document alone cannot earn 5.
+
+*Do not award points for vocabulary, ambition, file volume, brand names, or prose quality.*
+
+### C. Weighted dimensions — total 100
+1. **Scenario fidelity and state decomposition — 10.** Preserves materially different records/states; does not flatten assurance, authorization, clinical commitment, commercial term, payment event, prescription command, counterparty acknowledgment, dispensing, fulfillment, follow-up, and evidence into generic tasks.
+2. **Admissibility and authority correctness — 10.** Represents the pre-consequence gate; names applicable authority, evidence floor, credential/policy checks, uncertainty handling, human commitment point; prevents an efficient execution chain from amplifying an inadmissible decision.
+3. **Domain ownership and anti-god-object discipline — 8.** Authoritative records stay with proper owners; cross-domain composition doesn't become a shadow source of truth; coordination state is bounded and doesn't silently absorb all duties/actions.
+4. **Custody transfer and orphan detection — 12.** Custody offered/accepted/rejected/expired/released/honestly-unknown; transfer requires evidence of authorized acceptance; detects unresolved consequence falling between queues/orgs/actors; distinguishes a terminated rail-level obligation from a still-unresolved patient-level consequence.
+5. **Selective reopening and consequence typing — 12.** Jurisdiction/policy incompatibility, transient stockout, and therapy/formulation infeasibility route differently; sourcing failure doesn't auto-reopen clinical judgment; clinical reconsideration only when clinically meaningful semantics change; compensation, patient remedy, operational recovery, accountability investigation, clinical reconsideration, and outcome remain distinct and linked.
+6. **Temporal integrity and honest patient projection — 8.** Represents current responsible actor, next expected actor, deadlines, timeout, escalation, last verified/acknowledged state, stale state; a patient-facing projection may omit protected internal detail but cannot manufacture closure; "processing" cannot remain visible after the architecture knows fulfillment is blocked.
+7. **Bounded proof, privacy, and influence lineage — 8.** Minimum-sufficient proof of source/authority/transitions/acknowledgments/evidence; does not require raw private deliberation or chain-of-thought capture; distinguishes proof of process from proof of clinical correctness; states what an external verifier can independently verify and what still requires trust.
+8. **External-boundary realism and standards compatibility — 10.** Uses external systems in native semantics; distinguishes representability, transmission, local enforcement, cross-network conformance, and actual counterparty acceptance; composes standards/incumbents rather than attacking a `success=true` straw man; degrades honestly when a counterparty doesn't participate.
+9. **Runtime enforceability and implementation specificity — 10.** Names concrete records, services, policies, owners, transition checks, timers, idempotency keys, retries, compensations, escalation paths, test points; distinguishes implemented / existing-but-unwired / proposed / unavailable behavior; supplies an executable fixture or a precise implementation block.
+10. **Risk proportionality, human burden, and bypass resistance — 7.** Consequential trace receives sufficient safeguards; reversible low-risk trace stays lightweight; identifies added clicks, latency, review/alert burden, workarounds; supplies a mechanism + metric for detecting users routing around the system.
+11. **Integration economics, operability, and procurement reality — 5.** Identifies integrations, dependency count, operational ownership, rollout sequence, observability, support burden, credible buyer/operator; separates architectural feasibility from market/institutional adoption; does not claim network value before network participation exists.
+
+**Weighted score per dimension:** `dimension_weight × (maturity_score / 5)`.
+
+### D. Required trace suite (both submissions solve the SAME suite)
+- **Trace 1 — inadmissible consequential candidate.** Proposed treatment on unstable context / unresolved evidentiary weakness / insufficient authority. No prescription, payment capture, or fulfillment may begin unless/until the candidate clears the required gate.
+- **Trace 2 — admissible cash-pay prescription with downstream partial failure.** Identity + consent assured; clinician validly commits a treatment; price + waiver set; payment captured; prescription transmitted; pharmacy initially acknowledges; no medication ultimately dispensed; payment remains captured; patient-facing state still says "processing." Trace 2 must SEPARATELY execute: **2A** jurisdiction/policy incompatibility (should have been caught in preflight); **2B** transient stockout/capacity failure (equivalent fulfillment may exist elsewhere); **2C** formulation/route/dose/therapy infeasibility (may materially change the clinical plan).
+- **Trace 3 — low-risk reversible action.** Routine appointment-selection or equivalent reversible action completes with minimal governance burden while retaining basic authority, idempotency, and proof.
+
+### E. Mandatory output comparison
+(1) validity-gate results; (2) one scored table per submission; (3) dimension-by-dimension comparison; (4) the exact function present in one architecture and absent in the other; (5) what both can already accomplish; (6) what remains unimplemented; (7) what requires counterparty acceptance; (8) what requires legal/insurer/procurement/market validation; (9) human-burden and bypass analysis; (10) the minimum next experiment.
+
+### F. Verdict ladder (choose EXACTLY ONE architecture conclusion)
+- **R0 — No meaningful OMNI residual.** Incumbent-native architecture performs equivalently/better on the hard dimensions; remaining OMNI value is UX, packaging, or implementation service.
+- **R1 — Packaging or deployment-profile residual.** OMNI contributes a useful healthcare-specific integration/profile layer, but not a distinct constitutional or institutional function.
+- **R2 — Managed-boundary semantic/control residual.** OMNI contributes a material healthcare-specific enforcement function inside environments it controls, but cross-authority portability remains unnecessary/unproven.
+- **R3 — Cross-authority continuity residual.** OMNI contributes a material function across independently governed authorities (acknowledged custody continuity, conditional consequence propagation, honest patient projection, bounded portable proof), but external acceptance + economics remain unproven.
+- **R4 — Demonstrated institutional/network advantage.** A real external counterparty has accepted + acted upon the semantics/proof, and measured economic/safety value exists. **Cannot be awarded from document analysis or simulation alone.**
+
+**No result from this run may directly promote Reactor to canon. The maximum document-only result is to strengthen, narrow, or weaken the frozen candidate and name the next ratification evidence.**
+
+### G. Tie-breakers (when weighted scores are close — in order)
+(1) validity-gate pass count; (2) lower human burden at equivalent safety; (3) fewer proprietary semantics at equivalent capability; (4) stronger behavior under nonparticipating counterparties; (5) lower integration/operational cost; (6) more explicit uncertainty + fewer unsupported claims.
+
+### H. Naming question is scored SEPARATELY
+The word "Reactor" receives **no architecture points and incurs no automatic penalty.** Record naming evidence separately: Gemini's verbal objectification objection = one independent pressure datum · a real code/schema/service artifact that centralizes state under Reactor naming = strong negative evidence · two independent implementers converging on a central Reactor object despite the explicit guard = rename-trigger evidence · successful repeated implementation using domain-native runtime names + no central object = evidence the name can remain an internal coordination device. **The naming gate remains OPEN. This run may strengthen either side but does not decide the name by preference.**
+
+---
+
 ## §7 — Current status + next
-`methodology_and_adversary_intake` (NOT completed evidence). Artifacts so far: `_00` (this) · `_01` (Gemini reports verbatim + labels). Owed to execute the run: `_02` deep-trace + comparator matrix · `_03` disposition handoff — created only WHEN the run runs (Builder trace + fresh-Gemini incumbent trace + Knox rubric+adjudication). **Do NOT repoint the 07-12 gate checkpoint** (nested nonbinding run). Nothing promoted; Reactor frozen. **Blocker: the normalization/wiring + this run are LOCAL-ONLY until the GitHub push-auth is fixed (see closeout note) — origin is stale, which is why an external repo-reviewer sees pre-normalization state.**
+`methodology_and_adversary_intake` (NOT completed evidence). Artifacts so far: `_00` (this) · `_01` (Gemini reports verbatim + labels). Owed to execute the run: `_02` deep-trace + comparator matrix · `_03` disposition handoff — created only WHEN the run runs (Builder trace + fresh-Gemini incumbent trace + Knox rubric+adjudication). **Do NOT repoint the 07-12 gate checkpoint** (nested nonbinding run). Nothing promoted; Reactor frozen. **Repository state VERIFIED 2026-07-18: `origin/main` contains `f38bf29` → `322d018` → `a296b94` (this run's opening), HEAD = `a296b94`, local in sync — the earlier "local-only / origin stale" blocker is RESOLVED (SSH auth restored, push flushed). An external repo-reviewer now sees the normalized post-`322d018` state.** The rubric below (`§6A`) is Knox-authored and pre-registered; Builder and Adversary execution remain UNOPENED.
