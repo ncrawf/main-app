@@ -97,20 +97,52 @@ Consumption rule (`GRD-044`): read the concept registry → reopen the source pa
 
 ---
 
-## 7. Guardrail / tension promotion gate — TEED UP, NOT PROMOTED (for Nick + Knox)
+## 7. Guardrail candidates — RESOLVED against the `06` digest (adjudication ledger `08` `D0OL-REV-002`)
 
-The full deduped set lives in concept-registry §5.1 (guardrails) + §4 (12 tensions). Nothing here is promoted (`GRD-036`); the reviewer decides distinct-vs-sharpen-existing, routing `08` open-review → `06` digest. Highest-signal, care/security-relevant clusters:
+**Process fix (so this never dangles again):** the ~120 raw guardrail candidates are heavily overlapping and were already deduped in registry §5.1. The old handoff pattern ("reviewer decides distinct-vs-sharpen") dumped the repo-dedup on the human. That is backwards. **The closing agent (repo-native) resolves every candidate against the `06` guardrail inventory BEFORE handoff**; the human/Knox gate then only adjudicates the genuinely-NEW set. Resolution below is deterministic (each claim cites its existing home or is flagged NEW/PARK); nothing is promoted (`GRD-036`).
 
-- **capability/availability/visibility ≠ authority** (dedup vs GRD-033 + capability_envelope≠delegated_authority_envelope).
-- **a metric/score/benchmark is a projection, never the owning resolution** (dedup vs REV-184 world-model-honesty + `metric_definition_is_strategy`).
-- **the durable asset is the governed lifecycle, not the artifact/model/agent** (dedup vs Platform Loop + candidate≠commit).
-- **consequence sets the minimum control + proof floor; assurance inheritable but residual-per-variation** (Reactor + Build Entry Gate).
-- **verification depth ≠ verification independence** (308 Batey / dedup vs FWREG-013 + wave-5 illusion_of_correctness_guard) — high-value, security + care.
-- **model-internal telemetry is evidence, never authority; editable latent state = governed model-change** (284).
-- **self-learning shared memory must be partitioned/consented/promotion-gated in care; "finished" in care = commit+custody+projection+resolved-consequence+proof** (295/288).
-- **low-friction creation requires high-friction escalation of authority** (286).
+### 7a. DUPLICATE — already a binding guardrail (NO action; wave-6 merely re-derived it)
+| wave-6 claim (src) | existing home |
+|---|---|
+| degraded rails must identify as degraded (278/282) | `D0OL-GRD-003` |
+| synthetic spokesperson/testimonial (274-lineage; wedge) | `D0OL-GRD-001` |
+| governance-by-design / a risk-label that doesn't change the system = theater (283) | `D0OL-GRD-005` |
+| model-visible ≠ user-visible context (271-lineage) | `D0OL-GRD-006` |
+| over-refusal can harm; refusal ≠ automatically safe (277-lineage) | `D0OL-GRD-002` |
+| tool visibility/availability ≠ authorization; invocation/nesting ≠ delegation (285/286) | `D0OL-GRD-008` + `D0THES-GRD-033` (MCP visible≠authorized) |
+| improved models don't retire institutional controls; a learning loop can't grant itself production authority (284) | `D0OL-GRD-004` + `D0-GRD-008` + `D0-GRD-006` |
+| personalization not universally desirable (269-lineage) | `D0OL-GRD-007` |
+| documents produce candidate skills, don't self-author authority; generated ≠ committed (285/288) | `D0-GRD-006` (candidate≠commit) |
+| self-learning/shared memory must be partitioned/consented/promotion-gated; memory-write needs an owning authority (295/288/278) | `D0-GRD-006` memory-write spec + `D0W3C-GRD-001` |
+| don't let a tool/framework/protocol/UI become OMNI's identity (268-lineage) | `D0-GRD-010` + `D0THES-GRD-033` |
+| federated trust = governing who may assert/validate/remediate/adopt/prove, not sharing artifacts; connect-everything ≠ the goal (282) | `D0THES-GRD-034` + `D0THES-GRD-031` |
+| external systems are rails/counterparties, never source-of-truth; ACK ≠ custody (282/289) | `D0W3B-GRD-002` (EVRUN-008 extension) + `D0THES-GRD-033` |
+| surfaces own no truth; a "good-enough" surface erodes trust (309/310) | `DEC-033` + `D0THES-GRD-002` (plane discipline) |
 
-REJECT set (explicit, not silently dropped): registry §5.2 (~40 do-NOT-canonize items — J-space-as-consciousness, "zero reviews" literal, one-agent-powers-org, risk/economics-scalar-that-lowers-the-floor, self-learning-shared-memory-as-care-model, "an agent is a folder", one-universal-World-Model-domain, adoption-as-proof, etc.).
+### 7b. NEW — genuinely not a binding guardrail today (**the ONLY set needing your + Knox yes/no**)
+| # | proposed guardrail | src | proposed id |
+|---|---|---|---|
+| N1 | A metric/score/benchmark/leaderboard is a projection over evidence, **never the owning authority** for a consequential action (severity≠priority; risk-scalar-reject; benchmark≠workload-fitness) | 282/283/284 | `D0OL-GRD-009` |
+| N2 | Economics/cost may **bound** but must **never lower** the care/proof floor; commerce may *fulfill* care, never *author* it | 291/292/296 | `D0OL-GRD-010` |
+| N3 | Config / context / knowledge that changes behavior, permission, routing, or consequence is **executable architecture** — it must not bypass release governance | 285/306 | `D0OL-GRD-011` |
+| N4 | Deployment ≠ activation ≠ exposure ≠ adoption ≠ action; one-click deploy ≠ approval (each is a distinct governed transition) | 289/290 | `D0OL-GRD-012` |
+| N5 | Verification **depth** ≠ verification **independence**; a coverage claim must carry coverage **evidence**, and an assurance chain must terminate in evidence understood *outside* the generator being assessed | 308/284/282 | `D0OL-GRD-013` |
+| N6 | Model-internal telemetry / interpretability is **evidence, never authority**; an editable latent state is a governed model-change surface | 284 | `D0OL-GRD-014` |
+| N7 | Low-friction creation requires **high-friction escalation of authority** | 286 | `D0OL-GRD-015` |
+| N8 | One coherent surface may route many responsibilities, but identity/context/capability/authority/commitment stay **typed per task** (one-face-many-passports) | 286 | `D0OL-GRD-016` |
+| N9 | High-stakes explainability = a **replayable evidence-and-authority chain**, not a generated paragraph / chain-of-thought | 283 | `D0OL-GRD-017` |
+
+### 7c. PARK — real, but belongs to a frozen/gated home (promote when its trigger fires)
+| claim | park home / trigger |
+|---|---|
+| consequence → control/proof envelope as the governing constitution | **OMNI Reactor** (frozen candidate) — promote only if/when Reactor ratifies |
+| physical/experimental: surrogate≠outcome · instrument=command-authority-boundary · predicted/synthetic≠observed-fact · no cross-embodiment transfer w/o evidence (292/294) | trigger = first Physical-Automation / Experimental-Fulfillment design; Reactor-adjacent |
+| personal-AI → nonexclusive patient-agency seam (296) | trigger = §C unpause / patient-agent design (Polaris + §C) |
+
+### 7d. Tensions + REJECT set
+The **12 tensions** (registry §4) are **already resolved** — 8 settled-by-doctrine (with cited resolution pointers), 4 routed to §C/open-review/§B-watch. Not dangling. The **REJECT set** (registry §5.2, ~40 do-NOT-canonize items) is explicit and recorded.
+
+**Net for the human gate: 9 NEW candidates (7b) + 3 PARK triggers (7c).** Everything else is already home. That is the entire Knox pass.
 
 ---
 

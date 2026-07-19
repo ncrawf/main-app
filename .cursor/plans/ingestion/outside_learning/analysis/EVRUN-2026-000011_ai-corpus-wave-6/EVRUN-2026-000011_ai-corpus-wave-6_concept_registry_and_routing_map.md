@@ -157,7 +157,7 @@ No `direct_conflict/unresolved` left unrouted (`GRD-043`). All 12 tensions carry
 | ~20 guardrail candidates (see §5.1) | guardrail digest (`06`) | security/care/governance guardrails | `08` open-review → `06` digest | proposed |
 
 ### §5.1 — Guardrail candidates → route `08` open-review → `06` digest (deduped; PROPOSE-ONLY, `user_knox_required`)
-Deduped across the 5 sources (many overlap; reviewer decides distinct-vs-sharpen-existing). Highest-signal, care/security-relevant:
+**★ RESOLVED at wave close (capping-agent 2026-07-19) — do NOT re-guess.** Every candidate below was classified deterministically against the `06` digest inventory in the final closeout §7 + adjudication row `08 D0OL-REV-002`: **~14 already-binding DUPLICATE (cited homes, no action) · 9 genuinely-NEW (`D0OL-GRD-009..017`, pending Nick+Knox yes/no) · 3 PARK (Reactor/physical/§C-patient-agency, trigger-gated).** The reviewer gate now adjudicates ONLY the 9 NEW + 3 PARK — the repo-dedup is done. The raw per-source list is retained below as provenance:
 1. **Model safeguards / provider access controls are policy controls, not the platform's adversarial security boundary** (282; dedup vs D0OL-GRD-004).
 2. **A risk score/severity/benchmark is a projection over evidence, never the owning authority for consequential action** (282/283/284; dedup vs REV-184 world-model-honesty + `metric_definition_is_strategy`).
 3. **An urgency rule that cannot represent execution capacity, safe exception, and compensating control is a countdown, not a control system** (282).
