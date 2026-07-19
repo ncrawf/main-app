@@ -119,7 +119,7 @@ Consumption rule (`GRD-044`): read the concept registry → reopen the source pa
 | external systems are rails/counterparties, never source-of-truth; ACK ≠ custody (282/289) | `D0W3B-GRD-002` (EVRUN-008 extension) + `D0THES-GRD-033` |
 | surfaces own no truth; a "good-enough" surface erodes trust (309/310) | `DEC-033` + `D0THES-GRD-002` (plane discipline) |
 
-### 7b. NEW — genuinely not a binding guardrail today (**the ONLY set needing your + Knox yes/no**)
+### 7b. NEW — ✅ PROMOTED 2026-07-19 (operator ruling; now `active` in `06` as `D0OL-GRD-009..017`; `D0OL-REV-002` closed)
 | # | proposed guardrail | src | proposed id |
 |---|---|---|---|
 | N1 | A metric/score/benchmark/leaderboard is a projection over evidence, **never the owning authority** for a consequential action (severity≠priority; risk-scalar-reject; benchmark≠workload-fitness) | 282/283/284 | `D0OL-GRD-009` |
