@@ -1,6 +1,9 @@
 # EVRUN-2026-000010 — Peptide Service-Line Pricing Planning (supply-side commerce physics)
 ## Analysis seed + FRESH-AGENT BOOT PACKAGE (SKELETON — awaiting capture)
 
+> ## ★★ ACTIVE ANALYSIS CONTINUES JOINTLY IN `EVRUN-2026-000012` (2026-07-19)
+> Per the Knox 279/280/281 joint ruling, active analysis of `EVSRC-2026-000281` proceeds in the joint run **`EVRUN-2026-000012_joint-care-commerce-operating-substrate-hardening/`** (processed together with `EVSRC-000280` + consuming closed `EVSRC-000279`). **This `EVRUN-000010` scaffold is PRESERVED** as the per-source precursor tied to `EVSRC-000281`; its identity is unchanged and it remains a valid precursor. Do NOT populate a competing finding registry here — the long-form reasoning + Gate-1 trace live in the `000012` carrier (`…_00_run_and_joint_hardening.md`). In the committed estate this specimen's active analysis = `000012`.
+
 Document type: `evidence_or_ingestion` (Evidence Plane · `user_operator_research` lane · analysis run) · Authority: `analysis_nonbinding` (`GRD-036`). **Binds nothing. Promotes nothing. Pre-spine / pre-v4 hard stop — propose-only.**
 Opened: 2026-07-16 (skeleton seeded by Opus at operator instruction; **NOT yet analyzed — specimen still being captured**). Analyst-of-record: **the fresh agent this document boots (after capture completes).**
 Specimen: **`EVSRC-2026-000281`** (peptide service-line pricing planning — provider ↔ Olivia/co-owner · provider ↔ Caleb/Cache Valley pharmacy · price-list/formulary/Autopilot reference artifacts). Companion (do NOT merge): `EVSRC-000280` (demand-side multi-channel care→commerce) + Dan/TRT series.
