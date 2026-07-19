@@ -102,4 +102,28 @@ Per-cluster verbatim anchors (≤12w + timestamp) live in each source's §3 Revi
 | 295 | yc-emergent-mukund-jha | 9 | §3 table | pasted Knox block carried stale header id 283 (genuinely Emergent — no mis-file) |
 | 296 | yc-lightcone-tokenmaxxing | 11 | §3 table | pasted Knox block carried stale header id 284 (genuinely Tokenmaxxing — no mis-file) |
 
+### Batch 3 (297–314, processed 2026-07-19) — receipt index
+Per-cluster verbatim anchors (≤12w + timestamp) live in each source's §3 Review 003 cluster table (spot-verified by the second-reader fidelity audits). Coverage proof + caveats:
+
+| EVSRC | slug | #clusters | caveat |
+|---|---|---|---|
+| 297 | conductor-ai-coding-agent-cockpit | 11 | stale pasted id 285 → canonical 297 |
+| 298 | yc-head-of-design-ai-first-workflow | 7 | stale id 286 → 298 |
+| 299 | yc-paper-club-inference-diffusion-world-models | 13 | stale id 287 → 299 |
+| 300 | dot-plots-individual-user-behavior | 8 | stale id 288 → 300; load-bearing operator R002 |
+| 301 | yc-decoded-recursion-hrm-trm-scaling-law | 8 | stale id 289 → 301 |
+| 302 | hud-runtime-intelligence-prod-to-code | 11 | stale id 290 → 302; load-bearing Nick R002 (care) |
+| 303 | odevo-ai-native-enterprise-transformation | 12 | stale id 291 → 303 |
+| 304 | patrick-debois-ai-native-dev-patterns | 12 | stale id 292 → 304 |
+| 305 | debois-dark-factory-organizational-enablement | 11 | stale id 293 → 305; timestamped |
+| 306 | tessl-skills-context-supply-chain-workflow | 13 | stale id 294 → 306 |
+| 307 | tessl-harness-engineering-software-factory-loops | 15 | stale id 295 → 307 |
+| 308 | batey-building-product-teams-age-of-ai | 11 | **NO Knox read → transcript-native anchors** (reduced depth) |
+| 309 | stripe-homepage-redesign-design-review | 10 | **MIS-PASTE (Batey Knox belongs to 308) → transcript-native; likely dup/sibling of 310** |
+| 310 | stripe-website-build-katie-dill | 11 | timestamped; operator R002 |
+| 311 | matt-pocock-agentic-engineering-harness-first | 13 | stale id 298 → 311 |
+| 312 | nate-jones-roadmap-ai-native-teams | 11 | stale id 299 → 312 |
+| 313 | karpathy-wiki-vs-openbrain-memory-architecture | 15 | stale id 300 → 313 |
+| 314 | cq-stack-overflow-for-agents | 14 | stale id 301 → 314 |
+
 *(Receipts only. Meaning lives in each source's §3 Review 003; cross-source intelligence in the concept registry. Never author from this ledger — `GRD-044`.)*
