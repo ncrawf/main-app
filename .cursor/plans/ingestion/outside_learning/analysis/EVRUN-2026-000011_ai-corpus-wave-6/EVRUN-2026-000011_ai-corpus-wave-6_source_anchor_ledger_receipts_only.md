@@ -86,4 +86,20 @@ Cumulative baseline: `EVRUN-2026-000001 §2A` + `000002` + `000003` + `000005` +
 | J citizen dev | "enable the rest of the organization to build agents" | 1:35 |
 | K/L estate | "you'll wanna build 10 more" | 1:53 |
 
+### Batch 2 (287–296, processed 2026-07-19) — receipt index
+Per-cluster verbatim anchors (≤12w + timestamp) live in each source's §3 Review 003 cluster table (spot-verified by the second-reader fidelity audit). Coverage proof + caveats:
+
+| EVSRC | slug | #clusters | anchor coverage | caveat |
+|---|---|---|---|---|
+| 287 | langchain-openwiki-okf-adoption | 19 | §3 table; e.g. "finding all the docs with a specific type" [1:23] · "index of all the MD files" [0:25] · "a log.mmd...change log" [0:30] | several deep points are Knox extrapolations from sibling OKF spec `EVSRC-000239` (flagged "inferred/no §1 line" in-packet) |
+| 288 | abridge-clinical-ai-eval-release-stack | 34 | §3 table (Abridge eval/release stack; timestamped) | care-spine anchor; full transcript |
+| 289 | langchain-langsmith-agent-engineering-platform | 16 | §3 table; e.g. "the best agents iterate with a system" [0:20] · "governance...through LLM Gateway" [1:09] · "improve agents autonomously" [1:16] | 90-sec ad; shallow but timestamped |
+| 290 | langchain-deep-agents-harness-explained | 44 | §3 table (timestamped) | deepest Deep-Agents source |
+| 291 | stanford-agrawal-economics-of-generative-ai | 25 | §3 table (timestamped) | — |
+| 292 | stanford-anthropic-chai-ai-life-sciences | 34 | §3 table (timestamped) | operator Review-002 note incorporated |
+| 293 | cole-medin-vercel-eve-agent-compiler | 24 | §3 table — anchors cite `[Knox §X] no-ts` | **no timestamped transcript pasted** (Knox read only) |
+| 294 | yc-decoded-world-models-jepa-rl | 25 | §3 table (timestamped) | first YC source; real transcript timestamps |
+| 295 | yc-emergent-mukund-jha | 9 | §3 table | pasted Knox block carried stale header id 283 (genuinely Emergent — no mis-file) |
+| 296 | yc-lightcone-tokenmaxxing | 11 | §3 table | pasted Knox block carried stale header id 284 (genuinely Tokenmaxxing — no mis-file) |
+
 *(Receipts only. Meaning lives in each source's §3 Review 003; cross-source intelligence in the concept registry. Never author from this ledger — `GRD-044`.)*

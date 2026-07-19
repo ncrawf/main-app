@@ -9,8 +9,9 @@ Tracks which wave-6 sources (`EVSRC-2026-000282…000314`) are represented in th
 
 ## Summary
 - **Batch 1 processed + fidelity-signed 2026-07-18/19: `000282…000286` (5 sources) — all `covered`.** Review 003 written + folded to registry/anchor ledger; slugs firmed; §0/§0.1/§4 filled. **Second-reader semantic-fidelity audit COMPLETE (readonly, different pass than the Review-003 author): 3 `faithful` (282/284/286) · 2 `minor_restore_required` → `restored` (283 keeper-#16 budget/urgency≠floor · 285 KadyaGPT embedded-intelligence keeper).** Zero `significant_restore_required`, zero `correction_required`, zero inverted cautions, anchors verified.
-- **processing: covered 5 / 33 (`000282…000286`) · scaffolded 28** (`000287…000314`). **semantic-fidelity: 3 `faithful` · 2 `restored` · 28 `not_audited`.**
-- **Batch verdict (signed):** 0 genuine net-new domain objects; dominant `doctrine=AFFIRM/PARTIAL · build=absent/partial`; 3 investigate-lane candidates + ~20 guardrail candidates → `08`. §C touched (282/285/286) → **§C stays PAUSED** (registry §5 triage). Batch does NOT block wave closeout on fidelity grounds (gate criteria met for the 5).
+- **Batch 2 processed + fidelity-signed 2026-07-19: `000287…000296` (10 sources; subagent-driven per C1 method) — all `covered`.** Second-reader fidelity audits COMPLETE (287–291, 292–296): **8 `faithful` (287/288/290/291/292/294/295/296) · 2 `restored` (289 Knox-§B keeper+assurance-list · 293 Knox-§AK dependency-health keeper)**; zero `significant_restore_required`, zero `correction_required`, zero inverted cautions; 295/296 stale-header-ids confirmed genuine (no mis-file); 293 no-timestamp anchors honestly flagged. (288 + 290 re-run solo after paired runs hit resource limits.)
+- **processing: covered 15 / 33 (`000282…000296`) · scaffolded 18** (`000297…000314`). **semantic-fidelity: 11 `faithful` · 4 `restored` · 18 `not_audited`.**
+- **Batch verdicts (signed, both batches):** **0 genuine net-new domain objects across all 15 sources**; dominant `doctrine=AFFIRM/PARTIAL · build=absent/partial`; investigate-lane candidates cluster into 5 families (registry §3); ~50 guardrail candidates total → `08`. §C touched (282/285/286/287/291/292) → **§C stays PAUSED** (registry §5 triage). Care-spine anchor = 288 (Abridge). Neither batch blocks wave closeout on fidelity grounds.
 
 ## Per-source status
 | EVSRC | slug (firmed) | paste state | processing_status | semantic_fidelity_status | 2nd-reader sign-off |
@@ -20,16 +21,16 @@ Tracks which wave-6 sources (`EVSRC-2026-000282…000314`) are represented in th
 | `000284` | moe-inkling-musespark-arcagi3-jspace | pasted (transcript + Knox R001) | `covered` | `faithful` | ✅ 2nd reader 2026-07-19 |
 | `000285` | langchain-toyotagpt-agent-product-line-tps | pasted (transcript + Knox R001) | `covered` | `restored` (KadyaGPT keeper added) | ✅ 2nd reader 2026-07-19 |
 | `000286` | langchain-11x-slack-native-fleet-agent | pasted (transcript + Knox R001) | `covered` | `faithful` | ✅ 2nd reader 2026-07-19 |
-| `000287` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000288` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000289` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000290` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000291` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000292` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000293` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000294` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000295` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
-| `000296` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
+| `000287` | langchain-openwiki-okf-adoption | pasted (transcript + Knox R001) | `covered` | `faithful` | ✅ 2nd reader 2026-07-19 |
+| `000288` | abridge-clinical-ai-eval-release-stack | pasted (transcript + Knox R001) | `covered` | `faithful` (care-spine anchor) | ✅ 2nd reader 2026-07-19 |
+| `000289` | langchain-langsmith-agent-engineering-platform | pasted (transcript + Knox R001) | `covered` | `restored` (Knox §B keeper + assurance list) | ✅ 2nd reader 2026-07-19 |
+| `000290` | langchain-deep-agents-harness-explained | pasted (transcript + Knox R001) | `covered` | `faithful` | ✅ 2nd reader 2026-07-19 |
+| `000291` | stanford-agrawal-economics-of-generative-ai | pasted (transcript + Knox R001) | `covered` | `faithful` | ✅ 2nd reader 2026-07-19 |
+| `000292` | stanford-anthropic-chai-ai-life-sciences | pasted (transcript + Knox R001) | `covered` | `faithful` | ✅ 2nd reader 2026-07-19 |
+| `000293` | cole-medin-vercel-eve-agent-compiler | pasted (Knox R001; no-ts transcript) | `covered` | `restored` (Knox §AK dependency-health keeper) | ✅ 2nd reader 2026-07-19 |
+| `000294` | yc-decoded-world-models-jepa-rl | pasted (transcript + Knox R001) | `covered` | `faithful` | ✅ 2nd reader 2026-07-19 |
+| `000295` | yc-emergent-mukund-jha | pasted (transcript + Knox R001) | `covered` | `faithful` (stale-id 283 = genuine, no mis-file) | ✅ 2nd reader 2026-07-19 |
+| `000296` | yc-lightcone-tokenmaxxing | pasted (transcript + Knox R001) | `covered` | `faithful` (stale-id 284 = genuine, no mis-file) | ✅ 2nd reader 2026-07-19 |
 | `000297` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
 | `000298` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
 | `000299` | TK | awaiting paste | `scaffolded` | `not_audited` | — |
