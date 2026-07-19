@@ -1,7 +1,7 @@
 # EVSRC-2026-000309 — TK
 
 Document type: `source_capture` · Lane / reservoir: `outside_learning`
-**Status:** `raw_dropped` → `normalized` → `reviewed` → `analyzed` → `promoted | deferred`  ·  **current: `void_duplicate of EVSRC-000310`** (2nd-reader 2026-07-19: §1 transcript byte-identical to 310; 310 canonical; the Batey Knox read pasted here belongs to 308 — operator re-home)
+**Status:** `raw_dropped` → `normalized` → `reviewed` → `analyzed` → `promoted | deferred`  ·  **current: `void_duplicate of EVSRC-000310` — CONFIRMED**  (2nd-reader 2026-07-19: §1 transcript byte-identical to 310; 310 canonical; the Batey Knox read pasted here belongs to 308 — operator re-home. **Capping-agent 2026-07-19: void INDEPENDENTLY VERIFIED** — transcript-body diff = byte-identical, 894 lines each, zero differences. The mis-pasted Batey Knox read is now formalized in `308 §3 Review 003` [restoration addendum]; physically re-pasting it 309→308 §3 Review 001 remains an operator hygiene action.)
 Authority: `evidence_nonbinding` — captured source + interpretations only; binds nothing until routed + promoted.
 
 > **HOW TO USE THIS FILE — two kinds of marks:**
@@ -1576,5 +1576,7 @@ The §3 Review 001 block in this file is **mis-pasted**: it is Knox's read of **
 ## §5 — Change log
 - `2026-07-18` — source file created (wave-6 scaffold, third batch; `EVRUN-2026-000011`).
 - `2026-07-19` — Opus §3 Review 003 **transcript-native reduced-depth** extraction (mis-paste: §3 Review 001 is Batey `EVSRC-296`, not this Katie-Dill transcript → NO matching Knox read; Batey read NOT imported, must be re-homed by parent). §0/§0.1 filled (`inferred`, no screenshot); status → `analyzed (awaiting 2nd-reader fidelity sign-off)`; §4 pointers filled. Verdict: **0 net-new DOMAIN**, 10 clusters, 0 candidates offered (3 dedup-as-sharpening), 6 counterweights preserved transcript-native (0 inverted), 5 guardrail candidates → 08. Firm-slug SUGGESTION (not renamed): `_stripe-homepage-redesign-ai-design-craft`.
+
+- `2026-07-19` — **Wave-6 Capping Agent:** `void_duplicate of 310` INDEPENDENTLY CONFIRMED (transcript-body diff byte-identical, 894 lines, zero diff). Batey Knox read (mis-pasted here) formalized at full depth in `308 §3 Review 003`; the only remaining action is operator hygiene (physically re-paste that raw Knox read 309→`308 §3 Review 001`). No wave intelligence lost. Append-only; PROPOSE-ONLY.
 
 > Authority/retrieval labels are defined once in `../../00_evidence_router.md` (operating principle #9 + §8). Sections carry their `layer:` inline; the legend is not restated per file.

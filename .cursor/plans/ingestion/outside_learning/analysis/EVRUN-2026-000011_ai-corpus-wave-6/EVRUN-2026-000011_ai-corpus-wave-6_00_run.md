@@ -5,14 +5,14 @@
 - evrun_id: `EVRUN-2026-000011`
 - run_date: `2026-07-18` (scaffolded)
 - analyst: `Opus` (setup + per-source Review 003 + registry fold) · Knox/ChatGPT (per-source Review 001) · Nick (per-source Review 002 gut notes)
-- source_set: `EVSRC-2026-000282 … EVSRC-2026-000294` (13 scaffolds; in `sources/2026-07_wave-6/`; provisional `_TK` slugs firm at processing)
+- source_set: `EVSRC-2026-000282 … EVSRC-2026-000314` (**33** scaffolds; in `sources/2026-07_wave-6/`; provisional `_TK` slugs firm at processing) — `000282…000294` initial batch (13) + `000295…000304` second batch (10) + `000305…000314` third batch (10), all 2026-07-18 (operator expanded the wave twice, +10 then +10)
 - purpose: `extraction → cross-source synthesis → routing` (the wave-6 new-drop evidence input)
-- status: **`open` — 13 scaffolds created 2026-07-18; awaiting transcript + Knox-read paste (video-by-video).** 0 processed yet.
+- status: **`analysis_closed · wave-close-reconciled · authoring_ready_nonbinding` (2026-07-19).** ALL 33 sources processed (32 `covered` + 1 `void_duplicate` 309); Semantic-fidelity gate PASSED (23 `faithful` + 9 `restored`; 0 significant-restore / 0 correction / 0 inverted); 0 net-new DOMAIN objects; wave-close reconciliation = concept-registry §6; governance rows `D0OL-EVD-006` (07) + catalog (01) written. **Terminus/entrypoint = `EVRUN-2026-000011_ai-corpus-wave-6_final_closeout.md`.** *(This header previously read "open · 0 processed" — a stale scaffold artifact; corrected at wave close by the Capping Agent.)* PROPOSE-ONLY (`GRD-036`); §C PAUSED; nothing promoted.
 - reads (inputs, append-only):
   - **per-source** — Knox = §3 Review 001 (paste as-is), Opus = §3 Review 003 (formal extraction), Nick = §3 Review 002 (gut note, optional).
 
 ## ID-allocation note (why 282/EVRUN-000011)
-Since wave-5 closed, the `user_operator_research` lane consumed `EVSRC-2026-000279/000280/000281` (Dan/TRT follow-up + care→commerce peptide cases) and `EVRUN-2026-000007/000009/000010` (with `EVRUN-2026-000008` **reserved** as the drafted successor-run charter). Highest EVSRC across the whole Evidence Plane at open = `000281`; highest EVRUN = `000010` (+ `000008` reserved). Therefore wave-6 = **`EVSRC-2026-000282…000294`** (13) under **`EVRUN-2026-000011`** (next free, skipping reserved `000008`). Next NEW source (any lane) after this wave = `000295`.
+Since wave-5 closed, the `user_operator_research` lane consumed `EVSRC-2026-000279/000280/000281` (Dan/TRT follow-up + care→commerce peptide cases) and `EVRUN-2026-000007/000009/000010` (with `EVRUN-2026-000008` **reserved** as the drafted successor-run charter). Highest EVSRC across the whole Evidence Plane at open = `000281`; highest EVRUN = `000010` (+ `000008` reserved). Therefore wave-6 = **`EVSRC-2026-000282…000314`** (33 = initial 13 `000282…000294` + second batch 10 `000295…000304` + third batch 10 `000305…000314`, operator expansions 2026-07-18) under **`EVRUN-2026-000011`** (next free, skipping reserved `000008`). Next NEW source (any lane) after this wave = `000315`.
 
 ## Cumulative-with-prior-runs (the dedup rule)
 This run does **not** restart synthesis. Its concept registry builds **on top of** `EVRUN-2026-000001 §2A` (full-corpus net-new primitive set) **+** the `000002` (wave-2) + `000003` (wave-3) + `000005` (wave-4) + `000006` (wave-5) registries. New concepts check `EXISTS-AS` against ALL prior registries before minting — nothing re-minted, nothing orphaned. Also dedups against the post-v3 rounds the corpus keeps re-deriving: C3.5/C3.6/C3.7/C3.8, REV-184/GRR, `EVRUN-000004` §0.5 (naming baseline — do NOT re-mint retired terms), and the wave-5 named gaps (`objective_candidate[_set]`, `canonical_coordination_grammar`, `claimable_work_item`, `AI_management_system`, `eval_confidence_contract`, `knowledge_execution_coordination_stack`, guardrails `model_legibility_bias`/`illusion_of_correctness_guard`). **Cross-lane awareness (not this lane's dedup baseline):** the `user_operator_research` run `EVRUN-2026-000007` produced the **`OMNI Reactor`** candidate spine doctrine (`candidate_spine_doctrine`, FROZEN/UNPROMOTED) — wave-6 video pressure on multi-principal/agentic-care/federation topics should be tagged as **Reactor pressure** (candidate, not adopted authoring doctrine), like 270/278 were.
@@ -20,7 +20,8 @@ This run does **not** restart synthesis. Its concept registry builds **on top of
 ## Outputs (Reservoir Ingestion Contract `GRD-044`)
 - `EVRUN-2026-000011_ai-corpus-wave-6_concept_registry_and_routing_map.md` — PRIMARY workbench (cross-source intelligence; built on the cumulative baseline).
 - `EVRUN-2026-000011_ai-corpus-wave-6_source_anchor_ledger_receipts_only.md` — receipts/anchors only.
-- `EVRUN-2026-000011_ai-corpus-wave-6_coverage_matrix.md` — coverage status (282–294).
+- `EVRUN-2026-000011_ai-corpus-wave-6_coverage_matrix.md` — coverage status (282–314), dual `processing_status × semantic_fidelity_status`.
+- `EVRUN-2026-000011_ai-corpus-wave-6_final_closeout.md` — **TERMINUS / ENTRYPOINT** (wave-close reconciliation · anti-Wave-5 safeguards · residual dispositions · downstream feed · promotion-gate table). Read FIRST.
 - Per-source extraction contract: `../../sources/_OPUS_REVIEW_003_PROMPT.md` + the wave-3 two-axis reality-check.
 
 ## Processing method (settled standard + wave-3 two-axis reality-check)

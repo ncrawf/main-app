@@ -1,7 +1,7 @@
 # EVSRC-2026-000308 — TK
 
 Document type: `source_capture` · Lane / reservoir: `outside_learning`
-**Status:** `raw_dropped` → `normalized` → `reviewed` → `analyzed` → `promoted | deferred`  ·  **current: `analyzed · covered · semantic_fidelity=faithful (bounded — transcript-native, reduced depth)`** (2nd-reader signed 2026-07-19; reread_when_knox=true — its Knox read is mis-pasted in 309)
+**Status:** `raw_dropped` → `normalized` → `reviewed` → `analyzed` → `promoted | deferred`  ·  **current: `analyzed · covered · semantic_fidelity=restored`** (capping-agent restoration 2026-07-19: the Batey Knox read — located mis-pasted in 309 — was formalized at full depth in the Review-003 RESTORATION ADDENDUM below; `reread_when_knox` RESOLVED. **One operator-hygiene residual:** the raw Batey Knox read should be physically re-pasted from `309 §3 Review 001` into `308 §3 Review 001` [your paste zone]; the keeper CONTENT is already preserved in Review 003, so this is hygiene, not a fidelity blocker.)
 Authority: `evidence_nonbinding` — captured source + interpretations only; binds nothing until routed + promoted.
 
 > **PROCESSING NOTE (Opus, 2026-07-19):** NO screenshot dropped in chat AND NO Knox §3 Review 001 (paste block empty). Processed **transcript-native at reduced depth** per operator directive. §0/§0.1 filled `inferred` from the transcript's own self-introductions. Anchors are transcript-native (verbatim + ts). Firmed-slug SUGGESTION: `building-product-teams-in-the-age-of-ai` (NOT renamed — propose-only, `GRD-036`).
@@ -732,6 +732,36 @@ Candidate concepts surfaced (11 clusters). **Genuine net-new DOMAIN objects = 0.
 
 &nbsp;
 
+---
+
+#### Review 003 — RESTORATION ADDENDUM (capping agent, 2026-07-19) · `layer: analysis_nonbinding` · append-only
+> **Why this exists.** The original 308 Review 003 (above) was written *reduced-depth / transcript-native* because 308's Knox §3 Review 001 paste block was empty — its actual Knox read was **mis-pasted into `EVSRC-2026-000309`** (self-mislabeled `EVSRC-296`). The Wave-6 Capping Agent located that read, read it in full, and formalizes it here so the wave's fidelity gate is genuinely satisfied (keeper preserved in Review 003 per `00_pipeline_doctrine.md` semantic-fidelity gate). **The raw Batey Knox read verbatim currently lives in `309 §3 Review 001`** pending a physical operator re-paste into this file's §3 Review 001 (Nick's zone). This addendum recovers the *intelligence*; the re-paste is hygiene. PROPOSE-ONLY (`GRD-036`); 0 net-new DOMAIN objects (wave verdict holds).
+
+**The Batey Knox read (4.9/5) named 3 architecture CANDIDATES + a verification-root principle + 6 sharpenings + 5 counterweights.** Formalized with dedup dispositions (every candidate → dedup / investigate / reject; nothing minted):
+
+| # | Knox candidate / sharpening | disposition | home |
+|---|---|---|---|
+| 1 | **`system_understanding_record`** — accountable team's coherent model of boundaries / data-movement / authority / trust-boundaries / failure / deployment / blast-radius / recovery / conformance-evidence for a consequential change | **DEDUP → investigate-lane sharpening.** `EXISTS-AS` REV-184 world-model + `context_packet` + architecture-memory control plane; pairs w/ wave-6 **F1** (compiler/manifest) + 313 architecture-memory. NOT a domain. Keeper line: *"Implementation may be machine-generated; system accountability cannot be machine-orphaned."* | REV-184 · architecture-memory · Agent Runtime · Build-OS |
+| 2 | **`cognitive_concurrency_budget`** — classify a human operator's capacity by work type (complex-reasoning / bounded-review / lightweight-supervisory / mechanical); machine concurrency expands faster than human comprehension; orchestration must budget *judgment*, not agent slots | **INVESTIGATE** (this is the `one-complex-task-per-human` sharpening the original 308 R003 already flagged — now Knox-named + sharpened). Route: **Agent Runtime & Harness** watch, as the *human-side* companion to 290 `delegation_depth/fanout_budget`. Explicit **care** relevance (Knox): one clinician facing many "decision-ready" candidates that each still need genuine thought. Not a domain. | Agent Runtime · CNS · Care |
+| 3 | **`product_change_outcome_record`** — links product intent / hypothesis / adoption-owner / target-population / deployment-state / exposure-state / actual-use / burden / realized-effect / final-disposition; *deployment ≠ closure, usage ≠ closure* | **DEDUP → investigate-lane sharpening.** `EXISTS-AS` Care/Platform **Prove→Learn** loop + Care outcome-reads-original-context + REV-174 outcome-link + OFC `care_obligation`. Aligns w/ OMNI Reactor (candidate-value-until-adopted). NOT a domain. | Care · Platform Loop · REV-174 · OFC |
+| 4 | **`architecture_conformance_gate`** — accepted architecture decision precedes implementation + remains continuously checked against every later change for drift | **DEDUP.** `EXISTS-AS` architecture-memory control plane + Build-OS + candidate≠commit + wave-6 **F1** (285/293 compiler). Keeper: *use agents to enforce architecture; do not treat generated architecture prose as evidence it was understood/accepted.* | architecture-memory · Build-OS · Agent Runtime |
+| 5 | **verification-root principle** — every consequential assurance chain must terminate in evidence whose meaning/ownership/limits are understood *outside the generator being assessed*; **verification depth ≠ verification independence** (100 machine checks can share one blind spot) | **DEDUP → strong guardrail candidate.** `EXISTS-AS` FWREG-013 coverage-proof + wave-5 `illusion_of_correctness_guard` + parallel-agents≠evidentiary-independence. Route `08`→`06`. | REV-184/proof · guardrail digest · Agent Runtime |
+| 6 | mission-cell topology · idea-to-outcome flow · provider-independent operating understanding · machine-speed blast-radius control | **DEDUP** (all `EXISTS-AS` Platform Loop + team-as-governance [312] + REV-184 blast-radius + GRD-033 harness-portability + Prove/Learn). Section-sharpenings, not objects. | Platform Loop · Build-OS · §B |
+
+**Net-new DOMAIN objects from the Batey Knox read: 0** (confirms the wave verdict). 1 genuinely-useful investigate-lane route confirmed (`cognitive_concurrency_budget`, human-cognition-budget → Agent Runtime), 2 dedup-as-sharpening candidates (system_understanding_record, product_change_outcome_record), 1 guardrail candidate (verification-root).
+
+**Counterweights — Knox-VALIDATED (upgrades the original list from transcript-native to Knox-confirmed; 0 inverted):**
+1. AI-generated-code % (and tokens/commits/PRs) is a **vanity metric** — high authorship ≠ system understanding ≠ value.
+2. **Human code review is neither necessary nor sufficient** for system accountability — understanding the *system* is the standard.
+3. **Parallel machine work must not exceed human systems-thinking capacity** (the concurrency budget).
+4. **Deployment ≠ adoption; adoption ≠ verified value** — a feature in production is still a *candidate* value proposition.
+5. **Cheap implementation increases the importance of disciplined architecture, prioritization, and *non-action*** (blast-radius, loose coupling, saying no) — directly affirms REV-184 non-action-as-commit.
+> All 5 preserved; **0 inverted.** These reconcile with — and Knox-validate — the 9 transcript-native counterweights in the original 308 Review 003.
+
+**Fidelity outcome:** 308 `semantic_fidelity` flips **`faithful (bounded)` → `restored`**; `reread_when_knox` RESOLVED (the Knox read was read + formalized). Residual = operator hygiene only (physically re-paste the raw Batey Knox read 309→308 §3 Review 001). No caution inverted; no candidate minted; §C untouched (PAUSED).
+
+&nbsp;
+
 
 
 ⬆️⬆️⬆️  END Review 003  ⬆️⬆️⬆️
@@ -742,5 +772,6 @@ Candidate concepts surfaced (11 clusters). **Genuine net-new DOMAIN objects = 0.
 ## §5 — Change log
 - `2026-07-18` — source file created (wave-6 scaffold, third batch; `EVRUN-2026-000011`).
 - `2026-07-19` — Opus §3 Review 003 formal extraction (reduced-depth transcript-native: NO Knox Review 001, NO screenshot). §0/§0.1 filled `inferred`; status → `analyzed (awaiting 2nd-reader fidelity sign-off)`. 11 clusters, 0 net-new DOMAIN objects, 2 investigate-lane sharpenings, 9 counterweights preserved (0 inverted), 8 guardrail candidates → `08`. §4 pointers filled. PROPOSE-ONLY (`GRD-036`/`GRD-044`); no shared run artifact edited; file not renamed.
+- `2026-07-19` — **Wave-6 Capping Agent RESTORATION ADDENDUM** appended to §3 Review 003. Located the mis-pasted Batey Knox read (4.9/5) in `309 §3 Review 001`, read it in full, and formalized it at full depth (3 candidates dispositioned + verification-root principle + 6 sharpenings, all dedup — 0 mint; 5 counterweights Knox-validated, 0 inverted). `semantic_fidelity` **`faithful (bounded)` → `restored`**; `reread_when_knox` RESOLVED. Operator-hygiene residual: physically re-paste the raw Batey Knox read `309 §3 Review 001` → `308 §3 Review 001` (Nick's paste zone). Append-only; PROPOSE-ONLY; 0 net-new DOMAIN; §C PAUSED.
 
 > Authority/retrieval labels are defined once in `../../00_evidence_router.md` (operating principle #9 + §8). Sections carry their `layer:` inline; the legend is not restated per file.
