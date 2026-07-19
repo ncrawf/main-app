@@ -101,6 +101,28 @@ Two **roles**, not necessarily two agents: **Reader 1 interprets · Reader 2 for
 
 Future: one mature ingestion agent may do both passes (even pulling the transcript from a URL) — but it still outputs the **two sections separately** (Review-001 interpretation + Review-003 extraction). The issue is never one-agent-vs-two; it is the two roles.
 
+## Semantic-fidelity closeout gate (BINDING — added 2026-07-18 after the Wave-5 lossy-formalization failure)
+
+**Why this exists.** Wave-5 (`EVRUN-2026-000006`) reported `11/11 covered · Weak: 0` and was called "COMPLETE + RECONCILED" — yet a post-close nugget-preservation audit found **~60 Knox nuggets dropped or flattened**, 2 significantly-flattened sources (274, 278), a **net-new guardrail omitted entirely** (274 synthetic-testimonial), and **1 safety caution inverted** (271). The transcripts WERE read (0 anchor fabrications); the failure was **lossy formalization** at Review 001 → Review 003 → registry. The old closeout gate only checked that Review 003 *existed*, that anchors/pointers/coverage were filled — it never verified that Review 003 **preserved the material content of Review 001.** Coverage measured *processing completion*, not *semantic fidelity*. This gate closes that hole.
+
+**Two independent statuses (BOTH required on every coverage matrix — a source is NOT "done" on processing_status alone):**
+- `processing_status`: `scaffolded → pasted → covered → weak → void_duplicate` (mechanical: does Review 003 exist + folded?).
+- `semantic_fidelity_status`: `not_audited → faithful | minor_restore_required | significant_restore_required | correction_required → restored`.
+
+**A source cannot be marked `covered` merely because Review 003 exists.** For every **high / full_semantic / operator-flagged** source, closeout must verify (and a **second reader** — different agent/human than the Review-003 author — signs the fidelity result):
+1. every **material Review-001 keeper** is preserved in Review 003 **or explicitly rejected with reason** (`GRD-043`);
+2. every **skeptical counterweight / "what-NOT-to-import"** is retained (these were the #1 loss class in Wave-5 — do not shed the brakes);
+3. every **named primitive-candidate** has an explicit disposition (dedup-as-exists / mint-candidate / reject) — none left silently un-dispositioned;
+4. **care / healthcare implications** are not swept away by a "zero net-new domains" verdict (0-net-new is a dedup fact, NOT permission to drop cautions/sharpenings);
+5. **no caution was inverted** (a source's safety warning must never be reproduced as an approving endorsement);
+6. **source-local depth remains in the packet** (§3), not compressed only into the cross-source registry;
+7. **cross-source insights entered the registry**;
+8. the **rejection set is explicit** (recorded, not silently dropped);
+9. **anchors are real** (verbatim + timestamp; spot-verified against §1);
+10. the **second reader signs** the `semantic_fidelity_status`.
+
+**Wave closeout is BLOCKED until:** zero `significant_restore_required`, zero uncorrected inversions, zero undispositioned operator-flagged insights. Until then the wave is `authoring_blocked` and must NOT feed the thesis/spine, Care work, contracts, or Build-OS. This converts "formalize, do not summarize" from prose into a **measurable gate**. (Precedent + method: `EVRUN-2026-000006` restore ledger + `_final_depth_preservation_closeout.md`.)
+
 ## The pipeline (stages)
 
 ```
@@ -113,7 +135,7 @@ capture source (raw, immutable, EVSRC id) -> register in 00_index.md
           -> OMNI mapping (one or more homes) + classification (7-way) + relationship + maturity
             -> concept_registry_and_routing_map (what changes thesis / §A / §B / §C / Build OS / security / contracts / surfaces / features / ignore) + §C-impact triage
               -> Constitutional Reconciliation Ledger (when primitives/projection/loop/contract-boundary touched)
-                -> CLOSEOUT: fill source §4 pointers (EVRUN / concept_registry / source_anchor_ledger / impact / promotion) + update coverage matrix  [the "linked once analyzed" step]
+                -> CLOSEOUT: fill source §4 pointers (EVRUN / concept_registry / source_anchor_ledger / impact / promotion) + update coverage matrix (BOTH processing_status AND semantic_fidelity_status) + PASS the Semantic-fidelity closeout gate (second-reader sign-off for high/full_semantic/operator-flagged)  [the "linked once analyzed" step]
                   -> promotion to destination home THROUGH that home's review gate (user/Knox)
                     -> periodic adoption + pruning gate (re-review; stale concepts pruned; rarely, one re-steers)
 ```
