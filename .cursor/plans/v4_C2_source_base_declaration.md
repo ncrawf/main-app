@@ -119,6 +119,8 @@ The v4 source base **starts as the v3 §0 Canonical Source Stack, unchanged.** R
 
 - [x] **Care Response-Seam / Correction & Continuity Admission Test — `v4_C4_3_care_response_seam_correction_continuity_test.md`** (2026-07-19; `analysis_closed` / `architecture_candidate_passed_design_validation` / `required_task_d_input`): the quadrifecta correction/mistake-handling pressure test (Gemini-A blind + Opus frozen Gate-2 + Knox adjudicator + Gemini-C mutation). Candidate **Law 10.1** + O1–O22 + 21 scenarios + 3 property tests + M01–M24 ledger (24/24 CAUGHT, Gemini-C-executed; M25 = design-finding-not-executed) + S20-A/B split. **Design-PASS only** (contract/build/external OPEN/absent/unproven — paper discrimination ≠ production enforcement). Home: Cat 6 / this block; read-graph #9h; required Task-D input (`v4_C4_2` §B). `analysis_nonbinding` (`GRD-036`); nothing promoted; Reactor untouched.
 
+- [x] **Task-D interim checkpoint — `v4_C4_2A/B/C_task_d_*`** (2026-07-19): Task D interim-population checkpointed (Opus Builder P0 preserved verbatim + Gemini-B partial adversary + primary-source incumbent audit), **no §7 verdict**, final population deferred by operator; Task D still required before the spine. Keeper: incumbents have real substrate machinery; OMNI's surviving candidate = the healthcare-native governed composition (not demonstrated as native incumbent product contract in reviewed public sources); H0–H3 open; normative semantics survive, physical realization + moat OPEN. Home: this block; read-graph #9i. `analysis_nonbinding` (`GRD-036`).
+
 ---
 
 ## §3 — The ONLY deltas vs the v3 stack (all additive; nothing reinvented)
