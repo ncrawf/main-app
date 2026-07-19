@@ -123,6 +123,20 @@ Future: one mature ingestion agent may do both passes (even pulling the transcri
 
 **Wave closeout is BLOCKED until:** zero `significant_restore_required`, zero uncorrected inversions, zero undispositioned operator-flagged insights. Until then the wave is `authoring_blocked` and must NOT feed the thesis/spine, Care work, contracts, or Build-OS. This converts "formalize, do not summarize" from prose into a **measurable gate**. (Precedent + method: `EVRUN-2026-000006` restore ledger + `_final_depth_preservation_closeout.md`.)
 
+## Capping rule — candidate resolution + who may cap a wave (BINDING — added 2026-07-19, Wave-6)
+
+**Why this exists.** "Capping" a wave is not "process the videos + write a summary." The recurring evaporation failure is a wave that ends with a pile of extracted **candidates** (guardrails, primitive candidates, net-new nuggets, tensions) left in a `propose-only` / "reviewer decides distinct-vs-sharpen" state — and a handoff that trusts *a future agent* to adjudicate them. A future agent does not; the gems evaporate. This rule closes that hole permanently. It complements the semantic-fidelity gate (that one asks *did the content survive the write-up?*; this one asks *was every surviving candidate resolved to an outcome?*).
+
+**A wave is CAPPED in exactly one of two ways — never a third:**
+- **(A) Resolved-and-promoted by the closing agent** — the closing agent classifies EVERY candidate against the live repo and promotes the resolved outcomes through their home gates (guardrails → `06`; primitives → their contract; etc.), OR
+- **(B) Resolved-and-PRESENTED to Nick + Knox** — the closing agent classifies EVERY candidate against the repo into a **decision-ready** set and presents the genuinely-NEW subset to the Nick+Knox gate (recorded as an `08` adjudication row), which then rules promote/merge/park/reject.
+
+**FORBIDDEN (does NOT count as a cap):** leaving candidates undispositioned, or handing off with "a future agent / the reviewer will decide distinct-vs-sharpen." A wave with any unresolved candidate is `authoring_blocked` — the same block state as a fidelity failure.
+
+**The repo-dedup is the CLOSING AGENT's job, done BEFORE the gate (repo-native work, not the reviewer's):** every candidate is classified `DUPLICATE` (cite the existing home) / `SHARPENS` (cite + the exact sharpening) / `NEW` / `PARK` (name the trigger + frozen home). The Nick+Knox gate then adjudicates ONLY the `NEW` (+ `PARK` triggers) set — never a raw "figure out if these already exist" pile.
+
+**Recording (durable, not chat):** the per-candidate classification is written to an `08` adjudication row (`D0OL-REV-NNN`) + the run's final closeout; promoted guardrails land in `06` (with `D0OL-GRD-NNN` ids); parked ones carry an explicit promotion trigger. Applies to guardrails AND primitive candidates AND any nugget the fidelity gate surfaces. **Precedent: Wave-6 `08 D0OL-REV-002` → `06 D0OL-GRD-009..017` + 3 trigger-gated PARKs.**
+
 ## The pipeline (stages)
 
 ```
