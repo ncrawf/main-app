@@ -28,7 +28,7 @@ That snapshot was **stale at read time**. The Builder push had already flushed a
 - The frozen Builder transaction is commit **`6b5a8f8`** (committer date **2026-07-18 18:08:50 -0400**), which **predates** the adjudication relay to Opus (2026-07-18 ~20:04). The fixture file blob hash (`git hash-object`) is **`869911493ed9a550cf5376828b68ec07a6a6d3eb`**. This proves the fixture predated adjudication visibility and was **not** reconstructed from Builder/Gemini/Knox prose after the fact (Knox step 2 integrity condition satisfied).
 - Re-run from clean state at integration time: `npx tsx scripts/test-consequential-transition-conformance.ts` → **31/31 GREEN, exit 0**; `npx tsc --noEmit` → 0 errors; `npx eslint …` → 0 errors, 0 warnings.
 
-**Effect on the ruling:** this resolves Knox's V8 "unpushed Builder execution claims remain provisional" and "not yet repository-verified" concerns at the **repository-verification** level (the fixture now exists on `origin/main` and executes green). It does **not** upgrade any external-acceptance, production, economic, safety, or liability claim — those remain unproven, so the **R3 verdict and all scores are unchanged.** No score is re-computed; Knox remains the sole adjudicator.
+**Effect on the ruling:** this resolves Knox's V8 "unpushed Builder execution claims remain provisional" and "not yet repository-verified" concerns at the **repository-verification** level (the fixture now exists on `origin/main` and executes green). It does **not** upgrade any external-acceptance, production, economic, safety, or liability claim — those remain unproven, so the **R3 verdict is unchanged.** **★ CORRECTION (superseded by `§K.AMEND` below):** this note originally asserted "all scores unchanged / no score re-computed." Knox — the sole adjudicator — subsequently **rejected that one sentence** and issued a dated repository-verification amendment: because the frozen maturity-4 definition ("mapped to live repository carriers · includes negative cases · executable/testable in the managed boundary") now applies to the Builder's runtime-enforceability dimension, **Builder V8 partial→pass (repo-backed claims), dimension 9 3→4, Builder total 61.2→63.2**; Gemini 47.0, R3, and R4-unavailable all unchanged. See `§K.AMEND`. Knox remains the sole adjudicator; Opus did not compute this.
 
 **Method-history (V1/method persistence):** the rubric was pre-registered off-repository by the continuity Opus and committed as `60315ee` (2026-07-18 16:41) **before** either fresh submission existed; it was persisted to `origin/main` with the Builder push. Knox adjudicated against a snapshot that did not yet show it. No semantic amendment to the rubric was made at any point.
 
@@ -218,3 +218,21 @@ Knox §6 ($1B company / plant), §7 ($10B company / grid + 2030/2035 posture), �
 - **Outer gate:** UNCHANGED — this nested nonbinding run does **not** repoint AGENTS.md or read-graph #15. Outer next-action remains Agent Runtime & Harness capture depth and/or C3.9 plastics/medspa → Task D → v4 Spine Draft 0.
 
 **Result of this run (nonbinding):** R3 cross-authority continuity residual — design/conformance only; Reactor earned a stronger reason to exist, **not** permission to become a thing; the next proof must happen in the world.
+
+---
+
+## §K.AMEND — Knox repository-verification amendment (dated; adjudicator, 2026-07-18, post-integration)
+
+> Appended by Opus at Knox's direction (final-closeout step 2). The verbatim adjudication body (`§K`) is **unedited**; this is a dated adjudicator amendment, per the frozen rubric's own rule that a maturity change requires an explicit dated amendment record. Authored by Knox; Opus did not compute or alter the scoring model.
+
+**Trigger.** After the Builder push flushed, Knox verified the live commit ancestry — `60315ee` (rubric lock) → `6b5a8f8` (Builder submission + fixture) → `e905c0c` (adversary/adjudication integration) — and confirmed the frozen fixture at blob `869911493ed9a550cf5376828b68ec07a6a6d3eb`: it imports the live treatment-order state machine, inspects the live migration + patient projection, includes negative transitions + nonparticipating-counterparty behavior, precisely labels real-vs-stubbed, uses no `reactor` runtime identifier, and is executable as a deterministic repository fixture. The frozen maturity rubric defines **level 4** as *"mapped to standards or live repository carriers, includes negative cases, and is executable or testable inside the managed boundary."* That now applies to the Builder's **runtime enforceability + implementation specificity** dimension.
+
+**Amendment (Knox):**
+- **Builder V8:** partial → **pass** for repository-backed claims (live order/migration/projection + the committed, executable fixture).
+- **Builder dimension 9 (runtime enforceability + implementation specificity):** maturity **3 → 4**; weighted **6.0 → 8.0**.
+- **Builder total:** **61.2 → 63.2 / 100.**
+- **Gemini total:** unchanged **47.0 / 100.**
+- **Verdict:** unchanged **R3.** **R4:** remains **unavailable.** **Reactor:** unchanged — frozen, candidate, non-ontological, **unpromoted.** **Naming gate:** OPEN.
+- **No other dimension is raised to 4.** Custody, patient-consequence continuity, selective reopening, honest projection, and bounded proof are executable in the test but remain explicitly **fixture-only or contract-unwired** — a testable model is not wired runtime enforcement; the Builder was honest about that boundary.
+
+**Chronology correction (Knox):** the pre-integration `origin/main` tip was **`6b5a8f8`**; the post-integration tip is **`e905c0c`**. The primary ordering proof is **commit ancestry** (`60315ee` ⊂ `6b5a8f8` ⊂ `e905c0c`), not editable Git timestamps. Knox's earlier "not repository-verifiable" posture was adjudication from a stale `origin/main` view and is hereby corrected; **no Builder rerun, Gemini rerun, or architectural re-adjudication is required.** The architecture experiment is closed.
