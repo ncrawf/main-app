@@ -2,7 +2,7 @@
 
 Document type: `evidence_or_ingestion` (Evidence Plane · `user_operator_research` lane · run workbench) · Authority: `analysis_nonbinding` (`GRD-036`). **Binds nothing. Propose-only. Pre-spine.**
 Run: `EVRUN-2026-000012` (joint 279/280/281 care→commerce hardening). **Long-form reasoning lives in `EVRUN-2026-000012_00_run_and_joint_hardening.md` — this registry INDEXES it (`GRD-044` anti-flatten); a registry row never substitutes for the reasoning.**
-Status: `gate_1_complete` — finding registry (Gate 2+) NOT yet populated. Reuse floor = `EVRUN-2026-000004 §0.5`; reuse the Dan-run `DTP-*` before minting; **propose any new registry prefix to the trifecta — do not unilaterally mint.**
+Status: `run_closed` — Gates 0–7 complete (2026-07-19). **This registry is a compressed INDEX only; the operative dispositions live in `_07 §7.5` and the operative architecture in `_02 §15` — do NOT treat this registry as the reasoning.** Reuse floor = `EVRUN-2026-000004 §0.5`; reuse the Dan-run `DTP-*` before minting; **propose any new registry prefix to the trifecta — do not unilaterally mint.** Closeout/routing contract = `_07`.
 
 ---
 

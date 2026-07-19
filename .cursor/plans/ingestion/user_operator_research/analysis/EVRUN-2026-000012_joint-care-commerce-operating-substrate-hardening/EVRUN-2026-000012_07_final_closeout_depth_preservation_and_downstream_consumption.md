@@ -2,7 +2,7 @@
 
 Document type: `evidence_or_ingestion` (analysis run closeout — **routing/consumption contract, NOT a synthesis substitute**)
 Authority: `analysis_nonbinding` (`GRD-036`). **Binds nothing. Promotes nothing. Pre-spine / pre-v4 — propose-only.**
-Status: `analysis_closeout_draft` — authored per Knox Gate-5 closeout directive (I); **language subject to Knox final review per Nick (2026-07-19); closeout commit HELD.**
+Status: `analysis_closed · depth_preserved · routed · not_promoted` — Knox Gate-7 review passed (`GATE_7_DRAFT_ACCEPTED_PENDING_FINAL_DEPTH_AND_DISPOSITION_NORMALIZATION`) + all 5 corrections applied; checkpoint commit `4f2873f` landed + pushed to `origin/evidence/evrun-000012-care-commerce-hardening`; closeout commit this pass.
 Lifecycle role: final disposition, routing, depth-preservation, and downstream-consumption contract over the EVRUN-2026-000012 estate. **Does NOT restate or replace `_00`–`_06`.**
 Manifest action: `add_tier2`
 Review gate: `user_knox_required`
@@ -34,7 +34,7 @@ Supersedes: none · Superseded by: none
 | coverage matrix | coverage and owed-evidence state | coverage only | architecture truth |
 | handoff | operational continuity | current stop and next transaction | doctrine |
 
-> **Commit SHAs (filled at/after the commits — see §7.16 stop report):** checkpoint = `<CHECKPOINT_SHA>`; closeout = `<CLOSEOUT_SHA>`; remote branch = `evidence/evrun-000012-care-commerce-hardening`.
+> **Commit SHAs:** checkpoint = `4f2873f1804ad2afd503c010152799537f3a20f5`; closeout = *this commit* (SHA recorded in the run stop report / chat return — a file cannot contain its own commit SHA); remote branch = `origin/evidence/evrun-000012-care-commerce-hardening` (pushed; no PR/merge).
 
 ---
 
@@ -188,17 +188,17 @@ After tracing the full care→commerce→fulfillment cluster (279/280/281): **OM
 - **Authority posture:** `analysis_nonbinding` · propose-only · pre-spine. Nothing promoted.
 - **Files changed this cycle:** `_06` (Knox Gate-5 patch A–G in place) · created `_07` (this closeout) · `_00`/handoff/registry/coverage/lane-index/catalog repointed to `_07` (see §7.17 checklist). `_05` unchanged this cycle (already Knox-patched). `_02 §15` unchanged.
 - **Gate 6:** `DEFERRED_TO_TASK_D_PER_SCOPE_RULE` — no internal Gemini-B contest.
-- **Provenance:** `_03` raw-Gemini file **still absent across 4 relays** → placeholder retained, not fabricated. `_04` = Knox. **⚠ owed.**
+- **Provenance:** `_03` = raw Gemini adjudication **supplied + frozen verbatim (2026-07-19)**; `_04` = Knox. **Provenance complete** — no owed item.
 - **Unchanged canon:** no contract, schema, Care capture, thesis, spine, `AGENTS.md`, read-graph #15, or controlling plan changed.
-- **Commits (Knox H + J):** **PREPARED, HELD** pending Nick's go + Knox language review (Nick: "this is not a final closing pass; file/language changes go back to Knox"). Branch `evidence/evrun-000012-care-commerce-hardening`; checkpoint `evidence(evrun-000012): preserve gates 0-5 and external adjudications`; closeout `evidence(evrun-000012): close care-commerce hardening and route C3.9 Task-D inputs`.
-- **Repository posture:** local/uncommitted; `main` = `399759553`.
-- **Next allowed action:** **STOP.** Await (1) Knox language review of `_06`/`_07`; (2) Nick's go to run the checkpoint + closeout commits; (3) the raw-Gemini file to close `_03`. **Do NOT begin Task D, C5, or spine/thesis prose.** On go: commit, then Task D consumes the packet and runs the independent incumbent-composition contest.
+- **Commits (Knox H + J) — EXECUTED:** branch `evidence/evrun-000012-care-commerce-hardening` created + pushed to origin (no PR/merge). Checkpoint `4f2873f1804ad2afd503c010152799537f3a20f5` = `evidence(evrun-000012): preserve gates 0-5 and external adjudications`. Closeout = `evidence(evrun-000012): close care-commerce hardening and route C3.9 Task-D inputs` (SHA in chat return).
+- **Repository posture:** committed to `origin/evidence/evrun-000012-care-commerce-hardening`; NOT merged to `main`.
+- **Next allowed action:** **STOP — run durably preserved + routed.** **Do NOT begin Task D, C5, or spine/thesis prose.** Task D consumes the packet (§7.6/§7.8) and runs the independent incumbent-composition contest as a separate authorized work package.
 
-## §7.17 — Closeout repointing checklist (execute with the closeout commit, not before)
-- [ ] `_00` status + gate log + inventory → point to `_07` (partial done; final on commit)
-- [ ] concept registry → add `_07` pointer (index only)
-- [ ] coverage matrix → note closeout
-- [ ] lane index `00_index.md` → Gate 7 state
-- [ ] master catalog row → closeout state
-- [ ] `HANDOFF_2026-07-17` → final banner → `_07`
-- [ ] `_03` → replace placeholder with frozen Gemini file (when supplied)
+## §7.17 — Closeout repointing checklist (executed with the closeout commit)
+- [x] `_00` status + gate log + inventory → point to `_07`; closed + checkpoint SHA
+- [x] concept registry → `_07` pointer (index only)
+- [x] coverage matrix → closeout note
+- [x] lane index `00_index.md` → Gate 7 closed state
+- [x] master catalog row → closeout state (if a 000012 row exists)
+- [x] `HANDOFF_2026-07-17` → final banner → `_07`
+- [x] `_03` → frozen Gemini verbatim (supplied 2026-07-19)

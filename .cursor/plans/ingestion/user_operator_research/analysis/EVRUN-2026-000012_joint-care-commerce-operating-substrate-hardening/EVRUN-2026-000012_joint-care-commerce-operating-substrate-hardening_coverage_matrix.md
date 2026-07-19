@@ -1,7 +1,7 @@
 # EVRUN-2026-000012 — Coverage Matrix
 
 Document type: `evidence_or_ingestion` (Evidence Plane · run coverage) · Authority: `analysis_nonbinding` (`GRD-036`).
-Run: `EVRUN-2026-000012`. Tracks which sources/channels are covered in the Gate-1 trace (carrier §2). De-identified tokens only.
+Run: `EVRUN-2026-000012` (**CLOSED 2026-07-19; Gates 0–7 complete**). Tracks which sources/channels are covered in the Gate-1 trace (carrier §2). De-identified tokens only. **Coverage/receipt state only — not architecture truth; closeout/routing = `_07`.** Owed captures (281 Ch1 Knox; two phone reconstructions) remain owed and do not block closure.
 
 | specimen · channel | captured | covered in Gate-1 trace | notes |
 |---|---|---|---|
