@@ -1,4 +1,4 @@
-# EVRUN-2026-000006 — ai-corpus wave-5 (10 new-drop videos)
+# EVRUN-2026-000006 — ai-corpus wave-5 (11 new-drop videos)
 
 > Run opened 2026-07-14 (scaffolding stage). Per-source flow: Nick pastes §1 transcript + §3 Review 001 (Knox) + optional §3 Review 002 gut note into each wave-5 source file; Opus writes §3 Review 003 (formal deep extraction), folds cross-source synthesis into THIS run's concept registry, updates coverage matrix + anchor ledger, fills each source's §4 pointers at closeout. Method = the settled registry-first two-tier read (`00_pipeline_doctrine.md`) **+ the wave-3 two-axis reality-check** (`doctrine_status × build_status`). Cumulative with `EVRUN-2026-000001 §2A` + `EVRUN-2026-000002` + `EVRUN-2026-000003` + `EVRUN-2026-000005` registries.
 
