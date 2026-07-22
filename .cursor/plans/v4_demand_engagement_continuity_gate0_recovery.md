@@ -2,7 +2,7 @@
 
 Document type: `architecture_reconciliation` (pre-spine recovery workbench; append-only Gate-0A / Gate-0B checkpoint sections)
 Authority: `analysis_nonbinding` (`GRD-036` — capture broad, promotion gated). Recovers + reconciles what already exists; mints nothing.
-Status: `gate_0a_accepted · gate_0b_not_started · analysis_nonbinding · not_promoted` (Nick + Knox accepted Gate 0A + Gate 0A.1, 2026-07-22; working name remains provisional)
+Status: `gate_0a_accepted · gate_0b_accepted · track_a_gate_1_not_started · operator_economics_track_b_gate_0_owed · analysis_nonbinding · not_promoted` (Nick + Knox accepted Gate 0A + Gate 0A.1 + Gate 0B, 2026-07-22; working name **Governed External Engagement & Relationship Continuity** remains provisional — see §B0)
 Domain(s): architecture_governance, identity, consent, commerce, cross_cutting
 Lifecycle role: recovery + contradiction map for the demand/engagement/public-presence/lead-consent estate, feeding Gate 0B → (later) the v4 spine
 Source-of-truth relationship: NOT a source of truth. Points at the governing owners (Identity/D7/RBAC/CNS/D6/Settings/Messaging/projections) and the historical May-2026 marketing design; binds nothing.
@@ -269,3 +269,160 @@ Retain the five concerns (procure-to-pay · expense/COGS attribution · cash/set
 The demand-continuity foundation resolves to a **triad**: **(1) carrier exists** (session-bound pre-identity `patient_consents` + `intake_sessions` scaffolding, partially built) · **(2) uplift lifecycle missing** (session-grant → person → relationship without copy/union/broaden/orphan/silent-reinterpret) · **(3) current resolver implementation is unsafe** (C12 email-overwrite). **Corrected sequencing (do not over-block):** identity-resolution safety is upstream of **implementing, activating, or operationally relying on** grant uplift — it is **NOT** a prerequisite for continuing **Gate 0B architecture analysis.** Gate 0B may design the target seam and expose the required resolver replacement; but **no implementation may attach pre-identity grants to resolved people/relationships through the current email-only resolver**, and production may not activate uplift until the resolver is replaced or bypassed. (Route like a G4 finding; not built pre-spine.)
 
 **Gate 0A.1 stop:** nothing minted; no contract/code/schema/surface/doctrine edit; identity/consent bugs NOT fixed (routed only); no AGENTS/checkpoint change; no branch/commit/catalog/route; no Gate 0B; no naming/owner verdict. Awaiting Knox review of this amendment before any repository landing.
+
+---
+
+# GATE 0B — ACCEPTED TARGET-SHAPE CHECKPOINT (2026-07-22)
+
+> **Status of this section:** `gate_0b_accepted` · `analysis_nonbinding` (`GRD-036`) · pre-spine · **not promoted**. Nick + Knox accepted Gate 0B (checkpoint + the Gate 0B.1 correction packet + five final wording amendments) on 2026-07-22. This section is **self-contained** and is the operative Gate 0B record; §§0–A.11 above are preserved as **Gate 0A/0A.1 derivation** (not re-litigated). Gate 0B proposes **target architectural shape + routing only** — it mints no domain, primitive, object, contract, schema, surface, projection, or code; it declares no owner as governing; it canonizes no name. **Track A Gate 1 is NOT started; Operator Economics Track B Gate 0 is OWED.**
+>
+> **Authority tags** used below: **[G]** governing fact · **[B]** accepted nonbinding finding · **[C]** candidate architecture · **[I]** lead inference. Category B/C are **not** elevated to A by wording.
+>
+> **Consumes (does not promote):** `v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md` (C4.5 Gate-0 charter, `gate_0_charter_accepted`, unpromoted). C4.5 temporal meanings are treated as **applicable candidate meanings, not governing.**
+
+## §B-KNOX — Five final wording amendments (Knox, binding on this record)
+
+1. **Sense + Act = the operating-model *pattern*, not a "primitive."** The two governed loops (Sense + Act) + authority gates are the operating-model pattern (thesis §8); Care · Platform · Accountability are domain-level specializations of the one recursive governed loop (WI15). "Loop" is used at two levels and the lists are not interchangeable.
+2. **C4.5 temporal meanings are applicable *candidate* meanings, not governing.** The temporally-qualified chain (§B1) uses T-01…T-22 as a candidate lens pending C4.5's own Phase-2 verification + admission verdict.
+3. **D6 remains commerce-scoped.** External-counterparty **payable / disbursement / settlement** is a **Track B question**, not a D6-owned fact by default. D6 owns the commercial slice (revenue facts, `attribution_line`, promo/discount, and commission *amount* for workforce/staff sales).
+4. **D7 contributes only where the authority is represented by a D7-owned consent, authorization, acknowledgment, or signed artifact.** D7 does **not** own operative commercial terms, obligations, deliverables, or payment meaning.
+5. **Accountability owns response / remedy / communication / verified closure *after breach* — never the original commercial deliverable or obligation.**
+
+## §B0 — Corrected whole-OMNI framing (for this record)
+
+- **[G]** OMNI is a governed contextual **care + business operating substrate** preserving longitudinal coherence; it is not an app/EHR/CRM/marketplace. Operating-model **pattern** = Sense + Act + authority gates (§B-KNOX-1).
+- **[C]** Three captured coupled loops (Care · Platform · Accountability), each internally running sense→resolve/gate→act→prove over its own native lifecycle family; coupled by typed links + Polaris seams; **no shared executive** (`GRD-029`).
+- **[I]** This arc is a **cross-cutting reality probe** threading Sense-ingress + §C governed exchange + the loops — **not a fourth loop, not a new center.**
+- **[C]** Every stage below is **temporally qualified** (C4.5 T-01, candidate): `occurred ≠ observed ≠ reported ≠ received ≠ recorded ≠ effective ≠ adopted ≠ authorized ≠ executed ≠ settled ≠ outcome`; later recording ≠ later occurrence (T-02); applies across care + commerce + workforce + operator-config + platform-release, not the clinical chart only.
+
+## §B1 — Decision A: Epistemic & commercial consequence chain (temporally qualified)
+
+**[B]** The chain is **distinct epistemic kinds with distinct owners — not one truth ladder.** Attribution and causal/incrementality assessment are **sibling analytic concerns**, not one linear ladder.
+
+**Corrected ownership matrix (stages 1–7)** — "first-party observed" does NOT answer who owns the record:
+
+| Stage | Owner (corrected) | Temporal meanings (C4.5 candidate) |
+|---|---|---|
+| 1a booking | **D3** fact | occurred · observed · recorded |
+| 1b service occurrence | **D5** fact | occurred · observed · recorded |
+| 1c sale / payment / refund | **D6** fact | occurred · authorized · settled · recorded |
+| 1d intake / session event | **Intake** fact | occurred · observed · recorded |
+| 1e contact / identity claim | **Identity / Intake** per actual stage | observed · recorded |
+| 1f public visit / click / device interaction | **owner UNRESOLVED** (telemetry custody open) | observed · recorded |
+| 2 externally reported claims | external rail = **source of the claim**; **OMNI custody owner of the durable classified claim record UNRESOLVED** (candidate: distributed exposure-publication / Federation returned-counterparty evidence) | reported · received · recorded; T-20 ACK≠custody, receipt≠use, absence≠no-impact |
+| 3 attribution interpretation | **contractual attribution ≠ solely D6.** D6 owns revenue facts + `attribution_line` + certain commission calcs. An external-counterparty contractual basis is a **composition**: signed artifact (**D7 artifact only**, §B-KNOX-4) + operative terms/deliverables (**operative owner UNRESOLVED**) + promo/referral rule (D6/Settings) + adopted payout basis (**authorized economic decision owner — Track B**) + revenue facts (D6) + payable/settlement (**Track B**, §B-KNOX-3). Analytic attribution → projection (owns nothing) | pin method + version at decision time; replay forbids hindsight (T-09) |
+| 4 causal / incrementality | **No canonical owner located in the inspected governing set;** adjacent semantics in Care Prove/Learn §7, Accountability consequence-assessment §6a, Operating Intelligence (REV-174), REV-184, C4.3, C4.5. **Alt-1+3 hybrid** (shared methods/standards + domain-owned records/claims); **no universal causal engine.** Distinguish: method/study-design ≠ execution-of-evaluation ≠ durable assessment record ≠ resulting causal claim ≠ consuming decision — the method-family owns none of the domain claims | before≠because (T-07); forecast≠plan (T-12); decision-quality≠realized-outcome (T-19) |
+| 5 adopted commercial basis | **the authorized economic decision owner** (NOT D6 by default; external-counterparty case currently unowned → Track B); a REV-184-shaped **frozen** basis | **FREEZE:** evidence set · attribution/causal method+version · contract/policy version · authority basis · effective + recorded times · uncertainty · temporal/trust horizon (REV-184 + T-09 + T-14) |
+| 6 committed economic consequence | D6 = revenue/`attribution_line`/commission **amount** (workforce/staff sales) + settlement of D6 commerce. **BIZOPS = workforce payout ONLY.** **External-counterparty payable/disbursement/settlement = Track B** unless a real workforce relationship exists (§B-KNOX-3) | authorized · executed · settled; a prior valid contractual basis is not auto-invalidated by later causal evidence (T-02/T-19; C4.3 S20-A/B) |
+| 7 later outcome / learning | **Care owns CARE outcomes only.** Demand/economic/campaign/counterparty outcomes → their own domains + Operating Intelligence (REV-174). Care is **not** the terminal owner | outcome/effect time; selective reopening no silent orphaning (T-18); owner-adopted outcomes persisted, interpretations remain projections (T-10) |
+
+**Falsifiers:** (a) a real case where domains cannot each own their causal records and a single cross-domain counterfactual model is required → Alt-2 revives; (b) contractual and analytic attribution provably never diverge → the split is over-modeled; (c) causal collapses fully into REV-174 → it is just Operating Intelligence.
+**Routing:** D6 (contractual/commerce slice) · projections `marketing_attribution` + `operating_metrics`/REV-174 (analytic) · REV-184/C4.3 (adopted basis) · C4.5 (temporal, candidate) · spine-watch (causal method-family — candidate) · C5 (per-domain causal record shape; external-claim custody owner) · Task D (attribution-vs-causation disagreement) · **unresolved:** causal home/standards owner; external-claim custody owner; operative-terms owner.
+**Maturity:** attribution/causal = design-candidate; not located in bounded code search.
+
+## §B2 — Decision C: Operator Economics → candidate Track B (accounting depth left OPEN)
+
+**[B]** Track B **split accepted.** The five concerns do **not** share one lifecycle/owner. **No universal "external system owns the books forever" law** (withdrawn). Track B must test **at least three layers**:
+
+1. **Operational economic truth** — purchase commitment · vendor consideration · invoice obligation · COGS · allocated cost · budget commitment. *(OMNI likely owns deeply.)*
+2. **Accounting / subledger + close semantics** — classification · accrual · adjustment · period allocation · reconciliation · close packet. *(Ownership OPEN — native depth NOT foreclosed; BIZOPS/D6 posture already uses external rails now while preserving deeper absorption later.)*
+3. **Statutory / execution rail** — tax filing · external GL · banking · 1099/W-2 execution · statutory reporting. *(Likely external rail near-term; not a permanent law.)*
+
+**Cost is not one `acquisition_cost` fact** — distinguish **estimated · committed · invoiced · received · allocated · settled · corrected** (each temporally qualified; T-08 history-preserved, T-18 selective-reopen).
+**Verdicts:** scope = own operational economic truth deeply + reconstruct for the books (T-11 reconstruction owns nothing); ownership-gap = **real** (COGS/AP/acquisition-cost + external-counterparty payables — corroborated by D6/BIZOPS scope exclusions + EVRUN-000012 Gate-2 census + REV-204 + late-builder Row A); arc-split = **candidate Track B, its own Gate 0 (OWED).** Do **not** choose a domain name (`GRD-026`).
+**Falsifiers:** (a) a real operator needs OMNI *as* the accounting system-of-record → external-rail hypothesis fails; (b) procure-to-pay fully decomposes into Sourcing Selection + OFC + D6 with no residual → no new procurement/AP record; (c) COGS always derivable → no cost-owner gap.
+
+## §B3 — Decision B: Tracking egress / public telemetry / external exposure
+
+**[C]** Proposed shape: a **computed sensitivity + admissibility model** (NOT categorical-PHI-by-URL; NOT one universal telemetry layer). Do **not** assert every public health-page view is PHI; do **not** treat "anonymous" as proven non-identifiable (identifiability is a computed, re-identification-aware state).
+
+- **No Polaris ownership.** Polaris is an alignment/read core — it may **expose** alignment/explainability + temporally-honest admissibility/capability/authority/trust-horizon **projections** (C4.5 §5.3), but **owns no truth and is not the egress-admissibility owner.**
+- **The egress-admissibility gate COMPOSES inputs from:** D7 (consent record, §B-KNOX-4) · RBAC/Boundary-Policy (**the gate**) · Identity (identifiability + later-linkage) · Settings (UTM/pixel config definitions) · **public-surface context** (page/content/claim/release context — provides context, **owns no truth**) · destination/counterparty policy · jurisdiction + processing basis. Authority basis per-use ∈ {consent · opt-out · notice · contractual restriction · statutory · operational necessity · prohibition · other governed basis}.
+- **No prose-minted "typed exposure object."** Specify instead the **minimum egress-decision inputs** (~19 attributes as decision inputs: source · payload class · page/interaction context · identifiability state · identity confidence · observed-vs-inferred · purpose · destination · processing authority · allowed-downstream-use · retention · minimum-necessary · external-ack posture · uncertainty-after-disclosure · revocation/deletion limits · later-linkage risk · clinical-adoption prohibition/eligibility · authority basis · jurisdiction) and the **minimum receipt fields** durably recorded on egress (what · to whom · recorded + effective time · authority basis + version · purpose · payload class · coverage/uncertainty — aligns C4.5 §5.1 exposure-publication + **T-22 reconstructability ≠ surveillance authority**).
+- **Historical May-2026 invariants = preserved *candidates*, not governing:** opaque redirect links · no medical condition in UTMs · consent-mode behavior · cohort identifiers. **"Opaque cohort IDs, never PHI" is too categorical** — pseudonymized/opaque identifiers can still be linkable/identifiable in context.
+- **A surface cannot own page-view truth.** Public surface provides page/content/claim/release context; **telemetry/event custody owner OPEN** (partly REV-175 surface-plane recovery, partly an unresolved telemetry owner).
+- **Anonymous/session ↔ egress:** different owners connected by seams + partial overlap (Intake pre-account carriers exist §A.3); do not pre-install a universal layer.
+
+**Falsifier (corrected):** not "one team needs all telemetry" (an org choice). The true falsifier: *separately-owned telemetry and exposure records cannot preserve deterministic policy enforcement, lineage, or reconstruction across their seams* → then a shared owner/layer is warranted. **When computed sensitivity cannot reach certainty, the fallback is a governed posture — deny · require authorization · require human review · preserve-unknown · conservative ceiling** (T-15 degraded posture, T-17 uncertainty-first-class) — NOT a categorical taxonomy.
+**Maturity:** not located in bounded code search; partial acquisition/session (`intake_sessions`) + consent (`patient_consents`, disclosure-policy gate) machinery exists.
+
+## §B4 — Decision D: Campaign configuration/release vs live execution (affirmed + strengthened)
+
+**[C]** Inherited split **affirmed** (no governing contradiction found):
+- **Config/release = Platform Loop specialization** (E&V → Release → Runtime): campaigns/creatives/offers/landing-pages/**public claims**/pixels/tags/tracking-rules as a `change_set` (draft/validate/review/approve/release/activate/expose/monitor/suspend/rollback/assess-impact).
+- **Live operation = CNS orchestration** (§9.3): enroll/evaluate/branch/suppress/request-send/observe/exit/transition/escalate.
+- Messaging executes sends; Identity commits identity; **D7 owns consent records/artifacts** (§B-KNOX-4); RBAC evaluates permission; Settings hosts definitions; **D6 commits the commerce slice, external-partner disbursement is Track B**; projections expose; surfaces own no truth (`D0THES-DEC-033`). **No "marketing brain" is both release authority and universal runtime executive** (`GRD-029`).
+- **Strengthening — certified variation envelope:** a runtime agent may choose **only within a previously reviewed + activated variation envelope.** A **new claim · materially different audience · new offer · new disclosure · new tracking payload · or new clinical implication** **exits the envelope and re-enters Platform validation/release.** Real-time optimization does **not** prove release and runtime inseparable.
+- **Public claims validated by the underlying truth + authority owners:** clinical → clinical/evidence authority; price/offer → D6/Settings; rights/consent → D7/RBAC; legal/regulatory → the accountable reviewer. **E&V validates + releases the approved configuration; it does NOT author the claim's truth.** (Aligns C4.5 Platform split: deployed ≠ activated ≠ exposed ≠ adopted ≠ acted-upon.)
+**Falsifier:** reopen only if a change creating a new claim/audience/offer/disclosure/tracking-payload/clinical-implication cannot be forced back through Platform release, or a campaign must commit domain truth directly. **Routing:** Platform Loop capture · CNS §9.2/§9.3 · Settings · Messaging §6 · D7 §5 · RBAC §7 · D6 · Surface/Projection maps · REV-149/REV-170 (engine packaging — open).
+
+## §B5 — Decision E: Agent-mediated counterparties & discovery (composition-first)
+
+**[C]** An incentive-bearing external participant (influencer/agency/ad-optimizer/vendor/pharmacy/payer/sponsor/CRO/companion/discovery agent) is **NOT** a new domain/marketplace/user-type/universal-counterparty-object. It is the **composition of existing primitives at the demand/engagement edge**, governed as WI9's **agent-native-edge default:** person/org identity + role(s) + scoped agreement + **incentive-lineage disclosure** (EVRUN-000004 §0.5) + **`delegated_authority_envelope` + delegation-proof** (when agent-mediated) + **`capability_contract`** across the Federation/external boundary + P35 command-authority mode + D6 commission (amount) + Accountability (after breach). The **patient-plus-influencer** is a **multi-role composition on ONE person identity with parallel scoped relationships** — permission not unioned (two-gate law); care data not leaked into the growth relationship (care-neutrality).
+
+**Corrected ownership (§B-KNOX-4/5):**
+- **D7 owns the signed agreement *artifact* + signature evidence + legal/audit consent records — NOT the operative agreement.** Operative commercial relationship (obligations · compensation · rights · deliverables · termination · dispute) needs an **operative owner — UNRESOLVED** (candidates: a growth/counterparty relationship · a commercial work-order family · Operator-Economics/procure-to-pay).
+- **OFC does NOT automatically own influencer/marketing deliverables** (it excludes marketing/engagement nudges → CNS/campaign, REV-149/170). A promised post/video/usage-right/campaign deliverable may belong to the growth relationship · Operator-Economics/procure-to-pay · a commercial work-order family · Accountability (after breach) · or an unresolved composition.
+- **D6 / BIZOPS do NOT automatically settle external-partner compensation** — a Track B question.
+- **Accountability owns response/remedy/communication/verified closure after breach — never the original deliverable/obligation** (§B-KNOX-5).
+- **Task D pressures but does NOT decide whether a carrier/lifecycle is needed** — the ontology decision is made via bounded architecture scenarios + falsifiers + C5 routing + Nick/Knox disposition.
+
+**Falsifier (corrected):** composition failure does **not** auto-prove a dedicated growth lifecycle — it may reveal a missing seam · incorrect visibility rules · missing commercial-obligation semantics · a delegation gap · a dispute/remedy gap · **or** a genuinely distinct lifecycle. **No marketplace/partner-domain/influencer-user-type/universal-counterparty-object authorized.**
+
+## §B6 — Decision F: Arc name, boundary, split verdict
+
+- **Preferred working name (PROVISIONAL — not canonized):** **Governed External Engagement & Relationship Continuity.** Covers public presence · acquisition · referral · re-engagement · partner participation · agent-mediated discovery · outbound exposure · relationship transitions. **[C]**
+- **Rejected/weaker:** "Governed Public-to-Relationship Continuity" (too linear, too DTC — excludes private referrals, employer/payer/sponsor demand, agency/partner relationships, reactivation/win-back, known-contact engagement, B2B, agent-mediated discovery not starting on a public surface, and interactions that never become relationships); "Governed Demand Continuity" (payload-flavored, `GRD-026` risk); "Permeability/boundary composition" (over-abstract; permeability is an existing axis).
+- **Membrane** = a **useful candidate framing**, NOT a proved finding.
+- **Track A** = external engagement + relationship continuity (this arc), holding **two connected lanes — not collapsed:** **Lane 1** public-presence truth/publication/release; **Lane 2** telemetry/exposure/tracking-egress governance.
+- **Track B** = **Operator Economics — SPLIT (candidate), its own Gate 0 (OWED).**
+- **Product/surface work (not an architecture arc):** Influencer Operations / Growth Relationship Operations = a product acceptance fixture / WI8 GTM surface.
+- **Do not create a fourth universal loop.**
+
+## §B7 — Decision G: Task D composite fixture (hardened)
+
+**Fixture:** *Influencer-who-is-also-a-patient — governed external-engagement → relationship → economic-consequence trace.* One `person`, two parallel scoped relationships on one reusable identity: (R1) care relationship; (R2) growth/affiliate relationship under a scoped agreement (compensation = cash · products · treatment · discounts · commissions). The person may act directly or **via an agent** (delegation-proof required).
+
+**Trace:** approved vs inaccurate/unapproved claims + disclosure issues (config/release claim-validation + care-neutral fee firewall) · external-platform reported impressions/clicks/conversions (classified-before-count) · OMNI-observed visits/contact/bookings/occurrences/orders/payments/refunds/retention (domain truth) · complications: identity association changes · consent changes · agent acts for the influencer · attribution-vs-causal disagreement · compensation dispute · a prior payout basis may still be contractually valid · no care-context leakage.
+
+**Must test (all 11 dimensions):** truth vs claim · identity vs relationship · permission vs linkage · attribution vs causation · adopted-basis vs economic-commitment · configuration vs runtime · incentive lineage · agent delegation · external uncertainty · care-neutrality · correction & dispute.
+
+**Hardening (two required):**
+- **Treatment-as-consideration:** may be tested as commercial consideration **only while preserving** independent clinical eligibility · independent treatment judgment · no obligation to provide inappropriate care · no compensation-based clinical authority · fair-value + disclosure questions · **separate commercial and care records** · the right to refuse care or content independently. The architecture must **forbid** "post this content and you receive this clinical treatment" from overriding clinical + rights authority.
+- **Patient self-disclosure ≠ OMNI disclosure:** OMNI may not use or disclose care data through the growth relationship without separate valid authority; the individual may independently self-disclose, but **OMNI must not treat that self-disclosure as permission to expose additional care context.**
+
+**Task D owns comparative superiority / incumbent-composition; Gate 0B issues NO moat verdict.**
+
+## §B8 — Inherited constraints (carried, authority-classified)
+
+- **Anti-collapse working law [B]** (pressure-tested): `attention ≠ identity ≠ permission ≠ relationship ≠ exposure ≠ attribution ≠ causation ≠ adopted-basis ≠ authority ≠ economic-commitment` holds; recommended added distinctions — (i) signal sub-splits: anonymous interaction ≠ observed first-party event ≠ externally-reported claim; (ii) attribution sub-splits: contractual ≠ analytic; (iii) identity ≠ identity-match-confidence; plus observed ≠ inferred.
+- **Care neutrality [G]:** OMNI may optimize channel/creative/timing/spend/offer-presentation/routing; may never lower care/evidence/consent/rights/access/safety floors, hide null outcomes, use profitability as an undisclosed access criterion, select for low-care-burden/high-adherence/low-complaint/"retainable" patients, or bias clinical recommendations toward margin. Retainability may be an operator metric, never an admission criterion.
+- **Care is not the universal terminal [G]:** demand/engagement may terminate in anonymous interaction · no action · opt-out · known contact without care · referral · partner relationship · retail/non-care commerce · patient relationship · honest no-offer · unresolved external state. Demand does not own care outcomes.
+- **Identity implementation sequencing [B]:** the current email-only resolver (C12) is unsafe; safety is upstream of implementing/activating/relying-on grant uplift, but **NOT** upstream of Gate 0B architecture design. Do not attach pre-identity grants via the current resolver.
+
+## §B9 — Updated open-question & falsifier register
+
+**Decisive unresolved:** causal-assessment home/standards owner; COGS/acquisition-cost owner + whether OMNI must ever *be* the books; external-reported-claim custody owner; public-web-telemetry owner vs intake-acquisition context; operative-commercial-terms owner; growth-counterparty composition-only vs dedicated lifecycle; campaign-engine packaging (REV-170↔REV-149); health-interest-inference carrier/owner.
+**Evidence that would change the architecture:** a real case requiring (a) a single cross-domain causal engine, (b) OMNI as accounting system-of-record, (c) one universal telemetry owner, or (d) a growth-relationship lifecycle composition cannot cover.
+**Missing sources (owed):** `specs/universal_modules_v1.md` (full); website audit `§1` operator read (blank in source); P35 owner determination; C3.5 P22 owner decisions (REV-188 open); C4.5 Phase-2 six-source verification (governs the temporal lens' promotion).
+**Implementation proofs still required:** two-gate enforcement; safe resolver (C12 replacement) before any pre-identity-grant uplift; attribution/campaign/telemetry/COGS/AP/delegated-authority build; consent-type enum completion (C13).
+
+## §B10 — Routing summary (Gate 0B)
+
+- **Governing contracts (consult):** Identity/§A · RBAC §7 · Federation §5 · D7 §5 · CNS §9.2/§9.3 · D6 §4/§10/§12 · BIZOPS · Settings · Messaging §6 · OFC · Accountability capture · Platform Loop capture.
+- **Projections/surfaces:** `marketing_attribution` · `operating_metrics` (REV-174) · public/content surface (REV-175) · `D0THES-DEC-033`.
+- **Candidates → spine-watch / C5:** causal-assessment method-family · computed egress sensitivity/admissibility model + decision/receipt fields · health-interest-inference semantic · growth-counterparty composition · procurement/AP/acquisition-cost record (Track B) · P35 external-capability owner.
+- **Open reviews touched:** REV-149/REV-170 (campaign engine) · REV-174 (Operating Intelligence) · REV-175 (surface plane) · REV-188 (P22 owners) · REV-204 (accounting/AP) · REV-159 (insurance/HSA-FSA, D6-deferred).
+- **Temporal:** C4.5 (candidate lens; Phase-2 verification pending) · REV-184 · C4.3.
+- **Task D:** influencer-is-patient composite fixture (§B7).
+- **Track B:** Operator Economics — Gate 0 OWED.
+
+## §B11 — Gate 0B stop report
+
+- **Consumed C4.5, not promoted** — temporal meanings applied as candidate lens (§B-KNOX-2); no temporal axis/Time-domain/schema/as-of-service promoted.
+- **Nothing minted** — no domain, primitive, canonical object, prose-minted exposure object; **arc name NOT canonized** (provisional).
+- **No contract / schema / code / surface / projection edit.** C12/C13 **not fixed** (routed).
+- **No Reactor promotion. No Task-D moat verdict.**
+- **Landing scope (this transaction):** appended this Gate 0B section + updated status on THIS artifact; updated the catalog row + read-graph route #9j for this arc. **No other artifact changed.** **Gate #15 and the governing checkpoint UNCHANGED.** No merge; committed to `analysis/demand-engagement-gate0-recovery` only.
+- **Category discipline held** — B/C not elevated to A by wording (the withdrawn accounting "law" and the withdrawn arc name evidence this).
+- **Track A Gate 1 NOT started; Operator Economics Track B Gate 0 OWED.** Opus remains the accountable lead for the arc.
