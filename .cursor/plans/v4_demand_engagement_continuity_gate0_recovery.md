@@ -1,22 +1,22 @@
-# v4 — Governed Demand / Engagement Continuity — Gate 0A Estate Recovery
+# v4 — Governed External Engagement & Relationship Continuity (PROVISIONAL) — Gate 0A/0B Recovery + Target-Shape Checkpoint
 
 Document type: `architecture_reconciliation` (pre-spine recovery workbench; append-only Gate-0A / Gate-0B checkpoint sections)
 Authority: `analysis_nonbinding` (`GRD-036` — capture broad, promotion gated). Recovers + reconciles what already exists; mints nothing.
 Status: `gate_0a_accepted · gate_0b_accepted · track_a_gate_1_not_started · operator_economics_track_b_gate_0_owed · analysis_nonbinding · not_promoted` (Nick + Knox accepted Gate 0A + Gate 0A.1 + Gate 0B, 2026-07-22; working name **Governed External Engagement & Relationship Continuity** remains provisional — see §B0)
 Domain(s): architecture_governance, identity, consent, commerce, cross_cutting
-Lifecycle role: recovery + contradiction map for the demand/engagement/public-presence/lead-consent estate, feeding Gate 0B → (later) the v4 spine
-Source-of-truth relationship: NOT a source of truth. Points at the governing owners (Identity/D7/RBAC/CNS/D6/Settings/Messaging/projections) and the historical May-2026 marketing design; binds nothing.
+Lifecycle role: recovery + contradiction map (Gate 0A) + accepted target-shape checkpoint (Gate 0B) for the external-engagement/public-presence/relationship-continuity/lead-consent estate. **Gate 0A + 0B COMPLETE; Track A Gate 1 NOT started; Operator Economics Track B Gate 0 OWED.** Feeds Track A Gate 1, Task D, and (later) the v4 spine.
+Source-of-truth relationship: NOT a source of truth. Points at the governing/contributing owners (Identity · Intake · D7 · RBAC/Boundary-Policy · CNS · D6 · Settings · Messaging · Federation · Platform · Accountability · Operating Intelligence/projections/surfaces) plus the UNRESOLVED owners this arc surfaces (public-telemetry custody · external-reported-claim custody · operative-commercial-terms · causal-assessment home · Operator Economics Track B owners) and the historical May-2026 marketing design; binds nothing.
 Supersedes: none (new artifact 2026-07-19)
 Superseded by: none
 Manifest action: `add_tier2`
 agent_read_rule: `consult_if_routed`
 Review gate: `user_knox_required`
 Catalog row: landed in `01_master_corpus_catalog.md` (this pass).
-Read-graph evaluation: consult-route under the demand/engagement recovery arc; **route-number landing owed at Gate-0A review acceptance** (do not wire a numbered route before the arc's shape/name is accepted — avoids `D0PRESS-GRD-001` graveyarding + premature naming).
+Read-graph evaluation: consult-route **landed as #9l** (renumbered from the transient #9j collision — #9j = C4.4, #9k = C4.5, #9l = this arc) at Gate-0B acceptance.
 
-> **Working label only.** "Governed Demand / Engagement Continuity" is a placeholder. Gate 0B returns the arc-name + arc-split verdict. It is NOT candidate doctrine, NOT a plane/loop/domain. `GRD-026` (payload ≠ domain) is in force: "marketing" is not a domain.
+> **Working label PROVISIONAL.** The arc name is **"Governed External Engagement & Relationship Continuity"** (Gate 0B verdict, §B6); the older **"Governed Demand / Engagement Continuity"** label is HISTORICAL. Still provisional pending final Nick+Knox canonization; NOT candidate doctrine, NOT a plane/loop/domain. `GRD-026` (payload ≠ domain) is in force: "marketing" is not a domain.
 
-> **Scope of THIS document = Gate 0A only** (authority/inheritance/identity/permission). Attribution, causation, tracking-egress, operator-economics determination, config/runtime split, agent-mediated counterparties, and the arc-name/split verdict are **Gate 0B — defined at §7, NOT executed here.**
+> **Scope of THIS document = Gate 0A (§§0–A.11 derivation) + the accepted Gate 0B target-shape checkpoint (§B).** Attribution, causation, tracking-egress, Operator Economics determination, config/runtime split, agent-mediated counterparties, and the arc-name/split verdict were **defined at §7 (Gate 0A) and are RESOLVED in §B (Gate 0B accepted 2026-07-22).**
 
 ---
 
@@ -134,11 +134,13 @@ Reusable laws (C4.3 + REV-184), and **when they apply to identity/consent**:
 
 ---
 
-## §7 — Stop report + Gate 0B scope (defined, NOT executed)
+## §7 — Historical Gate 0A stop report + Gate 0B scope (as scoped 2026-07-19; Gate 0B now RESOLVED in §B)
 
-**Gate 0A stop posture:** nothing minted; no domain declared; no object/primitive/schema created; no contract/surface/projection/AGENTS/read-graph-#15/Care artifact edited; **no arc name decided**; no operator-economics owner decided; no causal-analysis owner decided; no superiority verdict; no EVRUN opened; Reactor untouched. Membrane + agent-mediated-demand-discovery held as **hypotheses**. "Care" is **not** installed as the universal terminal (Gate 0B models a governed **handoff** into independently-owned Care; external engagement has plural legitimate terminals).
+> **Historical section.** The following recorded the Gate 0A stop and the *then-planned* Gate 0B scope at time of capture. Gate 0B has since been executed and accepted (§B, 2026-07-22); read the items below as derivation, not current open scope.
 
-**Row-first status:** artifact created with full passport (this file); **catalog row landed** in `01_master_corpus_catalog.md`; **read-graph route evaluated → landing owed at Gate-0A review acceptance** (deliberately not wired pre-acceptance).
+**Historical Gate 0A stop posture (at time of capture, 2026-07-19):** nothing minted; no domain declared; no object/primitive/schema created; no contract/surface/projection/AGENTS/read-graph-#15/Care artifact edited; **no arc name decided** *(later resolved provisionally in §B6)*; no operator-economics owner decided *(later split to Track B in §B3)*; no causal-analysis owner decided *(later dispositioned Alt 1+3 in §B2)*; no superiority verdict; no EVRUN opened; Reactor untouched. Membrane + agent-mediated-demand-discovery held as **hypotheses**. "Care" is **not** installed as the universal terminal (Gate 0B models a governed **handoff** into independently-owned Care; external engagement has plural legitimate terminals).
+
+**Historical row-first status (at time of capture):** artifact created with full passport (this file); catalog row landed in `01_master_corpus_catalog.md`; read-graph route was evaluated but not yet wired (landing was deferred to acceptance). *(Current state: route landed as #9l at Gate-0B acceptance — see the top-level passport.)*
 
 **Gate 0B scope (after Gate 0A survives Nick + Knox review):** (1) epistemic chain — observed fact / external claim / **attribution (3A) + causal-incrementality (3B) as siblings** / adopted commercial basis / committed consequence / later learning; test causal-assessment placement across the **3 alternatives** (shared method-family / shared eval capability with distinct records / fully domain-owned sharing standards) — **do not assume a universal causal engine**; (2) tracking-egress classification (computed sensitivity, **not** categorical-PHI-by-URL); (3) operator-economics scope determination (C6; scope verdict, **not** a domain name); (4) config-release vs CNS-runtime split (locked for analysis); (5) agent-mediated counterparties **and** agent-mediated demand discovery (bounded stress axis; dedup vs P35/Federation/Agent-Runtime); (6) arc-name + arc-split verdict; (7) one Task-D composite fixture (no parallel moat verdict).
 
@@ -146,7 +148,7 @@ Reusable laws (C4.3 + REV-184), and **when they apply to identity/consent**:
 
 # Gate 0A.1 — Verified amendment (2026-07-19)
 
-**Status:** `gate_0a1_accepted · operative_checkpoint · not_promoted` (Nick + Knox accepted 2026-07-22; Gate 0A above preserved as derivation; Gate 0B not started). No-write verification pass authorized by Knox; corrections integrated after direct code verification by the lead. **This amendment SUPERSEDES the affected Gate-0A findings named below; Gate 0A above is preserved UNCHANGED as derivation.** Still local/uncommitted; no branch/commit/catalog/route/Gate-0B action.
+**Historical Gate 0A.1 status at time of capture:** `gate_0a1_accepted · operative_checkpoint · not_promoted` (Nick + Knox accepted 2026-07-22; Gate 0A above preserved as derivation). No-write verification pass authorized by Knox; corrections integrated after direct code verification by the lead. **This amendment SUPERSEDES the affected Gate-0A findings named below; Gate 0A above is preserved UNCHANGED as derivation.** *(At capture the amendment was local/uncommitted with Gate 0B not yet run; it has since been committed and Gate 0B executed + accepted — see the top-level passport and §B for current state.)*
 
 **Method note:** load-bearing implementation claims below were verified by the lead against live code (`lib/patients/resolvePatient.ts`, `app/api/forms/[formKey]/route.ts`, `lib/consents/types.ts`, `lib/consents/catalog.ts`, `supabase/migrations/20260504120000_intake_foundation_v1.sql`), not inferred from folder presence. Source-posture category "read fully via helpers" is retired.
 
@@ -268,7 +270,7 @@ Retain the five concerns (procure-to-pay · expense/COGS attribution · cash/set
 ## §A.11 — Net verified state (lead synthesis, flagged for Knox)
 The demand-continuity foundation resolves to a **triad**: **(1) carrier exists** (session-bound pre-identity `patient_consents` + `intake_sessions` scaffolding, partially built) · **(2) uplift lifecycle missing** (session-grant → person → relationship without copy/union/broaden/orphan/silent-reinterpret) · **(3) current resolver implementation is unsafe** (C12 email-overwrite). **Corrected sequencing (do not over-block):** identity-resolution safety is upstream of **implementing, activating, or operationally relying on** grant uplift — it is **NOT** a prerequisite for continuing **Gate 0B architecture analysis.** Gate 0B may design the target seam and expose the required resolver replacement; but **no implementation may attach pre-identity grants to resolved people/relationships through the current email-only resolver**, and production may not activate uplift until the resolver is replaced or bypassed. (Route like a G4 finding; not built pre-spine.)
 
-**Gate 0A.1 stop:** nothing minted; no contract/code/schema/surface/doctrine edit; identity/consent bugs NOT fixed (routed only); no AGENTS/checkpoint change; no branch/commit/catalog/route; no Gate 0B; no naming/owner verdict. Awaiting Knox review of this amendment before any repository landing.
+**Historical Gate 0A.1 stop at time of capture:** nothing minted; no contract/code/schema/surface/doctrine edit; identity/consent bugs NOT fixed (routed only); no AGENTS/checkpoint change; no naming/owner verdict issued in this amendment. *(This stop described the state before landing; the amendment was subsequently reviewed, committed, and Gate 0B run — see §B for current state.)*
 
 ---
 
@@ -285,7 +287,7 @@ The demand-continuity foundation resolves to a **triad**: **(1) carrier exists**
 1. **Sense + Act = the operating-model *pattern*, not a "primitive."** The two governed loops (Sense + Act) + authority gates are the operating-model pattern (thesis §8); Care · Platform · Accountability are domain-level specializations of the one recursive governed loop (WI15). "Loop" is used at two levels and the lists are not interchangeable.
 2. **C4.5 temporal meanings are applicable *candidate* meanings, not governing.** The temporally-qualified chain (§B1) uses T-01…T-22 as a candidate lens pending C4.5's own Phase-2 verification + admission verdict.
 3. **D6 remains commerce-scoped.** External-counterparty **payable / disbursement / settlement** is a **Track B question**, not a D6-owned fact by default. D6 owns the commercial slice (revenue facts, `attribution_line`, promo/discount, and commission *amount* for workforce/staff sales).
-4. **D7 contributes only where the authority is represented by a D7-owned consent, authorization, acknowledgment, or signed artifact.** D7 does **not** own operative commercial terms, obligations, deliverables, or payment meaning.
+4. **D7 contributes only where the authority is represented by a D7-owned consent, authorization, acknowledgment, or signed artifact; not every processing basis is a D7 record.** D7 does **not** own operative commercial terms, obligations, deliverables, or payment meaning.
 5. **Accountability owns response / remedy / communication / verified closure *after breach* — never the original commercial deliverable or obligation.**
 
 ## §B0 — Corrected whole-OMNI framing (for this record)
@@ -294,6 +296,28 @@ The demand-continuity foundation resolves to a **triad**: **(1) carrier exists**
 - **[C]** Three captured coupled loops (Care · Platform · Accountability), each internally running sense→resolve/gate→act→prove over its own native lifecycle family; coupled by typed links + Polaris seams; **no shared executive** (`GRD-029`).
 - **[I]** This arc is a **cross-cutting reality probe** threading Sense-ingress + §C governed exchange + the loops — **not a fourth loop, not a new center.**
 - **[C]** Every stage below is **temporally qualified** (C4.5 T-01, candidate): `occurred ≠ observed ≠ reported ≠ received ≠ recorded ≠ effective ≠ adopted ≠ authorized ≠ executed ≠ settled ≠ outcome`; later recording ≠ later occurrence (T-02); applies across care + commerce + workforce + operator-config + platform-release, not the clinical chart only.
+
+## §B-SOURCE — Gate 0B source posture (restored)
+
+Compact provenance for the Gate 0B reasoning (not a chat transcript). Categories are honest about depth.
+
+- **Read directly in full by lead:** this artifact's Gate 0A/0A.1 body; `v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md` (C4.5 Gate-0 charter, T-01…T-22); `KNOX_controlling_plan_v4_spine_2026-07-18.md`; `omni_thesis_v3_integrated_spine.md`; `OMNI_System_Map_vNext.md`; `v4_C4_governed_reporting_resolution_capture.md` (Accountability Loop); `v4_C4_platform_loop_capture.md` (Platform Loop); `EVRUN-2026-000012_07_final_closeout_depth_preservation_and_downstream_consumption.md`; `EVRUN-2026-000012_02_gate3_full_spectrum_synthesis.md` §15; `AGENTS.md`; `04_manifest_read_graph.md`.
+- **Helper-read + lead-verified:** live implementation for C12/C13 verified by the lead against code — `lib/patients/resolvePatient.ts`, `app/api/forms/[formKey]/route.ts`, `lib/consents/types.ts`, `lib/consents/catalog.ts`, `supabase/migrations/20260504120000_intake_foundation_v1.sql` (folder-presence inference retired, per Gate 0A.1 method note).
+- **Read in relevant part (targeted, not full):** `v4_C4_care_operating_model_capture.md` (definition/physics/constitutional laws, ~first 170 lines — file exceeds single-read limit); `v4_C4_spine_watch_list.md` (WI index + WI5/WI8/WI9/WI13/WI14/WI15/WI16/WI17).
+- **Consulted (sections for ownership boundaries):** `01_master_corpus_catalog.md` (arc + related rows); current checkpoint handoff `HANDOFF_2026-07-19_taskd_interim_checkpointed_evrun12_active.md`; contract sections for D6, D7, RBAC, CNS, Federation, Settings, Messaging, OFC; Surface/Projection maps (`marketing_attribution`, `operating_metrics`, REV-174/175).
+- **Searched / located only (not full read):** `specs/universal_modules_v1.md` (owed); P35 references; open-review rows REV-149/REV-170/REV-184/REV-188/REV-204/REV-159.
+- **Not inspected (owed):** website audit `§1` operator read (blank in source); C4.5 Phase-2 six-source micro-pass materials (`EVSRC-2026-000122/124/165/182/184/185`); full `universal_modules_v1` spec.
+- **Branch / ref + live-repository verification:** worked on `analysis/demand-engagement-gate0-recovery`; Gate 0A working ref `afa8686`, Gate 0A content commit `bdf209c`, Gate 0B landing `bb2a584`. Compared against the then default-branch HEAD `evidence/evrun-000012-care-commerce-hardening` (`4eb4b6a`), which was an **ancestor** of the analysis-branch base; files read from the working tree. **No merge/rebase; Gate #15 + governing checkpoint UNCHANGED.**
+
+## §B-ALT — Alternatives considered + dedup receipts (Decisions A–E)
+
+| Decision | Alternatives considered | Leading disposition | Rejected / deferred (why) | Deduped against (existing architecture) | Remaining owner/ontology question |
+|---|---|---|---|---|---|
+| **A — causal placement** (§B1) | Alt 1 shared method-family/standards; Alt 2 shared evaluation capability w/ distinct records (a causal engine/service); Alt 3 fully domain-owned assessments+sharing standards | **Alt 1+3 hybrid** — shared methods/standards, domain-owned records/claims; **no universal causal engine** | Alt 2 universal engine **deferred** (revives only if a real cross-domain counterfactual needs one model — §B1 falsifier a); "single truth ladder" **rejected** (attribution ≠ causation are siblings) | Care Prove/Learn §7 · Accountability consequence-assessment §6a · Operating Intelligence REV-174 · REV-184 · C4.3 · C4.5 (adjacent semantics; none is a located canonical owner) | causal-assessment **home/standards owner** (no canonical owner located in bounded set) |
+| **B — tracking egress** (§B3) | Alt unified universal telemetry/exposure **layer**; Alt seam-connected separately-owned records + **computed sensitivity/admissibility gate**; Alt adjacent (fold into Intake + surface plane + RBAC, no new object) | **Seam-connected computed sensitivity/admissibility gate** composing inputs; **no new prose-minted exposure object**; **no Polaris ownership** | Unified universal layer **rejected** (an org choice, not an architectural need — §B3 falsifier); categorical-PHI-by-URL **rejected**; "opaque cohort ID = never PHI" **too categorical** | D7 consent · RBAC/Boundary-Policy (the gate) · Identity (identifiability) · Settings (UTM/pixel defs) · surface plane REV-175 · Intake `intake_sessions` · C4.5 §5 exposure-publication | telemetry/event **custody owner**; health-interest-inference carrier/owner |
+| **C — Operator Economics** (§B2) | D6-extend; BIZOPS-extend; **new procurement/AP family**; OMNI-owned-over-external-ledger; **hybrid 3-layer** (operational truth OMNI / accounting open / statutory external) | **Candidate Track B split**, hybrid 3-layer, **its own Gate 0 (OWED)**: own operational economic truth deeply + reconstruct for the books | Absolute "OMNI must never own GL/close" **withdrawn** (too premature); single `acquisition_cost` fact **rejected** (7 cost states); a domain **name** deliberately not chosen (`GRD-026`) | D6 scope exclusions · BIZOPS workforce-payout-only · EVRUN-000012 Gate-2 census · REV-204 · late-builder Row A · REV-159 (HSA/FSA deferred) | COGS/AP/acquisition-cost owner; whether OMNI ever **is** the books; external-counterparty payable owner |
+| **D — config vs runtime** (§B4) | Collapsed (one "marketing brain" = release + runtime executive); **separated** (config/release = Platform Loop; live = CNS) + certified variation envelope | **Separated + certified variation envelope**; new claim/audience/offer/disclosure/tracking-payload/clinical-implication **exits envelope → Platform re-validation** | Collapsed marketing brain **rejected** (`GRD-029` god-object); "real-time optimization proves inseparable" **rejected** | Platform Loop capture (E&V→Release→Runtime) · CNS §9.2/§9.3 · Settings · Messaging §6 · D7 §5 · RBAC §7 · D6 · Surface/Projection maps · REV-149/170 | campaign-engine packaging (REV-170 ↔ REV-149) |
+| **E — counterparty** (§B5) | **Composition** of existing primitives; **dedicated growth/counterparty lifecycle**; **marketplace / partner-domain / influencer-user-type / universal-counterparty-object** | **Composition-first** (WI9 agent-native-edge default): identity + role(s) + scoped agreement + incentive-lineage + delegated_authority_envelope + capability_contract + P35 + D6 commission(amount) + Accountability-after-breach | Marketplace/partner-domain/user-type/universal object **rejected/not authorized**; dedicated lifecycle **deferred** to Task-D pressure (composition failure does not auto-prove it — §B5 falsifier) | P35 · Federation `capability_contract` · Agent-Runtime/WI9 · D6 commission · **D7 artifact only** · Accountability (post-breach) · OFC (excludes marketing nudges) | operative-commercial-terms owner; composition-only vs dedicated lifecycle |
 
 ## §B1 — Decision A: Epistemic & commercial consequence chain (temporally qualified)
 
@@ -305,7 +329,7 @@ The demand-continuity foundation resolves to a **triad**: **(1) carrier exists**
 |---|---|---|
 | 1a booking | **D3** fact | occurred · observed · recorded |
 | 1b service occurrence | **D5** fact | occurred · observed · recorded |
-| 1c sale / payment / refund | **D6** fact | occurred · authorized · settled · recorded |
+| 1c sale / payment / refund | **D6** owns the commerce/order/payment **meaning + reconciled state**; the **external payment rail is the authority for actual fund movement / settlement evidence** (D6 records + reconciles, the rail moves the money) | occurred · authorized · executed(rail) · settled · reconciled · recorded |
 | 1d intake / session event | **Intake** fact | occurred · observed · recorded |
 | 1e contact / identity claim | **Identity / Intake** per actual stage | observed · recorded |
 | 1f public visit / click / device interaction | **owner UNRESOLVED** (telemetry custody open) | observed · recorded |
@@ -362,7 +386,7 @@ The demand-continuity foundation resolves to a **triad**: **(1) carrier exists**
 
 **Corrected ownership (§B-KNOX-4/5):**
 - **D7 owns the signed agreement *artifact* + signature evidence + legal/audit consent records — NOT the operative agreement.** Operative commercial relationship (obligations · compensation · rights · deliverables · termination · dispute) needs an **operative owner — UNRESOLVED** (candidates: a growth/counterparty relationship · a commercial work-order family · Operator-Economics/procure-to-pay).
-- **OFC does NOT automatically own influencer/marketing deliverables** (it excludes marketing/engagement nudges → CNS/campaign, REV-149/170). A promised post/video/usage-right/campaign deliverable may belong to the growth relationship · Operator-Economics/procure-to-pay · a commercial work-order family · Accountability (after breach) · or an unresolved composition.
+- **OFC does NOT automatically own influencer/marketing deliverables** (it excludes marketing/engagement nudges → CNS/campaign, REV-149/170). A promised post/video/usage-right/campaign deliverable may belong to the growth relationship · Operator-Economics/procure-to-pay · a commercial work-order family · or an unresolved composition. **Accountability is NOT in this list** — it never owns the original promised deliverable/obligation; only **breach consequences** (non-delivery, misuse, off-label claim, dispute) enter Accountability *after* breach (§B-KNOX-5).
 - **D6 / BIZOPS do NOT automatically settle external-partner compensation** — a Track B question.
 - **Accountability owns response/remedy/communication/verified closure after breach — never the original deliverable/obligation** (§B-KNOX-5).
 - **Task D pressures but does NOT decide whether a carrier/lifecycle is needed** — the ontology decision is made via bounded architecture scenarios + falsifiers + C5 routing + Nick/Knox disposition.
@@ -383,7 +407,7 @@ The demand-continuity foundation resolves to a **triad**: **(1) carrier exists**
 
 **Fixture:** *Influencer-who-is-also-a-patient — governed external-engagement → relationship → economic-consequence trace.* One `person`, two parallel scoped relationships on one reusable identity: (R1) care relationship; (R2) growth/affiliate relationship under a scoped agreement (compensation = cash · products · treatment · discounts · commissions). The person may act directly or **via an agent** (delegation-proof required).
 
-**Trace:** approved vs inaccurate/unapproved claims + disclosure issues (config/release claim-validation + care-neutral fee firewall) · external-platform reported impressions/clicks/conversions (classified-before-count) · OMNI-observed visits/contact/bookings/occurrences/orders/payments/refunds/retention (domain truth) · complications: identity association changes · consent changes · agent acts for the influencer · attribution-vs-causal disagreement · compensation dispute · a prior payout basis may still be contractually valid · no care-context leakage.
+**Trace:** approved vs inaccurate/unapproved claims + disclosure issues (config/release claim-validation + care-neutral fee firewall) · external-platform reported impressions/clicks/conversions (classified-before-count) · **OMNI-observed public visits/clicks/device interactions (telemetry — custody owner UNRESOLVED per the §B1 matrix, NOT asserted domain truth)** · contact/bookings/occurrences/orders/payments/refunds/retention (**domain truth**, owned by Identity/Intake/D3/D5/D6 per stage) · complications: identity association changes · consent changes · agent acts for the influencer · attribution-vs-causal disagreement · compensation dispute · a prior payout basis may still be contractually valid · no care-context leakage.
 
 **Must test (all 11 dimensions):** truth vs claim · identity vs relationship · permission vs linkage · attribution vs causation · adopted-basis vs economic-commitment · configuration vs runtime · incentive lineage · agent delegation · external uncertainty · care-neutrality · correction & dispute.
 
@@ -423,6 +447,6 @@ The demand-continuity foundation resolves to a **triad**: **(1) carrier exists**
 - **Nothing minted** — no domain, primitive, canonical object, prose-minted exposure object; **arc name NOT canonized** (provisional).
 - **No contract / schema / code / surface / projection edit.** C12/C13 **not fixed** (routed).
 - **No Reactor promotion. No Task-D moat verdict.**
-- **Landing scope (this transaction):** appended this Gate 0B section + updated status on THIS artifact; updated the catalog row + read-graph route #9j for this arc. **No other artifact changed.** **Gate #15 and the governing checkpoint UNCHANGED.** No merge; committed to `analysis/demand-engagement-gate0-recovery` only.
+- **Landing scope (Gate 0B + this durable-carrier cleanup):** appended the Gate 0B section + updated status/passport on THIS artifact; updated the catalog row + read-graph route (**renumbered #9j → #9l**; #9j = C4.4, #9k = C4.5) for this arc. **No other artifact changed.** **Gate #15 and the governing checkpoint UNCHANGED.** No merge; committed to `analysis/demand-engagement-gate0-recovery` only.
 - **Category discipline held** — B/C not elevated to A by wording (the withdrawn accounting "law" and the withdrawn arc name evidence this).
 - **Track A Gate 1 NOT started; Operator Economics Track B Gate 0 OWED.** Opus remains the accountable lead for the arc.
