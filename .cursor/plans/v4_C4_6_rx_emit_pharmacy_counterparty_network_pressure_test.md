@@ -2,7 +2,7 @@
 
 Document type: `architecture_pressure_test` (bounded, propose-only evidence + architecture pressure test — a **charter + Gate-0 receipt**, not a spine, not a contract, not a synthesis substitute).
 Authority: `analysis_nonbinding` (`GRD-036` — capture broad, promotion gated). **Binds nothing. Promotes nothing. Pre-spine / pre-v4.**
-Status: `gate_0_accepted_with_amendments · knox_ruling_integrated_2026-07-22 · not_promoted` (Knox Gate-0 ruling ACCEPT-WITH-AMENDMENTS; all 9 patches integrated — see §10).
+Status: `gate_0_accepted_with_amendments · G1_CLOSED_2026-07-22 · G2_frozen_pending_fresh_agent · not_promoted` (Knox Gate-0 ACCEPT-WITH-AMENDMENTS, all 9 patches integrated §10; G1 lineage/open-question closure RUN+CLOSED §11; next = G2 by a fresh agent).
 Owner: Opus (repository-native) · Reviewers: Nick (operator) + Knox (independent) · optional Gemini legs by exception.
 Branch: authored on `evidence/evrun-000012-care-commerce-hardening`; committed with its full §5 ceremony (charter + catalog row + read-graph #9m) and fast-forward-merged to `main` per the Gate-0 sequence ruling. **Durability (precise):** a governed working packet becomes durable committed repository state only when the three artifacts land together — done this pass.
 Manifest action: `add_tier2` · Review gate: `user_knox_required` · Read-graph evaluation: **new route #9m added same-pass** (Protocol §5).
@@ -187,7 +187,7 @@ Gate-0 (this charter) is authored. Downstream gates are **defined, not executed*
 > **Sequence ruling (Knox Gate-0):** patch + commit the 3-artifact ceremony → merge `evidence/evrun-000012-care-commerce-hardening` to `main` → verify committed `main` bytes → **run G1 FIRST** (bounded lineage/open-question closure, not a new synthesis) → **freeze the G2 question set** → run **G2 with a FRESH Opus agent + a separate blind-Gemini leg** → stop at the G2 review gate. No gate auto-starts.
 
 - **G0 · Charter + source/state receipt** — THIS FILE. *State: ACCEPTED WITH AMENDMENTS (Knox Gate-0 ruling, 2026-07-22); amendments integrated §3.1/§4.1/§4.2/§5/§5.1/§5.2/§10.*
-- **G1 · Corpus lineage + open-question closure (RUN FIRST)** — consolidate the verified lineage (007/008/009/010/012, system-map appendix, gap-register Row F, ledgers) and **close open questions**; **bounded, NOT a new synthesis.** Two hygiene obligations: (a) **fix the contradictory EVRUN-000012 catalog row** ("Gates 0–7 CLOSED" vs "Gates 2–7 pending" — carrier says all closed); (b) verify the post-merge `main` boot path. **Output = a FROZEN matrix** `Claim × Current-status × Governing/deepest-source × What-G2-must-test` (seed rows: pharmacy-is-not-a-domain=strong-hypothesis→incumbent-counterexample · counterparty-offer-missing=unresolved-candidate→external-mechanism+canonical-split · A2A-envelope=candidate→agent/protocol-reality · external-acceptance=unproven→partner+standards-behavior · multi-pharmacy-economic-network=strategic-hypothesis→market/legal/incentive-feasibility). Freeze it — it becomes the falsifiable question set handed to the blind architect.
+- **G1 · Corpus lineage + open-question closure — ✅ RUN + CLOSED 2026-07-22 (see §11; frozen matrix §11.1).** consolidate the verified lineage (007/008/009/010/012, system-map appendix, gap-register Row F, ledgers) and **close open questions**; **bounded, NOT a new synthesis.** Two hygiene obligations: (a) **fix the contradictory EVRUN-000012 catalog row** ("Gates 0–7 CLOSED" vs "Gates 2–7 pending" — carrier says all closed); (b) verify the post-merge `main` boot path. **Output = a FROZEN matrix** `Claim × Current-status × Governing/deepest-source × What-G2-must-test` (seed rows: pharmacy-is-not-a-domain=strong-hypothesis→incumbent-counterexample · counterparty-offer-missing=unresolved-candidate→external-mechanism+canonical-split · A2A-envelope=candidate→agent/protocol-reality · external-acceptance=unproven→partner+standards-behavior · multi-pharmacy-economic-network=strategic-hypothesis→market/legal/incentive-feasibility). Freeze it — it becomes the falsifiable question set handed to the blind architect.
 - **G2 · 2026 external reality map (cited; FRESH AGENT; versioned)** — 503A/503B, FDA bulks/peptide activity, EPCS/PDMP, NCPDP SCRIPT 2017071→2023011 (CMS transition to 2027-12-31; exclusive 2028-01-01), F&B v60 + RTPB v13 (2027-01-01), Surescripts capabilities, FHIR MedicationRequest/Task/RequestOrchestration/Provenance, Epic Willow (retail/inventory/price/PO/DSCSA), Hims/Ro DTC, compounding-portal API posture, Palantir donor, Boulevard/Mindbody comparators. **No incumbent strawmen — state what each already solves before claiming residual.** Run by a **fresh Opus agent** (different cognitive job: primary-source external reality, not repo-native synthesis) off the frozen G1 matrix + a **separate blind-Gemini leg**. **Version around the FDA meeting:** **G2A** = `as_of 2026-07-22` pre-meeting state + briefing materials (BPC-157, KPV, TB-500, MOTS-C, emideltide/DSIP, Semax, Epitalon); **G2B** = post-meeting outcome + official-record addendum. **FDA PCAC recommendations are advisory/non-binding — preserve as `as_of` truth; a committee vote never becomes timeless OMNI catalog metadata** (ties to C4.5 + §5 point 5).
 - **G3 · Actor / authority / custody / liability / economic map.**
 - **G4 · RX lifecycle + failure-scenario library** (≥24 scenarios; every failure names which layer reopens: sourcing / commercial / operational / clinical / accountability / multiple).
@@ -238,7 +238,7 @@ requires clinicians to leave OMNI for routine pharmacy work · treats transport 
 - **Files changed this pass:** created this charter (+ §10 amendments); appended one catalog row + one read-graph route (#9m); fixed the contradictory EVRUN-000012 catalog row. No contract/schema/spine/Care/AGENTS/#15 change.
 - **Durability posture (Knox Patch 1 — precise):** *this is a governed current **working packet** with its full §5 ceremony staged; it becomes **durable committed repository state** only when the charter + catalog row + read-graph route land together in a commit.* (OMNI's architecture-memory law makes committed preservation materially different from a correct local working tree.) As of this pass: committed on `evidence/evrun-000012-care-commerce-hardening` and merged to `main` per the Gate-0 sequence.
 - **Open conflicts surfaced:** vendor-offer home (`CONFLICT_REQUIRES_DECISION`, now split §4.1); pharmacy-route authority is composed, no universal owner (§5).
-- **Next allowed action (operator-controlled):** **G1 first** (bounded lineage/open-question closure → frozen matrix), then freeze the G2 question set, then G2 by a fresh Opus agent + separate blind-Gemini leg (G2A/G2B versioned around the FDA meeting). Stop at the G2 review gate. No jump to C5/spine.
+- **Next allowed action (operator-controlled):** G1 is **CLOSED** (§11); G2 question set **FROZEN** (§11.1). Next = **G2 by a FRESH Opus agent + separate blind-Gemini leg** (G2A `as_of 2026-07-22` pre-meeting / G2B post-meeting). This agent STOPS at the G2 gate. No jump to C5/spine; Reactor untouched; checkpoint #15 unchanged.
 
 ---
 
@@ -266,6 +266,38 @@ Knox verdict: **ACCEPT WITH REQUIRED AMENDMENTS.** All 9 patches accepted; 5 sha
 - *Open grammar. Operated runtime. Earned acceptance network.*
 
 **Note (Opus):** Knox's own posture records he did **not** inspect the uncommitted catalog/read-graph bytes or the full EVRUN-000012 parent files — so these patches are **frame-level** (correctly so for a Gate-0 frame ruling). Several (Patch 6 admissibility, Patch 3 no-owner) were already partially present in the charter body; the amendments sharpen and make them load-bearing rather than reversing the frame. Nothing in the ruling required reopening the frame.
+
+---
+
+## §11 — G1: corpus lineage + open-question closure (RUN + CLOSED 2026-07-22)
+
+Bounded closure pass (NOT a new synthesis), per Knox sequence. Hygiene discharged: (a) three-artifact ceremony committed (`636147f`); (b) `evidence/evrun-000012-care-commerce-hardening` fast-forward-merged to `main` (clean; `main` == HEAD; charter bytes verified on `main`); (c) contradictory EVRUN-000012 catalog row corrected; (d) boot path intact — checkpoint read-graph #15 (`HANDOFF_2026-07-19`) unchanged, C4.6 remains subordinate.
+
+### §11.1 — FROZEN matrix (the falsifiable question set handed to the blind G2 architect — do not re-litigate below the line)
+
+| # | Claim | Current status | Governing / deepest source (repo-verified) | What G2 must test (external) |
+|---|---|---|---|---|
+| 1 | Pharmacy is **not** a new truth-owning domain | **strong hypothesis** | `ordered_fulfillment_contract` (`fulfillment_order_kind`) + Federation + D6 + Settings + CNS + RBAC (contracts VERIFY coverage) | incumbent counterexample — does any external reality (Willow, Surescripts, NCPDP, compounding portals) force a truth-owner OMNI lacks? |
+| 2 | "Counterparty offer" is a real but **unhomed/over-loaded** object | **unresolved candidate** (`CONFLICT_REQUIRES_DECISION`; split §4.1) | EVRUN-000012 §7.10 Gate-3 candidate | how do real portals/Surescripts/NCPDP represent authority vs capability vs availability vs quote vs **patient-specific acceptance** as separate states? |
+| 3 | A2A delegation envelope (typed, principal-bound) | **candidate_net_new** | EVRUN-012 L13 / Agent Runtime capture | what do pharmacy "autopilot"/portal systems actually expose; does NCPDP SCRIPT + emerging agent protocols cover the typed set (§5)? |
+| 4 | External counterparty acceptance | **unproven** (ladder rung ≥5, §5.1) | EVRUN-000008 (R4 unavailable) | which acceptance rung is realistically reachable in a one-pharmacy pilot; what does the partner actually rely on? |
+| 5 | Multi-pharmacy economic network = admissibility-gated **clearing house**, no scalar "best" | **strategic hypothesis** | C4.6 §5 (+ routing keeper) | market/legal/incentive feasibility across 503A/503B + cash-pay reality; is composed-route-authority operable? |
+| 6 | RX is **not** a generic emit (episode + 8 invariants + keeper laws) | **ESTABLISHED (inherited)** | EVRUN-000007 closeout | ⛔ inherited law — G2 must NOT reopen |
+| 7 | Regulatory status = **as_of** truth, not timeless metadata | **established-by-reconciliation** | C4.5 + Federation Q-DL21-3 | G2 must capture FDA/DEA/503A state AS as_of (G2A pre-/G2B post-meeting), never bake a committee vote into catalog |
+
+### §11.2 — Open-question closure
+
+**CLOSED at G1 (repository-answerable — verified this arc):**
+- Is there an `Rx domain` contract? **No** — referenced as decision-owner, never drafted (gap-register Row F).
+- Does OFC already model prescriptions? **Yes** — `fulfillment_order_kind = rx` (subtype, not a new domain).
+- Is `vendor_offer` homed? **No** — `CONFLICT_REQUIRES_DECISION`; now decomposed (§4.1), homes still open → C5.
+- Is pharmacy hard-coded today? **Yes** — fax `248-934-1307`; `pharmacy_send_rx` schema-only; no `vendor_offer`/routing/`prescriptions` table (build 5–30%).
+- Does "RX not an emit" / the 8 invariants need re-deriving? **No** — inherited CLOSED from EVRUN-000007.
+
+**ROUTED to G2 (external-only; FROZEN — the §11.1 "What G2 must test" column):** all F-A external acceptance/conformance, incumbent capability steelman (Willow/Surescripts/NCPDP/compounding portals/Hims-Ro/Palantir/Boulevard-Mindbody), pharmacy autopilot/agent reality, multi-pharmacy market+legal+incentive feasibility, and FDA 2026-07-23/24 peptide state (as_of).
+
+### §11.3 — G1 verdict
+**G1 CLOSED.** Frame holds; matrix frozen; G2 question set frozen. **Next allowed action = G2 by a FRESH Opus agent + separate blind-Gemini leg (G2A `as_of 2026-07-22` pre-meeting / G2B post-meeting).** This agent STOPS here per the Gate-0 sequence — G2 is a different cognitive job (primary-source external reality, not repo-native synthesis) and must not be run by the agent that authored the frame.
 
 ---
 
