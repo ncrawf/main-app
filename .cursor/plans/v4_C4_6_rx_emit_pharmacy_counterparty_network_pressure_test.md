@@ -2,7 +2,7 @@
 
 Document type: `architecture_pressure_test` (bounded, propose-only evidence + architecture pressure test — a **charter + Gate-0 receipt**, not a spine, not a contract, not a synthesis substitute).
 Authority: `analysis_nonbinding` (`GRD-036` — capture broad, promotion gated). **Binds nothing. Promotes nothing. Pre-spine / pre-v4.**
-Status: `gate_0_accepted_with_amendments · G1_CLOSED_2026-07-22 · G2_frozen_pending_fresh_agent · not_promoted` (Knox Gate-0 ACCEPT-WITH-AMENDMENTS, all 9 patches integrated §10; G1 lineage/open-question closure RUN+CLOSED §11; next = G2 by a fresh agent).
+Status: `gate_0_accepted_with_amendments · G1_CLOSED_2026-07-22 · G2A_authored_2026-07-23_pending_nick_knox_review · G2B_deferred_post_meeting · not_promoted` (Knox Gate-0 ACCEPT-WITH-AMENDMENTS, all 9 patches integrated §10; G1 lineage/open-question closure RUN+CLOSED §11; **G2A RUN by a fresh agent → `v4_C4_6_G2A_external_reality_map_2026-07-22.md` [read-graph #9m-a]; stops at the G2 review gate; G2B awaits the official post-meeting FDA record**).
 Owner: Opus (repository-native) · Reviewers: Nick (operator) + Knox (independent) · optional Gemini legs by exception.
 Branch: authored on `evidence/evrun-000012-care-commerce-hardening`; committed with its full §5 ceremony (charter + catalog row + read-graph #9m) and fast-forward-merged to `main` per the Gate-0 sequence ruling. **Durability (precise):** a governed working packet becomes durable committed repository state only when the three artifacts land together — done this pass.
 Manifest action: `add_tier2` · Review gate: `user_knox_required` · Read-graph evaluation: **new route #9m added same-pass** (Protocol §5).
@@ -308,6 +308,8 @@ Bounded closure pass (NOT a new synthesis), per Knox sequence. Hygiene discharge
 
 ### §11.3 — G1 verdict
 **G1 CLOSED.** Frame holds; matrix frozen; G2 question set frozen. **Next allowed action = G2 by a FRESH Opus agent + separate blind-Gemini leg (G2A `as_of 2026-07-22` pre-meeting / G2B post-meeting).** This agent STOPS here per the Gate-0 sequence — G2 is a different cognitive job (primary-source external reality, not repo-native synthesis) and must not be run by the agent that authored the frame.
+
+> **★ G2A RUN (2026-07-23, fresh agent) — see `v4_C4_6_G2A_external_reality_map_2026-07-22.md` (read-graph #9m-a).** Six primary-source streams pinned `as_of 2026-07-22`, meeting outcome excluded; three streams in one gate (G2-A/B/C); every external claim graded on the 6-tier ladder. Verdict: incumbents own rungs 1–4 (T4–T5); thin rung-5 exists single-vendor (Empower); the cross-N-sovereign **portable** custody + rung-6 failure-continuity + admissibility firewall + credibly-neutral operated network is provided by no incumbent/standard/vertical/Palantir/agent-layer; regulatory admissibility confirmed temporal `as_of`; institutional path = HIN + switch; operator-neutrality = conditional `[HYP]`; **R4 still unavailable**; residual honestly narrowed (Knox rung-5 test). **Stops at the G2 review gate (Nick + Knox); G2B deferred to the official post-meeting record — G2A is NOT to be rewritten with hindsight.** No G3/C5/spine/schema/Reactor.
 
 ---
 
