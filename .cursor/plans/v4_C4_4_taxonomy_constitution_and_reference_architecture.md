@@ -2,9 +2,9 @@
 
 Document type: `architecture_reconciliation` (G2 deliverable of the C4.4 arc — the constitutional taxonomy + species boundaries; the reference-architecture sections are RESERVED for G3 and intentionally unpopulated)
 Authority: `analysis_nonbinding` — propose-only pre-spine architecture pass (`GRD-036`/`GRD-043`). Binds NOTHING. Every name herein is PLANNING VOCABULARY, not a minted primitive (`GRD-035` noun discipline; charter §12/§15 naming-ossification guard).
-Status: `g2_authored_pending_acceptance (2026-07-22) · G1_CLOSED · G3_not_started · analysis_nonbinding · not_promoted` — authored in a FRESH Opus agent booted from `v4_C4_4_G2_kickoff_handoff.md`; consumes the closed G1 map + the frontier depth; does NOT re-derive. Awaits Nick + Knox acceptance of the G2 gate. **G3 does NOT auto-start.**
+Status: `g2_knox_correction_pass_applied (2026-07-22) · G1_CLOSED · G3_not_started · analysis_nonbinding · not_promoted · pending_final_knox_verification` — authored in a FRESH Opus agent booted from `v4_C4_4_G2_kickoff_handoff.md`; **Knox G2 gate patches applied (§19 disposition ledger)**; consumes the closed G1 map + frontier depth; does NOT re-derive. Awaits final Knox verification of the corrected artifact. **G3 does NOT auto-start.**
 Domain(s): architecture_governance, cns_orchestration, ai_substrate, evidence_processing, federation, knowledge_reservoirs
-Lifecycle role: G2 core deliverable — (a) separates the constitutional SPECIES (source estate · knowledge reservoir · domain memory · evidence workbench · compiled projection · mission context); (b) adjudicates the A/B/C parent; (c) resolves the frontier's 6 open Qs + the `FWREG-007` open questions to `resolved` / `bounded-deferred` / `rejected`; (d) classifies the F0/F-Self/F-Inv fixtures against the taxonomy. Feeds Agent-Runtime (`FWREG-010`, which CONSUMES the accepted boundaries) → C4.4 G3 reference architecture → Task-D + v4 spine §§7–8 + C5.
+Lifecycle role: G2 core deliverable — (a) separates the six constitutional classes/roles (source estate · knowledge reservoir · domain-owned state · evidence workbench · compiled projection · mission context); (b) adjudicates the A/B/C parent; (c) resolves the frontier's 6 open Qs + the `FWREG-007` open questions to `resolved` / `bounded-deferred` / `rejected`; (d) classifies the F0/F-Self/F-Inv fixtures against the taxonomy. Feeds Agent-Runtime (`FWREG-010`, which CONSUMES the accepted boundaries) → C4.4 G3 reference architecture → Task-D + v4 spine §§7–8 + C5.
 Source-of-truth relationship: consumes charter `v4_C4_4_knowledge_and_source_estate_formulation_plan.md` (Gate-0), G1 map `v4_C4_4_prior_depth_and_july_2026_reality_map.md` (closed), `doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md` (the prior dense depth — RESOLVED here, not re-derived), `FWREG-006`/`007`/`010`/`015`, `contracts/D7_documents_consent_media_contract.md`, `OMNI_System_Map_vNext.md`, spine-shape §§7–8. Does NOT supersede the outer checkpoint.
 Supersedes: none
 Superseded by: none
@@ -30,32 +30,32 @@ agent_read_rule: `consult_if_routed`
 - **Not re-derived:** the G1 external mechanism survey (closed; consumed as input) and the frontier depth (consumed + resolved, per spine §8 "do NOT re-derive; the depth exists").
 - **Adjudication discipline:** every carried question is closed as `resolved` / `bounded-deferred (owner + trigger)` / `rejected`. "Explicitly open" is NOT a disposition (charter §8 G2 acceptance condition). Where G2's scope-fence forbids a full answer (CNS framework, contract schemas, vendor picks, GTM strategy), the question is `bounded-deferred` with a named owner + trigger — not left open.
 
-## §2 The constitutional species (the core G2 taxonomy)
+## §2 The six constitutional classes/roles (the core G2 taxonomy)
 
-G2's central act is to **separate six constitutional species that must never collapse** (frontier open Q6; charter §7/§12; the §2 category error). A "species" is distinguished not by payload, file-type, or storage engine, but by its **constitution**: authority relationship · custody + mutation law · retention/deletion law · correction/reconsideration model · ownership · admissibility · freshness/aging · reprocessing posture · and *what kind of thing it fundamentally is* (evidence vs accepted knowledge vs domain state vs a view vs an assembled draw). These are the §7 adjudication criteria applied.
+G2's central act is to **separate six constitutional classes/roles that must never collapse** (frontier open Q6; charter §7/§12; the §2 category error). *("Species" below is shorthand for "constitutional class/role"; the six are NOT one ontological kind. They sub-group **for explanation only** — minting NO super-category: **durable governed bodies/state** = S1 Source Estate · S2 Knowledge Reservoir · S3 Domain-Owned State; **distinct processing/view/runtime roles** = S4 Evidence Workbench · S5 Compiled Projection · S6 Mission Context.)* A "species" is distinguished not by payload, file-type, or storage engine, but by its **constitution**: authority relationship · custody + mutation law · retention/deletion law · correction/reconsideration model · ownership · admissibility · freshness/aging · reprocessing posture · and *what kind of thing it fundamentally is* (evidence vs accepted knowledge vs domain state vs a view vs an assembled draw). These are the §7 adjudication criteria applied.
 
 **The six species (planning-vocabulary names):**
 
 | # | Species (working name) | What kind of thing | One-line constitution |
 |---|---|---|---|
-| S1 | **Source Estate** (received governed corpus) | **evidence** (received, unjudged) | What OMNI *received* — immutable while retained; receipt-truth ≠ content-truth; non-adopted by default; preserved beneath every synthesis. |
+| S1 | **Source Estate** (governed source custody) | **evidence** (unjudged) | What OMNI *preserves under governed source custody before/independently of downstream interpretation* — **received · captured · observed · imported · system/device-emitted · internally-generated durable source artifacts**; immutable while retained; receipt-truth ≠ content-truth; non-adopted by default; may carry **scoped evidentiary authority** (provenance · signature · authorship · transmission · device-emission · exact received payload · legal/operational occurrence) but never becomes interpreted/domain truth through custody alone; preserved beneath every synthesis. |
 | S2 | **Knowledge Reservoir** (curated reusable governed body) | **accepted knowledge** (reusable, non-domain) | What OMNI has *admitted as reusable knowledge/experience* — curated, versioned, authority-classed, freshness-bound; `indexed ≠ accepted`. |
-| S3 | **Domain Memory** (owning-domain canonical truth) | **domain state / truth** | What an owning domain has *committed* (Clinical Memory, Identity, D6, …) — P1 truth; consulted by the family but owned by its domain, never a reservoir. |
+| S3 | **Domain-Owned State** (a.k.a. Authoritative Domain State; **Clinical Memory is ONE domain implementation**) | **domain state / truth** | What an owning domain has *committed* (Clinical Memory, Identity, D6, inventory, workforce, …) — P1 truth; **authoritative within its owned subject-matter + authority basis (scoped — never a global 'highest')**; consulted by the family but owned by its domain, never a reservoir. |
 | S4 | **Evidence Workbench** (the external-evidence processing plane) | **a pipeline / boundary** | Where outside material is *captured, deduped, scored, routed, promotion-gated* (today's `ingestion/`) — a learning boundary, member-LIKE, not a durable authoritative body. |
-| S5 | **Compiled Projection** (index / wiki / read-model / RAG view) | **a view** | A *regenerable, cited, lossy, freshness-bound, contradictions-surviving, compiler-lineage-bearing* view over the above — never authoritative (`DEC-033` P4, `GRD-041`). |
+| S5 | **Compiled Projection** (wiki · briefing · topic-map · semantic read-model · other lossy regenerable synthesis — **NOT a retrieval index**) | **a view** | A *regenerable, cited, lossy, freshness-bound, contradictions-surviving, compiler-lineage-bearing* view — never authoritative (`DEC-033` P4, `GRD-041`). Lexical/vector/graph **retrieval indexes are replaceable materialization/retrieval RAILS** (§R.10; 15-M), not this class; but their **chunks/embeddings/derived metadata are governed derived artifacts** inheriting source lineage + sensitivity + deletion/freshness/rebuild/eval obligations (§11.1). |
 | S6 | **Mission Context** (the purpose-/authority-scoped assembled draw) | **an assembled composition** | The *smallest sufficient admissible context* the Context Router assembles for one run/mission — lineage-bearing, as-of-reconstructable; not a durable body, not truth. |
 
 ### §2.1 The species matrix (the constitutional distinctions — the anti-collapse spine)
 
-| dimension | S1 Source Estate | S2 Knowledge Reservoir | S3 Domain Memory | S4 Evidence Workbench | S5 Compiled Projection | S6 Mission Context |
+| dimension | S1 Source Estate | S2 Knowledge Reservoir | S3 Domain-Owned State | S4 Evidence Workbench | S5 Compiled Projection | S6 Mission Context |
 |---|---|---|---|---|---|---|
-| **authority relationship** | authoritative only for *"we received exactly this, from X, at T"* (receipt-truth); NOT for any claim inside | authoritative as *reusable reference/experience* at its `authority_class` ceiling; never domain-commit authority | canonical *domain truth* (highest, within its domain) | non-binding *outside reference* | **non-authoritative** by construction | non-authoritative; inherits admissibility from what it draws |
+| **authority relationship** | authoritative only for *"we received exactly this, from X, at T"* (receipt-truth); NOT for any claim inside | authoritative as *reusable reference/experience* at its `authority_class` ceiling; never domain-commit authority | authoritative *within its owned subject-matter + authority basis* (scoped — NOT a global 'highest') | non-binding *outside reference* | **non-authoritative** by construction | non-authoritative; inherits admissibility from what it draws |
 | **custody + mutation law** | immutable while retained; new facts arrive as new artifacts/versions, never edits | curated; changes only via governed admission/promotion; versioned + attributed | append-only assertions; committed via owning-domain gate | raw source immutable · interpretations versioned + attributed (`GRD-042`) | fully regenerable; recomputed, never hand-edited as truth | assembled per-mission; logged for replay, not mutated |
 | **retention / deletion** | explicit · additive · lineage-preserving; deletion/pseudonymization/legal-hold is a governed event, never silent | eviction ≠ deleting evidence; retire/supersede, keep lineage | domain-governed retention + GDPR pseudonymize-not-delete | lane-scoped; sources retained for reinterpretation | disposable (recomputable from sources) | ephemeral or replay-retained under privacy/retention law |
 | **correction model** | correction package = additive supersession; original package stays reconstructable | re-review → new version; old marked superseded, not erased | owning domain commits its own correction (C4.3 Law 10.1) | new `EVRUN`/review snapshot, never overwrite | regenerate after upstream disposition | re-assemble; prior draw preserved for as-of replay |
-| **ownership** | admitting principal + tenant custody | reservoir owner + `review_gate` | owning domain | Evidence-Plane / control-plane | Foundry/compiler (machinery) | Context Router assembly discipline |
+| **ownership** | distinct roles — originator · data-subject · legal-controller · processor · custodian · admitting-principal · tenant/operator-scope · visibility/use-authority (never collapsed into one 'owner'; D7 §6 custody≠visibility≠identity discipline) | reservoir owner + `review_gate` | owning domain | Evidence-Plane / control-plane | Foundry/compiler (machinery) | Context Router assembly discipline |
 | **admissibility** | searchable ≠ adopted; presence ≠ authority | `indexed ≠ accepted`; expired/stale = readable but non-actionable for high-consequence use | adoption gate (clinician/authority) | proposes only; never executes (`GRD-036`/`038`) | risk-sensitive horizon: stale projection non-actionable for care-critical | smallest-sufficient; purpose/consent/authority-bounded draw |
-| **freshness / aging** | as-of snapshot of source system; ages as *evidence*, does not "go stale" (it is what it was) | first-class staleness; freshness-bound; must disclose source-cutoff | current-state truth + temporal validity | n/a (evidence) | freshness-bound + compiler-version stamped | as-of the moment of the draw (C4.5 seam) |
+| **freshness / aging** | separate **source integrity** (historical — does NOT stale; it is what it was) from **current applicability** (absolutely CAN become stale/superseded); + currency + supersession + retention/access-validity as distinct | first-class staleness; freshness-bound; must disclose source-cutoff | current-state truth + temporal validity | n/a (evidence) | freshness-bound + compiler-version stamped | as-of the moment of the draw (C4.5 seam) |
 | **reprocessing** | expected — one source ↔ many `extraction_run`s over years (`GRD-040`) | re-derivable from sources; re-admittable by better models | re-adoption via gate | reinterpretation expected (`GRD-042`) | rebuild without losing the corpus | re-assemble on demand |
 | **what it is NOT** | not a reservoir, not truth, not a view | not source, not domain truth, not a view | not a reservoir, not evidence | not a reservoir, not a data store (`GRD-041`), not truth | not truth, not a source of record | not a memory species, not a durable body |
 
@@ -64,12 +64,12 @@ G2's central act is to **separate six constitutional species that must never col
 ```
 Source Estate (S1)
   → interpretation / extraction_run (layer 3; produces candidates, adopts nothing by itself)
-     → owning-domain adoption candidates → Domain Memory (S3)      [owning domain commits]
+     → owning-domain adoption candidates → Domain-Owned State (S3)      [owning domain commits]
      → reservoir-admission candidates    → Knowledge Reservoir (S2) [reservoir review_gate accepts]
 S2 + S3 + S1
   → Compiled Projection (S5)   [Foundry/compiler machinery regenerates views]
   → Mission Context (S6)       [Context Router assembles a purpose/authority-scoped draw]
-Evidence Workbench (S4) FEEDS S2 (and is consulted as non-binding reference); it is not on the domain-commit path.
+Evidence Workbench (S4) **PROPOSES + ROUTES** candidates to many governed homes — Reservoirs (S2) · owning domains (S3) · doctrine/policy/contracts · Build-OS · evals/fixtures · watch/reject; it **never accepts/adopts/commits** and is not itself on the domain-commit path.
 ```
 
 **Binding law (frontier §2, affirmed + widened):** **Source Estate preserves · CNS orchestrates · Reservoirs supply · Foundry compiles/tends · Context Router assembles · Owning domains commit.** Storage ≠ authority. Retrieval ≠ admissibility. Receipt-truth ≠ content-truth. Repetition ≠ independent evidence. Source ≠ normalized ≠ adopted ≠ decision ≠ projection ≠ mission-context — **never collapse** (charter §12).
@@ -77,7 +77,7 @@ Evidence Workbench (S4) FEEDS S2 (and is consulted as non-binding reference); it
 ### §2.3 Why not fewer species (the collapse each separation prevents)
 
 - **S1 vs S2 (source vs reservoir) — the load-bearing separation.** They have *opposite* mutation laws (immutable-while-retained vs curated-evolving) and *opposite* authority postures (received-not-vouched vs admitted-as-reusable). Collapsing them is exactly the §2 category error and the reason **parent A is rejected** (§3).
-- **S2 vs S3 (reservoir vs domain memory) — frontier Q2/Q6.** Clinical Memory is patient-specific *committed truth* (P1). A reservoir is *reusable reference/experience*, never domain-commit authority. Medical Literature (general knowledge, `FWREG-006`) ≠ Clinical Memory (patient truth) ≠ Care-Outcomes-Learning (system learning). Three species, never one.
+- **S2 vs S3 (reservoir vs domain-owned state) — frontier Q2/Q6.** Clinical Memory is patient-specific *committed truth* (P1). A reservoir is *reusable reference/experience*, never domain-commit authority. Medical Literature (general knowledge, `FWREG-006`) ≠ Clinical Memory (patient truth) ≠ Care-Outcomes-Learning (system learning). Three species, never one.
 - **S2 vs S4 (reservoir vs workbench) — frontier §3.** The Evidence Workbench is a *processing boundary* (`GRD-043`: learning boundary, not a content library), not a durable authoritative body. It FEEDS reservoirs; it is not itself the governed body OMNI reasons from.
 - **S2/S3 vs S5 (body vs view) — `DEC-033`/`GRD-041`, EVSRC-262/313.** A wiki/RAG index is a compiled *cache over evidence*, not truth. Treating a projection as canonical state (or eventual-consistency for action-critical care) is rejected.
 - **S5 vs S6 (view vs draw) — EVSRC-266.** A compiled projection is a durable-ish regenerable view; a mission context is a *per-mission, purpose-bound assembly* (smallest sufficient admissible context), not a stored artifact. They differ in lifetime, ownership (compiler vs router), and scoping.
@@ -88,9 +88,9 @@ Tested against the §7 criteria (authority · custody · mutation · retention/d
 
 - **Parent A — raw corpus = a `Source Reservoir` subtype of Reservoir. → REJECTED.** A subtype relationship forces ONE contract to carry two opposite constitutions (S1 immutable-received vs S2 curated-accepted; §2.3). It reintroduces the exact category error §2 exists to prevent — collapsing source custody into curated knowledge. Immutability-while-retained, receipt-truth, and non-adoption are not "a kind of curation." Least favored in the charter; formally rejected here.
 - **Parent B — Source Estate is an adjacent species that FEEDS Knowledge Reservoirs. → ADOPTED as the working constitution.** `Source Estate → interpretation/extraction → (domain-adoption candidates ∧/∨ reservoir-admission candidates) → projections + mission context` (§2.2). B is strongest because it keeps *custody* (S1) distinct from *curation* (S2) distinct from *commitment* (S3) distinct from *view* (S5) distinct from *draw* (S6). Preliminary Opus+Knox bias confirmed under the §7 criteria.
-- **Parent C — a wider parent "Governed Context Estate" containing corpora + reservoirs + projections + mission context. → REJECTED as an ontological parent / owning layer; NOT minted even as a navigational umbrella.** Test: does C own any authority, mutation law, or truth its members do not? **No.** Minted as an owning layer it becomes an "everything-context" god-category (violates `GRD-035` no-single-domain-owns-a-cross-cutting-concern + `GRD-026` payload-noun-not-domain + the frontier "do not create a new plane"). The *navigational* need C gestures at (a way to route/traverse the family) is already satisfied by (i) the S1–S6 species taxonomy, (ii) the Context Router (S6 assembly), and (iii) the read-graph/catalog. Therefore **no umbrella object is created** — not even a lowercase tag — because the family classification (frontier §1: "a classification/tag, NOT a prefix") plus the species set already provide traversal. Adopting C would be minting language, not a domain (`GRD-026` payload-noun ≠ domain). If a future pass finds a *non-duplicative constitutional* need, C may be revisited — but G2 rejects it as a parent.
+- **Parent C — a wider parent "Governed Context Estate" containing corpora + reservoirs + projections + mission context. → REJECTED as an ontological parent / owning layer; NOT minted even as a navigational umbrella.** Test: does C own any authority, mutation law, or truth its members do not? **No.** Minted as an owning layer it becomes an "everything-context" god-category (violates `GRD-035` no-single-domain-owns-a-cross-cutting-concern + `GRD-026` payload-noun-not-domain + the frontier "do not create a new plane"). The *navigational* need C gestures at (a way to route/traverse the family) is already satisfied by (i) the S1–S6 species taxonomy, (ii) the Context Router (S6 assembly), and (iii) the read-graph/catalog. Therefore **no owning umbrella object is created.** A **non-owning navigation/classification label is bounded-deferred to G5** — permitted ONLY if it proves routing value (cross-species discovery · policy evaluation · observability · Context-Router admission) **without acquiring authority or ownership** (the frontier §1 "classification/tag, NOT a prefix" anticipated exactly this). G2 rejects C as an ontological parent/owner/domain/plane/authority-source/truth-container; it does NOT foreclose a non-owning label.
 
-**Disposition:** A `rejected` · B `resolved (adopted, planning-vocabulary)` · C `rejected-as-parent` (navigational need met by species + Context Router + read-graph).
+**Disposition:** A `rejected` · B `resolved (adopted, planning-vocabulary)` · C `rejected as parent/owner/domain/plane/truth-container` · a non-owning navigation label `bounded-deferred → G5` (owner: G5 naming; trigger: G5; only if it adds routing value without authority/ownership).
 
 ## §4 The six layers (charter §6) mapped to the species
 
@@ -124,7 +124,7 @@ The current 10 `ingestion/` lanes are ONE value-set of **axis-1 (provenance)** s
 **Finding (grep-verified in G1):** D7 owns per-artifact durable physics *well* — custody, artifact-integrity gate, one-canonical-many-grants, fingerprint dedup, `upload_event`, open `document_kind`, 5-disposition, federation-ready per-artifact lineage. But it is **patient-subject-shaped** (`patient_document`) and has **no corpus-level object** (package/collection/manifest → completeness/quarantine/incremental+corrective import/closure), **no corpus-scale reprocessing/`extraction_run` lineage**, and **no honest "received-but-never-adopted" model**.
 
 **Adjudication (two questions, distinct):**
-- **(a) Subject-agnostic artifact primitive.** The Source Estate needs an `artifact` that can be multi-subject / non-patient / corpus-level (a 3,000-patient workbook, a device manual, a formulary, a training file). D7's `patient_document` is subject-shaped. **Precedent already exists in-estate:** D7 §10 `SC-D7-BIZOPS-001` already reuses the open `document_kind` + `signature_envelope` + one-canonical-many-grants shape for a `workforce_member` subject ("subject-agnostic artifact discipline is the contract; same-table-vs-sibling is build detail"). So a general `artifact` parent (subject-via-relationship) is a **directionally-admitted extension of D7's proven discipline, not a new invention.** **Disposition: `resolved` — the boundary exists; reuse D7's per-artifact physics, do NOT rebuild them; do NOT declare D7 sufficient because it can store a PDF.**
+- **(a) Subject-agnostic artifact primitive.** The Source Estate needs an `artifact` that can be multi-subject / non-patient / corpus-level (a 3,000-patient workbook, a device manual, a formulary, a training file). D7's `patient_document` is subject-shaped. **Precedent already exists in-estate:** D7 §10 `SC-D7-BIZOPS-001` already reuses the open `document_kind` + `signature_envelope` + one-canonical-many-grants shape for a `workforce_member` subject ("subject-agnostic artifact discipline is the contract; same-table-vs-sibling is build detail"). So **subject-agnostic artifact identity + subject-by-relationship** (reusing D7's custody/integrity/visibility/dedup physics; structural inheritance/table/type placement DEFERRED to G3/C5) is a **directionally-admitted extension of D7's proven discipline, not a new invention.** **Disposition: `resolved` — the boundary exists; reuse D7's per-artifact physics, do NOT rebuild them; do NOT declare D7 sufficient because it can store a PDF.**
 - **(b) Corpus-level parent (package / collection / manifest).** This is genuinely absent (S1 corpus layer). **Disposition: `resolved` that it is REQUIRED; `bounded-deferred` on PLACEMENT** — whether the corpus parent lives *inside* a widened D7 or as a **Source-Estate-owned corpus layer above D7 artifacts** is a reference-architecture question. **Owner:** D7 contract + C4.4 G3. **Trigger:** G3 reference architecture (then C5 contract minting). No schema minted at G2.
 
 **Guard:** the corpus layer is NOT a new plane and NOT a god-store (`GRD-041`); it owns *governance semantics* (identity · completeness · quarantine · closure · reprocessing lineage · received-but-unadopted honesty), plugging into object-storage/lakehouse rails it does not own.
@@ -136,7 +136,7 @@ The G1 F-Self finding (§7 "two manifest profiles — do NOT collapse") is adjud
 | profile | example fixture | completeness law | closure | correction |
 |---|---|---|---|---|
 | **(A) bounded admission package** | F0 (federation export: declared contents, expected counts) | declared-vs-received is *knowable + closable*; missing/quarantined enumerated against a manifest | package *closes* with visible exceptions | correction packages supersede named subsets |
-| **(B) open-ended evolving corpus** | F-Self (chats + files + commits + decisions accumulating longitudinally) | completeness is *inherently partial/rolling*; "closure" is a moving line, not an endpoint | never closes; rolling coverage watermark | additive supersession; no final state |
+| **(B) open-ended evolving corpus** | F-Self (chats + files + commits + decisions accumulating longitudinally) | completeness is *inherently partial/rolling* | **remains open-ended, BUT bounded coverage epochs / ingestion windows / reconciliation checkpoints CLOSE with explicit watermarks + exceptions** (coverage provable at a point in time) | additive supersession; no single final state |
 
 **Disposition: `resolved`** — one shared identity/lineage/extraction/reprocessing substrate; **two distinct lifecycle contracts** (bounded-closure vs rolling-never-closed). F-Self does NOT prove one universal `ingress_package` should model everything (anti-`GRD-026` universal-case). G3 designs both profiles over the shared mechanics.
 
@@ -144,22 +144,29 @@ The G1 F-Self finding (§7 "two manifest profiles — do NOT collapse") is adjud
 
 Two **orthogonal** ladders. Conflating them is a known failure (EVSRC-227/262: "indexed ≠ accepted").
 
-**(8.1) Authority-class ladder** — *how authoritative a body's knowledge is* (the reservoir contract's loudest field, frontier §2). Ordered by consequence. Reservoir members carry one of classes R0–R3; **domain-truth classes are NOT reservoir classes** (they are S3 Domain Memory, listed for the boundary only):
+**(8.1) Authority is a MULTIDIMENSIONAL PROFILE — NOT a single ordered ladder** (Knox G2 correction; the earlier R0–R3 total-ordering is **REJECTED** — Threat Intel, clinical literature, and operational lessons differ by KIND and USE, not by one ascending scalar; and Evidence-Workbench material is NOT a reservoir class). Every reservoir body/partition carries an **authority profile** over these orthogonal axes (conceptual — enumerations ratified at spine §8/C5, **NOT a G2 schema**):
 
-| class | meaning | example bodies | care/action boundary |
-|---|---|---|---|
-| **R0 · non-binding outside reference** | external evidence, unvouched | Evidence Workbench (S4) contents | proposes only; never executes (`GRD-036`/`038`) |
-| **R1 · curated operational / experience knowledge** | OMNI's own reusable lessons/practice | Build Knowledge · Operator/Business Knowledge · Brand/Marketing Memory · Care/Ops-Outcomes-Learning | informs proposals; never auto-commits; lesson ≠ policy (EVSRC-314) |
-| **R2 · clinically-governed general knowledge** | vetted medical/scientific knowledge | Medical/Scientific Literature (`FWREG-006`) | high; care-authority boundary; informs, never auto-decides care |
-| **R3 · security / risk knowledge** | posture + advisories + threat signal | Threat Intel | drives posture under gate; hostile-by-default handling (`GRD-039`) |
-| *(D-classes · domain truth — NOT reservoirs)* | *committed domain state* | *Clinical Memory (patient truth), Identity, D6…* | *owned + adopted by the domain gate; consulted by the family* |
+| axis | what it captures |
+|---|---|
+| `knowledge_kind` | reference-literature · operational/experience-lesson · threat/risk · brand/creative · build/architecture · care-outcomes · public-reference … (a KIND, not a rank) |
+| `authority_basis` | why it may be relied on (source authority · review provenance · derivation lineage) |
+| `review_authority` | who/what admitted it + at what rigor |
+| `scope` | subject-matter + applicability envelope |
+| `principal / tenant` | whose body (patient · provider · operator · federation · OMNI-network · public) + partition |
+| `use_ceiling` | descriptive-only · advisory · executable-candidate · prohibited-for-action |
+| `consequence_class` | blast radius if wrong (care-critical … cosmetic) |
+| `freshness_requirement` | how current it must be for a given use |
+| `admission_state` | see §8.2 (orthogonal) |
 
-**(8.2) Admission-state ladder** — *where a unit sits in its acceptance lifecycle*, orthogonal to authority class (EVSRC-227 memory-authority ladder; EVSRC-262 derived-knowledge lifecycle):
+**No total order is asserted.** Named profiles (e.g., "clinical reference," "operator alpha," "threat intel") may emerge, but a profile is a *point in this space*, never a rung. **Boundary (unchanged):** Evidence Workbench (S4) = proposes-only, NOT a reservoir authority class; Domain-Owned State (S3) = committed domain truth, NOT a reservoir; Clinical Memory (patient truth) ≠ Medical Literature (general reference) ≠ Care-Outcomes-Learning (system learning) — never collapse.
 
-```
-candidate → reviewed → accepted → active → stale → superseded → evicted/recomputable
-                         ▲ the "indexed ≠ accepted" line: retrievable does NOT mean accepted-as-reusable
-```
+**(8.2) Lifecycle is FOUR orthogonal state-families — NOT one ladder** (Knox G2 correction; the earlier single `candidate→…→evicted` sequence collapsed four axes). A unit carries one value in EACH, independently:
+- **admission:** `candidate · in_review · accepted · rejected` — the `indexed ≠ accepted` line: retrievable ≠ accepted-as-reusable; auto-ingest is not a commit.
+- **activation:** `inactive · active · suspended`.
+- **currency:** `current · stale · superseded · withdrawn`.
+- **materialization:** `unindexed · indexed · compiled · evicted · rebuild_pending` — **eviction belongs HERE (a cache/index/projection state), NOT to the accepted knowledge unit**; a `stale` but `accepted` lesson stays accepted yet is **non-admissible for a high-consequence mission** (risk-sensitive admissibility, EVSRC-262).
+
+
 
 **Laws:** (i) `indexed ≠ accepted` — retrievability is not acceptance; auto-ingest is not a commit. (ii) admissibility is **risk-sensitive** — a `stale` unit is readable but **non-actionable for high-consequence/care-critical** use (EVSRC-262). (iii) `passive capture PROPOSES · passive promotion FORBIDDEN` (charter §12). **Disposition: `resolved`** as a candidate taxonomy; spine §8 + the (future) reservoir contract pattern ratifies exact enumerations. **Owner:** spine §8 / reservoir-contract pass. **Trigger:** spine §8 authoring.
 
@@ -182,8 +189,8 @@ Distinct governed events (never collapsed):
 The active machinery is separated from the passive bodies, and the mission/actor seam is held (this is the boundary Agent-Runtime `FWREG-010` will CONSUME per the §4 staged sequencing):
 
 - **Knowledge Reservoir (S2)** = *passive body* (what is supplied).
-- **Foundry / compiler / maintainer** = *active machinery* that COMPILES projections (S5) and TENDS reservoirs (S2) by running governed **maintenance missions**. (Reconciles two existing OMNI concepts — reservoir(body) vs Intelligence Foundry (machinery), charter §1.3; spine §8 title.)
-- **Context Router** = *purpose- + authority-scoped assembly* of Mission Context (S6), drawing across S1/S2/S3/S5. Distinct from CNS: the Router *assembles a draw*; it does not orchestrate or commit.
+- **Foundry / compiler / maintainer** = *active machinery* that COMPILES projections (S5) and TENDS reservoirs (S2) by running governed **maintenance missions**. (Reconciles two existing OMNI concepts — reservoir(body) vs Intelligence Foundry (machinery), charter §1.3; spine §8 title.) **Foundry owns compiler execution · maintenance missions · rebuild/materialization state · compiler lineage — NOT the semantic meaning of any projection; every compiled projection (S5) has an accountable steward / owning contract.**
+- **Context Router** = *purpose- + authority-scoped assembly* of Mission Context (S6), drawing across S1/S2/S3/S5. Distinct from CNS: the Router *assembles a draw*; it does not orchestrate or commit — it owns **assembly discipline, NOT the authority or meaning of assembled content**.
 - **CNS** = orchestration/control plane — coordinates missions, routes candidates to resolvers, escalates; **never commits domain truth** (`GRD-029` CNS-not-sovereign-brain). The full CNS framework is **out of G2 scope** (see §12 Q3).
 - **Agent Runtime (`FWREG-010`)** = the named **actor/harness** taxonomy that INSTANTIATES the agents which PERFORM the missions.
 
@@ -210,7 +217,7 @@ None is auto-adopted; each is stated as a **candidate law** routed to a composin
 | Q | frontier question | G2 disposition | detail / owner + trigger |
 |---|---|---|---|
 | Q1 | Care Outcomes Learning system — shape; one body or several (care/marketing/ops)? | **resolved (species) + bounded-deferred (roster/partition)** | It is a **Knowledge Reservoir member** (R1, §8.1) — system-level learning from OMNI's own actions; fed by S3 domain state + S4 evidence; admission-gated; passive-capture-proposes-never-promotes. Whether ONE body or several is a **principal/tenant + domain partition** question → **owner:** reservoir-roster/spine §8; **trigger:** spine §8. Intersects the save-case→learning-candidate path (Knox fixture) + CQ operational-lesson-unit (EVSRC-314). |
-| Q2 | Clinical Memory's class — member, or substrate/domain? | **resolved** | **Domain Memory (S3), NOT a reservoir.** Patient-specific committed truth; *consulted* by the family, *owned* by its domain. Boundary set: Clinical Memory (patient truth) ≠ Medical Literature (R2 general knowledge) ≠ Care-Outcomes-Learning (R1 system learning) — never collapse. |
+| Q2 | Clinical Memory's class — member, or substrate/domain? | **resolved** | **Domain-Owned State (S3), NOT a reservoir.** Patient-specific committed truth; *consulted* by the family, *owned* by its domain. Boundary set: Clinical Memory (patient truth) ≠ Medical Literature (R2 general knowledge) ≠ Care-Outcomes-Learning (R1 system learning) — never collapse. |
 | Q3 | The CNS framework itself (context assembly, regions, learning loops) | **bounded-deferred** | G2 contributes only the **knowledge/context seam** (Context Router draw + reservoir-supply law + mission classes, §10). The full CNS framework (hemispheres/regions, learning-loop placement) is **owner:** spine §5/§7 + `CNS_orchestration_contract`; **trigger:** spine §5/§7 authoring. (Scope-fence: `GRD-029`; C4.4 must not become the CNS designer.) |
 | Q4 | Final family name | **bounded-deferred (naming) + resolved (principle)** | **Principle resolved:** the family is a **non-prefixing classification tag** (members keep crisp names; no `OMNI X Reservoir` per member — frontier §1). **Name deferred** per the frontier's explicit "do not canonize" + charter §15 naming-ossification guard. **Owner:** G5/spine; **trigger:** G5 disposition. Working label: "Knowledge Reservoir family." |
 | Q5 | Authority-class taxonomy enumeration | **resolved (candidate)** | §8.1 authority-class ladder (R0–R3) + §8.2 admission-state ladder; ratified at spine §8. |
@@ -220,7 +227,7 @@ None is auto-adopted; each is stated as a **candidate law** routed to a composin
 
 | # | carried question (handoff §3 + charter §5/§7 + §5-unresolved) | disposition | owner + trigger (if deferred) | where resolved |
 |---|---|---|---|---|
-| K1 | Source Estate vs Reservoir vs domain memory vs Evidence Workbench vs compiled projection vs mission context | **resolved** | — | §2 six-species matrix |
+| K1 | Source Estate vs Reservoir vs domain-owned state vs Evidence Workbench vs compiled projection vs mission context | **resolved** | — | §2 six-species matrix |
 | K2 | A/B/C parent | **resolved (B) · rejected (A, C-as-parent)** | — | §3 |
 | K3 | bounded admission packages vs open-ended evolving corpora | **resolved** | — | §7 (two lifecycle profiles, shared mechanics) |
 | K4 | D7 artifact boundary + general artifact/corpus parent above `patient_document` | **resolved (boundary) · bounded-deferred (placement)** | D7 contract + C4.4 G3; trigger G3 → C5 | §6 |
@@ -256,7 +263,7 @@ Per charter §9: at **G2** the fixtures are *classified against the candidate ta
 | a searchable index over it all | S5 compiled projection | searchable source ≠ adopted truth; rebuildable without losing the corpus |
 | correction package invalidating part of export 1 | §9 correction (additive supersession) + F-Inv if already promoted | original package stays reconstructable |
 
-**F-Self — OMNI's own build/architecture/evidence estate** (the 10 species census, G1 §7): the G1 10-species census maps cleanly onto the taxonomy — transcripts/uploads/EVSRC = **S1 Source Estate** (profile **B, open-ended**); interpretations/analyses = layer-3 interpretations (versioned); doctrine/contracts = **S3 Domain Memory / P0 doctrine** (committed); handoffs/read-graph/catalog = **S5 Compiled Projection** (regenerable, non-authoritative — `DEC-033`); the promoted-guardrail/decision bodies = **S2-like curated knowledge**; the "missing corpus-scale manifest linking thread→uploads→EVSRC→decisions→guardrails→catalog→commit" = the concrete **S1 open-ended-corpus admission-envelope gap** (§6b/§7B). **The taxonomy classifies all 10 species without a leftover** — G2-level pass holds.
+**F-Self — OMNI's own build/architecture/evidence estate** (the 10 species census, G1 §7): the G1 10-species census maps cleanly onto the taxonomy — transcripts/uploads/EVSRC = **S1 Source Estate** (profile **B, open-ended**); interpretations/analyses = layer-3 interpretations (versioned); doctrine/contracts = **S3 Domain-Owned State / P0 doctrine** (committed); handoffs/read-graph/catalog = **S5 Compiled Projection** (regenerable, non-authoritative — `DEC-033`); the promoted-guardrail/decision bodies = **S2-like curated knowledge**; the "missing corpus-scale manifest linking thread→uploads→EVSRC→decisions→guardrails→catalog→commit" = the concrete **S1 open-ended-corpus admission-envelope gap** (§6b/§7B). **The taxonomy classifies all 10 species without a leftover** — G2-level pass holds.
 
 **F-Inv — promoted-knowledge invalidation** (a source-backed gem already promoted into doctrine/spine, later found superseded): classified as the **§9 reconsideration event reaching an already-promoted S3/doctrine home** — FLAG-not-rewrite; identify promoted dependents; preserve what-was-decided AND what-actions-were-taken; regenerate S5 projections only after disposition. **This is the case OMNI's own estate will actually hit** (G1 §10 live specimen: the G1 pass itself drifted "not-found → does-not-exist → moat," was caught at the Knox gate, and re-routed as candidate — the *signal → admission-gate → corrected-accepted-state → history-preserved* loop working in real time).
 
@@ -281,6 +288,7 @@ Charter §12 required pressure, not auto-adoption. G2 dispositions (affirm `A` /
 - **15-M** `A` — RAG/vector/graph/wiki/long-context/SQL/FTS/agentic = replaceable *realization*, not the constitution (`GRD-033` rail-agnostic; `GRD-041` scope-fence). OMNI owns governance semantics; storage/compute/vector/graph engines are plug-in rails.
 - **15-N** `A` (scored acceptance criterion, deferred to eval) — The system must get *cheaper, more faithful, and less human-intensive per source over time*; F-Self is the fixture that proves whether it does. (G1 §7 sampled ~8–12 hand-maintained governance artifacts per Tier-2+ arc — directional, not a measured law; measurement deferred to Build-OS eval.)
 - **15-O** `A` (new, from the G1 live specimen §10) — **A survey establishes "not found," never "does not exist"; composition-not-found ≠ we-invented-it; posture ≠ operational lead.** Candidate G2 guardrail (route to `06` digest at promotion).
+- **15-P** `A` (new, reflexive) — **A taxonomy must obey its own anti-collapse constitution:** `kind ≠ authority ≠ admission ≠ activation ≠ currency ≠ materialization ≠ custody ≠ ownership ≠ use-authority`. No total order or god-owner may be inferred from convenience vocabulary. (This very correction pass applied it to §8.1/§8.2/§2.1; route to `06`.)
 
 ## §16 Strategic finding — healthcare-native governed composition + the incumbent-composition risk — **`bounded-deferred` (not a constitutional species)**
 
@@ -319,3 +327,23 @@ G1 concluded (§4.3/§6.5, Knox-corrected) that the candidate differentiation is
 - **Unresolved (all bounded-deferred with owner + trigger):** D7/corpus placement (→G3) · CNS framework (→spine §5/§7) · family name (→G5) · reservoir roster/partition (→spine §8) · strategic composition risk (→Task-D).
 - **Next authorized action:** **STOP for Nick + Knox acceptance of the G2 gate.** G3 does NOT auto-start; Agent-Runtime (`FWREG-010`) consumes the accepted G2 boundaries first (charter §4 sequencing). No further gate begins without a separate Nick + Knox opening.
 - **Stop declaration:** G2 authored to its gate. STOPPED.
+
+
+## §19 Knox G2 correction-pass disposition ledger (2026-07-22)
+Applied in this fresh G2 agent; all at constitutional-dimension level (NO C5 schema); §§9–20 preserved + reconciled, not rewritten.
+| # | Knox disposition | applied as | where |
+|---|---|---|---|
+| 1 | Compiled Projection excludes retrieval indexes; indexes = replaceable rails; chunks/embeddings = governed derived artifacts | `patched` | §2 S5 · §11.1 link |
+| 2 | Rename Domain Memory → Domain-Owned State; authority scoped, not 'highest' | `patched` | §2 S3 · §2.1 · global |
+| 3 | Widen Source Estate (received/captured/observed/imported/emitted/generated) + scoped evidentiary authority | `patched` | §2 S1 · §2.1 |
+| 4 | Evidence Workbench proposes+routes to many homes; never adopts/commits | `reconciled_to_existing_section` | §2.2 |
+| 5 | Replace R0–R3 total ladder with multidimensional authority profile | `patched` | §8.1 |
+| 6 | Split lifecycle → admission/activation/currency/materialization; eviction ∈ materialization | `patched` | §8.2 (§9 events already orthogonal) |
+| 7 | 'Six species' → 'six constitutional classes/roles'; grouping explanatory only | `patched` | §2 header/intro |
+| 8 | C rejected as parent/owner; non-owning nav label bounded-deferred → G5 | `patched` | §3 |
+| 9 | D7 subject-agnostic artifact + subject-by-relationship; defer placement to G3/C5 | `already_satisfied_verified` (+ wording) | §6 |
+| 10 | Open-ended corpora: bounded epochs/windows/checkpoints close with watermarks+exceptions | `patched` | §7 (B) |
+| 11 | Separate Source-Estate governance roles (originator/subject/controller/processor/custodian/admitting/tenant/use) | `patched` | §2.1 ownership |
+| 12 | Foundry owns execution not meaning + steward per projection; Router owns assembly not content-authority | `patched` | §10 |
+| + | revocation = additive supersession, not backward rewrite | `already_satisfied_verified` | §9 |
+| + | reflexive anti-collapse self-guardrail (15-P) | `patched` (new law) | §15 |
