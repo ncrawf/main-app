@@ -1,8 +1,8 @@
 # v4 — C4.6 · Gemini-A BLIND Submission (VERBATIM, SEALED)
 
 Document type: `evidence_or_ingestion` (independent-architect submission preserved verbatim — the blind Gemini-A leg of the C4.6 quadrifecta, charter §7).
-Authority: `analysis_nonbinding` (`GRD-036`). **Binds nothing. Promotes nothing.**
-Status: `frozen_verbatim_sealed · pending_G11_adjudication · not_promoted` (operator-delivered 2026-07-23; this file is IMMUTABLE — corrections/adjudication live in the separate G11 artifact, NEVER by editing this submission).
+Authority: `independent_adversarial_interpretation_nonbinding` (`GRD-036`). **Binds nothing. Promotes nothing. Not OMNI doctrine.**
+Status: `sealed_verbatim_pending_G11_collision · not_promoted` (operator-delivered 2026-07-23; this file is IMMUTABLE — corrections/adjudication live in the separate G11 artifact, NEVER by editing this submission).
 Owner (custody of the record): Opus · Author of the content: **Gemini (blind independent architect)** · Reviewers: Nick + Knox.
 Parent: `v4_C4_6_rx_emit_pharmacy_counterparty_network_pressure_test.md` (§7 quadrifecta — Gemini-A blind architect leg).
 
@@ -181,16 +181,19 @@ Technically (Fragmented PDS): Independent pharmacies, particularly 503A compound
 ---
 
 ## Provenance & integrity
-- **Delivered:** operator (Nick), 2026-07-23, pasted into the C4.6 G2 session as the blind Gemini-A leg.
+- **Delivered:** operator (Nick), **2026-07-23**, pasted into the C4.6 G2 session as the blind Gemini-A leg.
+- **Model / interface:** **Google Gemini (consumer "Gemini" web interface** — the paste's client chrome header read `Conversation with Gemini`**).** The specific underlying model build/version was **not specified by the operator** and is deliberately **not inferred** (recorded honestly rather than fabricated).
+- **Byte count (verbatim submission block):** **11,184 bytes**, **158 lines** (content between the `BEGIN`/`END` fences; excludes this file's passport/provenance/declaration prose).
+- **SHA-256 (verbatim submission block):** **`1f2725742a3e32e4aba9d62a0f3cbf17647551ecd3df4ef9c76756fdaeba89e0`** — computed over the fenced verbatim block only, so it is **stable under passport/provenance edits** and re-verifiable at any time via: `awk '/^\`\`\`text$/{f=1;next}/^\`\`\`$/{if(f)exit}f' <file> | shasum -a 256`.
 - **Verbatim fidelity:** submission content reproduced exactly; only client UI chrome (`Conversation with Gemini` header; trailing `Sharing "…"` / `New Tab` / `Skip to the latest Gemini result`) excluded and disclosed above. One horizontal rule was inserted **inside the verbatim block solely to mark the boundary between the assignment prompt and Gemini's response** — it is typographic, not content.
-- **Integrity fingerprint:** see the sealing commit; a SHA-256 of this file's verbatim block is recorded in the commit body for re-verification.
-- **Adjudication status:** `pending_G11` — the frozen-rubric collision against the Opus builder submission has **not** been run. Any reconciliation MUST be authored in a separate G11 artifact and MUST NOT edit this file.
+- **Adjudication status:** `sealed_verbatim_pending_G11_collision` — the frozen-rubric collision against the Opus builder submission has **not** been run, and the submission has **not** been corrected, annotated, reconciled, scored, or folded into G2A. Any reconciliation MUST be authored in a separate **G11** artifact and MUST NOT edit this file.
+- **Preliminary non-G11 posture (Knox, NOT a score):** strong incumbent-native foil + valuable mutation bank; **not** the winning design. Its central defects — dynamic/shifting source-of-truth, intermediary-message-log treated as authoritative for the prescription, collapsed completion (`Completed = adjudicated+paid+delivered`), automatic `CancelRx→NewRx` rerouting, scalar pharmacy "Quality Score", over-delegated practice-agent clinical authority (dose/form/substitution), centralized "live regulatory matrix", oversimplified 503B model, and materially incorrect DSCSA-as-delivery-custody — are **preserved untouched** here for G11.
 
 <!--
 Document identity (passport):
  type: evidence_or_ingestion (verbatim independent-architect submission; C4.6 quadrifecta Gemini-A blind leg)
- authority: analysis_nonbinding · agent_read_rule: consult_if_routed · review_gate: user_knox_required
- status: frozen_verbatim_sealed · pending_G11_adjudication · not_promoted (2026-07-23)
+ authority: independent_adversarial_interpretation_nonbinding · agent_read_rule: consult_if_routed · review_gate: user_knox_required
+ status: sealed_verbatim_pending_G11_collision · not_promoted (2026-07-23; verbatim block 11,184B / SHA-256 1f272574…ba89e0)
  parent: v4_C4_6_rx_emit_pharmacy_counterparty_network_pressure_test.md (§7 quadrifecta)
  sibling (sealed, do-not-cross-contaminate): v4_C4_6_G2A_external_reality_map_2026-07-22.md (Opus G2A)
  catalog row: .cursor/plans/doctrine/01_master_corpus_catalog.md (appended same-pass)
