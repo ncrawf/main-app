@@ -45,11 +45,11 @@ G2's central act is to **separate six constitutional classes/roles that must nev
 | S5 | **Compiled Projection** (wiki · briefing · topic-map · semantic read-model · other lossy regenerable synthesis — **NOT a retrieval index**) | **a view** | A *regenerable, cited, lossy, freshness-bound, contradictions-surviving, compiler-lineage-bearing* view — never authoritative (`DEC-033` P4, `GRD-041`). Lexical/vector/graph **retrieval indexes are replaceable materialization/retrieval RAILS** (§R.10; 15-M), not this class; but their **chunks/embeddings/derived metadata are governed derived artifacts** inheriting source lineage + sensitivity + deletion/freshness/rebuild/eval obligations (§11.1). |
 | S6 | **Mission Context** (the purpose-/authority-scoped assembled draw) | **an assembled composition** | The *smallest sufficient admissible context* the Context Router assembles for one run/mission — lineage-bearing, as-of-reconstructable; not a durable body, not truth. |
 
-### §2.1 The species matrix (the constitutional distinctions — the anti-collapse spine)
+### §2.1 The constitutional-class matrix (the constitutional distinctions — the anti-collapse spine)
 
 | dimension | S1 Source Estate | S2 Knowledge Reservoir | S3 Domain-Owned State | S4 Evidence Workbench | S5 Compiled Projection | S6 Mission Context |
 |---|---|---|---|---|---|---|
-| **authority relationship** | authoritative only for *"we received exactly this, from X, at T"* (receipt-truth); NOT for any claim inside | authoritative as *reusable reference/experience* at its `authority_class` ceiling; never domain-commit authority | authoritative *within its owned subject-matter + authority basis* (scoped — NOT a global 'highest') | non-binding *outside reference* | **non-authoritative** by construction | non-authoritative; inherits admissibility from what it draws |
+| **authority relationship** | **scoped evidentiary authority** for provenance/signature/authorship/transmission/device-emission/exact-received-payload/legal-occurrence (receipt-truth); NOT for any interpreted/domain claim inside | authoritative as *reusable reference/experience* at its `authority_class` ceiling; never domain-commit authority | authoritative *within its owned subject-matter + authority basis* (scoped — NOT a global 'highest') | non-binding *outside reference* | **non-authoritative** by construction | non-authoritative; inherits admissibility from what it draws |
 | **custody + mutation law** | immutable while retained; new facts arrive as new artifacts/versions, never edits | curated; changes only via governed admission/promotion; versioned + attributed | append-only assertions; committed via owning-domain gate | raw source immutable · interpretations versioned + attributed (`GRD-042`) | fully regenerable; recomputed, never hand-edited as truth | assembled per-mission; logged for replay, not mutated |
 | **retention / deletion** | explicit · additive · lineage-preserving; deletion/pseudonymization/legal-hold is a governed event, never silent | eviction ≠ deleting evidence; retire/supersede, keep lineage | domain-governed retention + GDPR pseudonymize-not-delete | lane-scoped; sources retained for reinterpretation | disposable (recomputable from sources) | ephemeral or replay-retained under privacy/retention law |
 | **correction model** | correction package = additive supersession; original package stays reconstructable | re-review → new version; old marked superseded, not erased | owning domain commits its own correction (C4.3 Law 10.1) | new `EVRUN`/review snapshot, never overwrite | regenerate after upstream disposition | re-assemble; prior draw preserved for as-of replay |
@@ -59,7 +59,7 @@ G2's central act is to **separate six constitutional classes/roles that must nev
 | **reprocessing** | expected — one source ↔ many `extraction_run`s over years (`GRD-040`) | re-derivable from sources; re-admittable by better models | re-adoption via gate | reinterpretation expected (`GRD-042`) | rebuild without losing the corpus | re-assemble on demand |
 | **what it is NOT** | not a reservoir, not truth, not a view | not source, not domain truth, not a view | not a reservoir, not evidence | not a reservoir, not a data store (`GRD-041`), not truth | not truth, not a source of record | not a memory species, not a durable body |
 
-### §2.2 The directional law between species (adopts + extends the frontier binding law)
+### §2.2 The directional law between classes/roles (adopts + extends the frontier binding law)
 
 ```
 Source Estate (S1)
@@ -74,12 +74,12 @@ Evidence Workbench (S4) **PROPOSES + ROUTES** candidates to many governed homes 
 
 **Binding law (frontier §2, affirmed + widened):** **Source Estate preserves · CNS orchestrates · Reservoirs supply · Foundry compiles/tends · Context Router assembles · Owning domains commit.** Storage ≠ authority. Retrieval ≠ admissibility. Receipt-truth ≠ content-truth. Repetition ≠ independent evidence. Source ≠ normalized ≠ adopted ≠ decision ≠ projection ≠ mission-context — **never collapse** (charter §12).
 
-### §2.3 Why not fewer species (the collapse each separation prevents)
+### §2.3 Why not fewer classes/roles (the collapse each separation prevents)
 
 - **S1 vs S2 (source vs reservoir) — the load-bearing separation.** They have *opposite* mutation laws (immutable-while-retained vs curated-evolving) and *opposite* authority postures (received-not-vouched vs admitted-as-reusable). Collapsing them is exactly the §2 category error and the reason **parent A is rejected** (§3).
 - **S2 vs S3 (reservoir vs domain-owned state) — frontier Q2/Q6.** Clinical Memory is patient-specific *committed truth* (P1). A reservoir is *reusable reference/experience*, never domain-commit authority. Medical Literature (general knowledge, `FWREG-006`) ≠ Clinical Memory (patient truth) ≠ Care-Outcomes-Learning (system learning). Three species, never one.
-- **S2 vs S4 (reservoir vs workbench) — frontier §3.** The Evidence Workbench is a *processing boundary* (`GRD-043`: learning boundary, not a content library), not a durable authoritative body. It FEEDS reservoirs; it is not itself the governed body OMNI reasons from.
-- **S2/S3 vs S5 (body vs view) — `DEC-033`/`GRD-041`, EVSRC-262/313.** A wiki/RAG index is a compiled *cache over evidence*, not truth. Treating a projection as canonical state (or eventual-consistency for action-critical care) is rejected.
+- **S2 vs S4 (reservoir vs workbench) — frontier §3.** The Evidence Workbench is a *processing boundary* (`GRD-043`: learning boundary, not a content library), not a durable authoritative body. It **proposes + routes candidates to many governed homes** (Reservoirs · owning domains · doctrine/contracts · Build-OS · evals · watch/reject); it never accepts/commits and is not itself the governed body OMNI reasons from.
+- **S2/S3 vs S5 (body vs view) — `DEC-033`/`GRD-041`, EVSRC-262/313.** A compiled projection (wiki/briefing/read-model) is a *cache over evidence*, not truth (a retrieval index is a separate materialization rail, not a projection). Treating a projection as canonical state (or eventual-consistency for action-critical care) is rejected.
 - **S5 vs S6 (view vs draw) — EVSRC-266.** A compiled projection is a durable-ish regenerable view; a mission context is a *per-mission, purpose-bound assembly* (smallest sufficient admissible context), not a stored artifact. They differ in lifetime, ownership (compiler vs router), and scoping.
 
 ## §3 A/B/C parent adjudication (charter §7) — **B adopted · A rejected · C rejected-as-parent**
@@ -103,7 +103,7 @@ The architecture separates six layers; each species occupies specific layers. Th
 | 3 · interpretation / normalization | `extraction_run`/`ingestion_run`; versioned interpretations | S1→(candidates); machinery = Foundry | interpretations are versioned + attributed (`GRD-042`); adopt nothing by themselves |
 | 4 · domain adoption | candidates become owning-domain truth | S3 (owning domains) | **NOT C4.4's to own** — C4.4 places the leaves-the-estate boundary; owning domains commit |
 | 5 · reusable knowledge / experience | admitted curated bodies | S2 (reservoir family) | reservoir `review_gate` + `authority_class` |
-| 6 · indexes / projections / mission-context | compiled views + per-mission draws | S5 + S6 | Foundry compiles (S5); Context Router assembles (S6) |
+| 6 · materialization / projections / mission-context | retrieval indexes (rails) · compiled views · per-mission draws | index=rail · S5 · S6 | indexes = materialization RAILS (NOT S5); Foundry compiles projections (S5); Context Router assembles (S6) |
 
 Cross-cutting mechanisms (charter §6) — storage · catalog · lineage · access · indexing · versioning · quality · reprocessing · retention · revocation · search · compilation · promotion — are **rails/capabilities composed across layers**, NOT species (scope-fence `GRD-041`/`GRD-033`; §17). **Disposition: `resolved`.**
 
@@ -113,11 +113,11 @@ The current 10 `ingestion/` lanes are ONE value-set of **axis-1 (provenance)** s
 
 1. **Provenance / source family** — patient · provider · operator · partner · vendor · regulator · educator · system-export · device · agent · runtime · public.
 2. **Admission purpose** — tenant migration · ongoing sync · care evidence · operational execution · legal retention · reference learning · clinical knowledge · experience learning · federated exchange · model/build supply chain.
-3. **Destination / authority state** — source-only · provisional normalized · adoption candidate · domain truth · reservoir candidate · compiled projection · lesson candidate · policy/skill candidate · rejected/quarantined.
+3. **Intended governed destination / constitutional role** — Source Estate · Knowledge Reservoir · Domain-Owned State · Compiled Projection · Mission Context · external governed home · no-admission/reject route. *(Admission-status · activation · currency · quarantine · materialization are SEPARATE state dimensions — §8.2 — never folded into this axis; 15-P.)*
 4. **Information form** — package · file · document · table · row · image · audio · video · model artifact · external reference.
 5. **Delivery / temporal lifecycle** — one-time snapshot · incremental package · correction package · continuous feed · event stream · remote/federated pointer · generated derivative.
 
-**Mapping to species:** axis-3 (destination/authority state) is precisely the S1→S2/S3/S5/S6 fan-out; axis-2 (admission purpose) drives which `review_gate` applies; axis-5 (delivery lifecycle) drives the bounded-vs-open-ended profile split (§7). **Disposition: `resolved` — the five axes are the ingress-classification constitution; the 10 lanes are a scoped provenance value-set, not a competing taxonomy.**
+**Mapping to species:** axis-3 (governed destination/constitutional role) is precisely the S1→S2/S3/S5/S6 fan-out; axis-2 (admission purpose) drives which `review_gate` applies; axis-5 (delivery lifecycle) drives the bounded-vs-open-ended profile split (§7). **Disposition: `resolved` — the five axes are the ingress-classification constitution; the 10 lanes are a scoped provenance value-set, not a competing taxonomy.**
 
 ## §6 D7 boundary + the general artifact / corpus parent (charter §7 D7-honesty finding) — **`resolved` (boundary) + `bounded-deferred` (placement → G3/C5)**
 
@@ -138,11 +138,11 @@ The G1 F-Self finding (§7 "two manifest profiles — do NOT collapse") is adjud
 | **(A) bounded admission package** | F0 (federation export: declared contents, expected counts) | declared-vs-received is *knowable + closable*; missing/quarantined enumerated against a manifest | package *closes* with visible exceptions | correction packages supersede named subsets |
 | **(B) open-ended evolving corpus** | F-Self (chats + files + commits + decisions accumulating longitudinally) | completeness is *inherently partial/rolling* | **remains open-ended, BUT bounded coverage epochs / ingestion windows / reconciliation checkpoints CLOSE with explicit watermarks + exceptions** (coverage provable at a point in time) | additive supersession; no single final state |
 
-**Disposition: `resolved`** — one shared identity/lineage/extraction/reprocessing substrate; **two distinct lifecycle contracts** (bounded-closure vs rolling-never-closed). F-Self does NOT prove one universal `ingress_package` should model everything (anti-`GRD-026` universal-case). G3 designs both profiles over the shared mechanics.
+**Disposition: `resolved`** — one shared identity/lineage/extraction/reprocessing substrate; **two distinct lifecycle contracts** (bounded-closure vs open-ended-with-closable-watermarked-epochs). F-Self does NOT prove one universal `ingress_package` should model everything (anti-`GRD-026` universal-case). G3 designs both profiles over the shared mechanics.
 
-## §8 Authority-class taxonomy + admission-state ladder (frontier open Q5) — **`resolved` (candidate taxonomy → spine §8 ratifies)**
+## §8 Authority PROFILE + orthogonal state-families (frontier open Q5) — **`resolved` (candidate taxonomy → spine §8 ratifies)**
 
-Two **orthogonal** ladders. Conflating them is a known failure (EVSRC-227/262: "indexed ≠ accepted").
+A multidimensional authority **profile** (§8.1) and several **orthogonal state-families** (§8.2) — NOT ladders. Conflating them is a known failure (EVSRC-227/262: "indexed ≠ accepted").
 
 **(8.1) Authority is a MULTIDIMENSIONAL PROFILE — NOT a single ordered ladder** (Knox G2 correction; the earlier R0–R3 total-ordering is **REJECTED** — Threat Intel, clinical literature, and operational lessons differ by KIND and USE, not by one ascending scalar; and Evidence-Workbench material is NOT a reservoir class). Every reservoir body/partition carries an **authority profile** over these orthogonal axes (conceptual — enumerations ratified at spine §8/C5, **NOT a G2 schema**):
 
@@ -156,15 +156,14 @@ Two **orthogonal** ladders. Conflating them is a known failure (EVSRC-227/262: "
 | `use_ceiling` | descriptive-only · advisory · executable-candidate · prohibited-for-action |
 | `consequence_class` | blast radius if wrong (care-critical … cosmetic) |
 | `freshness_requirement` | how current it must be for a given use |
-| `admission_state` | see §8.2 (orthogonal) |
 
-**No total order is asserted.** Named profiles (e.g., "clinical reference," "operator alpha," "threat intel") may emerge, but a profile is a *point in this space*, never a rung. **Boundary (unchanged):** Evidence Workbench (S4) = proposes-only, NOT a reservoir authority class; Domain-Owned State (S3) = committed domain truth, NOT a reservoir; Clinical Memory (patient truth) ≠ Medical Literature (general reference) ≠ Care-Outcomes-Learning (system learning) — never collapse.
+**Admission state is a SEPARATE orthogonal family (§8.2), NOT an authority-profile axis. No total order is asserted.** Named profiles (e.g., "clinical reference," "operator alpha," "threat intel") may emerge, but a profile is a *point in this space*, never a rung. **Boundary (unchanged):** Evidence Workbench (S4) = proposes-only, NOT a reservoir authority class; Domain-Owned State (S3) = committed domain truth, NOT a reservoir; Clinical Memory (patient truth) ≠ Medical Literature (general reference) ≠ Care-Outcomes-Learning (system learning) — never collapse.
 
 **(8.2) Lifecycle is FOUR orthogonal state-families — NOT one ladder** (Knox G2 correction; the earlier single `candidate→…→evicted` sequence collapsed four axes). A unit carries one value in EACH, independently:
 - **admission:** `candidate · in_review · accepted · rejected` — the `indexed ≠ accepted` line: retrievable ≠ accepted-as-reusable; auto-ingest is not a commit.
 - **activation:** `inactive · active · suspended`.
 - **currency:** `current · stale · superseded · withdrawn`.
-- **materialization:** `unindexed · indexed · compiled · evicted · rebuild_pending` — **eviction belongs HERE (a cache/index/projection state), NOT to the accepted knowledge unit**; a `stale` but `accepted` lesson stays accepted yet is **non-admissible for a high-consequence mission** (risk-sensitive admissibility, EVSRC-262).
+- **materialization — TWO sub-dimensions, NOT one ladder (forms may coexist):** *form* = `index · compiled-projection · cache · other`; *status* (per form) = `absent · current · invalidated · evicted · rebuild-pending`. An accepted unit may be simultaneously index(current) AND compiled-projection(stale); **eviction is a materialization status of a cache/index/projection — NOT a state of the accepted knowledge unit**; a `stale`/`superseded` (currency) but `accepted` (admission) lesson stays accepted yet is **non-admissible for a high-consequence mission** (risk-sensitive admissibility, EVSRC-262).
 
 
 
@@ -174,12 +173,12 @@ Two **orthogonal** ladders. Conflating them is a known failure (EVSRC-227/262: "
 
 Distinct governed events (never collapsed):
 
-- **admission** — a unit *enters* a body. Source Estate: received + quarantine-gated (partial-failure-visible). Reservoir: indexed. **Admission ≠ acceptance.**
+- **admission** — a unit *enters* a body. Source Estate: received + quarantine-gated (partial-failure-visible). Reservoir: **entry into a candidate/review boundary (NOT indexing — `indexed ≠ accepted`)**. **Admission ≠ acceptance.**
 - **acceptance** — a unit is *admitted as reusable / adopted* (reservoir accept-gate; domain adoption gate for S3). The `indexed → accepted` transition (§8.2).
 - **correction** — **additive supersession**; NEVER a backward rewrite of committed history. The original package/version stays reconstructable.
 - **reconsideration (F-Inv)** — when a source is later found superseded, contextually misread, or built on an invalid assumption: **FLAG, do not silently rewrite** the canonical content; identify every promoted dependent artifact; **preserve both what-was-decided AND what-actions-were-taken** under the former accepted state; route reconsideration to the owning authority/gate; regenerate affected projections **only after** disposition.
 - **retention / deletion** — explicit · additive · lineage-preserving; **eviction ≠ deleting evidence**; deletion/pseudonymization/legal-hold/archival are governed events, never silent collapse of S1↔derived.
-- **revocation** — **propagates ≥ as aggressively as publication** (EVSRC-314; motivated by CL-03 Bedrock delete-resurrection, CL-09 Copilot/Glean permission-lag, CL-08 MINJA). Revocation reaches caches, indexes (S5), and federated recipients.
+- **revocation** — **propagates ≥ as aggressively as publication** (EVSRC-314; motivated by CL-03 Bedrock delete-resurrection, CL-09 Copilot/Glean permission-lag, CL-08 MINJA). Revocation reaches caches, **retrieval indexes/materializations (rails — NOT S5)**, S5 projections, and federated recipients.
 - **dependency-aware invalidation** — explicitly **NOT** a backward cascade into committed truth. It is a **governed, versioned assessment over distributed lineage with explicit uncertainty** — aligning C4.3 Law 10.1 (correction-impact is an *assessment*, not an authority; there is no universal ledger, no central "taint engine"; owning domains commit their own corrections; Accountability owns admitted obligations only). This is the constituted form of the G1 compound candidate gap `dependency-aware invalidation + governed reconsideration (F-Inv)`.
 
 **Disposition: `resolved`** as candidate lifecycle law. **Owner (implementation):** owning domains + Federation/RBAC (revocation propagation) + C4.5/`FWREG-015` (temporal/as-of) + Accountability (admitted obligations). **Trigger:** G3 + C5 contracts.
@@ -216,11 +215,11 @@ None is auto-adopted; each is stated as a **candidate law** routed to a composin
 
 | Q | frontier question | G2 disposition | detail / owner + trigger |
 |---|---|---|---|
-| Q1 | Care Outcomes Learning system — shape; one body or several (care/marketing/ops)? | **resolved (species) + bounded-deferred (roster/partition)** | It is a **Knowledge Reservoir member** (R1, §8.1) — system-level learning from OMNI's own actions; fed by S3 domain state + S4 evidence; admission-gated; passive-capture-proposes-never-promotes. Whether ONE body or several is a **principal/tenant + domain partition** question → **owner:** reservoir-roster/spine §8; **trigger:** spine §8. Intersects the save-case→learning-candidate path (Knox fixture) + CQ operational-lesson-unit (EVSRC-314). |
-| Q2 | Clinical Memory's class — member, or substrate/domain? | **resolved** | **Domain-Owned State (S3), NOT a reservoir.** Patient-specific committed truth; *consulted* by the family, *owned* by its domain. Boundary set: Clinical Memory (patient truth) ≠ Medical Literature (R2 general knowledge) ≠ Care-Outcomes-Learning (R1 system learning) — never collapse. |
+| Q1 | Care Outcomes Learning system — shape; one body or several (care/marketing/ops)? | **resolved (species) + bounded-deferred (roster/partition)** | It is a **Knowledge Reservoir member** (authority-profile `knowledge_kind` = operational/experience; §8.1) — system-level learning from OMNI's own actions; fed by S3 domain state + S4 evidence; admission-gated; passive-capture-proposes-never-promotes. Whether ONE body or several is a **principal/tenant + domain partition** question → **owner:** reservoir-roster/spine §8; **trigger:** spine §8. Intersects the save-case→learning-candidate path (Knox fixture) + CQ operational-lesson-unit (EVSRC-314). |
+| Q2 | Clinical Memory's class — member, or substrate/domain? | **resolved** | **Domain-Owned State (S3), NOT a reservoir.** Patient-specific committed truth; *consulted* by the family, *owned* by its domain. Boundary set: Clinical Memory (patient truth) ≠ Medical Literature (general reference `knowledge_kind`) ≠ Care-Outcomes-Learning (system-learning `knowledge_kind`) — never collapse. |
 | Q3 | The CNS framework itself (context assembly, regions, learning loops) | **bounded-deferred** | G2 contributes only the **knowledge/context seam** (Context Router draw + reservoir-supply law + mission classes, §10). The full CNS framework (hemispheres/regions, learning-loop placement) is **owner:** spine §5/§7 + `CNS_orchestration_contract`; **trigger:** spine §5/§7 authoring. (Scope-fence: `GRD-029`; C4.4 must not become the CNS designer.) |
 | Q4 | Final family name | **bounded-deferred (naming) + resolved (principle)** | **Principle resolved:** the family is a **non-prefixing classification tag** (members keep crisp names; no `OMNI X Reservoir` per member — frontier §1). **Name deferred** per the frontier's explicit "do not canonize" + charter §15 naming-ossification guard. **Owner:** G5/spine; **trigger:** G5 disposition. Working label: "Knowledge Reservoir family." |
-| Q5 | Authority-class taxonomy enumeration | **resolved (candidate)** | §8.1 authority-class ladder (R0–R3) + §8.2 admission-state ladder; ratified at spine §8. |
+| Q5 | Authority-class taxonomy enumeration | **resolved (candidate)** | §8.1 multidimensional authority profile + §8.2 orthogonal state-families; ratified at spine §8. |
 | Q6 | reservoir vs domain-memory vs projection vs workbench | **resolved** | The §2 six-species matrix — the anchor resolution. S2 vs S3 vs S5 vs S4 (plus S1 source estate + S6 mission context), never collapse. |
 
 ## §13 `FWREG-007` open-question closure ledger — **the formal G2 gate artifact** (each `resolved` / `bounded-deferred` / `rejected`; "explicitly open" is NOT a disposition)
@@ -257,10 +256,10 @@ Per charter §9: at **G2** the fixtures are *classified against the candidate ta
 | each PDF/image/spreadsheet | S1 artifact (reuse D7 physics, §6a) | immutable-while-retained; fingerprint dedup → `upload_event`, not duplicate originals |
 | corrupt/password-protected files | S1 quarantined (axis-3 = quarantined, §5) | preserved, not dropped; purpose-safe partial admission (§15-L) |
 | extracted patient facts | S1→candidate→S3 (owning domain adopts) | candidate-association ≠ confirmed-identity; unknown/collision held as candidate |
-| provider CO₂-treatment preferences | R1 reservoir candidate (Operator Knowledge) | provider preference ≠ clinical doctrine |
-| old formulary vs current | S1 (both retained); "current" = R2/domain per owner | historical instructions ≠ active policy; vendor doc ≠ current formulary |
+| provider CO₂-treatment preferences | Reservoir candidate (Operator Knowledge; `knowledge_kind`=operational) | provider preference ≠ clinical doctrine |
+| old formulary vs current | S1 (both retained); "current" = Domain-Owned State per owner | historical instructions ≠ active policy; vendor doc ≠ current formulary |
 | vendor price sheets | S1 → D6 domain candidate | receipt-truth ≠ content-truth |
-| a searchable index over it all | S5 compiled projection | searchable source ≠ adopted truth; rebuildable without losing the corpus |
+| a searchable index over it all | retrieval index = **materialization rail (NOT S5)** | searchable source ≠ adopted truth; rebuildable without losing the corpus |
 | correction package invalidating part of export 1 | §9 correction (additive supersession) + F-Inv if already promoted | original package stays reconstructable |
 
 **F-Self — OMNI's own build/architecture/evidence estate** (the 10 species census, G1 §7): the G1 10-species census maps cleanly onto the taxonomy — transcripts/uploads/EVSRC = **S1 Source Estate** (profile **B, open-ended**); interpretations/analyses = layer-3 interpretations (versioned); doctrine/contracts = **S3 Domain-Owned State / P0 doctrine** (committed); handoffs/read-graph/catalog = **S5 Compiled Projection** (regenerable, non-authoritative — `DEC-033`); the promoted-guardrail/decision bodies = **S2-like curated knowledge**; the "missing corpus-scale manifest linking thread→uploads→EVSRC→decisions→guardrails→catalog→commit" = the concrete **S1 open-ended-corpus admission-envelope gap** (§6b/§7B). **The taxonomy classifies all 10 species without a leftover** — G2-level pass holds.
@@ -285,10 +284,10 @@ Charter §12 required pressure, not auto-adoption. G2 dispositions (affirm `A` /
 - **15-J** `A` — Federated publication ≠ universal trust (locally admitted); provider/operator private alpha never becomes platform-common by silent extraction (membrane law).
 - **15-K** `A` — Passive capture allowed · passive promotion forbidden. Waves = audit/capping windows, not the unit of learning.
 - **15-L** `A` (constituted) — **Non-universal ingestion law:** nothing may be represented as complete while required components remain missing/failed/unresolved; partial processing is allowed only when the incompleteness is explicit and purpose-safe (a corrupt training PDF must not block 49,999 valid patient records). Package-level state + artifact-level gates + declared atomic sub-bundles + quarantined subsets + closure criteria.
-- **15-M** `A` — RAG/vector/graph/wiki/long-context/SQL/FTS/agentic = replaceable *realization*, not the constitution (`GRD-033` rail-agnostic; `GRD-041` scope-fence). OMNI owns governance semantics; storage/compute/vector/graph engines are plug-in rails.
+- **15-M** `A` — RAG/vector/graph/long-context/SQL/FTS/agentic-retrieval = replaceable *retrieval/materialization rails* (`GRD-033`/`GRD-041`); **wiki/briefing/read-model = S5 compiled-projection FORMS, not rails.** OMNI owns governance semantics; storage/compute/vector/graph engines are plug-in rails.
 - **15-N** `A` (scored acceptance criterion, deferred to eval) — The system must get *cheaper, more faithful, and less human-intensive per source over time*; F-Self is the fixture that proves whether it does. (G1 §7 sampled ~8–12 hand-maintained governance artifacts per Tier-2+ arc — directional, not a measured law; measurement deferred to Build-OS eval.)
 - **15-O** `A` (new, from the G1 live specimen §10) — **A survey establishes "not found," never "does not exist"; composition-not-found ≠ we-invented-it; posture ≠ operational lead.** Candidate G2 guardrail (route to `06` digest at promotion).
-- **15-P** `A` (new, reflexive) — **A taxonomy must obey its own anti-collapse constitution:** `kind ≠ authority ≠ admission ≠ activation ≠ currency ≠ materialization ≠ custody ≠ ownership ≠ use-authority`. No total order or god-owner may be inferred from convenience vocabulary. (This very correction pass applied it to §8.1/§8.2/§2.1; route to `06`.)
+- **15-P** `A` (new, reflexive) — **A taxonomy must obey its own anti-collapse constitution:** `kind ≠ authority ≠ admission ≠ activation ≠ currency ≠ materialization ≠ custody ≠ ownership ≠ use-authority`; no total order or god-owner inferred from convenience vocabulary. **AND renaming/reconceiving a constitutional class OBLIGES propagating the invalidation to EVERY dependent reference AND every governance pointer (catalog/read-graph/FWREG) — else a stale confident projection is created (the exact failure this arc governs, applied to itself).** (Applied to §8.1/§8.2/§2.1 + the full consistency sweep + the three governing pointers; route to `06`.)
 
 ## §16 Strategic finding — healthcare-native governed composition + the incumbent-composition risk — **`bounded-deferred` (not a constitutional species)**
 
@@ -315,7 +314,7 @@ G1 concluded (§4.3/§6.5, Knox-corrected) that the candidate differentiation is
 
 **Governance wiring (this pass):** (1) catalog row added to `01_master_corpus_catalog.md` (`analysis_nonbinding`, `add_tier2`, `consult_if_routed`, `user_knox_required`); (2) read-graph `9j` read-order updated to insert this doc as the G2 deliverable + mark G2 authored-pending-acceptance; (3) `FWREG-007` annotated `candidate` → G2 authored (open Qs closure ledger §13; NOT promoted, status stays `candidate`). Outer checkpoint UNCHANGED; read-graph #15 + AGENTS NOT repointed.
 
-**Repository posture:** authored on `analysis/c4-4-knowledge-source-estate` (worktree `c4_4-wt`), base `origin/main 5275707`, atop `71621f5`. To be committed to THIS analysis branch as governance preservation (the G1 precedent: charter + G1 map committed at `99a5f17`) — repository-durable, binds nothing (`analysis_nonbinding`, not merged). NOT committed onto the closed `EVRUN-000012` branch. No merge/PR.
+**Repository posture:** authored on `analysis/c4-4-knowledge-source-estate` (worktree `c4_4-wt`), base `origin/main 5275707`, atop `71621f5`. Committed + pushed on THIS analysis branch as governance preservation (G2 deliverable `0fbc8a0`; Knox correction `222f189`; this final consistency pass on top) — repository-durable, binds nothing (`analysis_nonbinding`, not merged). NOT committed onto the closed `EVRUN-000012` branch. No merge/PR.
 
 **Protocol §9 stop report:**
 - **Source posture:** declared §1 (booted fresh from the G2 kickoff handoff; governing read order + Tier-0 completed; no prior-chat reliance).
