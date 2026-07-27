@@ -129,6 +129,13 @@ Bounded packet to produce a source/decision-state map (governing · accepted-non
 
 ---
 
+## §8a — Open routing items (do NOT fold in; do NOT fork; route to owning agents)
+
+- **★ RESIDUAL-MOAT / NETWORK-FORMATION thesis — RELATED to this carrier, different altitude (operator flag 2026-07-27).** The moat/network-formation doctrine (on the `strategy/` branch — `v4_C4_residual_moat_and_network_formation_doctrine.md`, per Knox's 2026-07-23 direction to be renamed/downgraded to `v4_C4_pre_strategic_bet_memo_rx_network_formation_addendum.md`) concerns the **same facet/arc RELATIONSHIPS** this carrier classifies — but at the **L0 strategic layer** (*how composing facets across independently-governed counterparties becomes an earned, operated, cross-authority conformance/routing/continuity network*), whereas this carrier is the **structural classification** (what KIND each facet is and how it composes). They are adjacent lenses on facet relationships and should **cross-reference without either owning the other.** **ROUTING ITEM for the moat agent (strategy branch):** decide where the moat's network-formation *relationship* claims belong relative to this carrier (a pointer to/from #9n), and whether any relationship content should relocate here vs stay in the strategic memo. **Opus did NOT touch the strategy branch** (standing operator rule: do not fork live work on other agents' branches). This note is the durable hand-off; the operator/relay must point the moat agent at it.
+- **★ AGENT RUNTIME / HARNESS + P35 external-capability — confirmed SEPARATE (operator 2026-07-27).** The Agent Runtime & Harness capture (currently in the `_wt_agent_runtime_g2/` worktree) is a **distinct concern** and is **NOT folded into this carrier.** It may be *consulted* when classifying how agents/controllers advance lifecycles (rubric D + G, and the "agents call typed tools without manufacturing authority" invariant), but it remains its own capture with its own owner. No merge into #9n.
+
+---
+
 ## §9 — Non-goals / hard stops (this carrier)
 
 No per-facet canon (rubric not yet frozen/applied) · no new domain minted · no C5 contract/schema/code · no spine/thesis synthesis · no Reactor promotion · no full Insurance architecture (Gate-0 only, later) · no indiscriminate repo sweep · no promotion (`analysis_nonbinding`, `GRD-036`, subordinate to checkpoint #15). Fresh Knox + operator gate everything.
