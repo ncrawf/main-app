@@ -9,7 +9,7 @@ Owner: Opus (closeout) · Reviewers: Nick (operator) + fresh Knox · Origin: ope
 
 ## §0 — BOOT: read this first (fresh/re-tiered agent)
 
-- **You are being fired up to pick up C4.6 pharmacy work.** The **sole live task is §3: fresh-Knox adjudication of the pharmacy L2 build-doctrine.** Nothing else is live.
+- **You are being fired up to pick up C4.6 pharmacy work.** The pharmacy L2 build-doctrine has passed **Knox substantive-architecture review (PASS, 2026-07-31)** and its **seven-group bounded fidelity patch is applied** (see §9.6). **The sole live task is now the current-Knox NARROW MECHANICAL re-check of those seven fidelity corrections** (not an architecture round — architecture is settled). Read §9 (esp. §9.2 map + §9.6) then the L2 (`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`) — its §17 lists the re-verification questions. Nothing else is live.
 - **HARD STOPS (standing Knox rulings — do NOT violate):** no merge · no rebase (until AFTER the L2 verdict, §6) · no promotion of any cross-facet classification/answer · no new "board"/umbrella artifact · no touching the moat frame, Reactor, the watch list, open-review queue, catalog, or read-graph · no repointing the canonical checkpoint (#15/AGENTS) from this stale branch · only ONE control-plane integrator edits `01`/`04`/`08`/routes at a time (concurrency rule).
 - **This branch is STALE** (off `787c34f`; main is `6588c14`). Any catalog/read-graph registration on it is provisional until the branch rebases onto current main + passes collision review. "Untouched" ≠ "merge-approved."
 - **The agreed cross-arc PROCESS is pinned** at the top of `v4_C4_cross_facet_operating_model_classification_reconciliation.md` (see §5). Read it; do NOT re-derive it.
@@ -24,12 +24,15 @@ Four worktrees / branches:
 
 | Thread | Branch (worktree) | Tip | Base | State |
 |---|---|---|---|---|
-| **Pharmacy (C4.6)** ← THIS branch | `analysis/c4-6-g2-external-reality-map` (`/Users/bloomfrontdesk1/Desktop/main-app`) | `ba4a1bd` | `787c34f` (stale) | G2A **accepted**; L2 doctrine drafted **pending fresh-Knox**; cross-facet worksheet **quarantined**. NOT merged. |
+| **Pharmacy (C4.6)** ← THIS branch | `analysis/c4-6-g2-external-reality-map` (`/Users/bloomfrontdesk1/Desktop/main-app`) | integration `de94814` + this-pass fidelity-patch commit (see §9.6) | `787c34f` (stale) | G2A **accepted**; L2 doctrine **integrated (Knox architecture PASS) + seven-group fidelity patch applied**, pending Knox's narrow mechanical re-check; cross-facet worksheet **quarantined**. NOT merged. |
 | **Reservoir (C4.4)** | `analysis/c4-4-knowledge-source-estate` (`/Users/bloomfrontdesk1/Desktop/c4_4-wt`) | `febfcf5` | `5275707` (stale) | **G2 CLOSED**, Knox-verified, operator-accepted; G3 NOT started. NOT merged. |
 | **Runtime** | `analysis/agent-runtime-g2-consumption` (`.../_wt_agent_runtime_g2`) | `febfcf5` | reservoir G2 tip | Branched off reservoir G2; **nothing advanced beyond it**. |
 | **Moat** | `strategy/omni-residual-moat-doctrine` (`/Users/bloomfrontdesk1/Desktop/residual-moat-wt`) | `6588c14` | — | **MERGED to main**; owns read-graph #9n. Closed (reopen only at its Gate A/B/`D0-REV-010`). |
 
 This branch's recent commits (newest first):
+- *(this pass)* seven-group fidelity patch — SHA reported to Knox thread
+- `de94814` integrate fresh-Knox amendments (#1-13 + A14-A20 + C12-C16) coherently; lossless handoff §9 receipt
+- `1a6295b` handoff C4.6 branch-local closeout
 - `ba4a1bd` pin THE PLAN at top of cross-facet worksheet (process vs provisional answers)
 - `08041e7` quarantine cross-facet worksheet — remove premature #9n route + catalog row (fresh-Knox ruling)
 - `03ed270` cross-facet: open-routing items (moat=related L0 lens; runtime=separate)
@@ -44,16 +47,18 @@ This branch's recent commits (newest first):
 ## §2 — What lives on THIS branch
 
 1. **`v4_C4_6_G2A_external_reality_map_2026-07-22.md`** (read-graph #9m-a) — G2A external reality, `as_of 2026-07-22`. CONTENT ACCEPTED (Knox). Appendix-A source-anchor ledger; sealed verbatim Gemini-A submission. Merge-eligible on rebase.
-2. **`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`** (read-graph #9m-c) — **the L2 build-time engineering doctrine = the SOLE LIVE OBJECT (§3).** Standards posture (consume/never-reinvent/defer/firewall) + normalized partner-agnostic typed-action adapter contract + canonical evidence shape + the 2030/2035 conformance test C1–C10. Status: pending fresh-Knox.
+2. **`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`** (read-graph #9m-c) — **the L2 build-time engineering doctrine = the LIVE OBJECT.** Now the integrated v3: GCE-anchored shared-vs-specialized counterparty boundary (§0.5) + five-class versioned standards posture (§2) + adapter-family/connection + capability axes (§3) + three-plane command/evidence/commit interface + resolver + multi-principal resolution (§4) + prescription-artifact lineage (§5) + recognition-rule/proof-shape (§6) + same-contract/unequal-assurance evidence envelope (§7) + pharmacy-sovereign offer projection (§8) + composed admissibility/selection (§9) + return-path/continuation (§10) + ownership matrix + purpose-bound comms + loyalty guard (§11) + proof-bearing **C1–C16** (§12) + build-delta incl. present-day C7 nonconformance (§13). Status: **Knox architecture PASS + seven-group fidelity patch applied; pending narrow mechanical re-check** (§9.6). §17 = the re-verification questions.
 3. **`v4_C4_6_day1_external_pharmacy_seam_pass_brief.md`** (read-graph #9m-b) — Gate-0 product DIRECTION (not build-ready).
 4. **`v4_C4_6_rx_emit_pharmacy_counterparty_network_pressure_test.md`** (#9m) — parent charter.
 5. **`v4_C4_cross_facet_operating_model_classification_reconciliation.md`** — **QUARANTINED, unregistered worksheet** (no catalog row, no read-graph route). Holds THE agreed cross-arc PLAN (pinned at top, §5) + provisional A–H review questions. Its classifications/level-model are PROVISIONAL, not accepted.
 
 ---
 
-## §3 — THE SOLE LIVE TASK: pharmacy L2 fresh-Knox adjudication
+## §3 — Pharmacy L2 adjudication (COMPLETED — historical brief; live task is now §9.6 narrow re-check)
 
-Adjudicate `v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md` with a **fresh Knox** (prior Knox thread is context-saturated).
+**Status update:** the fresh-Knox adjudication described in this section HAS RUN. Knox returned PASS-WITH-AMENDMENTS (#1–#13 + A14–A20 + C12–C16, integrated at `de94814`), then on repository re-verification returned **substantive-architecture PASS** with a seven-group bounded fidelity patch (now applied — §9.6). **The current live task is the narrow mechanical re-check of those seven groups**, against the L2's own **§17** questions. The material below is the original adjudication brief, preserved for lineage; where its L2 section numbers or action names differ from the integrated L2, the integrated L2 + §9.2 map govern (e.g., the evidence envelope is L2 §7; the typed interface is L2 §4; the old `record_acceptance_evidence` is now `ingest_counterparty_acceptance_assertion`).
+
+Original brief — adjudicate `v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`:
 
 **Scope discipline (critical):** classify/judge its **specific units**, NOT the noun "Pharmacy" as one genus (a lane is a TUPLE — external-counterparty facet + externally-owned execution lifecycle + conformance profiles + domains + controllers + rails + projections + invariants). The units to test:
 - the Rx episode; external-pharmacy execution states; counterparty participation/conformance; the normalized adapter contract (§4 of L2); the canonical evidence envelope (§6 of L2); routing policy; the bilateral execution-obligation (rung-5) meaning; manual-bridge behavior; the CORE-vs-ADAPTER boundary (§3 of L2).
@@ -61,8 +66,8 @@ Adjudicate `v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md` with a 
 **Questions to put to it** (from the L2's own §12 + the worksheet's provisional A–H):
 1. Standards posture (§2 of L2) correct + complete? Anything mis-scoped (FHIR/DSCSA conflation) or missing (state boards/NABP/USP 795/797/503B as an evidence class)?
 2. Is the adapter contract genuinely partner-agnostic and does it PROFILE NCPDP SCRIPT rather than reinvent a competing protocol?
-3. Does `record_acceptance_evidence` / rung-5 duplicate OFC/Federation/CNS obligations? Does "CORE" quietly become a shadow Pharmacy domain?
-4. Is the conformance test C1–C10 a real pass/fail instrument (would a wrong build decision actually FAIL a gate) or are the gates soft?
+3. Does `ingest_counterparty_acceptance_assertion` / rung-5 duplicate OFC/Federation/CNS obligations? Does "CORE" quietly become a shadow Pharmacy domain?
+4. Is the conformance test **C1–C16** a real pass/fail instrument (would a wrong build decision actually FAIL a gate) or are the gates soft?
 5. Is anything overclaiming (the recurring failure) — does it smuggle in a build spec, named pharmacy, or UI?
 
 Keep it **bounded to the L2 artifact + its pharmacy lineage.** Do NOT turn it into a cross-estate pass.
@@ -110,9 +115,9 @@ The canonical current-state pointer (`04_manifest_read_graph.md` #15 + AGENTS) i
 
 ## §8 — Durability receipt
 
-- This handoff is committed + pushed on branch `analysis/c4-6-g2-external-reality-map`.
-- Everything referenced is committed + pushed: pharmacy branch `ba4a1bd` (this branch), reservoir `febfcf5`, runtime `febfcf5`, moat merged at main `6588c14`.
-- No merge, no rebase, no promotion, no checkpoint repoint performed by this closeout. One new file (this handoff). Other agents' untracked worktree files left untouched.
+- This handoff is committed + pushed on branch `analysis/c4-6-g2-external-reality-map`. Current pharmacy-branch state: L2 integrated at `de94814` + this-pass seven-group fidelity patch (see §9.6; latest SHA in the Knox relay).
+- Everything referenced is committed + pushed: pharmacy branch = this branch tip, reservoir `febfcf5`, runtime `febfcf5`, moat merged at main `6588c14`.
+- No merge, no rebase, no promotion, no checkpoint repoint. Only ever the two C4.6 files touched per pass (L2 + this handoff). Other agents' untracked worktree files left untouched.
 
 ## §9 — AMENDMENT RECEIPT (2026-07-31) — L2 patched coherently · lossless amendment→section map · residuals in full
 
@@ -121,10 +126,10 @@ Authority: `analysis_nonbinding` (`GRD-036`). Branch-local. Not promoted. Cross-
 ### §9.1 — What changed, and why
 - **Fresh Knox returned PASS-WITH-AMENDMENTS** (#1–#13) plus, on operator reopening, corrected A14–A20 and C12–C16. The over-collapse Opus first proposed ("pharmacy = a profile over the OFC fulfillment genus") was **rejected by Knox and, after independent repository re-verification, conceded by Opus on the merits.**
 - **Why the correction holds (verified in-repo this pass, agreement ≠ corroboration):**
-  - **OFC is `draft_for_ratification`** (`contracts/ordered_fulfillment_contract.md` §5; closure pending trifecta) — so "already ratified" was overstated. The settled parts are **payload-noun ≠ domain** (`GRD-026`) and `lab`/`rx`/`commerce_fulfillment` as `fulfillment_order_kind` **subtypes** (OFC §43/§67).
-  - **The shared anti-silo anchor is the ratified Governed Capability Exchange**, NOT OFC (`doctrine/omni_enterprise_posture_2026-06-03.md`; `D0THES-DEC-036`; `GRD-033/034`). **OFC owns only the fulfillment-state slice.**
-  - **EVRUN-000012 §15 (operative)** holds **Care ≠ Sourcing ≠ Fulfillment**, **settlement = D6-native**, a **unified Vendor Loop is rejected** (L7), and offer/sourcing/equivalence objects `REQUIRES_C5_DEDUP` (L8) — procurement/inventory/AP/COGS is NOT presumed solved.
-  - **New keeper (now in L2 §0.5):** *payload-noun ≠ domain; **counterparty-noun ≠ lifecycle**; classification output is a **tuple**, not a bucket.*
+  - **OFC is `draft_for_ratification`** (`contracts/ordered_fulfillment_contract.md` header + §1.5; closure pending trifecta) — so "already ratified" was overstated. The settled parts are **payload-noun ≠ domain** (`GRD-026`; the guard is OFC §7 invariant 3) and `lab`/`rx`/`commerce_fulfillment` as `fulfillment_order_kind` **subtypes** (OFC §4).
+  - **The shared anti-silo anchor is the ratified Governed Capability Exchange** (an *inherited ratified guardrail set*), NOT OFC (`doctrine/omni_enterprise_posture_2026-06-03.md`; `D0THES-DEC-036`; `GRD-033/034`). **OFC owns only the fulfillment-state slice.** (`counterparty-noun ≠ lifecycle` is a **proposed L2 keeper**, not inherited ratified law.)
+  - **EVRUN-000012 `_02 §15.3` (operative lifecycle classification)** holds **Care ≠ Sourcing ≠ Fulfillment** and **settlement = D6-native**; **`_07 §7.3` L7** records the **unified Vendor-Loop rejection** and **L8** the offer/sourcing/equivalence objects `REQUIRES_C5_DEDUP` — procurement/inventory/AP/COGS is NOT presumed solved.
+  - **New keeper (now in L2 §0.5):** *payload-noun ≠ domain; **counterparty-noun ≠ lifecycle**; classification output is a **tuple**, not a bucket.* **Sharpened:** pharmacy is not a new OMNI-owned unified lifecycle or truth-owning domain — the external pharmacy keeps its own sovereign execution lifecycle; external systems may be source-authoritative for facts in their own systems but never own OMNI canonical truth (L2 §0.5/§7/§10/§11).
 
 ### §9.2 — Lossless amendment → final-L2-section map (the durable content lives in the L2 §; this is the index)
 | Amendment | Substance (one-line) | Landed in L2 § |
@@ -138,7 +143,7 @@ Authority: `analysis_nonbinding` (`GRD-036`). Branch-local. Not promoted. Cross-
 | **#7** | Shadow-domain ruling + ownership matrix; delete "rung-5 obligation record + deterministic route" from NEW-core | §11 (matrix) + §13 (NEW clause) |
 | **#8** | Evidence envelope: same contract, unequal assurance; retire manual==API; remove authoritative `next_obligation`; full field list | §7 |
 | **#9** | Composed admissibility + selection, not a deterministic route owner / scalar "best" | §9 |
-| **#10** | Proof-bearing conformance gates | §12 (C1–C11 proof/fixture columns) |
+| **#10** | Proof-bearing conformance gates | §12 (C1–C16 proof/fixture columns) |
 | **#11** | Record the present C7 violation (`impl.ts` ~2963–2969) + classify existing scaffolding | §13 (KNOWN NONCONFORMANCE + classification) |
 | **#12** | Bound the absence-of-evidence / moat claim to G2A's survey; "rung 5" = OMNI analytical term | §6 (survey-bounded) + §2.A vendor-API bounding |
 | **#13** | Demote Palantir/Anthropic to comparators, not imperatives | §14 |
@@ -179,7 +184,19 @@ Authority: `analysis_nonbinding` (`GRD-036`). Branch-local. Not promoted. Cross-
 
 ### §9.5 — Transaction record + exact next action
 - **Files changed this pass: exactly two** — `v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md` (L2, coherently rewritten) and this handoff. **No** cross-facet worksheet edit, **no** catalog, **no** read-graph, **no** checkpoint repoint, **no** merge, **no** rebase, **no** registration. Cross-facet worksheet remains quarantined; the agreed arc-by-arc PLAN (§5) is untouched. Commit SHA + both blob SHAs + the section-level diff receipt are reported to the current Knox thread (a file cannot durably contain its own commit SHA; the relay carries the exact hashes for repository re-verification).
-- **Exact next action:** the current Knox re-reads the committed repository L2 (not a summary) and issues the final L2 content verdict. Only after that does the operator decide whether to authorize the post-L2 rebase onto current `main` + registration collision-check (§6). No third Knox, no new umbrella artifact, no new planning cycle.
+- **Exact next action (superseded — see §9.6):** the current Knox re-reads the committed repository L2 and issues the verdict.
+
+### §9.6 — Knox repository re-verification (2026-07-31): substantive architecture PASS + seven-group bounded fidelity patch
+Knox re-read the remote commit `de94814` (L2 blob `3044c77`, handoff blob `c31bc96`) and returned **SUBSTANTIVE ARCHITECTURE = PASS** (GCE-not-OFC shared anchor; OFC = fulfillment slice; payload-noun≠domain; counterparty-noun≠lifecycle; pharmacy/vendor cousins; distinct Care/Sourcing/Fulfillment/Settlement/procurement/Accountability lifecycles; four-artifact Rx lineage; command≠evidence≠commit; same-contract/unequal-assurance evidence; temporal pharmacy-sovereign offers; loyalty + internal-pharmacy preserved as explicit residuals; C1–C16 materially real). **HOLD only for seven bounded fidelity groups (NOT an architecture round — no A21, no new ontology, no reopened cross-facet work).** Applied this pass, both files, IDs → landing:
+1. **Handoff boot-state refresh** — §0/§1/§2/§3/§8 + passport were describing pre-patch state (tip `ba4a1bd`, "C1–C10 pending fresh-Knox", old action name), routing a fresh agent to stale work before §9. Fixed below.
+2. **Source/decision-state attribution** — "two ratified laws" → one inherited ratified guardrail (`GRD-026`) + one proposed L2 keeper (counterparty-noun≠lifecycle); OFC cites → header/§1.5 + §4 + §7 inv.3 (line-numbers `§43/§67` removed); EVRUN split → `_02 §15.3` operative + `_07 §7.3` L7/L8 downstream; "pharmacy is not a new OMNI-owned unified lifecycle or truth-owning domain" sharpened. (L2 §0.5/§16/passport + this receipt.)
+3. **External-source-authority contradiction** — "never source-of-truth owners" replaced by the cross-sovereign rule (external systems may be source-authoritative for facts in their own systems, never own OMNI canonical truth; resolver determines the OMNI consequence). Carried through L2 §0.5/§7/§8/§10/§11.
+4. **Adapter family/connection/capability/direction unmix** — removed "one implementation per connection"; capability enum split into orthogonal axes (support-mode / direction / channel / verification); "CORE over GCE/OFC" → "CORE = normalized exchange/seam over GCE, consumed by distinct lifecycles; OFC only when the interaction advances fulfillment." (L2 §3.)
+5. **Command/evidence + exception semantics** — `record_exception` → `record_exception_assertion` (proposes; owning domain creates the obligation via Plane 3); added Plane-2 `record_cancellation_response/confirmation` + `record_renewal_request`; SCRIPT mappings stay `partial`/`unknown_unverified`. (L2 §4.)
+6. **Evidence envelope completion** — added recording_actor≠asserting_principal, explicit channel, raw-artifact ref + integrity hash, external-txn/correlation/idempotency IDs, four timestamps, evidence-posture, contradiction≠supersession, authority basis, profile version, validity/expiry, owning-domain state ref; assurance vocab → authenticated_machine_assertion | human_attestation | derived_or_inferred | unverified (no default "verified"). (L2 §7.)
+7. **Standards ledger + build wording** — §2 common-metadata block added; NCPDP wording fixed (transition began 2024-07-17; either version allowed; 2023011 exclusive 2028-01-01); DSCSA small-dispenser precision (25-or-fewer pharmacist/technician FTE as of 2024-11-27, through 2026-11-27); F&B v60 exclusive / RTPB v13 required 2027-01-01; current build = "single-path dispatch **preparation** workflow; no verified dispatch pipeline yet"; ownership matrix split (Care meaning · D7 artifact custody · counterparty source records · L2 seam owns no runtime truth/stored proof). (L2 §2/§13/§11.)
+- **What did NOT reopen (per Knox):** GCE anchor · pharmacy/vendor cousin model · no-Pharmacy-domain ruling · A14–A20 · C1–C16 · loyalty routing · internal/inpatient deferral · Insurance · Reactor · cross-facet classification · L3 homes · surfaces/named-partner wiring. The architecture is settled for this L2.
+- **Transaction:** exactly two files changed (this handoff + the L2). No worksheet/catalog/read-graph/checkpoint/moat/Reactor/merge/rebase/registration/code. New commit SHA + both blob SHAs reported to the Knox thread for the narrow mechanical re-check (a file cannot contain its own commit SHA). Knox's next review checks only these seven groups + accidental collateral; it will not repeat the architecture adjudication. Then the operator decides on the post-L2 rebase + collision-check (§6).
 
 ---
 
@@ -187,9 +204,9 @@ Authority: `analysis_nonbinding` (`GRD-036`). Branch-local. Not promoted. Cross-
 Document identity (passport):
 type: handoff (agent-continuity; NOT a canonical checkpoint, NOT authority, NOT schema/contract)
 authority: analysis_nonbinding (GRD-036) · agent_read_rule: boot_pickup_for_this_branch · review_gate: user_knox_required
-status: branch_local · not_a_checkpoint_repoint · not_merged · not_promoted (2026-07-27 operator closeout)
-branch: analysis/c4-6-g2-external-reality-map @ ba4a1bd (stale off 787c34f; main 6588c14)
-scope: sole live task = pharmacy L2 fresh-Knox adjudication; cross-facet worksheet quarantined; PLAN pinned
+status: branch_local · not_a_checkpoint_repoint · not_merged · not_promoted (updated 2026-07-31: L2 Knox architecture PASS + seven-group fidelity patch applied, §9.6)
+branch: analysis/c4-6-g2-external-reality-map @ post-fidelity-patch (integration de94814; stale off 787c34f; main 6588c14)
+scope: live task = current-Knox NARROW MECHANICAL re-check of the seven fidelity groups (architecture settled); cross-facet worksheet quarantined; PLAN pinned
 hard-stops: no merge/rebase-until-post-L2 · no promotion of cross-facet answers · no moat/Reactor/checkpoint edits · concurrency rule · stale-branch (rebase+collision-check before any registration is valid)
 not-wired: intentionally NOT added to catalog/read-graph (concurrency rule + stale branch); discoverable as a HANDOFF_ file on this branch
 -->
