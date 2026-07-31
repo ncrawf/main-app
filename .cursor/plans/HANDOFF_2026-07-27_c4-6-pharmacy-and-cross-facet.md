@@ -2,29 +2,29 @@
 
 Document type: `handoff` (agent-continuity artifact — the durable pickup point for the NEXT agent on this branch's live work; NOT a canonical checkpoint, NOT authority, NOT a schema/contract).
 Authority: `analysis_nonbinding` (`GRD-036`). Binds nothing. Promotes nothing.
-Status: `branch_local · rebased_onto_main_6588c14_2026-07-31 · L2_content_verdict_CLOSED_knox_PASS · not_merged · not_promoted` — the pharmacy branch (`analysis/c4-6-g2-external-reality-map`) has been REBASED onto live `origin/main` `6588c14` (was stale off `787c34f`); the L2 content verdict is CLOSED/ACCEPTED (Knox final PASS 2026-07-31). Still does NOT touch read-graph #15 / AGENTS (the canonical checkpoint) — merge to main is a separate operator gate.
+Status: `artifact_landed_on_main_44feb15 · option_b · L2_arc_content_closed_knox_final_PASS · analysis_nonbinding · not_promoted · global_checkpoint_unchanged` — the C4.6 pharmacy arc has been MERGED to `main` @ `44feb15` (Option B artifact-landing, 2026-07-31): the accepted L2 (blob `0f96645`) + G2A + briefs landed as nonbinding subordinate pre-spine inputs; the quarantined cross-facet worksheet was EXCLUDED (preserved on `analysis/cross-facet-operating-model-reconciliation` @ `a526b88`). Canonical checkpoint #15 / AGENTS / controlling-plan banner are UNCHANGED by design (C4.6 is subordinate to #15). See §9.9.
 Owner: Opus (closeout) · Reviewers: Nick (operator, final gate) + the current independent Knox thread (adjudicator) · Origin: operator closeout direction 2026-07-27 → post-L2 rebase/closeout 2026-07-31.
 
 ---
 
 ## §0 — BOOT: read this first (fresh/re-tiered agent)
 
-- **You are being fired up to pick up C4.6 pharmacy work.** The pharmacy L2 build-doctrine is **CLOSED/ACCEPTED — Knox final content verdict PASS (2026-07-31)**: substantive-architecture PASS + seven-group bounded fidelity patch + narrow mechanical re-check all PASS (see §9.6). The branch has been **rebased onto live `origin/main` `6588c14`** and registration-collision-checked (see §9.7). **The only remaining step is an operator decision on whether to MERGE this branch to main** (`analysis_nonbinding`; no auto-merge). No architecture round remains. Read §9 (esp. §9.2 map + §9.6/§9.7) then the L2 (`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`).
-- **HARD STOPS (standing rulings — do NOT violate):** **no merge to main WITHOUT explicit operator authorization** · **rebase is COMPLETE (§9.7) — do not re-rebase** · no promotion of any cross-facet classification/answer · no new "board"/umbrella artifact · no touching the moat frame, Reactor, the watch list, open-review queue · **no repointing the canonical checkpoint (#15/AGENTS) except via the operator-approved merge/closeout decision (§7 + §9.8)** · only ONE control-plane integrator edits `01`/`04`/`08`/routes at a time (concurrency rule).
-- **This branch WAS stale** (off `787c34f`); it has now been **REBASED onto current `main` `6588c14`** and registration-collision-checked (§9.7), so its `01`/`04` registrations are valid. **"Rebased" ≠ "merged"** — merge to main + any checkpoint repoint remain a separate operator gate (§9.8).
+- **C4.6 pharmacy is DONE and LANDED.** The pharmacy L2 build-doctrine is **CLOSED/ACCEPTED — Knox final content verdict PASS (2026-07-31)** and the arc has been **MERGED to `main` @ `44feb15`** (Option B artifact-landing) as a nonbinding subordinate pre-spine input. No architecture round remains and **no pharmacy re-review is pending**. The next action is operator-controlled selection of the NEXT arc (Task-D final · C4.4 reservoir · C4.5 temporal · demand) — NOT more pharmacy work. Read §9 (esp. §9.2 map + §9.6–§9.9) then the L2 (`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`).
+- **HARD STOPS (standing rulings — do NOT violate):** **merged to main @ `44feb15` (Option B) — do NOT re-merge, rollback, or re-rebase** · **do NOT reopen pharmacy architecture** · no promotion of any cross-facet classification/answer · no new "board"/umbrella artifact · no touching the moat frame, Reactor, the watch list, open-review queue · **canonical checkpoint (#15/AGENTS/banner) is UNCHANGED and STAYS unchanged — C4.6 is a subordinate nonbinding input, not the controlling gate** · only ONE control-plane integrator edits `01`/`04`/`08`/routes at a time (concurrency rule).
+- **This branch was rebased onto `main` then MERGED @ `44feb15`** (§9.9). The cross-facet worksheet is NOT on main — it lives on `analysis/cross-facet-operating-model-reconciliation` @ `a526b88` (unregistered, quarantined).
 - **The agreed cross-arc PROCESS is pinned** at the top of `v4_C4_cross_facet_operating_model_classification_reconciliation.md` (see §5). Read it; do NOT re-derive it.
 
 ---
 
-## §1 — Verified repository state (2026-07-31, post-rebase; checked against origin)
+## §1 — Verified repository state (2026-07-31, post-merge; checked against origin)
 
-Live `origin/main` = **`6588c14`** (contains the merged residual-moat frame, which owns read-graph **#9n**). This branch is now **rebased onto that tip** (no longer stale).
+Live `origin/main` = **`44feb15`** — the C4.6 merge commit (Option B, `--no-ff`) on top of `6588c14` (which carried the residual-moat frame, read-graph **#9n**). The accepted L2 (blob `0f96645`), G2A, briefs, and this handoff are now ON main; the cross-facet worksheet is NOT.
 
 Four worktrees / branches:
 
 | Thread | Branch (worktree) | Tip | Base | State |
 |---|---|---|---|---|
-| **Pharmacy (C4.6)** ← THIS branch | `analysis/c4-6-g2-external-reality-map` (`/Users/bloomfrontdesk1/Desktop/main-app`) | post-rebase closeout (see §9.7) | `6588c14` (**rebased onto current main**) | G2A **accepted**; L2 doctrine **CLOSED/ACCEPTED — Knox final PASS**; cross-facet worksheet **quarantined**. Rebased + collision-checked; NOT merged (operator gate). Backup ref `backup/c4-6-pre-rebase-20260731` @ `b23fe8d`. |
+| **Pharmacy (C4.6)** ← THIS branch | `analysis/c4-6-g2-external-reality-map` (`/Users/bloomfrontdesk1/Desktop/main-app`) | `c75de75` → **MERGED to main @ `44feb15`** | `6588c14` → merged | G2A **accepted**; L2 doctrine **CLOSED/ACCEPTED — Knox final PASS** (blob `0f96645`); cross-facet worksheet **extracted to `analysis/cross-facet-operating-model-reconciliation` @ `a526b88`**. Rebased + collision-checked + **MERGED (Option B artifact-landing)**. Backup ref `backup/c4-6-pre-rebase-20260731` @ `b23fe8d`. |
 | **Reservoir (C4.4)** | `analysis/c4-4-knowledge-source-estate` (`/Users/bloomfrontdesk1/Desktop/c4_4-wt`) | `febfcf5` | `5275707` (stale) | **G2 CLOSED**, Knox-verified, operator-accepted; G3 NOT started. NOT merged. |
 | **Runtime** | `analysis/agent-runtime-g2-consumption` (`.../_wt_agent_runtime_g2`) | `febfcf5` | reservoir G2 tip | Branched off reservoir G2; **nothing advanced beyond it**. |
 | **Moat** | `strategy/omni-residual-moat-doctrine` (`/Users/bloomfrontdesk1/Desktop/residual-moat-wt`) | `6588c14` | — | **MERGED to main**; owns read-graph #9n. Closed (reopen only at its Gate A/B/`D0-REV-010`). |
@@ -78,10 +78,10 @@ Keep it **bounded to the L2 artifact + its pharmacy lineage.** Do NOT turn it in
 
 ## §4 — Standing constraints (Knox rulings, 2026-07-27)
 
-- **Rebase + collision-check are DONE (§9.7)** — the bounded pharmacy transaction was rebased onto current `main` `6588c14` and all its registrations (`#9m-a/#9m-b/#9m-c`, catalog rows) collision-checked. **No merge to main WITHOUT explicit operator authorization**; do not re-rebase.
-- **Cross-facet worksheet stays quarantined** — provisional answers, not accepted; its rubric is questions-only, not a frozen ontology; a lane is a tuple, not one genus. Do NOT register it, do NOT force per-facet canon, do NOT merge it.
+- **Rebase + collision-check + MERGE are DONE (§9.7–§9.9)** — the bounded pharmacy transaction was rebased onto `main`, collision-checked, and merged @ `44feb15` (Option B). **Do NOT re-merge, rollback, or re-rebase; do NOT reopen pharmacy architecture.**
+- **Cross-facet worksheet stays quarantined** — provisional answers, not accepted; its rubric is questions-only, not a frozen ontology; a lane is a tuple, not one genus. It is NOT on main (extracted to its own branch `a526b88`). Do NOT register it, do NOT force per-facet canon, do NOT merge it.
 - **Do NOT touch:** the moat frame (merged/closed on main, owns #9n — do not relocate/reopen), Reactor (candidate/frozen), watch list, open-review queue, catalog/read-graph beyond legitimate scoped work under the concurrency rule.
-- **Canonical checkpoint (#15/AGENTS) still NOT repointed.** The checkpoint-closeout decision (Option A repoint vs Option B artifact-landing) is the pending operator gate; see §7 + §9.8.
+- **Canonical checkpoint (#15/AGENTS/banner) UNCHANGED — Option B chosen (operator, 2026-07-31):** C4.6 landed as a subordinate nonbinding input; the controlling gate stays the `2026-07-19` Task-D/EVRUN-000012 checkpoint. See §7 + §9.9.
 
 ---
 
@@ -100,7 +100,7 @@ Pinned at the TOP of the cross-facet worksheet (now on dedicated branch `analysi
 
 ## §6 — After the L2 verdict (next steps, operator-gated)
 
-1. ~~Rebase + reconcile the bounded pharmacy transaction onto current `main`; collision-check registrations~~ **DONE (§9.7).** Remaining operator gates: (a) the **checkpoint-closeout decision** — Option A (repoint #15/AGENTS) vs Option B (land artifacts, checkpoint unchanged) per §9.8; then (b) merge the accepted pharmacy artifacts to main.
+1. ~~Rebase + collision-check + checkpoint-closeout decision + merge~~ **ALL DONE (§9.7–§9.9): Option B, merged @ `44feb15`.** The C4.6 arc is landed; no pharmacy step remains.
 2. Choose **exactly ONE** next arc: reservoir/runtime · influencer/demand · care/GRR closure. Each runs against the §5 questions and emits a classification receipt.
 3. Insurance = a bounded Gate-0 LATER, as a falsifier of the rubric — not now.
 4. Cross-arc synthesis only once several receipts exist.
@@ -109,21 +109,21 @@ Reservoir G2 (`c4_4-wt`) is separately accepted and is the lowest-risk "bring ho
 
 ---
 
-## §7 — Canonical checkpoint: still unchanged; the closeout decision is the pending gate
+## §7 — Canonical checkpoint: UNCHANGED (Option B chosen + applied at merge)
 
-The canonical current-state pointer (`04_manifest_read_graph.md` #15 + AGENTS = the `2026-07-19` Task-D/EVRUN-000012 controlling-gate checkpoint) is **still unchanged** — correctly so through the rebase. It was not touched because C4.6 is `analysis_nonbinding` and **subordinate to #15**, one of several parallel operator-activated pre-spine inputs; it is NOT the boot-controlling gate. The Checkpoint Closeout Rule now forces an explicit choice at merge (see §9.8):
+The canonical current-state pointer (`04_manifest_read_graph.md` #15 + AGENTS = the `2026-07-19` Task-D/EVRUN-000012 controlling-gate checkpoint) is **UNCHANGED** — verified on `main` @ `44feb15` (AGENTS byte-identical `7a8a438`; #15 still points to the `2026-07-19` handoff). It was not touched because C4.6 is `analysis_nonbinding` and **subordinate to #15**, one of several parallel operator-activated pre-spine inputs; it is NOT the boot-controlling gate. The Checkpoint Closeout Rule forced an explicit choice at merge:
 - **Option A** — repoint #15/AGENTS/controlling-plan banner to a C4.6-closed state.
 - **Option B** — land the C4.6 artifacts as nonbinding subordinate inputs, canonical checkpoint **UNCHANGED**, and do NOT claim global closeout.
 
-**Opus's architectural recommendation is Option B.** Repointing the global gate to a subordinate `analysis_nonbinding` arc would misrepresent boot state and lose the Task-D / EVRUN-000012 / temporal controlling sequence — a leak-at-pivots regression. C4.6's content verdict is closed at *its own arc level*; that is not the same as advancing the controlling gate. **The operator chooses; nothing is repointed until then.**
+**Option B was chosen (operator, 2026-07-31)** and applied at the merge (§9.9). Repointing the global gate to a subordinate `analysis_nonbinding` arc would have misrepresented boot state and lost the Task-D / EVRUN-000012 / temporal controlling sequence — a leak-at-pivots regression. C4.6's content verdict is closed at *its own arc level*; the controlling gate is unchanged. Because Option B was chosen, **no agent may call C4.6 "globally closed" under the control-plane definition** — it is a landed subordinate input.
 
 ---
 
 ## §8 — Durability receipt
 
-- This handoff is committed + pushed on branch `analysis/c4-6-g2-external-reality-map`. Current pharmacy-branch state: L2 integrated (`de94814`) + fidelity-patched (`b23fe8d`) + **rebased onto `origin/main` `6588c14` with the registration-collision closeout at `0e9da07`** (§9.7); this-pass merge-prep (worksheet extraction + this normalization, §9.8) sits directly on top (SHA in relay).
-- Everything referenced is committed + pushed: pharmacy branch = this branch tip; the extracted worksheet on `analysis/cross-facet-operating-model-reconciliation` @ `a526b88`; reservoir `febfcf5`; runtime `febfcf5`; demand `b191d75`; external-engagement `22bcf30`; moat merged at main `6588c14`.
-- **Still NOT merged to main and NO checkpoint repoint** (both are the pending operator gate, §9.8). L2 body byte-stable since the rebase (blob `0f96645`). Other agents' untracked worktree files left untouched.
+- This handoff is on branch `analysis/c4-6-g2-external-reality-map` (tip `c75de75`), now **MERGED to `main` @ `44feb15`**. Branch lineage: L2 integrated (`de94814`) → fidelity-patched (`b23fe8d`) → rebased onto `main` + collision closeout (`0e9da07`, §9.7) → merge-prep/worksheet-extraction (`c75de75`, §9.8) → merge (`44feb15`, §9.9) → this post-merge control-plane sync (main-only).
+- Everything referenced is committed + pushed: pharmacy branch tip `c75de75` (merged); the extracted worksheet on `analysis/cross-facet-operating-model-reconciliation` @ `a526b88`; reservoir `febfcf5`; runtime `febfcf5`; demand `b191d75`; external-engagement `22bcf30`; moat merged at main (pre-C4.6 `6588c14`); `main` = `44feb15` + this sync commit.
+- **MERGED to main @ `44feb15` (Option B, §9.9); checkpoint #15/AGENTS/banner UNCHANGED.** L2 body byte-stable throughout (blob `0f96645`). Other agents' untracked worktree files left untouched.
 
 ## §9 — AMENDMENT RECEIPT (2026-07-31) — L2 patched coherently · lossless amendment→section map · residuals in full
 
@@ -220,15 +220,22 @@ Knox's closeout verdict was **REBASE: PASS / MERGE AS-IS: HOLD** — the rebase 
 - **Blocker 3 — checkpoint-closeout (PREPARED, NOT committed; operator decides).** Per the Checkpoint Closeout Rule, Tier-2+ work is not "closed" on main until handoff + AGENTS + read-graph #15 + controlling-plan banner are synchronized. C4.6 is `analysis_nonbinding` and **subordinate to #15** (the `2026-07-19` Task-D/EVRUN-000012 controlling-gate checkpoint), one of several parallel pre-spine inputs — it is NOT the boot-controlling gate. **Two options (operator picks; see §7):** **A** = repoint #15/AGENTS/banner to a C4.6-closed state (Opus assessment: WRONG here — it would demote the controlling Task-D/EVRUN/temporal gate and mislead future boots); **B** = land C4.6 artifacts as nonbinding subordinate inputs with the **canonical checkpoint UNCHANGED** and no claim of global closeout (**Opus RECOMMENDATION**). The exact pointer text for either option is prepared for the operator; **no AGENTS/#15/banner byte is changed in this pass.**
 - **Transaction:** files touched this pass — this handoff (normalization + §9.8) and the removal of the cross-facet worksheet from the tree. **No** L2 body change, **no** catalog, **no** read-graph, **no** checkpoint/AGENTS/banner, **no** moat/Reactor/watch-list/open-review, **no** merge. The dedicated worksheet branch was created off `main` and pushed (touches no other branch). Backup ref `backup/c4-6-pre-rebase-20260731` @ `b23fe8d` retained until post-merge verification.
 
+### §9.9 — Merge LANDED on main + post-merge control-plane sync (2026-07-31)
+Knox verdict **MERGE EXECUTION: PASS** (main = `44feb15`; L2 blob `0f96645` correct; worksheet absent from main + preserved at `a526b88`; AGENTS byte-identical `7a8a438`; read-graph #15 unchanged). Operator chose **Option B** (artifact-landing, NOT global closeout).
+- **Merge:** `--no-ff` merge commit **`44feb1528b27d792315b373b4e08aa7383da067f`** (parents: `6588c14` main + `c75de75` C4.6 tip; merge tree == C4.6 tip tree, i.e. no tree difference). C4.6 artifacts landed as `analysis_nonbinding` **subordinate pre-spine inputs**; NO global closeout claimed. Lineage (adjudication → fidelity → rebase → merge-prep) preserved by the non-squash merge.
+- **Checkpoint UNCHANGED (verified on main):** read-graph #15 + AGENTS `Current Checkpoint Handoff` both still `HANDOFF_2026-07-19_taskd_interim_checkpointed_evrun12_active.md`; controlling-plan banner untouched. The controlling gate remains the `2026-07-19` Task-D / EVRUN-000012 / temporal sequence.
+- **Post-merge control-plane sync (THIS commit, main-only):** normalized the stale pre-merge/pre-adjudication descriptions in exactly THREE files — **this handoff** (status header + this §9.9); **`01_master_corpus_catalog.md`** (C4.6 rows → final accepted/landed state + a NEW handoff row, reached via #9m, `manifest_action=none`, no new route); **`04_manifest_read_graph.md`** (#9m/#9m-a/#9m-b/#9m-c → final accepted artifact states — L2 = final PASS, C1–C16, GCE anchor, three-plane command/evidence/commit, same-envelope/unequal-assurance, composed admissibility, A14–A20, internal-pharmacy + loyalty deferred; #9m-b marked historical Gate-0 direction that the final L2 supersedes). **The L2 body, AGENTS, read-graph #15, controlling banner, Reactor, moat content, the worksheet branch, and all other branches were NOT touched.**
+- **Next action:** operator-controlled selection of the NEXT arc (Task-D final · C4.4 reservoir · C4.5 temporal · demand) — **NOT another pharmacy review.** Pre-rebase backup `backup/c4-6-pre-rebase-20260731` @ `b23fe8d` may now be deleted at operator discretion (post-merge verification passed).
+
 ---
 
 <!--
 Document identity (passport):
 type: handoff (agent-continuity; NOT a canonical checkpoint, NOT authority, NOT schema/contract)
 authority: analysis_nonbinding (GRD-036) · agent_read_rule: boot_pickup_for_this_branch · review_gate: user_knox_required
-status: branch_local · rebased_onto_main_6588c14 · L2_content_verdict_CLOSED_knox_final_PASS · merge_prep_done · worksheet_extracted · not_merged · not_promoted · checkpoint_decision_pending_operator (updated 2026-07-31: merge-prep pass §9.8 on top of the §9.7 rebase closeout)
-branch: analysis/c4-6-g2-external-reality-map @ merge-prep (on top of rebase-closeout 0e9da07; rebased onto main 6588c14; backup ref backup/c4-6-pre-rebase-20260731 @ b23fe8d) · cross-facet worksheet extracted to analysis/cross-facet-operating-model-reconciliation @ a526b88
-scope: live task = operator decision on (a) checkpoint-closeout Option A vs B (§9.8) then (b) merge to main (L2 content verdict CLOSED/ACCEPTED, Knox final PASS); cross-facet worksheet extracted + quarantined on its own branch; PLAN pinned
-hard-stops: no merge without operator authorization · rebase complete (do not re-rebase) · no promotion of cross-facet answers · no moat/Reactor edits · no checkpoint repoint until the operator picks Option A/B · concurrency rule
-not-wired: intentionally NOT added to catalog/read-graph (concurrency rule + stale branch); discoverable as a HANDOFF_ file on this branch
+status: artifact_landed_on_main_44feb15 · option_b · L2_arc_content_closed_knox_final_PASS · worksheet_extracted · not_promoted · global_checkpoint_unchanged (updated 2026-07-31: MERGED to main §9.9 + post-merge control-plane sync)
+branch: analysis/c4-6-g2-external-reality-map @ c75de75 → MERGED to main @ 44feb15 (Option B, --no-ff); backup ref backup/c4-6-pre-rebase-20260731 @ b23fe8d; cross-facet worksheet on analysis/cross-facet-operating-model-reconciliation @ a526b88
+scope: C4.6 arc LANDED on main (Option B); no pharmacy step remains; next action = operator-controlled selection of the next arc (Task-D final · C4.4 · C4.5 · demand); cross-facet worksheet quarantined on its own branch; PLAN pinned
+hard-stops: do not re-merge/rollback/re-rebase · do not reopen pharmacy · no promotion of cross-facet answers · no moat/Reactor edits · checkpoint #15/AGENTS/banner stay unchanged (Option B) · concurrency rule
+wired: post-merge (2026-07-31) a catalog row was added for this handoff (analysis_nonbinding · artifact_landed_main_option_b · consult_if_routed · reached via #9m, no new read-graph route · global checkpoint unchanged); discoverable as a HANDOFF_ file on main
 -->
