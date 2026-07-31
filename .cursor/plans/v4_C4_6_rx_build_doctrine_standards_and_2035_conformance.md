@@ -2,7 +2,7 @@
 
 Document type: `architecture_pressure_test` (build-time engineering **doctrine capture** — the standing engineering commitments a build agent inherits so it does NOT re-litigate standards/APIs/tools/ontology; NOT a build spec, NOT a C5 contract, NOT code, NOT a spine, NOT a synthesis).
 Authority: `analysis_nonbinding` (`GRD-036` — capture broad, promotion gated). **Binds nothing. Promotes nothing. Pre-spine / pre-v4.** It is a *resolved-decision register + conformance instrument*, not a schema and not an authority host.
-Status: `L2_build_doctrine_v3_fidelity_patched · knox_substantive_architecture_PASS_2026-07-31 · seven_group_bounded_fidelity_corrections_applied · pending_narrow_mechanical_re_check_by_current_knox · operator_controlled · not_promoted` (Nick direction 2026-07-26 → author the doctrine; fresh-Knox PASS-WITH-AMENDMENTS #1–#13 + A14–A20 + C12–C16 integrated coherently; Knox repository re-verification 2026-07-31 = **substantive architecture PASS**, HOLD for seven bounded fidelity groups — now applied; the branch-local handoff §9 carries the amendment→section receipt + residuals).
+Status: `L2_build_doctrine_v3_ACCEPTED · knox_final_content_verdict_PASS_2026-07-31 (architecture PASS + seven-group fidelity patch + narrow mechanical re-check all PASS) · analysis_nonbinding · pre-spine/pre-v4 · not a build spec/contract/schema/authorization · rebased_onto_main_6588c14_2026-07-31 · operator_controlled · not_promoted` (Nick direction 2026-07-26 → author the doctrine; fresh-Knox PASS-WITH-AMENDMENTS #1–#13 + A14–A20 + C12–C16 integrated coherently; Knox repository re-verification 2026-07-31 = **substantive architecture PASS** → seven bounded fidelity groups applied → **narrow mechanical re-check PASS = content verdict CLOSED/ACCEPTED**; the branch-local handoff §9 carries the amendment→section receipt + residuals, §9.7 the post-L2 rebase/collision closeout).
 Owner (custody of the record): Opus (branch author/integrator) · Reviewers: Nick (operator, final gate) + the current independent Knox thread (adjudicator; re-reads the committed repository file, not a summary) · Direction author: Nick (relayed).
 Parent: `v4_C4_6_rx_emit_pharmacy_counterparty_network_pressure_test.md` (Gate-0 charter).
 Siblings: `v4_C4_6_G2A_external_reality_map_2026-07-22.md` (external reality this doctrine consumes; read-graph #9m-a) · `v4_C4_6_day1_external_pharmacy_seam_pass_brief.md` (Gate-0 product direction; #9m-b).
@@ -332,11 +332,11 @@ Standing hard stops for any consumer of this file: promote nothing, mint no shad
 Document identity (passport):
 type: architecture_pressure_test (build-time engineering doctrine capture — resolved-decision register + conformance instrument; NOT a build spec, C5 contract, schema, code, spine, or synthesis)
 authority: analysis_nonbinding (GRD-036 — capture broad, promotion gated) · agent_read_rule: do_not_treat_as_binding · review_gate: user_knox_required
-status: L2_build_doctrine_v3_fidelity_patched · knox_substantive_architecture_PASS · seven_group_bounded_fidelity_corrections_applied · pending_narrow_mechanical_re_check_by_current_knox · operator_controlled · not_promoted (2026-07-31)
+status: L2_build_doctrine_v3_ACCEPTED · knox_final_content_verdict_PASS · seven_group_fidelity_re_check_PASS · rebased_onto_main_6588c14 · operator_controlled · not_promoted (2026-07-31)
 parent: v4_C4_6_rx_emit_pharmacy_counterparty_network_pressure_test.md (Gate-0 charter)
 siblings: v4_C4_6_G2A_external_reality_map_2026-07-22.md · v4_C4_6_day1_external_pharmacy_seam_pass_brief.md
 ratified anchors: doctrine/omni_enterprise_posture_2026-06-03.md (GCE · D0THES-DEC-036 · GRD-033/034) · contracts/ordered_fulfillment_contract.md header+§1.5 (draft_for_ratification) / §4 (subtyping) / §7 inv.3 (payload-noun guard · GRD-026) · EVRUN-2026-000012 _02 §15.3 (operative) + _07 §7.3 L7/L8 (downstream)
-manifest: add_tier2 (routed #9m-c; no read-graph edit this pass) · catalog: pending (registration only after operator authorizes post-L2 rebase + collision-check)
+manifest: add_tier2 (routed #9m-c) · catalog: registered (row present in 01; rebased onto main 6588c14 + collision-checked 2026-07-31; 3 dangling non-C4.6 rows stripped)
 amendment receipt: HANDOFF_2026-07-27_c4-6-pharmacy-and-cross-facet.md §9 (amendment→section map + unresolved residuals)
 hard-stops: no promotion · no partner/rail specifics in core · no internal-pharmacy · no loyalty mechanism · no standards re-derivation without a §2 trigger
 -->

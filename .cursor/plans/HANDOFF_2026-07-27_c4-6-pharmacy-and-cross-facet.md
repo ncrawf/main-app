@@ -2,29 +2,29 @@
 
 Document type: `handoff` (agent-continuity artifact — the durable pickup point for the NEXT agent on this branch's live work; NOT a canonical checkpoint, NOT authority, NOT a schema/contract).
 Authority: `analysis_nonbinding` (`GRD-036`). Binds nothing. Promotes nothing.
-Status: `branch_local · not_a_checkpoint_repoint · not_merged · not_promoted` — written on the STALE pharmacy branch (`analysis/c4-6-g2-external-reality-map`, merge-base `787c34f`, while live `origin/main` is `6588c14`). Deliberately does NOT touch read-graph #15 / AGENTS (the canonical checkpoint) — a stale branch must not repoint global boot state.
-Owner: Opus (closeout) · Reviewers: Nick (operator) + fresh Knox · Origin: operator closeout direction 2026-07-27.
+Status: `branch_local · rebased_onto_main_6588c14_2026-07-31 · L2_content_verdict_CLOSED_knox_PASS · not_merged · not_promoted` — the pharmacy branch (`analysis/c4-6-g2-external-reality-map`) has been REBASED onto live `origin/main` `6588c14` (was stale off `787c34f`); the L2 content verdict is CLOSED/ACCEPTED (Knox final PASS 2026-07-31). Still does NOT touch read-graph #15 / AGENTS (the canonical checkpoint) — merge to main is a separate operator gate.
+Owner: Opus (closeout) · Reviewers: Nick (operator, final gate) + the current independent Knox thread (adjudicator) · Origin: operator closeout direction 2026-07-27 → post-L2 rebase/closeout 2026-07-31.
 
 ---
 
 ## §0 — BOOT: read this first (fresh/re-tiered agent)
 
-- **You are being fired up to pick up C4.6 pharmacy work.** The pharmacy L2 build-doctrine has passed **Knox substantive-architecture review (PASS, 2026-07-31)** and its **seven-group bounded fidelity patch is applied** (see §9.6). **The sole live task is now the current-Knox NARROW MECHANICAL re-check of those seven fidelity corrections** (not an architecture round — architecture is settled). Read §9 (esp. §9.2 map + §9.6) then the L2 (`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`) — its §17 lists the re-verification questions. Nothing else is live.
+- **You are being fired up to pick up C4.6 pharmacy work.** The pharmacy L2 build-doctrine is **CLOSED/ACCEPTED — Knox final content verdict PASS (2026-07-31)**: substantive-architecture PASS + seven-group bounded fidelity patch + narrow mechanical re-check all PASS (see §9.6). The branch has been **rebased onto live `origin/main` `6588c14`** and registration-collision-checked (see §9.7). **The only remaining step is an operator decision on whether to MERGE this branch to main** (`analysis_nonbinding`; no auto-merge). No architecture round remains. Read §9 (esp. §9.2 map + §9.6/§9.7) then the L2 (`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`).
 - **HARD STOPS (standing Knox rulings — do NOT violate):** no merge · no rebase (until AFTER the L2 verdict, §6) · no promotion of any cross-facet classification/answer · no new "board"/umbrella artifact · no touching the moat frame, Reactor, the watch list, open-review queue, catalog, or read-graph · no repointing the canonical checkpoint (#15/AGENTS) from this stale branch · only ONE control-plane integrator edits `01`/`04`/`08`/routes at a time (concurrency rule).
 - **This branch is STALE** (off `787c34f`; main is `6588c14`). Any catalog/read-graph registration on it is provisional until the branch rebases onto current main + passes collision review. "Untouched" ≠ "merge-approved."
 - **The agreed cross-arc PROCESS is pinned** at the top of `v4_C4_cross_facet_operating_model_classification_reconciliation.md` (see §5). Read it; do NOT re-derive it.
 
 ---
 
-## §1 — Verified repository state (2026-07-27, checked against origin)
+## §1 — Verified repository state (2026-07-31, post-rebase; checked against origin)
 
-Live `origin/main` = **`6588c14`** (contains the merged residual-moat frame, which owns read-graph **#9n**).
+Live `origin/main` = **`6588c14`** (contains the merged residual-moat frame, which owns read-graph **#9n**). This branch is now **rebased onto that tip** (no longer stale).
 
 Four worktrees / branches:
 
 | Thread | Branch (worktree) | Tip | Base | State |
 |---|---|---|---|---|
-| **Pharmacy (C4.6)** ← THIS branch | `analysis/c4-6-g2-external-reality-map` (`/Users/bloomfrontdesk1/Desktop/main-app`) | integration `de94814` + this-pass fidelity-patch commit (see §9.6) | `787c34f` (stale) | G2A **accepted**; L2 doctrine **integrated (Knox architecture PASS) + seven-group fidelity patch applied**, pending Knox's narrow mechanical re-check; cross-facet worksheet **quarantined**. NOT merged. |
+| **Pharmacy (C4.6)** ← THIS branch | `analysis/c4-6-g2-external-reality-map` (`/Users/bloomfrontdesk1/Desktop/main-app`) | post-rebase closeout (see §9.7) | `6588c14` (**rebased onto current main**) | G2A **accepted**; L2 doctrine **CLOSED/ACCEPTED — Knox final PASS**; cross-facet worksheet **quarantined**. Rebased + collision-checked; NOT merged (operator gate). Backup ref `backup/c4-6-pre-rebase-20260731` @ `b23fe8d`. |
 | **Reservoir (C4.4)** | `analysis/c4-4-knowledge-source-estate` (`/Users/bloomfrontdesk1/Desktop/c4_4-wt`) | `febfcf5` | `5275707` (stale) | **G2 CLOSED**, Knox-verified, operator-accepted; G3 NOT started. NOT merged. |
 | **Runtime** | `analysis/agent-runtime-g2-consumption` (`.../_wt_agent_runtime_g2`) | `febfcf5` | reservoir G2 tip | Branched off reservoir G2; **nothing advanced beyond it**. |
 | **Moat** | `strategy/omni-residual-moat-doctrine` (`/Users/bloomfrontdesk1/Desktop/residual-moat-wt`) | `6588c14` | — | **MERGED to main**; owns read-graph #9n. Closed (reopen only at its Gate A/B/`D0-REV-010`). |
@@ -196,7 +196,16 @@ Knox re-read the remote commit `de94814` (L2 blob `3044c77`, handoff blob `c31bc
 6. **Evidence envelope completion** — added recording_actor≠asserting_principal, explicit channel, raw-artifact ref + integrity hash, external-txn/correlation/idempotency IDs, four timestamps, evidence-posture, contradiction≠supersession, authority basis, profile version, validity/expiry, owning-domain state ref; assurance vocab → authenticated_machine_assertion | human_attestation | derived_or_inferred | unverified (no default "verified"). (L2 §7.)
 7. **Standards ledger + build wording** — §2 common-metadata block added; NCPDP wording fixed (transition began 2024-07-17; either version allowed; 2023011 exclusive 2028-01-01); DSCSA small-dispenser precision (25-or-fewer pharmacist/technician FTE as of 2024-11-27, through 2026-11-27); F&B v60 exclusive / RTPB v13 required 2027-01-01; current build = "single-path dispatch **preparation** workflow; no verified dispatch pipeline yet"; ownership matrix split (Care meaning · D7 artifact custody · counterparty source records · L2 seam owns no runtime truth/stored proof). (L2 §2/§13/§11.)
 - **What did NOT reopen (per Knox):** GCE anchor · pharmacy/vendor cousin model · no-Pharmacy-domain ruling · A14–A20 · C1–C16 · loyalty routing · internal/inpatient deferral · Insurance · Reactor · cross-facet classification · L3 homes · surfaces/named-partner wiring. The architecture is settled for this L2.
-- **Transaction:** exactly two files changed (this handoff + the L2). No worksheet/catalog/read-graph/checkpoint/moat/Reactor/merge/rebase/registration/code. New commit SHA + both blob SHAs reported to the Knox thread for the narrow mechanical re-check (a file cannot contain its own commit SHA). Knox's next review checks only these seven groups + accidental collateral; it will not repeat the architecture adjudication. Then the operator decides on the post-L2 rebase + collision-check (§6).
+- **Transaction:** exactly two files changed (this handoff + the L2). No worksheet/catalog/read-graph/checkpoint/moat/Reactor/merge/rebase/registration/code. New commit SHA + both blob SHAs reported to the Knox thread for the narrow mechanical re-check (a file cannot contain its own commit SHA). Knox's next review checks only these seven groups + accidental collateral; it will not repeat the architecture adjudication. Then the operator decides on the post-L2 rebase + collision-check (§9.7).
+
+### §9.7 — Post-L2 rebase + registration-collision closeout (2026-07-31)
+Operator-authorized after Knox **final content-verdict PASS** (seven-group fidelity re-check passed; architecture settled). The branch was rebased from stale base `787c34f` onto live `origin/main` `6588c14` (15 commits replayed with `-X theirs` to preserve branch content, then ONE explicit control-plane correction). **Safety:** backup ref `backup/c4-6-pre-rebase-20260731` @ `b23fe8d` (pre-rebase tip); the remote also still held `b23fe8d`.
+- **L2 byte-integrity:** the L2 blob was unchanged **through** the rebase (`fe8c03b…`); only its Status / passport / catalog-meta lines changed in this closeout — **no body change**. All pharmacy + cross-facet artifacts are byte-identical to the pre-rebase backup.
+- **Collision ledger — only `04` had a genuine textual collision** (both sides edited the cross-workstream block). Resolved as a **union**: order `9m → 9m-a/b/c` (branch C4.6 routes) `→ 9n` (main's moat route) `→ 9a` (main's, carrying item `(12c)`) `→ 10`; the latent `9m-c→9a` missing-newline defect was repaired. `04` now differs from `origin/main` by exactly the three C4.6 route lines.
+- **`01` auto-merged** (branch rows at ~L304 vs main's moat row at ~L335, non-overlapping); main's moat row (#9n) preserved.
+- **Stripped (operator-authorized):** 3 dangling non-C4.6 catalog rows the branch was carrying — `v4_C4_4_knowledge_and_source_estate_formulation_plan.md`, `v4_C4_4_prior_depth_and_july_2026_reality_map.md`, `v4_demand_engagement_continuity_gate0_recovery.md`. Their artifacts are untracked here and belong to the **reservoir (C4.4)** / **demand** branches, which re-register their own rows when they land. No C4.4/demand read-graph routes were touched.
+- **Untouched:** the moat frame + #9n content, Reactor (frozen), the watch list, `08` open-review, checkpoint #15 / AGENTS, and the **quarantined cross-facet worksheet** (still no registration). Every other branch ref was left exactly in place: `analysis/c4-4-knowledge-source-estate` `febfcf5` · `analysis/agent-runtime-g2-consumption` `febfcf5` · `analysis/demand-engagement-gate0-recovery` `b191d75` · `analysis/external-engagement-gate1-operating-reality` `22bcf30` · `strategy/omni-residual-moat-doctrine` `6588c14` · `main` `6588c14`. Only `analysis/c4-6-g2-external-reality-map` moved (force-push `--with-lease`).
+- **Next:** operator decision on whether to merge this branch to `main`. Any substantive L2 change would return to the Knox thread as a bounded diff — **none was made here (status pointers + control-plane union only).**
 
 ---
 
@@ -204,9 +213,9 @@ Knox re-read the remote commit `de94814` (L2 blob `3044c77`, handoff blob `c31bc
 Document identity (passport):
 type: handoff (agent-continuity; NOT a canonical checkpoint, NOT authority, NOT schema/contract)
 authority: analysis_nonbinding (GRD-036) · agent_read_rule: boot_pickup_for_this_branch · review_gate: user_knox_required
-status: branch_local · not_a_checkpoint_repoint · not_merged · not_promoted (updated 2026-07-31: L2 Knox architecture PASS + seven-group fidelity patch applied, §9.6)
-branch: analysis/c4-6-g2-external-reality-map @ post-fidelity-patch (integration de94814; stale off 787c34f; main 6588c14)
-scope: live task = current-Knox NARROW MECHANICAL re-check of the seven fidelity groups (architecture settled); cross-facet worksheet quarantined; PLAN pinned
+status: branch_local · rebased_onto_main_6588c14 · L2_content_verdict_CLOSED_knox_PASS · not_merged · not_promoted (updated 2026-07-31: post-L2 rebase + registration-collision closeout, §9.7)
+branch: analysis/c4-6-g2-external-reality-map @ post-rebase-closeout (rebased onto main 6588c14; backup ref backup/c4-6-pre-rebase-20260731 @ b23fe8d)
+scope: live task = operator decision on merge to main (L2 content verdict CLOSED/ACCEPTED, Knox PASS); cross-facet worksheet quarantined; PLAN pinned
 hard-stops: no merge/rebase-until-post-L2 · no promotion of cross-facet answers · no moat/Reactor/checkpoint edits · concurrency rule · stale-branch (rebase+collision-check before any registration is valid)
 not-wired: intentionally NOT added to catalog/read-graph (concurrency rule + stale branch); discoverable as a HANDOFF_ file on this branch
 -->
