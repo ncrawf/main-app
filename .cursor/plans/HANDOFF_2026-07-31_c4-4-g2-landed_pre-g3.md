@@ -2,7 +2,7 @@
 
 Document type: `handoff` (operational-state transfer / landing record — NOT an architecture essay)
 Authority: `analysis_nonbinding` (`GRD-036`). Records a clerical curated landing; binds nothing; promotes nothing.
-Status: `c4_4_G1_G2_MERGED_to_main · agent_runtime_bridge_accepted_bounded · G3_reference_architecture_AUTHORED_pending_Nick_Knox_review · G4_not_started · analysis_nonbinding · not_promoted · outer_checkpoint_UNCHANGED` — G1/G2 MERGED to `main` @ `fa98a34` (Knox PASS + Nick, 2026-08-01). **★ 2026-08-01 UPDATE: C4.4 G3 §R reference architecture AUTHORED + Knox-amended + normalization-cleaned (Nick + Knox authorized G3; Knox review = PASS WITH REQUIRED AMENDMENTS → all 5 amendment groups applied + 2 tiny post-amendment cleanups — §20.4) on branch `analysis/c4-4-g3-reference-architecture` off `origin/main a87d305`, committed LOCALLY, NOT merged. ⚠️ The amended+cleaned commits are NOT yet on the remote (github.com DNS-unreachable in the authoring env; remote branch still at pre-amendment `99f4e02`). Next mechanical move = ONE networked `git push` (no force/merge), then Knox verifies remote bytes → Nick + Knox accept G3 → G4/Gemini. See §0-G3-NEXT runbook for the full sequence + the frozen Gemini G4 packet.**
+Status: `c4_4_G1_G2_MERGED_to_main · agent_runtime_bridge_accepted_bounded · G3_reference_architecture_AUTHORED_pending_Nick_Knox_review · G4_not_started · analysis_nonbinding · not_promoted · outer_checkpoint_UNCHANGED` — G1/G2 MERGED to `main` @ `fa98a34` (Knox PASS + Nick, 2026-08-01). **★ 2026-08-01 UPDATE: C4.4 G3 §R reference architecture AUTHORED + Knox-amended + normalization-cleaned (Nick + Knox authorized G3; Knox review = PASS WITH REQUIRED AMENDMENTS → all 5 amendment groups applied + 2 tiny post-amendment cleanups — §20.4) on branch `analysis/c4-4-g3-reference-architecture` off `origin/main a87d305`, **PUSHED to remote (fast-forward `99f4e02..03b91a7`, no force), NOT merged.** Remote tip = **`03b91a7`**; `origin/main` still `a87d305`. Next gate = Knox verifies the remote bytes → Nick + Knox accept G3 → G4/Gemini. See §0-G3-NEXT runbook for the full sequence + the frozen Gemini G4 packet.**
 Domain(s): architecture_governance, cns_orchestration, ai_substrate, evidence_processing, federation
 Lifecycle role: the live next-agent boot packet for C4.4 after the G2 curated landing. Supersedes `v4_C4_4_G2_kickoff_handoff.md` as the C4.4 boot artifact (the kickoff handoff is a consumed historical packet preserved ONLY on the C4.4 analysis branch — it is NOT on `main` and is NOT the live handoff).
 Source-of-truth relationship: points to the charter / G1 map / G2 constitution + the Agent-Runtime capture. Does NOT supersede the outer checkpoint (#15).
@@ -27,37 +27,35 @@ agent_read_rule: `consult_if_routed`
 - **Files touched on this G3 branch:** the taxonomy/reference-architecture artifact (§R + passport + §0 + §20); the charter status; this handoff; catalog row; read-graph #9j; FWREG-007. Nothing else.
 - **★ Knox G3-review amendment pass (2026-08-01):** Knox returned **PASS WITH REQUIRED AMENDMENTS** (direction + P3 verdict accepted; 5 bounded amendment groups). Opus verified all five against the live bytes and applied them (§20.4 amendment matrix): (1) governance control-plane state = committed S3-role, NOT S5 projection [with the divergence: S3-of-governance-domain, not a new "P0 class"]; (2) blob/artifact/receipt/evidence-independence four-identity split; (3) federated revocation split into grant-revoke/withdrawal/lawful-deletion/recipient-local-reconsideration + recipient sovereignty + bidirectional lawful-retention exception + profile A/B; (4) closed-package receipt-closure immutability; (5) live-state normalization + R.17 truth qualifier + named S1 custody-governance commit role. Runtime blob `de5b9a1` NOT touched. **Amendment commit SHA:** `32a7a88671c1ed41bd24bdef2e76c6aee9c99c74` · **amended artifact blob SHA:** `e20c3f3a5d6063aa564761db19ac9e5b85ab560d` *(authoring commit was `13c3ec5`; the amendment commit sits on top).*
 - **★ Post-amendment normalization cleanups (2026-08-01):** two microscopic cleanups from Knox's amended-artifact review were applied to the artifact (NOT architecture reopenings): (a) the contradictory live-§0 "This is G2 only" line rewritten to "§§1–19 = closed G2 body; §R + §20 = authored+amended G3 layer"; (b) an inline supersession pointer added at G2 §14 F-Self prose → §R.FIX Amendment-1 (G2 body not rewritten). Knox's linguistic caution folded into the spine-§8 deferral note. See §20.4. **Post-cleanup commit SHA:** `6c86e2edc3935f5f7bad9c628b4e450837712767` · **post-cleanup artifact blob SHA:** `e364acbad3352457eb8c761d287e91787ea71eea` (a SHA-stamp commit sits on top).
-- **Exact next action:** see **§0-G3-NEXT runbook** immediately below — the branch is committed locally but **the amended+cleaned commits are NOT yet on the remote** (a networked push is the mechanical next move).
+- **Exact next action:** **Knox verifies the remote bytes at tip `03b91a7`** (the push is DONE) → Nick + Knox accept G3 → G4/Gemini. See **§0-G3-NEXT runbook** immediately below.
 
-## §0-G3-NEXT — Next-agent runbook (2026-08-01): push → Knox verify → accept → G4/Gemini
+## §0-G3-NEXT — Next-agent runbook (2026-08-01): ~~push~~ ✅ → Knox verify → accept → G4/Gemini
 
-> **Why this exists:** the Knox amendment pass + normalization cleanups are committed on the **local** branch, but this environment cannot resolve `github.com` (SSH DNS failure), so the amended commits are **stranded locally**. Do NOT burn context on periodic push retries — a single successful push from any networked environment is all that is needed. Then hand to Knox for byte-verification, then Nick + Knox acceptance, then G4.
+> **Status:** Step 1 (push) is **DONE** — the amended + cleaned branch is on the remote at tip **`03b91a7`** (fast-forward, no force, not merged). Begin at **Step 2 (Knox byte-verification)**.
 
 **Three-state reality (read this first — it looks confusing but nothing is lost):**
 | state | ref | contains |
 |---|---|---|
 | `main` (committed estate) | `a87d305` | G1/G2 landed; **no G3**; nothing promoted |
-| remote review branch (GitHub) | `origin/analysis/c4-4-g3-reference-architecture` = **`99f4e02`** (stale) | original G3 authoring + SHA-stamp only — **NOT the amendments/cleanups** |
-| **local working branch** (durable, not remote) | `analysis/c4-4-g3-reference-architecture` tip = **`6c86e2e` + this SHA-stamp commit on top** | authoring `13c3ec5` → stamp `99f4e02` → amendments `32a7a88` → stamp `a885a7d` → cleanups+runbook `6c86e2e` → stamp (this commit) |
+| remote review branch (GitHub) | `origin/analysis/c4-4-g3-reference-architecture` (✅ pushed; tip = `03b91a7` **plus this push-status docs commit on top**) | full G3: authoring + amendments + cleanups + runbook |
+| **local working branch** | in sync with remote | authoring `13c3ec5` → stamp `99f4e02` → amendments `32a7a88` → stamp `a885a7d` → cleanups+runbook `6c86e2e` → stamp `03b91a7` → push-status docs commit |
 
-**Step 1 — Push (from any environment that resolves GitHub). No force, no merge:**
-```
-git push origin analysis/c4-4-g3-reference-architecture
-```
-Then confirm: `git rev-parse origin/analysis/c4-4-g3-reference-architecture` equals the local tip, and `git rev-parse origin/main` is still `a87d305`.
+> **Regress-proof content pin:** the reviewable G3 architecture content is fixed at **artifact blob `e364acbad3352457eb8c761d287e91787ea71eea`** (commit `6c86e2e`). Later branch-tip commits are docs/push-status stamps only and do NOT change that architecture blob — Knox/Gemini should verify the artifact **by blob**, and treat the literal branch tip as "the latest of these stamps."
 
-**Step 2 — Knox verifies the exact remote bytes:** the six-file diff vs `a87d305`; the amendment matrix §20.4 lands as specified (esp. Amendment-1 S3-not-P0); the two cleanups are present; runtime blob `de5b9a1` + AGENTS + checkpoint #15 + `main a87d305` unchanged.
+**Step 1 — Push. ✅ DONE (2026-08-01):** fast-forward `99f4e02..03b91a7`, no force, not merged; remote tip = `03b91a7`; `origin/main` still `a87d305`.
+
+**Step 2 — Knox verifies the exact remote bytes (tip `03b91a7`):** the six-file diff vs `a87d305`; the amendment matrix §20.4 lands as specified (esp. Amendment-1 S3-not-P0); the two cleanups are present; runtime blob `de5b9a1` + AGENTS + checkpoint #15 + `main a87d305` unchanged.
 
 **Step 3 — Nick + Knox accept G3.** (The two normalization cleanups Knox required are ALREADY applied in these bytes — no further artifact pass needed unless Knox finds something in the pushed bytes.)
 
 **Step 4 — Freeze the G4 fixtures + rubric**, THEN give a fresh, repo-connected **Gemini** the G4 white-box adversarial packet (Gemini's highest-value role is the G4 adversary leg, NOT another general prose review). Do NOT begin G4 authoring before steps 1–3.
 
-**Frozen Gemini G4 adversarial-packet template (fill `<PUSHED AMENDED TIP>` after Step 1):**
+**Frozen Gemini G4 adversarial-packet template (target commit now filled = the pushed tip `03b91a7`; re-stamp only if the branch advances before G4):**
 ```
 AT GEMINI — C4.4 G4 WHITE-BOX ARCHITECTURE ADVERSARY.
 Repository: ncrawf/main-app
 Target branch: analysis/c4-4-g3-reference-architecture
-Target commit: <PUSHED AMENDED TIP>
+Target commit: 03b91a77ac93b014c401554164db3b5ff7a52bcd
 Read the exact repository bytes. Do not review from an operator summary.
 Primary object: .cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md
 Governing inputs: live C4.4 handoff · charter · closed G1 map · accepted G2 constitution ·
