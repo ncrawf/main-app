@@ -1,8 +1,8 @@
-# v4 — C4.4 Knowledge Reservoirs & Source-Estate — TAXONOMY + CONSTITUTION (G2) · reference architecture (G3 RESERVED)
+# v4 — C4.4 Knowledge Reservoirs & Source-Estate — TAXONOMY + CONSTITUTION (G2) · REFERENCE ARCHITECTURE (G3 — AUTHORED, pending Nick+Knox review)
 
-Document type: `architecture_reconciliation` (G2 deliverable of the C4.4 arc — the constitutional taxonomy + constitutional class/role boundaries; the reference-architecture sections are RESERVED for G3 and intentionally unpopulated)
+Document type: `architecture_reconciliation` (G2 constitutional deliverable + G3 reference-architecture deliverable of the C4.4 arc — the constitutional taxonomy + class/role boundaries [G2, CLOSED], and the technology-neutral reference architecture + plug-point model over those classes [§R, authored at G3, pending Nick+Knox review])
 Authority: `analysis_nonbinding` — propose-only pre-spine architecture pass (`GRD-036`/`GRD-043`). Binds NOTHING. Every name herein is PLANNING VOCABULARY, not a minted primitive (`GRD-035` noun discipline; charter §12/§15 naming-ossification guard).
-Status: `g2_CLOSED_2026-07-22 · nick_operator_accepted · knox_verified · G1_CLOSED · G3_not_started · analysis_nonbinding · not_promoted` — authored in a FRESH Opus agent booted from `v4_C4_4_G2_kickoff_handoff.md`; Knox G2 gate patches + final consistency + micro-close applied (§19 disposition ledger); consumes the closed G1 map + frontier depth; does NOT re-derive. **G3 does NOT auto-start.**
+Status: `g2_CLOSED_2026-07-22 · nick_operator_accepted · knox_verified · G1_CLOSED · G3_reference_architecture_authored_pending_review · analysis_nonbinding · not_promoted` — G2 body authored in a FRESH Opus agent booted from `v4_C4_4_G2_kickoff_handoff.md` (Knox G2 gate patches + final consistency + micro-close applied, §19 ledger); §R **populated at G3** by a fresh Opus agent booted from `HANDOFF_2026-07-31_c4-4-g2-landed_pre-g3.md` on branch `analysis/c4-4-g3-reference-architecture` off `origin/main a87d305` (Nick + Knox authorized G3), consuming the closed G1 map + the accepted Agent-Runtime consumption bridge + frontier depth; does NOT re-derive and does NOT reopen G2. **G3 does NOT self-accept — this §R is AUTHORED PENDING Nick + Knox review; G4 is NOT authorized and NOT started; nothing promoted; outer checkpoint #15 UNCHANGED.**
 Domain(s): architecture_governance, cns_orchestration, ai_substrate, evidence_processing, federation, knowledge_reservoirs
 Lifecycle role: G2 core deliverable — (a) separates the six constitutional classes/roles (source estate · knowledge reservoir · domain-owned state · evidence workbench · compiled projection · mission context); (b) adjudicates the A/B/C parent; (c) resolves the frontier's 6 open Qs + the `FWREG-007` open questions to `resolved` / `bounded-deferred` / `rejected`; (d) classifies the F0/F-Self/F-Inv fixtures against the taxonomy. Feeds Agent-Runtime (`FWREG-010`, which CONSUMES the accepted boundaries) → C4.4 G3 reference architecture → Task-D + v4 spine §§7–8 + C5.
 Source-of-truth relationship: consumes charter `v4_C4_4_knowledge_and_source_estate_formulation_plan.md` (Gate-0), G1 map `v4_C4_4_prior_depth_and_july_2026_reality_map.md` (closed), `doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md` (the prior dense depth — RESOLVED here, not re-derived), `FWREG-006`/`007`/`010`/`015`, `contracts/D7_documents_consent_media_contract.md`, `OMNI_System_Map_vNext.md`, spine-shape §§7–8. Does NOT supersede the outer checkpoint.
@@ -21,7 +21,7 @@ agent_read_rule: `consult_if_routed`
 - **This is G2 only.** G2 = taxonomy + constitutional boundaries + Evidence-lane reconciliation + fixture classification. It is `analysis_nonbinding`; it binds no thesis/contract/schema/security/surface.
 - **Hard stops honored (charter §13 + handoff §6):** NO schema · NO runtime/service · NO folder tree · NO vendor selection · NO medical-literature build · NO spine/thesis prose · NO minting of runtime agents (`ScoutAgent`/`CapperAgent` — that is Agent-Runtime/`FWREG-010` per the §3.1 seam) · NO new architecture plane · NO reuse of the reserved domain word "Intake" for ingress/migration/estate ops · NO authoring from memory or anchor ledgers · NO G3 auto-start · NO merge/PR of this branch · NO checkpoint repoint · NEVER commit onto the closed `EVRUN-000012` branch. *(★ HISTORICAL/SUPERSEDED 2026-08-01: the branch-specific stops in this bullet — "NO merge/PR of this branch" and "NEVER commit onto the `EVRUN-000012` branch" — were authoring-time-only; they are superseded by the C4.4 curated landing + fast-forward merge to `main` @ `fa98a34`. The G3-auto-start and checkpoint-repoint prohibitions remain LIVE. See the §0 post-merge banner above.)*
 - **Names are planning vocabulary.** The frontier doc's own instruction (`do not canonize the family name or member names`) is honored: working labels only until G5/spine ratification.
-- **Reference architecture (G3) is RESERVED** in §R below — intentionally unpopulated. This is a shared G2/G3 deliverable (charter §11 doc #3); creating it at G2 entry with G2 content populated is correct; the G3 sections are a reserved outline within a live, populated doc, not an empty future file.
+- **Reference architecture (G3) — ★ AUTHORED (2026-08-01), pending Nick + Knox review.** §R below is now POPULATED (R.0 orientation + R.1–R.17 + the load-bearing D7/corpus-parent verdict §R.CORPUS + the F0/F-Self/F-Inv design traces §R.FIX + the G3 completion ledger §20). This is a shared G2/G3 deliverable (charter §11 doc #3): the G2 body (§§1–19) is CLOSED and preserved verbatim; §R is the G3 layer authored ON TOP of it WITHOUT reopening G2. **§R is technology-neutral: no schema/field/table, no vendor selection, no invented service names, no god-store, no new plane, no Reservoir roster, no CNS framework, no Build-OS design.** It does NOT auto-advance to G4; the frozen adversary + rubric remain G4.
 - **Boot Freshness note (★ HISTORICAL / SUPERSEDED 2026-08-01 by the curated landing — see the §0 post-merge banner; do NOT obey as a live branch instruction):** *[authoring-time, on the C4.4 analysis branch]* this branch is off clean `origin/main 5275707`, intentionally WITHOUT the parallel `EVRUN-000012`-branch governance (C4.5, Task-D interim rows, EVRUN closure). Read-graph #15 on this branch points to the `2026-07-12` checkpoint — a documented, intentional divergence (charter §14, handoff §2 NOTE), not a contradiction. **Post-landing live truth:** this artifact now lives on current `main` (fast-forward-merged @ `fa98a34`, post-`c40630b`); the live boot checkpoint is whatever read-graph #15 on `main` names (UNCHANGED by this pass — the landing did not repoint it). The outer checkpoint is UNCHANGED by this pass.
 
 ## §1 Method + source posture
@@ -303,10 +303,411 @@ G1 concluded (§4.3/§6.5, Knox-corrected) that the candidate differentiation is
 - **NOT decided at G2:** any schema/field/table · any folder tree · any vendor selection · the full CNS framework · the reservoir-family final roster/names · the medical-literature build (`FWREG-006` boundary placed, not built) · Agent-Runtime actor taxonomy (`FWREG-010` consumes G2) · GTM/wedge · spine/thesis prose.
 - **Sequencing (charter §4):** **G2 (this) → Agent-Runtime (`FWREG-010`) consumes the accepted boundaries → C4.4 G3 (reference architecture integrates Agent-Runtime as consumer) → G4 (frozen fixtures + Gemini adversary + Knox rubric) → G5 (disposition + v4/Task-D/C5 handoff).** Task-D must not close its knowledge/memory/source-estate/context-routing/Foundry/artifact conclusions before consuming C4.4 G5.
 
-## §R Reference architecture — **RESERVED for G3 (intentionally unpopulated)**
+## §R Reference architecture (G3) — technology-neutral reference architecture + plug-point model over the G2 constitution
 
-> G3 does NOT auto-start (charter §13; handoff §6). On G3 entry, populate this section with the technology-neutral reference architecture + plug-point model over the G2 species, per charter §8 G3 row. Outline reserved (headings only, no content authored):
-> R.1 landing + quarantine · R.2 storage/custody rails (plug) · R.3 package/manifest + completeness/closure (both §7 profiles) · R.4 catalog + classification · R.5 entity-resolution · R.6 extraction/normalization (`extraction_run` lineage) · R.7 domain-admission interfaces (the S1→S3 boundary) · R.8 reservoir admission/promotion + authority-profile/`review_gate` · R.9 lineage + retrieval-unit provenance (§11.3) · R.10 indexing/retrieval rails (plug) · R.11 Context Router assembly (S6) · R.12 Foundry maintenance-mission machinery (§10) · R.13 reprocessing · R.14 correction + reconsideration (F-Inv) · R.15 retention/deletion/revocation propagation · R.16 federation exchange (publish/admit/revoke) · R.17 build/buy/wrap per mechanism (from G1 §4.2 matrix). Integrates Agent-Runtime (`FWREG-010`) as the actor consumer of §10 missions.
+> **★ G3 status:** AUTHORED 2026-08-01 on `analysis/c4-4-g3-reference-architecture` (off `origin/main a87d305`), Nick + Knox authorized. `analysis_nonbinding` · not promoted · G4 NOT started · outer checkpoint #15 UNCHANGED. §R is built **on top of** the accepted G2 constitution (§§1–19) and does **not** reopen it. Reading order into §R: **§R.0 orientation → R.1…R.17 → §R.CORPUS (the load-bearing D7/corpus-parent verdict) → §R.FIX (F0/F-Self/F-Inv design traces) → §20 (G3 completion ledger + Protocol §9 stop report).**
+>
+> **What §R is NOT (charter §13 + G2 §0 + handoff §4 hard stops, re-affirmed for G3):** no schema/field/table/migration/API/service · no vendor selection · no invented service names for diagram neatness · no god-store/god-owner/god-agent · no new architecture plane · no Reservoir-family roster or member names · no final family name · no full CNS framework · no complete Agent Runtime architecture · no Build-OS design · no product surfaces · no clinical-literature build · no GTM/moat conclusion · no spine/thesis prose · no promotion. Storage topology is NEVER collapsed into constitutional ownership; not every responsibility becomes a microservice.
+
+### §R.0 Architecture orientation (one compact orientation before the sections)
+
+**Major semantic responsibilities (who is semantically responsible for what — NOT a deployment diagram):**
+- **Custody (S1 Source Estate):** preserve exactly what OMNI received/captured/observed/imported/emitted/generated, immutable-while-retained, with receipt-truth and lineage — *before and independently of* interpretation. Owns *governance semantics* over storage rails it does not own.
+- **Curation (S2 Knowledge Reservoir):** hold reusable governed knowledge/experience under a multidimensional authority profile + `review_gate`; `indexed ≠ accepted`.
+- **Commitment (S3 Domain-Owned State):** owning domains commit their own truth (Clinical Memory, Identity, D6, inventory, workforce, …); Runtime-Operations separately commits only its bounded *operational* S3.
+- **Processing (S4 Evidence Workbench):** capture/dedupe/score/route/promotion-gate; **proposes + routes candidates to many governed homes; never accepts/commits.**
+- **Compilation (S5 Compiled Projection) + Foundry:** regenerate lossy, cited, freshness-bound, non-authoritative views; Foundry owns compiler execution + maintenance missions, never the meaning of a projection.
+- **Assembly (S6 Mission Context) + Context Router:** assemble the smallest-sufficient, purpose-/authority-scoped draw per run; as-of reconstructable; not a durable body.
+
+**Directional flow (the §2.2 law, now with rails + gates made explicit):**
+
+```
+                        [pluggable transports/portals]         [pluggable object/blob + lakehouse rails]
+                                    │                                        │
+   external / internal sources ──► R.1 LANDING+QUARANTINE ──► R.2 CUSTODY RAILS ──► S1 SOURCE ESTATE (immutable-while-retained)
+                                    │  (admission gate)          (OMNI owns custody semantics)   │
+                                    ▼                                                             │
+                        R.3 PACKAGE/MANIFEST + COMPLETENESS/CLOSURE ◄────────────────────────────┤ (corpus identity; two lifecycle profiles §7)
+                                    │                                                             │
+        R.4 CATALOG+CLASSIFICATION ─┴─ R.5 ENTITY RESOLUTION ─┬─ R.6 EXTRACTION/NORMALIZATION (extraction_run lineage)
+                                                              │                    │  produces CANDIDATES (adopts nothing)
+                                          ┌───────────────────┘                    ├────────────► R.7 DOMAIN-ADMISSION GATE ──► S3 DOMAIN-OWNED STATE  [owning domain commits]
+                                          │                                        └────────────► R.8 RESERVOIR ADMISSION/review_gate ──► S2 KNOWLEDGE RESERVOIR [reservoir owner accepts]
+   S4 EVIDENCE WORKBENCH ──PROPOSES+ROUTES──► (candidates to S2 / S3 / doctrine / Build-OS / evals / watch / reject)
+        S1 + S2 + S3 ──► R.9 LINEAGE ──► R.10 INDEX/RETRIEVAL RAILS (plug) ──► R.11 CONTEXT ROUTER ──► S6 MISSION CONTEXT DRAW
+        S1 + S2 + S3 ──► R.12 FOUNDRY compiles ──► S5 COMPILED PROJECTION (non-authoritative, freshness-stamped)
+   R.13 REPROCESSING (one source ↔ many runs over time) · R.14 CORRECTION+RECONSIDERATION (F-Inv) · R.15 RETENTION/DELETION/REVOCATION
+   R.16 FEDERATION EXCHANGE (publish / admit / revoke)      · R.17 build/buy/wrap per mechanism
+   ── AGENT RUNTIME actor/harness READS·PROPOSES·EXECUTES across S1–S6, OWNS NONE (Runtime-Ops owns only bounded operational S3) ──
+```
+
+- **Where pluggable/external rails sit:** transports/portals (R.1); object/blob + lakehouse/compute (R.2); parsers/OCR/embedding models (R.6); matching engines (R.5); lexical/vector/graph retrieval + rerankers (R.10); de-id/linkage engines (R.15/R.16). **OMNI owns the governance semantics over each; the engine is replaceable** (`GRD-041`/`GRD-033`/`GRD-028`).
+- **Where authoritative gates sit:** landing/quarantine admission (R.1); package closure (R.3); domain-adoption gate (R.7 → S3); reservoir `review_gate` (R.8 → S2); correction/reconsideration gate (R.14); federation admit/revoke (R.16). **Gates are the only places state changes constitutional class.**
+- **Which owner commits which state:** owning domains commit S3 truth; reservoir owners accept S2; Source-Estate custody admits S1; Foundry (machinery) regenerates S5 with an accountable steward per projection; Context Router assembles S6; Evidence Workbench commits nothing; Runtime-Operations commits only its bounded operational S3.
+- **Where lineage + proof cross every step:** every derived object resolves to exact source artifact + processing/model version (R.6/R.9); every retrieval unit carries source + derivation lineage (R.9/R.10); every domain commit carries candidate→source lineage (R.7); every projection carries compiler lineage + freshness (R.12); every mission draw is captured as an immutable S1 run-context receipt for as-of replay (R.11); every correction/revocation is additive and lineage-preserving (R.14/R.15). **Proof is not a stage — it is a property every stage must preserve** (15-A/15-B/15-P).
+
+**Section template (each R.x below answers the same 13 architecture questions):** (1) purpose + constitutional boundary · (2) G2 classes/roles involved · (3) what OMNI must own semantically · (4) what may be supplied by pluggable infra/counterparties · (5) inputs·outputs·lineage·evidence·proof · (6) authority/admission/commit boundary · (7) lifecycle states + closure · (8) partial-failure/degraded/unknown/quarantine/retry · (9) temporal/as-of/correction/supersession/deletion/revocation · (10) privacy/principal/tenant/jurisdiction/Federation · (11) Agent-Runtime relationship (actor/harness consumer only) · (12) build/buy/wrap disposition · (13) deferred to C5/impl/procurement/spine.
+
+---
+
+### §R.1 Landing + quarantine
+
+1. **Purpose + boundary.** The ingress boundary where material *arrives* and is provisionally received into governed custody **before** it is trusted, interpreted, or adopted. Landing turns an inbound stream/drop/feed/pointer into *received-and-accounted-for* source material or into an explicit quarantine/reject outcome. It never interprets content and never adopts anything.
+2. **Classes/roles.** Primarily **S1** (creates provisional source artifacts + the corpus-package frame, R.3). Feeds **S4** for the outside-evidence lane. Emits nothing to S2/S3 directly.
+3. **OMNI owns (semantics).** Declared-vs-received accounting; the admission decision (accept-to-custody · quarantine · reject-with-reason); provenance capture (who/whence/when/authority-to-send); the *receipt-truth* record (`receipt-truth ≠ content-truth`, 15-B); purpose-safe partial admission law (15-L — a corrupt item must not block valid siblings); the five orthogonal ingress axes (§5) applied at landing.
+4. **Pluggable/counterparty.** The physical transport/portal (federated pull, secure upload, EHR feed, event stream, remote pointer, message ingress, device emission); malware/format scanners; transfer integrity (checksums, transfer manifests). OMNI wraps these behind identity/permission/audit (`GRD-033`).
+5. **In/out/lineage/proof.** *In:* raw bytes/streams/pointers + a (possibly declared) manifest + sender identity + purpose. *Out:* provisional S1 artifacts (immutable-while-retained) OR quarantined/rejected items, each with a landing receipt. *Lineage:* landing event → source + transport + sender + as-of receipt time. *Proof:* the landing receipt proves *what was received, from whom, when, under what asserted authority* — nothing about content validity.
+6. **Authority/admission/commit.** Landing is an **admission-to-custody** gate, not an acceptance/commit gate. Authority-to-send is verified (principal/tenant/consent/jurisdiction) but authority-to-send ≠ authority-of-content. Nothing here becomes S2/S3.
+7. **Lifecycle + closure.** Per item: `arriving → received | quarantined | rejected`. Closure is a **package/epoch** concern (R.3), not per-item.
+8. **Partial-failure/degraded/unknown/quarantine/retry.** First-class. Corrupt/password-protected/oversized/malformed items are **quarantined, not dropped** (preserved with reason); unknown-subject/unknown-sender items land as *received-but-unassociated*; transport interruption is resumable/idempotent (a re-sent item dedupes at R.2, not a second original); degraded mode still admits valid siblings (15-L).
+9. **Temporal/correction/revocation.** Landing stamps `received_at` (recorded time) distinct from any content effective/authored time (C4.5 seam). A later correction/incremental delivery lands as a **new** event referencing the prior (additive), never an edit. A sender-revocation of a just-landed item is a governed event routed to R.15.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Tenant/principal scope and jurisdiction are bound at landing (they determine where custody may physically sit and who may ever see it). Federated inbound uses the R.16 admit path; locally-admitted ≠ universally-trusted (15-J).
+11. **Agent-Runtime.** A runtime actor **may** be instantiated to *drive* a landing/migration mission (classify, reconcile a manifest, triage quarantine) — it **proposes + routes**; it never self-authorizes admission of high-consequence content and never adopts. The deterministic Runtime-Ops control plane may record landing-run operational status (bounded S3).
+12. **Build/buy/wrap.** Transport/scanners = **buy/wrap** (interchangeable rails). Declared-vs-received accounting + purpose-safe partial-admission + receipt-truth semantics = **OMNI-native BUILD** (the compound gap, G1 §4.2/§4.3).
+13. **Deferred.** Exact quarantine-state enumeration, transport adapter set, and scanner selection → C5/impl/procurement. Continuous-feed backpressure/rate specifics → Agent-Runtime/Build-OS.
+
+### §R.2 Storage / custody rails
+
+1. **Purpose + boundary.** Durable, tamper-evident retention of S1 artifacts (and the durable byte-substrate under S2/S5 materializations) — **the byte layer**, cleanly separated from *what the bytes mean or who may see them*.
+2. **Classes/roles.** **S1** artifact custody (reuses D7 per-artifact physics, §6a). Provides the storage substrate that S2/S4/S5 materializations also sit on, without conferring authority.
+3. **OMNI owns (semantics).** Canonical artifact identity + fingerprint dedup (one canonical artifact, many typed grants — D7 §6; 15-D no-silent-second-authority); custody roles kept distinct (originator · data-subject · controller · processor · custodian · admitting-principal · tenant-scope · visibility/use-authority — §2.1); WORM/immutability-while-retained policy; retention/legal-hold classification (enforced at R.15); the rule that **storage topology ≠ constitutional ownership** (a copy in a DR region / legal export / cache is typed + subordinate, never a second original).
+4. **Pluggable/counterparty.** Object/blob stores, WORM/object-lock, lakehouse volumes, CDN/signed-URL delivery, encryption/KMS, replication. All **buy** — OMNI must not become a lakehouse (charter §15 scope-fence).
+5. **In/out/lineage/proof.** *In:* accepted artifacts + custody metadata. *Out:* addressable, integrity-checked artifacts + custody record. *Lineage:* artifact identity → storage locations (all typed copies) → custody roles. *Proof:* checksum/artifact-integrity (D7 §4 gate-1) proves faithful storage — not extraction fidelity, not adoption.
+6. **Authority/admission/commit.** Custody is not authority (15-B). Holding a durable copy grants no visibility and no content authority; visibility is a separate grant (R.16/RBAC).
+7. **Lifecycle + closure.** Artifact: `stored → retained → (legal-hold) → pseudonymized/expired/archived/destroyed` — every transition a governed additive event (R.15). No silent deletion.
+8. **Partial-failure/degraded.** Replication lag, partial writes, region loss → integrity re-verify + heal; an artifact whose bytes fail integrity is flagged (not silently served); missing-blob-behind-a-catalog-row is a first-class *degraded* state, never a phantom truth.
+9. **Temporal/correction/revocation.** Immutable-while-retained: new facts = new artifacts/versions, never edits (§2.1). Deletion/pseudonymization/legal-hold are explicit additive events preserving audit (D7 inv 24; 15-C). Revocation of custody propagates to every typed copy (R.15).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Data-residency/jurisdiction may force physical placement; tenant/principal isolation is a storage-partition + access concern; PHI sensitivity class rides the artifact (and its derivations, §11.1). Cross-org custody = Federation (R.16).
+11. **Agent-Runtime.** Reads only admissible artifacts *with lineage*; **may emit** internally-generated source/run artifacts into S1 custody (§G2C.6); never owns/curates the estate.
+12. **Build/buy/wrap.** Object storage/WORM/lakehouse = **buy** (mature commodity, G1). Canonical-identity + dedup + typed-copy + custody-role semantics = **OMNI-native** (wraps the rail).
+13. **Deferred.** Concrete storage engines, encryption/KMS design, residency topology → procurement/impl/C5. The subject-agnostic artifact primitive vs D7 `patient_document` placement → **§R.CORPUS**.
+
+### §R.3 Package / manifest + completeness / closure
+
+1. **Purpose + boundary.** The **corpus-level** parent above individual artifacts: package/collection identity, declared-vs-received completeness, atomic sub-bundles, closure with visible exceptions, and incremental/corrective import. This is the genuinely-absent S1 corpus layer (§6b) — the load-bearing net-new (G1).
+2. **Classes/roles.** **S1** at corpus granularity. Two lifecycle profiles (§7): **(A) bounded admission package** (closable) and **(B) open-ended evolving corpus** (closable epochs/watermarks).
+3. **OMNI owns (semantics).** Package identity + membership; declared expected contents vs received accounting; completeness law (15-L: nothing represented as complete while required components are missing/failed); closure semantics with enumerated exceptions; correction-package supersession of named subsets; coverage watermarks for profile-B epochs; the record of *what a package claimed vs delivered*.
+4. **Pluggable/counterparty.** Sender-supplied manifests (e.g. bulk-export output/error/deleted manifest formats, load-job transaction receipts) are **consumed as inputs** — OMNI reconciles them, does not delegate closure to them. Manifest *transport* is a rail.
+5. **In/out/lineage/proof.** *In:* declared manifest (if any) + landed artifacts (R.1) + sub-bundle boundaries. *Out:* a package record with received/missing/quarantined/duplicate accounting + a closure statement (or an open epoch watermark). *Lineage:* package → its artifacts → their extraction_runs (R.6) → downstream candidates/adoptions/reservoir units (coverage of what the package ultimately produced). *Proof:* the package proves *what was declared, what arrived, what is missing/quarantined, and when it closed* — receipt-truth at corpus scale.
+6. **Authority/admission/commit.** Closure is an **accounting** act, not an adoption act — a closed package can be fully received yet mostly unadopted. Package-level state (admission/closure) is orthogonal to per-artifact adoption (§8.2; 15-P).
+7. **Lifecycle + closure.** *(A)* `open → receiving → reconciling → closed-with-exceptions | closed-complete`; corrections reopen a named subset additively. *(B)* never globally closes, but **epochs/ingestion-windows/reconciliation-checkpoints close with explicit watermarks + exceptions** (coverage provable at a point in time).
+8. **Partial-failure/degraded/unknown.** Missing/quarantined/corrupt items are enumerated against the manifest, not hidden; a package with exceptions still closes (visibly); unknown-subject items are held as received-but-unassociated within the package; a package may not be represented as complete while atomic sub-bundles are unresolved.
+9. **Temporal/correction/revocation.** Incremental exports append; correction packages supersede named subsets additively (original package stays reconstructable, §9); as-of reconstruction can show the corpus *as it stood* at any prior closure/watermark (C4.5). Revocation of a whole package propagates to derivations (R.15).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** A package carries the tenant/principal/jurisdiction envelope of its sender; federated packages arrive via R.16 admit; a package may mix subjects/consent bases, resolved per-artifact downstream (not flattened to the package level).
+11. **Agent-Runtime.** A runtime actor may run the *reconciliation mission* (declared-vs-received, exception triage, coverage reporting) — proposes/reports; the closure record is committed by the Source-Estate custody owner (deterministic control), not by model judgment.
+12. **Build/buy/wrap.** The **combined corpus-admission envelope** (identity + completeness + quarantine + closure + correction + coverage) = **OMNI-native BUILD** — partial peers exist (bulk-data/dataset-transaction manifests) but the composed envelope was not shown in one object (G1 §4.1). Manifest formats/transports = **buy/wrap** at the boundary.
+13. **Deferred.** Exact corpus-parent object placement (inside a widened D7 vs a Source-Estate corpus layer above D7 artifacts) → **§R.CORPUS** (verdict) then C5 (contract/schema). Profile-A/B contract split detail → C5.
+
+### §R.4 Catalog + classification
+
+1. **Purpose + boundary.** The governed *index of what exists* across the estate and the classification that lets material be found, routed, and policy-evaluated — **without becoming a truth store or a god-catalog** (`GRD-041`).
+2. **Classes/roles.** Cross-cutting rail serving S1/S2/S3/S4/S5; classification assigns the five ingress axes (§5) + constitutional-role/destination + sensitivity + tenant/principal. The catalog itself is a **materialization rail + (optionally) an S5 view**, never authority.
+3. **OMNI owns (semantics).** The classification taxonomy (the five orthogonal axes, §5; `axis-3` destination/role drives fan-out; `axis-2` purpose drives which gate applies); metadata-quality states (a deterministic filter over bad metadata is deterministically incomplete — OpenWiki lesson, G1); the rule that **catalog presence ≠ authority** and **classification ≠ adoption**; navigation/discovery without conferring ownership (the §3 rejection of C-as-owner — a non-owning classification label only).
+4. **Pluggable/counterparty.** Data-catalog/technical-catalog infrastructure, taxonomy/tagging engines, classification model assists (OCR/NLP classifiers as *proposers*). All **buy/wrap**.
+5. **In/out/lineage/proof.** *In:* artifacts/packages/units + extracted signals. *Out:* catalog entries + classifications + discovery/routing surface. *Lineage:* every classification records classifier identity/version + confidence + basis (so a mis-class is reconsiderable). *Proof:* classification provenance; metadata-quality state (verified vs inferred vs missing).
+6. **Authority/admission/commit.** Classification is a *proposal that enables routing/policy*, not an adoption. Auto-classification proposes; high-consequence reclassification is gated (D7 §1O.9 staff reclassification discipline).
+7. **Lifecycle + closure.** Classifications are versioned; reclassification is additive (old class retained for lineage). Catalog coverage tracks completeness (which artifacts are unclassified/low-quality-metadata).
+8. **Partial-failure/degraded/unknown.** Unknown/low-confidence classification is a first-class state (not a silent default bucket); missing metadata → `metadata_quality = incomplete`, which *bounds* deterministic retrieval (retrieval over bad metadata is knowingly partial).
+9. **Temporal/correction/revocation.** Reclassification and correction are additive + as-of reconstructable; revocation/withdrawal of a source updates its catalog state (→ R.15) without erasing history.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** The catalog is tenant/principal-partitioned and permission-aware — *catalog visibility itself* obeys access boundaries (you cannot discover what you may not know exists). Federation exchange (R.16) shares catalog entries only under admission.
+11. **Agent-Runtime.** Reads the catalog for discovery within its admissible scope; may run classification/curation missions that **propose** classifications; never self-commits a high-consequence reclass.
+12. **Build/buy/wrap.** Catalog/tagging infra = **buy/wrap**; the five-axis classification constitution + metadata-quality-state + presence≠authority discipline = **OMNI-native**.
+13. **Deferred.** The non-owning cross-species navigation label (frontier §1 "tag not prefix") → **G5** (§3 disposition). Concrete catalog engine → procurement.
+
+### §R.5 Entity resolution
+
+1. **Purpose + boundary.** Associating artifacts/records/candidates to the right *subject(s)* (patient, provider, operator, device, product, workforce member, tenant) — **as a candidate association with confidence, never a silent identity commit.**
+2. **Classes/roles.** Bridges **S1** (multi-subject / unknown-subject / mixed artifacts) toward **S3** (Identity/MPI as the owning domain that commits identity truth). Resolution *proposes*; Identity *commits*.
+3. **OMNI owns (semantics).** `candidate-association ≠ confirmed-identity`; confidence + basis + evidence for every proposed link; collision handling (two subjects, same artifact) and unknown-subject holding; the rule that Identity/MPI (S3) owns committed identity — resolution never writes identity truth by itself; multi-subject and non-patient subject support (subject-by-relationship, §6a).
+4. **Pluggable/counterparty.** MPI/record-matching engines, probabilistic matching, de-id/linkage token services (Datavant-class), identity-proofing. **Buy/wrap** the engine; OMNI owns the consent + confidence + commit semantics.
+5. **In/out/lineage/proof.** *In:* artifact/record + candidate identifiers + context. *Out:* candidate association(s) with confidence + basis, OR held-unknown/held-collision. *Lineage:* association → evidence used + matcher version. *Proof:* match evidence + confidence; every auto-merge/auto-link is reconsiderable.
+6. **Authority/admission/commit.** Resolution is **propose-only** into Identity's adoption gate (R.7). Low-confidence/collision never auto-commits; identity merge is a governed Identity-domain event.
+7. **Lifecycle + closure.** `unresolved → candidate(confidence) → confirmed | held-collision | held-unknown | rejected`. Confirmation is Identity's commit, not resolution's.
+8. **Partial-failure/degraded/unknown.** Unknown/ambiguous subjects are **held as candidates** (never force-filed — cf. D7 inv 10 no-auto-file-to-chart); collisions preserved for human/authority resolution; a wrong match is reversible with lineage.
+9. **Temporal/correction/revocation.** Re-resolution expected as better matchers/evidence arrive (R.13); a corrected association is additive supersession; an identity split/merge correction propagates via owning-domain correction (C4.3 Law 10.1) + R.14.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Cross-org matching requires consent/linkage authority (de-id tokens + bilateral approval) — not silent cross-tenant linkage (membrane law, 15-J); re-identification risk is governed; jurisdiction bounds linkage.
+11. **Agent-Runtime.** May run resolution/reconciliation missions that **propose** associations; commit stays with Identity. Never silently merges identities.
+12. **Build/buy/wrap.** Matching/MPI/linkage engines = **buy/wrap** + OMNI-native consent/confidence/commit semantics (G1: MPI = plug+own; de-id = buy+own).
+13. **Deferred.** MPI engine selection, token-vendor selection → procurement; identity merge/split contract → Identity domain + C5.
+
+### §R.6 Extraction / normalization + extraction_run lineage
+
+1. **Purpose + boundary.** Turning raw source artifacts into structured/normalized interpretations and candidates — as **versioned, attributed interpretations that adopt nothing by themselves** (`GRD-042`; layer 3, §4). One source ↔ many runs over time (`GRD-040`).
+2. **Classes/roles.** Consumes **S1**; produces **candidates** for S3 (R.7) and S2 (R.8); the *machinery* is Foundry-adjacent (R.12); interpretations are not truth.
+3. **OMNI owns (semantics).** `extraction_run` as a first-class re-runnable unit (immutable source · versioned+attributed interpretation · model/parser version pinned · reprocessing expected); interpretation ≠ adoption; receipt-truth preserved beneath every extraction; the honest "interpreted-but-never-adopted" representation.
+4. **Pluggable/counterparty.** OCR, parsers, extraction/normalization models, entity/NER models, transcription — all **interchangeable rails** (commodity, G1). OMNI owns the run-lineage + candidate + versioning semantics, not the model.
+5. **In/out/lineage/proof.** *In:* S1 artifact(s) + extraction spec + model/parser version. *Out:* structured interpretation + candidates, each linked to exact source bytes + run. *Lineage:* candidate → extraction_run → source artifact + model/parser version. *Proof:* the run is replayable (lineage/version-based, not necessarily bit-identical, §11 law 5); extraction-fidelity is a distinct gate from artifact-integrity (D7 §4 gate-2).
+6. **Authority/admission/commit.** Extraction **produces candidates only**; nothing here commits S3 or accepts S2. Auto-extraction is not adoption (§9).
+7. **Lifecycle + closure.** `run: queued → running → produced(candidates) | failed | partial`. A source's extraction history is open-ended (new runs by better models); no single run is "final."
+8. **Partial-failure/degraded/unknown.** Partial extraction (some fields/pages unreadable) is explicit + purpose-safe (15-L); a failed run leaves the source intact and re-runnable; low-confidence extractions are candidates flagged low-confidence, never silent truth.
+9. **Temporal/correction/revocation.** Re-extraction (R.13) is the norm; a later run supersedes an earlier interpretation additively (both retained, as-of reconstructable); if a source is revoked, its interpretations' *future admissibility* is invalidated without erasing the historical run (R.14/R.15).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Extraction inherits source sensitivity; derived structured data (and any embeddings, §11.1) inherit the strongest applicable source classification; PHI minimization at extraction where feasible; jurisdiction may constrain where extraction compute runs.
+11. **Agent-Runtime.** The runtime actor is a common *executor* of extraction/normalization missions (contradiction-scan, source-verification feed) — it **proposes candidates**; it never adopts. Model/version is captured in run evidence for replay (§G2C.4).
+12. **Build/buy/wrap.** OCR/parsers/extraction models = **buy (interchangeable rail)**; the `extraction_run` lineage + candidate + versioned-interpretation constitution = **OMNI-native**.
+13. **Deferred.** Extraction pipeline/orchestration engine, model routing → Agent-Runtime/Build-OS/impl; run schema → C5.
+
+### §R.7 Domain-admission interfaces (the S1→S3 boundary)
+
+1. **Purpose + boundary.** The governed boundary where a candidate *leaves the estate and becomes owning-domain truth* — the S1(→interpretation)→S3 commit. C4.4 **places** this boundary; **owning domains commit** (charter §2; NOT C4.4's to own).
+2. **Classes/roles.** From **S1** candidates (R.6) / resolved associations (R.5) into **S3** Domain-Owned State (Clinical Memory, Identity, D6, inventory, workforce, …), each via its own adoption gate. Runtime-Ops owns only its bounded operational S3 (never domain truth).
+3. **OMNI owns (semantics).** The *interface contract*: candidate carries source lineage + confidence + purpose + authority context; the owning domain's adoption gate is the only commit path; `candidate ≠ commit`; adoption never deletes the source relation (charter §2); layered accountability preserved (`D7 artifact → Observation(+verification) → Clinical-Memory assertion(+adoption) → action`, CNS §9.1).
+4. **Pluggable/counterparty.** None at the *semantics* layer — commit is inherently OMNI-domain-owned. (Downstream execution rails, e.g. an EHR write-back, are counterparty concerns handled per owning domain/Federation.)
+5. **In/out/lineage/proof.** *In:* candidate + lineage + authority context. *Out:* either a committed S3 assertion (by the owning domain) or a held/rejected candidate. *Lineage:* committed state → candidate → extraction_run → source; the commit records adopter + authority + as-of. *Proof:* the adoption record (who adopted, under what authority, when) — the clinical-adoption gate (D7 §4 gate-3) is distinct from extraction-fidelity + artifact-integrity.
+6. **Authority/admission/commit.** This is *the* commit gate for domain truth. Authority is the **intersection/meet** of actor grant ∩ owning-domain policy ∩ capability/action envelope ∩ consent/purpose ∩ tenant/jurisdiction ∩ current validity (no scalar minimum; denial dominates — §G2C.2). AI/agents/CNS/subagents/missions **never** commit here — no silent path (§G2C.0).
+7. **Lifecycle + closure.** Candidate: `proposed → in-review → adopted | rejected | held`. Adopted state then lives under the owning domain's own lifecycle (correction via that domain, C4.3 Law 10.1).
+8. **Partial-failure/degraded/unknown.** Unresolved-identity or low-confidence candidates are held, not force-committed; a domain may adopt part of a candidate set; conflicting candidates surface as contradictions (survive until authorized resolution, 15-E).
+9. **Temporal/correction/revocation.** Correction is the owning domain's additive supersession (never a backward rewrite, §9); if the underlying source is later invalidated, reconsideration routes back to the owning gate (R.14) — the historical commit + what-was-done-under-it are preserved.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Commit obeys tenant/consent/purpose; cross-org adoption is Federation-mediated (R.16); "current" (active policy/formulary) is a domain-owned distinction from historical source (F0: old vs current formulary).
+11. **Agent-Runtime.** Retrieves/proposes/executes-bounded **only**; **may submit** domain candidates through owning-domain interfaces; never directly commits care/business S3 (§G2C.6).
+12. **Build/buy/wrap.** **OMNI-native** governance (the candidate→adoption interface + no-silent-commit); commit execution belongs to each owning domain's contract.
+13. **Deferred.** Each owning domain's adoption-gate contract → that domain + C5; the enduring owner of Runtime-Ops operational S3 (Runtime-Ops vs Build-OS) → spine §8 (§G2C.8).
+
+### §R.8 Reservoir admission / promotion + authority profile + review_gate
+
+1. **Purpose + boundary.** The boundary where interpreted/curated material becomes **accepted reusable knowledge (S2)** under a multidimensional authority profile — `indexed ≠ accepted`; admission is entry to review, acceptance is adoption-as-reusable (§9).
+2. **Classes/roles.** From **S1** candidates / **S4** proposals into **S2** Knowledge Reservoir (working-label family). Distinct from S3 (domain truth) and S5 (views).
+3. **OMNI owns (semantics).** The `review_gate` + the multidimensional **authority profile** (`knowledge_kind · authority_basis · review_authority · scope · principal/tenant · use_ceiling · consequence_class · freshness_requirement`, §8.1 — a point in space, never a rung); the four orthogonal state-families (admission/activation/currency/materialization, §8.2); `passive capture PROPOSES · passive promotion FORBIDDEN` (15-K); risk-sensitive admissibility (stale-but-accepted = non-actionable for high-consequence, §8.2).
+4. **Pluggable/counterparty.** Nothing owns S2 acceptance externally. Federated *inbound* knowledge is admitted locally (R.16; 15-J federated-publication ≠ universal-trust). Model-assisted review = proposer only.
+5. **In/out/lineage/proof.** *In:* knowledge candidate + source lineage + proposed authority profile. *Out:* accepted reservoir unit (with authority profile + state) OR held/rejected. *Lineage:* reservoir unit → source(s) + derivation + admitting authority; re-derivable from sources (§2.1 reprocessing). *Proof:* admission record + authority profile + review authority; `indexed ≠ accepted` provable.
+6. **Authority/admission/commit.** Admission ≠ acceptance ≠ activation. The reservoir owner + `review_gate` accepts; auto-ingest/indexing is **not** acceptance. Use is bounded by the authority profile's `use_ceiling` + `consequence_class` + currency.
+7. **Lifecycle + closure.** admission: `candidate → in_review → accepted | rejected`; activation: `inactive/active/suspended`; currency: `current/stale/superseded/withdrawn`; materialization (form×status) tracked separately (§8.2). A `stale`/`superseded`-but-`accepted` unit stays accepted yet non-admissible for high-consequence use.
+8. **Partial-failure/degraded/unknown.** Contradictory candidates preserved (no false-coherence averaging, 15-E); low-authority material can be admitted at a low `use_ceiling` (descriptive-only) rather than rejected; independence-weighting distinguishes N copies from N corroborations (§11.2).
+9. **Temporal/correction/revocation.** Re-review by better models re-admits (R.13); correction = new version, old marked superseded (not erased, §9); revocation propagates ≥ as aggressively as publication to caches/indexes/projections/federated recipients (15-I; R.15).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** `principal/tenant` axis partitions bodies (patient/provider/operator/federation/OMNI-network/public); provider/operator private alpha never becomes platform-common by silent extraction (membrane law, 15-J); PHI-bearing reservoir units + their embeddings inherit sensitivity (§11.1).
+11. **Agent-Runtime.** Reads per authority profile + admission/currency; **may submit** knowledge candidates to the review boundary; **never** directly accepts/promotes/mutates accepted state (no shadow reservoir; §G2C.6).
+12. **Build/buy/wrap.** **OMNI-native** (knowledge admission-state + authority-profile + passive-capture-not-promotion = the compound gap, G1 §4.3). Storage/index rails under it = buy.
+13. **Deferred.** Reservoir-family **roster/partition** + final family name → spine §8 / G5 (NOT G3, per handoff §3); the reservoir-contract pattern (exact enumerations) → spine §8 / C5.
+
+### §R.9 Lineage + retrieval-unit provenance
+
+1. **Purpose + boundary.** The connective tissue guaranteeing every derived object resolves to its exact source + derivation — so nothing becomes authoritative by being retrieved, repeated, or summarized (§11.3).
+2. **Classes/roles.** Cross-cutting over S1→S6; especially binds S5/S6 retrieval units back to S1 sources + S2/S3 accepted state.
+3. **OMNI owns (semantics).** Every retrieval unit → exact source artifact + derivation lineage; optional (not mandatory) linkage to an accepted semantic/domain object *without becoming authoritative through the link* (rejects "every chunk must point to an ontology node", §11.3); repetition ≠ independent evidence (15-B); lineage survives index rebuilds/rail swaps.
+4. **Pluggable/counterparty.** Lineage/provenance tracking infra, column/data lineage tools — **buy/wrap** as rails; OMNI owns the *cross-layer* lineage constitution (the market keeps raw+derived as two stores linked by convention; OMNI binds them as one governed corpus — G1 §4.1).
+5. **In/out/lineage/proof.** *In:* every produced/derived object. *Out:* a resolvable provenance chain. *Proof:* given any answer/retrieval hit, reconstruct source + derivation + versions — the substrate for as-of replay (R.11) and reconsideration (R.14).
+6. **Authority/admission/commit.** Lineage confers no authority; it *enables* authority evaluation (admissibility, freshness, revocation reach).
+7. **Lifecycle + closure.** Lineage is append-only + immutable; it is never rewritten (even on correction — corrections add lineage).
+8. **Partial-failure/degraded/unknown.** A unit whose lineage is broken (e.g. rename severed a link — Databricks-class fragility, G1) is a **degraded/untrusted** state, not silently trusted; missing lineage bounds use.
+9. **Temporal/correction/revocation.** Lineage carries version/as-of stamps; it is what lets revocation find every dependent (R.15) and reconsideration find every promoted dependent (R.14) without a central taint-engine.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Lineage records may themselves be sensitive (they reference sources) — access-governed; federated lineage is exchanged under admission (R.16).
+11. **Agent-Runtime.** Every draw the runtime consumes is lineage-bearing; run evidence records source + retrieval-unit lineage + versions (§G2C.4). The runtime never strips lineage.
+12. **Build/buy/wrap.** Lineage infra = **buy/wrap**; cross-layer received≠concluded + retrieval-unit-provenance + optional-ontology-link = **OMNI-native**.
+13. **Deferred.** Lineage schema/graph model → C5; ontology-linkage mechanism → S5/S6 retrieval-index contract + C5.
+
+### §R.10 Indexing / retrieval rails
+
+1. **Purpose + boundary.** Making the estate searchable/retrievable — as **replaceable materialization/retrieval rails, NOT truth and NOT S5 projections** (15-M; §2 S5 note).
+2. **Classes/roles.** Rails serving S6 assembly (R.11) and S5 compilation (R.12), drawing on S1/S2/S3. Their **chunks/embeddings/derived metadata are governed derived artifacts** inheriting source lineage + sensitivity + deletion/rebuild/eval obligations (§11.1) — but the index is not a class.
+3. **OMNI owns (semantics).** `retrieved ≠ truth`, `indexed ≠ accepted`; the rule that indexes are rebuildable without losing the corpus; embeddings inherit source classification (rejects "mask-the-vector solves privacy", §11.1); permission-aware retrieval (retrieval obeys relationship/purpose/consent/tenant boundaries); revocation reaches indexes/materializations (R.15).
+4. **Pluggable/counterparty.** Lexical/vector/graph/hybrid engines + rerankers + embedding stores — **fully interchangeable rails** (commodity, G1 §4.3). OMNI owns governance; the engine is swappable without lineage loss (fixture item, F0).
+5. **In/out/lineage/proof.** *In:* accepted/admissible material + access context. *Out:* retrieval hits, each lineage-bearing + freshness/materialization-status stamped. *Proof:* every hit resolves to source (R.9); index staleness/invalidation state is visible.
+6. **Authority/admission/commit.** An index hit is **necessary, never sufficient** — presence in an index/draw does not authorize action (point-of-consequence re-auth, §G2C.4-PoC). Indexes commit nothing.
+7. **Lifecycle + closure.** materialization status per form: `absent · current · invalidated · evicted · rebuild-pending` (§8.2); eviction is an index/cache status, never deletion of evidence.
+8. **Partial-failure/degraded/unknown.** A stale/invalidated index is marked (not silently served as current); permission-lag (revoked-but-still-retrievable — Copilot/Glean-class failure, G1) is the explicit failure this rail must prevent; degraded retrieval falls back safely.
+9. **Temporal/correction/revocation.** On upstream change, indexes/embeddings → `invalidated`/`rebuild-pending`; revocation propagates to them ≥ as aggressively as publication (15-I; the Bedrock delete-resurrection failure, G1, is the anti-pattern).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Permission-aware, tenant-partitioned retrieval; PHI-in-embeddings controls (pre-embedding minimization · purpose-specific stores · isolation · encryption · access logging · deletion verification · avoid embeddings for some consequence classes, §11.1); jurisdiction may bound embedding storage.
+11. **Agent-Runtime.** Consumes retrieval hits as non-authoritative, freshness-stamped, lineage-bearing; re-evaluates authority at point-of-consequence; never treats an index as truth (§G2C.8 rejected pattern).
+12. **Build/buy/wrap.** Retrieval/vector/graph/rerank/embedding engines = **buy (interchangeable rail)**; permission-aware + revocation-reaching + embeddings-inherit-sensitivity semantics = **OMNI-native**.
+13. **Deferred.** Engine selection + hybrid strategy → procurement/impl; retrieval-index contract (chunk/embedding governance) → C5.
+
+### §R.11 Context Router assembly (S6)
+
+1. **Purpose + boundary.** Assembling the **smallest-sufficient, purpose-/authority-scoped Mission Context (S6)** for one run/mission — a transient draw, as-of reconstructable, not a durable body or truth (§10).
+2. **Classes/roles.** **S6** assembly, drawing across S1/S2/S3/S5 via retrieval rails (R.10). Distinct from CNS (orchestrates) and Foundry (compiles) and the runtime (consumes).
+3. **OMNI owns (semantics).** Assembly discipline (smallest-sufficient; trust > tokens); evidence clustering + independence weighting (collapse duplicate transmission; preserve corroboration/recurrence/chronology/authority/dissent — §11.2; NOT naive dedup); the draw carries admissibility + use-ceiling + freshness of each unit; the Router owns *assembly*, never the *meaning or authority* of assembled content (§10).
+4. **Pluggable/counterparty.** Retrieval rails (R.10) it draws through; context-assembly libraries as mechanism (wrapped, never governance — `GRD-033`).
+5. **In/out/lineage/proof.** *In:* mission purpose + actor/authority context + admissibility constraints. *Out:* an assembled S6 draw. *Lineage:* the draw is captured as an **immutable S1 run-context receipt** (permitted payload and/or references · hashes · versions · lineage · policy · authority-evaluation, §G2C.4). *Proof:* as-of reconstruction of what was available/assembled when the run acted.
+6. **Authority/admission/commit.** The Router assembles admissible material; inclusion **does not preauthorize action** (§G2C.4-PoC). The draw commits nothing; it enforces the intersection/meet of constraints per unit (not a scalar minimum).
+7. **Lifecycle + closure.** A draw is per-mission/ephemeral; its immutable *evidence* (the S1 receipt) persists for replay; the draw itself is not converted into a durable truth body by the replay requirement (§G2C.4 patch C).
+8. **Partial-failure/degraded/unknown.** If required admissible context is unavailable, the run proceeds degraded/narrowed or escalates — it never fabricates coverage; contradictions are surfaced, not averaged.
+9. **Temporal/correction/revocation.** As-of by construction (C4.5 seam); on mid-run revocation the run may pause/terminate/narrow/re-assemble and the transition is recorded, while the S1 receipt of what it already saw remains immutable (R.15; §10 scenario 7).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Purpose/consent/tenant/jurisdiction bound the draw (smallest-sufficient minimizes PHI exposure); federated content is drawn only if admitted (R.16).
+11. **Agent-Runtime.** **Consumes** the assembled draw; does not author or re-authorize it (§G2C.6). This is the primary S6↔runtime seam.
+12. **Build/buy/wrap.** **OMNI-native** assembly + independence-weighting + admissibility-enforcing semantics; retrieval mechanism under it = buy.
+13. **Deferred.** Router selection/exclusion mechanics + contradiction-handling detail → Agent-Runtime formulation (`FWREG-010`) + spine §5/§7 CNS; the Router contract → C5.
+
+### §R.12 Foundry maintenance-mission machinery (§10)
+
+1. **Purpose + boundary.** The **active machinery** that compiles projections (S5) and tends reservoirs (S2) by running governed **maintenance missions** — separated from the passive bodies it tends (§10). Foundry owns compiler execution + rebuild/materialization state + compiler lineage, **never the semantic meaning** of a projection (each S5 has an accountable steward).
+2. **Classes/roles.** Machinery producing **S5** and tending **S2**; runs the five C4.4 mission classes: `contradiction-scanning · source-verification · candidate-reconciliation · routing · maintenance`.
+3. **OMNI owns (semantics).** The mission-class boundaries (permitted inputs/operations · **PROPOSE-only** ceiling · proof/lineage/rollback/review · promotion/invalidation boundaries); compiler lineage + freshness stamping; regeneration without losing the corpus; steward-per-projection accountability.
+4. **Pluggable/counterparty.** Compute/orchestration for compilation jobs; model-assisted maintenance (as proposer). **Buy/wrap** the compute; OMNI owns the mission constitution.
+5. **In/out/lineage/proof.** *In:* S1/S2/S3 + a maintenance-mission spec. *Out:* regenerated S5 projections + reservoir-tending proposals (candidates). *Lineage:* projection → compiler version + source set + freshness; mission → its proposals + evidence. *Proof:* compiler lineage; mission proposals are source-linked candidates, never commits.
+6. **Authority/admission/commit.** Missions **PROPOSE + ROUTE**; they never accept/adopt/commit (§10). C4.4 *defines the accepted candidate* mission-class boundary for this arc; the enduring owner/steward is assigned at C5/spine (§G2C.5).
+7. **Lifecycle + closure.** Projection: `absent → building → current → stale → invalidated → rebuild-pending`; missions are ephemeral runs with proof/rollback.
+8. **Partial-failure/degraded/unknown.** A failed compile leaves the prior projection marked stale (not a silent blank); partial maintenance is explicit; contradictions found are preserved + routed, not auto-resolved.
+9. **Temporal/correction/revocation.** Rebuild after upstream disposition (R.14); on revocation, affected projections → invalidated/rebuild-pending (R.15); as-of reconstruction can show a projection's prior compiled state + version.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Projections inherit source sensitivity + tenant scope; maintenance missions obey the same admissibility as any reader; federated maintenance is admission-bounded.
+11. **Agent-Runtime.** The runtime is a common *actor instantiated to perform* maintenance missions (ephemeral, bounded by the mission class) — it consumes the versioned boundary + owns only actor/harness instantiation; **no permanent `ScoutAgent`/`CapperAgent` roster** (§G2C.5).
+12. **Build/buy/wrap.** **OMNI-native** mission constitution + stale-projection self-marking (compound gap, G1); compilation compute = buy.
+13. **Deferred.** Full Foundry framework + CNS orchestration of missions → spine §5/§7/§8 + `CNS_orchestration_contract`; enduring mission-steward assignment → C5/spine.
+
+### §R.13 Reprocessing
+
+1. **Purpose + boundary.** Re-running interpretation/extraction/admission/compilation over retained sources as models, rules, ontologies, or policies improve — **one source ↔ many runs over years** (`GRD-040`); the whole estate is reprocessable by a newer model (F0).
+2. **Classes/roles.** Operates over **S1** (re-extraction → new candidates), **S2** (re-admission by better review), **S5** (rebuild); never mutates the immutable source.
+3. **OMNI owns (semantics).** Reprocessing as expected + governed (not a one-shot pipeline); every reprocessing run is a new versioned run (additive), old interpretations retained; corpus-scale reprocessing lineage (the S1 gap, §6b — "no corpus-scale reprocessing/extraction_run lineage" today).
+4. **Pluggable/counterparty.** Batch/stream compute, model versions — **buy**; OMNI owns the run-versioning + coverage semantics.
+5. **In/out/lineage/proof.** *In:* retained sources + new model/rule/ontology version + scope. *Out:* new runs/candidates/projections. *Lineage:* new run → source + new version, superseding-not-erasing prior. *Proof:* coverage of what was reprocessed + version delta; as-of reconstruction of pre- and post-reprocessing state.
+6. **Authority/admission/commit.** Reprocessing produces **candidates**; re-adoption/re-acceptance still goes through R.7/R.8 gates. Re-running never auto-commits.
+7. **Lifecycle + closure.** A reprocessing campaign is itself a bounded package/epoch (R.3) — closable with coverage + exceptions.
+8. **Partial-failure/degraded/unknown.** Partial reprocessing (subset of corpus) is explicit; sources that fail re-extraction stay at their last-good interpretation, flagged.
+9. **Temporal/correction/revocation.** The core temporal engine of the estate: supports as-of ("what did the estate conclude *then* vs *now*"); reprocessing does not rewrite history — it adds a new as-of layer (C4.5).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Reprocessing must honor current consent/retention (a source withdrawn/pseudonymized is not resurrected for reprocessing); tenant/jurisdiction scope preserved.
+11. **Agent-Runtime.** Frequently the executor of reprocessing missions (R.12); proposes new candidates; commit stays at the gates.
+12. **Build/buy/wrap.** **OMNI-native** corpus-scale reprocessing lineage; compute = buy.
+13. **Deferred.** Reprocessing scheduler/orchestration → Agent-Runtime/Build-OS/impl; reprocessing-run schema → C5.
+
+### §R.14 Correction + reconsideration (F-Inv)
+
+1. **Purpose + boundary.** Handling the case where already-accepted/promoted knowledge (S2) or committed truth (S3) or a doctrine dependent is later found superseded, misread, or built on an invalid assumption — **FLAG, do not silently rewrite**; preserve what-was-decided AND what-was-done (§9; the F-Inv fixture).
+2. **Classes/roles.** Spans **S1** (source found superseded), **S2** (accepted unit re-reviewed), **S3** (owning-domain correction), **S5** (regenerate after disposition), doctrine (already-promoted dependent).
+3. **OMNI owns (semantics).** Reconsideration as a **governed, versioned assessment over distributed lineage with explicit uncertainty** — aligned to C4.3 Law 10.1 (**no universal ledger, no central taint-engine**; owning domains commit their own corrections; Accountability owns admitted obligations only); additive supersession; preserve historical truth + actions taken under the former accepted state; regenerate projections **only after** disposition.
+4. **Pluggable/counterparty.** None at the semantics layer (reconsideration is inherently governed); lineage infra (R.9) is the substrate.
+5. **In/out/lineage/proof.** *In:* an invalidation signal (source withdrawn/superseded/misread) + lineage of dependents (R.9). *Out:* flagged dependents + routed reconsideration + (post-disposition) regenerated projections. *Lineage:* the reconsideration event → affected units → owning gates. *Proof:* both the original accepted state AND the reconsideration are reconstructable; nothing erased.
+6. **Authority/admission/commit.** Reconsideration is an **assessment**, not an authority — it *identifies + routes*; only owning gates re-decide (re-adopt/retire/supersede). No central engine commits corrections.
+7. **Lifecycle + closure.** signal → dependent-identification → routed reconsideration → per-owner disposition → projection regeneration. Closure is per-owning-home, tracked with coverage (which dependents dispositioned).
+8. **Partial-failure/degraded/unknown.** Uncertainty is explicit (a dependent may be "possibly affected"); a dependent whose owner has not yet dispositioned is flagged (future use bounded) without blocking unaffected work.
+9. **Temporal/correction/revocation.** The correction/reconsideration heart: additive-only; as-of replay shows the pre-correction world; ties to R.15 revocation for cache/index/projection invalidation.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** Reconsideration crossing tenants/federation propagates as a governed exchange (R.16); privacy constrains what evidence of the former state is retained (sufficient, not raw-forever).
+11. **Agent-Runtime.** May run contradiction-scan/source-verification missions that **surface + propose** reconsideration; never rewrites history; a live run receiving an invalidation may pause/narrow while its S1 receipt stays immutable (§G2C.4).
+12. **Build/buy/wrap.** **OMNI-native BUILD** (dependency-aware invalidation + governed reconsideration = the compound gap; no surveyed platform composed it, G1 §4.1/§4.2).
+13. **Deferred.** The reconsideration contract + Accountability's admitted-obligation seam → C5 + Accountability domain + C4.5 (temporal); dependency-graph mechanics → impl.
+
+### §R.15 Retention / deletion / revocation propagation
+
+1. **Purpose + boundary.** Governed end-of-life + access-withdrawal across the estate: retention, deletion/pseudonymization, legal-hold, archival, and **revocation that propagates ≥ as aggressively as publication** (15-I; EVSRC-314) — **explicit, additive, lineage-preserving** (charter §2; 15-C).
+2. **Classes/roles.** Spans **S1** (source retention/deletion), **S2** (retire/supersede — eviction ≠ deleting evidence), **S3** (domain retention + GDPR pseudonymize-not-delete), **S5**/indexes (invalidate/evict/rebuild).
+3. **OMNI owns (semantics).** Retention/deletion/legal-hold as governed events (never silent); `eviction ≠ deletion`; deletion/pseudonymization preserves audit (GDPR-erasure-preserves-audit, D7 inv 24); revocation reach = caches + retrieval indexes/embeddings + S5 projections + federated recipients; source-integrity (historical) vs current-applicability separated (§2.1).
+4. **Pluggable/counterparty.** WORM/legal-hold/lifecycle features of storage; de-id engines; deletion-verification tooling — **buy/wrap**; OMNI owns the propagation + audit-preservation semantics.
+5. **In/out/lineage/proof.** *In:* a retention/deletion/revocation event + affected-set lineage (R.9). *Out:* propagated invalidation/deletion + preserved audit. *Proof:* deletion-verification (the Bedrock delete-resurrection failure is the anti-pattern, G1); revocation-coverage proof (everything reachable was reached).
+6. **Authority/admission/commit.** These are governed events requiring authority (legal basis, consent withdrawal, policy); not model-initiated. Revocation authorization dominates (denial-dominates).
+7. **Lifecycle + closure.** retention window → (legal-hold overrides) → pseudonymize/expire/archive/destroy; revocation: `requested → propagating → verified-complete | partial-with-exceptions`.
+8. **Partial-failure/degraded/unknown.** Propagation to a stale index/cache that lags is a first-class *not-yet-complete* state (permission-lag prevented, not tolerated); items under legal-hold are exempted explicitly; failure to reach a federated recipient is surfaced.
+9. **Temporal/correction/revocation.** The revocation half of the temporal/correction story; preserves as-of reconstruction (historical truth stays) while withdrawing future admissibility (C4.5).
+10. **Privacy/principal/tenant/jurisdiction/Federation.** GDPR/42-CFR-Part-2/jurisdictional erasure + consent-withdrawal are the primary drivers; cross-org revocation propagates via R.16 (revocation reaches federated recipients — the market-weak spot, G1).
+11. **Agent-Runtime.** A revocation-propagation target + proposer; invalidates its caches/materializations + future admissibility; **never rewrites the S1 receipt** of what a past run saw (§G2C.4); running work may pause/narrow.
+12. **Build/buy/wrap.** **OMNI-native** revocation-propagation + audit-preserving-deletion semantics; storage lifecycle + de-id = buy/wrap.
+13. **Deferred.** Retention/deletion/revocation contracts → owning domains + Federation/RBAC + C5; propagation mechanics → impl; temporal-validity detail → C4.5.
+
+### §R.16 Federation exchange (publish / admit / revoke)
+
+1. **Purpose + boundary.** Governed cross-operator/cross-org exchange of source artifacts, packages, and (admitted) knowledge — publish, admit, revoke — **without a flattened shared chart or universal-trust** (D7 §8; 15-J).
+2. **Classes/roles.** Bridges **S1** (federated source admission — the F0 fixture), **S2** (federated knowledge admit — CQ-style publish→admit→revoke), and cross-org **S3** visibility (scoped grants); Federation owns the cross-operator grant substrate.
+3. **OMNI owns (semantics).** `federated publication ≠ universal trust` (locally admitted, 15-J); membrane law (private alpha never silently platform-common); admit is a **local admission gate** (R.1/R.8 apply to inbound); revocation propagates to federated recipients (R.15; 15-I); scoped visibility grants (per recipient/purpose/duration, D7 §6) — custody ≠ visibility.
+4. **Pluggable/counterparty.** Exchange standards/rails (bulk-data/FHIR-class exchange, interchange formats like OKF at the boundary), QHIN/network transports, de-id/linkage — **buy/wrap at the boundary; OMNI-governed on admission/use** (OpenWiki lesson: OKF-compatible on exchange, OMNI-governed on admission).
+5. **In/out/lineage/proof.** *In:* published/received packages + counterparty identity + purpose + grant. *Out:* admitted source/knowledge (locally gated) or published artifacts under scoped grants. *Lineage:* federated origin + admitting authority + grant scope. *Proof:* admission receipt + grant provenance + revocation reach across the boundary.
+6. **Authority/admission/commit.** Inbound is admitted locally (never auto-trusted); outbound is scoped by grant + consent + purpose; commit of admitted material still flows through R.7/R.8.
+7. **Lifecycle + closure.** publish → (recipient) admit → use-under-grant → revoke; each federated package is a bounded corpus (R.3) with closure.
+8. **Partial-failure/degraded/unknown.** Timeouts/partial exports (Particle-class TIMEOUT-partial + deltas) are first-class; unreachable recipients on revoke are surfaced; unknown counterparties are quarantined.
+9. **Temporal/correction/revocation.** Corrections/incremental federated deliveries are additive; revocation must reach federated recipients ≥ as aggressively as publication (the hardest market gap, G1); as-of reconstruction of what was shared/when.
+10. **Privacy/principal/tenant/jurisdiction/Federation.** The center of gravity here: consent-specificity, permitted-purpose (technically-enforced, not contractual-only — the Carequality/Particle lesson, G1), jurisdiction, cross-org linkage authority; provider/operator private-alpha membrane.
+11. **Agent-Runtime.** May drive federated admission/reconciliation missions (propose/route); never auto-admits high-consequence federated content; commit stays gated.
+12. **Build/buy/wrap.** Exchange standards/transports/de-id = **buy/wrap (OKF-compatible-on-exchange)**; local-admission + membrane + permitted-purpose-enforcement + revocation-reach = **OMNI-native**.
+13. **Deferred.** The Federation domain contract (cross-operator grant substrate is Federation-owned, not yet drafted — D7 §6/`REV-157`) → Federation pass + C5; exchange-standard selection → procurement.
+
+### §R.17 Build / buy / wrap per mechanism (from the G1 §4.2 matrix — accepted input, not re-derived)
+
+**Method (per mechanism family; using the G1 semantic × realization × posture axes):** classify each as one of — **OMNI-owned governance semantics** · **native domain responsibility** · **reusable open standard** · **infrastructure plug point** · **buy/wrap candidate** · **implementation-only concern** · **reject**. Discipline (charter §15 + G1 §4.3 + 15-O): OMNI **out-governs**, does not out-build; "not found in a bounded survey" ≠ "does not exist"; comparators (Palantir/Databricks/Microsoft/AWS/Google/Snowflake/Elastic/LangChain/LlamaIndex/Glean/OpenAI/Anthropic/…) are **evidence, never architectural authorities**; **no vendor is selected here.**
+
+| mechanism family | §R sections | build/buy/wrap disposition | what OMNI owns semantically |
+|---|---|---|---|
+| Object storage / raw custody | R.2 | **buy/wrap** (infra plug point) | canonical identity · dedup · typed-copy · custody roles · WORM policy |
+| Lakehouse / compute | R.2/R.6/R.13 | **buy** (plug point; OMNI is NOT a lakehouse) | none of the storage engine; only what runs on it is governed |
+| Parsers / OCR / extraction + embedding models | R.6/R.10 | **buy (interchangeable rail)** | extraction_run lineage · versioned interpretation · candidate discipline |
+| Lexical/vector/graph/hybrid retrieval + rerank | R.10 | **buy (interchangeable rail)** | permission-aware retrieval · revocation-reach · rebuild-without-corpus-loss |
+| MPI / record matching | R.5 | **buy/wrap + OMNI-native** | candidate≠confirmed · confidence/basis · commit-stays-with-Identity |
+| De-id / cross-org linkage tokens | R.5/R.16 | **buy/wrap + OMNI consent semantics** | consent · linkage authority · re-identification governance |
+| Data catalog / lineage / classification infra | R.4/R.9 | **buy/wrap** (plug point) | five-axis classification · metadata-quality-state · presence≠authority · cross-layer lineage |
+| Exchange standards / interchange (bulk-data, FHIR-class, OKF) | R.16/R.1 | **reusable open standard (wrap on exchange)** | local-admission · membrane · permitted-purpose-enforcement |
+| **Package/manifest completeness + quarantine + closure** | R.1/R.3 | **OMNI-native BUILD** | the whole corpus-admission envelope (compound gap) |
+| **Received ≠ concluded as ONE versioned governed corpus** | R.2/R.3/R.6/R.9 | **OMNI-native BUILD** (+ buy storage) | binding raw + all typed derivations + invalidation as one lifecycle |
+| **Knowledge admission-state (indexed≠accepted) + passive-capture-not-promotion** | R.8 | **OMNI-native BUILD** | authority profile · review_gate · state-families |
+| **Dependency-aware invalidation + governed reconsideration (F-Inv)** | R.14/R.15 | **OMNI-native BUILD** | assessment-not-taint-engine · additive · history-preserving |
+| **Stale-projection self-marking + contradictions-survive** | R.10/R.12 | **OMNI-native BUILD** | freshness/compiler-lineage · non-authoritative · dissent preserved |
+| **Technically-enforced permitted-purpose** | R.7/R.10/R.16 | **OMNI-native** (Federation/RBAC/consent compose) | purpose/consent/authority enforced, not contractual-only |
+| No-truth-without-governed-commit / retrieved≠truth | R.7/R.8/R.10 | **OMNI-native architectural differentiation** | candidate≠commit · the gates |
+| Ontology / knowledge→governed-action | R.4/R.9 | **OMNI-native semantics** (reject vendor-ontology-as-identity) | optional-link-without-authority · own-your-semantic-constitution |
+| Runtime/agent orchestration under all of the above | R.11/R.12 (+ `FWREG-010`) | **OMNI-native governance; buy the compute** | actor consumes; owns none of S1–S6 |
+
+**Guardrail (15-O, applied):** this matrix records dispositions, **not a moat claim**. The OMNI-native BUILD items are *candidate* differentiation whose defensibility depends on implemented behavior + measured fidelity (not established pre-build); the strategic "can an incumbent compose faster?" question is bounded-deferred to Task-D (§16), not decided here.
+
+---
+
+### §R.CORPUS — Load-bearing G3 decision: D7 / artifact / corpus-parent placement (the verdict G2 deferred to G3)
+
+G2 (§6) resolved the *boundary* (a subject-agnostic artifact primitive is needed; reuse D7's per-artifact physics) and **deferred PLACEMENT to G3**. G3 must adjudicate, at architecture level, the relationship among: (i) D7 per-artifact custody physics; (ii) Source-Estate corpus/package identity + lifecycle; (iii) multi-subject / unknown-subject / non-patient / mixed-source artifacts; (iv) package/collection completeness + closure; (v) artifact identity vs corpus membership; (vi) operational/federation source admission. **No schema. Do not call everything a `patient_document`. Do not create a new domain to avoid deciding.**
+
+**Placements evaluated:**
+- **P1 — Widen D7 in place** (make `patient_document` subject-agnostic + graft a corpus/package parent inside D7). *Rejected as the whole answer.* It correctly reuses D7's proven physics but overloads a patient-subject-shaped, materialization-layer domain with a cross-cutting corpus-admission lifecycle (completeness/quarantine/closure/corpus-scale reprocessing/received-but-unadopted) that is not D7's constitutional job (D7 = the durable-artifact/materialization layer, §1). It risks a god-domain and buries the S1 corpus semantics inside a domain whose center of gravity is the per-patient chart artifact.
+- **P2 — A brand-new domain owning artifacts + corpus.** *Rejected.* It would duplicate D7's per-artifact custody physics (custody/integrity/one-canonical-many-grants/fingerprint-dedup/upload_event/open-document_kind/5-disposition/federation-ready lineage) — a second artifact authority (violates 15-D no-second-authority; `GRD-035`). Creating a domain to avoid a placement decision is the anti-pattern the prompt names.
+- **P3 — Reuse D7 per-artifact physics for the `artifact` primitive; add a Source-Estate-owned corpus/package layer ABOVE D7 artifacts.** **★ ADOPTED (G3 verdict).**
+
+**The G3 verdict (P3), stated at architecture level:**
+1. **Artifact identity + custody = D7's proven physics, generalized to subject-agnostic.** The `artifact` primitive is **subject-agnostic with subject-by-relationship** — reusing D7's custody/integrity/one-canonical-many-grants/fingerprint-dedup/visibility physics. Precedent already exists in-estate: D7 §10 `SC-D7-BIZOPS-001` already reuses the open `document_kind` + `signature_envelope` + one-canonical-many-grants shape for a `workforce_member` subject ("subject-agnostic artifact discipline is the contract; same-table-vs-sibling is a build detail"). So this is a **directionally-admitted extension of D7's discipline, not a new invention.** Whether the subject-agnostic artifact lives in a widened D7 table or a sibling is a **C5/build detail, not an architecture decision** — the *contract* is subject-agnostic artifact identity + subject-by-relationship reusing D7 physics.
+2. **The corpus/package parent is a Source-Estate-owned S1 layer ABOVE D7 artifacts — NOT inside D7, NOT a new plane, NOT a god-store.** It owns *governance semantics only* — package identity · declared-vs-received completeness · quarantine · closure (both §7 profiles A/B) · corpus-scale reprocessing/extraction_run lineage · received-but-unadopted honesty — and **references** D7 artifacts (M:N membership, references not copies, consistent with D7's `patient_document_linkage` discipline). It plugs into object-storage/lakehouse rails it does not own (R.2). D7 continues to own per-artifact durable physics; the corpus layer owns corpus-level lifecycle. **Custody (D7, per-artifact) and corpus membership/lifecycle (Source-Estate, corpus-level) are distinct and must not collapse** (§6 guard).
+3. **Multi-subject / unknown-subject / non-patient / mixed-source artifacts** are handled by (a) subject-agnostic artifact identity + subject-**by-relationship** with confidence (R.5: `candidate-association ≠ confirmed-identity`; unknown/collision held as candidate) and (b) corpus membership being independent of subject resolution (an artifact belongs to a package regardless of whether its subject is resolved). A non-patient artifact in a patient folder is a *classification/association* concern (R.4/R.5), not a reason to force a `patient_document` type.
+4. **Artifact identity vs corpus membership are orthogonal:** one artifact may belong to multiple packages/collections (an export + a correction package + a legal export) via typed membership, without duplicating the canonical artifact (15-D). Corpus membership is a relationship, not a copy.
+5. **Operational/federation source admission** rides R.1 (landing/quarantine) + R.3 (package/closure) + R.16 (federation admit) — the corpus layer is where a federation's declared export becomes a governed, closable package; D7 is where each file becomes a custodied artifact.
+
+**Boundary summary (the verdict in one line):** *D7 owns the artifact (custody/integrity/visibility, generalized subject-agnostic); the Source-Estate S1 corpus layer owns the package/collection above D7 artifacts (identity/completeness/quarantine/closure/reprocessing/received-but-unadopted); membership references, never copies; same-table-vs-sibling and all schema are C5/build detail.*
+
+**Deferred (correctly, per hard stops):** the exact schema/table/type placement (widened D7 vs sibling) → C5 + D7 contract; the corpus-layer contract minting → C5; the enduring owner label for the Source-Estate corpus layer within the S1 family → spine §8 (no roster/name at G3).
+
+---
+
+### §R.FIX — Fixture design traces (F0 · F-Self · F-Inv) — DESIGN TRACES, not G4 scoring
+
+Per charter §9 + G2 §14: **G3 traces the completed §R through the three accepted fixtures to show the architecture flows cleanly** (what enters · which home owns each stage · what proceeds despite partial failure · what is quarantined/unknown · what becomes candidate/accepted-knowledge/domain-truth/projection/assembled-context · how correction/revocation propagates · what proves the result). **G3 does NOT score the fixtures — G4 owns the frozen adversary + rubric.**
+
+**F0 — Federation Source-Estate Admission** (3,000-patient spreadsheet + 50,000 mixed files + corrupt/password-protected + duplicates/collisions + unknown/multi-subject + old/current formularies + vendor sheets + incremental export + correction package):
+
+| stage | §R section | home / class | what happens |
+|---|---|---|---|
+| the export arrives | R.1 → R.3 | S1 landing → corpus package (profile A) | received-and-accounted; declared-vs-received reconciled; **package closes with visible exceptions** |
+| each file | R.2 | S1 artifact (D7 physics, §R.CORPUS) | canonical artifact + fingerprint dedup → `upload_event` (not 3,000 uncontrolled originals, 15-D) |
+| corrupt / password-protected | R.1 | S1 quarantined | preserved, not dropped; 49,999 valid siblings proceed (15-L purpose-safe partial admission) |
+| duplicates / collisions | R.2 / R.5 | S1 dedup / entity resolution | dedup by fingerprint; subject collisions **held as candidates** (candidate≠confirmed) |
+| unknown / multi-subject | R.5 | held-unknown / subject-by-relationship | corpus membership independent of subject resolution (§R.CORPUS #3–4) |
+| extracted patient facts | R.6 → R.7 | S1 candidate → S3 (owning domain adopts) | interpretation adopts nothing; owning domain commits via adoption gate |
+| provider CO₂ preferences | R.6 → R.8 | reservoir candidate (operational `knowledge_kind`) | provider preference ≠ clinical doctrine; admission-gated (indexed≠accepted) |
+| old vs current formulary | R.2 / R.7 | both retained (S1); "current" = S3 per owner | historical instruction ≠ active policy; vendor doc ≠ current formulary |
+| vendor price sheets | R.6 → R.7 | S1 → D6 domain candidate | receipt-truth ≠ content-truth |
+| searchable index over it all | R.10 | retrieval rail (NOT S5, NOT truth) | rebuildable without losing the corpus; permission-aware; swap engine without lineage loss |
+| assemble context for a care mission | R.11 | S6 draw (Context Router) | smallest-sufficient, purpose-scoped; immutable S1 run-context receipt for replay |
+| correction package invalidates part of export 1 | R.14 → R.15 | correction (additive) + F-Inv if promoted | original package reconstructable; revocation reaches indexes/projections/federated recipients |
+
+*Trace holds: every F0 item routes to a home; partial failure stays visible; nothing is forced; the whole estate is reprocessable (R.13); no leftover bucket.*
+
+**F-Self — OMNI's own architecture/build/evidence estate** (transcripts/uploads/EVSRC · analyses/interpretations · doctrine/contracts · decisions/guardrails · catalog/read-graph/handoffs · continuous open-ended corpus · leak-at-pivots + re-derivation risk):
+
+| stage | §R section | home / class | what happens |
+|---|---|---|---|
+| transcripts / uploads / EVSRC | R.1/R.2 | S1 Source Estate (profile **B**, open-ended) | closable coverage epochs/watermarks, never globally closed (§7B) |
+| analyses / interpretations | R.6 | layer-3 versioned interpretations (candidates) | attributed + versioned; adopt nothing by themselves |
+| doctrine / contracts | R.7 | S3 Domain-Owned State / P0 doctrine | committed; correction via owning gate |
+| decisions / guardrails (promoted bodies) | R.8 | S2-like curated knowledge | admission-gated; passive-capture-proposes-never-promotes |
+| catalog / read-graph / handoffs | R.12 | S5 Compiled Projection | regenerable, non-authoritative (`DEC-033`); triple-pointer drift = a stale-projection failure R.10/R.12 prevent |
+| **the missing thread→uploads→EVSRC→decisions→guardrails→catalog→commit manifest** | R.3 | **S1 open-ended-corpus admission envelope** | the concrete self-estate instance of the corpus-admission gap (§6b/§7B) — the manifest R.3 defines |
+| leak-at-pivots / re-derivation | R.11/R.14 | S6 checkpoint discipline + reconsideration | controlled checkpoint/rehydration (runtime §3); conversation = execution context, not canonical memory |
+
+*Trace holds: the G1 10-species census maps without a leftover; the open-ended profile-B corpus + the missing-manifest gap are exactly what R.3 addresses.*
+
+**F-Inv — promoted knowledge later invalidated** (a source-backed gem promoted into doctrine/spine, later found superseded/misread/invalid-assumption):
+
+| stage | §R section | home / class | what happens |
+|---|---|---|---|
+| invalidation signal | R.14 | reconsideration (assessment, not taint-engine) | FLAG, do not silently rewrite |
+| identify promoted dependents | R.9 → R.14 | lineage → dependent set | dependency-aware invalidation over distributed lineage w/ explicit uncertainty (C4.3 Law 10.1) |
+| preserve what-was-decided AND what-was-done | R.9/R.15 | S1 receipts + S3 history | historical truth + actions under the former accepted state preserved (never erased) |
+| stop future inadmissible use | R.8/R.10/R.15 | currency→superseded/withdrawn; index invalidate | accepted-but-superseded = non-actionable for high-consequence; revocation reaches materializations |
+| route reconsideration to owners | R.14 → R.7/R.8 | owning gates re-decide | no central taint engine; owning domains commit their own corrections |
+| regenerate affected projections | R.12 | S5 rebuild **after** disposition | not before; compiler lineage + freshness updated |
+| a live run mid-reconsideration | R.11/R.15 | S6 draw + S1 receipt | run may pause/narrow/reassemble; S1 receipt of what it saw stays immutable |
+
+*Trace holds: the case OMNI's own estate will actually hit (G1 §10 live specimen — the "not-found→moat" drift caught at the Knox gate) flows through R.14 without rewriting history and without a central taint engine.*
+
+---
 
 ## §18 Governance receipt + Protocol §9 stop report
 
@@ -348,3 +749,54 @@ Applied in this fresh G2 agent; all at constitutional-dimension level (NO C5 sch
 | 12 | Foundry owns execution not meaning + steward per projection; Router owns assembly not content-authority | `patched` | §10 |
 | + | revocation = additive supersession, not backward rewrite | `already_satisfied_verified` | §9 |
 | + | reflexive anti-collapse self-guardrail (15-P) | `patched` (new law) | §15 |
+
+## §20 G3 completion ledger + Protocol §9 stop report (2026-08-01)
+
+**Authored by** a fresh Opus agent booted from `HANDOFF_2026-07-31_c4-4-g2-landed_pre-g3.md`, on `analysis/c4-4-g3-reference-architecture` off `origin/main a87d305` (Nick + Knox authorized G3). `analysis_nonbinding`; §R built on the accepted G2 body without reopening it.
+
+### §20.1 G3 completion self-check ledger (the required pre-stop verification)
+
+| # | check | result | where |
+|---|---|---|---|
+| 1 | R.1–R.17 populated at architecture depth (13-point template each) | ✅ | §R.1–§R.17 |
+| 2 | §R.0 orientation present (responsibilities · S1–S6 flow · rails · gates · owners · lineage/proof) | ✅ | §R.0 |
+| 3 | all six G2 classes/roles preserved (S1·S2·S3·S4·S5·S6), none collapsed | ✅ | every §R section maps to §2 classes |
+| 4 | no leftover unclassified stage (every stage routes to a home) | ✅ | §R.0 flow + §R.FIX traces (no leftover bucket) |
+| 5 | no god-store / god-owner / god-agent | ✅ | R.2/R.3 (corpus layer owns semantics only, plugs rails) · R.4 (no god-catalog) · R.12 (no permanent agent roster) · §R.CORPUS (P2 rejected) |
+| 6 | no authority collapse (custody≠authority·retrieved≠truth·indexed≠accepted·candidate≠commit·receipt≠content) | ✅ | R.2/R.7/R.8/R.10 + intersection/meet (no scalar minimum) |
+| 7 | all derived outputs retain lineage | ✅ | R.6/R.9/R.10/R.11 (S1 run-context receipt) |
+| 8 | partial failure stays visible (quarantine/unknown/degraded first-class) | ✅ | R.1/R.3/R.5/R.10 + 15-L |
+| 9 | F0 / F-Self / F-Inv trace cleanly (no leftover) | ✅ | §R.FIX (three traces) |
+| 10 | D7 / corpus-parent placement adjudicated (verdict issued, no schema) | ✅ | §R.CORPUS (P3 adopted; P1/P2 rejected) |
+| 11 | build/buy/wrap complete at mechanism level | ✅ | §R.17 matrix (17 mechanism families) |
+| 12 | no vendor / schema / build overreach | ✅ | §R banner + R.17 guardrail (no vendor selected; no schema/field/table) |
+| 13 | every unresolved conclusion has a destination + trigger | ✅ | §20.2 |
+| 14 | G4 has not started (frozen adversary + rubric untouched) | ✅ | §R banner; charter §8 G4 row unchanged |
+
+### §20.2 Unresolved / destination ledger (G3 defers with owner + trigger — nothing left bare-open)
+
+| item | disposition | owner | trigger |
+|---|---|---|---|
+| exact corpus-parent schema/table (widened D7 vs sibling) | bounded-deferred | D7 contract + C5 | C5 contract minting |
+| Source-Estate corpus-layer contract | bounded-deferred | C5 | C5 |
+| reservoir-family roster / partition / final name | bounded-deferred | spine §8 / G5 | spine §8 / G5 (NOT G3) |
+| full CNS framework (hemispheres/regions/learning-loops) | bounded-deferred | spine §5/§7 + `CNS_orchestration_contract` | spine §5/§7 |
+| complete Agent Runtime architecture + `FWREG-010` | OPEN (consumed as bounded bridge only) | Agent-Runtime formulation | `FWREG-010` |
+| enduring owner of Runtime-Ops operational S3 (Runtime-Ops vs Build-OS) | bounded-deferred | spine §8 | runtime checkpoint-persistence design |
+| retrieval-index / chunk-embedding governance contract | bounded-deferred | C5 | C5 |
+| Federation cross-operator grant substrate | bounded-deferred | Federation domain pass | Federation pass + C5 |
+| strategic "can an incumbent compose faster?" (§16) | bounded-deferred (not a species) | Nick/strategy + spine + Task-D | Task-D |
+| vendor/engine selections (storage, retrieval, MPI, de-id, exchange) | deferred | procurement/impl | build entry |
+| adversarial scoring of F0/F-Self/F-Inv | deferred | G4 | G4 (frozen fixtures + rubric) |
+
+### §20.3 Protocol §9 stop report
+
+- **Source posture:** read FULLY this pass — the live handoff; the Gate-0 charter; the closed G1 reality map (incl. §4 external matrix + §4.2 build/buy/wrap + §9 claim ledger); the closed G2 constitution (this doc §§0–19); the accepted Agent-Runtime consumption bridge (§0 + §§G2C.0–G2C.11); the CNS/Knowledge-Reservoirs frontier; the D7 contract; the CNS orchestration contract; FWREG-006/007/010/015 rows; read-graph #9j/#9d + catalog rows for the C4.4 artifacts. **Consulted:** read-graph #15; guardrail discipline as summarized in the artifacts (`GRD-026/033/035/036/040/041/042/043`). **Not re-derived:** the G1 external mechanism survey + build/buy/wrap matrix (consumed as accepted input, per charter). No file claimed read merely because a search returned it.
+- **Decision framing:** authored the technology-neutral §R reference architecture + plug-point model over the six G2 classes (R.0 orientation + R.1–R.17); issued the load-bearing D7/corpus-parent placement verdict (§R.CORPUS: reuse D7 per-artifact physics subject-agnostic + a Source-Estate-owned S1 corpus layer above D7 artifacts, membership-references-not-copies; schema deferred); traced F0/F-Self/F-Inv cleanly (§R.FIX); completed build/buy/wrap at mechanism level (§R.17).
+- **Affected files/contracts/domains/seams (this pass):** this doc (§R + passport + §0 + §20) · charter status · live handoff · catalog row · read-graph #9j · FWREG-007 — all `analysis_nonbinding`. Downstream contract-implications ROUTED, not edited: D7 (corpus parent → C5) · Federation/RBAC/consent (permitted-purpose, revocation, PHI-in-embeddings) · C4.5/`FWREG-015` (as-of/temporal) · Accountability (admitted obligations, reconsideration) · Agent-Runtime/`FWREG-010` (actor consumer) · spine §5/§7 (CNS) · spine §8 (roster/authority ratification) · Task-D (strategic risk).
+- **Risks:** naming ossification (mitigated: planning-vocabulary only; no roster/name minted) · scope-creep into schema/CNS/vendor (mitigated: §R banner + R.17 guardrail + §20.1 checks 5/6/10/12) · reopening G2 (mitigated: §R built on top; G2 §§1–19 untouched) · over-claiming a moat (mitigated: 15-O + R.17 guardrail + §16 deferral).
+- **Proofs:** §20.1 self-check (14 checks pass) · §R.FIX (three fixture traces, no leftover) · §R.CORPUS (verdict with rejected alternatives).
+- **Governance side-effects:** charter → `G3_authored_pending_Nick_Knox_review`; this artifact → `G3_reference_architecture_authored_pending_review`; handoff → G3 authored (branch/commit/blob) pending review, G4 not started; catalog row → pending G3 review; #9j → G3 authored pending review (same read order); FWREG-007 → G3 authored pending review (G5/spine residuals NOT closed). Outer checkpoint #15 + AGENTS NOT touched; G1 + the Runtime bridge NOT touched.
+- **Unresolved:** all bounded-deferred with owner + trigger (§20.2).
+- **Next authorized action:** **STOP for Nick + Knox G3 review.** G4 does NOT auto-start; no promotion; no schema/build.
+- **Stop declaration:** G3 §R authored to its gate. STOPPED.
