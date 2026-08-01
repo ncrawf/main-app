@@ -2,7 +2,7 @@
 
 Document type: `handoff` (operational-state transfer / landing record — NOT an architecture essay)
 Authority: `analysis_nonbinding` (`GRD-036`). Records a clerical curated landing; binds nothing; promotes nothing.
-Status: `c4_4_G1_G2_MERGED_to_main · agent_runtime_bridge_accepted_bounded · G3_reference_architecture_AUTHORED_pending_Nick_Knox_review · G4_not_started · analysis_nonbinding · not_promoted · outer_checkpoint_UNCHANGED` — G1/G2 MERGED to `main` @ `fa98a34` (Knox PASS + Nick, 2026-08-01). **★ 2026-08-01 UPDATE: C4.4 G3 §R reference architecture AUTHORED + Knox-amended (Nick + Knox authorized G3; Knox review = PASS WITH REQUIRED AMENDMENTS, all 5 amendment groups applied — §20.4) on branch `analysis/c4-4-g3-reference-architecture` off `origin/main a87d305`, pushed, NOT merged — pending Knox patch-verification + Nick + Knox G3 acceptance. See §0-G3 addendum for exact branch/commit/blob. Next gate = Knox verifies amended bytes → Nick + Knox accept G3 (NOT a merge or G4 decision).**
+Status: `c4_4_G1_G2_MERGED_to_main · agent_runtime_bridge_accepted_bounded · G3_reference_architecture_AUTHORED_pending_Nick_Knox_review · G4_not_started · analysis_nonbinding · not_promoted · outer_checkpoint_UNCHANGED` — G1/G2 MERGED to `main` @ `fa98a34` (Knox PASS + Nick, 2026-08-01). **★ 2026-08-01 UPDATE: C4.4 G3 §R reference architecture AUTHORED + Knox-amended + normalization-cleaned (Nick + Knox authorized G3; Knox review = PASS WITH REQUIRED AMENDMENTS → all 5 amendment groups applied + 2 tiny post-amendment cleanups — §20.4) on branch `analysis/c4-4-g3-reference-architecture` off `origin/main a87d305`, committed LOCALLY, NOT merged. ⚠️ The amended+cleaned commits are NOT yet on the remote (github.com DNS-unreachable in the authoring env; remote branch still at pre-amendment `99f4e02`). Next mechanical move = ONE networked `git push` (no force/merge), then Knox verifies remote bytes → Nick + Knox accept G3 → G4/Gemini. See §0-G3-NEXT runbook for the full sequence + the frozen Gemini G4 packet.**
 Domain(s): architecture_governance, cns_orchestration, ai_substrate, evidence_processing, federation
 Lifecycle role: the live next-agent boot packet for C4.4 after the G2 curated landing. Supersedes `v4_C4_4_G2_kickoff_handoff.md` as the C4.4 boot artifact (the kickoff handoff is a consumed historical packet preserved ONLY on the C4.4 analysis branch — it is NOT on `main` and is NOT the live handoff).
 Source-of-truth relationship: points to the charter / G1 map / G2 constitution + the Agent-Runtime capture. Does NOT supersede the outer checkpoint (#15).
@@ -26,7 +26,58 @@ agent_read_rule: `consult_if_routed`
 - **Load-bearing G3 verdict (§R.CORPUS):** reuse D7 per-artifact custody physics **subject-agnostically** for the artifact primitive; add a **Source-Estate-owned S1 corpus/package layer ABOVE D7 artifacts** (membership by reference, not copy); corpus completeness/closure + operational/federation admission live in S1; the corpus-parent schema/table shape is deferred to C5. P1 (corpus inside D7) and P2 (new corpus domain) rejected.
 - **Files touched on this G3 branch:** the taxonomy/reference-architecture artifact (§R + passport + §0 + §20); the charter status; this handoff; catalog row; read-graph #9j; FWREG-007. Nothing else.
 - **★ Knox G3-review amendment pass (2026-08-01):** Knox returned **PASS WITH REQUIRED AMENDMENTS** (direction + P3 verdict accepted; 5 bounded amendment groups). Opus verified all five against the live bytes and applied them (§20.4 amendment matrix): (1) governance control-plane state = committed S3-role, NOT S5 projection [with the divergence: S3-of-governance-domain, not a new "P0 class"]; (2) blob/artifact/receipt/evidence-independence four-identity split; (3) federated revocation split into grant-revoke/withdrawal/lawful-deletion/recipient-local-reconsideration + recipient sovereignty + bidirectional lawful-retention exception + profile A/B; (4) closed-package receipt-closure immutability; (5) live-state normalization + R.17 truth qualifier + named S1 custody-governance commit role. Runtime blob `de5b9a1` NOT touched. **Amendment commit SHA:** `32a7a88671c1ed41bd24bdef2e76c6aee9c99c74` · **amended artifact blob SHA:** `e20c3f3a5d6063aa564761db19ac9e5b85ab560d` *(authoring commit was `13c3ec5`; the amendment commit sits on top).*
-- **Exact next action:** **Knox verifies the amended branch bytes → Nick + Knox G3 acceptance.** G4 does not auto-start.
+- **★ Post-amendment normalization cleanups (2026-08-01):** two microscopic cleanups from Knox's amended-artifact review were applied to the artifact (NOT architecture reopenings): (a) the contradictory live-§0 "This is G2 only" line rewritten to "§§1–19 = closed G2 body; §R + §20 = authored+amended G3 layer"; (b) an inline supersession pointer added at G2 §14 F-Self prose → §R.FIX Amendment-1 (G2 body not rewritten). Knox's linguistic caution folded into the spine-§8 deferral note. See §20.4. **Post-cleanup commit SHA:** `<STAMPED>` · **post-cleanup artifact blob SHA:** `<STAMPED>`.
+- **Exact next action:** see **§0-G3-NEXT runbook** immediately below — the branch is committed locally but **the amended+cleaned commits are NOT yet on the remote** (a networked push is the mechanical next move).
+
+## §0-G3-NEXT — Next-agent runbook (2026-08-01): push → Knox verify → accept → G4/Gemini
+
+> **Why this exists:** the Knox amendment pass + normalization cleanups are committed on the **local** branch, but this environment cannot resolve `github.com` (SSH DNS failure), so the amended commits are **stranded locally**. Do NOT burn context on periodic push retries — a single successful push from any networked environment is all that is needed. Then hand to Knox for byte-verification, then Nick + Knox acceptance, then G4.
+
+**Three-state reality (read this first — it looks confusing but nothing is lost):**
+| state | ref | contains |
+|---|---|---|
+| `main` (committed estate) | `a87d305` | G1/G2 landed; **no G3**; nothing promoted |
+| remote review branch (GitHub) | `origin/analysis/c4-4-g3-reference-architecture` = **`99f4e02`** (stale) | original G3 authoring + SHA-stamp only — **NOT the amendments/cleanups** |
+| **local working branch** (durable, not remote) | `analysis/c4-4-g3-reference-architecture` tip = **`<STAMPED post-cleanup stamp commit>`** | authoring `13c3ec5` → stamp `99f4e02` → amendments `32a7a88` → stamp `a885a7d` → cleanups `<STAMPED>` → stamp `<STAMPED>` |
+
+**Step 1 — Push (from any environment that resolves GitHub). No force, no merge:**
+```
+git push origin analysis/c4-4-g3-reference-architecture
+```
+Then confirm: `git rev-parse origin/analysis/c4-4-g3-reference-architecture` equals the local tip, and `git rev-parse origin/main` is still `a87d305`.
+
+**Step 2 — Knox verifies the exact remote bytes:** the six-file diff vs `a87d305`; the amendment matrix §20.4 lands as specified (esp. Amendment-1 S3-not-P0); the two cleanups are present; runtime blob `de5b9a1` + AGENTS + checkpoint #15 + `main a87d305` unchanged.
+
+**Step 3 — Nick + Knox accept G3.** (The two normalization cleanups Knox required are ALREADY applied in these bytes — no further artifact pass needed unless Knox finds something in the pushed bytes.)
+
+**Step 4 — Freeze the G4 fixtures + rubric**, THEN give a fresh, repo-connected **Gemini** the G4 white-box adversarial packet (Gemini's highest-value role is the G4 adversary leg, NOT another general prose review). Do NOT begin G4 authoring before steps 1–3.
+
+**Frozen Gemini G4 adversarial-packet template (fill `<PUSHED AMENDED TIP>` after Step 1):**
+```
+AT GEMINI — C4.4 G4 WHITE-BOX ARCHITECTURE ADVERSARY.
+Repository: ncrawf/main-app
+Target branch: analysis/c4-4-g3-reference-architecture
+Target commit: <PUSHED AMENDED TIP>
+Read the exact repository bytes. Do not review from an operator summary.
+Primary object: .cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md
+Governing inputs: live C4.4 handoff · charter · closed G1 map · accepted G2 constitution ·
+  accepted bounded Agent-Runtime bridge · D7 contract · Architecture Memory Control Plane +
+  catalog/read-graph · C4.3 correction-continuity law · C4.5 temporal charter · Federation + CNS boundaries.
+Role: ADVERSARY, not co-author. Do not rewrite; do not invent schemas/vendors/services/domains/planes/rosters/surfaces.
+Pressure-test F0/F-Self/F-Inv for: (1) constitutional-class collapse; (2) Source-Estate/corpus god-object;
+  (3) hidden authority transfer to Foundry/Router/Runtime/control-plane; (4) blob/artifact/receipt/evidence-
+  independence collapse; (5) cross-sovereign revocation/correction overreach; (6) false package closure /
+  history rewrite; (7) privacy/tenant/principal/jurisdiction/Federation leakage; (8) missing Care/Accountability/
+  Time/domain-commit consequences; (9) lost uncertainty/partial-failure/lineage; (10) build/buy/wrap language
+  that secretly selects architecture by vendor.
+For each defect: instantiate a concrete fixture mutation · cite the exact §R sentence that permits it ·
+  cite the governing source it contradicts · classify severity (blocker|major|minor|no defect) · state the
+  smallest correction. Return: PASS | PASS_WITH_BLOCKERS | HOLD. No repo writes. No G5. No promotion.
+```
+
+**Step 5 — Knox adjudicates Gemini's findings; Step 6 — G5 disposition/handoff** into Task-D, spine §§7/8, C5, Runtime (`FWREG-010`), CNS, Federation, and the other named owners.
+
+**Live hard stops for the next agent:** no G4 authoring before acceptance · no merge to `main` · no force-push · no checkpoint-#15 repoint · no AGENTS edit · no runtime-blob edit (`de5b9a1`) · no schema/vendor/build · nothing promoted.
 
 ## §1 What this transaction did (the curated landing)
 
