@@ -2,7 +2,7 @@
 
 Document type: `handoff` (operational-state transfer / landing record — NOT an architecture essay)
 Authority: `analysis_nonbinding` (`GRD-036`). Records a clerical curated landing; binds nothing; promotes nothing.
-Status: `c4_4_G1_G2_landed · agent_runtime_bridge_accepted_bounded · G3_not_started · analysis_nonbinding · not_promoted · outer_checkpoint_UNCHANGED`
+Status: `c4_4_G1_G2_MERGED_to_main · agent_runtime_bridge_accepted_bounded · G3_not_started · analysis_nonbinding · not_promoted · outer_checkpoint_UNCHANGED` — **MERGED to `main` via fast-forward @ `fa98a343565e35c4c6aba2aff7f8504e56e028af` (Knox PASS + Nick authorization, 2026-08-01); this file's own post-merge state-normalization commit sits immediately above that landing SHA. Next gate = Nick + Knox authorize C4.4 G3 (NOT another merge decision).**
 Domain(s): architecture_governance, cns_orchestration, ai_substrate, evidence_processing, federation
 Lifecycle role: the live next-agent boot packet for C4.4 after the G2 curated landing. Supersedes `v4_C4_4_G2_kickoff_handoff.md` as the C4.4 boot artifact (the kickoff handoff is a consumed historical packet preserved ONLY on the C4.4 analysis branch — it is NOT on `main` and is NOT the live handoff).
 Source-of-truth relationship: points to the charter / G1 map / G2 constitution + the Agent-Runtime capture. Does NOT supersede the outer checkpoint (#15).
@@ -16,7 +16,7 @@ agent_read_rule: `consult_if_routed`
 
 ## §1 What this transaction did (the curated landing)
 
-A curated, eight-file artifact landing was applied onto current `main` (`c40630b`) via a clean integration branch. It did NOT merge the C4.4 or runtime analysis branches wholesale; it applied only the accepted artifact content + surgical control-plane deltas.
+A curated, eight-file artifact landing was applied onto `main` via a clean integration branch (`integration/c4-4-g2-curated-landing @ fa98a34`, one commit above `c40630b`), then **fast-forward-merged into `main` @ `fa98a343565e35c4c6aba2aff7f8504e56e028af`** (Knox PASS + Nick authorization, 2026-08-01). It did NOT merge the C4.4 or runtime analysis branches wholesale; it applied only the accepted artifact content + surgical control-plane deltas.
 
 **Landed:**
 1. C4.4 Gate-0 charter — `v4_C4_4_knowledge_and_source_estate_formulation_plan.md` (substance preserved; stale stage banner normalized to G1 closed / G2 closed / G3 not started).
@@ -38,9 +38,9 @@ A curated, eight-file artifact landing was applied onto current `main` (`c40630b
 
 ## §3 Exact next action
 
-**STOP for Knox repository verification of the eight-file integration branch, then Nick authorizes merge to `main`.**
+**DONE: the eight-file curated landing is Knox-verified (PASS) and MERGED to `main` via fast-forward @ `fa98a343565e35c4c6aba2aff7f8504e56e028af` (Nick authorization, 2026-08-01), followed by this bounded two-file post-merge state-normalization commit. No further merge decision is pending.**
 
-After merge, the ONLY authorized next architecture action is: **Nick + Knox explicitly authorize C4.4 G3.**
+The ONLY authorized next architecture action is: **Nick + Knox explicitly authorize C4.4 G3.**
 
 - **G3 scope** = populate the reserved technology-neutral **§R reference architecture + plug-point model** over the six G2 constitutional classes/roles (charter §8 G3 row; G2 §R outline R.1–R.17). Technology-neutral; no vendor picks; no schema; no build.
 - **NOT next:** the Reservoir-family roster / partition deep dive (that is a spine §8 / later concern, not G3), any Build-OS work, any promotion, any C5 contract/schema/code.
