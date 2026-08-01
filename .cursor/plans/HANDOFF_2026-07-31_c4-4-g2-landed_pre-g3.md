@@ -20,7 +20,7 @@ agent_read_rule: `consult_if_routed`
 
 - **What happened:** Nick + Knox authorized C4.4 G3; a fresh Opus agent authored the reserved technology-neutral **§R reference architecture + plug-point model** (R.0 orientation + R.1–R.17 + §R.CORPUS D7/corpus verdict + §R.FIX F0/F-Self/F-Inv design traces + §20 G3 completion ledger) inside `v4_C4_4_taxonomy_constitution_and_reference_architecture.md`, on top of the accepted G2 constitution (§§1–19 **not reopened**).
 - **Branch:** `analysis/c4-4-g3-reference-architecture` (off `origin/main a87d305`, pushed, **NOT merged to `main`**, no force-push).
-- **Commit SHA:** `<STAMPED_IN_NORMALIZATION_COMMIT>` (recorded in this file's own state-normalization commit + the G3 return report).
+- **Commit SHA:** `13c3ec5cd14ba0f418038ebcdee1d96da2e112c1` (the G3 authoring commit; this line stamped by the immediately-following state-normalization commit).
 - **G2/G3 artifact blob SHA (`…taxonomy_constitution_and_reference_architecture.md`):** `9ecf042fbd0b11423b2b37ee423070ec0950bf2e`.
 - **Status:** `analysis_nonbinding` · **pending Nick + Knox G3 review** (NOT self-accepted) · G4 NOT authorized/started (G4 owns the frozen adversary + rubric) · nothing promoted · outer checkpoint #15 + AGENTS UNCHANGED · G1 + the Agent-Runtime bridge (`de5b9a1`) UNCHANGED.
 - **Load-bearing G3 verdict (§R.CORPUS):** reuse D7 per-artifact custody physics **subject-agnostically** for the artifact primitive; add a **Source-Estate-owned S1 corpus/package layer ABOVE D7 artifacts** (membership by reference, not copy); corpus completeness/closure + operational/federation admission live in S1; the corpus-parent schema/table shape is deferred to C5. P1 (corpus inside D7) and P2 (new corpus domain) rejected.
