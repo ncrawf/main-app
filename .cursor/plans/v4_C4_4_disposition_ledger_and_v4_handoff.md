@@ -1,0 +1,993 @@
+# v4 — C4.4 Integrated Reference, Disposition & Downstream Authoring Packet
+
+Document type: `architecture_reconciliation` (integrated reference + disposition + handoff for the C4.4 Knowledge-Reservoirs & Source-Estate arc). **This packet does three jobs, in order:** (1) **preserve G3 as the accepted base architecture**; (2) **state the G5 integration deltas** (the integrated Intelligence-Foundry recomposition, the corrected orthogonal S2 taxonomy, the Simulation-Lab boundary, the comparator-by-mechanism inheritance, the downstream authoring interface) — **pending Nick+Knox acceptance, NOT independently G4-tested**; (3) **serve as the coherent front door** for spine / C5 / Runtime / Build-OS / Task-D / implementation authors, with the routing evidence held behind it as appendices.
+
+**Architecture-layer honesty (read before authoring downstream):** G3 (`taxonomy_constitution_and_reference_architecture.md`, blob `e364acb`) is the accepted base. G4 (PASS 30/32) tested the **frozen G3 scope**. **Several Part I sections carry G5 integration deltas that G3 did not contain and G4 did not independently validate — specifically I.2 (Foundry recomposition inside the map), I.4 (S2 taxonomy), I.6 (Foundry profiles/interface), I.7 (Simulation boundary), plus the F-Self/profile decisions in I.5 and the pilot/contracts in I.9/I.10** — recorded as `recommended / pending acceptance`, not tested architecture. The precise per-section decision-state is the table just below the Part I heading. Nothing here is implemented or promoted.
+
+Prior title (historical): "v4 — C4.4 G5 Disposition Ledger + v4 Handoff" (`plan_or_roadmap`). Reframed 2026-08-01 per Knox HOLD — the file carried substantive integration architecture while calling itself a routing ledger; the reframe makes the artifact role honest and the front door usable.
+Authority: `analysis_nonbinding` — propose-only pre-spine pass (`GRD-036`/`GRD-043`). Binds NOTHING. Promotes NOTHING. It mints NO primitive; every name is planning vocabulary. **It does BOTH route AND carry integration architecture** (the prior "it routes, it does not re-architect" framing is retired as false): Part I §§I.2/I.4/I.6/I.7 carry G5 **integration architecture** that G3 did not contain and G4 did not test (recorded as `recommended · pending Nick+Knox acceptance`), while Part II routes every conclusion to an owner. The honest layering: **G3 = accepted constitutional/reference base · G4 = adversarial test of frozen G3 · G5 = integration architecture + disposition + downstream authoring interface (pending acceptance) · Appendices = traceability evidence.**
+Status: `G1_closed · G2_closed · G3_ACCEPTED · G4_KNOX_ADJUDICATED_PASS_30_OF_32 · G5_REWORKED_PENDING_NICK_KNOX_REVIEW · analysis_nonbinding · not_promoted · not_merged · outer_checkpoint_#15_UNCHANGED` — first draft 2026-08-01; reworked (Knox HOLD, disposition quality); naming/precision close (Knox PASS-substance/HOLD-acceptance); **then REFRAMED 2026-08-01 into an integrated reference + downstream authoring packet (Knox HOLD — the file carried substantive G5 integration architecture while calling itself a routing ledger; reframe adds Part I front door + corrected orthogonal S2 taxonomy + Foundry deployment profiles + precise Simulation-Lab boundary + comparator-by-mechanism + downstream authoring contracts + authorability close criterion; routing detail moved to Part II appendices)** on branch `analysis/c4-4-g3-reference-architecture`. Remote tip UNCHANGED at `6388d60603150bcbad69a8ea104bf45858d93303`; this is a **local, uncommitted** draft. Nothing accepted/promoted/merged/repointed. Next authorized action = Nick + Knox review of THIS reframed draft, then (only after a byte pass) a candidate commit and the authorability test (Part I §I.10 / App-E). **The G5 integration deltas (I.2 Foundry recomposition · I.4 S2 taxonomy · I.6 profiles/interface · I.7 Simulation · I.5/I.9/I.10 pilot/contracts) are pending acceptance — not independently G4-tested; see the per-section decision-state table below.**
+Domain(s): architecture_governance, cns_orchestration, ai_substrate, evidence_processing, federation, knowledge_reservoirs, cross_cutting
+Lifecycle role: satisfies the charter §0.5 completion-envelope item (4) — **route EVERY C4.4 conclusion into v4 spine / C5 / Agent-Runtime / Build-OS / domain contracts / procurement / bounded-deferral / rejection (zero unrouted)** — plus the §9 F-Self G5 use, the §3/§Q4 deferred naming dispositions, and the operator's live questions (the plain-language receipt, §G5-1). Consumes the ACCEPTED G3 §R architecture + the G4 adjudication (incl. `C44-G4-R01`). Feeds Task-D final admission/closure + v4 spine §§5/7/8 + C5 contracts.
+Source-of-truth relationship: the **authoritative** G3/G4 objects live in `v4_C4_4_taxonomy_constitution_and_reference_architecture.md` (§§1–19 G2 + §R G3, accepted content blob `e364acbad3352457eb8c761d287e91787ea71eea`) and `v4_C4_4_fixture_suite_and_adversarial_results.md` (G4 carrier **blob** `07f866207836a22c103505835f80aa495a623101`, PASS 30/32; the G4 **adjudication-close COMMIT** is `6388d60603150bcbad69a8ea104bf45858d93303` — verified `git cat-file -t`: `07f8662`=blob, `6388d60`=commit, `e364acb`=blob). **Part I deliberately restates and reconciles those accepted objects into an authoring front door AND adds G5 integration architecture (I.2/I.4/I.6/I.7)** — where Part I and the G3 blob differ on accepted substance, the **G3 blob controls** and the difference is a G5 recommendation pending acceptance. The **adjacent** carriers (Federation/D7/enterprise-posture/Accountability/Platform/Care/moat/Reactor) are routed **by exact pointer**, preserved intact — not summarized into weaker prose. Does NOT supersede the outer checkpoint (#15).
+Parent arc: C4.4 (Knowledge Reservoirs & Source-Estate Architecture Formulation Pass)
+Supersedes: none (charter §11 minimum-future-artifact-set item #5, created only on G5 entry)
+Superseded by: none
+Manifest action: `add_tier2` (catalog row + read-graph #9j status fold-in — PROPOSED in §G5-9, applied only in the reviewed G5 acceptance/landing commit after Knox verification; no new top-level route; part of the C4.4 arc)
+Review gate: `user_knox_required`
+agent_read_rule: `consult_if_routed`
+Outer checkpoint: UNCHANGED (#15 not repointed)
+Accepted G3 architecture substance **BLOB** (frozen object routed): `e364acbad3352457eb8c761d287e91787ea71eea`
+Adjudicated G4 carrier **BLOB** (frozen, routed — the fixture file's blob at HEAD, NOT a commit): `07f866207836a22c103505835f80aa495a623101`
+Runtime bridge blob (unchanged, do NOT edit): `de5b9a1fc7bf9ff77797d28a53a6fef9ced3ed34`
+Remote branch tip = **G4 adjudication-close COMMIT** (unchanged): `6388d60603150bcbad69a8ea104bf45858d93303`
+Baseline / `main`: `a87d3057b5c224e2b7c660ef040f868fa402e5f8`
+
+---
+
+# PART I — Downstream Authoring Front Door
+
+*Readable end-to-end without the appendices. Part II holds the routing evidence. **Decision-state per section (accurate, not a clean 0–5 vs 6–10 split):** I.1 dual-genesis = accepted framing · I.2 architecture map = accepted G3 relationships, **but the Foundry recomposition inside it is a G5 delta** · I.3 S1–S6 roles = accepted G3 · **I.4 S2 taxonomy = NEW G5 recommendation** · I.5 governing laws = accepted G3, **with the F-Self/profile decisions as G5 deltas** · I.6 Foundry recomposition + deployment profiles = **G5 delta (recovered, not G4-tested)** · I.7 Simulation boundary = **G5 delta** · I.8 comparator-by-mechanism = evidence-by-pointer · I.9 F-Self pilot = **G5 recommendation** · I.10 authoring contracts + closure criterion = **G5 process addition**. G5 deltas are `pending Nick+Knox acceptance`, not tested architecture.*
+
+## I.0 Current decision & maturity state
+
+| element | decision state | build maturity | where |
+|---|---|---|---|
+| Six constitutional classes S1–S6 | **accepted (G2/G3)**, G4 PASS 30/32 | not built | I.3 · App-A/B |
+| S2 = orthogonal classification (not a roster) | **G5 recommendation** (grounds in G2 §8.1 multidimensionality) | n/a | I.4 |
+| Family label "Knowledge Reservoirs" | **operator-decided** (Nick ×2) | n/a | I.4 |
+| OMNI Intelligence Foundry (integrated system) | **G5 recovered/recomposed candidate** — G3 accepted the *components + bounded maintenance machinery*, G4 did not test the umbrella | first pilot unbuilt | I.6 · I.9 |
+| Foundry deployment/authority profiles | **G5 recommendation** | unbuilt | I.6 |
+| OMNI Simulation Lab | **candidate/​watch capability** — separate bounded formulation under Platform E&V; NOT a C4.4 object | doctrine partial, build absent | I.7 |
+| Comparator inheritance (by mechanism) | **evidence, consumed by pointer** — never architectural authority | n/a | I.8 |
+| Patient-principal portable estate | **accepted in principle**, identity mechanics deferred | no verified build | I.5 · App-E |
+| Retrieval/vector/hybrid + permission-aware enforcement | architecture covered; contract deferred | not verified end-to-end | I.4 · App-A |
+
+**Reserved ≠ designed ≠ contracted ≠ built ≠ evaluated ≠ production-proven.** Nothing in this packet is promoted, merged, or implemented.
+
+## I.1 Purpose, problem & non-goals
+
+**Dual genesis (both problems are co-equal — neither swallows the other; Knox):**
+- **(A) Source Estate.** Federation onboarding exposed a category error: agents treated a 50,000-file institutional corpus as *exhaust* on the way to normalized domain records. **What OMNI received must never evaporate into what OMNI concluded.** S1 exists as a first-class class precisely so received source/corpus custody is durable, independent, and re-interpretable — separate from any conclusion drawn from it.
+- **(B) Knowledge / Foundry.** The old CNS/Knowledge-Reservoir work was provisional; the outside-learning waves + Agent-Runtime work fired the deferred `FWREG-007` revisit trigger. OMNI must **govern reusable knowledge, projections, context, maintenance, and continuous learning without re-deriving its own intelligence** from scattered chats/videos/packets (this very arc was an instance of that failure).
+
+**Problem (unified).** Remember, reuse, and improve knowledge across patients, providers, operators, federations, vendors, and OMNI's own build — over years — without (a) flattening distinct kinds of knowledge or **collapsing received-source into concluded-truth**, (b) letting stored material silently become truth, or (c) leaking one principal's material to another.
+
+**What this architecture is.** A governed **source→knowledge→context** substrate: durable source custody (S1), governed reusable-knowledge bodies (S2), owner-committed domain truth (S3), external-evidence interpretation through S4 plus broader extraction and normalization through R.6 machinery, regenerable projections/wikis (S5), and runtime context assembly (S6) — joined by an integrated evolution capability (the **OMNI Intelligence Foundry**) that proposes consequences into architecture, contracts, tests, evals, product doctrine, and Build OS, under review gates, with lineage and proof.
+
+**What it is NOT.** Not a generic RAG/vector/memory app (retrieval is replaceable infrastructure, never truth); not one "everything store" (the god-category "Governed Context Estate" was rejected); not an EMR (patient truth is S3, owned by care domains); not a cross-tenant brain (no principal sees another's material by default); not Palantir's proprietary-ontology model (OMNI owns a *portable* healthcare semantic constitution, not a lock-in ontology).
+
+## I.2 Integrated architecture map
+
+**Not a pipeline — a fan-out graph.** (Knox §2: the earlier `S1→S4→S2→S5` linearization was constitutionally false. Accepted G3 law lets S1 feed BOTH S2 and S3; lets S1/S2/S3 feed S5; and lets the Context Router draw *directly* across admissible S1/S2/S3/S5 — it is **not** downstream of one Foundry pipeline.)
+
+```
+ ACQUIRE ─► S1 SOURCE ESTATE  (durable custody; commits receipt/custody facts within its scope)
+              │
+              ├──► extraction / interpretation candidates
+              │        ├──► S2 Knowledge Reservoir  (owner ADMITS reusable knowledge, bounded by use_ceiling)
+              │        └──► S3 Domain-Owned State    (owning domain ADOPTS/commits domain truth)
+              │
+              ├──► S5 Compiled Projections  ◄── also fed by S2 and S3   (regenerable wikis/views; never truth)
+              │
+              └──► S6 Mission Context        (via Context Router)
+
+ CONTEXT ROUTER ──draws directly across admissible──► {S1, S2, S3, S5} ──assembles──► S6
+      └─► S6 draw is ephemeral BUT emits an immutable S1 run-context receipt (replay / as-of proof)
+
+ S3 outcomes  +  S1 run evidence ──► analysis / reconsideration ──► possible NEW S2 or S3 candidates
+                                        (contradiction · invalidation · generalization — admission-gated)
+
+ RETRIEVAL RAILS (lexical/vector/graph/hybrid — replaceable infra; never a truth stage)
+      └─ serve: Foundry maintenance machinery · S5 projections · Context Router
+
+ ── OMNI INTELLIGENCE FOUNDRY (integrated capability, not a box in the line) ──
+    composes: S1 custody + extraction machinery + S4 Evidence Workbench (where external evidence applies)
+              + S2 admission + Foundry maintenance missions/machinery (the R.12 component) + S5 compilation
+              + retrieval rails + review/reconsideration gates + control-plane/Build-OS proposal routing + lineage
+    it PROPOSES · COMPILES · TENDS · ROUTES — it never commits another owner's truth   (detail: I.6)
+
+ CNS orchestrates · Agent Runtime executes actors/harnesses · owning source/knowledge/domain/governance
+ owners each COMMIT their own scoped state · Federation + permeability govern tenant crossings (default: isolated)
+```
+
+**Binding law:** *Source Estate preserves · Evidence Workbench interprets external evidence · Reservoirs supply · Foundry maintenance machinery compiles/tends/proposes · Retrieval Rails draw · Context Router assembles · CNS orchestrates · each owner commits its own scoped state.* These are **different architectural kinds on a graph, not peers on a pipeline** (type table: App-D §G5-N.5).
+
+## I.3 The six constitutional classes & the lifecycle
+
+| class | is | commits | is NOT |
+|---|---|---|---|
+| **S1 Source Estate** | durable custody of source artifacts — received real **and internally-generated** (incl. simulation specs/runs/outputs) | **authoritative receipt/custody facts within its scope** (what was received, when, from whom, under what custody) — receipt-truth, *not* domain-truth | not domain truth; not reusable knowledge |
+| **S2 Knowledge Reservoir** | governed **reusable** knowledge bodies (admitted, typed — see I.4) | its owner **accepts** a reusable unit within a bounded authority/use profile (`use_ceiling`) | not patient truth; not raw source; not a projection; **not operative policy** |
+| **S3 Domain-Owned State** | owner-committed domain/governance truth (Clinical Memory, care state, ops state, governance control-plane) | **domain + governance state** (the operative commitment) | not a reservoir; **not** the sole committer of *every* kind of truth (S1 owns receipt-truth; S2 owner accepts knowledge) |
+| **S4 Evidence Workbench** | the **governed external-evidence proposal boundary** — where outside evidence is analyzed toward a candidate | nothing | **not** universal extraction/normalization (that is **R.6 machinery**, broader than S4); not OMNI's universal evaluation plane |
+| **S5 Compiled Projection** | regenerable wikis/briefings/views | nothing | never authoritative; a cache, not truth |
+| **S6 Mission Context** | runtime-assembled context draw for one actor/moment | nothing (the draw) — **but emits an immutable S1 run-context receipt** for replay / as-of reconstruction | not stored truth; the *draw* is ephemeral, the *receipt* is not |
+
+**End-to-end lifecycle (a graph, not a straight line):** `acquire → preserve (S1, receipt committed) → interpret [S4 for external evidence · R.6 for general extraction] → propose → admit (S2 owner) OR adopt (S3 owner) → use (bounded by use_ceiling) → project (S5) → assemble (S6, run-receipt emitted) → act ONLY through the owning domain → observe outcome (S3) + run evidence (S1) → reconsider (on contradiction/invalidation) → possible new S2/S3 candidate`. **Storing is not adopting; indexing is not accepting; a retrieval hit authorizes nothing; and *normative force is never a property of the stored unit* — it is owned by the domain/governance state that adopts it.**
+
+## I.4 Knowledge Reservoir classification (corrected — orthogonal axes, not a roster)
+
+S2 is **not** a set of branded reservoir databases. A reservoir member is a **typed reusable-knowledge unit** — a point in a **genuinely orthogonal** axis space (this follows accepted G2 §8.1 multidimensionality; it corrects the earlier flat "6/8 roster", the collapsed 3-axis draft, **and** the prior draft's non-orthogonal `source_family`/`source_scope`/`reality_mode`/`normative_posture` axes that combined multiple questions). Each axis below answers **one** distinct question:
+
+| group | axis | cardinality | values |
+|---|---|---|---|
+| **Subject** | `primary_subject_domain` | exactly 1 | clinical · operations · product · build · risk · brand |
+| | `secondary_domain_tags[]` | 0..n | any of the above (e.g. an ops lesson tagged `risk`) |
+| **Content** | `primary_semantic_form` | exactly 1 — **controls lifecycle/review** | claim · pattern · procedure · model · synthesis · lesson |
+| | `secondary_forms[]` | 0..n | a `synthesis` may also carry `claim`/`pattern`; a `lesson` may carry `pattern`/`procedure` |
+| **Origin** | `origin_party` | 1 | first_party · third_party — **relative to the admitting principal/estate, not to OMNI universally** |
+| | `admission_scope` | 1 | principal_local · operator_local · federation_shared · OMNI_internal · public_reference |
+| | `access_policy_refs[]` | 0..n | **references to owning grant/permeability policies, resolved at request time** (NOT an intrinsic enum; see rules below) |
+| | `reality_basis` | 1 | real_world · simulated |
+| | `epistemic_mode` | 1 | observed · reported · inferred · synthesized |
+| | `source_kind` | 1 primary + 0..n secondary | literature · guideline · case_report · incident_record · manual · policy · advisory · vulnerability_record · telemetry · simulation_run · model_output · … (the publication/record *kind*) |
+| | `authority_class` | 1 primary + 0..n secondary | guideline_body · regulator · manufacturer · publisher_or_journal · expert_consensus · institutional_record · principal_assertion · patient_report · model_output · other_governed (the *originator/authority* basis — **never a publication kind, never a catch-all**) |
+| **Authority** (retained G2) | | | `principal/tenant` · `authority_basis` · `review_authority` · `applicability/scope` · **`use_ceiling`** · `consequence_class` · `freshness` · `sensitivity` · `admission/activation/currency/materialization` states |
+
+**`admission_scope` ≠ artifact custody (Knox §2).** `admission_scope` = **the governed principal/tenant/profile scope within which this reusable-knowledge unit was admitted and may be maintained.** It is **NOT** S1/D7 physical or legal artifact custody — that lives separately in S1 lineage/artifact relations. (`public_reference` is an admission scope, not a custody claim over the source bytes.)
+
+**`access_policy_refs[]` — visibility is not intrinsic (Knox §3).** Who may read a unit is **evaluated at request time** against 0..n composed grant/permeability policies. Rules: **default-deny when no permission resolves**; **many grants/policies may compose**; **the knowledge unit never intrinsically grants access to itself** (one canonical unit, many grants). This is why visibility is a plural policy relationship, not a single baked-in enum.
+
+**`source_kind` (publication/record kind) ≠ `authority_class` (originator/authority basis) (Knox §1).** `literature` is a **`source_kind`**, never an `authority_class`; a journal meta-analysis is `source_kind=literature · authority_class=publisher_or_journal`. A provider's personal preference is `authority_class=principal_assertion` (the provider need not be the operator). An operator/build/brand internal record is `authority_class=institutional_record`. **No `operator_record` universal catch-all.** Each of `source_kind`/`authority_class` carries **primary + secondary tags** where real cases are mixed.
+
+**`use_ceiling` (replaces the deleted `normative_posture` — Knox §4, the load-bearing fix):** `descriptive_only · advisory · executable_candidate · prohibited_for_action`. This says what a unit **may inform** — it does **not** confer operative force. **`required`/`prohibited` operative force is NEVER an S2 field:** it is an adopted policy/rule owned by the domain/governance (S3/Settings) state, carried to the unit by an **explicit link**. An S2 procedure does not become mandatory because a field says so.
+
+**Load-bearing rules (Knox §5):**
+- **`lesson` is a `primary_semantic_form`, not a domain** — a clinical case, an ops incident, and a build failure all yield `primary_semantic_form=lesson`, distinguished by `primary_subject_domain` + `authority_class` + `reality_basis`. This is why "Care Outcomes Learning" / "Care Practice" / a "Lessons Learned domain" are all rejected.
+- **`case_report`/`incident_record` is a `source_kind`; `simulation` is `reality_basis=simulated` + `source_kind=simulation_run` + `authority_class=model_output`** — none is a subject domain or a reservoir.
+- **provider/patient/operator/vendor/regulator/public are `principal`, `admission_scope`, or `authority_class` values — never subject domains.**
+- **`patient_context` is NOT an S2 authority class** — it is patient-specific **S3** state and/or **S6** assembled context.
+- **observed `care_outcome` is source/domain evidence (S1/S3)** — only a **reviewed, generalized** conclusion becomes S2 (`subject=clinical · form=lesson · epistemic=observed · authority_class=institutional_record`).
+
+**Clinical decomposition (fully reconciled against OpenEvidence `EVSRC-2026-000068` — read in full this pass; still ★reread at C5 for member-contract authoring):** OpenEvidence's own reservoir families (`medical_literature · clinical_guideline · clinician_wisdom · patient_context · care_outcome`, EVSRC-068 L573-595) map onto OMNI's axes as follows — **they are NOT five S2 reservoirs.** Within `primary_subject_domain=clinical`, distinct `authority_class` values must not cross-contaminate (the OpenEvidence firewall): `source_kind=literature`→`authority_class=publisher_or_journal` · `guideline_body` · **`expert_consensus`** (the "collective clinician wisdom / millions of wet brains" body — its own authority class *below literature/guideline, above anecdote*, `use_ceiling=descriptive_only`, a **gated high-risk learning-signal, never automatic truth**, EVSRC-068 L558-571/662-664). **Reconciled placements (Knox §6):** **patient_context → S3/S6** (patient-specific state + assembled context, NOT an S2 family); **observed care_outcome → S1/S3 evidence until generalized+admitted**; **retrieval produces candidates, clinician/domain adopts, OMNI commits only through governed care authority** (EVSRC-068 L462-464/677-690); **context-before-retrieval** + **evidence-to-recommendation trace** are S6/audit obligations, not S2 fields. Owns `FWREG-006` (clinical-evidence-reservoir contract) + `FWREG-007` (authority-class taxonomy).
+
+**Twelve worked examples** (compact origin tuple order = `origin_party · admission_scope · reality_basis · epistemic_mode · authority_class`; `source_kind` and `access_policy_refs[]` noted where load-bearing; compound subjects/forms use **explicit primary + secondary**, never `a/b`):
+1. UpToDate-style guideline → subj `clinical` · form `synthesis` (+`claim`) · `source_kind=guideline` · origin `third_party·public_reference·real_world·synthesized·guideline_body` · `use_ceiling=advisory`.
+2. Provider's personal "I prefer this acne protocol" → subj `clinical` · form `procedure` · origin `first_party·principal_local·real_world·reported·principal_assertion` · principal=provider · `advisory`. *(Fix: authority = `principal_assertion` — a personal preference is a principal's assertion, NOT an `institutional_record` and NOT `expert_consensus`; the provider need not be the operator.)*
+3. Federation infection-control SOP the federation treats as mandatory → subj `operations` · form `procedure` · origin `first_party·federation_shared·real_world·reported·institutional_record` · `use_ceiling=executable_candidate`. **Its "required" force lives in the federation's S3/Settings policy linking to this unit — NOT in an S2 field.** *(This is the operative-force fix made concrete.)*
+4. Reusable lesson from a real patient near-miss → subj `clinical` (+2nd-tag `risk`) · form `lesson` · origin `first_party·operator_local·real_world·observed·institutional_record` · `advisory`.
+5. Reusable lesson from an ops fulfillment failure → subj `operations` (+2nd-tag `risk`) · form `lesson` · origin `first_party·operator_local·real_world·observed·institutional_record` · `advisory`. *(`risk` is a `secondary_domain_tags[]` entry, not a compound `operations/risk` value.)*
+6. Build-agent post-mortem → subj `build` · form `lesson` · origin `first_party·OMNI_internal·real_world·observed·institutional_record` · `advisory`.
+7. Vendor device operating manual → subj `product` · form `procedure` · `source_kind=manual` · origin `third_party·operator_local·real_world·reported·manufacturer` · `executable_candidate`.
+8. Threat advisory (CVE) → subj `risk` · form `claim` · **`source_kind=vulnerability_record`** · origin `third_party·public_reference·real_world·reported·**other_governed`** (authority = the issuing CVE Numbering Authority) · `advisory`. *(Fix: a generic CVE is a `vulnerability_record`, NOT a `policy`, and its authority is the issuer, NOT `regulator` — only an actual regulator-issued cybersecurity directive would carry `authority_class=regulator`.)*
+9. Brand voice pattern → subj `brand` · form `pattern` · origin `first_party·OMNI_internal·real_world·synthesized·institutional_record` · `descriptive_only`.
+10. Lesson distilled from a **simulated** population panel → subj `clinical` · form `lesson` · `source_kind=simulation_run` · origin `first_party·OMNI_internal·simulated·inferred·model_output` · `use_ceiling=descriptive_only` (admission-gated; never auto-truth).
+11. Clinical literature meta-analysis → subj `clinical` · form `synthesis` · **`source_kind=literature`** · origin `third_party·public_reference·real_world·synthesized·**publisher_or_journal**` · `advisory`. *(Fix: `literature` is the `source_kind`; the authority is `publisher_or_journal` — `literature` is NEVER an `authority_class`.)*
+12. Collective-clinician-wisdom signal (OpenEvidence-style) → subj `clinical` · form `claim` (+`pattern`) · origin `third_party·federation_shared·real_world·reported·expert_consensus` · `use_ceiling=descriptive_only` (high-risk learning-signal only, below literature/guideline).
+
+## I.5 Principal, visibility, permeability & portability (governing laws)
+
+The per-profile detail (19 profiles × principal/visibility/permeability/portability/consequence/maturity) lives in **App-A**. The governing laws a downstream author must carry:
+
+1. **No privileged OMNI tier.** OMNI corporate/platform sees **nothing** in a patient/operator store by default (Federation inv 29 + enterprise posture). Exceptional platform access is capability · purpose · attestation · duration · audit · review — never a tier.
+2. **Visibility is a per-artifact grant**, composed across Identity + Federation + RBAC + D7 — never conferred by custody or by "being OMNI."
+3. **Permeability is multidimensional + default-isolated + dynamic** by relationship/purpose/moment. It differs independently by identity · history · scheduling · membership · provider-visibility · comms · AI-context · reporting · billing · consent · jurisdiction (Federation `federation_permeability_policy` + `patient_continuity_policy`). Cross-clinic/cross-federation reads require an explicit policy + owning-domain authority + consent.
+4. **Private alpha never becomes platform-common by silent extraction** (the membrane, App-C).
+5. **Portability of the patient-principal estate is accepted in principle, not yet mechanized** (identity cross-namespace deferred). Provider professional material is portable; employer policy / private-alpha / patient-derived data are **not**.
+
+**Representative principal/access examples (Part I quick-answer to the operator's questions; full 19-profile matrix = App-A):**
+| principal / artifact | home | default visibility | portable? | admission/commit gate | maturity |
+|---|---|---|---|---|---|
+| patient self-uploads Quest/Henry-Ford PDFs | S1 custody → (parsed) S3 patient state | patient + their care relationships only | in principle (identity cross-ns deferred) | patient consent + owning care domain adopts | D7 partial |
+| represented patient (family/guardian upload) | S1 → S3 | represented-principal + delegated authority | with the patient principal | delegation grant + adoption | deferred mechanics |
+| provider professional library (articles, "affect my management") | S2 (`principal_local`, `advisory`) | provider only, unless shared | **yes** (professional material) | provider admits; `use_ceiling=advisory` | unbuilt |
+| provider credentials/licensing | S1 custody + S3 credentialing state | provider + entitled operator/federation | with provider | verification/credentialing commit | partial |
+| operator private-alpha knowledge | S2 (`operator_local`) | that operator only (membrane) | **no** (never platform-common by extraction) | operator governance | unbuilt |
+| institutional/federation 50k-file corpus | S1 Source Estate | federation, per permeability policy | governed movement, not raw export | federation admission envelope (R.3) | F0 unbuilt |
+| vendor/device operating manual | S2 (`product`, `manufacturer`) | entitled operators | with entitlement | procurement + admission | unbuilt |
+| OMNI internal build/architecture knowledge | S1 profile-B corpus + S3 governance control-plane | OMNI-internal | n/a | Build-OS governance | partial (hand-run) |
+| network-promoted learning | S2 (`federation`) | only explicitly-promoted units | promoted units only | joint governance promotion | unbuilt |
+| public/regulatory reference (CDC, CVE, guideline) | S2 (`public`) | broadly readable | n/a | admission by authority class | unbuilt |
+| platform/support/model-provider access | **no store** — capability grant only | none by default | n/a | capability · purpose · attestation · duration · audit | posture-defined |
+
+## I.6 OMNI Intelligence Foundry
+
+**Definition (Knox §7):** **OMNI Intelligence Foundry = a repeatable governed *composition pattern/program* over selected estates** — **not** a global domain, plane, database, service, or cross-tenant brain, and with **no global read right**. It composes: S1 custody + extraction/interpretation machinery + S4 Evidence Workbench (where external evidence applies) + S2 admission + Foundry maintenance missions/machinery (the R.12 component) + S5 compilation + retrieval rails + review/reconsideration gates + control-plane/Build-OS proposal routing + lineage/proof.
+
+**Whole vs component (do not collapse — Knox §2/§5):**
+- **Foundry maintenance missions / machinery** = the active **R.12 component** (contradiction-scan · verify · reconcile · compile · freshness/invalidation/rebuild · lineage · route). It **proposes/compiles; it never commits.** It is *not* the whole Foundry, and there is **no "Foundry Operations" noun.**
+- Knowledge Reservoirs (bodies) · Retrieval Rails (infrastructure) · Context Router (runtime) · CNS (orchestration) · owning domains (committers) are distinct kinds around it.
+
+**Inputs are not only external sources (Knox §7A).** The Foundry may receive governed candidates from: external sources · institutional corpora · **real domain outcomes** · **operational incidents** · **Accountability cases** · **Platform E&V** · **build failures** · **provider feedback** · **simulation outputs** · **correction/invalidation events**. All of these remain **S1/S3 evidence until generalized and admitted** — none is auto-promoted.
+
+**Authority (invariant):** the Foundry **proposes · compiles · tends · routes** — it **never commits another owner's truth**, **never gains cross-tenant access by being the Foundry**, and **never silently promotes network learning.**
+
+**Candidate deployment profiles (Knox §5/§7B — *recommendations, NOT G4-tested runtime objects*; each carries a falsifier):**
+| profile | source scope | visibility | review authority | outputs | prohibited use | falsifier |
+|---|---|---|---|---|---|---|
+| **F-Self (OMNI-internal)** | OMNI build/architecture/evidence corpus | OMNI-internal | Build-OS gate | architecture/guardrail/eval/contract candidates | any patient/operator data | if it ever reads a tenant estate |
+| **Operator-local** | one operator's estate | operator_local | operator's own governance | operator knowledge evolution | any cross-tenant draw | if it pools across operators |
+| **Clinical-reference** | literature/guideline/wisdom | scoped by authority class | **stricter** than Build/Brand | clinical-reference compilation | treating wisdom as truth | if consensus is promoted above guideline without review |
+| **Federation/network** | **only explicitly-promoted, permissioned, lineage-preserving units** | federation | joint governance | network-promoted learning | any covert cross-operator extraction | if it "pools across operators" rather than consuming promoted units |
+
+A network Foundry **does not pool across operators**; it consumes **specifically promoted, permissioned, lineage-preserving units** — materially different from a shared brain.
+
+**Interface to the Architecture Memory Control Plane (Knox §7C — the Foundry proposes, it never writes these):**
+| Foundry emits | Control-plane / owner that COMMITS |
+|---|---|
+| architecture candidate | Coordination Charter / catalog + read-graph owner |
+| guardrail candidate | Guardrail digest (`06`) owner |
+| contract pressure | owning domain contract author (C5) |
+| eval candidate | Platform E&V / Build OS |
+| Build-OS candidate | Build OS layer/rollout owner |
+| decision/conflict/open-review | decision (`03`) / conflict (`05`) / open-review (`07`) ledgers |
+
+The Foundry writes **none** of the catalog, read graph, decision ledger, contract, or spine itself.
+
+## I.7 Simulation & generated evidence
+
+**Decision (precise):** the **OMNI Simulation Lab is a candidate bounded capability formulation under Platform E&V / Evaluation & Assurance** — using **Agent Runtime** to execute simulation actors/runs and **Build OS** where it generates build/evaluation fixtures. It is **not a domain, plane, reservoir, or truth owner**, and its full architecture is **not authored in C4.4** (separate future charter if Nick authorizes). Status: `candidate · watch · doctrine partial · build absent` (`EVSRC-2026-000242`).
+
+**Data-plane placement (decided here, so simulated cases are not homeless):**
+- simulation **spec / persona / population model / run config / run receipt / output** → internally-generated **S1** artifacts;
+- **evaluation records + release decisions** → **Platform E&V / Evaluation & Assurance** (and **Build OS** for build-specific fixtures) **owner-state — NOT universally S4** (Knox §6: S4 is the external-evidence Evidence Workbench, not OMNI's universal evaluation plane; S4 assists only where *external* evidence is being processed);
+- an **admitted, generalized** result → candidate **S2** (`reality_basis=simulated · source_kind=simulation_run · authority_class=model_output · use_ceiling=descriptive_only`);
+- any policy / product-rule / clinical change → still requires its **owning domain's commit**.
+- **Simulation never becomes truth by generation alone** (convergent-vs-divergent + explicit confidence metrics required before any real-world use).
+
+**Minimum future-charter dimensions (recorded, not authored here):** scenario provenance · population/persona construction · model/runtime version · reality/simulation labeling · calibration & validation · uncertainty · bias · authority/use_ceiling · run receipt · evaluation owner · promotion prohibition · release boundary · human-exposure boundary.
+
+## I.8 Comparator inheritance by mechanism — verified backbone + flagged watch evidence
+
+**Not a "full" or complete comparator study.** Backbone = the accepted **34-system census** in `v4_C4_4_prior_depth_and_july_2026_reality_map.md` §4.2 (mechanism matrix) + §9.1 (ledger CL-01…CL-15) and `comparator_analogy_registry.md` §A/§B — **consumed by pointer, never as architectural authority; no superiority, "full", or moat claim anywhere** (`prior_depth` §4.3: "moat requires implemented behavior + measured fidelity — none demonstrated"; G1 market-exhaustiveness = **low-to-moderate**). Each row carries a **verification flag** and a **claim-authority** grade so a Task-D/procurement author knows what is safe to author from vs. what is only a watch item:
+- `[V]` = verified G1 synthesis (safe to author from) · `[F]` = flagged, re-read required before any C5 nomenclature/procurement claim (watch-only unless its disposition is DEFER).
+- **Claim authority:** `vendor-doc` (documented) · `independent` (third-party analysis) · `speaker-asserted` (founder/marketing — e.g. Simile's TVD<0.15/85%, treat as claimed) · `teaching-level` (conference/analogy).
+
+Row status: Palantir/Microsoft/AWS/Google/LangChain/Anthropic/OKF-CQ `[V]`; **Tesla, IBM `[F]`** (thin/teaching-level); Databricks/Glean/OpenAI `[V]` for the specific CL-claims but **synthesis row `[F]`**; OpenEvidence `[F]` (clinical firewall safe to author, member-contract ★reread at C5); Simile/simulation `[F]` speaker-asserted metrics; NASA/aviation = doctrine analogy only (not a census row). **`[F]` rows may be cited only as watch evidence or with a DEFER disposition — never as a settled comparator conclusion.**
+
+Disposition legend: **BUILD**(identity, OMNI-owned) · **BUILD-on-rails**(OMNI semantics over bought infra) · **BUY/WRAP**(commodity substrate) · **PARTNER/HOST_ON**(evaluate) · **DEFER→Task-D**.
+
+| # mechanism | incumbent evidence + exact pointer | OMNI takes / rejects | OMNI-owned semantics | disposition | impl. evidence · maturity | unresolved test / falsifier |
+|---|---|---|---|---|---|---|
+| **1 source/corpus custody** | AWS S3 Object-Lock WORM+legal-hold; Bedrock KB delete/resync defect `[V]` — `prior_depth §4.2 L119-127, §9.1 L277; CL-03` | take immutable custody+legal-hold+append manifest; **reject** delete-propagation gaps (Bedrock `DELETE_UNSUCCESSFUL`=invalidation evidence) & raw/derived disconnection | received≠concluded as ONE governed S1 corpus + correction events | **BUY/WRAP** substrate + **BUILD** custody semantics | partial (D7/Evidence-Plane pilot) | can an incumbent compose raw+derived lifecycle faster than OMNI? → Task-D |
+| **2 package/manifest/closure** | Palantir dataset txns GA / media-txn preview; FHIR Bulk manifests; BigQuery load-atomicity `[V]` — `§4.1 L107-108; CL-01/02` | take compound admission envelope (declared-vs-received · quarantine · closure · adoption coverage); **reject** "atomic txn = completeness" | corpus-admission envelope (R.3), OMNI-native | **BUILD** (unbuilt) | absent (grep-verified) | two manifest profiles (bounded package vs evolving corpus) must not collapse |
+| **3 catalog/lineage** | Palantir column-lineage; Purview; Databricks Unity (lineage breaks on rename / survives rollback) `[V]` — `§9.1 L274-278; CL-05` | take every-derivative-resolves-to-source+version; **reject** lineage as vendor lock-in | portable lineage/proof | **WRAP** (PLUG catalog infra — "OMNI must NOT become a lakehouse") | contract-deferred | retrieval unit must resolve to source artifact + derivation |
+| **4 semantic model/ontology** | **Palantir Foundry/AIP** — Action-gated commit, markings, JSON/OpenAPI export; RDF/OWL portability NOT established `[V]` — `§4.2 L134, §4.3 L140; CL-06/14; registry §A; §G5-N.6 L751-771` | take executable objects/relationships/actions/dynamic-security; **reject** proprietary-ontology gravity, semantic lock-in, "platform representation = domain ownership" | portable healthcare semantic constitution | **BUILD (identity)**; Palantir host/partner/wrap **DEFER→Task-D** | absent · recommended | "can Palantir implement this faster than OMNI?" → Task-D |
+| **5 temporal/as-of** | Palantir bitemporal (nearest peer); BigQuery time-travel; IBM Iceberg snapshots; Snowflake `[V/F]` — `§4.3 L140, §6.3; §9.1 L278-280` | take as-of reconstructability across sources/state/policy/projections/runtime; **reject** bitemporal-agent-memory as a new species | C4.5 temporal gate + Context-Router as-of | **BUILD** → **DEFER (C4.5)** | deferred | REV-184 frozen-context + C4.5 six-source anchor |
+| **6 access/markings** | Palantir CBAC; Purview labels; Glean permission-LAG oversharing (Knostic) `[V]` — `§4.2 L132-133; §9.1 L286; CL-09/13` | take dynamic purpose-bound markings + technically-enforced permitted-purpose; **reject** static-roles-only & contractual-purpose-sufficient (Particle forgeable) | per-artifact grants + membrane | **BUILD** | partial (RLS/capabilities) | PHI-in-embeddings law; break-glass→replayable-proof |
+| **7 retrieval/context/ranking** | Glean KG; Azure AI Search hybrid+RRF; Vertex; Elastic/Chroma/Pinecone/Weaviate; xAI `[V]` — `§4.2 L122; §9.1 L275-291; CL-04b/07/09` | take ranking/exclusion/freshness/authority **proof**; **reject** retrieved=truth | Retrieval Rails (replaceable) + Context Router | **BUY/WRAP rails** + **BUILD** Router | absent · **not verified (`C44-G4-R01`)** | ranking/selection/exclusion proof + rail-swap test |
+| **8 memory/skills** | **Anthropic** Skills/MCP/`read_only`/Memory; LangChain 3-tier + Context Hub; Letta (MINJA rewrite risk); Vertex Memory Bank (LLM-judged last-write, preview) `[V]` — `§1 EVSRC-000227; §9.1 L282-289; CL-07/08` | take opt-in durable memory through a gate + skills packaging; **reject** last-write-merge (contradictions must survive) & trace=learning | admission-gated S2 (`indexed≠accepted`) | **BUILD-on-rails** | preview/absent · recommendation | conversation→candidate memory-promotion seam ("most dangerous"); PHI never weight-baked |
+| **9 wiki/projections** | OKF v0.1 (Google Cloud); OpenWiki 0.2; Karpathy wiki-vs-memory; LLM-Wikis panel (compiled cache ≠ truth) `[V]` — `§1 EVSRC-000239/262/287/313; §9.1 L292` | take compiled-cache≠truth + stale-self-marking; **reject** wiki-as-truth, OKF "no central authority" for truth (OKF at intake/export only) | S5 regenerable projections | **BUILD** | absent · architecture-covered | OKF compatibility profile; dual human+agent projection |
+| **10 knowledge admission/reconsideration** | CQ (Mozilla.ai) propose→confirm/flag+tiers; Anthropic `read_only` opt-in; Palantir Action-gate (action-plane only); no reviewed/accepted state in LangChain/Chroma/Pinecone/OpenAI `[V]` — `§4.1 L110-112; §1 EVSRC-000314; CL-03/05/07/08` | take indexed≠accepted + dependency-aware invalidation + governed reconsideration; **reject** auto-ingest-live & silent history-rewrite | admission-state + `operational_lesson_unit` + applicability envelope | **BUILD** (near-peers CQ/Anthropic = DIFF) | mod-high signal · absent | evidence-clustering+independence-weighting vs naive dedup |
+| **11 action/commit** | Palantir Action-Types (submission criteria/approval); ServiceNow HITL; Amazon Act-loop; CQ propose-vs-commit `[V]` — `§4.1 L111, §4.2 L131; CL-06; registry §B L65` | take act-only-through-owner-gate; **reject** platform-acts-autonomously & KB-write=commit | owning-domain commit only | **BUILD** | partial (contracts only, CL-15) | moat needs implemented behavior + measured fidelity — none demonstrated |
+| **12 evaluation/simulation** | **Tesla** shadow-mode/fleet/sim `[F]` (no primary-doc depth in §9.1; registry Sense-loop only); **Simile** convergent/divergent+TVD<0.15 **`[F]` speaker-asserted** (the metrics are watch evidence; the architectural law "sim does not self-validate / test-before-real-exposure" may be carried as bounded pressure) — `§I.8 L223; §G5-N.10; EVSRC-000242 L577-644, L1211-1236` | take test-before-real-exposure + generated-evidence≠truth + convergent/divergent labeling + calibration-before-decision; **reject** sim-self-validates | Sim artifacts→S1; eval records→Platform E&V/Build-OS; gated→S2 | **BUILD (separate arc)** — Sim Lab `watch` | doctrine partial · build absent | Tesla row re-read; confidence-metrics before real-world use |
+| **13 federation/portability** | Palantir JSON/OpenAPI export (switching cost unestablished); Epic Care Everywhere C-CDA; Datavant tokens; Health Gorilla provenance; Particle purpose forgeable `[V]` — `§4.2 L132-134; §9.1 L298-306; CL-13/14; §G5-N.6 L765` | take context-moves-without-captivity-or-semantic-loss; **reject** federation=central-control & vendor-export=domain-ownership | continuity-without-captivity + multidimensional permeability | **BUILD (identity)**; Palantir infra host/partner/wrap **DEFER→Task-D** | contract `draft_for_ratification` | portability/copyability test → Task-D; F0 envelope unbuilt |
+| **14 operations/build** | **Anthropic** build-OS discipline (registry §B L92); IBM watsonx Orchestrate guardrail/approval `[F]` (thin evidence); LangChain Context Hub staging→prod `[V/F]` — `§7 L232, §8 L237; §9.1 L279/L297` | take continuous-governed-maintenance/improvement; **reject** one-shot delivery | Build OS + Foundry maintenance missions | **BUY/WRAP/PARTNER** orchestration/governance infrastructure · **BUILD** OMNI admission/authority/proof/maintenance semantics | partial · IBM thin | authorability specification authored; not frozen or executed; ~8–12-artifact manual burden (directional, not measured law) |
+
+**★ OpenEvidence (clinical cross-cut — not a §9.1 census row; read in full this pass, member-contract reread at C5):** physician-shoulder-augment + clinical-context-packet + stratified medical-source authority + collective-clinician-wisdom family behind a firewall — `EVSRC-2026-000068 L443-664, L726-739`. OMNI takes the authority-stratified clinical decomposition (→ `FWREG-006/007`, I.4); rejects wisdom-as-automatic-truth and authority-class cross-contamination. Integration disposition: OpenEvidence-like literature synthesis is a **PARTNER/WRAP** consumable behind a **capability envelope** (`clinical_evidence_service_adapter`) — OMNI assembles patient context → invokes external synthesis → citation-labeled candidates → clinician adoption; **never surrenders care authority** (build-vs-buy gate at `FWREG-006`).
+
+**★ Source-path correction (Knox):** a *general* `build_doctrine_standards_and_2035_conformance.md` **does not exist on this branch** (helper-verified MISSING); the only such artifact is pharmacy-specific (`v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`, C4.6 Rx) and must not be treated as general C4.4 conformance doctrine — only explicitly-transferable principles, with qualification. **Cross-cutting confidence limit (all rows):** "no surveyed platform was shown to compose" ≠ "does not exist"; G1 market-exhaustiveness = **low-to-moderate** (`§6.1`). Palantir is the closest *composition* competitor; host-vs-build-vs-wrap is `DEFER→Task-D`.
+
+## I.9 OMNI Intelligence Foundry Pilot — F-Self (build-entry charter)
+
+**Recommended FIRST implementation target** (G5 authorizes NO build; mints no schema; selects no vendor). Rationale: its failure modes *are* OMNI's own (leak-at-pivots, re-derivation, graveyards, correlated-agent false confidence — the exact failure this arc suffered); it needs **no PHI/federation exposure**; OMNI already hand-runs a primitive version (catalog · decision ledger · read-graph · handoffs), so the first build **replaces a real manual grind** (§G5-5; composes onto REV-199 reflexive-build). This is a **build-entry charter**, not a vision paragraph — it is structured against `11_build_entry_gate_v0.md` so a Build-OS author can admit the slice.
+
+**A. Bounded initial corpus:** this C4.4 packet · a bounded set of canonical control-plane files (catalog `01` · read-graph `04` · decision `03` · guardrail `06`) · a bounded set of source packets · **one known semantic-loss specimen** (wave-5) · **one contradiction/invalidation specimen** · **NO** patient/clinical/federation content (a provider/clinical-reference specimen only *after* non-PHI controls proven).
+
+**B. Actors / roles:** source steward · Foundry maintainer · reviewer/admitter · governance owner · projection steward · pilot operator. (Agents propose; owners commit — no self-commit.)
+
+**C. Minimal logical components:** corpus manifest · source-artifact custody (S1) · extraction run (**R.6** extraction/normalization machinery; **S4 only where a source is processed through the external-evidence Evidence Workbench** — F-Self's own corpus is largely R.6, not S4) · candidate knowledge unit · review/admission queue · accepted S2 unit · living S5 compiled projection/wiki · retrieval rail · Context Router draw · immutable run-context receipt · contradiction/invalidation/reconsideration · governance-proposal routing.
+
+**D. Inputs → outputs:** corpus + control-plane files + specimens **→** admitted S2 units · compiled S5 wiki · run-context receipts · architecture/guardrail/eval/Build-OS *candidates* (proposals to the control plane — never commits).
+
+**E. State transitions:** `received(S1) → extracted(candidate) → in-review → admitted(S2) | rejected | deferred → compiled(S5) → drawn(S6, receipt) → (on contradiction) reconsidered → superseded|retained`.
+
+**F. Authority gates:** admission gate (indexed≠accepted) · Build-OS entry gate · control-plane commit boundary (Foundry proposes; owner commits). Consequential-vs-lightweight classification per gate checklist §A.2.
+
+**G. Interfaces:** to S1 custody · to Context Router · to the Architecture Memory Control Plane (proposal-only interface table, I.6) · to Build OS/eval · to retrieval rails (swappable).
+
+**H. Failure / degraded behavior:** rail unavailable → degrade to lexical, **no corpus loss**; extraction failure → candidate quarantined, source retained; reviewer absent → queue holds, nothing auto-promotes.
+
+**I. Privacy / security:** OMNI-internal scope only; no tenant estate read; no PHI; audit trace per hop (source_event → extraction → candidate → admission → projection).
+
+**J. Observability / proof:** run-context receipt per draw; lineage source→unit→projection; admission/exclusion basis preserved.
+
+**K. Evaluation fixtures:** the semantic-loss specimen (regression) · the contradiction specimen (survival) · a stale-projection specimen (self-marking) · a ranking/exclusion fixture (`C44-G4-R01`).
+
+**L. Build/buy/wrap posture:** custody = BUY/WRAP; retrieval rails = BUY/WRAP; admission/lineage/reconsideration/Router = BUILD-on-rails. **No vendor selection in the pilot.**
+
+**M. Entry criteria (each a gate, not a go):** (1) spine §8 places the S1 corpus owner + ratifies the six classes; (2) a C5 Source-Estate contract mints the corpus-admission envelope (R.1/R.3) + `extraction_run` lineage (R.6/R.13); (3) Build-Entry-Gate v0 admits the slice with the Foundational Composition Admission Checklist (§A.2, all 10 proof questions) satisfied.
+
+**N. Exit / success criteria (what proves it is more than a document generator):** source cannot disappear · passive mining cannot promote · contradiction survives · stale projection self-marks · affected-set reconstructable · retrieval rail swappable without corpus loss · ranking/exclusion basis preserved · no agent/control-plane self-commit · **re-derivation burden measurably reduced** · no false claim of completeness.
+
+**O. Explicit non-goals:** no schema mint · no vendor selection · no patient/clinical/federation data · no autonomous commit · not "the global Foundry" (F-Self is one profile). (Parent detail: App-D §G5-5.)
+
+## I.10 Downstream authoring contracts
+
+Each consumer gets a **mini-authoring contract** (read set · accepted base · G5 candidate · mandatory concepts · prohibited collapses · open decisions · falsifiers · required output · required proof) so no author reconstructs the arc. Existing governing files verified: spine `v4_C4_spine_shape_plan.md` (section-map only, prose unauthored); **C5 Source-Estate / Knowledge-Reservoir / retrieval-index contracts do NOT yet exist** (to be minted); CNS `contracts/CNS_orchestration_contract.md`; Build-OS `09/10/11`; Task-D `v4_C4_2*`.
+
+1. **Spine §5/§7/§8** — *read* I.2–I.9 + App-D/E · *accepted base* S1–S6 classes (G4 PASS 30/32) · *G5 candidate* orthogonal S2 axes, Foundry recomposition, Sim boundary · *mandatory* the six classes + fan-out graph + "normativity is adoption-time" · *prohibited* "6 reservoir databases", Foundry-as-compiler, one global Foundry, re-deriving frontier's 6 open Qs · *open* family label ratification + residual name picks (§G5-N.8) · *falsifier* any section that makes S2 operative · *output* spine §8 outline resolving the frontier's 6 open Qs · *proof* pinned name-pick criteria (App-E).
+2. **C5 Source-Estate author** (mint new) — *read* I.3 + App-A P01/P10/P16 + R.1/R.3/R.6/R.13 · *accepted base* S1 custody incl. internally-generated + simulation artifacts · *mandatory* received≠concluded, blob/artifact/receipt separation, immutable package closure, correction/legal-hold, receipt-truth · *prohibited* S1=truth, storing=adopting, corpus-as-exhaust · *open* corpus-admission envelope schema · *falsifier* any silent source disappearance · *output* Source-Estate C5 outline · *proof* append-only manifest + custody/correction events.
+3. **C5 Knowledge-Reservoir author** (mint new) — *read* I.4 + clinical decomp + OpenEvidence `EVSRC-068` (★reread) · *accepted base* typed-unit over orthogonal axes · *mandatory* Subject/Content/Origin/Authority cardinality, `use_ceiling`, **operative force via explicit adoption link only**, OpenEvidence firewall (literature/guideline/wisdom non-crossing) · *prohibited* branded-roster tables, making an S2 unit operative (required/prohibited via a field, without an S3/Settings adoption link), patient_context/care_outcome as S2 authority classes, lesson-as-domain · *open* physical partitioning of `form=lesson` units · *falsifier* an S2 unit that becomes mandatory via a field · *output* Knowledge-Reservoir C5 outline · *proof* `indexed≠accepted` + firewall non-crossing + adoption-link demo.
+4. **C5 retrieval/context author** (mint new) — *read* I.4/I.8 row 7 · *accepted base* Retrieval Rails replaceable · *mandatory* permission-aware ranking, freshness/authority proof, retrieved≠truth · *prohibited* retrieval=truth, rail-as-truth-stage · *open* `C44-G4-R01` ranking-governance · *falsifier* permission-lag oversharing (Glean failure) · *output* retrieval/index C5 outline · *proof* ranking/selection/exclusion obligation + rail-swap test.
+5. **Agent Runtime / CNS author** — *read* I.2/I.6 + `CNS_orchestration_contract.md` + `v4_C4_agent_runtime_and_harness_capture.md` (FWREG-010) · *accepted base* CNS orchestrates · Runtime supplies actors · Context Router assembles S6 · *mandatory* S6 run-context receipt, orchestrator/runtime own no truth · *prohibited* runtime-commits-truth, Router downstream-of-one-pipeline · *open* CNS framework taxonomy (frontier §4 Q3) · *falsifier* any no-commit-by-runtime violation · *output* Runtime/CNS interface notes · *proof* immutable run-context receipt.
+6. **Build OS author** — *read* I.6/I.9 + `09/10/11` · *accepted base* F-Self as first slice · *mandatory* Foundry maintenance missions propose-not-commit, Foundational Composition Admission Checklist · *prohibited* Foundry-as-committer, passive promotion · *open* build-entry sequencing · *falsifier* passive mining that promotes · *output* Foundry-Pilot build-entry outline · *proof* the I.9 exit criteria as gate tests.
+7. **Task-D strategist** — *read* I.8 + App-D §G5-N.6 + `v4_C4_2*` · *accepted base* Palantir = closest composition competitor, no moat proven · *mandatory* host-vs-build-vs-wrap per mechanism, copyability, portability · *prohibited* superiority claim, paper-moat, vendor lock-in inheritance · *open* every `DEFER→Task-D` cell in I.8 · *falsifier* a "moat" asserted without measured fidelity · *output* comparator BUILD/BUY/WRAP/PARTNER/HOST_ON matrix · *proof* measurable healthcare-native advantage test.
+8. **Product / surface author** — *read* I.5 + App-A · *accepted base* no privileged OMNI tier · *mandatory* per-artifact grant, permeability multidimensional/default-isolated · *prohibited* OMNI default visibility, custody-confers-access · *open* patient-principal portability mechanics · *falsifier* any default cross-principal read · *output* surface visibility rules · *proof* grant-composed access.
+9. **Procurement / implementation** — *read* I.8 disposition column · *accepted base* commodity storage/retrieval/parsers/OCR/MPI = plug/wrap · *mandatory* Task-D decision precedes vendor selection · *prohibited* vendor selection inside C4.4 · *open* host/partner decisions · *falsifier* a vendor chosen pre-Task-D · *output* procurement disposition per mechanism · *proof* Task-D decision first.
+
+**C4.4 closure criterion (added — Knox §8):** C4.4 is **not** closure-ready merely because every row is routed (zero-unrouted). It is closure-ready only when a **fresh repo-connected agent, given this packet + its exact pointers and no chat history, can produce**: (1) spine §8 outline, (2) Source Estate C5 outline, (3) Knowledge Reservoir C5 outline, (4) Foundry Pilot build-entry outline, (5) Simulation-Lab boundary charter, (6) comparator build/buy/wrap matrix — **all six PASS (PARTIAL = HOLD), without broad corpus search, new architectural classes, ownership collapse, false build claims, or an omitted App-E §E.7(e) required concept.** The full **test specification** (read set · six output schemas · rubric · explicit kill-criteria · all-PASS rule · exact prompt template) is authored in **App-E**, but it is **NOT yet frozen** (its target bytes are unpinned) and has **not** been run — it freezes only after the candidate commit exists.
+
+---
+
+# PART II — Appendices (disposition evidence)
+
+*The routing/forensic tier behind the front door. Downstream authors consult a specific appendix only for a specific profile, cell, or decision receipt — they do not read Part II to author. Appendix map: **App-A** = §G5-2 principal/visibility/maturity matrices · **App-B** = §G5-3 zero-unrouted disposition ledger · **App-C** = §G5-2T/§G5-2O membrane + OMNI-actor law and §G5-4 provider-portability decomposition · **App-D** = §G5-N naming decision-state + §G5-5 vocabulary + §G5-6 comparator lineage + §R.FIX F-Self · **App-E** = §G5-7 open decisions + §G5-8 closure determination + the authorability-test specification (not yet frozen) · **App-F** = §G5-0 source posture + §G5-9 manifest + §G5-10 change receipt.*
+
+## §G5-0 Orientation + binding anti-flattening law (read first)
+
+**What G5 is (one controlling identity — matches the passport).** G5 = **integration architecture + disposition + downstream authoring interface.** Part I carries the controlling integration architecture (I.2 Foundry recomposition · I.3 constitutional classes · I.4 S2 taxonomy · I.6 Foundry profiles/interface · I.7 Simulation boundary · I.8 comparator inheritance); Part II preserves the supporting **routing evidence and derivation receipts** — for every arc conclusion it names **exact source pointer → obligation → owner → destination → trigger** (§G5-3), answers the operator's live questions (§G5-1), preserves the **trust/permeability/membrane** law + **cross-loop/radius** seams by pointer (§G5-2T/§G5-2O/§G5-3X/§G5-3Y), and determines closure eligibility (§G5-8). **The earlier "G5 only maps/routes and does not architect" framing is RETIRED as false** (it appears now only in the derivation receipt as the rejected earlier framing) — this file demonstrably carries new integration architecture in I.2/I.4/I.6/I.7.
+
+**What G5 is NOT.** G5 does **not** supersede, rewrite, thin, or replace the accepted G3 §R architecture, and it does **not** re-author Federation, Care, Platform, Accountability, Polaris, Reactor, or permeability doctrine. Those live in their own carriers; G5 points to them. The estate remains **three distinct C4.4 layers**, each preserved intact:
+- **G3 §R** (`taxonomy_constitution_and_reference_architecture.md`) = the accepted constitutional/reference base (the object).
+- **G4 carrier** (`fixture_suite_and_adversarial_results.md` @ `07f8662`) = the adversarial test of frozen G3 + Knox adjudication (the proof).
+- **G5 (this file)** = integration architecture + disposition + downstream authoring interface (Part I controls; appendices preserve evidence/routing).
+
+**★ Anti-flattening law (binding on G5).** G5 routes by exact pointer, obligation, owner, destination, and trigger. It must **not** collapse §R into a slogan, **not** reduce permeability to a yes/no portability flag, **not** reduce the membrane to "private alpha doesn't leak," **not** collapse the OMNI-platform actors into one, **not** blur contract maturity into build maturity, and **not** let a matrix cell imply a capability is *built* when it is *architecture-accepted-but-unbuilt* or *reserved*. Discipline: **reserved ≠ designed ≠ contracted ≠ built ≠ evaluated ≠ production-proven.** The one real Gemini contribution (`C44-G4-R01`) is carried as a precise routed obligation; the two false positives (M01, M03) are preserved as *rejected*.
+
+**Hard stops (charter §13 + G3 §R.0 + G4 §G4-0 + Knox rework §11).** No spine/thesis prose · no C5/schema/contract/migration/API edits · no runtime build · no vendor selection · no new plane/domain/god-store/trust-domain/membrane-service/permeability-store/universal-grant-engine · **no AGENT-fabricated reservoir member names or public brand labels, and no agent-minted family name** (the family label *Knowledge Reservoirs* is recorded as an **operator decision**, not an agent mint; the orthogonal S2 axis taxonomy is a **recommendation**, not a minted roster — §G5-N.1/.4) · no re-authoring of Reactor/Accountability/Care/Platform/Polaris/Federation/permeability doctrine · no rerun of Gemini · no promotion · no merge to `main` · no push · no force push · no edit to the accepted G3 blob (`e364acb`), the G4 carrier (`07f8662`), the Runtime bridge blob (`de5b9a1`), AGENTS, read-graph #15, Runtime/G1/Task-D/C4.5/contracts/code/schemas · no silent control-plane mutation (catalog/read-graph/FWREG/charter edits are PROPOSED here, applied only in the reviewed acceptance commit) · no hand-off of this draft to another agent.
+
+### Source posture for this REWORKED pass (honest — updated after the Knox-directed reads)
+
+**★ Two bounded FULL reads this final pass (Knox §4/§6 — the only new reads; no broad sweep):**
+- **`EVSRC-2026-000068` OpenEvidence — READ IN FULL.** Reconciliation receipt: (1) **context-before-retrieval** — the clinical context packet is assembled before candidates are drawn → an **S6** obligation, not an S2 field; (2) **medical-source authority hierarchy** — literature / guideline / expert-consensus are distinct `authority_class` values with a non-crossing **firewall** (`FWREG-006/007`); (3) **evidence-to-recommendation trace** → an S6/audit obligation; (4) **retrieval produces candidates, not truth** — clinician/owning domain **adopts**, OMNI commits only through governed care authority; (5) **clinician "collective wisdom" ("millions of wet brains")** = its own **high-risk** `authority_class=expert_consensus`, `use_ceiling=descriptive_only`, a gated learning-signal, **never automatic truth**; (6) **NO patient-context/care-outcome S2 collapse** — `patient_context`→**S3/S6**, observed `care_outcome`→**S1/S3 evidence** until reviewed+generalized+admitted. Reconciled against G2/G3: consistent (S3 owns patient truth; S4 is external-evidence only). ★reread at C5 remains for **member-contract** authoring, but the **clinical authority model is now grounded by a full read**, not a grep.
+- **`EVSRC-2026-000242` Simulation (Simile / Joon Sung Park) — READ IN FULL.** Reconciliation receipt: (1) status = **candidate/watch only** (`evidence_nonbinding`) — the OMNI Simulation Lab is NOT an accepted C4.4 module; (2) generated **specs/personas/run-records/outputs = internally-generated S1 artifacts**; (3) **evaluation records/release decisions = Platform-E&V/Build-OS owner-state**, **NOT universal S4**; (4) an admitted generalized result **may** become candidate S2 (`reality_basis=simulated`); (5) **no truth by generation** — simulated output never auto-commits to S3/policy/clinical truth; (6) its convergent/divergent + confidence metrics (TVD/bootstrap) are **speaker-asserted** and flagged `[F]` in I.8. Reconciled against the §G5-N.4a scenario table (row 6) and I.7: consistent.
+
+- **Read fully (repo bytes) this rework:**
+  - `contracts/federation_contract.md` — FULL (§1.5 freshest-authority, §3 ownership boundary, §4 canonical objects, §5 permeability mechanism, §6 invariants incl. inv 29 operator-neutrality + inv 11 break-glass split, §7 seams, §8 disposition).
+  - `doctrine/omni_enterprise_posture_2026-06-03.md` — FULL (ratified posture, the (c) resolution, trust-axis six-way decomposition, `delegated_authority_envelope` ≠ `capability_envelope`, Governed Capability Exchange `D0THES-DEC-036`, 9 guardrails).
+  - `contracts/D7_documents_consent_media_contract.md` — FULL (custody/visibility/portability §6, three-gates §4, consent §5, ladder-v0-vs-deferred reconciliation, `SC-D7-BIZOPS-001` workforce subject §10, `REV-157`).
+  - D7 implementation evidence — `supabase/migrations/20260508120000_phase_4d_artifact_pipeline.sql` (canonical `patient_documents` bucket + `patient_document_routing` append-only manifest + RLS REVOKE-UPDATE + legacy-coexistence + reclassification-deferred) · `lib/intake/documents/route-patient-document.ts` (SECURITY-DEFINER `route_patient_document` RPC, PHI-minimized keys, cross-org write rejection, OCR-out-of-scope) · `lib/patient-portal/submitPatientPortalDocumentUpload.ts` (portal path — still writes the **legacy** `intake_uploads` bucket + `patient_diagnostic_reports`, i.e. a parallel non-canonical path).
+  - `v4_C4_governed_reporting_resolution_capture.md` (Accountability Loop) — §0/§1b/§3 boundary, §5 admission dispositions, §6 obligations, §6a consequence assessment, §10 routing laws, **§11 multi-radius routing**, §Q4 dashboard.
+  - `v4_C4_platform_loop_capture.md` (Platform Loop) — §0 recursive-loop + seam kinds, **§0a the one worked cross-loop trace** (technical ≠ clinical ≠ accountable closure ≠ recurrence proof), §2 catalog/version split, §9a migration, §10/§11 runtime/economics ownership.
+  - `v4_C4_care_operating_model_capture.md` (Care Loop) — §0 two-interlocking-loops + `arch_authority ≠ build_maturity`, §0 authority/maturity map, §10 REV-184-at-gate, §11 Polaris/authority composition, no-single-final-decision-maker law.
+  - `v4_C4_spine_watch_list.md` — WI5/WI7/WI10/WI11/WI12/WI13/WI14/WI15/**WI16 (Reactor)**/WI17, incl. the ratification gates.
+- **Consulted deeply (targeted grep + read this rework):** `v4_C4_residual_moat_and_network_formation_doctrine.md` (§0.5 decision trichotomy: (A) inherited — continuity-without-captivity + open-rails/closed-authority membrane + operator-alpha-without-leakage; (C) still-open — enforceable neutrality, neutrality-as-self-binding, network-dependence-vs-captivity, open-review `D0-REV-010`, §14 tests; §7 switching-cost constitution) · `docs/architecture/evolution_narrative_volume_7_2026-07-18.md` (Reactor arc: **R3 = cross-authority continuity residual**, Builder 63.2/Gemini 47.0; residual proved as **distributed domain-native conformance without minting a Reactor object**; **R3 not R4 — nothing external accepted/measured; decisive carriers fixture-only/contract-unwired/C5-gated; frozen, candidate, unpromoted; naming gate open**) · `identity_contract.md` (namespace-scoped identity; cross-namespace/patient-as-MPI deferred) · `v4_demand_engagement_continuity_gate0_recovery.md` (partial continuity carrier; missing uplift lifecycle; `C12` identity-safety defect).
+- **Consulted as HISTORICAL/EVIDENCE (superseded build-facing by the Federation contract, per contract §9/§8):** `FUTURE_ARC_2026-05-12_federation_permeability_topology.md` (A1 permeability arc — the multidimensional-permeability source, now promoted into `federation_permeability_policy`/`patient_continuity_policy`; cited as lineage, not current build authority).
+- **NOT fully read this pass (routed conservatively; flagged where it matters):** the moat frame body §§8–13/§15–§18 in full (§0.5 + §6/§7/§14 read; the still-open neutrality/captivity tension is routed as `open-review` to that frame's own Gate A/`D0-REV-010`, NOT asserted resolved); the reservoir/CNS frontier doc `cns_and_knowledge_reservoirs_frontier_2026-06-06.md` (its depth is carried into G2 §8/§10/§12; not re-derived); a *general* 2035/build-conformance artifact **does not exist** (only the Rx-specific `v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`, not consumed as general doctrine — so **no comparator-superiority claim is made** — see §G5-6); RBAC/Settings/BIZOPS contracts beyond the enterprise-posture + Federation §3 references (represented-principal / delegated-authority / break-glass mechanics routed to those passes). **Rule applied:** where a disposition depends on a not-fully-read source, G5 routes it as `open-review`/`bounded-deferred` to the owning artifact rather than asserting a settled answer.
+
+### §G5-0b Factual corrections ledger (what the first G5 draft got wrong → the corrected state)
+
+| # | First-draft claim (WRONG/overstated) | Corrected state (source) |
+|---|---|---|
+| FC-1 | "The Federation contract is **undrafted**." (appeared in Q4 receipt, §G5-4, R.16, §G5-8) | **Federation contract EXISTS and is canonical** for topology + the cross-operator grant/visibility/permeability substrate; **status = `draft_for_ratification`** (created 2026-06-01). Owns `patient_continuity_policy`, `federation_permeability_policy`, `shared_context_grant`, `visibility_grant`, `care_relationship`, operator-boundary, cross-tenant break-glass *topology* (`REV-157`). Advanced modes (DL-21 Modes 4-6 + break-glass capability + partner ingestion) + ratification + build **remain open**. (`contracts/federation_contract.md` §1.5/§3/§4/§8) |
+| FC-2 | "**D7 built.**" | Split by maturity: **D7 contract = `draft_for_ratification`**; **patient-document upload substrate = partial build evidence** (canonical `patient_documents` bucket + append-only `patient_document_routing` manifest + `route_patient_document` SECURITY-DEFINER RPC — BUT the portal path still writes legacy `intake_uploads`/`patient_diagnostic_reports`; legacy stores coexist; reclassification UI deferred; OCR out of scope); **subject-agnostic generalized artifact = architecture direction, not fully built**; **S1 package/corpus layer = unbuilt**; **one-canonical-many-grants cross-operator = contracted target, not proven end-to-end** (depends on Federation `REV-157`). (`D7…` §6/§9/§11 + migration + `route-patient-document.ts` + `submitPatientPortalDocumentUpload.ts`) |
+| FC-3 | "wiki/RAG/vector — **deliberately stricter / meets and tightens** incumbent standards" AND "**none of it is built**." | Both too categorical. Corrected axis table in §G5-6: constitutional architecture **covered**; retrieval/index contract **deferred/partial**; source/artifact ingestion **partial build evidence exists**; full vector/hybrid retrieval **not verified**; permission-aware retrieval enforcement **not verified end-to-end**; ranking/exclusion proof **routed via `C44-G4-R01`, not designed**; evaluation suite **not established**; production maturity **not established**; **comparator superiority not established** (the 2035/build-conformance artifact was NOT fully read). |
+| FC-4 | "five data-value loops" cited as if independently ratified here. | The five loops (personal-care · local-operator · network · research/RWE · model-improvement) are **located in the C3.8 G4 Governed Data-Value Economy (G4 §3)** and echoed in watch-list §1/§2 captured rationale + WI13. Status downgraded to **located/inherited posture (C3.8 G4), not a ratified C5 contract**; the loop-separation *principle* is inherited-accepted, the promotion *mechanics* are `[R]`. |
+
+---
+
+## §G5-1 The plain-language operator receipt (each question answered separately)
+
+> **Two explicit columns (Knox precision fix §B.2 — one Support disposition + one separate Maturity, never combined into one cell).**
+> **Support disposition** (exactly one): **YES** = explicitly supported architecture · **YES WITH GATES** = supported only under a named grant/authority · **TARGET-DEFERRED** = intended, mechanics/contract incomplete · **NO** = rejected.
+> **Maturity** (exactly one, orthogonal axis per Care capture `arch_authority ≠ build_maturity`): **architecture-covered** · **contract-draft** · **partial-build** · **no-verified-build** · **production-not-established**. A thing can be `YES`-as-architecture and simultaneously `no-verified-build`.
+
+| # | Operator question (separated — not combined) | Support disposition | Maturity | Home / note |
+|---|---|---|---|---|
+| Q1 | **Patient self-upload** of a Quest/Henry Ford PDF, with a real home | **YES** | **partial-build** | canonical `routePatientDocument` manifest built, BUT portal upload still runs the **legacy** `intake_uploads`/`patient_diagnostic_reports` path — so the canonical path is not yet the live path · S1 artifact reusing D7 physics · R.1/R.2/§R.CORPUS · migration + `submitPatientPortalDocumentUpload.ts` |
+| Q2 | **Represented family / guardian / caregiver** authority to upload/act for the patient | **YES WITH GATES** | **contract-draft** | originator ≠ data-subject; represented-principal named in Identity + posture §(c); proxy/guardian consent mechanics deferred · R.5 · consent/RBAC C5 |
+| Q3 | **Provider professional library** ("this acne article should affect my management") | **YES** | **architecture-covered** | S2 unit `subject=clinical · form=procedure · authority_class=principal_assertion · principal=provider`, advisory `use_ceiling`; **provider preference ≠ clinical doctrine**; admission-gate deferred · R.8 · §8.1 · §G5-N.4 |
+| Q4 | **Provider portability across employers** (library/preferences travel when they change jobs) | **YES WITH GATES** | **architecture-covered** | *only* the provider-owned professional layer travels; employer policy / private-alpha / patient-derived data are **NOT portable** (full 9-layer decomposition §G5-4) |
+| Q5 | **Employee credentials / training** stored (license, DEA, certs, competencies) | **YES** | **partial-build** | D7 `SC-D7-BIZOPS-001` workforce-subject precedent + `staff_profiles` license fields (Fed §10); credential-lifecycle contract deferred · S1 artifact + S3 workforce/credential domain |
+| Q6 | **Hospital / federation institutional corpus** (bulk policies, employee info, licensing, credentialing) | **YES** | **contract-draft** | F0 fixture **passed G4**; corpus-admission envelope is OMNI-native but **unbuilt `[U]`**; Federation contract `draft_for_ratification` · §R.FIX F0 · S1 corpus → owning-domain adoption |
+| Q7 | **Vendor / device / robot manuals** (operating instructions) | **YES** | **architecture-covered** | S1 (`origin_party=third_party`, `authority_class=manufacturer`) → S2 `subject=product · form=procedure · source_kind=manual` OR D6/inventory candidate; **vendor doc ≠ current formulary** · R.6/R.7/R.8 |
+| Q8 | **OMNI corporate knowledge families** (general · specialized clinical · Build-OS/architecture estate) | **YES** | **no-verified-build** | three distinct homes: general/specialized = S2 (`subject=clinical` or `operations`; `admission_scope=OMNI_internal` or `public_reference`); Build-OS = S1 profile-B corpus + S3 governance control-plane; `FWREG-006` + Build-OS estate unbuilt · §R.FIX F-Self |
+| Q9 | **OMNI corporate default visibility** into a patient/operator store | **NO** | **architecture-covered** | **no privileged OMNI tier** — corporate (O1) gets nothing by default (Fed inv 29 + posture); enforcement composes 5 domains; the six OMNI-actor profiles (§G5-2O) refine exceptional access |
+| Q10 | **Prior-clinic / cross-federation visibility** (does clinic B see what the patient stored at clinic A) | **YES WITH GATES** | **contract-draft** | **NO by default** (default `isolated`); permitted only via `federation_permeability_policy` + `patient_continuity_policy` + consent + Tier-4 attestation composed with owning-domain authority · Federation §5 `draft_for_ratification` · R.16 · 15-J |
+| Q11 | **Patient-principal estate independent of one operator** (account memory saves to OMNI, not a federation) | **TARGET-DEFERRED** | **no-verified-build** | accepted *in principle* (continuity-without-captivity, WI10/11); enabling identity mechanics **deferred** (Identity namespace-scoped; cross-namespace/patient-as-MPI deferred); continuity carrier partial + release-blocking `C12` defect · §G5-7 |
+| Q12 | **Wiki / RAG / vector — architecture** (does the plan cover it as governance architecture) | **YES** | **architecture-covered** | wikis=S5 non-authoritative projections; RAG/vector=replaceable retrieval rails (R.10, never truth); embeddings inherit source sensitivity · §2 S5 · §11.1 · §G5-6 |
+| Q13 | **Wiki / RAG / vector — verified implementation** (is it actually built to standard) | **TARGET-DEFERRED** | **partial-build → no-verified-build** | source/artifact ingestion = partial-build; full governed retrieval/vector/hybrid + permission-aware enforcement + ranking/exclusion proof + eval suite + production = **not verified/not established**; **no comparator-superiority claim** · §G5-6 (`C44-G4-R01` = the one routed-not-designed ranking obligation) |
+
+**One-paragraph plain answer.** Every category the operator listed has a legitimate architectural home, and none collapses into one "everything store" (parent C was rejected). The load-bearing guarantees are: (a) **storing is not adopting** (S1 custody ≠ S3 truth); (b) **visibility is a per-artifact grant composed through Identity+Federation+RBAC+D7, never a tier** — OMNI corporate/platform gets nothing by default; (c) **permeability is multidimensional and default-isolated** — cross-clinic/cross-federation reads require an explicit permeability policy + owning-domain authority + consent, and can differ independently by identity/history/scheduling/etc.; (d) **private alpha never leaks by silent extraction** (membrane, §G5-2T); (e) **portability of the patient-principal estate is accepted in principle but not yet mechanized** (identity cross-namespace deferred); (f) **most of it is architecture, with only partial patient-document build evidence** — nothing is production-proven.
+
+---
+
+## §G5-2 The estate matrices — one 19-row ID index + three synchronized matrices
+
+> **Why three, not one (Knox rework §3).** A single 25-column table is unreadable and flattens permeability into a yes/no cell. Instead: one **stable 19-row ID index** (P01–P19) reused verbatim across **Matrix A** (principal × estate × authority), **Matrix B** (visibility × permeability × portability × consequence), and **Matrix C** (maturity × evidence × destination). Every matrix carries all 19 IDs. Discipline in every row: **reserved ≠ designed ≠ contracted ≠ built ≠ evaluated ≠ production-proven**; **storing ≠ adopting**; **custody ≠ visibility ≠ technical processing ≠ operational use ≠ reusable-knowledge admission ≠ domain commit**.
+
+### §G5-2.INDEX — the 19 stable principal/estate profiles
+
+| ID | Principal (data subject / owner) | Example (operator's words) |
+|---|---|---|
+| P01 | Patient — self | uploaded Quest / Henry Ford PDF labs |
+| P02 | Patient — self | self-tracked notes / preferences ("my memory") |
+| P03 | Family / caregiver (represented-principal) | records uploaded on behalf of the patient |
+| P04 | Provider — professional | credentials / license / DEA / cert |
+| P05 | Provider — professional | practice-shaping article/preference ("affect my management") |
+| P06 | Provider — professional | protocol/device preference (F0 CO₂ example) |
+| P07 | Operator / business owner | private competitive "alpha" (playbooks, protocols) |
+| P08 | Operator / business owner | operating policies / SOPs |
+| P09 | Ops / staff person | individual task memory / preferences |
+| P10 | Federation / hospital | bulk operating docs / policies / employee info (F0 estate) |
+| P11 | Federation / hospital | credentialing / licensing corpus |
+| P12 | Vendor / supplier | product / robot / machine operating instructions |
+| P13 | Vendor / supplier | formulary / price sheets (F0) |
+| P14 | OMNI Corporate | general company reference knowledge |
+| P15 | OMNI Corporate | specialized clinical literature (`FWREG-006`) |
+| P16 | OMNI Corporate — Build-OS | architecture / build / evidence estate (F-Self) |
+| P17 | OMNI platform actors (six profiles) | "can OMNI-main see a patient's store?" → decomposed in §G5-2O |
+| P18 | Network / cross-operator | learning pooled across operators |
+| P19 | Public / regulator / educator | external reference / teaching / rules |
+
+### §G5-2.A — Matrix A: Principal × Estate × Authority
+
+Fields per row: **subj** (data subject) · **rep** (represented principal) · **orig** (originator) · **cust** (processor/custodian) · **admit** (admitting principal/operator). **The S2 cell is stated in Part I §I.4 coordinates** (`subject · form · admission_scope · authority_class · use_ceiling`), never as a branded "reservoir"; compound cells use **explicit primary + secondary** fields, and generic profile-family rows state that the primary value varies by admitted unit (exactly one required per unit). These are the *architectural* roles — principal, subject, originator, custodian, admitting owner, and authority-class.
+
+> **Legal controller is NOT decided here (Knox §5).** The `ctrl` column has been **removed** from this architecture matrix. **Legal controllership** (patient / operator-employer / institution / vendor / OMNI) depends on jurisdiction · HIPAA covered-entity/BA role · consumer-account structure · employment · research basis · federation · cross-border processing · platform-support purpose — **architecture does not confer it, and adoption does not auto-create co-/joint-controllership.** `controller_posture` for every row = **legal determination required**, routed to the **legal/privacy contract owner** (not C4.4). The columns below preserve only the architectural roles.
+
+| ID | subj · rep · orig · cust · admit | S1 source | S2 reusable-knowledge (I.4 coordinates) | S3 domain-state | S5 projection | S6 mission-ctx | never |
+|---|---|---|---|---|---|---|---|
+| P01 | patient · self · patient · OMNI/operator custodian · admitting operator | artifact (D7 physics) | n/a (facts ≠ knowledge) | Clinical Memory *only via R.7 adoption* | chart projection | context packet on grant | receipt-truth may never become S3 truth without the owning gate |
+| P02 | patient · self · patient · OMNI/operator · patient | source/notes | `subject=clinical · primary_semantic_form`: **varies by admitted unit (claim · pattern · procedure · note-derived synthesis); exactly one required — a patient note is NOT inherently a lesson** · `admission_scope=principal_local · authority_class=patient_report` (self-tracked fact) **or** `principal_assertion` (stated preference) · `use_ceiling=descriptive_only` | n/a | patient view | patient context | never clinical doctrine |
+| P03 | patient · **represented by family/guardian** · caregiver (originator≠subject) · custodian · admitting operator | artifact w/ distinct custody roles | n/a | proxy does not become subject | patient-scoped | patient context | proxy never becomes the data subject |
+| P04 | provider · self · provider/issuer · operator custodian · operator | credential artifact | n/a | workforce/credential domain (adopted) | credential surface | n/a | credential-issuer authority may never be self-asserted into truth |
+| P05 | provider · self · provider · operator custodian · provider | article/source | **two lineage-linked units, NOT one:** (a) saved article → `subject=clinical · source_kind=literature · authority_class=publisher_or_journal · admission_scope=principal_local`; (b) provider annotation/preference → `subject=clinical · primary_semantic_form=procedure` (or `claim`) · `authority_class=principal_assertion · admission_scope=principal_local · use_ceiling=advisory` (a provider is not the operator) | n/a | provider surface | provider context | **provider preference ≠ clinical doctrine / global policy** |
+| P06 | provider · self · provider · operator · provider | preference source | `subject=operations · form=procedure · admission_scope=principal_local · authority_class=principal_assertion · use_ceiling=advisory` | n/a | operator surface | — | historical preference ≠ active policy |
+| P07 | operator/owner · self · operator · operator custodian · operator | private source | `subject=operations · primary_form=pattern · secondary_forms=[procedure] · admission_scope=operator_local · authority_class=institutional_record` (membrane 15-J) | n/a | operator view | operator context | **private alpha may never become platform-common by silent extraction** |
+| P08 | operator/owner · self · operator · operator · operator | SOP source | `subject=operations · form=procedure · admission_scope=operator_local · authority_class=institutional_record` (reusable playbook) | operational domain state (Settings/BIZOPS) | operator surface | — | SOP source ≠ committed op-truth without the domain gate |
+| P09 | staff · self · staff · operator · operator | task source | `subject=operations · form=lesson · admission_scope=operator_local · authority_class=institutional_record` (staff-partition) | Settings user-prefs (S3) | self view | staff context | ops memory ≠ operator/owner authority (**principal boundary provisional [P]**) |
+| P10 | federation/hospital (+its staff/patients as sub-subjects) · institution · institution · OMNI/operator custodian · admitting operator | corpus package (profile A/B) | `admission_scope=federation_shared · authority_class=institutional_record` reference candidates | owning-domain adoption (workforce/BIZOPS/Settings) | institutional projections | — | bulk corpus may never auto-adopt to any owning domain |
+| P11 | provider(s) · institution · institution · custodian · operator | credential corpus | n/a | workforce/credential domain | — | — | as P04 + P10 |
+| P12 | vendor · vendor · vendor · operator custodian on admission · operator | vendor source | `subject=product · primary_semantic_form=procedure · source_kind=manual · admission_scope=operator_local · authority_class=manufacturer` | inventory/D6 (owner-committed) — the **separate owning-domain route** for a formulary/inventory candidate | operator surface | — | **vendor doc ≠ current formulary** |
+| P13 | vendor · vendor · vendor · operator · operator | price/formulary source | n/a | D6 domain (owner-committed "current") | — | — | historical price ≠ active price |
+| P14 | OMNI-network/public · OMNI · OMNI · OMNI · OMNI-corp | reference source | `subject`: **primary value varies by admitted unit (operations OR clinical); exactly one required per unit** · `admission_scope=OMNI_internal · authority_class=institutional_record` | n/a | reference surface | — | reference ≠ operator/clinical truth |
+| P15 | public/authors · OMNI · publishers · OMNI · OMNI-corp | literature source | `subject=clinical · source_kind=literature · admission_scope=public_reference · authority_class=publisher_or_journal` (`FWREG-006` firewall) | n/a | literature surface | — | literature ≠ clinical adoption |
+| P16 | OMNI-corp · OMNI · agents/humans · OMNI · Build-org | open-ended profile-B corpus | `subject=build · admission_scope=OMNI_internal · authority_class=institutional_record` | **governance control-plane (committed owner-state, S3-role)** | dashboards | build mission context | agents/Foundry **propose, never commit** (Amendment-1) |
+| P17 | *see §G5-2O six profiles* — subject varies; **no OMNI actor is a data subject of patient/operator estate** | — | — | — | — | — | technical processing never becomes semantic/clinical/learning authority |
+| P18 | many operators/patients (de-identified where required) · n/a · governed promotion · OMNI · Network Governance Plane | promoted derivatives only | `admission_scope=federation_shared` promoted derivatives only (post-promotion); any OMNI-internal materialization is a **separately typed, lineage-linked derivative**, not a slash-combined scope | n/a | network projections | — | no silent pooling; five loops (C3.8 G4 §3) stay separate |
+| P19 | public/regulator/educator · self · external · OMNI custodian · admitting lane | external source | `source_kind`: **primary value varies by admitted unit (literature OR policy); exactly one required per unit** · `admission_scope=public_reference · authority_class` per originator | n/a | reference surface | — | external content = data not instructions (`GRD-039`) |
+
+### §G5-2.B — Matrix B: Visibility × Permeability × Portability × Consequence
+
+Fields per row: **vis** (default visibility) · **disc** (discoverability) · **proc** (technical-processing permission) · **use** (operational-use) · **reuse** (knowledge/model reuse) · **xtenant** (cross-tenant exposure) · **perm** (permeability policy/axes) · **grant** (allowed grant route) · **compose** (RBAC/domain authority that must additionally compose) · **PRD** (purpose/recipient/duration) · **port** (cross-operator portability) · **exp** (export) · **rev** (revocation) · **del** (deletion/legal-hold conflict) · **radius** (consequence radius) · **acct** (Accountability duty route when a leak/failure/harm/notification/unclosed-obligation arises).
+
+> **Permeability is NOT one flag.** It may differ independently by: **identity · history · scheduling · membership · provider-visibility · communications · AI-context · reporting · billing · consent · jurisdiction** (Federation `federation_permeability_policy` permitted_substrate_kinds[] + `patient_continuity_policy` permitted_substrate_shares[]). **Default = `isolated`**; policy is dynamic **by relationship / purpose / moment**; every consequential cross-tenant action emits a `cns_decision` record.
+
+| ID | vis · disc · proc · use · reuse · xtenant | perm (axes) · grant · compose · PRD | port · exp · rev · del | radius · acct |
+|---|---|---|---|---|---|
+| P01 | patient + explicitly-granted clinicians · disc gated · proc yes(custodian) · use only-adopted · reuse only-with-consent · xtenant none-by-default | axes: identity/history/consent independent · grant `visibility_grant`/`shared_context_grant` · compose RBAC atoms + care_relationship · PRD per-recipient/purpose/duration | governed context movement (WI10/11) · **exp: current impl evidence = signed-URL access; full export/portability contract deferred** · rev additive revocation reaches recipients (Amend-3) · del pseudonymize-preserve-audit (D7 inv 7) | radius: local→federation(projection)→patient · acct: wrong-patient-assoc / failed-revocation / unauthorized-disclosure → Accountability admitted obligation |
+| P02 | patient-scoped · disc patient-only · proc custodian · use patient-only · reuse none-default · xtenant none | patient-owned continuity · grant patient consent · compose consent · PRD patient | **recommended target posture: principal-owned continuity-without-captivity (NOT present build)** · exp patient export (contract deferred) · rev patient · del patient-request vs retention | radius local/patient · acct disclosure duty if leaked |
+| P03 | patient's authorized set · disc proxy+patient · proc custodian · use only-adopted · reuse none · xtenant none | proxy authority axis · grant guardianship/consent · compose Identity represented-principal + RBAC · PRD proxy-scope/TTL | follows patient principal · exp per patient · rev per patient · del per patient | radius local/patient · acct wrong-proxy-authority → duty to investigate/notify |
+| P04 | operator + credentialing scope · disc role-scoped · proc custodian · use once-adopted · reuse n/a · xtenant none-default | credential axis · grant workforce grant · compose RBAC + credentialing authority · PRD credentialing | **provider-owned professional identity (portable)** · exp provider · rev issuer/operator · del retention-law bound | radius local/operator/regulator(licensure) · acct credential failure → Accountability + regulator radius |
+| P05 | provider + operator scope · disc membrane-protected · proc custodian · use advisory-only · reuse operator-only-post-admission · xtenant none | AI-context/knowledge axis · grant admission gate · compose RBAC · PRD advisory | **provider-owned (portable as professional library)** · exp provider · rev provider · del provider | radius local/operator · acct harmful-preference-influence → S2 reconsider + (if harm) Accountability |
+| P06 | operator/tenant · disc tenant · proc custodian · use advisory · reuse tenant · xtenant none | preference axis · grant admission · compose RBAC · PRD advisory | operator/provider-owned · exp scoped · rev provider · del tenant | radius local · acct as P05 |
+| P07 | operator-tenant only · disc tenant-only · proc custodian(byte only) · use operator-only · **reuse FORBIDDEN cross-tenant/network by silent extraction** · xtenant none | **membrane 15-J** — private-alpha axis · grant none-cross-tenant · compose Federation neutrality + RBAC · PRD operator | operator-owned; **not portable to a competitor** · exp operator · rev operator · del operator | radius local/operator · acct alpha-leak → Accountability disclosure + operator remedy |
+| P08 | operator-tenant; role-scoped internally · disc role · proc custodian · use committed-via-gate · reuse operator · xtenant none-default | policy axis · grant operator · compose Settings/BIZOPS commit + RBAC · PRD operator | operator-owned · exp operator · rev operator · del retention | radius local/operator · acct stale-SOP-harm → owning domain + (if harm) Accountability |
+| P09 | self + supervisor · disc self/supervisor · proc custodian · use self-scoped · reuse none-default · xtenant none | staff axis · grant self/supervisor · compose RBAC · PRD self | principal-owned within tenant · exp self · rev self · del tenant | radius local · acct minimal |
+| P10 | tenant + purpose-scoped · disc tenant · proc custodian(bulk) · use adopt-only-what-you-own · reuse none-default · **xtenant none — no cross-federation leak** | **full multi-axis permeability** (identity/history/scheduling/membership/comms/billing/consent/jurisdiction) · grant `federation_permeability_policy` + `patient_continuity_policy` · compose owning-domain authority + Tier-4 attestation · PRD per-policy | **recipient-sovereign** (Amend-3); portability = governed context movement not export · exp scoped · rev governed event recipients disposition locally · del stricter-rule-wins residency (Fed inv 21) | radius local→federation(each its projection)→OMNI-platform→vendor→regulator · acct policy-breach/mandated-report → Accountability multi-radius (§11) |
+| P11 | tenant + credentialing scope · disc role · proc custodian · use once-adopted · reuse none · xtenant none | as P04+P10 · grant workforce+federation · compose credentialing + Tier-4 · PRD credentialing | recipient-sovereign · exp scoped · rev governed · del retention | radius local/operator/regulator · acct credential failure → regulator radius |
+| P12 | operator-scope · disc operator · proc custodian · use reference-only · reuse operator-post-admission · xtenant none | vendor-knowledge axis · grant admission · compose RBAC/inventory · PRD reference | vendor-owned upstream; operator-scoped on admission · exp operator · rev operator · del operator | radius local/operator/vendor · acct **stale vendor operating instruction** → Accountability + vendor radius (obligation retained internally) |
+| P13 | operator-scope · disc operator · proc custodian · use evidence-only · reuse none · xtenant none | price axis · grant admission · compose D6 commit · PRD reference | vendor-owned upstream · exp operator · rev operator · del operator | radius local/operator · acct wrong-price-committed → D6 + (if harm) Accountability |
+| P14 | per authority-profile · disc profile · proc OMNI · use reference · reuse governed · xtenant n/a | reference axis · grant authority-profile · compose review_gate · PRD reference | OMNI-owned reference · exp n/a · rev n/a · del OMNI | radius platform · acct bad-reference-knowledge → S2 reconsider + (if patient harm) Accountability |
+| P15 | per profile · disc profile · proc OMNI · use reference · reuse governed · xtenant n/a | literature axis · grant authority-profile · compose review_gate · PRD reference | n/a · exp n/a · rev n/a · del OMNI | radius platform · acct as P14 |
+| P16 | build-org scope · disc build-org · proc OMNI · use committed-owner-state · reuse build-only · xtenant n/a | build-alpha axis (REV-199 firewall) · grant control-plane authority · compose Build-Entry-Gate · PRD build | n/a · exp n/a · rev governance events · del retention | radius platform/build · acct build-harm loop = REV-195 shape (Build-OS) |
+| P17 | *§G5-2O* — **default: none-by-default for patient/operator estate**; exceptional access is capability·purpose·attestation·duration·audit·review | *§G5-2O per-profile permeability* · grant explicit-audited-only · compose Identity+Federation+RBAC+D7+CNS-Meta · PRD purpose-limited/TTL | n/a · exp none-default · rev grant-scoped · del n/a | radius platform · acct unauthorized platform access → Accountability + regulator radius |
+| P18 | network scope only post-promotion · disc post-promotion · proc governed · use network-post-promotion · **reuse only via governed promotion; model vendor inherits NOTHING from processing** · xtenant governed-only | promotion axis · grant governed promotion · compose Network Governance + consent + membrane · PRD network | n/a · exp n/a · rev promotion-reversal · del per-loop | radius network · acct silent-pooling/covert-extraction → Accountability + regulator |
+| P19 | per profile · disc profile · proc lane · use reference-post-admission · reuse governed · xtenant n/a | external axis · grant lane admission · compose review_gate · PRD reference | n/a · exp n/a · rev lane · del lane | radius platform · acct bad-external-knowledge → S2 reconsider |
+
+### §G5-2.C — Matrix C: Maturity × Evidence × Destination
+
+Fields: **arch** (architecture maturity) · **contract** · **surface** · **impl** (implementation evidence) · **eval** (evaluation evidence) · **prod** (production maturity) · **ptr** (exact evidence pointer) · **owner** (unresolved owner) · **dest** · **trig** (trigger). Legend: covered/partial/deferred/absent/`reserved ≠ designed ≠ contracted ≠ built ≠ evaluated ≠ production-proven`.
+
+| ID | arch · contract · surface | impl · eval · prod | ptr · owner · dest · trigger |
+|---|---|---|---|
+| P01 | arch covered · contract D7 `draft_for_ratification` · surface partial | impl **partial** (canonical manifest built; portal on legacy path) · eval absent · prod not-established | ptr migration+`route-patient-document.ts`+`submitPatientPortalDocumentUpload.ts` · owner D7+Source-Estate · dest D7/C5 · trig C5 after spine §8 |
+| P02 | arch covered · contract deferred · surface partial | impl none · eval absent · prod none | ptr §2 S2 · owner spine §8 (S2 axis model, I.4) · dest spine §8/C5 · trig spine §8 |
+| P03 | arch covered · contract deferred · surface none | impl none · eval absent · prod none | ptr R.5 · owner Identity/RBAC/consent · dest C5 · trig Identity pass |
+| P04 | arch covered · contract D7+workforce partial · surface partial | impl **not verified in this pass** (Fed §10 *contract* references staff license fields; no code/migration pointer confirmed here) · eval absent · prod none | ptr `SC-D7-BIZOPS-001` (contract) · owner BIZOPS/workforce · dest C5 · trig BIZOPS pass |
+| P05 | arch covered · contract deferred · surface none | impl none · eval absent · prod none | ptr R.8/§8.1 · owner spine §8 · dest spine §8/C5 · trig spine §8 |
+| P06 | arch covered (F0 trace) · contract deferred · surface none | impl none · eval **F0 fixture (paper)** · prod none | ptr §R.FIX F0 · owner spine §8 · dest spine §8 · trig spine §8 |
+| P07 | arch covered (membrane 15-J) · contract deferred · surface none | impl none · eval absent · prod none | ptr 15-J · owner Federation/RBAC · dest C5 · trig Federation/RBAC pass |
+| P08 | arch covered · contract partial (Settings/BIZOPS) · surface partial | impl **not verified in this pass** (doc presence ≠ impl proof) · eval absent · prod none · **principal boundary [P]** | ptr cross-facet carrier (doc) · owner cross-facet + WI5 · dest cross-facet carrier · trig its own gate |
+| P09 | arch covered · contract deferred · surface partial | impl **not verified in this pass** (Settings-prefs claim carries no code pointer) · eval absent · prod none · **ops-vs-operator [P]** | ptr WI5 (doc) · owner cross-facet/WI5 · dest spine §8 · trig spine |
+| P10 | arch covered (F0, **passed G4**) · contract Federation `draft_for_ratification` · surface none | impl **none — corpus-admission envelope [U]** · eval F0 fixture (paper) · prod none | ptr §R.FIX F0 + `federation_contract.md` · owner Source-Estate + Federation · dest C5 · trig Federation ratification + C5 |
+| P11 | arch covered · contract Federation+workforce partial · surface none | impl partial (license fields) · eval absent · prod none | ptr as P04/P10 · owner BIZOPS+Federation · dest C5 · trig respective passes |
+| P12 | arch covered · contract deferred · surface none | impl none · eval absent · prod none | ptr R.6/R.8 · owner spine §8 (device/vendor roster) · dest spine §8 · trig spine |
+| P13 | arch covered (F0) · contract D6 partial · surface none | impl none · eval F0 fixture · prod none | ptr §R.FIX F0 · owner D6 · dest C5 · trig D6 pass |
+| P14 | arch covered · contract deferred · surface none | impl none · eval absent · prod none | ptr §2 S2 · owner spine §8/naming · dest spine §8 · trig spine |
+| P15 | arch covered (boundary placed) · contract deferred · surface none | impl **none [U]** · eval absent · prod none | ptr `FWREG-006` (stays `watch`) · owner spine §8 · dest spine §8/C5 · trig spine |
+| P16 | arch covered · contract deferred · surface partial(hand-run) | impl **none [U]** (recommended FIRST dogfood, §G5-5) · eval absent · prod none | ptr §R.FIX F-Self · owner Build-OS · dest Build-Entry-Gate · trig spine §8 + C5 |
+| P17 | arch covered (no-privileged-tier doctrine) · contract composes 5 domains · surface partial | impl partial (RLS `is_staff_user`; capability atoms `lib/auth/capabilities.ts`) · eval absent · prod not-established | ptr Fed inv 29 + posture §(c) + §G5-2O + `lib/auth/capabilities.ts` · owner Identity/Federation/RBAC/D7/CNS-Meta · dest C5 · trig respective passes |
+| P18 | arch covered (five-loop separation = C3.8 G4 §3 **located posture**) · contract deferred · surface none | impl none · eval absent · prod none | ptr C3.8 G4 §3 · owner Network Governance + spine §8 · dest spine §8/C5 · trig spine |
+| P19 | arch covered · contract partial (S4 lanes) · surface partial | impl **partial** (scaffolding: `ingestion/` lanes exist — scaffolding presence, pipeline not verified) · eval absent · prod none | ptr §2 S4 + `ingestion/` · owner Evidence Plane + spine §8 · dest spine §8 · trig spine |
+
+**Matrix invariants (true for every P-row).** (i) Storing ≠ adopting (R.7). (ii) Visibility is a per-artifact grant composed across Identity+Federation+RBAC+D7, never conferred by custody or by being OMNI (R.2 pt 6, D7 §6, Fed inv 29). (iii) Permeability is multidimensional + default-isolated + dynamic-by-relationship/purpose/moment (Fed §5). (iv) `indexed ≠ accepted`; a retrieval hit authorizes nothing (R.8/R.10). (v) Private alpha never becomes platform-common by silent extraction (15-J). (vi) Technical processing never implies semantic use, learning reuse, or clinical authority (posture §(c); §G5-2O). (vii) Deletion/retention conflicts resolve as governed, additive, bidirectional-exception events, never silent (R.15 Amend-3; D7 inv 7). (viii) **reserved ≠ designed ≠ contracted ≠ built ≠ evaluated ≠ production-proven.**
+
+---
+
+## §G5-2T Trust / Permeability / Membrane disposition (ratified enterprise law — preserved by pointer)
+
+**This section preserves ratified law; it authors nothing and mints nothing** (no trust domain, no membrane service, no permeability store, no universal grant engine — `D0THES-GRD-031`).
+
+**The ratified posture (`omni_enterprise_posture_2026-06-03.md`, `D0THES-DEC-035`):** trust/authority/permeability is a **first-class cross-cutting AXIS**, not a domain. It is decomposed six ways — **no domain "is" the trust axis**:
+- **Identity** — who + **represented principal** (`delegated_authority_envelope` ≠ `capability_envelope`).
+- **Federation** — cross-boundary **topology + permeability + grants** (`patient_continuity_policy` · `federation_permeability_policy` · `shared_context_grant` · `visibility_grant` · `care_relationship` · break-glass topology). Default `isolated`; permeability change needs Tier-4 attestation.
+- **RBAC** — capability · attestation · **delegated authority** · consent-gate.
+- **D7** — consent record + artifact evidence.
+- **CNS-Meta (Network Governance Plane)** — enforcement + network-governance coordination.
+- **owning domain** — the actual commit.
+
+**Open rails, closed authority** (`D0THES-GRD-033/034`): OMNI Direct is one rail among many (UI/API/MCP/A2A/voice/external-assistant); rails are replaceable adapters; OMNI owns the capability contract, authority envelope, context packet, trust-transfer record, domain-commit boundary, and audit/proof. Governed Capability Exchange (`D0THES-DEC-036`) is the one governed spine for internal+external emission/ingestion.
+
+**The membrane is more than "private alpha does not leak."** It governs, as distinct questions (each answered per-actor, not one read/no-read bit): **discover-exists? · technically-process-bytes? · display? · use-operationally? · admit-as-reusable-knowledge? · commit-domain-state? · share-cross-operator? · reuse-for-network-learning/model-improvement? · retain-after-grant-ends? · what-proof-survives?** These are the columns Matrix B carries (`proc`/`use`/`reuse`/`xtenant`/`rev`) and the six-profile grid (§G5-2O) applies. **Custody ≠ visibility ≠ technical processing ≠ operational use ≠ reusable-knowledge admission ≠ domain commit** — never collapsed.
+
+**Disposition:** `spine-line` (name the trust/permeability/membrane axis as a first-class plane in the spine, per the enterprise-posture v3 authoring contract) + `contract-implication` (Identity/Federation/RBAC/D7/CNS-Meta already own their slices). **C4.4 does not own or re-author this axis** — it consumes it to answer "who can see what." **Trigger:** spine trust-plane authoring + respective domain passes.
+
+---
+
+## §G5-2O The six OMNI-platform actor profiles (decomposing the old "OMNI-main" row)
+
+The first draft collapsed all OMNI-side actors into one "OMNI-main / same rules as any third party" row. That is correct **only** for an OMNI-operated clinical tenant under operator-neutrality (Fed inv 29); it is **imprecise** for platform, governance, processor, support, and model-vendor roles. Six separate profiles, each answering: **know-exists? · read? · technically-process? · use-operationally? · reuse-for-knowledge/model? · expose-cross-tenant?** Default for patient/operator estate is **none**; any exceptional access must name **capability · purpose · attestation · duration · audit · review**.
+
+| # | OMNI-platform actor | know-exists | read | tech-process | operational-use | reuse (knowledge/model) | cross-tenant expose |
+|---|---|---|---|---|---|---|---|
+| O1 | **OMNI corporate / platform operator** | no-by-default | no | no (not a processor of clinical bytes qua corporate) | no | no | no |
+| O2 | **OMNI-operated clinical tenant** | **same rules as any third-party Brand** (Fed inv 29 — no privileged tier) | only via consent/care_relationship/grant | as any operator | as any operator, gated | no cross-tenant reuse without governed promotion | only via permeability policy + consent |
+| O3 | **Network Governance Plane (CNS-Meta)** | policy/audit metadata | **policy/audit projections, not raw content** | no raw-content processing | enforcement only | no content reuse | receives permitted projections only |
+| O4 | **technical custodian / processor** | yes (operational) | **purpose-limited byte processing only** | yes (bounded purpose) | **no operational/semantic use** | **no** (processing never confers reuse/training rights) | no |
+| O5 | **customer-support operator** | via capability-gated path | **time-limited, attested, capability-gated, audited** access only | no | bounded to the support purpose | no | no |
+| O6 | **agent / model provider** | via capability envelope | only what the capability contract permits | per capability envelope | per delegated authority | **must NOT inherit reuse/training rights from technical processing** (`capability_envelope` ≠ reuse right) | no |
+
+**Laws (preserved, not authored):** the **no-privileged-tier** law (Fed inv 29 / `T0-14`) applies directly to **O2** (OMNI-operated clinical tenants) — identical permeability/consent/attestation rules, no discovery/routing/continuity preference, no deployment/governance bypass, audited `operator_neutrality_basis`. **O1/O3/O4/O5/O6 are NOT clinical third parties** and must not be modeled as one: platform processing/support/governance/model-provision are purpose-limited roles where **technical processing never implies semantic use, learning reuse, or clinical authority** (posture §(c) + `D0THES-GRD-030` metadata-custody).
+
+**★ O1–O6 are authority PROFILES / ROLES, not necessarily separate legal entities (Knox §B.5).** One legal entity (OMNI corporate) may simultaneously occupy several profiles — platform operator (O1), business-associate/processor (O4), technical custodian (O4), support provider (O5), and OMNI-operated clinical-tenant operator (O2). **Permissions derive from the ACTIVE role + purpose, not from the legal entity's name, and authority does NOT bleed between profiles:** processing under the technical-custodian profile (O4) confers **no** corporate-use, support-use, model-training, clinical, or cross-tenant authority. The profile — not the corporate identity — is the unit of permission.
+
+**Disposition:** `contract-implication` (Identity/Federation/RBAC/D7/CNS-Meta + AI #12 capability registry) + `spine-line` (name the actor-profile decomposition). **Trigger:** respective domain passes. **C4.4 mints no OMNI-actor object.**
+
+---
+
+## §G5-3 Zero-unrouted disposition ledger (the charter §0.5(4) deliverable)
+
+Every C4.4 conclusion is routed below to exactly one primary destination class: `spine-line` | `C5-contract` | `contract-implication` | `Agent-Runtime/FWREG-010` | `Build-OS` | `procurement-only` | `bounded-deferred` | `open-review` | `rejected` | `parked`. **No conclusion is left unrouted.** (Rows unchanged from the accepted first-draft routing EXCEPT the Federation-maturity corrections flagged ★.)
+
+### G5-3.A The six constitutional classes (§2) — the constitution
+| conclusion (exact pointer) | disposition | owner + trigger |
+|---|---|---|
+| S1 Source Estate · S2 Knowledge Reservoir · S3 Domain-Owned State · S4 Evidence Workbench · S5 Compiled Projection · S6 Mission Context (§2, §2.1 matrix, §2.2 directional law) | `spine-line` | **spine §8** ratifies the six classes; **trigger:** spine §8 authoring |
+| Parent B adopted; A rejected; C rejected-as-owner (§3) | `spine-line` + `rejected` (A/C) | spine §8 carries B; A/C rejections preserved (not re-opened) |
+| Non-owning cross-species navigation/classification label (§3 / Q4) | `bounded-deferred → G5` **disposed:** permitted as a non-owning tag ONLY if it adds routing value without acquiring authority; **no label minted at G5** | owner spine §8/catalog (R.4); trigger first proven routing need |
+| Family name (Q4) + class names + S2 model | **split by decision-state (§G5-N), NOT a bare deferral:** family = **Reservoir / Knowledge Reservoirs = operator-DECIDED** (Nick, §G5-N.1); six class names = **decided working names** (§G5-N.2); **S2 = orthogonal axis model, NOT a roster** (§G5-N.4, Part I §I.4 — the old "R1–R6 roster" is superseded; June members map to `primary_subject_domain` values); **residual open picks = the small explicit §G5-N.8 set** (medical-lit body public name · Foundry public label · form=lesson physical-partitioning) | owner Nick + spine §8; trigger spine §8; spine ratifies with explicit-diff-to-deviate; open picks consume the §G5-N.8 pinned packet |
+
+### G5-3.B The R.1–R.17 reference architecture (§R)
+| §R section (exact) | disposition | owner + trigger |
+|---|---|---|
+| R.1 landing/quarantine · R.3 package/manifest/closure (corpus-admission envelope) | `C5-contract` (**OMNI-native BUILD, unbuilt**) | Source-Estate contract (new, C5) + Build-Entry-Gate; trigger C5 after spine §8 |
+| R.2 storage/custody + four-identity (Amend-2) | `C5-contract` + `contract-implication (D7)` + `procurement-only` (object/WORM/lakehouse rails) | D7 contract (per-artifact physics, partial build) + Source-Estate corpus layer; trigger C5 + D7 revision |
+| R.4 catalog/classification — (a) estate-index vs (b) Architecture-Memory Control Plane (Amend-1) | `C5-contract` (a) + `contract-implication (01/03/04/06)` (b) | (a) retrieval-index/catalog C5; (b) control-plane governance; trigger C5 |
+| R.5 entity resolution (candidate≠confirmed) | `contract-implication (Identity)` + `procurement-only` (MPI/de-id) | Identity + C5; trigger Identity pass |
+| R.6 extraction/normalization + `extraction_run` lineage | `C5-contract` + `Agent-Runtime` + `procurement-only` (OCR/parsers/models) | Source-Estate/extraction C5; Agent-Runtime instantiates; trigger C5 |
+| R.7 domain-admission (S1→S3 boundary) | `contract-implication` (each owning domain) | each owning domain adoption-gate (C5); trigger per-domain C5 |
+| R.8 reservoir admission + authority profile + `review_gate` | `spine-line` (§8) + `C5-contract` | spine §8 ratifies axes; reservoir contract C5; trigger spine §8 then C5 |
+| R.9 lineage/provenance | `C5-contract` + `contract-implication` | lineage/graph contract C5; trigger C5 |
+| R.10 indexing/retrieval rails (index ≠ truth; embeddings inherit sensitivity §11.1) | `C5-contract` + `procurement-only` (vector/graph/rerank) | retrieval-index contract C5; trigger C5. **Primary home of `C44-G4-R01` — G5-3.D** |
+| R.11 Context Router (S6 assembly) | `Agent-Runtime/FWREG-010` + `spine-line §5/§7` + `C5-contract` | Agent-Runtime + spine §5/§7 CNS; trigger Agent-Runtime pass |
+| R.12 Foundry maintenance-mission machinery | `spine-line §5/§7/§8` + `contract-implication (CNS)` | spine + CNS contract; trigger spine §5/§7/§8 |
+| R.13 reprocessing | `C5-contract` + `Build-OS` | reprocessing-run schema C5; trigger C5/impl |
+| R.14 correction/reconsideration (F-Inv) — OMNI-native BUILD | `C5-contract` + `contract-implication (Accountability)` + `C4.5` | reconsideration C5 + Accountability admitted-obligation seam + C4.5/`FWREG-015`; trigger C5 + C4.5 |
+| R.15 retention/deletion/revocation (Amend-3, four revocation-family events) | `contract-implication (owning domains + Federation + RBAC)` + `C4.5` | owning domains + Federation/RBAC + C4.5; trigger per-domain C5 |
+| ★ R.16 federation exchange (publish/admit/revoke) | `contract-implication (Federation — **`draft_for_ratification`, advanced modes deferred**)` + `procurement-only` (exchange standards) | **Federation domain contract EXISTS (`draft_for_ratification`, owns `REV-157` grant layer); C5 realizes advanced modes (Modes 4-6 + break-glass capability)**; trigger Federation ratification + C5 |
+| R.17 build/buy/wrap matrix | `procurement-only` (rails) + `spine-line` (OMNI-native items as candidate differentiation, **no comparator-superiority claim**) | procurement for rails; spine for native-BUILD candidates; trigger Task-D (§16) |
+| §R.CORPUS P3 verdict (D7 artifact + Source-Estate corpus layer; references not copies) | `C5-contract` + `contract-implication (D7)` | D7 + Source-Estate C5; trigger C5 |
+| Amendments 1–5 | `spine-line §8` (Amend-1) + `C5-contract` (2–5) | spine §8 + C5; trigger spine §8 |
+
+### G5-3.C The lifecycle + law conclusions (§8/§9/§10/§11/§12/§15)
+| conclusion | disposition | owner + trigger |
+|---|---|---|
+| §8.1 multidimensional authority profile (8 axes) + §8.2 four orthogonal state-families | `spine-line §8` + `C5-contract` | spine §8; trigger spine §8 |
+| §9 lifecycle constitution (admission≠acceptance; correction=additive; F-Inv flag-not-rewrite; revocation propagates; dependency-aware invalidation = assessment not taint-engine) | `C5-contract` + `contract-implication (Accountability + owning domains)` | owning domains + Accountability + C4.5; trigger C5 |
+| §10 Router/Foundry/CNS/Agent-Runtime seam + 5 mission classes | `Agent-Runtime/FWREG-010` + `spine-line §5/§7/§8` | Agent-Runtime CONSUMES the G2 boundary; trigger Agent-Runtime pass |
+| §11 six Gemini-reframed candidate laws (PHI-in-embeddings · independence weighting · retrieval-unit lineage+optional-ontology · as-of reconstructability · break-glass replay · ambient/replayable evidence) | `C5-contract` + `contract-implication` (Federation/RBAC/consent · Context Router · Accountability/REV-184 · C4.5) | named composing owners per law; trigger C5 / respective passes |
+| §12 frontier 6-Q disposition | `spine-line §8` + `bounded-deferred (Q3 CNS → spine §5/§7)` | spine §5/§7/§8; trigger spine authoring. `FWREG-007` moves `candidate → resolved/bounded-deferred` (§G5-9) |
+| §15 candidate-law affirm/revise/reject ledger | `spine-line` (affirmed) + `rejected` (variants preserved) | spine §8; trigger spine §8 |
+| §16 strategic finding (healthcare-native governed composition; incumbent-composition risk) | `bounded-deferred → Task-D` | Task-D; trigger Task-D consuming G5 |
+
+### G5-3.D The single G4 finding + the two rejected mutations (preserve, don't drop)
+| item (exact pointer) | disposition | owner + trigger |
+|---|---|---|
+| **`C44-G4-R01` Ranking/Selection/Exclusion Influence Governance** (§G4-E, verbatim) | `open-review` → `C5-contract` + `Agent-Runtime/FWREG-010` + `spine-line §5/§7/§8` | owners (from §G4-E): Context Router / C5 context-assembly · retrieval-index + chunk/embedding governance · Agent Runtime / **FWREG-010** · spine §§5,7,8 · governed decision-support projections/surfaces (**without making surfaces or Polaris truth owners** — see §G5-3Y). **Explicitly NOT adopted:** Gemini's universal "S3 authorization header." **Do NOT patch G3 §R.** |
+| **C44-G4-M01 "Retraction Erasure"** — REJECTED false positive | `rejected` (preserved) | G4 §G4-D.1; C5 still owes concrete remote-pointer/version-retention mechanics (impl detail) |
+| **C44-G4-M03 "Silent Corpus Poisoning"** — REJECTED false positive | `rejected` (preserved) | G4 §G4-D.1; C5 + impl tests realize "all correction-package arrivals pass the same R.1 landing controls" |
+| G4 failed-mutation survivals F01–F12 | `parked` (accepted survivals; invented proof-phrases NOT adopted, §G4-D.2) | no action; correct proof forms per §G4-D.2 |
+
+---
+
+## §G5-3X Cross-loop consequence + closure-seam ledger (multi-radius) — preserved by pointer
+
+**C4.4 does not own or re-author Care, Platform, or Accountability.** It preserves the exact seam that connects a *source/knowledge event* to the loops, so future-us cannot read "governed composition" as having closed the loop questions. Canonical trace: `v4_C4_platform_loop_capture.md` §0a (the one worked cross-loop trace); Accountability: `v4_C4_governed_reporting_resolution_capture.md` §0/§6/§11; Care: `v4_C4_care_operating_model_capture.md` §0/§10/§11.
+
+**Ownership fence (preserved):** **information ownership stays with S1/S2/S3 and its domain owners.** Where an information event creates an **admitted duty** to investigate, remedy, communicate, disclose, or prove closure, **Accountability owns that obligation** (custody · routing · remedy · communication · verified closure) — **never the underlying document, policy, credential, defect, or clinical truth.** Accountability is **not** the source store and **not** the owner of every source error (§0 non-goals).
+
+| C4.4 information event | Source-Estate/D7 (evidence) | S2/S3 owner (reconsider/correct) | Care (clinical) | Platform (E&V/Release/Runtime) | Accountability (admitted obligation) | recurrence/effectiveness |
+|---|---|---|---|---|---|---|
+| bad/stale/retracted source or knowledge | retains evidence + R.14 additive retraction | S2/S3 reconsider; R.15 revocation propagates | Care reopens decisioning **only where warranted** (REV-184 at gate) | Runtime contains platform cause; E&V durable repair | owns remedy/communication IF a party is owed | Care/Safety/Product-Intel (separate) |
+| wrong identity association | D7 lineage preserved | Identity/R.5 correction | reassess affected care | — | notify/remedy if harm/disclosure duty | separate |
+| unauthorized visibility / failed revocation propagation | audit trail (D7 inv 7) | Federation/RBAC revoke reaches recipients (Amend-3) | — | Runtime containment | disclosure/notification obligation (multi-radius) | separate |
+| lost artifact or lineage | D7 integrity gate (§4) | Source-Estate reconsider | — | E&V repair | remedy if consequence | separate |
+| harmful ranking/selection (`C44-G4-R01`) | retrieval-index lineage | Context Router/retrieval governance | point-of-consequence gate | Runtime/E&V | obligation if patient harm | separate |
+| vendor / manual correction | D7 evidence | S2 vendor-knowledge reconsider; D6 "current" | — | — | vendor radius; **obligation retained internally** | separate |
+| credential failure | D7 credential artifact | BIZOPS/workforce correct | — | — | regulator radius + remedy | separate |
+| patient harm or notification duty | evidence package | owning domain | Care reopens | Runtime if platform cause | **admitted remedy + communication + verified closure** | separate |
+
+**Multi-radius law (Accountability §11, preserved):** one event fans out to **local operator · Federation (each gets only its permitted projection) · OMNI platform · Vendor (obligation retained internally; vendor closure ≠ OMNI verification) · Regulator (legal clock · evidence package · sign-off · submission proof)** — via durable **permission-aware references, not copied dossiers** (`matter_graph`), under the **version-at-time** law. **Closure law (Platform §0a):** **technical closure ≠ clinical closure ≠ accountable closure ≠ recurrence proof** — no one closure closes the others; the loops move via typed seams (consequence_notification · work_trigger/reopen · control_request · evidence_publication), **not one executive** (`GRD-029`; CNS coordinates, is not sovereign). **Disposition:** `spine-line` (name the seam) + `contract-implication` (Accountability/Care/Platform own the mechanics). **C4.4 mints no obligation/case object.**
+
+---
+
+## §G5-3Y Polaris + Reactor adjacency dispositions (negative dispositions — not redesigns)
+
+**Polaris (from `v4_C4_care_operating_model_capture.md` §11 + C4.1 lock):** Polaris **resolves the applicable profile/alignment concerns for a transition** — it is a **computed projection** `f(actor × relationship × authority × purpose × consent × …)`; it **owns no source, knowledge, domain truth, artifact, or commit.** An authorized owner decides; the owning system commits; proof remains. **Disposition for `C44-G4-R01`:** route ranking/selection/exclusion influence through **Context Router / C5 context-assembly / retrieval-index governance / Agent-Runtime (FWREG-010) / spine §§5,7,8**, composing the applicable **Clinical / Accountability / Platform** profile — **without making Polaris or any surface a truth owner** (surfaces expose authority/freshness/uncertainty; consequential action still requires the owning-domain point-of-consequence gate). This is a `contract-implication` + `spine-line`; **C4.4 does not author Polaris.**
+
+**Reactor (from watch-list WI16 + `evolution_narrative_volume_7_2026-07-18.md`):** **NEGATIVE DISPOSITION — one exact row:**
+> **Reactor adjacency:** C4.4 contributes source-estate, knowledge-admission, lineage, context, reconsideration, and permeability inputs relevant to Reactor. **C4.4 does NOT adopt, close, supersede, prove, or implement Reactor.** Reactor remains a **`candidate_spine_doctrine` · non-ontological · compiled-not-deployed · frozen · unpromoted**, governed by **WI16 / `FWREG-014` / Task-D / spine ratification gates**; its evidence state is **R3 (cross-authority continuity residual), not R4 — nothing external accepted or measured; decisive carriers are fixture-only / contract-unwired / C5-gated** (vol-7). It is a **required consult input for Task-D, not adopted doctrine** ("Reactor earned a stronger reason to exist, not permission to become a thing"). **No `omni_reactor` / reactor service / table / object / domain is minted.** Convergence between C4.4's cross-authority residual and Reactor is a **signal to test, not a reason to adopt** (moat frame). **Disposition:** `bounded-deferred` (Task-D + spine gates). **Trigger:** Task-D consult; Reactor ratification gates.
+
+---
+
+## §G5-4 Principal-specific dispositions (the operator's enumerated actors)
+
+**Patient-principal.** Homes: S1 artifact (D7 physics) for uploads; S3 Clinical Memory for adopted facts (R.7); S2 patient-partition for self-tracked reusable notes. **Accepted [A]** on classes + custody. **Partial build [U/partial]:** the canonical `routePatientDocument` manifest is built, but the patient-portal upload path still writes the legacy `intake_uploads`/`patient_diagnostic_reports` store — so the *canonical* patient-upload path is **not yet the live path**. **Open [R]:** subject-agnostic artifact + corpus-parent (→ D7/Source-Estate C5); patient-principal S2 partition placement under the I.4 axis model (→ spine §8); patient-account portability (§G5-7). Visibility is grant-scoped; OMNI corporate/platform has **no** default read (§G5-2O). **Live risk flagged:** the demand/continuity Gate-0A `C12` email-collapse resolver is a **release-blocking identity-safety defect** on the patient-resolution path — route to **Platform/Build risk register + patient-safety/privacy review** (NOT a C4.4 build item; G5 must not bury it).
+
+**Provider-professional — portability decomposition (Knox rework §9).** "Provider portability" is **not one thing**; the layers travel differently:
+| provider-associated content | portable across employers? | why / home |
+|---|---|---|
+| provider-owned **professional library** (curated articles, personal reference) | **YES** — provider-owned | S2 reservoir, `principal`=provider, advisory |
+| **licensed publication content** (the underlying copyrighted article) | **NO** (license-bound; the *reference-to* it may travel, the licensed bytes may not) | licensing terms; D7 evidence only |
+| **portable credentials** (license, DEA, board cert) | **YES** — provider-owned professional identity | S1 artifact + credentialing domain |
+| **employer policy** (clinic SOP the provider worked under) | **NO** — operator-owned | S3 operator domain state |
+| **employer private alpha / trade secret** | **NO** — membrane 15-J | operator-partition S2 |
+| **patient-derived information** (charts, patient context) | **NO** — patient/operator-owned, moves only by grant | D7/Federation grants |
+| **clinic operating preferences** (room/workflow config) | **NO** — operator-owned config | Settings/BIZOPS |
+| **non-portable employer competency** (role attestation tied to that employer) | **NO** — employer-scoped | workforce/BIZOPS |
+| **personal preferences** ("this article should shape my management") | **YES to carry, NO to promote** — provider preference **may never become clinical doctrine** | S2 advisory `use_ceiling` |
+
+**Do NOT create a provider-memory domain** — these are compositions of D7 + S2 + workforce/BIZOPS + Settings + Federation grants. Roster/gate → spine §8/C5 `[R]`.
+
+**Operator / business-owner / ops.** Homes exist (P07–P09): private alpha = S2 operator-partition behind the membrane (15-J); SOPs = S1 + S3 operational domain state; individual staff memory = S2 staff-partition / Settings prefs. **The exact principal boundary between operator vs business-owner vs ops is `provisional [P]`** — the live question in the **cross-facet operating-model classification carrier** (branch `analysis/cross-facet-operating-model-reconciliation`, `working_draft · not_promoted`) + **WI5**. G5 routes this there; it does **not** settle the taxonomy.
+
+**Vendor / supplier.** Home exists (P12–P13): S1 (`authority_class=manufacturer`) → S2 `subject=product · form=procedure · source_kind=manual` or D6/inventory candidate; **vendor doc ≠ current formulary**. Device/vendor placement → spine §8 `[R]`.
+
+**Federation / hospital-system.** The F0 fixture — **passed G4**. Bulk estate → S1 corpus package → per-artifact custody → owning-domain adoption; employee/credential/policy corpora into S3 workforce/BIZOPS/Settings. The **corpus-admission envelope is OMNI-native BUILD but UNBUILT [U]**; the **Federation domain contract EXISTS and is `draft_for_ratification`** (owns the `REV-157` grant/permeability layer; advanced modes + ratification + build open) — **not "undrafted."** Cross-federation isolation (default `isolated`) + recipient-sovereign revocation are **[A]** doctrine + `draft_for_ratification` contract.
+
+**OMNI-corporate / OMNI-platform visibility.** See §G5-2O (six profiles). **Zero** privileged-visibility tier for patient/operator estate; corporate (O1) gets nothing by default. Doctrinally accepted (Fed inv 29 + enterprise posture); technical enforcement **composes** Identity + Federation + RBAC + D7 + CNS-Meta — routed to those, not owned by C4.4.
+
+**Network / cross-operator learning.** P18: S2 network-promoted units (`admission_scope=federation_shared`; OMNI-internal materialization is a separately typed lineage-linked derivative) are fed **only** by governed, consented, membrane-respecting promotion; the **five separated data-value loops** (personal-care · local-operator · network · research/RWE · model-improvement) are **located in C3.8 G4 §3 (inherited posture, not a ratified C5 contract)** and keep reuse from silently pooling; **a model vendor inherits no reuse/training right from technical processing** (§G5-2O O6). Promotion mechanics → spine §8/C5 `[R]`.
+
+---
+
+## §G5-5 F-Self disposition — recommended FIRST implementation target? (charter §9 F-Self G5 use)
+
+**Question (charter §9):** disposition whether the OMNI self-estate (Build/Architecture/Evidence corpus) is the recommended **FIRST** implementation target, + downstream build-entry triggers. **No build is authorized in C4.4.**
+
+**Disposition: RECOMMENDED as the first dogfood implementation target — routed to Build-OS entry, NOT started.** Rationale (§R.FIX F-Self + charter §16): its failure modes *are* OMNI's own (leak-at-pivots, re-derivation, graveyards, correlated-agent false confidence — the very failure this rework corrected); it needs **no PHI/federation exposure** to exercise the load-bearing mechanisms; OMNI already hand-runs a primitive version (catalog · decision ledger · read-graph · handoffs), so the first build **replaces a real manual grind**. This composes onto **REV-199** (reflexive build substrate; open tools / closed commit; build-alpha firewall) — build-mechanics stay Build-OS, not the spine.
+
+**Downstream build-entry triggers (each a gate, not a go):** (1) spine §8 places the S1 corpus-layer owner + ratifies the six classes; (2) a C5 Source-Estate contract mints the corpus-admission envelope (R.1/R.3) + `extraction_run` lineage (R.6/R.13); (3) Build-Entry-Gate v0 admits the F-Self slice with proof obligations (semantic-loss regression on the wave-5 specimen; passive-mining-proposes-never-promotes; control-plane-commit-discipline).
+
+**Explicit non-authorization:** G5 recommends *target + triggers*; authorizes **no** build, mints no schema, selects no vendor.
+
+---
+
+## §G5-6 Wiki / RAG / vector — honest architecture-vs-build axis table (corrected)
+
+**Question:** does the plan meet wiki / RAG / vector standards? **Corrected answer (per Knox rework §2/§5 — removed "stricter than incumbents" and "none is built"; no comparator-superiority claim because the 2035/build-conformance artifact was NOT fully read):**
+
+| Axis | Current honest state |
+|---|---|
+| Constitutional architecture | **Covered** (wikis = S5 non-authoritative regenerable projections, freshness-stamped, contradiction-surviving; RAG/vector/graph = replaceable retrieval **rails** R.10, never truth; embeddings inherit source sensitivity §11.1) |
+| Retrieval / index contract | **Deferred / partial** (routed to C5 retrieval-index/chunk-embedding governance; not authored) |
+| Source / artifact ingestion implementation | **Partial evidence exists** (canonical `patient_documents` bucket + `patient_document_routing` manifest + `routePatientDocument` RPC; legacy paths coexist) |
+| Full vector / hybrid retrieval implementation | **Not verified** |
+| Permission-aware retrieval enforcement | **Not verified end-to-end** |
+| Ranking / exclusion proof | **Routed through `C44-G4-R01`; not designed** |
+| Evaluation suite | **Not established** |
+| Production maturity | **Not established** |
+| Comparator superiority | **Not established** (2035/build-conformance artifact not fully read; no "meets/tightens/stricter than incumbents" claim) |
+
+**Comparator honesty (R.17 discipline):** Palantir/Databricks/Glean/OpenAI/Anthropic are **evidence, never architectural authorities**; no vendor selected; "not found in a bounded survey ≠ does not exist." **Disposition:** `spine-line` (constitution) + `C5-contract` (retrieval-index/chunk-embedding governance) + `procurement-only` (engines) + `Build-OS` (gated impl). The one place ranking/selection/exclusion must become provable is **`C44-G4-R01`** (routed, not designed).
+
+---
+
+## §G5-7 Portability / continuity disposition ("does patient memory save to an OMNI account, not a federation?")
+
+The item the operator explicitly warned may be **further-scoped than a 12-doc read reveals** — treated with that caution, now grounded against the Federation contract + moat frame §0.5.
+
+**Accepted as principle (inherited directional, [A] on direction — moat frame §0.5 (A) INHERITED):** "continuity without captivity" + the **open-rails/closed-authority membrane law** + **governed context movement, NOT raw export**. Portability is only **one possible result of permeability**; the deeper law (Federation §5) is: **a principal may have one identity while different relationships, artifacts, knowledge, operational state, scheduling, communications, and rights remain differently permeable** — permeability differs independently by identity/history/scheduling/membership/provider-visibility/comms/AI-context/reporting/billing/consent/jurisdiction, default `isolated`, dynamic by relationship/purpose/moment. Captured as WI10/WI11.
+
+**Genuinely open (mechanics — [R]/[P], routed, not settled):**
+1. **Identity cross-namespace.** `identity_contract` scopes canonical patient identity **within a namespace/deployment boundary**; **cross-namespace identity (patient-as-MPI / a portable OMNI-level patient principal) is explicitly deferred**. A truly OMNI-account-bound (not federation-bound) patient principal **depends on that deferred decision** → `open-review` to Identity pass + spine.
+2. **Continuity carrier + uplift lifecycle.** The demand/continuity Gate-0A recovery found the carrier exists only **partially** (intake-session pre-account scaffolding) and the **uplift lifecycle is MISSING**; plus a **release-blocking identity-safety defect (`C12`)**. → `open-review` to demand/continuity Gate-0B + Identity + Platform/Build risk register; **no build pre-spine**.
+3. **Enforceable neutrality vs self-binding (moat frame §0.5 (C) STILL-OPEN).** Enforceable neutrality · neutrality-as-self-binding · legitimate network-dependence vs captivity are **unresolved** (open-review row `D0-REV-010`; §14 portability tests; §7 switching-cost constitution). **NOT asserted resolved** → routed to the moat frame's own Gate A / `D0-REV-010`.
+
+**Portability disposition:** `spine-line` (carry the accepted principle as a watch-listed spine obligation, WI10/WI11) + `open-review` (Identity cross-namespace + continuity uplift + moat neutrality) + `contract-implication` (Federation `patient_continuity_policy`/`federation_permeability_policy` + R.15/R.16 recipient-sovereign movement govern *how* context moves once the principal decision is made). **G5 does not decide the mechanics; it confirms the principle is accepted, preserves the multidimensional permeability structure, names the three open dependencies, and routes them to their owners.**
+
+---
+
+## §G5-N Nomenclature & S2 classification — decision state (operator-adjudicated where decided; honest open picks where not)
+
+**Two things are true at once, and this section keeps them separate instead of blurring them (Knox §2 + operator adjudication):**
+1. **Some naming IS decided** — not because an agent freelanced it after a grep, but because **the operator (Nick) already chose it and it is on record.** G5 records that decision plainly instead of passively punting it to the spine.
+2. **Some naming is NOT decided** — and the honest move is to say so exactly, list the small residual pick-set, and **not fill the hole with plausible-sounding fabricated names.**
+
+**Explicit correction of the prior G5 draft (this pass):** the earlier "§G5-N" over-promoted an eight-part `KK1–KK8` roster and the names *OMNI Medica / Materia / Atlas* as if they were the recovered/recommended answer. **They were NOT** — frontier §3 marks them provisional, and the operator explicitly did not approve them (2026-08-01). Two of the eight (`Product & Device`, `Public & Regulatory`) were **agent extensions, never in the recovered roster.** Both over-promotions are reverted below. **No "nothing was lost" claim is made** — see §G5-N.9 for the honest memory-failure note.
+
+### §G5-N.0 Provenance
+- **Original roster + naming:** `doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md` §1/§3 — the first reservoir attempt. **Recorded operator quote:** Nick — *"reservoir feels better than anything else, but 'knowledge' is slightly off"*; "do not canonize before the neural-network batch." That batch has since run (`EVRUN-2026-000002…000011`), so the revisit trigger is satisfied.
+- **The "rethink the categories" moment:** G2 §8.1 REJECTED the earlier R0–R3 authority ladder ("Knox G2 correction") → multidimensional authority *profile*; §12 reclassified Clinical Memory→S3, Evidence→S4, projections→S5, mission→S6. **This is why "knowledge is slightly off" stopped being true** — the non-knowledge members were removed from S2.
+- **Comparator:** `comparator_analogy_registry.md` §A (Palantir Foundry/AIP) + G3 §10 (OMNI Intelligence Foundry) + G3 §16/K15.
+
+### §G5-N.1 DECIDED — S2 family name = **Reservoir** family ("Knowledge Reservoirs")
+**Operator-decided, not agent-recommended.** Nick chose "reservoir" on 2026-06-06 ("reservoir feels better than anything else") and re-confirmed 2026-08-01 ("YES KNOWLEDGE RESERVOIR IS FINE… we already decided we liked reservoir"). The "knowledge is slightly off" caveat is now resolved by the G2 surgery above. **Family = a non-owning classification TAG, not a prefix** (frontier §1, settled) — members keep crisp distinct names; **no "OMNI X Reservoir" per member.** Spine §8 formally ratifies; **this is a decided operator recommendation with explicit-diff-to-deviate, not a blank.**
+
+### §G5-N.2 DECIDED (analysis-level working names) — the six constitutional classes
+S1 **Source Estate** · S2 **Knowledge Reservoir** · S3 **Domain-Owned State** · S4 **Evidence Workbench** · S5 **Compiled Projection** · S6 **Mission Context**. Accepted G2/G3 working architecture vocabulary; survived G4 PASS 30/32. `analysis_nonbinding` — not final product branding; an explicit spine diff is required to change a constitutional distinction. **"Governed Context Estate" stays REJECTED as an owning parent** (would become an everything-context god-category; G2 §3 / `GRD-026`).
+
+### §G5-N.3 The integrated OMNI Intelligence Foundry (derivation echo — CANONICAL = Part I §I.6 Foundry topology + §I.3 S1–S6 roles; this section is the recovery/derivation note, NOT a second architecture)
+**★ Canonical control:** Foundry topology is controlled by **Part I §I.6**; S1–S6 roles by **§I.3**; the composition graph by **§I.2**. The tables below are a *derivation echo* preserved for provenance — **where any wording here differs from Part I, Part I controls.** No second/linear architecture is asserted.
+
+**Why it was recomposed (derivation, not re-architecture):** the earliest draft drew a tidy linear chain *Reservoir → Intelligence Foundry → Retrieval Rails → Context Router* mapped to reservoir→power-station→transmission as if these were peer objects in one pipeline. **That is wrong** and it *decomposed the original idea without recomposing it.* Nick's power-station/rails imagery was **useful discovery language**, not the type-model. The corrected composition (fan-out, not chain) is canonical in §I.6.
+
+**What was actually discovered (RECOVERED, not re-derived — `v4_C4_spine_shape_plan.md` §8 + the prior-depth map §2/§86):** the integrated mechanism is named in the spine plan as **"Intelligence Foundry + Evidence Plane + Knowledge Reservoirs = governed ingestion → promotion — the 2035-not-2025 mechanism,"** and its whole purpose is to stop OMNI re-deriving its own intelligence from scattered chats/videos/packets. C4.4 correctly *decomposed* it into S1–S6 + machinery; it then failed to say what the whole thing IS.
+
+**OMNI Intelligence Foundry = the integrated governed knowledge-evolution capability** that continuously runs: *source acquisition/custody (S1) → evidence processing/interpretation (S4) → candidate extraction/reconciliation → review + reservoir admission (S2) → maintenance/reconsideration → compiled projections (S5) → governed routing of proposed consequences into architecture, contracts, tests, evals, product doctrine, and Build OS → proof + lineage throughout.* **Authority ceiling:** it **proposes and compiles; it never owns domain truth or canonical architecture state, has no cross-tenant access by virtue of being the Foundry, and is not one universal service/db/domain/plane.** The governing owner commits. This restores the original durable definition (raw evidence + compiled wiki + registries + review gates + governed promotion routing).
+
+**It is a COMPOSITION, not a chain** (each part is a different architectural KIND — they are not peers, and knowledge does not traverse one linear line):
+
+| term | architectural kind | note |
+|---|---|---|
+| **Knowledge Reservoir (S2)** | governed reusable-knowledge **body** | passive; stores accepted knowledge |
+| **OMNI Intelligence Foundry** | integrated operating **capability/system** | the whole governed loop above |
+| **Foundry maintenance missions / machinery** (G3 vocabulary — NOT the invented "Foundry Operations") | active maintenance/compiler **machinery** (the R.12 piece) | contradiction-scan · verify · reconcile · compile · freshness/invalidation/rebuild · lineage · route — **proposes/compiles, never commits;** it is ONE component of the Foundry, not the whole thing |
+| **Retrieval Rails** | replaceable infrastructure **mechanisms** | lexical/vector/graph/hybrid + rerank; serve BOTH Foundry maintenance machinery AND Context Router; **not a stage all knowledge must cross** |
+| **Context Router** | runtime **capability** | assembles one S6 Mission Context; draws **directly across admissible S1/S2/S3/S5** — NOT merely "the last step after the Foundry" |
+| **CNS** | orchestrator | owns no truth |
+| **Agent Runtime** | actor/harness layer | owns none of S1–S6 |
+| **owning domain / control plane** | **domain/governance committer** | commits domain + governance truth — **NOT the sole committer of every kind of truth**: S1 commits authoritative receipt/custody facts, and the S2 owner admits reusable knowledge (per I.3) |
+
+**Binding law (frontier + G3, corrected):** *Source Estate preserves · Evidence Workbench interprets · Reservoirs supply · Foundry maintenance machinery compiles/tends/proposes · Retrieval Rails draw · Context Router assembles · CNS orchestrates · owning domains + control plane commit.* **Disposition:** carry this recomposition (system = **OMNI Intelligence Foundry**; the R.12 compiler/maintainer = **Foundry maintenance missions/machinery**, per frozen G3 §10 — no new "Foundry Operations" noun) to spine/C5 with an explicit diff; **G3 §R.12 frozen text is NOT edited here.** Authority status: the integrated umbrella is a **G5-recovered/recommended composition** — G3 accepted the constitutional components + the bounded Foundry machinery; G4 did **not** independently validate the whole umbrella as one object.
+
+### §G5-N.4 DECIDED — S2 is NOT a flat roster of branded reservoirs; it is an ORTHOGONAL classification (Knox §4, corrected; grounded in recovered OpenEvidence + comparator work)
+The prior draft's biggest naming error was treating S2 as **6–8 parallel branded reservoir systems** as if each were a database. **G2 §8.1 already settled that reservoir classification is multidimensional** — a reservoir member is a *point in a space of orthogonal axes*, not a row in a roster; the correct "Palantir/Anthropic-level" grouping is a **typed reusable-knowledge unit**.
+
+**★ CANONICAL S2 MODEL = Part I §I.4** (the four orthogonal axis-groups **Subject / Content / Origin / Authority**, with cardinality, and `use_ceiling` replacing operative posture). **This appendix's earlier 3-axis sketch (`knowledge_domain` / `knowledge_form` / `origin_mode`) is SUPERSEDED by I.4** and retained only as the historical derivation note; where they differ, **I.4 controls.** The load-bearing decisions I.4 carries forward from here: **lesson is a *form*, not a domain** (a lesson can be clinical/operational/build/risk — kills "Care Practice"/"Lessons Learned bucket"); **case/incident/encounter/simulation/build-failure is a source/event type**, not a domain; **real vs simulated is `reality_basis`**; no ambiguous universal "Care"/"Case" reservoir. **The deepest law: normativity is adoption-time, not storage-time — operative force lives in the owning S3/governance state via an explicit adoption link, never in an S2 field.**
+
+**★ Recovered clinical decomposition (`EVSRC-2026-000068` OpenEvidence — read in full this pass; ★reread at C5 for member-contract authoring):** OpenEvidence's five reservoir families do **NOT** all become S2 authority classes (Knox §6 reconciliation). Within `primary_subject_domain=clinical`, the evidence-authority families are `authority_class` values (each paired with its `source_kind`): **published literature** (`source_kind=literature · authority_class=publisher_or_journal`) · **guideline** (`source_kind=guideline · authority_class=guideline_body`) · **`clinician_wisdom`** (`authority_class=expert_consensus` — "millions of wet brains", collective tacit clinician knowledge, *below literature/guideline, above anecdote*, `use_ceiling=descriptive_only`, a **gated high-risk learning-signal, never automatic truth**, EVSRC-068 cluster 12–13). **`literature` is a `source_kind`, never an `authority_class`.** The remaining two OpenEvidence families are **NOT S2 authority classes**: **`patient_context` → S3 (patient-specific truth) + S6 (assembled context)**; **observed `care_outcome` → S1/S3 evidence until reviewed+generalized+admitted.** The evidence-authority families **must not cross-contaminate** (`FWREG-006` clinical-evidence-reservoir contract + `FWREG-007` authority-class taxonomy own this — the pinned home for the spine).
+
+**Reclassified OUT of S2 (G2, settled):** Clinical Memory → **S3** (patient truth) · Evidence Plane → **S4** Evidence Workbench · wikis/briefings → **S5** · mission context → **S6** · source custody → **S1**. **`public / vendor / regulator / provider / patient / federation / OMNI` are `principal`/`source-authority` values, NOT new domains.** No provider-memory / patient-memory domain minted.
+
+**Status:** the orthogonal taxonomy (the **four axis-groups of I.4** + retained G2 dimensions) is a **G5 recommendation** grounded in G2 §8.1 + OpenEvidence + the comparator matrix (§G5-N.6); spine §8 ratifies. The old June-06 "6-member roster" is **superseded by the I.4 axis model** (the June members map to `primary_subject_domain` values; they are no longer "6 databases").
+
+### §G5-N.4a ★ Case / incident / simulation placement (Knox §5 — the six scenarios, decided)
+"Lesson" is a **form**; the documented episode is an **S1 source event**; the accepted reusable conclusion is the S2 unit (`form=lesson`, domain + origin tagged). Exact placement:
+
+| scenario | durable source/state | processing | possible reusable result |
+|---|---|---|---|
+| **real patient case** | S1 evidence + relevant S3 clinical/domain state | **owning clinical/outcomes analysis (R.6 machinery); S4 only where external evidence is processed** | S2 `subject=clinical · primary_form=lesson · secondary_forms=[pattern]` — only after admission |
+| **real operator incident** | S1 evidence + operational S3 state | **owning operational/Accountability/Platform-E&V analysis via R.6 machinery as applicable; not S4 by default** | S2 `subject=operations (+2nd-tag risk) · form=lesson` |
+| **3rd-party case report** | external S1 source (Evidence Plane lane) | Evidence Workbench (S4) — external evidence, so S4 applies | S2 `subject=clinical · primary_form=lesson · secondary_forms=[synthesis]` |
+| **provider-local saved case** | provider-partitioned S1; patient material stays grant-bound | provider/operator review | provider-partitioned S2 `primary_semantic_form` ∈ {claim · pattern · lesson · procedure} with `use_ceiling=advisory` (**advisory is a use-ceiling, NOT a semantic form**) |
+| **build-agent failure** | F-Self S1 + Build/E&V state | Build OS / Foundry maintenance mission | S2 `subject=build · form=lesson` OR an accepted eval/guardrail through its owner |
+| **synthetic / simulated scenario** | **internally-generated S1** spec/run/output (S1 explicitly includes internally-generated durable source — Knox §4 correction) | Simulation capability + Platform E&V/evaluation | candidate lesson or test fixture; **never domain truth automatically** |
+
+**Correction of the prior draft:** the earlier claim that simulation output is *"not S1"* was **wrong**. A simulation **specification, persona/population model, run record, and generated output are internally-generated S1 artifacts**; **evaluation records/release decisions are Platform-E&V/Build-OS owner-state (NOT universally S4** — S4 assists only where external evidence is processed); an accepted reusable lesson may later enter S2 (`reality_basis=simulated · source_kind=simulation_run · authority_class=model_output · use_ceiling=descriptive_only`); a released policy/product-rule/clinical-decision still requires its owning domain's commit. **Simulated output never becomes patient/clinical/operational/policy truth merely because it is useful.**
+
+### §G5-N.5 Type-checked vocabulary (Knox §3 — these are NOT peers and do NOT form one linear pipeline)
+| term | architectural kind |
+|---|---|
+| **Knowledge Reservoir (S2)** | reusable-knowledge body |
+| **OMNI Intelligence Foundry** | integrated composed capability/program (the whole loop; NOT the compiler) |
+| **Foundry maintenance missions / machinery** | the active proposal/maintenance/**compiler** machinery (R.12) — compiles S5, tends S2, owns compiler execution/rebuild/lineage — **not** semantic meaning, **not** the whole Foundry |
+| **Evidence Workbench (S4)** | processing/interpretation boundary; commits nothing |
+| **Retrieval Rails** | replaceable infrastructure mechanisms (lexical/vector/graph/hybrid); serve Foundry machinery AND Context Router |
+| **Context Router** | S6 runtime assembly capability; draws directly across admissible S1/S2/S3/S5 |
+| **CNS** | orchestrator |
+| **Agent Runtime** | actor/harness layer; owns none of S1–S6 |
+| **Source Artifact / Package / Corpus** | governed entities |
+| **Simulation scenario / run / output** | internally-generated S1 artifact/evidence |
+| **Reservoir Admission / Domain Admission** | governed decision/gate |
+| **Compiled Projection (S5)** | regenerable view |
+| **Mission Context (S6)** | assembled draw |
+| **owning domain / control plane** | domain/governance committer (NOT sole — S1 commits receipt facts, S2 owner admits reusable knowledge; per I.3) |
+
+**Correction (Knox §2):** the prior draft still, in places, called "Intelligence Foundry" itself the compiler machinery — reintroducing the whole-vs-component collapse. Fixed: **Intelligence Foundry = the integrated system; Foundry maintenance machinery = the R.12 compiler component.** No new "Foundry Operations" noun.
+
+### §G5-N.6 Comparator inheritance receipt — selected backbone, NOT a full/complete study (Palantir + Anthropic + Microsoft + Amazon + Google + LangChain + OpenEvidence + more — NOT Palantir alone; Nick's repeated "how would Anthropic/Tesla/Amazon/Microsoft do this?"; canonical matrix = I.8)
+**The comparator work already exists and was under-surfaced — this receipt points to it so a future agent plucks it instead of re-deriving.** The full 34-system mechanism inheritance lives in **`v4_C4_4_prior_depth_and_july_2026_reality_map.md` §4.2 (OMNI-relative mechanism matrix) + §9.1 (34-system evidence ledger)** and **`comparator_analogy_registry.md` §A** — consumed **by pointer**, not re-authored. The load-bearing extractions:
+
+| comparator | what OMNI TAKES (mechanic) | OMNI disposition | pointer |
+|---|---|---|---|
+| **Palantir Foundry / AIP** | executable ontology objects/relationships/actions, dynamic markings/CBAC, lineage, bitemporal state, Action-gated commit | **TAKE the executable operating layer; REJECT ontology ownership/lock-in**; composition gap **narrowest here** → **Task-D** | reg §A · prior-depth §4.2/§9.1 CL-01/06/14 · C3.8 |
+| **Anthropic** (context / Skills / MCP / Memory) | Skills packaging, MCP scope-precedence, `read_only` mounts, context-engineering, memory-as-opt-in | context/skills discipline → **Retrieval Rails + S6 Context Router**; memory stays **admission-gated** | prior-depth §9.1 (Anthropic row) · frontier §1 |
+| **Microsoft** (Fabric/OneLake/Purview/AI Search) | Delta, Purview lineage, sensitivity labels, hybrid+RRF retrieval | **PLUG** substrate + BUILD-input (governed admission); OMNI must NOT become a lakehouse | prior-depth §9.1 · CL-04a/b |
+| **Amazon** (Bedrock KB / S3) | Object Lock WORM+legal-hold, KB sync+rerank | **PLUG** (custody + retrieval); Bedrock delete-propagation defect = **invalidation evidence (F-Inv)** | prior-depth §9.1 · CL-03 |
+| **Google** (Vertex Search / Memory Bank) | grounding, topic-scoped memory extraction, TTL | BUILD-input; last-write-merge = the anti-pattern OMNI rejects (contradictions-survive) | prior-depth §9.1 |
+| **LangChain / LangSmith / LangGraph** | 3-tier memory (working/long-term/domain), semantic/episodic/procedural, Context Hub (versioned agents.md+skills), trace≠learning | **the reservoir/admission-ladder inheritance** → S2 admission-state (indexed≠accepted) | prior-depth §1 (EVSRC-000227) · §9.1 |
+| **OpenEvidence** ("doctors' collective wisdom AI" — the clinical app) | physician-shoulder-augment; clinical-context-packet; **medical-source-authority hierarchy**; **collective-clinician-wisdom** family; reservoir-family-separation firewall | **the CLINICAL-domain authority decomposition** (§G5-N.4) → `FWREG-006/007` | `EVSRC-2026-000068` (read in full this pass; member-contract reread at C5) |
+| **NASA / aviation** (LLIS, ASRS, black-box/debrief) | documented episode → extracted reusable lesson across safety/ops/tech | grounds `form=lesson` + `origin_party=first_party · reality_basis=real_world` | `AGENTS.md` Lens-B |
+| **OKF / OpenWiki / CQ / Karpathy-wiki** | portable knowledge bundle; wiki=compiled cache≠truth; `operational_lesson_unit` + applicability envelope | **S5 compiled projections + S2 lesson form** | prior-depth §1 (000262/000313/000314) |
+
+**Palantir inheritance decision-state (Knox §5 — preserve for Task-D, do NOT reduce to "shared word Foundry"):**
+| pressure | durable C4.4/G5 disposition |
+|---|---|
+| integrated ontology + objects + relationships + actions | **TAKE** as serious implementation pressure |
+| dynamic markings/CBAC, lineage, bitemporal state, enterprise federation | **do not out-build casually — evaluate host / partner / wrap** (Palantir-grade infra is a legitimate alternative to rebuilding all enterprise substrate) |
+| proprietary ontology ownership + semantic lock-in | **REJECT** as OMNI identity |
+| healthcare consent, clinical adoption, responsibility, non-action, correction, outcome proof | **OMNI owns the portable healthcare semantic constitution** |
+| can Palantir implement this faster than OMNI? | **OPEN Task-D/strategy question** |
+| is the paper architecture itself a moat? | **NO** — a pure-software architecture is copyable |
+| what may compound defensibly? | validated replay evidence · institutional adoption · operator/provider trust · accumulated governed learning · demonstrated lower burden + safe outcomes |
+| has OMNI beaten Palantir? | **no such claim** |
+
+**Disposition:** comparator lineage **owned by registry §A (append-only) + thesis §3.5 + prior-depth §4.2/§9.1**, consumed by pointer; the incumbent-composition/host-vs-build question is `bounded-deferred → Task-D`. **C4.4 mints no comparator/ontology object and makes no superiority claim.** These comparators are **evidence, never architectural authorities.**
+
+### §G5-N.7 Rejected / retired candidates (why)
+**Umbrella / family:** Governed Context Estate (owning god-category — G2 §3) · Context Reservoirs (context broader than S2; collides with S6) · OMNI Reservoirs (violates non-prefixing) · OMNI Learning Reservoir (too narrow/singular) · Grounding Layer (RAG bias) · Cognitive Reservoirs (anthropomorphic) · generic "Memory" (collapses S1/S2/S3/S5/S6). **Medical-literature body:** *OMNI Medica · Materia · Atlas* = **earlier provisional candidates, explicitly NOT approved by Nick, NOT current recommendations** (recorded as historical provenance only). **"Evidence Plane"** = historical/operational alias; recommended S4 name = Evidence Workbench (`ingestion/` folder rename = a later bounded implementation sweep, not now). **`form=lesson` naming:** *Care Outcomes Learning · Care Practice* = REJECTED (aloof, wrongly clinicalize a cross-domain concept — Nick); *"Lessons Learned" as a top-level S2 kind/bucket* = REJECTED (category error — "lesson" is a `primary_semantic_form` on I.4's Content axis, not a subject domain — Knox §3). **`Foundry Operations`** = REJECTED (agent-invented noun; G3 already has "Foundry maintenance missions/machinery"). **Flat "6/8 branded reservoir roster"** (incl. `KK1–KK8`, "Product & Device," "Public & Regulatory" as members) = REJECTED (S2 is orthogonal, not a roster — §G5-N.4). **Linear "Reservoir → Foundry → Rails → Router pipeline"** = REJECTED (a composition of different kinds, not a chain — §G5-N.3/.5).
+
+### §G5-N.8 NOT DECIDED — the honest residual pick-set (small, explicit, routed — NOT a blank punt)
+These are the genuinely-unresolved naming decisions. They are **few and specific**, and each carries the pinned context the decider needs — this is the opposite of handing the spine a blank:
+1. **Public product name for the clinical-literature body** (the surface label for `primary_subject_domain=clinical · source_kind=literature`). OMNI Medica/Materia/Atlas rejected; a replacement was discussed but **is not recoverable in this pass** (§G5-N.9). This is a *branding* pick, not a taxonomy pick — the axis placement is decided. Owner: Nick + spine §8. Pinned: frontier §3, `FWREG-006`.
+2. **Public label for the whole Foundry vs its machinery.** The *architecture* is decided (Part I §I.6: **OMNI Intelligence Foundry** = the integrated system; **Foundry maintenance missions/machinery** = the R.12 component). Open = whether to keep "OMNI Intelligence Foundry" as the surface name given the Palantir word-collision (§G5-N.6). This is a naming/branding pick, **not** a whole-vs-component question. Owner: Nick + spine §8.
+3. **Physical partitioning of `form=lesson` units** — whether clinical/operations/build lessons are stored in one partition or several (an access/scale/review-authority decision, **not** a nomenclature question: "lesson" is a `primary_semantic_form`, tagged by `primary_subject_domain`/`source_kind` — Part I §I.4). Owner: spine §8 + Care/BIZOPS. Pinned: frontier §4.1, G2 §12 Q1.
+
+*(Removed as non-questions under the orthogonal model: "product/public-regulatory as members" — `product` is a decided `primary_subject_domain` value and public/vendor/regulator are decided `authority_class`/`principal` values, so there is no separate "admit as member" decision; and "form=lesson one body or several **names**" — a form is not named as a body.)*
+
+**Disposition:** `SPINE §8 NOMENCLATURE PICK` — **not a new arc, not a blank.** The spine consumes a pinned depth packet: frontier `2026-06-06` + `HANDOFF_2026-06-06` + G2 §8.1/§12 + G3 §10/§16 + `FWREG-006/007` + comparator registry §A + C3.8 Palantir findings + the memory-failure note (§G5-N.9). It produces accepted/rejected/provisional per item with criteria — **no promotion from mere search recurrence.**
+
+### §G5-N.9 ★ Honest architecture-memory note (do NOT paper over this)
+The operator (Nick) recalls a **later Nick/Knox/Opus naming conversation** that refined the reservoir family and the medical-literature body beyond the June-06 frontier (and connected to the "reservoir → power-station/rails" imagery, the Palantir/foundry pressure, and the video-wave synthesis). **That specific later discussion was NOT recovered in this pass.** What IS durable and recovered: the June-06 frontier roster (§G5-N.4), Nick's endorsement of "reservoir" (§G5-N.1), the machinery model (§G5-N.3), and the Palantir comparator (§G5-N.6). What is **not** recovered: the exact later refinements + any replacement name for the medical-literature body. **This is a real architecture-memory gap** — the correct response is to preserve it honestly (so the spine decider hunts for that thread with the pinned packet) rather than let an agent fill it with a plausible fabricated name. The transcript corpus (`agent-transcripts/`) is the most likely home of that thread and is the first place the spine packet should search.
+
+### §G5-N.10 ★ Recovery receipt — what THIS pass actually recovered (2026-08-01, operator-directed deep recovery)
+Nick's core charge — *"1–2 weeks ago we surfaced all this and no agent in this 3-day arc had a hint of it"* — was **correct**. A bounded recovery this pass (operator-authorized, overriding the "no more corpus search" stop) located the real prior work:
+
+1. **The integrated OMNI Intelligence Foundry pre-existed C4.4 and is already named in the spine plan.** `v4_C4_spine_shape_plan.md` §8 = **"Intelligence Foundry + Evidence Plane + Knowledge Reservoirs — governed ingestion→promotion — the 2035-not-2025 mechanism,"** with the explicit instruction *"consume the frontier's 8-member roster + resolve its 6 open Qs — do NOT re-derive; the depth exists."* This arc re-derived it anyway. **Fix landed:** §G5-N.3 recomposes the Foundry as the integrated system (Foundry maintenance missions/machinery = the R.12 component; no "Foundry Operations" noun).
+2. **The prior-depth map already flagged the exact open items.** `v4_C4_4_prior_depth_and_july_2026_reality_map.md` §2/§86 lists as **still-open**: *"Foundry as a named compiler pipeline; the multi-reservoir roster beyond build/evidence/clinical (Threat/Brand/Operator); Care Outcomes Learning shape."* These were the questions this arc was supposed to answer, not re-open.
+3. **★ OMNI Simulation Lab — DECIDED disposition (Nick demanded a definitive answer; here it is):**
+   - **Is it inside or outside C4.4?** The **Simulation Lab CAPABILITY (the machinery that generates/runs simulations) is OUTSIDE C4.4 — it is its own future bounded arc.** C4.4 is the Source–Knowledge–Context constitution; a generation/evaluation *capability* is a different object. Status: **recovered candidate capability (`EVSRC-2026-000242`), `evidence_nonbinding`, `watch`, doctrine absent/partial, build absent — NOT an accepted architecture module, NOT a "home."**
+   - **What IS decided inside C4.4 (the data-plane relationship — this is the part that belongs here):** where simulation DATA lives in S1–S6 — a **simulation spec / persona / population model / run record / generated output = internally-generated S1 artifacts**; **evaluation records/release decisions = Platform-E&V/Build-OS owner-state (NOT universally S4)**; an **accepted reusable lesson = candidate S2** (`reality_basis=simulated`, `form=lesson`) after the admission gate; **simulated output NEVER auto-commits to S3 truth or policy** (its owner commits, or nothing does). This is fully placed by the §G5-N.4a scenario table (row 6) — so simulated cases are **no longer homeless.**
+   - **Dimensions of the Lab (for the future arc, recorded so it can be plucked):** generation machinery · persona/population models · run harness (**Agent Runtime** executes) · evaluation (**Platform E&V / Evaluation & Assurance**) · fixture/eval-seed output (**Build OS** when used for system tests) · no-auto-promotion. Convergent vs divergent simulation + explicit confidence metrics (`EVSRC-000242` §§ on TVD/confidence-bootstrap).
+   - **How it relates:** its specs/runs/outputs are internally-generated **S1** artifacts; **evaluation records/release decisions are Platform-E&V/Build-OS owner-state (NOT universal S4** — S4 assists only where *external* evidence is processed through the Evidence Workbench); admitted generalized results may become candidate **S2** lessons; consumes S1 real data (where ethically allowed) as grounding; commits no truth.
+   - **DECISION: it is a SEPARATE future arc** ("OMNI Simulation Lab formulation"), routed to spine §8 as a candidate input + its own charter **if Nick authorizes it.** C4.4 does **not** author its architecture. Said plainly, per operator demand.
+
+**Source posture (this pass, 2026-08-01):** read fully = prior-depth map (`v4_C4_4_prior_depth_...` incl. §4.2/§9.1 comparator matrix), spine-shape §8, current G5 draft, **`EVSRC-000242` (Simulation — full read, reconciliation receipt §G5-0), `EVSRC-000068` (OpenEvidence — full read, reconciliation receipt §G5-0; member-contract reread at C5)**; consulted = frontier `2026-06-06`, comparator registry §A. Named prior artifacts recovered: integrated Foundry (spine §8), full comparator matrix (prior-depth §4/§9), Simulation Lab (000242), OpenEvidence clinical decomposition (000068). **Still NOT recovered:** the specific *later* naming thread of §G5-N.9 (do not claim exhaustive recovery of every prior chat).
+
+---
+
+## §G5-8 C4.4 completion determination (charter §0.5 envelope) — REWORKED
+
+**The §0.5 definition of DONE, checked:**
+1. **Distinguished the constitutional species + authority boundaries** — **DONE** (§2 six classes + §2.1 matrix + §3 A/B/C; G4 confirmed separation held on dimension 1).
+2. **Technology-neutral reference architecture + plug-point model** — **DONE** (§R R.1–R.17 + §R.CORPUS + R.17; G4 confirmed pluggability, no vendor became authority).
+3. **Fixed-fixture adversarial results** — **DONE** (G4 carrier @ `07f8662`: fixtures/rubric frozen first, independent Gemini adversary, Knox adjudication **PASS 30/32**, one non-blocking finding).
+4. **Route EVERY conclusion (zero unrouted)** — **DONE by this ledger** (§G5-3 + the new §G5-2T/§G5-2O/§G5-3X/§G5-3Y seams + §G5-5/§G5-7).
+5. **★ DOWNSTREAM AUTHORABILITY (added — Knox §8, the missing fifth criterion): NOT YET DEMONSTRATED.** Zero-unrouted ≠ author-ready. C4.4 is not closure-ready until a **fresh repo-connected agent, given only this packet + its exact pointers (no chat history), can produce** the six downstream outputs (spine §8 outline · Source Estate C5 outline · Knowledge Reservoir C5 outline · Foundry Pilot build-entry outline · Simulation-Lab boundary charter · comparator build/buy/wrap matrix) **all PASS (PARTIAL = HOLD), without broad corpus search, new architectural classes, ownership collapse, false build claims, or an omitted App-E §E.7(e) required concept.** The full test **specification** is authored (Part I §I.10 / App-E — read set · six output schemas · rubric · explicit kill criteria · all-PASS rule · prompt template); it is **not yet frozen** (target bytes unpinned) and has **not** been executed — freeze happens only after the candidate commit, and any failure means the packet is patched, not that another architecture arc begins.
+
+**Determination (corrected — NOT "READY TO CLOSE"): C4.4 is `G5_REWORKED_PENDING_NICK_KNOX_REVIEW`.** C4.4 becomes **"architecturally eligible for closure" ONLY after Knox verifies this reframed draft, the §I.10 authorability test passes, and all of the following hold:**
+- all required seam-preservation rows exist (§G5-2T trust/membrane · §G5-2O six profiles · §G5-3X cross-loop/radius · §G5-3Y Polaris/Reactor) — **present in this rework;**
+- factual maturity errors corrected (§G5-0b FC-1..FC-4) — **corrected;**
+- all three matrix fields complete over the 19 stable IDs (§G5-2.A/B/C) — **present;**
+- source posture matches actual reads (§G5-0) — **updated;**
+- the zero-unrouted checksum is re-run against C4.4 conclusions **and all explicitly-invoked adjacent carriers** (Federation/D7/enterprise-posture/Accountability/Platform/Care/moat/Reactor) — **re-run in §G5-10 return pack.**
+
+**Naming & taxonomy status (§G5-N — the burden is no longer passively handed to the spine, but nothing is fabricated either):**
+- **Constitutional taxonomy = DECIDED at the analysis level** (§2 six classes; G4 PASS 30/32).
+- **S2 family name = DECIDED by the operator** — **Reservoir / "Knowledge Reservoirs"** (Nick, on record 2026-06-06 + 2026-08-01; §G5-N.1). Not agent-freelanced.
+- **S2 model = ORTHOGONAL classification, NOT a flat roster** (canonical = **Part I §I.4**): four axis-groups **Subject** (`primary_subject_domain` + `secondary_domain_tags[]`) × **Content** (`primary_semantic_form` + `secondary_forms[]`) × **Origin** (`origin_party` · `admission_scope` · `access_policy_refs[]` · `reality_basis` · `epistemic_mode` · `source_kind` · `authority_class`) × **Authority** (retained G2 dims incl. `use_ceiling`). admission_scope≠artifact-custody, visibility is plural/access-time (`access_policy_refs[]`, not intrinsic), and source_kind≠authority_class are kept distinct (Knox §1–§3). The prior draft's fabricated eight-part `KK1–KK8`, the "6 branded reservoirs", *OMNI Medica/Materia/Atlas*, the earlier 3-axis sketch, and the combined `custody_visibility_scope`/`source_authority_type` axes are **superseded/marked-rejected.** Clinical families (literature/guideline/clinician-wisdom) become `authority_class` values behind a firewall; **patient_context→S3/S6, care_outcome→S1/S3 evidence** — never S2 (`FWREG-006/007`).
+- **OMNI Intelligence Foundry = RECOMPOSED as the integrated system** (§G5-N.3 — the false linear chain is corrected; **Foundry maintenance missions/machinery** = the R.12 component, NOT "Foundry Operations"; recovered from spine §8, not re-derived).
+- **★ "Care Outcomes Learning" / "Care Practice" / a "Lessons Learned" top-level bucket = ALL REJECTED** (Nick + Knox §3): "lesson" is a **`primary_semantic_form`** (I.4 Content axis), not a subject domain — a clinical case, an ops incident, and a build failure all yield `form=lesson`, tagged by subject + origin. No aloof "Care"/"Case" reservoir.
+- **★ OMNI Simulation Lab = DECIDED** (§G5-N.10): the **capability is a SEPARATE future arc (OUTSIDE C4.4)**; the **data-plane relationship is decided INSIDE C4.4** — sim spec/persona/population/run/output = internally-generated **S1**; **evaluation records + release decisions = Platform E&V / Evaluation & Assurance or Build-OS owner-state (S4 only where external evidence is being evaluated — never OMNI's universal evaluation plane)**; accepted lesson = candidate **S2** (`reality_basis=simulated`); never auto-truth. Simulated cases are now placed (§G5-N.4a row 6).
+- **Comparator inheritance surfaced by mechanism (selected backbone, verified+flagged — NOT a full study)** (canonical = I.8; receipt §G5-N.6): Palantir + Anthropic + Microsoft + Amazon + Google + LangChain + OpenEvidence + NASA/aviation, by pointer to prior-depth §4.2/§9.1 (34-system matrix) — no longer Palantir-only; `[F]` rows are watch-only.
+- **NOT decided (honest, small, routed):** the §G5-N.8 residual pick-set — now only **branding/partitioning** picks (clinical-literature body public label · Foundry public label · `form=lesson` physical partitioning) + the **Simulation-Lab formulation arc** + the §G5-N.9 **acknowledged memory-failure** (a later naming thread was not recovered this pass). The taxonomy itself is decided (orthogonal axes, §I.4).
+- **Spine §8 performs formal ratification + the residual picks** using the §G5-N.8 pinned packet; **concrete schemas/API/service/folder/product labels remain C5.** **No naming question is left blank or fabricated.**
+
+**What closing C4.4 will mean (on acceptance) and does NOT mean:**
+- **Closes:** the C4.4 formulation arc. Its outputs become **inputs** to spine §§5/7/8, C5 contracts, Agent-Runtime/`FWREG-010`, and Task-D.
+- **Does NOT close / explicitly still open (routed):** spine ratification of the six classes + authority profile (§8); the C5 Source-Estate/reservoir/retrieval-index/reconsideration contracts; **Federation contract ratification + advanced modes (`draft_for_ratification`, not undrafted)**; Agent-Runtime formulation (`FWREG-010`); `C44-G4-R01` ranking-governance; the operator/owner/ops principal taxonomy (cross-facet carrier, provisional); patient portability mechanics (§G5-7); the F-Self build (recommended, gated, unstarted); `FWREG-006` medical-literature build (boundary placed, not built); **Reactor (frozen, R3-not-R4, WI16 gates); the three coupled loops + Polaris (§G5-3X/§G5-3Y, owned elsewhere).** **Task-D must consume this G5 before closing its knowledge/memory/source-estate/context-routing/Foundry/artifact conclusions.**
+
+---
+
+## App-E — AUTHORABILITY TEST SPECIFICATION — NOT YET FROZEN (ready to freeze after candidate commit)
+
+**Status: SPECIFICATION, not a frozen packet.** A test cannot be "frozen" while its target bytes are unpinned and the packet is uncommitted. This section defines the test; it is **frozen only after** (1) Knox byte-passes this rewrite, (2) Opus commits the candidate packet to the analysis branch (no promotion, no control-plane acceptance), and (3) the four target objects below are pinned to that commit. A fresh **repo-connected** agent cannot read an uncommitted local file by commit/blob — so the test is not runnable until the candidate commit exists.
+
+**Correct sequence (Knox §9):** clean + byte-review local → Knox issues *candidate-test authorization* (NOT final G5 acceptance) → Opus commits the candidate packet to `analysis/c4-4-g3-reference-architecture` → pin {candidate commit · packet blob · G3 blob `e364acb` · G4 blob `07f8662`} → freeze this spec against those objects → run the fresh authorability agent → **require all six outputs PASS** → patch only specific failures → then accept G5 + final control-plane sync.
+
+**E.1 Integrity receipt (to be completed at freeze-time):**
+- repository: `main-app` · branch `analysis/c4-4-g3-reference-architecture`
+- target artifact: `.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md`
+- **candidate commit SHA: `<pinned at freeze-time>`** · **packet blob SHA: `<pinned>`** · **G3 blob:** `e364acb` · **G4 blob:** `07f8662`. Until these are pinned, the test is UNFROZEN.
+
+**E.2 Exact read set (the ONLY inputs the test agent may open) — every item resolves from the pinned candidate commit tree, `<candidate_commit>:<exact_path>`, NOT a moving branch tip:**
+**(a) Repository files — pinned as `<candidate_commit>:<exact_path>`:** 1. this packet at `<candidate_commit>:.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md` (Part I + Part II) · 2. `<candidate_commit>:.cursor/plans/v4_C4_4_prior_depth_and_july_2026_reality_map.md` §4.2/§9.1 · 3. `<candidate_commit>:.cursor/plans/doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md` **(path verified — lives under `doctrine/`, not `.cursor/plans/` root)** · 4. `<candidate_commit>:.cursor/plans/v4_C4_spine_shape_plan.md` §8 · 7. `<candidate_commit>:.cursor/plans/doctrine/comparator_analogy_registry.md` · 8. `<candidate_commit>:.cursor/plans/doctrine/11_build_entry_gate_v0.md`.
+**(b) Evidence-plane sources — pinned by EXACT evidence blob + exact path (NOT via the candidate commit):** 5. `EVSRC-2026-000068` (OpenEvidence) at `<openevidence_blob>:<exact_evidence_path>` · 6. `EVSRC-2026-000242` (Simulation) at `<simulation_blob>:<exact_evidence_path>`.
+**Every repo path resolves at the candidate commit; every evidence source resolves at its pinned blob. No other files. No chat history. No broad corpus search. No current-branch-tip read.**
+
+**E.3 Rules:** no chat history · no broad grep beyond the read set · no new architectural classes · no vendor selection · no "moat"/superiority claim · maturity language must match this packet (reserved≠designed≠built).
+
+**E.4 Six required outputs + exact schema each:**
+1. **Spine §8 outline** — **does NOT receive blank questions for operator/G5-decided items.** It must: (a) **ratify or explicitly diff** the operator-decided working family label `Knowledge Reservoirs`; (b) **carry `lesson` as a `primary_semantic_form`** (a settled Content-axis value, NOT an unresolved domain); (c) **preserve Clinical Memory = S3**; (d) **preserve the six-class separation**; (e) **place the CNS / Foundry / Context-Router seams**; (f) **route physical/access/review partitioning of lesson-form units to C5 + review/access owners** — the spine carries only the constitutional boundary. Sections: classes, S2 axes, Foundry, Sim boundary, and the residual C5-routed picks.
+2. **Source-Estate C5 outline** — corpus-admission envelope · custody/blob/receipt separation · package closure · correction/legal-hold · received≠concluded.
+3. **Knowledge-Reservoir C5 outline** — typed-unit schema over the 4 axis-groups + cardinality · admission_scope≠artifact-custody · access_policy_refs[] (plural, access-time, default-deny) ≠ intrinsic visibility · source_kind≠authority_class · `use_ceiling` · adoption-link for operative force · OpenEvidence firewall · admission lifecycle.
+4. **Foundry-Pilot (F-Self) build-entry outline** — the I.9 A–O structure mapped to the Build-Entry-Gate checklist.
+5. **Simulation-Lab boundary charter** — S1 artifacts · Platform-E&V/Build-OS eval owner-state (not universal S4) · gated S2 · the future-charter dimensions.
+6. **Comparator BUILD/BUY/WRAP/PARTNER/HOST_ON matrix** — the I.8 mechanisms with a disposition + claim-authority each.
+
+**E.5 Cross-output consistency requirements:** S2 axes identical across #1/#3; Foundry whole-vs-component identical across #1/#4; Sim placement identical across #1/#5; no output makes S2 operative; no output invents a class absent from I.3.
+
+**E.6 Scoring rubric (per output): PASS / PARTIAL / FAIL** on: (a) uses only the read set; (b) no prohibited collapse; (c) correct maturity language; (d) resolves its assigned open items; (e) cross-output consistent. **PARTIAL is not a pass.**
+
+**E.7 Kill criteria (auto-FAIL the whole test) — explicit required concepts, no subjective test:** the whole test auto-FAILs if any output (a) invents a new architectural class absent from I.3; (b) makes an S2 unit operative (S2 required/prohibited without an S3/Settings adoption link); (c) asserts the Foundry or Agent Runtime commits domain truth; (d) makes a false build/maturity or "moat"/superiority claim; **or (e) OMITS any of these five required concepts that must be present and correctly placed** — (i) the **OMNI Simulation Lab** boundary (candidate capability; specs/runs/outputs = S1; eval = Platform-E&V/Build-OS), (ii) the **integrated Intelligence Foundry vs. Foundry-maintenance-machinery** whole/component distinction, (iii) the **OpenEvidence clinical firewall** (literature/guideline/clinician-wisdom distinct `authority_class`; patient_context→S3/S6; care_outcome→S1/S3), (iv) **adoption-time normativity** (storing ≠ adopting), (v) **admission_scope ≠ artifact-custody, and access_policy_refs[] plural/access-time ≠ intrinsic visibility**.
+
+**E.8 Adjudication + PASS/HOLD rule (Knox §8 — the test agent does NOT grade its own test):** the fresh authorability agent **returns only** (i) the six outputs, (ii) a **nonbinding self-conformance matrix**, (iii) exact source pointers per claim, and (iv) explicit uncertainties / any §E.7(e) concept it could not source. **Knox — not the test agent — adjudicates** the six outputs against §E.6/§E.7 and issues the controlling PASS/HOLD (the same independence law used in G4). The whole test PASSES **only if Knox scores all six outputs PASS** with **zero PARTIAL, zero FAIL, and zero kill-criterion trip**. Any PARTIAL or FAIL → **HOLD** → the packet is patched at the failing section (NOT a new arc).
+
+**E.9 Exact future authorability prompt template (unpinned — pinned values filled at freeze-time):**
+```
+You are a fresh repo-connected OMNI author with NO chat history.
+Read ONLY these objects at these exact pins (ALL at the candidate commit or a pinned blob):
+  - packet:  <candidate_commit>:.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md
+  - G3 base: blob e364acb  · G4 carrier: blob 07f8662
+  - read-set items 2–8 in App-E §E.2, each at <candidate_commit>:<exact_path>
+Do NOT open any other file. Do NOT search the broader corpus. Do NOT use chat history.
+Do NOT read any file at a moving branch tip.
+Produce the six outputs in App-E §E.4 to their exact schemas.
+Obey App-E §E.3 rules, §E.5 cross-output consistency, §E.6 rubric.
+You do NOT issue the PASS/HOLD verdict — Knox adjudicates (App-E §E.8).
+Return ONLY: (1) the six outputs; (2) a NONBINDING self-conformance matrix over §E.6;
+(3) exact source pointers per claim; (4) explicit uncertainties + any §E.7(e)
+concept you could NOT source from the read set. Do not declare the test passed.
+```
+
+---
+
+## §G5-9 Governance receipt + PROPOSED control-plane sync (applied only in the reviewed acceptance commit)
+
+Per Agent Work Protocol §5, a new architecture/process markdown needs passport + catalog row + read-graph evaluation **in the same pass**. Because the hard stops forbid silent control-plane mutation and Knox required a STOP, the control-plane edits are **PROPOSED here** and applied **only in the G5 acceptance/landing commit after Knox verification**.
+
+- **Passport:** present (top), `analysis_nonbinding · add_tier2 · consult_if_routed · user_knox_required · #15 unchanged`.
+- **Catalog row (PROPOSED, `01`):** Tier-2 row for this file — `type: architecture_reconciliation (C4.4 integrated reference + disposition + downstream authoring packet)` (corrected from `plan_or_roadmap` — Knox §14), `authority: analysis_nonbinding`, `status: G5_REWORKED_PENDING_NICK_KNOX_REVIEW`. **Supersession:** on acceptance this packet becomes the C4.4 arc's live boot pointer for downstream authors; it does **NOT** supersede G3 or G4 substance.
+- **Read-graph (PROPOSED, `04` route #9j fold-in):** extend the existing C4.4 route to include the G5 carrier; **#15 NOT touched.**
+- **`FWREG-007` (PROPOSED):** `candidate → resolved-with-bounded-deferrals`. `FWREG-006` unchanged (`watch`). Forward pointer `FWREG-010` (Agent-Runtime consumes G2/G3 + owns `C44-G4-R01` jointly with Context Router/retrieval-index). **`FWREG-014` (Reactor) unchanged** (frozen, WI16 gates — §G5-3Y).
+- **Charter status (PROPOSED):** `...G5_not_started` → `G5_REWORKED_PENDING_NICK_KNOX_REVIEW`.
+- **Handoff pointer:** this file is the C4.4 G5 handoff; the **outer checkpoint #15 is NOT repointed** (C4.4 is a parallel pre-spine input).
+
+**Verification that nothing frozen changed (re-confirmed at commit):** G3 blob `e364acb` unchanged; G4 carrier `07f8662` + `C44-G4-R01` unchanged; Runtime bridge `de5b9a1`, AGENTS, read-graph #15, G1, G2 untouched; remote tip `6388d60` unchanged; `main` `a87d305` not merged/pushed.
+
+---
+
+## §G5-10 Change receipt (concise) + Stop report (Protocol §9)
+
+### Change receipt — what this file is and how it reached its current bytes
+
+**One concise history (not a reviewer-by-reviewer diary):** the C4.4 G5 carrier passed through (a) an initial disposition draft; (b) a Knox rework adding the 19-ID matrices, the trust/permeability/membrane axis, six OMNI-actor profiles, the cross-loop/radius seam, and Polaris/Reactor negative dispositions; (c) a naming/precision pass reverting the fabricated `KK1–KK8`/`OMNI Medica/Materia/Atlas` and recording the operator-decided **Reservoir** family; (d) an integration reframe adding the Part I front door; (e) a consistency + test-freeze-preparation pass; and **(f) this final pre-candidate type + freeze patch.** Prior per-pass return-packs and self-certification checklists have been **removed** (they were correction narration, not durable architecture).
+
+**This pass (final pre-candidate type + freeze patch) changed only:**
+- **I.4 origin/authority model** — renamed the S2 axis `custody_scope` → **`admission_scope`** (`principal_local · operator_local · federation_shared · OMNI_internal · public_reference`; = governed admission scope, NOT S1/D7 custody); `origin_party` defined relative to the admitting principal/estate; replaced singular `visibility_policy_ref` → **`access_policy_refs[]` 0..n** (default-deny, composable, access-time, no self-grant); replaced the invalid/catch-all authority values with an explicit set (`publisher_or_journal · principal_assertion · institutional_record · …`), removed `literature` from `authority_class` and the `operator_record` catch-all; updated all twelve worked examples (meta-analysis → `source_kind=literature · authority_class=publisher_or_journal`; provider preference → `principal_assertion`; operator/build/brand → `institutional_record`).
+- **App-A (19 rows)** — every S2 coordinate now uses `admission_scope`/`access_policy_refs[]` and the corrected `authority_class` values; all slash-combined enums (P02/P05/P07/P14/P18/P19) rewritten to explicit primary+secondary or "primary varies by admitted unit; exactly one required."
+- **I.1** — replaced broad "interpretation machinery (S4)" with "external-evidence interpretation through S4 plus broader extraction/normalization through R.6 machinery."
+- **I.8** — Simile quantitative metrics regraded `[V]` → `[F]` speaker-asserted (row 12); row 14 status = "authorability specification authored; not frozen or executed"; `BUILD (IBM PLUG partial)` → split `BUY/WRAP/PARTNER` infrastructure + `BUILD` OMNI admission/authority/proof/maintenance semantics; verified-backbone + flagged-watch title preserved.
+- **App-D** — heading renamed "§G5-N Nomenclature & S2 **classification** — decision state" (S2 is not a roster); lesson-form physical/access/review partitioning routed to C5 + review/access owners, spine carries only the constitutional boundary.
+- **App-E** — every read-set input pinned as `<candidate_commit>:<exact_path>` (no branch-tip reads); the fresh agent returns six outputs + a NONBINDING conformance matrix + pointers + uncertainties and does **NOT** self-adjudicate — **Knox alone issues PASS/HOLD**; the spine §8 output no longer receives blank questions (ratify/diff `Knowledge Reservoirs`, carry `lesson` as a semantic form, preserve Clinical Memory=S3 + six-class + seams, route partitioning to C5).
+- **Whole-file sweep** — no live `custody_scope`/`visibility_policy_ref`/`public_source`/`literature`-as-authority_class/slash-combined-primary-enum remains; the earlier `custody_visibility_scope`/`source_authority_type`/3-axis references remain only in explicitly-labeled SUPERSEDED/historical notes.
+
+**Candidate-commit micro-patch (final, this pass) changed only (Knox 7 corrections):** (1) App-A **P05** split into two lineage-linked units (article `source_kind=literature·publisher_or_journal` + provider annotation `principal_assertion·use_ceiling=advisory`); removed invalid `advisory-noted`. (2) App-A **P02** no longer defaults patient notes to `form=lesson` — "primary form varies by admitted unit; exactly one required" with `patient_report`/`principal_assertion`. (3) App-A **P12** — `OR D6/inventory candidate` removed from the S2 coordinate (kept as the separate owning-domain route). (4) **§G5-N.4a** — real patient case + operator incident no longer universally S4 (owning clinical/ops/Accountability/Platform-E&V analysis via R.6; S4 only for external evidence); provider-local saved case uses a real semantic form + separate `use_ceiling=advisory` (advisory is not a form). (5) **§G5-N (line 876)** — Simulation `eval=S4` → Platform-E&V/Evaluation-&-Assurance or Build-OS owner-state (S4 only for external-evidence evaluation). (6) **App-E §E.2** — frontier path corrected to `.cursor/plans/doctrine/…`; repo files pinned `<candidate_commit>:<path>` split from evidence sources pinned by blob+path. (7) **I.4 example 8** — a generic CVE is `source_kind=vulnerability_record·authority_class=other_governed` (issuer), not `policy`/`regulator`; added `advisory·vulnerability_record` to the `source_kind` enum. Whole-file coordinate + source-path check = clean.
+
+**Source posture is in §G5-0 (updated).** OpenEvidence `EVSRC-2026-000068` and Simulation `EVSRC-2026-000242` were read in full this pass and reconciled (receipts in §G5-0). No repository-wide sweep; no new Gemini; no new artifact.
+
+### Stop report
+
+- **Source posture:** §G5-0 (honest read-fully vs consulted vs historical vs not-fully-read). This naming+precision pass performed **operator-directed recovery reads** of `cns_and_knowledge_reservoirs_frontier_2026-06-06.md` §3, `HANDOFF_2026-06-06_evidence_plane_and_knowledge_reservoirs.md`, `comparator_analogy_registry.md` §A (Palantir/Foundry), and G3 §10/§16 — **no repository-wide sweep, no new Gemini, no new artifact.** Adjacent carriers routed by exact pointer, not summarized into weaker prose (anti-flattening law).
+- **What this transaction did:** reworked the G5 disposition carrier per the Knox HOLD — corrected the factual/maturity errors, replaced the thin matrix with three synchronized 19-ID matrices, added the trust/permeability/membrane axis, the six OMNI-actor profiles, the cross-loop/radius consequence seam, the Polaris/Reactor negative dispositions, the separated plain-language receipt, the provider-portability decomposition, and the honest wiki/RAG/vector axis table; downgraded completion to `G5_REWORKED_PENDING_NICK_KNOX_REVIEW`.
+- **What it did NOT do:** promote · merge · push · repoint #15 · patch G3 §R (`e364acb`) · edit G4 (`07f8662`)/Runtime/AGENTS/G1/Task-D/C4.5/contracts/code/schemas · rerun Gemini · author Reactor/Accountability/Care/Platform/Polaris/Federation/permeability doctrine · mint any schema/vendor/service/plane/domain/family-name/label/trust-domain/membrane-service/permeability-store/universal-grant-engine · silently mutate control plane (PROPOSED only) · hand the draft to another agent · settle the operator/owner/ops taxonomy or the patient-portability mechanics (both routed open).
+- **Next authorized action:** **one-file candidate commit** on `analysis/c4-4-g3-reference-architecture` (Knox-authorized post-7-corrections; `analysis_nonbinding` test substrate — NOT G5 acceptance, NOT promoted, NOT merged to main, no force) → push → Knox remote-byte verification → three-angle sanity check (constitutional/type · comparator/future-resilience · downstream-authorability App-E) → patch only validated failures → G5 acceptance + bounded control-plane sync + C4.4 close.
+- **Stop declaration:** **C4.4 G5 CANDIDATE MICRO-PATCH COMPLETE LOCALLY. READY FOR THE ONE-FILE CANDIDATE COMMIT. main / G3 / G4 / Runtime / AGENTS / #15 UNCHANGED.**
+
+<!--
+Document identity (passport):
+ type: plan_or_roadmap (C4.4 G5 disposition ledger + v4 handoff carrier — routing map, NOT new architecture, NOT a summary-replacement for G3 §R)
+ authority: analysis_nonbinding (GRD-036) · agent_read_rule: consult_if_routed · review_gate: user_knox_required
+ status: G3_ACCEPTED · G4_PASS_30_OF_32 · G5_CANDIDATE_READY_FOR_ONE_FILE_COMMIT (analysis_nonbinding test substrate) · not_promoted · not_merged · outer_checkpoint_#15_UNCHANGED
+ parent: C4.4 arc (charter §11 doc #5)
+ routes (by exact pointer, does not re-state): taxonomy_constitution_and_reference_architecture.md §§1–19 + §R (blob e364acb) · fixture_suite_and_adversarial_results.md (G4 @ 07f8662, PASS 30/32 + C44-G4-R01) · federation_contract.md (draft_for_ratification) · D7_documents_consent_media_contract.md (draft_for_ratification + partial build) · omni_enterprise_posture_2026-06-03.md (ratified trust axis) · governed_reporting_resolution_capture.md (Accountability §11 multi-radius) · platform_loop_capture.md (§0a cross-loop) · care_operating_model_capture.md (§11 Polaris) · residual_moat_and_network_formation_doctrine.md (§0.5) · evolution_narrative_volume_7 (Reactor R3)
+ catalog row: PROPOSED (§G5-9) · read-graph: #9j fold-in PROPOSED · #15 untouched
+ hard-stops: no promotion · no merge · no push · no #15 repoint · no G3 §R / G4 patch · no schema/vendor/plane/domain/family-name/label/trust-domain/membrane-service mint · no build authorization · control-plane edits PROPOSED not applied · Reactor/Care/Platform/Accountability/Polaris/Federation/permeability NOT re-authored · operator/owner/ops taxonomy + patient portability mechanics routed-open
+ factual corrections: FC-1 Federation draft_for_ratification (NOT undrafted) · FC-2 D7 maturity split (NOT "built") · FC-3 wiki/RAG/vector honest axis (NOT stricter/none) · FC-4 five-loop source located in C3.8 G4 §3
+ anti-flattening law: binding — permeability multidimensional not yes/no · membrane multi-layer not private-alpha-only · OMNI-main = six profiles · Accountability multi-radius preserved · Reactor negative-disposition · reserved ≠ designed ≠ contracted ≠ built ≠ evaluated ≠ production-proven
+-->
