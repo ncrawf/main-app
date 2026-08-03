@@ -21,11 +21,20 @@ It does NOT prove:
 
 You do not issue the controlling PASS/HOLD verdict. Knox adjudicates.
 
+## Run-2 rerun discipline (MANDATORY — run-1 was PARTIAL/HOLD)
+
+This is run-2 against a patched packet. Run-1's Angle C was the strongest run (six outputs produced, dual pins verified, read set respected), but two outputs were PARTIAL because two required concepts were supplied only by the prompt and were unsourceable from the packet. The patch fixes exactly that:
+
+1. **Every mandatory concept must be cited to the frozen packet.** A concept you can source **only from this prompt** (not from the read-set objects) makes the corresponding output **PARTIAL**. State an explicit packet pointer (section/line) for each required concept.
+2. **The two proof programs and the two-speed law are now packet-sourceable — cite them there.** The patched packet contains **§I.3A** (operational decision-and-override lineage seam / two-speed law), **§I.9A.1** (F-Self Intelligence Foundry Pilot — Executable Proof Program), and **§I.9A.2** (Enterprise Bootstrap Steel Thread — Executable Proof Program), plus **§I.9B** (enterprise interface obligations) and **§I.9C** (admission-operations + scale-risk register). Output 4 and Output 6 must cite I.9A.1/I.9A.2 (not the prompt) and can no longer be PARTIAL for those programs being "prompt-only." The two-speed law must be cited to I.3A.
+
 ## Frozen integrity pins
 
+*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f`; those are superseded. Verify against the pins below.*
+
 - Repository: `ncrawf/main-app`
-- Target commit: `865afadc7fe0e908acc1f5125006d1d00326c69b`
-- G5 packet blob: `d01978fc39939d09f33fbb95b87866a6f823d1e0`
+- Target commit: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be`
+- G5 packet blob: `674fffa5944c2911a4bd830cc27f1356029fc4bd`
 - G3 **architecture substance** blob (the accepted architecture you author from): `e364acbad3352457eb8c761d287e91787ea71eea`
 - G3 **acceptance carrier** blob (same path at the target commit; status/receipt wrapper only): `76a8cdfc4c75376ec5db1fa658c714a973169426`
 - G4 carrier blob: `07f866207836a22c103505835f80aa495a623101`
@@ -36,20 +45,20 @@ You do not issue the controlling PASS/HOLD verdict. Knox adjudicates.
 
 ### G3 dual pinning (read before verifying)
 
-G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input you author from. At target commit `865afad`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
+G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input you author from. At target commit `bcb2b19`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
 
-Verify: the target commit `865afad`; the G5 packet blob `d01978f`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `865afad:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
+Verify: the target commit `bcb2b19`; the G5 packet blob `674fffa`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `bcb2b19:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
 
 ## Exact read set — no other sources
 
-1. G5 packet: `865afadc7fe0e908acc1f5125006d1d00326c69b:.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md`
+1. G5 packet: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md`
 2. G3 accepted architecture substance: blob `e364acbad3352457eb8c761d287e91787ea71eea` — path `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` (equivalently `6c86e2edc3935f5f7bad9c628b4e450837712767:<that path>`). Do NOT author from the target-commit carrier `76a8cdf`; consult it only for acceptance status.
 3. G4 carrier: blob `07f866207836a22c103505835f80aa495a623101` — path `.cursor/plans/v4_C4_4_fixture_suite_and_adversarial_results.md`
-4. Prior-depth map: `865afadc7fe0e908acc1f5125006d1d00326c69b:.cursor/plans/v4_C4_4_prior_depth_and_july_2026_reality_map.md`
-5. Reservoir frontier: `865afadc7fe0e908acc1f5125006d1d00326c69b:.cursor/plans/doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md`
-6. Spine shape §8: `865afadc7fe0e908acc1f5125006d1d00326c69b:.cursor/plans/v4_C4_spine_shape_plan.md`
-7. Comparator registry: `865afadc7fe0e908acc1f5125006d1d00326c69b:.cursor/plans/doctrine/comparator_analogy_registry.md`
-8. Build Entry Gate: `865afadc7fe0e908acc1f5125006d1d00326c69b:.cursor/plans/doctrine/11_build_entry_gate_v0.md`
+4. Prior-depth map: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/v4_C4_4_prior_depth_and_july_2026_reality_map.md`
+5. Reservoir frontier: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md`
+6. Spine shape §8: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/v4_C4_spine_shape_plan.md`
+7. Comparator registry: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/doctrine/comparator_analogy_registry.md`
+8. Build Entry Gate: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/doctrine/11_build_entry_gate_v0.md`
 9. OpenEvidence: blob `7cb62ed01af289babe625510315e36ef29203f95` — path `.cursor/plans/ingestion/outside_learning/sources/2026-06/EVSRC-2026-000068_openevidence-ziegler-doctors-collective-wisdom-ai.md`
 10. Simulation: blob `a709c5de9be8e47ab6ac47780a0d6abc08a39977` — path `.cursor/plans/ingestion/outside_learning/sources/2026-07_wave-3/EVSRC-2026-000242_simile-joon-sung-park-human-behavior-simulation.md`
 
@@ -94,7 +103,7 @@ Every output must preserve:
 
 ## Two-speed cross-output law
 
-Immediate local operational adaptation must NOT depend on S2 admission.
+This law is stated in the packet at **§I.3A** — cite it. Immediate local operational adaptation must NOT depend on S2 admission.
 
 When an authorized action or override changes current behavior:
 
@@ -118,13 +127,13 @@ Include:
 - maturity language;
 - explicit uncertainties.
 
-Output 4 and Output 6 must name:
+Output 4 and Output 6 must name **and cite to the packet**:
 
-- the later F-Self executable proof program;
-- the later Enterprise Bootstrap Steel Thread;
+- the later **F-Self Intelligence Foundry Pilot — Executable Proof Program** (cite **§I.9A.1**);
+- the later **Enterprise Bootstrap Steel Thread — Executable Proof Program** (cite **§I.9A.2**);
 - exact Build Entry prerequisites.
 
-Naming a proof program does not count as executing or passing it.
+Both are now defined in the packet (I.9A); an output that sources them only from this prompt is PARTIAL. Naming a proof program does not count as executing or passing it.
 
 ## Return also
 

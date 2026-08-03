@@ -27,11 +27,24 @@ You test:
 
 You do not rewrite OMNI. You do not select a vendor. You do not issue the final PASS/HOLD verdict.
 
+## Run-2 rerun discipline (MANDATORY — run-1 was adjudicated NONCONFORMANT AS COMPARATOR EVIDENCE)
+
+This is run-2 against a patched packet. Run-1's Angle B was rejected as comparator evidence. You MUST NOT repeat its failures:
+
+1. **Verify the CORRECT C4.4 G4 carrier and STOP on any integrity failure.** The only G4 carrier is **`.cursor/plans/v4_C4_4_fixture_suite_and_adversarial_results.md` at blob `07f8662`** (read-set item 12). **Read-set item 4 (`v4_C3_8_G4_disposition_ledger_and_handoff.md`) is a C3.8 background file — it is NOT the G4 carrier; do NOT check it for the G4 pin.** Run-1 failed by checking the C3.8 file, reporting a false "G4 discrepancy", and then continuing past it. The prompt requires you to **STOP with an integrity-mismatch receipt** if any expected relationship fails — do not continue.
+2. **No web access ⇒ NO external comparator conclusions.** You may use **current official primary sources only**, each with exact source + access date + evidence type. If official current web access is unavailable, you must **stop all external/incumbent comparator conclusions** and return the **repository-only gap analysis separately, explicitly marked incomplete**. Run-1 failed by having no web access and then supplying current-vendor conclusions from model memory ("established 2024–2025 baselines"). That is forbidden — vendor claims from memory are rejected.
+3. **No S2 category errors.** Do NOT model S2 as a golden-record layer, an active policy layer, or current operational configuration. Entity resolution produces candidate associations; **identity truth commits as S3.** A reusable mapping *pattern* may be S2; an **active operational mapping** is committed governance/domain configuration. A reusable procedure/lesson may be S2, but its **operative force comes only from an explicit S3/Settings adoption link** (never an S2 field). F-Self does not produce "Verified Truth (S2)"; S2 is accepted reusable knowledge under a bounded authority/use profile.
+4. **No arbitrary performance/scale targets as architecture.** Do NOT canonize "<2s", "100% deterministic S2 rebuild", "7 days without intervention", or any invented latency/throughput number. Targets are **consequence-specific and set later by Task-D / Build Entry**, not by this test. OMNI must prove reconstructability, reproducibility under pinned versions where promised, complete lineage, and preservation of the original admission decision — **not** universal deterministic regeneration of every S2 outcome.
+
+**Retained-value note:** run-1's repository-grounded gap hypotheses were retained by Knox and are already routed in the patched packet (I.9B enterprise interfaces + I.9C admission-operations/scale-risk). Its vendor rankings, current-capability assertions, S2 golden-state model, and arbitrary targets were rejected. Do not re-import those rejected conclusions.
+
 ## Frozen integrity pins
 
+*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f`; those are superseded. Verify against the pins below.*
+
 - Repository: `ncrawf/main-app`
-- Target commit: `865afadc7fe0e908acc1f5125006d1d00326c69b`
-- G5 packet blob: `d01978fc39939d09f33fbb95b87866a6f823d1e0`
+- Target commit: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be`
+- G5 packet blob: `674fffa5944c2911a4bd830cc27f1356029fc4bd`
 - G3 **architecture substance** blob (the architectural input under test): `e364acbad3352457eb8c761d287e91787ea71eea`
 - G3 **acceptance carrier** blob (same path at the target commit; status/receipt wrapper only): `76a8cdfc4c75376ec5db1fa658c714a973169426`
 - G4 carrier blob: `07f866207836a22c103505835f80aa495a623101`
@@ -42,12 +55,12 @@ You do not rewrite OMNI. You do not select a vendor. You do not issue the final 
 
 ### G3 dual pinning (read before verifying)
 
-G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `865afad`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
+G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `bcb2b19`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
 
 - **G3 architecture input** — exact architecture blob `e364acbad3352457eb8c761d287e91787ea71eea`; equivalently resolvable at `6c86e2edc3935f5f7bad9c628b4e450837712767:.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` (expected blob `e364acb`). This is the architecture you evaluate.
-- **G3 acceptance carrier** — at `865afad`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
+- **G3 acceptance carrier** — at `bcb2b19`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
 
-Verify: the target commit `865afad`; the G5 packet blob `d01978f`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `865afad:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
+Verify: the target commit `bcb2b19`; the G5 packet blob `674fffa`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `bcb2b19:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
 
 ## Automatic boot-context disclosure (mandatory)
 
@@ -63,7 +76,7 @@ You are a repository-connected agent. This repository automatically injects OMNI
 1. `.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md`
 2. `.cursor/plans/v4_C4_4_prior_depth_and_july_2026_reality_map.md`
 3. `.cursor/plans/v4_C3_8_G2_convergence_and_translation_map.md`
-4. `.cursor/plans/v4_C3_8_G4_disposition_ledger_and_handoff.md`
+4. `.cursor/plans/v4_C3_8_G4_disposition_ledger_and_handoff.md` — **this is a C3.8 background file, NOT the C4.4 G4 carrier; do NOT use it as the G4 integrity pin (the G4 carrier is item 12 at blob `07f8662`)**
 5. `.cursor/plans/v4_C4_agent_runtime_and_harness_capture.md`
 6. `.cursor/plans/doctrine/09_omni_build_os_layer_model.md`
 7. `.cursor/plans/doctrine/10_omni_build_os_rollout_sequence.md`
@@ -71,7 +84,7 @@ You are a repository-connected agent. This repository automatically injects OMNI
 9. `.cursor/plans/doctrine/comparator_analogy_registry.md`
 10. `.cursor/plans/v4_C4_spine_shape_plan.md` — especially §8
 11. `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` — evaluate the **architecture substance** at blob `e364acb` (or `6c86e2e:<that path>`); the target-commit carrier `76a8cdf` is status/receipt only.
-12. `.cursor/plans/v4_C4_4_fixture_suite_and_adversarial_results.md`
+12. `.cursor/plans/v4_C4_4_fixture_suite_and_adversarial_results.md` — **THE C4.4 G4 carrier; must match pinned blob `07f8662` at the target commit**
 
 The G4 file must match its pinned blob at the target commit. For G3, apply the dual-pinning rule above: evaluate the architecture substance `e364acb` (readable blob, or via `6c86e2e:<G3 path>`) and separately confirm the acceptance carrier `76a8cdf` at the target commit — the two are expected to differ.
 
@@ -163,6 +176,8 @@ At every stage identify:
 
 ## Test 3 — Operational decision/override two-speed loop
 
+The patched packet now states this law explicitly in **§I.3A (operational decision-and-override lineage seam / two-speed law)**. Trace against I.3A and cite it; report any place I.3A is insufficient.
+
 Fixture: a scheduling agent proposes X. An authorized clinic manager chooses Y because of a local undocumented constraint.
 
 **Fast operational clock.** Trace:
@@ -202,7 +217,7 @@ Do not propose a seventh constitutional class unless you can prove that the exis
 
 ## Test 4 — Executable proof-program design
 
-You are not executing these proofs.
+Both programs are now named in the patched packet: **F-Self Intelligence Foundry Pilot (§I.9A.1)** and **Enterprise Bootstrap Steel Thread (§I.9A.2)**. Anchor your specifications to those sections and report any gap. You are not executing these proofs.
 
 **A. F-Self Intelligence Foundry Pilot.** Specify:
 
@@ -224,8 +239,8 @@ You are not executing these proofs.
 - identity collisions;
 - workflow/action/override fixture;
 - correction and revocation;
-- scale assumptions;
-- latency and reliability assumptions;
+- scale assumptions **(qualitative — do NOT invent specific latency/throughput numbers; consequence-specific measurable targets are set later by Task-D / Build Entry, not here)**;
+- reliability assumptions **(qualitative; no canonized number)**;
 - failure injections;
 - vendor-switching test;
 - architecture/contract prerequisites;

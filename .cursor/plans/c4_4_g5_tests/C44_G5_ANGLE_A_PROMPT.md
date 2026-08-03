@@ -16,11 +16,21 @@ You are NOT:
 
 Your only task is to attempt to prove that the frozen G5 packet is internally ill-typed, constitutionally inconsistent, authority-collapsing, or contradicted by its own examples and appendices.
 
+## Run-2 rerun discipline (MANDATORY — run-1 was adjudicated NONCONFORMANT)
+
+This is run-2 against a patched packet. Run-1's Angle A was rejected as a non-test. You MUST NOT repeat its three failures:
+
+1. **Produce the COMPLETE tables — no shortcuts.** You must output a full conformance row for **all twelve I.4 worked examples** and for **every App-A row P01–P19**. "Remaining rows implicitly conform" is **FORBIDDEN** and auto-invalidates your submission. Inspect each actual coordinate against the declared axes and cardinalities yourself.
+2. **Do NOT use the packet's own change-receipts or self-certification as blocking architecture.** Statements in §G5-10 like "all slash-combined enums rewritten", "removed invalid advisory-noted", or "whole-file coordinate check clean" are the author's diary, **not** constitutional law. When a mutation "fails", the blocking text must be an actual **constitutional rule / axis definition / cardinality** in I.3/I.3A/I.4 or the G3 substance — never a §G5-10 correction statement. A mutation blocked only by a change-receipt counts as NOT independently tested.
+3. **Actually trace the operational override against I.3A.** The packet now contains **§I.3A — the operational decision-and-override lineage seam (two-speed law)**. Your override trace (below) must cite I.3A and resolve **every** field and owner; a bare "lands in S3 or S1" is not a trace.
+
 ## Frozen integrity pins
 
+*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f`; those are superseded. Verify against the pins below.*
+
 - Repository: `ncrawf/main-app`
-- Target commit: `865afadc7fe0e908acc1f5125006d1d00326c69b`
-- G5 packet blob: `d01978fc39939d09f33fbb95b87866a6f823d1e0`
+- Target commit: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be`
+- G5 packet blob: `674fffa5944c2911a4bd830cc27f1356029fc4bd`
 - G3 **architecture substance** blob (the architectural input under test): `e364acbad3352457eb8c761d287e91787ea71eea`
 - G3 **acceptance carrier** blob (same path at the target commit; status/receipt wrapper only): `76a8cdfc4c75376ec5db1fa658c714a973169426`
 - G4 carrier blob: `07f866207836a22c103505835f80aa495a623101`
@@ -31,24 +41,24 @@ Your only task is to attempt to prove that the frozen G5 packet is internally il
 
 ### G3 dual pinning (read before verifying)
 
-G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `865afad`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
+G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `bcb2b19`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
 
 - **G3 architecture input** — exact architecture blob `e364acbad3352457eb8c761d287e91787ea71eea`; equivalently resolvable at `6c86e2edc3935f5f7bad9c628b4e450837712767:.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` (expected blob `e364acb`). This is what you attack.
-- **G3 acceptance carrier** — at `865afad`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
+- **G3 acceptance carrier** — at `bcb2b19`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
 
 Before analysis, verify:
 
-- the repository branch/commit resolves to the target commit `865afad`;
-- the G5 file resolves to the exact G5 packet blob `d01978f`;
+- the repository branch/commit resolves to the target commit `bcb2b19`;
+- the G5 file resolves to the exact G5 packet blob `674fffa`;
 - the G4 file resolves to the exact G4 blob `07f8662`;
 - **G3 architecture substance:** `e364acb` exists as a readable blob, OR `6c86e2edc3935f5f7bad9c628b4e450837712767:.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `e364acb`;
-- **G3 acceptance carrier (verified separately):** `865afad:.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdf`.
+- **G3 acceptance carrier (verified separately):** `bcb2b19:.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdf`.
 
 The two G3 blobs are expected to differ; do NOT require them to be equal. STOP and return only an integrity-mismatch receipt only if one of the expected relationships above fails.
 
 ## Exact read set — no other files
 
-1. `.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md` — at target commit; expected blob `d01978fc39939d09f33fbb95b87866a6f823d1e0`.
+1. `.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md` — at target commit; expected blob `674fffa5944c2911a4bd830cc27f1356029fc4bd`.
 2. G3 architecture substance — read blob `e364acbad3352457eb8c761d287e91787ea71eea` (path `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md`; equivalently `6c86e2edc3935f5f7bad9c628b4e450837712767:<that path>`). Do NOT read the target-commit carrier `76a8cdf` as the architecture input; consult it only for acceptance status.
 3. `.cursor/plans/v4_C4_4_fixture_suite_and_adversarial_results.md` — expected blob `07f866207836a22c103505835f80aa495a623101`.
 
@@ -107,18 +117,18 @@ A scheduling agent proposes action X.
 
 An authorized clinic manager rejects X because of a local constraint that is not represented in current reusable knowledge.
 
-Trace, without inventing a seventh class:
+Trace against **§I.3A (the two-speed law)** — cite the exact I.3A clause for each step — without inventing a seventh class. Every field and owner must be resolved (a bare "lands in S3 or S1" is a FAIL):
 
-1. where the proposed action is recorded;
-2. where the override and reason are recorded;
-3. which owner commits the actual operational state;
-4. how the next authorized run sees the current local state immediately;
-5. what remains immutable S1 evidence;
-6. what may become an S2 candidate;
+1. where the proposed action is recorded, and where the **authority evaluation** is recorded;
+2. where the override, reason, context/source references, and **policy/model/configuration versions** are recorded;
+3. **the exact owning domain / Settings / governance home** that commits the actual operational state (name it — not "S3 or S1" generically);
+4. how the next authorized Context Router (S6) draw sees the current local state immediately, with NO wait for S2;
+5. what remains immutable S1 decision/run evidence, and where **effective time vs recorded time** live;
+6. what may become an S2 candidate (the `proposed_reusable_lesson` scope);
 7. what review precedes reusable generalization;
-8. how one-time, temporary, and continuing local behavior are distinguished;
+8. which of the six I.3A scope kinds applies — `one_time_override` / `temporary_condition` / `continuing_local_configuration` / `proposed_reusable_lesson` / `adopted_local_policy` / `network_promoted_knowledge` — and how one-time vs temporary (with expiry) vs continuing is distinguished;
 9. how outcome and later reconsideration are linked;
-10. how the local override is prevented from silently becoming platform-common or network knowledge.
+10. how the local override is prevented from silently becoming operator-wide, platform-common, or network knowledge (the separate promotion gate).
 
 A surviving defect exists if:
 
