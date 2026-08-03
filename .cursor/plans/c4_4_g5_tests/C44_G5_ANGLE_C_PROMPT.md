@@ -1,5 +1,7 @@
 # C4.4 G5 — ANGLE C: Downstream Authorability Test
 
+> **⛔ HISTORICAL-EXECUTED · RUN-2 PASS 6/6 · CARRIED FORWARD — DO NOT RERUN.** Knox adjudicated Angle C run-2 (against target `f7db832` / packet blob `a12bd0e`) as **PASS 6/6** (zero PARTIAL, zero FAIL, zero App-E kill criteria). Under the subsequent bounded R2 metadata/state patch (`13f0d98` / `7c83e7e`), the Angle-C source/authoring sections — I.2–I.9C, I.10 authoring contracts/output schemas, and App-E E.3/E.4/E.6/E.7 — are **proven byte-unchanged** between `f7db832` and `13f0d98`, so Angle C is **carried forward without a rerun**. This file is retained ONLY as the historical record of the passed run; its pins intentionally remain at the run-2 target (`f7db832`/`a12bd0e`). Do NOT re-dispatch it for the run-2 A/B reruns. Raw output: `results/run2/ANGLE_C_RAW.md`.
+
 > Self-contained relay prompt. Send verbatim to a fresh repo-connected Opus/Claude author in a new context. No prior OMNI chat, no web, no repository search outside the exact read set. It produces the six downstream outputs and does NOT self-adjudicate. It explicitly does NOT prove code or enterprise operation.
 
 ## Role

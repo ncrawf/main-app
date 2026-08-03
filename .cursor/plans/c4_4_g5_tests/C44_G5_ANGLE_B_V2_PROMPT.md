@@ -56,11 +56,11 @@ There is no "helpful memory" fallback. A vendor claim from model memory invalida
 
 ## Frozen integrity pins
 
-*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f` (superseded); the bounded post-test patch `bcb2b19` / `674fffa` is also superseded by the Knox pre-flight micro-patch. Verify against the pins below.*
+*Repinned for the run-2 Angle-B RERUN (web-capable context mandatory): run-1 targeted commit `865afad` / packet blob `d01978f` (superseded); the bounded post-test patch `bcb2b19` / `674fffa` is superseded by the Knox pre-flight micro-patch `f7db832` / `a12bd0e`, which was the run-2 target and is now superseded by the run-2 R2 metadata/state patch `13f0d98` / `7c83e7e` — footer artifact-identity + App-E E.1 external-freeze correction only; no comparator/architecture change. This rerun REQUIRES live official-source web access; if web is unavailable, follow the web-availability gate below (mark incumbent cells `NOT_EVALUATED`, return only repository-side analysis, title the result `ANGLE B INCOMPLETE — EXTERNAL EVIDENCE UNAVAILABLE`, and declare ineligibility for full adjudication). Verify against the pins below.*
 
 - Repository: `ncrawf/main-app`
-- Target commit: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002`
-- G5 packet blob: `a12bd0ef9821c13c3a0144977d3a73cd8e1dc42a`
+- Target commit: `13f0d98027da7087428f47bc07363645a5f4e4ab`
+- G5 packet blob: `7c83e7ef0e7bbc29f14a5341edd1fbfed6bf07c8`
 - G3 **architecture substance** blob (the architectural input under test): `e364acbad3352457eb8c761d287e91787ea71eea`
 - G3 **acceptance carrier** blob (same path at the target commit; status/receipt wrapper only): `76a8cdfc4c75376ec5db1fa658c714a973169426`
 - G4 carrier blob: `07f866207836a22c103505835f80aa495a623101`
@@ -71,12 +71,12 @@ There is no "helpful memory" fallback. A vendor claim from model memory invalida
 
 ### G3 dual pinning (read before verifying)
 
-G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `f7db832`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
+G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `13f0d98`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
 
 - **G3 architecture input** — exact architecture blob `e364acbad3352457eb8c761d287e91787ea71eea`; equivalently resolvable at `6c86e2edc3935f5f7bad9c628b4e450837712767:.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` (expected blob `e364acb`). This is the architecture you evaluate.
-- **G3 acceptance carrier** — at `f7db832`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
+- **G3 acceptance carrier** — at `13f0d98`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
 
-Verify: the target commit `f7db832`; the G5 packet blob `a12bd0e`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `f7db832:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
+Verify: the target commit `13f0d98`; the G5 packet blob `7c83e7e`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `13f0d98:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
 
 ## Automatic boot-context disclosure (mandatory)
 
