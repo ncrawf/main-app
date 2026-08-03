@@ -1,8 +1,8 @@
-# HANDOFF — C4.4: G1/G2 landed on `main`, G3 §R ACCEPTED, G4 KNOX-ADJUDICATED = PASS 30/32 (live 2026-08-01; filename retains its 2026-07-31 origin)
+# HANDOFF — C4.4: G5 ACCEPTED · ARCHITECTURE/AUTHORABILITY ARC CLOSED · DOWNSTREAM RUNBOOK (live 2026-08-03; filename retains its 2026-07-31 origin)
 
-Document type: `handoff` (operational-state transfer / landing record — NOT an architecture essay)
-Authority: `analysis_nonbinding` (`GRD-036`). Records a clerical curated landing; binds nothing; promotes nothing.
-Status: `c4_4_G1_G2_MERGED_to_main · agent_runtime_bridge_accepted_bounded · G3_ACCEPTED · G4_KNOX_ADJUDICATED_PASS_30_OF_32 · no_kill_criteria · G5_not_started · analysis_nonbinding · not_promoted · outer_checkpoint_UNCHANGED` — G1/G2 MERGED to `main` @ `fa98a34` (Knox PASS + Nick, 2026-08-01). **★ 2026-08-01 UPDATE: C4.4 G3 §R ACCEPTED (Nick + Knox, content blob `e364acb`) on branch `analysis/c4-4-g3-reference-architecture` off `origin/main a87d305`, NOT merged, nothing promoted. G4 then FROZEN (fixtures + rubric in the G4 carrier `v4_C4_4_fixture_suite_and_adversarial_results.md`) and ADJUDICATED: a fresh repo-connected Gemini ran read-only (frozen commit `133d286`, no repo writes, submission preserved verbatim in §G4-C) → Knox adjudication = `PASS · 30/32 · K1–K10 NOT triggered` (§G4-D/E/F). Two of three alleged defects false-positive (already prohibited by frozen §R); one non-blocking finding `C44-G4-R01` (ranking/selection/exclusion influence) routes to G5/C5/Runtime. G3 unchanged (no amendment). G5 NOT started — eligible after Knox verifies this adjudication-close. See §0-G3-NEXT runbook.**
+Document type: `handoff` (operational-state transfer / landing record + live downstream runbook — NOT an architecture essay)
+Authority: `analysis_nonbinding` (`GRD-036`). Records a clerical curated landing + the C4.4 closeout; binds nothing; promotes nothing.
+Status: `c4_4_G1_G2_MERGED_to_main · agent_runtime_bridge_accepted_bounded · G3_ACCEPTED · G4_KNOX_ADJUDICATED_PASS_30_OF_32 · G5_ACCEPTED_NICK_KNOX · AUTHORABILITY_PASS_6_OF_6 · ENTERPRISE_IMPLEMENTATION_UNPROVEN · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · analysis_nonbinding · not_promoted · not_merged · outer_checkpoint_#15_UNCHANGED` — G1/G2 MERGED to `main` @ `fa98a34` (Knox PASS + Nick, 2026-08-01); G3 §R ACCEPTED (blob `e364acb`) + G4 KNOX-ADJUDICATED PASS 30/32 on `analysis/c4-4-g3-reference-architecture` (not merged). **★ 2026-08-03 UPDATE: C4.4 G5 ACCEPTED (Nick + Knox direct byte verification).** The G5 integrated reference/disposition/downstream-authoring packet is accepted at the architecture/authorability level; the downstream three-angle authorability test ran EXECUTED (**Angle C PASS 6/6**; fresh **Angle A VALID / five reconciliations applied**; fresh **Angle B VALID current-source / B-C01/B-C02 preserved + routed, not flattened**); **NO further A/B/C rerun and NO further C4.4 architecture formulation; enterprise implementation UNPROVEN.** This handoff is now the **live downstream runbook** — see **§0-CLOSEOUT** immediately below (it supersedes the §0-G3 / §0-G3-NEXT test-phase runbooks, which are retained as historical).
 Domain(s): architecture_governance, cns_orchestration, ai_substrate, evidence_processing, federation
 Lifecycle role: the live next-agent boot packet for C4.4 after the G2 curated landing. Supersedes `v4_C4_4_G2_kickoff_handoff.md` as the C4.4 boot artifact (the kickoff handoff is a consumed historical packet preserved ONLY on the C4.4 analysis branch — it is NOT on `main` and is NOT the live handoff).
 Source-of-truth relationship: points to the charter / G1 map / G2 constitution + the Agent-Runtime capture. Does NOT supersede the outer checkpoint (#15).
@@ -14,7 +14,32 @@ agent_read_rule: `consult_if_routed`
 
 ---
 
-## §0-G3 — LIVE ADDENDUM: C4.4 G3 §R ACCEPTED · G4 KNOX-ADJUDICATED = PASS 30/32 (2026-08-01)
+## §0-CLOSEOUT — LIVE TOP-OF-STATE (2026-08-03): C4.4 G5 ACCEPTED · ARC CLOSED · DOWNSTREAM CONSUMER RUNBOOK
+
+> This is the **live** top-of-state for C4.4 and **supersedes §0-G3 and §0-G3-NEXT** (retained below as the historical G3/G4 test-phase runbooks). **C4.4 is CLOSED at the architecture/authorability level. It does NOT prove: enterprise implementation · Palantir parity · production capability · hospital-scale operation · vendor selection · a moat.** Enterprise implementation is UNPROVEN until the F-Self Intelligence-Foundry Pilot + Enterprise Bootstrap Steel Thread proof programs run under Build-Entry/Build-OS.
+
+**Accepted objects (pin by blob, not branch tip):**
+- **G3 architecture** blob `e364acbad3352457eb8c761d287e91787ea71eea` (accepted, unchanged).
+- **G4 carrier** blob `07f866207836a22c103505835f80aa495a623101` (PASS 30/32; adjudication-close COMMIT `6388d606…`).
+- **G5 packet** `v4_C4_4_disposition_ledger_and_v4_handoff.md` on `analysis/c4-4-g3-reference-architecture` (ACCEPTED; the closeout commit SHA + accepted blob are in Opus's return report / the packet §G5-10 R4 receipt).
+- **Runtime bridge** blob `de5b9a1fc7bf9ff77797d28a53a6fef9ced3ed34` (unchanged).
+- **Preserved raw fresh-B enterprise-composition/proof analysis** — branch `analysis/c4-4-g5-three-angle-test-orchestration` · evidence commit `fee90d4685e962f75c571fcebfe2a466987d7c62` · path `.cursor/plans/c4_4_g5_tests/results/re_adjudication/ANGLE_B_FRESH_KNOX_RAW.md` · blob `24ed64d14394fd95df5ff349407cec1b36a683ea` · body sha256 `47bc728b2e4a159301d1186d85b1bda732cae00a5e9e642c84e97cafc71b8521` (+ `KNOX_RE_ADJUDICATION.md` alongside). **An FWREG row alone is INSUFFICIENT preservation — read the raw object.**
+
+**Mandatory consumer routes (each downstream team reads exactly this, then produces exactly that):**
+
+| consumer | READ (accepted G5 packet + fresh-B) | PRODUCE / PRESERVE |
+|---|---|---|
+| **Spine / C5** | G5 packet I.3A · I.4 · I.9B · I.9C · I.10 | Source Estate C5 · Knowledge Reservoir C5 · retrieval/context/ranking contract · connector/CDC contract · Identity candidate→commit interface · semantic-mapping/configuration boundary · admission-operations model |
+| **Runtime / CNS / owning domains** | G5 packet I.3A · I.6 · I.9B #4–#9 · **fresh-B mechanisms 8 · 12 · 15 + §3 two-speed trace + gaps B2-G08 · B2-G12** | preserve the seam: proposal → authority evaluation → action/override → reason/context/versions/time/scope → owner-state commit → immutable S1 decision/run receipt → immediate next S6 draw → later S2 candidate/admission |
+| **Task-D** | **fresh-B §1 (18-mechanism matrix) · §5 (permanent boundary map) · §6 (classified gap ledger) · §7 (2030/2035 failure forecast)** + G5 I.8 | decide BUILD / BUY / WRAP / PARTNER / HOST_ON per mechanism · ontology/action/process substrate · connector/CDC/process-observation composition · switching/exit · operating economics · admission capacity · consequence-specific objectives |
+| **Build Entry / Build OS / Platform E&V** | **fresh-B §2 (enterprise-bootstrap trace) · §3 (two-speed override trace) · §4A (F-Self EPP) · §4B (Enterprise Bootstrap Steel Thread)** + G5 I.9A | authorize + prove: F-Self Intelligence-Foundry Pilot · Enterprise Bootstrap Steel Thread · failure injection · rail switching · action/override lineage · temporal reconstruction · admission-channel saturation/degraded behavior |
+| **C5 (gap closure)** | **fresh-B gap ledger B2-G03 through B2-G13** | close each gap in the owning C5 contract; do not re-open C4.4 architecture |
+
+**Exact proof obligations before any parity/production/moat claim:** the **F-Self Intelligence-Foundry Pilot** and the **Enterprise Bootstrap Steel Thread** must be authorized + executed with measured, consequence-specific targets (no canonized latency/scale number). Until then, enterprise implementation is UNPROVEN.
+
+**Live hard stops (downstream-consumption phase):** NO further A/B/C rerun · NO further C4.4 architecture formulation · no edit to the accepted G3 (`e364acb`) / G4 (`07f8662`) / G5-packet accepted sections / Runtime bridge (`de5b9a1`) / AGENTS / read-graph #15 · no merge to `main` · **no force push** · no promotion · no schema/vendor/service/plane/domain mint · `C44-PROC-01` (unauthorized_analysis_branch_force_update · nonblocking · must_not_recur) recorded, must not recur. `analysis_nonbinding` throughout.
+
+## §0-G3 — HISTORICAL ADDENDUM (test-phase, SUPERSEDED by §0-CLOSEOUT): C4.4 G3 §R ACCEPTED · G4 KNOX-ADJUDICATED = PASS 30/32 (2026-08-01)
 
 > This addendum is the **live** top-of-state for C4.4. The §1–§4 landing record below is preserved as the **historical** G1/G2 landing record (it remains accurate for the pre-G3 transaction). Where they differ on current state, this addendum wins. **The bullets below trace the full G3 lifecycle (authored → amended → cleaned → pushed → accepted), the G4 freeze, and the G4 adjudication; the earliest bullets are historical detail, the acceptance + G4-freeze + G4-adjudication bullets are the live state.**
 >
@@ -33,9 +58,9 @@ agent_read_rule: `consult_if_routed`
 - **★ G4 fixtures + rubric FROZEN (2026-08-01):** the G4 carrier `v4_C4_4_fixture_suite_and_adversarial_results.md` (blob `2b89a0ffe814c3a173acb075364db943c7bddc1b`) was created + frozen this same transaction — charter §9 full fixture suite (Knox's 12 + F0 + F-Self + F-Inv) each with a frozen baseline pointer to the accepted §R, the Knox 16-dimension rubric verbatim (0/1/2, max 32; PASS 28–32 / PASS_WITH_NAMED_RECONCILIATIONS 24–27 / HOLD <24 or any K1–K10), and reserved §G4-C Gemini / §G4-D Knox-adjudication / §G4-E reconciliations / §G4-F verdict. **Gemini NOT run · G4 NOT executed/scored · G5 NOT started.**
 - **Exact next action:** **Knox freeze-verification** of the G4 carrier bytes (blob `2b89a0f`) + the six-file acceptance-close diff → then release the frozen Gemini packet (§0-G3-NEXT + the G4 carrier §G4-G) to a **fresh, repo-connected Gemini (read-only adversary)** → Knox adjudication into §G4-D/E/F → G5. See **§0-G3-NEXT runbook** immediately below.
 
-## §0-G3-NEXT — Next-agent runbook (2026-08-01): G3 ACCEPTED ✅ · G4 FROZEN ✅ · GEMINI RAN ✅ · KNOX ADJUDICATED ✅ (PASS 30/32) → Knox verify adjudication-close → G5
+## §0-G3-NEXT — HISTORICAL G3/G4 test-phase runbook (SUPERSEDED by §0-CLOSEOUT; G5 has since been ACCEPTED — do NOT read the "NEXT" steps below as live)
 
-> **Status:** G3 is **ACCEPTED**; G4 fixtures+rubric were **FROZEN**; **Gemini ran read-only**; **Knox adjudicated = PASS · 30/32 · no kill criterion** (recorded in the G4 carrier §G4-C/D/E/F). The live next step is **Step 9 (Knox verification of this adjudication-close)**, then an explicit **G5 opening** (a separate later transaction). **G5 is NOT started here.**
+> **Status (HISTORICAL):** this runbook drove the G3→G4 phase; it is preserved for provenance only. G3 was ACCEPTED, G4 fixtures+rubric FROZEN, Gemini ran read-only, Knox adjudicated PASS 30/32, then **G5 was authored, tested (Angle C PASS 6/6; fresh A/B VALID), and ACCEPTED** — see §0-CLOSEOUT. Every "NEXT / Step 9 / Step 10 / G5 opening" line below is a completed historical step, **not a live instruction.**
 
 **State reality (pin by blobs, not by branch tip):**
 | state | ref | contains |
