@@ -1,14 +1,15 @@
-<!-- C4.4 G5 THREE-ANGLE — RAW TEST EVIDENCE — ANGLE B v2 (enterprise-composition / proof-program adversary) — RUN-2 A/B RERUN (post-R2-patch, new independent WEB-CAPABLE agent)
+<!-- C4.4 G5 THREE-ANGLE — RAW TEST EVIDENCE — FRESH ANGLE B v2 (enterprise-composition / proof-program adversary, WEB-CAPABLE)
+knox_re_adjudication: VALID CURRENT-SOURCE ARCHITECTURE/PROOF TEST · PASS WITH TWO ANALYTICAL QUALIFICATIONS (B-C01 promotion_scope vs admission_scope; B-C02 S1 immutable-evidence wording). No constitutional blocker, no new G5 integration blocker; downstream contract + proof debt CONFIRMED. Substantive — must NOT be flattened; routed to Task-D §1/5/6/7, Build Entry/Build OS/E&V §2/3/4A/4B, C5 B2-G03..B2-G13, Runtime/CNS/owning-domains mech 8/12/15 + two-speed trace + B2-G08/G12. See KNOX_RE_ADJUDICATION.md.
 prompt_file: .cursor/plans/c4_4_g5_tests/C44_G5_ANGLE_B_V2_PROMPT.md
-prompt_blob (repinned @ orchestration 57707bd): e179f57 (see runbook)
-frozen_target_commit (G5 packet, R2-patched): 13f0d98027da7087428f47bc07363645a5f4e4ab
-frozen_packet_blob: 7c83e7ef0e7bbc29f14a5341edd1fbfed6bf07c8
-executor: fresh Knox-lineage (ChatGPT), repo-connected AND genuinely web-capable context — NOT Gemini. (The first run-2 Angle-B attempt was a Gemini context Knox adjudicated NONCONFORMANT / NOT EVALUATED — no verified live external evidence; Knox required FULL_WEB_CAPABLE_RERUN. This is that rerun.)
+prompt_blob: e179f57 (repinned @ orchestration 57707bd; see runbook)
+target_commit: 13f0d98027da7087428f47bc07363645a5f4e4ab
+packet_blob: 7c83e7ef0e7bbc29f14a5341edd1fbfed6bf07c8
+received_timestamp: 2026-08-03 (as relayed by Nick)
+raw_body_sha256: 47bc728b2e4a159301d1186d85b1bda732cae00a5e9e642c84e97cafc71b8521
+raw_body_sha256_scope: sha of every byte after the single exact-line body marker below (grep -c anchored marker == 1). NOTE the earlier run2_ab_rerun stamp 1e067e83… was computed with a non-anchored extraction that included wrapper tail; 47bc728b… is the correct pure-body sha; body bytes are byte-unchanged across the rename.
 web_availability_gate: NOT invoked — live official-source access to E01–E18 succeeded on 2026-08-03; incumbent columns are EVALUATED against official vendor documentation (not model memory).
-receipt_timestamp: 2026-08-03 (as relayed by Nick)
-raw_output_sha256 (body below <!--END-WRAPPER-->): 1e067e83bc7189336c3b6ad5c88f418f1fc0d754373e1823a40211f73fcd9c56
-knox_adjudication: PENDING — preserved verbatim; Knox adjudicates A+B together.
-relay_note: preserved exactly as relayed by Nick; body begins at "Angle B v2 — Architecture and Proof-Obligation Output" and ends at the explicit stop declaration. Tables preserved as-pasted. No cleaning, no reformatting into pipe-tables, no summary, no cross-agent contamination, no Opus patching of the body.
+executor: fresh Knox-lineage (ChatGPT), repo-connected AND genuinely web-capable context — NOT Gemini. (The first run-2 Angle-B attempt was a Gemini context Knox adjudicated NONCONFORMANT / NOT EVALUATED; Knox required FULL_WEB_CAPABLE_RERUN. This is that rerun; relocated from results/run2_ab_rerun/ANGLE_B_V2_RAW.md by git mv, body byte-unchanged.)
+relay_note: preserved exactly as relayed by Nick; body begins at "Angle B v2 — Architecture and Proof-Obligation Output" and ends at the explicit stop declaration. Tables preserved as-pasted. No cleaning, no reformatting, no summary, no cross-agent contamination, no Opus patching of the body.
 -->
 <!--END-WRAPPER-->
 

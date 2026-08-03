@@ -1,13 +1,14 @@
-<!-- C4.4 G5 THREE-ANGLE — RAW TEST EVIDENCE — ANGLE A (constitutional/type adversary) — RUN-2 A/B RERUN (post-R2-patch, new independent agent)
+<!-- C4.4 G5 THREE-ANGLE — RAW TEST EVIDENCE — FRESH ANGLE A (constitutional/type adversary)
+knox_re_adjudication: VALID · PASS WITH FIVE NAMED RECONCILIATIONS (A-R01..A-R05). No constitutional blocker. See KNOX_RE_ADJUDICATION.md in this folder.
 prompt_file: .cursor/plans/c4_4_g5_tests/C44_G5_ANGLE_A_PROMPT.md
-prompt_blob (repinned @ orchestration 57707bd): 8e1b7c41e6d8088ba4a4678e7632c43ded0f16c2
-frozen_target_commit (G5 packet, R2-patched): 13f0d98027da7087428f47bc07363645a5f4e4ab
-frozen_packet_blob: 7c83e7ef0e7bbc29f14a5341edd1fbfed6bf07c8
-executor: fresh Knox-lineage (ChatGPT) repo-connected context — NOT Gemini. (The first run-2 Angle-A attempt was a Gemini context that Knox adjudicated NONCONFORMANT TEST; this is the required new-independent-agent rerun against the R2-patched commit.)
-receipt_timestamp: 2026-08-03 (as relayed by Nick)
-raw_output_sha256 (body below <!--END-WRAPPER-->): 77573932534a2e052939ac70b269e9e90c90be05932f109c0961e9cbc6403792
-knox_adjudication: PENDING — preserved verbatim; Angle B web-capable rerun to follow; Knox adjudicates A+B together.
-relay_note: preserved exactly as relayed by Nick; body begins at "1. Integrity receipt" and ends at the explicit stop declaration. Tables preserved as-pasted (tab/inline separators). No cleaning, no reformatting into pipe-tables, no summary, no cross-agent contamination, no Opus patching of the body.
+prompt_blob: 8e1b7c41e6d8088ba4a4678e7632c43ded0f16c2
+target_commit: 13f0d98027da7087428f47bc07363645a5f4e4ab
+packet_blob: 7c83e7ef0e7bbc29f14a5341edd1fbfed6bf07c8
+received_timestamp: 2026-08-03 (as relayed by Nick)
+raw_body_sha256: 77573932534a2e052939ac70b269e9e90c90be05932f109c0961e9cbc6403792
+raw_body_sha256_scope: sha of every byte after the single exact-line body marker below (grep -c anchored marker == 1)
+executor: fresh Knox-lineage (ChatGPT) repo-connected context — NOT Gemini. (The first run-2 Angle-A attempt was a Gemini context Knox adjudicated NONCONFORMANT TEST; this is the required new-independent-agent rerun against the R2-patched commit; relocated from results/run2_ab_rerun/ANGLE_A_RAW.md by git mv, body byte-unchanged.)
+relay_note: preserved exactly as relayed by Nick; body begins at "1. Integrity receipt" and ends at the explicit stop declaration. Tables preserved as-pasted. No cleaning, no reformatting, no summary, no cross-agent contamination, no Opus patching of the body.
 -->
 <!--END-WRAPPER-->
 
