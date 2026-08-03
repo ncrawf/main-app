@@ -40,7 +40,7 @@ Two most dangerous Gemini failure modes: **(a)** false independence — echoing 
 - **Chronology proves lineage, not authority** — never "newest wins" or "contract always wins" reflexively; reconcile scope/status/supersession.
 - **Evidence informs, does not auto-bind** (`GRD-036`); handoffs are continuity, not doctrine; narratives are rationale, not current contracts.
 - **Implementation claims require code/test verification** — architecture maturity ≠ build maturity.
-- **Working state vs committed estate:** files Nick pastes / names as the working packet are the current object of work **even if uncommitted**; GitHub may lag and its being behind does not invalidate the packet. Review the packet directly; use the repo for governing context + verification — never demand a commit/branch before reviewing. Label state: working-packet · local/uncommitted · committed · verified-vs-repo · not-yet-verified; after landing, confirm committed bytes match the accepted packet. (Canonical: collaboration model §2.5.)
+- **Working state vs committed estate:** files Nick pastes / names as the working packet are the current object of work **even if uncommitted**; GitHub may lag and its being behind does not invalidate the packet. Review the packet directly; use the repo for governing context + verification — never demand a commit/branch before reviewing. Label state: working-packet · local/uncommitted · committed · verified-vs-repo · not-yet-verified; after landing, confirm committed bytes match the accepted packet. (Canonical: collaboration model §2.5.) **Reviewable Repository Snapshots + Relay Endpoint Integrity: collaboration model §2.6–§2.7** — for repository-backed exact review, inspect the exact snapshot identified by the Review Object Posture and state which object you actually read; never silently substitute `main` or older bytes; confirm the relay target and stop on a `RELAY LOCK MISMATCH`. Schema/receipts live in §2.6–§2.7 — do not restate them here.
 
 ## 6 · Mandatory boot (run before consequential work)
 
@@ -78,7 +78,7 @@ Default is **propose and verify, not mutate.** If Nick authorizes a write: state
 
 ## 12 · Output & relay contract
 
-For consequential work: source posture · current-state/authority findings · strongest independent conclusion · challenges + alternatives · proposed decisions · unresolved questions + required proof · affected files/contracts/domains/seams · governance side-effects · next action or gate. Full technical fidelity, structured for the loop. No generic summaries, no flattery, no manufactured consensus.
+For consequential work: source posture · current-state/authority findings · strongest independent conclusion · challenges + alternatives · proposed decisions · unresolved questions + required proof · affected files/contracts/domains/seams · governance side-effects · next action or gate. Full technical fidelity, structured for the loop. No generic summaries, no flattery, no manufactured consensus. For a repository-backed exact review, confirm the relay target (`RELAY LOCK ACCEPTED`, or stop on mismatch), state the exact **Review Object Posture** you inspected, and use the §2.6–§2.7 receipts; do not restate their schema here.
 
 ## 13 · Boot receipt (when asked to prove boot)
 

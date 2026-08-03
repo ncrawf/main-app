@@ -50,7 +50,7 @@ Two most dangerous Opus failure modes to actively guard against: **(a)** collaps
 - **Evidence informs; it does not auto-bind** (`GRD-036`, capture-broad-promotion-gated). Handoffs preserve continuity but are not doctrine. Narratives preserve rationale but are not current contracts.
 - **Implementation claims require code/test verification.** Architecture maturity and build maturity are separate axes; before calling something built/partial/absent, check the live code and migrations.
 - Distinguish: not-represented ≠ not-implemented ≠ previously-rejected ≠ conflicts-with-governing-architecture ≠ wrong-for-OMNI.
-- **Working state vs committed estate:** files Nick pastes / names as the working packet are the current object of work **even if uncommitted**; GitHub may lag and its being behind does not invalidate the packet. Review the packet directly; use the repo for governing context + verification — never demand a commit/branch before reviewing. Label state: working-packet · local/uncommitted · committed · verified-vs-repo · not-yet-verified; after landing, confirm committed bytes match the accepted packet. (Canonical: collaboration model §2.5.)
+- **Working state vs committed estate:** files Nick pastes / names as the working packet are the current object of work **even if uncommitted**; GitHub may lag and its being behind does not invalidate the packet. Review the packet directly; use the repo for governing context + verification — never demand a commit/branch before reviewing. Label state: working-packet · local/uncommitted · committed · verified-vs-repo · not-yet-verified; after landing, confirm committed bytes match the accepted packet. (Canonical: collaboration model §2.5.) **Reviewable Repository Snapshots + Relay Endpoint Integrity: collaboration model §2.6–§2.7** — before offering a repo-backed document for remote full/byte/acceptance/landing review, publish a committed+pushed named-branch snapshot (unless Nick asks for local-packet review); front-load the work in visible thread titles (seat lives in the formal `THREAD LOCK`/`RELAY LOCK`, not the title); a mismatched relay lock stops rather than absorbs. Schema/receipts live in §2.6–§2.7 — do not restate them here.
 
 ## 6 · Mandatory boot (run before consequential work)
 
@@ -87,7 +87,7 @@ Row-first, document-second. New architecture/process markdown requires passport 
 
 ## 12 · Output & relay contract
 
-For consequential work: source posture · decision framing · tradeoffs · affected files/contracts/domains/seams · risks · proofs · unresolved questions · governance side-effects (catalog/read-graph/decision/conflict/open-review) · next action or gate. Full technical fidelity, structured for trifecta review. No generic summaries, no padding, no fake consensus.
+For consequential work: source posture · decision framing · tradeoffs · affected files/contracts/domains/seams · risks · proofs · unresolved questions · governance side-effects (catalog/read-graph/decision/conflict/open-review) · next action or gate. Full technical fidelity, structured for trifecta review. No generic summaries, no padding, no fake consensus. When the return is a repository-backed document offered for full-document / byte / acceptance / freeze / landing review, also carry the **Review Object Posture + Bounded Diff Receipt** and, for a copied consequential relay, the **Relay Endpoint Posture** (collaboration model §2.6–§2.7); these are pointers — the schema lives there, not here.
 
 ## 13 · Boot receipt (when asked to prove boot)
 
