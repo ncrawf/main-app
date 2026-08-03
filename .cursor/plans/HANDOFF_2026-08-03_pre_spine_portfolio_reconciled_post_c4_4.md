@@ -1,10 +1,10 @@
 # HANDOFF — 2026-08-03 · Pre-Spine Portfolio & Control-Plane Reconciliation (post-C4.4)
 
-Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_integration_branch · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_UNCHANGED_pending_Nick+Knox_landing`
+Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized`
 
 > **This is the CURRENT checkpoint** (repoints `AGENTS.md` Current Checkpoint Handoff + read-graph Tier-0 #15). It is a normal dated checkpoint produced through the existing checkpoint mechanism — **NOT a universal boot file, NOT a new boot subsystem.** It supersedes `HANDOFF_2026-07-19_taskd_interim_checkpointed_evrun12_active.md` as the current program-state pointer; the 07-19 handoff and its content are retained as historical detail.
 >
-> **Read order for a fresh agent:** this checkpoint → `AGENTS.md` → read-graph Tier-0 #15 (points here) + #9j (C4.4 closed route) → the C4.4 §0-CLOSEOUT downstream runbook (`HANDOFF_2026-07-31_c4-4-g2-landed_pre-g3.md`) → the exact C4.4/fresh-B immutable routes below.
+> **Read order for a fresh agent:** `AGENTS.md` → this checkpoint (current) → read-graph Tier-0 #15 (points here) + #9j (C4.4-closed route) → the C4.4 §0-CLOSEOUT downstream runbook (`HANDOFF_2026-07-31_c4-4-g2-landed_pre-g3.md`) → the exact C4.4/fresh-B immutable objects below.
 
 ---
 
@@ -15,13 +15,13 @@ Two program-control defects were diagnosed and confirmed at the git object level
 1. **Local, pointer-only:** the C4.4 §0-CLOSEOUT accepted-object table pinned accepted objects "by blob" but did **not** name the final R5 G5 packet commit/blob — it pointed indirectly to an Opus return report / R4 receipt. **Corrected** in this transaction (the G5 row now names the R5 commit + content blob; see §2).
 2. **Major, program-control:** `main` still booted a fresh agent through the July-19 checkpoint, and read-graph **#9j on main said "G3 not started,"** while the accepted R5 branch said **G5 accepted / C4.4 closed**. A fresh default-branch agent therefore booted into an obsolete program state. **Corrected** by the curated C4.4 landing (Commit 1) + this checkpoint + the AGENTS/#15 repoint (Commit 2).
 
-Combined verdict carried forward: **local C4.4 arc = CLOSED_WITH_POINTER_ONLY_CORRECTION**; **global program = CLOSED_WITH_PORTFOLIO_CONTROL_DEBT** (now being paid down by this reconciliation).
+Combined verdict carried forward: **local C4.4 arc = CLOSED_WITH_POINTER_ONLY_CORRECTION**; **global program = CLOSED_WITH_PORTFOLIO_CONTROL_DEBT** — this reconciliation RECONCILES the named boot/discoverability debt (AGENTS + read-graph #15 repointed to this checkpoint; the accepted C4.4 estate curated-landed on `main`); normal ongoing portfolio maintenance remains.
 
 ---
 
 ## §1 — Current program state
 
-- **C4.4 (Knowledge Reservoirs / Source Estate):** architecture/authorability **CLOSED** — G3 §R accepted (2026-08-01), G4 Knox-adjudicated PASS 30/32 (one non-blocking finding `C44-G4-R01` routed forward), G5 accepted (2026-08-03; three-angle authorability test executed — Angle C PASS 6/6, fresh A VALID/five reconciliations, fresh B VALID current-source, preserved raw + routed). **Enterprise implementation UNPROVEN** (F-Self Intelligence-Foundry Pilot + Enterprise Bootstrap Steel Thread proof programs required). `analysis_nonbinding · not_promoted`. **No further C4.4 architecture formulation and no A/B/C rerun.** Accepted estate curated-landed on this integration branch (Commit 1); full development/test/correction history remains on `analysis/c4-4-g3-reference-architecture` (R5 `50983ce`).
+- **C4.4 (Knowledge Reservoirs / Source Estate):** architecture/authorability **CLOSED** — G3 §R accepted (2026-08-01), G4 Knox-adjudicated PASS 30/32 (one non-blocking finding `C44-G4-R01` routed forward), G5 accepted (2026-08-03; three-angle authorability test executed — Angle C PASS 6/6, fresh A VALID/five reconciliations, fresh B VALID current-source, preserved raw + routed). **Enterprise implementation UNPROVEN** (F-Self Intelligence-Foundry Pilot + Enterprise Bootstrap Steel Thread proof programs required). `analysis_nonbinding · not_promoted`. **No further C4.4 architecture formulation and no A/B/C rerun.** Accepted final estate curated-landed on `main` for discoverability (NOT promotion); full development/test/correction history remains on the C4.4 analysis branch `analysis/c4-4-g3-reference-architecture` (R5 `50983ce`).
 - **Pharmacy / Rx (C4.6):** Gate-0 + G2A accepted; L2 build-doctrine ACCEPTED (Knox final PASS); landed on `main` @ `44feb15`; G2B deferred. **Do not reopen.** Consume as C5 Rx-contract + spine input.
 - **C4.5 (Temporal Integrity):** Gate-0 charter accepted (`90efcf0`); full pass **not started**. Provisional temporal lens attaches to Task-D after the Phase-2 six-source anchor micro-pass; full C4.5 runs **after Task-D and before v4 Spine Draft 0**. No promotion.
 - **Task-D (enterprise composition):** interim population checkpointed; **NO final §7 verdict**; still required pre-spine.
@@ -48,7 +48,7 @@ Combined verdict carried forward: **local C4.4 arc = CLOSED_WITH_POINTER_ONLY_CO
 
 1. **Accepted nonbinding analysis** — reviewed + accepted inside the pre-spine architecture program (`GRD-036`).
 2. **Default-branch discoverability** — a fresh agent booting from clean `main` can reach the exact bytes/routes without chat.
-3. **Main landing** — the files are present on the default branch (this is what Commit 1 + the future fast-forward accomplish).
+3. **Main landing** — the accepted final files are present on the default branch `main` (discoverability); this is what the curated landing + the fast-forward accomplished. Landing ≠ promotion.
 4. **Promotion** — content becomes spine / C5 contract / doctrine / implementation authority.
 
 **Main landing is state 2/3, NOT state 4.** Landing accepted `analysis_nonbinding` artifacts on `main` enables discoverability; it does **not** promote them. All C4.4 passports remain `analysis_nonbinding · not_promoted`.
@@ -129,4 +129,4 @@ Parallel arc work is safe only when ALL hold (the missing surface that produced 
 - Commit 1: curated C4.4 final-state landing — R5-byte-exact content for the 8 C4.4 files (discoverability, not promotion).
 - Commit 2: this checkpoint + the C4.4 §0-CLOSEOUT G5 pin + AGENTS/#15 repoint + catalog registration + decision-ledger `D0CKPT-DEC-004` (the repeatable arc-completion / process law).
 - Off-repo controlling-plan banner (`~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md`) reconciled in the same working session (reported separately; outside the repo commit).
-- **`main` UNCHANGED until Nick + Knox authorize the fast-forward landing.** Landing = discoverability, not promotion.
+- **Landing authorization satisfied by Nick + Knox; the normalized integration tip was landed on `main` via a normal fast-forward (no force, no merge commit).** Landing = discoverability, NOT promotion; the analysis/development history remains on the C4.4 analysis branches.
