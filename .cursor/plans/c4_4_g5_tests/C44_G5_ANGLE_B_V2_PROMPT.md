@@ -1,6 +1,8 @@
 # C4.4 G5 — ANGLE B v2: Enterprise-Composition / Proof-Program Adversary
 
 > Self-contained relay prompt. Send verbatim to a SECOND fresh enterprise-platform adversary (preferred: a second fresh Gemini context) with repository AND web access, isolated from Angle A and from the OMNI conversation. Official current primary vendor sources only. It does NOT select a vendor, does NOT claim enterprise capability, and does NOT issue a verdict.
+>
+> **DO NOT RUN Angle B in a context without current official-source web access.** The incumbent-comparator columns REQUIRE live primary sources. If your context cannot reach official current web sources, follow the Web-availability gate below (return an explicitly INCOMPLETE result), and do not substitute model memory.
 
 ## Role
 
@@ -38,13 +40,27 @@ This is run-2 against a patched packet. Run-1's Angle B was rejected as comparat
 
 **Retained-value note:** run-1's repository-grounded gap hypotheses were retained by Knox and are already routed in the patched packet (I.9B enterprise interfaces + I.9C admission-operations/scale-risk). Its vendor rankings, current-capability assertions, S2 golden-state model, and arbitrary targets were rejected. Do not re-import those rejected conclusions.
 
+## Web-availability gate (MANDATORY — check FIRST, before any comparator work)
+
+Before you populate any incumbent/vendor cell, confirm you can reach **current official primary vendor sources** (the vendor's own docs/pricing/architecture pages, dated). Then:
+
+- **If current official-source web access IS available:** proceed normally; every incumbent claim carries exact source URL + access date + evidence type. No memory-based vendor claims even when web is available.
+- **If current official-source web access is UNAVAILABLE (blocked, sandboxed, or unreachable):**
+  1. Do **NOT** populate any incumbent-capability, incumbent-advantage, or vendor-ranking cell — from memory or otherwise.
+  2. Mark every such cell **`NOT_EVALUATED`**.
+  3. Return **only** the repository-grounded work: the enterprise-bootstrap trace, the operational-decision/override two-speed trace, the executable-proof-program analysis, and the OMNI gap ledger (Tests 2–4 and the OMNI-side outputs).
+  4. Title the result exactly: **`ANGLE B INCOMPLETE — EXTERNAL EVIDENCE UNAVAILABLE`**.
+  5. State explicitly that the result is **NOT eligible for full Knox adjudication** (comparator evidence is absent).
+
+There is no "helpful memory" fallback. A vendor claim from model memory invalidates the whole submission.
+
 ## Frozen integrity pins
 
-*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f`; those are superseded. Verify against the pins below.*
+*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f` (superseded); the bounded post-test patch `bcb2b19` / `674fffa` is also superseded by the Knox pre-flight micro-patch. Verify against the pins below.*
 
 - Repository: `ncrawf/main-app`
-- Target commit: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be`
-- G5 packet blob: `674fffa5944c2911a4bd830cc27f1356029fc4bd`
+- Target commit: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002`
+- G5 packet blob: `a12bd0ef9821c13c3a0144977d3a73cd8e1dc42a`
 - G3 **architecture substance** blob (the architectural input under test): `e364acbad3352457eb8c761d287e91787ea71eea`
 - G3 **acceptance carrier** blob (same path at the target commit; status/receipt wrapper only): `76a8cdfc4c75376ec5db1fa658c714a973169426`
 - G4 carrier blob: `07f866207836a22c103505835f80aa495a623101`
@@ -55,12 +71,12 @@ This is run-2 against a patched packet. Run-1's Angle B was rejected as comparat
 
 ### G3 dual pinning (read before verifying)
 
-G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `bcb2b19`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
+G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input under test. At target commit `f7db832`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
 
 - **G3 architecture input** — exact architecture blob `e364acbad3352457eb8c761d287e91787ea71eea`; equivalently resolvable at `6c86e2edc3935f5f7bad9c628b4e450837712767:.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` (expected blob `e364acb`). This is the architecture you evaluate.
-- **G3 acceptance carrier** — at `bcb2b19`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
+- **G3 acceptance carrier** — at `f7db832`, `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` resolves to `76a8cdfc4c75376ec5db1fa658c714a973169426`; consult only to confirm accepted status and receipt lineage.
 
-Verify: the target commit `bcb2b19`; the G5 packet blob `674fffa`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `bcb2b19:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
+Verify: the target commit `f7db832`; the G5 packet blob `a12bd0e`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `f7db832:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
 
 ## Automatic boot-context disclosure (mandatory)
 
@@ -189,7 +205,7 @@ Fixture: a scheduling agent proposes X. An authorized clinic manager chooses Y b
 - context and source references;
 - policy/model/configuration versions;
 - effective and recorded time;
-- one-time, temporary, or continuing scope;
+- scope across the **four orthogonal I.3A dimensions** (`operational_effect` · `owner_state_kind` · `knowledge_lifecycle` · `promotion_scope`) — assigned independently, NOT collapsed into one value;
 - owning-domain S3 or appropriate configuration/governance commit;
 - immutable S1 decision/run evidence;
 - immediate availability to the next authorized context draw.
@@ -277,8 +293,8 @@ Return only:
 
 1. An 18-row bidirectional mechanism matrix with columns:
    - mechanism
-   - strongest incumbent
-   - incumbent advantage
+   - strongest incumbent **(`NOT_EVALUATED` if the Web-availability gate fired)**
+   - incumbent advantage **(`NOT_EVALUATED` if the Web-availability gate fired)**
    - OMNI represented architecture
    - missing OMNI mechanism/interface
    - implementation maturity
@@ -287,6 +303,7 @@ Return only:
    - switching proof
    - owner/destination
    - confidence
+   *(If the Web-availability gate fired: leave both incumbent columns `NOT_EVALUATED`, keep the OMNI-side columns from the repository, and title the whole submission `ANGLE B INCOMPLETE — EXTERNAL EVIDENCE UNAVAILABLE`.)*
 2. Enterprise-bootstrap trace.
 3. Operational-override two-speed trace.
 4. Executable proof-program specifications: F-Self; Enterprise Bootstrap Steel Thread.

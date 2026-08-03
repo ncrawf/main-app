@@ -30,11 +30,11 @@ This is run-2 against a patched packet. Run-1's Angle C was the strongest run (s
 
 ## Frozen integrity pins
 
-*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f`; those are superseded. Verify against the pins below.*
+*Repinned for run-2: run-1 targeted commit `865afad` / packet blob `d01978f` (superseded); the bounded post-test patch `bcb2b19` / `674fffa` is also superseded by the Knox pre-flight micro-patch. Verify against the pins below.*
 
 - Repository: `ncrawf/main-app`
-- Target commit: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be`
-- G5 packet blob: `674fffa5944c2911a4bd830cc27f1356029fc4bd`
+- Target commit: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002`
+- G5 packet blob: `a12bd0ef9821c13c3a0144977d3a73cd8e1dc42a`
 - G3 **architecture substance** blob (the accepted architecture you author from): `e364acbad3352457eb8c761d287e91787ea71eea`
 - G3 **acceptance carrier** blob (same path at the target commit; status/receipt wrapper only): `76a8cdfc4c75376ec5db1fa658c714a973169426`
 - G4 carrier blob: `07f866207836a22c103505835f80aa495a623101`
@@ -45,20 +45,20 @@ This is run-2 against a patched packet. Run-1's Angle C was the strongest run (s
 
 ### G3 dual pinning (read before verifying)
 
-G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input you author from. At target commit `bcb2b19`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
+G3 uses dual pinning. Blob `e364acb` is the exact accepted architecture substance and is the architectural input you author from. At target commit `f7db832`, the G3 file path resolves to carrier blob `76a8cdf`, which contains the unchanged architecture plus later acceptance/status receipts. This expected difference is NOT an integrity failure. Do not infer current decision state from the pre-acceptance header in `e364acb`; use the accepted-carrier receipt only for status.
 
-Verify: the target commit `bcb2b19`; the G5 packet blob `674fffa`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `bcb2b19:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
+Verify: the target commit `f7db832`; the G5 packet blob `a12bd0e`; the G4 blob `07f8662`; that G3 architecture substance `e364acb` is a readable blob (or `6c86e2e:<G3 path>` resolves to `e364acb`); and separately that `f7db832:<G3 path>` resolves to the carrier `76a8cdf`. The two G3 blobs are expected to differ — do NOT require equality. STOP with an integrity-mismatch receipt only if one of these expected relationships fails.
 
 ## Exact read set — no other sources
 
-1. G5 packet: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md`
+1. G5 packet: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002:.cursor/plans/v4_C4_4_disposition_ledger_and_v4_handoff.md`
 2. G3 accepted architecture substance: blob `e364acbad3352457eb8c761d287e91787ea71eea` — path `.cursor/plans/v4_C4_4_taxonomy_constitution_and_reference_architecture.md` (equivalently `6c86e2edc3935f5f7bad9c628b4e450837712767:<that path>`). Do NOT author from the target-commit carrier `76a8cdf`; consult it only for acceptance status.
 3. G4 carrier: blob `07f866207836a22c103505835f80aa495a623101` — path `.cursor/plans/v4_C4_4_fixture_suite_and_adversarial_results.md`
-4. Prior-depth map: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/v4_C4_4_prior_depth_and_july_2026_reality_map.md`
-5. Reservoir frontier: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md`
-6. Spine shape §8: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/v4_C4_spine_shape_plan.md`
-7. Comparator registry: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/doctrine/comparator_analogy_registry.md`
-8. Build Entry Gate: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be:.cursor/plans/doctrine/11_build_entry_gate_v0.md`
+4. Prior-depth map: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002:.cursor/plans/v4_C4_4_prior_depth_and_july_2026_reality_map.md`
+5. Reservoir frontier: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002:.cursor/plans/doctrine/cns_and_knowledge_reservoirs_frontier_2026-06-06.md`
+6. Spine shape §8: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002:.cursor/plans/v4_C4_spine_shape_plan.md`
+7. Comparator registry: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002:.cursor/plans/doctrine/comparator_analogy_registry.md`
+8. Build Entry Gate: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002:.cursor/plans/doctrine/11_build_entry_gate_v0.md`
 9. OpenEvidence: blob `7cb62ed01af289babe625510315e36ef29203f95` — path `.cursor/plans/ingestion/outside_learning/sources/2026-06/EVSRC-2026-000068_openevidence-ziegler-doctors-collective-wisdom-ai.md`
 10. Simulation: blob `a709c5de9be8e47ab6ac47780a0d6abc08a39977` — path `.cursor/plans/ingestion/outside_learning/sources/2026-07_wave-3/EVSRC-2026-000242_simile-joon-sung-park-human-behavior-simulation.md`
 
@@ -111,6 +111,8 @@ When an authorized action or override changes current behavior:
 - immutable decision/run evidence remains S1;
 - the next authorized context draw can consume the current owner-state immediately;
 - reusable generalization is a separate S2 candidate and admission path.
+
+**I.3A scope is FOUR ORTHOGONAL dimensions (carry this exactly — do NOT reduce it to "one of six").** The packet's I.3A defines scope as independent values on `operational_effect` · `owner_state_kind` · `knowledge_lifecycle` · `promotion_scope` (planning dimensions, not final enums — C5 authors the record shape). One event holds a value on every dimension and moves across them over time; the fast owner-state path and the slow reusable-learning path stay independent. Any output that models the override scope as a single mutually-exclusive value is nonconformant to I.3A.
 
 Any output that invents a durable runtime-owned "instant memory" authority, or uses S2 as live owner-state, is nonconformant.
 

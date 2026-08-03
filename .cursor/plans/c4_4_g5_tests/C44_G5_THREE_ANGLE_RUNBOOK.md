@@ -2,16 +2,16 @@
 
 > Operator/relay runbook for executing the three frozen G5 tests. The three prompt files in this folder are self-contained; this runbook governs who receives which, independence rules, output handling, and the durable-preservation requirement.
 
-## Frozen pins (RUN-2 — repinned to the post-patch commit)
+## Frozen pins (RUN-2 — repinned to the pre-flight-patched commit)
 
-*Run-1 ran against target `865afad` / packet blob `d01978f`; Knox adjudicated `HOLD` and one bounded G5 integration patch was applied (commit `bcb2b19`). Run-2 pins below target that patched commit. G3/G4 blobs are unchanged.*
+*Run-1 ran against target `865afad` / packet blob `d01978f`; Knox adjudicated `HOLD`; one bounded G5 integration patch was applied (commit `bcb2b19`, packet blob `674fffa`); then a Knox pre-flight type+state micro-patch was applied on top (commit `f7db832`, packet blob `a12bd0e`). Run-2 pins below target the **pre-flight-patched** commit `f7db832`. G3/G4 blobs are unchanged.*
 
 - Repository: `ncrawf/main-app`
-- Target commit: `bcb2b199ea3f66f0e4da9be0fb224f59c01809be` *(run-1 was `865afadc7fe0e908acc1f5125006d1d00326c69b`)*
-- G5 packet blob: `674fffa5944c2911a4bd830cc27f1356029fc4bd` *(run-1 was `d01978fc39939d09f33fbb95b87866a6f823d1e0`)*
+- Target commit: `f7db832a2f5eec5e6fc13fc996984cce5d8fb002` *(run-1 was `865afadc7fe0e908acc1f5125006d1d00326c69b`)*
+- G5 packet blob: `a12bd0ef9821c13c3a0144977d3a73cd8e1dc42a` *(run-1 was `d01978fc39939d09f33fbb95b87866a6f823d1e0`)*
 - G3 **architecture substance** blob (input under test): `e364acbad3352457eb8c761d287e91787ea71eea` *(unchanged)*
-- G3 **acceptance carrier** blob (same path at target commit; status/receipt only): `76a8cdfc4c75376ec5db1fa658c714a973169426` *(unchanged; `bcb2b19:<G3 path>` still = `76a8cdf`)*
-- G4 carrier blob: `07f866207836a22c103505835f80aa495a623101` *(unchanged; `bcb2b19:<G4 path>` still = `07f8662`)*
+- G3 **acceptance carrier** blob (same path at target commit; status/receipt only): `76a8cdfc4c75376ec5db1fa658c714a973169426` *(unchanged; `f7db832:<G3 path>` still = `76a8cdf`)*
+- G4 carrier blob: `07f866207836a22c103505835f80aa495a623101` *(unchanged; `f7db832:<G4 path>` still = `07f8662`)*
 - Runtime bridge blob: `de5b9a1fc7bf9ff77797d28a53a6fef9ced3ed34`
 - OpenEvidence blob: `7cb62ed01af289babe625510315e36ef29203f95`
 - Simulation blob: `a709c5de9be8e47ab6ac47780a0d6abc08a39977`
@@ -19,17 +19,17 @@
 
 ### Run-1 result (2026-08-02 — Knox adjudication)
 
-`HOLD` — **G3 remains ACCEPTED · G4 remains PASS 30/32 · no seventh constitutional class.** Angle A = NONCONFORMANT TEST (used the packet's §G5-10 change-receipts as blocking architecture; no complete 12-example/P01–P19 tables; override untraced). Angle B = NONCONFORMANT AS COMPARATOR EVIDENCE (checked the wrong G4 path; continued past an integrity mismatch; no web access yet produced current-vendor conclusions from memory; S2 golden-state/policy category errors — its gap hypotheses retained only after Knox reclassification). Angle C = PARTIAL/HOLD (six outputs produced; O4/O6 PARTIAL because the two proof programs + the two-speed law were prompt-supplied, not packet-sourceable). The bounded patch (`bcb2b19`) adds packet section **I.3A** (two-speed seam + full override trace), **I.9A** (both proof programs named + sourceable), **I.9B** (10 enterprise interfaces), **I.9C** (admission-operations + scale-risk register). Raw run-1 outputs preserved unedited under `results/`.
+`HOLD` — **G3 remains ACCEPTED · G4 remains PASS 30/32 · no seventh constitutional class.** Angle A = NONCONFORMANT TEST (used the packet's §G5-10 change-receipts as blocking architecture; no complete 12-example/P01–P19 tables; override untraced). Angle B = NONCONFORMANT AS COMPARATOR EVIDENCE (checked the wrong G4 path; continued past an integrity mismatch; no web access yet produced current-vendor conclusions from memory; S2 golden-state/policy category errors — its gap hypotheses retained only after Knox reclassification). Angle C = PARTIAL/HOLD (six outputs produced; O4/O6 PARTIAL because the two proof programs + the two-speed law were prompt-supplied, not packet-sourceable). The bounded post-test patch (`bcb2b19`) added packet section **I.3A** (two-speed seam + full override trace), **I.9A** (both proof programs named + sourceable), **I.9B** (10 enterprise interfaces), **I.9C** (admission-operations + scale-risk register). The subsequent Knox pre-flight micro-patch (`f7db832`, packet blob `a12bd0e`) then corrected I.3A's ill-typed "six scope kinds" into **four orthogonal dimensions**, removed the arbitrary recurrence threshold, normalized the live state + hard stops, fixed I.9B #4 observer-ownership, and repaired the Q3/Q7/Q13 receipt + `admission_scope` shorthand. Raw run-1 outputs preserved unedited under `results/`.
 
 ### G3 dual pinning
 
-`e364acb` is the exact accepted architecture substance (the input under test). At target commit `bcb2b19` the G3 file path resolves to carrier blob `76a8cdf` = the same architecture plus later acceptance/status receipts. Each test agent verifies `e364acb` as a readable blob (or via `6c86e2edc3935f5f7bad9c628b4e450837712767:<G3 path>`) AND separately confirms `bcb2b19:<G3 path>` = `76a8cdf`. The two blobs are expected to differ — that is not an integrity failure. Architecture claims are evaluated against `e364acb`; the carrier is status-only.
+`e364acb` is the exact accepted architecture substance (the input under test). At target commit `f7db832` the G3 file path resolves to carrier blob `76a8cdf` = the same architecture plus later acceptance/status receipts. Each test agent verifies `e364acb` as a readable blob (or via `6c86e2edc3935f5f7bad9c628b4e450837712767:<G3 path>`) AND separately confirms `f7db832:<G3 path>` = `76a8cdf`. The two blobs are expected to differ — that is not an integrity failure. Architecture claims are evaluated against `e364acb`; the carrier is status-only.
 
 ## Which prompt goes to whom
 
 **Angle A** — fresh independent constitutional/type adversary. Preferred: a fresh Gemini context with repository access. No prior OMNI chat, no project-history injection, no web. Send `C44_G5_ANGLE_A_PROMPT.md`.
 
-**Angle B v2** — separate fresh enterprise-platform adversary with repository and web access. Preferred: a second fresh Gemini context, isolated from Angle A and this conversation. Official primary vendor documentation only. Send `C44_G5_ANGLE_B_V2_PROMPT.md`.
+**Angle B v2** — separate fresh enterprise-platform adversary with repository and web access. Preferred: a second fresh Gemini context, isolated from Angle A and this conversation. Official primary vendor documentation only. Send `C44_G5_ANGLE_B_V2_PROMPT.md`. **Angle B must run ONLY in a confirmed current-web-capable context** — if the assigned agent cannot reach current official-source web, it must return `ANGLE B INCOMPLETE — EXTERNAL EVIDENCE UNAVAILABLE` (incumbent columns `NOT_EVALUATED`, repository-only Tests 2–4, not eligible for full adjudication) per the prompt's Web-availability gate. Do not accept a B result whose incumbent claims come from model memory; re-run it in a web-capable context.
 
 **Angle C** — fresh repo-connected Opus/Claude author in a new context. No prior OMNI chat and no web. Send `C44_G5_ANGLE_C_PROMPT.md`.
 
