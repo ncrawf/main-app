@@ -175,6 +175,31 @@ No lane is implementation-authorized until it proves:
 - `Agent Work Protocol §2.1` supplies the **human-supervised parallel-lane contract** (`D0CKPT-DEC-005` / `D0CKPT-GRD-002`) — the first concrete envelope being the pre-spine Phase-A five-lane launch.
 - **Automated registry, ownership leases, shared-surface locks, merge queue, semantic collision detection, parent/child scheduling, status projection and proof automation remain planned Step-5 work.** Human-supervised discipline now ≠ automated 20/100-agent orchestration built.
 
+### Benchmark-informed maturity target — captured interpretation, NOT final design
+
+The 2026-08-04 §2.1 contract is a **partial, human-supervised execution substrate — not the final Build OS.** The honest diagnosis: **the doctrine is ahead of the tooling.** A mature implementation would not require a human to interpret hundreds of lines of Markdown every time a parallel package starts, nor rely on an agent *remembering* that a surface is protected.
+
+**Target posture stated MECHANISM-FIRST (mechanisms are the target; comparators are only evidence for them):**
+
+1. **Declarative machine-readable work-package manifest** — parent key · control-plane boot ref · content-base SHA · integrator role · lanes · branches · source pins · outputs · writable scope · forbidden surfaces · dependencies · required checks · states · review/close gates. Markdown stays the human explanation; the manifest becomes the executable representation.
+2. **Manifest validator** — confirms bases, branches, inputs, outputs, ownership and forbidden files before launch.
+3. **Local/cloud lane launcher** — consistent provisioning; environment-agnostic (no machine-path dependence).
+4. **Ownership claim / lease / transfer mechanism** — enforceable single-writer and integrator-role transfer.
+5. **Shared-surface policy checks (policy-as-code)** — a lane physically cannot land an edit to a protected control surface.
+6. **Status projection** — active / blocked / review-ready / landed across N lanes.
+7. **Protected integration path** — protected `main`, required checks + reviewers, merge queue or serialized fast-forward, auditable exceptions.
+8. **Cold-boot / replacement-agent eval suite** — fresh cloud boot · local boot · wrong content base · stale checkpoint · wrong branch · dead-agent takeover · integrator transfer · two agents claiming one lane · siblings touching one shared file · missing source pin · malformed output · lane attempting to edit `main` · control-plane newer than lane content.
+9. **Evidence-driven simplification + de-scaffolding** — delete controls that do not demonstrably prevent observed failures; resist permanent instruction growth.
+
+**Comparator field is OPEN and NON-EXHAUSTIVE — do not narrow it.** The 2026-08-04 synthesis happened to examine three names (Anthropic multi-agent engineering · Karpathy/autoresearch minimal-loop · Palantir branch/proposal/policy/eval); those were **conversational examples, not the benchmark boundary.** The genuinely relevant comparator families for the mechanisms above include, non-exhaustively: **declarative build/config systems** (Terraform plan/apply · Bazel/Blaze + remote execution · Nix) · **workflow / durable orchestration** (Temporal · Airflow · AWS Step Functions) · **code-review + merge platforms** (Gerrit · GitLab merge trains · GitHub Actions/Checks · Meta Sapling/Phabricator · Google Critique/Piper/CitC) · **agent frameworks** (LangChain/LangGraph and successors) · **reconciliation-loop control planes** (Kubernetes operators) · **enterprise fleet build/deploy practice** (Amazon internal build+deploy · Microsoft · Google · Tesla) · plus comparators **already in Lens B** whose mechanisms apply directly and must NOT be re-minted: **Stripe** (idempotency · immutable audit) · **NASA/Houston** (authority gates) · **airport/ATC** (planning + scheduling) · **Amazon** (Act loop) · **airplane-as-object** (fail-safe · checklists · black-box). Record any newly used comparator in `comparator_analogy_registry.md` — never re-scatter (`AGENTS.md` boot rule).
+
+**Explicit limits of this section:**
+- This is a **maturity TARGET, not an accepted tool architecture**.
+- **No vendor or framework selection** is made or implied — no LangChain, Palantir, Anthropic, Temporal, or any other platform-adoption decision.
+- **No automated 20/100-agent system is claimed** to exist.
+- **Observed Phase-A execution evidence must determine which controls deserve automation** — automate what proves load-bearing, delete what proves ceremonial.
+- Official-source **Evidence-Plane `build_evidence` capture is owed before Tooling v0.2 is designed** (today's comparison is `captured_interpretation_nonbinding`, not vendor truth). Gate: `D0THES-REV-158`.
+
 ---
 
 ## Mandatory Safeguards (Current Phase)
