@@ -63,6 +63,46 @@ No gate declaration means no execution.
 
 ---
 
+## 2.1) Parallel Work-Package Launch and Re-Entry Contract
+
+Applies when a parent work package authorizes **two or more concurrent lanes** that may later reconcile, depend on one another, or touch shared governance surfaces. Ordinary single-lane work does not require parallelism and does not invoke this section.
+
+**Parentage + authority (this is not a new subsystem).** This contract is the first binding operationalization of **Build OS Layer 2 — Execution Layer** (`09_omni_build_os_layer_model.md`: lane model · work-package contract · handoff contract · lane registry + ownership map · allowed/forbidden actions) and of the `10_omni_build_os_rollout_sequence.md` Step-5 "durable multi-agent operating system" trajectory. It is the **repository / build-agent context** of the Agent Runtime & Harness (`v4_C4_agent_runtime_and_harness_capture.md`, `FWREG-010`). It is **not** the whole Build OS, **not** the whole Agent Runtime, and **not** a product/care-agent authority contract. No new "agent execution governance" system, agent-identity ontology, branch registry, or sovereign control plane is created.
+
+**Build-vs-product firewall.** Build agents operate under the Build OS, the work-package envelope, branch scope, and repository governance. Internal-operations and user/care-facing agents may reuse generic harness mechanisms but operate under different principals, grants, capabilities, consent, policy, owning-domain commit boundaries, and liability. **Same harness law does not confer equivalent authority.** Build skills do not become product capabilities; repository branch ownership does not model patient/provider/operator authority. This section does not redefine the product Agent Runtime object model or the principal/actor/agent taxonomy.
+
+**Parallel Launch Envelope (pre-launch requirement).** Before launch, the current checkpoint/handoff — or one bounded accepted work-package map referenced by it — MUST carry an envelope containing:
+- parent work-package / gate / checkpoint;
+- immutable common base commit (full SHA);
+- named control-plane integrator;
+- one row per lane: human-visible title · relay key · branch · owner/seat · worktree path (when locally assigned) · exact input packet + immutable source refs · writable scope + exact intended output object · prohibited shared surfaces · dependencies/collision surfaces · required proof · reviewer/acceptance/landing gate · stop condition;
+- no-auto-launch and parent-close conditions.
+
+**Execution law.**
+1. All lanes begin from the same approved base SHA unless the envelope records a justified exception.
+2. One active writer owns each branch. Agent-thread replacement does not create a new lane: a replacement agent may assume the same active clean branch, relay key, and packet after an explicit ownership transfer and freshness check.
+3. A stale, closed, invalidated, or materially diverged historical branch is never resumed in place — start a fresh branch from the current approved base and cite the old branch/commit as an immutable source packet.
+4. Lane agents treat envelope-named shared control-plane surfaces as read-only; they return proposed rows, lifecycle changes, and routing.
+5. Only the named control-plane integrator reconciles cross-lane outputs and mutates shared control-plane surfaces.
+6. A lane artifact may be committed/pushed as `review_ready_pending_integrator` with its passport + proposed routing bundle, but it is **not complete** under §5 (New Artifact Completion Rule) until the integrator lands the required catalog/read-graph/ledger/lifecycle side effects. This is not an exception to §5; completion occurs at the parent integration transaction.
+7. Every review-ready lane publishes the receipt level required by collaboration-model §§2.6–2.7: Relay Endpoint Posture (when relayed) · Review Object Posture · Bounded Diff Receipt · Source Posture.
+8. No lane may merge/fast-forward `main`, repoint the checkpoint, mutate a sibling lane, launch a successor phase, or declare the parent work package closed without explicit authorization.
+9. The envelope tracks each lane as `not_started | active | blocked | review_ready | accepted | landed | closed` and records its current branch/head or immutable accepted pin at work-package boundaries — not every chat message.
+10. Parent integration begins only after the required lane gates: source reconciliation · collision scan · shared-surface routing · lifecycle normalization · the parent closeout transaction (§8 Checkpoint Closeout Rule).
+11. Tooling may create branches/worktrees or render status, but tooling is ergonomic only (Build OS Layer 3) and cannot alter the contract or authority boundaries.
+
+**Roles inside a work package (no sovereign meta-agent).** Planner, implementer, reviewer, adversary, evaluator, proof agent, and integrator are **bounded roles inside an authorized work package**. Reviewer/evaluator output is evidence or a gate input, never self-originating authority; no role manufactures authority, promotes doctrine, merges work, or commits truth merely by being "above" other agents. See `D0THES-GRD-028` (AI-as-target inversion) and `D0THES-GRD-029` (CNS-as-sovereign-brain).
+
+**Multi-principal continuity (pointer, not restated).** Agents may act for patients, providers, caregivers, operator roles, owners, administrators, counterparties, and build functions; their authority remains principal-typed and commit-gated. Use the `subject · principal · actor · agent · role · capability · committer` taxonomy — not "everyone is a principal." Substantive lineage: `EVRUN-2026-000007_02_multi_principal_reframe_and_active_debate.md`.
+
+**100-agent scale-out — split, not one bucket.** Automated large-scale concurrency is **not built**; the five-lane contract is human-supervised execution discipline now. The remaining debt is split:
+- **Build OS / Agent Work Protocol / Command-Tool debt (Layer 2/3 + Step 5):** lane registry · branch/worktree automation · ownership leases + transfer · common-base management · merge queue · shared-surface locking · semantic collision detection · parent/child work-package scheduling · status projection · CI/policy gates · automated integration + de-scaffolding. May mature incrementally before product C5. Re-point/AI-native revamp tracked at `D0THES-REV-158`.
+- **Agent Runtime / `FWREG-010` debt:** agent/session/run/subagent lifecycle · scheduler/workers/queues/leases/retries · NHI/credentials/sandbox · tool transaction boundaries · model routing + reproducibility · context routing · eval/release/monitoring/rollback. Broader spine/C5/runtime-formulation debt.
+
+Decision ledger: `D0CKPT-DEC-005`. Guardrail: `06` `D0CKPT-GRD-002`.
+
+---
+
 ## 3) Work Classification
 
 Classify payload into one or more classes:
@@ -241,7 +281,8 @@ During execution:
 - stay within declared scope,
 - do not bypass routing requirements,
 - do not introduce unratified primitives,
-- do not perform unauthorized runtime/governance changes outside approved gate.
+- do not perform unauthorized runtime/governance changes outside approved gate,
+- for parallel work packages, additionally comply with §2.1 (Parallel Work-Package Launch and Re-Entry Contract).
 
 ---
 
@@ -345,6 +386,7 @@ Stop report must include:
 - `prior_narratives_consulted`: for Tier 3+, list of prior narrative volume paths consulted (or `no_prior_arcs_relevant` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
 - `guardrail_rows_extracted`: for Tier 3+, list of guardrail row IDs added/updated in `06_guardrail_antipattern_digest.md` (or `no_timeless_lessons_surfaced` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
 - `canonical_updates`: list of doctrine/ledger/registry/read-graph paths updated, or `not_required_for_this_tier` if Tier 1, 2, or 3,
+- **parallel work-package fields (§2.1)** — each `not_applicable` outside parallel work: `parallel_parent_key`, `parallel_base_sha`, `parallel_lane_key`, `parallel_branch`, `parallel_owner_or_transfer`, `control_plane_integrator`, `sibling_lane_states`, `shared_surface_changes_proposed`, `collision_check`, `reentry_source_ref`, `parent_close_blockers`,
 - next gate.
 
 Stop is blocked if `new_artifacts_created` is non-empty and any path lacks completion proof.

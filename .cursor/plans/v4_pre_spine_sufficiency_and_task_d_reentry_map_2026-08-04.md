@@ -113,7 +113,7 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
   1. Care Task-D **Input-State Receipt**. *(Knox recommendation → Nick)*
   2. GRR Task-D **Input-State Receipt**. *(Knox recommendation → Nick)*
   3. **Insurance / Payer / OOP Gate-0** (consumes D6 + REV-159/160). *(REQUIRED — Knox + Opus)*
-  4. **Operator Economics Track B + Counterparty Residual Gate-0** (from Demand Gate-0 owed split). *(REQUIRED — Knox + Opus)*
+  4. **Non-Labor Operator Economics Track B + Counterparty Residual Gate-0** (from Demand Gate-0 owed split). *(REQUIRED — Knox + Opus)*
   5. **C4.5 six-source anchor Phase-2 verification** (admits the provisional temporal lens). *(SETTLED — C4.5 charter locks micro-pass before Task-D temporal scoring)*
 - **Phase B — C3.9 population** (plastics + medspa multi-site, carrying insurance/OOP coexistence), consuming Insurance + Operator-Economics findings. *(C3.9-before-Task-D = **OPERATOR-ACCEPTED** by Nick's relay of the 2026-08-04 fidelity-patch instruction; pending Knox final-byte + landing.)*
 - **Phase C — Final Task-D population** with the verified provisional temporal lens → **§7 verdict** (`SPINE_READY` / `…WITH_NAMED_RECONCILIATIONS` / `NOT_READY`). *(SETTLED that Task-D precedes the spine.)*
@@ -133,14 +133,62 @@ Launch these five lanes **from the SAME final post-map-landing `main` SHA** (not
 | Care · Task-D input state | `CARE-TASKD-INPUT` | `analysis/care-taskd-input-state` | Version-pinned Care Input-State Receipt |
 | Accountability · Task-D input state | `GRR-TASKD-INPUT` | `analysis/accountability-taskd-input-state` | Version-pinned GRR Input-State Receipt |
 | Insurance · Gate 0 | `INS-G0-MIXEDFIN` | `analysis/insurance-payer-oop-g0` | Insurance/Payer/OOP Gate-0 carrier consuming D6 + REV-159/160 |
-| Operator economics · Gate 0 | `OPECON-G0-COUNTERPARTY` | `analysis/operator-economics-counterparty-g0` | Operator Economics Track-B + counterparty residual boundary |
+| Operator economics · non-labor Gate 0 | `OPECON-G0-COUNTERPARTY` | `analysis/nonlabor-operator-economics-counterparty-g0` | Non-Labor Operator Economics Track B + Counterparty Residual Gate-0 carrier |
 | Time · anchor verification | `C45-P2-ANCHORS` | `analysis/c4-5-phase2-anchor-verification` | Six-source verification + temporal-lens admission result |
 
 **Shared-surface law.** The five substantive lane agents may **not** edit `AGENTS.md`, the current checkpoint, the read graph, the master catalog, the decision ledger, the open-review queue, FWREG, or the controlling-plan banner. They return **proposed** rows/routing. **One separate control-plane integrator (Opus)** lands all shared-surface changes after the five candidate outputs are reviewed — this prevents the prior collision problem.
 
 **Reopen law.** A stale/diverged branch is **never resumed in place**. Create a fresh branch from current `main`, cite the old branch/commit as an **immutable source packet**, and curate substantive files forward.
 
-> **Scope + reusability note (honest).** This launch envelope is **phase-scoped** to the five pre-spine input lanes; it is not yet a general, boot-time convention. The *relay/review half* of the mechanism is already durable landed doctrine (`D0OPER-DEC-005/006` + collaboration-model §§2.6–2.7: thread locks, relay keys, reviewable-snapshot review). The *parallel-launch half* (branch-per-lane from one frozen SHA · one-writer-per-branch · shared control-plane files read-only · single control-plane integrator · reopen-from-stale law) currently lives only here. **Follow-up (NOT done in this transaction, out of authorized scope): promote a reusable "parallel-lane launch" pattern into the Agent Work Protocol** so future multi-thread work declares + branches by convention rather than by a hand-authored envelope each time — pending Knox authorization and a Protocol-scoped commit.
+> **Conformance to Agent Work Protocol §2.1 (this is the first concrete instance).** This launch envelope **conforms to Agent Work Protocol §2.1 (Parallel Work-Package Launch and Re-Entry Contract)** and is the **first concrete §2.1 / Build-OS-Layer-2 launch envelope** in the estate. The reusable contract now lives in the Protocol; this map is the first envelope that populates it. Consequences: future parallel phases declare **their own envelope** in the current checkpoint/handoff (or a bounded accepted work-package map referenced by it) rather than re-inventing one; **no future agent needs this conversation**; an **active lane survives agent-thread replacement** through the branch + relay key + pinned packet + explicit ownership transfer + freshness check; **historical/stale/diverged lanes re-enter from the current approved `main`** and cite the old branch/commit as an immutable source packet. **The chat/model session is replaceable compute; the durable lane state is branch + worktree + relay key + pinned packet + handoff.**
+
+### §7.1 — Launch cards (one per lane; exact inputs, output, scope, gate)
+Common base for all five = **the final post-map-landing `main` SHA** (recorded in the amended Aug-3 checkpoint Parallel Launch Envelope at landing; echoed in each returned launch block). Stop state for every lane = `review_ready_pending_integrator`. Control-plane integrator = the current Opus thread.
+
+**Card 1 — `CARE-TASKD-INPUT`**
+- **Inputs (exact):** current checkpoint `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`; Task-D method `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md` + `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md` + `.cursor/plans/v4_C4_2C_task_d_gemini_b_partial_adversary_verbatim.md` (read A→B→C); Care capture `.cursor/plans/v4_C4_care_operating_model_capture.md`; Care forensic/correction-continuity terminus resolved through catalog/read-graph — `.cursor/plans/HANDOFF_2026-07-13_care_forensic_inheritance_audit.md` + `.cursor/plans/v4_C4_3_care_response_seam_correction_continuity_test.md` (landed `5275707`).
+- **Output (exact):** `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` — one **version-pinned Care Input-State Receipt**.
+- **Allowed write scope:** the output file only.
+- **Prohibited shared surfaces:** `AGENTS.md`, Aug-3 checkpoint, `04_manifest_read_graph.md`, `01_master_corpus_catalog.md`, `03_decision_extraction_ledger.md`, `08_open_review_queue.md`, `future_work_registry.md`, controlling-plan banner.
+- **Dependencies / collision:** none blocking; shares no writable file with siblings.
+- **Proof:** version pins (path + commit/blob) for every cited input; explicit "no Care redesign, no false closure" attestation.
+- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+
+**Card 2 — `GRR-TASKD-INPUT`**
+- **Inputs (exact):** current checkpoint `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`; Task-D method `v4_C4_2A/2B/2C` (paths as Card 1); GRR capture `.cursor/plans/v4_C4_governed_reporting_resolution_capture.md` + any accepted GRR pressure/terminus carrier resolved through catalog/read-graph.
+- **Output (exact):** `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` — one **version-pinned GRR Input-State Receipt**.
+- **Allowed write scope:** the output file only.
+- **Prohibited shared surfaces:** same list as Card 1.
+- **Dependencies / collision:** none blocking.
+- **Proof:** version pins for every cited input; "no GRR redesign, no false closure" attestation.
+- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+
+**Card 3 — `INS-G0-MIXEDFIN`**
+- **Inputs (exact):** `.cursor/plans/contracts/D6_commerce_contract.md` (insurance/financing boundary sections); `D0THES-REV-159`/`D0THES-REV-160` in `.cursor/plans/doctrine/08_open_review_queue.md`; `FWREG-017` in `.cursor/plans/doctrine/future_work_registry.md`; plus the Care/Identity/Federation/D7-Consent/RBAC/Pharmacy contract sources required by the gate (`.cursor/plans/contracts/*`).
+- **Output (exact):** `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` — an **Insurance/Payer/OOP Gate-0 carrier** consuming D6 + REV-159/160.
+- **Allowed write scope:** the output file only.
+- **Prohibited shared surfaces:** same list as Card 1.
+- **Dependencies / collision:** consumes D6 (read-only); must not reopen D6.
+- **Proof:** version pins; explicit "no payer domain minted; no connector-as-architecture" attestation.
+- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+
+**Card 4 — `OPECON-G0-COUNTERPARTY`** (branch `analysis/nonlabor-operator-economics-counterparty-g0`)
+- **Inputs (exact):** `.cursor/plans/contracts/business_ops_workforce_contract.md` (BIZOPS); `D0THES-REV-164` (`08_open_review_queue.md`); `.cursor/plans/contracts/D6_commerce_contract.md`; Demand Gate-0 immutable source commit `b191d75423b256b52a1693913d19b88f953fd533`; `EVRUN-2026-000012` carrier; Pharmacy/counterparty closeout sources; `FWREG-018` (`future_work_registry.md`).
+- **Output (exact):** `.cursor/plans/v4_nonlabor_operator_economics_counterparty_gate0_carrier_2026-08-04.md` — a **Non-Labor Operator Economics Track B + Counterparty Residual Gate-0 carrier**.
+- **Allowed write scope:** the output file only.
+- **Prohibited shared surfaces:** same list as Card 1.
+- **Dependencies / collision:** must **consume, not duplicate** D6 + BIZOPS; **do not mint a Vendor or Operator-Economics domain**; do not reopen D6/BIZOPS.
+- **Proof:** version pins (incl. `b191d75…`); explicit non-duplication attestation vs D6/BIZOPS.
+- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+
+**Card 5 — `C45-P2-ANCHORS`**
+- **Inputs (exact):** C4.5 charter `.cursor/plans/v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md`; `D0THES-DEC-038`; the six exact anchors named by the charter — `EVSRC-2026-000122`, `-000124`, `-000165`, `-000182`, `-000184`, `-000185` (`.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000{122,124,165,182,184,185}_TK.md`); Task-D method `v4_C4_2A/2B/2C`.
+- **Output (exact):** `.cursor/plans/v4_C4_5_phase2_six_source_anchor_verification_2026-08-04.md` — **six-source verification + provisional temporal-lens admission receipt**.
+- **Allowed write scope:** the output file only.
+- **Prohibited shared surfaces:** same list as Card 1.
+- **Dependencies / collision:** none blocking; parallel/non-blocking to the other four.
+- **Proof:** per-anchor read receipt (path + verification result); explicit "no full C4.5 pass; no temporal-axis promotion" attestation.
+- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
 
 ---
 
@@ -168,5 +216,5 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 ## §11 — Registrations executed in this pass
 - **`FWREG-017`** — Insurance/Payer/Coverage/OOP **activation + sequencing pointer** (points to D6 + `D0THES-REV-159/160`; no new Insurance domain authorized).
 - **`D0THES-REV-159`** (open-review queue) — linked to this map; trigger expanded to Insurance/Payer/OOP Gate-0; D6 ownership + care-vs-financing-authority distinction preserved; nothing promoted.
-- **`D0THES-DEC-039`** — pre-spine sequencing decision (Sufficiency-Gate-first; version-pinned Input-State Receipts not closure; Insurance lineage; Operator Economics Track B; parallel Phase A; proposal-vs-settled labels; posture-to-test); `review_required`.
+- **`D0THES-DEC-039`** — pre-spine sequencing decision (Sufficiency-Gate-first; version-pinned Input-State Receipts not closure; Insurance lineage; Non-Labor Operator Economics Track B; parallel Phase A; proposal-vs-settled labels; posture-to-test); `review_required`.
 - **Catalog row** — category `handoff_or_readiness_gate`; candidate; `no_new_route_needed`.
