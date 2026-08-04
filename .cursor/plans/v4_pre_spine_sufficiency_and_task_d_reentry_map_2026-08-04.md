@@ -149,8 +149,20 @@ Launch these five lanes **from the SAME immutable `lane_content_base_sha`** — 
 - **`lane_content_base_sha` = `84f2d582890f8ec963e40e78773616f321f59718`** (accepted **content** commit **A**, hardening branch `governance/phase-a-launch-envelope-hardening`).
 - Accepted blobs **at A**: Agent Work Protocol `ddfbd9a84ef102ac325383b785dcc59ac5a57177` · this map `b05450f4331b4b6375199bdeac618a44bb5fc7ed` · Aug-3 checkpoint `02081df707114d027910ec03103441cb8038029d`.
 - **All five lane branches are pinned to A.** `main` is advanced by the later **state-only** commit **B** (`current_main_state_sha`), so the lanes sit **one state-only commit behind `main` by design** — normal per §2.1 Base-binding law, not drift. This document does **not** self-stamp commit B; the checkpoint's launch receipt and the branch refs control.
-- **Source-resolution rule (binding interpretation):** every launch-card path that is resident on `main` **resolves at commit A**, unless that card explicitly supplies a different immutable ref. Lane reads must **not** silently drift to a later `main`. The Demand Gate-0 packet is the named exception and resolves at its own branch/commit/blob (Card 4).
+- **Source-resolution rule — TWO REFERENCES (binding interpretation; Agent Work Protocol §2.1 Two-Reference Boot Law):**
+  - **Current control-plane surfaces resolve from the CURRENT accepted `main`/checkpoint state** — `AGENTS.md` · read graph · the current checkpoint · lane/integrator state. Never read these from an older lane content base: a content base is a frozen input, not a status report, and an older base will still describe launch as held.
+  - **Substantive card inputs resolve at the immutable `lane_content_base_sha`** (content base) unless separately pinned.
+  - **Separately pinned cross-branch objects retain their explicit refs** — named exception: the Demand Gate-0 packet at its own branch/commit/blob (Card 4).
 - **Lane states remain `not_started`** until each lane's thread/relay lock is accepted.
+
+**Control-plane boot floor — identical for ALL five lanes (resolve from CURRENT `main`, NOT from the content base):**
+1. `AGENTS.md`
+2. `.cursor/plans/doctrine/04_manifest_read_graph.md`
+3. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` — the **current checkpoint**, whose launch receipt (§4.2) carries the live base pin, lane states, and integrator holder.
+
+If the current checkpoint's launch receipt does **not** name the lane branch/base you are opening, **STOP for reconciliation** rather than inferring from an older base.
+
+**Lifecycle wording (timeless).** This map carries **content and envelope**; the **current launch acceptance/state is controlled by the current checkpoint**. No acceptance/pending state written inside a content-base copy of this map becomes authoritative or "stale" merely because a later state receipt lands — the checkpoint launch receipt is the live state surface.
 
 **Integrator.** Integrator role key = **`PRESPINE-PHASEA-INTEGRATOR`**. Current holder = **Opus control-plane integration context**. The role is **transferable** per §2.1 **Integrator-transfer law** (explicit transfer + freshness/collision check + shared-surface ownership receipt + parent blockers); it is **not** a permanent chat thread, and a retired holder must not strand the lanes.
 
@@ -193,7 +205,7 @@ Each card's floor below is the **mandatory minimum**; a lane MAY expand through 
 
 **Card 1 — `CARE-TASKD-INPUT`**
 - **Inputs — exact mandatory floor:**
-  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  1. *(control-plane boot floor — the current checkpoint, `AGENTS.md` and the read graph are read from **CURRENT `main`**, not from this content base; see the control-plane boot floor above. They are NOT content-base inputs.)*
   2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
   3. `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md`
   4. `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md`
@@ -211,7 +223,7 @@ Each card's floor below is the **mandatory minimum**; a lane MAY expand through 
 
 **Card 2 — `GRR-TASKD-INPUT`**
 - **Inputs — exact mandatory floor:**
-  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  1. *(control-plane boot floor — the current checkpoint, `AGENTS.md` and the read graph are read from **CURRENT `main`**, not from this content base; see the control-plane boot floor above. They are NOT content-base inputs.)*
   2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
   3. `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md`
   4. `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md`
@@ -229,7 +241,7 @@ Each card's floor below is the **mandatory minimum**; a lane MAY expand through 
 
 **Card 3 — `INS-G0-MIXEDFIN`**
 - **Inputs — exact mandatory floor** (may expand through the read graph; the floor itself is exact):
-  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  1. *(control-plane boot floor — the current checkpoint, `AGENTS.md` and the read graph are read from **CURRENT `main`**, not from this content base; see the control-plane boot floor above. They are NOT content-base inputs.)*
   2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
   3. `.cursor/plans/contracts/D6_commerce_contract.md` — §12 future home + explicit deferral
   4. `.cursor/plans/doctrine/08_open_review_queue.md` — rows `D0THES-REV-159` and `D0THES-REV-160` (read-only)
@@ -250,7 +262,7 @@ Each card's floor below is the **mandatory minimum**; a lane MAY expand through 
 
 **Card 4 — `OPECON-G0-COUNTERPARTY`** (branch `analysis/nonlabor-operator-economics-counterparty-g0`)
 - **Inputs — exact mandatory floor:**
-  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  1. *(control-plane boot floor — the current checkpoint, `AGENTS.md` and the read graph are read from **CURRENT `main`**, not from this content base; see the control-plane boot floor above. They are NOT content-base inputs.)*
   2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
   3. `.cursor/plans/contracts/business_ops_workforce_contract.md` (BIZOPS — existing labor/payroll/commission-payout/labor-cost owner; canonical draft pending ratification)
   4. `.cursor/plans/contracts/D6_commerce_contract.md` (existing patient-commerce owner)
@@ -269,7 +281,7 @@ Each card's floor below is the **mandatory minimum**; a lane MAY expand through 
 
 **Card 5 — `C45-P2-ANCHORS`**
 - **Inputs — exact mandatory floor:**
-  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  1. *(control-plane boot floor — the current checkpoint, `AGENTS.md` and the read graph are read from **CURRENT `main`**, not from this content base; see the control-plane boot floor above. They are NOT content-base inputs.)*
   2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
   3. `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md`
   4. `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md`
