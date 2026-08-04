@@ -2,16 +2,16 @@
 
 Document type: `handoff_or_readiness_gate`
 Authority: `analysis_nonbinding`
-Status: `candidate_pushed_pending_nick_knox_review · not_landed · no_checkpoint_repoint · no_new_read_graph_route_while_candidate`
+Status: `accepted_nick_knox · landed_on_main · active_prespine_sequence_home · not_checkpoint · no_new_read_graph_node`
 Domain(s): `architecture_governance, operator_governance, portfolio_sequencing`
 Lifecycle role: `bounded Task-D readiness / pre-spine sufficiency gate — a dependency graph + concern→disposition classification + minimum sequence + parallel-launch envelope; the executable answer to "what is next before Task-D population and the spine." Explicitly NOT the current checkpoint and NOT the Task-D scoring method.`
 Source-of-truth relationship: `nonbinding readiness gate only; it ROUTES concerns to their existing homes (FWREG rows, D6/REV-159/160, C4.4/Angle-B, Demand Gate-0) and names the gaps; it invents NO architecture, mints NO domain, and overrides NO contract, checkpoint, or gate. The current checkpoint HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md remains authoritative for program state; the Task-D method (v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md) remains frozen and unchanged.`
 Supersedes: `none`
 Superseded by: `none`
-Manifest action: `add_tier2 · no_new_route_needed` (while candidate: no route; on acceptance, Tier-0 reaches this map through the amended Aug-3 checkpoint — see §9)
-Review gate: `user_knox_required`
+Manifest action: `add_tier2 · no_new_route_needed` (accepted+landed: Tier-0 reaches this map through the amended Aug-3 checkpoint — see §9; no new read-graph node)
+Review gate: `satisfied (Nick operator approval + Knox final byte acceptance 2026-08-04)`
 
-> **What this is / is not.** A bounded, mostly-read-only Task-D **readiness/sufficiency gate**: inventory every spine-shaping concern → give each a disposition → name the minimum sequence and the parallel-launch envelope. It is **not** a new controlling document, **not** a checkpoint, **not** the Task-D scoring method, and **not** a new architecture arc. It repoints nothing while a candidate. It holds the prior "go straight into Task-D re-entry" relay.
+> **What this is / is not.** A bounded, mostly-read-only Task-D **readiness/sufficiency gate**: inventory every spine-shaping concern → give each a disposition → name the minimum sequence and the parallel-launch envelope. It is **not** a new controlling document, **not** a checkpoint, **not** the Task-D scoring method, and **not** a new architecture arc. **Accepted + landed on `main`:** the current Aug-3 checkpoint points to this map; final Task-D population is **held** pending Phase A (five lanes) + C3.9; the five Phase-A lanes are now authorized. The map **does not bind architecture and does not promote its 2030/2035 ownership hypothesis** (§5 stays a posture-to-test). It holds the prior "go straight into Task-D re-entry" relay.
 
 ---
 
@@ -199,22 +199,24 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 
 ## §9 — What this changes / does not change + acceptance transaction owed
 - **Changes:** holds the prior "go straight into Task-D re-entry" relay; activates the Insurance pointer (`FWREG-017` → D6/REV-159/160) and updates `D0THES-REV-159`; names the Operator-Economics Track-B gap; records the sequencing decision `D0THES-DEC-039`.
-- **Does NOT change (while candidate):** no checkpoint repoint; no read-graph route; no controlling-plan change; no C4.4/relay-governance reopen; no new domain; no C5 contract; no architecture decided; Task-D method frozen. Binds nothing (`GRD-036`).
-- **Acceptance transaction owed (state-only, when accepted):** normalize candidate rows → active; **amend the EXISTING Aug-3 checkpoint** to point to this map and hold final Task-D pending the named input-preparation phase; update the HOME controlling-plan banner; **`AGENTS.md` and read-graph #15 remain pointed at the same Aug-3 checkpoint** (no new checkpoint) — this is what makes `no_new_route_needed` truthful. Also correct the stale wording: branch `analysis/cross-facet-operating-model-reconciliation` @ `a526b88` is **remote-visible, quarantined and unregistered — not "local-only."**
+- **Does NOT change (even now, accepted):** no new checkpoint (the Aug-3 checkpoint is amended, not replaced); no new read-graph node; no controlling-plan authority change beyond the current-state banner; no C4.4/relay-governance reopen; no new domain; no C5 contract; no architecture decided; Task-D method frozen. Binds nothing architecturally (`GRD-036`); the parallel-work contract it instances is Build-OS-Execution-Layer doctrine via `D0CKPT-DEC-005`, not an architecture promotion.
+- **Acceptance transaction EXECUTED (state-only, 2026-08-04):** candidate rows normalized → active/accepted; the **EXISTING Aug-3 checkpoint amended** to point to this map and hold final Task-D pending Phase A + C3.9; HOME controlling-plan banner updated (reported separately); **`AGENTS.md` and read-graph #15 remain pointed at the same Aug-3 checkpoint** (no new checkpoint) — keeping `no_new_route_needed` truthful. Stale wording corrected: branch `analysis/cross-facet-operating-model-reconciliation` @ `a526b88` is **remote-visible, quarantined and unregistered — not "local-only."**
 
 ---
 
 ## §10 — Gate / stop
 - **Tested:** whether the pre-spine input set + dependency order are sufficient to resume Task-D.
 - **Candidate verdict:** inputs are **NOT yet sufficient**; two Gate-0s (Insurance; Operator Economics/Counterparty) + two Input-State Receipts (Care; GRR) + the C4.5 anchor micro-pass are REQUIRED before final Task-D population.
-- **Sequencing decisions — OPERATOR-ACCEPTED (Nick 2026-08-04, pending Knox final-byte + landing):** (a) C3.9-before-Task-D; (b) Demand Gate-1 parallel/non-blocking (Gate-0 = minimum Task-D input unless later work exposes a blocking contradiction); (c) H1-inside-Task-D-first. See §6.
-- **Next gate:** Nick + Knox byte review → state-only landing (§9) → launch the five Phase-A lanes from the landed SHA.
-- **STOP.** No checkpoint repoint, main landing, or arc launch performed in this transaction.
+- **Sequencing decisions — ACCEPTED (Nick operator 2026-08-04 + Knox final byte):** (a) C3.9-before-Task-D; (b) Demand Gate-1 parallel/non-blocking (Gate-0 = minimum Task-D input unless later work exposes a blocking contradiction); (c) H1-inside-Task-D-first. See §6.
+- **Next gate:** the five Phase-A lanes are launched from the final post-landing `main` SHA (per §7 + §7.1); each returns a `review_ready_pending_integrator` carrier for the integrator (this thread) to reconcile; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine.
+- **DONE in this transaction:** accepted + landed on `main` (state-only); Aug-3 checkpoint amended (not replaced). No Task-D population, C3.9 execution, spine, C5, or proof program started.
 
 ---
 
 ## §11 — Registrations executed in this pass
 - **`FWREG-017`** — Insurance/Payer/Coverage/OOP **activation + sequencing pointer** (points to D6 + `D0THES-REV-159/160`; no new Insurance domain authorized).
 - **`D0THES-REV-159`** (open-review queue) — linked to this map; trigger expanded to Insurance/Payer/OOP Gate-0; D6 ownership + care-vs-financing-authority distinction preserved; nothing promoted.
-- **`D0THES-DEC-039`** — pre-spine sequencing decision (Sufficiency-Gate-first; version-pinned Input-State Receipts not closure; Insurance lineage; Non-Labor Operator Economics Track B; parallel Phase A; proposal-vs-settled labels; posture-to-test); `review_required`.
-- **Catalog row** — category `handoff_or_readiness_gate`; candidate; `no_new_route_needed`.
+- **`D0THES-DEC-039`** — pre-spine sequencing decision (Sufficiency-Gate-first; version-pinned Input-State Receipts not closure; Insurance lineage; Non-Labor Operator Economics Track B; parallel Phase A; proposal-vs-settled labels; posture-to-test); **now `active` — already_landed=yes, human review satisfied (Commit 2)**.
+- **`D0CKPT-DEC-005` + `D0CKPT-GRD-002`** — the reusable parallel work-package contract (Agent Work Protocol §2.1) this map instances; added Commit 1, activated Commit 2 (DEC-005) / active on landing (GRD-002).
+- **`FWREG-018` / `D0THES-REV-164`** — Non-Labor Operator Economics Track B + counterparty residual (composes against existing BIZOPS/D6; no new domain).
+- **Catalog row** — category `handoff_or_readiness_gate`; **accepted + landed**; `no_new_route_needed`.

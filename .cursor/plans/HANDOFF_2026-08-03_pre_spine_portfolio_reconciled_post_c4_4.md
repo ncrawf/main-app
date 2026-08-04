@@ -1,6 +1,6 @@
 # HANDOFF — 2026-08-03 · Pre-Spine Portfolio & Control-Plane Reconciliation (post-C4.4)
 
-Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized`
+Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized · AMENDED_2026-08-04_prespine_sufficiency_map_accepted+landed (§4.1) · phase_A_five_lanes_NEXT_AUTHORIZED · final_TaskD_HELD_pending_phaseA+C3.9 · parallel_work_contract=AWP_§2.1/D0CKPT-DEC-005`
 
 > **This is the CURRENT checkpoint** (repoints `AGENTS.md` Current Checkpoint Handoff + read-graph Tier-0 #15). It is a normal dated checkpoint produced through the existing checkpoint mechanism — **NOT a universal boot file, NOT a new boot subsystem.** It supersedes `HANDOFF_2026-07-19_taskd_interim_checkpointed_evrun12_active.md` as the current program-state pointer; the 07-19 handoff and its content are retained as historical detail.
 >
@@ -24,7 +24,7 @@ Combined verdict carried forward: **local C4.4 arc = CLOSED_WITH_POINTER_ONLY_CO
 - **C4.4 (Knowledge Reservoirs / Source Estate):** architecture/authorability **CLOSED** — G3 §R accepted (2026-08-01), G4 Knox-adjudicated PASS 30/32 (one non-blocking finding `C44-G4-R01` routed forward), G5 accepted (2026-08-03; three-angle authorability test executed — Angle C PASS 6/6, fresh A VALID/five reconciliations, fresh B VALID current-source, preserved raw + routed). **Enterprise implementation UNPROVEN** (F-Self Intelligence-Foundry Pilot + Enterprise Bootstrap Steel Thread proof programs required). `analysis_nonbinding · not_promoted`. **No further C4.4 architecture formulation and no A/B/C rerun.** Accepted final estate curated-landed on `main` for discoverability (NOT promotion); full development/test/correction history remains on the C4.4 analysis branch `analysis/c4-4-g3-reference-architecture` (R5 `50983ce`).
 - **Pharmacy / Rx (C4.6):** Gate-0 + G2A accepted; L2 build-doctrine ACCEPTED (Knox final PASS); landed on `main` @ `44feb15`; G2B deferred. **Do not reopen.** Consume as C5 Rx-contract + spine input.
 - **C4.5 (Temporal Integrity):** Gate-0 charter accepted (`90efcf0`); full pass **not started**. Provisional temporal lens attaches to Task-D after the Phase-2 six-source anchor micro-pass; full C4.5 runs **after Task-D and before v4 Spine Draft 0**. No promotion.
-- **Task-D (enterprise composition):** interim population checkpointed; **NO final §7 verdict**; still required pre-spine.
+- **Task-D (enterprise composition):** interim population checkpointed; **NO final §7 verdict**; still required pre-spine. **★ Final Task-D population is HELD pending Phase A (five lanes) + C3.9** per the accepted pre-spine sequence — see **§4.1** and the accepted Pre-Spine Sufficiency & Task-D Re-Entry Map (`v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md`).
 - **Care · Platform · Accountability · Runtime · Demand · C3.9 · Insurance · Reactor · Polaris:** classified only to the depth their **current carriers** support (see §5 portfolio matrix). None closed beyond what its carrier states; none auto-advances from this checkpoint.
 
 ---
@@ -62,6 +62,18 @@ Combined verdict carried forward: **local C4.4 arc = CLOSED_WITH_POINTER_ONLY_CO
 - A separate broad "Reservoir Realization Readiness" pass is **unnecessary** unless Task-D exposes a genuinely unowned prerequisite not already covered by G5 I.9A/B/C + fresh-B.
 - F-Self / Enterprise Bootstrap: **preparation** may follow Task-D prerequisite mapping; Build-Entry authorization is not automatic (the gate itself needs vNext reconciliation); **execution is not authorized.**
 
+### §4.1 — ★ Accepted pre-spine sequence (2026-08-04, Nick + Knox — amendment to THIS checkpoint, not a new checkpoint)
+
+The **Pre-Spine Sufficiency & Task-D Re-Entry Map** (`.cursor/plans/v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md`; accepted + landed on `main`; pre-landing review head `866c49224356c667854bc64bcdea423eb2e76600`, primary blob `f1855661adb6a915a1e654e3b8f107370fccf4cc`) is the **active pre-spine sequence home**. `AGENTS.md` and read-graph #15 continue to point at **this same Aug-3 checkpoint file** (no new checkpoint, no new read-graph node); the map is reached *through* this checkpoint. Order — no auto-jump beyond each gate:
+
+1. **Phase A — five parallel input lanes = the next authorized parallel work:** Care Input-State Receipt · GRR/Accountability Input-State Receipt · Insurance/Payer/OOP Gate-0 · Non-Labor Operator Economics + Counterparty Residual Gate-0 · C4.5 Phase-2 six-source anchor verification. Governed by **Agent Work Protocol §2.1** (Parallel Work-Package Launch and Re-Entry Contract; first concrete envelope = map §7/§7.1). One writer per branch; shared control-plane surfaces read-only to lanes; the current Opus thread is the sole **control-plane integrator**; lanes return `review_ready_pending_integrator` carriers.
+2. **C3.9** plastics/medspa population — after Phase A.
+3. **Final Task-D** (§7 verdict) — after C3.9; consumes the Phase-A carriers + C3.9 fixture.
+4. **Full C4.5** temporal pass — after Task-D.
+5. **Final sufficiency receipt → v4 Spine Draft 0.**
+
+**Task-D final population is HELD** pending Phase A + C3.9. This **supersedes any earlier "Task-D is the immediate next home" reading** in §4 / §5 / this file: Task-D remains required pre-spine, but the accepted immediate next work is Phase A. Demand Gate-1 is parallel/non-blocking; H1 is tested inside Task-D first; C3.9 precedes final Task-D. Reusable contract: `D0CKPT-DEC-005` / `D0CKPT-GRD-002`.
+
 ---
 
 ## §5 — Portfolio matrix (carrier-supported depth only)
@@ -80,7 +92,7 @@ Combined verdict carried forward: **local C4.4 arc = CLOSED_WITH_POINTER_ONLY_CO
 | Build Entry | Active gate, frozen against pre-vNext read path | Repoint + revalidate before admitting F-Self/Steel-Thread |
 | Task-D | Interim; NO §7 verdict; required pre-spine | Consume C4.4/fresh-B + required arcs → final §7 |
 | C3.9 plastics/medspa | Population shell only | Operator-controlled population; Task-D fixture |
-| Cross-facet process | Process agreed + durable (pharmacy handoff §5); worksheet branch `a526b88` local-only/quarantined | Extract process (this checkpoint + `D0CKPT-DEC-004`); do NOT promote worksheet answers |
+| Cross-facet process | Process agreed + durable (pharmacy handoff §5); worksheet branch `a526b88` **remote-visible, quarantined, unregistered — NOT local-only** (verified 2026-08-04: `origin/analysis/cross-facet-operating-model-reconciliation` exists; corrects the earlier "local-only/unpushed" wording here and in `D0CKPT-DEC-004`) | Extract process (this checkpoint + `D0CKPT-DEC-004`); do NOT promote worksheet answers |
 | Insurance/payer | No accepted active carrier this pass | Future arc when Nick opens it |
 | Reactor | Frozen, unpromoted candidate (EVRUN-008 = R3 residual) | Only via named gates |
 | Polaris | Active nonbinding alignment/naming lock; owns no truth | Spine consumption; later contract realization |
@@ -130,3 +142,10 @@ Parallel arc work is safe only when ALL hold (the missing surface that produced 
 - Commit 2: this checkpoint + the C4.4 §0-CLOSEOUT G5 pin + AGENTS/#15 repoint + catalog registration + decision-ledger `D0CKPT-DEC-004` (the repeatable arc-completion / process law).
 - Off-repo controlling-plan banner (`~/.cursor/plans/wave-2_source_scaffolding_654989a0.plan.md`) reconciled in the same working session (reported separately; outside the repo commit).
 - **Landing authorization satisfied by Nick + Knox; the normalized integration tip was landed on `main` via a normal fast-forward (no force, no merge commit).** Landing = discoverability, NOT promotion; the analysis/development history remains on the C4.4 analysis branches.
+
+### §8.1 — Amendment transaction (2026-08-04): pre-spine sequence + parallel-work contract
+
+- Branch: `planning/prespine-sufficiency-map` (built on the relay-integrity landing; strict fast-forward from `main`).
+- **Commit 1** — reusable parallel work-package contract: Agent Work Protocol §2.1 (Build OS Layer-2 operationalization + build-vs-product firewall) · sufficiency-map §7 conformance + five launch cards · `D0CKPT-DEC-005` (ledger) · `D0CKPT-GRD-002` (guardrail) · Volume 8 addendum. Exactly 5 files.
+- **Commit 2** — accept + land + synchronize: map → accepted+landed · **this checkpoint amended (§4.1 accepted pre-spine sequence + cross-facet wording correction)** · AGENTS + read-graph #15 embedded summaries synced (same checkpoint file) · `D0THES-DEC-039` + `D0CKPT-DEC-005` activated · catalog + FWREG-017/018 + REV-159/164 + `FWREG-010`/`D0THES-REV-158` partial-progress notes. Exactly 8 files.
+- **This is an amendment, not a new checkpoint:** `AGENTS.md` Current Checkpoint Handoff and read-graph Tier-0 #15 still name THIS file; no new read-graph node. Landed on `main` via fast-forward (no force, no merge). Off-repo controlling-plan banner reconciled in the same working session (reported separately).
