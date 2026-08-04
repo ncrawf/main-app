@@ -1,10 +1,10 @@
-# HANDOFF — 2026-08-03 · Collaboration Relay-Integrity Rules (CANDIDATE)
+# HANDOFF — 2026-08-03 · Collaboration Relay-Integrity Rules (ACCEPTED + LANDED; filename retains candidate origin)
 
 Document type: `handoff_or_readiness_gate`
 Authority: `derived_nonbinding`
-Status: `candidate_pushed_pending_nick_knox_byte_review · not_landed · no_checkpoint_repoint`
+Status: `accepted_nick_knox · landed_on_main · active_continuity · no_checkpoint_repoint`
 Domain(s): `architecture_governance, operator_governance, agent_execution`
-Lifecycle role: `bounded continuity and review handoff for the relay-integrity canonization candidate`
+Lifecycle role: `bounded continuity and landing record for the relay-integrity canonization (accepted + landed)`
 Source-of-truth relationship: `nonbinding continuity pointer to the canonical rules in operator_context_and_collaboration_model.md §§2.6–2.7; not doctrine and not the current checkpoint`
 Supersedes: `none`
 Superseded by: `none`
@@ -12,6 +12,8 @@ Manifest action: `add_tier2 · no_new_route_needed`
 Review gate: `user_knox_required`
 
 > Continuity note (retained): `GRD-036` non-binding; Tier-4 canonization preservation satisfied proportionally per Agent Work Protocol §8 (bounded handoff + short Volume 8 + `D0OPER-DEC-005/006` + `D0OPER-GRD-002/003`).
+
+> **Immutable acceptance receipt (2026-08-03):** Nick operator approval + Knox final byte acceptance. Reviewed/accepted candidate head `e1a485620600fcaca514bf0d389e027c21c6c42a`; accepted canonical object blob (`operator_context_and_collaboration_model.md`) `d500e0b3f3fdacfa534f8536fbbdb7bf382c156b`. The canonical blob is **unchanged** by the state-only landing-normalization transaction (that commit touched only this handoff, Volume 8, the decision ledger, and the catalog). Landed to `main` via ordinary fast-forward (no force, no merge commit). This handoff is **not** the current checkpoint and repoints no program gate; the analysis/development history remains on `governance/relay-integrity-rules`.
 
 > **This is NOT a checkpoint.** It does **not** repoint `AGENTS.md` / read-graph Tier-0 #15 / the controlling-plan banner. The current program checkpoint remains `HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`. This handoff preserves continuity for one bounded, off-to-the-side collaboration-governance transaction that runs in parallel to (and does not change) the v4 gate state.
 
@@ -37,7 +39,7 @@ The operator directive **overrode** Knox's first seat-forward title format (`KEY
 ## §2 — Exact scope (8 files) + branch
 
 - **Base:** `main` @ `add46e282bb1eb9597e455c458c4e8fef4f7ba82`
-- **Branch:** `governance/relay-integrity-rules` (pushed; NOT merged)
+- **Branch:** `governance/relay-integrity-rules` (landed to `main` via ordinary fast-forward; development history retained on the branch)
 
 | # | File | Change |
 |---|---|---|
@@ -70,11 +72,13 @@ The operator directive **overrode** Knox's first seat-forward title format (`KEY
 - This handoff + Volume 8 carry passports (type/authority/status) and catalog rows (file #8).
 - **Read-graph disposition: `no_new_route_needed`.** Reason: the binding rule enters through Tier-0 collaboration-model route #16 (already mandatory at boot); the profiles load through existing environment routes; this handoff + Volume 8 are bounded historical continuity, not new boot nodes. No `04_manifest_read_graph.md` edit.
 
-## §6 — Next gate / stop condition
+## §6 — Gate satisfied / stop condition
 
-- **STOP for Nick + Knox byte review** of the pushed branch (open the exact blobs from GitHub via the Review Object Posture + Bounded Diff Receipt in the Opus return).
-- On acceptance: Opus fast-forwards `main` (no force, no merge commit); then Nick replaces the external Knox Project source with the mirrored clause.
-- **No** substantive next arc starts from this transaction; sequencing remains operator-controlled per the current checkpoint.
+- **Nick + Knox byte review is satisfied** (final byte PASS; `D0OPER-DEC-005/006` accepted).
+- The rules are **landed on `main`** via a state-only normalization + ordinary fast-forward.
+- The **external Knox Project-source replacement** is the only remaining follow-through and is a **non-repository** action.
+- **No** substantive OMNI arc is auto-started by this transaction; sequencing remains operator-controlled per the current checkpoint.
+- **STOP.**
 
 ## §7 — Source-of-truth load order (for a fresh agent picking this up)
 

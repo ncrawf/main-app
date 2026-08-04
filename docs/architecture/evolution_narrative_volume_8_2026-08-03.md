@@ -3,7 +3,7 @@
 
 Document type: `narrative_or_postmortem`
 Authority: `analysis_nonbinding`
-Status: `candidate_pushed_pending_nick_knox_byte_review · not_promoted`
+Status: `active_landed_on_main · analysis_nonbinding · not_promoted`
 Domain(s): `architecture_governance, operator_governance, agent_execution`
 Lifecycle role: `short Tier-3 rationale chronicle for D0OPER-DEC-005 and D0OPER-DEC-006`
 Source-of-truth relationship: `nonbinding rationale only; canonical rules live in operator_context_and_collaboration_model.md §§2.6–2.7; decisions and guardrails carry durable routing`
@@ -46,4 +46,4 @@ No Agent Runtime identity ontology and no global agent-numbering registry — "t
 - Right-sized preservation: Tier-4 inheritance is honored (bounded handoff + this short Volume 8 + decision + guardrail rows), but Volume 8 is deliberately a small chronicle, not a maximal treatise — the process fix must not become another architecture arc.
 
 ## Why the arc stops here
-The candidate is authored and pushed on `governance/relay-integrity-rules` for Nick + Knox byte review; it is not landed on `main` and repoints no checkpoint. Its own first real test — this very transaction relayed with a Review Object Posture and Bounded Diff Receipt — is the demonstration. After acceptance the external Knox Project source gets the mirrored pointer clause, and sequencing returns, unchanged, to the next operator-selected OMNI arc.
+The rules are accepted (Nick operator approval + Knox final byte PASS) and **landed on `main`** via a state-only normalization plus ordinary fast-forward. The accepted candidate snapshot is `e1a485620600fcaca514bf0d389e027c21c6c42a`; the accepted canonical collaboration-model blob is `d500e0b3f3fdacfa534f8536fbbdb7bf382c156b` (unchanged by the landing normalization). The landing repoints **no checkpoint** and carries **no architecture, product, or runtime implication** — §§2.6–2.7 are now active operator-governance rules; this narrative remains rationale, not command authority. Its own first real test — this very transaction relayed with a Review Object Posture and Bounded Diff Receipt — was the demonstration. The **external Knox Project-source replacement** remains the final operational follow-through outside the repository, after which sequencing returns, unchanged, to the next operator-selected OMNI arc.
