@@ -1,6 +1,6 @@
 # HANDOFF — 2026-08-03 · Pre-Spine Portfolio & Control-Plane Reconciliation (post-C4.4)
 
-Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized · AMENDED_2026-08-04_prespine_sufficiency_map_accepted+landed (§4.1) · phase_A_five_lanes_NEXT_AUTHORIZED_but_EXECUTION_HELD_pending_hardened_envelope_acceptance+launch_receipt · lane_containers_created_EMPTY · final_TaskD_HELD_pending_phaseA+C3.9 · parallel_work_contract=AWP_§2.1/D0CKPT-DEC-005 · integrator_role=PRESPINE-PHASEA-INTEGRATOR (transferable)`
+Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized · AMENDED_2026-08-04_prespine_sufficiency_map_accepted+landed (§4.1) · phase_A_envelope_ACCEPTED_Nick+Knox_2026-08-04 · lane_content_base_A=84f2d58_PINNED (§4.2 launch receipt) · five_lane_branches_pinned_to_A_EMPTY_not_started · phase_A_READY_FOR_ASSIGNED_THREAD_LAUNCH · final_TaskD_HELD_pending_phaseA+C3.9 · parallel_work_contract=AWP_§2.1/D0CKPT-DEC-005 · integrator_role=PRESPINE-PHASEA-INTEGRATOR (transferable)`
 
 > **This is the CURRENT checkpoint** (repoints `AGENTS.md` Current Checkpoint Handoff + read-graph Tier-0 #15). It is a normal dated checkpoint produced through the existing checkpoint mechanism — **NOT a universal boot file, NOT a new boot subsystem.** It supersedes `HANDOFF_2026-07-19_taskd_interim_checkpointed_evrun12_active.md` as the current program-state pointer; the 07-19 handoff and its content are retained as historical detail.
 >
@@ -68,7 +68,40 @@ The **Pre-Spine Sufficiency & Task-D Re-Entry Map** (`.cursor/plans/v4_pre_spine
 
 1. **Phase A — five parallel input lanes = the next authorized parallel work:** Care Input-State Receipt · GRR/Accountability Input-State Receipt · Insurance/Payer/OOP Gate-0 · Non-Labor Operator Economics + Counterparty Residual Gate-0 · C4.5 Phase-2 six-source anchor verification. Governed by **Agent Work Protocol §2.1** (Parallel Work-Package Launch and Re-Entry Contract; first concrete envelope = map §7/§7.1). One writer per branch; shared control-plane surfaces read-only to lanes; lanes return `review_ready_pending_integrator` carriers satisfying the map's **common lane output contract**. The control-plane integrator is a **transferable role**, key **`PRESPINE-PHASEA-INTEGRATOR`** (current holder = the Opus control-plane integration context) — per §2.1 **Integrator-transfer law**, a retired or replaced holder must not strand the lanes.
 
-   **★ Phase-A execution is HELD (2026-08-04, post-landing Knox byte review).** The five lane containers exist and are **empty**; lane work has **not** started. Execution begins only after (a) Nick + Knox accept the **fidelity-hardened** §7/§7.1 envelope (branch `governance/phase-a-launch-envelope-hardening`), and (b) a **post-acceptance launch receipt** is added to this checkpoint pinning the `lane_content_base_sha` (the accepted **content** commit) plus the five branch heads and lane states. Per §2.1 **Base-binding law**, that lane base is normally the immediate accepted ancestor of `main` when `main` differs only by a state-only closeout commit — no artifact self-stamps its own SHA, and no agent should need a chat transcript to recover the base. Local worktree paths are **environment-local and non-canonical**; they are recorded in the launch receipt and may be recreated anywhere from branch + base.
+   **★ Phase-A envelope ACCEPTED (Nick + Knox, 2026-08-04).** The fidelity-hardened §7/§7.1 envelope passed final content byte review; the lane content base is pinned in **§4.2 — Phase-A launch receipt** below. The five lane containers are prepared, pinned, and **empty**; lane work has **not** started. Execution is authorized **per lane** only when that lane receives and accepts its exact thread/relay lock. Local worktree paths are **environment-local and non-canonical** — recreatable anywhere (new machine, cloud VM, fresh clone) from branch + base.
+
+### §4.2 — ★ Phase-A launch receipt (2026-08-04, state-only; binds the accepted content base)
+
+This is the durable, post-acceptance base binding required by Agent Work Protocol §2.1 **Base-binding law**. **A fresh agent — local, cloud, or mobile — can launch any lane from this receipt alone. No conversation, no chat transcript, and no machine-specific path is required.**
+
+| Field | Value |
+|---|---|
+| Parent key | `PRESPINE-PHASEA` |
+| `lane_content_base_sha` (**commit A**) | `84f2d582890f8ec963e40e78773616f321f59718` |
+| Accepted map blob at A | `b05450f4331b4b6375199bdeac618a44bb5fc7ed` |
+| Accepted Agent Work Protocol blob at A | `ddfbd9a84ef102ac325383b785dcc59ac5a57177` |
+| Accepted checkpoint blob at A | `02081df707114d027910ec03103441cb8038029d` |
+| Content branch of A | `governance/phase-a-launch-envelope-hardening` |
+| `current_main_state_sha` (**commit B**) | the later **state-only** acceptance/launch-receipt commit that carries this receipt and to which `main` is fast-forwarded (branch refs control; not self-stamped here) |
+| Integrator role key | `PRESPINE-PHASEA-INTEGRATOR` |
+| Current holder | `THREAD LOCK PRESPINE-PHASEA-INTEGRATOR \| seat=OPUS \| visible="Pre-spine · Phase-A integration"` |
+| Integrator transfer posture | explicit transfer + freshness/collision check + shared-surface ownership receipt REQUIRED before any replacement holder acts |
+
+**Base + source-resolution law.** All five lane branches are pinned to **A**. `main` is one **state-only** commit ahead (**B**), so lanes are **one commit behind `main` by design** — normal, not drift. **Every launch-card path resident on `main` resolves at commit A**, unless that card explicitly supplies a different immutable ref; lane reads must not silently drift to a later `main`. Named exception: the **Demand Gate-0 packet** resolves at branch `analysis/demand-engagement-gate0-recovery`, commit `b191d75423b256b52a1693913d19b88f953fd533`, blob `fd5b7fc7a10b02f3d83fadf2a82f667db163a8fa`.
+
+**Shared surfaces owned EXCLUSIVELY by the integrator role** (read-only to all five lanes): `AGENTS.md` · this checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · the off-repo controlling-plan banner.
+
+| Lane / relay key | Branch (head = **A**) | State | Owner | Output object |
+|---|---|---|---|---|
+| `CARE-TASKD-INPUT` | `analysis/care-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` |
+| `GRR-TASKD-INPUT` | `analysis/accountability-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` |
+| `INS-G0-MIXEDFIN` | `analysis/insurance-payer-oop-g0` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` |
+| `OPECON-G0-COUNTERPARTY` | `analysis/nonlabor-operator-economics-counterparty-g0` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_nonlabor_operator_economics_counterparty_gate0_carrier_2026-08-04.md` |
+| `C45-P2-ANCHORS` | `analysis/c4-5-phase2-anchor-verification` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_C4_5_phase2_six_source_anchor_verification_2026-08-04.md` |
+
+Every lane: **worktree = environment-local / recreatable (non-canonical)**; **stop = `review_ready_pending_integrator`**; mandatory input floor + output contract = map §7.1 (Cards 1–5 + the common lane output contract).
+
+**State:** Phase-A envelope **accepted**; lane containers **prepared and pinned**; agent execution is authorized **only after each lane receives and accepts its exact thread/relay lock**; **no successor phase auto-starts** (C3.9, final Task-D, full C4.5, spine, C5 and all proof programs remain gated).
 2. **C3.9** plastics/medspa population — after Phase A.
 3. **Final Task-D** (§7 verdict) — after C3.9; consumes the Phase-A carriers + C3.9 fixture.
 4. **Full C4.5** temporal pass — after Task-D.
