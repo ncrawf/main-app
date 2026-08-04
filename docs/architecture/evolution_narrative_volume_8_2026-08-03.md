@@ -5,8 +5,8 @@ Document type: `narrative_or_postmortem`
 Authority: `analysis_nonbinding`
 Status: `active_landed_on_main · analysis_nonbinding · not_promoted`
 Domain(s): `architecture_governance, operator_governance, agent_execution`
-Lifecycle role: `short Tier-3 rationale chronicle for D0OPER-DEC-005 and D0OPER-DEC-006`
-Source-of-truth relationship: `nonbinding rationale only; canonical rules live in operator_context_and_collaboration_model.md §§2.6–2.7; decisions and guardrails carry durable routing`
+Lifecycle role: `short Tier-3 rationale chronicle for D0OPER-DEC-005 and D0OPER-DEC-006 (relay/thread/object identity) AND — via the 2026-08-04 addendum — for D0CKPT-DEC-005 (the parallel-execution follow-through: Agent Work Protocol §2.1 as the first partial Build-OS Layer-2 operationalization, plus its 2026-08-04 base-binding / worktree / integrator-transfer hardening)`
+Source-of-truth relationship: `nonbinding rationale only; canonical rules live in operator_context_and_collaboration_model.md §§2.6–2.7 (relay integrity) and agent_work_protocol.md §2.1 (parallel work-package contract); decisions D0OPER-DEC-005/006 + D0CKPT-DEC-005 and guardrails D0OPER-GRD-002/003 + D0CKPT-GRD-002 carry the durable routing. This narrative originates nothing.`
 Supersedes: `none`
 Superseded by: `none`
 Manifest action: `add_tier3 · no_new_route_needed`

@@ -171,6 +171,10 @@ No lane is implementation-authorized until it proves:
 **Rule**
 - Do not expand complexity unless it improves correctness and clarity.
 
+**Partial progress (2026-08-04)**
+- `Agent Work Protocol §2.1` supplies the **human-supervised parallel-lane contract** (`D0CKPT-DEC-005` / `D0CKPT-GRD-002`) — the first concrete envelope being the pre-spine Phase-A five-lane launch.
+- **Automated registry, ownership leases, shared-surface locks, merge queue, semantic collision detection, parent/child scheduling, status projection and proof automation remain planned Step-5 work.** Human-supervised discipline now ≠ automated 20/100-agent orchestration built.
+
 ---
 
 ## Mandatory Safeguards (Current Phase)

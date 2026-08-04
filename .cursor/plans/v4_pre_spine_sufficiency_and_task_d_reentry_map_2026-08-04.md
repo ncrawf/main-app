@@ -2,16 +2,16 @@
 
 Document type: `handoff_or_readiness_gate`
 Authority: `analysis_nonbinding`
-Status: `accepted_nick_knox · landed_on_main · active_prespine_sequence_home · not_checkpoint · no_new_read_graph_node`
+Status: `sequence_accepted_nick_knox · landed_on_main · active_prespine_sequence_home · not_checkpoint · no_new_read_graph_node · launch_envelope_HARDENED_2026-08-04_pending_final_byte_review · phase_A_execution_HELD`
 Domain(s): `architecture_governance, operator_governance, portfolio_sequencing`
 Lifecycle role: `bounded Task-D readiness / pre-spine sufficiency gate — a dependency graph + concern→disposition classification + minimum sequence + parallel-launch envelope; the executable answer to "what is next before Task-D population and the spine." Explicitly NOT the current checkpoint and NOT the Task-D scoring method.`
 Source-of-truth relationship: `nonbinding readiness gate only; it ROUTES concerns to their existing homes (FWREG rows, D6/REV-159/160, C4.4/Angle-B, Demand Gate-0) and names the gaps; it invents NO architecture, mints NO domain, and overrides NO contract, checkpoint, or gate. The current checkpoint HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md remains authoritative for program state; the Task-D method (v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md) remains frozen and unchanged.`
 Supersedes: `none`
 Superseded by: `none`
 Manifest action: `add_tier2 · no_new_route_needed` (accepted+landed: Tier-0 reaches this map through the amended Aug-3 checkpoint — see §9; no new read-graph node)
-Review gate: `satisfied (Nick operator approval + Knox final byte acceptance 2026-08-04)`
+Review gate: `map body + sequence = SATISFIED (Nick operator approval + Knox final byte acceptance 2026-08-04). Launch envelope §7/§7.1 = fidelity-HARDENED 2026-08-04 after Knox's post-landing byte review (the landed envelope blob had not itself been byte-reviewed); the hardened envelope AWAITS final Nick + Knox byte review. Phase-A lane execution is HELD until that acceptance + the post-acceptance launch receipt pins the lane content base.`
 
-> **What this is / is not.** A bounded, mostly-read-only Task-D **readiness/sufficiency gate**: inventory every spine-shaping concern → give each a disposition → name the minimum sequence and the parallel-launch envelope. It is **not** a new controlling document, **not** a checkpoint, **not** the Task-D scoring method, and **not** a new architecture arc. **Accepted + landed on `main`:** the current Aug-3 checkpoint points to this map; final Task-D population is **held** pending Phase A (five lanes) + C3.9; the five Phase-A lanes are now authorized. The map **does not bind architecture and does not promote its 2030/2035 ownership hypothesis** (§5 stays a posture-to-test). It holds the prior "go straight into Task-D re-entry" relay.
+> **What this is / is not.** A bounded, mostly-read-only Task-D **readiness/sufficiency gate**: inventory every spine-shaping concern → give each a disposition → name the minimum sequence and the parallel-launch envelope. It is **not** a new controlling document, **not** a checkpoint, **not** the Task-D scoring method, and **not** a new architecture arc. **Sequence accepted + landed on `main`:** the current Aug-3 checkpoint points to this map; final Task-D population is **held** pending Phase A (five lanes) + C3.9. The five Phase-A lane **containers exist and are empty**; their **execution is HELD** until the fidelity-hardened §7/§7.1 envelope is accepted and the post-acceptance launch receipt pins the lane content base (Agent Work Protocol §2.1 Base-binding law). The map **does not bind architecture and does not promote its 2030/2035 ownership hypothesis** (§5 stays a posture-to-test). It holds the prior "go straight into Task-D re-entry" relay.
 
 ---
 
@@ -59,11 +59,11 @@ Concerns are **not** single-bucket. **Each concern receives one PRIMARY disposit
 | Personal account / insurance info / "deploy to all federations?" | `FWREG-001` + Identity/RBAC/Consent/Federation C5 | SPINE-POSTURE-NOW | REQUIRED-BEFORE-TASK-D | Account anchors continuity; insurance facts source-attributed/temporal/correctable; authorized package/projection, not universal access; **federation ≠ global replication.** |
 | Business-AI tools (OpenAI/Anthropic/agent runtimes) | `FWREG-010` + Task-D AI-rails | CONSUMED-INSIDE-TASK-D | SPINE-POSTURE-NOW | OMNI owns context selection/permissions/action-gates/eval/lineage/return-path; models own execution. |
 | Demand / engagement / marketing | Demand Gate-0/0B **accepted** (`b191d75…`), Track-A Gate-1 in-progress (`22bcf30…`); `FWREG-014` | CONSUMED-INSIDE-TASK-D | FUTURE-VERTICAL-FALSIFIER | Accepted Gate-0 posture = minimum Task-D input; Gate-1 may run in parallel (not critical-path unless Nick makes it blocking). |
-| Time / temporal (C4.5) | `FWREG-015` + `v4_C4_5_…pass_plan.md` | REQUIRED-BEFORE-TASK-D (six-source anchor micro-pass) | — | Micro-pass verifies the provisional lens before Task-D temporal scoring; **full C4.5 after Task-D.** |
+| Time / temporal (C4.5) | `FWREG-015` + `.cursor/plans/v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md` | REQUIRED-BEFORE-TASK-D (six-source anchor micro-pass) | — | Micro-pass verifies the provisional lens before Task-D temporal scoring; **full C4.5 after Task-D.** |
 | "Run ON Palantir/Epic w/o surrendering authority" (H1) | `FWREG-016` | CONSUMED-INSIDE-TASK-D | — | Test inside Task-D first; separate realization arc only if Task-D leaves it open. |
 | Robotics / devices | ownership table §5 | FUTURE-VERTICAL-FALSIFIER | — | No separate robotics arc now. |
 | Dentistry | insurance/OOP fixture | FUTURE-VERTICAL-FALSIFIER | — | No dentistry arc; use as an insurance/OOP falsifier. |
-| Plastics/medspa multi-site (C3.9) | `v4_C3_9_plastics_medspa_care_setting_pressure_test.md` (shell, pending) | REQUIRED-BEFORE-TASK-D (Knox recommendation, pending Nick) | FUTURE-VERTICAL-FALSIFIER | Stronger if it carries the insurance/OOP-coexistence question. |
+| Plastics/medspa multi-site (C3.9) | `v4_C3_9_plastics_medspa_care_setting_pressure_test.md` (shell, pending) | REQUIRED-BEFORE-TASK-D (**ACCEPTED** — Nick operator + Knox, 2026-08-04) | FUTURE-VERTICAL-FALSIFIER | Stronger if it carries the insurance/OOP-coexistence question. |
 | Agent Runtime / Build OS | `FWREG-010` (bounded C4.4-G2 bridge on main, blob `de5b9a1`) / Build OS `09`/`10`/`11` | SPINE-POSTURE-NOW / CONTRACT-LATER | — | Runtime BUILD deferred; map-depth only pre-spine. |
 | C4.4 / relay-governance | CLOSED (C4.4 arc closed; relay rules landed 2026-08-04) | done | — | Not reopened. |
 
@@ -115,18 +115,18 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
   3. **Insurance / Payer / OOP Gate-0** (consumes D6 + REV-159/160). *(REQUIRED — Knox + Opus)*
   4. **Non-Labor Operator Economics Track B + Counterparty Residual Gate-0** (from Demand Gate-0 owed split). *(REQUIRED — Knox + Opus)*
   5. **C4.5 six-source anchor Phase-2 verification** (admits the provisional temporal lens). *(SETTLED — C4.5 charter locks micro-pass before Task-D temporal scoring)*
-- **Phase B — C3.9 population** (plastics + medspa multi-site, carrying insurance/OOP coexistence), consuming Insurance + Operator-Economics findings. *(C3.9-before-Task-D = **OPERATOR-ACCEPTED** by Nick's relay of the 2026-08-04 fidelity-patch instruction; pending Knox final-byte + landing.)*
+- **Phase B — C3.9 population** (plastics + medspa multi-site, carrying insurance/OOP coexistence), consuming Insurance + Operator-Economics findings. *(C3.9-before-Task-D = **ACCEPTED** — Nick operator + Knox final byte, 2026-08-04.)*
 - **Phase C — Final Task-D population** with the verified provisional temporal lens → **§7 verdict** (`SPINE_READY` / `…WITH_NAMED_RECONCILIATIONS` / `NOT_READY`). *(SETTLED that Task-D precedes the spine.)*
 - **Phase D — Full C4.5 temporal pass.** *(SETTLED — C4.5 charter: after Task-D, before spine.)*
 - **Phase E — Final pre-spine sufficiency receipt** (yes/no; not an arc). *(Knox recommendation)*
 - **Then — write the spine.**
 
-**Operator-accepted sequencing decisions (Nick's 2026-08-04 relay; pending Knox final-byte + landing):** (1) **C3.9 runs before final Task-D** as the mixed-financing/multi-site/multi-operator falsifier, after Insurance + Operator-Economics Gate-0. (2) **Demand Track-A Gate-1 runs in parallel and is non-blocking**; accepted **Gate-0** posture is the minimum Task-D input unless later Gate-1 work exposes a genuinely spine-blocking contradiction; Gate-1 may **not** silently mutate the critical-path sequence. (3) **H1 is tested inside Task-D first**; a separate physical-realization arc opens only if Task-D leaves a material question unresolved.
+**Accepted sequencing decisions (Nick operator + Knox final byte, 2026-08-04):** (1) **C3.9 runs before final Task-D** as the mixed-financing/multi-site/multi-operator falsifier, after Insurance + Operator-Economics Gate-0. (2) **Demand Track-A Gate-1 runs in parallel and is non-blocking**; accepted **Gate-0** posture is the minimum Task-D input unless later Gate-1 work exposes a genuinely spine-blocking contradiction; Gate-1 may **not** silently mutate the critical-path sequence. (3) **H1 is tested inside Task-D first**; a separate physical-realization arc opens only if Task-D leaves a material question unresolved.
 
 ---
 
 ## §7 — Parallel launch envelope (the 4–5-thread operating answer)
-Launch these five lanes **from the SAME final post-map-landing `main` SHA** (not from current `main`). **One writer per branch.**
+Launch these five lanes **from the SAME immutable `lane_content_base_sha`** — the accepted **content** commit, pinned by the current checkpoint's **post-acceptance launch receipt** (Agent Work Protocol §2.1 **Base-binding law**). The lane base is normally **one state-only commit behind current `main`**; that is expected, not drift. **Branch refs + the launch receipt control** — this document does not self-stamp a SHA, and no agent should need a chat transcript to recover the base. **One writer per branch.**
 
 | Visible title | Relay key | Branch | Output |
 |---|---|---|---|
@@ -136,59 +136,153 @@ Launch these five lanes **from the SAME final post-map-landing `main` SHA** (not
 | Operator economics · non-labor Gate 0 | `OPECON-G0-COUNTERPARTY` | `analysis/nonlabor-operator-economics-counterparty-g0` | Non-Labor Operator Economics Track B + Counterparty Residual Gate-0 carrier |
 | Time · anchor verification | `C45-P2-ANCHORS` | `analysis/c4-5-phase2-anchor-verification` | Six-source verification + temporal-lens admission result |
 
-**Shared-surface law.** The five substantive lane agents may **not** edit `AGENTS.md`, the current checkpoint, the read graph, the master catalog, the decision ledger, the open-review queue, FWREG, or the controlling-plan banner. They return **proposed** rows/routing. **One separate control-plane integrator (Opus)** lands all shared-surface changes after the five candidate outputs are reviewed — this prevents the prior collision problem.
+**Shared-surface law.** The five substantive lane agents may **not** edit `AGENTS.md`, the current checkpoint, the read graph, the master catalog, the decision ledger, the open-review queue, FWREG, or the controlling-plan banner. They return **proposed** rows/routing. **One separate control-plane integrator role** — role key **`PRESPINE-PHASEA-INTEGRATOR`** — lands all shared-surface changes after the five candidate outputs are reviewed; this prevents the prior collision problem. The role is **transferable, not a permanent chat thread** (Agent Work Protocol §2.1 **Integrator-transfer law**).
 
 **Reopen law.** A stale/diverged branch is **never resumed in place**. Create a fresh branch from current `main`, cite the old branch/commit as an **immutable source packet**, and curate substantive files forward.
 
 > **Conformance to Agent Work Protocol §2.1 (this is the first concrete instance).** This launch envelope **conforms to Agent Work Protocol §2.1 (Parallel Work-Package Launch and Re-Entry Contract)** and is the **first concrete §2.1 / Build-OS-Layer-2 launch envelope** in the estate. The reusable contract now lives in the Protocol; this map is the first envelope that populates it. Consequences: future parallel phases declare **their own envelope** in the current checkpoint/handoff (or a bounded accepted work-package map referenced by it) rather than re-inventing one; **no future agent needs this conversation**; an **active lane survives agent-thread replacement** through the branch + relay key + pinned packet + explicit ownership transfer + freshness check; **historical/stale/diverged lanes re-enter from the current approved `main`** and cite the old branch/commit as an immutable source packet. **The chat/model session is replaceable compute; the durable lane state is branch + worktree + relay key + pinned packet + handoff.**
 
 ### §7.1 — Launch cards (one per lane; exact inputs, output, scope, gate)
-Common base for all five = **the final post-map-landing `main` SHA** (recorded in the amended Aug-3 checkpoint Parallel Launch Envelope at landing; echoed in each returned launch block). Stop state for every lane = `review_ready_pending_integrator`. Control-plane integrator = the current Opus thread.
+
+**Base binding.** Common base for all five = the immutable **`lane_content_base_sha`** — the accepted **content** commit, pinned by the current checkpoint's **post-acceptance launch receipt**, per Agent Work Protocol §2.1 **Base-binding law**. This document does **not** self-stamp a SHA; **branch refs + that launch receipt control**. The lane base is normally the immediate accepted ancestor of `main` when `main` differs only by state-only closeout/receipt commits.
+
+**Integrator.** Integrator role key = **`PRESPINE-PHASEA-INTEGRATOR`**. Current holder = **Opus control-plane integration context**. The role is **transferable** per §2.1 **Integrator-transfer law** (explicit transfer + freshness/collision check + shared-surface ownership receipt + parent blockers); it is **not** a permanent chat thread, and a retired holder must not strand the lanes.
+
+**Worktree posture.** Local absolute worktree paths are **environment-local and non-canonical** (§2.1 **Environment-local worktree law**) — recorded in the launch receipt when actually assigned, recreatable from branch + base on any machine, cloud VM, or fresh clone.
+
+**Stop state** for every lane = `review_ready_pending_integrator`.
+
+#### Lane state table
+
+| Relay key | Branch | State | Owner | Branch head | Worktree posture | Output object |
+|---|---|---|---|---|---|---|
+| `CARE-TASKD-INPUT` | `analysis/care-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `bound_at_launch_receipt` | `environment_local_recreatable` | `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` |
+| `GRR-TASKD-INPUT` | `analysis/accountability-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `bound_at_launch_receipt` | `environment_local_recreatable` | `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` |
+| `INS-G0-MIXEDFIN` | `analysis/insurance-payer-oop-g0` | `not_started` | `unassigned_pending_thread_lock` | `bound_at_launch_receipt` | `environment_local_recreatable` | `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` |
+| `OPECON-G0-COUNTERPARTY` | `analysis/nonlabor-operator-economics-counterparty-g0` | `not_started` | `unassigned_pending_thread_lock` | `bound_at_launch_receipt` | `environment_local_recreatable` | `.cursor/plans/v4_nonlabor_operator_economics_counterparty_gate0_carrier_2026-08-04.md` |
+| `C45-P2-ANCHORS` | `analysis/c4-5-phase2-anchor-verification` | `not_started` | `unassigned_pending_thread_lock` | `bound_at_launch_receipt` | `environment_local_recreatable` | `.cursor/plans/v4_C4_5_phase2_six_source_anchor_verification_2026-08-04.md` |
+
+Integrator role key for every row: **`PRESPINE-PHASEA-INTEGRATOR`**.
+
+#### Common lane output contract (applies to ALL five outputs)
+
+Every lane output MUST contain, or it is not `review_ready`:
+1. **Complete ten-field passport** — Document type · Authority · Status · Domain(s) · Lifecycle role · Source-of-truth relationship · Supersedes · Superseded by · Manifest action · Review gate.
+2. **Source Posture** — read-fully vs consulted vs not-inspected, stated honestly.
+3. **Exact source pins** — every cited input as full path **plus** commit and/or blob SHA. No globs, brace expansions, ellipses, or "any accepted carrier" phrasing.
+4. **Maturity / input-state declaration** — accepted | candidate | open, and maturity across architecture / contract / build / eval / production.
+5. **What Task-D MAY RELY ON.**
+6. **Unresolved items.**
+7. **What Task-D MAY FALSIFY.**
+8. **Prohibited assumptions.**
+9. **Proposed routing bundle** — proposed catalog · read-graph · decision-ledger · FWREG · open-review dispositions, as **proposals only** (the lane does not land them).
+10. **New Artifact Completion evaluation** per Agent Work Protocol §5 — noting completion occurs at the integrator's parent transaction (§2.1 clause 6), not in the lane.
+11. **Exact stop declaration** — the lane ends `review_ready_pending_integrator`, plus the §2.1 clause-7 receipts (Review Object Posture · Bounded Diff Receipt · Source Posture).
+
+**Shared-surface prohibition (identical for all five lanes):** `AGENTS.md` · the Aug-3 checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · `agent_work_protocol.md` · `09_omni_build_os_layer_model.md` · `10_omni_build_os_rollout_sequence.md` · the off-repo controlling-plan banner · any sibling lane's branch or output · `main`. Lane agents write **only** their own output object.
+
+**Frozen Task-D method — mandatory floor for ALL five lanes:** `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (the frozen method; do not edit), read together with the interim population A→B→C: `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md` → `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md` → `.cursor/plans/v4_C4_2C_task_d_gemini_b_partial_adversary_verbatim.md`.
+
+Each card's floor below is the **mandatory minimum**; a lane MAY expand through the read graph, but may not shrink the floor.
 
 **Card 1 — `CARE-TASKD-INPUT`**
-- **Inputs (exact):** current checkpoint `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`; Task-D method `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md` + `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md` + `.cursor/plans/v4_C4_2C_task_d_gemini_b_partial_adversary_verbatim.md` (read A→B→C); Care capture `.cursor/plans/v4_C4_care_operating_model_capture.md`; Care forensic/correction-continuity terminus resolved through catalog/read-graph — `.cursor/plans/HANDOFF_2026-07-13_care_forensic_inheritance_audit.md` + `.cursor/plans/v4_C4_3_care_response_seam_correction_continuity_test.md` (landed `5275707`).
+- **Inputs — exact mandatory floor:**
+  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
+  3. `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md`
+  4. `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md`
+  5. `.cursor/plans/v4_C4_2C_task_d_gemini_b_partial_adversary_verbatim.md` (read A→B→C)
+  6. `.cursor/plans/v4_C4_care_operating_model_capture.md` (Care capture)
+  7. `.cursor/plans/HANDOFF_2026-07-13_care_forensic_inheritance_audit.md`
+  8. `.cursor/plans/v4_C4_care_inheritance_evidence_ledger.md`
+  9. `.cursor/plans/v4_C4_3_care_response_seam_correction_continuity_test.md` (correction-continuity terminus; landed `5275707`)
 - **Output (exact):** `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` — one **version-pinned Care Input-State Receipt**.
 - **Allowed write scope:** the output file only.
-- **Prohibited shared surfaces:** `AGENTS.md`, Aug-3 checkpoint, `04_manifest_read_graph.md`, `01_master_corpus_catalog.md`, `03_decision_extraction_ledger.md`, `08_open_review_queue.md`, `future_work_registry.md`, controlling-plan banner.
+- **Prohibited shared surfaces:** the canonical shared-surface prohibition list above (identical for all five lanes).
 - **Dependencies / collision:** none blocking; shares no writable file with siblings.
 - **Proof:** version pins (path + commit/blob) for every cited input; explicit "no Care redesign, no false closure" attestation.
-- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+- **Reviewer / landing gate:** Nick + Knox review → the `PRESPINE-PHASEA-INTEGRATOR` role holder lands the routing (never the lane itself).
 
 **Card 2 — `GRR-TASKD-INPUT`**
-- **Inputs (exact):** current checkpoint `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`; Task-D method `v4_C4_2A/2B/2C` (paths as Card 1); GRR capture `.cursor/plans/v4_C4_governed_reporting_resolution_capture.md` + any accepted GRR pressure/terminus carrier resolved through catalog/read-graph.
+- **Inputs — exact mandatory floor:**
+  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
+  3. `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md`
+  4. `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md`
+  5. `.cursor/plans/v4_C4_2C_task_d_gemini_b_partial_adversary_verbatim.md` (read A→B→C)
+  6. `.cursor/plans/v4_C4_governed_reporting_resolution_capture.md` (GRR capture)
+  7. `.cursor/plans/v4_C4_platform_loop_capture.md` — **sibling-boundary reconciliation ONLY** (do not import Platform-Loop scope into GRR)
+  8. `.cursor/plans/HANDOFF_2026-07-12_wave4_closed_grr_pre_plastics_and_task_d.md`
+  9. `.cursor/plans/v4_REV184_decision_state_reconciliation.md`
 - **Output (exact):** `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` — one **version-pinned GRR Input-State Receipt**.
 - **Allowed write scope:** the output file only.
-- **Prohibited shared surfaces:** same list as Card 1.
+- **Prohibited shared surfaces:** the canonical shared-surface prohibition list above (identical for all five lanes).
 - **Dependencies / collision:** none blocking.
 - **Proof:** version pins for every cited input; "no GRR redesign, no false closure" attestation.
-- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+- **Reviewer / landing gate:** Nick + Knox review → the `PRESPINE-PHASEA-INTEGRATOR` role holder lands the routing (never the lane itself).
 
 **Card 3 — `INS-G0-MIXEDFIN`**
-- **Inputs (exact):** `.cursor/plans/contracts/D6_commerce_contract.md` (insurance/financing boundary sections); `D0THES-REV-159`/`D0THES-REV-160` in `.cursor/plans/doctrine/08_open_review_queue.md`; `FWREG-017` in `.cursor/plans/doctrine/future_work_registry.md`; plus the Care/Identity/Federation/D7-Consent/RBAC/Pharmacy contract sources required by the gate (`.cursor/plans/contracts/*`).
+- **Inputs — exact mandatory floor** (may expand through the read graph; the floor itself is exact):
+  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
+  3. `.cursor/plans/contracts/D6_commerce_contract.md` — §12 future home + explicit deferral
+  4. `.cursor/plans/doctrine/08_open_review_queue.md` — rows `D0THES-REV-159` and `D0THES-REV-160` (read-only)
+  5. `.cursor/plans/doctrine/future_work_registry.md` — `FWREG-017` (read-only)
+  6. `.cursor/plans/v4_C4_care_operating_model_capture.md`
+  7. `.cursor/plans/contracts/identity_contract.md`
+  8. `.cursor/plans/contracts/federation_contract.md`
+  9. `.cursor/plans/contracts/D7_documents_consent_media_contract.md`
+  10. `.cursor/plans/contracts/rbac_authority_contract.md`
+  11. `.cursor/plans/HANDOFF_2026-07-27_c4-6-pharmacy-and-cross-facet.md`
+  12. `.cursor/plans/v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`
 - **Output (exact):** `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` — an **Insurance/Payer/OOP Gate-0 carrier** consuming D6 + REV-159/160.
 - **Allowed write scope:** the output file only.
-- **Prohibited shared surfaces:** same list as Card 1.
+- **Prohibited shared surfaces:** the canonical shared-surface prohibition list above (identical for all five lanes).
 - **Dependencies / collision:** consumes D6 (read-only); must not reopen D6.
 - **Proof:** version pins; explicit "no payer domain minted; no connector-as-architecture" attestation.
-- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+- **Reviewer / landing gate:** Nick + Knox review → the `PRESPINE-PHASEA-INTEGRATOR` role holder lands the routing (never the lane itself).
 
 **Card 4 — `OPECON-G0-COUNTERPARTY`** (branch `analysis/nonlabor-operator-economics-counterparty-g0`)
-- **Inputs (exact):** `.cursor/plans/contracts/business_ops_workforce_contract.md` (BIZOPS); `D0THES-REV-164` (`08_open_review_queue.md`); `.cursor/plans/contracts/D6_commerce_contract.md`; Demand Gate-0 immutable source commit `b191d75423b256b52a1693913d19b88f953fd533`; `EVRUN-2026-000012` carrier; Pharmacy/counterparty closeout sources; `FWREG-018` (`future_work_registry.md`).
+- **Inputs — exact mandatory floor:**
+  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
+  3. `.cursor/plans/contracts/business_ops_workforce_contract.md` (BIZOPS — existing labor/payroll/commission-payout/labor-cost owner; canonical draft pending ratification)
+  4. `.cursor/plans/contracts/D6_commerce_contract.md` (existing patient-commerce owner)
+  5. `.cursor/plans/doctrine/08_open_review_queue.md` — row `D0THES-REV-164` (read-only)
+  6. `.cursor/plans/doctrine/future_work_registry.md` — `FWREG-018` (read-only)
+  7. **Demand Gate-0 immutable cross-branch source packet** — branch `analysis/demand-engagement-gate0-recovery`, commit `b191d75423b256b52a1693913d19b88f953fd533`, path `.cursor/plans/v4_demand_engagement_continuity_gate0_recovery.md`, blob `fd5b7fc7a10b02f3d83fadf2a82f667db163a8fa` (**not present on `main`** — read at the pinned commit; do not resume that branch in place)
+  8. `.cursor/plans/ingestion/user_operator_research/analysis/EVRUN-2026-000012_joint-care-commerce-operating-substrate-hardening/EVRUN-2026-000012_07_final_closeout_depth_preservation_and_downstream_consumption.md`
+  9. `.cursor/plans/HANDOFF_2026-07-27_c4-6-pharmacy-and-cross-facet.md`
+  10. `.cursor/plans/v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md`
 - **Output (exact):** `.cursor/plans/v4_nonlabor_operator_economics_counterparty_gate0_carrier_2026-08-04.md` — a **Non-Labor Operator Economics Track B + Counterparty Residual Gate-0 carrier**.
 - **Allowed write scope:** the output file only.
-- **Prohibited shared surfaces:** same list as Card 1.
+- **Prohibited shared surfaces:** the canonical shared-surface prohibition list above (identical for all five lanes).
 - **Dependencies / collision:** must **consume, not duplicate** D6 + BIZOPS; **do not mint a Vendor or Operator-Economics domain**; do not reopen D6/BIZOPS.
-- **Proof:** version pins (incl. `b191d75…`); explicit non-duplication attestation vs D6/BIZOPS.
-- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+- **Proof:** version pins for every input (including the full Demand Gate-0 commit `b191d75423b256b52a1693913d19b88f953fd533` + blob `fd5b7fc7a10b02f3d83fadf2a82f667db163a8fa`); explicit non-duplication attestation vs D6/BIZOPS.
+- **Reviewer / landing gate:** Nick + Knox review → the `PRESPINE-PHASEA-INTEGRATOR` role holder lands the routing (never the lane itself).
 
 **Card 5 — `C45-P2-ANCHORS`**
-- **Inputs (exact):** C4.5 charter `.cursor/plans/v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md`; `D0THES-DEC-038`; the six exact anchors named by the charter — `EVSRC-2026-000122`, `-000124`, `-000165`, `-000182`, `-000184`, `-000185` (`.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000{122,124,165,182,184,185}_TK.md`); Task-D method `v4_C4_2A/2B/2C`.
+- **Inputs — exact mandatory floor:**
+  1. `.cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md` (current checkpoint)
+  2. `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (frozen Task-D method)
+  3. `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md`
+  4. `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md`
+  5. `.cursor/plans/v4_C4_2C_task_d_gemini_b_partial_adversary_verbatim.md` (read A→B→C)
+  6. `.cursor/plans/v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md` (C4.5 Gate-0 charter)
+  7. `D0THES-DEC-038` in `.cursor/plans/doctrine/03_decision_extraction_ledger.md` (read-only)
+  8. The six anchors, **listed individually** (dedup `000184` ↔ `000185` is part of the verification, not an excuse to skip one):
+     - `.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000122_TK.md`
+     - `.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000124_TK.md`
+     - `.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000165_TK.md`
+     - `.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000182_TK.md`
+     - `.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000184_TK.md`
+     - `.cursor/plans/ingestion/outside_learning/sources/2026-06_wave-2/EVSRC-2026-000185_TK.md`
 - **Output (exact):** `.cursor/plans/v4_C4_5_phase2_six_source_anchor_verification_2026-08-04.md` — **six-source verification + provisional temporal-lens admission receipt**.
 - **Allowed write scope:** the output file only.
-- **Prohibited shared surfaces:** same list as Card 1.
+- **Prohibited shared surfaces:** the canonical shared-surface prohibition list above (identical for all five lanes).
 - **Dependencies / collision:** none blocking; parallel/non-blocking to the other four.
 - **Proof:** per-anchor read receipt (path + verification result); explicit "no full C4.5 pass; no temporal-axis promotion" attestation.
-- **Reviewer / landing gate:** Nick + Knox review → integrator lands routing.
+- **Reviewer / landing gate:** Nick + Knox review → the `PRESPINE-PHASEA-INTEGRATOR` role holder lands the routing (never the lane itself).
 
 ---
 
@@ -208,8 +302,8 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 - **Tested:** whether the pre-spine input set + dependency order are sufficient to resume Task-D.
 - **Candidate verdict:** inputs are **NOT yet sufficient**; two Gate-0s (Insurance; Operator Economics/Counterparty) + two Input-State Receipts (Care; GRR) + the C4.5 anchor micro-pass are REQUIRED before final Task-D population.
 - **Sequencing decisions — ACCEPTED (Nick operator 2026-08-04 + Knox final byte):** (a) C3.9-before-Task-D; (b) Demand Gate-1 parallel/non-blocking (Gate-0 = minimum Task-D input unless later work exposes a blocking contradiction); (c) H1-inside-Task-D-first. See §6.
-- **Next gate:** the five Phase-A lanes are launched from the final post-landing `main` SHA (per §7 + §7.1); each returns a `review_ready_pending_integrator` carrier for the integrator (this thread) to reconcile; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine.
-- **DONE in this transaction:** accepted + landed on `main` (state-only); Aug-3 checkpoint amended (not replaced). No Task-D population, C3.9 execution, spine, C5, or proof program started.
+- **Next gate — Phase-A execution is HELD:** the §7/§7.1 launch envelope was **fidelity-hardened 2026-08-04** after Knox's post-landing byte review (the landed envelope blob had not itself been byte-reviewed). Lanes launch only after (1) Nick + Knox accept the hardened envelope, and (2) the **post-acceptance launch receipt** in the current checkpoint pins the `lane_content_base_sha` and the five branch heads (Agent Work Protocol §2.1 Base-binding law). Each lane then returns a `review_ready_pending_integrator` carrier satisfying the **common lane output contract**, which the `PRESPINE-PHASEA-INTEGRATOR` role holder reconciles; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine.
+- **DONE previously (2026-08-04):** sequence accepted + landed on `main` (state-only); Aug-3 checkpoint amended (not replaced); five empty lane containers created. No Task-D population, C3.9 execution, spine, C5, or proof program started — and **no lane work started.**
 
 ---
 
@@ -220,3 +314,4 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 - **`D0CKPT-DEC-005` + `D0CKPT-GRD-002`** — the reusable parallel work-package contract (Agent Work Protocol §2.1) this map instances; added Commit 1, activated Commit 2 (DEC-005) / active on landing (GRD-002).
 - **`FWREG-018` / `D0THES-REV-164`** — Non-Labor Operator Economics Track B + counterparty residual (composes against existing BIZOPS/D6; no new domain).
 - **Catalog row** — category `handoff_or_readiness_gate`; **accepted + landed**; `no_new_route_needed`.
+- **Launch-envelope fidelity hardening (2026-08-04, post-landing Knox byte review)** — §7/§7.1 corrected on branch `governance/phase-a-launch-envelope-hardening`: base-binding (two-level `lane_content_base_sha` vs `current_main_state_sha`; no self-referential SHA stamping) · transferable integrator role `PRESPINE-PHASEA-INTEGRATOR` · environment-local/non-canonical worktree paths · lane-state table · **common lane output contract** · five **exact** source floors (frozen Task-D method added to all five; globs, brace expansions, ellipses, truncated SHAs and "any accepted carrier" placeholders eliminated). Sequence and Build-OS contract substance UNCHANGED; `D0CKPT-DEC-005` / `D0CKPT-GRD-002` amended, no new IDs. Phase-A execution HELD pending final Nick + Knox byte review.

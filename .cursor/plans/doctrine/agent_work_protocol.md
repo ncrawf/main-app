@@ -73,9 +73,9 @@ Applies when a parent work package authorizes **two or more concurrent lanes** t
 
 **Parallel Launch Envelope (pre-launch requirement).** Before launch, the current checkpoint/handoff — or one bounded accepted work-package map referenced by it — MUST carry an envelope containing:
 - parent work-package / gate / checkpoint;
-- immutable common base commit (full SHA);
-- named control-plane integrator;
-- one row per lane: human-visible title · relay key · branch · owner/seat · worktree path (when locally assigned) · exact input packet + immutable source refs · writable scope + exact intended output object · prohibited shared surfaces · dependencies/collision surfaces · required proof · reviewer/acceptance/landing gate · stop condition;
+- immutable **lane content base** commit (full SHA) — bound per the **Base-binding law** below (a governed artifact never self-stamps its own commit);
+- named control-plane integrator **role key + current holder** — a transferable role, per the **Integrator-transfer law** below;
+- one row per lane: human-visible title · relay key · branch · owner/seat · **environment-local** worktree path (operational only, when actually assigned — see the **Environment-local worktree law**) · exact input packet + immutable source refs (**no globs, brace expansions, ellipses, or "any accepted carrier" placeholders** — an unresolved input floor is a defective envelope) · writable scope + exact intended output object · prohibited shared surfaces · dependencies/collision surfaces · required proof · reviewer/acceptance/landing gate · stop condition;
 - no-auto-launch and parent-close conditions.
 
 **Execution law.**
@@ -90,6 +90,16 @@ Applies when a parent work package authorizes **two or more concurrent lanes** t
 9. The envelope tracks each lane as `not_started | active | blocked | review_ready | accepted | landed | closed` and records its current branch/head or immutable accepted pin at work-package boundaries — not every chat message.
 10. Parent integration begins only after the required lane gates: source reconciliation · collision scan · shared-surface routing · lifecycle normalization · the parent closeout transaction (§8 Checkpoint Closeout Rule).
 11. Tooling may create branches/worktrees or render status, but tooling is ergonomic only (Build OS Layer 3) and cannot alter the contract or authority boundaries.
+
+**Base-binding law (no self-referential SHA stamping).** Two distinct commits govern a parallel phase and MUST NOT be conflated:
+- **`lane_content_base_sha`** — the accepted **content** commit from which every child lane branch starts;
+- **`current_main_state_sha`** — the later **state-only** checkpoint/receipt commit that pins that base, records branch creation and lane states, and may be the current `main` tip.
+
+A repository artifact cannot contain its own commit SHA, so the exact lane base is **bound after acceptance**, in a state-only checkpoint/launch-receipt commit — never asserted inside the content commit it describes. Consequently a lane base is **normally one state-only commit behind current `main`**: where `main` differs from the lane base only by state-only closeout/receipt commits, the immediate accepted ancestor IS the correct lane base. This is normal and must be stated explicitly rather than mistaken for drift. Branch refs plus the post-acceptance launch receipt control; a prose phrase such as "the final post-landing `main` SHA" is **not** a binding pin, and no agent may be required to recover a base SHA from a chat transcript.
+
+**Environment-local worktree law.** Durable, canonical lane identity = relay key · remote branch · `lane_content_base_sha` · input packet · expected output object · current branch head · ownership state. An **absolute filesystem worktree path is environment-local and NON-canonical**: record it in the launch receipt when actually assigned, never in the durable contract as identity. A replacement environment (new machine, cloud VM, fresh clone) may **recreate** the worktree from the same branch + base. Loss of a local worktree is not loss of a lane.
+
+**Integrator-transfer law.** The named control-plane integrator is a **transferable ROLE, not a permanent chat thread** — the same "chat/model session is replaceable compute" law that governs lane writers governs the integrator. The envelope MUST carry: integrator **role key**; **current holder**; **explicit transfer** record; **freshness/collision check** on assumption; **shared-surface ownership receipt** (which surfaces this role exclusively mutates); and **parent blockers** (what cannot proceed while the role is vacant). A retired, exhausted, or replaced integrator context MUST NOT strand its lanes; the role is reassigned by explicit transfer under the same discipline as clause 2.
 
 **Roles inside a work package (no sovereign meta-agent).** Planner, implementer, reviewer, adversary, evaluator, proof agent, and integrator are **bounded roles inside an authorized work package**. Reviewer/evaluator output is evidence or a gate input, never self-originating authority; no role manufactures authority, promotes doctrine, merges work, or commits truth merely by being "above" other agents. See `D0THES-GRD-028` (AI-as-target inversion) and `D0THES-GRD-029` (CNS-as-sovereign-brain).
 
@@ -386,7 +396,7 @@ Stop report must include:
 - `prior_narratives_consulted`: for Tier 3+, list of prior narrative volume paths consulted (or `no_prior_arcs_relevant` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
 - `guardrail_rows_extracted`: for Tier 3+, list of guardrail row IDs added/updated in `06_guardrail_antipattern_digest.md` (or `no_timeless_lessons_surfaced` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
 - `canonical_updates`: list of doctrine/ledger/registry/read-graph paths updated, or `not_required_for_this_tier` if Tier 1, 2, or 3,
-- **parallel work-package fields (§2.1)** — each `not_applicable` outside parallel work: `parallel_parent_key`, `parallel_base_sha`, `parallel_lane_key`, `parallel_branch`, `parallel_owner_or_transfer`, `control_plane_integrator`, `sibling_lane_states`, `shared_surface_changes_proposed`, `collision_check`, `reentry_source_ref`, `parent_close_blockers`,
+- **parallel work-package fields (§2.1)** — each `not_applicable` outside parallel work: `parallel_parent_key`, `parallel_lane_key`, `parallel_branch`, `parallel_owner_or_transfer`, `lane_content_base_sha`, `current_main_state_sha`, `integrator_role_key`, `integrator_holder_or_transfer`, `worktree_path_posture`, `sibling_lane_states`, `shared_surface_changes_proposed`, `collision_check`, `reentry_source_ref`, `parent_close_blockers`. The earlier single-value `parallel_base_sha` and `control_plane_integrator` names are **superseded** — by the two-level base pair and the integrator role pair respectively (§2.1 Base-binding law + Integrator-transfer law); do not emit the ambiguous single-value forms,
 - next gate.
 
 Stop is blocked if `new_artifacts_created` is non-empty and any path lacks completion proof.

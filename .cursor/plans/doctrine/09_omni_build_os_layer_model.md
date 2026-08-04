@@ -60,6 +60,10 @@ It is intentionally separate from rollout sequencing.
 **Primary question answered**
 - "How do we safely do work?"
 
+**Current-state note (2026-08-04)**
+- `Agent Work Protocol §2.1` is the first **human-supervised partial operationalization** of the lane / work-package / handoff contract (concurrent lanes · one writer per branch · two-level base binding · stale-branch fresh re-entry · shared-surface isolation · transferable control-plane integrator role · provisional-until-integrated artifacts). Decision `D0CKPT-DEC-005`; guardrail `D0CKPT-GRD-002`.
+- **Automated lane registry, ownership services/leases, shared-surface locks, merge queue, semantic collision detection, and lane tooling remain FUTURE** (`D0THES-REV-158`). This note records partial progress only; it does not duplicate §2.1 and does not make this layer complete.
+
 ---
 
 ## Layer 3: Command/Tool Layer
