@@ -1,6 +1,6 @@
 # HANDOFF — 2026-08-03 · Pre-Spine Portfolio & Control-Plane Reconciliation (post-C4.4)
 
-Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized · AMENDED_2026-08-04_prespine_sufficiency_map_accepted+landed (§4.1) · phase_A_envelope_ACCEPTED_Nick+Knox_2026-08-04 · lane_content_base_A=84f2d58_PINNED (§4.2 launch receipt) · five_lane_branches_pinned_to_A_EMPTY_not_started · phase_A_READY_FOR_ASSIGNED_THREAD_LAUNCH · final_TaskD_HELD_pending_phaseA+C3.9 · parallel_work_contract=AWP_§2.1/D0CKPT-DEC-005 · integrator_role=PRESPINE-PHASEA-INTEGRATOR (transferable)`
+Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized · AMENDED_2026-08-04_prespine_sufficiency_map_accepted+landed (§4.1) · phase_A_envelope_ACCEPTED_Nick+Knox_2026-08-04 · lane_content_base=51ead01_C1b_PINNED (§4.2 launch receipt) · two_reference_boot=control_plane_from_main/content_from_C1b · five_lane_branches_pinned_to_C1b_EMPTY_not_started · phase_A_READY_FOR_ASSIGNED_THREAD_LAUNCH · final_TaskD_HELD_pending_phaseA+C3.9 · parallel_work_contract=AWP_§2.1/D0CKPT-DEC-005 · integrator_role=PRESPINE-PHASEA-INTEGRATOR (transferable)`
 
 > **This is the CURRENT checkpoint** (repoints `AGENTS.md` Current Checkpoint Handoff + read-graph Tier-0 #15). It is a normal dated checkpoint produced through the existing checkpoint mechanism — **NOT a universal boot file, NOT a new boot subsystem.** It supersedes `HANDOFF_2026-07-19_taskd_interim_checkpointed_evrun12_active.md` as the current program-state pointer; the 07-19 handoff and its content are retained as historical detail.
 >
@@ -77,7 +77,8 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 | Field | Value |
 |---|---|
 | Parent key | `PRESPINE-PHASEA` |
-| `lane_content_base_sha` (**commit A**) | `84f2d582890f8ec963e40e78773616f321f59718` |
+| `lane_content_base_sha` (**final content base**) | **`51ead016adabea9fd8389a08d149aeda33f0a8f7`** (C1b) — supersedes the earlier interim pins `84f2d58` (A) and `21e6415` (C1); A and C1 are ancestors retained as lineage, **not** the lane base |
+| `control_plane_boot_ref` (**current state**) | the current `main` state commit (**C2**) — read `AGENTS.md`, the read graph, this checkpoint and lane/integrator state from **here**, never from the content base |
 | Accepted map blob at A | `b05450f4331b4b6375199bdeac618a44bb5fc7ed` |
 | Accepted Agent Work Protocol blob at A | `ddfbd9a84ef102ac325383b785dcc59ac5a57177` |
 | Accepted checkpoint blob at A | `02081df707114d027910ec03103441cb8038029d` |
@@ -87,11 +88,16 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 | Current holder | `THREAD LOCK PRESPINE-PHASEA-INTEGRATOR \| seat=OPUS \| visible="Pre-spine · Phase-A integration"` |
 | Integrator transfer posture | explicit transfer + freshness/collision check + shared-surface ownership receipt REQUIRED before any replacement holder acts |
 
-**Base + source-resolution law.** All five lane branches are pinned to **A**. `main` is one **state-only** commit ahead (**B**), so lanes are **one commit behind `main` by design** — normal, not drift. **Every launch-card path resident on `main` resolves at commit A**, unless that card explicitly supplies a different immutable ref; lane reads must not silently drift to a later `main`. Named exception: the **Demand Gate-0 packet** resolves at branch `analysis/demand-engagement-gate0-recovery`, commit `b191d75423b256b52a1693913d19b88f953fd533`, blob `fd5b7fc7a10b02f3d83fadf2a82f667db163a8fa`.
+**Base + source-resolution law — TWO REFERENCES (Agent Work Protocol §2.1 Two-Reference Boot Law).** All five lane branches are pinned to the content base **C1b `51ead01`**. `main` is one **state-only** commit ahead (**C2**), so lanes are **one commit behind `main` by design** — normal, not drift.
+
+- **Current control-plane surfaces resolve from the CURRENT `main` state (C2):** `AGENTS.md` · `04_manifest_read_graph.md` · **this checkpoint** · lane/integrator state. **Never** read these from the content base — an older base is a frozen input, not a status report, and will still describe launch as held.
+- **Substantive lane inputs resolve at the content base C1b**, unless a launch card explicitly supplies a different immutable ref.
+- **Named exception:** the **Demand Gate-0 packet** resolves at branch `analysis/demand-engagement-gate0-recovery`, commit `b191d75423b256b52a1693913d19b88f953fd533`, blob `fd5b7fc7a10b02f3d83fadf2a82f667db163a8fa`.
+- If this launch receipt does **not** name the lane branch/base you are opening, **STOP for reconciliation.**
 
 **Shared surfaces owned EXCLUSIVELY by the integrator role** (read-only to all five lanes): `AGENTS.md` · this checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · the off-repo controlling-plan banner.
 
-| Lane / relay key | Branch (head = **A**) | State | Owner | Output object |
+| Lane / relay key | Branch (head = **C1b `51ead01`**) | State | Owner | Output object |
 |---|---|---|---|---|
 | `CARE-TASKD-INPUT` | `analysis/care-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` |
 | `GRR-TASKD-INPUT` | `analysis/accountability-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` |
