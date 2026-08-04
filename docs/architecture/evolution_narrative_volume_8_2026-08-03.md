@@ -1,10 +1,21 @@
 # OMNI Architecture Evolution — Narrative Volume 8 — 2026-08-03
 ## Multi-agent relay integrity at operator scale: distinguishing the review object, the relay endpoint, and the human-facing thread label
 
-Document type: `narrative_or_postmortem` (non-binding chronicle; cites canonical destinations, does not become them). Per Agent Work Protocol §8 (Tier-3 narrative minimum; deliberately short). Authority: `analysis_nonbinding` (`GRD-036`).
-Checkpoint context: the current program checkpoint (`HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`) is **unchanged** by this arc — this is a parallel collaboration-governance transaction (`D0OPER-DEC-005/006`), not a gate change.
+Document type: `narrative_or_postmortem`
+Authority: `analysis_nonbinding`
+Status: `candidate_pushed_pending_nick_knox_byte_review · not_promoted`
+Domain(s): `architecture_governance, operator_governance, agent_execution`
+Lifecycle role: `short Tier-3 rationale chronicle for D0OPER-DEC-005 and D0OPER-DEC-006`
+Source-of-truth relationship: `nonbinding rationale only; canonical rules live in operator_context_and_collaboration_model.md §§2.6–2.7; decisions and guardrails carry durable routing`
+Supersedes: `none`
+Superseded by: `none`
+Manifest action: `add_tier3 · no_new_route_needed`
+Review gate: `user_knox_required`
+
+> Continuity note (retained): non-binding chronicle (`GRD-036`) — cites canonical destinations, does not become them; deliberately short (Tier-3 minimum). Checkpoint context: the current program checkpoint (`HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`) is **unchanged** by this arc — this is a parallel collaboration-governance transaction (`D0OPER-DEC-005/006`), not a gate change.
 
 ## Prior arcs consulted
+- **`docs/architecture/evolution_narrative_volume_4_2026-05-23.md` — the principal directly-relevant prior narrative.** It is the Tier-0 operator/collaboration-governance activation arc (post-Tier-0 activation / operator-model consolidation); Volume 8 is a bounded continuation of that same collaboration-governance line and inherits its framing.
 - `D0OPER-DEC-001..004` lineage — the operator/collaboration model, its dedicated Tier-0 home, the fidelity course-correction, and the 2026-07-18 boot-freshening that added §2.5 "working state vs committed estate" and the Gemini leg. Volume 8 extends §2.5, it does not replace it.
 - `evolution_narrative_volume_7_2026-07-18.md` (Reactor evidence arc) and the C4.4 closeout — consulted only as the *incident context* in which the relay-scaling failure became acute (heavy byte-level review across many threads), not as architecture input.
 

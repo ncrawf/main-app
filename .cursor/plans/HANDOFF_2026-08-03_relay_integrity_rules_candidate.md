@@ -1,8 +1,17 @@
 # HANDOFF — 2026-08-03 · Collaboration Relay-Integrity Rules (CANDIDATE)
 
-Status: `relay_integrity_rules_authored · CANDIDATE_pushed_governance_branch · NOT_landed_on_main · no_checkpoint_repoint · analysis_nonbinding · pending_Nick+Knox_byte_review`
+Document type: `handoff_or_readiness_gate`
+Authority: `derived_nonbinding`
+Status: `candidate_pushed_pending_nick_knox_byte_review · not_landed · no_checkpoint_repoint`
+Domain(s): `architecture_governance, operator_governance, agent_execution`
+Lifecycle role: `bounded continuity and review handoff for the relay-integrity canonization candidate`
+Source-of-truth relationship: `nonbinding continuity pointer to the canonical rules in operator_context_and_collaboration_model.md §§2.6–2.7; not doctrine and not the current checkpoint`
+Supersedes: `none`
+Superseded by: `none`
+Manifest action: `add_tier2 · no_new_route_needed`
+Review gate: `user_knox_required`
 
-Document type: `handoff_or_readiness_gate` (continuity, not doctrine; `GRD-036`). Per Agent Work Protocol §8 (Tier-4 canonization preservation, satisfied proportionally). Authority: `derived_nonbinding`.
+> Continuity note (retained): `GRD-036` non-binding; Tier-4 canonization preservation satisfied proportionally per Agent Work Protocol §8 (bounded handoff + short Volume 8 + `D0OPER-DEC-005/006` + `D0OPER-GRD-002/003`).
 
 > **This is NOT a checkpoint.** It does **not** repoint `AGENTS.md` / read-graph Tier-0 #15 / the controlling-plan banner. The current program checkpoint remains `HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md`. This handoff preserves continuity for one bounded, off-to-the-side collaboration-governance transaction that runs in parallel to (and does not change) the v4 gate state.
 
@@ -49,7 +58,7 @@ The operator directive **overrode** Knox's first seat-forward title format (`KEY
 - Echoes are **pointer-only** (anti-drift); the normative rule + receipt/lock schemas live once in §2.6/§2.7.
 - Visible title work-first + seat-free; formal lock carries key + seat.
 - `D0OPER-DEC-005` (snapshot rule) + `D0OPER-DEC-006` (endpoint/label convention); guardrails `D0OPER-GRD-002/003`.
-- **No** Agent Work Protocol amendment this pass (later arcs decide if it generalizes beyond the trifecta relay). **No** Agent Runtime ontology. **No** universal boot file. **No** checkpoint/read-graph/catalog gate impact.
+- **No** Agent Work Protocol amendment this pass (later arcs decide if it generalizes beyond the trifecta relay). **No** Agent Runtime ontology. **No** universal boot file. No checkpoint or read-graph route change. Catalog impact is limited to registering the candidate handoff and Volume 8. No program-gate impact.
 
 ## §4 — Unresolved / deferred
 
