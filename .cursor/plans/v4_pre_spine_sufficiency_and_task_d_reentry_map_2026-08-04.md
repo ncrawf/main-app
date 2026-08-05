@@ -127,7 +127,7 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 
 ## §7 — Prepared lane envelope (optional activation: one, some, all, or none)
 
-**What this is.** `PRESPINE-PHASEA` is **one work-package instance** of the Build OS **Execution Layer** — conceptual identity, operating principle and vocabulary in `09_omni_build_os_layer_model.md` **Layer 2**; binding mechanics in `agent_work_protocol.md` **§2.1**; external comparators in `comparator_analogy_registry.md`. There will be other packages with their own envelopes. **This map contains only this package's lanes, inputs, outputs, states and integration requirements** — no doctrine, no comparator exposition.
+**What this is.** `PRESPINE-PHASEA` is **one work-package instance** of the **Agent Work Blueprint** inside Build OS **Layer 2 — Execution Layer**. **This package invokes `agent_work_protocol.md` §2.1 because it prepares multi-lane/parallel capability**; other packages may be single-lane and run under the general Agent Work Protocol instead, under the same layer. Conceptual identity, operating principle and vocabulary → `09_omni_build_os_layer_model.md` Layer 2. External comparators → `comparator_analogy_registry.md`. **This map contains only this package's lanes, inputs, outputs, states and integration requirements** — no doctrine, no comparator exposition.
 
 **Activation is optional. This envelope PREPARES lanes; it does not require launching them.**
 - It proves concurrent execution is *available*, not that it is obligatory.
@@ -154,7 +154,7 @@ When activated, lanes run **from the SAME immutable `lane_content_base_sha`** �
 | Operator economics · non-labor Gate 0 | `OPECON-G0-COUNTERPARTY` | `analysis/nonlabor-operator-economics-counterparty-g0` | Non-Labor Operator Economics Track B + Counterparty Residual Gate-0 carrier |
 | Time · anchor verification | `C45-P2-ANCHORS` | `analysis/c4-5-phase2-anchor-verification` | Six-source verification + temporal-lens admission result |
 
-**Shared-surface law.** The five substantive lane agents may **not** edit `AGENTS.md`, the current checkpoint, the read graph, the master catalog, the decision ledger, the open-review queue, FWREG, or the controlling-plan banner. They return **proposed** rows/routing. **One separate control-plane integrator role** — role key **`PRESPINE-PHASEA-INTEGRATOR`** — lands all shared-surface changes after the five candidate outputs are reviewed; this prevents the prior collision problem. The role is **transferable, not a permanent chat thread** (Agent Work Protocol §2.1 **Integrator-transfer law**).
+**Shared-surface law.** Lane agents may **not** edit `AGENTS.md`, the current checkpoint, the read graph, the master catalog, the decision ledger, the open-review queue, FWREG, or the controlling-plan banner. They return **proposed** rows/routing. **One separate control-plane integrator role** — role key **`PRESPINE-PHASEA-INTEGRATOR`** — lands shared-surface changes through the **parent integration transaction**, after the **activated and gate-required** lane outputs are reviewed. It does **not** wait for all five: integration proceeds on whatever subset the operator activated. The role is **transferable, not a permanent chat thread** (Agent Work Protocol §2.1 **Integrator-transfer law**).
 
 **Reopen law.** A stale/diverged branch is **never resumed in place**. Create a fresh branch from current `main`, cite the old branch/commit as an **immutable source packet**, and curate substantive files forward.
 
