@@ -79,10 +79,24 @@ It is intentionally separate from rollout sequencing.
 
 **A work package is an INSTANCE, not a fixed structure.** There will be many, each with its own lanes, inputs, outputs and integration transaction — `PRESPINE-PHASEA` (pre-spine input readiness) is simply the first. A future package (e.g. connector permeability) declares its own envelope. **Nothing here is a five-lane model, and nothing obliges concurrency** — a single-lane package is a legitimate and common shape.
 
-**Which protocol governs — single-lane vs parallel (do not conflate these):**
-- **Ordinary single-lane work** follows the **general Agent Work Protocol**. `agent_work_protocol.md` §2.1 states twice that single-lane work does **not** invoke it, so a one-lane package should not pretend to be parallel.
-- **`agent_work_protocol.md` §2.1** is the **parallel / multi-lane specialization**, triggered only by its own classification markers: two or more concurrent agents/lanes · branches whose outputs later reconcile · a parent/integrator relationship · sibling shared-surface collision risk · agent replacement or lane takeover.
-- A single-lane package may later **amend its envelope and invoke §2.1** when genuinely independent lanes emerge. That amendment is the trigger — not the package's existence.
+**Structure — a core contract plus an overlay, NOT a solo/parallel binary:**
+
+```
+Agent Work Blueprint
+├── core lane / work-package contract   → applies to ANY durable lane, one or many
+└── multi-lane coordination overlay     → added only when siblings must be coordinated
+```
+
+- **Core** (count- and concurrency-irrelevant): work-package purpose · lane identity · branch + pinned base · starting packet · source aperture · writable scope · expected carrier · authority limits · stop condition · handoff/replacement continuity. **One lane needs all of this.**
+- **Overlay** (only when sibling lanes exist): dependency and collision map · one-writer enforcement across siblings · integrator role · protected shared surfaces · activation and sequencing · parent integration transaction.
+
+**A lane is a durable partition of work with an owner and a boundary.** "Solo", "parallel", "coupled", "dependent" and "sequenced" are **orthogonal properties of its situation, not types of lane.** Consequences worth stating because we got this wrong once:
+- one active lane may sit inside a prepared multi-lane package;
+- lanes may be dependent and run **sequentially** — `lane` never implies independence or simultaneity;
+- **independence is not required for a lane to exist**; it only informs whether concurrent execution is wise (tightly coupled siblings are usually sequenced);
+- unrelated work may run at the same time in **separate packages** without being collapsed into one.
+
+Binding mechanics for both core and overlay: `agent_work_protocol.md` **§2.1**, which marks explicitly which clauses are core and which are overlay.
 
 **Vocabulary** — use the estate's established terms: **work package** · **lane** · **launch envelope** (the accepted executable description of lanes, branches, bases, inputs, permissions, outputs and stops) · **lane agent** / **lane owner** (the agent doing one partition) · **integrator** (the transferable role restoring whole-estate coherence; sole writer of shared control surfaces) · **handoff contract** (continuity across agent/session replacement) · **parent integration transaction** (where lane results are reconciled and where completion actually occurs) · **review/landing gate** (acceptance).
 

@@ -63,18 +63,34 @@ No gate declaration means no execution.
 
 ---
 
-## 2.1) Parallel Work-Package Launch and Re-Entry Contract
+## 2.1) Work-Package Lane Contract — core partition rules + multi-lane coordination overlay
 
-Applies when a parent work package authorizes **two or more concurrent lanes** that may later reconcile, depend on one another, or touch shared governance surfaces. Ordinary single-lane work does not require parallelism and does not invoke this section.
+**A lane is a durable partition of work with an owner and a boundary. That is all.** "Solo", "parallel", "coupled", "dependent" and "sequenced" are **orthogonal properties of a lane's situation — not types of lane.** This section was originally written from one instance that happened to prepare five lanes, which produced a false single-lane-vs-parallel binary; that binary is **withdrawn**.
 
-**Mandatory classification trigger.** If a proposed work package uses, or intends to use, ANY of the following:
-- two or more concurrent agents or lanes;
-- multiple task branches/worktrees whose outputs later reconcile;
-- a parent/integrator relationship;
-- sibling lanes with shared-surface collision risk;
-- agent replacement or lane takeover across sessions or environments;
+**Mandatory classification trigger — partition-based, NOT count-based.** If work will create a **durable partition that another agent might own, resume, or reconcile** — i.e. it gets its own branch/worktree, its own output object, or a named owner — then this section MUST be loaded **before any branch creation or agent launch**, and an **accepted launch envelope is required**. **One lane trips this. Ten lanes trip this.** Concurrency is irrelevant to the trigger. Ordinary in-place work that creates no durable partition does not trip it.
 
-then the work MUST be classified **`parallel_work_package`**, this section MUST be loaded **before any branch creation or agent launch**, and an **accepted Parallel Launch Envelope is required**. Ordinary single-lane work does not trigger this section. This trigger is a **classification rule, not an implementation detail**: "we should run a few agents on this" is the trigger, regardless of how informally it is proposed.
+`parallel_work_package` is retained as the **compatibility classification label** (referenced by `AGENTS.md`, the read graph and `D0CKPT-DEC-005`). **It does not assert that lanes are concurrent, independent, or plural** — read it as "governed lane work."
+
+**Independence is NOT required for a lane to exist.** Independence only informs whether *simultaneous execution* is wise. Coupled work often deserves separate ownership and outputs while being **sequenced** rather than run at once.
+
+**Keep these dimensions separate (they are orthogonal — do not collapse them into a taxonomy):**
+
+| Dimension | Question |
+|---|---|
+| package membership | are these efforts part of the same intended outcome and integration? |
+| lane inventory | which provisional partitions currently exist? |
+| activation | which are dormant / active / blocked / review-ready / complete? |
+| concurrency | which *active* lanes happen to run at the same time? |
+| coupling | `independent` · `loosely_coupled` · `ordered_dependency` · `tightly_coupled` |
+| dependency | must one lane consume another's result first? |
+| collision risk | can they touch the same branch, artifact, truth or control surface? |
+| integration | where and how are results recombined? |
+
+**Which rules apply when:**
+- **CORE — applies to every lane regardless of count or concurrency:** execution-law clauses **1, 2, 3, 4, 6, 7, 9, 11** below, plus the **Base-binding**, **Environment-local worktree**, and **Integrator-transfer** laws. A single-lane package still needs a pinned base, one writer, no stale resumption, read-only shared surfaces, provisional-until-integrated output, receipts, tracked state, and durable handoff.
+- **COORDINATION OVERLAY — applies when sibling lanes exist:** clauses **5** and **10**, the sibling clause in **8**, plus the dependency/collision map and activation sequencing. Tightly coupled siblings are legitimate but should normally be **sequenced**, not blindly run in parallel.
+
+**Unrelated concurrent work is NOT one package.** Two packages running at the same time on different questions stay separate packages with separate envelopes and integration transactions. Simultaneity alone never implies shared membership.
 
 **Parentage + authority (this is not a new subsystem).** This contract is the first binding operationalization of **Build OS Layer 2 — Execution Layer** (`09_omni_build_os_layer_model.md`: lane model · work-package contract · handoff contract · lane registry + ownership map · allowed/forbidden actions) and of the `10_omni_build_os_rollout_sequence.md` Step-5 "durable multi-agent operating system" trajectory. It is the **repository / build-agent context** of the Agent Runtime & Harness (`v4_C4_agent_runtime_and_harness_capture.md`, `FWREG-010`). It is **not** the whole Build OS, **not** the whole Agent Runtime, and **not** a product/care-agent authority contract. No new "agent execution governance" system, agent-identity ontology, branch registry, or sovereign control plane is created.
 
