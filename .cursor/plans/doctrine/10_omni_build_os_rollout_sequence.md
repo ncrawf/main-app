@@ -171,8 +171,8 @@ No lane is implementation-authorized until it proves:
 **Rule**
 - Do not expand complexity unless it improves correctness and clarity.
 
-**Partial progress (2026-08-04)**
-- `Agent Work Protocol §2.1` supplies the **human-supervised parallel-lane contract** (`D0CKPT-DEC-005` / `D0CKPT-GRD-002`) — the first concrete envelope being the pre-spine Phase-A five-lane launch.
+**Partial progress (2026-08-05, adjudicated)**
+- `Agent Work Protocol §2.1` supplies the **human-supervised, proportional durable-work contract** — lane continuity where re-entry is material, coordination overlay where collision/dependency/reconciliation is real (`D0CKPT-DEC-005` as narrowed by `D0CKPT-DEC-007`; `D0CKPT-GRD-002`/`-003`). The first concrete coordinated envelope is the pre-spine Phase-A prepared five-lane inventory. **Ordinary bounded work carries no §2.1 obligation, and a standalone lane requires no integrator or parent transaction** — future tooling must not re-impose universally what the contract made conditional.
 - **Automated registry, ownership leases, shared-surface locks, merge queue, semantic collision detection, parent/child scheduling, status projection and proof automation remain planned Step-5 work.** Human-supervised discipline now ≠ automated 20/100-agent orchestration built.
 
 ### Benchmark-informed maturity target — captured interpretation, NOT final design
@@ -181,7 +181,7 @@ The 2026-08-04 §2.1 contract is a **partial, human-supervised execution substra
 
 **Target posture stated MECHANISM-FIRST (mechanisms are the target; comparators are only evidence for them):**
 
-1. **Declarative machine-readable work-package manifest** — parent key · control-plane boot ref · content-base SHA · integrator role · lanes · branches · source pins · outputs · writable scope · forbidden surfaces · dependencies · required checks · states · review/close gates. Markdown stays the human explanation; the manifest becomes the executable representation.
+1. **Declarative machine-readable work-package manifest** — lanes · branches · source pins · outputs · writable scope · states · review/close gates, **plus conditional blocks** emitted only when the posture activates them: content-base SHA and control-plane boot ref (when a base pin / two-reference boot is genuinely in effect) · integrator role (when such a role exists) · forbidden surfaces, dependencies and cross-lane checks (when coordination is real). Markdown stays the human explanation; the manifest becomes the executable representation. **A manifest must never require a field the contract does not require** — validating `not_applicable` values is the automated form of the ceremony this contract removed.
 2. **Manifest validator** — confirms bases, branches, inputs, outputs, ownership and forbidden files before launch.
 3. **Local/cloud lane launcher** — consistent provisioning; environment-agnostic (no machine-path dependence).
 4. **Ownership claim / lease / transfer mechanism** — enforceable single-writer and integrator-role transfer.

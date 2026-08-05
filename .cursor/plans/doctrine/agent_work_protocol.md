@@ -63,87 +63,104 @@ No gate declaration means no execution.
 
 ---
 
-## 2.1) Work-Package Lane Contract — core partition rules + multi-lane coordination overlay
+## 2.1) Durable Work — lane continuity contract + coordination overlay
 
-**A lane is a durable partition of work with an owner and a boundary. That is all.** "Solo", "parallel", "coupled", "dependent" and "sequenced" are **orthogonal properties of a lane's situation — not types of lane.** This section was originally written from one instance that happened to prepare five lanes, which produced a false single-lane-vs-parallel binary; that binary is **withdrawn**.
+Before partitioning work, answer **two independent questions**. Neither implies the other.
 
-**Mandatory classification trigger — partition-based, NOT count-based.** If work will create a **durable partition that another agent might own, resume, or reconcile** — i.e. it gets its own branch/worktree, its own output object, or a named owner — then this section MUST be loaded **before any branch creation or agent launch**, and an **accepted launch envelope is required**. **One lane trips this. Ten lanes trip this.** Concurrency is irrelevant to the trigger. Ordinary in-place work that creates no durable partition does not trip it.
+1. **Continuity** — must this work survive agent/session replacement, pause, transfer, or delayed re-entry **without a chat transcript**?
+2. **Coordination** — do multiple writers, partitions, dependencies, shared surfaces, or outputs require deliberate ordering or reconciliation?
 
-`parallel_work_package` is retained as the **compatibility classification label** (referenced by `AGENTS.md`, the read graph and `D0CKPT-DEC-005`). **It does not assert that lanes are concurrent, independent, or plural** — read it as "governed lane work."
+| continuity needed? | coordination needed? | posture | what applies |
+|---|---|---|---|
+| no | no | **ordinary bounded work** | §§1–9 only. **Nothing in this section.** |
+| yes | no | **durable lane** | Lane Continuity Contract |
+| no | yes | **coordinated bounded work** | Coordination Controls only (one writer · collision · landing order) |
+| yes | yes | **coordinated work package** | both |
+
+**Obligations are proportional to the need that actually triggered them.** Nothing here is owed because a prior work package needed it.
+
+**Trigger = material need, NOT artifacts.** A branch, a worktree, an output file, or a named executor is *evidence* that a durable lane may exist; **none of them creates one.** Work that completes inside its own bounded execution context stays ordinary even when it uses a branch. **Durability is earned by a real continuity need** — pause, transfer, replacement, delayed activation, or an output another effort must consume. Coordination is earned by a real collision, dependency, or reconciliation requirement.
 
 **Independence is NOT required for a lane to exist.** Independence only informs whether *simultaneous execution* is wise. Coupled work often deserves separate ownership and outputs while being **sequenced** rather than run at once.
 
-**Keep these dimensions separate (they are orthogonal — do not collapse them into a taxonomy):**
+**Concurrency never determines package membership.** Lanes belong to one package when they serve the same bounded parent outcome and their closure must be coordinated or reconciled. Unrelated efforts running at the same time stay **separate packages** with separate bases, integrators and closures; the only cross-package obligation is a bounded **collision check** on shared branches, files, canonical surfaces and incompatible decisions.
+
+**Keep these dimensions separate (orthogonal — do not collapse them into a taxonomy):**
 
 | Dimension | Question |
 |---|---|
-| package membership | are these efforts part of the same intended outcome and integration? |
+| package membership | are these efforts part of the same intended outcome and closure? |
 | lane inventory | which provisional partitions currently exist? |
 | activation | which are dormant / active / blocked / review-ready / complete? |
 | concurrency | which *active* lanes happen to run at the same time? |
 | coupling | `independent` · `loosely_coupled` · `ordered_dependency` · `tightly_coupled` |
-| dependency | must one lane consume another's result first? |
+| dependency | must one lane consume another's accepted result first? |
 | collision risk | can they touch the same branch, artifact, truth or control surface? |
-| integration | where and how are results recombined? |
+| integration | where and how are results recombined — **if** recombination is required? |
 
-**Which rules apply when:**
-- **CORE — applies to every lane regardless of count or concurrency:** execution-law clauses **1, 2, 3, 4, 6, 7, 9, 11** below, plus the **Base-binding**, **Environment-local worktree**, and **Integrator-transfer** laws. A single-lane package still needs a pinned base, one writer, no stale resumption, read-only shared surfaces, provisional-until-integrated output, receipts, tracked state, and durable handoff.
-- **COORDINATION OVERLAY — applies when sibling lanes exist:** clauses **5** and **10**, the sibling clause in **8**, plus the dependency/collision map and activation sequencing. Tightly coupled siblings are legitimate but should normally be **sequenced**, not blindly run in parallel.
+Concepts, vocabulary and the anti-silo rule live in `09_omni_build_os_layer_model.md` Layer 2; this section owns **runtime mechanics only**. Future automation (manifest · validator · leases · locks · merge queue · status projection) is Build OS Layer 3 / `10` Step 5 / `D0THES-REV-158`; the product/care Agent Runtime is `FWREG-010`. **Build-agent branch authority never becomes product, operator, clinical or patient authority** — same harness law does not confer equivalent authority. Planner, implementer, reviewer, adversary, evaluator, proof agent and integrator are **bounded roles inside an authorized work package**, never self-originating authority (`D0THES-GRD-028`, `D0THES-GRD-029`). Agent authority stays principal-typed and commit-gated (`subject · principal · actor · agent · role · capability · committer`). **No new subsystem, agent-identity ontology, branch registry, classification enum or control plane is created here.**
 
-**Unrelated concurrent work is NOT one package.** Two packages running at the same time on different questions stay separate packages with separate envelopes and integration transactions. Simultaneity alone never implies shared membership.
+### Lane Continuity Contract — when continuity is material
 
-**Parentage + authority (this is not a new subsystem).** This contract is the first binding operationalization of **Build OS Layer 2 — Execution Layer** (`09_omni_build_os_layer_model.md`: lane model · work-package contract · handoff contract · lane registry + ownership map · allowed/forbidden actions) and of the `10_omni_build_os_rollout_sequence.md` Step-5 "durable multi-agent operating system" trajectory. It is the **repository / build-agent context** of the Agent Runtime & Harness (`v4_C4_agent_runtime_and_harness_capture.md`, `FWREG-010`). It is **not** the whole Build OS, **not** the whole Agent Runtime, and **not** a product/care-agent authority contract. No new "agent execution governance" system, agent-identity ontology, branch registry, or sovereign control plane is created.
+**Eight durable facts.** They may live in **any existing durable carrier** — the current checkpoint, an accepted work-package map, a handoff, or the lane output's own header. **No new envelope document is required and no new artifact is created to satisfy this.**
 
-**Build-vs-product firewall.** Build agents operate under the Build OS, the work-package envelope, branch scope, and repository governance. Internal-operations and user/care-facing agents may reuse generic harness mechanisms but operate under different principals, grants, capabilities, consent, policy, owning-domain commit boundaries, and liability. **Same harness law does not confer equivalent authority.** Build skills do not become product capabilities; repository branch ownership does not model patient/provider/operator authority. This section does not redefine the product Agent Runtime object model or the principal/actor/agent taxonomy.
+1. purpose / intended result;
+2. lane scope, and **why durability is needed**;
+3. current owner and state;
+4. working object — branch + head, or the exact carrier;
+5. required source floor **and** open inquiry aperture (a floor is a minimum, never a boundary);
+6. writable scope and expected output object;
+7. authority limits and prohibited actions;
+8. stop / review / landing / re-entry condition.
 
-**Parallel Launch Envelope (pre-launch requirement).** Before launch, the current checkpoint/handoff — or one bounded accepted work-package map referenced by it — MUST carry an envelope containing:
-- parent work-package / gate / checkpoint;
-- immutable **lane content base** commit (full SHA) — bound per the **Base-binding law** below (a governed artifact never self-stamps its own commit);
-- named control-plane integrator **role key + current holder** — a transferable role, per the **Integrator-transfer law** below;
-- one row per lane: human-visible title · relay key · branch · owner/seat · **environment-local** worktree path (operational only, when actually assigned — see the **Environment-local worktree law**) · exact input packet + immutable source refs (**no globs, brace expansions, ellipses, or "any accepted carrier" placeholders** — an unresolved input floor is a defective envelope) · writable scope + exact intended output object · prohibited shared surfaces · dependencies/collision surfaces · required proof · reviewer/acceptance/landing gate · stop condition;
-- no-auto-launch and parent-close conditions.
+**Execution law — durable lanes (L).**
 
-**Execution law.**
-1. All lanes begin from the same approved base SHA unless the envelope records a justified exception.
-2. One active writer owns each branch. Agent-thread replacement does not create a new lane: a replacement agent may assume the same active clean branch, relay key, and packet after an explicit ownership transfer and freshness check.
-3. A stale, closed, invalidated, or materially diverged historical branch is never resumed in place — start a fresh branch from the current approved base and cite the old branch/commit as an immutable source packet.
-4. Lane agents treat envelope-named shared control-plane surfaces as read-only; they return proposed rows, lifecycle changes, and routing.
-5. Only the named control-plane integrator reconciles cross-lane outputs and mutates shared control-plane surfaces.
-6. A lane artifact may be committed/pushed as `review_ready_pending_integrator` with its passport + proposed routing bundle, but it is **not complete** under §5 (New Artifact Completion Rule) until the integrator lands the required catalog/read-graph/ledger/lifecycle side effects. This is not an exception to §5; completion occurs at the parent integration transaction.
-7. Every review-ready lane publishes the receipt level required by collaboration-model §§2.6–2.7: Relay Endpoint Posture (when relayed) · Review Object Posture · Bounded Diff Receipt · Source Posture.
-8. No lane may merge/fast-forward `main`, repoint the checkpoint, mutate a sibling lane, launch a successor phase, or declare the parent work package closed without explicit authorization.
-9. The envelope tracks each lane as `not_started | active | blocked | review_ready | accepted | landed | closed` and records its current branch/head or immutable accepted pin at work-package boundaries — not every chat message.
-10. Parent integration begins only after the required lane gates: source reconciliation · collision scan · shared-surface routing · lifecycle normalization · the parent closeout transaction (§8 Checkpoint Closeout Rule).
-11. Tooling may create branches/worktrees or render status, but tooling is ergonomic only (Build OS Layer 3) and cannot alter the contract or authority boundaries.
+- **L1 — one active writer.** One writer owns each branch at a time. Agent-thread replacement does **not** create a new lane: a replacement assumes the same clean branch, relay key and packet after an **explicit ownership transfer and freshness check**.
+- **L2 — no stale resumption.** A stale, closed, invalidated or materially diverged historical branch is **never resumed in place** — start a fresh branch from the currently approved base and cite the old branch/commit as an immutable source packet.
+- **L3 — environment-local worktree.** Durable lane identity = relay key · branch · base · input packet · expected output · current head · ownership state. An absolute filesystem path is **environment-local and NON-canonical**; record it operationally when assigned, never as identity. **Loss of a local worktree is not loss of a lane** — any machine, cloud VM or fresh clone recreates it from branch + base.
+- **L4 — write only what you own.** Do not mutate surfaces outside the declared writable scope; where protected surfaces are declared, return **proposed** rows, lifecycle changes and routing instead.
+- **L5 — provisional until its own gate.** A lane output is provisional until its **required completion side effects** land under §5 (New Artifact Completion Rule). **Where the lane is the whole work package, its own review/landing gate completes it — no separate integrator and no parent integration transaction are required.**
+- **L6 — tracked state.** Track `not_started | active | blocked | review_ready | accepted | landed | closed` plus current head or accepted pin, in **one** durable carrier, at work-package boundaries — not every chat message and **not duplicated across surfaces**.
+- **L7 — proportional receipts.** Publish the receipt level that collaboration-model §§2.6–2.7 actually triggers (Relay Endpoint Posture when relayed · Review Object Posture · Bounded Diff Receipt · Source Posture). Full snapshot ceremony is owed to remote/byte/acceptance/landing review, not to every local bounded stop.
+- **L8 — no unilateral escalation.** No lane merges or fast-forwards `main`, repoints the checkpoint, or launches a successor phase without explicit authorization.
 
-**Base-binding law (no self-referential SHA stamping).** Two distinct commits govern a parallel phase and MUST NOT be conflated:
-- **`lane_content_base_sha`** — the accepted **content** commit from which every child lane branch starts;
-- **`current_main_state_sha`** — the later **state-only** checkpoint/receipt commit that pins that base, records branch creation and lane states, and may be the current `main` tip.
+### Coordination Overlay — when coordination is material
 
-A repository artifact cannot contain its own commit SHA, so the exact lane base is **bound after acceptance**, in a state-only checkpoint/launch-receipt commit — never asserted inside the content commit it describes. Consequently a lane base is **normally one state-only commit behind current `main`**: where `main` differs from the lane base only by state-only closeout/receipt commits, the immediate accepted ancestor IS the correct lane base. This is normal and must be stated explicitly rather than mistaken for drift. Branch refs plus the post-acceptance launch receipt control; a prose phrase such as "the final post-landing `main` SHA" is **not** a binding pin, and no agent may be required to recover a base SHA from a chat transcript.
+Adds, on top of whatever continuity posture applies:
 
-**Two-Reference Boot Law (current state vs immutable content).** `control_plane_boot_ref` and `lane_content_base_sha` are **distinct references** and must never be collapsed:
+1. **membership** — which partitions serve this parent outcome;
+2. **dependency + activation order** — what must be accepted before what may start;
+3. **collision map + protected surfaces** — what must not be written concurrently;
+4. **base policy** — common base, or a recorded justified exception;
+5. **authorized shared-surface writer** — the integrator role, **where such a role exists**;
+6. **parent close criteria** — what the parent outcome requires before closure.
 
-1. A lane agent **first** reads current-state control surfaces from the **current control-plane ref** — normally the pinned/default `main` state: `AGENTS.md` · the read graph · the **current checkpoint** · lane/integrator state.
-2. It **then** executes only on its **assigned lane branch at the lane content base**.
-3. **Substantive lane inputs** resolve at `lane_content_base_sha` unless separately pinned.
-4. **Shared control-plane files must NOT be read from an older lane base as current state** — a content base is a frozen input, never a status report. An older base will typically still describe the launch as pending or held.
-5. If the **current checkpoint launch receipt does not name the lane branch/base being opened**, STOP for reconciliation rather than proceeding on inference.
-6. This is **not** permission for lane agents to edit `main` or any shared surface; read-current, write-own-lane.
+**Execution law — coordination (C).**
 
-**Environment-local worktree law.** Durable, canonical lane identity = relay key · remote branch · `lane_content_base_sha` · input packet · expected output object · current branch head · ownership state. An **absolute filesystem worktree path is environment-local and NON-canonical**: record it in the launch receipt when actually assigned, never in the durable contract as identity. A replacement environment (new machine, cloud VM, fresh clone) may **recreate** the worktree from the same branch + base. Loss of a local worktree is not loss of a lane.
+- **C1 — protected surfaces are read-only to partitions.** Declared shared control-plane surfaces are read-only to lanes; lanes return proposed rows and routing.
+- **C2 — one authorized writer per shared surface.** Where an integrator role exists it is that writer and it reconciles cross-partition outputs. Across unrelated packages the writer is instead the canonical surface owner, and landings are **serialized**.
+- **C3 — no sibling mutation, no unilateral parent close.** No partition mutates a sibling's branch or output, or declares the parent package closed.
+- **C4 — integration gates.** Parent integration begins only after the required gates: source reconciliation · collision scan · shared-surface routing · lifecycle normalization · the parent closeout transaction (§8 Checkpoint Closeout Rule). It proceeds on the **activated and gate-required** subset; it does not wait for dormant partitions.
+- **C5 — completion in a package.** Where reconciliation is genuinely required, a partition's artifact may be pushed `review_ready_pending_integrator` with its passport and proposed routing bundle, and completes under §5 at the **parent integration transaction**. This is not an exception to §5. **It does not apply to a standalone lane (see L5).**
+- **C6 — sequencing over simultaneity.** Tightly coupled partitions are legitimate but should normally be **sequenced**; the downstream one consumes the **accepted** result, never an in-progress branch. A coordinated package may have **zero** concurrency.
 
-**Integrator-transfer law.** The named control-plane integrator is a **transferable ROLE, not a permanent chat thread** — the same "chat/model session is replaceable compute" law that governs lane writers governs the integrator. The envelope MUST carry: integrator **role key**; **current holder**; **explicit transfer** record; **freshness/collision check** on assumption; **shared-surface ownership receipt** (which surfaces this role exclusively mutates); and **parent blockers** (what cannot proceed while the role is vacant). A retired, exhausted, or replaced integrator context MUST NOT strand its lanes; the role is reassigned by explicit transfer under the same discipline as clause 2.
+**Integrator-transfer law (applies only where an integrator role exists).** The integrator is a **transferable ROLE, not a permanent chat thread** — the same "session is replaceable compute" law that governs lane writers governs it. Where the role exists, its carrier MUST record: role key · current holder · explicit transfer · freshness/collision check on assumption · shared-surface ownership receipt · parent blockers while vacant. A retired, exhausted or replaced holder **MUST NOT strand its lanes**. Where no integrator role exists, this law is inapplicable — do not mint one to satisfy it.
 
-**Roles inside a work package (no sovereign meta-agent).** Planner, implementer, reviewer, adversary, evaluator, proof agent, and integrator are **bounded roles inside an authorized work package**. Reviewer/evaluator output is evidence or a gate input, never self-originating authority; no role manufactures authority, promotes doctrine, merges work, or commits truth merely by being "above" other agents. See `D0THES-GRD-028` (AI-as-target inversion) and `D0THES-GRD-029` (CNS-as-sovereign-brain).
+### Conditional mechanics — use when the stated condition is true, not by default
 
-**Multi-principal continuity (pointer, not restated).** Agents may act for patients, providers, caregivers, operator roles, owners, administrators, counterparties, and build functions; their authority remains principal-typed and commit-gated. Use the `subject · principal · actor · agent · role · capability · committer` taxonomy — not "everyone is a principal." Substantive lineage: `EVRUN-2026-000007_02_multi_principal_reframe_and_active_debate.md`.
+- **Immutable base pin.** Require an explicit base when: several partitions must be compared or reconciled from a common estate · activation may occur materially later · replacement must reproduce an exact starting corpus · a branch is intentionally frozen while `main` advances · or auditability depends on proving the exact inherited bytes. **An ordinary branch taken from current `main` does not need a ceremonial pin** — record the base in the lane's own durable carrier.
+- **Common base.** Default for coordinated partitions whose outputs will be compared or reintegrated; an explicit exception is permitted where a partition legitimately consumes a different accepted input or begins later from an approved successor state.
+- **Base-binding law (no self-referential SHA stamping).** Where a base pin is required, two commits govern it and MUST NOT be conflated: **`lane_content_base_sha`** (the accepted **content** commit partitions start from) and **`current_main_state_sha`** (the later **state-only** receipt that pins it and records branch/lane state). A repository artifact cannot contain its own commit SHA, so the base is **bound after acceptance** in a state-only receipt — never asserted inside the content commit it describes. A pinned base therefore normally sits behind current `main`; **that distance is expected, not drift.** Branch refs plus the post-acceptance receipt control; a prose phrase is never a binding pin, and **no agent may be required to recover a base SHA from a chat transcript.** **Do not generate a state-only commit for a lane whose base is already recoverable from its branch and durable carrier.**
+- **Single-source law (state is pinned in exactly ONE place).** A live SHA, base pin, branch head or lane state is recorded in **one** owning row and referenced by pointer everywhere else. **Never copy a live SHA into prose, into a boot surface, or into a second carrier** — duplicated state drifts, and drifted state is indistinguishable from real divergence at boot. Discovery surfaces (`AGENTS.md`, the read graph) carry **pointers to the owning row, never the value.**
+- **Two-Reference Boot law.** Use **only** where both are intentionally true: current-state control surfaces must be read from the current control ref, **and** substantive inputs remain pinned to an older immutable content ref. Then: read `AGENTS.md` · read graph · current checkpoint · lane/integrator state from the **current control-plane ref**; resolve substantive inputs at the **content base** unless separately pinned; **never read a shared control surface from an older base as current state** (a content base is a frozen input, never a status report); if the current receipt does not name the branch/base being opened, **STOP for reconciliation**. Where a lane simply branches from current `main`, the two references coincide and this law is inapplicable.
 
-**100-agent scale-out — split, not one bucket.** Automated large-scale concurrency is **not built**; the five-lane contract is human-supervised execution discipline now. The remaining debt is split:
-- **Build OS / Agent Work Protocol / Command-Tool debt (Layer 2/3 + Step 5):** lane registry · branch/worktree automation · ownership leases + transfer · common-base management · merge queue · shared-surface locking · semantic collision detection · parent/child work-package scheduling · status projection · CI/policy gates · automated integration + de-scaffolding. May mature incrementally before product C5. Re-point/AI-native revamp tracked at `D0THES-REV-158`.
-- **Agent Runtime / `FWREG-010` debt:** agent/session/run/subagent lifecycle · scheduler/workers/queues/leases/retries · NHI/credentials/sandbox · tool transaction boundaries · model routing + reproducibility · context routing · eval/release/monitoring/rollback. Broader spine/C5/runtime-formulation debt.
+### What this section does not require
 
-Decision ledger: `D0CKPT-DEC-005`. Guardrail: `06` `D0CKPT-GRD-002`.
+Do not manufacture, for work that has not earned them: a launch envelope document · a parent work package · an integrator role · a parent integration transaction · provisional-until-integrated status · a common base · a state-only base-binding commit · a separate state receipt · sibling/collision fields · or a classification label. **`parallel_work_package` is retired as an active classification** (`D0CKPT-DEC-007`); it survives only as historical lineage describing the original Phase-A origin. Describe the actual posture instead: ordinary work · durable lane · coordinated package · concurrency, coupling, dependency, collision and integration recorded independently as the facts they are.
+
+**Clause-reference map (prior numbering → current home; existing citations still resolve).** old 1 → *Immutable base pin* / *Common base* · old 2 → **L1** · old 3 → **L2** · old 4 → **C1** (protected surfaces) / **L4** (general scope) · old 5 → **C2** · old 6 → **L5** (standalone) / **C5** (package) · old 7 → **L7** · old 8 → **L8** (escalation) / **C3** (sibling + parent close) · old 9 → **L6** · old 10 → **C4** · old 11 → the Layer-3 pointer above.
+
+Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKPT-DEC-007`). Supersession: `D0CKPT-SUP-001`. Guardrails: `06` `D0CKPT-GRD-002`, `D0CKPT-GRD-003`.
 
 ---
 
@@ -326,7 +343,7 @@ During execution:
 - do not bypass routing requirements,
 - do not introduce unratified primitives,
 - do not perform unauthorized runtime/governance changes outside approved gate,
-- for parallel work packages, additionally comply with §2.1 (Parallel Work-Package Launch and Re-Entry Contract).
+- where continuity or coordination is material, additionally comply with §2.1 (Durable Work — lane continuity contract + coordination overlay), **proportionally to the posture that actually applies**. Ordinary bounded work carries no §2.1 obligation.
 
 ---
 
@@ -430,7 +447,13 @@ Stop report must include:
 - `prior_narratives_consulted`: for Tier 3+, list of prior narrative volume paths consulted (or `no_prior_arcs_relevant` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
 - `guardrail_rows_extracted`: for Tier 3+, list of guardrail row IDs added/updated in `06_guardrail_antipattern_digest.md` (or `no_timeless_lessons_surfaced` with reason); for Tier 1 or 2, `not_required_for_this_tier`,
 - `canonical_updates`: list of doctrine/ledger/registry/read-graph paths updated, or `not_required_for_this_tier` if Tier 1, 2, or 3,
-- **parallel work-package fields (§2.1)** — each `not_applicable` outside parallel work: `parallel_parent_key`, `parallel_lane_key`, `parallel_branch`, `parallel_owner_or_transfer`, `lane_content_base_sha`, `current_main_state_sha`, `control_plane_boot_ref`, `control_plane_checkpoint_ref`, `lane_work_ref`, `two_ref_boot_check`, `integrator_role_key`, `integrator_holder_or_transfer`, `worktree_path_posture`, `sibling_lane_states`, `shared_surface_changes_proposed`, `collision_check`, `reentry_source_ref`, `parent_close_blockers`. The earlier single-value `parallel_base_sha` and `control_plane_integrator` names are **superseded** — by the two-level base pair and the integrator role pair respectively (§2.1 Base-binding law + Integrator-transfer law); do not emit the ambiguous single-value forms,
+- **§2.1 posture declaration** — always emit `work_posture`: `ordinary` | `durable_lane` | `coordinated_bounded` | `coordinated_package`. **Fields below are emitted ONLY when the declared posture activates them. Do not enumerate long lists of `not_applicable` values — an unactivated field is simply absent.**
+  - *`durable_lane` or `coordinated_package` adds:* `lane_key`, `lane_branch_and_head`, `lane_owner_or_transfer`, `lane_state`, `reentry_source_ref`, `worktree_path_posture`.
+  - *base pin required (per §2.1 Conditional mechanics) adds:* `lane_content_base_sha`, and `current_main_state_sha` only where a state-only binding receipt was genuinely required.
+  - *two-reference boot genuinely in effect adds:* `control_plane_boot_ref`, `control_plane_checkpoint_ref`, `lane_work_ref`, `two_ref_boot_check`.
+  - *`coordinated_bounded` or `coordinated_package` adds:* `parent_key`, `sibling_states`, `shared_surface_changes_proposed`, `collision_check`, `parent_close_blockers`.
+  - *an integrator role actually exists adds:* `integrator_role_key`, `integrator_holder_or_transfer`.
+  - The superseded single-value forms `parallel_base_sha` and `control_plane_integrator`, and the retired `parallel_*` field prefix, must not be emitted,
 - next gate.
 
 Stop is blocked if `new_artifacts_created` is non-empty and any path lacks completion proof.

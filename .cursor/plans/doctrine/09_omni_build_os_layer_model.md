@@ -60,35 +60,37 @@ It is intentionally separate from rollout sequencing.
 **Primary question answered**
 - "How do we safely do work?"
 
-### Agent Work Blueprint — provisional partitioning, mandatory reintegration
+### Agent Work Blueprint — provisional partitioning, reconciliation where it is owed
 
 **Hierarchy (three distinct levels — do not collapse them):**
 
 | Level | What it is |
 |---|---|
-| **Layer 2 — Execution Layer** | the broad home for safe work against the Truth Layer. It also covers Build-Entry admission, allowed/forbidden actions, and ordinary single-lane execution. **This principle does not redefine all of Layer 2.** |
-| **Agent Work Blueprint** | the reusable **lane / work-package / handoff capability** inside Layer 2 (named in the artifact list above). This is the searchable identity for what follows. **Still a planned artifact** — no such document exists yet; the protocol sections below are its first partial realization, not a replacement for it. |
+| **Layer 2 — Execution Layer** | the broad home for safe work against the Truth Layer. It also covers Build-Entry admission, allowed/forbidden actions, and ordinary bounded execution. **This principle does not redefine all of Layer 2.** |
+| **Agent Work Blueprint** | the reusable **lane / work-package / handoff capability** inside Layer 2 — the searchable identity for what follows. It is **realized, not owed**: the concepts live here, the binding runtime mechanics live in `agent_work_protocol.md` §2.1, and concrete instances live in the current checkpoint or an accepted work-package map. **No standalone blueprint document is required or planned.** The only future artifact is an optional machine-readable package **manifest** at Layer 3 / `10` Step 5 (`D0THES-REV-158`), and only on execution evidence. |
 | **work package** | a concrete **instance** (e.g. `PRESPINE-PHASEA`). Many will exist. |
-| **lane** | a provisional partition inside one package. |
+| **lane** | a durable partition inside a package. A package may consist of exactly one lane. |
 
-**Operating principle: partitions are provisional; reintegration is mandatory.**
+**Operating principle: partitions are provisional; reconciliation is mandatory where reconciliation is actually owed.**
 
-> Begin from the broad governing estate and the real architectural question. **Partition work only where it helps.** Activate one, some, all, or no lanes. **A lane boundary is a work partition, never an architecture boundary** — the operator or integrator may add, split, merge, pause, retire or reclassify lanes as evidence changes. Every lane returns a **provisional carrier** to the **parent integration transaction**, which reconciles it against sibling outputs *and the wider estate* before any architecture, acceptance, or successor work is claimed. **No result becomes architecture merely by having been produced.**
+> Begin from the broad governing estate and the real architectural question. **Partition work only where it helps**, and only where continuity or coordination is materially needed. Activate one, some, all, or no lanes. **A lane boundary is a work partition, never an architecture boundary** — the operator or integrator may add, split, merge, pause, retire or reclassify lanes as evidence changes. Where outputs overlap, contend for a shared surface, or must combine into a parent outcome, each returns a **provisional carrier** to the **parent integration transaction**, which reconciles it against sibling outputs *and the wider estate* before any architecture, acceptance, or successor work is claimed. **Where a lane is the whole work package, its own review/landing gate completes it — no integrator and no parent transaction are manufactured to satisfy a rule.** In every case: **no result becomes architecture merely by having been produced.**
 
-**Why both halves matter.** Partitioning alone buys throughput and produces silos and bolt-ons. Reintegration alone forfeits the throughput. The layer exists to get the first without paying for it with the second.
+**Why both halves matter.** Partitioning alone buys throughput and produces silos and bolt-ons. Reconciliation alone forfeits the throughput. The layer exists to get the first without paying for it with the second — **and to charge for reconciliation only where it is genuinely owed.**
 
 **A work package is an INSTANCE, not a fixed structure.** There will be many, each with its own lanes, inputs, outputs and integration transaction — `PRESPINE-PHASEA` (pre-spine input readiness) is simply the first. A future package (e.g. connector permeability) declares its own envelope. **Nothing here is a five-lane model, and nothing obliges concurrency** — a single-lane package is a legitimate and common shape.
 
-**Structure — a core contract plus an overlay, NOT a solo/parallel binary:**
+**Structure — two independent needs, NOT a solo/parallel binary and NOT a universal core:**
 
 ```
 Agent Work Blueprint
-├── core lane / work-package contract   → applies to ANY durable lane, one or many
-└── multi-lane coordination overlay     → added only when siblings must be coordinated
+├── lane continuity contract     → when work must survive replacement / pause / delayed re-entry
+└── coordination overlay         → when writers, dependencies or shared surfaces must be ordered
 ```
 
-- **Core** (count- and concurrency-irrelevant): work-package purpose · lane identity · branch + pinned base · starting packet · source aperture · writable scope · expected carrier · authority limits · stop condition · handoff/replacement continuity. **One lane needs all of this.**
-- **Overlay** (only when sibling lanes exist): dependency and collision map · one-writer enforcement across siblings · integrator role · protected shared surfaces · activation and sequencing · parent integration transaction.
+Neither implies the other. Work may need **neither** (ordinary bounded work — no blueprint mechanics at all), **either**, or **both**.
+
+- **Continuity** (earned by a real re-entry need, *not* by the presence of a branch, output file or named owner): purpose · lane scope and why durability is needed · owner and state · branch + head · source floor and inquiry aperture · writable scope and expected output · authority limits · stop/review/landing/re-entry condition. These are **facts, not a document** — they may live in an existing checkpoint, map, handoff or the output's own header.
+- **Coordination** (earned by a real collision, dependency or reconciliation requirement): membership · dependency and activation order · collision and protected-surface map · base policy · authorized shared-surface writer · parent close criteria.
 
 **A lane is a durable partition of work with an owner and a boundary.** "Solo", "parallel", "coupled", "dependent" and "sequenced" are **orthogonal properties of its situation, not types of lane.** Consequences worth stating because we got this wrong once:
 - one active lane may sit inside a prepared multi-lane package;
@@ -96,20 +98,20 @@ Agent Work Blueprint
 - **independence is not required for a lane to exist**; it only informs whether concurrent execution is wise (tightly coupled siblings are usually sequenced);
 - unrelated work may run at the same time in **separate packages** without being collapsed into one.
 
-Binding mechanics for both core and overlay: `agent_work_protocol.md` **§2.1**, which marks explicitly which clauses are core and which are overlay.
+Binding mechanics for both: `agent_work_protocol.md` **§2.1**, which carries the two-question applicability test and marks explicitly which laws are continuity (`L*`), which are coordination (`C*`), and which are conditional.
 
 **Vocabulary** — use the estate's established terms: **work package** · **lane** · **launch envelope** (the accepted executable description of lanes, branches, bases, inputs, permissions, outputs and stops) · **lane agent** / **lane owner** (the agent doing one partition) · **integrator** (the transferable role restoring whole-estate coherence; sole writer of shared control surfaces) · **handoff contract** (continuity across agent/session replacement) · **parent integration transaction** (where lane results are reconciled and where completion actually occurs) · **review/landing gate** (acceptance).
 
 > **Vocabulary discipline.** Reuse established canonical terms in governing and routing surfaces. Introduce new vocabulary only when existing terms cannot discriminate a materially distinct capability, and then through explicit semantic review. The aim is to prevent casual aliasing, not to freeze the language.
 
-**Current vs future form.** Current = a **human-supervised protocol** — the general Agent Work Protocol for ordinary work, plus §2.1 for parallel packages (`D0CKPT-DEC-005`, guardrail `D0CKPT-GRD-002`). Future = **machine-enforced** work-package tooling at Layer 3 / rollout Step 5 (`D0THES-REV-158`): manifest validation, claims/leases, protected surfaces, policy checks, status projection, merge path.
+**Current vs future form.** Current = a **human-supervised protocol** — the general Agent Work Protocol for ordinary work, plus §2.1 **proportionally** where continuity or coordination is material (`D0CKPT-DEC-005` as narrowed by `D0CKPT-DEC-007`; guardrails `D0CKPT-GRD-002`/`-003`). Future = **machine-enforced** work-package tooling at Layer 3 / rollout Step 5 (`D0THES-REV-158`): manifest validation, claims/leases, protected surfaces, policy checks, status projection, merge path.
 
 **This is NOT:** a product- or care-agent runtime (that is `FWREG-010`, and build-agent authority never becomes product authority) · a general agent framework · compulsory parallelism · a fixed lane ontology · a complete Build OS.
 
 Mechanistically this composes established **integration-manager**, **orchestrator/worker**, **protected-branch/proposal**, and **contextual-practice** patterns; the external evidence and attributions live in `comparator_analogy_registry.md` and rollout Step 5 — **not** in instance maps, checkpoints or lane prompts.
 
-**Current-state note (2026-08-04)**
-- `Agent Work Protocol §2.1` is the first **human-supervised partial operationalization** of the lane / work-package / handoff contract (concurrent lanes · one writer per branch · two-level base binding · stale-branch fresh re-entry · shared-surface isolation · transferable control-plane integrator role · provisional-until-integrated artifacts). Decision `D0CKPT-DEC-005`; guardrail `D0CKPT-GRD-002`.
+**Current-state note (2026-08-05, adjudicated)**
+- `Agent Work Protocol §2.1` is the **human-supervised, proportional** operationalization of the lane / work-package / handoff capability: a two-question applicability test (continuity · coordination), a lane continuity contract (one writer per branch · stale-branch fresh re-entry · environment-local worktrees · provisional-until-its-own-gate · tracked state · proportional receipts), and a coordination overlay applied only where collision, dependency or reconciliation is real (protected shared surfaces · single authorized writer · integrator role where one exists · parent integration transaction). Base pinning, two-reference boot and state-only base binding are **conditional mechanics**, not universal core. Decisions `D0CKPT-DEC-005` (narrowed by `D0CKPT-DEC-007`); supersession `D0CKPT-SUP-001`; guardrails `D0CKPT-GRD-002`, `D0CKPT-GRD-003`.
 - **Automated lane registry, ownership services/leases, shared-surface locks, merge queue, semantic collision detection, and lane tooling remain FUTURE** (`D0THES-REV-158`). This note records partial progress only; it does not duplicate §2.1 and does not make this layer complete.
 
 ---
