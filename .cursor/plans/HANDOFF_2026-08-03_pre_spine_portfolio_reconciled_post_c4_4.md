@@ -70,6 +70,18 @@ The **Pre-Spine Sufficiency & Task-D Re-Entry Map** (`.cursor/plans/v4_pre_spine
 
    **★ Phase-A envelope ACCEPTED (Nick + Knox, 2026-08-04).** The fidelity-hardened §7/§7.1 envelope passed final content byte review; the lane content base is pinned in **§4.2 — Phase-A launch receipt** below. The five lane containers are prepared, pinned, and **empty**; lane work has **not** started. Execution is authorized **per lane** only when that lane receives and accepts its exact thread/relay lock. Local worktree paths are **environment-local and non-canonical** — recreatable anywhere (new machine, cloud VM, fresh clone) from branch + base.
 
+### §4.1a — ★ CLOSED: build-execution + method framework (do NOT reopen)
+
+**This work is finished. A fresh agent should read it, use it, and move on — not redesign it.** It was settled over an extended Nick + Knox + Opus review and is not an open question:
+
+- **Agent Work Protocol §2.1** — parallel work-package contract: mandatory `parallel_work_package` classification trigger · accepted launch envelope · two-level base binding (`lane_content_base_sha` vs `control_plane_boot_ref`) · **Two-Reference Boot Law** · one writer per branch · transferable integrator role · environment-local (non-canonical) worktree paths. Decision `D0CKPT-DEC-005`, guardrail `D0CKPT-GRD-002`.
+- **Discovery routing** — `AGENTS.md` work-class rows (parallel/multi-agent; major-arc intake) + two durable `04_manifest_read_graph.md` routes deliberately placed **outside** Tier-0 #15 so they survive checkpoint rewrites.
+- **`omni_work_method_repertoire.md`** — an **optional** method catalog (61 entries + `METHOD-000`). Palette, not pipeline: no required order, no required method, no minimum count, no usage/effectiveness bookkeeping, no maturity tiers, no lifecycle machinery. Decision `D0CKPT-DEC-006` (`active`). **Consult only when planning or materially replanning; routine execution ignores it.**
+- **Deliberately NOT built** (do not "helpfully" add them): usage/effectiveness ledgers · method tiers · method deprecation graveyard · composition recipes · mandatory Gate-0 method forms · automated lane registry, leases, locks, merge queue or collision detection. Automation remains open and evidence-gated at `10_omni_build_os_rollout_sequence.md` Step 5 + `D0THES-REV-158` (**Build OS Layer-2/3 Tooling v0.2**), triggered only at Phase-A parent closeout.
+- **The Build OS is explicitly PARTIAL, not finished** — `09` Layer 2, `10` Step 5 and `FWREG-010` all say so.
+
+**Reopen only if** real Phase-A execution evidence shows a control is missing or ceremonial. Otherwise: next action is launching the lanes, not improving the framework.
+
 ### §4.2 — ★ Phase-A launch receipt (2026-08-04, state-only; binds the accepted content base)
 
 This is the durable, post-acceptance base binding required by Agent Work Protocol §2.1 **Base-binding law**. **A fresh agent — local, cloud, or mobile — can launch any lane from this receipt alone. No conversation, no chat transcript, and no machine-specific path is required.**
@@ -82,7 +94,7 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 | Accepted map blob at C1b | `80b99ceb759e067686380c62265f4706a03458ba` |
 | Accepted Agent Work Protocol blob at C1b | `db82de0b8b22cccce0f000b62e8e91b79e5e34b2` |
 | Content branch of C1b | `governance/phase-a-two-ref-cloud-boot` |
-| `current_main_state_sha` | the **state-only** receipt commit(s) carrying this receipt, to which `main` is fast-forwarded. `main` may sit **one or more state-only receipt commits ahead** of the immutable lane content base — in this transaction the state-only descendants of C1b are C2 and C2a. **This is normal, not drift.** |
+| `current_main_state_sha` | the **state-only** receipt commit(s) carrying this receipt, to which `main` is fast-forwarded. `main` may sit **one or more state-only receipt commits ahead** of the immutable lane content base Several commits now sit between the lane content base C1b and `main` (Phase-A state receipts **plus** the separately-landed method-repertoire work). **Do not treat that distance as drift and do not stop for reconciliation over it** — the lane base is pinned by this receipt, not by counting commits. |
 | Integrator role key | `PRESPINE-PHASEA-INTEGRATOR` |
 | Current holder | `THREAD LOCK PRESPINE-PHASEA-INTEGRATOR \| seat=OPUS \| visible="Pre-spine · Phase-A integration"` |
 | Integrator transfer posture | explicit transfer + freshness/collision check + shared-surface ownership receipt REQUIRED before any replacement holder acts |
