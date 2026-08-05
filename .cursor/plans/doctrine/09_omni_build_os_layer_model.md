@@ -77,7 +77,7 @@ It is intentionally separate from rollout sequencing.
 
 **Why both halves matter.** Partitioning alone buys throughput and produces silos and bolt-ons. Reconciliation alone forfeits the throughput. The layer exists to get the first without paying for it with the second — **and to charge for reconciliation only where it is genuinely owed.**
 
-**A work package is an INSTANCE, not a fixed structure.** There will be many, each with its own lanes, inputs, outputs and integration transaction — `PRESPINE-PHASEA` (pre-spine input readiness) is simply the first. A future package (e.g. connector permeability) declares its own envelope. **Nothing here is a five-lane model, and nothing obliges concurrency** — a single-lane package is a legitimate and common shape.
+**A work package is an INSTANCE, not a fixed structure.** Each has a bounded outcome, scope, ownership, outputs and closure path; `PRESPINE-PHASEA` (pre-spine input readiness) is simply the first. **A coordinated package adds an envelope and an integration transaction only where its own facts require them** — a future package (e.g. connector permeability) may begin as a single durable lane and declare an envelope later, or never. **Nothing here is a five-lane model, and nothing obliges concurrency** — a single-lane package is a legitimate and common shape.
 
 **Structure — two independent needs, NOT a solo/parallel binary and NOT a universal core:**
 
@@ -100,7 +100,7 @@ Neither implies the other. Work may need **neither** (ordinary bounded work — 
 
 Binding mechanics for both: `agent_work_protocol.md` **§2.1**, which carries the two-question applicability test and marks explicitly which laws are continuity (`L*`), which are coordination (`C*`), and which are conditional.
 
-**Vocabulary** — use the estate's established terms: **work package** · **lane** · **launch envelope** (the accepted executable description of lanes, branches, bases, inputs, permissions, outputs and stops) · **lane agent** / **lane owner** (the agent doing one partition) · **integrator** (the transferable role restoring whole-estate coherence; sole writer of shared control surfaces) · **handoff contract** (continuity across agent/session replacement) · **parent integration transaction** (where lane results are reconciled and where completion actually occurs) · **review/landing gate** (acceptance).
+**Vocabulary** — use the estate's established terms: **work package** · **lane** · **launch envelope** (the accepted executable description of lanes, branches, bases, inputs, permissions, outputs and stops) · **lane agent** / **lane owner** (the agent doing one partition) · **integrator** (**where such a role exists** — the transferable role restoring whole-estate coherence; sole writer of shared control surfaces) · **handoff contract** (continuity across agent/session replacement) · **parent integration transaction** (**where reconciliation is owed** — where partition results are reconciled and where completion then occurs; a standalone lane completes at its own gate instead) · **review/landing gate** (acceptance).
 
 > **Vocabulary discipline.** Reuse established canonical terms in governing and routing surfaces. Introduce new vocabulary only when existing terms cannot discriminate a materially distinct capability, and then through explicit semantic review. The aim is to prevent casual aliasing, not to freeze the language.
 

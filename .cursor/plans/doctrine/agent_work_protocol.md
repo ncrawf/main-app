@@ -74,16 +74,16 @@ Before partitioning work, answer **two independent questions**. Neither implies 
 |---|---|---|---|
 | no | no | **ordinary bounded work** | §§1–9 only. **Nothing in this section.** |
 | yes | no | **durable lane** | Lane Continuity Contract |
-| no | yes | **coordinated bounded work** | Coordination Controls only (one writer · collision · landing order) |
+| no | yes | **coordinated bounded work** | Collision controls **only** — contested surface · authorized writer · serialization order. **No parent, membership, sibling states or integrator.** |
 | yes | yes | **coordinated work package** | both |
 
 **Obligations are proportional to the need that actually triggered them.** Nothing here is owed because a prior work package needed it.
 
-**Trigger = material need, NOT artifacts.** A branch, a worktree, an output file, or a named executor is *evidence* that a durable lane may exist; **none of them creates one.** Work that completes inside its own bounded execution context stays ordinary even when it uses a branch. **Durability is earned by a real continuity need** — pause, transfer, replacement, delayed activation, or an output another effort must consume. Coordination is earned by a real collision, dependency, or reconciliation requirement.
+**Trigger = material need, NOT artifacts.** A branch, a worktree, an output file, or a named executor is *evidence* that a durable lane may exist; **none of them creates one.** Work that completes inside its own bounded execution context stays ordinary even when it uses a branch. **Durability is earned by a real continuity need** — pause, transfer, replacement, delayed activation, or an output that **must survive independently for later or replacement-context consumption**. (An output consumed immediately, in the same working context, is coordination — not durability.) Coordination is earned by a real collision, dependency, or reconciliation requirement.
 
 **Independence is NOT required for a lane to exist.** Independence only informs whether *simultaneous execution* is wise. Coupled work often deserves separate ownership and outputs while being **sequenced** rather than run at once.
 
-**Concurrency never determines package membership.** Lanes belong to one package when they serve the same bounded parent outcome and their closure must be coordinated or reconciled. Unrelated efforts running at the same time stay **separate packages** with separate bases, integrators and closures; the only cross-package obligation is a bounded **collision check** on shared branches, files, canonical surfaces and incompatible decisions.
+**Concurrency never determines package membership.** Lanes belong to one package when they serve the same bounded parent outcome and their closure must be coordinated or reconciled. Unrelated efforts running at the same time stay **separate packages** with separate **state and closure paths** — and with bases and integrators only where each package independently requires them. The only cross-package obligation is a bounded **collision check** on shared branches, files, canonical surfaces and incompatible decisions.
 
 **Keep these dimensions separate (orthogonal — do not collapse them into a taxonomy):**
 
@@ -115,7 +115,7 @@ Concepts, vocabulary and the anti-silo rule live in `09_omni_build_os_layer_mode
 
 **Execution law — durable lanes (L).**
 
-- **L1 — one active writer.** One writer owns each branch at a time. Agent-thread replacement does **not** create a new lane: a replacement assumes the same clean branch, relay key and packet after an **explicit ownership transfer and freshness check**.
+- **L1 — one active writer.** One active owner/writer per **writable lane object** at a time — and one writer per branch where a branch exists. (A durable lane may be carried by a document or another writable object rather than a dedicated branch.) Agent-thread replacement does **not** create a new lane: a replacement assumes the same clean object, relay key and packet after an **explicit ownership transfer and freshness check**.
 - **L2 — no stale resumption.** A stale, closed, invalidated or materially diverged historical branch is **never resumed in place** — start a fresh branch from the currently approved base and cite the old branch/commit as an immutable source packet.
 - **L3 — environment-local worktree.** Durable lane identity = relay key · branch · base · input packet · expected output · current head · ownership state. An absolute filesystem path is **environment-local and NON-canonical**; record it operationally when assigned, never as identity. **Loss of a local worktree is not loss of a lane** — any machine, cloud VM or fresh clone recreates it from branch + base.
 - **L4 — write only what you own.** Do not mutate surfaces outside the declared writable scope; where protected surfaces are declared, return **proposed** rows, lifecycle changes and routing instead.
@@ -126,32 +126,43 @@ Concepts, vocabulary and the anti-silo rule live in `09_omni_build_os_layer_mode
 
 ### Coordination Overlay — when coordination is material
 
-Adds, on top of whatever continuity posture applies:
+**Two levels. Take only the one your facts require — the light level must never silently pull in the heavy one.**
 
+**(a) Collision controls — ANY coordinated work, including transient bounded work with no durability.** Record only:
+1. **contested surface or resource** — what is actually in contention;
+2. **currently authorized writer** — who may write it right now;
+3. **participants / proposals in flight**;
+4. **serialization or landing order**;
+5. **collision resolution** — how an incompatibility is settled.
+
+That is the whole obligation for `coordinated_bounded`. **No parent key, no package membership, no sibling lifecycle states, no parent-close blockers, no common base, no integrator role.**
+
+**(b) Package coordination — ADDITIONALLY, only for a durable or explicitly parented multi-part outcome (`coordinated_package`):**
 1. **membership** — which partitions serve this parent outcome;
-2. **dependency + activation order** — what must be accepted before what may start;
-3. **collision map + protected surfaces** — what must not be written concurrently;
-4. **base policy** — common base, or a recorded justified exception;
-5. **authorized shared-surface writer** — the integrator role, **where such a role exists**;
-6. **parent close criteria** — what the parent outcome requires before closure.
+2. **dependency + activation order/states** — what must be accepted before what may start;
+3. **base policy** — common base, or a recorded justified exception;
+4. **integrator role where one exists**, plus its transfer discipline;
+5. **parent close criteria**;
+6. **integration transaction** — where reconciliation actually occurs.
 
-**Execution law — coordination (C).**
+**Execution law — coordination (C).** Each law is tagged with the level that activates it.
 
-- **C1 — protected surfaces are read-only to partitions.** Declared shared control-plane surfaces are read-only to lanes; lanes return proposed rows and routing.
-- **C2 — one authorized writer per shared surface.** Where an integrator role exists it is that writer and it reconciles cross-partition outputs. Across unrelated packages the writer is instead the canonical surface owner, and landings are **serialized**.
-- **C3 — no sibling mutation, no unilateral parent close.** No partition mutates a sibling's branch or output, or declares the parent package closed.
-- **C4 — integration gates.** Parent integration begins only after the required gates: source reconciliation · collision scan · shared-surface routing · lifecycle normalization · the parent closeout transaction (§8 Checkpoint Closeout Rule). It proceeds on the **activated and gate-required** subset; it does not wait for dormant partitions.
-- **C5 — completion in a package.** Where reconciliation is genuinely required, a partition's artifact may be pushed `review_ready_pending_integrator` with its passport and proposed routing bundle, and completes under §5 at the **parent integration transaction**. This is not an exception to §5. **It does not apply to a standalone lane (see L5).**
-- **C6 — sequencing over simultaneity.** Tightly coupled partitions are legitimate but should normally be **sequenced**; the downstream one consumes the **accepted** result, never an in-progress branch. A coordinated package may have **zero** concurrency.
+- **C1 — [any coordinated work] protected surfaces are read-only to participants.** Declared shared control-plane surfaces are read-only; participants return proposed rows and routing.
+- **C2 — [any coordinated work] one authorized writer per shared surface; landings are serialized.** Where an integrator role exists it is that writer and it reconciles cross-partition outputs. Where no such role exists — including across unrelated packages — the writer is the canonical surface owner, and landings are serialized rather than concurrent.
+- **C3 — [package only] no sibling mutation, no unilateral parent close.** No partition mutates a sibling's branch or output, or declares the parent package closed.
+- **C4 — [package only] integration gates.** Parent integration begins only after the required gates: source reconciliation · collision scan · shared-surface routing · lifecycle normalization · the parent closeout transaction (§8 Checkpoint Closeout Rule). It proceeds on the **activated and gate-required** subset; it does not wait for dormant partitions.
+- **C5 — [package only] completion in a package.** Where reconciliation is genuinely required, a partition's artifact may be pushed `review_ready_pending_integrator` with its passport and proposed routing bundle, and completes under §5 at the **parent integration transaction**. This is not an exception to §5. **It does not apply to a standalone lane (see L5) or to `coordinated_bounded` work.**
+- **C6 — [package only] sequencing over simultaneity.** Tightly coupled partitions are legitimate but should normally be **sequenced**; the downstream one consumes the **accepted** result, never an in-progress branch. A coordinated package may have **zero** concurrency.
 
 **Integrator-transfer law (applies only where an integrator role exists).** The integrator is a **transferable ROLE, not a permanent chat thread** — the same "session is replaceable compute" law that governs lane writers governs it. Where the role exists, its carrier MUST record: role key · current holder · explicit transfer · freshness/collision check on assumption · shared-surface ownership receipt · parent blockers while vacant. A retired, exhausted or replaced holder **MUST NOT strand its lanes**. Where no integrator role exists, this law is inapplicable — do not mint one to satisfy it.
 
 ### Conditional mechanics — use when the stated condition is true, not by default
 
-- **Immutable base pin.** Require an explicit base when: several partitions must be compared or reconciled from a common estate · activation may occur materially later · replacement must reproduce an exact starting corpus · a branch is intentionally frozen while `main` advances · or auditability depends on proving the exact inherited bytes. **An ordinary branch taken from current `main` does not need a ceremonial pin** — record the base in the lane's own durable carrier.
+- **Base identification (the ordinary case — no extra commit).** A lane's inherited base is normally recoverable from **branch ancestry**, an **immutable source ref**, or an **existing durable carrier**. That is sufficient. **Do not generate a state-only commit, a pin ceremony, or a receipt for a base that is already recoverable.**
+- **Explicit base pin (stronger reproducibility).** Require an explicitly recorded base when: several partitions must be compared or reconciled from a common estate · activation may occur materially later · replacement must reproduce an exact starting corpus · a branch is intentionally frozen while `main` advances · or auditability depends on proving the exact inherited bytes.
 - **Common base.** Default for coordinated partitions whose outputs will be compared or reintegrated; an explicit exception is permitted where a partition legitimately consumes a different accepted input or begins later from an approved successor state.
-- **Base-binding law (no self-referential SHA stamping).** Where a base pin is required, two commits govern it and MUST NOT be conflated: **`lane_content_base_sha`** (the accepted **content** commit partitions start from) and **`current_main_state_sha`** (the later **state-only** receipt that pins it and records branch/lane state). A repository artifact cannot contain its own commit SHA, so the base is **bound after acceptance** in a state-only receipt — never asserted inside the content commit it describes. A pinned base therefore normally sits behind current `main`; **that distance is expected, not drift.** Branch refs plus the post-acceptance receipt control; a prose phrase is never a binding pin, and **no agent may be required to recover a base SHA from a chat transcript.** **Do not generate a state-only commit for a lane whose base is already recoverable from its branch and durable carrier.**
-- **Single-source law (state is pinned in exactly ONE place).** A live SHA, base pin, branch head or lane state is recorded in **one** owning row and referenced by pointer everywhere else. **Never copy a live SHA into prose, into a boot surface, or into a second carrier** — duplicated state drifts, and drifted state is indistinguishable from real divergence at boot. Discovery surfaces (`AGENTS.md`, the read graph) carry **pointers to the owning row, never the value.**
+- **Post-acceptance base binding (no self-referential SHA stamping).** A **separate state-only receipt commit** is required only where: accepted **content cannot self-identify its own commit** · prepared branches must all be bound to that accepted generation · or package activation / integrator / lane state must be recorded **after** acceptance. In that case two commits govern and MUST NOT be conflated: **`lane_content_base_sha`** (the accepted **content** commit partitions start from) and **`current_main_state_sha`** (the later **state-only** receipt that pins it and records branch/lane state). The base is **bound after acceptance** — never asserted inside the content commit it describes. A pinned base therefore normally sits behind current `main`; **that distance is expected, not drift.** Branch refs plus the receipt control; a prose phrase is never a binding pin, and **no agent may be required to recover a base SHA from a chat transcript.** This is the `PRESPINE-PHASEA` situation; it is **not** the general case.
+- **Single-source law (mutable live state is pinned in exactly ONE place).** A **mutable, live operational** value — current base pin, current branch head, current lane/integrator state — is recorded in **one** owning row and referenced by pointer everywhere else. **Never copy live state into prose, into a boot surface, or into a second carrier**: duplicated state drifts, and drifted state is indistinguishable from real divergence at boot. Discovery surfaces (`AGENTS.md`, the read graph) carry **pointers to the owning row, never the value.** **Explicit exception — frozen evidence.** Immutable snapshot, review, source and historical receipts **may and often must** repeat exact refs: Review Object Postures and Bounded Diff Receipts (collaboration-model §§2.6–2.7), acceptance records, source pins, evidence cutoffs and historical citations. The test is not "is this a SHA?" but **"is this claiming to be current state, or is it labelled frozen evidence?"** Frozen evidence must be labelled as such so it is never mistaken for a status report.
 - **Two-Reference Boot law.** Use **only** where both are intentionally true: current-state control surfaces must be read from the current control ref, **and** substantive inputs remain pinned to an older immutable content ref. Then: read `AGENTS.md` · read graph · current checkpoint · lane/integrator state from the **current control-plane ref**; resolve substantive inputs at the **content base** unless separately pinned; **never read a shared control surface from an older base as current state** (a content base is a frozen input, never a status report); if the current receipt does not name the branch/base being opened, **STOP for reconciliation**. Where a lane simply branches from current `main`, the two references coincide and this law is inapplicable.
 
 ### What this section does not require
@@ -451,7 +462,8 @@ Stop report must include:
   - *`durable_lane` or `coordinated_package` adds:* `lane_key`, `lane_branch_and_head`, `lane_owner_or_transfer`, `lane_state`, `reentry_source_ref`, `worktree_path_posture`.
   - *base pin required (per §2.1 Conditional mechanics) adds:* `lane_content_base_sha`, and `current_main_state_sha` only where a state-only binding receipt was genuinely required.
   - *two-reference boot genuinely in effect adds:* `control_plane_boot_ref`, `control_plane_checkpoint_ref`, `lane_work_ref`, `two_ref_boot_check`.
-  - *`coordinated_bounded` or `coordinated_package` adds:* `parent_key`, `sibling_states`, `shared_surface_changes_proposed`, `collision_check`, `parent_close_blockers`.
+  - *`coordinated_bounded` adds ONLY:* `contested_surface`, `authorized_writer`, `serialization_or_landing_order`, `collision_check`. **It does NOT emit `parent_key`, `sibling_states` or `parent_close_blockers`** — requiring those of transient bounded work is the obligation overreach this contract removed.
+  - *`coordinated_package` adds:* `parent_key`, `sibling_states`, `shared_surface_changes_proposed`, `collision_check`, `parent_close_blockers`.
   - *an integrator role actually exists adds:* `integrator_role_key`, `integrator_holder_or_transfer`.
   - The superseded single-value forms `parallel_base_sha` and `control_plane_integrator`, and the retired `parallel_*` field prefix, must not be emitted,
 - next gate.

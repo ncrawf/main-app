@@ -1,11 +1,11 @@
 # HANDOFF — 2026-08-05 · AWP §2.1 adjudicated rewrite (durable-work contract made proportional)
 
 Document type: `handoff_or_readiness_gate`
-Authority: `governance_binding` for the landed doctrine changes it records; `analysis_nonbinding` as narrative
-Status: `mechanics_ADJUDICATED_and_REWRITTEN · lane_launch_STILL_HELD · D0THES-REV-212_OPEN_pending_knox_review`
+Authority: `derived_nonbinding` — continuity record only. **It originates nothing and inherits no authority from the doctrine it describes.** The binding candidates are AWP §2.1 and Build OS `09`/`10`; their proposed disposition is recorded in `D0CKPT-DEC-007`.
+Status: `pushed_branch_candidate_pending_review · mechanics_ADJUDICATED · rewrite_PROPOSED_at_PR#3 · NOT_merged_NOT_accepted · lane_launch_STILL_HELD · D0THES-REV-212_OPEN`
 Domain(s): `architecture_governance`, `build_operations`
-Lifecycle role: `continuity record for the D0THES-REV-212 adjudication transaction. Records what two independent reviews found, what was ruled, what landed, and what remains gated. Does NOT change the program gate — the Aug-3 checkpoint remains the current checkpoint.`
-Source-of-truth relationship: `binding mechanics live in agent_work_protocol.md §2.1; concepts in 09_omni_build_os_layer_model.md Layer 2; decision D0CKPT-DEC-007; supersession D0CKPT-SUP-001; guardrail D0CKPT-GRD-003. This handoff routes to them and originates nothing.`
+Lifecycle role: `continuity record for the D0THES-REV-212 adjudication transaction. Records what two independent reviews found, what was ruled, what is PROPOSED on the pushed branch, and what remains gated. Does NOT change the program gate — the Aug-3 checkpoint remains the current checkpoint — and does NOT itself bind anything.`
+Source-of-truth relationship: `binding candidates are agent_work_protocol.md §2.1 and 09_omni_build_os_layer_model.md Layer 2; their proposed disposition is recorded in D0CKPT-DEC-007, supersession D0CKPT-SUP-001, guardrail D0CKPT-GRD-003. This handoff routes to them and originates nothing. A continuity record does not inherit the authority of the doctrine it describes.`
 Supersedes: `none` (the review packet HANDOFF_2026-08-05_agent_work_blueprint_mechanics_independent_review.md is CONSUMED — its stop condition is met)
 Superseded by: `none`
 Manifest action: `add_tier2 · no_new_route_needed` (reached through the current Aug-3 checkpoint §4.1a)
@@ -40,7 +40,7 @@ Both also concluded: **no standalone Agent Work Blueprint document is owed** (th
 | Stale base pointer | **caught it** — `AGENTS.md` + read-graph still carried `51ead01…` | missed it | **Knox.** Verified live; fixed by deleting the duplicate and adding the Single-source law. |
 | Primary framing | "trigger overreach" | "**obligation** overreach — keep the broad trigger, shrink the single-lane duty" | **Both, merged.** Trigger reworded to material-need *and* obligations made proportional. |
 
-## §4 — What landed (files + sections)
+## §4 — What is PROPOSED on the pushed branch (files + sections) — PR #3, not merged
 
 | File | Change |
 |---|---|
@@ -55,14 +55,15 @@ Both also concluded: **no standalone Agent Work Blueprint document is owed** (th
 | `05_supersession_conflict_ledger.md` | **`D0CKPT-SUP-001`** added — accepted interpretation materially narrowed. |
 | `06_guardrail_antipattern_digest.md` | **`D0CKPT-GRD-003`** added (ceremony overreach + duplicated state, four named sub-patterns); `D0CKPT-GRD-002` rescoped off "parallel-lane". |
 | `08_open_review_queue.md` | `D0THES-REV-212` updated — both submissions returned, adjudicated, rewrite landed, **row stays OPEN** for Knox confirmation. |
-| `HANDOFF_2026-08-03_…post_c4_4.md` | §4.1a rewritten to adjudicated status (freeze retained as lineage); §4.2 hold note updated; status banner updated; checkpoint's own duplicated base SHA removed per Single-source law. |
+| `HANDOFF_2026-08-03_…post_c4_4.md` | §4.1a rewritten to adjudicated / rewrite-proposed status (freeze retained as lineage); §4.2 hold note updated; status banner updated; **checkpoint's own duplicated base tokens removed from the `Status:` string per Single-source law — completed only in the correction pass (see §5), after Knox found the first pass had missed the abbreviated form.** |
 | `v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md` §7/§7.1 | Conformance language updated; instance mechanics **unchanged**; explicit statement that this package's richness is not the general model. |
 | `docs/architecture/evolution_narrative_volume_9_2026-08-05.md` | New Tier-3 arc record. |
 
 ## §5 — Verification / proof
 
 - Current-state verified at `main` `74341a9a888d939cd0d3a8c5a6fb4ce8d91259ad` before any edit: all six frozen review-object blobs matched the packet; five lane branches all at the content base pinned in checkpoint §4.2, byte-identical, empty; all five declared lane output objects absent.
-- **Stale base pointer independently reproduced** before fixing: `AGENTS.md` and `04_manifest_read_graph.md` both contained `51ead016adabea9fd8389a08d149aeda33f0a8f7`; the checkpoint and every branch ref carried the current base. Post-fix, no boot surface carries a lane-base SHA.
+- **Stale base pointer independently reproduced** before fixing: `AGENTS.md` and `04_manifest_read_graph.md` both contained `51ead016adabea9fd8389a08d149aeda33f0a8f7`; every branch ref carried the current base.
+- **★ CORRECTION (2026-08-05, Knox review of PR #3 head `50cb675`).** The first pass claimed the checkpoint's own duplicated base SHA had been removed. **That claim was false.** The verification grep matched only the 8-character form `51ead016` and therefore missed the abbreviated tokens in the checkpoint's top-level `Status:` string — `lane_content_base=51ead01_C1b_PINNED`, `content_from_C1b`, `five_lane_branches_pinned_to_C1b`. Knox caught it. **The corrective transaction had reproduced its own named failure**, which is precisely why `D0CKPT-GRD-003` exists. Those tokens are now removed; the `Status:` string carries only `phase_A_base_pinned_in_checkpoint_§4.2_single_owning_row`. Re-verified against both the full and abbreviated forms.
 - **No lane branch was created, moved, re-pinned, or written.** No Insurance/Care/GRR/operator-economics/C4.5/Task-D/C3.9/spine/C5 work performed. No proof program executed. No new boot file. No new framework artifact, ontology, or control plane.
 
 ## §6 — Settled; do not re-litigate
@@ -78,22 +79,22 @@ Both also concluded: **no standalone Agent Work Blueprint document is owed** (th
 
 ## §7 — Unresolved / open
 
-1. **`D0THES-REV-212` remains OPEN** — Knox must review the landed rewrite; Nick accepts. That is the sole closure condition.
+1. **`D0THES-REV-212` remains OPEN** — Knox must review the proposed rewrite at PR #3 (pushed branch; NOT merged); Nick accepts. That is the sole closure condition.
 2. **The rewrite is unproven in execution.** No lane has run under it. `D0CKPT-GRD-003`'s own law applies to this very change: keep only what demonstrably prevents an observed failure, and de-scaffold what proves ceremonial once Phase A actually executes.
 3. **Layer-3 tooling remains future and evidence-gated** (`D0THES-REV-158`, `10` Step 5). Nothing here authorizes building it.
 4. Whether `coordinated_bounded` (coordination without durability) needs any mechanics beyond `C1`–`C3` is untested — it was derived analytically, not from a real instance.
 
 ## §8 — Next gate / stop condition
 
-**Next authorized action: Knox reviews this landed rewrite (`D0THES-REV-212`), then Nick accepts or returns corrections.**
+**Next authorized action: Knox reviews this proposed rewrite at PR #3 (pushed branch; NOT merged) (`D0THES-REV-212`), then Nick accepts or returns corrections.**
 
 Still HELD until then: no lane launch · no base rotation · no writes to any lane branch · Insurance remains the substantive priority but is not authorized to start. Successor phases (C3.9, final Task-D, full C4.5, spine, C5, all proof programs) remain gated exactly as before.
 
 **Stop condition for this handoff:** Knox's review returned and Nick's acceptance recorded — at which point the lane hold may be lifted and Insurance activated as a `durable_lane` inside the coordinated `PRESPINE-PHASEA` package.
 
 <!--
-type: handoff_or_readiness_gate · authority: governance_binding (for the landed changes it records)
-status: mechanics_adjudicated_and_rewritten · lane_launch_still_held · D0THES-REV-212_open_pending_knox
+type: handoff_or_readiness_gate · authority: derived_nonbinding (continuity only; inherits no authority from the doctrine it describes)
+status: pushed_branch_candidate_pending_review · rewrite_proposed_at_PR#3 · not_merged · lane_launch_still_held · D0THES-REV-212_open_pending_knox
 decision: D0CKPT-DEC-007 · supersession: D0CKPT-SUP-001 · guardrail: D0CKPT-GRD-003 · narrows: D0CKPT-DEC-005
 reached via the current Aug-3 checkpoint §4.1a (no new read-graph node)
 -->

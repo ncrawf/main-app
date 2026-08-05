@@ -50,9 +50,11 @@ Three findings mattered more than the agreement.
 
 **Three.** The deepest correction was to the framing itself. Calling this "trigger overreach" suggests the fix is a *narrower* trigger — but narrowing it back toward "two or more concurrent lanes" would re-orphan the single durable lane, which genuinely does need continuity mechanics. The real defect was **obligation** overreach. Keep the broad trigger; shrink what tripping it costs.
 
-## What got built
+## What was proposed
 
-`agent_work_protocol.md` §2.1 is now a **proportional durable-work contract**. Two questions, asked independently: must this survive replacement, and must this be coordinated? Four postures follow, one of which — *ordinary bounded work* — owes the section nothing at all. Continuity law is `L1`–`L8`; coordination law is `C1`–`C6`; base pinning, two-reference boot and state-only base binding became **conditional mechanics with stated use-when conditions**. A standalone lane completes at its own §5 gate: no integrator, no parent transaction, no envelope.
+*(Review candidate on branch `cursor/awp-lane-contract-material-rewrite-9b20`, PR #3 — open, draft, unmerged. Not accepted, not landed on `main`.)*
+
+`agent_work_protocol.md` §2.1 becomes a **proportional durable-work contract**. Two questions, asked independently: must this survive replacement, and must this be coordinated? Four postures follow, one of which — *ordinary bounded work* — owes the section nothing at all. Continuity law is `L1`–`L8`; coordination law is `C1`–`C6`; base pinning, two-reference boot and state-only base binding became **conditional mechanics with stated use-when conditions**. A standalone lane completes at its own §5 gate: no integrator, no parent transaction, no envelope.
 
 Nothing was invented. Every mechanic survives — relocated to where it is actually load-bearing. No new subsystem, no new ontology, no new boot file, no new artifact, and specifically **no Agent Work Blueprint document**: `09` was corrected to say the capability is *realized, not owed*.
 
@@ -86,4 +88,6 @@ The rewrite is **unproven in execution** — not one lane has run under it. `D0T
 
 A control earns its place by preventing an observed failure **in the situation where it is imposed**. Phase A proved that a common base, protected shared surfaces and a transferable integrator role work — *there*. That was never evidence they belong everywhere, and the distance between "this worked once" and "this is the law" is exactly where governed systems accumulate ceremony that no one can later justify or remove.
 
-The structural safeguard is not a better author. It is **two independent readers who cannot see each other's work**, adjudicating against frozen bytes.
+The safeguard that caught it was not a better author. But it is also **not a new default operating mode.** For high-consequence adjudications where independence is itself the thing being tested, frozen-byte independent review — two readers who cannot see each other's work — is a useful **instrument**. It is not the ordinary way OMNI works and it does not replace the continuous Nick ↔ Knox ↔ Opus trifecta, in which the operator relays, interrogates and adjudicates in flight. Reach for independence when *correlated reasoning* is the specific risk. The rest of the time, continuous collaboration is the model.
+
+That distinction is itself an instance of this volume's lesson: an instrument that worked once in a hard case is not thereby the law.
