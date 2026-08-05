@@ -89,26 +89,26 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 | Field | Value |
 |---|---|
 | Parent key | `PRESPINE-PHASEA` |
-| `lane_content_base_sha` (**final content base**) | **`51ead016adabea9fd8389a08d149aeda33f0a8f7`** (C1b) — supersedes the earlier interim pins `84f2d58` (A) and `21e6415` (C1); A and C1 are ancestors retained as lineage, **not** the lane base |
-| `control_plane_boot_ref` (**current state**) | the **final `main` tip after landing** — read `AGENTS.md`, the read graph, this checkpoint and lane/integrator state from **here**, never from the content base. **Branch refs control; this checkpoint does not self-stamp its own commit SHA.** |
-| Accepted map blob at C1b | `80b99ceb759e067686380c62265f4706a03458ba` |
-| Accepted Agent Work Protocol blob at C1b | `db82de0b8b22cccce0f000b62e8e91b79e5e34b2` |
-| Content branch of C1b | `governance/phase-a-two-ref-cloud-boot` |
-| `current_main_state_sha` | the **state-only** receipt commit(s) carrying this receipt, to which `main` is fast-forwarded. `main` may sit **one or more state-only receipt commits ahead** of the immutable lane content base Several commits now sit between the lane content base C1b and `main` (Phase-A state receipts **plus** the separately-landed method-repertoire work). **Do not treat that distance as drift and do not stop for reconciliation over it** — the lane base is pinned by this receipt, not by counting commits. |
+| `lane_content_base_sha` (**LIVE content base — this row controls**) | **`326f634a31d4e7c7aa29baa1fb3235e137eadd00`** — the map generation carrying the **source-floor + lane-agency aperture clause** (§7.1). Supersedes all earlier pins (`84f2d58`, `21e6415`, `51ead01`), which remain ancestors/lineage only, **never** the lane base |
+| `control_plane_boot_ref` (**current state**) | the **current `main` tip** — read `AGENTS.md`, the read graph, this checkpoint and lane/integrator state from **here**, never from the content base. **Branch refs control; this checkpoint does not self-stamp its own commit SHA.** |
+| Accepted map blob at the content base | `0eb86b225c592288dfb47c3ff08413493b1f51de` |
+| Accepted Agent Work Protocol blob | `db82de0b8b22cccce0f000b62e8e91b79e5e34b2` (unchanged since C1b) |
+| Content branch | `governance/omni-work-method-repertoire-v0` (the aperture clause landed here; earlier generations came via `governance/phase-a-two-ref-cloud-boot`) |
+| Commit distance | `main` sits an **unfixed number of commits** ahead of the content base (state receipts plus separately accepted control-plane work such as the method repertoire). **This is not drift. Do not stop for reconciliation over it.** The lane base is pinned by this row, not by counting commits |
 | Integrator role key | `PRESPINE-PHASEA-INTEGRATOR` |
 | Current holder | `THREAD LOCK PRESPINE-PHASEA-INTEGRATOR \| seat=OPUS \| visible="Pre-spine · Phase-A integration"` |
 | Integrator transfer posture | explicit transfer + freshness/collision check + shared-surface ownership receipt REQUIRED before any replacement holder acts |
 
-**Base + source-resolution law — TWO REFERENCES (Agent Work Protocol §2.1 Two-Reference Boot Law).** All five lane branches are pinned to the content base **C1b `51ead01`**. `main` is one **state-only** commit ahead (**C2**), so lanes are **one commit behind `main` by design** — normal, not drift.
+**Base + source-resolution law — TWO REFERENCES (Agent Work Protocol §2.1 Two-Reference Boot Law).** All five lane branches are pinned to the **live content base named in the table above** (`326f634`). `main` sits an unfixed number of commits ahead; that distance is **normal, not drift**, and is not grounds to stop.
 
-- **Current control-plane surfaces resolve from the CURRENT `main` state (C2):** `AGENTS.md` · `04_manifest_read_graph.md` · **this checkpoint** · lane/integrator state. **Never** read these from the content base — an older base is a frozen input, not a status report, and will still describe launch as held.
-- **Substantive lane inputs resolve at the content base C1b**, unless a launch card explicitly supplies a different immutable ref.
+- **Current control-plane surfaces resolve from the CURRENT `main` tip:** `AGENTS.md` · `04_manifest_read_graph.md` · **this checkpoint** · lane/integrator state. **Never** read these from the content base — an older base is a frozen input, not a status report, and will still describe launch as held.
+- **Substantive lane inputs resolve at the live content base `326f634`**, unless a launch card explicitly supplies a different immutable ref.
 - **Named exception:** the **Demand Gate-0 packet** resolves at branch `analysis/demand-engagement-gate0-recovery`, commit `b191d75423b256b52a1693913d19b88f953fd533`, blob `fd5b7fc7a10b02f3d83fadf2a82f667db163a8fa`.
 - If this launch receipt does **not** name the lane branch/base you are opening, **STOP for reconciliation.**
 
 **Shared surfaces owned EXCLUSIVELY by the integrator role** (read-only to all five lanes): `AGENTS.md` · this checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · the off-repo controlling-plan banner.
 
-| Lane / relay key | Branch (head = **C1b `51ead01`**) | State | Owner | Output object |
+| Lane / relay key | Branch (head = **`326f634`**) | State | Owner | Output object |
 |---|---|---|---|---|
 | `CARE-TASKD-INPUT` | `analysis/care-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` |
 | `GRR-TASKD-INPUT` | `analysis/accountability-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` |
