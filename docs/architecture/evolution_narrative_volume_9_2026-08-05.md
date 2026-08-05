@@ -4,9 +4,13 @@
 
 Document type: `narrative_or_postmortem`
 Authority: `rationale_nonbinding` — chronicle only. Binding destinations are cited, never replaced.
+Status: `active_open · rationale_nonbinding · not_promoted · chronicles a PROPOSED rewrite on pushed branch PR #3 (unmerged, unaccepted); this narrative does not assert that rewrite is current doctrine`
 Domain(s): `architecture_governance`, `build_operations`
-Lifecycle: `active_open`
-Manifest action: `add_tier2 · no_new_route_needed`
+Lifecycle role: `Tier-3 rationale chronicle for the D0THES-REV-212 arc (AWP §2.1 over-generalization, the freeze, the two independent reviews, and the proportional rewrite proposed at PR #3), produced to satisfy the Agent Work Protocol §8 Tier-3/Tier-4 preservation obligation. Chronicle only — it originates no rule.`
+Source-of-truth relationship: `nonbinding rationale only. Canonical mechanics live in agent_work_protocol.md §2.1; concepts in 09_omni_build_os_layer_model.md Layer 2; the durable routing is carried by D0CKPT-DEC-007, supersession D0CKPT-SUP-001 and guardrails D0CKPT-GRD-002/003. This narrative originates nothing and must never be cited as authority (D0-CNF-004: narratives are chronology/rationale consult artifacts; system map and ADRs remain winning binding authority).`
+Supersedes: `none` — does NOT supersede Volumes 2/4/5/6/7/8; older narratives remain valid historical rationale (§8 prior-narrative consultation obligation)
+Superseded by: `none`
+Manifest action: `add_tier3 · no_new_route_needed` — narratives are already routed estate-wide by the existing `docs/architecture/evolution_narrative*.md` wildcard in the read-graph domain routing tables (consult-only, historical rationale, "do not treat evolution narratives as binding without routed promotion"). **No new read-graph node is created or needed.**
 Review gate: `user_knox_required`
 
 ---
@@ -56,7 +60,7 @@ Three findings mattered more than the agreement.
 
 `agent_work_protocol.md` §2.1 becomes a **proportional durable-work contract**. Two questions, asked independently: must this survive replacement, and must this be coordinated? Four postures follow, one of which — *ordinary bounded work* — owes the section nothing at all. Continuity law is `L1`–`L8`; coordination law is `C1`–`C6`; base pinning, two-reference boot and state-only base binding became **conditional mechanics with stated use-when conditions**. A standalone lane completes at its own §5 gate: no integrator, no parent transaction, no envelope.
 
-Nothing was invented. Every mechanic survives — relocated to where it is actually load-bearing. No new subsystem, no new ontology, no new boot file, no new artifact, and specifically **no Agent Work Blueprint document**: `09` was corrected to say the capability is *realized, not owed*.
+Nothing was invented. Every mechanic survives — relocated to where it is actually load-bearing. No new subsystem, no new ontology, no new boot file, **no new framework artifact and no standalone Agent Work Blueprint document**: `09` was corrected to say the capability is *realized, not owed*. (Two artifacts *were* created — the continuity handoff and this narrative volume — because Agent Work Protocol §8 **requires** them at this checkpoint tier. Both carry full passports, catalog rows and read-graph dispositions. Required preservation is not the same thing as inventing a framework.)
 
 `09` also lost its most over-broad sentence. "Partitions are provisional; reintegration is mandatory" became "reconciliation is mandatory **where reconciliation is actually owed**." Reintegration is a debt incurred by overlap, not a tax on having partitioned.
 
@@ -82,7 +86,7 @@ The rules live here, not in this narrative:
 
 ## What remains unresolved
 
-The rewrite is **unproven in execution** — not one lane has run under it. `D0THES-REV-212` stays open pending Knox's review of the landed object. `coordinated_bounded` was derived analytically and has never been instantiated. Layer-3 tooling is still future and evidence-gated, and `D0CKPT-GRD-003` now points at this very change: keep only what demonstrably prevents an observed failure, and de-scaffold the rest once Phase A actually runs.
+The rewrite is **unproven in execution** — not one lane has run under it. `D0THES-REV-212` stays open pending Knox's review of the pushed PR #3 candidate. `coordinated_bounded` was derived analytically and has never been instantiated. Layer-3 tooling is still future and evidence-gated, and `D0CKPT-GRD-003` now points at this very change: keep only what demonstrably prevents an observed failure, and de-scaffold the rest once Phase A actually runs.
 
 ## The lesson worth carrying
 

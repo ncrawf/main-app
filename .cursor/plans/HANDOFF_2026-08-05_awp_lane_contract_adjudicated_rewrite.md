@@ -54,7 +54,7 @@ Both also concluded: **no standalone Agent Work Blueprint document is owed** (th
 | `03_decision_extraction_ledger.md` | **`D0CKPT-DEC-007`** added (narrows `D0CKPT-DEC-005`, which keeps its ID). |
 | `05_supersession_conflict_ledger.md` | **`D0CKPT-SUP-001`** added — accepted interpretation materially narrowed. |
 | `06_guardrail_antipattern_digest.md` | **`D0CKPT-GRD-003`** added (ceremony overreach + duplicated state, four named sub-patterns); `D0CKPT-GRD-002` rescoped off "parallel-lane". |
-| `08_open_review_queue.md` | `D0THES-REV-212` updated — both submissions returned, adjudicated, rewrite landed, **row stays OPEN** for Knox confirmation. |
+| `08_open_review_queue.md` | `D0THES-REV-212` updated — both submissions returned, adjudicated, rewrite proposed on PR #3, **row stays OPEN** for Knox confirmation. |
 | `HANDOFF_2026-08-03_…post_c4_4.md` | §4.1a rewritten to adjudicated / rewrite-proposed status (freeze retained as lineage); §4.2 hold note updated; status banner updated; **checkpoint's own duplicated base tokens removed from the `Status:` string per Single-source law — completed only in the correction pass (see §5), after Knox found the first pass had missed the abbreviated form.** |
 | `v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md` §7/§7.1 | Conformance language updated; instance mechanics **unchanged**; explicit statement that this package's richness is not the general model. |
 | `docs/architecture/evolution_narrative_volume_9_2026-08-05.md` | New Tier-3 arc record. |
@@ -82,7 +82,7 @@ Both also concluded: **no standalone Agent Work Blueprint document is owed** (th
 1. **`D0THES-REV-212` remains OPEN** — Knox must review the proposed rewrite at PR #3 (pushed branch; NOT merged); Nick accepts. That is the sole closure condition.
 2. **The rewrite is unproven in execution.** No lane has run under it. `D0CKPT-GRD-003`'s own law applies to this very change: keep only what demonstrably prevents an observed failure, and de-scaffold what proves ceremonial once Phase A actually executes.
 3. **Layer-3 tooling remains future and evidence-gated** (`D0THES-REV-158`, `10` Step 5). Nothing here authorizes building it.
-4. Whether `coordinated_bounded` (coordination without durability) needs any mechanics beyond `C1`–`C3` is untested — it was derived analytically, not from a real instance.
+4. Whether `coordinated_bounded` (coordination without durability) needs any mechanics beyond `C1`–`C2` is untested — it was derived analytically, not from a real instance.
 
 ## §8 — Next gate / stop condition
 
