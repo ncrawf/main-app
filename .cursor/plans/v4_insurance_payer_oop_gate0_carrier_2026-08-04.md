@@ -917,7 +917,7 @@ Every row below is a **proposal** for `PRESPINE-PHASEA-INTEGRATOR` to land, reje
 
 ### §O.4 — Machine-generated receipt
 
-Machine-generated at commit time. **This receipt deliberately does not stamp its own commit SHA** — a content commit cannot self-identify its own commit, and Agent Work Protocol §2.1's no-self-referential-stamping law says branch refs control. The commit is recoverable from `analysis/insurance-payer-oop-g0` at its tip.
+Machine-generated. **This receipt does not stamp its own commit SHA, and terminates the self-reference deliberately rather than chasing it.** A content commit cannot self-identify its own commit (Agent Work Protocol §2.1, no-self-referential-stamping): any byte count a document writes about itself is falsified by the act of writing it. The figures below therefore describe the **carrier commit** as frozen historical evidence; the branch tip sits one or two later commits ahead carrying only receipt-accuracy corrections, and **the tip is recoverable from the ref `analysis/insurance-payer-oop-g0`, which controls.** Verify against the ref, never against a number a document asserts about itself.
 
 <!-- BOUNDED_DIFF_RECEIPT_BEGIN -->
 ```
@@ -932,9 +932,11 @@ A       .cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md
 
 $ git rev-parse <carrier commit>:.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md
 eebfb994289019ce6e34b2d1d8487214a083e97d     # 955 lines / 141,996 bytes
-                                             # (the pre-insertion draft measured
-                                             #  219d6190… / 927 lines; inserting this
-                                             #  receipt is what added the final 28 lines)
+                                             # frozen evidence: the CARRIER commit's bytes.
+                                             # Later receipt-accuracy commits change this
+                                             # file again by construction; that is why the
+                                             # ref controls and this number is labelled
+                                             # frozen rather than current.
 
 $ git diff --cached --name-only HEAD -- AGENTS.md CLAUDE.md GEMINI.md \
     .cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md \
