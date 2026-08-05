@@ -125,8 +125,26 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 
 ---
 
-## §7 — Parallel launch envelope (the 4–5-thread operating answer)
-Launch these five lanes **from the SAME immutable `lane_content_base_sha`** — the accepted **content** commit, pinned by the current checkpoint's **post-acceptance launch receipt** (Agent Work Protocol §2.1 **Base-binding law**). The lane base sits some number of commits behind current `main`; that distance varies and is expected, not drift. **Branch refs + the launch receipt control** — this document does not self-stamp a SHA, and no agent should need a chat transcript to recover the base. **One writer per branch.**
+## §7 — Prepared lane envelope (optional activation: one, some, all, or none)
+
+**What this is, by name.** This is an instance of the **lane model + work-package contract + handoff contract** reserved under `09_omni_build_os_layer_model.md` **Layer 2 — Execution Layer**, implemented by Agent Work Protocol §2.1 (`D0CKPT-DEC-005`). It is a known pattern, not a novel invention: the **integration-manager workflow** (one writer per branch, a single integrator recombining) plus a **work-breakdown structure with a separate integration authority**. The enforcement half — protected trunk, proposals, required checks, merge queue, lane registry — is **Layer 3 and is NOT built**; it is routed to `D0THES-REV-158`. Do not re-derive or rename this; cite it.
+
+**Activation is optional. This envelope PREPARES lanes; it does not require launching them.**
+- It proves concurrent execution is *available*, not that it is obligatory.
+- The operator may activate **one lane, any subset, all five, or none yet**.
+- **Activating Insurance alone is a valid Phase-A start.**
+- Dormant lanes stay pinned to the content base at `not_started` indefinitely. Nothing expires and nothing auto-starts.
+- **Current selected priority: `INS-G0-MIXEDFIN` (Insurance / Payer / OOP Gate-0).** The other four are prepared and idle until separately activated.
+
+**The lane set is amendable — it is not a fixed five-lane ontology.** Findings may justify **adding, splitting, merging, pausing, retiring or reclassifying** a lane. No new lane launches silently: the integrator amends this accepted envelope with the lane's branch, base, input floor, output object, collision surfaces and stop condition **before** it starts.
+
+**Lanes are work partitions, NOT architecture boundaries.** This is the anti-silo rule and it is load-bearing:
+- A lane output is a **provisional carrier**, never complete truth in isolation.
+- The integrator and Task-D **must** reconcile lane outputs against each other **and against the wider estate** — testing overlaps, contradictions, missing seams, duplicated ownership and cross-domain consequences.
+- They **may reject, split, merge or reroute** any lane's proposed decomposition.
+- **A boundary that exists only because work was partitioned that way is not an architectural finding.** Partitioning for throughput must never harden into ontology or justify a bolt-on.
+
+When activated, lanes run **from the SAME immutable `lane_content_base_sha`** — the accepted **content** commit, pinned by the current checkpoint's **post-acceptance launch receipt** (Agent Work Protocol §2.1 **Base-binding law**). The lane base sits some number of commits behind current `main`; that distance varies and is expected, not drift. **Branch refs + the launch receipt control** — this document does not self-stamp a SHA, and no agent should need a chat transcript to recover the base. **One writer per branch.**
 
 | Visible title | Relay key | Branch | Output |
 |---|---|---|---|
@@ -347,7 +365,7 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 - **Tested:** whether the pre-spine input set + dependency order are sufficient to resume Task-D.
 - **Candidate verdict:** inputs are **NOT yet sufficient**; two Gate-0s (Insurance; Operator Economics/Counterparty) + two Input-State Receipts (Care; GRR) + the C4.5 anchor micro-pass are REQUIRED before final Task-D population.
 - **Sequencing decisions — ACCEPTED (Nick operator 2026-08-04 + Knox final byte):** (a) C3.9-before-Task-D; (b) Demand Gate-1 parallel/non-blocking (Gate-0 = minimum Task-D input unless later work exposes a blocking contradiction); (c) H1-inside-Task-D-first. See §6.
-- **Next gate — Phase-A is READY for assigned-thread launch:** the §7/§7.1 envelope was fidelity-hardened and **ACCEPTED** (Nick + Knox, 2026-08-04), then given the **source-floor-and-lane-agency aperture clause** (2026-08-05) so a high-context lane agent is not anchored into treating the floor as the whole assignment or the framing as a required conclusion. The live content base and the five lane heads are pinned by the checkpoint **§4.2** receipt. **Next action = assign/open the five lane agents** (local or cloud) using the checkpoint launch receipt; each accepts its thread/relay lock, then returns a `review_ready_pending_integrator` carrier satisfying the **common lane output contract**, which the `PRESPINE-PHASEA-INTEGRATOR` role holder reconciles; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine.
+- **Next gate — activate the operator-selected lane(s); current immediate priority = Insurance/Payer/OOP Gate-0 (`INS-G0-MIXEDFIN`).** The §7/§7.1 envelope was fidelity-hardened and **ACCEPTED** (Nick + Knox, 2026-08-04), then given the **source-floor-and-lane-agency aperture clause** and **optional-activation normalization** (2026-08-05). Care, GRR, Non-Labor Operator Economics and Time remain **prepared and `not_started`**; none starts automatically, and Phase A does **not** require five simultaneous agents. The live content base and lane heads are pinned by the checkpoint **§4.2** receipt. **Next action = assign/open the five lane agents** (local or cloud) using the checkpoint launch receipt; each accepts its thread/relay lock, then returns a `review_ready_pending_integrator` carrier satisfying the **common lane output contract**, which the `PRESPINE-PHASEA-INTEGRATOR` role holder reconciles; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine.
 - **DONE previously (2026-08-04):** sequence accepted + landed on `main` (state-only); Aug-3 checkpoint amended (not replaced); five empty lane containers created. No Task-D population, C3.9 execution, spine, C5, or proof program started — and **no lane work started.**
 
 ---
