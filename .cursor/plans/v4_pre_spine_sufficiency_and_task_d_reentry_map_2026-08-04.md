@@ -126,7 +126,7 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 ---
 
 ## §7 — Parallel launch envelope (the 4–5-thread operating answer)
-Launch these five lanes **from the SAME immutable `lane_content_base_sha`** — the accepted **content** commit, pinned by the current checkpoint's **post-acceptance launch receipt** (Agent Work Protocol §2.1 **Base-binding law**). The lane base is normally **one state-only commit behind current `main`**; that is expected, not drift. **Branch refs + the launch receipt control** — this document does not self-stamp a SHA, and no agent should need a chat transcript to recover the base. **One writer per branch.**
+Launch these five lanes **from the SAME immutable `lane_content_base_sha`** — the accepted **content** commit, pinned by the current checkpoint's **post-acceptance launch receipt** (Agent Work Protocol §2.1 **Base-binding law**). The lane base sits some number of commits behind current `main`; that distance varies and is expected, not drift. **Branch refs + the launch receipt control** — this document does not self-stamp a SHA, and no agent should need a chat transcript to recover the base. **One writer per branch.**
 
 | Visible title | Relay key | Branch | Output |
 |---|---|---|---|
@@ -146,9 +146,8 @@ Launch these five lanes **from the SAME immutable `lane_content_base_sha`** — 
 
 **Base binding — BOUND (2026-08-04).** Common base for all five lanes:
 
-- **`lane_content_base_sha` = `84f2d582890f8ec963e40e78773616f321f59718`** (accepted **content** commit **A**, hardening branch `governance/phase-a-launch-envelope-hardening`).
-- Accepted blobs **at A**: Agent Work Protocol `ddfbd9a84ef102ac325383b785dcc59ac5a57177` · this map `b05450f4331b4b6375199bdeac618a44bb5fc7ed` · Aug-3 checkpoint `02081df707114d027910ec03103441cb8038029d`.
-- **All five lane branches are pinned to A.** `main` is advanced by the later **state-only** commit **B** (`current_main_state_sha`), so the lanes sit **one state-only commit behind `main` by design** — normal per §2.1 Base-binding law, not drift. This document does **not** self-stamp commit B; the checkpoint's launch receipt and the branch refs control.
+- **`lane_content_base_sha` — do not read a SHA out of this document.** The live lane content base is pinned by the current checkpoint's **§4.2 Phase-A launch receipt**, which controls. (Historical: an earlier generation pinned `84f2d58`; it has been superseded more than once. A content commit cannot self-stamp its own SHA, so any SHA written here is at best historical.)
+- **All five lane branches are pinned to the same content base**, whichever the checkpoint §4.2 receipt currently names. `main` sits some number of later commits ahead (state receipts and separately accepted control-plane work). **That distance is not fixed and is not evidence of drift** — do not stop for reconciliation over it. The §4.2 lane-base pin and the branch refs control; this document self-stamps nothing.
 - **Source-resolution rule — TWO REFERENCES (binding interpretation; Agent Work Protocol §2.1 Two-Reference Boot Law):**
   - **Current control-plane surfaces resolve from the CURRENT accepted `main`/checkpoint state** — `AGENTS.md` · read graph · the current checkpoint · lane/integrator state. Never read these from an older lane content base: a content base is a frozen input, not a status report, and an older base will still describe launch as held.
   - **Substantive card inputs resolve at the immutable `lane_content_base_sha`** (content base) unless separately pinned.
@@ -202,6 +201,34 @@ Every lane output MUST contain, or it is not `review_ready`:
 **Frozen Task-D method — mandatory floor for ALL five lanes:** `.cursor/plans/v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md` (the frozen method; do not edit), read together with the interim population A→B→C: `.cursor/plans/v4_C4_2A_task_d_interim_closeout_and_pause.md` → `.cursor/plans/v4_C4_2B_task_d_opus_builder_p0_verbatim.md` → `.cursor/plans/v4_C4_2C_task_d_gemini_b_partial_adversary_verbatim.md`.
 
 Each card's floor below is the **mandatory minimum**; a lane MAY expand through the read graph, but may not shrink the floor.
+
+#### Source floor and lane agency (applies to ALL five cards — read before starting)
+
+**The source floor is the minimum known input set. It is NOT a claim of completeness and NOT the boundary of your inquiry.** After reading the floor, use the read graph, master catalog, supersession state, repository search and controlling-terminus recovery to find anything else capable of changing your result. Omitting a floor source is a defect; stopping at the floor is also a defect.
+
+**The card gives you a starting question and a continuity boundary — not a required conclusion.** These cards were built primarily for continuity, collision avoidance and reproducibility, by an author whose own source posture (§0) records that several bodies — Task-D, Care, GRR, C4.5, EVRUN-000012 — were consulted only at pointer or row level. Treat the framing accordingly.
+
+As you work, separate:
+- **inherited governing constraints** (accepted contracts, decisions, guardrails, gate state) — binding;
+- **current routing or decomposition hypotheses** (e.g. "this belongs to D6", "the residual is non-labor") — challengeable;
+- **provisional scope conveniences** — adjustable;
+- **genuinely open questions** — yours to characterize, not to resolve unilaterally.
+
+**If controlling evidence contradicts this card's framing, floor, proposed home, or expected output, do NOT force the requested conclusion.** Return a bounded card-correction or reclassification finding with exact evidence. The following are all **valid, successful** lane outputs:
+- the framing is incomplete or misrouted;
+- the source floor is incomplete (name what is missing);
+- the proposed home is contradicted, or is only one of several participating owners;
+- the concern must be split across domains/seams, or needs no separate object at all;
+- Task-D cannot yet rely on this input, and here is exactly why.
+
+**What "do not redesign / do not mint" means:** do not unilaterally canonize a new domain, contract or architecture inside this lane, and do not manufacture closure. It does **not** mean endorse the current decomposition, suppress evidence that it is wrong, or pretend the listed sources are complete. Disagreeing with this card, with evidence, is in scope.
+
+**What each lane is (do not exceed or under-run it):**
+- **Card 1 Care · Card 2 GRR** — *input-state / coherence receipts.* Report the current estate, what controls, what is contradictory or immature, what Task-D may rely on or must challenge. Not domain redesign; equally, not endorsement.
+- **Card 3 Insurance · Card 4 Non-Labor Operator Economics** — *genuine Gate-0 framing.* Frame the problem and **test** the proposed decomposition; Gate 0 exists to examine the routing hypothesis, not to decorate it.
+- **Card 5 Time** — *a deliberately small evidence micro-pass.* Verify the six charter-named anchors and judge whether the provisional temporal lens is grounded enough to enter Task-D. It is **not** the Time-in-OMNI arc, not the complete temporal source base, not the full C4.5 pass, and not a decision that a temporal axis exists.
+
+**The output object is the durable lane carrier.** It may honestly conclude that the current framing is incomplete, misrouted, over-bundled, insufficiently evidenced, or not yet usable.
 
 **Card 1 — `CARE-TASKD-INPUT`**
 - **Inputs — exact mandatory floor:**
@@ -320,7 +347,7 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 - **Tested:** whether the pre-spine input set + dependency order are sufficient to resume Task-D.
 - **Candidate verdict:** inputs are **NOT yet sufficient**; two Gate-0s (Insurance; Operator Economics/Counterparty) + two Input-State Receipts (Care; GRR) + the C4.5 anchor micro-pass are REQUIRED before final Task-D population.
 - **Sequencing decisions — ACCEPTED (Nick operator 2026-08-04 + Knox final byte):** (a) C3.9-before-Task-D; (b) Demand Gate-1 parallel/non-blocking (Gate-0 = minimum Task-D input unless later work exposes a blocking contradiction); (c) H1-inside-Task-D-first. See §6.
-- **Next gate — Phase-A is READY for assigned-thread launch:** the §7/§7.1 envelope was fidelity-hardened and **ACCEPTED** (Nick + Knox, 2026-08-04); content base **A** = `84f2d582890f8ec963e40e78773616f321f59718` is pinned by the checkpoint launch receipt and all five lane branches sit at A. **Next action = assign/open the five lane agents** (local or cloud) using the checkpoint launch receipt; each accepts its thread/relay lock, then returns a `review_ready_pending_integrator` carrier satisfying the **common lane output contract**, which the `PRESPINE-PHASEA-INTEGRATOR` role holder reconciles; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine.
+- **Next gate — Phase-A is READY for assigned-thread launch:** the §7/§7.1 envelope was fidelity-hardened and **ACCEPTED** (Nick + Knox, 2026-08-04), then given the **source-floor-and-lane-agency aperture clause** (2026-08-05) so a high-context lane agent is not anchored into treating the floor as the whole assignment or the framing as a required conclusion. The live content base and the five lane heads are pinned by the checkpoint **§4.2** receipt. **Next action = assign/open the five lane agents** (local or cloud) using the checkpoint launch receipt; each accepts its thread/relay lock, then returns a `review_ready_pending_integrator` carrier satisfying the **common lane output contract**, which the `PRESPINE-PHASEA-INTEGRATOR` role holder reconciles; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine.
 - **DONE previously (2026-08-04):** sequence accepted + landed on `main` (state-only); Aug-3 checkpoint amended (not replaced); five empty lane containers created. No Task-D population, C3.9 execution, spine, C5, or proof program started — and **no lane work started.**
 
 ---
