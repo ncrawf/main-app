@@ -1,6 +1,6 @@
 # HANDOFF — 2026-08-03 · Pre-Spine Portfolio & Control-Plane Reconciliation (post-C4.4)
 
-Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized · AMENDED_2026-08-04_prespine_sufficiency_map_accepted+landed (§4.1) · phase_A_envelope_ACCEPTED_Nick+Knox_2026-08-04 · phase_A_base_pinned_in_checkpoint_§4.2_single_owning_row · two_reference_boot=control_plane_from_main/content_from_pinned_base · five_lane_branches_pinned_to_that_base_EMPTY_not_started · phase_A_READY_FOR_ASSIGNED_THREAD_LAUNCH · final_TaskD_HELD_pending_phaseA+C3.9 · durable_work_contract=AWP_§2.1_proportional (D0CKPT-DEC-005 narrowed by D0CKPT-DEC-007; SUP-001; GRD-003) · parallel_work_package=RETIRED_as_active_classification · integrator_role=PRESPINE-PHASEA-INTEGRATOR (transferable; coordination-overlay only) · REV-212=OPEN_pending_knox_review_of_proposed_PR3_rewrite`
+Status: `pre_spine_portfolio_control_plane_reconciled · C4.4_ARCHITECTURE_AUTHORABILITY_ARC_CLOSED · C4.4_implementation_UNPROVEN · accepted_C4.4_estate_curated_landed_on_main_for_discoverability · analysis_nonbinding · not_promoted · sequencing_OPERATOR_CONTROLLED · no_arc_auto_start · main_landed_via_fast_forward_Nick+Knox_authorized · AMENDED_2026-08-04_prespine_sufficiency_map_accepted+landed (§4.1) · phase_A_envelope_ACCEPTED_Nick+Knox_2026-08-04 · phase_A_base_pinned_in_checkpoint_§4.2_single_owning_row · two_reference_boot=control_plane_from_main/content_from_pinned_base · five_lane_branches_pinned_to_that_base_EMPTY_not_started · phase_A_ACTIVE_insurance_only · final_TaskD_HELD_pending_phaseA+C3.9 · durable_work_contract=AWP_§2.1_proportional (D0CKPT-DEC-005 narrowed by D0CKPT-DEC-007; SUP-001; GRD-003) · parallel_work_package=RETIRED_as_active_classification · integrator_role=PRESPINE-PHASEA-INTEGRATOR (transferable; coordination-overlay only) · REV-212=CLOSED_knox_APPROVED_landed_main_7da3b2a · lane_hold_LIFTED_2026-08-05 · INS-G0-MIXEDFIN_AUTHORIZED_single_active_lane · other_four_lanes_not_started`
 
 > **This is the CURRENT checkpoint** (repoints `AGENTS.md` Current Checkpoint Handoff + read-graph Tier-0 #15). It is a normal dated checkpoint produced through the existing checkpoint mechanism — **NOT a universal boot file, NOT a new boot subsystem.** It supersedes `HANDOFF_2026-07-19_taskd_interim_checkpointed_evrun12_active.md` as the current program-state pointer; the 07-19 handoff and its content are retained as historical detail.
 >
@@ -70,13 +70,13 @@ The **Pre-Spine Sufficiency & Task-D Re-Entry Map** (`.cursor/plans/v4_pre_spine
 
    **★ Phase-A envelope ACCEPTED (Nick + Knox, 2026-08-04).** The fidelity-hardened §7/§7.1 envelope passed final content byte review; the lane content base is pinned in **§4.2 — Phase-A launch receipt** below. The five lane containers are prepared, pinned, and **empty**; lane work has **not** started. Execution is authorized **per lane** only when that lane receives and accepts its exact thread/relay lock. Local worktree paths are **environment-local and non-canonical** — recreatable anywhere (new machine, cloud VM, fresh clone) from branch + base.
 
-### §4.1a — ★ MECHANICS ADJUDICATED; REWRITE PROPOSED AT PR #3 (2026-08-05) — supersedes both the "CLOSED" reading and the freeze below
+### §4.1a — ★ MECHANICS ADJUDICATED, ACCEPTED AND LANDED (2026-08-05) — supersedes both the "CLOSED" reading and the freeze below
 
-**★ STATUS.** The independent review is **complete and adjudicated**. Fresh Knox and fresh Opus reviewed the frozen bytes **independently, read-only, without coordinating**, and **both returned `MATERIAL_REWRITE`**. Nick delegated adjudication to Opus and authorized the write. A **materially rewritten** `agent_work_protocol.md` §2.1 — a proportional durable-work contract that also resolves the boot/routing contradiction — is **PROPOSED on the pushed branch `cursor/awp-lane-contract-material-rewrite-9b20` (PR #3)**.
+**★ STATUS — CLOSED.** The independent review ran to completion. Fresh Knox and fresh Opus reviewed the frozen bytes **independently, read-only, without coordinating**, and **both returned `MATERIAL_REWRITE`**. Nick delegated adjudication to Opus and authorized the write. After four review rounds, **Knox returned an APPROVED blessing and Nick accepted.**
 
-**This is a review candidate, NOT current doctrine.** PR #3 is open, draft and unmerged; commit and push are not acceptance, merge, main-landing or promotion. Until Knox reviews the corrected bytes and Nick accepts, the **pre-rewrite §2.1 on `main` remains the binding text**, and no surface may describe the rewrite as landed.
+**`agent_work_protocol.md` §2.1 as rewritten — the proportional durable-work contract — is LANDED on `main` at `7da3b2a633d133784ec542fb0174b3500a2811c2`** (ordinary fast-forward from `74341a9…`, PR #3, 15 files). It is now the **binding** execution contract. Review rounds: `50cb675` adjudication → `460be41` eleven corrections (Knox `REQUEST_CHANGES`) → `4bd6da9` seven final-byte micro-patches + narrative passport completion → `7da3b2a` admission-schema patch (`manifest_action` + operating contract). Open review `D0THES-REV-212` is **CLOSED**; residual Volume 7/8 catalog enum debt parked as `D0CTLG-REV-001` (nonblocking).
 
-**What the proposed rewrite would establish** (decision `D0CKPT-DEC-007`; supersession `D0CKPT-SUP-001`; guardrail `D0CKPT-GRD-003` — all proposed on the same branch):
+**What the landed rewrite establishes** (decision `D0CKPT-DEC-007`, active; supersession `D0CKPT-SUP-001`, resolved; guardrail `D0CKPT-GRD-003`):
 - **Two-question applicability test** — *continuity* (must this survive replacement/pause/transfer/delayed re-entry without a chat transcript?) and *coordination* (do writers, dependencies, shared surfaces or outputs need ordering/reconciliation?) — independent axes, four postures: `ordinary` · `durable_lane` · `coordinated_bounded` · `coordinated_package`. **Ordinary bounded work carries no §2.1 obligation at all.**
 - **Trigger = material need, not artifacts.** A branch/worktree/output/named owner is *evidence*, never the creator of a lane.
 - **`L1`–`L8` continuity + `C1`–`C6` coordination** replace the former universal "core". **A standalone lane needs NO integrator, NO parent integration transaction, and NO launch envelope** — it completes at its own §5 review/landing gate (`L5`).
@@ -86,9 +86,10 @@ The **Pre-Spine Sufficiency & Task-D Re-Entry Map** (`.cursor/plans/v4_pre_spine
 
 **What did NOT change.** This checkpoint's **§4.2 Phase-A launch receipt, the accepted map §7/§7.1 envelope, the five source floors, the common base, the protected shared-surface list and the `PRESPINE-PHASEA-INTEGRATOR` role all stand unchanged** — Phase A genuinely has coordination and legitimately uses the overlay. The narrowing applies to the *generalized* semantics that leaked upward from this instance, not to the instance.
 
-- **NEXT AUTHORIZED ACTION = Knox review of the proposed rewrite (PR #3 pushed branch; NOT merged).** `D0THES-REV-212` stays **OPEN**; closure = Knox reviews and Nick accepts.
-- **NO lane launches.** Insurance remains the operator's substantive priority but is still **HELD**.
-- **The five prepared lane branches stay at the content base pinned in §4.2 (that row is the single source — this section deliberately does not restate the SHA), empty and `not_started`. Do not re-pin or rotate the base.**
+- **★ LANE HOLD LIFTED (2026-08-05, after the mechanics landed).** The hold existed only because the mechanics were under review. They are now accepted and landed, so the block is discharged.
+- **★ NEXT AUTHORIZED ACTION = activate `INS-G0-MIXEDFIN` (Insurance / Payer / OOP Gate-0) as the single selected Phase-A lane.** Full activation parameters in §4.2.
+- **Only Insurance is authorized.** `CARE-TASKD-INPUT`, `GRR-TASKD-INPUT`, `OPECON-G0-COUNTERPARTY` and `C45-P2-ANCHORS` remain prepared, pinned and `not_started`; their presence is **not** authorization to begin them.
+- **The five prepared lane branches stay at the content base pinned in §4.2 (that row is the single source — this section deliberately does not restate the SHA). Do not re-pin or rotate the base.** Insurance writes only its own branch.
 - **`D0CKPT-DEC-005` remains a stable ID**; its Phase-A concrete continuity protections stand as accepted evidence, **materially narrowed as to the generalized semantics** by `D0CKPT-DEC-007`.
 - Continuity: `.cursor/plans/HANDOFF_2026-08-05_awp_lane_contract_adjudicated_rewrite.md`. Arc record: `docs/architecture/evolution_narrative_volume_9_2026-08-05.md`.
 
@@ -136,7 +137,7 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 |---|---|---|---|---|
 | `CARE-TASKD-INPUT` | `analysis/care-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` |
 | `GRR-TASKD-INPUT` | `analysis/accountability-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` |
-| `INS-G0-MIXEDFIN` | `analysis/insurance-payer-oop-g0` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` |
+| `INS-G0-MIXEDFIN` | `analysis/insurance-payer-oop-g0` | **`authorized_to_start` (2026-08-05)** | `unassigned_pending_thread_lock` | `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` |
 | `OPECON-G0-COUNTERPARTY` | `analysis/nonlabor-operator-economics-counterparty-g0` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_nonlabor_operator_economics_counterparty_gate0_carrier_2026-08-04.md` |
 | `C45-P2-ANCHORS` | `analysis/c4-5-phase2-anchor-verification` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_C4_5_phase2_six_source_anchor_verification_2026-08-04.md` |
 
@@ -146,8 +147,27 @@ Every lane: **worktree = environment-local / recreatable (non-canonical)**; **st
 
 **★ ACTIVATION IS OPTIONAL AND OPERATOR-CONTROLLED (2026-08-05).** The five lanes are a **prepared, independently activatable inventory** — *not* a batch that must launch together. **Phase A does NOT require five simultaneous agents.** The operator may activate **one lane, any subset, all five, or none yet**; dormant lanes stay pinned at `not_started` indefinitely, and nothing auto-starts or expires. The point of the envelope is to prove concurrency is *available*, not to compel it.
 
-- **★ 2026-08-05 — LANE LAUNCH STILL HELD (mechanics now adjudicated).** The independent mechanics review is complete and §2.1 has been rewritten (§4.1a; `D0CKPT-DEC-007`), but `D0THES-REV-212` stays **OPEN** pending Knox review of the proposed rewrite (PR #3 pushed branch; NOT merged) and Nick's acceptance. No lane may be activated, the base must not be rotated, and no lane branch may be written to until then.
-- **Current selected priority (when the hold lifts): `INS-G0-MIXEDFIN` — Insurance / Payer / OOP Gate-0.** Activating Insurance alone will be a valid Phase-A start.
+- **★ 2026-08-05 — LANE HOLD LIFTED; `INS-G0-MIXEDFIN` AUTHORIZED TO START.** The mechanics review closed (`D0THES-REV-212`), §2.1 as rewritten landed on `main` at `7da3b2a…` (§4.1a), and this state closeout discharges the hold. **Insurance / Payer / OOP Gate-0 is authorized as the single active Phase-A lane.** The base is **not** rotated; the other four lanes stay `not_started`.
+
+**★ `INS-G0-MIXEDFIN` activation receipt (2026-08-05) — a fresh agent, local or cloud, can boot this lane from this block alone. No conversation required.**
+
+| Field | Value |
+|---|---|
+| Relay / lane key | `INS-G0-MIXEDFIN` |
+| Branch | `analysis/insurance-payer-oop-g0` — **already prepared; do not create a new branch and do not re-pin** |
+| Content base | the base pinned in the `lane_content_base_sha` row of the §4.2 table above — **that row is the single owning source** (§2.1 Single-source law); do not restate it elsewhere |
+| Posture (§2.1) | **`durable_lane` inside the coordinated package `PRESPINE-PHASEA`** — continuity contract `L1`–`L8` **plus** the coordination overlay, because this package has protected shared surfaces and an eventual reintegration |
+| Two-reference boot | **genuinely in effect** — read `AGENTS.md`, the read graph, this checkpoint and lane/integrator state from **current `main`**; resolve substantive inputs at the content base unless the card pins otherwise |
+| Input floor + output contract | map §7.1 **Card 3** + the common lane output contract (eleven elements) |
+| Output object | `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` |
+| Writable scope | **its own output object only.** All shared control-plane surfaces are read-only (`C1`) — return proposed rows and routing, never land them |
+| Integrator | `PRESPINE-PHASEA-INTEGRATOR` (transferable role) lands shared-surface changes at the parent integration transaction (`C5`) |
+| Stop condition | `review_ready_pending_integrator` |
+| Explicitly NOT authorized | base rotation or re-pin · a new envelope · sibling lane launch · writing any other lane's branch or output · merging/fast-forwarding `main` · repointing the checkpoint · jumping to Task-D, C3.9, full C4.5, the spine or C5 · promoting anything |
+
+**Lane agency (map §7.1 aperture clause — read before starting).** The source floor is a **minimum, not a boundary**: omitting a floor source is a defect, and stopping at the floor is also a defect. Returning *"this framing is misrouted / the floor is incomplete / this needs no separate object / Task-D cannot yet rely on this input, and here is exactly why"* — **with evidence** — is a valid and successful lane outcome. Do not manufacture closure and do not mint a payer domain.
+
+**This is the first real execution of the rewritten §2.1.** Per `D0CKPT-GRD-003` and `10` Step 5, Phase-A execution evidence is the basis for keeping or de-scaffolding these controls — if a control proves ceremonial in practice, that is a finding worth reporting, not a rule to obey silently.
 - **Care, GRR, Non-Labor Operator Economics and Time remain prepared and idle** until separately activated. Do not read their presence here as authorization to begin them.
 - **The lane set is amendable** — findings may justify adding, splitting, merging, pausing, retiring or reclassifying a lane. No lane launches silently; the integrator amends the accepted envelope (branch · base · floor · output · collision surfaces · stop) before it starts.
 - **Lanes are work partitions, not architecture boundaries.** Outputs are provisional carriers; the integrator and Task-D must recombine them against each other and the wider estate, and may reject, split, merge or reroute any lane's proposed decomposition. Partitioning for throughput must never harden into ontology or justify a bolt-on. See map §7.

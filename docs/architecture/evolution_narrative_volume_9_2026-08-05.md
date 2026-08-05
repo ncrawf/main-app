@@ -4,7 +4,7 @@
 
 Document type: `narrative_or_postmortem`
 Authority: `rationale_nonbinding` — chronicle only. Binding destinations are cited, never replaced.
-Status: `active_open · rationale_nonbinding · not_promoted · chronicles a PROPOSED rewrite on pushed branch PR #3 (unmerged, unaccepted); this narrative does not assert that rewrite is current doctrine`
+Status: `active_open · rationale_nonbinding · not_promoted · chronicles the rewrite that LANDED on `main` at 7da3b2a (PR #3, Knox APPROVED, Nick accepted); this narrative records it but does not itself bind`
 Domain(s): `architecture_governance`, `build_operations`
 Lifecycle role: `Tier-3 rationale chronicle for the D0THES-REV-212 arc (AWP §2.1 over-generalization, the freeze, the two independent reviews, and the proportional rewrite proposed at PR #3), produced to satisfy the Agent Work Protocol §8 Tier-3/Tier-4 preservation obligation. Chronicle only — it originates no rule.`
 Source-of-truth relationship: `nonbinding rationale only. Canonical mechanics live in agent_work_protocol.md §2.1; concepts in 09_omni_build_os_layer_model.md Layer 2; the durable routing is carried by D0CKPT-DEC-007, supersession D0CKPT-SUP-001 and guardrails D0CKPT-GRD-002/003. This narrative originates nothing and must never be cited as authority (D0-CNF-004: narratives are chronology/rationale consult artifacts; system map and ADRs remain winning binding authority).`
@@ -58,9 +58,9 @@ Three findings mattered more than the agreement.
 
 **Three.** The deepest correction was to the framing itself. Calling this "trigger overreach" suggests the fix is a *narrower* trigger — but narrowing it back toward "two or more concurrent lanes" would re-orphan the single durable lane, which genuinely does need continuity mechanics. The real defect was **obligation** overreach. Keep the broad trigger; shrink what tripping it costs.
 
-## What was proposed
+## What landed
 
-*(Review candidate on branch `cursor/awp-lane-contract-material-rewrite-9b20`, PR #3 — open, draft, unmerged. Not accepted, not landed on `main`.)*
+*(Landed on `main` at `7da3b2a633d133784ec542fb0174b3500a2811c2` via ordinary fast-forward, PR #3, after four review rounds and a Knox APPROVED blessing.)*
 
 `agent_work_protocol.md` §2.1 becomes a **proportional durable-work contract**. Two questions, asked independently: must this survive replacement, and must this be coordinated? Four postures follow, one of which — *ordinary bounded work* — owes the section nothing at all. Continuity law is `L1`–`L8`; coordination law is `C1`–`C6`; base pinning, two-reference boot and state-only base binding became **conditional mechanics with stated use-when conditions**. A standalone lane completes at its own §5 gate: no integrator, no parent transaction, no envelope.
 
@@ -90,7 +90,7 @@ The rules live here, not in this narrative:
 
 ## What remains unresolved
 
-The rewrite is **unproven in execution** — not one lane has run under it. `D0THES-REV-212` stays open pending Knox's review of the pushed PR #3 candidate. `coordinated_bounded` was derived analytically and has never been instantiated. Layer-3 tooling is still future and evidence-gated, and `D0CKPT-GRD-003` now points at this very change: keep only what demonstrably prevents an observed failure, and de-scaffold the rest once Phase A actually runs.
+The rewrite is **unproven in execution** — not one lane has run under it. `D0THES-REV-212` stays open now under its first real execution: the Insurance lane. `coordinated_bounded` was derived analytically and has never been instantiated. Layer-3 tooling is still future and evidence-gated, and `D0CKPT-GRD-003` now points at this very change: keep only what demonstrably prevents an observed failure, and de-scaffold the rest once Phase A actually runs.
 
 ## The lesson worth carrying
 
