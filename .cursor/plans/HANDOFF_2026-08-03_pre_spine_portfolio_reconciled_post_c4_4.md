@@ -89,9 +89,9 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 | Field | Value |
 |---|---|
 | Parent key | `PRESPINE-PHASEA` |
-| `lane_content_base_sha` (**LIVE content base — this row controls**) | **`84a8879c6713cdd0f58e59f0e654aadb36f37730`** — the map generation carrying the **source-floor + lane-agency aperture clause** *and* the **optional-activation / anti-silo normalization** (§7, §7.1). Supersedes all earlier pins (`84f2d58`, `21e6415`, `51ead01`, `326f634`), which remain ancestors/lineage only, **never** the lane base |
+| `lane_content_base_sha` (**LIVE content base — THIS ROW IS THE SINGLE SOURCE; never restate this SHA in prose**) | **`19ec3578192b7bb5e6b64083709b75810d035aee`** — the map generation carrying the **source-floor + lane-agency aperture clause**, the **optional-activation / anti-silo normalization**, and the **instance-only pointer** (§7, §7.1). Supersedes all earlier pins (`84f2d58`, `21e6415`, `51ead01`, `326f634`, `84a8879`), which are ancestors/lineage only, **never** the lane base |
 | `control_plane_boot_ref` (**current state**) | the **current `main` tip** — read `AGENTS.md`, the read graph, this checkpoint and lane/integrator state from **here**, never from the content base. **Branch refs control; this checkpoint does not self-stamp its own commit SHA.** |
-| Accepted map blob at the content base | `5f0d1ffed1cf7afb2f6e1f2c6bf03b8d607ec707` |
+| Accepted map blob at the content base | `99c7ea651a896b1e0ed848082965d447dad9cf92` |
 | Accepted Agent Work Protocol blob | `db82de0b8b22cccce0f000b62e8e91b79e5e34b2` (unchanged since C1b) |
 | Content branch | `governance/omni-work-method-repertoire-v0` (the aperture clause landed here; earlier generations came via `governance/phase-a-two-ref-cloud-boot`) |
 | Commit distance | `main` sits an **unfixed number of commits** ahead of the content base (state receipts plus separately accepted control-plane work such as the method repertoire). **This is not drift. Do not stop for reconciliation over it.** The lane base is pinned by this row, not by counting commits |
@@ -102,13 +102,13 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 **Base + source-resolution law — TWO REFERENCES (Agent Work Protocol §2.1 Two-Reference Boot Law).** All five lane branches are pinned to the **live content base named in the `lane_content_base_sha` row of the table above — that row is the only place this SHA appears, by design.** Do not restate the base SHA in prose anywhere; duplicated SHAs go stale and create false drift signals. `main` sits an unfixed number of commits ahead; that distance is **normal, not drift**, and is not grounds to stop.
 
 - **Current control-plane surfaces resolve from the CURRENT `main` tip:** `AGENTS.md` · `04_manifest_read_graph.md` · **this checkpoint** · lane/integrator state. **Never** read these from the content base — an older base is a frozen input, not a status report, and will still describe launch as held.
-- **Substantive lane inputs resolve at the live content base `84a8879`**, unless a launch card explicitly supplies a different immutable ref.
+- **Substantive lane inputs resolve at the content base named ONLY in the `lane_content_base_sha` table row above**, unless a launch card explicitly supplies a different immutable ref.
 - **Named exception:** the **Demand Gate-0 packet** resolves at branch `analysis/demand-engagement-gate0-recovery`, commit `b191d75423b256b52a1693913d19b88f953fd533`, blob `fd5b7fc7a10b02f3d83fadf2a82f667db163a8fa`.
 - If this launch receipt does **not** name the lane branch/base you are opening, **STOP for reconciliation.**
 
 **Shared surfaces owned EXCLUSIVELY by the integrator role** (read-only to all five lanes): `AGENTS.md` · this checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · the off-repo controlling-plan banner.
 
-| Lane / relay key | Branch (head = **`84a8879`**) | State | Owner | Output object |
+| Lane / relay key | Branch (head = **the `lane_content_base_sha` above**) | State | Owner | Output object |
 |---|---|---|---|---|
 | `CARE-TASKD-INPUT` | `analysis/care-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_care_2026-08-04.md` |
 | `GRR-TASKD-INPUT` | `analysis/accountability-taskd-input-state` | `not_started` | `unassigned_pending_thread_lock` | `.cursor/plans/v4_taskd_input_state_receipt_grr_2026-08-04.md` |
@@ -128,7 +128,7 @@ Every lane: **worktree = environment-local / recreatable (non-canonical)**; **st
 - **Lanes are work partitions, not architecture boundaries.** Outputs are provisional carriers; the integrator and Task-D must recombine them against each other and the wider estate, and may reject, split, merge or reroute any lane's proposed decomposition. Partitioning for throughput must never harden into ontology or justify a bolt-on. See map §7.
 - **Task-D remains held** pending the input set actually required at its own later gate — but **lane activation order and concurrency are operator-controlled**, not dictated by Task-D.
 
-**What this machinery is, by name:** the **lane model + work-package contract + handoff contract** reserved under `09_omni_build_os_layer_model.md` **Layer 2 (Execution Layer)**, implemented by Agent Work Protocol §2.1 — i.e. the **integration-manager workflow** plus a **work-breakdown structure with a separate integration authority**. The enforcement half (protected trunk, proposals, required checks, merge queue, lane registry) is **Layer 3 and is not built** (`D0THES-REV-158`). Cite this; do not rename or re-derive it.
+**What this is:** `PRESPINE-PHASEA` is **one work-package instance** of the Build OS **Execution Layer**. Conceptual identity, operating principle (*partitions are provisional; reintegration is mandatory*) and vocabulary → `09_omni_build_os_layer_model.md` **Layer 2**. Binding mechanics → `agent_work_protocol.md` **§2.1**. External comparators → `comparator_analogy_registry.md`. **Other packages will exist with their own envelopes; this receipt covers only this one.**
 2. **C3.9** plastics/medspa population — after Phase A.
 3. **Final Task-D** (§7 verdict) — after C3.9; consumes the Phase-A carriers + C3.9 fixture.
 4. **Full C4.5** temporal pass — after Task-D.
