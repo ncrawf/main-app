@@ -3,7 +3,7 @@
 Document type: `manifest_or_catalog`
 Lifecycle role: `optional lookup catalog of investigation / adversarial / hardening methods`
 Authority: `derived_nonbinding`
-Status: `active_candidate` (v0, 2026-08-05)
+Status: `active` (v0, accepted + landed 2026-08-05)
 Domain(s): `architecture_governance`, `build_operations`
 Source-of-truth relationship: `describes how to investigate, never what is true. Execution behavior = agent_work_protocol.md §2.1. What actually happens in an arc = that arc's accepted work package.`
 Supersedes: `none` · Superseded by: `none`
@@ -193,5 +193,5 @@ type: manifest_or_catalog · authority: derived_nonbinding · agent_read_rule: c
 optional lookup; no required order/method/count; METHOD-000 valid; originates no architecture or execution authority
 deliberately carries NO usage counts, effectiveness ratings, maturity tiers, lifecycle policy, or deprecation machinery
 edit or remove entries through ordinary review; durable cautions belong in 06_guardrail_antipattern_digest.md
-decision: D0CKPT-DEC-006 (review_required at v0)
+decision: D0CKPT-DEC-006 (active)
 -->
