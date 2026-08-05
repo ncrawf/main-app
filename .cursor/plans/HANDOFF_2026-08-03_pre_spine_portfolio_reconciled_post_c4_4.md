@@ -99,7 +99,7 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 | Current holder | `THREAD LOCK PRESPINE-PHASEA-INTEGRATOR \| seat=OPUS \| visible="Pre-spine · Phase-A integration"` |
 | Integrator transfer posture | explicit transfer + freshness/collision check + shared-surface ownership receipt REQUIRED before any replacement holder acts |
 
-**Base + source-resolution law — TWO REFERENCES (Agent Work Protocol §2.1 Two-Reference Boot Law).** All five lane branches are pinned to the **live content base named in the table above** (`326f634`). `main` sits an unfixed number of commits ahead; that distance is **normal, not drift**, and is not grounds to stop.
+**Base + source-resolution law — TWO REFERENCES (Agent Work Protocol §2.1 Two-Reference Boot Law).** All five lane branches are pinned to the **live content base named in the `lane_content_base_sha` row of the table above — that row is the only place this SHA appears, by design.** Do not restate the base SHA in prose anywhere; duplicated SHAs go stale and create false drift signals. `main` sits an unfixed number of commits ahead; that distance is **normal, not drift**, and is not grounds to stop.
 
 - **Current control-plane surfaces resolve from the CURRENT `main` tip:** `AGENTS.md` · `04_manifest_read_graph.md` · **this checkpoint** · lane/integrator state. **Never** read these from the content base — an older base is a frozen input, not a status report, and will still describe launch as held.
 - **Substantive lane inputs resolve at the live content base `84a8879`**, unless a launch card explicitly supplies a different immutable ref.
