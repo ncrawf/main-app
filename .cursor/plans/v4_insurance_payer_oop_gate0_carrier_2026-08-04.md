@@ -924,15 +924,17 @@ Machine-generated at commit time. **This receipt deliberately does not stamp its
 $ git rev-parse HEAD                      # base before this commit — unrotated
 f70ff3cbf007b9bd68bedec7c9dfb9365e9e6e05
 
-$ git diff --cached --name-status HEAD
+$ git show --numstat --format= <carrier commit>
+955     0       .cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md
+
+$ git show --name-status --format= <carrier commit>
 A       .cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md
 
-$ git diff --cached --stat HEAD
- ...insurance_payer_oop_gate0_carrier_2026-08-04.md | 927 +++++++++++++++++++++
- 1 file changed, 927 insertions(+)
-
-$ git hash-object .cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md
-219d6190bc55b6985f90ef363ca90f265ef721dd     # 927 lines / 140,344 bytes
+$ git rev-parse <carrier commit>:.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md
+eebfb994289019ce6e34b2d1d8487214a083e97d     # 955 lines / 141,996 bytes
+                                             # (the pre-insertion draft measured
+                                             #  219d6190… / 927 lines; inserting this
+                                             #  receipt is what added the final 28 lines)
 
 $ git diff --cached --name-only HEAD -- AGENTS.md CLAUDE.md GEMINI.md \
     .cursor/plans/HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md \
