@@ -78,12 +78,11 @@ This is the durable, post-acceptance base binding required by Agent Work Protoco
 |---|---|
 | Parent key | `PRESPINE-PHASEA` |
 | `lane_content_base_sha` (**final content base**) | **`51ead016adabea9fd8389a08d149aeda33f0a8f7`** (C1b) — supersedes the earlier interim pins `84f2d58` (A) and `21e6415` (C1); A and C1 are ancestors retained as lineage, **not** the lane base |
-| `control_plane_boot_ref` (**current state**) | the current `main` state commit (**C2**) — read `AGENTS.md`, the read graph, this checkpoint and lane/integrator state from **here**, never from the content base |
-| Accepted map blob at A | `b05450f4331b4b6375199bdeac618a44bb5fc7ed` |
-| Accepted Agent Work Protocol blob at A | `ddfbd9a84ef102ac325383b785dcc59ac5a57177` |
-| Accepted checkpoint blob at A | `02081df707114d027910ec03103441cb8038029d` |
-| Content branch of A | `governance/phase-a-launch-envelope-hardening` |
-| `current_main_state_sha` (**commit B**) | the later **state-only** acceptance/launch-receipt commit that carries this receipt and to which `main` is fast-forwarded (branch refs control; not self-stamped here) |
+| `control_plane_boot_ref` (**current state**) | the **final `main` tip after landing** — read `AGENTS.md`, the read graph, this checkpoint and lane/integrator state from **here**, never from the content base. **Branch refs control; this checkpoint does not self-stamp its own commit SHA.** |
+| Accepted map blob at C1b | `80b99ceb759e067686380c62265f4706a03458ba` |
+| Accepted Agent Work Protocol blob at C1b | `db82de0b8b22cccce0f000b62e8e91b79e5e34b2` |
+| Content branch of C1b | `governance/phase-a-two-ref-cloud-boot` |
+| `current_main_state_sha` | the **state-only** receipt commit(s) carrying this receipt, to which `main` is fast-forwarded. `main` may sit **one or more state-only receipt commits ahead** of the immutable lane content base — in this transaction the state-only descendants of C1b are C2 and C2a. **This is normal, not drift.** |
 | Integrator role key | `PRESPINE-PHASEA-INTEGRATOR` |
 | Current holder | `THREAD LOCK PRESPINE-PHASEA-INTEGRATOR \| seat=OPUS \| visible="Pre-spine · Phase-A integration"` |
 | Integrator transfer posture | explicit transfer + freshness/collision check + shared-surface ownership receipt REQUIRED before any replacement holder acts |
