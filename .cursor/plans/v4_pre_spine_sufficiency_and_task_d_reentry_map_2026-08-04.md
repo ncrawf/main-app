@@ -127,7 +127,7 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 
 ## §7 — Prepared lane envelope (optional activation: one, some, all, or none)
 
-**What this is, by name.** This is an instance of the **lane model + work-package contract + handoff contract** reserved under `09_omni_build_os_layer_model.md` **Layer 2 — Execution Layer**, implemented by Agent Work Protocol §2.1 (`D0CKPT-DEC-005`). It is a known pattern, not a novel invention: the **integration-manager workflow** (one writer per branch, a single integrator recombining) plus a **work-breakdown structure with a separate integration authority**. The enforcement half — protected trunk, proposals, required checks, merge queue, lane registry — is **Layer 3 and is NOT built**; it is routed to `D0THES-REV-158`. Do not re-derive or rename this; cite it.
+**What this is.** `PRESPINE-PHASEA` is **one work-package instance** of the Build OS **Execution Layer** — conceptual identity, operating principle and vocabulary in `09_omni_build_os_layer_model.md` **Layer 2**; binding mechanics in `agent_work_protocol.md` **§2.1**; external comparators in `comparator_analogy_registry.md`. There will be other packages with their own envelopes. **This map contains only this package's lanes, inputs, outputs, states and integration requirements** — no doctrine, no comparator exposition.
 
 **Activation is optional. This envelope PREPARES lanes; it does not require launching them.**
 - It proves concurrent execution is *available*, not that it is obligatory.

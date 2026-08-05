@@ -60,6 +60,26 @@ It is intentionally separate from rollout sequencing.
 **Primary question answered**
 - "How do we safely do work?"
 
+### What the Execution Layer is FOR — adaptive partitioning, mandatory reintegration
+
+The artifacts above name the *parts*. This names the *purpose*, because the parts alone do not convey it.
+
+**Operating principle: partitions are provisional; reintegration is mandatory.**
+
+> Begin from the broad governing estate and the real architectural question. **Partition work only where it helps.** Activate one, some, all, or no lanes. **A lane boundary is a work partition, never an architecture boundary** — the operator or integrator may add, split, merge, pause, retire or reclassify lanes as evidence changes. Every lane returns a **provisional carrier** to a **parent integration gate**, which reconciles it against sibling outputs *and the wider estate* before any architecture, acceptance, or successor work is claimed. **No result becomes architecture merely by having been produced.**
+
+**Why both halves matter.** Partitioning alone buys throughput and produces silos and bolt-ons. Reintegration alone forfeits the throughput. The layer exists to get the first without paying for it with the second.
+
+**A work package is an INSTANCE, not a fixed structure.** There will be many, each with its own lanes, inputs, outputs and integration gate — `PRESPINE-PHASEA` (pre-spine input readiness) is simply the first. A future package (e.g. connector permeability) declares its own envelope. **Nothing here is a five-lane model, and nothing obliges concurrency** — a single-lane package is a legitimate and common shape.
+
+**Vocabulary** (already used across the estate; do not coin synonyms): **work package** = one authorized body of work with scope, inputs, outputs and an integration gate · **lane** = a provisional partition inside it · **launch envelope** = the accepted executable description of lanes, branches, bases, inputs, permissions, outputs and stops · **lane worker** = the agent doing one partition · **integrator** = the transferable role responsible for restoring whole-estate coherence and the sole writer of shared control surfaces · **handoff contract** = continuity across agent/session replacement · **parent integration gate** = where lane results are reconciled and where completion actually occurs.
+
+**Current vs future form.** Current = a **human-supervised protocol**, binding mechanics in `agent_work_protocol.md` §2.1 (`D0CKPT-DEC-005`, guardrail `D0CKPT-GRD-002`). Future = **machine-enforced** work-package tooling at Layer 3 / rollout Step 5 (`D0THES-REV-158`): manifest validation, claims/leases, protected surfaces, policy checks, status projection, merge path.
+
+**This is NOT:** a product- or care-agent runtime (that is `FWREG-010`, and build-agent authority never becomes product authority) · a general agent framework · compulsory parallelism · a fixed lane ontology · a complete Build OS.
+
+Mechanistically this composes established **integration-manager**, **orchestrator/worker**, **protected-branch/proposal**, and **contextual-practice** patterns; the external evidence and attributions live in `comparator_analogy_registry.md` and rollout Step 5 — **not** in instance maps, checkpoints or lane prompts.
+
 **Current-state note (2026-08-04)**
 - `Agent Work Protocol §2.1` is the first **human-supervised partial operationalization** of the lane / work-package / handoff contract (concurrent lanes · one writer per branch · two-level base binding · stale-branch fresh re-entry · shared-surface isolation · transferable control-plane integrator role · provisional-until-integrated artifacts). Decision `D0CKPT-DEC-005`; guardrail `D0CKPT-GRD-002`.
 - **Automated lane registry, ownership services/leases, shared-surface locks, merge queue, semantic collision detection, and lane tooling remain FUTURE** (`D0THES-REV-158`). This note records partial progress only; it does not duplicate §2.1 and does not make this layer complete.
