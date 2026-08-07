@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate` (gate adjudication + terminus; interpretation, **not** a source object)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. Mints no domain, contract or schema.
-Status: **`source_incomplete`** · `gate_1a_verdict_recorded` · `raw_a_paste_pending` · `raw_b_paste_pending` · `f1_f7_inventory_from_knox_summary_unverified_against_raw` · `not_promoted` · `gate_1b_not_launched`
+Status: **`source_complete_2026-08-07`** · `gate_1a_verdict_recorded` · `raw_a_present` · `raw_b_present` · `both_prompts_operator_verbatim` · `f1_f7_inventory_still_a_pointer_verify_against_raw` · `not_promoted` · `gate_1b_not_launched`
 Domain(s): `architecture_governance`, `care_operating_model`, `d6_commerce`, `identity`, `federation`, `cross_cutting`
 Lifecycle role: the **interpretation** layer for Gate 1a — records the verdict, carries Knox's adjudication as attributed external review, and routes Gate 1b **without deciding it.**
 Source-of-truth relationship: **derivative.** Its sources are the two verbatim artifacts. It is authoritative for *nothing* the raws say; where it characterizes them it is a **pointer**, and pointers are marked as such.
@@ -20,12 +20,12 @@ Read order: **protocol → Phase A verbatim → Phase B verbatim → adjudicatio
 | Source object | State |
 |---|---|
 | `v4_INS_G1A_..._protocol_2026-08-07.md` | **VERIFIED — both prompts are operator verbatim** (spliced 2026-08-07). Note for auditors: **my initial drafts of both were different, weaker variants** — 11 of 11 sampled clauses absent in §2, 12 of 12 in §3. The method of record is now the experiment that actually ran, not the one I had written down. Divergences are recorded in place rather than silently overwritten |
-| `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | **`PASTE_PENDING`** — raw not in Opus's possession |
-| `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | **`PASTE_PENDING`** — raw not in Opus's possession |
+| `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | **RAW PRESENT** — operator-supplied 2026-08-07, 1,110 lines, unedited |
+| `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | **RAW PRESENT** — operator-supplied 2026-08-07, 1,006 lines, unedited |
 
-**Consequence, stated plainly.** This carrier is **`source_incomplete`**. The F1–F7 inventory below is **transcribed from Knox's adjudication summary — it is a POINTER to the submissions, not the submissions**, and it has **not** been verified against the raw text because the raw text does not yet exist in the repository. Opus has deliberately **not** reconstructed the raws from this summary (`v4_C4_2C` precedent: doing so is fabricating evidence).
+**★ UPDATED 2026-08-07 — `source_complete`.** Both raws are present and both prompts are operator-verbatim. **One caveat survives and matters:** The F1–F7 inventory below is **transcribed from Knox's adjudication summary — it is a POINTER to the submissions, not the submissions**, and it has **not** been verified against the raw text because the raw text does not yet exist in the repository. Opus has deliberately **not** reconstructed the raws from this summary (`v4_C4_2C` precedent: doing so is fabricating evidence).
 
-**No downstream gate may treat Gate 1a as a pinned input while this receipt reads `source_incomplete`.** Gate 1b in particular must read the raws, not this carrier, for anything the side agent actually said.
+**Gate 1a is now a usable pinned input — but Gate 1b must still read the RAWS, not this carrier, for anything the side agent actually said.** The F1–F7 table below was transcribed from Knox's summary *before* the raws landed and has **not** been line-checked against them. It is a navigation aid. Where the raw and this table diverge, **the raw wins** — and the first task of Gate 1b is to verify it.
 
 ---
 
