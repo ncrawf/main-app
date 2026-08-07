@@ -2,7 +2,7 @@
 
 Document type: `analysis` / `architecture_reconciliation` (Gate-1b ownership pass; **not** a contract, **not** a schema, **not** spine prose, **not** a new truth-owning domain)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036` — capture broad, promotion gated). Binds nothing. Promotes nothing. Mints nothing. Proposes routing only.
-Status: `gate_1b_analysis_reconciled_r2 · pending_nick_knox_review · not_promoted · not_integrated · no_contract_mutation · no_implementation · no_shared_surface_written · nothing_renamed`
+Status: `gate_1b_analysis_reconciled_r3 · pending_nick_knox_review · not_promoted · not_integrated · no_contract_mutation · no_implementation · no_shared_surface_written · nothing_renamed`
 Domain(s): `d6_commerce` · `federation` · `care_operating_model` · `clinical_memory` · `rbac_authority` · `identity` · `cns_coordination` · `bizops_workforce` · `settings_catalog` · `documents_consent_media` · `accountability_architecture` · `architecture_governance` · `cross_cutting`. **No new domain is proposed.**
 Lifecycle role: reconciles the Gate-1a candidate laws `F1–F7` against the **actual committed OMNI estate** — who owns the authoritative writes, what dissolves, what needs a seam or policy, what remains unresolved, whether any shared financing **truth substrate** is justified, and what **operating composition** is nevertheless required.
 Source-of-truth relationship: consumes read-only. Amends nothing. The Phase-B raw is **source**; the Gate-1a adjudication and handoff are **derivative interpretation**; where wording differs, **the raw wins** and this carrier cites the raw.
@@ -12,7 +12,7 @@ Review gate: `user_knox_required`
 
 Lane: `INS-G1B-OWNERSHIP` · Parent arc: `INS-G0-MIXEDFIN` · Read order: **Gate-0 carrier → Gate-1a protocol → Phase-A raw → Phase-B raw → Gate-1a adjudication → this**
 
-> **★ REVISION HISTORY.** **R0 (`8c9d818`)** was authored before four commissioned reconnaissance reports returned and before four load-bearing primary sources were read. **R1 (`59cc477`)** applied Knox's first full-carrier byte review: eight blocking defects, four of them factual errors of mine, all verified and retracted (§0.5). **R2 (this)** applies Knox's second full-carrier review, which passed the factual reconciliation but **failed architectural sufficiency**: the carrier was turning *"no shared truth owner"* into *"no shared financing architecture,"* and under-modelled the positive thing OMNI must become. R2 splits the verdict onto **two axes**, decomposes F3/F4 by **actor capacity** rather than operator-only, restores **derived ≠ ownerless**, replaces the coverage-scope **binary with four layers**, splits **custody from substantive commitment**, makes Accountability admission **threshold-based rather than noun-based**, adds a **future-regime stress matrix**, rewrites the positive architecture as a **governed continuity function**, and — on operator recovery instruction — **recovers the economic-firewall lineage rather than minting an eighth name for it** (§9).
+> **★ REVISION HISTORY.** **R0 (`8c9d818`)** was authored before four commissioned reconnaissance reports returned and before four load-bearing primary sources were read. **R1 (`59cc477`)** applied Knox's first full-carrier byte review: eight blocking defects, four of them factual errors of mine, all verified and retracted (§0.5). **R2 (this)** applies Knox's second full-carrier review, which passed the factual reconciliation but **failed architectural sufficiency**: the carrier was turning *"no shared truth owner"* into *"no shared financing architecture,"* and under-modelled the positive thing OMNI must become. R2 splits the verdict onto **two axes**, decomposes F3/F4 by **actor capacity** rather than operator-only, restores **derived ≠ ownerless**, replaces the coverage-scope **binary with four layers**, splits **custody from substantive commitment**, makes Accountability admission **threshold-based rather than noun-based**, adds a **future-regime stress matrix**, rewrites the positive architecture as a **governed continuity function**, and — on operator recovery instruction — **recovers the economic-firewall lineage rather than minting an eighth name for it** (§9). **R3 (this)** is a bounded boundary addendum on a `PASS WITH ONE REQUIRED R3 BOUNDARY ADDENDUM` verdict: **the two-axis verdict is unchanged and no new law, domain, owner or negotiation object is minted.** It refines Law 1's scope, broadens Law 2 to any economically interested principal, adds `NICK-FIXTURE-PAYER-CONSTRAINED-THERAPY-01` as the decisive joint test of all three firewall laws, adds the operating-profile anti-shadow acceptance criteria to Gate 2, and — on operator instruction — adds **§15, the anti-evaporation durability map**, so no finding here depends on prose surviving.
 
 ---
 
@@ -93,6 +93,14 @@ All absence claims are scoped to **`.cursor/plans/**`, `supabase/migrations/**`,
 | **C23** | "The thing OMNI must own is preservation, not a better claims engine" | **UNDERPOWERED — REWRITTEN** | Preservation is necessary and is not a product. §8.3 states the governed continuity function, marked as a **Task-D hypothesis, not a proven moat** |
 | **C24** | Residual matrix is 2026-transactional | **EXTENDED** | Ten future-regime rows added; the verdict was better proven against claims-era objects than against risk-bearing care. §8.4 |
 | **C25** | `REV-185` treated as a "priority raise" | **RECOVERED AS LINEAGE, NOT MINTED AS A NEW LAW** | On operator instruction the firewall lineage was traced: **three distinct laws under seven labels**, and the late-builder gap register **row P** already prescribes `elevation`. Minting an eighth name would be the error. §9 |
+
+**R3 corrections (this pass).**
+
+| # | R2 claim | Status | Basis |
+|---|---|---|---|
+| **C26** | Law 1 stated as "financial state never **gates** a clinical act" | **SCOPE REFINED** | Too broad if read as *execution can never be constrained*. Financing legitimately constrains whether execution occurs now, where, which pharmacy fulfils it, what the patient can afford, which acceptable option is chosen, and whether an elective plan defers. D6's contracted invariant is narrower and exact: **`payment state ≠ care state`**; C3.5 SUP-462's sharpening is that a **pending authorization must not silently prevent the clinical order from existing**. Restated at §9.1 |
+| **C27** | Law 2 scoped to "the **recommender's own** economic interest" | **BROADENED TO ANY INTERESTED PRINCIPAL** | `REV-185`'s wording targets *who/how-much pays OMNI*, which is necessary but not sufficient: a **payer, PBM, sponsor, manufacturer, lender, referral source, operator or provider organisation** can apply economic pressure to the recommendation surface without OMNI earning a cent. A funder may determine **what it funds**; it may not have that preference **presented as clinical appropriateness or therapeutic equivalence** unless the proper clinical authority independently commits that conclusion. Restated at §9.1 |
+| **C28** | The payer-constrained-therapy interaction was absent from the carrier | **ADDED AS A NAMED DURABLE FIXTURE** | The single most common real interaction in 2026 care — clinician recommends A, payer funds B, B may or may not be clinically equivalent — was nowhere in the carrier, though the constitutional physics and most of the pharmacy mechanics already exist. `NICK-FIXTURE-PAYER-CONSTRAINED-THERAPY-01` at §10.B |
 
 **On the four reconnaissance reports.** Commissioned before authoring; **they have still not returned to me at R2.** Knox holds them. Every correction above was adjudicated against a primary repository source read directly — which is why C3, C5 and the whole of §9 came out sharper than any relay described. **No claim in this carrier rests on a helper report.**
 
@@ -561,7 +569,8 @@ R0/R1 framed the foreclosure as *person-scoped vs tenant-scoped*. **That was its
 | **Guarantor (responsible party ≠ patient)** | **none** | absent | Gate-0 G4 |
 | **Sponsor ≠ payer boundary** | **none** | absent | Gate-0 G6; identified clinical data must never reach a sponsor |
 | **F3 resource incidence — 7 actor slices** | actor-decomposed (§3-F3-E) | **unresolved** | Representation form; whether a common derived assessment is needed |
-| **Economic-influence separation** | CNS Network-Governance (proposed) | **`REV-185` open; enforcement + audit spec OWED** | §9 |
+| **Payer-constrained therapeutic alternatives + clinical recommit** | Care/CM (recommendation, intent, recommit) · payer (policy version, determination, funded alternative) · pharmacy (offer, permitted substitution) · **clinical-equivalence assertion has no located home (A-Q14)** | constitutional physics present (Care L171, D6 §8.1); mechanics substantially present (C4.6 §4/§5, L203, L205, `reopen_care`, conformance `C12`); **never assembled or tested against the operating profile** | Who owns the equivalence assertion, and how is an access-driven compromise recorded without becoming a clinical judgment? §10.B |
+| **Economic-influence separation** | CNS Network-Governance (proposed) | **`REV-185` open; enforcement + audit spec OWED**; **scope broadened at R3 to any interested principal, not only OMNI** | §9 |
 
 ### §8.3 The positive architecture — the governed continuity function (R2, C23)
 
@@ -597,7 +606,7 @@ R1 said the thing OMNI must own is *preservation*. **Preservation is necessary a
 | **Bundled / episode payment** | one commitment spans **many providers and events** | no single owner of the episode's money | one commitment, many executors | allocation across providers | episode reopen |
 | **Medicare + supplemental + patient responsibility** | concurrent sources + **public authority** | statutory constraint, not contract | program entitlement ≠ commitment | strict sequencing | statutory lookback |
 | **Coordination of benefits / secondary** | **priority and composition become first-class** | no COB determination transaction exists | none — pure composition | F5 at full force | re-sequencing retroactively |
-| **PBM / pharmacy benefit** | pharmacy, plan, PBM and medical benefit **diverge** | C4.6 already rules pharmacy a composed profile | formulary ≠ coverage ≠ authorization | separate accumulators | post-adjudication reconciliation |
+| **PBM / pharmacy benefit** | pharmacy, plan, PBM and medical benefit **diverge**; **and this is where payer-preferred is most often mistaken for clinically equivalent** | C4.6 already rules pharmacy a composed profile; **`formulary` means ≥5 distinct things (L203) and must not be one object** | formulary ≠ coverage ≠ authorization; **payer-preferred ≠ clinical-equivalent — a clinically meaningful change requires Care re-resolution (`reopen_care`, L205), an operationally-equivalent reroute does not** | separate accumulators | post-adjudication reconciliation; **substituted therapy failure reopens Care, not just the payer transaction** (§10.B.5 outcome 10) |
 | **Professional + facility + lab + pharmacy split** | one episode → **several financial representations** | four counterparties, four claims | independent acceptances | patient sees one episode, system prices lines | independent corrections |
 | **Direct-to-employer / federation risk pool** | **the network becomes sponsor and risk bearer** | §9.5 capacity separation is mandatory | operator-as-creditor / operator-as-insurer | in-house composition | reserve adequacy |
 | **Simplified / single-funder regime** | architecture must **survive removal of complexity** | most roles disappear; F1/F4/F6 remain | entitlement replaces commitment | composition may vanish | statutory correction |
@@ -623,9 +632,19 @@ R1 said the thing OMNI must own is *preservation*. **Preservation is necessary a
 | "economic-firewalling" | spine watch list **WI2** (AI-aggregation / local-care-exchange) | LAW 2 (aggregator facet) |
 | "Recommendation-integrity firewall" · "economic-pressure-can't-bend-presentation" | Care capture L170 / L450 | LAW 2 |
 
-**LAW 1 — `payment_care_firewall`: financial state never GATES a clinical act.** Nine C3.5-F2 evidence rows: a financial hold cannot stop a clinical order (SUP-012) · documentation→charge is one-way and the bill never edits the order (SUP-241) · documentation→coding one-way (SUP-301) · self-pay confidentiality composes without gating (SUP-367) · death stops charges without gating pronouncement (SUP-452) · denials/auth are ops obligations that never gate care (SUP-461) · **a pending prior-auth never silently blocks a clinical order (SUP-462)** · **breaker SUP-481: "HOLDS; `payment_care_firewall` is an invariant, not a setting"** · payment path never changes the clinical act (SUP-489). **Status: `covered-doctrine`, primitive EXISTS at D6 §8.1. This is the name that was settled.**
+**LAW 1 — `payment_care_firewall`.** Nine C3.5-F2 evidence rows: a financial hold cannot stop a clinical order (SUP-012) · documentation→charge is one-way and the bill never edits the order (SUP-241) · documentation→coding one-way (SUP-301) · self-pay confidentiality composes without gating (SUP-367) · death stops charges without gating pronouncement (SUP-452) · denials/auth are ops obligations that never gate care (SUP-461) · **a pending prior-auth never silently blocks a clinical order** (SUP-462) · **breaker SUP-481: "HOLDS; `payment_care_firewall` is an invariant, not a setting"** · payment path never changes the clinical act (SUP-489). **Status: `covered-doctrine`, primitive EXISTS at D6 §8.1. This is the name that was settled.**
 
-**LAW 2 — economic-influence separation: the recommender's own economic interest never BENDS clinical appropriateness.** `REV-185` states it exactly and, critically, records the relationship: *"accrual/revenue/retention pressure must not bend what the patient sees as clinically appropriate. Must be a **STRUCTURAL, auditable** property (**the recommendation engine cannot read who/how-much pays OMNI**), not a policy. **Generalizes `payment_care_firewall` (C3.5/D6)**."* It also already carries the business-model constraint: OMNI may earn via SaaS/site-ops/sponsor-reporting/de-id analytics/FMV, **walled from ranking**. **Status: INVARIANT asserted; "not an object"; enforcement mechanism + audit spec OWED at C4; `REV-185` open since 2026-06-14.** **This is the law that was never given a settled name — which is very likely the source of the operator's frustration.**
+> **★ R3 SCOPE REFINEMENT (C26) — the shorthand was too broad.** "Financial state never **gates** a clinical act" over-reads if taken as *execution can never be constrained*. Financing legitimately constrains **whether execution occurs now · where it occurs · which pharmacy fulfils it · what the patient can afford · which acceptable option the patient chooses · whether an elective plan defers.** The estate's actual contracted invariant is narrower and exact — D6 §8.1 **`payment state ≠ care state`**: a payment failure, lapse or dispute cannot **by itself** end a care program or erase clinical meaning. C3.5 SUP-462 sharpens it for authorization: the auth obligation runs **parallel to** the clinical order, and a pending auth must not **silently prevent the order from existing**.
+>
+> **Precise statement of Law 1:** *Financial or coverage state **may explicitly constrain execution feasibility**, but must **never silently author, erase, or misrepresent** clinical indication, recommendation, order, consent, or historical rationale.*
+>
+> The operative words are **explicitly** and **silently**. This refinement **does not weaken emergency or legally-required continuity obligations**, which remain governed by their own authorities.
+
+**LAW 2 — economic-influence separation.** `REV-185` states it and, critically, records the relationship: *"accrual/revenue/retention pressure must not bend what the patient sees as clinically appropriate. Must be a **STRUCTURAL, auditable** property (**the recommendation engine cannot read who/how-much pays OMNI**), not a policy. **Generalizes `payment_care_firewall` (C3.5/D6)**."* It also carries the business-model constraint: OMNI may earn via SaaS/site-ops/sponsor-reporting/de-id analytics/FMV, **walled from ranking**. **Status: INVARIANT asserted; "not an object"; enforcement mechanism + audit spec OWED at C4; `REV-185` open since 2026-06-14.** **This is the law that was never given a settled name — very likely the source of the operator's frustration.**
+
+> **★ R3 BREADTH CORRECTION (C27) — Law 2 is not limited to OMNI's own interest.** `REV-185`'s framing (*who/how-much pays OMNI*) is necessary but insufficient. Economic pressure on the recommendation surface can come from any interested principal: **payer · PBM · sponsor · manufacturer · lender · referral source · operator · provider organisation · OMNI itself.** A **payer's cost interest may legitimately determine what it will fund** — that is a legitimate funder decision. It may **not** have that preference **presented as clinical appropriateness or therapeutic equivalence** unless the proper clinical authority independently commits that conclusion.
+>
+> **This is a sharpening of `REV-185`, not another law and not another row** (§9.3).
 
 **LAW 3 — feasibility legibility: the *patient's* economic reality MAY bound the feasible set, but must remain separately sourced and recorded.** This is Gate-0 §J.0's corrected invariant (financing "legitimately shapes feasibility, timing, site, choice and the accepted plan"; the operative word is **silently**) plus **F7**. **Status: normative candidate; no name; home not explicit (F7's disposition).**
 
@@ -647,17 +666,25 @@ R1 said the thing OMNI must own is *preservation*. **Preservation is necessary a
 3. **A naming obligation**: the elevation must **reconcile the seven labels**, not add to them.
 4. **Routing:** sharpen `REV-185` (do not duplicate it); attach the row-P elevation as its structural home question; carry `REV-193` (alpha) and WI2/WI8 as facets; flag T39/45/46 (RL-reward) as the learning-time form.
 
-**Applied to:** C3.7 accrual · vendor-originated financing (§10) · operator-as-creditor (§10.5) · provider risk arrangements (§8.4) · payer incentives · AI ranking and reward functions.
+**Applied to:** C3.7 accrual · vendor-originated financing (§10.A) · operator-as-creditor (§10.A.5) · provider risk arrangements (§8.4) · **payer formulary and step-therapy pressure (§10.B)** · AI ranking and reward functions.
+
+> **★ The decisive joint test of all three laws is `NICK-FIXTURE-PAYER-CONSTRAINED-THERAPY-01` (§10.B).** It is the only fixture in this carrier that exercises **Law 1** (a coverage denial must not erase the clinical recommendation), **Law 2** (a payer's cost interest must not be presented as therapeutic equivalence), and **Law 3** (the patient's affordability may legitimately change the accepted plan, provided it is separately sourced and recorded) **simultaneously and in the same transaction.** Any future statement of the elevated economics/value/incentive axis that cannot cleanly resolve this fixture is under-specified.
 
 **This is top-level OMNI physics candidate material, and it is the answer to the operator's question about whether the pattern across arcs is real. It is real, it is already diagnosed, and the owed action is elevation — not rediscovery.**
 
 ---
 
-## §10 — NICK-FIXTURE-VENDOR-FINANCING-01
+## §10 — NAMED DURABLE FIXTURES
+
+Two operator-introduced fixtures, preserved as **architecture fixtures rather than market anecdotes**, because each one tests a boundary the estate would otherwise flatten. Both are required traces at Gate 2 (§13.3).
+
+---
+
+## §10.A — NICK-FIXTURE-VENDOR-FINANCING-01
 
 **Manufacturer / loyalty / platform-originated patient financing.**
 
-### §10.1 Provenance and evidence classes (kept strictly separate)
+### §10.A.1 Provenance and evidence classes (kept strictly separate)
 
 | Class | Content | Status |
 |---|---|---|
@@ -666,13 +693,13 @@ R1 said the thing OMNI must own is *preservation*. **Preservation is necessary a
 | **External product facts** | Specific current vendor financing offerings relayed into review from outside the repository | **NOT repository-verified. `EXTERNAL_EVIDENCE_REQUIRED`. No Evidence-Plane packet exists; not promotion-grade; supports no doctrine here** |
 | **Legal / regulatory / economic** | Lending, licensing, disclosure, servicing, fair-credit, risk-capital, prevalence | **`EXTERNAL_EVIDENCE_REQUIRED` — architectural conclusions left unresolved at those points** |
 
-### §10.2 Capacities that must remain distinguishable
+### §10.A.2 Capacities that must remain distinguishable
 manufacturer / supplier · brand or loyalty principal · rebate/promotion sponsor · **financing distribution surface** · lender / creditor / risk bearer · servicer · merchant / provider · operator / federation · patient / borrower · payment rail.
 
-### §10.3 Required tests
+### §10.A.3 Required tests
 F2 anti-substitution · F5 source-preserving composition · F7 material care-impact reliance · role unbundling · payer/funder inversion · **refund destination (lender vs patient)** · **merchant-fee ownership** · credit decision vs clinical recommendation · **§9 Law 2 recommendation/display separation** · self-preference and steering · principal/capacity identity · portability of approval and financing history · federation exit and non-captivity · **operator-as-provider vs operator-as-creditor** · multi-source purchase (reward + gift card + patient down payment + loan + possible insurance reimbursement).
 
-### §10.4 Dispositions
+### §10.A.4 Dispositions
 
 **D1 — No eighth universal law.** F1, F2, F4, F6 hold unchanged. F2 is **strengthened** (rebate ≠ loan ≠ loyalty credit). F6 is **exercised hard** (reverse the financing after an irreversible injectable). **For a case that is genuinely novel commercially, producing no new physics is the finding: the novelty is topological and economic, not architectural.**
 
@@ -684,13 +711,93 @@ F2 anti-substitution · F5 source-preserving composition · F7 material care-imp
 
 **D5 — Unsolicited external commitment (open).** GCE governs the crossing; admission, identity, consent, relationship and trust handling are real questions. **Generic counterparty physics; A-Q7.**
 
-### §10.5 Can a federation offer in-house financing?
+### §10.A.5 Can a federation offer in-house financing?
 **Architecturally yes, with no new financing physics — and "architecturally possible" is not "commercially or legally advisable."** Requirements, all with existing owners: (i) `financing_arrangement` **principal-agnostic** (D6, `REV-160`); (ii) Federation owns `legal_entity` as the "tax/compliance/**liability** boundary" with `legal_entity_brand` M:N and `ownership_percent`, but carries **no risk-bearing or reserve concept** — that is **operator economics (F3's operator slice), not Insurance**; (iii) **capacity separation is mandatory and is the highest-risk item in the fixture** — "operator-as-care-provider" and "operator-as-creditor" must be distinguishable principals, or a clinical recommendation and a credit decision are made by one undifferentiated actor (Federation inv 8 operator-neutrality is the nearest existing analogue); (iv) **§9 Law 2 structural enforcement**; (v) **H-N3/G7** — a federation issuing its own credit approvals is issuing binding **communicative acts**, and that act is unowned. **This is the payer-inversion test applied to credit, and the estate passes it** — nothing in the surviving laws presumes a payer-to-provider direction. **Lending licensure, disclosure, servicing and risk-capital remain `EXTERNAL_EVIDENCE_REQUIRED`.**
 
-### §10.6 Where the consortium question already lives
+### §10.A.6 Where the consortium question already lives
 **Counterparty Participation Economics Gate (Gate B)** + the **formation ladder** + four N=1 bootstrap mechanisms + the "**distribution-rich consortium**" adversary, in `v4_C4_residual_moat_and_network_formation_doctrine.md` §11–§12 (**CANDIDATE**). Strategic, already framed, not to be re-derived inside Insurance.
 
 **Net effect: the fixture strengthens both axes.** A manufacturer-originated, lender-underwritten, app-distributed financing offer is a **new counterparty capacity over a ratified constitution** — not a new financing truth substrate. It requires one regime-specific D6 lifecycle, extends two enumerations, adds one open ownership question, and **materially raises the operating-composition requirement and §9's law.**
+
+---
+
+## §10.B — NICK-FIXTURE-PAYER-CONSTRAINED-THERAPY-01
+
+**Payer-constrained therapy selection · formulary alternative · clinical re-resolution.**
+
+**Provenance:** operator-introduced architecture fixture. **No prevalence, market or product claim is made beyond repository evidence, and no external research was performed for it.** Its architectural value does not depend on any vendor or plan specifics.
+
+### §10.B.1 The scenario, stated without flattening
+
+A clinician recommends therapy **A**. The payer declines A, imposes step therapy, restricts the dispensing pharmacy, or will fund alternative **B** — and may present B as "preferred," "equivalent" or "substitutable." **B may be clinically equivalent, clinically acceptable with tradeoffs, or clinically inappropriate for this patient.** Patient affordability and preference are live inputs. The clinician may maintain A and appeal, maintain A on self-pay, bridge while appealing, accept a permitted substitution, revise to an access-driven alternative, reject B as inappropriate, or defer with an explicit risk. Coverage may later change and make A feasible again. B may fail and reopen the clinical question. By 2030–2035, payer, provider, pharmacy and patient **agents** may conduct this exchange continuously at machine speed.
+
+**This is the current physics of care, not revenue-cycle administration** — and it is the interaction where all three §9 firewall laws meet at once. **It is therefore recorded as their decisive joint test.**
+
+### §10.B.2 The critical authority distinction
+
+> A payer may author: ***"Our policy covers B under conditions C."***
+> A payer may **not** author: ***"B is clinically equivalent to A for this patient."***
+
+Different truths, different authorities, different liabilities. **The estate already holds this**: Care L171 — *"the **payer** commits coverage … **The payer does not determine clinical indication**"*; C4.6 §4 — *"a payer may commit coverage/adjudication state but may **not author the care decision**"*.
+
+### §10.B.3 Non-equivalences that must never be collapsed
+
+payer-preferred **≠** clinically preferred · covered **≠** indicated · noncovered **≠** clinically inappropriate · formulary alternative **≠** therapeutic equivalence · same ingredient **≠** same therapy · permitted substitution **≠** clinical recommit · patient acceptance **≠** clinical equivalence · revised plan **≠** proof the original recommendation was wrong · payer denial **≠** care denial · pharmacy availability **≠** payer coverage.
+
+**Three of these are already contracted-adjacent doctrine, verified verbatim in C4.6:**
+- **L205:** *"**Same active ingredient does NOT imply clinical or operational equivalence.** Ingredient combination, strength/concentration, dose, dosage form, route, quantity, additives/excipients, BUD/storage … remain distinct. **A change requiring clinical reinterpretation routes back to Care (§4 `reopen_care`); an operationally-equivalent reroute does NOT automatically reopen the clinical decision.**"*
+- **L203:** medication/formulation definition · pharmacy capability declaration · currently-offered formulation · availability/capacity · commercial terms/price · quality-evidence package · patient-specific acceptance · **and, distinctly, payer formulary state — "`formulary` means ≥5 different things and must not be one object."**
+- **L172:** clinical medication intent **≠** the prescriber-authored signed prescription artifact **≠** the pharmacy's accepted executable instruction **≠** the dispense record; *"**none silently overwrites the original prescription**,"* and every material transformation records **what changed, who proposed it, who had authority to approve it, its authority basis, and effective time.**
+
+### §10.B.4 Authority matrix — fifteen states that must remain distinct
+
+| State | Authority |
+|---|---|
+| Original clinical recommendation | treating clinician / Care |
+| Original medication or intervention intent | Care / Clinical Memory |
+| Payer formulary or benefit-policy **version** | **payer** |
+| Patient-specific coverage determination | **payer** |
+| Payer-preferred or covered alternative | **a payer position — NOT a clinical recommendation** |
+| Pharmacy availability / offered formulation | pharmacy |
+| Pharmacist-permitted substitution | pharmacy, within law and the authorization envelope |
+| Clinical-equivalence assessment | clinician or pharmacist **within their actual scope** |
+| Patient affordability, preference, consent | patient |
+| Appeal / exception request | native financing-redress lifecycle |
+| Final revised clinical plan / prescription | **authorized clinical recommit** (treating clinician or properly delegated authority) |
+| Patient acceptance / refusal | patient |
+| Financing assessment | the derived mixed-financing operating profile (§4.4) — **owns no source truth** |
+| Fulfillment | pharmacy / OFC |
+| Money and responsibility | D6 + external principals |
+| Duty / remedy / communication | native owner **plus conditional** Accountability admission (§5.5) |
+
+### §10.B.5 Required resolution outcomes — ten, none flattenable
+
+1. Maintain original therapy **+ appeal**.
+2. Maintain original therapy **+ patient self-pay**.
+3. **Bridge therapy** while the appeal is pending.
+4. **Permitted clinically equivalent substitution** inside an existing substitution-authority envelope.
+5. **Clinically acceptable but less-preferred alternative chosen because of access or affordability** — recorded with an honest **`resource/access-driven`** rationale and **never mislabelled clinically optimal**.
+6. Payer-proposed alternative **rejected as clinically inappropriate**.
+7. Patient **declines** the covered alternative.
+8. Treatment **deferred** with an explicit risk and reassessment obligation.
+9. **Coverage later changes** and the original option becomes feasible.
+10. The substituted option **fails**, triggering **clinical re-resolution** rather than merely another payer transaction.
+
+**Outcome 5 is the load-bearing one.** It is exactly where **REV-184's rationale-class gap** (which already enumerates `resource/access-driven` and `disposition/system-constraint`), **F7's four-level reliance hierarchy**, and **§9 Law 3 feasibility legibility** meet. If that rationale class is absent, an access-driven compromise becomes indistinguishable from a clinical judgment — the single most consequential silent rewrite in this whole arc.
+
+**For any changed plan, all of the following must be preserved and separately attributable:** the original recommendation · the payer position and its policy version · the proposed alternative · the clinical assessment of equivalence/acceptability/inappropriateness · patient affordability and preference · **who changed the plan and under what authority** · the honest rationale class · any bridge or continuity plan during delay · what was appealed and by when · obligations, owners and deadlines · what ultimately happened. **A later coverage-compatible plan must never be rewritten into "this was always the clinically preferred choice."** That is F4 + REV-184 line 5 + C4.3 `O1`/`O2` applied at the therapy-selection seam.
+
+### §10.B.6 2030/2035 — machine speed changes scale, not authority
+
+Payer agents may state policy, issue coverage determinations, request evidence, propose funded alternatives and commit authorization or payment under defined conditions. They may **not** clinically recommit the provider, silently revise the prescription, declare therapeutic equivalence on the clinician's behalf, accept patient consent, or infer that the patient abandoned the original preference. A provider agent may prepare comparisons or draft a revised plan but commits only within its delegated clinical authority. A patient agent may express preference, affordability, consent or appeal instructions and **does not inherit prescribing authority**. **"Ten payer bots = one payer principal"** (Care L271) already governs the multiplicity, `GRD-039` governs claim-to-represent, and C4.6 §4 already refuses a universal `rx_negotiation` god-object — *"the 'episode' is a projection over distributed artifacts and commits, not an owning object."*
+
+**Consequence for the product:** the 2035 target is **not a high-speed negotiation chatbot**; it is a **typed, authority-preserving resolution environment.** And the patient-facing output is not *"your medication was changed"* or *"insurance denied it"* but a reconstructable statement of what was recommended, what is funded, whether clinical equivalence was independently assessed, what the patient chose, what is owed by when, and who owns the next action — **with the original recommendation and the reason for any change preserved.** That is §8.3's governed continuity function in concrete form, and **no single principal — EHR, payer portal, pharmacy system, lender or clearinghouse — can legitimately own it end to end, because each is only one party to the interaction.**
+
+### §10.B.7 Disposition
+
+**No new law, domain, owner or negotiation object.** The constitutional physics exist (Care authority planes; D6 §8.1; `payment_care_firewall`); most of the mechanics exist (C4.6 §4 typed multi-principal resolution, §5 prescription lineage, L203 formulary decomposition, L205 equivalence rule, `reopen_care`); and a **runnable conformance test already exists** — **C4.6 §12 `C12` prescription-lineage integrity**, whose FAIL conditions include *"normalization and clinical change are indistinguishable"* and *"a permitted substitution lacks its authority basis."* **What was missing is that none of it was preserved as a required Insurance fixture, and none of it has been tested against the first-class mixed-financing operating profile.** This fixture closes the first gap; Gate 2 closes the second (§13.3).
+
+**One unresolved question the fixture exposes, and it is new.** Outcome 5 requires that an access-driven compromise be recorded as such — but **who owns the clinical-equivalence assessment record** when a payer asserts equivalence, a pharmacist may substitute within scope, and a clinician must recommit? Clinical Memory owns the assertion; REV-184/CNS owns the resolution; C4.6 routes clinical reinterpretation to Care. **The *equivalence assertion itself*, as a distinct attributed claim with a named asserter and scope, has no located home in the inspected radius.** Recorded at §12 as **A-Q14**; it is generic clinical-authority physics, not financing.
 
 ---
 
@@ -702,7 +809,9 @@ F2 anti-substitution · F5 source-preserving composition · F7 material care-imp
 
 **Task-D MAY rely on:** no payer- or insurance-named domain · **no universal shared financing truth substrate, owner, lifecycle or interface established** · the §3.8 per-law dispositions · **GCE inherited and ratified**, bidirectional, insurance an enumerated subfamily · C4.6 §11's composed-profile precedent and the unified Vendor Loop rejection (**accepted `analysis_nonbinding` build doctrine, not a ratified financing contract**) · **the correction-law argument against one universal position lifecycle** · **regime-specific native specialization is required, not optional** (at minimum `financing_arrangement`) · the §7 three-surface implementation reconciliation · the §8.2 residual matrix and §8.4 regime matrix · **the §9 three-law firewall separation and the row-P elevation finding** · the `REV-160`/`DEC-027` currency finding.
 
-**Task-D MUST NOT rely on:** F1–F7 as settled spine laws · **F5 and F7 as binding** · **H-N2 as closed** · **F3 as a proven lifecycle, or as operator-only** · **F5 as implemented by generic projection doctrine** · **F7 as realized** · **agreement/party-position as solved** (one candidate owner-native disposition ≠ a contracted lifecycle) · **Accountability/GRR as ratified, as named, or as owning any financing truth** · **coverage identity ownership or scoping as decided** · claim/adjudication/patient-responsibility/coding/guarantor/sponsor-boundary mechanics as solved · **any R0/R1 claim retracted at §0.5** · any deployment inference · any external market or legal fact in §10 as promotion-grade · **the §8.3 continuity function as a proven moat.**
+**Task-D MAY additionally rely on (R3):** the **authority separation in the payer-constrained-therapy interaction** — a payer commits coverage and may fund an alternative; it does not determine clinical indication or author therapeutic equivalence; a pharmacy may propose or substitute within its actual envelope but may not silently rewrite clinical meaning; a clinically meaningful change requires an **authorized clinical recommit** and routes to Care (`reopen_care`); an operationally-equivalent reroute does not automatically reopen the care decision.
+
+**Task-D MUST NOT rely on:** F1–F7 as settled spine laws · **F5 and F7 as binding** · **H-N2 as closed** · **F3 as a proven lifecycle, or as operator-only** · **F5 as implemented by generic projection doctrine** · **F7 as realized** · **agreement/party-position as solved** (one candidate owner-native disposition ≠ a contracted lifecycle) · **Accountability/GRR as ratified, as named, or as owning any financing truth** · **coverage identity ownership or scoping as decided** · claim/adjudication/patient-responsibility/coding/guarantor/sponsor-boundary mechanics as solved · **any R0/R1/R2 claim retracted at §0.5** · any deployment inference · any external market or legal fact in §10 as promotion-grade · **the §8.3 continuity function as a proven moat** · **any payer-proposed alternative as clinically equivalent, and any access-driven revision as clinically optimal** (§10.B) · **the existence of a home for the clinical-equivalence assertion (A-Q14).**
 
 **Task-D MUST remain free to falsify:** the correction-law argument · that F3 decomposes cleanly by actor · that the generic seam suffices · that the GCE precedent transfers from pharmacy to financing · that six of seven inheritances survive contracting and building · **that the operating-composition axis is real and buildable** · and that "care-financing physics" is a useful architectural layer at all.
 
@@ -710,7 +819,7 @@ F2 anti-substitution · F5 source-preserving composition · F7 material care-imp
 
 ## §12 — OPEN QUESTIONS / EVIDENCE DEPENDENCIES
 
-**A — Repository architecture.** **A-Q1a** accepted-custody/responsibility carrier (Federation + RBAC). **A-Q1b** substantive-commitment profile/lifecycle — authorization · guarantee · sponsorship · loan approval · network/rate undertaking · contractual obligation. **A-Q2** operative-position primitive (REV-184/CNS or C4.3). **A-Q3 CLOSED** (C3.7 → D6 candidate disposition). **A-Q4** `REV-160` reconciliation — carry `DEC-027`; principal-agnostic obligor. **A-Q5 (rewritten)** the stable identity of the coverage relationship, and how the **four scopes** (source relationship · tenant custody · operator applicability · portable person projection) compose without global replication or tenant captivity. **A-Q6** symmetric `payment state ≠ care state` on the Care side. **A-Q7** unsolicited inbound external commitment within GCE. **A-Q8** **§9 Law 2 structural-enforcement mechanism + audit spec** (`REV-185`; owner CNS/Network-Governance) **and the row-P economics-axis elevation** — three dependent arcs. **A-Q9** H-N3/G7 communicative act. **A-Q10** `consequence_assessment_event` dedup (Accountability §6a ↔ C4.3). **A-Q11** Accountability/GRR naming inconsistency (catalog / FWREG-009 / WI14 / Card 2) — **not an Insurance question**. **A-Q12 (new)** the **F5 assessment-lifecycle owner** — who owns computation, rule version, source selection, validity, invalidation, recomputation, audience policy, retention, issuance and proof of a mixed-financing assessment. **A-Q13 (new)** whether a **common derived incidence assessment** is needed across F3's seven actor slices.
+**A — Repository architecture.** **A-Q1a** accepted-custody/responsibility carrier (Federation + RBAC). **A-Q1b** substantive-commitment profile/lifecycle — authorization · guarantee · sponsorship · loan approval · network/rate undertaking · contractual obligation. **A-Q2** operative-position primitive (REV-184/CNS or C4.3). **A-Q3 CLOSED** (C3.7 → D6 candidate disposition). **A-Q4** `REV-160` reconciliation — carry `DEC-027`; principal-agnostic obligor. **A-Q5 (rewritten)** the stable identity of the coverage relationship, and how the **four scopes** (source relationship · tenant custody · operator applicability · portable person projection) compose without global replication or tenant captivity. **A-Q6** symmetric `payment state ≠ care state` on the Care side. **A-Q7** unsolicited inbound external commitment within GCE. **A-Q8** **§9 Law 2 structural-enforcement mechanism + audit spec** (`REV-185`; owner CNS/Network-Governance) **and the row-P economics-axis elevation** — three dependent arcs. **A-Q9** H-N3/G7 communicative act. **A-Q10** `consequence_assessment_event` dedup (Accountability §6a ↔ C4.3). **A-Q11** Accountability/GRR naming inconsistency (catalog / FWREG-009 / WI14 / Card 2) — **not an Insurance question**. **A-Q12 (new)** the **F5 assessment-lifecycle owner** — who owns computation, rule version, source selection, validity, invalidation, recomputation, audience policy, retention, issuance and proof of a mixed-financing assessment. **A-Q13 (new)** whether a **common derived incidence assessment** is needed across F3's seven actor slices. **A-Q14 (new, R3)** **who owns the clinical-equivalence assertion** when a payer asserts equivalence, a pharmacist may substitute within scope, and a clinician must recommit — Clinical Memory owns assertions, REV-184/CNS owns resolution, C4.6 routes clinical reinterpretation to Care, but *"asserter X claims B is therapeutically equivalent to A for this patient, at this scope, on this basis"* **has no located home in the inspected radius.** Generic clinical-authority physics, not financing (§10.B.7).
 
 **B — External, `EXTERNAL_EVIDENCE_REQUIRED`** (recorded, not answered, not filled from model memory). **B-Q1** whether a lender-originated obligation legally substitutes the obligated party such that refunds must route to the lender — *architectural conclusion left unresolved: refund destination as a `financing_arrangement` field vs a policy*. **B-Q2** whether a manufacturer program that funds a rebate **and** distributes a lender's credit offer creates one regulated relationship or several — *bears on §10.2*. **B-Q3** whether an operator/federation extending credit triggers lending, TPA or utilization-review licensure — *§10.5 feasibility unresolved*. **B-Q4** frequency and materiality of contemporaneous incidence (hard fork 2) — needed by OPECON. **B-Q5** whether care actors need a stable cross-regime assertion or only source-specific information (hard fork 3). Gate-0's `evidence_pending_ingestion` debt remains undischarged and is **not** a Gate-1b prerequisite.
 
@@ -759,10 +868,11 @@ One catalog row · one Tier-2 read-graph route · **zero decision-ledger rows** 
 4. **Commitment taxonomy** — A-Q1a custody separated from A-Q1b authorization/guarantee/sponsorship/loan-approval/contractual obligation.
 5. **Residual owner map** — §8.2 driven to owner-or-named-gap.
 6. **The §9 elevation** — three-law separation, naming reconciliation across seven labels, structural-enforcement question routed to its own owner.
-7. **A small discriminating trace suite** — pure self-pay / no financing · high-deductible commercial with denial, appeal and recoupment · Medicare + supplemental · self-funded employer + TPA + stop-loss · mixed cash + coverage + consumer credit · professional/facility/lab/pharmacy split · provider or federation under capitation or credit risk · manufacturer-originated financing · agent-mediated negotiation · simplified single-funder.
+7. **A small discriminating trace suite** — pure self-pay / no financing · high-deductible commercial with denial, appeal and recoupment · Medicare + supplemental · self-funded employer + TPA + stop-loss · mixed cash + coverage + consumer credit · professional/facility/lab/pharmacy split · provider or federation under capitation or credit risk · **`NICK-FIXTURE-VENDOR-FINANCING-01` (§10.A)** · **`NICK-FIXTURE-PAYER-CONSTRAINED-THERAPY-01` (§10.B) — REQUIRED, and the discriminating trace for all three §9 firewall laws at once** · agent-mediated negotiation · simplified single-funder.
 8. **Task-D Input-State Receipt** — reliance, falsifiables, exact maturity.
 9. **Build/buy/wrap boundary** — OMNI owns the profile, authority, composition, proof, correction and redress; external rails perform OCR, EDI/FHIR transport, clearinghouse, lending, payment and payer-system execution.
 10. **Kill conditions** — the generic seam cannot carry required fields · no actor will pay for the continuity (Gate-0 U11) · incumbent configuration achieves equivalent cross-counterparty coherence · exception rate or human labour destroys the economics · **or the profile becomes a hidden source of truth** (raw 3's named risk).
+11. **Operating-profile anti-shadow acceptance criteria (R3 addition — the condition that keeps Axis 2 from becoming the god-domain Axis 1 rejected).** Gate 2 must **positively demonstrate** that the profile: **owns no source position** · has **no universal commit authority** · **cannot write back** into payer, Care, pharmacy or D6 truth · **versions and invalidates** every derived assessment · **preserves each source position independently** · uses **CNS orchestration rather than minting a universal Insurance-case god-object** · uses **Accountability only after the duty threshold** (§5.5) · **cannot silently become a clinical gate** · **cannot rank options using an interested principal's economics as clinical merit** (§9 Law 2) · **cannot turn longitudinal visibility into authority**. **If the profile cannot satisfy all ten, Axis 2 is wrong and the correct answer reverts to seams and noncanonical projections only.**
 
 **After (B), not before, Insurance produces its final Task-D sufficiency receipt.**
 
@@ -777,7 +887,8 @@ One catalog row · one Tier-2 read-graph route · **zero decision-ledger rows** 
 | **Branch** | `cursor/ins-g1b-ownership-reconciliation`, from `d592e402b779aaedc1f137189bf51cd2b5ca678d` |
 | **R0 head** | `8c9d8189798a8ba3ee66e9ee11b8efb4a949a922` · 692 lines |
 | **R1 head (Knox-reviewed)** | `59cc4773112cb3b17c4e7e02228b57477117cf62` · blob `22468eb58a327832712e1571bcd77f0bc6303949` · 763 lines |
-| **This commit** | one **material R2 architecture** commit |
+| **R2 head (Knox-reviewed, `PASS WITH ONE REQUIRED R3 BOUNDARY ADDENDUM`)** | `1295e5f33a4468c004f693d632fd1ac7f8e67c50` · blob `8a2f5175ef2f1a98fe97ecc548054a3f9a1a92e8` · 827 lines |
+| **This commit** | one **bounded R3 boundary-addendum** commit. **The two-axis verdict is UNCHANGED. No new law, domain, owner or negotiation object is minted.** |
 | **Files added / modified / deleted** | 0 / **1** / 0 — only the Gate-1b carrier |
 | **Shared control-plane surfaces** | **0 touched** |
 | **Contracts / schemas / migrations / code** | **0 touched** |
@@ -786,11 +897,12 @@ One catalog row · one Tier-2 read-graph route · **zero decision-ledger rows** 
 | **OPECON lane** | not started |
 | **Working-tree note** | ~22 pre-existing uncommitted modifications from an unrelated lane throughout; **not created, resolved, staged or committed by this lane.** Doctrine reads via `git show d592e40:<path>` |
 | **Source depths** | §0.3, strict labels |
-| **Correction receipt** | §0.5 — 25 items (C1–C15 R1, C16–C25 R2), each with its adjudicating primary source |
+| **Correction receipt** | §0.5 — 28 items (C1–C15 R1, C16–C25 R2, **C26–C28 R3**), each with its adjudicating primary source |
+| **Durability map** | **§15 (R3)** — per-finding carrier, failure mode, and current durability; three durability rules; the `DEC-027` evaporation precedent |
 | **Helper dependence** | **NONE.** Four reconnaissance reports commissioned; **not returned at R0, R1 or R2.** Every correction adjudicated against a primary source read directly |
 | **Deployment claims** | **NONE** |
 | **External-evidence claims** | **NONE promotion-grade**; five `EXTERNAL_EVIDENCE_REQUIRED` at §12-B |
-| **Unresolved** | A-Q1a/1b, A-Q2, A-Q4–A-Q13 · B-Q1–B-Q5 · C · D |
+| **Unresolved** | A-Q1a/1b, A-Q2, A-Q4–**A-Q14** · B-Q1–B-Q5 · C · D |
 | **Exact review refs** | `d592e40` · `2aabed7` · `671d120` |
 
 ### PRIMARY GATE-1B VERDICT — TWO AXES
@@ -822,6 +934,33 @@ One catalog row · one Tier-2 read-graph route · **zero decision-ledger rows** 
 | **E7** | **Three committed coverage surfaces** | **Containment hazard, not architecture.** `INS-HAZ-COVSURF` unlanded; clauses 5 and 6 proposed |
 | **E8** | **Coverage scoping** | **Four layers, not a binary.** The foreclosure is collapse. A-Q5 rewritten |
 | **E9** | **F5 and F7 epistemic class** | Remain **explicitly normative constitutional commitments.** No basis here to reclassify |
-| **E10** | **The economic-firewall axis (§9)** | **Three laws, seven labels, one prescribed `elevation` not executed.** Insurance is the **third dependent arc**. Routed as a sharpening of `REV-185` + the row-P elevation — **not a new law** |
+| **E10** | **The economic-firewall axis (§9)** | **Three laws, seven labels, one prescribed `elevation` not executed.** Insurance is the **third dependent arc**. Routed as a sharpening of `REV-185` + the row-P elevation — **not a new law**. **R3: Law 1 scope refined; Law 2 broadened to any interested principal** |
+| **E11** | **Payer-constrained therapy selection (§10.B)** | **Constitutional physics and most mechanics EXIST; the interaction was never preserved as an Insurance fixture and has never been tested against the operating profile.** Added as `NICK-FIXTURE-PAYER-CONSTRAINED-THERAPY-01`, a **REQUIRED** Gate-2 trace and the decisive joint test of all three §9 laws. **One new unresolved item: A-Q14, the clinical-equivalence assertion has no located home** |
+
+---
+
+## §15 — ANTI-EVAPORATION / DURABILITY MAP
+
+**Why this section exists.** This carrier is `analysis_nonbinding`, one file, and **every routing proposal in §13.2 is PROPOSED, not landed.** If nothing lands, the findings evaporate and a future agent re-litigates the entire arc from scratch — the `GRD-043` unrouted-finding failure and the anti-graveyard concern the estate keeps flagging. **Prose is not durability. This section names, per finding, the artifact that must carry it, and the concrete failure mode if it does not.**
+
+| Finding | Must land in | If it does not land, the failure is | Durability today |
+|---|---|---|---|
+| **Two-axis verdict** (Axis 1 truth ownership · Axis 2 operating composition) | the **v4 spine** section that states financing ownership, via the Gate-2 receipt | a future reader takes `NO_SHARED_FINANCING_TRUTH_SUBSTRATE` as "insurance is solved" and builds nothing — **the exact misreading Knox flagged twice** | **this carrier only** |
+| **The §8.2 residual ownership matrix** (21 rows) | open-review rows per residual, or the Gate-2 residual owner map | each unowned residual gets rediscovered separately, in a different arc, with different vocabulary | **this carrier only** |
+| **`financing_arrangement` shape** | **`REV-160`**, carrying `D0THES-DEC-027`'s field list, principal-agnostic | already happened once: `DEC-027` decided the shape in May, the D6 contract never carried it, and `REV-160` still calls it "tentative." **A second evaporation of the same finding** | `DEC-027` (decision row) — **stranded** |
+| **Three-law firewall separation** (§9.1) | **`REV-185`** as a sharpening, plus the late-builder **row P** elevation | seven labels become eight; the next arc re-derives the distinction and picks a new name | `REV-185` open · row P `elevation` prescribed · **neither executed** |
+| **Economics/value/incentive axis elevation** | **spine §3b + §C cross-cutting thread**, per row P's own prescription | the axis stays scattered across C3.7 + C3.8 G4 + D6 + BIZOPS + WI8 + REV-193 + REV-201 + REV-185 while, in row P's words, *"adversaries attack it"* | row P — **prescribed, not executed** |
+| **Payer-constrained-therapy fixture** (§10.B) | Gate-2 trace suite **and** the **existing** C4.6 §12 conformance test **`C12`** (prescription-lineage integrity) | the interaction is re-argued from first principles every time someone touches formulary, step therapy or substitution | **`C12` already exists as a runnable pass/FAIL gate — attach, do not rebuild** |
+| **F3 actor decomposition** (7 slices) | the **OPECON-G0** charter, for the operator slice only, with the other six named as out-of-scope-for-that-lane | OPECON absorbs all seven and becomes the silo this gate exists to prevent | **this carrier only** |
+| **A-Q14 clinical-equivalence assertion** | Clinical Memory / REV-184 / the **Care Response-Seam Audit** already named as the required next artifact (Accountability §20) | a payer's equivalence claim is stored as if it were a clinical assertion — the single most dangerous silent rewrite in §10.B | **nowhere** |
+| **Three implementation hazards** (§7) | **`INS-HAZ-COVSURF`** clauses 1–6 + the four integrator landings that make the trip condition active | the surfaces keep accumulating; the person-vs-tenant-vs-applicability-vs-portable scoping gets decided by a migration author | **proposed, unenforced** |
+| **Accountability admission threshold** (§5.5) | the **`GRR-TASKD-INPUT` Input-State Receipt** (Card 2, `not_started`) | every arc re-decides whether denials "go in Accountability," and one of them will say yes | capture §3/§5 — **REVIEW-DRAFT, name not locked** |
+| **The seven-label / naming inconsistency findings** | **`05_supersession_conflict_ledger.md`** conflict rows (three proposed at §13.2) | the contradictions stay invisible and each new reader resolves them differently | **proposed** |
+
+**Three durability rules this gate proposes for itself, none of which require new machinery:**
+
+1. **Attach to existing gates, do not mint new ones.** The payer-therapy fixture attaches to **`C12`**, which already exists and already runs. The equivalence-assertion question attaches to the **Care Response-Seam Audit**, which is already the named next artifact. Neither needs a new instrument.
+2. **A finding that exists only in this carrier is not preserved.** §13.2's routing bundle is the whole preservation mechanism, and it is **integrator-owned**. This carrier cannot land it and does not pretend to. **If the integrator transaction never happens, the honest state is that Gate 1b produced analysis and preserved nothing** — which should be said plainly rather than discovered later.
+3. **The `DEC-027` precedent is the warning.** A Nick+Knox-modified decision about financing shape was recorded in May, never carried into the contract it governed, and the open-review row that owns the question still does not know about it. **That is what evaporation looks like in this estate, it has already happened once to this exact subject, and it is why §13.2's `REV-160` update is the highest-value single row in the bundle.**
 
 **STOP: `review_ready_pending_nick_knox_gate1b`**
