@@ -2,7 +2,7 @@
 
 Document type: `analysis` / `architecture_pressure_test` (method + protocol carrier for one blind independent side-agent experiment)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. Hosts no schema and no domain.
-Status: `protocol_accepted_nick_knox_2026-08-06` · `experiment_executed` · `abort_gate_PROCEED_TO_PHASE_B` · **`phase_a_prompt_operator_verbatim_CONFIRMED`** · **`phase_b_prompt_UNVERIFIED_paste_owed`** · `raw_preservation_pending` · `not_promoted`
+Status: `protocol_accepted_nick_knox_2026-08-06` · `experiment_executed` · `abort_gate_PROCEED_TO_PHASE_B` · **`phase_a_prompt_operator_verbatim_CONFIRMED`** · **`phase_b_prompt_operator_verbatim_CONFIRMED`** · `raw_preservation_pending` · `not_promoted`
 Domain(s): `architecture_governance`, `care_operating_model`, `d6_commerce`, `cross_cutting`
 Lifecycle role: the **method of record** for Gate 1a — the exact prompts issued, the blindness contract, the abort gate and its result, the verbatim-preservation law, the reviewer rubric, and the Gate-1b handoff boundary. It is the reproducibility surface: a future agent should be able to re-run or audit this experiment from this file alone.
 Source-of-truth relationship: authoritative as to **what was asked and under what conditions.** It is **not** the answer — the answers are the two verbatim source objects; the interpretation is the adjudication carrier.
@@ -394,167 +394,453 @@ No web research.
 
 ## §3 — EXACT PHASE-B PROMPT AS ISSUED
 
-> **⚠ UNVERIFIED — TREAT AS A DRAFT RECORD, NOT AS THE PROMPT ISSUED. OPERATOR PASTE OWED.**
+> **★ CORRECTED 2026-08-07 — OPERATOR VERBATIM SUPPLIED. The earlier UNVERIFIED warning was justified: my record was again a different, weaker variant.**
+> The block below is the **exact Phase-B prompt the operator issued**, supplied verbatim by Nick and spliced in unmodified.
 >
-> The block below is the last Phase-B variant **I** authored in-thread. It has **not** been confirmed against what was actually issued — and the §2 comparison gives strong reason to expect it is **also** a different, probably weaker variant: the real Phase-A prompt diverged from my record on 11 of 11 sampled clauses, so the real Phase-B prompt very likely diverges too.
+> **What was wrong.** Same failure as §2, same magnitude: **12 of 12 sampled material clauses of the real prompt were absent from my record.** The prompt actually run was again stronger. It added, among others: *"which combine several regimes improperly"* to the Part-1 regime critique; *"State the likely altitude separately"* to Test A (keeping the deletion result and the altitude judgement as two answers rather than one); **visibility rights and decision rights** to Test C's non-fungibility check; *obligations* to Test D; *disputed* to Test F's financing-state list; *changes operators* to Test G; *radically reduced* to Test H; a three-question structured derivation audit in Test I; *"where a supposedly strong element failed"* in the change ledger — a genuinely sharper self-audit than "where you predicted correctly"; *"do not retain a decomposition merely to satisfy the count"*; *"or continue into repository reconciliation"* in the prohibitions; and an explicit statement of **why** the three adversarial inputs were ordered as they were (*so the independent regime comparison occurs before the most anchoring constitutional statement*).
 >
-> **Consequently this section must not be read as the method of record for Phase B.** Until Nick supplies the exact Phase-B bytes, the protocol artifact is **partially unverified**, and any audit or re-run must treat Phase B's specification as unknown rather than as stated here.
+> **Why this mattered.** The Test-A altitude split, the *supposedly-strong-element-failed* clause and the *don't-keep-a-decomposition-for-the-count* clause all shape how the Phase-B output must be read — they are the mechanisms that make the change ledger and the surviving decompositions trustworthy rather than performative. A method of record carrying my weaker variant would have understated the rigour the result was actually produced under.
 >
-> **Owed:** operator pastes the exact Phase-B prompt; Opus splices it verbatim and replaces this warning, exactly as was done for §2. **Opus will not reconstruct it** — including from the shape of §2 or from the structure of the Phase-B output, both of which would be inference dressed as evidence.
+> **Both prompts are now operator-confirmed. The protocol is verified as a method of record.** The two raw responses remain outstanding.
+>
+> Opus copied and spliced; Opus did not reconstruct.
 
 ```
-THREAD LOCK: INS-G1A-PHYSICS-SIDE-B | seat=INDEPENDENT_SIDE_ARCHITECT
+THREAD LOCK: INS-G1A-PHYSICS-SIDE-B
+seat=INDEPENDENT_SIDE_ARCHITECT
 visible="Gate 1a · Regime-Independent Care-Financing Physics · Phase B"
 
-Your Phase-A response is now FROZEN EVIDENCE. Do not silently rewrite or
-replace it. Every change must be explicitly recorded as retained, narrowed,
-split, demoted, rejected, superseded or newly added.
+Your Phase-A response is now FROZEN EVIDENCE.
 
-You will now receive a regime set, a test set, and a constitutional claim
+Do not silently rewrite, replace, normalize, or improve it.
+
+Every change must be recorded explicitly as one of:
+
+- retained;
+- narrowed;
+- split;
+- demoted;
+- rejected;
+- superseded;
+- or newly added.
+
+You will now receive:
+
+1. a regime set;
+2. a test set;
+3. and a constitutional claim
+
 written by another architecture team that already holds an incumbent answer.
-Treat all three as ADVERSARIAL INPUTS, not as truth. They are presented in this
-order deliberately.
 
-=== PART 1 — SUPPLIED REGIME FALSIFIERS (compare against your Task-1 set) ===
+Treat all three as adversarial inputs, not as truth.
 
- 1. Pure self-pay care with no third-party funder.
- 2. Conventional third-party fee-for-service coverage.
- 3. A public single-funder or radically simplified national system.
- 4. Sponsor, administrator, risk-bearer, policy authority, adjudicator and
-    payment rail are all different parties.
- 5. A lender finances the patient and must receive refunds or reversals.
- 6. A membership creates access or entitlement but bears no insurance risk.
- 7. The care provider or operating organization itself bears capitated,
-    bundled, shared or global financial risk.
- 8. Several concurrent funding sources inside one episode of care.
- 9. Emergency or legally required care proceeds without financial clearance.
-10. A person moves across plans, employers, providers, operators and cities.
-11. Eligibility, allocation, settlement or responsibility changes
-    retroactively, months or years later.
-12. Automated agents act for patient, provider, sponsor, funder, government,
-    administrator, lender or risk-bearing organization.
-13. Total allocation or final cost is not knowable at time of service.
-14. A future mechanism uses programmable escrow, verifiable credentials or
-    decentralized pools — and the architecture must also survive those
-    technologies disappearing.
+They are presented in this order deliberately so the independent regime
+comparison occurs before the most anchoring constitutional statement.
 
-REPORT FIRST, before applying them: which of your Phase-A regimes this list
-omits · which supplied regimes are redundant · which are wrongly framed · which
-smuggle an architectural answer · and where the list reveals assumptions from
-one particular present-day healthcare system.
+Do not browse or search the web.
+Do not inspect any repository, connected source, prior analysis, or outside
+material.
+Do not ask clarifying questions. State assumptions explicitly.
 
-=== PART 2 — MANDATORY TESTS ===
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-A. THIRD-PARTY-FUNDER DELETION. Remove every insurer, government program,
-   employer sponsor and external funder. Does each semantic still mean
-   anything? Failure means only "not universal core" — it does NOT determine
-   whether the right home is a native lifecycle, specialized profile, policy,
-   configuration, seam, projection or adapter. Say which and why.
+PART 1 — SUPPLIED REGIME FALSIFIERS
 
-B. ROLE INVERSION. Make the care operator itself the risk-bearing and
-   adjudicating party. Does the model survive without assuming "we bill, they
-   pay"? A directional field such as "what the funder paid us" may survive in a
-   projection or ledger but fails as universal core.
+Compare this set against the regimes you independently generated in Phase A:
 
-C. ROLE UNBUNDLING. Separate sponsor · administrator · risk-bearer ·
-   policy/rules authority · adjudicator · guarantor · remitter · settlement
-   rail · care provider · patient. Are their authority, liability and
-   correction rights preserved as non-fungible?
+1. Pure self-pay care with no third-party funder.
 
-D. MIXED FINANCING. Can several parties bear different portions, conditions,
-   risks and time horizons within one episode without collapsing into one
-   funder field or one state machine?
+2. Conventional third-party fee-for-service coverage.
 
-E. TEMPORAL AND REVERSAL. Can the model reconstruct what each party asserted,
-   promised, believed, communicated, owed, paid or disputed at an earlier time,
-   without rewriting history when later information arrives?
+3. A public single-funder or radically simplified national system.
 
-F. CARE CONTINUITY — both forms:
-   (1) financing fails, times out, changes or disappears while care continues;
-   (2) financing was NEVER established and care must proceed anyway.
-   Can care occur while all financing state is unknown, deferred or absent?
+4. Sponsor, administrator, risk-bearer, policy authority, adjudicator, and
+   payment rail are different parties.
 
-G. PORTABILITY AND EXIT. Does coherence survive when the person changes
-   counterparties or leaves the substrate entirely? Any advantage requiring
-   captivity fails.
+5. A lender finances the patient and must receive refunds or reversals.
 
-H. SIMPLIFICATION. Does the architecture remain useful if present
-   administrative complexity is largely eliminated, standardized or
-   consolidated?
+6. A membership creates access or entitlement but bears no insurance risk.
 
-I. INHERITANCE. For every proposed financing law: could it be derived entirely
-   from the substrate principles given in Phase A? If yes, demote it unless
-   financing introduces a nontrivial specialization.
+7. The care provider or operating organization itself bears capitated,
+   bundled, shared, or global financial risk.
 
-J. NORMATIVITY. Is the law structurally unavoidable, constitutionally chosen,
-   operationally convenient, empirically contingent, or merely current policy?
-   Do not call all five "physics."
+8. Several concurrent funding sources exist within one episode of care.
 
-You may declare these tests incomplete and add your own.
+9. Emergency or legally required care proceeds without financial clearance.
 
-=== PART 3 — ADVERSARIAL CONSTITUTIONAL CLAIM (deliberately last) ===
+10. A person moves across plans, employers, providers, operators, and cities.
 
-Attack this statement. Do not reward it for sounding ethically attractive:
+11. Eligibility, allocation, settlement, or responsibility changes
+    retrospectively months or years later.
 
-  "Financing must not silently rewrite clinical truth, clinical indication,
-   professional recommendation, patient consent, or the historical rationale.
-   Financing may explicitly constrain feasible options, timing, location or
-   execution, but the constraint, its authority, the alternatives excluded, and
-   its consequences must remain separately legible."
+12. Automated agents act for the patient, provider, sponsor, funder,
+    government, administrator, lender, or risk-bearing organization.
 
-State whether you retain, narrow, split, replace or reject it — and why.
+13. Total allocation or final cost is not knowable at the time of service.
 
-=== REQUIRED PHASE-B OUTPUT ===
+14. A future mechanism uses programmable escrow, verifiable credentials, or
+    decentralized pools—and the same architecture must survive when those
+    technologies disappear.
 
- 1. PHASE-A CHANGE LEDGER. Every Phase-A law, distinction and decomposition
-    marked retained / narrowed / split / demoted / rejected / superseded, with
-    the exact reason. Explicitly reconcile against your Task-7 pre-registered
-    fragility: where you predicted correctly, and where the weakness appeared
-    somewhere you did not expect.
- 2. FINAL CANDIDATE PHYSICS, same fields as Phase A including derivation
-    attempt, epistemic class, inheritance class, altitude, counterexample,
-    falsifier and atomicity check.
- 3. REGIME × LAW MATRIX — compact. Holds / bends / fails / regime-specific /
-    unresolved. Not a giant feature table.
- 4. FINAL MINIMUM DISTINCTIONS — which survived pressure, which dissolved.
- 5. FINAL COMPETING DECOMPOSITIONS — keep three only if three remain genuinely
-    live. One must still test the no-shared-substrate hypothesis.
- 6. NON-CORE MECHANICS — operationally important, must not define core
-    architecture.
- 7. WHAT THE FRAMING PRE-DECIDED — by the minimum context, the regime list, the
-    test set and the constitutional claim. Which assumptions you reject.
- 8. HARD FORKS AND EVIDENCE NEEDS — what cannot be settled from first
-    principles, and the exact evidence required.
- 9. GATE-1B HANDOFF — state ONLY the ownership and existing-estate questions a
-    later repository-grounded gate must answer. Do NOT answer them.
-10. STRONGEST FINAL SELF-ATTACK — that the model is still over-abstract,
-    over-unified, or renamed insurance machinery. State the observable result
-    that would invalidate your conclusion.
+Before applying these regimes, report:
 
-=== FINAL VERDICT (choose exactly one; positive is not required) ===
+- which Phase-A regimes this list omits;
+- which supplied regimes are redundant;
+- which combine several regimes improperly;
+- which are wrongly framed;
+- which smuggle an architectural answer;
+- and where the list exposes assumptions from a particular present-day
+  healthcare system.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 2 — MANDATORY TESTS
+
+A. THIRD-PARTY-FUNDER DELETION
+
+Remove every insurer, government program, employer sponsor, and external
+funder.
+
+Does each proposed semantic still have meaning?
+
+Failure means only:
+
+"Not universal core."
+
+It does not determine whether the correct home is:
+
+- a native lifecycle;
+- specialized financing profile;
+- policy/configuration;
+- seam;
+- projection;
+- or adapter.
+
+State the likely altitude separately.
+
+B. ROLE INVERSION
+
+Make the care operator itself the risk-bearing and adjudicating party.
+
+Does the model survive without assuming:
+
+"We bill; they pay"?
+
+A directional field such as "what the funder paid us" may remain valid in a
+projection or ledger but fails as universal core.
+
+C. ROLE UNBUNDLING
+
+Separate:
+
+- sponsor;
+- administrator;
+- risk-bearer;
+- policy/rules authority;
+- adjudicator;
+- guarantor;
+- remitter;
+- settlement rail;
+- care provider;
+- and patient.
+
+Does the model preserve their non-fungible:
+
+- authority;
+- liability;
+- correction rights;
+- visibility rights;
+- and decision rights?
+
+D. MIXED FINANCING
+
+Can several parties bear different:
+
+- portions;
+- conditions;
+- risks;
+- obligations;
+- and time horizons
+
+within one episode without collapsing into one funder field or one state
+machine?
+
+E. TEMPORAL AND REVERSAL
+
+Can the model reconstruct what each party:
+
+- asserted;
+- promised;
+- believed;
+- communicated;
+- owed;
+- paid;
+- or disputed
+
+at an earlier time without rewriting history when later information arrives?
+
+F. CARE CONTINUITY
+
+Test both forms:
+
+1. Financing fails, times out, changes, or disappears while care continues.
+2. Financing was never established and care must proceed anyway.
+
+Can care occur while all financing state is:
+
+- unknown;
+- deferred;
+- disputed;
+- or absent?
+
+G. PORTABILITY AND EXIT
+
+Does coherence survive when the person:
+
+- changes counterparties;
+- changes operators;
+- or leaves the substrate entirely?
+
+Any claimed advantage that requires captivity fails.
+
+H. SIMPLIFICATION
+
+Does the architecture remain useful if current administrative complexity is:
+
+- eliminated;
+- standardized;
+- consolidated;
+- or radically reduced?
+
+I. INHERITANCE
+
+For every proposed financing law, perform a concise derivation audit:
+
+- Which Phase-A substrate principles could imply it?
+- Does it dissolve into inherited law?
+- What financing-specific remainder survives?
+
+If it dissolves completely, demote it from financing physics.
+
+J. NORMATIVITY
+
+Classify every law as:
+
+- structurally unavoidable;
+- constitutionally chosen;
+- operationally convenient;
+- empirically contingent;
+- or current policy.
+
+Do not call all five "physics."
+
+You may declare these tests incomplete and add others.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PART 3 — ADVERSARIAL CONSTITUTIONAL CLAIM
+
+Attack this statement.
+
+Do not reward it merely because it sounds ethically attractive:
+
+"Financing must not silently rewrite clinical truth, clinical indication,
+professional recommendation, patient consent, or the historical rationale.
+
+Financing may explicitly constrain feasible options, timing, location, or
+execution, but the constraint, its authority, the alternatives excluded, and
+its consequences must remain separately legible."
+
+State whether you:
+
+- retain it;
+- narrow it;
+- split it;
+- replace it;
+- or reject it.
+
+Explain why.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+REQUIRED PHASE-B OUTPUT
+
+1. PHASE-A CHANGE LEDGER
+
+For every Phase-A:
+
+- law;
+- distinction;
+- regime;
+- and decomposition
+
+mark it:
+
+- retained;
+- narrowed;
+- split;
+- demoted;
+- rejected;
+- superseded;
+- or newly added.
+
+Give the exact reason.
+
+Explicitly compare the changes against your Phase-A pre-registered fragility:
+
+- where you predicted the weakness correctly;
+- where the weakness appeared somewhere unexpected;
+- and where a supposedly strong element failed.
+
+2. FINAL CANDIDATE PHYSICS
+
+Present every surviving law using the Phase-A fields:
+
+- precise law;
+- concise derivation audit;
+- epistemic class;
+- inheritance class;
+- regime independence;
+- surviving regimes;
+- strongest counterexample;
+- falsifier;
+- altitude;
+- and atomicity audit.
+
+3. REGIME × LAW MATRIX
+
+Provide a compact matrix showing where each surviving law:
+
+- holds;
+- bends;
+- fails;
+- becomes regime-specific;
+- or remains unresolved.
+
+Do not create a product-feature table.
+
+4. FINAL MINIMUM DISTINCTIONS
+
+State which distinctions survived pressure and which dissolved.
+
+5. FINAL COMPETING DECOMPOSITIONS
+
+Keep at least three only if at least three remain genuinely live.
+
+One must continue to test the hypothesis that no shared financing substrate
+exists.
+
+Do not retain a decomposition merely to satisfy the count.
+
+6. NON-CORE MECHANICS
+
+Identify present or plausible mechanics that may matter operationally but must
+not define core architecture.
+
+7. WHAT THE FRAMING PRE-DECIDED
+
+State what was pre-decided by:
+
+- the Phase-A minimum context;
+- the supplied regime list;
+- the supplied test set;
+- and the constitutional claim.
+
+Identify which assumptions you reject.
+
+8. HARD FORKS AND EVIDENCE NEEDS
+
+Name what cannot be resolved from first principles.
+
+For each issue, state the exact:
+
+- empirical;
+- legal;
+- economic;
+- operational;
+- institutional;
+- or repository
+
+evidence required.
+
+9. GATE-1B HANDOFF
+
+State only the ownership and existing-estate questions that a later
+repository-grounded gate must answer.
+
+Do not answer those ownership questions.
+
+10. STRONGEST FINAL SELF-ATTACK
+
+Argue that the final model remains:
+
+- over-abstract;
+- over-unified;
+- merely renamed insurance machinery;
+- or architecturally unnecessary.
+
+State the observable or logical result that would invalidate your conclusion.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+FINAL VERDICT
+
+Choose exactly one:
 
 - PHYSICS_READY_FOR_OWNERSHIP_RECONCILIATION
-- READY_BUT_MINIMAL — a small number of real common laws exist; most of the
-  territory is regime-specific or configurable
+
+- READY_BUT_MINIMAL
+  A small number of real common laws exists, but most of the territory is
+  regime-specific, inherited, projected, or configurable.
+
 - READY_WITH_NAMED_NORMATIVE_FORKS
+
 - NOT_READY — SHARED PHYSICS UNDERDETERMINED
+
 - FRAME_REJECTED — THE QUESTION OVER-COLLAPSES NON-FUNGIBLE REGIMES
 
-=== PROHIBITED OUTPUTS ===
+A positive verdict is not required.
 
-Do not: mint an Insurance or Payer domain; assign truth ownership to a named
-architectural domain; propose schemas, tables, APIs, events, migrations or
-code; design a claims workflow; provide vendor or incumbent comparisons;
-provide a regulatory timeline; recommend a clearinghouse or integration; decide
-build-versus-buy; decide product wedge or business model; claim current
-implementation or market facts; infer that one shared interface exists merely
-because several arrangements involve money; or silently rewrite Phase A.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-=== STOP ===
+PROHIBITED OUTPUTS
 
-One standalone structured response. Label assumptions, uncertainties, normative
-judgments and empirical dependencies explicitly. No file writes. No repository
-action. No web research. No follow-on work.
+Do not:
+
+- mint an Insurance or Payer domain;
+- assign truth ownership to a named architectural domain;
+- propose schemas, tables, APIs, events, migrations, or code;
+- design a present-day claims workflow;
+- provide vendor or incumbent comparisons;
+- provide a regulatory timeline;
+- recommend a clearinghouse or integration;
+- decide build-versus-buy;
+- decide the product wedge or business model;
+- claim current implementation, market, standards, or regulatory facts;
+- infer that one shared interface exists merely because several arrangements
+  involve money;
+- silently rewrite Phase A;
+- or continue into repository reconciliation.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STOP
+
+Return one standalone structured response.
+
+Label:
+
+- assumptions;
+- uncertainties;
+- normative judgments;
+- and empirical dependencies
+
+explicitly.
+
+No file writes.
+No repository action.
+No web research.
+Stop after the Phase-B response.
 ```
 
 ---

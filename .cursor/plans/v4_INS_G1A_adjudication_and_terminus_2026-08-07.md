@@ -19,7 +19,7 @@ Read order: **protocol → Phase A verbatim → Phase B verbatim → adjudicatio
 
 | Source object | State |
 |---|---|
-| `v4_INS_G1A_..._protocol_2026-08-07.md` | **partially verified.** §2 Phase-A prompt = **operator verbatim, CONFIRMED** (spliced 2026-08-07; my earlier draft was a different, weaker variant — 11 of 11 sampled clauses absent). §3 Phase-B prompt = **UNVERIFIED, operator paste owed** — expect it too diverges from my record |
+| `v4_INS_G1A_..._protocol_2026-08-07.md` | **VERIFIED — both prompts are operator verbatim** (spliced 2026-08-07). Note for auditors: **my initial drafts of both were different, weaker variants** — 11 of 11 sampled clauses absent in §2, 12 of 12 in §3. The method of record is now the experiment that actually ran, not the one I had written down. Divergences are recorded in place rather than silently overwritten |
 | `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | **`PASTE_PENDING`** — raw not in Opus's possession |
 | `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | **`PASTE_PENDING`** — raw not in Opus's possession |
 
