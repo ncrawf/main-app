@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate` (gate adjudication + terminus; interpretation, **not** a source object)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. Mints no domain, contract or schema.
-Status: **`source_complete_2026-08-07`** · `gate_1a_verdict_recorded` · `raw_a_present` · `raw_b_present` · `both_prompts_operator_verbatim` · `f1_f7_inventory_still_a_pointer_verify_against_raw` · `not_promoted` · `gate_1b_not_launched`
+Status: **`source_complete_2026-08-07`** · `gate_1a_verdict_recorded` · `raw_a_present` · `raw_b_present` · `both_prompts_operator_verbatim` · `f1_f7_source_checked_against_phase_b_final_section` · `not_promoted` · `gate_1b_not_launched`
 Domain(s): `architecture_governance`, `care_operating_model`, `d6_commerce`, `identity`, `federation`, `cross_cutting`
 Lifecycle role: the **interpretation** layer for Gate 1a — records the verdict, carries Knox's adjudication as attributed external review, and routes Gate 1b **without deciding it.**
 Source-of-truth relationship: **derivative.** Its sources are the two verbatim artifacts. It is authoritative for *nothing* the raws say; where it characterizes them it is a **pointer**, and pointers are marked as such.
@@ -23,9 +23,18 @@ Read order: **protocol → Phase A verbatim → Phase B verbatim → adjudicatio
 | `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | **RAW PRESENT** — operator-supplied 2026-08-07, 1,110 lines, unedited |
 | `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | **RAW PRESENT** — operator-supplied 2026-08-07, 1,006 lines, unedited |
 
-**★ UPDATED 2026-08-07 — `source_complete`.** Both raws are present and both prompts are operator-verbatim. **One caveat survives and matters:** The F1–F7 inventory below is **transcribed from Knox's adjudication summary — it is a POINTER to the submissions, not the submissions**, and it has **not** been verified against the raw text because the raw text does not yet exist in the repository. Opus has deliberately **not** reconstructed the raws from this summary (`v4_C4_2C` precedent: doing so is fabricating evidence).
+**★ `source_complete` (2026-08-07).** Both prompts are operator-verbatim and both raws are preserved as frozen source objects. **No operator paste is owed.** The F1–F7 inventory below is **transcribed from Knox's adjudication summary — it is a POINTER to the submissions, not the submissions**, and it has **not** been verified against the raw text because the raw text does not yet exist in the repository. Opus has deliberately **not** reconstructed the raws from this summary (`v4_C4_2C` precedent: doing so is fabricating evidence).
 
-**Gate 1a is now a usable pinned input — but Gate 1b must still read the RAWS, not this carrier, for anything the side agent actually said.** The F1–F7 table below was transcribed from Knox's summary *before* the raws landed and has **not** been line-checked against them. It is a navigation aid. Where the raw and this table diverge, **the raw wins** — and the first task of Gate 1b is to verify it.
+**Gate 1a is a usable pinned input. The standing rule remains: the raws are SOURCE, this carrier is DERIVATIVE INTERPRETATION** — Gate 1b reads the raws for anything the side agent actually said.
+
+**★ F1–F7 SOURCE-CHECKED (corrected 2026-08-07).** An earlier draft of this carrier claimed F1–F7 was a Knox post-hoc consolidation whose mapping from Phase-A `L1–L11` was unknown, and that deriving that mapping was Gate 1b's first task. **That was wrong, and it was asserted about a document already sitting in this repository without checking it.** Verified against the preserved Phase-B raw:
+
+- **Phase A** contains candidate laws **`L1–L11`**, twelve regimes `R1–R12`, fifteen distinctions `D1–D15`, and **four exploratory decompositions A–D**.
+- **Phase B** contains an explicit **change ledger** against those Phase-A candidates, then **directly emits Final Laws `F1`–`F7`** under its own heading *"2. Final candidate physics"*.
+- **Phase B's final decomposition section emits exactly THREE** — *Minimal position-and-incidence constitution* · *Source-native lifecycles with an attributed care-impact seam* · *No shared financing substrate*.
+- **Phase B selects its own verdict**, `READY_BUT_MINIMAL`, and carries its own *"Strongest final self-attack"* and *"Invalidation condition"* sections.
+
+**So F1–F7 is the side agent's own final output, not a summary artifact. Gate 1b does not need to derive any mapping.** The table below has been checked against that Phase-B final section; it remains interpretation, and the raw still wins on any wording difference.
 
 ---
 
@@ -51,9 +60,9 @@ Recorded against the pre-registered rubric (protocol §5): none of the second-ag
 | **F2** | Care-relevant economic positions are not universally substitutable; any equivalence is regime-scoped | structural | **Retain.** Willingness, entitlement, commitment, obligation, reservation, transfer and settlement may coincide locally but cannot be universally identified |
 | **F3** | Unclosed resource advancement creates contemporaneous incidence | structural | **Retain as OPEN candidate** — altitude unresolved between broader resource/BIZOPS physics and financing |
 | **F4** | Later allocation cannot rewrite historical incidence | structural | **Retain strongly.** Ultimate responsibility and who actually carried earlier liquidity, capacity, credit or opportunity exposure are **different truths** |
-| **F5** | Composed support is derived, time-bounded, rule-dependent and source-preserving | **normative** | **Retain as a normative projection law — NOT an established truth owner** |
+| **F5** | Composed support is derived, time-bounded, rule-dependent and source-preserving | **normative constitutional / projection candidate** | **Retain as a candidate — NOT a confirmed structural law and NOT an established truth owner.** Source-preserving composition is an architectural commitment to be accepted or rejected, not an unavoidable physical constraint |
 | **F6** | Financing reversal is asymmetric with care and with irreversible resource use | structural | **Retain strongly.** Reversing money, responsibility or authorization cannot undo delivered care or restore lost options |
-| **F7** | Material care-time reliance on a financing/resource assertion must remain attributable | **normative** | **Retain as a normative seam candidate — NOT automatically a financing object** |
+| **F7** | Material care-time reliance on a financing/resource assertion should remain attributable and reconstructable, subject to visibility rights | **normative care-impact / reliance seam candidate** | **Retain as a candidate — NOT a confirmed structural law and NOT automatically a financing object** |
 
 **The split that matters most.** F1, F2, F3, F4, F6 are presented as **structural**; **F5 and F7 are normative commitments requiring explicit architectural acceptance rather than being disguised as unavoidable physics.** That separation is exactly what the protocol's normativity test was built to force, and it worked.
 
@@ -80,7 +89,7 @@ Not established, and not to be inferred from this carrier by anyone: a payer or 
 |---|---|---|
 | **A** | **Minimal position-and-incidence constitution** — a very thin common layer for non-substitutability, contemporaneous incidence and historical incidence | Prove materially different regimes require the **same authoritative creation and correction behaviour** — not merely similar read fields |
 | **B** | **Source-native lifecycles + attributed care-impact seam** — rights, commitments, obligations, budgets, credit, transfers, settlement and agreements stay with native owners; a narrow, **non-authoritative** seam tells care what it may rely upon, with source, scope, time, uncertainty and material effect | Currently the **strongest constructive candidate** — and still only a candidate |
-| **C** | **No shared financing substrate** — existing owners (Care · Identity · Federation · D6 · rights/entitlement · resources/BIZOPS · D7 · CNS · GRR · external authorities) retain native truths; financing coherence is assembled through seams and noncanonical projections | **Not a strawman. A co-equal hypothesis** that must be explicitly falsified rather than quietly dropped |
+| **C** | **No shared financing substrate** — **native/existing truth owners, if present, plus seams and noncanonical projections.** *(Stated abstractly on purpose: Gate 1a was blind to the repository and cannot name OMNI owners. Mapping this hypothesis onto actual owners is Gate 1b's work, not Gate 1a's finding.)* | **Not a strawman. A co-equal hypothesis** that must be explicitly falsified rather than quietly dropped |
 
 **A shared owner carries the burden of proof.** Similar fields or projections are insufficient; it must demonstrate recurring authoritative creation/correction behaviour across materially different regimes that existing owners cannot safely hold.
 
@@ -88,11 +97,11 @@ Not established, and not to be inferred from this carrier by anyone: a payer or 
 
 ## §5 — EFFECT ON THE GATE-0 CARRIER
 
-**Confirmed by Gate 1a:** no payer-named god-domain · no universal funder/funding-participation object assumed in advance · care must continue when financing is absent, unknown, disputed or later reversed · mixed-source support must remain derived and source-preserving · economic finality and care occurrence are different truths (Gate-0 **H-N1** direction) · longitudinal financing context belongs as a **portable projection, not an OMNI-owned captive object** (Gate-0 §I.2a, including the non-captivity correction) · payer-deletion and payer-inversion were useful tests.
+**Confirmed by Gate 1a:** no payer-named god-domain · no universal funder/funding-participation object assumed in advance · care must continue when financing is absent, unknown, disputed or later reversed · mixed-source support must remain derived and source-preserving · economic finality and care occurrence are different truths (Gate-0 **H-N1** direction) · **IF** a longitudinal financing view or context is assembled, Gate 1a supports a **non-captive, noncanonical-projection posture** for it (Gate-0 §I.2a). **Gate 1a did NOT establish a named canonical `longitudinal financing context` object, owner or lifecycle** — it was blind to the estate and has no standing to mint one · payer-deletion and payer-inversion were useful tests.
 
 **Narrowed by Gate 1a:** Gate-0's **funding-participation interface** stays a hypothesis and is now further weakened — the independent agent did not establish one common interface and explicitly preserved the possibility that none exists (Gate-0 **F8** stands, and Gate 1a supplies evidence toward it). Gate-0's constitutional sentence is **superseded by the two-law split** at §2.1.
 
-**Challenged by Gate 1a — the centre of gravity moved.** Gate 0 treated the **agreement / party-position / operative-posture constellation** as the clearest candidate gap and the near-nucleus of the arc. The blind agent **did not independently derive agreement-as-disputed-object as regime-independent care-financing physics.** It therefore remains a **significant EXISTS-AS and ownership question for Gate 1b — not the assumed nucleus.** The prior verified multi-authority read still supports it as a genuine unresolved *repository* question; Gate 1a simply declines to make it the organizing principle.
+**Challenged by Gate 1a — the centre of gravity moved.** Gate 0 treated the **agreement / party-position / operative-posture constellation** as the clearest candidate gap and the near-nucleus of the arc. The blind agent **did not establish agreement-as-disputed-object as the organizing nucleus of regime-independent care-financing physics.** That is *not* a proof that it is peripheral — a blind first-principles pass has no standing to rule on the estate. It remains a **significant EXISTS-AS and ownership hypothesis for Gate 1b, sitting BESIDE the three decompositions rather than above them.** The prior verified multi-authority read still supports it as a genuine unresolved *repository* question; Gate 1a simply declines to make it the organizing principle.
 
 **Unchanged:** the Gate-0 five-zone model remains an **analytical axis only**. Gate 1a neither validated nor refuted it, because it was withheld from both phases by design.
 
@@ -106,7 +115,7 @@ Not established, and not to be inferred from this carrier by anyone: a payer or 
 
 **Task-D MUST be free to falsify:** that these seven are the right seven · that the structural/normative split is drawn correctly · that decomposition **C** (no shared substrate) is not simply the answer · and that "care-financing physics" is a useful architectural layer at all (the dissolution test's own conclusion invites this).
 
-**Preserved self-attack and invalidation conditions:** the Phase-B raw contains the agent's strongest final self-attack and the observable result that would invalidate its conclusion. **These are load-bearing and must not be summarized away.** They are currently `PASTE_PENDING`; once the raw lands, this section must point at them rather than paraphrase them.
+**Preserved self-attack and invalidation conditions — PRESENT, read them at source.** The Phase-B raw carries its own **"10. Strongest final self-attack"** section and an explicit **"Invalidation condition"** stating what would defeat even the minimal conclusion. **They are load-bearing and are deliberately NOT paraphrased here.** Gate 1b reads them in the preserved Phase-B raw.
 
 ---
 
@@ -145,10 +154,10 @@ Recorded as **third-party review**, per the operator/collaboration model. Knox i
 
 ## §9 — STOP
 
-**Gate 1a is adjudicated and its containers exist; its raws do not yet.**
+**Gate 1a is adjudicated, preserved and source-complete. No operator paste is owed.**
 
-Owed next, in order: **(1)** operator pastes the Phase-A raw · **(2)** operator pastes the Phase-B raw · **(3)** fidelity-only closure updating both preservation statuses and this carrier's §0 receipt to `source_complete` — **inserting bytes and nothing else** · **(4)** Nick + Knox review · **(5)** Gate-1b kickoff drafted, reviewed, and executed in a fresh context.
+Owed next: **(1)** Nick + Knox review of these bytes · **(2)** a Gate-1b kickoff drafted in a **fresh** Opus context from the handoff spec · **(3)** Gate-1b execution after that kickoff is approved.
 
 **Nothing here is promoted. No domain, contract, schema or implementation is created. PR #4 and the Gate-0 branch are untouched.**
 
-**STOP: `awaiting_operator_verbatim_paste`**
+**STOP: `review_ready_pending_nick_knox_gate1b_kickoff`**

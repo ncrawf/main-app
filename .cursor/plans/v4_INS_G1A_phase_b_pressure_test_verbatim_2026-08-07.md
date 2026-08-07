@@ -994,12 +994,15 @@ A small number of real common laws survives pressure, but most of the territory 
 
 ---
 
-## Post-paste checklist (fidelity-only closure; nothing else in the same transaction)
+## Fidelity receipt — closure COMPLETE (historical)
 
-- [ ] Raw text inserted **verbatim** into the block above.
-- [ ] Phase A left **untouched** by this transaction.
-- [ ] Status line updated: remove `operator_paste_pending`, add `raw_present`.
-- [ ] The paste-pending warning above removed.
-- [ ] Adjudication carrier's source-completeness receipt updated to `source_complete`.
-- [ ] Byte/diff receipt returned.
-- [ ] **No reinterpretation, expansion or new architecture.**
+| Check | Result |
+|---|---|
+| Raw Phase-B text inserted verbatim | **DONE** — operator-supplied 2026-08-07 |
+| Preserved block edited, repaired, normalized or truncated | **NO** |
+| Phase A altered by the insertion transaction | **NO** |
+| Preservation status updated | **DONE** — `raw_present_operator_supplied_2026-08-07` |
+| Adjudication source-completeness receipt updated | **DONE** — `source_complete_2026-08-07` |
+| Reinterpretation, expansion or new architecture in the closure commit | **NO** |
+
+**The preserved block above is frozen.** Any later transaction that needs to change it is not a fidelity fix — it is a new source object and must be justified as one.

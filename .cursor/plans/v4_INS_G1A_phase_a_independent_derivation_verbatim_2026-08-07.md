@@ -1098,12 +1098,15 @@ Most proposed care-financing physics dissolves into inherited authority, tempora
 
 ---
 
-## Post-paste checklist (perform at the fidelity-only closure transaction, nothing else)
+## Fidelity receipt — closure COMPLETE (historical)
 
-- [ ] Raw text inserted **verbatim** into the block above.
-- [ ] No other architecture changed in the same transaction.
-- [ ] Status line updated: remove `operator_paste_pending`, add `raw_present`.
-- [ ] The paste-pending warning above removed (it is no longer true).
-- [ ] Adjudication carrier's source-completeness receipt updated.
-- [ ] Byte/diff receipt returned.
-- [ ] **No reinterpretation, expansion or new architecture** in the closure commit.
+| Check | Result |
+|---|---|
+| Raw Phase-A text inserted verbatim | **DONE** — operator-supplied 2026-08-07 |
+| Preserved block edited, repaired, normalized or truncated | **NO** |
+| Phase B altered by the insertion transaction | **NO** |
+| Preservation status updated | **DONE** — `raw_present_operator_supplied_2026-08-07` |
+| Adjudication source-completeness receipt updated | **DONE** — `source_complete_2026-08-07` |
+| Reinterpretation, expansion or new architecture in the closure commit | **NO** |
+
+**The preserved block above is frozen.** Any later transaction that needs to change it is not a fidelity fix — it is a new source object and must be justified as one.

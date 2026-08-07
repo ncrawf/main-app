@@ -2,7 +2,7 @@
 
 Document type: `analysis` / `architecture_pressure_test` (method + protocol carrier for one blind independent side-agent experiment)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. Hosts no schema and no domain.
-Status: `protocol_accepted_nick_knox_2026-08-06` · `experiment_executed` · `abort_gate_PROCEED_TO_PHASE_B` · **`phase_a_prompt_operator_verbatim_CONFIRMED`** · **`phase_b_prompt_operator_verbatim_CONFIRMED`** · `raw_preservation_pending` · `not_promoted`
+Status: `protocol_accepted_nick_knox_2026-08-06` · `experiment_executed` · `abort_gate_PROCEED_TO_PHASE_B` · **`phase_a_prompt_operator_verbatim_CONFIRMED`** · **`phase_b_prompt_operator_verbatim_CONFIRMED`** · **`gate_1a_source_complete_2026-08-07`** · `not_promoted`
 Domain(s): `architecture_governance`, `care_operating_model`, `d6_commerce`, `cross_cutting`
 Lifecycle role: the **method of record** for Gate 1a — the exact prompts issued, the blindness contract, the abort gate and its result, the verbatim-preservation law, the reviewer rubric, and the Gate-1b handoff boundary. It is the reproducibility surface: a future agent should be able to re-run or audit this experiment from this file alone.
 Source-of-truth relationship: authoritative as to **what was asked and under what conditions.** It is **not** the answer — the answers are the two verbatim source objects; the interpretation is the adjudication carrier.
@@ -401,7 +401,7 @@ No web research.
 >
 > **Why this mattered.** The Test-A altitude split, the *supposedly-strong-element-failed* clause and the *don't-keep-a-decomposition-for-the-count* clause all shape how the Phase-B output must be read — they are the mechanisms that make the change ledger and the surviving decompositions trustworthy rather than performative. A method of record carrying my weaker variant would have understated the rigour the result was actually produced under.
 >
-> **Both prompts are now operator-confirmed. The protocol is verified as a method of record.** The two raw responses remain outstanding.
+> **Both prompts are operator-confirmed and both raw responses are preserved. The protocol is verified as a method of record and Gate 1a is source-complete.**
 >
 > Opus copied and spliced; Opus did not reconstruct.
 
@@ -891,8 +891,8 @@ A valid Gate-1a result must: preserve the Phase-A/Phase-B distinction rather tha
 
 ## §8 — Stop condition
 
-This protocol artifact is complete as a **method of record**. The experiment is executed and adjudicated; the **raws are not yet preserved.**
+This protocol artifact is complete as a **method of record**. The experiment is executed, adjudicated, and **both raws are preserved verbatim**.
 
-**Gate 1a is source-complete only when both verbatim artifacts are populated and checked.** Until then the adjudication carrier is marked `source_incomplete`, and no downstream gate may treat Gate 1a as a pinned input.
+**Gate 1a is source-complete.** Both prompts are operator-verbatim; both raw responses are present as frozen source objects. Gate 1a is a usable pinned input for Gate 1b, subject to the standing rule that the **raws are source and the adjudication is derivative interpretation.**
 
-**STOP: `awaiting_operator_verbatim_paste`**
+**STOP: `review_ready_pending_nick_knox_gate1b_kickoff`**

@@ -15,7 +15,7 @@ Two lanes exist. **Neither is merged. `main` is untouched at `d592e402b779aaedc1
 | Lane | Branch | Head | Contents | State |
 |---|---|---|---|---|
 | **Gate 0** | `analysis/insurance-payer-oop-g0` | `2aabed7` | one file — the Gate-0 carrier | **PR #4**, open · draft · unmerged · Knox `CONTENT PASS` after 4 correction rounds |
-| **Gate 1a preservation** | `cursor/ins-g1a-preservation-caa7` | *this branch* | four files — protocol · Phase-A raw · Phase-B raw · adjudication | complete, `source_complete`, **no PR yet** |
+| **Gate 1a preservation** | `cursor/ins-g1a-preservation-caa7` | *this branch* | **five files** — protocol · Phase-A raw · Phase-B raw · adjudication · this handoff | **PR #5**, open · draft · unmerged · `source_complete` |
 
 **Plain-English state of the arc.** We finished asking *"what are the underlying care-financing physics?"* The answer came back: **there are some, but far fewer than expected, and they do not justify one financing system.** The next question is Gate 1b: *where do those few laws already live inside OMNI, which need only seams or projections, and is any genuinely new truth owner necessary?*
 
@@ -28,21 +28,20 @@ Two lanes exist. **Neither is merged. `main` is untouched at `d592e402b779aaedc1
 3. `.cursor/plans/v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` — **1,006 lines, raw, unedited. SOURCE OBJECT.**
 4. `.cursor/plans/v4_INS_G1A_adjudication_and_terminus_2026-08-07.md` — interpretation · verdict `ACCEPTED — READY_BUT_MINIMAL` · Knox review attributed.
 
-**Preservation law, and it binds you:** the raws are **source**, the adjudication is **interpretation**. Never fill a byte of a raw from the adjudication, from Knox's summary, or from memory. Never retrofit Phase A to match Phase B.
+**Accepted working-packet preservation condition** (this handoff is `analysis_nonbinding` and binds nothing by itself): raw A and raw B remain **frozen source objects**; interpretation belongs outside them. Do not fill a byte of a raw from the adjudication, from a review summary, or from memory, and do not retrofit Phase A to match Phase B.
 
 ---
 
-## §2 — ⚠ THE FIRST TASK OF GATE 1B, BEFORE ANY ANALYSIS
+## §2 — How the two raws relate (source-checked; no mapping work is owed)
 
-**Verify the F1–F7 table in the adjudication carrier §2 against the Phase-B raw, line by line.**
+**Corrected 2026-08-07.** An earlier draft of this handoff claimed the raw used `L1–L11` "not F1–F7", that the mapping was not one-to-one, that Phase B had four final decompositions, and that deriving the mapping was Gate 1b's first task. **All four claims were wrong**, and they were asserted about documents already sitting in this repository without checking them.
 
-That table was transcribed from **Knox's summary while the raws were still `PASTE_PENDING`**. It has never been line-checked against the source. It is a navigation aid, not evidence. **Where it diverges from the raw, the raw wins, and you correct the table.**
+Verified against the preserved raws:
 
-This is not paranoia. In this same lane my own records of *both prompts* turned out to be different, weaker variants than what was actually run — **11 of 11 sampled clauses wrong on Phase A, 12 of 12 on Phase B.** The operator's verbatim pastes corrected both. Assume the same risk applies to the F1–F7 transcription and check it.
+- **Phase A** — candidate laws `L1–L11` · twelve regimes `R1–R12` · fifteen distinctions `D1–D15` · **four exploratory** decompositions A–D.
+- **Phase B** — an explicit **change ledger** against those Phase-A candidates, then **directly emits Final Laws `F1`–`F7`** under its own heading *"2. Final candidate physics"*, then **exactly three** final competing decompositions, then its own *"Strongest final self-attack"* and *"Invalidation condition"*, then its self-selected verdict `READY_BUT_MINIMAL`.
 
-**Specific things the raw contains that the summary flattens** (visible even from the Phase-A structure): the raw uses **L1–L11**, not F1–F7, with **twelve regimes R1–R12** and **fifteen distinctions D1–D15**, plus **four** decompositions (A–D), not three. Knox's F1–F7 is a *post-Phase-B* consolidation. **Do not assume the mapping is one-to-one — derive it from the raw.**
-
----
+**Gate 1b treats the Phase-B raw as source and the adjudication carrier as derivative interpretation. No mapping derivation is owed.**
 
 ## §3 — What Gate 1a established (safe to rely on)
 
@@ -58,7 +57,7 @@ No payer or insurance domain · no universal funding-participation object · no 
 
 ## §5 — Effect on Gate 0
 
-**Confirmed:** no payer-named god-domain · no universal funder object assumed in advance · care must continue when financing is absent/unknown/disputed/reversed · mixed-source support stays derived and source-preserving · economic finality ≠ care occurrence · longitudinal financing context is a **portable projection, not a captive object** · payer-deletion and payer-inversion were useful tests.
+**Confirmed:** no payer-named god-domain · no universal funder object assumed in advance · care must continue when financing is absent/unknown/disputed/reversed · mixed-source support stays derived and source-preserving · economic finality ≠ care occurrence · **if** a longitudinal financing view is assembled, a **non-captive, noncanonical-projection** posture is supported — Gate 1a minted no such object · payer-deletion and payer-inversion were useful tests.
 
 **Narrowed:** the Gate-0 funding-participation interface stays a hypothesis and is now *further* weakened — Gate-0's own falsifiable **F8** gains evidence.
 
@@ -72,7 +71,17 @@ No payer or insurance domain · no universal funding-participation object · no 
 
 **Posture: repository-grounded — the exact inverse of Gate 1a.** Fresh Opus context. Not blind.
 
-**Must read in full:** the Gate-0 carrier at its review ref (`2aabed7`) · all four Gate-1a artifacts · the verified multi-authority disagreement report · REV-184 · Clinical Memory · C4.3 · C4.5 temporal · D6 · D7 · Federation · Identity/RBAC · Care Operating Model · GRR · CNS · BIZOPS/resource + workforce economics · Settings/Catalog · C4.6 GCE/counterparty doctrine · legal and commercial agreement carriers · the two committed insurance-capture implementation surfaces (`payer_eligibility_documents`, `patient_insurance_details`).
+**Source floor — deliberately tiered, to prevent another inventory-theatre pass.** Broad inquiry aperture stays mandatory; repository-wide reading theatre does not.
+
+**MANDATORY FULL READ — direct working packet:** Gate-0 carrier at its review ref (`2aabed7`) · Gate-1a protocol · **Phase-A raw** · **Phase-B raw** · Gate-1a adjudication.
+
+**MANDATORY FULL READ — governing / load-bearing:** Care Operating Model · D6 · Clinical Memory · REV-184 · C4.3 · C4.5 temporal · C4.6 / GCE / counterparty doctrine · Federation · the BIZOPS / resource / economics owner(s) · the strongest legal-and-commercial agreement carrier(s) **surfaced by the EXISTS-AS sweep** · the two committed insurance-capture implementation surfaces (`payer_eligibility_documents`, `patient_insurance_details`).
+
+**BEGIN AS TARGETED SEARCH / CONSULT — promote to full read only if the read graph or the EXISTS-AS sweep shows it load-bearing:** D7 · Identity/RBAC · GRR · CNS · Settings/Catalog · workforce economics · historical contract carriers.
+
+**On the multi-authority disagreement verification report:** it is a **derivative** artifact and is **not** a mandatory dependency — do not treat an unlocatable summary as a gate input. **Gate 1b must independently read Clinical Memory, REV-184, C4.3 and the Care Operating Model capture and verify the inherited disagreement machinery from those primary sources itself.** If a separately preserved verification report is available, use it as comparative context only.
+
+**Per-law likely search routes — these guide WHERE TO LOOK and decide NOTHING about ownership:** F1 → Care / occurrence / entitlement / D6 boundary · F2 → authority / obligations / Federation / counterparty / agreements · F3–F4 → resource / BIZOPS / economics + D6 + temporal · F5 → composition / obligations / Federation / counterparty · F6 → D6 + Care + correction/temporal · F7 → Care + external assertions / reliance + adoption/correction.
 
 **Per candidate law, determine:** whether it already exists in the estate · its authority and maturity · generic inheritance vs financing specialization vs genuinely new · whether it needs **authoritative writes** or only a projection/seam · candidate owner(s) · correction and reversal law · temporal axes · portability and visibility boundary · and whether it survives **all three** live decompositions.
 
@@ -81,9 +90,9 @@ No payer or insurance domain · no universal funding-participation object · no 
 **Must COMPARE, not merely mention, three live decompositions:**
 - **A — minimal position-and-incidence constitution.** Burden: prove materially different regimes need the *same authoritative creation and correction behaviour*, not merely similar read fields.
 - **B — source-native lifecycles + a narrow, non-authoritative attributed care-impact seam.** Currently the strongest constructive candidate — and only a candidate.
-- **C — no shared financing substrate.** Existing owners keep native truths; coherence via seams and noncanonical projections. **Co-equal, not a strawman. Must be explicitly falsified, never quietly dropped.**
+- **C — no shared financing substrate.** **Native/existing truth owners, if present, plus seams and noncanonical projections** — stated abstractly because Gate 1a was blind and cannot name OMNI owners; mapping it onto actual owners is Gate 1b's work. **Co-equal, not a strawman. Must be explicitly falsified, never quietly dropped.**
 
-*(The raw offers a **fourth** decomposition — check §2 and carry it if it is genuinely live.)*
+*(Phase A explored four; **Phase B's final section emits exactly these three.** Phase A's fourth is superseded by the Phase-B change ledger — read it there rather than reviving it.)*
 
 **Burden of proof on any shared owner:** similar fields or projections are insufficient. It must demonstrate **recurring authoritative creation/correction behaviour across materially different regimes that existing owners cannot safely hold.**
 
@@ -96,10 +105,10 @@ No payer or insurance domain · no universal funding-participation object · no 
 ## §7 — Owed, and NOT discharged by this lane
 
 1. **Gate-1b kickoff prompt** — spec above; draft, then Nick + Knox approve, then a fresh context executes.
-2. **PR for this preservation branch** — deliberately not opened; open it or fold the branch in at the integrator transaction.
+2. **PR #5** — open, draft, unmerged. Fold in or land at the integrator transaction; not merged here.
 3. **Gate-0 §M routing bundle** — proposals only, nothing landed. Integrator owns it.
 4. **`INS-HAZ-COVSURF` containment** — a **proposed** checkable contract, **not enforced.** Inert until the four integrator landings named in Gate-0 §K.1 happen. Until then any consumer may ignore it.
-5. **Evidence-Plane preservation-only capture — TIME-SENSITIVE.** The external URLs, publication/access dates and NOT-VERIFIED registers from the Gate-0 research helpers must be materialized into proper Evidence-Plane source packets (`regulatory_compliance_evidence/`, `competitor_product_evidence/`, `user_operator_research/`, `market_strategy_evidence/`). **Mechanical, no new research.** Gate-0 §§F/G/I/J are `evidence_pending_ingestion` and are **not promotion-grade** until it lands. **This degrades as helper contexts age — everything else in this arc can wait; this cannot.**
+5. **Evidence-Plane preservation-only capture — TIME-SENSITIVE.** The external URLs, publication/access dates and NOT-VERIFIED registers from the Gate-0 research helpers must be materialized into proper Evidence-Plane source packets (`regulatory_compliance_evidence/`, `competitor_product_evidence/`, `user_operator_research/`, `market_strategy_evidence/`). **Mechanical, no new research.** Gate-0 §§F/G/I/J are `evidence_pending_ingestion` and are **not promotion-grade** until it lands. It degrades as helper contexts age, so it should not be left indefinitely — **but it is NOT a prerequisite for Gate 1b.** The repository-grounded ownership question can be answered without it. It becomes blocking only if Gate 1b attempts to promote an external-market claim into doctrine. **Do not let it fork into an emergency process branch.**
 6. **Catalog rows + read-graph routes** for all five new artifacts — proposed, not landed.
 
 ---
