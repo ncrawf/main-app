@@ -856,7 +856,7 @@ The gate existed because a change ledger built over a weak Phase A is worthless 
 - Task 7 pre-registers no real fragility;
 - the response is substantially a restatement of the supplied substrate principles.
 
-**RECORDED RESULT: `PROCEED_TO_PHASE_B`.** Phase A passed the gate; Phase B was issued in the same thread. *(Decision surface: Nick + Knox, 2026-08-06/07. The evidence for this decision is the Phase-A raw itself — once pasted, a reviewer can re-apply the gate independently.)*
+**RECORDED RESULT: `PROCEED_TO_PHASE_B`.** Phase A passed the gate; Phase B was issued in the same thread. *(Decision surface: Nick + Knox, 2026-08-06/07. The evidence for this decision is the Phase-A raw itself, now preserved — a reviewer can re-apply the gate independently against it.)*
 
 ---
 

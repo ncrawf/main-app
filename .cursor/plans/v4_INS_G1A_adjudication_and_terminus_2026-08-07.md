@@ -23,7 +23,7 @@ Read order: **protocol → Phase A verbatim → Phase B verbatim → adjudicatio
 | `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | **RAW PRESENT** — operator-supplied 2026-08-07, 1,110 lines, unedited |
 | `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | **RAW PRESENT** — operator-supplied 2026-08-07, 1,006 lines, unedited |
 
-**★ `source_complete` (2026-08-07).** Both prompts are operator-verbatim and both raws are preserved as frozen source objects. **No operator paste is owed.** The F1–F7 inventory below is **transcribed from Knox's adjudication summary — it is a POINTER to the submissions, not the submissions**, and it has **not** been verified against the raw text because the raw text does not yet exist in the repository. Opus has deliberately **not** reconstructed the raws from this summary (`v4_C4_2C` precedent: doing so is fabricating evidence).
+**★ `source_complete` (2026-08-07).** Both prompts are operator-verbatim and both raws are preserved as frozen source objects. **No operator paste is owed.** The F1–F7 table below is **derivative wording** — Knox's phrasing, not the side agent's exact text — and **it has been checked against the Phase-B raw's own final section for identity and classification.** The **raw wins on any wording divergence.**
 
 **Gate 1a is a usable pinned input. The standing rule remains: the raws are SOURCE, this carrier is DERIVATIVE INTERPRETATION** — Gate 1b reads the raws for anything the side agent actually said.
 
@@ -40,7 +40,7 @@ Read order: **protocol → Phase A verbatim → Phase B verbatim → adjudicatio
 
 ## §1 — VERDICT
 
-**`ACCEPTED — READY_BUT_MINIMAL`** (Knox adjudication, 2026-08-07; Nick accepted). No rerun. No second independent side agent. **Gate 1a is complete as an experiment**, and incomplete as a repository record until §0 clears.
+**`ACCEPTED — READY_BUT_MINIMAL`** (Knox adjudication, 2026-08-07; Nick accepted). No rerun. No second independent side agent. **Gate 1a is complete as an experiment and complete as a repository record**: both prompts operator-verbatim, both raws preserved.
 
 Recorded against the pre-registered rubric (protocol §5): none of the second-agent triggers fired. Per Knox, the result earned the verdict because **Phase B genuinely changed the Phase-A answer rather than defensively restating it** — laws were demoted to inherited substrate law, one was rejected as financing physics, several were narrowed or split, the constitutional statement was materially rewritten, the no-shared-substrate alternative stayed fully alive, and real abandonment conditions were given.
 
@@ -52,7 +52,7 @@ Recorded against the pre-registered rubric (protocol §5): none of the second-ag
 
 ## §2 — SURVIVING CANDIDATE LAWS F1–F7
 
-> **POINTER, NOT SOURCE.** Transcribed from Knox's adjudication. Wording is Knox's characterization, not the side agent's exact text. **Verify against the Phase-B raw once pasted**, and correct this table to match the raw if they diverge — the raw wins.
+> **DERIVATIVE WORDING — SOURCE-CHECKED.** The phrasing is Knox's characterization, not the side agent's exact text. **Checked against the Phase-B raw's own "2. Final candidate physics" section for identity, count and normativity classification.** The **raw is source and wins on any wording divergence** — read F1–F7 there, not here.
 
 | ID | Candidate law (as characterized) | Epistemic class | Knox disposition |
 |---|---|---|---|
@@ -101,7 +101,7 @@ Not established, and not to be inferred from this carrier by anyone: a payer or 
 
 **Narrowed by Gate 1a:** Gate-0's **funding-participation interface** stays a hypothesis and is now further weakened — the independent agent did not establish one common interface and explicitly preserved the possibility that none exists (Gate-0 **F8** stands, and Gate 1a supplies evidence toward it). Gate-0's constitutional sentence is **superseded by the two-law split** at §2.1.
 
-**Challenged by Gate 1a — the centre of gravity moved.** Gate 0 treated the **agreement / party-position / operative-posture constellation** as the clearest candidate gap and the near-nucleus of the arc. The blind agent **did not establish agreement-as-disputed-object as the organizing nucleus of regime-independent care-financing physics.** That is *not* a proof that it is peripheral — a blind first-principles pass has no standing to rule on the estate. It remains a **significant EXISTS-AS and ownership hypothesis for Gate 1b, sitting BESIDE the three decompositions rather than above them.** The prior verified multi-authority read still supports it as a genuine unresolved *repository* question; Gate 1a simply declines to make it the organizing principle.
+**Challenged by Gate 1a — the centre of gravity moved.** Gate 0 treated the **agreement / party-position / operative-posture constellation** as the clearest candidate gap and the near-nucleus of the arc. The blind agent **did not establish agreement-as-disputed-object as the organizing nucleus of regime-independent care-financing physics.** That is *not* a proof that it is peripheral — a blind first-principles pass has no standing to rule on the estate. It remains a **significant EXISTS-AS and ownership hypothesis for Gate 1b, sitting BESIDE the three decompositions rather than above them.** The prior verified multi-authority read supports the gap **hypothesis within its inspection radius**; Gate 1b must independently verify estate ownership before asserting an estate-wide gap; Gate 1a simply declines to make it the organizing principle.
 
 **Unchanged:** the Gate-0 five-zone model remains an **analytical axis only**. Gate 1a neither validated nor refuted it, because it was withheld from both phases by design.
 
@@ -121,7 +121,15 @@ Not established, and not to be inferred from this carrier by anyone: a payer or 
 
 ## §7 — ROUTING GATE 1B (routed, not decided)
 
-Gate 1b is **repository-grounded** — the inverse posture to Gate 1a — and must read its sources in full: the Gate-0 carrier at its review ref · this Gate-1a protocol, Phase A, Phase B and adjudication · the verified multi-authority disagreement report · REV-184 · Clinical Memory · C4.3 · C4.5 temporal · D6 · D7 · Federation · Identity/RBAC · Care Operating Model · GRR · CNS · BIZOPS/resource and workforce economics · Settings/Catalog · C4.6 GCE/counterparty doctrine · legal and commercial agreement carriers · and the two committed insurance-capture implementation surfaces.
+Gate 1b is **repository-grounded** — the inverse posture to Gate 1a. **Its read contract is TIERED and is stated identically in the handoff §6; the two must never disagree.**
+
+**FULL READ — direct packet:** Gate-0 carrier at its exact review ref · Gate-1a protocol · **raw A** · **raw B** · this adjudication.
+
+**FULL READ — load-bearing governing sources:** Care Operating Model · D6 · Clinical Memory · REV-184 · C4.3 · C4.5 temporal · C4.6 / GCE / counterparty doctrine · Federation · the BIZOPS / resource / economics owner(s) · the strongest legal-and-commercial agreement carrier(s) **surfaced by the EXISTS-AS sweep** · the exact committed insurance-capture implementation surfaces.
+
+**TARGETED SEARCH FIRST — full read only if shown load-bearing:** D7 · Identity/RBAC · GRR · CNS · Settings/Catalog · workforce economics · historical contract carriers.
+
+**The derivative multi-authority disagreement report is comparative context only if found — NOT a mandatory dependency.** Gate 1b independently reads Clinical Memory, REV-184, C4.3 and the Care Operating Model capture and verifies the inherited disagreement machinery from those primary sources itself.
 
 **Per F1–F7, Gate 1b must determine:** whether the law already exists in the estate · its authority and maturity · whether it is generic inheritance, financing specialization, or genuinely new · whether it requires **authoritative writes** or only a projection/seam · candidate owner or participating owners · correction and reversal law · temporal axes · portability and visibility boundary · and whether it survives all three live decompositions.
 

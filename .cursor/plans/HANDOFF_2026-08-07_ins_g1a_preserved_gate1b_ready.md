@@ -53,7 +53,7 @@ Verified against the preserved raws:
 
 ## §4 — What Gate 1a did NOT establish
 
-No payer or insurance domain · no universal funding-participation object · no single financing lifecycle, owner, or interface · **agreement-as-disputed-object is NOT the nucleus of the arc** · the altitude of the contemporaneous-incidence law is unresolved between financing and broader resource/BIZOPS physics · the normative candidates are not binding law · nothing about the existing OMNI estate (Gate 1a was **blind by design** and has no standing to describe it) · no schema, API, event, migration, contract or implementation.
+No payer or insurance domain · no universal funding-participation object · no single financing lifecycle, owner, or interface · **agreement-as-disputed-object was NOT ESTABLISHED by Gate 1a as the nucleus of regime-independent care-financing physics** — whether it is architecturally central in OMNI remains a Gate-1b EXISTS-AS / ownership hypothesis · the altitude of the contemporaneous-incidence law is unresolved between financing and broader resource/BIZOPS physics · the normative candidates are not binding law · nothing about the existing OMNI estate (Gate 1a was **blind by design** and has no standing to describe it) · no schema, API, event, migration, contract or implementation.
 
 ## §5 — Effect on Gate 0
 
@@ -61,7 +61,7 @@ No payer or insurance domain · no universal funding-participation object · no 
 
 **Narrowed:** the Gate-0 funding-participation interface stays a hypothesis and is now *further* weakened — Gate-0's own falsifiable **F8** gains evidence.
 
-**Challenged — the centre of gravity moved.** Gate 0 treated the agreement/party-position/operative-posture constellation as the clearest candidate gap and near-nucleus. The blind agent **did not independently derive it** as regime-independent physics. It is now **one important Gate-1b ownership question, not the organizing principle.** The prior verified multi-authority read still supports it as a real *repository* gap.
+**Challenged — the centre of gravity moved.** Gate 0 treated the agreement/party-position/operative-posture constellation as the clearest candidate gap and near-nucleus. The blind agent **did not independently derive it** as regime-independent physics. It is now **one important Gate-1b ownership question, not the organizing principle.** The prior multi-authority read supports the gap **hypothesis within its inspection radius**; Gate 1b must independently verify estate ownership before asserting an estate-wide gap.
 
 **Unchanged:** Gate-0's five-zone model remains an **analytical axis only** — withheld from both phases by design, so neither validated nor refuted.
 
@@ -70,6 +70,29 @@ No payer or insurance domain · no universal funding-participation object · no 
 ## §6 — GATE-1B KICKOFF SPEC (draft the prompt from this; do NOT launch without Nick + Knox approval)
 
 **Posture: repository-grounded — the exact inverse of Gate 1a.** Fresh Opus context. Not blind.
+
+### §6.0 — REVIEW OBJECT POSTURE (read before anything else; three refs, not one)
+
+A fresh context that reads only `main` will see Gate 0 as the frontier and may "correct away" the Gate-1a work. A fresh context that reads only the branches may assume promotion. **Both are wrong. Use exact refs, never moving branch tips.**
+
+| Ref | What it is |
+|---|---|
+| **CONTROL PLANE** | `main @ d592e402b779aaedc1f137189bf51cd2b5ca678d` — checkpoint machinery still names `INS-G0-MIXEDFIN` as the single active Phase-A lane; `AGENTS.md` and the read graph agree on the Aug-3 checkpoint. **Internally consistent — do not "fix" it.** |
+| **GATE-0 WORKING INPUT** | **PR #4**, head `2aabed770eda9ec8164efaf0c5626816b85ca224`, path `.cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` |
+| **GATE-1A WORKING INPUT** | **PR #5**, branch `cursor/ins-g1a-preservation-caa7` — the five-file Gate-1a packet. **Head = the tip of that branch as pushed by the final cleanup transaction; recover it from the ref** (a commit cannot stamp its own SHA) |
+
+**Interpretation, stated so it cannot be misread:**
+- `main` is the **committed control-plane state**.
+- PR #4 + PR #5 are the **newer, unmerged working packet** for this Insurance arc.
+- **Branch state being newer does NOT imply promotion or landing.**
+- **`main` being older does NOT invalidate the supplied working packet.**
+- **Do not infer Gate 1a never happened merely because `main` has not been repointed.**
+
+### §6.1 — ANTI-FLATTENING INPUT RULE (do this before estate reconciliation)
+
+**Anchor the run directly from the Phase-B raw.** Extract into working notes, from the raw itself and not from any summary: the **exact F1–F7 precise-law text** · each law's **epistemic / normativity / inheritance classification** · the **exact three final decomposition propositions and their distinguishing burden** · the **final self-attack** · and the **invalidation condition**.
+
+This is **not** a mapping exercise and produces **no new artifact.** Its only purpose is to stop the adjudication's and this handoff's shorthand from becoming source truth. **The raw remains source.**
 
 **Source floor — deliberately tiered, to prevent another inventory-theatre pass.** Broad inquiry aperture stays mandatory; repository-wide reading theatre does not.
 
