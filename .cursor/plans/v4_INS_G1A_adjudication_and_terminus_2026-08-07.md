@@ -19,7 +19,7 @@ Read order: **protocol → Phase A verbatim → Phase B verbatim → adjudicatio
 
 | Source object | State |
 |---|---|
-| `v4_INS_G1A_..._protocol_2026-08-07.md` | **present** — both prompts copied verbatim, operator confirmation of exact bytes requested |
+| `v4_INS_G1A_..._protocol_2026-08-07.md` | **partially verified.** §2 Phase-A prompt = **operator verbatim, CONFIRMED** (spliced 2026-08-07; my earlier draft was a different, weaker variant — 11 of 11 sampled clauses absent). §3 Phase-B prompt = **UNVERIFIED, operator paste owed** — expect it too diverges from my record |
 | `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | **`PASTE_PENDING`** — raw not in Opus's possession |
 | `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | **`PASTE_PENDING`** — raw not in Opus's possession |
 

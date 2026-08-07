@@ -2,7 +2,7 @@
 
 Document type: `analysis` / `architecture_pressure_test` (method + protocol carrier for one blind independent side-agent experiment)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. Hosts no schema and no domain.
-Status: `protocol_accepted_nick_knox_2026-08-06` · `experiment_executed` · `abort_gate_PROCEED_TO_PHASE_B` · `raw_preservation_pending` · `not_promoted`
+Status: `protocol_accepted_nick_knox_2026-08-06` · `experiment_executed` · `abort_gate_PROCEED_TO_PHASE_B` · **`phase_a_prompt_operator_verbatim_CONFIRMED`** · **`phase_b_prompt_UNVERIFIED_paste_owed`** · `raw_preservation_pending` · `not_promoted`
 Domain(s): `architecture_governance`, `care_operating_model`, `d6_commerce`, `cross_cutting`
 Lifecycle role: the **method of record** for Gate 1a — the exact prompts issued, the blindness contract, the abort gate and its result, the verbatim-preservation law, the reviewer rubric, and the Gate-1b handoff boundary. It is the reproducibility surface: a future agent should be able to re-run or audit this experiment from this file alone.
 Source-of-truth relationship: authoritative as to **what was asked and under what conditions.** It is **not** the answer — the answers are the two verbatim source objects; the interpretation is the adjudication carrier.
@@ -42,186 +42,365 @@ Operator handling between phases: Phase-A response **preserved verbatim first**;
 
 ## §2 — EXACT PHASE-A PROMPT AS ISSUED
 
-> **Fidelity note (operator confirmation requested).** The block below is the final approved Phase-A prompt as authored in the accepted working packet. **Nick: confirm these are the exact bytes pasted into the side-agent thread.** If a different variant was run, replace this block verbatim with the bytes actually issued — do **not** let this file describe an experiment other than the one performed. Opus has copied, not reconstructed.
+> **★ CORRECTED 2026-08-07 — OPERATOR VERBATIM SUPPLIED; MY EARLIER RECORD WAS A DIFFERENT VARIANT.**
+> The block below is now the **exact Phase-A prompt the operator issued**, supplied verbatim by Nick and spliced in unmodified.
+>
+> **What was wrong.** My first draft of this section recorded the last variant *I* had authored in-thread, flagged with a confirmation request. That flag fired: on comparison, **11 of 11 sampled material clauses of the real prompt were absent from my record.** The prompt actually run was materially *stronger* than my version — it carried a four-step structured `DERIVATION AUDIT` (vs my looser single-question "derivation attempt"); a richer Task-1 variable set adding *who makes rules · who adjudicates · who remits · whether financing exists before care · whether responsibility changes retrospectively*; an **over-splits** check in Task 4 that my version lacked entirely (guarding against over-decomposition, not only over-collapse); an explicit *"do not include this alternative merely as a strawman"* clause; *"what is only a projection or seam"* in Task 5; *institutional evidence* in Task 6; a fifth permitted conclusion (*the common layer consists only of seams or a few inherited laws*); a hard *"do not ask clarifying questions"* constraint; and a stop clause forbidding the agent from self-starting the pressure test.
+>
+> **Why this mattered.** Several of those clauses are load-bearing for how the result must be read — the `over-splits` check and the no-strawman clause in particular shaped Task 4, and the four-step derivation audit is what produced the structural-vs-inherited classifications the adjudication relies on. Had this file kept my variant, the method of record would have described a **weaker experiment than the one performed**, and any future re-run or audit would have been against the wrong specification.
+>
+> Opus copied and spliced; Opus did not reconstruct.
 
 ```
-THREAD LOCK: INS-G1A-PHYSICS-SIDE-A | seat=INDEPENDENT_SIDE_ARCHITECT
+THREAD LOCK: INS-G1A-PHYSICS-SIDE-A
+seat=INDEPENDENT_SIDE_ARCHITECT
 visible="Gate 1a · Regime-Independent Care-Financing Physics · Phase A"
 
-Authority: analysis_nonbinding. Write posture: READ-ONLY.
-Deliverable: one standalone response in this thread.
-Do not create, edit or write files. Do not browse the web. Do not inspect any
-repository or prior analysis.
+Authority: analysis_nonbinding
+Write posture: READ-ONLY
+Phase-A deliverable: one standalone structured response in this thread
 
-=== YOUR ROLE ===
+Do not create, edit, or write files.
+Do not browse or search the web.
+Do not inspect any repository, connected source, prior analysis, or outside
+material.
+Do not ask clarifying questions. Make the minimum necessary assumptions and
+label them explicitly.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+YOUR ROLE
 
 You are an independent systems architect reasoning from first principles.
 
-Determine whether there is a coherent set of regime-independent "care-financing
-physics" beneath the different ways care may be funded, constrained, promised,
-allocated or settled.
+Determine whether there is a coherent set of regime-independent
+"care-financing physics" beneath materially different ways that care may be
+funded, constrained, promised, allocated, or settled.
 
-You are not designing present-day insurance workflows. You are not assigning
-architectural ownership. You are not creating a domain, schema, API, event
-model, implementation plan, product strategy or comparator report.
+You are not designing present-day insurance workflows.
+You are not assigning architectural ownership.
+You are not creating a domain, schema, API, event model, implementation plan,
+product strategy, market strategy, or comparator report.
 
-You are explicitly permitted to conclude that no useful shared care-financing
-substrate exists; that only a very small number of common laws exist; that the
-apparent commonality is merely a projection across non-fungible lifecycles; or
-that the question itself is over-collapsed.
+You are explicitly permitted to conclude that:
 
-=== MINIMUM CONTEXT ===
+- no useful shared care-financing substrate exists;
+- only a very small number of common laws exist;
+- apparent commonality is merely a projection across non-fungible lifecycles;
+- the common layer consists only of seams or a few inherited laws;
+- or the question itself over-collapses materially different regimes.
 
-There is a governed care + business operating substrate. Its center of gravity
-is CARE. Business and financing exist to enable, constrain, allocate or settle
-care; care does not exist merely to produce financial transactions.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-It preserves longitudinal coherence across people, providers, operators,
-organizations, evidence, authority, communication, commerce, fulfillment and
-care — over time and across organizational boundaries.
+MINIMUM CONTEXT
 
-Its INHERITED engineering posture (these are GIVEN, not your findings):
+There is a governed care + business operating substrate.
+
+Its center of gravity is CARE. Business and financing exist to enable,
+constrain, allocate, or settle care; care does not exist merely to produce
+financial transactions.
+
+The substrate preserves longitudinal coherence across people, providers,
+operators, organizations, evidence, authority, communication, commerce,
+fulfillment, and care over time and across organizational boundaries.
+
+Its inherited engineering posture includes:
+
 - truth has an owning authority;
 - another party's assertion remains that party's assertion;
 - projections must not silently become canonical truth;
-- authority, ownership, custody, visibility, execution and liability are
+- authority, ownership, custody, visibility, execution, and liability are
   distinct;
-- effective, recorded, received and known time may all differ;
+- effective time, recorded time, received time, and known time may differ;
 - corrections preserve history rather than overwriting it;
-- uncertainty, disagreement, silence, timeout, reversal and non-action may all
-  be meaningful states;
+- uncertainty, disagreement, silence, timeout, reversal, and non-action may
+  all be meaningful states;
 - a large noun is not automatically an architectural domain;
 - no god-object may absorb incompatible lifecycles;
 - automated agents act under represented principals rather than gaining
-  authority merely by being automated;
+  authority merely because they are automated;
 - longitudinal continuity must not require one organization to obtain
   universal ownership of a person's history.
 
-=== INHERITANCE FILTER (binding, and the most important constraint here) ===
+These are GIVEN substrate principles, not findings you may claim to have
+independently discovered.
 
-The principles above are GIVEN. Do NOT present a generic restatement of
-provenance, temporality, authority, append-only correction, uncertainty or
-portability as a newly discovered care-financing law. Doing so would produce a
-false convergence signal — you echoing our own inputs back to us.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-For EVERY candidate law you propose, you must first perform and SHOW a
-DERIVATION ATTEMPT:
+INHERITANCE FILTER
 
-  "Can this be derived entirely from the given substrate principles?"
+Do not present a generic restatement of provenance, temporality, authority,
+append-only correction, uncertainty, or portability as a newly discovered
+care-financing law.
 
-Show the attempt explicitly. A candidate qualifies as financing physics only if
-the derivation FAILS, or succeeds only via a nontrivial financing-specific
-specialization. If the derivation succeeds cleanly, say so and DEMOTE the
-candidate — reporting a demotion is a successful result, not a failure.
+For every proposed law, provide a concise DERIVATION AUDIT:
 
-=== THE QUESTION ===
+1. Name the supplied substrate principle or principles that could imply it.
+2. State whether the candidate dissolves completely into those inherited
+   principles.
+3. If it does not dissolve, name the precise financing-specific remainder.
+4. Classify the result as:
+   - direct generic-substrate inheritance;
+   - financing-specific specialization of inherited law;
+   - genuinely new candidate;
+   - or unresolved.
 
-Starting from the person receiving care — not from insurance transactions:
+A law qualifies as financing-specific only where financing introduces a
+nontrivial specialization or makes a distinction consequential in a way the
+generic law alone does not resolve.
 
-  What must remain true whenever resources, obligations, entitlements,
-  commitments, risk, money, or another party's willingness to fund affect care?
+Demoting a candidate to inherited substrate law is a successful result.
 
-Do not assume different funding arrangements share one object, one lifecycle,
-one interface, one owner, one correction law, or one architectural home.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-=== TASK 1 — GENERATE YOUR OWN REGIMES ===
+THE QUESTION
 
-Independently identify the materially different care-financing situations a
-regime-independent model must survive.
+Starting from the person receiving care—not from insurance transactions:
 
-Do not merely enumerate countries or payment methods. Vary: who bears risk ·
-who administers · who promises · who owes · when the amount becomes knowable ·
-whether care can wait · how many parties participate · whether commitments can
-reverse · and whether the care organization itself bears financial risk.
+What must remain true whenever resources, obligations, entitlements,
+commitments, risk, money, or another party's willingness to fund affect care?
 
-State why each regime is STRUCTURALLY distinct, not merely different in label.
+Do not assume in advance that different financing arrangements share:
 
-=== TASK 2 — CANDIDATE PHYSICS ===
+- one object;
+- one lifecycle;
+- one interface;
+- one owner;
+- one correction law;
+- one state machine;
+- or one architectural home.
 
-Aim for roughly 5–12 laws; no hard cap. Do not merge non-fungible laws to hit a
-number. If substantially more than twelve are genuinely necessary, report that
-as a finding.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Per law:
- 1. The law, one precise sentence.
- 2. DERIVATION ATTEMPT (per the inheritance filter) — shown, not asserted.
- 3. Epistemic class: descriptive structural invariant / normative
-    constitutional commitment / operational design choice / policy-
-    configuration rule / empirical assumption requiring evidence.
- 4. Inheritance class: direct generic-substrate inheritance / financing-
-    specific specialization / genuinely new / unresolved.
- 5. Why it is regime-independent.
- 6. Which of YOUR Task-1 regimes it survives.
- 7. Strongest counterexample.
- 8. What would falsify it.
- 9. Altitude: universal physics / possible shared interface / regime-specific
-    lifecycle / projection-read-model / policy-configuration / transport-
-    adapter detail / unresolved.
-10. Atomicity check: why this is not two laws, and why it is not part of
-    another.
+TASK 1 — GENERATE YOUR OWN REGIMES
 
-=== TASK 3 — MINIMUM SEMANTIC DISTINCTIONS ===
+Independently identify the materially different care-financing situations that
+a regime-independent model would need to survive.
 
-Identify distinctions that must not be collapsed. Per distinction: can one side
-change without the other · are the authorities different · are correction or
-reversal laws different · are the time axes different · would merging destroy
-historical reconstruction, patient agency, care integrity, financial
-conservation or legal accountability?
+Do not merely enumerate:
 
-Derive these yourself. Do not assume current insurance vocabulary is correct.
+- countries;
+- payment methods;
+- insurance product labels;
+- or current transaction formats.
 
-=== TASK 4 — COMPETING DECOMPOSITIONS ===
+Vary at least:
 
-At least three materially different organizations of the resulting physics.
-Per option: what it explains well · what it over-collapses · where a hidden
-coordinator or god-object could emerge · what evidence would distinguish it.
+- who bears financial risk;
+- who administers;
+- who makes rules;
+- who promises;
+- who owes;
+- who adjudicates;
+- who remits;
+- when the amount becomes knowable;
+- whether care can wait;
+- whether financing exists before care;
+- how many parties participate;
+- whether commitments can reverse;
+- whether responsibility changes retrospectively;
+- and whether the care organization itself bears risk.
 
-AT LEAST ONE must assume: there is no shared financing substrate; only seams,
-projections, or a small number of general laws are common across otherwise
-non-fungible lifecycles.
+For each regime, state why it is structurally distinct rather than merely
+different in name.
 
-=== TASK 5 — DISSOLUTION TEST ===
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Answer directly: is "care-financing physics" a genuinely useful architectural
-layer, or do its candidate laws dissolve into more general authority,
-obligation, entitlement, resource, commerce, temporal and care-continuity laws?
+TASK 2 — CANDIDATE PHYSICS
 
-Identify what remains specifically financing-shaped after dissolution · what is
-merely inherited substrate law · and what should not become architecture at all.
+Aim for approximately 5–12 candidate laws, but there is no hard cap.
 
-=== TASK 6 — WHAT CANNOT BE KNOWN FROM FIRST PRINCIPLES ===
+Do not merge non-fungible laws merely to fit a number. If substantially more
+than twelve appear genuinely necessary, report that as a finding rather than
+compressing them.
 
-Name every issue requiring empirical, legal, economic, operational or
-repository evidence, and state exactly what evidence would resolve it. Do not
-invent current market, regulatory, vendor or implementation facts.
+For every candidate law provide:
 
-=== TASK 7 — PRE-REGISTERED FRAGILITY ===
+1. The law in one precise sentence.
 
-Before any external pressure is applied, state which of your own laws,
-distinctions and decompositions you expect to be WEAKEST, and what kind of
-challenge would most likely break each. Be specific. This is a commitment you
-will later be held to.
+2. Derivation audit:
+   - inherited principles that could imply it;
+   - whether it dissolves into them;
+   - and the financing-specific remainder, if any.
 
-=== TASK 8 — STRONGEST SELF-ATTACK ===
+3. Epistemic class:
+   - descriptive structural invariant;
+   - normative constitutional commitment;
+   - operational design choice;
+   - policy/configuration rule;
+   - or empirical assumption requiring evidence.
 
-Argue that your laws are too abstract to guide architecture; that the regimes
-do not share enough structure; that your decomposition merely renames present
-insurance concepts; or that the inherited substrate principles already answer
-everything important. State what result would make you abandon your answer.
+4. Inheritance class:
+   - direct generic-substrate inheritance;
+   - financing-specific specialization;
+   - genuinely new candidate;
+   - or unresolved.
 
-=== PHASE-A STOP ===
+5. Why it appears regime-independent.
 
-Return one structured response. Do NOT choose a final verdict. End with a
-provisional hypothesis only.
+6. Which of your Task-1 regimes it survives.
 
-No file writes. No repository action. No web research. No follow-on work.
+7. Its strongest counterexample.
+
+8. What would falsify it.
+
+9. Apparent altitude:
+   - universal physics;
+   - possible shared interface;
+   - regime-specific lifecycle;
+   - projection/read model;
+   - policy/configuration;
+   - transport/adapter detail;
+   - or unresolved.
+
+10. Atomicity audit:
+    - why it is not two separate laws;
+    - and why it is not merely part of another law.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK 3 — MINIMUM SEMANTIC DISTINCTIONS
+
+Identify the minimum distinctions that must not be collapsed.
+
+For each distinction answer:
+
+- Can one side change without the other?
+- Are the authorities different?
+- Are ownership, execution, custody, visibility, or liability different?
+- Are correction or reversal laws different?
+- Are their relevant time axes different?
+- Would merging them destroy:
+  - historical reconstruction;
+  - patient agency;
+  - care integrity;
+  - financial conservation;
+  - or legal accountability?
+
+Derive the distinctions yourself.
+
+Do not assume that current insurance vocabulary is correct.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK 4 — COMPETING DECOMPOSITIONS
+
+Offer at least three materially different ways to organize the resulting
+physics.
+
+For each decomposition state:
+
+- what it explains well;
+- what it over-collapses;
+- what it over-splits;
+- where a hidden coordinator or god-object could emerge;
+- what evidence would distinguish it from the alternatives.
+
+At least one decomposition must assume:
+
+"There is no shared financing substrate. Only seams, projections, or a small
+number of general laws are common across otherwise non-fungible lifecycles."
+
+Do not include this alternative merely as a strawman.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK 5 — DISSOLUTION TEST
+
+Answer directly:
+
+Is "care-financing physics" a genuinely useful architectural layer, or do its
+candidate laws dissolve into more general authority, obligation, entitlement,
+resource, commerce, temporal, and care-continuity laws?
+
+Identify:
+
+- what remains specifically financing-shaped after dissolution;
+- what is merely inherited substrate law;
+- what is only a projection or seam;
+- and what should not become architecture at all.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK 6 — WHAT CANNOT BE KNOWN FROM FIRST PRINCIPLES
+
+Name every important issue that requires:
+
+- empirical evidence;
+- legal evidence;
+- economic evidence;
+- operational evidence;
+- institutional evidence;
+- or repository inspection.
+
+For each issue, state exactly what evidence would resolve it.
+
+Do not invent current market, regulatory, vendor, standards, or implementation
+facts.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK 7 — PRE-REGISTERED FRAGILITY
+
+Before receiving any external pressure test, identify which of your own:
+
+- laws;
+- distinctions;
+- regimes;
+- and decompositions
+
+you expect to be weakest.
+
+For each, state:
+
+- why it is vulnerable;
+- what kind of counterexample would break it;
+- and what change you expect you might have to make.
+
+This pre-registration will be compared against your later revisions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TASK 8 — STRONGEST SELF-ATTACK
+
+Make the strongest case that:
+
+- your laws are too abstract to guide architecture;
+- the regimes do not share enough structure;
+- your decomposition merely renames current insurance concepts;
+- or the inherited substrate principles already answer everything important.
+
+State the observable or logical result that would make you abandon your
+provisional answer.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PHASE-A STOP
+
+Return one structured response.
+
+Do not choose a final Gate-1a verdict yet.
+End with a provisional hypothesis only.
+
+Stop after delivering Phase A and wait for a new user message.
+Do not begin a pressure test on your own.
+
+No file writes.
+No repository action.
+No web research.
 ```
 
 ---
 
 ## §3 — EXACT PHASE-B PROMPT AS ISSUED
 
-> **Same fidelity note applies.** Copied, not reconstructed; operator to confirm the exact bytes.
+> **⚠ UNVERIFIED — TREAT AS A DRAFT RECORD, NOT AS THE PROMPT ISSUED. OPERATOR PASTE OWED.**
+>
+> The block below is the last Phase-B variant **I** authored in-thread. It has **not** been confirmed against what was actually issued — and the §2 comparison gives strong reason to expect it is **also** a different, probably weaker variant: the real Phase-A prompt diverged from my record on 11 of 11 sampled clauses, so the real Phase-B prompt very likely diverges too.
+>
+> **Consequently this section must not be read as the method of record for Phase B.** Until Nick supplies the exact Phase-B bytes, the protocol artifact is **partially unverified**, and any audit or re-run must treat Phase B's specification as unknown rather than as stated here.
+>
+> **Owed:** operator pastes the exact Phase-B prompt; Opus splices it verbatim and replaces this warning, exactly as was done for §2. **Opus will not reconstruct it** — including from the shape of §2 or from the structure of the Phase-B output, both of which would be inference dressed as evidence.
 
 ```
 THREAD LOCK: INS-G1A-PHYSICS-SIDE-B | seat=INDEPENDENT_SIDE_ARCHITECT
