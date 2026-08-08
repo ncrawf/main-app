@@ -320,7 +320,7 @@ Parent branch: **`integration/ins-g1b-parent-carry-gate2-prep`**, created from *
 
 **Under Option A (recommended), the correct disposition is `integrated_via_parent_merge` — NOT `superseded_by_parent_assembly`.**
 
-The proof in §5.2 Result 2 shows all three child heads become genuine ancestors of the assembled result. Once the parent lands on `main`, those commits are ancestors of `main`. Labelling them "superseded" would be factually wrong and would discard the ancestry the merge route exists to preserve.
+The §5.2 **historical** proof shows PR #4/#5/#6 becoming genuine ancestors of the assembled result. **The execution proof must cover four heads — PR #7/#4/#5/#6** (§5.2 scope note). Once the parent lands on `main`, those commits are ancestors of `main`. Labelling them "superseded" would be factually wrong and would discard the ancestry the merge route exists to preserve.
 
 | PR | Disposition under Option A | Timing | Required pointer |
 |---|---|---|---|
@@ -379,7 +379,26 @@ Checkpoint §4.2 records the role with a **named current holder**, not as an abs
 
 AWP §2.1's integrator-transfer law requires the carrier to record: role key · current holder · explicit transfer · freshness/collision check on assumption · shared-surface ownership receipt · parent blockers while vacant.
 
-**Nine surfaces are owned exclusively by the role and are read-only to all lanes:** `AGENTS.md` · the current checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · the off-repo controlling-plan banner. **The carry writes exactly those.**
+**Nine surfaces are owned exclusively by the role and are read-only to all lanes** (checkpoint §4.2, verbatim): `AGENTS.md` · the current checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · the off-repo controlling-plan banner.
+
+### §8.1a `05_supersession_conflict_ledger.md` — a TRANSACTION-ADDED shared surface, not a retroactively-claimed one
+
+> **★ AUTHORITY CORRECTION (Knox, applied).** A prior revision said the carry writes *"exactly those"* nine **and** listed `05_supersession_conflict_ledger.md` in the write matrix with owner "integrator role." **Verified: `05` is NOT in the checkpoint's nine.** The four conflict rows (§11.2) are legitimate; **the ownership claim was not.** Do not retroactively describe `05` as integrator-owned.
+
+| Field | Value |
+|---|---|
+| Original protected list | the **nine** above — unchanged, and this transaction does not amend the reusable AWP law or the checkpoint's standing list |
+| `05` status | **transaction-added serialized shared surface**, for this bounded transaction only |
+| Current owner | the canonical **architecture-governance / conflict-ledger authority** — *not* the integrator by default |
+| Proposed sole writer here | the **transferred integrator**, under Nick/Knox approval **plus `05`'s own review gate** (Closure Policy Lock; rows enter at `resolution_status: open_review`, which is additive and does not resolve anything) |
+| Scope of change | **ADD 4 rows** (§11.2). No row resolved, no existing row edited |
+| Recorded in | the **package's transaction-specific collision map**, not the standing protected list |
+
+**Total for this transaction: ten repository shared surfaces, plus the inaccessible off-repo banner.**
+
+### §8.1b Where shared-surface edits actually happen
+
+**No shared surface is written directly on `main`.** Every edit in §10 is authored **on the parent branch**, reviewed as part of the assembled object, and reaches `main` only under a **separate landing authorization** (§18.1, §20). The integrator's authority is therefore authority to **author a proposed edit on a branch**, not authority to mutate the live control plane. This materially lowers the blast radius and is why `05`'s addition is a bounded serialization question rather than an ownership transfer.
 
 **This preflight required no transfer** — it writes only its own provisional output object, which is within lane writable scope under `L4`. **Carry execution cannot begin without the transfer.**
 
@@ -395,20 +414,32 @@ outgoing_holder:                THREAD LOCK PRESPINE-PHASEA-INTEGRATOR | seat=OP
 incoming_holder:                <exact THREAD LOCK string of the executing thread>
 operator_authorization:         Nick, explicit — <date/time, exact words>
 current_control_plane_ref:      <main SHA at assumption; must equal the base the carry uses>
-child_source_refs:              PR #4 2aabed770eda9ec8164efaf0c5626816b85ca224
+child_source_refs:              PR #7 <accepted final head recovered from
+                                      planning/ins-g1b-carry-preflight at transfer> + its blob
+                                      (this document cannot self-stamp its own final commit)
+                                PR #4 2aabed770eda9ec8164efaf0c5626816b85ca224
                                 PR #5 671d120fd79c7b55325cf6e998646c02ead45f0f
                                 PR #6 78a9b2805e63dbc8f7f721da462bae95a7ce4846
-parent_integration_branch:      <exact branch name>
-protected_shared_surfaces:      the nine surfaces enumerated in §8.1
+parent_integration_branch:      integration/ins-g1b-parent-carry-gate2-prep
+protected_shared_surfaces:      the ORIGINAL NINE (checkpoint-owned, §8.1)
+                                + 05_supersession_conflict_ledger.md as a TRANSACTION-ADDED
+                                  serialized shared surface (§8.1a)
 other_writers_in_flight:        <exact — including any uncommitted work or concurrent lane>
 freshness_check:                main unmoved since <SHA>? Y/N · checkpoint §4.2 unchanged? Y/N ·
-                                child heads unchanged? Y/N · §5.2 merge proof re-run and passing? Y/N
-collision_scan:                 <result — any other branch or agent touching the nine surfaces>
-shared_surface_ownership_ack:   incoming holder acknowledges exclusive write ownership of the nine
-                                surfaces for the duration of the transaction
-parent_blockers_at_assumption:  A1 assembly · A3 base exception · A4 write matrix · A5 guardrail ·
-                                A6 Gate-2 contract  (all from §0)
-first_permitted_writable_object: <exact path — the parent branch, nothing else>
+                                ALL FOUR child heads unchanged (#7/#4/#5/#6)? Y/N ·
+                                FOUR-BRANCH §5.2 merge proof re-run and passing? Y/N
+collision_scan:                 <result — any other branch or agent touching the nine
+                                 + 05_supersession_conflict_ledger.md>
+shared_surface_ownership_ack:   incoming holder acknowledges sole-writer status over the nine
+                                + 05, for the duration of this transaction, on the parent BRANCH
+                                (no shared surface is written directly on main — §8.1b)
+preflight_decisions_closed:     A1 · A3 · A4 · A5 · A6  (Knox-adjudicated 2026-08-08)
+transfer_precondition:          A2 — satisfied by THIS receipt
+remaining_execution_stops:      freshness mismatch · collision · main movement · child-head
+                                movement · failed four-branch merge proof
+landing_authorization:          SEPARATELY REQUIRED after parent review — not granted by this
+                                receipt
+first_permitted_writable_object: integration/ins-g1b-parent-carry-gate2-prep, nothing else
 stop_on_mismatch:               ANY freshness or collision check returning N => STOP, do not write,
                                 report to Nick + Knox
 ```
@@ -430,13 +461,13 @@ If the executing thread is the same context that authored the Gate-1b R9 output,
 | Child PR | Source branch | Source head | Source path | Source blob | Authority | Maturity | Assembly method | Destination path | Byte-exact | Normalized | Final disposition | Consumer routes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | **#7** | `planning/ins-g1b-carry-preflight` | corrected head, recorded at execution | `v4_INS_G1B_parent_carry_preflight_2026-08-08.md` | recorded at execution | `derived_nonbinding` | Knox-adjudicated, patched | `--no-ff` merge (**1st**) | same | ✅ yes | no | `integrated_via_parent_merge` | the governing execution plan; readiness-gate record |
-| #4 | `analysis/insurance-payer-oop-g0` | `2aabed77…` | `v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` | `9f935857…` | `analysis_nonbinding` | Gate-0 carrier, `not_promoted` | `--no-ff` merge (1st) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance cold-entry route; `INS-HAZ-COVSURF`; FWREG-017 |
-| #5 | `cursor/ins-g1a-preservation-caa7` | `671d120f…` | `v4_INS_G1A_regime_independent_care_financing_physics_protocol_2026-08-07.md` | `8876a0d8…` | `analysis_nonbinding` | protocol, complete | `--no-ff` merge (2nd) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance route step 2 |
+| #4 | `analysis/insurance-payer-oop-g0` | `2aabed77…` | `v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` | `9f935857…` | `analysis_nonbinding` | Gate-0 carrier, `not_promoted` | `--no-ff` merge (**2nd**) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance cold-entry route; `INS-HAZ-COVSURF`; FWREG-017 |
+| #5 | `cursor/ins-g1a-preservation-caa7` | `671d120f…` | `v4_INS_G1A_regime_independent_care_financing_physics_protocol_2026-08-07.md` | `8876a0d8…` | `analysis_nonbinding` | protocol, complete | `--no-ff` merge (**3rd**) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance route step 2 |
 | #5 | " | " | `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | `d242162c…` | `analysis_nonbinding` | **raw, verbatim — source** | " | same | ✅ yes | no | " | cited by Gate-1b §1; **raw wins over derivative** |
 | #5 | " | " | `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | `03295b50…` | `analysis_nonbinding` | **raw, verbatim — source of F1–F7** | " | same | ✅ yes | no | " | Gate-1b §1.1 anchor; **controls over the adjudication** |
 | #5 | " | " | `v4_INS_G1A_adjudication_and_terminus_2026-08-07.md` | `6b42d257…` | `analysis_nonbinding` | derivative interpretation | " | same | ✅ yes | no | " | derivative — loses precision on F1/F3/F7 |
 | #5 | " | " | `HANDOFF_2026-08-07_ins_g1a_preserved_gate1b_ready.md` | `70b5e0df…` | `derived_nonbinding` | handoff | " | same | ✅ yes | no | " | lane-model evidence for §3 |
-| #6 | `cursor/ins-g1b-ownership-reconciliation` | `78a9b280…` | `v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` | `57e5bb5e…` | `analysis_nonbinding` | **R9, analysis accepted pending carry** | `--no-ff` merge (3rd) **+ §7 patch** | same | ✅ before patch | ✅ §7 | `integrated_via_parent_merge` + normalized | every Gate-2 route; §11 consumer matrix |
+| #6 | `cursor/ins-g1b-ownership-reconciliation` | `78a9b280…` | `v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` | `57e5bb5e…` | `analysis_nonbinding` | **R9, analysis accepted pending carry** | `--no-ff` merge (**4th**) **+ §7 patch** | same | ✅ before patch | ✅ §7 | `integrated_via_parent_merge` + normalized | every Gate-2 route; §11 consumer matrix |
 
 **Read order for the assembled estate:** Gate-0 carrier → Gate-1a protocol → Phase-A raw → Phase-B raw → Gate-1a adjudication → Gate-1a handoff → **Gate-1b carrier (R9)** → Gate-2 brief. *(The preflight is a readiness-gate record read alongside, not a step in the architecture chain.)*
 
@@ -455,7 +486,7 @@ Every file the **future carry** proposes to touch. Nothing outside this table ma
 | `.cursor/plans/HANDOFF_2026-08-08_ins_g1b_carried_gate2_ready.md` | `derived_nonbinding` | new | integrator | Tier-3 durable handoff (§15) | new file | yes | — | n/a | delete file, revert commit |
 | `docs/architecture/evolution_narrative_volume_10_2026-08-08.md` | `narrative_or_postmortem` | new | integrator | **Tier-3 narrative volume, mandatory** (§15) | new file incl. *Prior arcs consulted* | yes | — | n/a | delete file, revert commit |
 | **IMPORT (merge, not authored)** | | | | | | | | | |
-| the seven child artifacts in §9 | as recorded | child lanes | integrator via merge | assembly | **byte-exact import**; only PR #6 normalized per §7 | yes | — | **§7 one line only** | revert merge commits |
+| the **eight imported artifacts** in §9 (seven child artifacts + this preflight) | as recorded | child lanes | integrator via merge | assembly | **byte-exact import**; only PR #6 normalized per §7 | yes | — | **§7 one line only** | revert merge commits |
 | **SHARED SURFACES — integrator-exclusive** | | | | | | | | | |
 | `.cursor/plans/HANDOFF_2026-08-03_..._post_c4_4.md` (checkpoint) | Tier-0 current state | integrator role | integrator | §4.2 gate-lineage row (§3.2); base exception (§4.3); integrator transfer (§8.3); next-authorized-action | bounded edits to §4.2 + banner | yes | Nick | **no rewrite of history** | revert; restore prior banner |
 | `AGENTS.md` | Tier-0 boot pointer | integrator role | integrator | Closeout Rule pointer sync — **pointer only, never the value** | current-checkpoint pointer + next action | yes | Nick | no | revert |
@@ -627,7 +658,11 @@ This is honest, it is useful, it keeps the hazard discoverable and routed instea
 > - **no verbatim appendix; no guessed helper attribution; no reconstruction**
 > - **Nick is not asked to recover or reconstruct anything. This does not block the carry.**
 >
-> **This is a continuity defect in the review leg, recorded as such.** Two Knox contexts disagree about whether the reports were read, which is itself the reason no weight may rest on "the helpers found X." The Gate-2 provenance matrix keeps the `challenge_or_search_path_raised_by` column present but populated with `not_recoverable_from_durable_estate`, so the absence is visible rather than silently omitted.
+> **The defect, stated precisely — and it is NOT a contradiction between reviewers.** The retiring Knox handoff **reports a full read** of the four reports. The current Knox context **does not possess them and cannot inspect or verify them.** Those are **different claims, not conflicting ones** — context does not transfer, and no disagreement is adjudicated here.
+>
+> **The durable defect is non-durable preservation and non-transferability:** the raw report objects were never preserved into, or transferred through, the durable estate, so no current reviewer can verify their contents, attribution, or exact influence. **No final architecture claim relies on them**, and no reconstruction or operator task is owed. The Gate-2 provenance matrix keeps the `challenge_or_search_path_raised_by` column present but populated with `not_recoverable_from_durable_estate`, so the absence stays visible rather than silently omitted.
+>
+> **Reusable lesson for future commissioned helper work: a report that only ever exists in a reviewer's context is not evidence the estate can use.** If helper output is meant to carry weight, it must land as a durable object under the Evidence Plane's own gate (`D0THES-GRD-036`, capture broad / promotion gated) at the time it is produced.
 
 **Sealed verbatim appendix: NOT recommended and NOT deferred — declined.** No raw exists in the durable estate, so its audit value cannot be assessed and a placeholder would violate the no-reconstruction rule.
 
@@ -710,7 +745,7 @@ checkpoint_tier:  3
 
 1. **spans 3+ Tier-0 governance artifacts** — nine integrator-exclusive surfaces are in scope (§8.1);
 2. **changes routing semantics** — six cold-entry read-graph routes plus Tier-0 #15;
-3. **crosses a phase boundary** — Gate 1b → Gate 2, and the Insurance partition's completion inside Phase A;
+3. **crosses a gate boundary** — Gate 1b closes as analysis and Gate 2 is prepared. **The Insurance partition does NOT complete here** (§3.2): it remains active until Gate 2 returns the final Task-D sufficiency receipt. No phase completion is claimed, and Tier 3 does not depend on one — the other three markers each establish it independently;
 4. **spans multiple sessions and multiple commits** — merge commits + normalization + Gate-2 brief + closeout.
 
 **Tier 3 therefore requires:** Tier-2 durable handoff · **narrative volume** (`docs/architecture/evolution_narrative_volume_10_2026-08-08.md`) · **prior-arcs-consulted section** · **guardrail extraction (§16)** · **checkpoint closeout with pointer synchronization in the same commit.**
@@ -835,8 +870,8 @@ C61 set the bar at *"evidence of recurrence beyond this packet."* **That bar is 
 | Boundary | Value |
 |---|---|
 | Parent branch base | **exact current `main`** at execution — re-verified; **STOP if moved** |
-| Merge order | PR #4 → PR #5 → PR #6, `--no-ff`, lineage order |
-| Commit boundaries | (1) three merge commits · (2) one normalization commit (§7) · (3) Gate-2 brief + handoff + narrative · (4) **one shared-surface closeout commit** |
+| Merge order | **PR #7 → PR #4 → PR #5 → PR #6**, `--no-ff`, lineage order |
+| Commit boundaries | (1) **four** merge commits · (2) one normalization commit (§7) · (3) Gate-2 brief + handoff + narrative · (4) **one shared-surface closeout commit** |
 | Normalization boundary | §7 only — **one line, one substring** |
 | Shared-surface boundary | the nine integrator surfaces, in **one closeout commit** per AWP §8 |
 
@@ -844,11 +879,14 @@ C61 set the bar at *"evidence of recurrence beyond this packet."* **That bar is 
 
 ```
 git rev-parse origin/main                                   == the recorded base
-git merge-base --is-ancestor <each child head> <parent head> == true (x3)
+git merge-base --is-ancestor <each child head> <parent head> == true (x4: #7,#4,#5,#6)
 git diff --numstat <main>..<parent head>                     -> zero deletions on imported files
 git diff --name-status <main>..<parent head>                 -> only A on child artifacts; only
                                                                 intended M on the nine surfaces
-git rev-parse <child head>:<path> == git rev-parse <parent>:<path>   for all 7 (PR #6 pre-normalization)
+git rev-parse <child head>:<path> == git rev-parse <parent>:<path>   for all 8 imported artifacts
+                                                             (PR #6 verified PRE-normalization; PR #7 verified
+                                                              against its accepted final head recovered at
+                                                              execution - this document cannot self-stamp it)
 git diff --exit-code <main>:<path> <parent>:<path>           for every surface NOT in the write matrix
                                                              -> must exit 0 (untouched)
 ```
@@ -876,7 +914,68 @@ Child PR states recorded · landed object blobs recorded in the manifest · `AGE
 
 ---
 
-## §19 — FINAL PREFLIGHT RECOMMENDATION
+## §19 — REVIEW-ENTRY MAP AND PRESSURE SELECTION (recovered, not invented)
+
+**Why this section exists.** The controlling arc plan was set roughly two gates ago, before Gate 1a's blind result moved the centre of gravity and before Gate 1b split the verdict onto two axes. Since then, review rigour has been chosen conversationally at each stop. **The estate already owns the instrument for this** — `.cursor/plans/doctrine/omni_work_method_repertoire.md` (61 methods, `D0CKPT-DEC-006` `active`), whose own rule is *"consult only when planning or **materially replanning**."* **This arc materially replanned and did not consult it.** Recording the selection here costs one section and removes the need to invent pressure strategy at each hand-off.
+
+**Nothing below is new machinery.** Method IDs are quoted from the repertoire; the precedents are the estate's own, named in Gate-1b §16 statement 2 (C4.3's quadrifecta with a white-box mutation adversary · C4.4's three-angle test · C4.6's blind Gemini leg). The repertoire is a **palette, not a pipeline** — no required order, method, or count, and `METHOD-000` (no method) stays valid.
+
+### §19.1 What this arc has actually used, and where the discipline lapsed
+
+| Gate | Independence applied | Repertoire method |
+|---|---|---|
+| Gate 0 | repository-grounded charter + Knox review | `M-701` Gate-0 charter |
+| **Gate 1a** | **genuinely blind derivation, then unblinded adjudication** | **`M-502`** blind-then-unblinded |
+| Gate 1b | repository-native Opus + Knox review only — **no third leg, no adversarial execution, no fixture run** (§2.8, carrier §16) | `M-509` contradiction sweep, informally |
+| Preflight | Opus authored · Knox adjudicated twice · Opus self-corrected on empirical Git evidence | `M-707` bounded fidelity patch · `M-708` byte review |
+
+**The lapse is specific and already self-reported:** Gate 1b's own §16 records that its arrivals are Opus-and-Knox convergence with **no independent leg and no executed fixture**, and that the estate's own precedent for high-stakes results is more rigorous than what was applied. That is the gap the entries below close — at the two points where independence actually has leverage.
+
+### §19.2 The two authorized later entry points
+
+**Neither is owed now. Both are pre-selected so the next agent inherits the choice instead of improvising it.**
+
+| Entry | Trigger | Methods | Evaluator | Allowed verdicts (set BEFORE running) |
+|---|---|---|---|---|
+| **E1 — mechanical proof** | parent branch assembled, **before** `main` landing | `M-708` byte review · `M-702` desk check · `M-710` checkpoint/boot-path sync | a **narrow proof agent**, not the assembling context | `PROOF_PASS` · `PROOF_FAIL_WITH_EXACT_DEFECTS` |
+| **E2 — adversarial review** | **after** Gate-2 execution and its trace results — not on the brief alone | `M-503` builder/adversary/judge separation · `M-501` fresh-context re-derivation · `M-506` counterexample search | a **genuinely fresh adversary**, blind to our conclusion (`M-502` caution: blind only counts *before* exposure) | `SURVIVES` · `SURVIVES_WITH_NAMED_RECONCILIATIONS` · `BROKEN_AT_<named claim>` |
+
+**No third broad reviewer on this preflight.** A third opinion here would re-derive the same package; the leverage is at E1 and E2.
+
+### §19.3 Gate-2 pressure — already selectable, so do not improvise it
+
+Gate-1b outputs 11–14 already name the required Gate-2 work. Mapped to repertoire IDs so the Gate-2 author picks rather than invents:
+
+- **trace suite** → `M-401`–`M-407`, notably `M-405` degraded-mode replay · `M-406` temporal/as-of (A-Q17) · `M-407` cross-operator
+- **the commercial attack Knox names** — buyer, burden economics, incumbent substitutability → `M-601` vertical wedge · `M-603` mixed-financing · `M-604` institutional gravity · **`M-606` incumbent absorption** · **`M-607` portability/exit**
+- **comparators** (military/joint C2 · civil aviation · Palantir · AWS · agent platforms · Tesla · Epic) → `M-201`-class comparator work, **informs never binds**
+- **kill conditions** → **`M-706` explicit verdict vocabulary** — *"define before running or it cannot fail"*
+- **finding disposition** → `M-705` disposition ledger · **Task-D hand-off** → `M-703` input-state receipt
+
+**One gap worth naming: the trace suite currently has no negative control.** `M-508` null-detection calibration asks whether a test reports a finding when none exists. Gate 2 should include at least one trace expected to produce **no** finding, or a suite that always finds something is indistinguishable from one that works.
+
+### §19.4 Selection record (repertoire's own five-line format)
+
+```
+Uncertainty:                    Is the assembled parent byte-faithful, and does the Gate-2
+                                operating profile survive a real adversary and a real buyer?
+Method(s), if any:              E1 = M-708 + M-702 + M-710 (narrow proof agent, pre-landing)
+                                E2 = M-503 + M-501 + M-506 (fresh adversary, post-Gate-2 execution)
+                                Gate 2 = M-405/406/407 + M-601/603/604/606/607 + M-706 + M-508
+Why:                            Gate 1b's own §16 records Opus+Knox convergence with no third
+                                leg and no executed fixture; independence has leverage on
+                                assembled bytes and on executed results, not on plan commentary.
+Material alternative rejected:  a third broad reviewer on this preflight — would re-derive the
+                                package and produce another long opinion at no marginal safety.
+Evaluator / stop:               E1 stops at PROOF_PASS or exact defects; E2 verdicts set before
+                                results per M-706; neither is owed before its trigger.
+```
+
+**What this section is not.** It is not the market strategy, the moat, the buyer case, or the Gate-2 content. After the parent lands, this whole preflight becomes **historical readiness evidence** — not boot-visible, not repeatedly amended, and never a substitute for the Gate-2 brief.
+
+---
+
+## §20 — FINAL PREFLIGHT RECOMMENDATION
 
 # `PREFLIGHT PASS — PENDING NICK INTEGRATOR TRANSFER AND EXECUTION AUTHORIZATION`
 
