@@ -51,7 +51,7 @@ There are **six authorization DECISIONS, not six things Nick must supply.** Five
 | **GATE 1A — PR #5** | head `671d120fd79c7b55325cf6e998646c02ead45f0f` · branch `cursor/ins-g1a-preservation-caa7` | ✅ open · draft · `MERGEABLE` |
 | **GATE 1B — PR #6** | head `78a9b2805e63dbc8f7f721da462bae95a7ce4846` · branch `cursor/ins-g1b-ownership-reconciliation` | ✅ open · draft · `MERGEABLE` · `mergeStateStatus: UNSTABLE` (Vercel only — §17) |
 | **PRESERVED SOURCE PACKET — PR #8** | head `e5840aa5fcec47fd7ffea87392282825d56b6e66` · branch `preservation/ins-g0-kickoff-subagent-raws` | ✅ open · draft · `preservation_accepted_pending_parent_integration`; **5 repository files** (4 catalogable Markdown + 1 packet-local proof utility) |
-| **PARKED, NOT A CHILD — PR #9** | head `a12f681858371d2bf34ba6fa9015f1e213a2acd7` | **OUTSIDE this transaction.** Global Tier-4 governance, `review_ready_pending_separate_governance_landing`. Lands in its own transaction after Insurance |
+| **PARKED, NOT A CHILD — PR #9** | **stable identity: PR #9 · branch `governance/agent-delegation-supervision-capture`.** Head at time of writing `804b5baaa76b561725e622ddd8a2aeedca4e4ade` — **frozen evidence, not a live pin** | **OUTSIDE this transaction.** Global Tier-4 governance, `review_ready_pending_separate_governance_landing`. **It will be refreshed against then-current `main` before its own landing, so resolve its head from the branch, not from this row** (§2.1 Single-source law) |
 | **This preflight** | branch `planning/ins-g1b-carry-preflight`, based at `d592e40` | this object |
 
 > **★ MALFORMED-REF CORRECTION.** A prior relay recorded PR #5 as `671d120fd79c7f721da462bae95a7ce4846`. That token is **35 characters** and is a **splice** of PR #5's prefix (`671d120fd79c7`) with PR #6's tail (`f721da462bae95a7ce4846`). **The correct PR #5 head is `671d120fd79c7b55325cf6e998646c02ead45f0f`.** Do not propagate the spliced token into any receipt.
@@ -297,9 +297,13 @@ The two-reference boot law is the reason. Gate-1a and Gate-1b are **later sequen
 
 ### §5.2 The proof — run in this session, in a disposable scratch worktree, now destroyed
 
-> **★ PROOF SCOPE — READ BEFORE RELYING ON THE NUMBERS.** The proof below is a **THREE-branch proof (PR #4 · #5 · #6). It does NOT include PR #7**, which Knox subsequently required to be merged first (`A1` condition 1), and it was run against **PR #7's pre-correction state, which no longer exists.** The figures below are therefore **frozen evidence of a three-branch merge, not a status report on the four-branch assembly that will actually execute.**
+> **★ PROOF SCOPE — READ BEFORE RELYING ON THE NUMBERS.** The proof below is a **THREE-branch proof (PR #4 · #5 · #6). It does NOT include PR #7 or PR #8**, both of which were added to the assembly afterwards, and it was run against a PR #7 state that no longer exists. The figures below are therefore **frozen evidence of a three-branch merge, not a status report on the **five-branch** assembly that will actually execute.**
 >
-> **MANDATORY: the §5.2 proof MUST be re-run at execution with PR #7's corrected head included as the first merge, and the re-run figures — not these — govern.** Expect **8 files** rather than 7, and an insertion count higher by this artifact's line count. **Do not copy these numbers forward into the execution receipt.** Reporting a stale proof as current is precisely the propagation defect this whole arc exists to eliminate.
+> **HISTORICAL PROOF:** PR #4 / #5 / #6 · **3 heads · 7 files.** It remains valid for exactly what it shows — those three merge cleanly and current-`main` doctrine survives.
+>
+> **EXECUTION PROOF (mandatory, and it governs):** PR #7 / #8 / #4 / #5 / #6 · **5 heads · 13 imported repository files.** The re-run must cover: PR #7 at its final head · **all five PR #8 files** · **five PR #8 Git blob-equality checks** · **six PR #8 canonical region-content digest checks** · PR #4/#5/#6 ancestry and byte checks.
+>
+> **Do not copy the historical figures into the execution receipt.** Reporting a stale proof as current is precisely the propagation defect this arc exists to eliminate.
 
 Scratch worktree created at a temporary path from `d592e402b779aaedc1f137189bf51cd2b5ca678d`, three `--no-ff` merges applied in lineage order, then removed. **The merge-commit SHAs are not reproducible** (merge commits embed timestamps); **the tree and blob results are.** Verify by re-running, not by trusting the commit SHAs below.
 
@@ -453,7 +457,7 @@ AWP §2.1's integrator-transfer law requires the carrier to record: role key · 
 
 > **★ SCOPE CORRECTED 2026-08-08 — PR #9 REMOVED FROM THIS CARRY.** An earlier revision pulled **PR #9** (delegation-capture governance, **Tier-4, global**) into this parent, taking the surface count to 13. **That was a structural error.** AWP §2.1 sets package membership by **shared intended outcome and coordinated closure — not co-occurrence in one conversation.** PR #9 changes the mandatory protocol for *every future agent in every context*; it is **not required for Insurance Phase-A closure** and must not turn a domain carry into a cross-cutting governance landing. **PR #8 stays** — it preserves the exact sources Gate 0 used and has named Insurance/C3.9/Gate-2 consumers. **Back to 10 repository shared surfaces.**
 >
-> **PR #9 is parked, not dropped:** `review_ready_pending_separate_governance_landing`, head `a12f6818…`, landing in its own Tier-4 transaction **after** Insurance. **The Tier-3 handoff produced by this carry MUST name it as the owed follow-up** so it cannot disappear.
+> **PR #9 is parked, not dropped:** `review_ready_pending_separate_governance_landing`, branch `governance/agent-delegation-supervision-capture` (head at time of writing `804b5baa…`, **frozen evidence — resolve live from the branch**), landing in its own Tier-4 transaction **after** Insurance. **The Tier-3 handoff produced by this carry MUST name it as the owed follow-up** so it cannot disappear.
 
 | Group | Surfaces | Count |
 |---|---|---|
@@ -508,7 +512,10 @@ child_source_refs:              PR #7 <accepted final head recovered from
                                 PR #5 671d120fd79c7b55325cf6e998646c02ead45f0f
                                 PR #6 78a9b2805e63dbc8f7f721da462bae95a7ce4846
                                 (PR #9 is NOT part of this transaction - separate
-                                 governance landing, head a12f6818...)
+                                 governance landing, branch
+                                 governance/agent-delegation-supervision-capture;
+                                 head at transfer time 804b5baa..., resolve live
+                                 from the branch, never from this receipt)
 parent_integration_branch:      integration/ins-g1b-parent-carry-gate2-prep
 protected_shared_surfaces:      8 CHECKPOINT-OWNED repository surfaces (AGENTS · checkpoint ·
                                 read graph · catalog · 03 · 06 · 08 · FWREG)
@@ -586,7 +593,7 @@ Every file the **future carry** proposes to touch. Nothing outside this table ma
 | **SHARED SURFACES — integrator-exclusive** | | | | | | | | | |
 | `.cursor/plans/HANDOFF_2026-08-03_..._post_c4_4.md` (checkpoint) | Tier-0 current state | integrator role | integrator | §4.2 gate-lineage row (§3.2); base exception (§4.3); integrator transfer (§8.3); next-authorized-action | bounded edits to §4.2 + banner | yes | Nick | **no rewrite of history** | revert; restore prior banner |
 | `AGENTS.md` | Tier-0 boot pointer | integrator role | integrator | Closeout Rule pointer sync — **pointer only, never the value** | current-checkpoint pointer + next action | yes | Nick | no | revert |
-| `.cursor/plans/doctrine/04_manifest_read_graph.md` | Tier-0 routing | integrator role | integrator | six cold-entry routes + Tier-0 #15 summary sync (§14) | **add 6 route entries UNDER the existing contract** — see Tier-4 boundary §15.3 | yes | — | no | revert |
+| `.cursor/plans/doctrine/04_manifest_read_graph.md` | Tier-0 routing | integrator role | integrator | cold-entry routes + preservation-index route + Tier-0 #15 summary sync (§14) | **add exactly 7 route entries UNDER the existing contract** — **6** Gate-1b cross-arc routes **+ 1** conditional child route to `v4_INS_G0_kickoff_subagent_verbatim_index_2026-08-08.md` (index is the entry point; the three raws are **never default-loaded**) — see Tier-4 boundary §15.3 | yes | — | no | revert |
 | `.cursor/plans/doctrine/01_master_corpus_catalog.md` | Tier-0 catalog | integrator role | integrator | catalog rows for every landed artifact (§14.1) | **add exactly 15 rows** (§14.1) | yes | — | no | revert |
 | `.cursor/plans/doctrine/08_open_review_queue.md` | Tier-0 queue | integrator role | integrator | §11 state transitions | **UPDATE 5** (`REV-159` · `REV-160` · `REV-185` · `REV-193` · `REV-201`) **+ ADD 3** (agreement/party-position · Gate-2 parent row · `INS-HAZ` Build-Entry activation) | yes | per-row `required_reviewer` | no | revert |
 | `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` | Tier-0.5 boot-visible | integrator role | integrator | **Tier-3 guardrail obligation (§16, REVISED)** | **UPDATE `D0CKPT-GRD-003`** (narrow) · **UPDATE `D0-GRD-010`** (financing vendor-label) · **ADD 1** coverage-as-boolean / overwrite-on-check row. **`D0TIER0-GRD-004` NOT touched.** | yes | Knox `A5` | no | revert |
@@ -879,7 +886,7 @@ checkpoint_tier:  3
 **Exact Tier-3 triggers relied on, from the AWP §8 table** (*any* one suffices; four are present):
 
 1. **spans 3+ Tier-0 governance artifacts** — **10 repository shared surfaces + 1 off-repo banner** are in scope (§8.1, §8.1a);
-2. **changes routing semantics** — six cold-entry read-graph routes plus Tier-0 #15;
+2. **changes routing semantics** — **6 cross-arc routes + 1 conditional preservation-index route** plus Tier-0 #15 summary synchronization;
 3. **crosses a gate boundary** — the carry **completes the original Phase-A Insurance input at Gate-1b ownership maturity** and **prepares, without executing, the successor Gate-2 brief outside Phase A** (§3.3). Tier 3 does not depend on this marker; the other three each establish it independently;
 4. **spans multiple sessions and multiple commits** — merge commits + normalization + Gate-2 brief + closeout.
 
