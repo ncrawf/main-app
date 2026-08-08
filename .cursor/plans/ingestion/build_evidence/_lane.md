@@ -1,6 +1,8 @@
 # Lane: Build Evidence (External)
 
-Status: **latent** (placeholder — no evidence yet) · Parent: `../00_evidence_router.md`
+Status: **active** (first packet captured 2026-08-08) · Parent: `../00_evidence_router.md`
+
+**Captured sources:** `sources/EVSRC-2026-000316_typed-dependency-edges-evals-and-durable-checkpoints.md` — Palantir Foundry typed link/action types · Anthropic predeclared task-specific evals · LangGraph durable checkpoints and the `thread_id` pointer. Consumed by `D0CKPT-DEC-009` and guardrails `D0CKPT-GRD-004` / `D0CKPT-GRD-007`. **Each mechanism carries an explicit non-transfer** — that field is the point of the lane, not decoration.
 
 **What belongs:** **externally-sourced** build/implementation technique evidence — e.g., "how Stripe does idempotency keys," "how X structures durable workflows," patterns observed in other systems that could inform how OMNI is built.
 
