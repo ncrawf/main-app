@@ -5,7 +5,7 @@ Authority: `derived_nonbinding`
 Status: `preflight_knox_accepted · pending_nick_integrator_transfer · provisional_pending_parent_integration · carry_not_executed · integrator_role_not_assumed · shared_surfaces_untouched · gate2_not_started`
 Domain(s): `insurance_payer_oop` · `d6_commerce` · `care_operating_model` · `federation` · `clinical_memory` · `cns_coordination` · `accountability_architecture` · `architecture_governance` · `portfolio_sequencing`
 Lifecycle role: read-only preflight and exact write plan for the parent integration transaction
-Source-of-truth relationship: consumes current `main` plus PR #4/#5/#6 exact review objects; **authorizes nothing**; the child source objects and primary governing sources control over any shorthand in this document
+Source-of-truth relationship: consumes current `main` plus the **PR #4 / #5 / #6 / #8** exact review objects (**PR #9 is a separate parked governance follow-up, not a consumed child**); **authorizes nothing**; the child source objects and primary governing sources control over any shorthand in this document
 Supersedes: nothing. Superseded by: none.
 Manifest action: `add_tier2` **PROPOSED** — the parent integration transaction owns registration
 Review gate: `user_knox_required`
@@ -50,6 +50,8 @@ There are **six authorization DECISIONS, not six things Nick must supply.** Five
 | **GATE 0 — PR #4** | head `2aabed770eda9ec8164efaf0c5626816b85ca224` · branch `analysis/insurance-payer-oop-g0` | ✅ open · draft · `MERGEABLE` |
 | **GATE 1A — PR #5** | head `671d120fd79c7b55325cf6e998646c02ead45f0f` · branch `cursor/ins-g1a-preservation-caa7` | ✅ open · draft · `MERGEABLE` |
 | **GATE 1B — PR #6** | head `78a9b2805e63dbc8f7f721da462bae95a7ce4846` · branch `cursor/ins-g1b-ownership-reconciliation` | ✅ open · draft · `MERGEABLE` · `mergeStateStatus: UNSTABLE` (Vercel only — §17) |
+| **PRESERVED SOURCE PACKET — PR #8** | head `e5840aa5fcec47fd7ffea87392282825d56b6e66` · branch `preservation/ins-g0-kickoff-subagent-raws` | ✅ open · draft · `preservation_accepted_pending_parent_integration`; **5 repository files** (4 catalogable Markdown + 1 packet-local proof utility) |
+| **PARKED, NOT A CHILD — PR #9** | head `a12f681858371d2bf34ba6fa9015f1e213a2acd7` | **OUTSIDE this transaction.** Global Tier-4 governance, `review_ready_pending_separate_governance_landing`. Lands in its own transaction after Insurance |
 | **This preflight** | branch `planning/ins-g1b-carry-preflight`, based at `d592e40` | this object |
 
 > **★ MALFORMED-REF CORRECTION.** A prior relay recorded PR #5 as `671d120fd79c7f721da462bae95a7ce4846`. That token is **35 characters** and is a **splice** of PR #5's prefix (`671d120fd79c7`) with PR #6's tail (`f721da462bae95a7ce4846`). **The correct PR #5 head is `671d120fd79c7b55325cf6e998646c02ead45f0f`.** Do not propagate the spliced token into any receipt.
@@ -65,6 +67,11 @@ There are **six authorization DECISIONS, not six things Nick must supply.** Five
 | #5 | `.cursor/plans/v4_INS_G1A_adjudication_and_terminus_2026-08-07.md` | `6b42d2572736d4d5999cb795eb42cd0880453745` |
 | #5 | `.cursor/plans/HANDOFF_2026-08-07_ins_g1a_preserved_gate1b_ready.md` | `70b5e0df04e9b7cd50373e6b90829396feed75dd` |
 | #6 | `.cursor/plans/v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` | `57e5bb5e4da54784c90d22616793c953b67ed776` |
+| #8 | `.cursor/plans/v4_INS_G0_kickoff_subagent_verbatim_index_2026-08-08.md` | `4d5ab0a498a8c6d6e1e4fff87ae1c8be7da77223` |
+| #8 | `.cursor/plans/v4_INS_G0_build_architecture_decomposer_verbatim_2026-08-08.md` | `958e43a952c649c62f9e9652d3775025ad1b4747` |
+| #8 | `.cursor/plans/v4_INS_G0_anti_omni_adversary_verbatim_2026-08-08.md` | `b01d36574abc4283e007717be4ad65a761b93be5` |
+| #8 | `.cursor/plans/v4_INS_G0_patient_provider_lens_verbatim_2026-08-08.md` | `9e857fcb29f0cb41cbd033bd3eeb260d9003af03` |
+| #8 | `.cursor/plans/v4_INS_G0_canonical_region_digest.py` — **packet-local proof utility, no catalog row** | `09ca8570c4fcee87439fa1a910d2b38d84627c7a` |
 
 ### §1.3 Source posture — strict depth labels
 
@@ -75,6 +82,8 @@ There are **six authorization DECISIONS, not six things Nick must supply.** Five
 **SEARCHED.** `R8 (this)`/`R9 (this)` · the ten R9 sweep terms · `PRESPINE-PHASEA-INTEGRATOR` · `lane_content_base_sha` · `INS-HAZ-COVSURF` · guardrail IDs `D0THES-GRD-043`, `D0CKPT-GRD-003`, `D0PRESS-GRD-001`, `D0TIER0-GRD-004`, `D0TIER0-GRD-005`.
 
 **NOT INSPECTED — named.** The four reconnaissance reports (raw text never supplied to any Opus context — §13) · the Vercel deployment log and the project's plan tier (§17) · off-repo `~/.cursor/plans/` (**does not exist in this environment**; per `D0OPER-DEC-004` this preflight relies on the in-repo `AGENTS.md` + read-graph #15 pointers, which agree) · the Gate-0 and Gate-1a carriers in full at this run (read in prior transactions; **the Gate-0 carrier was read in full three times during Gate 1b, the Gate-1a packet in full at Gate 1b's first action** — but not re-read line-by-line in this preflight) · `v4_C4_5`/`C4.6`/`C3.6C` bodies beyond the anchors already cited in the Gate-1b carrier.
+
+**PR #8 depth, stated exactly.** Its packet index, the three artifact passports/preservation laws and all six integrity receipts were **inspected**; the **three ~267 KB raw bodies were NOT re-adjudicated by this preflight** — their substantive conclusions are out of scope here and remain `analysis_nonbinding` candidates routed to their named consumers.
 
 **LIVE REPOSITORY VERIFICATION: yes.** Every SHA, blob, branch state, PR state, merge result, ancestry assertion, guardrail row and ledger row in this document was produced by executing Git or `gh` against the live repository in this run. **No claim here rests on a chat transcript or on recollection.**
 
@@ -378,11 +387,12 @@ Parent branch: **`integration/ins-g1b-parent-carry-gate2-prep`**, created from *
 
 **Under Option A (recommended), the correct disposition is `integrated_via_parent_merge` — NOT `superseded_by_parent_assembly`.**
 
-The §5.2 **historical** proof shows PR #4/#5/#6 becoming genuine ancestors of the assembled result. **The execution proof must cover four heads — PR #7/#4/#5/#6** (§5.2 scope note). Once the parent lands on `main`, those commits are ancestors of `main`. Labelling them "superseded" would be factually wrong and would discard the ancestry the merge route exists to preserve.
+The §5.2 **historical** proof shows PR #4/#5/#6 becoming genuine ancestors of the assembled result. **The execution proof must cover five heads — PR #7/#8/#4/#5/#6** (§5.2 scope note). Once the parent lands on `main`, those commits are ancestors of `main`. Labelling them "superseded" would be factually wrong and would discard the ancestry the merge route exists to preserve.
 
 | PR | Disposition under Option A | Timing | Required pointer |
 |---|---|---|---|
 | **#7** | `integrated_via_parent_merge` — **the approved preflight lands with the transaction it governs** | after parent lands | parent commit + landed path + corrected-head blob |
+| **#8** | `integrated_via_parent_merge` | after parent lands | parent commit + **five** landed paths + **five Git blob-equality receipts** (§1.2) + **six canonical region-content digest receipts**. Packet index remains the routing owner; **no raw is superseded by Gate 0, Gate 1b or the Gate-2 brief** |
 | **#4** | `integrated_via_parent_merge` | after parent lands | parent commit + landed path + blob `9f935857…` (byte-exact) |
 | **#5** | `integrated_via_parent_merge` | after parent lands | parent commit + five landed paths + blobs per §1.2 (all byte-exact) |
 | **#6** | `integrated_via_parent_merge` **+ normalized** | after parent lands | parent commit + landed path + **pre-normalization blob `57e5bb5e…`** and **post-normalization blob** (recorded in §9 at execution) |
@@ -439,7 +449,7 @@ AWP §2.1's integrator-transfer law requires the carrier to record: role key · 
 
 **Nine surfaces are owned exclusively by the role and are read-only to all lanes** (checkpoint §4.2, verbatim): `AGENTS.md` · the current checkpoint · `04_manifest_read_graph.md` · `01_master_corpus_catalog.md` · `03_decision_extraction_ledger.md` · `06_guardrail_antipattern_digest.md` · `08_open_review_queue.md` · `future_work_registry.md` · the off-repo controlling-plan banner.
 
-### §8.1a Transaction-added shared surfaces — **13 repository surfaces total, not the checkpoint's 8**
+### §8.1a Transaction-added shared surfaces — **10 repository shared surfaces + 1 inaccessible off-repository banner**
 
 > **★ SCOPE CORRECTED 2026-08-08 — PR #9 REMOVED FROM THIS CARRY.** An earlier revision pulled **PR #9** (delegation-capture governance, **Tier-4, global**) into this parent, taking the surface count to 13. **That was a structural error.** AWP §2.1 sets package membership by **shared intended outcome and coordinated closure — not co-occurrence in one conversation.** PR #9 changes the mandatory protocol for *every future agent in every context*; it is **not required for Insurance Phase-A closure** and must not turn a domain carry into a cross-cutting governance landing. **PR #8 stays** — it preserves the exact sources Gate 0 used and has named Insurance/C3.9/Gate-2 consumers. **Back to 10 repository shared surfaces.**
 >
@@ -577,7 +587,7 @@ Every file the **future carry** proposes to touch. Nothing outside this table ma
 | `.cursor/plans/HANDOFF_2026-08-03_..._post_c4_4.md` (checkpoint) | Tier-0 current state | integrator role | integrator | §4.2 gate-lineage row (§3.2); base exception (§4.3); integrator transfer (§8.3); next-authorized-action | bounded edits to §4.2 + banner | yes | Nick | **no rewrite of history** | revert; restore prior banner |
 | `AGENTS.md` | Tier-0 boot pointer | integrator role | integrator | Closeout Rule pointer sync — **pointer only, never the value** | current-checkpoint pointer + next action | yes | Nick | no | revert |
 | `.cursor/plans/doctrine/04_manifest_read_graph.md` | Tier-0 routing | integrator role | integrator | six cold-entry routes + Tier-0 #15 summary sync (§14) | **add 6 route entries UNDER the existing contract** — see Tier-4 boundary §15.3 | yes | — | no | revert |
-| `.cursor/plans/doctrine/01_master_corpus_catalog.md` | Tier-0 catalog | integrator role | integrator | catalog rows for every landed artifact (§14.1) | **add exactly 11 rows** | yes | — | no | revert |
+| `.cursor/plans/doctrine/01_master_corpus_catalog.md` | Tier-0 catalog | integrator role | integrator | catalog rows for every landed artifact (§14.1) | **add exactly 15 rows** (§14.1) | yes | — | no | revert |
 | `.cursor/plans/doctrine/08_open_review_queue.md` | Tier-0 queue | integrator role | integrator | §11 state transitions | **UPDATE 5** (`REV-159` · `REV-160` · `REV-185` · `REV-193` · `REV-201`) **+ ADD 3** (agreement/party-position · Gate-2 parent row · `INS-HAZ` Build-Entry activation) | yes | per-row `required_reviewer` | no | revert |
 | `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` | Tier-0.5 boot-visible | integrator role | integrator | **Tier-3 guardrail obligation (§16, REVISED)** | **UPDATE `D0CKPT-GRD-003`** (narrow) · **UPDATE `D0-GRD-010`** (financing vendor-label) · **ADD 1** coverage-as-boolean / overwrite-on-check row. **`D0TIER0-GRD-004` NOT touched.** | yes | Knox `A5` | no | revert |
 | `.cursor/plans/doctrine/future_work_registry.md` | Tier-0 FWREG | integrator role | integrator | §11 FWREG transitions | **UPDATE `FWREG-017`** · **UPDATE `FWREG-018`** (F3 operator slice, with the §11.3 enumeration extension) · **ADD 1** `INS-HAZ-COVSURF` row carrying clauses 1–6. **No second operator-economics row.** | yes | — | no | revert |
@@ -784,7 +794,7 @@ Gate 2 is sequenced **behind C3.9** (§3.3), so the brief is authored now and ex
 >
 > **The durable defect is non-durable preservation and non-transferability:** the raw report objects were never preserved into, or transferred through, the durable estate, so no current reviewer can verify their contents, attribution, or exact influence. **No final architecture claim relies on them**, and no reconstruction or operator task is owed. The Gate-2 provenance matrix keeps the `challenge_or_search_path_raised_by` column present but populated with `not_recoverable_from_durable_estate`, so the absence stays visible rather than silently omitted.
 >
-> **Reusable lesson for future commissioned helper work: a report that only ever exists in a reviewer's context is not evidence the estate can use.** If helper output is meant to carry weight, it must land as a durable object under the Evidence Plane's own gate (`D0THES-GRD-036`, capture broad / promotion gated) at the time it is produced.
+> **Reusable lesson for future commissioned helper work: a report that only ever exists in a reviewer's context is not evidence the estate can use.** If helper output is meant to carry weight, it must land as a **durable governed source object under the normal artifact taxonomy** at the time it is produced — **not** in the Evidence Plane. **Internal commissioned submissions are OMNI work products, not external evidence;** only a **specific external primary-source claim** goes through the Evidence Plane router, and only when OMNI later relies on it (`D0THES-GRD-036`, capture broad / promotion gated).
 
 **Sealed verbatim appendix: NOT recommended and NOT deferred — declined.** No raw exists in the durable estate, so its audit value cannot be assessed and a placeholder would violate the no-reconstruction rule.
 
@@ -809,7 +819,7 @@ Gate 2 is sequenced **behind C3.9** (§3.3), so the brief is authored now and ex
 | 11 | narrative volume 10 |
 | 12–15 | the **four catalogable preservation files** from PR #8 — index + three verbatim raws. *(PR #8 imports **five** repository files; `v4_INS_G0_canonical_region_digest.py` is a **packet-local proof utility** and takes **no** catalog row.)* |
 
-**Residual catalog enum debt is parked at `D0CTLG-REV-001`** — if any of the 11 rows cannot be typed under the current enum, record it against that row rather than extending the enum inside this transaction.
+**Residual catalog enum debt is parked at `D0CTLG-REV-001`** — if any of the 15 rows cannot be typed under the current enum, record it against that row rather than extending the enum inside this transaction.
 
 ### §14.2 Read-graph routes — verification of Gate-1b §15.1 Part C
 
@@ -822,7 +832,9 @@ Part C's six triggered cold-entry routes were **verified in place and are correc
 5. **Economics / ranking / incentive** → `REV-185` + late-builder row P
 6. **Relation assertions / Care Response Seam / Accountability** → Accountability §19–20 → A-Q14
 
-Plus `05` conflict rows and a FWREG entry. **One correction:** Part C's routes must now terminate at the **Gate-2 brief** as the current head of the Insurance chain, not at the Gate-1b carrier.
+7. **Insurance preserved sources** → **one CONDITIONAL child route, under the Insurance route above**, to `v4_INS_G0_kickoff_subagent_verbatim_index_2026-08-08.md`. **The index is the entry point; the three raw files are NEVER default-loaded** — a raw opens only when its consuming question (index §1) requires it.
+
+Plus `05` conflict rows and a FWREG entry. **Two corrections:** Part C's routes must now terminate at the **Gate-2 brief** as the current head of the Insurance chain, not at the Gate-1b carrier; and route **7** is added for the PR #8 packet. **Total: six cross-arc routes + one conditional preservation-index route.**
 
 **Tier-0 #15 sync** is required by the Closeout Rule if the checkpoint pointer moves (§15).
 
@@ -1014,7 +1026,8 @@ git diff --exit-code <main>:<path> <parent>:<path>           for every surface N
                                                              -> must exit 0 (untouched)
 python3 .cursor/plans/v4_INS_G0_canonical_region_digest.py    -> exit 0; six preserved regions match receipts
 git merge-base --is-ancestor <PR#8 head> <parent head>        -> true   (preservation packet)
-git merge-base --is-ancestor <PR#9 head> <parent head>        -> true   (governance proposal)
+# PR #9 is deliberately OUTSIDE this transaction - no ancestry check, and its
+# absence from the parent is itself part of the proof.
 ```
 
 Plus: every write-matrix row has a landed change · every §11 row has its native disposition and proof receipt · closeout pointers synchronized in the same commit · off-repo banner limitation reported.
