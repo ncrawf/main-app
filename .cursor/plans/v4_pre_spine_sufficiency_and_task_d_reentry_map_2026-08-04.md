@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate`
 Authority: `analysis_nonbinding`
-Status: `sequence_accepted_nick_knox · landed_on_main · active_prespine_sequence_home · not_checkpoint · no_new_read_graph_node · launch_envelope_ACCEPTED_Nick+Knox · phase_A_READY_FOR_ASSIGNED_THREAD_LAUNCH`
+Status: `sequence_accepted_nick_knox · landed_on_main · active_prespine_sequence_home · not_checkpoint · no_new_read_graph_node · launch_envelope_ACCEPTED_Nick+Knox · phase_A_INSURANCE_INPUT_COMPLETE_2026-08-08_four_lanes_remain_not_started`
 Domain(s): `architecture_governance, operator_governance, portfolio_sequencing`
 Lifecycle role: `bounded Task-D readiness / pre-spine sufficiency gate — a dependency graph + concern→disposition classification + minimum sequence + parallel-launch envelope; the executable answer to "what is next before Task-D population and the spine." Explicitly NOT the current checkpoint and NOT the Task-D scoring method.`
 Source-of-truth relationship: `nonbinding readiness gate only; it ROUTES concerns to their existing homes (FWREG rows, D6/REV-159/160, C4.4/Angle-B, Demand Gate-0) and names the gaps; it invents NO architecture, mints NO domain, and overrides NO contract, checkpoint, or gate. The current checkpoint HANDOFF_2026-08-03_pre_spine_portfolio_reconciled_post_c4_4.md remains authoritative for program state; the Task-D method (v4_C4_2_enterprise_full_stack_adversarial_pressure_test.md) remains frozen and unchanged.`

@@ -1,8 +1,8 @@
-# HANDOFF 2026-08-08 — Insurance parent carry landed; Gate-2 prepared, not started
+# HANDOFF 2026-08-08 — Insurance parent carry ASSEMBLED on its branch; Gate-2 prepared, not started
 
 Document type: `handoff_or_readiness_gate`
 Authority: `derived_nonbinding`
-Status: `insurance_parent_assembled_pending_E1_and_main_landing · gate2_prepared_not_started · not_promoted`
+Status: `insurance_parent_assembled_on_branch · E1_failed_2026-08-08_corrected_pending_rerun · main_unlanded · gate2_prepared_not_started · not_promoted`
 Domain(s): `insurance_payer_oop` · `architecture_governance` · `portfolio_sequencing` · `cross_cutting`
 Lifecycle role: **subordinate Tier-3 continuity** for the Insurance parent carry. Reached **through** the current checkpoint §4.2 — **this is NOT the Tier-0 #15 checkpoint target.**
 Source-of-truth relationship: consumes the landed Insurance estate. **Owns no live program state.** The 2026-08-03 checkpoint remains the current program checkpoint and the single owning state surface.
@@ -16,7 +16,7 @@ Review gate: `user_knox_required`
 
 ## §1 — What landed
 
-The Insurance parent carry assembled five child PRs from `main @ d592e402b779aaedc1f137189bf51cd2b5ca678d` with DAG ancestry preserved and **zero deletions**.
+The Insurance parent carry assembled five child PRs from `main @ d592e402b779aaedc1f137189bf51cd2b5ca678d` with DAG ancestry preserved and **zero deletions on every imported and created file**. *(The parent does contain **11 intentional line-level deletions** on the ten shared surfaces — annotating a table row replaces that line. Those are the write matrix, and no file was removed.)*
 
 | Child | Head | Contribution |
 |---|---|---|
@@ -84,6 +84,8 @@ The index owns the consumer matrix; the raws own exact content and immutable pro
 
 ## §6 — Environment limitation
 
-The **off-repository controlling-plan banner** (`~/.cursor/plans/`) does not exist in this environment and **could not be repointed**. Per `D0OPER-DEC-004` this is reported rather than claimed: the in-repo `AGENTS.md` + read-graph #15 + checkpoint pointers are synchronized and mutually consistent, and they are authoritative.
+The **off-repository controlling-plan banner** (`~/.cursor/plans/`) does not exist in this environment and **could not be repointed**. Per `D0OPER-DEC-004` this is reported rather than claimed.
+
+**★ E1 HISTORY — recorded, not hidden.** The first `E1` pass returned **`PROOF_FAIL_WITH_EXACT_DEFECTS`**. Git assembly and child-object transport passed; the **control-plane closeout did not**. Five real defects, all introduced by the carry and all corrected on this branch: the checkpoint, `AGENTS.md` and the pre-spine map carried **contradictory live Insurance states** (a fresh agent could have read Insurance as both complete *and* authorized to start); the three new `08` rows sat **outside** the queue table; the promised `D0CKPT-GRD-003` and `D0-GRD-010` updates were **never applied**; `FWREG-019` was **duplicated** against an existing relay-transport row; and the Gate-2 brief **falsely claimed `E1` was complete**. Boot-path consistency is **claimed only after the corrected rerun passes** — see the parent PR's proof receipt, which is the owning surface for `E1` state.
 
 **STOP: `insurance_parent_assembled_pending_E1_and_main_landing`**

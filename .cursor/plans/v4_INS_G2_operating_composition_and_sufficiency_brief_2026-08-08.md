@@ -152,7 +152,11 @@ Landed by the parent carry. Native vocabularies only.
 
 ## §4 — Gate-2 execution contract
 
-**CARRIED FORWARD, NOT REGENERATED.** Gate-1b §13.3 outputs 1–14 are the contract. Re-deriving them is the documented failure mode. Summarised here by name only; **open Gate-1b §13.3 for the full text**:
+**CARRIED FORWARD BY SOURCE PIN, NOT COPIED.** Gate-1b §13.3 outputs 1–14 **are** the contract, verbatim, at a pinned immutable ref:
+
+> **`.cursor/plans/v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` §13.3, blob `2e6a423cfae83203d4b4a1668224890043bfa12a`** — landed in this same transaction, catalogued, and reachable by read-graph route `9p`.
+
+**A verbatim copy was considered and deliberately rejected.** Duplicating fourteen outputs into a second mutable artifact creates two copies of one contract that **will** drift — the exact single-source failure that produced nine revisions of propagation defects in the source carrier, and the reason this brief has one state surface. **The anti-evaporation requirement is satisfied by pin + catalog row + read route + named consumer, which is stronger than a copy: a copy can silently diverge from the accepted text; a blob pin cannot.** Index by name below; **open §13.3 at the pinned blob for the governing text**:
 
 1 care-financing operating-profile map · 2 derived assessment ownership (A-Q12) · 3 layered coverage scoping (four scopes) · 4 commitment taxonomy (A-Q1a/A-Q1b) · 5 residual owner map · 6 the §9 elevation · 7 **the discriminating trace suite** · 8 Task-D Input-State Receipt · 9 build/buy/wrap boundary · 10 **kill conditions** · 11 **ten anti-shadow acceptance criteria** · 12 cross-authority option-resolution profile (multi-axis typing; `seam_kind` admissible only where reuse is proven) · 13 sequencing, selection and burden dimensions · 14 external-comparator pressure (technology · **military/joint C2** · **civil aviation**, each with explicit transfer limits).
 
@@ -177,7 +181,7 @@ Landed by the parent carry. Native vocabularies only.
 
 **Until `E2` completes, the Gate-2 result may NOT be marked final Insurance composition input for Task-D.** Activation is operator-controlled: **the trigger creates an acceptance blocker; it does not auto-launch an agent.**
 
-`E1` (narrow mechanical proof, pre-landing) is complete for the parent carry and is not re-owed by Gate 2.
+`E1` (narrow mechanical proof, pre-landing) belongs to the **parent carry**, not to Gate 2, and its state is owned by the parent handoff — **not** asserted here.
 
 ---
 
