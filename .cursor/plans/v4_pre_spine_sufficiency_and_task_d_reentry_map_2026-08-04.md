@@ -170,7 +170,7 @@ When activated, lanes run **from the SAME immutable `lane_content_base_sha`** �
   - **Current control-plane surfaces resolve from the CURRENT accepted `main`/checkpoint state** — `AGENTS.md` · read graph · the current checkpoint · lane/integrator state. Never read these from an older lane content base: a content base is a frozen input, not a status report, and an older base will still describe launch as held.
   - **Substantive card inputs resolve at the immutable `lane_content_base_sha`** (content base) unless separately pinned.
   - **Separately pinned cross-branch objects retain their explicit refs** — named exception: the Demand Gate-0 packet at its own branch/commit/blob (Card 4).
-- **Lane states remain `not_started`** until each lane's thread/relay lock is accepted.
+- **A lane's state remains `not_started`** until that lane's thread/relay lock is accepted.
 
 **Control-plane boot floor — identical for ALL five lanes (resolve from CURRENT `main`, NOT from the content base):**
 1. `AGENTS.md`
