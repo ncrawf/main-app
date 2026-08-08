@@ -360,8 +360,8 @@ Fall back **only** if: remote state changed and a re-run merge proof no longer p
 Parent branch: **`integration/ins-g1b-parent-carry-gate2-prep`**, created from **exact current `main`**.
 
 1. Re-verify `main` has not moved from the recorded base. **STOP** if it has.
-2. **Re-run the §5.2 proof on a scratch branch across ALL SIX child heads** (#7, #8, #9, #4, #5, #6 at their final heads). **STOP** on any deviation. Additionally re-run **`v4_INS_G0_canonical_region_digest.py`** from PR #8 and prove the six preserved verbatim regions still match their in-file receipts.
-3. Merge `--no-ff` in this order: **PR #7 (approved preflight) → PR #8 (preserved Gate-0 subagent raws) → PR #9 (delegation-capture governance proposal) → PR #4 (Gate 0) → PR #5 (Gate 1a) → PR #6 (Gate 1b).**
+2. **Re-run the §5.2 proof on a scratch branch across ALL FIVE child heads** (#7, #8, #4, #5, #6 at their final heads). **STOP** on any deviation. Additionally re-run **`v4_INS_G0_canonical_region_digest.py`** from PR #8 and prove the six preserved verbatim regions still match their in-file receipts.
+3. Merge `--no-ff` in this order: **PR #7 (approved preflight) → PR #8 (preserved Gate-0 subagent raws) → PR #4 (Gate 0) → PR #5 (Gate 1a) → PR #6 (Gate 1b).**
 4. Apply the single §7 R8 self-reference normalization commit.
 5. Add the Gate-2 brief, the subordinate handoff, and the narrative volume.
 6. Apply the §10 shared-surface transaction as **one closeout commit** (AWP §8 Checkpoint Closeout Rule).
@@ -441,21 +441,18 @@ AWP §2.1's integrator-transfer law requires the carrier to record: role key · 
 
 ### §8.1a Transaction-added shared surfaces — **13 repository surfaces total, not the checkpoint's 8**
 
-> **★ SCOPE EXPANDED 2026-08-08.** Two child PRs joined the assembly after this section was first written — **PR #8** (preserved Gate-0 subagent raws) and **PR #9** (delegation-capture governance proposal, Tier-4). PR #9 amends three surfaces that are **not** on the checkpoint's protected list but are unquestionably shared.
+> **★ SCOPE CORRECTED 2026-08-08 — PR #9 REMOVED FROM THIS CARRY.** An earlier revision pulled **PR #9** (delegation-capture governance, **Tier-4, global**) into this parent, taking the surface count to 13. **That was a structural error.** AWP §2.1 sets package membership by **shared intended outcome and coordinated closure — not co-occurrence in one conversation.** PR #9 changes the mandatory protocol for *every future agent in every context*; it is **not required for Insurance Phase-A closure** and must not turn a domain carry into a cross-cutting governance landing. **PR #8 stays** — it preserves the exact sources Gate 0 used and has named Insurance/C3.9/Gate-2 consumers. **Back to 10 repository shared surfaces.**
+>
+> **PR #9 is parked, not dropped:** `review_ready_pending_separate_governance_landing`, head `a12f6818…`, landing in its own Tier-4 transaction **after** Insurance. **The Tier-3 handoff produced by this carry MUST name it as the owed follow-up** so it cannot disappear.
 
 | Group | Surfaces | Count |
 |---|---|---|
 | Checkpoint-owned (integrator-exclusive, verbatim §4.2) | `AGENTS.md` · current checkpoint · `04` read graph · `01` catalog · `03` decisions · `06` guardrails · `08` open review · FWREG | **8** |
 | Transaction-added, serialized | `05_supersession_conflict_ledger.md` · `v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md` | **2** |
-| Transaction-added via **PR #9** (Tier-4 governance) | `agent_work_protocol.md` · `v4_C4_agent_runtime_and_harness_capture.md` · `10_omni_build_os_rollout_sequence.md` | **3** |
-| **Total repository shared surfaces** | | **13** |
+| **Total repository shared surfaces** | | **10** |
 | Off-repository | controlling-plan banner — **inaccessible in this environment**, limitation reported | **1** |
 
-**PR #9's two integrator-gated landings are NOT in PR #9** — `D0CKPT-DEC-008` (`03`) and the `FWREG-010` update are recorded there as exact ready-to-land text and are landed **by the integrator, here**, inside the counts above.
-
-**Acceptance normalization owed in the same transaction:** on landing `D0CKPT-DEC-008` and updating `FWREG-010`, the integrator must **replace the duplicated proposal text at runtime-capture §6.1a with pointers to those owning rows**, activate **AWP §2.2** from `PROPOSED` to accepted, mark **capture §6.1 accepted for the build/architecture slice only** (internal-ops and care-facing remain open), and change the rollout Step 4/5 wording from proposal to accepted target. **Otherwise one accepted decision lands beside three stale `PROPOSED` restatements.**
-
-> **⚠ Honest maturity note on the PR #9 anchor.** `v4_C4_agent_runtime_and_harness_capture.md` is **`active_map` · `agent_runtime_formulation_OPEN` · `FWREG_010_OPEN` · `analysis_nonbinding`** — only its C4.4 G2 consumption bridge is accepted, and its own named-unsolved debt includes the `agent_run`/`subagent_run` lifecycle. **AWP §2.2 is therefore written to be self-sufficient and does not inherit authority from it.** A dedicated runtime formulation/pressure arc remains owed under `FWREG-010` and is **not** discharged by this carry.
+**No governance normalization is owed by this carry.** `D0CKPT-DEC-008`, the `FWREG-010` update, AWP §2.2 activation and the runtime-capture/rollout status changes all belong to **PR #9's separate landing transaction** and are explicitly out of scope here.
 
 ### §8.1b `05_supersession_conflict_ledger.md` — a TRANSACTION-ADDED shared surface, not a retroactively-claimed one
 
@@ -470,7 +467,7 @@ AWP §2.1's integrator-transfer law requires the carrier to record: role key · 
 | Scope of change | **ADD 4 rows** (§11.2). No row resolved, no existing row edited |
 | Recorded in | the **package's transaction-specific collision map**, not the standing protected list |
 
-**Total for this transaction: ten repository shared surfaces, plus the inaccessible off-repo banner.**
+**Total for this transaction: ten repository shared surfaces, plus the inaccessible off-repo banner.** *(Consistent with the §8.1a table after PR #9's removal.)*
 
 ### §8.1c Where shared-surface edits actually happen
 
@@ -496,9 +493,12 @@ current_control_plane_ref:      <main SHA at assumption; must equal the base the
 child_source_refs:              PR #7 <accepted final head recovered from
                                       planning/ins-g1b-carry-preflight at transfer> + its blob
                                       (this document cannot self-stamp its own final commit)
+                                PR #8 e5840aa5fcec47fd7ffea87392282825d56b6e66
                                 PR #4 2aabed770eda9ec8164efaf0c5626816b85ca224
                                 PR #5 671d120fd79c7b55325cf6e998646c02ead45f0f
                                 PR #6 78a9b2805e63dbc8f7f721da462bae95a7ce4846
+                                (PR #9 is NOT part of this transaction - separate
+                                 governance landing, head a12f6818...)
 parent_integration_branch:      integration/ins-g1b-parent-carry-gate2-prep
 protected_shared_surfaces:      8 CHECKPOINT-OWNED repository surfaces (AGENTS · checkpoint ·
                                 read graph · catalog · 03 · 06 · 08 · FWREG)
@@ -509,8 +509,9 @@ protected_shared_surfaces:      8 CHECKPOINT-OWNED repository surfaces (AGENTS �
                                 = 10 repository + 1 off-repo
 other_writers_in_flight:        <exact — including any uncommitted work or concurrent lane>
 freshness_check:                main unmoved since <SHA>? Y/N · checkpoint §4.2 unchanged? Y/N ·
-                                ALL FOUR child heads unchanged (#7/#4/#5/#6)? Y/N ·
-                                FOUR-BRANCH §5.2 merge proof re-run and passing? Y/N
+                                ALL FIVE child heads unchanged (#7/#8/#4/#5/#6)? Y/N ·
+                                FIVE-BRANCH §5.2 merge proof re-run and passing? Y/N ·
+                                v4_INS_G0_canonical_region_digest.py passing? Y/N
 collision_scan:                 <result — any other branch or agent touching any of the 10
                                  repository shared surfaces>
 shared_surface_ownership_ack:   incoming holder acknowledges sole-writer status over all 10
@@ -520,7 +521,7 @@ shared_surface_ownership_ack:   incoming holder acknowledges sole-writer status 
 preflight_decisions_closed:     A1 · A3 · A4 · A5 · A6  (Knox-adjudicated 2026-08-08)
 transfer_precondition:          A2 — satisfied by THIS receipt
 remaining_execution_stops:      freshness mismatch · collision · main movement · child-head
-                                movement · failed four-branch merge proof
+                                movement · failed five-branch merge proof
 landing_authorization:          SEPARATELY REQUIRED after parent review — not granted by this
                                 receipt
 first_permitted_writable_object: integration/ins-g1b-parent-carry-gate2-prep, nothing else
@@ -545,15 +546,14 @@ If the executing thread is the same context that authored the Gate-1b R9 output,
 | Child PR | Source branch | Source head | Source path | Source blob | Authority | Maturity | Assembly method | Destination path | Byte-exact | Normalized | Final disposition | Consumer routes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | **#7** | `planning/ins-g1b-carry-preflight` | corrected head, recorded at execution | `v4_INS_G1B_parent_carry_preflight_2026-08-08.md` | recorded at execution | `derived_nonbinding` | Knox-adjudicated, patched | `--no-ff` merge (**1st**) | same | ✅ yes | no | `integrated_via_parent_merge` | the governing execution plan; readiness-gate record |
-| **#8** | `preservation/ins-g0-kickoff-subagent-raws` | `f5bfc7bb…` | **4 files**: packet index · 3 verbatim raws (+ the canonical digest script) | per index §5.3 | `evidence_or_ingestion` / `derived_nonbinding` | `preservation_accepted_pending_parent_integration` | `--no-ff` merge (**2nd**) | same | ✅ **six canonical region digests must re-verify** | no | `integrated_via_parent_merge` | index §1 owns consumer routing → Gate-2 A-Q12/A-Q15 · Gate-2 pressure/`E2` · C3.9 |
-| **#9** | `governance/agent-delegation-supervision-capture` | `1d45f317…` | **3 amended surfaces**: AWP §2.2 + §5 hook · runtime capture §6.1/§6.1a · rollout Step 4/5 | n/a — amendments to existing files | Tier-4 **PROPOSED** | `review_ready_pending_parent_integration` | `--no-ff` merge (**3rd**) | n/a | n/a | `integrated_via_parent_merge` | activates on landing per the normalization in §8.1a |
-| #4 | `analysis/insurance-payer-oop-g0` | `2aabed77…` | `v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` | `9f935857…` | `analysis_nonbinding` | Gate-0 carrier, `not_promoted` | `--no-ff` merge (**2nd**) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance cold-entry route; `INS-HAZ-COVSURF`; FWREG-017 |
-| #5 | `cursor/ins-g1a-preservation-caa7` | `671d120f…` | `v4_INS_G1A_regime_independent_care_financing_physics_protocol_2026-08-07.md` | `8876a0d8…` | `analysis_nonbinding` | protocol, complete | `--no-ff` merge (**3rd**) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance route step 2 |
+| **#8** | `preservation/ins-g0-kickoff-subagent-raws` | `e5840aa5…` | **5 repository files** — packet index · 3 verbatim raws · 1 packet-local proof utility (**4 catalogable**; the `.py` takes no catalog row) | per index §5.3 | `evidence_or_ingestion` / `derived_nonbinding` | `preservation_accepted_pending_parent_integration` | `--no-ff` merge (**2nd**) | same | ✅ **six canonical region digests must re-verify** | no | `integrated_via_parent_merge` | index §1 owns consumer routing → Gate-2 A-Q12/A-Q15 · Gate-2 pressure/`E2` · C3.9 |
+| #4 | `analysis/insurance-payer-oop-g0` | `2aabed77…` | `v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` | `9f935857…` | `analysis_nonbinding` | Gate-0 carrier, `not_promoted` | `--no-ff` merge (**3rd**) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance cold-entry route; `INS-HAZ-COVSURF`; FWREG-017 |
+| #5 | `cursor/ins-g1a-preservation-caa7` | `671d120f…` | `v4_INS_G1A_regime_independent_care_financing_physics_protocol_2026-08-07.md` | `8876a0d8…` | `analysis_nonbinding` | protocol, complete | `--no-ff` merge (**4th**) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance route step 2 |
 | #5 | " | " | `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | `d242162c…` | `analysis_nonbinding` | **raw, verbatim — source** | " | same | ✅ yes | no | " | cited by Gate-1b §1; **raw wins over derivative** |
 | #5 | " | " | `v4_INS_G1A_phase_b_pressure_test_verbatim_2026-08-07.md` | `03295b50…` | `analysis_nonbinding` | **raw, verbatim — source of F1–F7** | " | same | ✅ yes | no | " | Gate-1b §1.1 anchor; **controls over the adjudication** |
 | #5 | " | " | `v4_INS_G1A_adjudication_and_terminus_2026-08-07.md` | `6b42d257…` | `analysis_nonbinding` | derivative interpretation | " | same | ✅ yes | no | " | derivative — loses precision on F1/F3/F7 |
 | #5 | " | " | `HANDOFF_2026-08-07_ins_g1a_preserved_gate1b_ready.md` | `70b5e0df…` | `derived_nonbinding` | handoff | " | same | ✅ yes | no | " | lane-model evidence for §3 |
-| #6 | `cursor/ins-g1b-ownership-reconciliation` | `78a9b280…` | `v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` | `57e5bb5e…` | `analysis_nonbinding` | **R9, analysis accepted pending carry** | `--no-ff` merge (**4th**) **+ §7 patch** | same | ✅ before patch | ✅ §7 | `integrated_via_parent_merge` + normalized | every Gate-2 route; §11 consumer matrix |
+| #6 | `cursor/ins-g1b-ownership-reconciliation` | `78a9b280…` | `v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` | `57e5bb5e…` | `analysis_nonbinding` | **R9, analysis accepted pending carry** | `--no-ff` merge (**5th**) **+ §7 patch** | same | ✅ before patch | ✅ §7 | `integrated_via_parent_merge` + normalized | every Gate-2 route; §11 consumer matrix |
 
 **Read order for the assembled estate:** Gate-0 carrier → Gate-1a protocol → Phase-A raw → Phase-B raw → Gate-1a adjudication → Gate-1a handoff → **Gate-1b carrier (R9)** → Gate-2 brief. *(The preflight is a readiness-gate record read alongside, not a step in the architecture chain.)*
 
@@ -572,7 +572,7 @@ Every file the **future carry** proposes to touch. Nothing outside this table ma
 | `.cursor/plans/HANDOFF_2026-08-08_ins_g1b_carried_gate2_ready.md` | `derived_nonbinding` | new | integrator | Tier-3 durable handoff (§15) | new file | yes | — | n/a | delete file, revert commit |
 | `docs/architecture/evolution_narrative_volume_10_2026-08-08.md` | `narrative_or_postmortem` | new | integrator | **Tier-3 narrative volume, mandatory** (§15) | new file incl. *Prior arcs consulted* | yes | — | n/a | delete file, revert commit |
 | **IMPORT (merge, not authored)** | | | | | | | | | |
-| the **twelve imported artifacts** in §9 (seven Insurance child artifacts + this preflight + four preservation-packet files) | as recorded | child lanes | integrator via merge | assembly | **byte-exact import**; only PR #6 normalized per §7 | yes | — | **§7 one line only** | revert merge commits |
+| the **thirteen imported repository files** in §9 — seven Insurance child artifacts + this preflight + five preservation files (**twelve catalogable Markdown + one packet-local proof utility**) | as recorded | child lanes | integrator via merge | assembly | **byte-exact import**; only PR #6 normalized per §7 | yes | — | **§7 one line only** | revert merge commits |
 | **SHARED SURFACES — integrator-exclusive** | | | | | | | | | |
 | `.cursor/plans/HANDOFF_2026-08-03_..._post_c4_4.md` (checkpoint) | Tier-0 current state | integrator role | integrator | §4.2 gate-lineage row (§3.2); base exception (§4.3); integrator transfer (§8.3); next-authorized-action | bounded edits to §4.2 + banner | yes | Nick | **no rewrite of history** | revert; restore prior banner |
 | `AGENTS.md` | Tier-0 boot pointer | integrator role | integrator | Closeout Rule pointer sync — **pointer only, never the value** | current-checkpoint pointer + next action | yes | Nick | no | revert |
@@ -796,7 +796,7 @@ Gate 2 is sequenced **behind C3.9** (§3.3), so the brief is authored now and ex
 
 **Verification correction to Gate-1b §13.2.** It proposes *"One catalog row."* **That count is wrong** and must not be carried forward. Catalog convention verified in the live catalog: **narrative volumes and `HANDOFF_*` files both carry rows** (9 and 43 occurrences respectively), so every landed artifact gets one.
 
-**Exact count: 15 rows.**
+**Exact count: 15 rows.** *(12 imported catalogable Markdown artifacts + Gate-2 brief + handoff + narrative. The packet-local `.py` utility takes no row.)*
 
 | # | Artifact |
 |---|---|
@@ -807,7 +807,7 @@ Gate 2 is sequenced **behind C3.9** (§3.3), so the brief is authored now and ex
 | 9 | Gate-2 brief |
 | 10 | subordinate Tier-3 handoff |
 | 11 | narrative volume 10 |
-| 12–15 | the **four preservation-packet files** from PR #8 — index + three verbatim raws *(the PR #9 governance surfaces are **existing** files being amended, so they carry no new catalog row)* |
+| 12–15 | the **four catalogable preservation files** from PR #8 — index + three verbatim raws. *(PR #8 imports **five** repository files; `v4_INS_G0_canonical_region_digest.py` is a **packet-local proof utility** and takes **no** catalog row.)* |
 
 **Residual catalog enum debt is parked at `D0CTLG-REV-001`** — if any of the 11 rows cannot be typed under the current enum, record it against that row rather than extending the enum inside this transaction.
 
@@ -993,8 +993,8 @@ C61 set the bar at *"evidence of recurrence beyond this packet."* **That bar is 
 | Boundary | Value |
 |---|---|
 | Parent branch base | **exact current `main`** at execution — re-verified; **STOP if moved** |
-| Merge order | **PR #7 → PR #8 → PR #9 → PR #4 → PR #5 → PR #6**, `--no-ff`, lineage order |
-| Commit boundaries | (1) **six** merge commits · (2) one normalization commit (§7) · (3) Gate-2 brief + handoff + narrative · (4) **one shared-surface closeout commit** |
+| Merge order | **PR #7 → PR #8 → PR #4 → PR #5 → PR #6**, `--no-ff`, lineage order |
+| Commit boundaries | (1) **five** merge commits · (2) one normalization commit (§7) · (3) Gate-2 brief + handoff + narrative · (4) **one shared-surface closeout commit** |
 | Normalization boundary | §7 only — **one line, one substring** |
 | Shared-surface boundary | **8 checkpoint-owned repository surfaces + 2 transaction-added (`05`, pre-spine map) = 10 repository shared surfaces**, plus **1 inaccessible off-repo banner** (§8.1a), in **one closeout commit** per AWP §8 |
 
@@ -1002,11 +1002,11 @@ C61 set the bar at *"evidence of recurrence beyond this packet."* **That bar is 
 
 ```
 git rev-parse origin/main                                   == the recorded base
-git merge-base --is-ancestor <each child head> <parent head> == true (x6: #7,#8,#9,#4,#5,#6)
+git merge-base --is-ancestor <each child head> <parent head> == true (x5: #7,#8,#4,#5,#6)
 git diff --numstat <main>..<parent head>                     -> zero deletions on imported files
 git diff --name-status <main>..<parent head>                 -> only A on child artifacts; only
                                                                 intended M on the ten repository shared surfaces
-git rev-parse <child head>:<path> == git rev-parse <parent>:<path>   for all 12 imported artifacts
+git rev-parse <child head>:<path> == git rev-parse <parent>:<path>   for all 13 imported repository files
                                                              (PR #6 verified PRE-normalization; PR #7 verified
                                                               against its accepted final head recovered at
                                                               execution - this document cannot self-stamp it)
