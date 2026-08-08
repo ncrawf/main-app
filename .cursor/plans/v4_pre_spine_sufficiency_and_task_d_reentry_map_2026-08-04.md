@@ -108,7 +108,7 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 
 ## §6 — Minimum pre-spine sequence (with settled / recommendation / Nick-decision labels)
 
-> **★ READ THIS BEFORE THE LIST BELOW — rewritten 2026-08-08 PM (`D0CKPT-DEC-008`).** The phases below are a **grouping and a historical sequencing record. They are NOT a total order over OMNI and they create NO dependency edges.** A phase boundary (`Phase A → Phase B`) never establishes that anything in Phase B consumes anything in Phase A. **A dependency exists only where the consumer names it, with a basis** — everything else is grouping. On 2026-08-08 a correct cold boot read the Phase-A→Phase-B boundary as an edge, chained it to the Phase-B line's separate "consuming Insurance + Operator-Economics findings" clause, and manufactured an Insurance→OPECON prerequisite that no architecture document asserts. That is `D0CKPT-GRD-004`. **The live dependency picture is the Work Horizon at the end of this file — not this list.** This list is retained unedited as the accepted 2026-08-04 record.
+> **★ READ THIS BEFORE THE LIST BELOW — rewritten 2026-08-08 PM (`D0CKPT-DEC-009`).** The phases below are a **grouping and a historical sequencing record. They are NOT a total order over OMNI and they create NO dependency edges.** A phase boundary (`Phase A → Phase B`) never establishes that anything in Phase B consumes anything in Phase A. **A dependency exists only where the consumer names it, with a basis** — everything else is grouping. On 2026-08-08 a correct cold boot read the Phase-A→Phase-B boundary as an edge, chained it to the Phase-B line's separate "consuming Insurance + Operator-Economics findings" clause, and manufactured an Insurance→OPECON prerequisite that no architecture document asserts. That is `D0CKPT-GRD-004`. **The live dependency picture is the Work Horizon at the end of this file — not this list.** This list is retained unedited as the accepted 2026-08-04 record.
 
 - **Step 0 — Sufficiency map (THIS gate).** Classification + dependency graph. Invents no architecture. *(SETTLED — this artifact.)*
 - **Parallel Phase A — input preparation (5 lanes, §7):**
@@ -121,7 +121,7 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 - **Phase C — Final Task-D population** with the verified provisional temporal lens → **§7 verdict** (`SPINE_READY` / `…WITH_NAMED_RECONCILIATIONS` / `NOT_READY`). *(SETTLED that Task-D precedes the spine.)*
 - **Phase D — Full C4.5 temporal pass.** *(SETTLED — C4.5 charter: after Task-D, before spine.)*
 - **Phase E — Final pre-spine sufficiency receipt** (yes/no; not an arc). *(Knox recommendation)*
-- **Then — write the spine.** *(★ SEMANTICS REPLACED 2026-08-08 PM, `D0CKPT-DEC-008` — this line was reading as prophecy. **Spine authoring is admitted only by a future sufficiency decision over the THEN-CURRENT work horizon.** Today's inventory is not presumed complete; open work does not become spine-blocking merely by existing; and **Task-D is an integrator and admission test, not a garbage collector that automatically resolves every unfinished arc.** Task-D, C4.5 and the spine remain possible next moves, not destiny.)*
+- **Then — write the spine.** *(★ SEMANTICS REPLACED 2026-08-08 PM, `D0CKPT-DEC-009` — this line was reading as prophecy. **Spine authoring is admitted only by a future sufficiency decision over the THEN-CURRENT work horizon.** Today's inventory is not presumed complete; open work does not become spine-blocking merely by existing; and **Task-D is an integrator and admission test, not a garbage collector that automatically resolves every unfinished arc.** Task-D, C4.5 and the spine remain possible next moves, not destiny.)*
 
 **Accepted sequencing decisions (Nick operator + Knox final byte, 2026-08-04):** (1) **C3.9 runs before final Task-D** as the mixed-financing/multi-site/multi-operator falsifier, after Insurance + Operator-Economics Gate-0. (2) **Demand Track-A Gate-1 runs in parallel and is non-blocking**; accepted **Gate-0** posture is the minimum Task-D input unless later Gate-1 work exposes a genuinely spine-blocking contradiction; Gate-1 may **not** silently mutate the critical-path sequence. (3) **H1 is tested inside Task-D first**; a separate physical-realization arc opens only if Task-D leaves a material question unresolved.
 
@@ -369,7 +369,7 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 - **Tested:** whether the pre-spine input set + dependency order are sufficient to resume Task-D.
 - **Candidate verdict:** inputs are **NOT yet sufficient**; two Gate-0s (Insurance; Operator Economics/Counterparty) + two Input-State Receipts (Care; GRR) + the C4.5 anchor micro-pass are REQUIRED before final Task-D population.
 - **Sequencing decisions — ACCEPTED (Nick operator 2026-08-04 + Knox final byte):** (a) C3.9-before-Task-D; (b) Demand Gate-1 parallel/non-blocking (Gate-0 = minimum Task-D input unless later work exposes a blocking contradiction); (c) H1-inside-Task-D-first. See §6.
-- **Next gate — activate an operator-selected lane; nothing auto-starts and no lane is currently authorized.** `INS-G0-MIXEDFIN` **completed 2026-08-08** and delivered its Phase-A input at Gate-1b ownership maturity (the wider Insurance arc stays open at Gate 2, **outside** this Phase-A partition; **construction may begin and C3.9 binds at final acceptance** — `D0CKPT-DEC-008`). Care, GRR, Non-Labor Operator Economics and Time remain **prepared and `not_started`**; Phase A does **not** require simultaneous agents. The live content base and lane heads are pinned by the checkpoint **§4.2** receipt. *(★ 2026-08-08 PM — the "next action" sentence below is **superseded**: the current operator-selected focus is `INS-G2-OPERATING-SUFFICIENCY`, and the four remaining lanes are `eligible_dormant`, not a queue. None of them is a declared predecessor of Gate 2. Retained for lineage.)* **Next action = Nick selects one or more of the four remaining lanes** and opens it (local or cloud) using the checkpoint launch receipt; it accepts its thread/relay lock, then returns a `review_ready_pending_integrator` carrier satisfying the **common lane output contract**, which the `PRESPINE-PHASEA-INTEGRATOR` role holder reconciles; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine. *(Superseded, retained for lineage: "current immediate priority = Insurance/Payer/OOP Gate-0" and "assign/open the five lane agents.")*
+- **Next gate — activate an operator-selected lane; nothing auto-starts and no lane is currently authorized.** `INS-G0-MIXEDFIN` **completed 2026-08-08** and delivered its Phase-A input at Gate-1b ownership maturity (the wider Insurance arc stays open at Gate 2, **outside** this Phase-A partition; **construction may begin and C3.9 binds at final acceptance** — `D0CKPT-DEC-009`). Care, GRR, Non-Labor Operator Economics and Time remain **prepared and `not_started`**; Phase A does **not** require simultaneous agents. The live content base and lane heads are pinned by the checkpoint **§4.2** receipt. *(★ 2026-08-08 PM — the "next action" sentence below is **superseded**: the current operator-selected focus is `INS-G2-OPERATING-SUFFICIENCY`, and the four remaining lanes are `eligible_dormant`, not a queue. None of them is a declared predecessor of Gate 2. Retained for lineage.)* **Next action = Nick selects one or more of the four remaining lanes** and opens it (local or cloud) using the checkpoint launch receipt; it accepts its thread/relay lock, then returns a `review_ready_pending_integrator` carrier satisfying the **common lane output contract**, which the `PRESPINE-PHASEA-INTEGRATOR` role holder reconciles; then C3.9 → final Task-D → full C4.5 → final sufficiency receipt → spine. *(Superseded, retained for lineage: "current immediate priority = Insurance/Payer/OOP Gate-0" and "assign/open the five lane agents.")*
 - **DONE previously (2026-08-04):** sequence accepted + landed on `main` (state-only); Aug-3 checkpoint amended (not replaced); five empty lane containers created. No Task-D population, C3.9 execution, spine, C5, or proof program started — and **no lane work started.**
 
 ---
@@ -394,7 +394,7 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 | Phase-A **Insurance** input | **complete at `phase_a_input_complete_at_gate1b_ownership_maturity`** |
 | What was commissioned vs delivered | Card 3 commissioned **one** object, the Gate-0 carrier. **Gate 1a and Gate 1b are additional delivered depth.** The obligation is satisfied **and exceeded**; the completion label must not imply Gate-1b was the commissioned deliverable |
 | Accepted result | **Axis 1 `NO_SHARED_FINANCING_TRUTH_SUBSTRATE` · Axis 2 `FIRST_CLASS_MIXED_FINANCING_OPERATING_PROFILE REQUIRED`** · maturity `READY_AS_GATE1B_OWNERSHIP_INPUT` / `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT` |
-| **`INS-G2`** | a **successor gate OUTSIDE this sequence**, `not_started`. *(★ CORRECTED 2026-08-08 PM, `D0CKPT-DEC-008`: this row previously read "held behind C3.9," which was read as a pre-execution blocker. **Construction may begin; C3.9 binds at final acceptance.** Live row = the Work Horizon below.)* **NOT a blocking precondition on final Task-D** — per `D0THES-DEC-039` Task-D consumes OPEN/CANDIDATE inputs through version-pinned Input-State Receipts, and **Gate-1b §11 is that receipt**. Gate 2 *upgrades* Insurance's maturity; its criticality is an **output of Task-D's verdict** |
+| **`INS-G2`** | a **successor gate OUTSIDE this sequence**, `not_started`. *(★ CORRECTED 2026-08-08 PM, `D0CKPT-DEC-009`: this row previously read "held behind C3.9," which was read as a pre-execution blocker. **Construction may begin; C3.9 binds at final acceptance.** Live row = the Work Horizon below.)* **NOT a blocking precondition on final Task-D** — per `D0THES-DEC-039` Task-D consumes OPEN/CANDIDATE inputs through version-pinned Input-State Receipts, and **Gate-1b §11 is that receipt**. Gate 2 *upgrades* Insurance's maturity; its criticality is an **output of Task-D's verdict** |
 | Other Phase-A lanes | **unchanged** — Care · GRR/Accountability · Non-Labor Operator Economics Track B · C4.5 Phase-2 anchor verification. Activation remains operator-controlled |
 | Owed follow-up | **PR #9**, a separate parked Tier-4 delegation-governance proposal, deliberately excluded from the Insurance carry and owning its own closeout |
 
@@ -402,57 +402,66 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 
 ---
 
-## ★ WORK HORIZON — 2026-08-08 PM (`D0CKPT-DEC-008`)
+## ★ WORK HORIZON — 2026-08-08 PM (`D0CKPT-DEC-009`)
 
-**Why this exists.** The §6 phase list was being read as a total order over OMNI, and the `INS-G2` row above still said "held behind C3.9." Together they let a cold agent manufacture an Insurance → OPECON prerequisite that no architecture document asserts. This section replaces the *implied waterfall* with the **actual declared dependency graph**. It supersedes nothing substantive: §6's list stands as the accepted 2026-08-04 record, and the `INS-G2` row above is corrected here rather than rewritten there.
+**Why this exists.** The §6 phase list was being read as a total order over OMNI, and the `INS-G2` row above said "held behind C3.9." Together they let a cold agent chain two declared-but-scope-incompatible edges into an Insurance → OPECON prerequisite. This section is **pointer-first**: it records *relationships* and *conditions*, and points at whatever surface already owns each item's maturity. It supersedes nothing substantive — §6's list stands as the accepted 2026-08-04 record.
+
+**This is not a registry.** It duplicates no maturity, no SHA and no lifecycle state; those stay with FWREG, the checkpoint, `08` and each carrier. If a cell here ever disagrees with the owner, **the owner wins and the cell is the defect.**
 
 ### The five dimensions (never substitute one for another)
 
 | Dimension | Means | Does NOT mean |
 |---|---|---|
 | **operator focus** | what Nick selected as the live arc | global priority; other work is not subordinate or blocked |
-| **hard predecessor** | work cannot meaningfully **begin** without it | "appears earlier in a list" |
-| **acceptance dependency** | work may proceed but may not **close** without it | a reason to freeze the arc |
-| **downstream consumer** | someone else consumes this output — **directional** | that this work depends on them |
+| **blocks_start** | work cannot meaningfully **begin** without it | "appears earlier in a list" |
+| **blocks_close** | work may proceed but may not **close** without it | a reason to freeze the arc |
+| **downstream_consumption** | someone else consumes this output — **directional** | that this work depends on them |
 | **inventory** | exists and is unresolved | that it blocks anything |
 
-**Declared-edge law.** A dependency exists only where the **consumer** names it, with a basis. Phase labels, grouping, adjacency and ordering create no edges. Declared edges may be composed; **inferred ones may not** (`D0CKPT-GRD-004`).
+**Edge-typing law (`D0CKPT-DEC-009` · `D0CKPT-GRD-004`).** A material dependency edge must carry `consumer` · `provider` · `edge_kind` · `scope/purpose` · `basis/authority` · `current | superseded`. **Compose two edges only when both are current and scope-compatible** — "a consumer declared it" is necessary and not sufficient, since both edges in the 2026-08-08 failure *were* declared. Grouping, adjacency and ordering declare no edge at all.
 
-**`spine relevance` enum** — `ESTABLISHED_REQUIRED` · `CANDIDATE_BLOCKER` · `PARALLEL_NONBLOCKING` · `CONTRACT_LATER` · `POST_SPINE` · **`UNADJUDICATED`**. Unknown relevance is recorded as unknown. Do not resolve it by intuition, convenience or memory (`D0CKPT-GRD-006`).
+**Pre-spine disposition vocabulary is NOT new.** Reuse §2/§3's existing tokens — `REQUIRED-BEFORE-TASK-D` · `CONSUMED-INSIDE-TASK-D` · `SPINE-POSTURE-NOW` · `CONTRACT-LATER` · `FUTURE-VERTICAL-FALSIFIER` · `IMPLEMENTATION-PROOF-AFTER-SPINE` — plus exactly one addition, **`UNADJUDICATED`**, for work whose pre-spine relevance genuinely has not been decided (`D0CKPT-GRD-006`). Do not mint a parallel enum; if a token is missing, dedup before adding one (`GRD-026`).
 
 ### Horizon
 
-| Work item | Maturity | Owning artifact | Hard predecessor | Acceptance dependency | Downstream consumer | Spine relevance | Next decision gate |
-|---|---|---|---|---|---|---|---|
-| **Insurance Gate 2** — `INS-G2-OPERATING-SUFFICIENCY` **← OPERATOR FOCUS** | `not_started`; construction may begin | Gate-2 brief (contract = Gate-1b §13.3) | **none** | C3.9 populated + consumed + affected traces reconciled, then `E2` | Task-D; OPECON (F3 operator slice) | `CANDIDATE_BLOCKER` — Gate 2 *upgrades* Insurance maturity; criticality is an **output of Task-D** (`D0THES-DEC-039`) | begin construction |
-| **C3.9** plastics/medspa vertical falsifier | `shell_pending_population` (69-line spec) | `v4_C3_9_plastics_medspa_care_setting_pressure_test.md` | **`UNADJUDICATED`** — map §5/§6 expects Insurance + OPECON findings; Insurance side complete; **OPECON side not adjudicated** | — | Insurance Gate 2 (acceptance); Task-D | `ESTABLISHED_REQUIRED` before final Task-D (accepted 2026-08-04) | C3.9 activation must first answer whether it needs completed OPECON output, existing operator-economics material at current maturity, or a bounded additional input |
-| **OPECON-G0-COUNTERPARTY** | `not_started`, `eligible_dormant` | `FWREG-018`; lane carrier | none declared | — | C3.9 (**expected, unadjudicated**) | `UNADJUDICATED` | operator selection; or C3.9 activation proving the need |
-| **CARE-TASKD-INPUT** | `not_started`, `eligible_dormant` | lane carrier; Care capture FROZEN | none declared | — | Task-D | `UNADJUDICATED` (§6 labels it Knox recommendation, not settled) | operator selection |
-| **GRR-TASKD-INPUT** | `not_started`, `eligible_dormant` | lane carrier; `FWREG-009` | none declared | — | Task-D | `UNADJUDICATED` (§6 labels it Knox recommendation, not settled) | operator selection |
-| **C45-P2-ANCHORS** six-source micro-pass | `not_started`, `eligible_dormant` | lane carrier; C4.5 charter | none declared | — | Task-D temporal scoring | `ESTABLISHED_REQUIRED` before Task-D temporal scoring (C4.5 charter) | operator selection |
-| **Task-D** final population | interim checkpointed; **no §7 verdict** | `v4_C4_2*` | complete Phase-A input set + populated C3.9 | — | spine admission | `ESTABLISHED_REQUIRED` pre-spine | its own §7 verdict |
-| **C4.5** full temporal pass | Gate-0 charter accepted | C4.5 charter | Task-D | — | spine | `ESTABLISHED_REQUIRED` pre-spine (charter: after Task-D, before spine) | full-pass activation |
-| **Care Operating Model / care loops** | capture FROZEN; forensic Lanes 1–6 accepted; **not closed** | `FWREG-011`; Care capture | none declared | — | Task-D; contracts | `UNADJUDICATED` | Care closure decision (never taken) |
-| **GRR / Accountability** | review-ready, provisionally stable, nonbinding; **not closed** | `FWREG-009` | none declared | — | Task-D; CNS | `UNADJUDICATED` | GRR closure decision |
-| **Agent Runtime & Harness** | mapped to spine depth; **build deferred** | `FWREG-010` | none declared | — | contracts; build | `UNADJUDICATED` — `FWREG-010` OPEN | formulation gate |
-| **`assignment_source_fidelity`** | open | `FWREG-013` | none declared | — | Agent Runtime | `UNADJUDICATED` | — |
-| **Evidence Plane organization spine** | open | `FWREG-012` | none declared | — | evidence lanes | `UNADJUDICATED` | — |
-| **Marketing / advertising / influencer loop** | open | `FWREG-014` | none declared | — | demand/engagement | `UNADJUDICATED` | — |
-| **Time in OMNI** | open (distinct from C4.5 pass) | `FWREG-015` | none declared | — | C4.5; contracts | `UNADJUDICATED` | — |
-| **H1 / physical realization** | open | `FWREG-016` | none declared | — | Task-D | `UNADJUDICATED` — accepted posture is **tested inside Task-D first**; separate arc opens only if Task-D leaves it unresolved | Task-D verdict |
-| **`INS-HAZ-COVSURF` containment** | preserved + routed; **NOT active** | `FWREG-020`; Gate-0 §K.1 + Gate-1b §7.4 | none declared | — | Build Entry Gate | `CONTRACT_LATER` / build-time | Build-Entry activation review |
-| **Demand** (Track-A Gate-1) | Gate-0 accepted posture is the minimum Task-D input; Gate-1 **parallel and non-blocking** (accepted 2026-08-04) | map §6 decision (2); Demand Gate-0 charters | none declared | — | Task-D | `PARALLEL_NONBLOCKING` — may **not** silently mutate the critical path | — |
-| **Engagement loops** | open; **owning artifact not confirmed in this pass** | *unconfirmed* | none declared | — | — | `UNADJUDICATED` | locate owner before treating as a work item |
-| **GCE realization / consumption** | generic exchange **ratified**; realization + consumption obligations unresolved | thesis; Gate-1b (relies on it throughout) | none declared | — | Insurance; Pharmacy; connectors | `UNADJUDICATED` | — |
-| **Build OS** (layer model + rollout) | active doctrine; build not executed | `09` + `10` | none declared | — | all implementation | `POST_SPINE` for execution; doctrine is live now | Build Entry Gate admission |
-| **Third-party connectors / composed platform** | open; **owning artifact not confirmed in this pass** | *unconfirmed* | none declared | — | GCE | `UNADJUDICATED` | locate owner before treating as a work item |
-| **PR #9** delegation-governance (Tier 4) | OPEN, draft, parked; not landed | branch `governance/agent-delegation-supervision-capture` | none declared | — | Gate-2 activation freshness (if it lands, delegation obligations change) | `PARALLEL_NONBLOCKING` | its own closeout |
-| **Spine → thesis → contracts (C5)** | not started | — | **a future sufficiency decision over the then-current horizon** | — | — | — | sufficiency/admission review; **does not auto-start after Task-D** |
+| Work item | Canonical state pointer (owner · existing disposition) | Relation to current focus | Start / close condition | Next adjudication |
+|---|---|---|---|---|
+| **Insurance Gate 2** — `INS-G2-OPERATING-SUFFICIENCY` | Gate-2 brief state table · contract = Gate-1b §13.3 | **IS the focus** | start: **no blocker** · close: C3.9 consumed + affected traces reconciled + `E2` | begin construction |
+| **C3.9** vertical falsifier | C3.9 carrier · `FUTURE-VERTICAL-FALSIFIER` + `REQUIRED-BEFORE-TASK-D` | `blocks_close` of focus | start: **`UNADJUDICATED`** — map §5/§6 expects Insurance + OPECON findings; Insurance side complete, **OPECON side never adjudicated** | at activation: does it need completed OPECON output, existing operator-economics material at current maturity, or a bounded additional input? |
+| **OPECON-G0-COUNTERPARTY** | `FWREG-018` · checkpoint §4.2 lane row | **`downstream_consumption` of focus** — receives Gate-1b's F3 operator slice. **Not upstream of Gate 2** | start: none declared | operator selection, or C3.9 activation proving the need |
+| **CARE-TASKD-INPUT** | `FWREG-011` · checkpoint §4.2 · `UNADJUDICATED` (§6 marks it recommendation, not settled) | unrelated to focus | start: none declared | operator selection |
+| **GRR-TASKD-INPUT** | `FWREG-009` · checkpoint §4.2 · `UNADJUDICATED` (§6 marks it recommendation, not settled) | unrelated to focus | start: none declared | operator selection |
+| **C45-P2-ANCHORS** | C4.5 charter · checkpoint §4.2 · `REQUIRED-BEFORE-TASK-D` (temporal scoring) | unrelated to focus | start: none declared | operator selection |
+| **Task-D** final population | `v4_C4_2*` · `REQUIRED-BEFORE-TASK-D` is *its own* gate; consumes OPEN/CANDIDATE inputs per `D0THES-DEC-039` | consumes focus output | start: complete Phase-A input set + populated C3.9 | its own §7 verdict |
+| **C4.5** full temporal pass | C4.5 charter · after Task-D, before spine | unrelated to focus | start: Task-D | full-pass activation |
+| **Care Operating Model / care loops** | `FWREG-011` · Care capture (FROZEN) · `UNADJUDICATED` | unrelated to focus | — | Care closure decision (never taken) |
+| **GRR / Accountability** | `FWREG-009` · `UNADJUDICATED` | unrelated to focus | — | GRR closure decision |
+| **Agent Runtime & Harness** | `FWREG-010` (OPEN; build deferred) · `UNADJUDICATED` | unrelated to focus | — | formulation gate; **note PR #9 also touches `FWREG-010`** |
+| **`assignment_source_fidelity`** | `FWREG-013` · `UNADJUDICATED` | unrelated to focus | — | — |
+| **Evidence Plane organization spine** | `FWREG-012` · `UNADJUDICATED` | unrelated to focus | — | — |
+| **Marketing / advertising / influencer loop** | `FWREG-014` · `UNADJUDICATED` | unrelated to focus | — | — |
+| **Time in OMNI** (distinct from the C4.5 pass) | `FWREG-015` · `UNADJUDICATED` | unrelated to focus | — | — |
+| **H1 / physical realization** | `FWREG-016` · `CONSUMED-INSIDE-TASK-D` (accepted: tested inside Task-D first) | unrelated to focus | — | Task-D verdict; separate arc only if Task-D leaves it unresolved |
+| **`INS-HAZ-COVSURF`** containment | `FWREG-020` · Gate-0 §K.1 + Gate-1b §7.4 · `CONTRACT-LATER` | produced by the Insurance arc | activates at Build Entry | Build-Entry activation review |
+| **Demand** (Track-A Gate-1) | map §6 decision (2) · accepted **parallel and non-blocking**; Gate-0 posture is the minimum Task-D input | unrelated to focus | — | may **not** silently mutate the critical path |
+| **GCE realization / consumption** | thesis (generic exchange **ratified**) · relied on throughout Gate-1b · `UNADJUDICATED` | focus relies on it | — | — |
+| **Build OS** (layer model + rollout) | `09` + `10` — active doctrine · `IMPLEMENTATION-PROOF-AFTER-SPINE` for execution | unrelated to focus | — | Build Entry Gate admission |
+| **PR #9** delegation governance (Tier 4) | branch `governance/agent-delegation-supervision-capture` · parallel, non-blocking | if it lands, Gate-2 activation freshness must re-state delegation obligations | — | its own closeout. **Owns `D0CKPT-DEC-008`** — do not reuse that ID |
+| **Spine → thesis → contracts (C5)** | no carrier yet | — | start: **a future sufficiency decision over the then-current horizon** | sufficiency/admission review; **does not auto-start after Task-D** |
+
+### Reconciliation needed — owner not located (do NOT treat as live work items)
+
+These were named in operator discussion but **no owning artifact was found** in this pass. They are listed separately, and deliberately not alongside verified work, so nobody mistakes them for tracked items. **Locate or create an owner before either scheduling or dismissing them.**
+
+| Candidate | Status |
+|---|---|
+| **Engagement loops** | owning artifact **not located**; adjacent material exists under Demand and `EVRUN-2026-000012` (care→commerce hardening) but neither was verified as its home |
+| **Third-party connectors / composed-platform obligations** | owning artifact **not located**; conceptually adjacent to GCE realization, not confirmed as the same item |
 
 ### What this inventory does NOT claim
 
-**It is a bounded reconnaissance, not a proven-complete set.** It reconciles the live checkpoint, this map, FWREG and the Insurance estate; it did **not** exhaustively sweep the open-review queue, the conflict ledger, every branch, or every parked arc. Two rows carry `owning artifact not confirmed`, and they are marked rather than quietly dropped. **If the live estate exposes more, add rows.** Absence from this table is not evidence that something is resolved, and presence in it is not evidence that something blocks.
+**Bounded reconnaissance, not a proven-complete set.** It reconciles the live checkpoint, this map, FWREG and the Insurance estate. It did **not** exhaustively sweep `08`, the conflict ledger, every branch or every parked arc. **If the live estate exposes more, add rows.** Absence here is not evidence that something is resolved; presence is not evidence that something blocks.
 
 ### What future-us must declare
 
-Before any item here is treated as a prerequisite, a blocker, or done, state four things explicitly: **which dimension** it occupies (focus / hard predecessor / acceptance dependency / downstream consumer / inventory) · **which consumer declared it**, by document and clause · **what would settle it** if the answer is `UNADJUDICATED` · and **what is un-run** in any result produced ahead of its own falsifier. A gate result produced before its falsifier exists is provisional by construction and must say so in its input-state receipt.
+Before any item here is treated as a prerequisite, a blocker, or done, state four things: **which dimension** it occupies · **which consumer declared the edge**, by document and clause, with its `edge_kind` and scope · **what would settle it** if the disposition is `UNADJUDICATED` · and **what is un-run** in any result produced ahead of its own falsifier. A gate result produced before its falsifier exists is **provisional by construction** and must say so in its input-state receipt.

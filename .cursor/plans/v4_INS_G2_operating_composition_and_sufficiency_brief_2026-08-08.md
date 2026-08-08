@@ -2,7 +2,7 @@
 
 Document type: `analysis` / `work_package_brief` (Gate-2 payload carrier; **not** a contract, **not** a schema, **not** spine prose)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036` — capture broad, promotion gated). Binds nothing. Promotes nothing. Mints nothing.
-Status: **`gate_2_brief_assembled_on_parent_branch · main_landing_separately_gated · execution_not_started · construction_MAY_BEGIN · C3.9_required_before_FINAL_ACCEPTANCE_not_before_construction (D0CKPT-DEC-008) · E2_mandatory_unchanged · not_promoted · no_contract_mutation`**
+Status: **ARTIFACT MATURITY ONLY** — `landed_on_main · analysis_nonbinding · not_promoted · no_contract_mutation`. **Gate-2 execution and acceptance state are NOT here**: they live in the single current-state table below, which is this file's only current-state surface (`D0CKPT-GRD-007` — a passport reports what the artifact *is*, never what the work is *doing*).
 Domain(s): `insurance_payer_oop` · `d6_commerce` · `care_operating_model` · `federation` · `clinical_memory` · `rbac_authority` · `cns_coordination` · `accountability_architecture` · `architecture_governance` · `cross_cutting`
 Lifecycle role: the **single substantive payload** carrying the accepted Gate-1b result into Gate-2 execution. Owns the architecture kernel, the consumption matrix, the execution contract and the acceptance criteria.
 Source-of-truth relationship: consumes the carried Gate-0 / Gate-1a / Gate-1b estate read-only. **Where this brief and a source carrier differ, the carrier controls.** The Gate-1a **raws** control over the Gate-1a adjudication.
@@ -21,11 +21,11 @@ Read order: Gate-0 carrier → Gate-1a protocol → **Phase-A raw** → **Phase-
 > | Final-acceptance blockers | **C3.9 population + consumption + reconciliation of affected traces**, then **`E2`** — the designated mixed-financing vertical falsifier is currently `shell_pending_population` |
 > | Insurance Phase-A input | **complete at `phase_a_input_complete_at_gate1b_ownership_maturity`** |
 > | Insurance arc | **OPEN at Gate 2** |
-> | Operator-selected focus | **YES — `INS-G2-OPERATING-SUFFICIENCY`, selected 2026-08-08.** Focus is not global priority; it blocks no unrelated arc |
+> | Operator-selected focus | **not owned here — resolve from the current checkpoint** (`D0CKPT-GRD-007`: focus is checkpoint-owned; this brief owns only Gate-2 state) |
 > | OPECON | **NOT a prerequisite.** Gate-1b §13.3 rejected "Starting OPECON here"; the F3 operator slice routes **outbound** to OPECON, making it a downstream consumer (`D0CKPT-GRD-004`) |
 > | Activation | **operator-controlled. No successor auto-starts.** |
 >
-> **★ Reclassified 2026-08-08 PM by `D0CKPT-DEC-008` (Nick + Knox).** This brief previously named C3.9 a *blocking predecessor to all Gate-2 execution*. That constraint appears nowhere in Gate-1b §13.3 — the governing execution contract — and this brief's own header subordinates it (*"Where this brief and a source carrier differ, the carrier controls"*). Chained to the 2026-08-04 map's separate C3.9-consumes-Operator-Economics expectation, it manufactured a false Insurance→OPECON prerequisite and stalled the arc. **C3.9 is not waived, weakened or deleted** — it moves from *blocking-to-start* to *blocking-to-close*. Per §5 the pressure floor binds through `user_knox_required` and may not be subtracted without Knox/Nick; **this subtracts nothing** and only relocates when the check binds.
+> **★ Reclassified 2026-08-08 PM by `D0CKPT-DEC-009` (Nick + Knox).** This brief previously named C3.9 a *blocking predecessor to all Gate-2 execution*. That constraint appears nowhere in Gate-1b §13.3 — the governing execution contract — and this brief's own header subordinates it (*"Where this brief and a source carrier differ, the carrier controls"*). Chained to the 2026-08-04 map's separate C3.9-consumes-Operator-Economics expectation, it manufactured a false Insurance→OPECON prerequisite and stalled the arc. **C3.9 is not waived, weakened or deleted** — it moves from *blocking-to-start* to *blocking-to-close*. Per §5 the pressure floor binds through `user_knox_required` and may not be subtracted without Knox/Nick; **this subtracts nothing** and only relocates when the check binds.
 >
 > **No other section in this brief states current state.** The Gate-1b carrier restated its own state in roughly eight places and produced nine rounds of propagation defects; that failure is the direct reason this constraint exists. If you find state asserted elsewhere in this file, it is a defect — correct it here and delete it there.
 
