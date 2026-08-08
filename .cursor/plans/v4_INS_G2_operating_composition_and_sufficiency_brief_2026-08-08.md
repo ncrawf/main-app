@@ -2,7 +2,7 @@
 
 Document type: `analysis` / `work_package_brief` (Gate-2 payload carrier; **not** a contract, **not** a schema, **not** spine prose)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036` — capture broad, promotion gated). Binds nothing. Promotes nothing. Mints nothing.
-Status: **`gate_2_brief_assembled_on_parent_branch · main_landing_separately_gated · execution_not_started · held_behind_C3.9 · not_promoted · no_contract_mutation`**
+Status: **`gate_2_brief_assembled_on_parent_branch · main_landing_separately_gated · execution_not_started · construction_MAY_BEGIN · C3.9_required_before_FINAL_ACCEPTANCE_not_before_construction (D0CKPT-DEC-008) · E2_mandatory_unchanged · not_promoted · no_contract_mutation`**
 Domain(s): `insurance_payer_oop` · `d6_commerce` · `care_operating_model` · `federation` · `clinical_memory` · `rbac_authority` · `cns_coordination` · `accountability_architecture` · `architecture_governance` · `cross_cutting`
 Lifecycle role: the **single substantive payload** carrying the accepted Gate-1b result into Gate-2 execution. Owns the architecture kernel, the consumption matrix, the execution contract and the acceptance criteria.
 Source-of-truth relationship: consumes the carried Gate-0 / Gate-1a / Gate-1b estate read-only. **Where this brief and a source carrier differ, the carrier controls.** The Gate-1a **raws** control over the Gate-1a adjudication.
@@ -16,11 +16,16 @@ Read order: Gate-0 carrier → Gate-1a protocol → **Phase-A raw** → **Phase-
 >
 > | Field | Value |
 > |---|---|
-> | Gate-2 state | **`not_started`** |
-> | Blocking predecessor | **C3.9 population** — the designated mixed-financing vertical falsifier, currently `shell_pending_population` |
+> | Gate-2 state | **`not_started` · construction and pressure MAY BEGIN** |
+> | Pre-execution blocker | **NONE.** Gate 2 may construct from the accepted Gate-0 / Gate-1a / Gate-1b estate |
+> | Final-acceptance blockers | **C3.9 population + consumption + reconciliation of affected traces**, then **`E2`** — the designated mixed-financing vertical falsifier is currently `shell_pending_population` |
 > | Insurance Phase-A input | **complete at `phase_a_input_complete_at_gate1b_ownership_maturity`** |
 > | Insurance arc | **OPEN at Gate 2** |
+> | Operator-selected focus | **YES — `INS-G2-OPERATING-SUFFICIENCY`, selected 2026-08-08.** Focus is not global priority; it blocks no unrelated arc |
+> | OPECON | **NOT a prerequisite.** Gate-1b §13.3 rejected "Starting OPECON here"; the F3 operator slice routes **outbound** to OPECON, making it a downstream consumer (`D0CKPT-GRD-004`) |
 > | Activation | **operator-controlled. No successor auto-starts.** |
+>
+> **★ Reclassified 2026-08-08 PM by `D0CKPT-DEC-008` (Nick + Knox).** This brief previously named C3.9 a *blocking predecessor to all Gate-2 execution*. That constraint appears nowhere in Gate-1b §13.3 — the governing execution contract — and this brief's own header subordinates it (*"Where this brief and a source carrier differ, the carrier controls"*). Chained to the 2026-08-04 map's separate C3.9-consumes-Operator-Economics expectation, it manufactured a false Insurance→OPECON prerequisite and stalled the arc. **C3.9 is not waived, weakened or deleted** — it moves from *blocking-to-start* to *blocking-to-close*. Per §5 the pressure floor binds through `user_knox_required` and may not be subtracted without Knox/Nick; **this subtracts nothing** and only relocates when the check binds.
 >
 > **No other section in this brief states current state.** The Gate-1b carrier restated its own state in roughly eight places and produced nine rounds of propagation defects; that failure is the direct reason this constraint exists. If you find state asserted elsewhere in this file, it is a defect — correct it here and delete it there.
 
@@ -187,9 +192,15 @@ Assembled by the parent carry. Native vocabularies only.
 
 ## §6 — Required inputs and activation freshness
 
-Gate 2 is **held behind C3.9**, so this brief is authored now and consumed later. Two obligations, without which it goes stale by design:
+**Gate 2 is ONE gate with two barriers — no Gate 2A / Gate 2B is minted.** Construction may begin before C3.9; acceptance may not complete without it.
 
-- **C3.9 is a REQUIRED CONSUMED INPUT, not background.** It is the arc's designated mixed-financing vertical falsifier and is `shell_pending_population`. Gate 2 must consume its populated result **including any finding that contradicts a Gate-1b arrival**.
+**Barrier 1 — pre-execution: none.** Gate 2 may begin from the accepted Gate-0 / Gate-1a / Gate-1b estate and perform its architecture construction, comparator research, constructed-trace work, kill-condition development and provisional assessment. Nothing in Gate-1b §13.3's fourteen required outputs takes C3.9 or OPECON as an input.
+
+**Barrier 2 — final acceptance.** Gate 2 may NOT issue a final accepted verdict, and may NOT be labelled `READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT`, until **all four** hold: C3.9 is populated · Gate 2 has consumed the actual C3.9 result **including any finding that contradicts a Gate-1b arrival** · every Gate-2 assumption or trace affected by C3.9 has been rerun or explicitly reconciled · **`E2` has then run under its existing fresh-context independence contract, unweakened.**
+
+Two obligations, without which this brief goes stale by design:
+
+- **C3.9 is a REQUIRED CONSUMED INPUT at acceptance, not background and not optional.** It is the arc's designated mixed-financing vertical falsifier and is `shell_pending_population`. A Gate-2 result produced before it exists is **provisional by construction** and must say so in its §13.3 item-8 Task-D Input-State Receipt, naming the un-run falsifier as a stated limitation on maturity. **C3.9's own input sufficiency — in particular whether it needs completed OPECON output — is separately adjudicated at C3.9 activation and is `UNADJUDICATED` here.**
 - **Activation freshness check.** At activation, re-verify every input against the then-current estate: `main` and the control plane may have moved; `C3.6C`, `C4.5`, the Accountability capture and the Care Response-Seam Audit may have changed maturity; `REV-160`/`REV-185` may have been dispositioned; **PR #9's governance rule may have landed and changed delegation obligations.** Any input whose maturity changed must be re-stated before it is relied on.
 
 ---
