@@ -181,7 +181,7 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ## 2.2) Delegation Admission — posture, visibility, and capture
 
-**PROPOSED 2026-08-08 · `review_ready_pending_parent_integration` · not yet accepted.** **This section is self-sufficient and carries its own complete contract.** Cross-context conceptual cross-reference — **not an authority dependency** — is `v4_C4_agent_runtime_and_harness_capture.md` §6, which is an **`active_map` with `agent_runtime_formulation_OPEN`**, not ratified doctrine; a dedicated runtime pressure/ratification arc remains owed under `FWREG-010`. §6 (build-agent · internal-operations · user/care-facing — *same harness laws, different authority and exposure*). **This section is the current build/architecture-agent operationalization only.** Decision row proposed as `D0CKPT-DEC-008`.
+**PROPOSED 2026-08-08 · `review_ready_pending_separate_governance_landing` · not yet accepted.** **This is a global Tier-4 change and is deliberately NOT part of the Insurance parent carry** — it is not required for Insurance Phase-A closure and lands in its own transaction afterwards (AWP §2.1: package membership follows a shared intended outcome and coordinated closure, **not co-occurrence in one conversation**). **This section is self-sufficient and carries its own complete contract.** Cross-context conceptual cross-reference — **not an authority dependency** — is `v4_C4_agent_runtime_and_harness_capture.md` §6, which is an **`active_map` with `agent_runtime_formulation_OPEN`**, not ratified doctrine; a dedicated runtime pressure/ratification arc remains owed under `FWREG-010`. §6 (build-agent · internal-operations · user/care-facing — *same harness laws, different authority and exposure*). **This section is the current build/architecture-agent operationalization only.** Decision row proposed as `D0CKPT-DEC-008`.
 
 §2.1 asks how work is partitioned across **lanes**. This asks how work is partitioned across **contexts** — the same moment, one question later. **Trigger on the act of delegating, not on an arc, a work package, or a phase.** It applies identically inside an arc, in a one-off thread, and to any future agent that delegates.
 
@@ -205,9 +205,11 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ### Declare at launch
 
-`reason_for_delegation` · the four postures above · `expected_output` · `evaluator_or_acceptance_gate` · `authority_and_tools` · `raw_capture_required: yes | no` · `capture_destination_if_yes` · `stop_condition`.
+`reason_for_delegation` · **the three posture fields above plus any materially claimed independence contract** · `expected_output` · `evaluator_or_acceptance_gate` · `authority_and_tools` · `capture_destination` (required when `capture_posture: exact_submission_source_object`) · `stop_condition`.
 
-**Operator visibility (D1).** A **consequential independent, adversarial, or unsupervised** delegation must be **operator-visible before launch** — posture, expected result, evaluator, and capture plan. It must not silently appear mid-work.
+**One capture field, not two.** `capture_posture` is the single source of that state — a separate `raw_capture_required` flag would duplicate it and drift.
+
+**Operator authorization (D1) — not merely visibility.** A **consequential independent, adversarial, or unsupervised** delegation **may not launch** until **either** the operator explicitly acknowledges or authorizes that delegation, **or** an accepted work package has **pre-authorized that delegation class, scope, evaluator and capture posture**. Visibility alone is too weak for the observed failure: the problem was not that the operator could not watch, it was that consequential agents launched **without their understanding or approval**. **Routine deterministic microhelpers remain exempt** — pre-authorization exists so this does not become approval-per-helper.
 
 ### Raw capture — when it is required
 
