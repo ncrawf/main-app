@@ -195,10 +195,10 @@ Every lane: **worktree = environment-local / recreatable (non-canonical)**; **st
 | Area | State | Next valid trigger |
 |---|---|---|
 | C4.4 Reservoirs | Architecture/authorability CLOSED; nonbinding; impl unproven | Portfolio landing → Task-D/C5/Runtime consumption |
-| C4.5 Time | Gate-0 accepted; full pass not started | Provisional lens in Task-D; full pass after Task-D, before spine |
-| Care | Forensic Lanes 1–6 accepted; capture FROZEN; not closed | **Phase-A lane `CARE-TASKD-INPUT`: version-pinned Task-D Input-State Receipt** (§4.1; no Care redesign, no forced closure) — held until the hardened envelope is accepted |
+| C4.5 Time | Gate-0 accepted; full pass not started | **Phase-A lane `C45-P2-ANCHORS`: six-source anchor verification micro-pass — prepared and `not_started`, operator-controlled** (§4.1/§4.2; still owed). Then provisional lens in Task-D; full C4.5 pass after Task-D, before spine |
+| Care | Forensic Lanes 1–6 accepted; capture FROZEN; not closed | **Phase-A lane `CARE-TASKD-INPUT`: version-pinned Task-D Input-State Receipt** (§4.1; no Care redesign, no forced closure) — prepared and `not_started`; **no authorization until the operator selects it** |
 | Platform | Core decomposition provisionally stable; not closed | Integrated review / Task-D pressure |
-| Accountability/GRR | Review-ready, provisionally stable, nonbinding; not closed | **Phase-A lane `GRR-TASKD-INPUT`: version-pinned Task-D Input-State Receipt** (§4.1; no GRR redesign, no forced closure) — held until the hardened envelope is accepted |
+| Accountability/GRR | Review-ready, provisionally stable, nonbinding; not closed | **Phase-A lane `GRR-TASKD-INPUT`: version-pinned Task-D Input-State Receipt** (§4.1; no GRR redesign, no forced closure) — prepared and `not_started`; **no authorization until the operator selects it** |
 | Pharmacy/Rx | Gate-0/G2A + L2 accepted, landed `44feb15`; G2B deferred | Task-D/C5 consumption or G2B trigger |
 | Demand/Engagement | Gate-0A/0B accepted; Track-A Gate-1 kicked off (branch); not next | Operator-controlled opening |
 | Runtime | C4.4-G2 consumption bridge accepted (`de5b9a1`); full formulation OPEN; `FWREG-010` OPEN | Runtime formulation + Task-D integration |
@@ -207,7 +207,7 @@ Every lane: **worktree = environment-local / recreatable (non-canonical)**; **st
 | Task-D | Interim; NO §7 verdict; required pre-spine; final population **HELD** | **After Phase A + C3.9** (§4.1) → consume the five Phase-A carriers + C3.9 fixture → final §7 verdict |
 | C3.9 plastics/medspa | Population shell only | **After Phase A** (§4.1) — carries insurance/OOP coexistence; then Task-D fixture |
 | Cross-facet process | Process agreed + durable (pharmacy handoff §5); worksheet branch `a526b88` **remote-visible, quarantined, unregistered — NOT local-only** (verified 2026-08-04: `origin/analysis/cross-facet-operating-model-reconciliation` exists; corrects the earlier "local-only/unpushed" wording here and in `D0CKPT-DEC-004`) | Extract process (this checkpoint + `D0CKPT-DEC-004`); do NOT promote worksheet answers |
-| Insurance/payer | No accepted active carrier; substantive home = D6 §12 + `D0THES-REV-159/160`; `FWREG-017` = activation pointer | **COMPLETE (2026-08-08): Phase-A lane `INS-G0-MIXEDFIN` — Insurance/Payer/OOP Gate-0** delivered Gate 0 → Gate 1a → Gate 1b (§4.1/§4.2; no payer domain minted). Wider arc OPEN at Gate 2, outside Phase A, behind C3.9 |
+| Insurance/payer | Gate-1b ownership input **exists and is carried/accepted at `analysis_nonbinding` maturity**; **no payer domain minted**; wider Insurance arc remains OPEN at Gate 2. Substantive home = D6 §12 + `D0THES-REV-159/160`; `FWREG-017` = activation pointer | **COMPLETE (2026-08-08): Phase-A lane `INS-G0-MIXEDFIN` — Insurance/Payer/OOP Gate-0** delivered Gate 0 → Gate 1a → Gate 1b (§4.1/§4.2; no payer domain minted). Wider arc OPEN at Gate 2, outside Phase A, behind C3.9 |
 | Reactor | Frozen, unpromoted candidate (EVRUN-008 = R3 residual) | Only via named gates |
 | Polaris | Active nonbinding alignment/naming lock; owns no truth | Spine consumption; later contract realization |
 | Connectors/bootstrap/scale | Obligations + proof debt named; no e2e impl proof | Task-D composition + Enterprise Bootstrap Steel Thread |
