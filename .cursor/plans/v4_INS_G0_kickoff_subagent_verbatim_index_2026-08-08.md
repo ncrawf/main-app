@@ -107,9 +107,13 @@ Operator-supplied 2026-08-08. All three raws present, both regions non-empty, no
 
 ### §5.3 Canonical region digests — ONE definition, re-used verbatim at `E1`
 
-> **Definition:** SHA-256 over the exact UTF-8 bytes of **all complete lines strictly between the `BEGIN` and `END` marker lines**, joined with `\n`, **excluding both marker lines**, with **no trailing newline and no normalization of any kind.**
+> **`canonical_region_content_digest` — the one definition.** UTF-8 decode · exclude both marker lines · remove one leading and one trailing blank boundary line · serialize remaining lines with `LF` · **no whitespace normalization within any content line** · SHA-256.
 >
-> **Why this is stated rather than assumed.** An earlier receipt and an earlier verification script used two different boundary conventions — one stripping newlines, one not — and produced **two digest families for identical bytes**. That was a **proof defect, not a content change**, and it is exactly the class of ambiguity a hash exists to eliminate. **There is now one definition; any digest not produced by it is void.** The reference implementation is carried with this packet and `E1` must re-run it rather than re-deriving one.
+> **This is a canonical LF-serialized REGION CONTENT digest, not an exact-byte digest** — the earlier wording ("exact UTF-8 bytes … no normalization") described the utility inaccurately and is retracted. The values below are unchanged; only their name and description are corrected.
+>
+> **Exact-byte proof is Git blob equality**, and the two proofs answer different questions: blob equality proves the bytes are identical; this digest proves region *content* is unchanged under a stated serialization. `E1` runs **both** — blob equality across all five PR #8 files, and `v4_INS_G0_canonical_region_digest.py` for the six regions.
+>
+> **Why this is stated rather than assumed.** Two earlier scripts used different boundary conventions and published **two digest families for identical bytes** — a proof defect, not a content change. One definition, one shipped implementation, and any digest not produced by it is void.
 
 | Raw | Prompt bytes | Prompt SHA-256 | Response bytes | Response SHA-256 |
 |---|---|---|---|---|
@@ -118,6 +122,8 @@ Operator-supplied 2026-08-08. All three raws present, both regions non-empty, no
 | **E** Patient + Provider Lens | `5,204` | `09482fb2f1efc7b32b078f73e44a2be0f2b7e3a12a15952f50e71e4f9069f316` | `100,272` | `e5380a7e13664e458751723a7d6fbdc93af8817ae5c3898dd9f900eb714ffdad` |
 
 All six recomputed digests were verified **equal to the receipts written inside each artifact**.
+
+**`v4_INS_G0_canonical_region_digest.py` is a packet-local proof utility** — imported with the packet and executed by `E1`. **It receives no catalog row**: it is not a new architecture or process Markdown artifact. The packet therefore contains **five repository files — one index, three verbatim raws, one proof utility — of which four are catalogable.**
 
 ### §5.1 Two findings from inspection — recorded, not assumed
 

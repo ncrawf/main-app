@@ -1,8 +1,19 @@
 #!/usr/bin/env python3
-"""CANONICAL region digest — the single definition. Re-used verbatim at E1.
-SHA-256 over exact UTF-8 bytes of all complete lines strictly between the
-BEGIN/END marker lines, joined with \n, excluding markers, no trailing
-newline, no normalization."""
+"""canonical_region_content_digest — the single definition. Re-used verbatim at E1.
+
+This is a canonical LF-SERIALIZED REGION CONTENT digest. It is NOT an
+exact-byte digest: the file is read in text mode and the region is re-encoded
+after line serialization.
+
+Exactly what it does:
+  1. UTF-8 decode the file
+  2. take the span strictly between the BEGIN and END marker lines
+  3. drop one leading and one trailing blank boundary line, if present
+  4. join the remaining lines with LF, no trailing newline
+  5. no whitespace normalization WITHIN any content line
+  6. SHA-256 the UTF-8 encoding of that string
+
+Exact-byte proof is Git blob equality, not this digest. E1 runs both."""
 import hashlib,sys,re,glob
 def canon(s,k):
     b=f"<!-- NICK_VERBATIM_{k}_BEGIN -->"; e=f"<!-- NICK_VERBATIM_{k}_END -->"
