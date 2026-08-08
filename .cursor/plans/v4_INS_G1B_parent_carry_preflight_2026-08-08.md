@@ -22,18 +22,20 @@ Relay key: `INS-G1B-CARRY-PREFLIGHT`
 
 **This document executes nothing.** It creates one file on one branch. It merges nothing, lands nothing, mutates no shared control-plane surface, moves no checkpoint, and starts no Gate-2 work. Every proof below was produced in a **disposable scratch worktree that has been destroyed**.
 
-After reviewing this preflight, Knox and Nick are asked to authorize exactly six things:
+There are **six authorization DECISIONS, not six things Nick must supply.** Five are review decisions Knox adjudicates; **exactly one — `A2` — requires something only Nick can provide.** Knox adjudicated all six on 2026-08-08 (`PASS WITH REQUIRED PATCHES`); this revision records those rulings and applies the required patches.
 
-| # | Authorization requested | Who must grant it | Blocking? |
-|---|---|---|---|
-| **A1** | **Parent assembly by MERGE**, not exact-object materialization (§5, proof in §5.2) | Knox adjudication + Nick | yes |
-| **A2** | **Explicit transfer of `PRESPINE-PHASEA-INTEGRATOR`** from the checkpoint §4.2 holder to the executing thread, using the §8 receipt | **Nick only** | yes — hard precondition |
-| **A3** | **Retroactive recording of the AWP §2.1 common-base exception** for PR #5/#6, labelled as retroactive (§4) | Knox + Nick | yes |
-| **A4** | The **exact write matrix** in §10 — every shared surface the carry may touch, and nothing else | Knox + Nick | yes |
-| **A5** | The **Tier-3 guardrail disposition** in §16 — Option A (update `D0TIER0-GRD-004`), not a new row, not `GRD-043` | Knox adjudication | yes |
-| **A6** | The **Gate-2 brief contract** in §12 as the single substantive payload artifact | Knox + Nick | yes |
+| # | Decision | Adjudicator | Knox ruling (2026-08-08) | Still open? |
+|---|---|---|---|---|
+| **A1** | Parent assembly by **MERGE**, not exact-object materialization (§5) | Knox adjudicates · Nick authorizes execution | **APPROVED with two conditions** — PR #7 merges first; landing must preserve the DAG (§5.6, §18.5) | applied |
+| **A2** | **Transfer of `PRESPINE-PHASEA-INTEGRATOR`** to the executing thread (§8) | **NICK ONLY** | pending | **⛔ THE ONLY NICK-ONLY PRECONDITION** |
+| **A3** | Base-policy exception disposition (§4) | Knox adjudicates · Nick accepts | **APPROVED as a disclosed nonconformance disposition** | applied |
+| **A4** | The **exact write matrix** (§10) | Knox adjudicates · Nick authorizes scope | **REQUEST CHANGES** → exactness patch applied | applied |
+| **A5** | Tier-3 **guardrail disposition** (§16) | Knox | **REQUEST CHANGES — target rejected** → replaced with three bounded dispositions | applied |
+| **A6** | **Gate-2 brief contract** (§12) | Knox adjudicates · Nick accepts | **APPROVED with one state correction** (Gate-2 lineage) | applied |
 
-**Nothing in this document is self-authorizing.** In particular, `A2` cannot be inferred from Knox's approval of this preflight; the integrator role has a named holder in a committed surface and only Nick can move it.
+**Nothing in this document is self-authorizing.** `A2` cannot be inferred from Knox's approval of this preflight: the integrator role has a named holder in a committed surface, and only Nick can move it.
+
+**What Nick is asked for is ONE instruction, not six answers** — accept the patched preflight · transfer the integrator role · authorize execution of the parent carry on the named branch under this write matrix. That authorization does **not** extend to Gate-2 execution, `main` landing, contract/schema/code/migration changes, Build Entry Gate mutation, or successor-lane auto-start. **`main` landing remains a separate authorization** after the assembled parent branch receives exact review.
 
 ---
 
@@ -175,13 +177,23 @@ Seven arrivals were reached by internal reasoning over the estate's own artifact
 
 **Implementation consequence — this is the answer to "how does the lane table change."** The checkpoint §4.2 lane table gets **ONE row updated with gate lineage**, not two new lane rows. Phase A remains a **five-partition** inventory; the `INS-G0-MIXEDFIN` row gains a gate-lineage sub-structure (Gate 0 → 1a → 1b → 2) with per-gate branch, head, output object and state. Adding two sibling rows would misrepresent Phase A as seven partitions and would inflate the parent-close criteria.
 
-**What this classification does NOT license.** It does not retroactively make the branch creation contemporaneously authorized (§4). It does not expand the Phase-A parent-close criteria. It does not make Gate 2 a Phase-A lane — Gate 2 is downstream of the Insurance partition's completion and is sequenced by the operator.
+**What this classification does NOT license.** It does not retroactively make the branch creation contemporaneously authorized (§4). It does not expand the Phase-A parent-close criteria.
+
+> **★ GATE-2 LINEAGE CORRECTION (Knox `A6`, applied).** An earlier revision of this section said Gate 2 is *"downstream of the Insurance partition's completion."* **That was wrong and is retracted.** The Gate-1b carrier states that *"**after (B), not before**, Insurance produces its final Task-D sufficiency receipt"* — Gate 2 **produces** the receipt, so the partition cannot already be complete when Gate 2 begins.
+>
+> **Correct state: Gate 2 is the next sequential child gate INSIDE the Insurance partition. It is not a sixth Phase-A sibling partition. The Insurance partition remains ACTIVE until Gate 2 returns the final Task-D sufficiency receipt.**
+>
+> The checkpoint §4.2 row must therefore read `INS-G0-MIXEDFIN → Gate 0 landed → Gate 1a landed → Gate 1b landed → Gate 2 prepared/not_started`, and **must not** read "Insurance partition complete." Gate-2 activation remains operator-controlled.
 
 ---
 
 ## §4 — BASE-POLICY RECONCILIATION
 
-**Label for this state: `disclosed progression + retroactively normalized exception`.** Explicitly **not** "silent violation ignored" and explicitly **not** "fully compliant contemporaneous exception."
+**Durable label (Knox `A3`, APPROVED):**
+
+> **`accepted_nonconformance_with_bounded_corrective_disposition`** — *later sequential Insurance gates legitimately required the approved successor estate, but the branch/base exception was **disclosed rather than formally recorded** under AWP §2.1. The parent integration transaction records the exception **retroactively** and establishes the going-forward gate-lineage rule.*
+
+Short form, retained: **`disclosed progression + retroactively normalized exception`.** Explicitly **not** "silent violation ignored" and explicitly **not** "fully compliant contemporaneous exception." **Nick may accept this disposition; Nick cannot make the original process contemporaneously compliant, and no artifact may suggest otherwise.**
 
 ### §4.1 The facts, each verified
 
@@ -214,7 +226,13 @@ The two-reference boot law is the reason. Gate-1a and Gate-1b are **later sequen
 
 # `MERGE_BASED_PARENT_ASSEMBLY_RECOMMENDED`
 
+**Exact parent branch (Knox `A1` condition):** `integration/ins-g1b-parent-carry-gate2-prep`
+
 ### §5.2 The proof — run in this session, in a disposable scratch worktree, now destroyed
+
+> **★ PROOF SCOPE — READ BEFORE RELYING ON THE NUMBERS.** The proof below is a **THREE-branch proof (PR #4 · #5 · #6). It does NOT include PR #7**, which Knox subsequently required to be merged first (`A1` condition 1), and it was run against **PR #7's pre-correction state, which no longer exists.** The figures below are therefore **frozen evidence of a three-branch merge, not a status report on the four-branch assembly that will actually execute.**
+>
+> **MANDATORY: the §5.2 proof MUST be re-run at execution with PR #7's corrected head included as the first merge, and the re-run figures — not these — govern.** Expect **8 files** rather than 7, and an insertion count higher by this artifact's line count. **Do not copy these numbers forward into the execution receipt.** Reporting a stale proof as current is precisely the propagation defect this whole arc exists to eliminate.
 
 Scratch worktree created at a temporary path from `d592e402b779aaedc1f137189bf51cd2b5ca678d`, three `--no-ff` merges applied in lineage order, then removed. **The merge-commit SHAs are not reproducible** (merge commits embed timestamps); **the tree and blob results are.** Verify by re-running, not by trusting the commit SHAs below.
 
@@ -281,14 +299,20 @@ Fall back **only** if: remote state changed and a re-run merge proof no longer p
 
 ### §5.6 Execution order for the authorized transaction
 
-1. Create parent branch from **exact current `main`** (re-verify it has not moved; **STOP** if it has).
-2. Re-run the §5.2 proof on a scratch branch. **STOP** on any deviation.
-3. Merge `--no-ff` in lineage order: **PR #4 → PR #5 → PR #6.**
-4. Apply the single §7 normalization commit.
-5. Add the Gate-2 brief.
+Parent branch: **`integration/ins-g1b-parent-carry-gate2-prep`**, created from **exact current `main`**.
+
+1. Re-verify `main` has not moved from the recorded base. **STOP** if it has.
+2. **Re-run the §5.2 proof on a scratch branch, INCLUDING PR #7 at its corrected head.** **STOP** on any deviation.
+3. Merge `--no-ff` in this order: **PR #7 (approved preflight) → PR #4 (Gate 0) → PR #5 (Gate 1a) → PR #6 (Gate 1b).**
+4. Apply the single §7 R8 self-reference normalization commit.
+5. Add the Gate-2 brief, the subordinate handoff, and the narrative volume.
 6. Apply the §10 shared-surface transaction as **one closeout commit** (AWP §8 Checkpoint Closeout Rule).
 7. Run the §18 pre-landing proof.
-8. Submit the complete parent branch for Knox/Nick acceptance. **Do not land without it.**
+8. Submit the complete parent branch for Knox/Nick acceptance. **Do not land without a separate landing authorization.**
+
+**Why PR #7 merges first (Knox `A1` condition 1).** If the preflight's own disposition were left an operator choice, **the governing execution plan would remain provisional and uncatalogued while the transaction it governs lands.** Merging it first makes the plan an ancestor of the execution it authorizes.
+
+**Landing rule (Knox `A1` condition 2).** The eventual `main` landing **MUST preserve the DAG**. A squash or rebase merge would destroy the ancestry on which `integrated_via_parent_merge` depends and would silently convert this into an exact-object materialization with a false provenance label. If `main` is unchanged, use an ordinary **fast-forward** of the accepted parent head; otherwise **STOP and re-run the proof**. **No squash. No rebase. No tree materialization.**
 
 ---
 
@@ -300,6 +324,7 @@ The proof in §5.2 Result 2 shows all three child heads become genuine ancestors
 
 | PR | Disposition under Option A | Timing | Required pointer |
 |---|---|---|---|
+| **#7** | `integrated_via_parent_merge` — **the approved preflight lands with the transaction it governs** | after parent lands | parent commit + landed path + corrected-head blob |
 | **#4** | `integrated_via_parent_merge` | after parent lands | parent commit + landed path + blob `9f935857…` (byte-exact) |
 | **#5** | `integrated_via_parent_merge` | after parent lands | parent commit + five landed paths + blobs per §1.2 (all byte-exact) |
 | **#6** | `integrated_via_parent_merge` **+ normalized** | after parent lands | parent commit + landed path + **pre-normalization blob `57e5bb5e…`** and **post-normalization blob** (recorded in §9 at execution) |
@@ -404,6 +429,7 @@ If the executing thread is the same context that authored the Gate-1b R9 output,
 
 | Child PR | Source branch | Source head | Source path | Source blob | Authority | Maturity | Assembly method | Destination path | Byte-exact | Normalized | Final disposition | Consumer routes |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| **#7** | `planning/ins-g1b-carry-preflight` | corrected head, recorded at execution | `v4_INS_G1B_parent_carry_preflight_2026-08-08.md` | recorded at execution | `derived_nonbinding` | Knox-adjudicated, patched | `--no-ff` merge (**1st**) | same | ✅ yes | no | `integrated_via_parent_merge` | the governing execution plan; readiness-gate record |
 | #4 | `analysis/insurance-payer-oop-g0` | `2aabed77…` | `v4_insurance_payer_oop_gate0_carrier_2026-08-04.md` | `9f935857…` | `analysis_nonbinding` | Gate-0 carrier, `not_promoted` | `--no-ff` merge (1st) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance cold-entry route; `INS-HAZ-COVSURF`; FWREG-017 |
 | #5 | `cursor/ins-g1a-preservation-caa7` | `671d120f…` | `v4_INS_G1A_regime_independent_care_financing_physics_protocol_2026-08-07.md` | `8876a0d8…` | `analysis_nonbinding` | protocol, complete | `--no-ff` merge (2nd) | same | ✅ yes | no | `integrated_via_parent_merge` | Insurance route step 2 |
 | #5 | " | " | `v4_INS_G1A_phase_a_independent_derivation_verbatim_2026-08-07.md` | `d242162c…` | `analysis_nonbinding` | **raw, verbatim — source** | " | same | ✅ yes | no | " | cited by Gate-1b §1; **raw wins over derivative** |
@@ -411,15 +437,16 @@ If the executing thread is the same context that authored the Gate-1b R9 output,
 | #5 | " | " | `v4_INS_G1A_adjudication_and_terminus_2026-08-07.md` | `6b42d257…` | `analysis_nonbinding` | derivative interpretation | " | same | ✅ yes | no | " | derivative — loses precision on F1/F3/F7 |
 | #5 | " | " | `HANDOFF_2026-08-07_ins_g1a_preserved_gate1b_ready.md` | `70b5e0df…` | `derived_nonbinding` | handoff | " | same | ✅ yes | no | " | lane-model evidence for §3 |
 | #6 | `cursor/ins-g1b-ownership-reconciliation` | `78a9b280…` | `v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` | `57e5bb5e…` | `analysis_nonbinding` | **R9, analysis accepted pending carry** | `--no-ff` merge (3rd) **+ §7 patch** | same | ✅ before patch | ✅ §7 | `integrated_via_parent_merge` + normalized | every Gate-2 route; §11 consumer matrix |
-| — | `planning/ins-g1b-carry-preflight` | this branch | `v4_INS_G1B_parent_carry_preflight_2026-08-08.md` | this object | `derived_nonbinding` | `review_ready_pending_knox_and_nick` | operator decision (§10) | same | n/a | n/a | **operator decision — see §10 note** | readiness-gate record |
 
-**Read order for the assembled estate:** Gate-0 carrier → Gate-1a protocol → Phase-A raw → Phase-B raw → Gate-1a adjudication → Gate-1a handoff → **Gate-1b carrier (R9)** → Gate-2 brief.
+**Read order for the assembled estate:** Gate-0 carrier → Gate-1a protocol → Phase-A raw → Phase-B raw → Gate-1a adjudication → Gate-1a handoff → **Gate-1b carrier (R9)** → Gate-2 brief. *(The preflight is a readiness-gate record read alongside, not a step in the architecture chain.)*
 
 ---
 
 ## §10 — EXACT WRITE-AUTHORITY MATRIX
 
 Every file the **future carry** proposes to touch. Nothing outside this table may be written. "Integrator transfer required" means `A2` gates it.
+
+> **★ EXACTNESS PATCH (Knox `A4`, `REQUEST CHANGES` — applied).** The prior revision was not genuinely exact: it said FWREG *"add 1–2"*, left this artifact's own disposition an operator choice, and — the material defect — **described the agreement/party-position row as an existing `08` row to be re-scoped. It does not exist.** Verified in the live queue: no agreement/party-position `REV-` row is present (`REV-020` is AI-model-registry governance; `REV-177` is Federation recalibration). Gate 0 **proposed** it as a new row; **it never landed.** It is an **ADD**, not an update. The counts below are now exact and stated per surface.
 
 | Path | Authority | Current owner | Proposed writer | Reason | Exact bounded change | Transfer req'd | Other gate | Body mutation | Rollback |
 |---|---|---|---|---|---|---|---|---|---|
@@ -432,22 +459,23 @@ Every file the **future carry** proposes to touch. Nothing outside this table ma
 | **SHARED SURFACES — integrator-exclusive** | | | | | | | | | |
 | `.cursor/plans/HANDOFF_2026-08-03_..._post_c4_4.md` (checkpoint) | Tier-0 current state | integrator role | integrator | §4.2 gate-lineage row (§3.2); base exception (§4.3); integrator transfer (§8.3); next-authorized-action | bounded edits to §4.2 + banner | yes | Nick | **no rewrite of history** | revert; restore prior banner |
 | `AGENTS.md` | Tier-0 boot pointer | integrator role | integrator | Closeout Rule pointer sync — **pointer only, never the value** | current-checkpoint pointer + next action | yes | Nick | no | revert |
-| `.cursor/plans/doctrine/04_manifest_read_graph.md` | Tier-0 routing | integrator role | integrator | six cold-entry routes + Tier-0 #15 sync (§14) | **add route entries under the existing contract** — see Tier-4 boundary §15.3 | yes | — | no | revert |
-| `.cursor/plans/doctrine/01_master_corpus_catalog.md` | Tier-0 catalog | integrator role | integrator | catalog rows for landed artifacts (§14) | **add rows** (count per §14.1) | yes | — | no | revert |
-| `.cursor/plans/doctrine/08_open_review_queue.md` | Tier-0 queue | integrator role | integrator | REV-159/160/185 updates + ONE Gate-2 parent row (§11) | update 3 rows, add 1 | yes | per-row `required_reviewer` | no | revert |
-| `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` | Tier-0 conflicts | integrator role | integrator | three conflict rows (§11) | add 3 rows, `resolution_status: open_review` | yes | — | no | revert |
-| `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` | Tier-0.5 boot-visible | integrator role | integrator | **Tier-3 guardrail obligation (§16)** | **update `D0TIER0-GRD-004`** — Option A | yes | Knox `A5` | no | revert |
-| `.cursor/plans/doctrine/future_work_registry.md` | Tier-0 FWREG | integrator role | integrator | FWREG-017 update; F3 operator slice → OPECON; `INS-HAZ-COVSURF` row (§11) | update 1, add 1–2 | yes | — | no | revert |
+| `.cursor/plans/doctrine/04_manifest_read_graph.md` | Tier-0 routing | integrator role | integrator | six cold-entry routes + Tier-0 #15 summary sync (§14) | **add 6 route entries UNDER the existing contract** — see Tier-4 boundary §15.3 | yes | — | no | revert |
+| `.cursor/plans/doctrine/01_master_corpus_catalog.md` | Tier-0 catalog | integrator role | integrator | catalog rows for every landed artifact (§14.1) | **add exactly 11 rows** | yes | — | no | revert |
+| `.cursor/plans/doctrine/08_open_review_queue.md` | Tier-0 queue | integrator role | integrator | §11 state transitions | **UPDATE 5** (`REV-159` · `REV-160` · `REV-185` · `REV-193` · `REV-201`) **+ ADD 3** (agreement/party-position · Gate-2 parent row · `INS-HAZ` Build-Entry activation) | yes | per-row `required_reviewer` | no | revert |
+| `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` | Tier-0 conflicts | integrator role | integrator | §11.2 semantic conflicts | **ADD exactly 4 rows**, `resolution_status: open_review`; collision-free IDs allocated at execution | yes | — | no | revert |
+| `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` | Tier-0.5 boot-visible | integrator role | integrator | **Tier-3 guardrail obligation (§16, REVISED)** | **UPDATE `D0CKPT-GRD-003`** (narrow) · **UPDATE `D0-GRD-010`** (financing vendor-label) · **ADD 1** coverage-as-boolean / overwrite-on-check row. **`D0TIER0-GRD-004` NOT touched.** | yes | Knox `A5` | no | revert |
+| `.cursor/plans/doctrine/future_work_registry.md` | Tier-0 FWREG | integrator role | integrator | §11 FWREG transitions | **UPDATE `FWREG-017`** · **UPDATE `FWREG-018`** (F3 operator slice, with the §11.3 enumeration extension) · **ADD 1** `INS-HAZ-COVSURF` row carrying clauses 1–6. **No second operator-economics row.** | yes | — | no | revert |
 | `.cursor/plans/doctrine/03_decision_extraction_ledger.md` | Tier-0 decisions | integrator role | integrator | **assess only** — Gate-1b §13.2 proposes **zero** decision rows | likely **no change**; if Tier 4 is triggered a row becomes mandatory (§15.3) | yes | — | no | revert |
 | **EXPLICITLY UNTOUCHED** | | | | | | | | | |
 | all `contracts/**` · `supabase/**` · `lib/**` · `app/**` · all migrations · all schemas | canonical / code | domain owners | **nobody** | out of scope | **none** | — | — | **no** | n/a |
 | `C4.6` · `REV-184` bodies | accepted L2 / signed-off | their owners | **nobody** | §15.1-D: no body edit | **none** | — | — | **no** | n/a |
 | `C3.6C` · `C4.5` next-actions · `GRR-TASKD-INPUT` · Care Response-Seam Audit | open / inbound-designed | their owners | **not the integrator unilaterally** | bounded pointer only, under that surface's own gate | pointer **proposed**, not landed here | yes + **owner gate** | **owner gate required** | no | revert |
+| **`.cursor/plans/doctrine/11_build_entry_gate_v0.md`** | Tier-0 gate contract | Build-Entry owner | **NOBODY — explicitly out of scope** | line 12: *"User/Knox approval required before any change to gate verdict semantics."* Binding `INS-HAZ` clause 4 as an admission rule is **plausibly Tier 4** (§11.1, §15.3) | **none** — routed to a Build-Entry activation review row instead | — | **User/Knox, separately** | **no** | n/a |
 | `vercel.json` | code/config | repo owner | **nobody** | §17 | **none** | — | — | no | n/a |
 | off-repo controlling-plan banner | off-repo | integrator role | **cannot** — path does not exist in this environment | environment limitation (`D0OPER-DEC-004`) | **none; report limitation** | — | — | no | n/a |
 | `main` | control plane | Nick | **nobody without explicit landing authorization** (`L8`) | no unilateral escalation | **none** | — | Nick | no | n/a |
 
-> **Note on this preflight artifact's own disposition.** It sits on `planning/ins-g1b-carry-preflight`. Whether it is merged into the parent, left as a standalone branch record, or landed separately is an **operator decision** at `A4`. It is a readiness-gate record, not part of the Insurance architecture payload; my recommendation is to merge it with the parent so the decision trail lands with the decision, but it carries no architecture and could equally remain a branch-only record.
+> **This preflight's own disposition — RESOLVED, no longer an operator choice (Knox `A1` condition 1).** It is **merged FIRST** into the parent, gets a catalog row, and closes as `integrated_via_parent_merge`. Leaving it optional would strand the governing execution plan as provisional and uncatalogued while the transaction it governs lands.
 
 ---
 
@@ -468,9 +496,9 @@ Native vocabularies verified in their own primary sources:
 | **`REV-185`** — economic-influence separation | `08` | **`open`** | `open`, **sharpened not duplicated** | record three-law separation; Insurance as **third dependent arc**; administrative friction as a fourth pressure pathway; row-P elevation as structural home | Gate-2 §; spine §3b + §C | Gate 2 + spine economics elevation | `08` note + `05` seven-label conflict row |
 | **`REV-159`** — D6 insurance/Medicare/HSA-FSA deferral | `08` | **`open`** | `open`, **narrowed** | ownership resolves to existing owners; closure criteria narrowed | Gate-2 residual owner map | Gate 2 | `08` note citing Gate-1b §8.2 |
 | **`REV-193` / `REV-201`** — alpha firewall / flywheel | `08` | both **`open`** | `open`, annotated | note as **economics-axis facets** only | row-P elevation | spine | `08` annotation, no state change |
-| **Agreement / party-position (Gate-0 row)** | `08` | open | `open`, **re-scoped** | re-scope to **A-Q1a custody + A-Q1b substantive commitment + A-Q2 operative posture**, all generic | Gate-2 commitment taxonomy | Gate 2 output 4 | `08` note |
+| **Agreement / party-position** | `08` | **DOES NOT EXIST — verified** (Gate 0 proposed it; it never landed. `REV-020` = AI model registry, `REV-177` = Federation recalibration — neither is this row) | **CREATE** as `open` | scoped at creation to **A-Q1a custody + A-Q1b substantive commitment + A-Q2 operative posture**, all generic | Gate-2 commitment taxonomy | Gate 2 output 4 | new `08` row + collision-free ID allocated at execution |
 | **Gate-2 parent row** grouping A-Q12/14/15/16/17/18 | `08` | does not exist | **create ONE row** | `open`, `required_reviewer: user_knox_required`, with explicit closure criteria per A-Q | Gate-2 brief | **Gate 2 cannot close without an explicit disposition for each of the six** | `08` closure note enumerating six dispositions |
-| **F3 operator slice** | FWREG | not routed | **new row or FWREG-018 annotation** | `parked` w/ `promotion_trigger` = OPECON-G0 charter; **other six actor slices named out-of-scope for that lane** | OPECON-G0 | OPECON-G0 charter admission | FWREG row + AWP §6 build-entry retrieval |
+| **F3 operator slice** | FWREG | **`FWREG-018` already owns non-labor operator economics** — do NOT create a second row | **UPDATE `FWREG-018`** — see §11.3 for the required enumeration extension | `parked` w/ `promotion_trigger` = OPECON-G0 charter; **other six actor slices explicitly named out-of-scope for that lane** | OPECON-G0 | OPECON-G0 charter admission | FWREG row + AWP §6 build-entry retrieval |
 | **`FWREG-017`** Insurance/mixed-financing seam | FWREG | **exists**, Gate-0 says *"update, do not close"* | **update, do not close** | Gate-0/1a/1b discharged; Gate-2 named as next; invariants **accepted in direction, not contracted** | Gate-2 → Task-D | Task-D sufficiency receipt | FWREG row update |
 | **`INS-HAZ-COVSURF`** containment | FWREG + `06` + `05` + Build Entry | **proposed, INERT** — all four activation landings missing | **land all four** (see §11.1) | FWREG row carrying clauses 1–4 **verbatim** | Build Entry | **any PR adding a column/write/coverage-semantic read to the three surfaces** | four landing receipts + Build-Entry note |
 | **A-Q14** relation-shaped assertion + recommit seam | Clinical Memory + Accountability §19 + Care Response-Seam Audit | uncontracted | routed | dedup **mandatory** vs CM substrate, `governed_relation_assertion`, Response-Seam Audit | Care Response-Seam Audit | **cannot close without disposing of A-Q14** | audit closure receipt |
@@ -483,6 +511,29 @@ Native vocabularies verified in their own primary sources:
 | **Gate-0/1a/1b child states** | checkpoint §4.2 | one lane row, no gate lineage | **one row updated with gate lineage** (§3.2) | `landed` per gate after parent lands | checkpoint | parent closeout | §4.2 table + closeout commit |
 | **Task-D reliance state** | pre-spine sufficiency map + Task-D | `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT` | unchanged until Gate 2 | two-level maturity preserved verbatim | Task-D | **Task-D cannot close without the Insurance sufficiency receipt** | Gate-2 → Task-D receipt |
 
+### §11.2 The four conflict rows owed to `05`
+
+Gate-1b §13.2 proposed three; **Gate 0 proposed a fourth.** All four are stated semantically now; collision-free IDs are allocated at execution.
+
+1. **`DEC-027` ↔ `REV-160` currency** — a decided financing shape and the open row owning the same question have coexisted unreconciled for months; the decision is stranded.
+2. **Accountability/GRR naming inconsistency** — the catalog propagated "retired" while `FWREG-009`, `WI14` and pre-spine Card 2 all still carry GRR, and Card 2 mixes both internally. **Not an Insurance question.**
+3. **Seven-label / three-law economic-firewall scatter** — one concept carrying seven labels across the estate for three distinct laws.
+4. **Overlapping committed coverage-capture surfaces with no declared authority relationship** — `payer_eligibility_documents` · `patient_insurance_details` · the three `patients.*` columns; no FK, no shared coverage identity, no source-authority precedence, divergent correction postures.
+
+### §11.3 `FWREG-018` — the enumeration extension the routing actually requires
+
+**Refinement beyond the ruling, because routing the slice wholesale would drop the real gap.** `FWREG-018` is explicitly **NON-LABOR** and enumerates a **payables/spend** scope: *AP/supplier settlement · procurement · non-labor COGS · media spend · operating budgets · general operating subledger*, plus the counterparty residual. F3's operator slice is *labor · inventory · OR/room capacity · **receivable · liquidity · opportunity cost***.
+
+Mapping the slice against what is actually owned today:
+
+| F3 operator-slice element | Current home | Action |
+|---|---|---|
+| labour cost | **BIZOPS** — already owned | no action; name as out of `FWREG-018`'s scope |
+| inventory, procurement-adjacent COGS | **`FWREG-018`** — already enumerated | no enumeration change |
+| **receivable · liquidity · cash position · capacity-as-economic-resource · opportunity cost** | **NOBODY.** Gate-1b §2 records BIZOPS explicitly disclaims *"receivables, liquidity, cash position, capacity-as-economic-resource, opportunity cost, or non-labor operator economics"* — and `FWREG-018`'s enumeration, being payables/spend-oriented, **does not name them either** | **⚠ THIS IS THE ACTUAL GAP.** The `FWREG-018` update MUST explicitly extend its enumeration to carry them, or they fall through the seam between a surface that disclaims them and a surface that never claimed them |
+
+**Consequence: "route the F3 operator slice to `FWREG-018`" is correct in shape but insufficient as written.** The update must state, per element, which part is newly in scope, which was already enumerated, and which belongs to BIZOPS — otherwise the routing looks complete while the unowned residual quietly survives. That is the `DEC-027` failure mode reproduced one arc later.
+
 ### §11.1 `INS-HAZ-COVSURF` — the four landings that activate it
 
 Verified from the Gate-0 carrier: the contract is **inert until all four land**, and *"until all four land, clause 4 is a recommendation and any consumer may ignore it."*
@@ -494,7 +545,22 @@ Verified from the Gate-0 carrier: the contract is **inert until all four land**,
 
 Clauses 5 and 6 proposed by Gate-1b §7.4 extend it: no operative coverage view across the three surfaces, and no `patient_column` use for coverage/payer-identity/commercial-willingness attributes without an allowlist and an authority/temporal model.
 
-**Recommendation: land containment NOW, in the parent transaction.** All four landings are row/note writes on integrator-owned surfaces — no schema, no code, no migration. Deferring keeps a live, checkable hazard inert while the surfaces continue to accumulate, which is the exact failure Gate-0 flagged. **Item 4, the Build-Entry note, is the one to watch:** if binding clause 4 as an admission check requires amending the Build Entry Gate's own contract rather than adding a note under it, that tips toward Tier 4 (§15.3) and must be split out.
+> **★ REVISED DISPOSITION (Knox `A4`/Patch 4, applied — the prior revision was internally inconsistent).** The earlier text recommended landing **all four** while the write matrix **did not list `11_build_entry_gate_v0.md`** as a writable path. Those cannot both be true: item 4 cannot land without touching a file that was outside the matrix. Verified: **Build Entry Gate line 12 — *"Review gate: User/Knox approval required before any change to gate verdict semantics."*** Binding clause 4 as an admission rule plausibly changes gate-verdict semantics and is therefore **at least plausibly Tier 4**, which is out of scope for this transaction (§15.3).
+
+**Resolution — land three, route the fourth:**
+
+| Landing | Disposition in the parent transaction |
+|---|---|
+| **(i)** guardrail-digest row: coverage-as-boolean / overwrite-on-check | **LAND** (§16, one added row) |
+| **(ii)** `05` conflict row: overlapping coverage surfaces | **LAND** (§11.2 row 4) |
+| **(iii)** `INS-HAZ-COVSURF` FWREG row carrying clauses **1–6** (Gate-0's 1–4 verbatim + Gate-1b §7.4's clauses 5 and 6, labelled as the Gate-1b extension) | **LAND** |
+| **(iv)** Build-Entry admission check binding clause 4 | **DO NOT LAND. DO NOT EDIT `11_build_entry_gate_v0.md`.** Create a dedicated **Build-Entry activation review row** in `08` under `user_knox_required` |
+
+**Status after the carry — state it exactly, and do not overstate it:**
+
+> **`preserved_and_routed · not_active_pending_build_entry_gate_review`**
+
+This is honest, it is useful, it keeps the hazard discoverable and routed instead of inert-and-invisible, and **it keeps the parent transaction Tier 3.** What it does **not** do is make clause 4 enforceable — until the Build-Entry activation lands, **clause 4 remains a recommendation any consumer may ignore**, exactly as Gate 0 said.
 
 ---
 
@@ -551,11 +617,19 @@ Clauses 5 and 6 proposed by Gate-1b §7.4 extend it: no operative coverage view 
 | `authority_warning` | helper remains **comparative context, not architecture authority** |
 | `default_read_posture` | **not required for cold entry** unless a dispute reopens it |
 
-**The four reports, as far as this preflight can honestly state:** (1) care truth / disagreement / correction; (2) money / obligation / resource / economics; (3) external party / counterparty / agreement / Federation; (4) committed insurance implementation forensics. Knox states he holds and read all four. **`raw_report_available` = no, from every Opus context** — they were commissioned before R0 and never returned to Opus at any revision through R9.
+**The four reports:** (1) care truth / disagreement / correction; (2) money / obligation / resource / economics; (3) external party / counterparty / agreement / Federation; (4) committed insurance implementation forensics.
 
-**Consequence for the matrix: the `primary_sources_adjudicated` and `gate1b_disposition` columns can be completed by Opus from the carrier's correction receipt; the `challenge_or_search_path_raised_by` column can only be completed by Knox.** The parent transaction must either obtain Knox's input for that column or mark it `attribution_not_reconstructable_by_opus` rather than guessing. **Do not infer helper attribution from the shape of a correction.**
+> **★ RESOLVED — NOT A NICK TASK AND NOT A CARRY BLOCKER (Knox Patch 6, applied).** A prior Knox context stated it held and had read all four. **The current Knox context does not have them.** They were never supplied to any Opus context, and **they are not durable repository objects.** Therefore:
+>
+> - `raw_report_available_to_current_reviewers`: **no**
+> - `challenge_attribution`: **`not_recoverable_from_durable_estate`**
+> - **primary repository sources control** every Gate-1b finding — the carrier's own §0.5 already states *"No claim in this carrier rests on a helper report"*
+> - **no verbatim appendix; no guessed helper attribution; no reconstruction**
+> - **Nick is not asked to recover or reconstruct anything. This does not block the carry.**
+>
+> **This is a continuity defect in the review leg, recorded as such.** Two Knox contexts disagree about whether the reports were read, which is itself the reason no weight may rest on "the helpers found X." The Gate-2 provenance matrix keeps the `challenge_or_search_path_raised_by` column present but populated with `not_recoverable_from_durable_estate`, so the absence is visible rather than silently omitted.
 
-**Sealed verbatim appendix: NOT recommended.** No raw was supplied; its audit value cannot be assessed; and creating a placeholder would violate the no-reconstruction rule. If Knox later supplies raw text, a sealed appendix may be reconsidered with passport `analysis_nonbinding · preserved_verbatim · comparative_context_only · primary_sources_and_gate1b_corrections_control · not_default_read`.
+**Sealed verbatim appendix: NOT recommended and NOT deferred — declined.** No raw exists in the durable estate, so its audit value cannot be assessed and a placeholder would violate the no-reconstruction rule.
 
 ---
 
@@ -563,7 +637,21 @@ Clauses 5 and 6 proposed by Gate-1b §7.4 extend it: no operative coverage view 
 
 ### §14.1 Catalog rows
 
-**Verification correction to Gate-1b §13.2.** It proposes *"One catalog row."* **That count is now wrong** and the parent must not carry it forward. The parent lands **seven child artifacts plus the Gate-2 brief plus the handoff plus the narrative volume**, and each Tier-2+ artifact requires its own row under the §5 New Artifact Completion Rule. **The corrected obligation is a row per landed artifact** — the exact count is set by `A4`'s decision on which artifacts land. **Residual catalog enum debt is parked at `D0CTLG-REV-001` and is not resolved here.**
+**Verification correction to Gate-1b §13.2.** It proposes *"One catalog row."* **That count is wrong** and must not be carried forward. Catalog convention verified in the live catalog: **narrative volumes and `HANDOFF_*` files both carry rows** (9 and 43 occurrences respectively), so every landed artifact gets one.
+
+**Exact count: 11 rows.**
+
+| # | Artifact |
+|---|---|
+| 1–5 | the five Gate-1a files (protocol · Phase-A raw · Phase-B raw · adjudication · handoff) |
+| 6 | Gate-0 carrier |
+| 7 | Gate-1b carrier |
+| 8 | **this preflight** (merged first per `A1`) |
+| 9 | Gate-2 brief |
+| 10 | subordinate Tier-3 handoff |
+| 11 | narrative volume 10 |
+
+**Residual catalog enum debt is parked at `D0CTLG-REV-001`** — if any of the 11 rows cannot be typed under the current enum, record it against that row rather than extending the enum inside this transaction.
 
 ### §14.2 Read-graph routes — verification of Gate-1b §15.1 Part C
 
@@ -638,9 +726,21 @@ Tier 4 triggers on *"binding doctrine added or rule changed (Schema Lock, Enforc
 
 A Tier-4 element additionally mandates a `03` decision-ledger row plus a `05` supersession update.
 
-### §15.4 Closeout obligations
+### §15.4 Closeout obligations — and WHICH document is the current checkpoint
 
-Per AWP §8 Checkpoint Closeout Rule, in the **SAME closeout commit**: the handoff · `AGENTS.md` · the read graph · and the controlling-plan banner must all be repointed. **The off-repo banner does not exist in this environment** — the transaction must **report that limitation** rather than claim the repoint, per `D0OPER-DEC-004`.
+> **★ CHECKPOINT STRATEGY — RESOLVED (Knox Patch 1, applied).** The prior revision created an Aug-8 handoff, updated the Aug-3 checkpoint, and said pointers should be "repointed" **without choosing which document becomes the live checkpoint.** That ambiguity was unacceptable, because the Aug-3 checkpoint owns the live Phase-A content-base row, the five-partition inventory, the integrator holder, and the two-reference boot state. Creating a competing current checkpoint would fork all four.
+
+**Decision: the 2026-08-03 checkpoint REMAINS the current program checkpoint and the single owning state surface. It is amended in place.**
+
+| Document | Role after the carry |
+|---|---|
+| `HANDOFF_2026-08-03_..._post_c4_4.md` | **CURRENT program checkpoint** · Tier-0 #15 target · owns live base pin, partition inventory, integrator holder, two-reference boot state · **amended in place** (gate-lineage row, base exception, integrator transfer) |
+| `HANDOFF_2026-08-08_ins_g1b_carried_gate2_ready.md` | **subordinate Tier-3 continuity** · reached **through** Aug-3 §4.2 · **NOT** the Tier-0 #15 target · **must NOT duplicate** the live base pin or integrator state (§2.1 Single-source law) |
+| `AGENTS.md` · read-graph #15 | continue naming **Aug-3**, with their embedded summaries synchronized |
+
+This follows the estate's own precedent: the Aug-3 checkpoint was itself amended in place on 08-04 and 08-05 without minting a successor.
+
+Per AWP §8 Checkpoint Closeout Rule, in the **SAME closeout commit**: the handoff · `AGENTS.md` · the read graph · and the controlling-plan banner must all be synchronized. **The off-repo banner does not exist in this environment** — the transaction must **report that limitation** rather than claim the repoint, per `D0OPER-DEC-004`.
 
 **Next authorized lane after the carry:** `INS-G2-OPERATING-COMPOSITION-AND-SUFFICIENCY`, executed by a **genuinely fresh context** against the landed brief and routes. The current context should be retired at parent landing. **Sequencing remains operator-controlled; no arc auto-starts.**
 
@@ -664,17 +764,38 @@ Gate-1b's **C61** demoted a proposed guardrail pending dedup against **`D0THES-G
 | `D0CKPT-GRD-003` | ceremony overreach **+ duplicated state**; instance-generalization; artifact-as-trigger | **near on one limb** — "duplicated state" overlaps, but the row's subject is work-partitioning ceremony |
 | **`D0TIER0-GRD-004`** | *"Inlining schema content… into a referencing artifact instead of pointing to the canonical schema home. **Creates dual sources of truth that silently drift when the canonical home is updated and the referencing artifact is not.**"* | **CLOSEST — same mechanism, different scope.** GRD-004 is the **cross-artifact** form; the Gate-1b lesson is the **intra-document** form |
 
-### §16.3 Recommended disposition — **Option A: update `D0TIER0-GRD-004`**
+### §16.3 Disposition — **THREE BOUNDED DISPOSITIONS** (Knox `A5`; my `D0TIER0-GRD-004` proposal REJECTED and withdrawn)
 
-**Do not mint a new row. Do not leave the Tier-3 field blank. Do not create an Insurance-specific slogan.**
+> **★ WITHDRAWN.** The prior revision recommended broadening **`D0TIER0-GRD-004`**. **Knox rejected it and the rejection is correct.** `GRD-004`'s *subject* is narrow and precise — a **protocol/runtime document becoming a second schema host by inlining schema content** (enum lists, field requirements, definitional taxonomies) from a canonical home. Broadening it to cover *every repeated semantic statement inside any document* would convert a precise guardrail into a catch-all, which is the failure mode a guardrail digest exists to avoid. **The mechanism matched; the subject did not.** `GRD-004` is **not touched.**
 
-`D0TIER0-GRD-004` already names the exact mechanism — a restatement drifts because the canonical statement is corrected and the copy is not. The Gate-1b arc supplies a **newly evidenced specialization**: the same failure occurs **inside a single artifact** that restates its own state in multiple places, and it is not caught by presence-only search.
+**Three bounded dispositions instead:**
 
-**Candidate lesson, for adjudication:**
+**(1) Narrowly extend `D0CKPT-GRD-003`** — the correct home, because its **duplicated-state limb** is the law the AWP §2.1 Single-source rule came out of. Add the **intra-artifact** specialization only:
 
-> A semantic correction is incomplete until every active restatement, receipt, execution contract, state summary and downstream instruction that depends on the withdrawn claim has been propagated or invalidated. **Presence-only `grep`, correction-at-introduction-only, and multiple self-restated state summaries create false internal consistency.**
+- multiple live status/restatement surfaces **inside one artifact** drift exactly like duplicated cross-artifact state;
+- **one current-state surface per artifact**;
+- a stale status summary **must be invalidated when the owning statement changes**.
 
-**Proposed update to `D0TIER0-GRD-004`:** extend its description with the intra-document specialization; add `source_evidence` pointing to the Gate-1b carrier §0.5 (C45–C48, C51–C52, C56, C62) and to narrative volume 10; add the three named detection failures (presence-only grep, correction-at-introduction, self-restated state summaries); point `notes` at the canonical remedy — **one current-state surface per artifact** (the Gate-2 brief §12 constraint) and the §2.1 Single-source law.
+`source_evidence`: Gate-1b carrier §0.5 (C45–C48, C51–C52, C56, C62) + narrative volume 10. `notes` → the AWP §2.1 Single-source law and the Gate-2 brief's one-state-surface constraint (§12).
+
+**(2) Merge the financing-classification candidate into `D0-GRD-010`** — verified as *"Vendor-shaped substrate primitives… **No vendor canonicalization in primitives**,"* which is exactly the right home:
+
+- classify financing arrangements by **obligor · refund destination · reversal physics · commitment physics**;
+- **never** by `Cherry` / `CareCredit` / `Allē` / `Aspire` / vendor-name labels.
+
+This also discharges Gate-1b §13.2's "one guardrail candidate, subject to dedup before minting" — **the dedup succeeds and no new row is minted.**
+
+**(3) Add ONE new row: coverage-as-boolean / overwrite-on-check** — `INS-HAZ-COVSURF` landing (i), §11.1. This is a genuinely distinct hazard with no existing home.
+
+**(4) Do NOT promote the broader lesson as a universal guardrail yet.** Preserve it in **narrative volume 10**, the **Gate-2 brief execution constraints**, and the **R9 correction lineage**:
+
+> A semantic correction is incomplete until every active restatement, receipt, execution contract, state summary and downstream instruction depending on the withdrawn claim has been propagated or invalidated. Presence-only `grep`, correction-at-introduction-only, and multiple self-restated state summaries create false internal consistency.
+
+**Rationale for parking it:** beyond-packet evidence currently proves **duplicated state** (§16.4), which disposition (1) captures. It does **not** yet prove the fully generalized semantic-propagation claim. Promoting the general form now would repeat the over-generalization `D0CKPT-GRD-003` itself warns about.
+
+### §16.3a The Tier-3 obligation is DISCHARGED — stated explicitly so no auditor reads it as skipped
+
+AWP §8 requires that a Tier 3+ narrative's timeless lessons **MUST** be extracted into `06` **in the same checkpoint**. **That obligation is discharged by dispositions (1), (2) and (3)** — one narrow extension, one merge, one new row — **not left blank and not deferred.** Disposition (4) is a **deliberate, recorded parking of the broader generalization with its own promotion trigger** (independent recurrence of the *generalized* form outside duplicated state), not an un-extracted lesson. The narrative volume must say this in those terms.
 
 ### §16.4 Evidence of recurrence BEYOND this packet — required by C61, and it exists
 
@@ -684,9 +805,7 @@ C61 set the bar at *"evidence of recurrence beyond this packet."* **That bar is 
 2. **`D0CKPT-GRD-003`** was extracted from the 2026-08-04/05 Phase-A arc and already names **duplicated state** as an observed failure — again a different packet.
 3. **`DEC-027` / `REV-160`** — a decision recorded in May, never carried into the contract it governed, with the open-review row owning the same question still reading "tentative." Different mechanism (consumption rather than propagation) but the same root: **a correction that did not reach every dependent surface.**
 
-**Conclusion: the dedup succeeds against `D0TIER0-GRD-004` and the recurrence bar is met. Option A is available and is recommended. Options B (new row) and C (no change) are not recommended** — B would add a redundant row to a digest whose own discipline forbids it; C would discard genuinely new evidence for an existing rule.
-
-**This remains Knox's adjudication (`A5`), not this preflight's decision.**
+**Conclusion: the recurrence bar C61 set is met — for duplicated state specifically.** That is precisely the scope of disposition (1). It is **not** yet met for the fully generalized semantic-propagation claim, which is why disposition (4) parks it. **No new universal row is minted, and C61's mis-targeted `GRD-043` pointer is retired rather than carried forward.**
 
 ---
 
@@ -748,6 +867,7 @@ Child PR states recorded · landed object blobs recorded in the manifest · `AGE
 ### §18.5 Prohibited operations — absolute
 
 - **no force push, no `--force-with-lease`, on any branch**
+- **NO SQUASH MERGE and NO REBASE MERGE at any point, including the final `main` landing.** Either would destroy the DAG ancestry on which `integrated_via_parent_merge` depends and would silently convert this into an exact-object materialization wearing a false provenance label. **Landing is fast-forward or ordinary merge only.** If `main` has moved, **STOP and re-run the proof** rather than rebasing.
 - **no reset of `main` or the parent to any child head**
 - **no tree replacement** — never materialize a child's whole tree over current state
 - **no applying a two-tree (`git diff main branch`) comparison as a patch** — this is the operation that would have produced the 575 phantom deletions
@@ -758,17 +878,19 @@ Child PR states recorded · landed object blobs recorded in the manifest · `AGE
 
 ## §19 — FINAL PREFLIGHT RECOMMENDATION
 
-# `PREFLIGHT PASS — AUTHORIZE EXECUTION WITH EXACT WRITE MATRIX`
+# `PREFLIGHT PASS — PENDING NICK INTEGRATOR TRANSFER AND EXECUTION AUTHORIZATION`
 
-The parent carry is designed, proven where it can be proven, and bounded. The assembly strategy is empirically validated rather than argued: three clean merges, zero deletions, full ancestry, byte-exact child blobs, and current-`main` doctrine intact. The write matrix is exact and closed. Every carried finding has a named consumer, a consuming gate, an owning-surface-native disposition, a state update and a proof receipt.
+Knox adjudicated this preflight on 2026-08-08: **`PASS WITH REQUIRED PATCHES`.** All required patches are applied in this revision — §0 decision framing · assembly order and DAG-preservation rule (`A1`) · base-exception label (`A3`) · Gate-2 lineage (`A6`) · checkpoint strategy · write-matrix exactness (`A4`) · guardrail retarget (`A5`) · `INS-HAZ` split · reconnaissance closure · PR #7 preservation.
 
-**Execution remains blocked on the six authorizations in §0**, of which one is a hard structural precondition that only Nick can supply:
+Three refinements were added beyond the ruling, each because compliance-as-written would have left a gap: the **`FWREG-018` enumeration extension** (§11.3), without which receivables, liquidity, capacity-as-economic-resource and opportunity cost fall between a surface that disclaims them and one that never claimed them; the **proof-scope label** (§5.2), because the recorded figures are a *three-branch* proof that must be re-run to cover PR #7; and the **explicit Tier-3 discharge statement** (§16.3a), so a future auditor sees the guardrail obligation as satisfied-and-parked rather than skipped.
 
-> **`A2` — explicit transfer of `PRESPINE-PHASEA-INTEGRATOR`.** The role has a named holder in a committed surface. Without the §8.2 receipt, the executing thread has no authority over any of the nine shared surfaces, and the carry cannot legally begin regardless of Knox's verdict on this document.
+**Five of the six decisions in §0 are now closed. Exactly one remains, and it is the only one Nick alone can supply:**
 
-**Three items require Knox adjudication and could change the plan:** the assembly route (`A1`), the retroactive base exception (`A3`), and the guardrail disposition (`A5`).
+> **`A2` — explicit transfer of `PRESPINE-PHASEA-INTEGRATOR`.** The role has a named holder in a committed surface. Without the §8.2 receipt the executing thread has no authority over any of the nine shared surfaces, and the carry cannot begin regardless of any verdict on this document.
 
-**Two known limitations, disclosed rather than resolved:** the reconnaissance `challenge_or_search_path_raised_by` column cannot be completed by any Opus context (§13), and the off-repo controlling-plan banner cannot be repointed from this environment (§15.4).
+**Two known limitations, disclosed rather than resolved:** helper-report challenge attribution is `not_recoverable_from_durable_estate` (§13 — **not a Nick task, not a blocker**), and the off-repo controlling-plan banner cannot be repointed from this environment (§15.4).
+
+**One open risk carried into execution:** if the read-graph work amends the Read-Graph **Operating Contract** rather than adding entries under it, or if `INS-HAZ` landing (iv) is later bound into the Build Entry Gate itself, that element becomes **Tier 4** and must be removed from this transaction absent separate canonization authority (§15.3).
 
 **This document authorizes nothing. It executed nothing. `main`, PR #4, PR #5 and PR #6 are untouched.**
 
