@@ -378,3 +378,20 @@ Do **not**: populate final Task-D yet · create ten new arcs · run a separate r
 - **`FWREG-018` / `D0THES-REV-164`** — Non-Labor Operator Economics Track B + counterparty residual (composes against existing BIZOPS/D6; no new domain).
 - **Catalog row** — category `handoff_or_readiness_gate`; **accepted + landed**; `no_new_route_needed`.
 - **Launch-envelope fidelity hardening (2026-08-04, post-landing Knox byte review)** — §7/§7.1 corrected on branch `governance/phase-a-launch-envelope-hardening`: base-binding (two-level `lane_content_base_sha` vs `current_main_state_sha`; no self-referential SHA stamping) · transferable integrator role `PRESPINE-PHASEA-INTEGRATOR` · environment-local/non-canonical worktree paths · lane-state table · **common lane output contract** · five **exact** source floors (frozen Task-D method added to all five; globs, brace expansions, ellipses, truncated SHAs and "any accepted carrier" placeholders eliminated). Sequence and Build-OS contract substance UNCHANGED; `D0CKPT-DEC-005` / `D0CKPT-GRD-002` amended, no new IDs. **ACCEPTED at final content byte pass (Nick + Knox, 2026-08-04); content base A pinned; five lane branches pinned to A; lanes `not_started` pending their thread locks.**
+
+---
+
+## ★ INS-G1B PARENT-CARRY ANNOTATION — 2026-08-08 (bounded; sequence UNCHANGED)
+
+**This is an annotation, not a rewrite.** The accepted sequence — **Step 0 Sufficiency Gate → Parallel Phase A → Phase B C3.9 → Phase C final Task-D → Phase D full C4.5 → Phase E final pre-spine sufficiency receipt → spine** — is **unchanged**, and the Card-3 output contract is preserved as historical fact.
+
+| Fact | State |
+|---|---|
+| Phase-A **Insurance** input | **complete at `phase_a_input_complete_at_gate1b_ownership_maturity`** |
+| What was commissioned vs delivered | Card 3 commissioned **one** object, the Gate-0 carrier. **Gate 1a and Gate 1b are additional delivered depth.** The obligation is satisfied **and exceeded**; the completion label must not imply Gate-1b was the commissioned deliverable |
+| Accepted result | **Axis 1 `NO_SHARED_FINANCING_TRUTH_SUBSTRATE` · Axis 2 `FIRST_CLASS_MIXED_FINANCING_OPERATING_PROFILE REQUIRED`** · maturity `READY_AS_GATE1B_OWNERSHIP_INPUT` / `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT` |
+| **`INS-G2`** | a **successor gate OUTSIDE this sequence**, held behind C3.9, `not_started`. **NOT a blocking precondition on final Task-D** — per `D0THES-DEC-039` Task-D consumes OPEN/CANDIDATE inputs through version-pinned Input-State Receipts, and **Gate-1b §11 is that receipt**. Gate 2 *upgrades* Insurance's maturity; its criticality is an **output of Task-D's verdict** |
+| Other Phase-A lanes | **unchanged** — Care · GRR/Accountability · Non-Labor Operator Economics Track B · C4.5 Phase-2 anchor verification. Activation remains operator-controlled |
+| Owed follow-up | **PR #9**, a separate parked Tier-4 delegation-governance proposal, deliberately excluded from the Insurance carry and owning its own closeout |
+
+**Live sequence state is owned by the 2026-08-03 checkpoint §4.2.** This annotation records the Insurance partition's completion and its successor pointer; it does not duplicate the base pin, integrator holder or partition inventory.
