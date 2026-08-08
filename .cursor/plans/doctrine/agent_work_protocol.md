@@ -179,6 +179,59 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ---
 
+## 2.2) Delegation Admission — posture, visibility, and capture
+
+**PROPOSED 2026-08-08 · `review_ready_pending_parent_integration` · not yet accepted.** Cross-context conceptual home: `v4_C4_agent_runtime_and_harness_capture.md` §6 (build-agent · internal-operations · user/care-facing — *same harness laws, different authority and exposure*). **This section is the current build/architecture-agent operationalization only.** Decision row proposed as `D0CKPT-DEC-008`.
+
+§2.1 asks how work is partitioned across **lanes**. This asks how work is partitioned across **contexts** — the same moment, one question later. **Trigger on the act of delegating, not on an arc, a work package, or a phase.** It applies identically inside an arc, in a one-off thread, and to any future agent that delegates.
+
+**Proportionality first.** A deterministic microhelper — extraction, mechanical verification, a disposable search or navigation lookup — needs **no ceremony**. It also **cannot originate architecture and cannot count as independent corroboration.** Everything below applies to *substantive* delegation only.
+
+### Four launch facts — declare them, keep them orthogonal
+
+**Do not collapse these into named "agent types."** Blind is not the opposite of supervised: a child can be supervised *and* fresh-context, or unsupervised *and* not independent.
+
+| Fact | Values |
+|---|---|
+| `execution_posture` | `primary_collaborative` · `delegated_supervised` · `delegated_unsupervised` |
+| `independence_posture` | `none` · `fresh_context` · `blind_to_incumbent` |
+| `capture_posture` | `structured_return_only` · `exact_submission_source_object` |
+| `acceptance_topology` | `parent_review` · `independent_reviewer` · `trifecta_or_operator_gate` |
+
+**`primary_collaborative` remains the default for central architecture work** — tightly coupled problems, consequential judgment, weak evaluators, or where the operator needs to participate in the reasoning rather than receive a result. Delegate only where bounded decomposition, specialty, parallel breadth, or independence *materially* helps.
+
+### Declare at launch
+
+`reason_for_delegation` · the four postures above · `expected_output` · `evaluator_or_acceptance_gate` · `authority_and_tools` · `raw_capture_required: yes | no` · `capture_destination_if_yes` · `stop_condition`.
+
+**Operator visibility (D1).** A **consequential independent, adversarial, or unsupervised** delegation must be **operator-visible before launch** — posture, expected result, evaluator, and capture plan. It must not silently appear mid-work.
+
+### Raw capture — when it is required
+
+`exact_submission_source_object` is **required** when any of these holds: the work is **blind, fresh-independent, or adversarial** · **substantive unsupervised analysis** · **expensive or difficult to reproduce** · **expected to shape a decision** · it **uniquely preserves disagreement, reasoning, uncertainty, or rejected branches** · it has a **delayed or replacement-context consumer**.
+
+It is **not** required for deterministic extraction, mechanical verification, disposable search helpers, or supervised routine work whose complete durable result already lands in the parent artifact. In that case a **structured return is sufficient and no preservation debt is created.**
+
+**When required, preserve:** the exact assignment · the exact **user-visible final response** · explicitly returned attachments or source ledger · provenance, independence conditions, source cutoff, byte count and content hash · **a named consumer, or an explicit no-consumer disposition.**
+
+> **Never require, request, or preserve hidden chain-of-thought, private scratchpads, every tool event, or the whole platform transcript.** Visible reasoning the author actually returned is part of the returned submission and is preserved with it. **This is not "save every chat."**
+
+### The pointer must have a referent (D2 — the failure this section exists to prevent)
+
+The runtime capture §6 already requires the child to return *"a structured result + evidence pointers, NOT its whole transcript."* **It never assigned ownership of creating the object the pointer points at.** Consequence, observed: three commissioned subagents returned, the parent synthesized, and no object existed to point at.
+
+**The commissioning parent owns** the posture decision, the capture declaration, the destination or guaranteed export route **established before adjudicating the result**, operator visibility, and ensuring the returned pointer resolves. **The child owns** the bounded assignment and the structured return. **The reviewer or operator owns adoption.**
+
+### Adoption and review legs
+
+**Child output is `candidate` until adopted by the owning authority.** Preservation proves what a child *said* — never that it was correct, and never that its external claims are promotion-grade. A **separate review or second-trifecta leg receives its own review object and acceptance gate**; it does not silently become parent truth.
+
+### Completion proof
+
+Exact regions non-empty · hashes recorded · no placeholder text remaining · retrievable from a fresh environment · passport/catalog/read-route disposition present or explicitly proposed (§5) · consumer binding present.
+
+---
+
 ## 3) Work Classification
 
 Classify payload into one or more classes:
@@ -223,6 +276,8 @@ Do not use narrative/handoff/evidence as binding authority unless explicitly pro
 ---
 
 ## 5) Artifact Intake and Routing
+
+> **Delegation-capture hook (§2.2, PROPOSED).** Where §2.2 sets `capture_posture: exact_submission_source_object`, the preserved submission is an artifact and routes through this section like any other — passport, catalog disposition, read-graph evaluation — with the source-object posture (`preserved_verbatim` · `source_object_not_interpretation` · `not_promoted`) and its own named consumer. **§2.2 decides whether the object exists; §5 routes it once it does.**
 
 ### Row-First, Document-Second
 - Update existing registry row/section by default.
