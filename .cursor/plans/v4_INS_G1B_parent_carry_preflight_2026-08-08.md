@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate`
 Authority: `derived_nonbinding`
-Status: `review_ready_pending_knox_and_nick · provisional_pending_parent_integration · carry_not_executed · integrator_transfer_not_yet_authorized · shared_surfaces_untouched · gate2_not_started`
+Status: `preflight_knox_accepted · pending_nick_integrator_transfer · provisional_pending_parent_integration · carry_not_executed · integrator_role_not_assumed · shared_surfaces_untouched · gate2_not_started`
 Domain(s): `insurance_payer_oop` · `d6_commerce` · `care_operating_model` · `federation` · `clinical_memory` · `cns_coordination` · `accountability_architecture` · `architecture_governance` · `portfolio_sequencing`
 Lifecycle role: read-only preflight and exact write plan for the parent integration transaction
 Source-of-truth relationship: consumes current `main` plus PR #4/#5/#6 exact review objects; **authorizes nothing**; the child source objects and primary governing sources control over any shorthand in this document
@@ -175,7 +175,15 @@ Seven arrivals were reached by internal reasoning over the estate's own artifact
 
 **Why the qualifier is load-bearing.** The five Phase-A lanes are *parallel input-state partitions*, each producing one output object. Gate-1a and Gate-1b are **depth inside one partition**, not two additional partitions. The Insurance partition turned out to require three gates rather than one carrier.
 
-**Implementation consequence — this is the answer to "how does the lane table change."** The checkpoint §4.2 lane table gets **ONE row updated with gate lineage**, not two new lane rows. Phase A remains a **five-partition** inventory; the `INS-G0-MIXEDFIN` row gains a gate-lineage sub-structure (Gate 0 → 1a → 1b → 2) with per-gate branch, head, output object and state. Adding two sibling rows would misrepresent Phase A as seven partitions and would inflate the parent-close criteria.
+**Implementation consequence — this is the answer to "how does the lane table change."** The checkpoint §4.2 lane table gets **ONE row updated**, not two new lane rows, and the row reads exactly:
+
+```
+delivered_phase_a_lineage:  Gate 0 → Gate 1a → Gate 1b
+phase_a_state:             landed · phase_a_input_complete_at_gate1b_ownership_maturity
+successor_pointer:         Gate 2 · outside Phase A · held behind C3.9 · not_started
+```
+
+**Gate 2 is a successor POINTER, not a lineage element** — it must never be written into the Phase-A lineage chain (§3.3). Phase A remains a **five-partition** inventory; the `INS-G0-MIXEDFIN` row gains a gate-lineage sub-structure (Gate 0 → 1a → 1b → 2) with per-gate branch, head, output object and state. Adding two sibling rows would misrepresent Phase A as seven partitions and would inflate the parent-close criteria.
 
 **What this classification does NOT license.** It does not retroactively make the branch creation contemporaneously authorized (§4). It does not expand the Phase-A parent-close criteria — see §3.3, which corrects a prior revision that did.
 
@@ -197,9 +205,9 @@ Seven arrivals were reached by internal reasoning over the estate's own artifact
 >
 > **The correct reading, and it requires no new decision:**
 >
-> - Insurance's Phase-A obligation is a **version-pinned input-state receipt with declared maturity** — **not** a closure receipt. **Gate-1b §11 already IS that artifact**: two-level maturity plus explicit may-rely / must-not-rely / must-remain-free-to-falsify lists. The obligation is **satisfied**.
+> - Insurance's Phase-A obligation is a **version-pinned input-state receipt with declared maturity** — **not** a closure receipt. **Gate-1b §11 is the substantive Input-State Receipt payload**: two-level maturity plus explicit may-rely / must-not-rely / must-remain-free-to-falsify lists. **The parent carry's exact blob manifest (§9), landing, routing (§14) and maturity pointer are what make it durably consumable by Task-D. No new receipt document is owed** — do not let a later reader demand a separate Insurance input-state receipt artifact. The obligation is **satisfied**.
 > - **Final Task-D is NOT blocked on Gate 2.** It may examine Insurance as a **CANDIDATE** input at `READY_AS_GATE1B_OWNERSHIP_INPUT` and is explicitly permitted to return `SPINE_READY_WITH_NAMED_RECONCILIATIONS` or `NOT_READY` **because** Insurance is not yet final composition input. That is the mechanism working as designed, not a gap.
-> - **Gate 2 UPGRADES Insurance's input maturity; it does not gate the portfolio.** It is what would move Insurance from `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT` to final — valuable, sequenced behind C3.9, and **outside the critical path to Task-D**.
+> - **Gate 2 UPGRADES Insurance's input maturity. It is NOT an ex-ante prerequisite to Task-D entry or verdict.** It is what would move Insurance from `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT` to final. **Stated with the correct scope:** *not* required before Task-D runs or renders a verdict · **may become required BECAUSE of that verdict** — Task-D may return `SPINE_READY_WITH_NAMED_RECONCILIATIONS` or `NOT_READY` and name the Gate-2 work as a required reconciliation · required before any Gate-2 result is labelled final Insurance composition input · `E2` remains mandatory for accepting that result. **Do not state categorically that Gate 2 sits outside every possible future pre-spine critical path** — its criticality is an output of Task-D, not a fixed property.
 > - **Blocking final Task-D on Gate 2 would force exactly the "fake architectural closure" `DEC-039` refuses to impose on Care and GRR**, and would convert a two-level maturity designed to *permit* candidate consumption into a loophole-closing device that forbids it. It would also put one arc's gate on the pre-spine critical path without portfolio authority.
 >
 > **Consequence for the carry:** the `DEC-039` amendment is a **bounded annotation, not a sequence change** (§10). The accepted Phase A → C3.9 → Task-D sequence stands **unchanged**.
@@ -231,7 +239,7 @@ Delivered: Gate-0 framing · Gate-1a physics · Gate-1b ownership reconciliation
 
 **Default sequence, restored to the accepted `DEC-039` ordering:** land the Insurance parent carry → remaining Phase-A lanes under operator control → **Phase B: C3.9 populated as the designated vertical falsifier** → **Phase C: final Task-D** (consuming Insurance as a version-pinned CANDIDATE input) → Phase D full C4.5 → Phase E final pre-spine sufficiency receipt → spine.
 
-**Gate 2 runs on its own track, off the pre-spine critical path:** authorized after C3.9, consuming C3.9's result (§12.2), followed by `E2` adversarial reconciliation (§12.1), producing the final Insurance sufficiency receipt that upgrades Insurance to final composition input. **It does not block Phase C** (§3.2a).
+**Gate 2 runs on its own track:** authorized after C3.9, consuming C3.9's result (§12.2), followed by `E2` adversarial reconciliation (§12.1), producing the final Insurance sufficiency receipt that upgrades Insurance to final composition input. **It is not an ex-ante prerequisite to Phase C** (§3.2a) — but its criticality is determined by Task-D's own verdict, not fixed in advance.
 
 **No successor auto-starts. Gate 2 is NOT the next authorized lane after the carry.** The next substantive activation remains operator-controlled among the eligible remaining Phase-A work.
 
@@ -590,8 +598,8 @@ Native vocabularies verified in their own primary sources:
 | **Agreement / party-position** | `08` | **DOES NOT EXIST — verified** (Gate 0 proposed it; it never landed. `REV-020` = AI model registry, `REV-177` = Federation recalibration — neither is this row) | **CREATE** as `open` | scoped at creation to **A-Q1a custody + A-Q1b substantive commitment + A-Q2 operative posture**, all generic | Gate-2 commitment taxonomy | Gate 2 output 4 | new `08` row + collision-free ID allocated at execution |
 | **Gate-2 parent row** grouping A-Q12/14/15/16/17/18 | `08` | does not exist | **create ONE row** | `open`, `required_reviewer: user_knox_required`, with explicit closure criteria per A-Q | Gate-2 brief | **Gate 2 cannot close without an explicit disposition for each of the six** | `08` closure note enumerating six dispositions |
 | **F3 operator slice** | FWREG | **`FWREG-018` already owns non-labor operator economics** — do NOT create a second row | **UPDATE `FWREG-018`** — see §11.3 for the required enumeration extension | `parked` w/ `promotion_trigger` = OPECON-G0 charter; **other six actor slices explicitly named out-of-scope for that lane** | OPECON-G0 | OPECON-G0 charter admission | FWREG row + AWP §6 build-entry retrieval |
-| **`FWREG-017`** Insurance/mixed-financing seam | FWREG | **exists**, Gate-0 says *"update, do not close"* | **update, do not close** | Gate-0/1a/1b discharged; Gate-2 named as next; invariants **accepted in direction, not contracted** | Gate-2 → Task-D | Task-D sufficiency receipt | FWREG row update |
-| **`INS-HAZ-COVSURF`** containment | FWREG + `06` + `05` + Build Entry | **proposed, INERT** — all four activation landings missing | **land all four** (see §11.1) | FWREG row carrying clauses 1–4 **verbatim** | Build Entry | **any PR adding a column/write/coverage-semantic read to the three surfaces** | four landing receipts + Build-Entry note |
+| **`FWREG-017`** Insurance/mixed-financing seam | FWREG | **exists**, Gate-0 says *"update, do not close"* | **update, do not close** | Gate-0/1a/1b discharged; **Task-D consumes the Gate-1b CANDIDATE input now** (`DEC-039`); **Gate 2 is the successor maturity-upgrade gate, held behind C3.9, and its ultimate criticality is determined by Task-D's own verdict**; invariants **accepted in direction, not contracted** | Task-D now; Gate 2 for the maturity upgrade | Task-D verdict · then Gate 2 + `E2` for final composition input | FWREG row update |
+| **`INS-HAZ-COVSURF`** containment | FWREG + `06` + `05`; Build-Entry activation deferred | **proposed, INERT** — all four activation landings missing | **LAND THREE, ROUTE THE FOURTH** (§11.1): land the guardrail row · land the `05` conflict row · land the FWREG row carrying **clauses 1–6** · **ADD one `08` Build-Entry activation-review row** · **DO NOT edit `11_build_entry_gate_v0.md`** | resulting status: **`preserved_and_routed · not_active_pending_build_entry_gate_review`** — clause 4 remains a recommendation until the Build-Entry review lands | Build Entry, **at its own User/Knox gate** | **any PR adding a column/write/coverage-semantic read to the three surfaces** | three landed preservation/routing receipts + the activation-review row + the exact inactive status |
 | **A-Q14** relation-shaped assertion + recommit seam | Clinical Memory + Accountability §19 + Care Response-Seam Audit | uncontracted | routed | dedup **mandatory** vs CM substrate, `governed_relation_assertion`, Response-Seam Audit | Care Response-Seam Audit | **cannot close without disposing of A-Q14** | audit closure receipt |
 | **A-Q15** graph-role reconciliation | Gate-2 acceptance → C5 | three graphs, roles unreconciled | routed | named Gate-2 **failure condition** (fourth *authoritative* graph / duplicated lifecycle truth / one graph owning another's) | Gate-2 output 12 | Gate 2 | Gate-2 acceptance receipt |
 | **A-Q16** field-level authority decomposition | C3.6C + CM + RBAC | `populated_G1_pending_review`, candidate net-new spine | bounded inbound pointer **under C3.6C's own gate** | sufficiency **UNPROVEN**; action-specific envelope OPEN | Gate-2 output 14(b) + C5 | Gate 2 + C3.6C's own pass | C3.6C owner acknowledgement |
@@ -631,7 +639,7 @@ Verified from the Gate-0 carrier: the contract is **inert until all four land**,
 
 1. the **guardrail-digest row** for coverage-as-boolean / overwrite-on-check (§M(b));
 2. the **`05` conflict row** for the overlapping surfaces;
-3. the **`INS-HAZ-COVSURF` FWREG row** carrying clauses 1–4 **verbatim**;
+3. the **`INS-HAZ-COVSURF` FWREG row** carrying clauses 1–4 **verbatim** *(as Gate 0 originally required; the carry lands **1–6** per the revised disposition below)*;
 4. a **Build-Entry note** binding clause 4 as an admission check.
 
 Clauses 5 and 6 proposed by Gate-1b §7.4 extend it: no operative coverage view across the three surfaces, and no `patient_column` use for coverage/payer-identity/commercial-willingness attributes without an allowlist and an authority/temporal model.
@@ -1091,4 +1099,4 @@ Three refinements were added beyond the ruling, each because compliance-as-writt
 
 **This document authorizes nothing. It executed nothing. `main`, PR #4, PR #5 and PR #6 are untouched.**
 
-**STOP: `preflight_ready_pending_nick_knox_carry_authorization`**
+**STOP: `preflight_accepted_pending_nick_integrator_transfer`**
