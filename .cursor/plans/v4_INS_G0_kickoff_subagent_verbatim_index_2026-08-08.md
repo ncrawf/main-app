@@ -2,7 +2,7 @@
 
 Document type: `manifest_or_catalog` (packet index for a preserved verbatim source set)
 Authority: `derived_nonbinding`. Binds nothing. Promotes nothing. Routes only.
-Status: `awaiting_operator_paste` · `packet_incomplete_until_all_three_raws_pasted` · `not_promoted`
+Status: `preserved_verbatim_operator_supplied_2026-08-08` · `packet_complete` · `not_promoted`
 Domain(s): `insurance_payer_oop` · `architecture_governance` · `cross_cutting`
 Lifecycle role: the single entry point for the three preserved Gate-0 kickoff subagent reports. **Routes by question so no future agent loads three long raws by default.**
 Source-of-truth relationship: consumes and points to preserved source objects. The **raws** are authoritative only as to what each subagent said; the **Gate-0 carrier** is the authoritative record of the assignments and their dispositions; **primary repository sources and the Gate-0/Gate-1b adjudication lineage control all architecture questions.**
@@ -82,13 +82,27 @@ The Gate-0 carrier `§G.4` "Helper-agent method ledger" records **seven analytic
 
 ---
 
-## §5 — Packet completion state
+## §5 — Packet completion state — **COMPLETE**
 
-| Artifact | State |
-|---|---|
-| `v4_INS_G0_build_architecture_decomposer_verbatim_2026-08-08.md` | `awaiting_operator_paste` |
-| `v4_INS_G0_anti_omni_adversary_verbatim_2026-08-08.md` | `awaiting_operator_paste` |
-| `v4_INS_G0_patient_provider_lens_verbatim_2026-08-08.md` | `awaiting_operator_paste` |
-| this index | `awaiting_operator_paste` — flips to `preserved` when all three raws carry integrity receipts |
+Operator-supplied 2026-08-08. All three raws present, both regions non-empty, no placeholder text remaining, **no client UI chrome in any file**. Per-file SHA-256 digests are recorded in each artifact's integrity receipts.
 
-**STOP: `paste_slots_open_pending_operator_verbatim_paste`**
+| Artifact | Prompt | Response | State |
+|---|---|---|---|
+| `..._build_architecture_decomposer_verbatim_...` | 6,214 B · 47 lines | **109,956 B · 365 lines** | `preserved_verbatim` |
+| `..._anti_omni_adversary_verbatim_...` | 6,466 B · 39 lines | **38,742 B · 150 lines** | `preserved_verbatim` |
+| `..._patient_provider_lens_verbatim_...` | 5,204 B · 34 lines | **100,271 B · 352 lines** | `preserved_verbatim` |
+| this index | — | — | `preserved` |
+
+**Total preserved: ~267 KB across six verbatim regions** (three assignments + three final responses).
+
+### §5.1 Two findings from inspection — recorded, not assumed
+
+**(1) The lens-G question is answered, and not the way it was expected to be.** The forward-looking material is **not** concentrated in the adversary. `2030`/`2035` appear woven through the adversary's absorption argument with **no dedicated forecast section**. The **four-tier evidence-versus-forecast discipline that Gate-0 `§G.4` attributes to lens G actually lands in the patient/provider raw**, whose assignment enumerates *"2031 and 2036 patient behavior"* and *"2031/2036 provider trajectory"* and whose body closes by stating those sections are forecast, explicitly separated from observed evidence. **Lens G therefore remains `not_recovered as a distinct object`** (§2) — its discipline is visible, its standalone report is not claimed preserved.
+
+**(2) The raws carry epistemic self-flagging the carrier does not.** The patient/provider body names specific figures it *"can't fully verify from my training data."* Two of the three responses include the model's **thinking**. That is exactly the material a conclusions-only carrier cannot hold, and it is the concrete answer to *"did we boil out the good stuff."*
+
+### §5.2 One transparency note
+
+The patient/provider paste was placed **after** the placeholder line rather than replacing it, so the agent's own scaffold text leaked into both regions. Exactly two strings were removed — `PASTE EXACT PROMPT HERE` (−23 B) and `PASTE EXACT RESPONSE HERE` (−25 B) — **and nothing else**; pre-removal digests are recorded in that file for audit. **No subagent byte was altered.** Removing an agent's own scaffold is not a body edit; had it been left, every future hash would have carried our contamination inside the preserved evidence.
+
+**STOP: `preserved_pending_bounded_exactness_review`**
