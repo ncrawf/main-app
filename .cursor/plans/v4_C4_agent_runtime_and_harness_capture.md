@@ -58,9 +58,22 @@ Production delegation carries: parent run · delegated objective · input packet
 | Axis | Values | What it governs |
 |---|---|---|
 | `execution_posture` | `primary_collaborative` · `delegated_supervised` · `delegated_unsupervised` | how much the parent watches while the work happens |
-| `independence_posture` | `none` · `fresh_context` · `blind_to_incumbent` | how much the child knows of our answer |
 | `capture_posture` | `structured_return_only` · `exact_submission_source_object` | whether the exact submission survives the run |
-| `acceptance_topology` | `parent_review` · `independent_reviewer` · `trifecta_or_operator_gate` | who may adopt the result |
+| `acceptance_topology` | `parent_review` · `named_independent_review` · `owning_authority_gate` | who may adopt the result |
+
+**`owning_authority_gate` is deliberately abstract.** For current OMNI architecture/build work it instantiates as Nick, Knox, the Nick↔Knox↔Opus trifecta, a domain owner, or another explicitly named reviewer. **Do not bake today's trifecta into a cross-context law** — a care-facing or internal-operations agent will not be accepted by it.
+
+**Independence is a composable CONTRACT, not a fourth enum.** The values are not mutually exclusive and an enum cannot describe a real run. Gate-1a is the proof: it was simultaneously fresh-context, blind to OMNI's answer, denied repository access, denied external research, **and** continued in the same thread between Phase A and Phase B. Declare only the fields that are materially claimed:
+
+| Field | Values |
+|---|---|
+| `fresh_context` | `yes` · `no` |
+| `incumbent_answer_exposure` | `withheld` · `partial` · `full` |
+| `repository_access` | `none` · `bounded` · `full` |
+| `external_source_access` | `forbidden` · `bounded` · `allowed` |
+| `continuity_with_prior_phase` | `same_context` · `new_context` · `not_applicable` |
+
+**This is not a form every microhelper fills** — it applies only where independence is materially claimed. It also stops a future agent asserting "fresh context" as though that proved blindness.
 
 **Posture selection, stated as conditions rather than rules.** Stay `primary_collaborative` when the problem is tightly coupled, interactive correction materially improves the work, the judgment is highly consequential, the evaluator is weak, or the operator needs to participate in the reasoning rather than receive a result — **this remains the normal posture for central OMNI architecture.** Use `delegated_supervised` for bounded specialty or search work that benefits from another context but is not safe to release unattended. Use `delegated_unsupervised` when independence itself is the experiment, the task is genuinely bounded and auditable, or parallel breadth outweighs the loss of interaction. **Unsupervised does not mean trusted — it means the acceptance gate happens afterwards.** Use a **separate review leg** when the parent is conflicted because it authored the proposal, consequence is high, or fresh adversarial judgment is itself part of acceptance; that leg gets **its own review object and gate** and does not silently become parent truth.
 
@@ -73,6 +86,16 @@ Production delegation carries: parent run · delegated objective · input packet
 **Source object ≠ interpretation, and neither substitutes for the other.** Two lineages run in parallel: **execution/source lineage** (what was assigned, what exactly came back, under what independence conditions, at what hash) and **interpretation/decision lineage** (what the parent accepted, narrowed, rejected or left unresolved, and which gate must consume it). A carrier preserves the second. Preservation confers **no** architecture authority — it proves what a child said, never that it was right, and external claims inside a preserved submission stay non-promotion-grade until their primary sources pass the Evidence Plane gate (`GRD-036`).
 
 **Cross-context scope.** These are harness laws, so they hold across all three §1 contexts — build agent, internal-operations agent, user/care-facing agent — at **different authority ceilings and exposure**. Only the build/architecture-agent slice is operationalized today (AWP §2.2). The internal-ops and product/care runtime contracts remain **open** (`FWREG-010`), and nothing here authorizes automatic subagent spawning or grants any product-agent authority.
+
+> **★ MATURITY OF THIS HOME — stated so nothing inherits false authority (operator correction, 2026-08-08).** This capture is **`active_map` · `agent_runtime_formulation_OPEN` · `FWREG_010_OPEN` · `runtime_build_deferred` · `analysis_nonbinding` · `not_promoted`**. Only the **C4.4 G2 consumption bridge** is accepted. Its own acceptance boundary states it is *"NOT sufficient by itself to close Agent Runtime, close FWREG-010, author final C5 runtime contracts, or claim Build-OS/runtime completeness,"* and its named-but-unsolved debt list **explicitly includes the full lifecycle of `agent_run` / `subagent_run`** — the very objects §6 describes. It arrived as an offshoot of the GRR pressure-out and its depth was never populated.
+>
+> **Two consequences, both binding on how this subsection may be read.** *(a)* **§6 and §6.1 are a cross-context MAP, not ratified doctrine.** Nothing here is settled runtime architecture and nothing may be cited as though it were. *(b)* **AWP §2.2 is SELF-SUFFICIENT and does not inherit authority from this file.** It carries its own complete contract; this subsection is a conceptual cross-reference only. A binding Tier-4 rule must never depend for its force on an unratified map — if this file were withdrawn tomorrow, §2.2 would still stand.
+>
+> **A dedicated runtime formulation/pressure arc remains owed** (`FWREG-010`, open). This subsection sharpens one bounded slice — delegation posture and capture — and **explicitly does not close, ratify, or substitute for that arc.**
+
+**Capture de-duplication — do not manufacture a second copy.** A child's **native durable output satisfies `exact_submission_source_object`** when that object contains the complete submitted result at an immutable ref. **Do not create a duplicate verbatim artifact merely because delegation occurred.** Exact-response capture is required when the substantive submission **would otherwise exist only in transient thread or run context**. And *"expected to shape a decision"* triggers exact capture only when the **reasoning, uncertainty, rejected alternatives or independence conditions are not already fully durable in the native output** — a delegated branch writer who commits their own complete artifact owes nothing further.
+
+**Acceptance normalization — what the parent transaction must do on landing.** Land `D0CKPT-DEC-008` · update `FWREG-010` · **replace §6.1a's duplicated proposal text with pointers to those owning rows** · activate **AWP §2.2** from `PROPOSED` to accepted · mark **§6.1 accepted for the build/architecture slice only**, internal-ops and care-facing remaining open · change rollout Step 4/5 wording from proposal to accepted target. **Otherwise we land one accepted decision and three stale "PROPOSED" restatements** — the exact duplicated-state failure this estate keeps producing.
 
 **Bootstrapping posture, stated so it is not mistaken for circularity.** This rule was authored *while using* the operating rules it amends. That is versioned, not circular: the current human-supervised protocol plus operator authority plus independent review govern the upgrade; the upgrade is **prospective only** and binds the next delegation after landing. **It does not retroactively govern the Gate-0 subagents**, whose preservation was performed under the pre-existing artifact rules.
 

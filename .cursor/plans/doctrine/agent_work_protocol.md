@@ -181,7 +181,7 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ## 2.2) Delegation Admission — posture, visibility, and capture
 
-**PROPOSED 2026-08-08 · `review_ready_pending_parent_integration` · not yet accepted.** Cross-context conceptual home: `v4_C4_agent_runtime_and_harness_capture.md` §6 (build-agent · internal-operations · user/care-facing — *same harness laws, different authority and exposure*). **This section is the current build/architecture-agent operationalization only.** Decision row proposed as `D0CKPT-DEC-008`.
+**PROPOSED 2026-08-08 · `review_ready_pending_parent_integration` · not yet accepted.** **This section is self-sufficient and carries its own complete contract.** Cross-context conceptual cross-reference — **not an authority dependency** — is `v4_C4_agent_runtime_and_harness_capture.md` §6, which is an **`active_map` with `agent_runtime_formulation_OPEN`**, not ratified doctrine; a dedicated runtime pressure/ratification arc remains owed under `FWREG-010`. §6 (build-agent · internal-operations · user/care-facing — *same harness laws, different authority and exposure*). **This section is the current build/architecture-agent operationalization only.** Decision row proposed as `D0CKPT-DEC-008`.
 
 §2.1 asks how work is partitioned across **lanes**. This asks how work is partitioned across **contexts** — the same moment, one question later. **Trigger on the act of delegating, not on an arc, a work package, or a phase.** It applies identically inside an arc, in a one-off thread, and to any future agent that delegates.
 
@@ -194,9 +194,12 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 | Fact | Values |
 |---|---|
 | `execution_posture` | `primary_collaborative` · `delegated_supervised` · `delegated_unsupervised` |
-| `independence_posture` | `none` · `fresh_context` · `blind_to_incumbent` |
 | `capture_posture` | `structured_return_only` · `exact_submission_source_object` |
-| `acceptance_topology` | `parent_review` · `independent_reviewer` · `trifecta_or_operator_gate` |
+| `acceptance_topology` | `parent_review` · `named_independent_review` · `owning_authority_gate` |
+
+`owning_authority_gate` is abstract by design; for current architecture/build work it instantiates as Nick, Knox, the trifecta, a domain owner, or another explicitly named reviewer.
+
+**Independence is a composable contract, not an enum** — declare only where materially claimed: `fresh_context` (`yes`/`no`) · `incumbent_answer_exposure` (`withheld`/`partial`/`full`) · `repository_access` (`none`/`bounded`/`full`) · `external_source_access` (`forbidden`/`bounded`/`allowed`) · `continuity_with_prior_phase` (`same_context`/`new_context`/`not_applicable`). Gate-1a was simultaneously fresh-context, answer-blind, repo-denied, research-denied **and** same-thread across phases; no single enum value describes that.
 
 **`primary_collaborative` remains the default for central architecture work** — tightly coupled problems, consequential judgment, weak evaluators, or where the operator needs to participate in the reasoning rather than receive a result. Delegate only where bounded decomposition, specialty, parallel breadth, or independence *materially* helps.
 
@@ -209,6 +212,8 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 ### Raw capture — when it is required
 
 `exact_submission_source_object` is **required** when any of these holds: the work is **blind, fresh-independent, or adversarial** · **substantive unsupervised analysis** · **expensive or difficult to reproduce** · **expected to shape a decision** · it **uniquely preserves disagreement, reasoning, uncertainty, or rejected branches** · it has a **delayed or replacement-context consumer**.
+
+**Do not manufacture a duplicate.** A child's **native durable output satisfies the requirement** when that object contains the complete submitted result at an immutable ref — do not create a second verbatim copy merely because delegation occurred. Exact capture applies when the submission **would otherwise exist only in transient thread or run context**, and *"expected to shape a decision"* triggers it only when reasoning, uncertainty, rejected alternatives or independence conditions are **not already fully durable in that native output**.
 
 It is **not** required for deterministic extraction, mechanical verification, disposable search helpers, or supervised routine work whose complete durable result already lands in the parent artifact. In that case a **structured return is sufficient and no preservation debt is created.**
 
