@@ -177,13 +177,48 @@ Seven arrivals were reached by internal reasoning over the estate's own artifact
 
 **Implementation consequence — this is the answer to "how does the lane table change."** The checkpoint §4.2 lane table gets **ONE row updated with gate lineage**, not two new lane rows. Phase A remains a **five-partition** inventory; the `INS-G0-MIXEDFIN` row gains a gate-lineage sub-structure (Gate 0 → 1a → 1b → 2) with per-gate branch, head, output object and state. Adding two sibling rows would misrepresent Phase A as seven partitions and would inflate the parent-close criteria.
 
-**What this classification does NOT license.** It does not retroactively make the branch creation contemporaneously authorized (§4). It does not expand the Phase-A parent-close criteria.
+**What this classification does NOT license.** It does not retroactively make the branch creation contemporaneously authorized (§4). It does not expand the Phase-A parent-close criteria — see §3.3, which corrects a prior revision that did.
 
-> **★ GATE-2 LINEAGE CORRECTION (Knox `A6`, applied).** An earlier revision of this section said Gate 2 is *"downstream of the Insurance partition's completion."* **That was wrong and is retracted.** The Gate-1b carrier states that *"**after (B), not before**, Insurance produces its final Task-D sufficiency receipt"* — Gate 2 **produces** the receipt, so the partition cannot already be complete when Gate 2 begins.
->
-> **Correct state: Gate 2 is the next sequential child gate INSIDE the Insurance partition. It is not a sixth Phase-A sibling partition. The Insurance partition remains ACTIVE until Gate 2 returns the final Task-D sufficiency receipt.**
->
-> The checkpoint §4.2 row must therefore read `INS-G0-MIXEDFIN → Gate 0 landed → Gate 1a landed → Gate 1b landed → Gate 2 prepared/not_started`, and **must not** read "Insurance partition complete." Gate-2 activation remains operator-controlled.
+### §3.2a Arc-trajectory delta — recorded once, here
+
+| | |
+|---|---|
+| **Accepted plan (as commissioned)** | Phase-A Insurance **Gate-0 input** → C3.9 → final Task-D |
+| **Depth discovered in execution** | Gate-1a normative physics and Gate-1b ownership reconciliation were **both required before integration** — Gate 0 could not resolve ownership, and Gate 1a's blind result moved the arc's centre of gravity |
+| **Bounded amendment proposed** | an Insurance **Gate-2 final sufficiency receipt** is added before Insurance can be treated as *final composition input*; **C3.9 remains the designated pre-Gate-2 vertical falsifier**, unchanged |
+
+**Live sequence state is owned by the Aug-3 checkpoint** (§15.4). The subordinate Aug-8 handoff carries a pointer, not a copy. **The pre-spine map is not rewritten.**
+
+> **⚠ ONE PORTFOLIO QUESTION THIS ARC MUST NOT DECIDE FOR ITSELF.** Gate-1b states *"after (B), not before, Insurance produces its final Task-D sufficiency receipt."* That establishes **Gate 2 → Insurance's final sufficiency receipt.** It does **not** establish that final Task-D is blocked until that receipt exists — Task-D may legitimately proceed on the `READY_AS_GATE1B_OWNERSHIP_INPUT` maturity, relying on §2.6's permitted list and honouring its prohibitions. **Whether Insurance's final sufficiency receipt becomes a blocking precondition for final Task-D is a PORTFOLIO decision for Nick, not a determination the Insurance arc may make about the portfolio sequence.** Recorded here as an open operator decision; the carry states the dependency and does not assert the block. *(Asserting it would be the same class of error §3.3 just corrected, one level up.)*
+
+### §3.3 Gate 2 is OUTSIDE the original Phase-A partition — corrected against primary sources
+
+> **★ TWO SUCCESSIVE CORRECTIONS, BOTH RECORDED.** Revision 1 said Gate 2 is *"downstream of the Insurance partition's completion."* Revision 2 replaced that with *"Gate 2 is the next sequential child gate INSIDE the Insurance partition… the partition remains ACTIVE until Gate 2 returns the final Task-D sufficiency receipt."* **Both are now retracted.** Revision 2 was applied on review instruction and the reviewer has since withdrawn it — correctly, because it was **a hidden portfolio replan**: it silently expanded a one-object Phase-A commission into a four-gate program and inverted an accepted sequence. *(This is the second time a correction introduced a defect in this document. That pattern is itself the argument for the independent `E1`/`E2` entry points in §19.)*
+
+**The two primary-source facts that settle it, both verified verbatim:**
+
+1. **The Phase-A Insurance lane was commissioned to produce exactly ONE object.** Checkpoint §4.2, `INS-G0-MIXEDFIN` lane card: `Output object | .cursor/plans/v4_insurance_payer_oop_gate0_carrier_2026-08-04.md`. One file. Gate 1a, Gate 1b and Gate 2 were **not** part of the Phase-A obligation.
+2. **The accepted Gate-0 charter sequences Gate 2 BEHIND C3.9, not in front of it.** Gate-0 carrier, verbatim: *"C3.9, the designated mixed-financing falsifier, is `shell_pending_population`, **which is exactly why §K sequences G2 behind it rather than in front of it**."* Since Phase A precedes C3.9, holding the Phase-A partition open through Gate 2 would place Gate 2 **before** C3.9 — reversing the arc's own accepted ordering.
+
+**Corrected classification:**
+
+| Object | Relationship to `PRESPINE-PHASEA` |
+|---|---|
+| **Gate 0** | the commissioned Phase-A output object |
+| **Gate 1a · Gate 1b** | sequential child gates **inside** the Insurance partition — **depth beyond what was commissioned**, delivered as a stronger-than-required input |
+| **Gate 2** | **OUTSIDE the original Phase-A partition.** A successor Insurance-arc gate. **Not** a sixth Phase-A sibling. Brief prepared by this carry; **execution not started** |
+
+**Phase-A Insurance partition completion state:**
+
+> **`landed · phase_a_input_complete_at_gate1b_ownership_maturity`**
+
+Delivered: Gate-0 framing · Gate-1a physics · Gate-1b ownership reconciliation, at the carrier's own two-level maturity (`READY_AS_GATE1B_OWNERSHIP_INPUT` · `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT`). **This closes the Phase-A INPUT obligation — and exceeds it, since only the Gate-0 carrier was commissioned. It does not close the wider Insurance arc.** The completion label must not imply Gate-1b was the commissioned deliverable; the honest statement is *obligation satisfied and exceeded*.
+
+**The parent-close criteria are therefore NOT expanded** — which the previous revision asserted while simultaneously making an assertion that expanded them.
+
+**Default sequence, restored to the accepted ordering:** land the Insurance parent carry → remaining Phase-A lanes under operator control → **C3.9 populated as the designated vertical falsifier** → Gate-2 execution consuming C3.9 → `E2` adversarial review (§19) → final Insurance Task-D sufficiency receipt.
+
+**No successor auto-starts. Gate 2 is NOT the next authorized lane after the carry.** The next substantive activation remains operator-controlled among the eligible remaining Phase-A work.
 
 ---
 
@@ -411,7 +446,10 @@ parent_key:                     PRESPINE-PHASEA
 integrator_role_key:            PRESPINE-PHASEA-INTEGRATOR
 outgoing_holder:                THREAD LOCK PRESPINE-PHASEA-INTEGRATOR | seat=OPUS |
                                 visible="Pre-spine · Phase-A integration"   (checkpoint §4.2)
-incoming_holder:                <exact THREAD LOCK string of the executing thread>
+incoming_holder:                THREAD LOCK: INS-G1B-PARENT-CARRY | seat=OPUS |
+                                visible="Insurance · Parent carry"
+                                (a collision mutex identifying the thread holding the role;
+                                 no naming decision is owed and none is being requested)
 operator_authorization:         Nick, explicit — <date/time, exact words>
 current_control_plane_ref:      <main SHA at assumption; must equal the base the carry uses>
 child_source_refs:              PR #7 <accepted final head recovered from
@@ -493,10 +531,11 @@ Every file the **future carry** proposes to touch. Nothing outside this table ma
 | `.cursor/plans/doctrine/04_manifest_read_graph.md` | Tier-0 routing | integrator role | integrator | six cold-entry routes + Tier-0 #15 summary sync (§14) | **add 6 route entries UNDER the existing contract** — see Tier-4 boundary §15.3 | yes | — | no | revert |
 | `.cursor/plans/doctrine/01_master_corpus_catalog.md` | Tier-0 catalog | integrator role | integrator | catalog rows for every landed artifact (§14.1) | **add exactly 11 rows** | yes | — | no | revert |
 | `.cursor/plans/doctrine/08_open_review_queue.md` | Tier-0 queue | integrator role | integrator | §11 state transitions | **UPDATE 5** (`REV-159` · `REV-160` · `REV-185` · `REV-193` · `REV-201`) **+ ADD 3** (agreement/party-position · Gate-2 parent row · `INS-HAZ` Build-Entry activation) | yes | per-row `required_reviewer` | no | revert |
-| `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` | Tier-0 conflicts | integrator role | integrator | §11.2 semantic conflicts | **ADD exactly 4 rows**, `resolution_status: open_review`; collision-free IDs allocated at execution | yes | — | no | revert |
 | `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` | Tier-0.5 boot-visible | integrator role | integrator | **Tier-3 guardrail obligation (§16, REVISED)** | **UPDATE `D0CKPT-GRD-003`** (narrow) · **UPDATE `D0-GRD-010`** (financing vendor-label) · **ADD 1** coverage-as-boolean / overwrite-on-check row. **`D0TIER0-GRD-004` NOT touched.** | yes | Knox `A5` | no | revert |
 | `.cursor/plans/doctrine/future_work_registry.md` | Tier-0 FWREG | integrator role | integrator | §11 FWREG transitions | **UPDATE `FWREG-017`** · **UPDATE `FWREG-018`** (F3 operator slice, with the §11.3 enumeration extension) · **ADD 1** `INS-HAZ-COVSURF` row carrying clauses 1–6. **No second operator-economics row.** | yes | — | no | revert |
 | `.cursor/plans/doctrine/03_decision_extraction_ledger.md` | Tier-0 decisions | integrator role | integrator | **assess only** — Gate-1b §13.2 proposes **zero** decision rows | likely **no change**; if Tier 4 is triggered a row becomes mandatory (§15.3) | yes | — | no | revert |
+| **TRANSACTION-ADDED SERIALIZED SURFACE — NOT integrator-exclusive (§8.1a)** | | | | | | | | | |
+| `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` | Tier-0 conflicts | **canonical architecture-governance / conflict-ledger authority** — *not* the integrator | **transferred integrator as transaction-specific sole writer, on the parent branch only** | §11.2 semantic conflicts | **ADD exactly 4 rows**, `resolution_status: open_review`; no row resolved, no existing row edited; collision-free IDs at execution | yes | **Nick + Knox + `05`'s own ledger-native review gate** | no | revert |
 | **EXPLICITLY UNTOUCHED** | | | | | | | | | |
 | all `contracts/**` · `supabase/**` · `lib/**` · `app/**` · all migrations · all schemas | canonical / code | domain owners | **nobody** | out of scope | **none** | — | — | **no** | n/a |
 | `C4.6` · `REV-184` bodies | accepted L2 / signed-off | their owners | **nobody** | §15.1-D: no body edit | **none** | — | — | **no** | n/a |
@@ -625,6 +664,40 @@ This is honest, it is useful, it keeps the hazard discoverable and routed instea
 | **5** | **Epistemic provenance appendix** — §13 matrix | no reconstructed raw; no helper authority |
 | **6** | **Explicit non-decisions** — §2.7 | *"as important as the positive architecture"* |
 | **7** | Under-pressured arrivals — §2.8 | must survive **unweakened** |
+| **8** | **PRESSURE, CALIBRATION, AND ACCEPTANCE CONTRACT** — §12.1 | **REQUIRED.** §19 is not a durable home: this preflight becomes historical evidence after landing, so a pressure plan living only there would evaporate — the exact failure this arc exists to prevent |
+| **9** | **Required inputs and activation freshness** — §12.2 | **REQUIRED.** Gate 2 is sequenced behind C3.9 (§3.3), so the brief is authored now and consumed later |
+
+### §12.1 Gate-2 required section — Pressure, Calibration, and Acceptance Contract
+
+**Authority chain, stated exactly:** the method repertoire is **optional and originates no authority**. What makes the floor below binding is the **Gate-2 brief's own acceptance gate** (`user_knox_required`), in the same way Gate-1b §13.3 already makes its outputs required. **The Gate-2 charter may ADD to this floor; it may not subtract from it without Knox/Nick.**
+
+| Required | Method | Why it is a floor and not a preference |
+|---|---|---|
+| **composite incumbent test** | `M-202`-class | attack as a **stack** — Palantir ontology/actions **+** Epic distribution and configuration gravity **+** AWS rails **+** OpenAI/Anthropic-class agents **+** incumbent payer/clearinghouse rails — **not each incumbent in isolation**, because in isolation each looks survivable |
+| **incumbent absorption** | `M-606` | could an incumbent simply add this capability? Gate-1b's kill conditions already name it |
+| **portability / exit** | `M-607` | is continuity real, or does OMNI become another captive system? Directly tests the §2.2 neutrality claim |
+| **negative / null control** | `M-508` | **at least one trace expected to produce NO architecture defect.** Without it, a suite that always alarms is indistinguishable from one that works |
+| **seeded violation / positive control** | `M-505` | **at least one deliberately corrupted trace that MUST fail** — e.g. *payer funding preference silently becomes clinical equivalence* (§9 Law 2), or *the operating profile writes back into Care truth* (§2.2). Without it, a suite that always passes is indistinguishable from one that works |
+| **allowed verdicts set BEFORE running** | `M-706` | repertoire caution: *"define before running or it cannot fail"* |
+
+**`E2` is a mandatory ACCEPTANCE BLOCKER, two-stage — not a vague "blind review":**
+
+1. a fresh adversary receives the **invariants, the fixture contract, and the raw trace outputs** — **not** the builder's verdict;
+2. it scores the traces **independently**;
+3. the builder's verdict is then revealed and the two are **reconciled**.
+
+Allowed `E2` verdicts, fixed in advance: `SURVIVES` · `SURVIVES_WITH_NAMED_RECONCILIATIONS` · `BROKEN_AT_<named claim>`.
+
+**Until `E2` completes, the Gate-2 result may NOT be marked final Insurance composition input for Task-D.** Activation stays operator-controlled: **the trigger creates an acceptance blocker, it does not auto-launch an agent.**
+
+**Single-source discipline:** the subordinate handoff and the checkpoint carry **a pointer to §12.1 and its current state only** — never a copy of the method prose. Three copies of this contract would reproduce the defect §16 just adjudicated.
+
+### §12.2 Required inputs and activation freshness — because this brief waits
+
+Gate 2 is sequenced **behind C3.9** (§3.3), so the brief is authored now and executed later. Two obligations follow, and without them the brief goes stale by design:
+
+- **C3.9 is a REQUIRED INPUT, not background.** It is the arc's *designated mixed-financing vertical falsifier* and is currently `shell_pending_population`. Gate 2 must **consume its populated result** — including any finding that contradicts a Gate-1b arrival — not proceed around it.
+- **Activation freshness check.** At Gate-2 activation, re-verify the brief's inputs against the then-current estate: `main` and the control plane may have moved; `C3.6C`, `C4.5`, the Accountability capture and the Care Response-Seam Audit may have changed maturity; `REV-160`/`REV-185` may have been dispositioned. **Any input whose maturity changed must be re-stated before it is relied on.** A stale required-input list is the same defect as a stale status summary.
 
 **The division of labour, stated so nothing substitutes for anything else:** the **Gate-2 brief** owns substantive architecture · **ledgers** index and govern lifecycle state · the **parent handoff** owns operational continuity and the next gate · the **checkpoint** owns live program state. **No ledger row may become a compressed substitute for the architecture.**
 
@@ -743,7 +816,7 @@ checkpoint_tier:  3
 
 **Exact Tier-3 triggers relied on, from the AWP §8 table** (*any* one suffices; four are present):
 
-1. **spans 3+ Tier-0 governance artifacts** — nine integrator-exclusive surfaces are in scope (§8.1);
+1. **spans 3+ Tier-0 governance artifacts** — the **nine checkpoint-owned integrator-exclusive surfaces plus transaction-added `05`** are in scope (§8.1, §8.1a);
 2. **changes routing semantics** — six cold-entry read-graph routes plus Tier-0 #15;
 3. **crosses a gate boundary** — Gate 1b closes as analysis and Gate 2 is prepared. **The Insurance partition does NOT complete here** (§3.2): it remains active until Gate 2 returns the final Task-D sufficiency receipt. No phase completion is claimed, and Tier 3 does not depend on one — the other three markers each establish it independently;
 4. **spans multiple sessions and multiple commits** — merge commits + normalization + Gate-2 brief + closeout.
@@ -777,7 +850,7 @@ This follows the estate's own precedent: the Aug-3 checkpoint was itself amended
 
 Per AWP §8 Checkpoint Closeout Rule, in the **SAME closeout commit**: the handoff · `AGENTS.md` · the read graph · and the controlling-plan banner must all be synchronized. **The off-repo banner does not exist in this environment** — the transaction must **report that limitation** rather than claim the repoint, per `D0OPER-DEC-004`.
 
-**Next authorized lane after the carry:** `INS-G2-OPERATING-COMPOSITION-AND-SUFFICIENCY`, executed by a **genuinely fresh context** against the landed brief and routes. The current context should be retired at parent landing. **Sequencing remains operator-controlled; no arc auto-starts.**
+**Next authorized lane after the carry: NONE auto-starts, and it is NOT Gate 2.** Per §3.3, Gate 2 sits **outside** the original Phase-A partition and is sequenced **behind C3.9**. After the carry lands, the next substantive activation is **operator-controlled among the eligible remaining Phase-A lanes**; C3.9 is the designated pre-Gate-2 vertical falsifier. When Gate 2 is eventually authorized, it runs in a **genuinely fresh context** against the landed brief and routes, consuming C3.9's populated result (§12.2). The current context should be retired at parent landing.
 
 ---
 
@@ -873,7 +946,7 @@ C61 set the bar at *"evidence of recurrence beyond this packet."* **That bar is 
 | Merge order | **PR #7 → PR #4 → PR #5 → PR #6**, `--no-ff`, lineage order |
 | Commit boundaries | (1) **four** merge commits · (2) one normalization commit (§7) · (3) Gate-2 brief + handoff + narrative · (4) **one shared-surface closeout commit** |
 | Normalization boundary | §7 only — **one line, one substring** |
-| Shared-surface boundary | the nine integrator surfaces, in **one closeout commit** per AWP §8 |
+| Shared-surface boundary | the **original checkpoint-owned nine + transaction-added `05` = ten repository shared surfaces** (§8.1a), in **one closeout commit** per AWP §8; plus one inaccessible off-repo banner whose limitation is reported |
 
 ### §18.2 Pre-landing proof (all must pass; any failure STOPS)
 
@@ -882,7 +955,7 @@ git rev-parse origin/main                                   == the recorded base
 git merge-base --is-ancestor <each child head> <parent head> == true (x4: #7,#4,#5,#6)
 git diff --numstat <main>..<parent head>                     -> zero deletions on imported files
 git diff --name-status <main>..<parent head>                 -> only A on child artifacts; only
-                                                                intended M on the nine surfaces
+                                                                intended M on the ten repository shared surfaces
 git rev-parse <child head>:<path> == git rev-parse <parent>:<path>   for all 8 imported artifacts
                                                              (PR #6 verified PRE-normalization; PR #7 verified
                                                               against its accepted final head recovered at
@@ -920,9 +993,11 @@ Child PR states recorded · landed object blobs recorded in the manifest · `AGE
 
 **Nothing below is new machinery.** Method IDs are quoted from the repertoire; the precedents are the estate's own, named in Gate-1b §16 statement 2 (C4.3's quadrifecta with a white-box mutation adversary · C4.4's three-angle test · C4.6's blind Gemini leg). The repertoire is a **palette, not a pipeline** — no required order, method, or count, and `METHOD-000` (no method) stays valid.
 
-### §19.1 What this arc has actually used, and where the discipline lapsed
+### §19.1 Retrospective method correspondence — DESCRIPTIVE, not contemporaneous selection
 
-| Gate | Independence applied | Repertoire method |
+**The repertoire did NOT guide the original execution.** The table below records *correspondence observed after the fact* — what each gate's behaviour maps to — **not** a claim that these methods were contemporaneously selected. Do not read it as rewriting history. **Only `E1`, `E2` and the §19.3 Gate-2 pressure floor are actual forward selections.**
+
+| Gate | Independence applied | Corresponds to |
 |---|---|---|
 | Gate 0 | repository-grounded charter + Knox review | `M-701` Gate-0 charter |
 | **Gate 1a** | **genuinely blind derivation, then unblinded adjudication** | **`M-502`** blind-then-unblinded |
@@ -938,11 +1013,13 @@ Child PR states recorded · landed object blobs recorded in the manifest · `AGE
 | Entry | Trigger | Methods | Evaluator | Allowed verdicts (set BEFORE running) |
 |---|---|---|---|---|
 | **E1 — mechanical proof** | parent branch assembled, **before** `main` landing | `M-708` byte review · `M-702` desk check · `M-710` checkpoint/boot-path sync | a **narrow proof agent**, not the assembling context | `PROOF_PASS` · `PROOF_FAIL_WITH_EXACT_DEFECTS` |
-| **E2 — adversarial review** | **after** Gate-2 execution and its trace results — not on the brief alone | `M-503` builder/adversary/judge separation · `M-501` fresh-context re-derivation · `M-506` counterexample search | a **genuinely fresh adversary**, blind to our conclusion (`M-502` caution: blind only counts *before* exposure) | `SURVIVES` · `SURVIVES_WITH_NAMED_RECONCILIATIONS` · `BROKEN_AT_<named claim>` |
+| **E2 — adversarial review** *(durable home: Gate-2 brief §12.1 — mandatory acceptance blocker)* | **after** Gate-2 execution and its trace results — not on the brief alone | `M-503` builder/adversary/judge separation · `M-501` fresh-context re-derivation · `M-506` counterexample search | a **genuinely fresh adversary**, blind to our conclusion (`M-502` caution: blind only counts *before* exposure) | `SURVIVES` · `SURVIVES_WITH_NAMED_RECONCILIATIONS` · `BROKEN_AT_<named claim>` |
 
 **No third broad reviewer on this preflight.** A third opinion here would re-derive the same package; the leverage is at E1 and E2.
 
-### §19.3 Gate-2 pressure — already selectable, so do not improvise it
+### §19.3 Gate-2 pressure — selected here, made DURABLE in the Gate-2 brief §12.1
+
+**This section is the selection rationale; §12.1 is the binding home.** After the parent lands, this preflight is historical evidence — so the floor below is carried into the Gate-2 brief as a required section rather than left here.
 
 Gate-1b outputs 11–14 already name the required Gate-2 work. Mapped to repertoire IDs so the Gate-2 author picks rather than invents:
 
@@ -985,7 +1062,7 @@ Three refinements were added beyond the ruling, each because compliance-as-writt
 
 **Five of the six decisions in §0 are now closed. Exactly one remains, and it is the only one Nick alone can supply:**
 
-> **`A2` — explicit transfer of `PRESPINE-PHASEA-INTEGRATOR`.** The role has a named holder in a committed surface. Without the §8.2 receipt the executing thread has no authority over any of the nine shared surfaces, and the carry cannot begin regardless of any verdict on this document.
+> **`A2` — explicit transfer of `PRESPINE-PHASEA-INTEGRATOR`.** The role has a named holder in a committed surface. Without the §8.2 receipt the executing thread has no authority over **the transaction's shared-surface set — the original checkpoint-owned nine plus transaction-added `05` (§8.1a)** — and the carry cannot begin regardless of any verdict on this document.
 
 **Two known limitations, disclosed rather than resolved:** helper-report challenge attribution is `not_recoverable_from_durable_estate` (§13 — **not a Nick task, not a blocker**), and the off-repo controlling-plan banner cannot be repointed from this environment (§15.4).
 
