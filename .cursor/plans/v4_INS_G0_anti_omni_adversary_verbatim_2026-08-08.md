@@ -1,7 +1,7 @@
-# v4 — INS-G0 — Anti-OMNI Adversary · kickoff subagent (VERBATIM PRESERVATION SLOT)
+# v4 — INS-G0 — Anti-OMNI Adversary · kickoff subagent (VERBATIM, SEALED)
 
-> ## ▶ HOW TO PASTE — read this line only, then scroll to the markers
-> Two paste regions below: **PROMPT** then **RESPONSE**. Replace the placeholder line inside each marker pair with your exact text. **Paste raw.** Do not clean, trim, reformat, de-duplicate, fix typos, or strip client UI chrome — chrome is expected and gets annotated *outside* the block afterwards. Nothing else in this file needs editing.
+> ## ▶ SEALED — do not edit the verbatim regions
+> This artifact is **complete**. The two regions below are preserved exactly as the operator supplied them; their SHA-256 digests are recorded in the integrity receipts and any edit invalidates them. **Corrections, freshness notes and adjudication belong outside the marked regions** — never inside.
 
 Document type: `evidence_or_ingestion` (independent commissioned subagent submission, preserved verbatim)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036` — capture broad, promotion gated). Binds nothing. Promotes nothing. Not OMNI doctrine.
@@ -42,7 +42,7 @@ Precedent: `v4_C4_6_gemini_a_blind_submission_verbatim.md` · `v4_C4_2C_task_d_g
 | Preserved disagreement | Gate-0 `§G.5` item 2 — adversary vs enterprise lens on the wedge: the adversary holds the category is *"crowded, funded and partly solved, and that nothing important is architecturally unavailable to **Epic-plus-Foundry-plus-two-years**."* Gate 0 records **both sides as right** and the tension as real and unresolved. |
 | 2030 / 2035 material | **Open question at creation time.** Gate-0 `§G.4` also lists a separate lens **G — 2030/2035 trajectory** (four-tier evidence/forecast separation, adopted as `§J`). Whether the forward-looking material sits inside *this* report or came from a distinct lens-G return is **resolved by inspecting the pasted body**, and recorded in the receipts below — **not** assumed. |
 | Origin | Insurance Gate-0 kickoff, operator-commissioned subagent |
-| Model / thread identity | `operator_supplied_if_known` — recorded at receipt time |
+| Model / thread identity | **`not_recorded`** — subagent model/thread identity was not captured at commission time. *(This is itself an instance of the gap: identity must be recorded at delegation, not reconstructed later.)* |
 | Recovery route | operator-held local copy, pasted manually into this slot |
 | Author receipt | **not sought.** Gate-0 `§G.4` is the contemporaneous receipt; a retrospective re-read would be weaker evidence and risks producing a *new* report. Any later author note is a **dated, append-only interpretation outside the raw**. |
 
@@ -249,6 +249,14 @@ The flagship promise must be re-scoped from "everything is handled" to "every
 The first is falsified by one wrong estimate at one front desk. The second is achievable, is what governance actually buys, is defensible against a non-responsive payer (because it never claimed authority over one), and is genuinely something a coherent substrate does better than five stitched point solutions. It is also the only version of the promise that survives contact with a 19% denial rate, a 24-month recoupment window, and an AEOB rule that has not existed for four years.
 If they will not make that trade — if the flagship stays "photograph the card and everything else is handled," and the scope stays horizontal, and insurance stays general rather than the reconstructive boundary — then my honest read is that this is Olive AI with better architecture documents, and better architecture documents were not what Olive was missing.
 <!-- NICK_VERBATIM_RESPONSE_END -->
+
+---
+
+## Named consumer binding (why this raw is an active arc input, not an archive)
+
+**Required downstream use:** **Gate-2 Pressure, Calibration and Acceptance Contract (§12.1 of the carry preflight)** · **`E2` adversary setup** · **`M-202` incumbent-composite and `M-606` absorption tests** · **kill conditions** · **wedge, buyer and unit-economics attack** · Task-D enterprise verdict.
+
+**Read rule:** open this raw only when the consuming question above actually requires it. The packet index is the default entry point. **Preservation confers no authority** — everything here remains `analysis_nonbinding` and candidate until the consuming gate adopts it.
 
 ---
 

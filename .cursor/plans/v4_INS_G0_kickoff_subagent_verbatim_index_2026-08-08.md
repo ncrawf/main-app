@@ -35,6 +35,16 @@ The Gate-0 carrier `§G.4` "Helper-agent method ledger" records **seven analytic
 | *What is the strongest case that OMNI is wrong, unnecessary, or already absorbed?* — incumbent absorption, Epic-plus-Foundry, crowded-category attack, kill conditions, forward market trajectory | `v4_INS_G0_anti_omni_adversary_verbatim_2026-08-08.md` | **D** anti-OMNI adversary |
 | *What does this actually feel like for a patient and for a provider institution, and where do they conflict?* — comprehension, redress and appeal burden, institutional economics, multi-entity TIN/NPI reality | `v4_INS_G0_patient_provider_lens_verbatim_2026-08-08.md` | **E** patient + provider |
 
+### Named consumer bindings — what makes this a live arc input rather than a museum
+
+| Raw | Required downstream use |
+|---|---|
+| **Build Architecture Decomposer** | Gate-2 **`A-Q12`** derived-assessment ownership and **`A-Q15`** graph-role reconciliation · the **over-splitting self-attack** · **anti-shadow pressure on whether the operating profile becomes an undeclared coordinator / god-object** |
+| **Anti-OMNI Adversary** | Gate-2 **Pressure, Calibration and Acceptance Contract** · **`E2`** adversary setup · **`M-202`** incumbent-composite and **`M-606`** absorption · **kill conditions** · wedge, buyer and unit economics · Task-D enterprise verdict |
+| **Patient + Provider Lens** | **C3.9 population** · Gate-2 **burden-incidence, feasibility, buyer, comprehension and redress** work · institutional economics · the **patient↔provider conflict, carried unaveraged** |
+
+**Read rule unchanged:** the index is the default entry point; a raw is opened only when its consuming question requires it.
+
 ### Why these three, in the carrier's own words
 
 | Lens | Gate-0 `§G.4` disposition, contemporaneous |
@@ -43,7 +53,7 @@ The Gate-0 carrier `§G.4` "Helper-agent method ledger" records **seven analytic
 | **D** | *"**Adopted and it changed a verdict.** Verdict 7 was rewritten because of it. Its kill conditions are carried verbatim into `§I.4`."* |
 | **E** | *"**Adopted.** The patient/provider conflict analysis (`§I.3`) and the multi-entity TIN/NPI reality are its work."* |
 
-**All four of Gate-0's preserved disagreements (`§G.5`) come from these three lenses** — C's self-attack on its own twelve-owner split, D-versus-F on the wedge, E's patient↔provider conflict, and the unresolved appeal-automation economics. That is the strongest available evidence that these are the load-bearing returns.
+**The three preserved raws participate in all four of Gate-0's preserved disagreements (`§G.5`)** — C's self-attack on its own twelve-owner split, D-versus-F on the wedge, E's patient↔provider conflict, and the unresolved appeal-automation economics. **One caveat stated rather than glossed: the D-versus-F disagreement has an unrecovered F side**, so that tension is preserved from one side only. Participation in all four is nonetheless the strongest available evidence that these are the load-bearing returns.
 
 ---
 
@@ -51,15 +61,15 @@ The Gate-0 carrier `§G.4` "Helper-agent method ledger" records **seven analytic
 
 | Lens | Assignment (Gate-0 `§G.4`) | Access | Raw recovered? |
 |---|---|---|---|
-| **A** | Estate archaeologist — prior OMNI treatment of insurance/payer/claims/financing | repo read-only | **not recovered** — likely main-agent work; not claimed preserved |
-| **B** | Payer/RCM operator — US mechanics, standards, mandates, failure modes | no repo, primary sources only | **not recovered** — not claimed preserved |
+| **A** | Estate archaeologist — prior OMNI treatment of insurance/payer/claims/financing | repo read-only | **exact report-object status NOT established in this packet.** No raw identified; whether a distinct report object existed is unknown |
+| **B** | Payer/RCM operator — US mechanics, standards, mandates, failure modes | no repo, primary sources only | **exact report-object status NOT established in this packet.** No raw identified |
 | **C** | Blind decomposer — first principles, forbidden the repo | fully blind | ✅ **preserved in this packet** |
 | **D** | Anti-OMNI adversary — kill the thesis | external only | ✅ **preserved in this packet** |
 | **E** | Patient/consumer + provider/institution | external only | ✅ **preserved in this packet** |
-| **F** | Enterprise-platform mechanism — ten comparators | external only | **not recovered** — carried in Gate-0 `§G.1–G.3`; raw not claimed preserved |
-| **G** | 2030/2035 trajectory — four-tier evidence/forecast separation | external only | **not recovered as a distinct object.** Carried in Gate-0 `§J` with tier labels. **Open question:** the forward-looking material may sit inside lens **D**'s body — resolved by inspecting the pasted raw, recorded in that file's receipts, **not assumed** |
+| **F** | Enterprise-platform mechanism — ten comparators | external only | **exact report-object status NOT established.** Conclusions carried in Gate-0 `§G.1–G.3`; **no raw identified.** The `§G.5` D-vs-F disagreement therefore has an **unrecovered F side** |
+| **G** | 2030/2035 trajectory — four-tier evidence/forecast separation | external only | **exact report-object status NOT established.** Conclusions carried in Gate-0 `§J` with tier labels. Explicit forecast separation **does appear** in the preserved patient/provider raw — **that does not prove that raw was lens G, and does not prove a separate lens-G report never existed.** Both remain unknown |
 
-**Separately: the four Gate-1b reconnaissance reports** (care truth / disagreement-correction · economics-money-obligation ownership · external-party-counterparty-agreement · insurance implementation forensics) were commissioned by the Gate-1b agent and **never returned to any Opus context**. Gate-1b `§0.5` states plainly: *"they have still not returned to me… **No claim in this carrier rests on a helper report.**"* Status: **`not_recovered`** — no exact raw is identified, and **no reconstruction is permitted**.
+**Separately: the four Gate-1b reconnaissance reports** (care truth / disagreement-correction · economics-money-obligation ownership · external-party-counterparty-agreement · insurance implementation forensics). **State the evidence; adjudicate nothing.** The retiring reviewer's handoff reports having read four such reports; the Gate-1b author records at `§0.5` that *"they have still not returned to me… **No claim in this carrier rests on a helper report.**"* Those are **different claims, not necessarily conflicting ones** — context does not transfer. **Durable conclusion, and the only one: no exact repository raw is identified in this packet.** Do not reconstruct, and **do not adjudicate nonexistence.**
 
 ---
 
@@ -97,9 +107,9 @@ Operator-supplied 2026-08-08. All three raws present, both regions non-empty, no
 
 ### §5.1 Two findings from inspection — recorded, not assumed
 
-**(1) The lens-G question is answered, and not the way it was expected to be.** The forward-looking material is **not** concentrated in the adversary. `2030`/`2035` appear woven through the adversary's absorption argument with **no dedicated forecast section**. The **four-tier evidence-versus-forecast discipline that Gate-0 `§G.4` attributes to lens G actually lands in the patient/provider raw**, whose assignment enumerates *"2031 and 2036 patient behavior"* and *"2031/2036 provider trajectory"* and whose body closes by stating those sections are forecast, explicitly separated from observed evidence. **Lens G therefore remains `not_recovered as a distinct object`** (§2) — its discipline is visible, its standalone report is not claimed preserved.
+**(1) The lens-G question is narrowed, not closed.** The forward-looking material is **not** concentrated in the adversary. `2030`/`2035` appear woven through the adversary's absorption argument with **no dedicated forecast section**. The **four-tier evidence-versus-forecast discipline that Gate-0 `§G.4` attributes to lens G actually lands in the patient/provider raw**, whose assignment enumerates *"2031 and 2036 patient behavior"* and *"2031/2036 provider trajectory"* and whose body closes by stating those sections are forecast, explicitly separated from observed evidence. **Lens G's exact report-object status therefore remains unestablished** (§2). Its *discipline* is visible in a preserved raw; that neither identifies that raw as lens G nor proves a separate lens-G report never existed.
 
-**(2) The raws carry epistemic self-flagging the carrier does not.** The patient/provider body names specific figures it *"can't fully verify from my training data."* Two of the three responses include the model's **thinking**. That is exactly the material a conclusions-only carrier cannot hold, and it is the concrete answer to *"did we boil out the good stuff."*
+**(2) The raws carry epistemic self-flagging the carrier does not.** The patient/provider body names specific figures it *"can't fully verify from my training data."* Two of the three responses include **visible reasoning that the author returned in the user-visible final response** — no hidden chain-of-thought, private scratchpad or platform transcript was requested or preserved. That is exactly the material a conclusions-only carrier cannot hold, and it is the concrete answer to *"did we boil out the good stuff."*
 
 ### §5.2 One transparency note
 

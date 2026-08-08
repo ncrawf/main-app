@@ -1,7 +1,7 @@
-# v4 — INS-G0 — Build Architecture Decomposer · kickoff subagent (VERBATIM PRESERVATION SLOT)
+# v4 — INS-G0 — Build Architecture Decomposer · kickoff subagent (VERBATIM, SEALED)
 
-> ## ▶ HOW TO PASTE — read this line only, then scroll to the markers
-> Two paste regions below: **PROMPT** then **RESPONSE**. Replace the placeholder line inside each marker pair with your exact text. **Paste raw.** Do not clean, trim, reformat, de-duplicate, fix typos, or strip client UI chrome — chrome is expected and gets annotated *outside* the block afterwards. Nothing else in this file needs editing.
+> ## ▶ SEALED — do not edit the verbatim regions
+> This artifact is **complete**. The two regions below are preserved exactly as the operator supplied them; their SHA-256 digests are recorded in the integrity receipts and any edit invalidates them. **Corrections, freshness notes and adjudication belong outside the marked regions** — never inside.
 
 Document type: `evidence_or_ingestion` (independent commissioned subagent submission, preserved verbatim)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036` — capture broad, promotion gated). Binds nothing. Promotes nothing. Not OMNI doctrine.
@@ -41,7 +41,7 @@ Precedent: `v4_C4_6_gemini_a_blind_submission_verbatim.md` · `v4_C4_2C_task_d_g
 | **Later narrowing — why the raw matters** | Gate-1b `§13.1` records **`Write-authority five-zone decomposition | Not adopted | Demoted by Gate-0 at 0R`**. Its most visible contribution was subsequently demoted. The carrier records that the conclusion died; **only this raw records the reasoning that produced it and what else was in that branch.** |
 | Preserved self-attack | Gate-0 `§G.5` item 1: it offered the strongest counter to its own twelve-owner split — every owner may be an instance of *one* abstraction, so the coordinating service that joins them becomes **the undeclared god-object**. Gate 0 explicitly **did not resolve** this. |
 | Origin | Insurance Gate-0 kickoff, operator-commissioned subagent |
-| Model / thread identity | `operator_supplied_if_known` — recorded at receipt time |
+| Model / thread identity | **`not_recorded`** — subagent model/thread identity was not captured at commission time. *(This is itself an instance of the gap: identity must be recorded at delegation, not reconstructed later.)* |
 | Recovery route | operator-held local copy, pasted manually into this slot |
 | Author receipt | **not sought.** Gate-0 `§G.4` is the contemporaneous receipt; a retrospective re-read would be weaker evidence and risks producing a *new* report. Any later author note is a **dated, append-only interpretation outside the raw**. |
 
@@ -471,6 +471,14 @@ Where I am genuinely unsure, and what would resolve it:
 * How binding a communicated estimate is. Genuinely unresolved in the industry. Model bindingness as an explicit, configurable attribute of each disclosure rather than assuming a default.
 * How much financial context a clinician should see. I asserted an invariant (display allowed, automated influence forbidden) with more confidence than the evidence supports. This deserves an explicit governance decision rather than an architect's preference.
 <!-- NICK_VERBATIM_RESPONSE_END -->
+
+---
+
+## Named consumer binding (why this raw is an active arc input, not an archive)
+
+**Required downstream use:** **Gate-2 `A-Q12` (derived-assessment ownership) and `A-Q15` (graph-role reconciliation)** · the **over-splitting self-attack** (twelve owners may be one abstraction) · **anti-shadow pressure: whether the composed mixed-financing operating profile becomes an undeclared coordinator / god-object** (Gate-2 output 11–12).
+
+**Read rule:** open this raw only when the consuming question above actually requires it. The packet index is the default entry point. **Preservation confers no authority** — everything here remains `analysis_nonbinding` and candidate until the consuming gate adopts it.
 
 ---
 
