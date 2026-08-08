@@ -179,7 +179,7 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ---
 
-## 2.2) Delegation Admission — posture, visibility, and capture
+## 2.2) Delegation Admission — posture, authorization, and capture
 
 **PROPOSED 2026-08-08 · `review_ready_pending_separate_governance_landing` · not yet accepted.** **This is a global Tier-4 change and is deliberately NOT part of the Insurance parent carry** — it is not required for Insurance Phase-A closure and lands in its own transaction afterwards (AWP §2.1: package membership follows a shared intended outcome and coordinated closure, **not co-occurrence in one conversation**). **This section is self-sufficient and carries its own complete contract.** Cross-context conceptual cross-reference — **not an authority dependency** — is `v4_C4_agent_runtime_and_harness_capture.md` §6, which is an **`active_map` with `agent_runtime_formulation_OPEN`**, not ratified doctrine; a dedicated runtime pressure/ratification arc remains owed under `FWREG-010`. §6 (build-agent · internal-operations · user/care-facing — *same harness laws, different authority and exposure*). **This section is the current build/architecture-agent operationalization only.** Decision row proposed as `D0CKPT-DEC-008`.
 
