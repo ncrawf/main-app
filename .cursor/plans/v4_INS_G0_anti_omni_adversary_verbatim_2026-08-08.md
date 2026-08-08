@@ -252,11 +252,9 @@ If they will not make that trade — if the flagship stays "photograph the card 
 
 ---
 
-## Named consumer binding (why this raw is an active arc input, not an archive)
+## Consumer routing — owned elsewhere
 
-**Required downstream use:** **Gate-2 Pressure, Calibration and Acceptance Contract (§12.1 of the carry preflight)** · **`E2` adversary setup** · **`M-202` incumbent-composite and `M-606` absorption tests** · **kill conditions** · **wedge, buyer and unit-economics attack** · Task-D enterprise verdict.
-
-**Read rule:** open this raw only when the consuming question above actually requires it. The packet index is the default entry point. **Preservation confers no authority** — everything here remains `analysis_nonbinding` and candidate until the consuming gate adopts it.
+**Current consumer bindings and read triggers are owned by `v4_INS_G0_kickoff_subagent_verbatim_index_2026-08-08.md` §1.** Do not infer current routing from this source object, and do not restate the matrix here — mutable routing must live in exactly one place. This artifact owns **exact content and immutable provenance only.**
 
 ---
 
@@ -264,10 +262,12 @@ If they will not make that trade — if the flagship stays "photograph the card 
 
 | Field | Value |
 |---|---|
-| Prompt region — bytes | `6,466` (39 lines) |
-| Prompt region — SHA-256 | `2638ca3a8d670685a5c0e7edf13d9f785f3de704dcaa0ee98cdc72d0ef9e92cd` |
+| Prompt region — bytes | `6,467` (40 lines) |
+| Prompt region — SHA-256 **(canonical)** | `b1aab9120d606414dfbcb0037e4b2d84bc886c6055c164479623b6a77041adbe` |
 | Response region — bytes | `38,742` (150 lines) |
-| Response region — SHA-256 | `89f57487266611bac6c312c05807108bad39888cfa0d601fa7b8a2810071d68e` |
+| Response region — SHA-256 **(canonical)** | `89f57487266611bac6c312c05807108bad39888cfa0d601fa7b8a2810071d68e` |
+| Digest definition | CANONICAL REGION DIGEST — one definition, used here and re-used verbatim at `E1`: **SHA-256 over the exact UTF-8 bytes of all complete lines strictly between the BEGIN and END marker lines, joined with `
+`, excluding both marker lines, with no trailing newline and no normalization of any kind.** *(A prior receipt and a prior verification script used two different boundary conventions — one stripping newlines, one not — producing two digest families for identical bytes. That was a proof defect, not a content change. There is now exactly one definition; any digest not produced by it is void.)* |
 | Client UI chrome present | **None detected** — no conversation header, share or navigation lines. Clean paste. |
 | Paste completeness confirmed by operator | **Yes** — operator-supplied and confirmed 2026-08-08. Both regions non-empty; no placeholder text remains. |
 | Preserved-at commit | recorded in the landing commit message; **this file does not self-stamp its own SHA** |
