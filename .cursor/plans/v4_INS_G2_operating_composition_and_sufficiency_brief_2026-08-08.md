@@ -2,12 +2,12 @@
 
 Document type: `analysis` / `work_package_brief` (Gate-2 payload carrier; **not** a contract, **not** a schema, **not** spine prose)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036` — capture broad, promotion gated). Binds nothing. Promotes nothing. Mints nothing.
-Status: **`gate_2_brief_landed · execution_not_started · held_behind_C3.9 · not_promoted · no_contract_mutation`**
+Status: **`gate_2_brief_assembled_on_parent_branch · main_landing_separately_gated · execution_not_started · held_behind_C3.9 · not_promoted · no_contract_mutation`**
 Domain(s): `insurance_payer_oop` · `d6_commerce` · `care_operating_model` · `federation` · `clinical_memory` · `rbac_authority` · `cns_coordination` · `accountability_architecture` · `architecture_governance` · `cross_cutting`
 Lifecycle role: the **single substantive payload** carrying the accepted Gate-1b result into Gate-2 execution. Owns the architecture kernel, the consumption matrix, the execution contract and the acceptance criteria.
-Source-of-truth relationship: consumes the landed Gate-0 / Gate-1a / Gate-1b estate read-only. **Where this brief and a source carrier differ, the carrier controls.** The Gate-1a **raws** control over the Gate-1a adjudication.
+Source-of-truth relationship: consumes the carried Gate-0 / Gate-1a / Gate-1b estate read-only. **Where this brief and a source carrier differ, the carrier controls.** The Gate-1a **raws** control over the Gate-1a adjudication.
 Supersedes: nothing. Superseded by: none.
-Manifest action: `add_tier2` — **landed by the parent carry**
+Manifest action: `add_tier2` — **assembled on the parent branch by the parent carry; `main` landing separately gated**
 Review gate: `user_knox_required`
 
 Read order: Gate-0 carrier → Gate-1a protocol → **Phase-A raw** → **Phase-B raw** → Gate-1a adjudication → Gate-1a handoff → **Gate-1b carrier (R9)** → this brief.
@@ -28,7 +28,7 @@ Read order: Gate-0 carrier → Gate-1a protocol → **Phase-A raw** → **Phase-
 
 ## §0 — Exact object and assembly manifest (frozen evidence)
 
-Landed by the Insurance parent carry from `main @ d592e402b779aaedc1f137189bf51cd2b5ca678d`.
+Assembled by the Insurance parent carry from `main @ d592e402b779aaedc1f137189bf51cd2b5ca678d`.
 
 | Source | Head | Object(s) | Blob(s) |
 |---|---|---|---|
@@ -135,7 +135,7 @@ Every row: source section → named consumer → consuming gate → **owning-sur
 
 ## §3 — State and routing matrix
 
-Landed by the parent carry. Native vocabularies only.
+Assembled by the parent carry. Native vocabularies only.
 
 | Surface | Change |
 |---|---|
@@ -154,7 +154,7 @@ Landed by the parent carry. Native vocabularies only.
 
 **CARRIED FORWARD BY SOURCE PIN, NOT COPIED.** Gate-1b §13.3 outputs 1–14 **are** the contract, verbatim, at a pinned immutable ref:
 
-> **`.cursor/plans/v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` §13.3, blob `2e6a423cfae83203d4b4a1668224890043bfa12a`** — landed in this same transaction, catalogued, and reachable by read-graph route `9p`.
+> **`.cursor/plans/v4_INS_G1B_financing_ownership_and_existing_estate_reconciliation_2026-08-07.md` §13.3, blob `2e6a423cfae83203d4b4a1668224890043bfa12a`** — carried in this same transaction, catalogued, and reachable by read-graph route `9p`.
 
 **A verbatim copy was considered and deliberately rejected.** Duplicating fourteen outputs into a second mutable artifact creates two copies of one contract that **will** drift — the exact single-source failure that produced nine revisions of propagation defects in the source carrier, and the reason this brief has one state surface. **The anti-evaporation requirement is satisfied by pin + catalog row + read route + named consumer, which is stronger than a copy: a copy can silently diverge from the accepted text; a blob pin cannot.** Index by name below; **open §13.3 at the pinned blob for the governing text**:
 
@@ -220,4 +220,4 @@ Seven arrivals were reached by internal reasoning over the estate's own artifact
 
 **No fixture in the Gate-1b carrier has been executed. Both named fixtures are specifications of tests, not results.** Gate-0's L1 limit still governs: *"no fixture has ever been run. Every claim here is paper."*
 
-**STOP: `gate_2_brief_landed_execution_not_started`**
+**STOP: `gate_2_brief_assembled_on_parent_branch_execution_not_started`**
