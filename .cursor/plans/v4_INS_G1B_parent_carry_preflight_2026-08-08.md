@@ -187,9 +187,22 @@ Seven arrivals were reached by internal reasoning over the estate's own artifact
 | **Depth discovered in execution** | Gate-1a normative physics and Gate-1b ownership reconciliation were **both required before integration** — Gate 0 could not resolve ownership, and Gate 1a's blind result moved the arc's centre of gravity |
 | **Bounded amendment proposed** | an Insurance **Gate-2 final sufficiency receipt** is added before Insurance can be treated as *final composition input*; **C3.9 remains the designated pre-Gate-2 vertical falsifier**, unchanged |
 
-**Live sequence state is owned by the Aug-3 checkpoint** (§15.4). The subordinate Aug-8 handoff carries a pointer, not a copy. **The pre-spine map is not rewritten.**
+**Live sequence state is owned by the Aug-3 checkpoint** (§15.4); the **active pre-spine sequence home** is `v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md` under `D0THES-DEC-039`. The subordinate Aug-8 handoff carries a pointer, not a copy.
 
-> **⚠ ONE PORTFOLIO QUESTION THIS ARC MUST NOT DECIDE FOR ITSELF.** Gate-1b states *"after (B), not before, Insurance produces its final Task-D sufficiency receipt."* That establishes **Gate 2 → Insurance's final sufficiency receipt.** It does **not** establish that final Task-D is blocked until that receipt exists — Task-D may legitimately proceed on the `READY_AS_GATE1B_OWNERSHIP_INPUT` maturity, relying on §2.6's permitted list and honouring its prohibitions. **Whether Insurance's final sufficiency receipt becomes a blocking precondition for final Task-D is a PORTFOLIO decision for Nick, not a determination the Insurance arc may make about the portfolio sequence.** Recorded here as an open operator decision; the carry states the dependency and does not assert the block. *(Asserting it would be the same class of error §3.3 just corrected, one level up.)*
+**The map and `DEC-039` receive a BOUNDED ANNOTATION, not a rewrite** (§10). Leaving them untouched while the checkpoint records new gate lineage would fork sequence state three ways — checkpoint, map, decision row — which is the duplicate-state failure this transaction exists to eliminate. **The Phase A → C3.9 → Task-D sequence itself is unchanged**; what is added is that Insurance's Phase-A input was delivered at greater depth than commissioned, and that a successor Gate 2 exists outside the sequence, held behind C3.9, non-blocking on Task-D.
+
+> **★ THE TASK-D DEPENDENCY IS ALREADY DECIDED — by `D0THES-DEC-039`, and NOT in favour of a block.** A prior revision left this as an open operator decision; a review pass then adjudicated it as *"final Task-D BLOCKED pending Gate-2 execution, `E2`, and the final Insurance sufficiency receipt."* **Both are superseded by the active decision row, which was not consulted and which says close to the opposite.**
+>
+> `D0THES-DEC-039` (`active`, Nick + Knox accepted 2026-08-04, landed) states verbatim: *"Task-D is an integrator/admission test; it does **NOT** require inputs to be 'finished/closed' — it can examine an **OPEN or CANDIDATE** input and return `SPINE_READY` / `SPINE_READY_WITH_NAMED_RECONCILIATIONS` / `NOT_READY` (Task-D is allowed to fail OMNI). The real requirement is **VERSION-PINNED INPUT-STATE RECEIPTS** … — **NOT** premature 'closure receipts.' **Care and GRR are NOT forced into fake architectural closure.**"* Its accepted sequence is **Phase A → Phase B C3.9 → Phase C final Task-D → Phase D full C4.5 → Phase E final pre-spine sufficiency receipt → spine.** Gate 2 does not appear in it.
+>
+> **The correct reading, and it requires no new decision:**
+>
+> - Insurance's Phase-A obligation is a **version-pinned input-state receipt with declared maturity** — **not** a closure receipt. **Gate-1b §11 already IS that artifact**: two-level maturity plus explicit may-rely / must-not-rely / must-remain-free-to-falsify lists. The obligation is **satisfied**.
+> - **Final Task-D is NOT blocked on Gate 2.** It may examine Insurance as a **CANDIDATE** input at `READY_AS_GATE1B_OWNERSHIP_INPUT` and is explicitly permitted to return `SPINE_READY_WITH_NAMED_RECONCILIATIONS` or `NOT_READY` **because** Insurance is not yet final composition input. That is the mechanism working as designed, not a gap.
+> - **Gate 2 UPGRADES Insurance's input maturity; it does not gate the portfolio.** It is what would move Insurance from `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT` to final — valuable, sequenced behind C3.9, and **outside the critical path to Task-D**.
+> - **Blocking final Task-D on Gate 2 would force exactly the "fake architectural closure" `DEC-039` refuses to impose on Care and GRR**, and would convert a two-level maturity designed to *permit* candidate consumption into a loophole-closing device that forbids it. It would also put one arc's gate on the pre-spine critical path without portfolio authority.
+>
+> **Consequence for the carry:** the `DEC-039` amendment is a **bounded annotation, not a sequence change** (§10). The accepted Phase A → C3.9 → Task-D sequence stands **unchanged**.
 
 ### §3.3 Gate 2 is OUTSIDE the original Phase-A partition — corrected against primary sources
 
@@ -216,7 +229,9 @@ Delivered: Gate-0 framing · Gate-1a physics · Gate-1b ownership reconciliation
 
 **The parent-close criteria are therefore NOT expanded** — which the previous revision asserted while simultaneously making an assertion that expanded them.
 
-**Default sequence, restored to the accepted ordering:** land the Insurance parent carry → remaining Phase-A lanes under operator control → **C3.9 populated as the designated vertical falsifier** → Gate-2 execution consuming C3.9 → `E2` adversarial review (§19) → final Insurance Task-D sufficiency receipt.
+**Default sequence, restored to the accepted `DEC-039` ordering:** land the Insurance parent carry → remaining Phase-A lanes under operator control → **Phase B: C3.9 populated as the designated vertical falsifier** → **Phase C: final Task-D** (consuming Insurance as a version-pinned CANDIDATE input) → Phase D full C4.5 → Phase E final pre-spine sufficiency receipt → spine.
+
+**Gate 2 runs on its own track, off the pre-spine critical path:** authorized after C3.9, consuming C3.9's result (§12.2), followed by `E2` adversarial reconciliation (§12.1), producing the final Insurance sufficiency receipt that upgrades Insurance to final composition input. **It does not block Phase C** (§3.2a).
 
 **No successor auto-starts. Gate 2 is NOT the next authorized lane after the carry.** The next substantive activation remains operator-controlled among the eligible remaining Phase-A work.
 
@@ -459,17 +474,22 @@ child_source_refs:              PR #7 <accepted final head recovered from
                                 PR #5 671d120fd79c7b55325cf6e998646c02ead45f0f
                                 PR #6 78a9b2805e63dbc8f7f721da462bae95a7ce4846
 parent_integration_branch:      integration/ins-g1b-parent-carry-gate2-prep
-protected_shared_surfaces:      the ORIGINAL NINE (checkpoint-owned, §8.1)
-                                + 05_supersession_conflict_ledger.md as a TRANSACTION-ADDED
-                                  serialized shared surface (§8.1a)
+protected_shared_surfaces:      8 CHECKPOINT-OWNED repository surfaces (AGENTS · checkpoint ·
+                                read graph · catalog · 03 · 06 · 08 · FWREG)
+                                + 1 off-repo controlling-plan banner (inaccessible)
+                                + 2 TRANSACTION-ADDED serialized surfaces (§8.1a):
+                                  05_supersession_conflict_ledger.md
+                                  v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md
+                                = 10 repository + 1 off-repo
 other_writers_in_flight:        <exact — including any uncommitted work or concurrent lane>
 freshness_check:                main unmoved since <SHA>? Y/N · checkpoint §4.2 unchanged? Y/N ·
                                 ALL FOUR child heads unchanged (#7/#4/#5/#6)? Y/N ·
                                 FOUR-BRANCH §5.2 merge proof re-run and passing? Y/N
-collision_scan:                 <result — any other branch or agent touching the nine
-                                 + 05_supersession_conflict_ledger.md>
-shared_surface_ownership_ack:   incoming holder acknowledges sole-writer status over the nine
-                                + 05, for the duration of this transaction, on the parent BRANCH
+collision_scan:                 <result — any other branch or agent touching any of the 10
+                                 repository shared surfaces>
+shared_surface_ownership_ack:   incoming holder acknowledges sole-writer status over all 10
+                                repository shared surfaces, for the duration of this
+                                transaction, on the parent BRANCH
                                 (no shared surface is written directly on main — §8.1b)
 preflight_decisions_closed:     A1 · A3 · A4 · A5 · A6  (Knox-adjudicated 2026-08-08)
 transfer_precondition:          A2 — satisfied by THIS receipt
@@ -533,8 +553,9 @@ Every file the **future carry** proposes to touch. Nothing outside this table ma
 | `.cursor/plans/doctrine/08_open_review_queue.md` | Tier-0 queue | integrator role | integrator | §11 state transitions | **UPDATE 5** (`REV-159` · `REV-160` · `REV-185` · `REV-193` · `REV-201`) **+ ADD 3** (agreement/party-position · Gate-2 parent row · `INS-HAZ` Build-Entry activation) | yes | per-row `required_reviewer` | no | revert |
 | `.cursor/plans/doctrine/06_guardrail_antipattern_digest.md` | Tier-0.5 boot-visible | integrator role | integrator | **Tier-3 guardrail obligation (§16, REVISED)** | **UPDATE `D0CKPT-GRD-003`** (narrow) · **UPDATE `D0-GRD-010`** (financing vendor-label) · **ADD 1** coverage-as-boolean / overwrite-on-check row. **`D0TIER0-GRD-004` NOT touched.** | yes | Knox `A5` | no | revert |
 | `.cursor/plans/doctrine/future_work_registry.md` | Tier-0 FWREG | integrator role | integrator | §11 FWREG transitions | **UPDATE `FWREG-017`** · **UPDATE `FWREG-018`** (F3 operator slice, with the §11.3 enumeration extension) · **ADD 1** `INS-HAZ-COVSURF` row carrying clauses 1–6. **No second operator-economics row.** | yes | — | no | revert |
-| `.cursor/plans/doctrine/03_decision_extraction_ledger.md` | Tier-0 decisions | integrator role | integrator | **assess only** — Gate-1b §13.2 proposes **zero** decision rows | likely **no change**; if Tier 4 is triggered a row becomes mandatory (§15.3) | yes | — | no | revert |
-| **TRANSACTION-ADDED SERIALIZED SURFACE — NOT integrator-exclusive (§8.1a)** | | | | | | | | | |
+| `.cursor/plans/doctrine/03_decision_extraction_ledger.md` | Tier-0 decisions | integrator role | integrator | **UPDATE 1 existing row — `D0THES-DEC-039`** bounded annotation (§3.2a). Gate-1b §13.2 still proposes **zero new** decision rows | **annotate `DEC-039`'s notes**: Insurance Phase-A input delivered at Gate-1b ownership maturity, exceeding the commissioned Gate-0 object; successor Gate 2 exists **outside** the accepted sequence, held behind C3.9, and is **NOT a blocking precondition on final Task-D**. **No new decision ID. No sequence rewrite.** | yes | — | no | revert |
+| **TRANSACTION-ADDED SERIALIZED SURFACES — NOT integrator-exclusive (§8.1a)** | | | | | | | | | |
+| `.cursor/plans/v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md` | active pre-spine **sequence home** | **portfolio-sequencing / pre-spine map authority** — *not* the integrator | **transferred integrator as transaction-specific sole writer, on the parent branch only** | it is the active sequence home; leaving it unamended while the checkpoint records new lineage would fork sequence state three ways (§3.2a) | **BOUNDED ANNOTATION ONLY**: preserve the original Gate-0 commission as historical fact · record Gate 1a/1b as delivered additional depth · record Phase-A Insurance input complete at Gate-1b ownership maturity · record Gate 2 as a successor gate outside the sequence, held behind C3.9, **non-blocking on Task-D**. **Do NOT rewrite the Card-3 output contract, the Phase A→E sequence, or any unrelated lane.** | yes | **Nick + Knox** | no | revert |
 | `.cursor/plans/doctrine/05_supersession_conflict_ledger.md` | Tier-0 conflicts | **canonical architecture-governance / conflict-ledger authority** — *not* the integrator | **transferred integrator as transaction-specific sole writer, on the parent branch only** | §11.2 semantic conflicts | **ADD exactly 4 rows**, `resolution_status: open_review`; no row resolved, no existing row edited; collision-free IDs at execution | yes | **Nick + Knox + `05`'s own ledger-native review gate** | no | revert |
 | **EXPLICITLY UNTOUCHED** | | | | | | | | | |
 | all `contracts/**` · `supabase/**` · `lib/**` · `app/**` · all migrations · all schemas | canonical / code | domain owners | **nobody** | out of scope | **none** | — | — | **no** | n/a |
@@ -579,7 +600,7 @@ Native vocabularies verified in their own primary sources:
 | **Payer-constrained-therapy fixture** | C4.6 `C12` + Care Response-Seam + Gate-2 suite | specified, **never executed** | attached to all three | **attach to `C12`, do not rebuild**; `C12` alone is INSUFFICIENT | Gate-2 trace suite | **Gate 2 — REQUIRED trace** | executed trace result |
 | **Vendor-financing fixture** | Gate-2 suite | specified, never executed | attached | two enumerations to extend; `financing_arrangement` principal-agnostic | Gate-2 trace suite | Gate 2 | executed trace result |
 | **Gate-0/1a/1b child states** | checkpoint §4.2 | one lane row, no gate lineage | **one row updated with gate lineage** (§3.2) | `landed` per gate after parent lands | checkpoint | parent closeout | §4.2 table + closeout commit |
-| **Task-D reliance state** | pre-spine sufficiency map + Task-D | `NOT_READY_AS_FINAL_INSURANCE_COMPOSITION_INPUT` | unchanged until Gate 2 | two-level maturity preserved verbatim | Task-D | **Task-D cannot close without the Insurance sufficiency receipt** | Gate-2 → Task-D receipt |
+| **Task-D reliance state** | pre-spine sufficiency map (`D0THES-DEC-039`) + Task-D | two-level maturity per Gate-1b §11 | unchanged | two-level maturity preserved verbatim | Task-D | **Task-D cannot close without CONSUMING Insurance's version-pinned input-state receipt at its declared maturity** — per `DEC-039`, *not* a closure receipt and **not blocked on Gate 2** (§3.2a) | the version-pinned receipt + Task-D's own verdict |
 
 ### §11.2 The four conflict rows owed to `05`
 
@@ -816,9 +837,9 @@ checkpoint_tier:  3
 
 **Exact Tier-3 triggers relied on, from the AWP §8 table** (*any* one suffices; four are present):
 
-1. **spans 3+ Tier-0 governance artifacts** — the **nine checkpoint-owned integrator-exclusive surfaces plus transaction-added `05`** are in scope (§8.1, §8.1a);
+1. **spans 3+ Tier-0 governance artifacts** — **10 repository shared surfaces + 1 off-repo banner** are in scope (§8.1, §8.1a);
 2. **changes routing semantics** — six cold-entry read-graph routes plus Tier-0 #15;
-3. **crosses a gate boundary** — Gate 1b closes as analysis and Gate 2 is prepared. **The Insurance partition does NOT complete here** (§3.2): it remains active until Gate 2 returns the final Task-D sufficiency receipt. No phase completion is claimed, and Tier 3 does not depend on one — the other three markers each establish it independently;
+3. **crosses a gate boundary** — the carry **completes the original Phase-A Insurance input at Gate-1b ownership maturity** and **prepares, without executing, the successor Gate-2 brief outside Phase A** (§3.3). Tier 3 does not depend on this marker; the other three each establish it independently;
 4. **spans multiple sessions and multiple commits** — merge commits + normalization + Gate-2 brief + closeout.
 
 **Tier 3 therefore requires:** Tier-2 durable handoff · **narrative volume** (`docs/architecture/evolution_narrative_volume_10_2026-08-08.md`) · **prior-arcs-consulted section** · **guardrail extraction (§16)** · **checkpoint closeout with pointer synchronization in the same commit.**
@@ -946,7 +967,7 @@ C61 set the bar at *"evidence of recurrence beyond this packet."* **That bar is 
 | Merge order | **PR #7 → PR #4 → PR #5 → PR #6**, `--no-ff`, lineage order |
 | Commit boundaries | (1) **four** merge commits · (2) one normalization commit (§7) · (3) Gate-2 brief + handoff + narrative · (4) **one shared-surface closeout commit** |
 | Normalization boundary | §7 only — **one line, one substring** |
-| Shared-surface boundary | the **original checkpoint-owned nine + transaction-added `05` = ten repository shared surfaces** (§8.1a), in **one closeout commit** per AWP §8; plus one inaccessible off-repo banner whose limitation is reported |
+| Shared-surface boundary | **8 checkpoint-owned repository surfaces + 2 transaction-added (`05`, pre-spine map) = 10 repository shared surfaces**, plus **1 inaccessible off-repo banner** (§8.1a), in **one closeout commit** per AWP §8 |
 
 ### §18.2 Pre-landing proof (all must pass; any failure STOPS)
 
@@ -1062,7 +1083,7 @@ Three refinements were added beyond the ruling, each because compliance-as-writt
 
 **Five of the six decisions in §0 are now closed. Exactly one remains, and it is the only one Nick alone can supply:**
 
-> **`A2` — explicit transfer of `PRESPINE-PHASEA-INTEGRATOR`.** The role has a named holder in a committed surface. Without the §8.2 receipt the executing thread has no authority over **the transaction's shared-surface set — the original checkpoint-owned nine plus transaction-added `05` (§8.1a)** — and the carry cannot begin regardless of any verdict on this document.
+> **`A2` — explicit transfer of `PRESPINE-PHASEA-INTEGRATOR`.** The role has a named holder in a committed surface. Without the §8.2 receipt the executing thread has no authority over **the transaction's shared-surface set — 10 repository surfaces plus the inaccessible off-repo banner (§8.1a)** — and the carry cannot begin regardless of any verdict on this document.
 
 **Two known limitations, disclosed rather than resolved:** helper-report challenge attribution is `not_recoverable_from_durable_estate` (§13 — **not a Nick task, not a blocker**), and the off-repo controlling-plan banner cannot be repointed from this environment (§15.4).
 
