@@ -1,8 +1,8 @@
-# v4 — INS-G2 — Operating Composition & Sufficiency — GATE-2 RESULT (R1)
+# v4 — INS-G2 — Operating Composition & Sufficiency — GATE-2 RESULT (R3)
 
 Document type: `analysis` / `architecture_gate_result` (the Gate-2 output object under Gate-1b §13.3; **not** a contract, **not** a schema, **not** spine prose, **not** a new truth-owning domain)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036` — capture broad, promotion gated). Binds nothing. Promotes nothing. Mints nothing. Proposes routing only.
-Status: **ARTIFACT MATURITY ONLY** — `R1 · landed_on_branch · analysis_nonbinding · not_promoted · no_contract_mutation · no_shared_surface_written`. **Gate-2 execution and acceptance state live in the single state table below, which is this file's only current-state surface** (`D0CKPT-GRD-004`; `D0CKPT-GRD-003` intra-artifact specialization).
+Status: **ARTIFACT MATURITY ONLY** — `R3 · landed_on_branch · analysis_nonbinding · not_promoted · no_contract_mutation · no_shared_surface_written`. **Gate-2 execution and acceptance state live in the single state table below, which is this file's only current-state surface** (`D0CKPT-GRD-004`; `D0CKPT-GRD-003` intra-artifact specialization).
 Domain(s): `insurance_payer_oop` · `d6_commerce` · `care_operating_model` · `clinical_memory` · `rbac_authority` · `federation` · `cns_coordination` · `accountability_architecture` · `architecture_governance` · `cross_cutting`. **No new domain is proposed.**
 Lifecycle role: the Gate-2 result — the fourteen required outputs of Gate-1b §13.3, constructed against the accepted Gate-0 / Gate-1a / Gate-1b estate, with external-comparator pressure performed rather than routed.
 Source-of-truth relationship: consumes the carried estate read-only. **Where this result and a source carrier differ, the carrier controls.** The Gate-1a **raws** control over the Gate-1a adjudication. Gate-1b §13.3 at blob `2e6a423cfae83203d4b4a1668224890043bfa12a` is the governing execution contract.
@@ -20,7 +20,7 @@ Read order: read-graph route `9p` (Gate-0 carrier → Gate-1a protocol → Phase
 >
 > | Field | Value |
 > |---|---|
-> | Gate-2 state | **`constructed · R2 · builder_verdict_issued · provisional_by_construction`** |
+> | Gate-2 state | **`constructed · R3 · builder_verdict_issued · provisional_by_construction`** |
 > | **Estate-inheritance debt** *(new at R2)* | **OPEN.** Care §5b/§5b.1/§18/§19 and C4.6 §0.5/§12 consumed at R2. **C3.8 G1b–G4 and `EVRUN-000007`/`000008` named, load-bearing, and NOT consumed** — recorded as debt at §0.7/§20.3, not skimmed |
 > | Builder's verdict | **`SURVIVES_WITH_NAMED_RECONCILIATIONS`** — unchanged from R0, **at lower confidence and with the discharge posture below** |
 > | **Discharge posture** *(new at R1)* | **14 output sections present · trace and comparator discharge INCOMPLETE.** R0's "14/14 produced · 6/6 performed" is **withdrawn** as a completeness claim |
@@ -115,6 +115,8 @@ Re-verified against `main @ 9a6e7de`: Gate-1b §13.3 blob **byte-identical** · 
 ### §0.7 — Estate-inheritance receipt, and the control-plane defect that made it necessary (R2)
 
 **The operator's charge, and it is upheld.** Nick's position is that the execution/authority material R1 presented as new was raised in prior passes, that a Palantir arc already ran, and that this arc keeps re-deriving basics from external analogies. **Verified. He is right on every count, and the mechanism is now identified.**
+
+**Maturity discipline, applied to this section's own claims (Knox R3-01, accepted).** The Care capture is **`analysis_nonbinding` · REVIEW-DRAFT · explicitly not closed**, its `[INV]` markers are **candidate** invariants, and its §5b is self-labelled **`COMPOSES_EXISTING`** — a synthesis of scattered prior pieces, not a ratified constitutional object. **So the correct statement is not "Care already settled this."** It is: **Care §5b is the strongest current *candidate* decomposition, assembled from existing authoritative pieces, and it is still review-draft.** The same applies to §19's homology matrix and to its moat `[INV]`. Replacing ad-hoc reinvention with status laundering would be a worse failure than the one being corrected — *the point is that R1 did not know these existed, not that they are ratified.*
 
 | What R0/R1 derived or re-derived | Where it already existed | Grade of the miss |
 |---|---|---|
@@ -699,7 +701,7 @@ Time from clinical recommendation to executable and funded plan · staff and cli
 
 ## §16 — Gate-2 verdict
 
-> ### BUILDER'S VERDICT (R2)
+> ### BUILDER'S VERDICT (R3)
 > ## `SURVIVES_WITH_NAMED_RECONCILIATIONS`
 > **Axis 1** survived a 23-row residual drive with **no row resolving to a new Insurance-owned truth object**, and survived an element-by-element composite incumbent attack for a **narrowed but structural** reason.
 > **Axis 2** stands at **6 of 10 anti-shadow criteria demonstrated, 4 conditional, 0 failed** — where **seven of the ten map onto existing accepted C4.6 conformance gates**, an eighth onto the Accountability threshold law, and only **two small financing-specific gates are owed**.
@@ -741,7 +743,9 @@ R1 repeatedly wrote that none of the reconciliations is Insurance-owned, in a to
 | Target | Verbatim-ready change | Part |
 |---|---|---|
 | **`comparator_analogy_registry.md`** — Palantir row | **NOTHING PROPOSED. R1's append is WITHDRAWN and must not land.** The peering fact is contested between two reviewers (§14.1) and belongs to the **Evidence Plane gate + the C3.8 comparator arc's owner**, not to an Insurance gate. Only the *withdrawal* of R0's stale "one enrollment" claim is carried | C |
-| **Care capture §19 homology matrix + §1b `U/C/A` crosswalk** | **the Homology Obligation** (§20.3): a new loop/profile/cousin arc cannot close without adding its column, its per-dimension verdict and its law-scope inheritance. Enforcement = Gate-1b §15.1 part E. **The matrix's home is an open question and is NOT Insurance's to move** — raised to the matrix's owner | B/C |
+| **`WI16` (spine watch list) + read-graph route `#9g` + `EVRUN-2026-000007`** | record **Insurance as the THIRD arc converging on the OMNI Reactor shape** (after the moat doctrine's noted adjacency), with the pointer that `admissibility-before-consequence` now has three independent statements. **No adoption, no population, no unblocking** — the estate's own rule is that convergence is a signal to TEST | B |
+| **`comparator_analogy_registry.md`** — second gap | **FHIR/HL7 is carried as a payload-standards comparator only.** FHIR *profiling*, IHE integration profiles, SEI product-line variability and platform-plus-lenses are absent **as commonality/variability mechanisms**. Recorded as a named gap; **not authored here** — Reactor gate (2) already owns the standards-native comparison | C |
+| **Care capture §19 homology matrix + §1b `U/C/A` crosswalk** | noted as the closest existing **Level-2** object and as **genuinely under-built** (three columns, Care-internal, review-draft). **No obligation minted, no column added, no name proposed** — §20.3 | C |
 | **C3.8 G4 + `EVRUN-000007 §02` + `EVRUN-000008`** | **inheritance debt** — required before Insurance's homology column and before the responsibility-continuity/liability material can be written (§20.3) | D |
 | `08` **`D0INS-REV-002`** | dispositions: **A-Q12 resolved-at-decomposition, contract/instance separated** · **A-Q15 role-reconciled, `T0-15`-conformant** · **A-Q18 resolved (`funding_condition`), ownership per §13(a)** · **A-Q14a/b/c, A-Q16, A-Q17 OPEN**; add **SEED-1's precondition** and **R-8's dedup** to closure criteria | B |
 | `08` **`REV-185`** | add: **`C4.6 C6` is an existing runnable proof shape for Law 2**; the breadth extension owed (any interested principal + presentation); administrative friction as a fourth economic-pressure pathway | B |
@@ -780,11 +784,17 @@ R1 repeatedly wrote that none of the reconciliations is Insurance-owned, in a to
 ### §20.1 The answer: yes, and the estate said so twice
 **C4.6 §0.5** answers the identical question form for pharmacy, verbatim: *"is pharmacy just another version of fulfillment? is it distinct? a cousin of ordinary vendor supply?"* — **"the answer is cousin: shared substrate, specialized profile — neither a silo nor a twin."** Its stack: GCE (shared, ratified) → counterparty participation/capability profiles → distinct native lifecycles → adapter family + connection instance → projection owning no truth. Its ruling: *"Pharmacy is NOT a new OMNI-owned unified lifecycle or truth-owning domain… OMNI composes a profile over the shared exchange and does not absorb it."*
 
-**Gate-1b's Axis 2 reached the same shape independently:** a **first-class composed operating profile** over source-native owners and generic GCE, owning no source truth. **Two arcs, no contact, identical verdict.**
+**Gate-1b's Axis 2 reached the same shape:** a **first-class composed operating profile** over source-native owners and generic GCE, owning no source truth.
 
-> **Insurance is a cousin of Pharmacy, and both are cousins of labs/diagnostics, vendor supply and any future external-counterparty loop. The shared substrate is GCE + native lifecycles + adapter/connection + projection. What differs is only the specialized profile: pharmacy's is prescriber authority, prescription lineage, pharmacist review and refusal, substitution envelope, licensure and controlled-substance regime; Insurance's is coverage relationship identity, funding conditions, benefit interpretation, determination and appeal, financing arrangement and patient responsibility.**
+**R3 correction (Knox R3-02, accepted).** R2 called this *"two arcs, no contact, identical verdict."* **That claim is withdrawn and it contradicted this file's own §0.7**, which records that Gate-1b's estate matrix cited the Care capture — so the Insurance arc had partial inheritance available. The accurate description is **cross-arc recurrence under incomplete propagation**. That is weaker as independence evidence and **stronger as an operational finding**: the estate can locate the right pattern and still fail to make it usable by the next builder.
 
-**This raises confidence in Axis 2 rather than threatening it.** Convergence of two independent arcs on one shape is evidence the shape is physics rather than an Insurance-specific accommodation. **It also correctly shrinks Gate 2's job:** not *invent a mixed-financing architecture*, but *inherit the shared substrate and specify only the financing profile.* Most of §1's four strata are the cousin substrate, not Insurance's invention — which is why §5's row drive found no new truth-owning object. **It is not a reroute of the arc; it is the arc's own result, recognised.**
+**R3 correction (Knox R3-03, accepted).** R2 put Insurance, Pharmacy, labs/diagnostics, vendor supply and "any future external-counterparty loop" into **one** cousin family. **Too broad, and it would become the next god-model.** Cousinhood is dimension-specific, and one loop may instantiate several patterns at once: a lab is simultaneously an external counterparty, an evidence producer whose result may or may not reach clinical adoption, an order fulfiller, a professional interpreter and a regulated facility; a lender is an external counterparty and commitment issuer and **not** an evidence-to-adoption loop at all.
+
+**What survives, narrowly:** **Insurance and Pharmacy are cousins on the external-principal-participation dimension** — shared substrate GCE + native lifecycles + adapter/connection + projection; specialized profile differing only in its authority/regulatory content (pharmacy: prescriber authority, prescription lineage, pharmacist refusal, substitution envelope, licensure, controlled substances · Insurance: coverage relationship identity, funding conditions, benefit interpretation, determination and appeal, financing arrangement, patient responsibility). **That single-dimension claim is what C4.6 §0.5 and Gate-1b's Axis 2 both support. The multi-dimension family taxonomy is NOT authored here** — it belongs to the work at §20.3 and would be exactly the kind of on-the-fly ontology this arc keeps producing.
+
+**And note what is *not* a cousin family:** authority, consent, time and partial order, provenance, correction, uncertainty, portability, economic-influence separation, proof and responsibility lineage are **cross-cutting axes every profile passes through**, not another loop group. Two things appearing in one patient journey does not make them homologous.
+
+**This still raises confidence in Axis 2 and shrinks Gate 2's job:** not *invent a mixed-financing architecture*, but *inherit the shared substrate and specify only the financing profile.* Most of §1's four strata are inherited substrate, not Insurance's invention — which is why §5's row drive found no new truth-owning object.
 
 ### §20.2 Why the underlying physics is worth finding at all — the operator's existential question, answered without mysticism
 *Doesn't Palantir just ingest everything and link it up? Isn't that the pattern?*
@@ -796,20 +806,49 @@ So the physics buys three specific things, and they are the 1BN/10BN argument st
 2. **Loop N gets safe.** A violation of a cross-loop invariant is *invisible in the schema* and *catastrophic in care*. Physics is what makes the violation detectable at build time — which is precisely what a conformance gate like `C6` or `C12` is for.
 3. **The substrate survives substitution.** Models, rails, vendors and even ontologies change. What must remain true across all of them is the constitution. **That is the moat sentence the estate already ratified, and it is the one claim that does not depend on any incumbent's current capability.**
 
-### §20.3 Where this gets recorded so it stops evaporating — the mechanism already exists and is under-scoped
-The operator's sharpest question is *where does a builder record that these are linked patterns, so we stop ping-ponging.* **The machine exists: Care §19's Homology Matrix, with the verdict vocabulary `SHARED-LAW · ANALOGOUS · CARE-SPECIFIC · OPEN`, plus §1b's law-scope crosswalk that propagates `U` laws, refuses to propagate `C` laws, and keeps `A` analogous.**
+### §20.3 The mechanism is not missing and is not ours to mint — **it is OMNI Reactor, it is named, it is frozen, and its ratification run is BLOCKED**
 
-**Its defect is scope, in two ways, and both are small to fix:**
-- **It has three columns — Care, Platform, Accountability.** Pharmacy (C4.6) and Insurance were both built afterwards and **neither was added**. Every shared law each of them needed was therefore re-derived. `C6` is the proof: pharmacy independently re-derived the recommendation-integrity firewall that Care already carries as a `U` law.
-- **It lives inside one loop's capture**, so it is found only by someone already reading Care — the identical discovery failure the Comparator Registry was created to fix for comparators, and the identical failure `D0CKPT-GRD-004` names for boot surfaces.
+**R2 proposed a "Homology Obligation." That proposal is WITHDRAWN. Knox independently proposed a two-level "cross-loop archetype registry + per-profile declaration" and named SEI product-line variability, FHIR profiling, IHE integration profiles and AWS lenses as the established disciplines. That is also a re-derivation.** The estate already carries the candidate, under a name, with ratification gates, and with a successor run chartered to test it.
 
-**Proposed, not minted, and deliberately using only existing machinery:**
+**Verified at `04_manifest_read_graph.md` route `#9g` and spine watch item `WI16`:**
 
-> **The Homology Obligation.** A new loop, profile or cousin arc **cannot close** until it has (a) added its column to the homology matrix, (b) declared per dimension `SHARED-LAW | ANALOGOUS | SPECIFIC | OPEN`, and (c) declared its `U/C/A` law-scope inheritance. Enforcement is Gate-1b §15.1 **part E** — a named consuming gate that cannot pass without disposing of the finding — applied to *inheritance* rather than to *output*.
+> **`OMNI Reactor` = `candidate_spine_doctrine` · named · non-ontological · UNPROMOTED · FROZEN** — OMNI's **risk-adaptive intent-to-consequence constitution**: **8 invariants** (beginning **`admissibility-before-consequence` · `domain-owned commitment` · `accepted custody`**) + **5-layer ownership** (*domain owns authoritative state · principal the duty · committer authority · actor custody · OMNI enforces continuity and proves the chain*) + care-first preamble + neighbor boundaries + **compiled-not-deployed** (*NOT a domain/plane/object — an overlay; do NOT mint `omni_reactor`*) + **firewall authority, NOT legislate liability** + **Reactor (doctrine) / plant (product) / grid (network)**.
+> Home: `EVRUN-2026-000007` `_05 §I.13–§I.15` + closeout `_06`. *"THE DOC IS THE HOME — do NOT relitigate or re-expand"* (frozen 2026-07-16).
 
-Nothing new is invented: the matrix exists (Care §19), the vocabulary exists (§19 + §1b `U/C/A`), and the enforcement pattern exists (§15.1 part E). **The matrix's home is the open question** — it is cross-cutting and currently lives in Care. Candidate homes: promote to the doctrine spine beside the Comparator Registry, or hold it as a Reactor-class registry. **Not decided here — this is an Insurance gate and the matrix is not Insurance's to move.** Routed at §17.
+**Three things follow, and they are the reason this section exists.**
 
-**Insurance's own column is owed and is NOT authored here.** Doing it properly requires the two carriers §0.7 records as unconsumed (C3.8 G4; `EVRUN-000007 §02` / `EVRUN-000008`). **Authoring a column from an arc that has not read its inputs is how this problem started.**
+**(1) `admissibility-before-consequence` is Reactor invariant #1.** The same law is therefore written in **three** places: Reactor invariant 1, Care §5b's four-projection admissibility, and R1's re-derived "execution admissibility." **Three statements of one law, none aware of the others.** That is no longer a Care-inheritance story — it is the strongest available evidence that the constitutional layer is real and unrouted.
+
+**(2) Reactor's ratification gate (2) already specifies the adversary Knox proposed from scratch.** Verbatim: *"an **independent standards-native adversary** (pre-registered rubric · **FHIR-Task/RequestOrchestration + NCPDP + TEFCA + Epic + workflow baseline** · Builder → independent-Adversary → separate-Adjudicator · **no predetermined OMNI-winning answer**)."* Six gates exist: doctrine dedup · the standards-native adversary · one runtime seam · three contrasting traces · measured operational outcomes · legal/governance review. *"Evidence — not eloquence — changes the candidate."*
+
+**(3) The run that would execute those gates already exists and is stopped.** *"Successor run to run the gates = **`EVRUN-2026-000008`** (charter `_04`, **proposed-BLOCKED until the corrected method is accepted**)."*
+
+**So the honest state of the question the operator asked is:** the cross-loop constitution was identified three weeks ago, named, frozen correctly under `GRD-036`, given a six-gate ratification path and a chartered test run — **and then no arc routed to it, so Pharmacy, the moat doctrine and Insurance each re-derived pieces of it.** The estate's own note on the second convergence reads: *"Two arcs converging on the Reactor's shape is a signal to **TEST**, not adopt."* **Insurance is the third.**
+
+**What maps and what does not — stated precisely, because "Reactor covers it" would be the next overclaim.**
+
+| Knox's level | Closest existing OMNI object | Honest maturity |
+|---|---|---|
+| **Level 1 — the shared constitution** (what recurs, what is invariant) | **OMNI Reactor** — 8 invariants + 5-layer ownership, non-ontological overlay | **exists · named · FROZEN · UNPROMOTED · 6 ratification gates unrun** |
+| **Level 2 — per-profile inheritance/variance declaration** (what each loop inherits, specializes, refuses, leaves open) | **Care §19 homology matrix + §1b `U/C/A` crosswalk** — the closest thing, and it is an analytic table inside one loop's REVIEW-DRAFT capture with three columns | **thin · Care-internal · genuinely under-built** |
+
+**Level 1 is not missing. Level 2 largely is.** That is a much smaller and more tractable statement than either R2's or Knox's, and it is the one supported by the repository.
+
+**Naming.** The operator asked for a name that is memorable and owned. **It already exists and it is his: Reactor (doctrine) / plant (product) / grid (network).** No new name should be minted, and specifically not "Homology Obligation," "archetype registry" or "Pattern Inheritance and Variance Declaration" — that is the seven-labels failure at the constitutional layer.
+
+**Home.** Knox guessed the architecture-memory control plane. **The repository already answers it differently:** Reactor's declared home is `EVRUN-000007 _05`, its routing is `#9g`, its surfacing obligation is `WI16` under the spine disposition gate, and its disposition preview is **`v4-spine-delta`**. **It lands in the spine.** That is also exactly what the operator said it was for.
+
+**What Insurance does with this: nothing but record it.** Gate 2 does not adopt Reactor, does not populate Level 2, does not author an Insurance profile declaration, and does not unblock `EVRUN-000008`. **Insurance's entire contribution is to be counted as the third convergence signal and to say so where the next arc will see it.** Attempting the constitutional work inside an Insurance gate is precisely the *"strap it on backwards"* failure this section documents.
+
+**The operator decision this surfaces — and it is an operator decision, not a gate output:** whether to unblock `EVRUN-2026-000008` and run Reactor's six ratification gates as pre-spine work. Three independent arcs have now converged on its shape; the estate's own standing rule says convergence is a signal to test. **Not started, not authorized here, and explicitly not Insurance's to start.**
+
+### §20.4 Why this recurred for six months, answered mechanically
+Two independent routing defects, both verified:
+- **Route `9p`** (the Gate-2 read floor) routes the Insurance chain only, so Care §5b never entered the packet.
+- **Route `#9g`** (Reactor) is `consult_if_routed` and no arc's read floor routes to it — so the constitutional candidate is invisible unless you already know it exists.
+**A frozen candidate with no inbound route is indistinguishable from a candidate that does not exist.** That is `GRD-043` at the constitutional layer, and it is the same disease as `D0CKPT-GRD-004` (boot surfaces) and the Comparator Registry's founding rationale — each solved for its own surface, none solved generally.
+
+**One comparator gap worth recording rather than fixing here:** `comparator_analogy_registry.md` carries **FHIR/HL7/DICOM/LOINC as a payload-standards comparator** — *"standards alignment; structured lab/imaging ingestion."* **It does not carry FHIR *profiling* as a commonality/variability mechanism**, nor IHE integration profiles, nor SEI product-line variability, nor platform-plus-lenses. So the operator's *"we've mentioned FHIR numerous times"* is true and precisely explains the six months: **we compared against FHIR's content and never against FHIR's method.** Routed to the comparator registry as a named gap; **not authored here**, because the registry is a shared surface and Reactor gate (2) already owns the standards-native comparison.
 
 ### §20.4 What this does not license
 No new domain, no new object, no new registry minted, no Insurance ownership of Care's admissibility model, no reopening of C4.6, and no change to the Gate-2 verdict. **§20 changes what Gate 2 claims to have discovered, not what Gate 2 concluded.**
