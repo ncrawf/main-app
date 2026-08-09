@@ -31,7 +31,7 @@ Traced to two mechanical defects, both verified: **route `9p`** (the Gate-2 read
 | **Insurance Gate 2** | **FROZEN.** PR #14 open, draft, **unmerged**, head `4959218`. Verdict `SURVIVES_WITH_NAMED_RECONCILIATIONS`, **provisional, discharge incomplete, artifact NOT accepted** |
 | `C3.9` | **not started** — unchanged `shell_pending_population` |
 | `E2` | **not started** |
-| **`OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL`** | **chartered at R1, not started**, on its own branch `cursor/fai-foundational-architecture-30f4` from `main @ 9a6e7de`. Existence is DECIDED, not tested. Gate 0 completes on Nick + Knox acceptance |
+| **`OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL`** | **chartered at R2, not started**, on its own branch `cursor/fai-foundational-architecture-30f4` from `main @ 9a6e7de`. Existence is DECIDED, not tested. Gate 0 completes on Nick + Knox acceptance |
 | Integrator | **VACANT** |
 | Program checkpoint | **unchanged** — 2026-08-09 checkpoint still current |
 
@@ -69,7 +69,7 @@ Traced to two mechanical defects, both verified: **route `9p`** (the Gate-2 read
 
 **Nick + Knox accept, amend, or reject the Gate-0 charter.** Nothing auto-starts. Gate 1 (the single-law outpost) does not begin until the charter is accepted.
 
-**R1 rewrite (2026-08-09, post-Knox):** the existential test and the single-law probe are DELETED — the operator's "outpost" meant the first permanent structure at the real site, not a test cabin. `.cursor/plans/` is rejected as the final home. The FAI files were split onto their own branch; Insurance and FAI do not share closure. **New finding: `00_document_governance_and_taxonomy_2026-05-19.md` fixes ten categories, forbids inventing new ones, and contains no `specification`, `contract`, `pattern`, `profile` or `conformance` class — while 16 contract files exist. Fixing the taxonomy is the first move of Gate 1.**
+**R1 rewrite (2026-08-09, post-Knox):** the existential test and the single-law probe are DELETED — the operator's "outpost" meant the first permanent structure at the real site, not a test cabin. `.cursor/plans/` is rejected as the final home. The FAI files were split onto their own branch; Insurance and FAI do not share closure. **R2 (post-Knox):** the whole is named **OMNI Architecture** — un-branded, no coinage, no `constitution`. **Reactor is classified: a candidate cross-cutting architecture STANDARD for consequential transitions — not dead, not the whole, not unsettled.** **Taxonomy diagnosis corrected: TWO taxonomies exist and are mutually invisible** — the governance-category enum (10 categories, no `contract`, while 16 contracts exist) and the ratified `00_architecture_artifact_index.md` (12 architecture roles, no `standard`/`pattern`/`profile`/`conformance`/`vocabulary`/`view`). Not an absence — a schema mismatch plus a stale role set. **Four additions, all operator-raised: two profile axes (operating-area vs deployment), variation points as the answer to enterprise customisation, instance and fleet views, and architecture change control.** Sequencing answered: **the taxonomy IS the stake; organize → state (spine) → explain (thesis).**
 
 **If the charter is rejected:** Insurance unfreezes and resumes its own sequence — `C3.9` → affected traces → `E2` — and the foundational question returns to `WI16` and the spine disposition gate as an unresolved item.
 

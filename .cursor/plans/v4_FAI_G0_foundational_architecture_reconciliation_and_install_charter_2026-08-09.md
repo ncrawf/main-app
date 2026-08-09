@@ -1,16 +1,19 @@
-# v4 — FAI — Foundational Architecture Reconciliation & Installation — GATE-0 CHARTER (R1)
+# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R2)
 
-Document type: `handoff_or_readiness_gate` (arc-opening packet — using an **existing** taxonomy category deliberately; see §4)
-Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, no category, no artifact class.**
-Status: **`gate_0_charter_R1 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
+Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
+Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
+Status: **`gate_0_charter_R2 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
-Lifecycle role: opens `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL`.
+Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
 Supersedes: nothing. Superseded by: none.
 Manifest action: `add_tier2` **PROPOSED** — not landed (`PRESPINE-PHASEA-INTEGRATOR` VACANT).
 Review gate: `user_knox_required`
 
-> **R1 correction receipt.** R0 (`8c0e8b1`, Insurance branch) contained two structural errors, both rejected by Knox and by the operator, both accepted here: **(a)** it treated the arc as an open existential question with a `NOT_A_SYSTEM` exit; **(b)** it proposed a single-law `payment state ≠ care state` probe as Gate 1. **The operator's "outpost" meant the first permanent structure at the real site — not a test cabin to decide whether the site exists.** I misread it. Both are deleted. R0 also named `.cursor/plans/` root as the candidate home; **also deleted** (§5).
+> **Correction receipt R0 → R1 → R2.**
+> **R0** (`8c0e8b1`, on the Insurance branch — a package-boundary violation, since corrected): treated the arc as an open existential question with a `NOT_A_SYSTEM` exit; proposed a single-law probe as Gate 1; named `.cursor/plans/` as the candidate home. **All deleted at R1.** The operator's "outpost" meant *the first permanent structure at the real site*, not a test cabin to decide whether the site exists. I misread it.
+> **R1** claimed *"the taxonomy has no `contract` class, therefore OMNI never classified contracts."* **Half wrong — corrected at R2 (§4).** `doctrine/00_architecture_artifact_index.md` exists, is ratified, and already defines System Map, Domain Contract and Seam/Event Contract. Knox caught this. **The real defect is narrower and worse: two taxonomies exist, they are inconsistent with each other, and neither carries the roles this arc needs.**
+> **R2** (this): names the thing **OMNI Architecture**; classifies Reactor; separates standards from patterns; adds the four things neither reviewer had (§6); answers the operator's sequencing question (§2).
 
 ---
 
@@ -18,147 +21,181 @@ Review gate: `user_knox_required`
 
 | Fact | Value |
 |---|---|
-| Existence question | **CLOSED. The thing exists.** Decided by the operator; Knox concurs. Not reopened, not gated, not tested |
-| Arc state | `chartered_R1 · not_started` |
-| What this file authorizes | **nothing** — it is a proposal for Nick + Knox acceptance |
-| Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` not started. `E2` not started |
-| Branch posture | **this arc is on its own branch from `main @ 9a6e7de`.** Insurance and FAI do not share closure (§8) |
+| Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
+| Name of the whole | **OMNI Architecture** — see §3 |
+| Arc state | `chartered_R2 · not_started` |
+| What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
+| Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
 | Blocking obligation | **`PRESPINE-PHASEA-INTEGRATOR` VACANT.** No shared control-plane surface may land |
 
 ---
 
-## §2 — What the thing is, and the two parts Knox's model is missing
+## §2 — The operator's sequencing question, answered: **the taxonomy IS the stake**
 
-**Working functional description (NOT a name):** the build-facing source that states the OMNI-wide rules every operating area must satisfy, defines the reusable architectural compositions those areas instantiate, declares how each concrete area specializes them, and specifies the proof required before anything is built.
+*"Do we plant the stake so we can build spine → thesis → taxonomy, or do we run a taxonomy arc?"*
 
-Knox proposes four parts. **Pressure-tested against ISO/IEC/IEEE 42010 (the international standard for architecture description) and against this estate's own failure record, four is incomplete by at least two — and both omissions are the direct causes of this session's failures.**
+**They are the same act, and the evidence is this session.** The moment the question became *"what artifact classes exist"*, it produced more build-relevant clarity in one pass than five arcs produced in months. That is not luck — **taxonomy is the container question, and containers constrain everything placed in them.** Insurance, Pharmacy and Care each spent an arc discovering they had no place to put what they found.
 
-| # | Part | Status | Why |
-|---|---|---|---|
-| 1 | the normative rules every area must satisfy | Knox | — |
-| 2 | reusable architectural compositions | Knox | — |
-| 3 | per-area specialization declarations | Knox | — |
-| 4 | conformance + build-entry enforcement | Knox | — |
-| **5** | **controlled vocabulary / term registry** | **ADDED** | **The seven-labels disease IS a missing controlled vocabulary.** One law carried seven names across the estate and three arcs re-derived it. No amount of pattern-writing fixes that; a term registry does. First-class, not a glossary appendix |
-| **6** | **correspondence rules** — how the parts and the existing maps relate to one another | **ADDED** | 42010's term. **Nothing in OMNI states how the System Map relates to the Surface Map relates to contracts relates to Reactor.** That absence *is* the disease: every arc inferred the relationships and inferred them differently |
-| **7?** | **views/maps as a typed part** | **OPEN** | The System and Surface Maps are already architecture *views*. Knox files them in a folder without typing them. Gate 2 decides whether "map" is a part or a pattern |
+**So the artifact-role model is the first normative content of OMNI Architecture, not a follow-on.** You cannot install what you cannot classify, and you cannot classify without somewhere to put it.
 
-**Four is probably not the number. Six is probably closer. Gate 2 decides — but 5 and 6 are not optional, because the estate's two most expensive failures map exactly onto their absence.**
+**And the original plan inverts, for a reason that is now visible.** Spine → thesis → taxonomy failed *five times* because a spine is a **statement of an architecture**, and we kept trying to state an architecture that had never been organized. **Corrected order: organize (this arc) → state (spine) → explain (thesis).** Contracts already exist and get reconciled in, not rebuilt.
 
 ---
 
-## §3 — Three things this charter refuses to accept on assertion
+## §3 — Naming: settled, un-branded, and deliberately boring
 
-### §3.1 "Constitution" is the wrong word, and the operator's reason is architecturally correct
-A constitution is what everything rests on. **In OMNI that is the thesis.** This layer does something narrower and more useful: it **constrains construction and blocks non-conforming builds**. Established options, with provenance, **for the operator to choose from — no agent names this**:
+**The whole thing is `OMNI Architecture`.** It is the actual architecture of the system and the company. It needs no coined name because it is not a new invention — it is the thing we have been building unlabelled for six months.
 
-| Candidate | Provenance | Fit |
+| Rejected | Why |
+|---|---|
+| **OMNI Constitution** | collides with the thesis, implies foundational-most — **and the estate already uses "constitutional invariants" for Doctrine** (Artifact Index), so the word is taken |
+| **OMNI Kernel** | programmer boilerplate; says nothing about care |
+| **OMNI Reference Architecture** *(as the master name)* | a *reference architecture* is a reusable baseline for a **family of implementations**. That is a real and useful thing for OMNI's 1000-deployment future (§6.1) — **it is a part, not the whole** |
+| **OMNI Base Spec** | FHIR's term; imports FHIR's identity (§3.2) |
+| **OMNI Architecture Description** | ISO's technical term for the artifact collection. Correct as *metadata*, wrong as a product name |
+
+**Named mechanisms keep their names inside it:** Polaris · Reactor · Reservoirs · GCE. **The container does not need to be memorable. The mechanisms already are.**
+
+### §3.1 ISO/IEC/IEEE 42010 — a lens, not an identity
+Use it during this arc as a **completeness check**: what is the entity of interest · who are the stakeholders · what concerns must be addressed · which viewpoints exist · which views answer them · **what correspondences connect the views** · where are the contradictions. **Do not claim conformance, do not adopt its vocabulary wholesale, and do not name the package after it.** The standard explicitly does not prescribe the architecture, the process, the notation, the tooling or the file format — so it cannot answer any question we actually have. **`architecture description` may appear in metadata as the technical class of the collection. Nowhere else.**
+
+### §3.2 FHIR — borrow the mechanics, reject the identity
+**Borrow:** canonical identifier · explicit versioning · a base definition that a specialization constrains · differential vs snapshot · status and publisher · machine-readable validation against a declared profile · and the rule that a specialization **may constrain but may never loosen** what it inherits.
+**Reject:** framing OMNI as building a FHIR equivalent. OMNI profiles govern authority, ownership, consent, commitment, custody, correction, workflow, projection, experience and conformance — a FHIR profile constrains a data structure.
+**Therefore the artifact is an `Operating Profile`, never a "profile"** unqualified, so no future agent mistakes it for a FHIR StructureDefinition.
+
+---
+
+## §4 — The taxonomy defect, corrected: **two taxonomies, inconsistent, both incomplete**
+
+R1 said the estate had no contract class. **Wrong, and Knox is right.** Verified — there are **two** classification systems and they do not reference each other:
+
+| | `00_document_governance_and_taxonomy_2026-05-19.md` §2 | `00_architecture_artifact_index.md` |
 |---|---|---|
-| **specification** (normative core) | IETF RFC / W3C / AUTOSAR | **strongest** — "conformance" is only meaningful against a *specification*; the word does the work |
-| **reference architecture** (the package) | SEI, Microsoft, AWS | strongest for the *package* containing spec + patterns + profiles |
-| **base specification + profiles** | **FHIR** — base spec that profiles constrain and extend, with computable conformance | closest healthcare-native analogue; already half-inherited via C4.6 |
-| **architecture description** | ISO/IEC/IEEE 42010 | precise, standards-grade, dry |
-| *building code* | not software | wrong domain, **right connotation** — normative, testable, inspector-enforced, tells you what any building must satisfy without telling you what to build |
-| ~~constitution~~ | — | **rejected** — collides with the thesis, and implies foundational-most |
+| Answers | **how is this handled and routed?** | **what architectural job does it do?** |
+| Contents | 10 governance categories: `manifest_or_catalog · canon_digest · doctrine · adr · domain_rule_slice · audit_or_pressure_test · evidence_or_ingestion · narrative_or_postmortem · handoff_or_readiness_gate · future_or_parked_watch` | 12 artifact roles with ONE-job / FORBIDDEN / home per role: **System Map · Domain Contract · Seam/Event Contract · Doctrine · ADR · Open Decisions · Supersession · Guardrails · Field cases · Evidence/Workbench · Future arcs · Build OS · Catalog/Read-graph/Boot** |
+| Says of itself | *"Do not invent a new category unless explicitly approved"* | *"OMNI did not lack an artifact OS; it had one, but its System Map and doctrine layers had drifted out of conformance"* |
+| Missing | `contract`, though **16 contract files exist** | `standard` · `pattern` · **`operating profile`** · `conformance` · `controlled vocabulary` · `view` beyond the System Map |
 
-### §3.2 Reactor's scope is NOT settled, and settling it needs no gate
-Knox states *"Reactor is one major module inside it"* on the strength of the `EVRUN-000007/000008` terminus. **That terminus describes what the run was chartered to answer — intent-to-consequence continuity. It does not establish that Reactor is only that.** Reactor's own framing is *"candidate constitutional center"* — an ambition strictly larger than its evidenced scope. **Reading "what the run covered" as "what the concept is" is a category error, and it is exactly the error that produced this session's other failures.**
+**Verified: none of `profile`, `pattern`, `standard`, `conformance`, `vocabulary` or `view` appears as a role in the Artifact Index.**
 
-**How it resolves, without a gate and without another Reactor essay:** lay Reactor's **eight invariants** beside Care's constitutional laws, GCE's crossing spine, and the 05-17 three-layer pattern, **in one table, once.** Either the eight cover the space or they visibly do not. **That is a reading exercise in Gate 2's first hours, not a test and not a pass.** The operator's instruction stands: no six-gate ceremony to answer a question a table answers.
+**Accurate diagnosis:** the governance-category axis and the architecture-role axis are **conflated in some places and mutually invisible in others**, and neither carries the roles this arc needs. **This is not "OMNI never understood contracts." It is a schema mismatch plus a stale role set.**
 
-### §3.3 "Patterns" is the correct established term — and that is the honest answer, not a better one
-The operator asks whether there is a better name than a `patterns` folder. **There is not, and inventing one would be the eighth-label error.** "Pattern" is the established term for a reusable architectural composition — *Design Patterns*, *Pattern-Oriented Software Architecture*, *Patterns of Enterprise Application Architecture*. It is diluted by overuse, not wrong. **What matters more than the folder name: OMNI's patterns carry conformance obligations, which makes them closer to FHIR profiles applied one level up than to a pattern catalogue.**
+**The repair is multi-axis, not one flat enum.** A passport should carry, independently: `governance_category` · `architecture_role` · `authority_maturity` · `scope` · `plane_or_view` · `build_evidence_maturity`. Reactor's honest current position is expressible only this way — `doctrine` / `cross_cutting_architecture_standard` / `candidate` / `cross_cutting` / `[seam, capability, projection]` / `fixture_tested_partial` — and **no single enum can say that**, which is precisely why it has been unclassifiable and therefore unfindable.
 
 ---
 
-## §4 — **The forwards move, and it must come first: the document taxonomy is stale and missing the classes this work needs**
+## §5 — Reactor: the straight answer the operator has asked for three times
 
-The operator's sharpest point: *"what does a normal tech app taxonomy look like? what are the files? then we go fill them in."* **The estate already has that file, and it is the reason we cannot simply start writing.**
+> **Reactor is a candidate cross-cutting ARCHITECTURE STANDARD governing consequential transitions and cross-authority continuity. It is not dead. It is not the whole of OMNI Architecture. It is not "unsettled."**
 
-`doctrine/00_document_governance_and_taxonomy_2026-05-19.md` §2 fixes ten categories and states: **"Do not invent a new category unless explicitly approved."**
+**Why this is a classification and not a demotion.** Its eight invariants — admissibility before consequence · domain-owned commitment · accepted custody · no silent orphaning · selective reopening · compensation/remedy/reconsideration/outcome separation · honest projection · bounded proof — are profound rules about **intent becoming real-world effect**. They do not define the domain/truth map, evidence-to-adoption, projection construction, connector architecture, profile inheritance, or the artifact taxonomy. **Classifying it as a standard is what makes it usable rather than mystical, and it is what gives it an address.**
 
-`manifest_or_catalog` · `canon_digest` · `doctrine` · `adr` · `domain_rule_slice` · `audit_or_pressure_test` · `evidence_or_ingestion` · `narrative_or_postmortem` · `handoff_or_readiness_gate` · `future_or_parked_watch`
+**R1's objection is withdrawn, and here is the honest reason.** R1 refused Knox's classification because the terminus describes *chartered scope*, not *concept scope*, and Reactor's own framing was "candidate constitutional center." **That refusal was right about the logic and wrong about the consequence.** Leaving the role floating "until reconciliation" is what kept it unfindable for three weeks and three arcs. **The correct move is to classify at evidenced scope now, and let Gate 2 broaden it by explicit decision with evidence.** A revisable classification beats an honest vacancy.
 
-**Verified absent from that list: `specification` · `contract` · `pattern` · `profile` · `conformance`.**
-
-> **And `contract` is absent while 16 contract files exist in `.cursor/plans/contracts/`.** The taxonomy predates Foundation vNext. **We have been writing the estate's most build-facing artifacts into a governing taxonomy that has no class for them for months** — the same staleness as the 05-17 pattern, `WI16`, and Build Entry.
-
-**Consequence, and it is the actual first move:** every artifact class this arc needs would be an unapproved new category. **So Gate 1 begins by fixing the taxonomy — deciding what classes of document exist, what authority each carries, and where each lives — and only then creating artifacts.** That is building it forwards. It is also small, bounded, and does not require reconciling a single law first.
+**What Gate 2 tests — and it is one table, not a gate.** Lay the eight invariants beside Care's constitutional laws, GCE's crossing spine and the 05-17 three-layer pattern. **The questions are narrow:** does any invariant duplicate a law owned elsewhere · does any need narrowing · does any belong in a different standard · are there consequential-transition clauses scattered outside Reactor that should merge into it. **Not "what is Reactor." That is answered above.**
 
 ---
 
-## §5 — Where it lives
+## §6 — Four things neither reviewer's model contains, and all four are the operator's
 
-**Not `.cursor/plans/`.** That is the working estate — charters, packets, gate results, preservation, evidence. It stays that.
+Knox proposes ten artifact roles; R1 proposed six parts. **Both omit the same four, and every one of them is load-bearing for a 1000-instance SaaS.** *(Do not pre-lock any count — Gate 2 decides the final set.)*
 
-**Working target: a top-level, tool-independent architecture package** (Knox's `/architecture` shape is accepted as a *direction*, not as final paths). Constraints:
-- **one canonical copy.** The System and Surface Maps migrate in or are superseded there **as one governed transaction** — never duplicated;
-- **`docs/architecture/`** keeps ADRs, narratives, rationale, rejected alternatives — the informative half;
-- **correctness test:** a builder opening Insurance, Pharmacy or Gmail reaches the normative core **without knowing it exists**;
-- **god-layer test, wired from the first commit:** the package **owns no truth and holds no commit authority.** C4.6 `C10` (*no shadow god-domain — ownership matrix + schema review*) is the existing runnable guard and applies to this package itself. **If it ever owns state, it has failed.**
+### §6.1 There are TWO profile axes, and conflating them would be fatal
+*"This isn't ONE version of Hims, this is 1000 versions of Hims."*
 
----
+| Axis | Answers | Examples |
+|---|---|---|
+| **Operating-area profile** | how does OMNI do *this kind of work*? | Insurance · Pharmacy · Labs · Gmail · payroll · banking |
+| **Deployment profile** | how does *this instance* of OMNI run? | a single clinic · a federation · Henry Ford's enterprise · the composed-enterprise posture where Epic and the ERP keep native ledgers |
 
-## §6 — Gates
+**Both are specializations of the same shared architecture, and they are orthogonal.** Henry Ford's instance runs the Insurance operating profile *and* an enterprise deployment profile. **A one-axis profile system collapses them, and then every customer deviation looks like an architecture change.** The estate already has the deployment vocabulary and no home for it: the pre-spine map §5 names **OMNI-primary · OMNI-composed enterprise · OMNI federated network node**, and Federation owns the 6-tier tenancy, `legal_entity` and brand structure.
 
-**G0 — lock and authorize.** Existence is decided, not tested. Lock: final package class and path · artifact classes (§4) · source set (§7) · integrator and write authority · supersession method · non-actions. **Exit: Nick + Knox acceptance.**
+### §6.2 Variation points — the actual answer to "Henry Ford says conform it to us"
+This is the SEI product-line mechanism and it is the difference between scaling to 1000 instances and dying at 20: **the architecture declares, in advance, where deviation is permitted and how.** Anything inside a declared variation point is **configuration**. Anything outside it is a **change to the architecture**, which goes through the architecture's own change process — not a customer's ticket.
 
-**G1 — erect the outpost.** *The first permanent structure at the real site, in real materials.* Fix the document taxonomy first (§4), then create the actual package at its actual path: the normative core (named by Nick), the manifest, the pattern/profile/conformance schema homes, the map-migration plan, the normative/informative split, and the maintenance and versioning contract. **`candidate_canonical`. Only currently governing, uncontested laws enter the first normative draft; everything unresolved is marked unresolved rather than filled speculatively.** Not a slice. Not a test. The destination.
+**Without declared variation points, every enterprise customer negotiates against the whole architecture, and the architecture loses.** SEI names the failure modes exactly: duplicate mechanisms, incompatible variation choices, unnecessary variation, and missed required variations. **All four are already observable in this estate.**
 
-**G2 — full reconciliation, paid once.** Controlling termini only (§7). Per candidate law or pattern: source · authority · maturity · scope · conflicts · supersession · classification · normative status · build maturity · canonical destination · conformance method. **First hours: the Reactor / Care / GCE / 05-17 comparison table (§3.2).** Parallel source packets, one integrator — not one agent holding a million tokens.
+### §6.3 Views must include instance and fleet, not only builder
+*"How does an agent look at 1 federation, at all the federations, at OMNI at 100k feet?"* That is a **viewpoint** question: different stakeholders, different concerns, different views over one architecture. The two existing maps are builder-facing views of P1 and P4/P5. **An instance view and a fleet view do not exist**, and the reader is not only a builder — it is an agent operating one deployment, and an agent operating the whole estate.
 
-**G3 — profile pressure.** Pharmacy · Insurance · Labs/imaging · Gmail/Slack · payroll/banking · one simple internal domain · **one deliberate non-cousin**. This detects over-generalization and wrong inheritance. **It does not re-litigate existence.**
-
-**G4 — ratify and propagate.** Package promoted to its declared authority · maps migrated or superseded · profiles installed · conformance wired · Build Entry updated · read graph updated · 05-17 superseded or narrowed · `WI16` corrected · spine/thesis/contracts point at the package · **then Insurance returns to `C3.9` and `E2`.**
-
----
-
-## §7 — Bounded source set — controlling termini, not a corpus sweep
-
-`coherent_omni_architecture_pattern_2026-05-17.md` (**Tier-0 #14, mandatory, unread at boot by this agent**) · `OMNI_System_Map_vNext.md` · `OMNI_Surface_Map_vNext.md` · `doctrine/omni_enterprise_posture_2026-06-03.md` (**GCE — the only ratified member**) · **`doctrine/00_document_governance_and_taxonomy_2026-05-19.md` (§4)** · Polaris (`v4_C4_1_…`) · Care capture §1b/§5b/§5b.1/§18/§19 · Platform capture · Accountability capture · `EVRUN-000007 _05 §I.13–§I.15` + `_06` · `EVRUN-000008 _03` + `_04` · `v4_C4_6_…` §0.5 + §12 · C3.8 G4 · the 16 domain contracts · Build OS `09`/`10`/`11` (**self-declared stale**) · `v4_INS_G1B_…` + the frozen Gate-2 result.
-
-**Out of scope:** whole-estate sweep · 300-transcript rescan (**concept registries first; reopen a raw only where a load-bearing claim depends on it**) · reopening Reactor's eight invariants for their own sake · any implementation lane.
+### §6.4 Architecture change control — currently nowhere
+*"How do changes get made to the architecture, but really to the repo as a whole?"* The estate has fragments — Build Entry, AWP §5, the supersession ledger, the catalog — and **nothing states how a proposed architecture change is raised, evaluated, accepted, rejected or superseded**, nor who may. **A maintained architecture without a change process becomes the 05-17 pattern: universally routed and quietly stale.** This is a required Gate-1 deliverable, not a Gate-4 nicety.
 
 ---
 
-## §8 — Package boundary
-**Insurance and FAI do not share closure.** This arc is on its own branch from `main @ 9a6e7de` with its own PR and lifecycle. PR #14 contains Insurance only. **Co-occurrence in one conversation is not package membership** — the estate already learned this during the Insurance parent carry, and R0 repeated it.
+## §7 — Standards are not patterns
+R1 blurred these; Knox is right to split them, and the distinction is operational.
+
+**Standard** — normative cross-cutting requirement, `MUST`/`MUST NOT`, conformance-testable. *Reactor · GCE · source-authority · projection-authority.*
+**Pattern** — a reusable solution to a recurring problem, with context, forces and tradeoffs. *Saga/compensation · anti-corruption layer · evidence-to-adoption composition.*
+**A standard tells you what you may not violate. A pattern tells you a good way to solve something.** **`/patterns` must not become the junk drawer for every recurring phrase** — that is the seven-labels failure with folders.
 
 ---
 
-## §9 — Explicit non-actions
-No architecture authored before G0 acceptance · no shared control-plane surface written · **no name chosen by any agent** · no new taxonomy category minted before G1 · no new domain, plane, object or god-layer · no `reactor-service` · no promotion by passing reference · **no touching PR #14** · no `C3.9` · no `E2` · no implementation.
+## §8 — Physical shape (direction, not locked paths)
+Tool-independent, root-discoverable, **not `.cursor/plans/`** — that stays the working estate (charters, packets, gate results, preservation, evidence). `docs/architecture/` keeps ADRs, narratives and rationale — the informative half.
+
+Direction: an `/architecture` root holding **standards · views · contracts (domain/seam/capability/projection/surface) · operating profiles (area + deployment) · patterns · decisions · vocabulary · conformance**, with the existing System and Surface Maps **migrated in or superseded there as one governed transaction — never duplicated.**
+
+**Two hard constraints:** **no `constitution.md`** (§3) · **no hand-maintained `manifest.yaml`** — the catalog and read graph already are the manifest, and a second hand-maintained copy recreates the duplicate-state failure this estate has now suffered four times. **A machine-readable manifest is acceptable only if generated from canonical metadata or if it becomes the single source.**
+
+**God-layer test, wired from the first commit:** the package **owns no truth and holds no commit authority.** C4.6 `C10` is the existing runnable guard and applies to this package itself.
 
 ---
 
-## §10 — Failure modes, each with its receipt
-Stale-state read instead of terminus (`EVRUN-000008` asserted blocked; closed 07-18) · **mandatory Tier-0 route unread at boot (05-17)** · durable home carrying stale content (`WI16`) · arc-local routing (`9p` / `#9g`) · concept frozen without an address (Reactor) · re-derivation mistaken for discovery (O-2/O-3; Knox's SEI/FHIR ≈ Reactor gate 2) · comparator consumed as content not method (FHIR) · **governing taxonomy stale against its own estate (§4)** · patch accretion (R0→R3 + retraction) · **package-boundary violation (R0 mixed FAI into the Insurance branch)**.
+## §9 — Gates
 
-**Every gate re-proves a boot receipt for Tier-0 #14.**
+**G0 — lock and authorize.** Existence decided. Lock: name · package class and path · artifact-role model direction · source set · integrator · supersession method · non-actions. **Exit: Nick + Knox acceptance.**
+
+**G1 — erect the outpost.** Install the actual `/architecture` package at its real path; **reconcile the existing Artifact Index into the multi-axis role model** (§4); land the **architecture change-control process** (§6.4); establish the normative/informative split, versioning and maintenance contract; declare the **two profile axes** (§6.1) and the **variation-point mechanism** (§6.2) as structure, unpopulated. `candidate_canonical`. **Only currently governing, uncontested laws enter the first normative draft; everything unresolved is marked unresolved rather than filled speculatively.** **Governance schemas are updated AFTER the architecture is installed, to represent it — not before, to permit it.**
+
+**G2 — full reconciliation, paid once.** Controlling termini only (§10). Per candidate law or pattern: source · authority · maturity · scope · conflicts · supersession · classification · normative status · build maturity · canonical destination · conformance method. **Includes the Reactor comparison table (§5).** Parallel source packets, one integrator.
+
+**G3 — profile pressure.** Pharmacy · Insurance · Labs/imaging · Gmail/Slack · payroll/banking · one simple internal domain · **one deliberate non-cousin** · **and at least two deployment profiles** (small operator · composed enterprise). Detects over-generalization and wrong inheritance.
+
+**G4 — ratify and propagate.** Package promoted · maps migrated or superseded · profiles installed · conformance wired · Build Entry updated · read graph updated · 05-17 superseded or narrowed · `WI16` corrected · **then spine, then thesis** · **then Insurance returns to `C3.9` and `E2`.**
 
 ---
 
-## §11 — The one operator authorization requested
+## §10 — Bounded source set — controlling termini, not a sweep
+**`doctrine/00_architecture_artifact_index.md` (added at R2 — the ratified baseline)** · `doctrine/00_document_governance_and_taxonomy_2026-05-19.md` · `coherent_omni_architecture_pattern_2026-05-17.md` (**Tier-0 #14, mandatory, unread at boot by this agent**) · `OMNI_System_Map_vNext.md` · `OMNI_Surface_Map_vNext.md` · `doctrine/omni_enterprise_posture_2026-06-03.md` (**GCE — the only ratified member**) · Polaris · Care capture §1b/§5b/§5b.1/§18/§19 · Platform capture · Accountability capture · `EVRUN-000007 _05 §I.13–§I.15` + `_06` · `EVRUN-000008 _03` + `_04` · `v4_C4_6_…` §0.5 + §12 · C3.8 G4 · **the 16 domain contracts** · `federation_contract.md` (tenancy for §6.1) · **pre-spine map §5 (deployment postures)** · Build OS `09`/`10`/`11` (**self-declared stale**) · the frozen Insurance Gate-2 result.
 
-Nothing else is asked for. The arc cannot open without it, because opening it changes the program's next action and that is checkpoint-level:
-
-> **I appoint Opus as `PRESPINE-PHASEA-INTEGRATOR` for the bounded foundational-architecture arc-opening transaction — branch split, checkpoint repoint, catalog rows, read-graph route. This does not authorize substantive Gate-1 authorship until the revised Gate-0 charter is accepted by Nick and Knox.**
+**Out of scope:** whole-estate sweep · 300-transcript rescan (concept registries first) · reopening Reactor's invariants for their own sake · any implementation lane.
 
 ---
 
-## §12 — STOP RECEIPT
+## §11 — Explicit non-actions
+No architecture before G0 acceptance · no shared control-plane surface written · **no `constitution.md`** · **no duplicate `manifest.yaml`** · no new taxonomy category minted before G1 · no new domain, plane, object or god-layer · no `reactor-service` · no promotion by passing reference · **no touching PR #14** · no `C3.9` · no `E2` · no implementation.
+
+---
+
+## §12 — Failure modes, each with its receipt
+Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 route unread at boot (05-17)** · durable home carrying stale content (`WI16`) · arc-local routing (`9p` / `#9g`) · concept frozen without an address (Reactor) · re-derivation mistaken for discovery (O-2/O-3) · comparator consumed as content not method (FHIR) · **two governing taxonomies mutually invisible (§4)** · **R1 asserting absence without checking the sibling taxonomy** · patch accretion · **package-boundary violation (R0)**.
+
+**Every gate re-proves a boot receipt for Tier-0 #14 and the Artifact Index.**
+
+---
+
+## §13 — The one operator authorization requested
+Opening this arc changes the program's next action — checkpoint-level — and the integrator seat is vacant:
+
+> **I appoint Opus as `PRESPINE-PHASEA-INTEGRATOR` for the bounded foundational-architecture arc-opening transaction — checkpoint repoint, catalog rows, read-graph route. This does not authorize substantive Gate-1 authorship until the Gate-0 charter is accepted by Nick and Knox.**
+
+---
+
+## §14 — STOP RECEIPT
 
 | Field | Value |
 |---|---|
-| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R1** |
+| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R2** |
 | Branch | `cursor/fai-foundational-architecture-30f4`, from `main @ 9a6e7de` |
 | Files | this charter · 2 verbatim preservations (**empty, operator-populated**) · 1 handoff |
 | Shared control-plane surfaces | **0 touched** |
-| Contracts / schemas / code | **0 touched** |
-| Minted | **nothing** — no name, category, law, pattern or object |
-| Corrected from R0 | existential test deleted · probe law deleted · `.cursor/plans` home deleted · branch split · parts 5 and 6 added · taxonomy staleness found · Reactor scope claim refused |
-| Checkpoint tier | **3** — major-arc opening; narrative owed at arc close |
+| Minted | **nothing** — `OMNI Architecture` is a description, not a coinage |
+| Corrected at R2 | taxonomy diagnosis (two taxonomies, not one absence) · Artifact Index added as baseline · Reactor classified · standards split from patterns · 42010 and FHIR demoted to lens and mechanism · part-count un-locked · **four additions at §6, all operator-raised** · sequencing answered at §2 |
+| Checkpoint tier | **3** |
 | Blocking | integrator **VACANT** |
 | Next | **Nick + Knox accept, amend or reject.** Nothing auto-starts |
 
-**STOP: `gate_0_charter_R1_pending_operator_and_knox_acceptance`**
+**STOP: `gate_0_charter_R2_pending_operator_and_knox_acceptance`**
