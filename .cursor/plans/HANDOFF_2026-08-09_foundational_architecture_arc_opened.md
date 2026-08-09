@@ -31,7 +31,7 @@ Traced to two mechanical defects, both verified: **route `9p`** (the Gate-2 read
 | **Insurance Gate 2** | **FROZEN.** PR #14 open, draft, **unmerged**, head `4959218`. Verdict `SURVIVES_WITH_NAMED_RECONCILIATIONS`, **provisional, discharge incomplete, artifact NOT accepted** |
 | `C3.9` | **not started** — unchanged `shell_pending_population` |
 | `E2` | **not started** |
-| **`OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL`** | **chartered at R3, not started**, on its own branch `cursor/fai-foundational-architecture-30f4` from `main @ 9a6e7de`. Existence is DECIDED, not tested. Gate 0 completes on Nick + Knox acceptance |
+| **`OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL`** | **chartered at R4, not started**, on its own branch `cursor/fai-foundational-architecture-30f4` from `main @ 9a6e7de`. Existence is DECIDED, not tested. Gate 0 completes on Nick + Knox acceptance |
 | Integrator | **VACANT** |
 | Program checkpoint | **unchanged** — 2026-08-09 checkpoint still current |
 

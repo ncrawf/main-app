@@ -1,143 +1,172 @@
-# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN
+# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R2)
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R1 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in the charter §1, not here.
+Status: **`execution_plan_R2 · pending_nick_knox_acceptance · nothing_started`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
-Source-of-truth relationship: subordinate to the charter. Where they differ, the charter controls.
 Manifest action: `add_tier2` **PROPOSED** — not landed.
 Review gate: `user_knox_required`
 
-**Companion:** `v4_FAI_G0_foundational_architecture_reconciliation_and_install_charter_2026-08-09.md` (R3) — the *why*, the decisions, the non-actions. **This file is the *how*.**
+**Companion:** the Gate-0 charter (R3) — the *why*. **This is the *how*.**
 
 ---
 
-## §1 — Two structural changes to the reviewed arc, and why
+## §0 — R1 → R2 correction receipt: two self-inflicted errors, both verified against the estate
 
-Knox proposed eight gates, eight whole-estate source lanes and roughly fifty named methods, with external-mechanism study at **G5** and profile pressure as the qualifier. **The arc is directionally right and backwards in exactly two places the operator named.**
+**(1) I made an optional catalog mandatory.** R1 declared `omni_work_method_repertoire.md` a *"mandatory consult at every gate"* and required a Pressure Coverage Matrix row per uncertainty. **Its own header and passport say the opposite, verbatim:**
 
-### §1.1 The external-mechanism study moves to the FRONT — it is the first substantive act, not the fifth gate
-**Knox's order:** recover the whole estate → synthesize OMNI's architecture → build profiles → *then* compare against ISO 42010, SEI, FHIR, IHE, AUTOSAR, AWS, Palantir.
+> *"**optional method catalog** … **This is an optional catalog, not a workflow.** Open it when seeing the available approaches would improve a decision; otherwise ignore it. **It prescribes no order, requires no method, has no minimum count** … **`METHOD-000` — Direct reconciliation. Read the controlling sources and answer. Default.** Use a specialized method only when a named uncertainty demands one … originates no architecture or execution authority."*
 
-**That is the exact failure this arc exists to correct.** We have carried FHIR in the comparator registry for months **as a payload standard and never as a method**, and it cost six months. Putting the method comparison at G5 means synthesizing an artifact-role model out of OMNI's own history, and *then* discovering we built a worse version of a solved problem. **The artifact-role model is the thing being decided, and established practice already answers it.**
+**Deleted.** This is the same error class as everything else this session: take something that already exists, fail to read its own terms, and impose ceremony on top of it. **Corrected method law at §4.**
 
-**Corrected: the external study is cheap, bounded, and first.** A handful of primary sources, days not weeks. Its output is the **artifact-role model and the variation model** — which is what everything downstream classifies into.
+**(2) "Most teams do considerably less — a docs folder, ADRs and a README is the whole gap" was false, and it contradicts OMNI's own landed doctrine.** Build OS `10` Rollout Step 5 already targets, verbatim: *"Automated registry, ownership leases, shared-surface locks, merge queue, semantic collision detection, parent/child scheduling, status projection and proof automation"*, plus a **declarative machine-readable work-package manifest**, a **manifest validator**, an **ownership claim/lease/transfer mechanism**, **shared-surface policy checks (policy-as-code)** — *"a lane physically **cannot** land an edit to a protected control surface"* — and a **cold-boot / replacement-agent eval suite**.
 
-### §1.2 The acceptance test is ROUTING, not profile pressure — Insurance is not the qualifier
-Profile pressure proves the architecture can **express** Insurance. **It does not prove the documents are in the right place and findable**, which is the actual failure. The operator is right: an agent can write convincing prose that Insurance is well-modelled while the estate remains unnavigable.
-
-**The real test is already written in both reviews' own closing lines:** a cold agent entering Insurance, Pharmacy, Gmail, payroll or a new federation is routed to the correct architecture, profile, variation points and proof obligations **without knowing any historical filename or this conversation.** That is **mechanically testable with a fixture**, it can be run early, and it fails loudly. **It replaces profile-pressure-as-qualifier.**
-
-Profile declarations still get written — as **structural proof that the declaration format works**, not as proof the domains are correct.
-
-### §1.3 Consequence: reconciliation becomes CLASSIFICATION, and it distributes
-**Knox's G2 pays the whole-estate synthesis tax up front, before anything is installed. That is the big bang, and it is why five prior arcs' findings evaporated — there was nowhere to put them.**
-
-**Inverted here:** install the container, then **classify existing artifacts into it in place** — what role, what authority, what maturity, where it lives — **without rewriting them.** That is cheap and mechanical. **Deep reconciliation then happens per area, when that area is next touched, because a home now exists for the finding.** Five gates, not eight, and the expensive part is distributed instead of front-loaded.
-
-**Honest answer to *"what would LangGraph or IBM or anyone with an app do?"*** — considerably less than this. A `docs/architecture/` directory, ADRs, a README that says what the system is, and a rule that changes go through it. **Most teams have less material than we do. What they have that we do not is one obvious entry point and an enforced change path.** That is the whole gap. It is ordinary, it is not exotic, and it is why this could have been done in week 4.
+**So OMNI accepted this target months ago and I benchmarked us against a modest app team.** Deleted. The correct comparator class is at §3.
 
 ---
 
-## §2 — Method law
-`doctrine/omni_work_method_repertoire.md` (**80 methods, verified**) is a **mandatory consult** for every gate. Individual methods stay **optional**. **No gate runs methods as ceremony.**
+## §1 — The two halves. R1 designed one of them.
 
-Every gate records a **Pressure Coverage Matrix** row per material uncertainty:
+| | | R1 status |
+|---|---|---|
+| **A — OMNI Architecture (content)** | standards · views · contracts · patterns · operating profiles · deployment profiles · vocabulary · decisions · conformance requirements | designed |
+| **B — OMNI Architecture Operations** | how the architecture is discovered, changed, reviewed, compiled, propagated, monitored for drift and repaired — by humans **and agents** | **under-specified** |
 
-`uncertainty · candidate methods · selected · why selected · material alternative rejected · evaluator · stop condition · result`
+**Content says what must be true. Operations makes it stay true.** R1's acceptance test — cold routing — tests only *"can I find it."* **That was the overcorrection**, and Knox is right: it does not test which version applies, what breaks if this changes, who must approve, whether it propagated, whether code still conforms, which deployments are stale, whether behaviour drifted, or whether it can roll back.
 
-**Prior-work law (applies at every gate, before anything is called new):** `M-102` controlling-terminus recovery · `M-103` authority/maturity classification · `M-106` EXISTS-AS / novelty dedup · `M-304` decision-state reconciliation. **Assume the question was litigated before; do not assume the prior conclusion was right.** Prior-us may have been smarter, less informed, more insightful, or simply wrong — the system must hold all four open.
+**Ten operations capabilities, and each already has a partial or an owner in this estate:**
+
+| Capability | What it must do | What exists today |
+|---|---|---|
+| **architecture catalog / graph** | IDs, owners, versions, roles, dependencies, applicability, supersession, proof links — **generated from canonical source, never a second copy** | `01_master_corpus_catalog.md` + `04_manifest_read_graph.md` — hand-maintained, prose |
+| **change proposal system** | branch an architecture change, identify affected resources, require owner review, preserve rationale | git branches + `CODEOWNERS` + AWP §5 |
+| **impact analysis** | traverse standard → profile → contract → code → deployment → test **before** approval | nothing |
+| **effective-architecture compiler** | resolve global standards + operating profile + deployment profile + operator variation into one snapshot | nothing |
+| **conformance engine** | test inherited requirements, forbidden loosening, source/commit authority, profile compatibility | C4.6 `C1`–`C16` · Reactor fixture (31/31) · `check-checkpoint-pointer.mjs` |
+| **propagation engine** | generate or propose downstream updates to contracts, templates, code, policies, tests, config | nothing |
+| **fleet reconciliation** | which deployments run which architecture/profile versions; upgrades, skew, deprecation, exceptions | nothing |
+| **architecture observability** | compare declared architecture to code, config, deployment and runtime behaviour; detect drift | nothing |
+| **agentic workbench** | bounded research / impact / migration / conformance agents that cooperate **without any gaining universal authority** | Agent Runtime capture (map-depth) |
+| **exception / debt lifecycle** | approved deviation with owner, scope, expiry, compensating control, removal-or-promotion | `08` + FWREG, prose only |
 
 ---
 
-## §3 — Roles, branches, writable surfaces
-**Worker** (source packets; extraction and classification only — **no architecture conclusions**) · **Integrator** (single writer of the architecture package and all shared surfaces) · **Adversary** (fresh context; never the builder) · **Adjudicator** (authors neither submission; rubric frozen before results) · **Operator** (Nick — accepts gates, chooses the name, appoints the integrator).
+## §2 — Multi-agent operating loop — bounded roles, no sovereign architect
 
-**Branch model:** one FAI branch per gate, from the then-current `main`. **Shared control-plane surfaces are integrator-only and land at G4 or with explicit operator direction.** No worker writes outside its own packet. Collision surface = the architecture package itself; **one writer, serialized.**
+```
+external change · runtime drift · operator request · domain finding
+   → evidence agent            preserve exact source
+   → classification agent      terminus · authority · owner · profile · decision state
+   → proposal agent            scoped branch; CANNOT merge
+   → impact agent              affected standards/contracts/profiles/code/tests/deployments/agents
+   → owner review              domain owners for their resources; steward for cross-cutting
+   → conformance agent         policies · contradictions · compatibility · negative controls
+   → migration agent           approved templates / transformation recipes
+   → integrator                merges the authorized coherent change set
+   → fleet agent               publish version; resolve rollout per deployment profile
+   → observer agent            compare intended vs live; opens proposals, NEVER silently rewrites
+```
+
+**Every run pins:** represented principal · agent runtime profile · architecture version · operating profile(s) · deployment profile · federation/operator/tenant/site · permitted tools · writable resources · required reviewers · commit ceiling · proof obligations.
+
+**This is where Agent Runtime, Build OS, GCE and the deployment model meet.** It is **not** a new agent framework — it is a binding of the existing Agent Runtime object model (`agent_definition` · `agent_runtime_profile` · `agent_session` · `agent_run` · `subagent_run` · authority ceilings · context policy · delegation) to architecture resources.
 
 ---
 
-## §4 — The gates
+## §3 — The tool decision, made rather than hedged
 
-### G0 — LOCK
-**Purpose:** make the arc executable and stop the redesign loop.
-**Methods:** `M-101` source-base declaration · `M-102` terminus recovery · `M-103` authority matrix · `M-104` coverage manifest · `M-108` missing-evidence scan · `M-701` charter · `M-704` multi-angle authorability · `M-706` verdict vocabulary · `M-710` boot sync.
-**Outputs:** accepted charter (R3) · accepted this plan · role assignment · branch/write model · **exact first G1 action**.
-**Verdicts:** `READY_TO_EXECUTE` · `READY_WITH_EXACT_AMENDMENTS` · `NOT_READY_<reason>`.
+**The operator's instruction is explicit: stop naming these for the fifth time.** So this is a decision table, not prose. **Three of these already exist here in embryo — this is finishing something started, not greenfield adoption.**
+
+| Build OS Step-5 target | Off-the-shelf | Decision | Why now / why not |
+|---|---|---|---|
+| machine-readable work-package manifest + validator | **JSON Schema + CI** | **ADOPT at G2** | trivial; the manifest is the artifact metadata contract |
+| ownership leases · shared-surface locks | **`CODEOWNERS` + branch protection + required reviewers** | **ADOPT at G2** | **`.github/CODEOWNERS` already exists.** Mostly configuration |
+| shared-surface policy checks — *"a lane physically cannot land an edit to a protected control surface"* | **OPA / Conftest in CI** | **ADOPT at G2** | `check-checkpoint-pointer.mjs` + the `checkpoint-pointer` workflow **are already policy-as-code in embryo.** Generalize them |
+| architecture catalog / graph, owners, relationships | **Backstage catalog format** (`catalog-info.yaml`-style entity + relations) | **ADOPT the format and graph at G2; DEFER the portal** | we need the machine-readable graph; we do not need a UI yet |
+| runtime observability | **OpenTelemetry** | **ADOPT the convention at G2, instrument on first runtime work** | conventions are free now; there is almost no runtime yet |
+| transformation recipes for propagating approved changes | **OpenRewrite** | **DEFER — trigger: first architecture change requiring ≥10 mechanical code edits** | real value, no volume yet |
+| desired-vs-live reconciliation and drift | **Argo CD / GitOps** | **DEFER — trigger: first multi-deployment install** | nothing to reconcile until deployments exist |
+| durable multi-agent execution | **LangGraph / LangSmith** | **DEFER — owned by Agent Runtime, post-spine** | do not build the runtime pre-spine |
+
+**Boundary, stated once so it stops being restated:** these tools carry **mechanism, never authority**. A catalog format does not own OMNI's ownership model; a policy engine does not own the laws; a GitOps reconciler does not own what "conformant" means. **`GRD-033` — visible ≠ authorized — applies to every one of them.**
+
+**And what those tools do NOT supply, which is the whole reason OMNI exists:** the care-authority physics — clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity, multi-principal non-fungible authority. **Palantir is ahead of us on operationalizing a large semantic estate. It is not ahead of us on any of that.** That asymmetry is the honest strategic position and it should be stated in exactly those terms.
+
+---
+
+## §4 — Method law, corrected
+**One pointer. `doctrine/omni_work_method_repertoire.md` is an optional catalog. `METHOD-000` — read the controlling sources and answer — is the default and is valid.** Consult it only when a **named material uncertainty** would be better answered by a specialized method; record the choice **only when it changes scope, independence, cost or acceptance.** **No per-gate matrix. No mandatory consult. No buffet proof.**
+
+**The four recurring source checks — terminus · authority/maturity · EXISTS-AS dedup · decision-state — become architecture-intake automation at G2, not four instructions every agent rereads forever.** That is the difference between building a system and writing another protocol.
+
+---
+
+## §5 — Gates
+
+### G0 — ACCEPT THE PROGRAM
+Charter · this plan · roles · authority · writable surfaces · stop conditions · **exact first G1 action**.
 **Blocked until accepted:** integrator appointment · checkpoint repoint · any shared-surface write.
+**Verdicts:** `READY_TO_EXECUTE` · `READY_WITH_EXACT_AMENDMENTS` · `NOT_READY_<reason>`.
 
-### G1 — MODEL FROM ESTABLISHED PRACTICE, THEN ERECT THE PACKAGE
-**This is the outpost: the first permanent structure at the real site.**
+### G1 — CONVERGE THE OPERATING MODEL *(external and internal IN PARALLEL, then reconcile)*
+**Knox's correction accepted: not external-first, which risks an external taxonomy authoring OMNI; not internal-first, which is six months of scar tissue. Both, then reconcile.**
 
-**G1a — external mechanism study (FIRST, bounded, primary sources).**
-`ISO/IEC/IEEE 42010` (entity of interest · stakeholders · concerns · viewpoints · views · model kinds · **correspondence rules**) · `SEI` product-line **variability and variation points** · `FHIR` profiling (canonical id · versioning · differential vs snapshot · **constrain-never-loosen** · validation) · `IHE` integration profiles (actors · transactions · required groupings · **multi-profile conformance**) · `AUTOSAR` (standardized interfaces, internals left free) · `AWS` framework + **lenses** (one workload, many lenses) · `Palantir` **interfaces** (abstract type, multiple implementation, capability inheritance) · **and the ordinary case** — what a normal application repository does, honestly reported.
-**Output:** an **adoption / rejection / transfer-limit matrix** — mechanism, what it solves, hidden ownership assumptions, transferable part, non-transferable part, OMNI equivalent, evidence grade. **Mechanism only; never the hidden ownership or economic assumptions** (`GRD-026`, `M-207`).
-**Then, and only then:** the **artifact-role model**, the **multi-axis identity schema**, the **variation model**, and **architecture change control** — derived from established practice, mapped onto what OMNI already has.
+**Lane 1 — external mechanisms** (primary sources, mechanism only, `M-207` transfer discipline): **42010** (viewpoints/views/**correspondence rules**) · **SEI** (variability, variation points) · **FHIR** (canonical id, versioning, differential, constrain-never-loosen, validation) · **IHE** (actors/transactions/required groupings, multi-profile conformance) · **AUTOSAR** (standardized interfaces, internals free) · **AWS lenses** (one workload, many lenses) · **Palantir** (branching, proposals, resource protection, checks, lineage, affected-resource builds, interfaces, package dependencies) · **Backstage** (catalog, entities, relations, ownership, scaffolding) · **IBM** (agent catalog + control plane) · **LangGraph/LangSmith** (durable execution, HITL, eval) · **OPA** · **OpenRewrite** · **Argo CD** · **OpenTelemetry**.
 
-**G1b — install the package.** Real root, real paths, real versioning, real maintenance contract, normative/informative split, the two profile axes and variation-point scaffolds declared as structure. **Uncontested mechanics only** — no doctrinal synthesis. **`candidate_canonical`.**
-**Guards from the first commit:** owns no truth · holds no commit authority · **C4.6 `C10`** applies to this package itself · **no `constitution.md`** · **no hand-maintained manifest** duplicating the catalog.
-**Methods:** `M-301` decomposition · `M-302` candidate-vs-commit · `M-303` ownership/authority/custody/visibility split · `M-305` collision map · `M-306` maturity-layer separation · `M-509` contradiction sweep · `M-702` desk check · `M-708` byte review.
-**Verdicts:** `OUTPOST_INSTALLED` · `OUTPOST_INSTALLED_WITH_NAMED_DEBT` · `OUTPOST_BLOCKED_<reason>`. **A block here means the installation mechanics are wrong — it does not reopen whether OMNI Architecture exists.**
+**Lane 2 — internal foundation** (controlling termini): **Artifact Index** · governance taxonomy · **05-17 pattern (Tier-0 #14)** · System Map · Surface Map · **GCE** · Polaris · **Build OS `09`/`10`/`11` incl. the Step-5 target** · **Agent Runtime & Harness** · **C4.4 Source Estate / Knowledge Reservoir / Domain-Owned State / Evidence Workbench / Compiled Projection / Mission Context** · Reactor `EVRUN-000007/000008` termini · Care §1b/§5b/§5b.1/§18/§19 · Platform · Accountability · C4.6 §0.5/§12 · C3.8 G4 · Federation tenancy · pre-spine §5 deployment postures · conformance estate.
 
-### G2 — CLASSIFY AND MIGRATE IN PLACE
-**Classification, not synthesis. Nothing is rewritten.** Each existing architecture artifact receives: `architecture_role` · `governance_category` · `authority_maturity` · `scope` · `plane_or_view` · `build_evidence_maturity` · home · **and its conflicts and supersessions named**.
+**Reconcile into:** artifact metamodel · **architecture-operations loop** · architecture graph semantics · change lifecycle · profile/deployment resolution · conformance and observability model · **adopt/reject/transfer-limit matrix**.
+**No vendor adoption decision beyond §3. No market/moat study — that stays Task-D.**
+**Verdicts:** `MODEL_CONVERGED` · `MODEL_CONVERGED_WITH_NAMED_GAPS` · `NOT_CONVERGED_<reason>`.
 
-**Bounded source set — controlling termini only.** Artifact Index · governance taxonomy · **05-17 pattern (Tier-0 #14)** · System Map · Surface Map · GCE · Polaris · Care §1b/§5b/§5b.1/§18/§19 · Platform · Accountability · `EVRUN-000007 _05/_06` · `EVRUN-000008 _03/_04` · C4.6 §0.5/§12 · C3.8 G4 · **the 16 domain contracts** · Federation (tenancy) · pre-spine map §5 (deployment postures) · **Agent Runtime capture + Build OS `09`/`10`/`11`** · the frozen Insurance result.
-*Reopen a raw only where the controlling terminus cannot resolve a material question (`M-107` sparingly).*
+### G2 — ERECT THE REAL OUTPOST
+Install the `/architecture` package **and its operations scaffold**: canonical metadata contract · **generated** catalog/graph path (never hand-maintained) · proposal + review contract · architecture versioning and change control · operating **and** deployment profile structures · variation points · effective-architecture snapshot structure · conformance-policy scaffold · **the §3 ADOPT tools wired** (JSON Schema validator · CODEOWNERS/branch protection · OPA in CI generalized from the existing pointer check · Backstage-format entities · OTel conventions) · **architecture-intake automation for the four source checks** (§4).
+**Guards from the first commit:** owns no truth · holds no commit authority · **C4.6 `C10`** applies to this package itself · no `constitution.md` · **no hand-maintained manifest duplicating the catalog**.
+**Verdicts:** `OUTPOST_INSTALLED` · `..._WITH_NAMED_DEBT` · `BLOCKED_<reason>`.
 
-**Required dispositions landed here:** the **two taxonomies reconciled** · **Reactor** classified as a cross-cutting architecture standard · **GCE** classified as the cross-boundary exchange standard · **05-17** superseded or narrowed · **`WI16`** stale state corrected · System/Surface Maps **migrated or superseded — never duplicated**.
-**Methods:** `M-101`–`M-108` · `M-208` authority map · `M-209` responsibility ladder · `M-304` decision-state reconciliation · `M-306` · `M-801`–`M-805` evidence.
-**Verdicts:** `ESTATE_CLASSIFIED` · `ESTATE_CLASSIFIED_WITH_NAMED_GAPS` · `CLASSIFICATION_BLOCKED_<reason>`.
+### G3 — RECONCILE THE FOUNDATION DEEPLY; CLASSIFY THE TAIL
+**Knox's split accepted.** **Deeply reconcile now** — because these define the container itself: artifact model · maps · **GCE** · **Reactor** · **Build OS** · **Agent Runtime** · **C4.4** · Care/Platform/Accountability cross-cutting laws · profile and deployment model · conformance.
+**Classify now, deep-reconcile on next substantive touch:** the 16 domain contracts and the long tail — unless a foundational conflict surfaces.
+**Landed here:** two taxonomies reconciled · Reactor and GCE installed **into their standard roles** · 05-17 superseded or narrowed · `WI16` corrected · maps migrated or superseded, **never duplicated**.
+**Verdicts:** `FOUNDATION_RECONCILED` · `..._WITH_NAMED_GAPS` · `BLOCKED_<reason>`.
 
-### G3 — PROVE ROUTING, AND PROVE THE DECLARATION FORMAT
-**The acceptance gate. This is where the arc succeeds or fails.**
+### G4 — OPERATE IT END TO END, THEN INSTALL
+**Run the real loop on a migration already owed** — installing Reactor and GCE into their standard roles and migrating the maps — **not a toy exercise.**
 
-**G3a — the routing fixture.** A cold entrant — fresh agent or script — starting from **Insurance · Pharmacy · Labs/imaging · Gmail/Slack · payroll/banking · a new federation · an enterprise deployment · a new build-agent lane** must reach the correct architecture, applicable profiles, variation points and proof obligations **with no historical filename and no access to this conversation.** **Mechanically checkable. It fails loudly.**
+**Ten acceptance tests. Routing is the first, not the whole:**
 
-**G3b — declaration-format proof.** Write real declarations for **Insurance · Pharmacy · one simple internal domain · one deliberate non-cousin**, and **two deployment profiles** (small operator · composed enterprise). **These prove the format carries authority, inheritance, non-inheritance, owners, variation and conformance — they do not adjudicate whether the domains are correct.** *(Insurance is not the qualifier. The operator is right that domain-quality prose proves nothing about placement.)*
+| # | Test |
+|---|---|
+| 1 | **Routing** — cold agent finds the right architecture with no historical filename |
+| 2 | **Applicability** — resolves exact standards, profile versions, deployment posture, active exceptions |
+| 3 | **Impact** — one standard changes; system enumerates affected profiles, contracts, code, tests, deployments, owners |
+| 4 | **Parallel change** — two agents propose overlapping changes without silent overwrite or duplicated architecture |
+| 5 | **Authority** — agents may propose broadly; only rightful owners approve and commit |
+| 6 | **Propagation** — an approved change produces or requests every required downstream update |
+| 7 | **Conformance** — a profile loosening an inherited rule **fails**; unauthorized truth ownership **fails**; ≥1 negative control produces no defect; the deliberate non-cousin is **rejected** |
+| 8 | **Fleet** — small-operator, composed-enterprise and federated-node deployments resolve different effective snapshots **without forking the architecture** |
+| 9 | **Drift** — code, config or deployment that no longer conforms is detected |
+| 10 | **Upgrade / rollback** — versions move forward, coexist, deprecate and roll back under explicit rules |
 
-**G3c — adversarial minimum, not ceremony.** Builder and adversary separated · rubric and verdicts frozen **before** results · **≥1 negative control** (`M-508`) expected to produce no defect · **≥1 seeded violation** (`M-505`) that must fail — e.g. a profile silently loosening an inherited law, or the package acquiring truth ownership · **the deliberate non-cousin must be rejected by the model**.
-**Methods:** `M-503` builder/adversary/judge separation · `M-505` · `M-506` counterexample · `M-507` competing decomposition · `M-508` · `M-509` · `M-401`–`M-407` scenarios · `M-602` mixed topology · `M-605` fleet/multi-instance · `M-607` portability/exit.
-*Eligible via the Pressure Matrix where a real uncertainty warrants it, never as ritual: chaos/fault injection · property-based testing · premortem · shadow run · one-way-vs-two-way-door classification.*
-**Verdicts:** `ROUTING_PROVEN` · `ROUTING_PROVEN_WITH_NAMED_GAPS` · `ROUTING_FAILED_<reason>` · `METHOD_INVALID_RERUN_REQUIRED`.
-
-### G4 — INSTALL, WIRE, HAND OFF
-**Makes it impossible for the next arc to repeat this one.**
-Package promoted to declared authority · **Build Entry enforces profile declaration** (no loop opens or closes without stating inheritance, specialization, non-inheritance, owners, variation points and conformance) · Build OS consumption rules · **Agent Runtime bindings** (which architecture version, which profiles, which federation/operator/tenant, which principal, instance vs fleet) · read graph + catalog + checkpoint repoint · **spine and thesis input-state receipts** (may-rely / must-not-assume / remains-open) · **then Insurance returns** — `C3.9` populate → consume → rerun affected traces → reconcile → **`E2` last**.
-**Methods:** `M-702`–`M-710`; **`M-703` input-state receipts · `M-705` disposition ledger · `M-708` byte review · `M-709` state normalization · `M-710` checkpoint/boot sync are mandatory.**
+**Then install:** Build Entry enforces profile declaration · Build OS consumption rules · Agent Runtime bindings · read graph + catalog + checkpoint · **spine and thesis input-state receipts** (may-rely / must-not-assume / remains-open) · **then Insurance returns** — `C3.9` → consume → rerun affected traces → reconcile → **`E2` last**.
 **Verdicts:** `INSTALLED` · `INSTALLED_WITH_NAMED_DEBT` · `INSTALL_BLOCKED_<reason>`.
 
 ---
 
-## §5 — Scope fence
-**This arc settles three taxonomies:** governance · architecture artifact-role · deployment/profile.
-**It does NOT settle the domain/product/clinical ontology.** That is continuous work owned by contracts and profiles, and attempting it here produces the god-arc this exists to prevent.
-
-**Also out of scope:** implementation · schema · migration of runtime data · promotion of Care/C4.6/Reactor/Insurance content by passing reference · reopening Reactor's eight invariants for their own sake · any `reactor-service` · naming by any agent.
+## §6 — Scope fence
+**Settles:** governance taxonomy · architecture artifact-role taxonomy · deployment/profile taxonomy · the operations loop.
+**Does NOT settle:** the domain/product/clinical ontology (continuous, owned by contracts and profiles) · market/moat pressure (**Task-D and the spine — mechanism comparison stays here, commercial claims do not**) · any implementation lane · the Agent Runtime build itself.
 
 ---
 
-## §6 — Deferred deliberately, and where it goes instead
-Knox's **G5 market/incumbent pressure** and the full sixty-method conformance programme are **not gates here.** The mechanism study at **G1a** does the load-bearing external work; commercial and incumbent pressure belongs to **Task-D and the spine**, which already own it, and duplicating it here would be the third re-derivation of the same comparator material. **Recorded as a deliberate deferral with its destination named — not dropped.**
-
----
-
-## §7 — Final acceptance test
-> **A fresh agent entering any operating area, connector, deployment or build lane is routed to the correct architecture, profiles, variation points and proof obligations — without knowing any historical filename, without reading any arc, and without this conversation.**
-
-**That, and nothing about how well Insurance reads.**
-
----
-
-## §8 — STOP RECEIPT
+## §7 — STOP RECEIPT
 | Field | Value |
 |---|---|
-| Artifact | arc execution plan, R1 |
-| Branch | `cursor/fai-foundational-architecture-30f4` |
+| Artifact | arc execution plan **R2** |
+| Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **10 acceptance tests** replace routing-only · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** |
-| Structural changes vs the reviewed arc | external study moved to **first** · reconciliation demoted to **classification in place** · acceptance test changed to **routing** · 8 gates → **5** · G5 deferred to Task-D/spine with destination named |
-| Next | **Nick + Knox accept, amend or reject.** Then integrator appointment, then G1a |
+| Next | Nick + Knox accept, amend or reject → integrator appointment → G1 |
 
-**STOP: `execution_plan_R1_pending_acceptance`**
+**STOP: `execution_plan_R2_pending_acceptance`**
