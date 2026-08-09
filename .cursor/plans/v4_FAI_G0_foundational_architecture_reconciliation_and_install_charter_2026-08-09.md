@@ -1,8 +1,8 @@
-# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R2)
+# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R3)
 
 Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
-Status: **`gate_0_charter_R2 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
+Status: **`gate_0_charter_R3 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
 Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
@@ -23,7 +23,7 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R2 · not_started` |
+| Arc state | `chartered_R3 · not_started` · **execution plan authored** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
 | What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
 | Blocking obligation | **`PRESPINE-PHASEA-INTEGRATOR` VACANT.** No shared control-plane surface may land |
@@ -144,7 +144,7 @@ Direction: an `/architecture` root holding **standards · views · contracts (do
 
 ---
 
-## §9 — Gates
+## §9 — Gates *(skeleton only — the executable program is the **arc execution plan**, which restructures this into five gates with the external-mechanism study FIRST and routing as the acceptance test)*
 
 **G0 — lock and authorize.** Existence decided. Lock: name · package class and path · artifact-role model direction · source set · integrator · supersession method · non-actions. **Exit: Nick + Knox acceptance.**
 
@@ -188,7 +188,7 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 
 | Field | Value |
 |---|---|
-| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R2** |
+| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R3** + execution plan R1 |
 | Branch | `cursor/fai-foundational-architecture-30f4`, from `main @ 9a6e7de` |
 | Files | this charter · 2 verbatim preservations (**empty, operator-populated**) · 1 handoff |
 | Shared control-plane surfaces | **0 touched** |
@@ -198,4 +198,4 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 | Blocking | integrator **VACANT** |
 | Next | **Nick + Knox accept, amend or reject.** Nothing auto-starts |
 
-**STOP: `gate_0_charter_R2_pending_operator_and_knox_acceptance`**
+**STOP: `gate_0_charter_R3_and_execution_plan_pending_acceptance`**
