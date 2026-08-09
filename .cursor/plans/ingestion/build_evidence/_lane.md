@@ -1,6 +1,6 @@
 # Lane: Build Evidence (External)
 
-Status: **active** (first packet captured 2026-08-08) · Parent: `../00_evidence_router.md`
+Status: **live** (first sources captured 2026-08-08; was `latent` placeholder) · Parent: `../00_evidence_router.md`
 
 **Lane index (query this first): `00_index.md`.** Sources `EVSRC-2026-000316` (Palantir Foundry) · `EVSRC-2026-000317` (Anthropic) · `EVSRC-2026-000318` (LangGraph); run `EVRUN-2026-000124` carries the cross-source synthesis in its **concept registry**. Consumed by `D0CKPT-DEC-009` and guardrails `D0CKPT-GRD-004` / `D0CKPT-GRD-007`; provenance in `../../doctrine/07_evidence_ingestion_ledger.md` (`D0BLD-EVD-001`–`003`). **Every mechanism carries an explicit non-transfer** — that field is the point of the lane, not decoration. **Cardinality reminder:** one packet per source; cross-source convergence belongs to the run's concept registry, never to a packet.
 

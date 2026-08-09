@@ -1,0 +1,32 @@
+name: boot-surface-check
+
+# Enforces the AGENTS.md Boot-Surface Rule (guardrail D0CKPT-GRD-007).
+#
+# Scope, stated honestly: this validates the two CURRENT-CHECKPOINT POINTER BLOCKS.
+# It does not audit or enforce state-freeness across the whole of AGENTS.md or the read graph.
+#
+# "Cannot merge" is only true once this status is marked REQUIRED in branch protection.
+# That is a repository setting, not something this file can grant.
+
+on:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - ".cursor/plans/doctrine/04_manifest_read_graph.md"
+      - ".cursor/plans/HANDOFF_*.md"
+      - "scripts/check-boot-surfaces.mjs"
+      - ".github/workflows/boot-surface-check.yml"
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # No install step: the validator is dependency-free by design, so this check
+      # cannot be skipped or broken by an unrelated dependency failure.
+      - run: node scripts/check-boot-surfaces.mjs
