@@ -28,12 +28,38 @@ A run **PASSES** only if the evaluator independently recovers all six, from the 
 
 **Failure conditions:** any missed or contradicted fact; or needing a pasted rescue handoff.
 
+## §1.5 — Run 3: genuinely open-ended, single message (the operative proof)
+
+Knox's objection to run 2 was correct: Part A and Part B arrived in **one prompt**, so the evaluator could see the structured questions while composing the open-ended answer. That is a structured test with an instruction not to look, not an open-ended test.
+
+**Run 3 sent one message containing no structure at all**, at head `fd284a7826cde8f5339b56ca8e6eace1e26e7744`:
+
+> *"You are booting fresh into the OMNI repository at /workspace. Thoroughness: medium. Do not ask me anything; resolve everything from the repository. Boot normally per the repository's own instructions — start wherever the repo tells you to start, and follow where it routes you. Then brief me, in your own words, on where this project currently stands and what I should do next. Cover whatever you judge relevant, and cite the exact file and line/section for anything load-bearing. If something cannot be determined from the repository, say so rather than guessing."*
+
+**No rubric, no six questions, no mention of Insurance, Gate 2, C3.9, OPECON or that any repair had occurred.** Evaluator context id `bc-96c64580-4d44-5cca-aaf5-7e2d4f486413`.
+
+**Scored against the same §1 rubric — 6/6, unprompted:**
+
+| # | Recovered? | Evidence from the evaluator's own brief |
+|---|---|---|
+| `R1` | **yes** | "Operator focus: `INS-G2-OPERATING-SUFFICIENCY`", cited to successor §1 line 22 |
+| `R2` | **yes** | "Insurance Gate 2 … construction **may begin now**", "no pre-execution blocker", cited to successor §3 and the brief's state table |
+| `R3` | **yes** | "Gate 2 may NOT close until: C3.9 populated → consumed → affected traces reconciled" |
+| `R4` | **yes** | "**`E2`** adversarial acceptance runs", cited to brief §5 lines 186–187 |
+| `R5` | **yes, both halves** | "OPECON is NOT a Gate-2 start blocker … Possible **indirect close relevance through C3.9** remains open as `candidate_dependency_pending_C3.9_admission_review` — **do not say 'OPECON is not a prerequisite' broadly**" |
+| `R6` | **yes** | "**Nothing auto-starts.**" and "Spine is **not destiny** — it requires a future sufficiency decision" |
+
+**Beyond the rubric, unprompted:** it reconstructed the boot path and confirmed the freshness check; ran `npm run check:boot-surfaces` itself; separated architecture maturity from build maturity ("C4.4 explicitly marks enterprise implementation UNPROVEN"); recovered `D0THES-DEC-039` (Task-D is not blocked on Gate 2); flagged the vacant integrator as blocking lane shared-surface landings; surfaced `INS-HAZ-COVSURF` as an unlanded one-way door; and correctly declined to assess application runtime behaviour it had not inspected.
+
+**★ The most valuable thing it found, which this receipt did not ask for and the author had underweighted:** *"Boot drift on `main` until PR #11 lands — the exact failure mode the reconciliation was written to fix."* A cold boot from **`main`** still reads the Aug-03 checkpoint's "it is NOT Gate 2" wording and the Gate-2 brief's old blocking-predecessor row. **The repair is only real once landed** — which is an argument for landing it, not for further revision.
+
 ## §2 — Run log
 
 | Run | Head | Prompt shape | Result | Note |
 |---|---|---|---|---|
 | 1 | `76d8c16` | six structured questions only | 6/6 | Structured-only, so vulnerable to being an answer-shaped retrieval test — Knox's fair objection. Superseded by run 2. |
-| 2 | **`ffd229e962b598c2252ed59a74dc0a377dccf1cb`** (final corrected head) | **open-ended Part A first, then the six structured checks** | **6/6 PASS** | Evaluator context id `bc-7c00283b-6cfd-5aa5-b7a4-82ad8ea71640` |
+| 2 | `ffd229e962b598c2252ed59a74dc0a377dccf1cb` | Part A open-ended + Part B structured, **in one message** | 6/6 | Evaluator context id `bc-7c00283b-6cfd-5aa5-b7a4-82ad8ea71640`. **Superseded by run 3:** Part B was visible while Part A was written, so this was not truly open-ended-first (Knox's objection, accepted). |
+| **3** | **`fd284a7826cde8f5339b56ca8e6eace1e26e7744`** (post-successor-checkpoint) | **single message, NO structure — one open-ended "brief me on where this stands and what I should do next"** | **6/6 PASS · OPERATIVE RESULT** | See §1.5. Evaluator context id `bc-96c64580-4d44-5cca-aaf5-7e2d4f486413` |
 
 **Run-2 prompt, verbatim in shape:** *"You are booting fresh into the OMNI repository at /workspace… Do not ask me anything; resolve everything from the repository. **PART A — OPEN-ENDED (answer this first, before reading Part B).** Boot normally per the repository's own instructions… Then report, in your own words: what work is currently active, what the allowed next action is, what blocks that work from STARTING, what blocks it from CLOSING or being finally accepted, what adjacent work exists that is NOT starting. Do not consult Part B until you have written Part A. **PART B — STRUCTURED CHECKS.** …(1) current operator-selected focus/active arc (2) may any gate begin now, and what blocks it from starting (3) what blocks that gate from closing — list every item (4) is an independent or adversarial reconciliation step required, name it (5) does OPECON have to run before that gate can BEGIN, and separately is OPECON definitively irrelevant to that gate's CLOSING — answer both parts precisely (6) does anything auto-start after the current focus completes, specifically Task-D, C4.5, or spine authoring. For each, cite the exact file and line/section. If the repository does not let you determine an answer, write CANNOT DETERMINE rather than guessing."*
 
@@ -58,5 +84,6 @@ A run **PASSES** only if the evaluator independently recovers all six, from the 
 - **It proves derivability at one head, not correctness of the architecture.** A cold agent recovering the intended state says nothing about whether that state is architecturally right — that judgement stays with Nick + Knox.
 - **It is not a regression suite.** The mechanical invariant is `npm run check:boot-surfaces`; this eval is the semantic complement and must be **re-run by hand at any future head that changes a boot surface, the checkpoint's focus/next-action rows, or the Gate-2 state table.**
 - **Both evaluators were the same model family as the author.** An independent-model evaluator would be stronger evidence; that is a known limitation, not a discharged one.
-- Run 1 is retained for lineage only; **run 2 at `ffd229e` is the operative result.**
-- **Head delta disclosure.** The branch head advanced past `ffd229e` when this receipt was itself committed. That commit adds only this receipt, its catalog row, and a pointer from `D0CKPT-DEC-009` to here — **it changes no boot surface, no checkpoint focus or next-action row, and no Gate-2 state table**, so it does not trip this receipt's own re-run condition. Any later commit that touches those surfaces **does**, and the eval must be re-run.
+- Runs 1 and 2 are retained for lineage; **run 3 at `fd284a7` is the operative result**, because it is the only one where the evaluator saw no structure at all.
+- **Head delta disclosure.** The branch head advances past `fd284a7` when this receipt is committed. That commit adds only §1.5, the run-log row and this note — **it changes no boot surface, no checkpoint, and no Gate-2 state table**, so it does not trip the re-run condition below.
+- **Re-run condition:** any later commit that touches a boot-surface pointer block, the current checkpoint's focus/next-action/lane/integrator rows, or the Gate-2 state table. The mechanical invariant (`npm run check:boot-surfaces`) runs automatically; **this semantic eval does not — a human must re-run it.**
