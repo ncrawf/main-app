@@ -21,7 +21,7 @@ Read order: read-graph route `9p` (Gate-0 carrier → Gate-1a protocol → Phase
 > | Field | Value |
 > |---|---|
 > | Gate-2 state | **`constructed · R3 · builder_verdict_issued · provisional_by_construction`** |
-> | **Estate-inheritance debt** *(new at R2)* | **OPEN.** Care §5b/§5b.1/§18/§19 and C4.6 §0.5/§12 consumed at R2. **C3.8 G1b–G4 and `EVRUN-000007`/`000008` named, load-bearing, and NOT consumed** — recorded as debt at §0.7/§20.3, not skimmed |
+> | **Estate-inheritance debt** | **OPEN, and one item corrected.** Care §5b/§5b.1/§18/§19 and C4.6 §0.5/§12 consumed at R2; **`EVRUN-000008`'s terminus consumed at the R3-correction, which RETRACTED a false "proposed-BLOCKED" claim R3 had inferred from a stale `WI16` index row** (§20.3). **C3.8 G1b–G4, `EVRUN-000007 §I.13–§I.15` and Tier-0 #14 `coherent_omni_architecture_pattern_2026-05-17.md` remain named, load-bearing and NOT consumed** |
 > | Builder's verdict | **`SURVIVES_WITH_NAMED_RECONCILIATIONS`** — unchanged from R0, **at lower confidence and with the discharge posture below** |
 > | **Discharge posture** *(new at R1)* | **14 output sections present · trace and comparator discharge INCOMPLETE.** R0's "14/14 produced · 6/6 performed" is **withdrawn** as a completeness claim |
 > | Why provisional | **C3.9 does not exist** (`shell_pending_population`, re-verified). A Gate-2 result produced before C3.9 is provisional **by construction** (brief §6 Barrier 2) |
@@ -821,9 +821,19 @@ So the physics buys three specific things, and they are the 1BN/10BN argument st
 
 **(2) Reactor's ratification gate (2) already specifies the adversary Knox proposed from scratch.** Verbatim: *"an **independent standards-native adversary** (pre-registered rubric · **FHIR-Task/RequestOrchestration + NCPDP + TEFCA + Epic + workflow baseline** · Builder → independent-Adversary → separate-Adjudicator · **no predetermined OMNI-winning answer**)."* Six gates exist: doctrine dedup · the standards-native adversary · one runtime seam · three contrasting traces · measured operational outcomes · legal/governance review. *"Evidence — not eloquence — changes the candidate."*
 
-**(3) The run that would execute those gates already exists and is stopped.** *"Successor run to run the gates = **`EVRUN-2026-000008`** (charter `_04`, **proposed-BLOCKED until the corrected method is accepted**)."*
+**(3) ★ R3-CORRECTION (2026-08-09, factual — this claim was FALSE and is retracted).** R3 asserted that `EVRUN-2026-000008` was *"proposed-BLOCKED"* and that the operator decision was whether to **unblock** it. **That is wrong.** The claim was taken from spine watch item `WI16`'s index row and **not** from the run's own terminus. Verified at `EVRUN-2026-000008_04_final_closeout_and_handoff.md`:
 
-**So the honest state of the question the operator asked is:** the cross-loop constitution was identified three weeks ago, named, frozen correctly under `GRD-036`, given a six-gate ratification path and a chartered test run — **and then no arc routed to it, so Pharmacy, the moat doctrine and Insurance each re-derived pieces of it.** The estate's own note on the second convergence reads: *"Two arcs converging on the Reactor's shape is a signal to **TEST**, not adopt."* **Insurance is the third.**
+> **`EVRUN-2026-000008` is `analysis_closed · adjudicated_nonbinding · R3 · NOT promoted`, closed 2026-07-18.** Builder (Opus) **63.2** / fresh incumbent-native Adversary (Gemini) **47.0**; **31/31 conformance fixture GREEN**, `tsc` and `eslint` clean. Verdict **R3 — cross-authority continuity residual**, survived a standards-native adversary. **R4 unavailable** (no external party has accepted or acted on the semantics). Reactor **strengthened and narrowed, not promoted**; naming gate **OPEN**.
+
+**The ratification run RAN. There is nothing to unblock.** The recommendation built on that premise is withdrawn.
+
+**Two findings survive the correction, and both are sharper than the error:**
+- **`WI16` — the artifact that says *"this is the durable home so they are not trapped in `_06`"* — is itself carrying stale state about its own successor run**, three weeks out of date. A durable home with stale content is the `D0CKPT-GRD-004` failure class at the watch-list layer.
+- **The terminus anticipated this exact mistake in its own header:** *"The next agent should read THIS terminus first, not infer closure from an index row."* I inferred from an index row. **The warning was written and unrouted, which is the same disease one level down.**
+
+**And the estate has already ruled on what comes next — `EVRUN-000008 §10`, verbatim:** *"Do **NOT** reopen this conceptual arc to 'understand Reactor better.' … Absent one of those, the next move is not more Reactor analysis — **it is the outer v4 sequence**."* Reopen conditions are narrow: an external event breaking an invariant · the one-pharmacy-seam pilot producing measured results · an implementer objectifying Reactor · **or explicit Nick + Knox direction**. **§9 names the required next evidence: ONE external pharmacy seam** with a full failure-injection set and measured metrics. **§12: *"Reactor earned a stronger reason to exist, not permission to become a thing. The next proof must happen in the world."***
+
+**So the honest state is:** the constitution was identified, named, frozen, adversarially tested and closed — **and then no arc routed to any of it**, so Pharmacy, the moat doctrine and Insurance each re-derived pieces. **Insurance is the third convergence.** The estate's rule remains *"a signal to TEST, not adopt"* — and the test it names is a real external seam, not another conceptual pass.
 
 **What maps and what does not — stated precisely, because "Reactor covers it" would be the next overclaim.**
 
@@ -840,7 +850,7 @@ So the physics buys three specific things, and they are the 1BN/10BN argument st
 
 **What Insurance does with this: nothing but record it.** Gate 2 does not adopt Reactor, does not populate Level 2, does not author an Insurance profile declaration, and does not unblock `EVRUN-000008`. **Insurance's entire contribution is to be counted as the third convergence signal and to say so where the next arc will see it.** Attempting the constitutional work inside an Insurance gate is precisely the *"strap it on backwards"* failure this section documents.
 
-**The operator decision this surfaces — and it is an operator decision, not a gate output:** whether to unblock `EVRUN-2026-000008` and run Reactor's six ratification gates as pre-spine work. Three independent arcs have now converged on its shape; the estate's own standing rule says convergence is a signal to test. **Not started, not authorized here, and explicitly not Insurance's to start.**
+**The operator decision this surfaces — corrected.** It is **not** "unblock `EVRUN-000008`"; that run is closed. It is narrower and harder: **the estate's named next proof is one external pharmacy seam under failure injection (`EVRUN-000008 §9`), and its standing rule forbids another conceptual pass (`§10`) except by explicit Nick + Knox direction.** Any "kernel/profiles" foundation transaction is therefore an operator decision under `§10(d)` — permitted, but against the estate's own stated next move unless it is scoped to **instantiation** (a home, a name, routing, build-entry obligation) rather than **re-derivation**. **Not started, not authorized here, and explicitly not Insurance's to start.**
 
 ### §20.4 Why this recurred for six months, answered mechanically
 Two independent routing defects, both verified:
