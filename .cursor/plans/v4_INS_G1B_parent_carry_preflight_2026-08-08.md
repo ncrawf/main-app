@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate`
 Authority: `derived_nonbinding`
-Status: `preflight_knox_accepted · pending_nick_integrator_transfer · provisional_pending_parent_integration · carry_not_executed · integrator_role_not_assumed · shared_surfaces_untouched · gate2_not_started`
+Status: **★ WHOLLY HISTORICAL (2026-08-09) — the pre-carry readiness record; the carry it planned has executed.** Every state, next-action, current-checkpoint and sequencing claim in this file describes the pre-landing moment and is **spent** — including "the 2026-08-03 checkpoint REMAINS the current program checkpoint" and any "held behind C3.9" wording. **Resolve current state from the checkpoint named in `AGENTS.md`.** Read this only as the write plan that was followed. `[historical] preflight_knox_accepted · pending_nick_integrator_transfer · provisional_pending_parent_integration · carry_not_executed · integrator_role_not_assumed · shared_surfaces_untouched · gate2_not_started`
 Domain(s): `insurance_payer_oop` · `d6_commerce` · `care_operating_model` · `federation` · `clinical_memory` · `cns_coordination` · `accountability_architecture` · `architecture_governance` · `portfolio_sequencing`
 Lifecycle role: read-only preflight and exact write plan for the parent integration transaction
 Source-of-truth relationship: consumes current `main` plus the **PR #4 / #5 / #6 / #8** exact review objects (**PR #9 is a separate parked governance follow-up, not a consumed child**); **authorizes nothing**; the child source objects and primary governing sources control over any shorthand in this document

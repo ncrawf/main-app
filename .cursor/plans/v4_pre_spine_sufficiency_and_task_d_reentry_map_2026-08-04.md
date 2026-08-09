@@ -108,6 +108,9 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 
 ## §6 — Minimum pre-spine sequence (with settled / recommendation / Nick-decision labels)
 
+> **★ 2026-08-09 (`D0CKPT-DEC-009`).** The phases below are a **grouping and a historical sequencing record — not a total order, and they create NO dependency edges.** A phase boundary never establishes that anything in Phase B consumes anything in Phase A. **The live relationships are §6.1 immediately below.** This list is retained unedited as the accepted 2026-08-04 record.
+
+
 - **Step 0 — Sufficiency map (THIS gate).** Classification + dependency graph. Invents no architecture. *(SETTLED — this artifact.)*
 - **Parallel Phase A — input preparation (5 lanes, §7):**
   1. Care Task-D **Input-State Receipt**. *(Knox recommendation → Nick)*
@@ -119,11 +122,25 @@ Deployment postures to test (not canon): **OMNI-primary** (small operators) · *
 - **Phase C — Final Task-D population** with the verified provisional temporal lens → **§7 verdict** (`SPINE_READY` / `…WITH_NAMED_RECONCILIATIONS` / `NOT_READY`). *(SETTLED that Task-D precedes the spine.)*
 - **Phase D — Full C4.5 temporal pass.** *(SETTLED — C4.5 charter: after Task-D, before spine.)*
 - **Phase E — Final pre-spine sufficiency receipt** (yes/no; not an arc). *(Knox recommendation)*
-- **Then — write the spine.**
+- **Then — write the spine.** *(★ 2026-08-09: not prophecy. Spine authoring is admitted only by a future sufficiency decision over the then-current estate; Task-D is an admission test, not a garbage collector that resolves every unfinished arc.)*
 
 **Accepted sequencing decisions (Nick operator + Knox final byte, 2026-08-04):** (1) **C3.9 runs before final Task-D** as the mixed-financing/multi-site/multi-operator falsifier, after Insurance + Operator-Economics Gate-0. (2) **Demand Track-A Gate-1 runs in parallel and is non-blocking**; accepted **Gate-0** posture is the minimum Task-D input unless later Gate-1 work exposes a genuinely spine-blocking contradiction; Gate-1 may **not** silently mutate the critical-path sequence. (3) **H1 is tested inside Task-D first**; a separate physical-realization arc opens only if Task-D leaves a material question unresolved.
 
 ---
+
+## §6.1 — Current relationships (2026-08-09; the live picture)
+
+**Edge kinds:** `blocks_start` (cannot begin) · `blocks_close` (may proceed, cannot finally close) · `downstream_consumption` (directional — X routing a finding to Y never makes X depend on Y) · `pending_revalidation` (declared but not adjudicated for this consumer).
+
+| Item | Relationship | State |
+|---|---|---|
+| **Insurance Gate 2** | current operator-selected focus | **`blocks_start`: none — construction may begin.** `blocks_close`: C3.9 populated → consumed → affected traces reconciled → **`E2` last** |
+| **C3.9** | `blocks_close` of Gate 2; also `REQUIRED-BEFORE-TASK-D` (accepted 2026-08-04) | `shell_pending_population`. Its own Operator-Economics input is **`pending_revalidation`** — see below |
+| **OPECON-G0-COUNTERPARTY** | **`downstream_consumption`** of Insurance (receives Gate-1b's F3 operator slice) — **not upstream of Gate 2** | dormant. The former hard `C3.9 → OPECON` edge is **`candidate_dependency_pending_C3.9_admission_review`**: does not auto-launch; C3.9 activation decides full Gate-0 result vs existing material vs a bounded input |
+| **Care · GRR · C4.5-anchor lanes** | none declared toward Gate 2 | dormant; **not Gate-2 predecessors** |
+| **Task-D · full C4.5 · spine** | sequenced, **not automatic** | **none auto-starts.** Spine authoring is admitted only by a future sufficiency decision over the then-current estate |
+
+**The wider unfinished portfolio** — Care, GRR, Agent Runtime, Evidence Plane spine, Marketing, Time, H1, `INS-HAZ-COVSURF`, Demand, GCE realization, Build OS and anything else live — is **not enumerated here**. Canonical detail stays in `future_work_registry.md` and `08_open_review_queue.md`. **Its pre-spine relevance is unadjudicated unless an owning decision says otherwise; existing in a registry never makes something blocking, and absence never makes it resolved.**
 
 ## §7 — Prepared lane envelope (optional activation: one, some, all, or none)
 
@@ -181,7 +198,7 @@ If the current checkpoint's launch receipt does **not** name the lane branch/bas
 
 **Lifecycle wording (timeless).** This map carries **content and envelope**; the **current launch acceptance/state is controlled by the current checkpoint**. No acceptance/pending state written inside a content-base copy of this map becomes authoritative or "stale" merely because a later state receipt lands — the checkpoint launch receipt is the live state surface.
 
-**Integrator.** Integrator role key = **`PRESPINE-PHASEA-INTEGRATOR`**. Current holder = **Opus control-plane integration context**. The role is **transferable** per §2.1 **Integrator-transfer law** (explicit transfer + freshness/collision check + shared-surface ownership receipt + parent blockers); it is **not** a permanent chat thread, and a retired holder must not strand the lanes.
+**Integrator.** Integrator role key = **`PRESPINE-PHASEA-INTEGRATOR`**. **Holder/vacancy is not stated here — resolve it from the current checkpoint** (single-source law). The role is **transferable** per §2.1 **Integrator-transfer law** (explicit transfer + freshness/collision check + shared-surface ownership receipt + parent blockers); it is **not** a permanent chat thread, and a retired holder must not strand the lanes.
 
 **Worktree posture.** Local absolute worktree paths are **environment-local and non-canonical** (§2.1 **Environment-local worktree law**) — recorded in the launch receipt when actually assigned, recreatable from branch + base on any machine, cloud VM, or fresh clone.
 

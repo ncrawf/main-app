@@ -1,0 +1,28 @@
+name: checkpoint-pointer
+
+# Structural check for the two boot-surface checkpoint pointers (D0CKPT-GRD-004).
+# Dependency-free on purpose, so an unrelated install failure cannot skip it.
+#
+# This becomes merge-blocking ONLY if it is marked a required status check in
+# branch protection. That is a repository setting; this file cannot grant it.
+
+on:
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - ".cursor/plans/doctrine/04_manifest_read_graph.md"
+      - ".cursor/plans/HANDOFF_*.md"
+      - "scripts/check-checkpoint-pointer.mjs"
+      - ".github/workflows/checkpoint-pointer.yml"
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/check-checkpoint-pointer.mjs

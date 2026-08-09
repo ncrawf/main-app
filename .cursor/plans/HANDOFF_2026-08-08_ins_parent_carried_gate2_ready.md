@@ -5,7 +5,7 @@ Authority: `derived_nonbinding`
 Status: `insurance_parent_assembled_on_branch · E1_failed_2026-08-08_corrected_pending_rerun · main_unlanded · gate2_prepared_not_started · not_promoted`
 Domain(s): `insurance_payer_oop` · `architecture_governance` · `portfolio_sequencing` · `cross_cutting`
 Lifecycle role: **subordinate Tier-3 continuity** for the Insurance parent carry. Reached **through** the current checkpoint §4.2 — **this is NOT the Tier-0 #15 checkpoint target.**
-Source-of-truth relationship: consumes the landed Insurance estate. **Owns no live program state.** The 2026-08-03 checkpoint remains the current program checkpoint and the single owning state surface.
+Source-of-truth relationship: consumes the landed Insurance estate. **Owns no live program state.** Current program state resolves from **the current checkpoint named in `AGENTS.md`** — not from this file, and not from a checkpoint path hard-coded here.
 Supersedes: nothing. Superseded by: none.
 Manifest action: `add_tier2` — landed by this carry
 Review gate: `user_knox_required`
@@ -50,7 +50,7 @@ successor_pointer:          Gate 2 · outside Phase A · held behind C3.9 · not
 
 ## §3 — Next authorized action
 
-**NONE auto-starts, and it is NOT Gate 2.**
+**★ This subordinate file no longer states a next action (`D0CKPT-GRD-004`).** Resolve the current focus and next allowed action from **the current checkpoint named in `AGENTS.md`**. *(Superseded, retained for lineage: "NONE auto-starts, and it is NOT Gate 2" — that sentence, mirrored from the then-current checkpoint, retargeted a correct cold boot away from the live Insurance arc and is the recorded origin of `D0CKPT-GRD-004`.)*
 
 Per `D0THES-DEC-039` the accepted sequence is unchanged: **Phase A → Phase B C3.9 → Phase C final Task-D → Phase D full C4.5 → Phase E final pre-spine sufficiency receipt → spine.** Gate 2 sits **outside** that sequence, held behind C3.9, on its own track.
 
