@@ -28,10 +28,10 @@ Traced to two mechanical defects, both verified: **route `9p`** (the Gate-2 read
 
 | Item | State |
 |---|---|
-| **Insurance Gate 2** | **FROZEN.** PR #14 open, draft, **unmerged**, head `4959218`. Verdict `SURVIVES_WITH_NAMED_RECONCILIATIONS`, **provisional, discharge incomplete, artifact NOT accepted** |
+| **Insurance Gate 2** | **FROZEN.** PR #14 open, draft, **unmerged**, head `55e820d`. Verdict `SURVIVES_WITH_NAMED_RECONCILIATIONS`, **provisional, discharge incomplete, artifact NOT accepted** |
 | `C3.9` | **not started** — unchanged `shell_pending_population` |
 | `E2` | **not started** |
-| **`OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL`** | **chartered at R4, not started**, on its own branch `cursor/fai-foundational-architecture-30f4` from `main @ 9a6e7de`. Existence is DECIDED, not tested. Gate 0 completes on Nick + Knox acceptance |
+| **`OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL`** | **chartered at R5, not started**, on its own branch `cursor/fai-foundational-architecture-30f4` from `main @ 9a6e7de`. Existence is DECIDED, not tested. Gate 0 completes on Nick + Knox acceptance |
 | Integrator | **VACANT** |
 | Program checkpoint | **unchanged** — 2026-08-09 checkpoint still current |
 
@@ -55,7 +55,7 @@ Traced to two mechanical defects, both verified: **route `9p`** (the Gate-2 read
 | Owed | Blocked on |
 |---|---|
 | checkpoint repoint (this arc becomes the program's next action) | **integrator VACANT** |
-| catalog rows for the four new artifacts | integrator |
+| catalog rows for the **five** new artifacts (charter · execution plan · 2 verbatim · handoff) | integrator |
 | read-graph route for the arc — **and the load-bearing fix: an obligation that every loop/profile arc routes to the foundational system** | integrator |
 | `08` parent row for the arc's open questions | integrator |
 | `WI16` stale-state correction | integrator |

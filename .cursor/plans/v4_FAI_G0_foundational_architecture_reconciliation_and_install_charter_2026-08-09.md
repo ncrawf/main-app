@@ -1,8 +1,8 @@
-# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R4)
+# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R5)
 
 Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
-Status: **`gate_0_charter_R4 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
+Status: **`gate_0_charter_R5 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
 Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
@@ -13,7 +13,7 @@ Review gate: `user_knox_required`
 > **Correction receipt R0 → R1 → R2.**
 > **R0** (`8c0e8b1`, on the Insurance branch — a package-boundary violation, since corrected): treated the arc as an open existential question with a `NOT_A_SYSTEM` exit; proposed a single-law probe as Gate 1; named `.cursor/plans/` as the candidate home. **All deleted at R1.** The operator's "outpost" meant *the first permanent structure at the real site*, not a test cabin to decide whether the site exists. I misread it.
 > **R1** claimed *"the taxonomy has no `contract` class, therefore OMNI never classified contracts."* **Half wrong — corrected at R2 (§4).** `doctrine/00_architecture_artifact_index.md` exists, is ratified, and already defines System Map, Domain Contract and Seam/Event Contract. Knox caught this. **The real defect is narrower and worse: two taxonomies exist, they are inconsistent with each other, and neither carries the roles this arc needs.**
-> **R2** (this): names the thing **OMNI Architecture**; classifies Reactor; separates standards from patterns; adds the four things neither reviewer had (§6); answers the operator's sequencing question (§2).
+> **R2–R5**: names the thing **OMNI Architecture**; classifies Reactor; separates standards from patterns; adds the four things neither reviewer had (§6); answers the operator's sequencing question (§2).
 
 ---
 
@@ -23,7 +23,7 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R4 · not_started` · **execution plan R2 authored — adds the ARCHITECTURE OPERATIONS half and makes the third-party tool decisions** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
+| Arc state | `chartered_R5 · not_started` · **execution plan R2 authored — adds the ARCHITECTURE OPERATIONS half and makes the third-party tool decisions** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
 | What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
 | Blocking obligation | **`PRESPINE-PHASEA-INTEGRATOR` VACANT.** No shared control-plane surface may land |
@@ -144,19 +144,12 @@ Direction: an `/architecture` root holding **standards · views · contracts (do
 
 ---
 
-## §9 — Gates *(skeleton only — the executable program is the **arc execution plan**, which restructures this into five gates with the external-mechanism study FIRST and routing as the acceptance test)*
+## §9 — Gates
 
-**G0 — lock and authorize.** Existence decided. Lock: name · package class and path · artifact-role model direction · source set · integrator · supersession method · non-actions. **Exit: Nick + Knox acceptance.**
+**The gate sequence lives in the execution plan and NOWHERE ELSE.** A second copy here drifted within one revision — it still described an external-first order and routing-as-the-acceptance-test after both had been superseded. **Deleted at R5** rather than refreshed, per `D0CKPT-GRD-004`: *refreshing a stale duplicate preserves the mechanism.*
 
-**G1 — erect the outpost.** Install the actual `/architecture` package at its real path; **reconcile the existing Artifact Index into the multi-axis role model** (§4); land the **architecture change-control process** (§6.4); establish the normative/informative split, versioning and maintenance contract; declare the **two profile axes** (§6.1) and the **variation-point mechanism** (§6.2) as structure, unpopulated. `candidate_canonical`. **Only currently governing, uncontested laws enter the first normative draft; everything unresolved is marked unresolved rather than filled speculatively.** **Governance schemas are updated AFTER the architecture is installed, to represent it — not before, to permit it.**
+→ **`v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`**
 
-**G2 — full reconciliation, paid once.** Controlling termini only (§10). Per candidate law or pattern: source · authority · maturity · scope · conflicts · supersession · classification · normative status · build maturity · canonical destination · conformance method. **Includes the Reactor comparison table (§5).** Parallel source packets, one integrator.
-
-**G3 — profile pressure.** Pharmacy · Insurance · Labs/imaging · Gmail/Slack · payroll/banking · one simple internal domain · **one deliberate non-cousin** · **and at least two deployment profiles** (small operator · composed enterprise). Detects over-generalization and wrong inheritance.
-
-**G4 — ratify and propagate.** Package promoted · maps migrated or superseded · profiles installed · conformance wired · Build Entry updated · read graph updated · 05-17 superseded or narrowed · `WI16` corrected · **then spine, then thesis** · **then Insurance returns to `C3.9` and `E2`.**
-
----
 
 ## §10 — Bounded source set — controlling termini, not a sweep
 **`doctrine/00_architecture_artifact_index.md` (added at R2 — the ratified baseline)** · `doctrine/00_document_governance_and_taxonomy_2026-05-19.md` · `coherent_omni_architecture_pattern_2026-05-17.md` (**Tier-0 #14, mandatory, unread at boot by this agent**) · `OMNI_System_Map_vNext.md` · `OMNI_Surface_Map_vNext.md` · `doctrine/omni_enterprise_posture_2026-06-03.md` (**GCE — the only ratified member**) · Polaris · Care capture §1b/§5b/§5b.1/§18/§19 · Platform capture · Accountability capture · `EVRUN-000007 _05 §I.13–§I.15` + `_06` · `EVRUN-000008 _03` + `_04` · `v4_C4_6_…` §0.5 + §12 · C3.8 G4 · **the 16 domain contracts** · `federation_contract.md` (tenancy for §6.1) · **pre-spine map §5 (deployment postures)** · Build OS `09`/`10`/`11` (**self-declared stale**) · the frozen Insurance Gate-2 result.
@@ -188,7 +181,7 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 
 | Field | Value |
 |---|---|
-| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R4** + execution plan **R2** |
+| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R5** + execution plan **R3** |
 | Branch | `cursor/fai-foundational-architecture-30f4`, from `main @ 9a6e7de` |
 | Files | this charter · 2 verbatim preservations (**empty, operator-populated**) · 1 handoff |
 | Shared control-plane surfaces | **0 touched** |
@@ -198,4 +191,4 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 | Blocking | integrator **VACANT** |
 | Next | **Nick + Knox accept, amend or reject.** Nothing auto-starts |
 
-**STOP: `gate_0_charter_R4_and_execution_plan_R2_pending_acceptance`**
+**STOP: `gate_0_charter_R5_and_execution_plan_R3_pending_acceptance`**

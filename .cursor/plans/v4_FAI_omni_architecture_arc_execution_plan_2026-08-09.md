@@ -1,18 +1,18 @@
-# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R2)
+# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R3)
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R2 · pending_nick_knox_acceptance · nothing_started`**
+Status: **`execution_plan_R3 · pending_nick_knox_acceptance · nothing_started`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
 Manifest action: `add_tier2` **PROPOSED** — not landed.
 Review gate: `user_knox_required`
 
-**Companion:** the Gate-0 charter (R3) — the *why*. **This is the *how*.**
+**Companion:** the Gate-0 charter (**R5**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
 
 ---
 
-## §0 — R1 → R2 correction receipt: two self-inflicted errors, both verified against the estate
+## §0 — Correction receipt R1 → R2 → R3: two self-inflicted errors, both verified against the estate
 
 **(1) I made an optional catalog mandatory.** R1 declared `omni_work_method_repertoire.md` a *"mandatory consult at every gate"* and required a Pressure Coverage Matrix row per uncertainty. **Its own header and passport say the opposite, verbatim:**
 
@@ -80,20 +80,52 @@ external change · runtime drift · operator request · domain finding
 
 | Build OS Step-5 target | Off-the-shelf | Decision | Why now / why not |
 |---|---|---|---|
-| machine-readable work-package manifest + validator | **JSON Schema + CI** | **ADOPT at G2** | trivial; the manifest is the artifact metadata contract |
-| ownership leases · shared-surface locks | **`CODEOWNERS` + branch protection + required reviewers** | **ADOPT at G2** | **`.github/CODEOWNERS` already exists.** Mostly configuration |
+| machine-readable work-package manifest + validator | **JSON Schema + CI** | **ADOPT at G2** | **three DISTINCT objects, three schemas** — §3.1 |
+| approval + integration control | **`CODEOWNERS` + rulesets + required checks + merge queue** | **ADOPT at G2** | `.github/CODEOWNERS` exists but is **stale** — legacy map only, no `/architecture`. Rewrite it |
+| **ownership leases · active claims** | **thin OMNI resource-claim checker** (`change_id` · principal · owner · branch · base · `claimed_resources[]` + mode · `lease_expires_at` · reviewers · state) | **ADOPT at G2** | **CODEOWNERS does NOT implement leases** — no exclusivity, expiry, transfer or overlap detection. CI rejects overlapping exclusive claims, expired leases, and writes to undeclared resources |
 | shared-surface policy checks — *"a lane physically cannot land an edit to a protected control surface"* | **OPA / Conftest in CI** | **ADOPT at G2** | `check-checkpoint-pointer.mjs` + the `checkpoint-pointer` workflow **are already policy-as-code in embryo.** Generalize them |
-| architecture catalog / graph, owners, relationships | **Backstage catalog format** (`catalog-info.yaml`-style entity + relations) | **ADOPT the format and graph at G2; DEFER the portal** | we need the machine-readable graph; we do not need a UI yet |
-| runtime observability | **OpenTelemetry** | **ADOPT the convention at G2, instrument on first runtime work** | conventions are free now; there is almost no runtime yet |
-| transformation recipes for propagating approved changes | **OpenRewrite** | **DEFER — trigger: first architecture change requiring ≥10 mechanical code edits** | real value, no volume yet |
-| desired-vs-live reconciliation and drift | **Argo CD / GitOps** | **DEFER — trigger: first multi-deployment install** | nothing to reconcile until deployments exist |
+| architecture catalog / graph, owners, relationships | **Backstage-COMPATIBLE envelope with OMNI-defined kinds and relations** | **ADOPT the envelope at G2; DEFER the portal** | **OMNI descriptors stay canonical; Backstage entities are a GENERATED consumer. Backstage `spec.owner` is display/responsibility metadata and is NOT OMNI authority** |
+| runtime evidence transport | **OpenTelemetry semantic conventions** | **ADOPT the convention at G2** | **evidence vocabulary, NOT the conformance or drift authority.** Define `omni.architecture.version` · `omni.operating_profile.ids` · `omni.deployment_profile.id` · `omni.federation.id` · `omni.conformance.result`. **PHI and raw patient context are PROHIBITED in attributes** |
+| transformation recipes | **stack-native TypeScript codemods first**; OpenRewrite/Moderne later | **DEFER — trigger: a repeatable, mechanically specifiable semantic transformation WITH a decisive verifier** | **not an edit count** — a 2-file change can warrant a recipe and a 50-file change can be too ambiguous to automate. OpenRewrite's OSS core is Java-strongest; TS relies on Moderne CLI |
+| desired-vs-live reconciliation | **Argo CD / GitOps** | **DEFER — conditional on the eventual deployment substrate** | **the LOGICAL fleet exists before Kubernetes does.** Do not pick a K8s reconciler because the word 'fleet' appears |
 | durable multi-agent execution | **LangGraph / LangSmith** | **DEFER — owned by Agent Runtime, post-spine** | do not build the runtime pre-spine |
 
 **Boundary, stated once so it stops being restated:** these tools carry **mechanism, never authority**. A catalog format does not own OMNI's ownership model; a policy engine does not own the laws; a GitOps reconciler does not own what "conformant" means. **`GRD-033` — visible ≠ authorized — applies to every one of them.**
 
-**And what those tools do NOT supply, which is the whole reason OMNI exists:** the care-authority physics — clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity, multi-principal non-fungible authority. **Palantir is ahead of us on operationalizing a large semantic estate. It is not ahead of us on any of that.** That asymmetry is the honest strategic position and it should be stated in exactly those terms.
+**And what those tools do NOT supply, which is the whole reason OMNI exists:** the care-authority physics — clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity, multi-principal non-fungible authority. **Palantir is materially ahead in operationalizing a large semantic estate.** OMNI's differentiated work is making clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity and non-fungible multi-principal authority **first-class and portable across substrates**. **This arc has NOT established that Palantir fails to supply that constitution** — only that supplying an ontology platform does not, by itself, supply it. *(R5: the earlier categorical claim is withdrawn as more certainty than the work supports.)*
 
 ---
+
+## §3.9 — Two operator corrections that are not in the review's patch list
+
+### §3.9.1 Prior inputs are INHERITED, not re-derived — and they are named
+The operator's charge: *"don't build an arc plan that negates the prior inputs as though we're inventing Build OS concepts for the first time."* **Upheld. Verified present and added to the G1 Lane-2 floor as mandatory:**
+
+- **Six AI-corpus concept registries with routing maps** — `EVRUN-2026-000001` · `000002` · `000003` (wave 3) · `000005` (wave 4) · `000006` (wave 5) · `000011` (wave 6), under `ingestion/outside_learning/analysis/`. **These are the distilled form of the 300+ Stanford / IBM / LangChain / Karpathy ingests and are the correct consumption unit — the raws are NOT rescanned.**
+- **`FUTURE_ARC_2026-05-12_federation_permeability_topology.md`** — the prior federation/meta-federation arc.
+- **Build OS `09`/`10`/`11`** including the Step-5 target, and the prior build arcs that produced them.
+
+**Rule for G1 Lane 2:** for every operations capability at §1, **first check whether a wave registry already routed a concept to it.** Anything presented as new must first fail `M-106` EXISTS-AS against these six registries. **An arc that re-derives Build OS concepts the video corpus already routed has failed before it starts.**
+
+### §3.9.2 The frontier test — the operator's sharpest critique of our own Build OS
+> *"Our Build OS concepts strike me as sufficient… basic… but not 2030 and 2035 oriented and not frontier oriented. Which was the point of 300+ ingests."*
+
+**This is correct and it is the difference between the seed and the sprout.** Build OS Step-5's targets — manifests, validators, leases, merge queues, policy-as-code, status projection — are **competent 2020s software-estate practice**. They are what a good platform team builds today. **They are not an agent-native operating model for 2030–2035**, which is what the corpus was ingested to inform, and **no arc has consumed those registries for operations design.**
+
+**So G1 carries an explicit frontier obligation.** The operations model at §1 must be evaluated twice:
+1. **against current practice** — does it match what mature estates do today (the §3 tool table);
+2. **against 2030/2035 agent-native operation**, using the six registries — *what does this model assume that stops being true when a thousand agents a day propose changes, when review capacity is the bottleneck rather than authoring, when drift is continuous rather than episodic, and when the reader of the architecture is more often a machine than a person?*
+
+**Anything that only passes (1) is recorded as `current_practice_only` with the frontier gap named.** Passing (1) alone is the bean sprout.
+
+### §3.9.3 Pluggability is a conformance test, not a promise
+The operator, restated for the last time so it stops needing restating: *third-party tools may be employed; they may never own the build or the machinery; they must be replaceable by any competing product.*
+
+**Made testable as acceptance test 11 (§5, G4):**
+
+> **Remove every adopted third-party tool. The architecture must still resolve, and every law must still be stated and checkable.** Tools may make conformance *faster and automatic*; **none may be the place a rule lives.** A rule expressible only inside a vendor's format has already been surrendered.
+
+**This is the DNA test.** Content gets rewritten, tools get replaced, deployments multiply — the seed survives only if the laws, the resolution and the change process are substrate-independent. **`GRD-033` (visible ≠ authorized) and `GRD-034` (measured by preservation, not integration count) are the existing guardrails; test 11 makes them mechanical.**
 
 ## §4 — Method law, corrected
 **One pointer. `doctrine/omni_work_method_repertoire.md` is an optional catalog. `METHOD-000` — read the controlling sources and answer — is the default and is valid.** Consult it only when a **named material uncertainty** would be better answered by a specialized method; record the choice **only when it changes scope, independence, cost or acceptance.** **No per-gate matrix. No mandatory consult. No buffet proof.**
@@ -115,6 +147,8 @@ Charter · this plan · roles · authority · writable surfaces · stop conditio
 **Lane 1 — external mechanisms** (primary sources, mechanism only, `M-207` transfer discipline): **42010** (viewpoints/views/**correspondence rules**) · **SEI** (variability, variation points) · **FHIR** (canonical id, versioning, differential, constrain-never-loosen, validation) · **IHE** (actors/transactions/required groupings, multi-profile conformance) · **AUTOSAR** (standardized interfaces, internals free) · **AWS lenses** (one workload, many lenses) · **Palantir** (branching, proposals, resource protection, checks, lineage, affected-resource builds, interfaces, package dependencies) · **Backstage** (catalog, entities, relations, ownership, scaffolding) · **IBM** (agent catalog + control plane) · **LangGraph/LangSmith** (durable execution, HITL, eval) · **OPA** · **OpenRewrite** · **Argo CD** · **OpenTelemetry**.
 
 **Lane 2 — internal foundation** (controlling termini): **Artifact Index** · governance taxonomy · **05-17 pattern (Tier-0 #14)** · System Map · Surface Map · **GCE** · Polaris · **Build OS `09`/`10`/`11` incl. the Step-5 target** · **Agent Runtime & Harness** · **C4.4 Source Estate / Knowledge Reservoir / Domain-Owned State / Evidence Workbench / Compiled Projection / Mission Context** · Reactor `EVRUN-000007/000008` termini · Care §1b/§5b/§5b.1/§18/§19 · Platform · Accountability · C4.6 §0.5/§12 · C3.8 G4 · Federation tenancy · pre-spine §5 deployment postures · conformance estate.
+
+**Lane 3 — prior OMNI inputs (mandatory, §3.9.1):** the six AI-corpus concept registries · the federation permeability arc · prior build arcs. **Inherit; do not re-derive.**
 
 **Reconcile into:** artifact metamodel · **architecture-operations loop** · architecture graph semantics · change lifecycle · profile/deployment resolution · conformance and observability model · **adopt/reject/transfer-limit matrix**.
 **No vendor adoption decision beyond §3. No market/moat study — that stays Task-D.**
@@ -148,8 +182,13 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 | 8 | **Fleet** — small-operator, composed-enterprise and federated-node deployments resolve different effective snapshots **without forking the architecture** |
 | 9 | **Drift** — code, config or deployment that no longer conforms is detected |
 | 10 | **Upgrade / rollback** — versions move forward, coexist, deprecate and roll back under explicit rules |
+| **11** | **Substrate independence (the DNA test)** — with every adopted third-party tool removed, the architecture still resolves and every law is still stated and checkable |
 
 **Then install:** Build Entry enforces profile declaration · Build OS consumption rules · Agent Runtime bindings · read graph + catalog + checkpoint · **spine and thesis input-state receipts** (may-rely / must-not-assume / remains-open) · **then Insurance returns** — `C3.9` → consume → rerun affected traces → reconcile → **`E2` last**.
+**Two receipts, never conflated** (`installation maturity ≠ evidence maturity` — the founding diagnosis of this arc):
+- **`architecture_operations_v0_conformance`** — descriptor, repository and CI level: routing · applicability · impact · authority · propagation · policy · logical-fleet · versioning · substrate independence.
+- **`runtime_and_fleet_proof`** — `not_yet_due`. Production reconciliation, live care-agent behaviour, real rollback, operational SLOs and customer upgrade behaviour are **not** provable here and must not be read into the first receipt.
+
 **Verdicts:** `INSTALLED` · `INSTALLED_WITH_NAMED_DEBT` · `INSTALL_BLOCKED_<reason>`.
 
 ---
