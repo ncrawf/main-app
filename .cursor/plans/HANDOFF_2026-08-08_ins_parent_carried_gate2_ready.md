@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate`
 Authority: `derived_nonbinding`
-Status: `insurance_parent_assembled_on_branch · E1_failed_2026-08-08_corrected_pending_rerun · main_unlanded · gate2_prepared_not_started · not_promoted`
+Status: **★ THE STRING BELOW IS HISTORICAL — pre-landing, NOT current state.** The carry has since landed. **This file owns no live state:** resolve program state from the current checkpoint named in `AGENTS.md`, and Gate-2 execution + acceptance state from the Gate-2 brief's state table. `[historical] insurance_parent_assembled_on_branch · E1_failed_2026-08-08_corrected_pending_rerun · main_unlanded · gate2_prepared_not_started · not_promoted`
 Domain(s): `insurance_payer_oop` · `architecture_governance` · `portfolio_sequencing` · `cross_cutting`
 Lifecycle role: **subordinate Tier-3 continuity** for the Insurance parent carry. Reached **through** the current checkpoint §4.2 — **this is NOT the Tier-0 #15 checkpoint target.**
 Source-of-truth relationship: consumes the landed Insurance estate. **Owns no live program state.** Current program state resolves from **the current checkpoint named in `AGENTS.md`** — not from this file, and not from a checkpoint path hard-coded here.
@@ -39,7 +39,8 @@ Checkpoint §4.2's `INS-G0-MIXEDFIN` row now reads:
 ```
 delivered_phase_a_lineage:  Gate 0 → Gate 1a → Gate 1b
 phase_a_state:              landed · phase_a_input_complete_at_gate1b_ownership_maturity
-successor_pointer:          Gate 2 · outside Phase A · held behind C3.9 · not_started
+successor_pointer:          Gate 2 · outside Phase A · state owned by the Gate-2 brief
+                            (this file restates no Gate-2 state)
 ```
 
 **Gate 2 is a successor pointer, never a lineage element.** Only the Gate-0 carrier was commissioned; Gate 1a and Gate 1b are **depth beyond what was asked for**, so the obligation is satisfied *and exceeded* — the label must not imply Gate-1b was the commissioned deliverable.
@@ -52,7 +53,7 @@ successor_pointer:          Gate 2 · outside Phase A · held behind C3.9 · not
 
 **★ This subordinate file no longer states a next action (`D0CKPT-GRD-004`).** Resolve the current focus and next allowed action from **the current checkpoint named in `AGENTS.md`**. *(Superseded, retained for lineage: "NONE auto-starts, and it is NOT Gate 2" — that sentence, mirrored from the then-current checkpoint, retargeted a correct cold boot away from the live Insurance arc and is the recorded origin of `D0CKPT-GRD-004`.)*
 
-Per `D0THES-DEC-039` the accepted sequence is unchanged: **Phase A → Phase B C3.9 → Phase C final Task-D → Phase D full C4.5 → Phase E final pre-spine sufficiency receipt → spine.** Gate 2 sits **outside** that sequence, held behind C3.9, on its own track.
+Per `D0THES-DEC-039` the accepted sequence is unchanged: **Phase A → Phase B C3.9 → Phase C final Task-D → Phase D full C4.5 → Phase E final pre-spine sufficiency receipt → spine.** Gate 2 sits **outside** that sequence, on its own track; its current state is owned by the Gate-2 brief.
 
 **Task-D is NOT blocked on Gate 2.** `DEC-039` permits Task-D to examine an **OPEN or CANDIDATE** input via a version-pinned Input-State Receipt and return `SPINE_READY` / `SPINE_READY_WITH_NAMED_RECONCILIATIONS` / `NOT_READY`. **Gate-1b §11 is that receipt.** Gate 2 *upgrades* Insurance's input maturity; its criticality is an **output of Task-D**, not fixed in advance.
 
@@ -64,7 +65,7 @@ The next substantive activation is **operator-controlled** among the eligible re
 
 | Owed | Where | State |
 |---|---|---|
-| **Gate-2 execution** | `v4_INS_G2_operating_composition_and_sufficiency_brief_2026-08-08.md` | brief landed; **execution not started**; held behind C3.9 |
+| **Gate-2 execution** | `v4_INS_G2_operating_composition_and_sufficiency_brief_2026-08-08.md` | **that brief's state table owns Gate-2 execution and acceptance state — read it there** |
 | **C3.9 population** | designated mixed-financing vertical falsifier | `shell_pending_population` — Gate 2's required consumed input |
 | **`E2` adversarial review** | Gate-2 brief §5 | mandatory acceptance blocker **before** any Gate-2 result becomes final Insurance composition input |
 | **★ PR #9 governance landing** | branch `governance/agent-delegation-supervision-capture` | **separate parked Tier-4 transaction.** Owns its own decision row (`D0CKPT-DEC-008`), `FWREG-010` update, proposal-to-pointer normalization, AWP §2.2 activation, and **its own Tier-3/4 narrative and closeout.** This handoff carries a pointer and **nothing more** — resolve its head from the branch, never from this file |

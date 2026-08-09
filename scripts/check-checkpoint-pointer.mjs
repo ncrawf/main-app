@@ -8,7 +8,9 @@
  *
  * It checks four things and nothing else:
  *   1. exactly one pointer block per surface
- *   2. exactly one non-blank line inside each block
+ *   2. exactly one non-blank line inside each block, matching the EXACT permitted shape —
+ *      an optional list marker, "Current checkpoint: ", one backticked path, end of line.
+ *      Nothing may be appended, which is what stops "<path> — DO NOT WORK ON GATE 2".
  *   3. both blocks name the same checkpoint path
  *   4. that path exists on disk
  *
@@ -19,7 +21,9 @@ import { readFileSync, existsSync } from "node:fs";
 const START = "<!-- CHECKPOINT-POINTER:START -->";
 const END = "<!-- CHECKPOINT-POINTER:END -->";
 const SURFACES = ["AGENTS.md", ".cursor/plans/doctrine/04_manifest_read_graph.md"];
-const PATH_RE = /`(\.cursor\/plans\/HANDOFF_[A-Za-z0-9._-]+\.md)`/g;
+
+/** The whole permitted line. Anchored at both ends: no prose may follow the path. */
+const LINE_RE = /^(?:- |\d+\. )?Current checkpoint: `(\.cursor\/plans\/HANDOFF_[A-Za-z0-9._-]+\.md)`$/;
 
 const problems = [];
 const found = [];
@@ -44,13 +48,17 @@ for (const file of SURFACES) {
     continue;
   }
 
-  const paths = [...lines[0].matchAll(PATH_RE)].map((m) => m[1]);
-  if (paths.length !== 1) {
-    problems.push(`${file}: pointer line must name exactly one .cursor/plans/HANDOFF_*.md path (found ${paths.length})`);
+  const m = lines[0].trim().match(LINE_RE);
+  if (!m) {
+    problems.push(
+      `${file}: pointer line does not match the permitted shape.\n` +
+        `      expected: Current checkpoint: \`.cursor/plans/HANDOFF_<name>.md\`  (nothing before or after)\n` +
+        `      found:    ${lines[0].trim()}`
+    );
     continue;
   }
-  if (!existsSync(paths[0])) problems.push(`${file}: checkpoint \`${paths[0]}\` does not exist`);
-  found.push(paths[0]);
+  if (!existsSync(m[1])) problems.push(`${file}: checkpoint \`${m[1]}\` does not exist`);
+  found.push(m[1]);
 }
 
 if (found.length === SURFACES.length && new Set(found).size !== 1) {
