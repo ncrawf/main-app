@@ -12,7 +12,7 @@ Review gate: `user_knox_required`
 
 Read order: read-graph route `9p` (Gate-0 carrier → Gate-1a protocol → Phase-A raw → Phase-B raw → Gate-1a adjudication → Gate-1b carrier → Gate-2 brief) → **this**.
 
-> **★ REVISION HISTORY. R0 (`dd72771`)** produced the fourteen outputs, ran the trace suite on paper and performed the comparator research. **Knox's full-blob review returned `NOT ACCEPTED · STRONG R0 · REQUIRED R1 ARCHITECTURE REVISION`** with thirteen patches. **R1 (this) is a rewrite, not a patch set** — R1-01 and R1-02 move the architectural centre, and Gate-1b's own R5→R8 history is four consecutive rounds proving that correcting a claim only where it was introduced leaves the withdrawn version live elsewhere. Eleven of Knox's thirteen are accepted on verification; **two are corrected back** (§0.6). Following Knox's instruction to open C4.6 directly produced the most consequential single finding in either round — **`C6` already ships the §9 Law 2 enforcement proof shape** (§6.3) — which no party had noticed.
+> **★ REVISION HISTORY. R0 (`dd72771`)** produced the fourteen outputs, ran the trace suite on paper and performed the comparator research. **Knox's full-blob review returned `NOT ACCEPTED · STRONG R0 · REQUIRED R1 ARCHITECTURE REVISION`** with thirteen patches. **R1 (this) is a rewrite, not a patch set** — R1-01 and R1-02 move the architectural centre, and Gate-1b's own R5→R8 history is four consecutive rounds proving that correcting a claim only where it was introduced leaves the withdrawn version live elsewhere. Eleven of Knox's thirteen are accepted on verification; **two are corrected back** (§0.6). **R2 (this)** is the bounded correction pass Knox's second review required, plus the repair the operator demanded: **an estate-inheritance receipt (§0.7) and the cousin/homology finding (§20).** R2's dominant result is uncomfortable and is the point — **half of what R1 called new findings already existed in the Care capture, better decomposed**, and the cause is structural: the Gate-2 read floor routes the Insurance chain and nothing else, so the gate re-derived every cross-cutting law it needed and mistook each re-derivation for a discovery.
 
 ---
 
@@ -20,7 +20,8 @@ Read order: read-graph route `9p` (Gate-0 carrier → Gate-1a protocol → Phase
 >
 > | Field | Value |
 > |---|---|
-> | Gate-2 state | **`constructed · R1 · builder_verdict_issued · provisional_by_construction`** |
+> | Gate-2 state | **`constructed · R2 · builder_verdict_issued · provisional_by_construction`** |
+> | **Estate-inheritance debt** *(new at R2)* | **OPEN.** Care §5b/§5b.1/§18/§19 and C4.6 §0.5/§12 consumed at R2. **C3.8 G1b–G4 and `EVRUN-000007`/`000008` named, load-bearing, and NOT consumed** — recorded as debt at §0.7/§20.3, not skimmed |
 > | Builder's verdict | **`SURVIVES_WITH_NAMED_RECONCILIATIONS`** — unchanged from R0, **at lower confidence and with the discharge posture below** |
 > | **Discharge posture** *(new at R1)* | **14 output sections present · trace and comparator discharge INCOMPLETE.** R0's "14/14 produced · 6/6 performed" is **withdrawn** as a completeness claim |
 > | Why provisional | **C3.9 does not exist** (`shell_pending_population`, re-verified). A Gate-2 result produced before C3.9 is provisional **by construction** (brief §6 Barrier 2) |
@@ -45,7 +46,7 @@ Permitted at Barrier 1 and performed: **architecture construction**, **comparato
 **Trace semantics.** A trace is a *constructed* scenario walked against the accepted architecture with its verdict criterion fixed **before** the walk (`M-706`). `NO_DEFECT` means *no defect was exposed by this construction*, never *proven correct*. **R1 distinguishes deep-run traces (event-by-event, §7.2 schema) from scenario dispositions** — R0 did not, and presented both as though equally discharged.
 
 ### §0.3 Source posture — strict depth labels
-**READ FULLY:** Gate-1b carrier (1,252 lines, at the pinned blob) · Gate-2 brief · the 2026-08-09 checkpoint · `AGENTS.md` · **C4.6 §7 conformance test `C1`–`C16` in full (R1 — R0 relied on `C12` without opening it; Knox correctly caught this)** · `T0-15` in `00_doctrine_manifest.md` · the `comparator_analogy_registry.md` Palantir rows.
+**READ FULLY:** Gate-1b carrier (1,252 lines, at the pinned blob) · Gate-2 brief · the 2026-08-09 checkpoint · `AGENTS.md` · **C4.6 **§12** conformance test `C1`–`C16` in full (R1 — R0 relied on `C12` without opening it; Knox correctly caught this)** · `T0-15` in `00_doctrine_manifest.md` · the `comparator_analogy_registry.md` Palantir rows.
 
 **READ LOAD-BEARING SECTIONS:** read graph Tier-0 + routes `9m`–`9q` · guardrail digest `D0CKPT-GRD-001`–`005` · `D0CKPT-DEC-009` · `D0CKPT-SUP-002` · AWP §5/§9 · pre-spine map §5/§6/§6.1/§7 · FWREG `010/017/018/020` · `08` `REV-159/160/185` + `D0INS-REV-002`.
 
@@ -86,9 +87,19 @@ Re-verified against `main @ 9a6e7de`: Gate-1b §13.3 blob **byte-identical** · 
 | **R1-11** | No product/experience layer, though Axis 2 is a product claim | **ACCEPTED, and raised from a persona list to a conformance surface** | §15 |
 | **R1-12** | Kill condition 6 left passive | **ACCEPTED, and pressured — see O-4** | §10.7 |
 | **R1-13** | Authority to command ≠ execution admissibility | **ACCEPTED, and generalized — see O-2/O-3** | §12.1 |
-| **O-1** | **C4.6 `C6` — "Neutrality / incentive firewall · margin-only counterfactual test" — already ships the Law 2 enforcement proof shape.** R0 said the mechanism was absent; Knox independently *proposed* the same counterfactual as new. **Both wrong: it exists, at accepted L2 doctrine, runnable** | **NEW FINDING; changes criterion 9's reconciliation from "invent" to "extend"** | §6.3, §11 |
-| **O-2** | Authority decomposes into **three** things, not two: fact authority · action authority · **execution admissibility** | **NEW** | §12.1 |
-| **O-3** | **Conjunctive admission** is the correct general form of the aviation import and the actual physics of care | **NEW** | §12.2 |
+| **O-1** | **C4.6 `C6` — "Neutrality / incentive firewall · margin-only counterfactual test" — already ships the Law 2 proof shape.** R0 said the mechanism was absent; Knox independently *proposed* the same counterfactual as new | **RETAINED, MATURITY CORRECTED AT R2** — a proof *specification*, not built enforcement and not an owner. Row 23 reverted to `NAMED-GAP`; criterion 9 stays `CONDITIONAL` | §6.3, §5, §11 |
+| **O-2** | Authority decomposes into three: fact · action · **execution admissibility** | **WITHDRAWN AS NEW AT R2.** Care **§5b** already carries it as *four* projections with an anti-collapse `[INV]`. Care's version is better; R1's collapsed two of its projections | §12.1, §0.7 |
+| **O-3** | **Conjunctive admission** as the general form of the aviation import | **DEMOTED AT R2 to one enum value.** Care **§5b.1 `approval_requirement`** already enumerates `single_authority · cosign_required · **dual_control** · independent_verification · supervisory_review · committee/ethics_review`. Aviation corroborates one value; it is not a constitution | §12.2, §0.7 |
+| **R2-01** | Palantir: R1's replacement claim is contested by Knox against a different documentation surface | **BOTH READINGS RECORDED; question left `OPEN`; R1's registry append WITHDRAWN and no replacement proposed.** The moat claim is re-anchored to Care §19's ratified `[INV]`, which is invariant to the answer | §14.1 |
+| **R2-02** | `C6` overclaimed as built enforcement; conformance table cited as C4.6 §7 | **ACCEPTED — it is §12, corrected in four places; maturity corrected; row 23 and criterion 9 reverted** | §0.3, §6.3, §5, §11 |
+| **R2-03** | Universal conjunctive admission; **payer funding and D6 settlement listed as universal execution predicates** | **ACCEPTED — the predicate defect contradicted F1, D6 §8.1 and Care's own `appropriate-but-not-covered`. Withdrawn** | §12.2 |
+| **R2-04** | Responsibility continuity and the liability non-decision are absent | **ACCEPTED IN PRINCIPLE, DEBT RECORDED NOT DISCHARGED** — `EVRUN-000007 §02` / `EVRUN-000008` were not consumed, and skimming them would repeat §0.7's failure | §0.7, §20.3 |
+| **R2-05** | No estate-inheritance receipt | **ACCEPTED AND EXCEEDED** — §0.7 adds the receipt *and* names the control-plane defect that caused the misses | §0.7 |
+| **R2-06** | Adopt the two-stage anti-shadow reading | **ACCEPTED** | §11.1 |
+| **R2-07** | "The profile owns conformance" over other domains | **ACCEPTED** — it carries composition-specific acceptance and proof obligations; existing owners enforce their own rules | §1.1, §11.1 |
+| **R2-08** | "Not Insurance-owned" used as though it discharged Gate 2 | **ACCEPTED — a real conflation of truth ownership with gate responsibility** | §16.2 |
+| **O-9** | **Insurance is a COUSIN of Pharmacy** — C4.6 §0.5 answered the identical question form, and Gate-1b's Axis 2 reached the same shape independently | **NEW — and it shrinks Gate 2's job rather than expanding it** | §20.1 |
+| **O-10** | **The Homology Matrix (Care §19) + `U/C/A` law-scope crosswalk is the existing mechanism for cross-loop physics — and it has three columns while the estate has built at least five loops** | **NEW — the structural cause of the whole re-derivation pattern** | §20.3 |
 | **O-4** | **Unilateral coherence *raises* anti-shadow risk** — the inverse of Knox's framing, and the condition that makes R1-12 safe rather than dangerous | **NEW** | §10.7 |
 | **O-5** | Palantir **federates data, not the ontology**; peering presupposes platform symmetry and mutual configuration | **NEW — corrects both R0 and Knox** | §14.1 |
 | **O-6** | `eligibility_decisions` is **pathway** eligibility. The name will be found by any future insurance work grepping "eligibility" and mis-wired | **NEW hazard** | §2.3 |
@@ -99,7 +110,27 @@ Re-verified against `main @ 9a6e7de`: Gate-1b §13.3 blob **byte-identical** · 
 
 **(a) The Palantir "one enrollment is stale" correction is half right, and the half that is wrong matters more.** Knox states Palantir "now supports ontology peering across enrollments, including mapped objects/links, directional source-data synchronization, and bidirectional action-data peering," and concludes *"one enrollment is no longer a safe differentiator."* Verified against primary sources: **Peer Manager does peer object data across enrollments** — "you can peer Foundry objects, object sets configured in Object Explorer, and Gotham files," with the connection controlling "the types of data that may peer, the direction the data will peer, and the set of classification and other markings." **But Palantir's own developer community answers the link-type question directly: "At the moment, no there is no way to do this. But we are tracking this as a feature request,"** and the documented workaround is to **duplicate the object into each ontology** and fake the link by foreign-key filtering. **So data peers; the ontology does not.** R0's wording was stale and is withdrawn; Knox's replacement over-reads. The corrected finding is at §14.1 and is stronger than both.
 
-**(b) Knox's "cross-plane conformance contract" is the right direction and the wrong provenance.** It is presented as a new architectural category. **The estate already has the pattern, landed and accepted:** C4.6 §7's `C1`–`C16` is precisely a conformance layer that owns no truth, commits nothing, and which every downstream build decision must pass with explicit yes-and-why. R1 therefore does **not** mint a conformance category — it **maps the profile's conformance obligations onto the existing gate pattern**, reuses eight of C4.6's sixteen gates directly, and adds a small financing-specific set. That is dedup-before-minting applied to Knox's own proposal, and it is the difference between a new governance object and an inherited discipline.
+**(b) Knox's "cross-plane conformance contract" is the right direction and the wrong provenance.** It is presented as a new architectural category. **The estate already has the pattern, landed and accepted:** C4.6 §12's `C1`–`C16` is precisely a conformance layer that owns no truth, commits nothing, and which every downstream build decision must pass with explicit yes-and-why. R1 therefore does **not** mint a conformance category — it **maps the profile's conformance obligations onto the existing gate pattern**, reuses eight of C4.6's sixteen gates directly, and adds a small financing-specific set. That is dedup-before-minting applied to Knox's own proposal, and it is the difference between a new governance object and an inherited discipline.
+
+### §0.7 — Estate-inheritance receipt, and the control-plane defect that made it necessary (R2)
+
+**The operator's charge, and it is upheld.** Nick's position is that the execution/authority material R1 presented as new was raised in prior passes, that a Palantir arc already ran, and that this arc keeps re-deriving basics from external analogies. **Verified. He is right on every count, and the mechanism is now identified.**
+
+| What R0/R1 derived or re-derived | Where it already existed | Grade of the miss |
+|---|---|---|
+| "execution admissibility" as a **new** third authority layer (O-2) | **Care §5b** — *"the '10 things must align' physics; per-action-type, NOT one god-gate"*, four projections, each mapped to an owner, with an anti-collapse `[INV]` | **severe** — Care's version is better and R1 called it new |
+| "conjunctive admission" as a **general law** (O-3) | **Care §5b.1 `approval_requirement`** — `dual_control` is one of six enumerated topologies | **severe** — a general law was minted from one enum value |
+| Knox's ad-hoc "typed execution-admission policy" list (waiver, break-glass, default-on-silence, sequencing, non-waivable prohibition) | **Care §5b.1** — `authority_basis` incl. `emergency_authority`/`court_statutory_authority`, `authorization_evidence_form`, versioned `checkpoint_graph` with blocking semantics, fallback, reauthorization trigger, timeout/escalation | **severe** — and Care's header says the earlier single enums *"were malformed"*, i.e. this was already litigated once |
+| "payer funding is an execution predicate" (R1 defect) | **Care §5b** `appropriate-but-not-covered` — *commercial, not clinical*; *"Coverage absence ≠ clinical inadmissibility"* | R1 contradicted a rule **Gate-1b itself cited** at its §2 estate matrix |
+| the Palantir moat conclusion, drafted three times across R0/R1/Knox | **Care §19 `[INV]` moat framing** — *"a generic ontology can configure toward but not supply"* | **severe** — the ratified sentence is better than all three drafts |
+| the five-typing-axes model (Gate-1b §10.B.8) | **Care §18** `seam_kind × interaction_kind`, with the GCE-dedup caveat already attached | moderate |
+| "is Insurance a cousin?" | **C4.6 §0.5** answers the identical question form for pharmacy: *"cousin: shared substrate, specialized profile — neither a silo nor a twin"* | **severe** — §20 |
+
+**The mechanism, stated so it is fixable rather than moralised.** This is not individual carelessness and it is not proof the work never happened. **The Gate-2 read floor is route `9p`, which routes the Insurance chain and nothing else.** Gate-1b's §2 estate matrix cites Care capture lines L170/L171/L191/L192 for exactly these facts — so Gate 1b *had* them — and route `9p` carries none of it forward. **A gate that inherits only its own arc will re-derive every cross-cutting law it needs, every time, and will believe each re-derivation is a discovery.** That is `GRD-043`'s unrouted-finding failure operating on *inheritance* rather than on *output*, and it is the same disease the Comparator Registry was created to cure for comparators only.
+
+**Consumed at R2 (read this pass, not previously in the packet):** Care capture **§5b · §5b.1 · §18 · §19** (incl. the moat `[INV]` and the §1b U/C/A law-scope crosswalk) · **C4.6 §0.5** anti-silo constitution · **C4.6 §12** conformance table in full.
+
+**Named and NOT consumed, with reason:** C3.8 G1b/G2/G3/**G4** Palantir/ontology arc and `EVRUN-2026-000007 §02` / `EVRUN-2026-000008` (multi-principal responsibility, authority/custody/liability) — **Knox names these and they are almost certainly load-bearing for §12 and for the liability question.** They are **not** consumed here because doing so properly is a second inheritance pass, not a paragraph, and R2 is bounded. **Recorded as an explicit debt at §20.3 rather than skimmed** — skimming them would reproduce the exact failure this section documents.
 
 ---
 
@@ -238,7 +269,7 @@ Vocabulary: **`OWNED`** · **`OWNED-DELTA`** · **`NAMED-GAP`** · **`EXTERNAL`*
 | 20 | F3 resource incidence — 7 actor slices | **NAMED-GAP** | operator → OPECON; patient/credit → D6; five native/external. Representation form unproven (A-Q13) |
 | 21 | Sourcing selection | **OWNED** | **Sourcing**, distinct lifecycle (C4.6 §9). The profile **must not absorb it** |
 | 22 | Payer-constrained therapeutic alternatives + recommit | **OWNED-DELTA** | Care/CM + payer + pharmacy; delta = A-Q14a/b/c |
-| 23 | Economic-influence separation | **OWNED-DELTA** *(upgraded at R1 from NAMED-GAP)* | `REV-185` + **C4.6 `C6` supplies a runnable proof shape** (§6.3); delta = extend `C6` beyond operator margin |
+| 23 | Economic-influence separation | **NAMED-GAP** *(R1 upgraded this to OWNED-DELTA on the `C6` finding; **reverted at R2** — a proof specification is not an owner)* | no enforcement owner; `REV-185` is a review row. **C4.6 `C6` is the strongest existing proof pattern** and is recorded as such (§6.3) |
 
 **Tally — R0's, Knox's recount, and R1's, kept distinct because they are three different things:**
 
@@ -246,11 +277,12 @@ Vocabulary: **`OWNED`** · **`OWNED-DELTA`** · **`NAMED-GAP`** · **`EXTERNAL`*
 |---|---|---|---|---|
 | **R0 stated** | 2 | 10 | 8 | 3 |
 | **Knox's recount of R0's rows — verified correct** | **1** | **9** | **10** | **3** |
-| **R1 actual** *(row 23 upgraded to OWNED-DELTA on the `C6` finding)* | **1** | **10** | **9** | **3** |
+| R1 stated *(row 23 upgraded on the `C6` finding)* | 1 | 10 | 9 | 3 |
+| **R2 actual — row 23 REVERTED to NAMED-GAP** | **1** | **9** | **10** | **3** |
 
-*R0's arithmetic was simply wrong. Knox's recount of R0's rows is verified against the rows and is correct. R1's tally differs from Knox's by exactly one row because R1 moves row 23, not because Knox miscounted. **A first draft of this section stated Knox's numbers as R1's and failed to propagate the row-23 upgrade — the same defect class, caught by recounting rather than by re-reading.***
+*R0's arithmetic was simply wrong. Knox's recount of R0's rows is correct and verified. R1 then moved row 23 to OWNED-DELTA on the `C6` finding; **R2 reverts it**, because a conformance-proof specification is not an owner (§6.3). The R2 tally therefore lands back on Knox's numbers — by a different route, and only after the `C6` maturity was corrected. **Two propagation defects were caught here by recounting rather than re-reading: R1's first draft failed to propagate the row-23 move, and R1's final failed to demote it when the `C6` maturity claim was itself overstated.***
 
-**The finding, restated on the correct denominator and narrowed.** Not one row resolves to a new Insurance-owned truth object — Axis 1 surviving a row-by-row drive. **Of the nine `NAMED-GAP` rows, four are generic physics the estate itself places above this arc:** row 6 (bilateral contested agreement — Gate-1b §6 *"generic counterparty physics above Insurance"*), row 8 (accepted custody — carrier named absent by C4.3 §4), row 15 (the communicative act — *"generalizes past insurance"*), row 20 (F3 — *"GENERAL RESOURCE-INCIDENCE PHYSICS"*). **The other five are financing-specific or financing-proximate** (3, 9, 10, 18, 19). *R0 claimed "six of eight are not financing-specific," which was wrong on numerator and denominator and flattered the result; the corrected claim is four of nine.*
+**The finding, restated on the correct denominator and narrowed.** Not one row resolves to a new Insurance-owned truth object — Axis 1 surviving a row-by-row drive. **Of the ten `NAMED-GAP` rows, five are generic physics the estate itself places above this arc:** row 6 (bilateral contested agreement — Gate-1b §6 *"generic counterparty physics above Insurance"*), row 8 (accepted custody — carrier named absent by C4.3 §4), row 15 (the communicative act — *"generalizes past insurance"*), row 20 (F3 — *"GENERAL RESOURCE-INCIDENCE PHYSICS"*), row 23 (economic influence — three dependent arcs, row-P elevation). **The other five are financing-specific or financing-proximate** (3, 9, 10, 18, 19). *R0 claimed "six of eight," which was wrong on both numerator and denominator and flattered the result. **And "not Insurance-owned" does not discharge Gate 2 — see §16.2.***
 
 ---
 
@@ -269,13 +301,15 @@ Law 3 → **no carrier.**
 ### §6.3 O-1 — the enforcement mechanism is not absent. It already exists, and both R0 and Knox missed it.
 R0 said Law 2's structural enforcement was **OWED** and specified three requirements. Knox independently proposed a counterfactual test: *"mutate operator margin, lender origination revenue, manufacturer economics, or payer cost while holding clinical evidence fixed; the clinically ranked option set must remain invariant."*
 
-**C4.6 §7 already ships it, verbatim, as an accepted conformance gate:**
+**C4.6 §12 already ships it, verbatim, as an accepted conformance gate specification:**
 
 > **`C6` | Neutrality / incentive firewall | margin-only counterfactual test | FAILS if changing operator margin changes clinical authorization, or hides incentive lineage in selection.**
 
 This is not an analogy. It is a **runnable proof shape at accepted L2 build doctrine**, with a named fixture and a named failure condition, produced by the pharmacy arc for exactly this law. Two independent parties reasoned to the same mechanism without noticing the estate had landed it — **the estate's signature failure mode, reproduced by both reviewers of a gate whose own §16 names that failure mode.**
 
-**What changes.** Law 2's enforcement moves from *invent a mechanism* to **extend an existing gate**, and the extension is precisely scoped:
+**What it is, and what it is NOT — corrected at R2 (Knox R2-02, accepted).** `C6` is an **accepted `analysis_nonbinding` conformance-gate *specification* with a named fixture and a named failure condition.** It is **not** built runtime enforcement, not an audit harness, not an input-visibility boundary, and **it does not establish an owner** — `REV-185` is a review row, not an architectural owner. R1's framing ("already built", "the mechanism is not absent") **overstated it and is withdrawn.** The accurate statement is narrower and still valuable: **the proof *family* exists and Insurance must extend it rather than invent one.** Accordingly residual row 23 **stays `NAMED-GAP`** and anti-shadow criterion 9 **stays `CONDITIONAL`**.
+
+**The extension, precisely scoped:**
 
 | `C6` today | Extension Insurance requires |
 |---|---|
@@ -447,42 +481,48 @@ R0 concluded that criteria 8, 9 and 10 are properties of the *assembly*, not the
 
 ## §12 — OUTPUT 12 · Cross-authority option-resolution profile
 
-### §12.1 O-2 — authority decomposes into three things, not two
-R0 and Knox both worked a two-part model: **fact authority** (C3.6C's `source_authority_map` — who may assert this fact) and **action authority** (an action-specific envelope — who may commit this action). Nick's nuclear-command challenge, relayed through Knox, exposes a third that neither named:
+### §12.1 Authority decomposition — **R2: O-2 IS WITHDRAWN AS NEW. Care §5b already built it, better.**
 
-> **A valid order is not an executable order.**
+R1 presented a three-layer model — fact authority · action authority · **execution admissibility** — as a new finding (O-2), derived from Nick's nuclear-command challenge and the aviation regulation. **That derivation was real and the conclusion was correct. It was also unnecessary, because `v4_C4_care_operating_model_capture.md` §5b already carries it, at greater fidelity, with an anti-collapse invariant R1 did not have.**
 
-| Layer | Question | Home |
+> **Care §5b — "Care-transition admissibility (the '10 things must align' physics; per-action-type, NOT one god-gate)."** *"Each proposed care transition DECLARES its own required predicates — a computed composition (Polaris-style), never one `eligible=true/false` boolean, and NOT one truth-owning admissibility object."* **Split into FOUR projections, each mapped to an existing owner.**
+
+| Care §5b projection | Question | Owners named there |
 |---|---|---|
-| **Fact authority** | who may assert, adopt, correct this *fact*? | C3.6C `source_authority_map` — `source_originator` · `repository_of_record` · `extraction` · `adoption_authority` · `correction_authority` · `audit_provenance` · `publication_lineage` |
-| **Action authority** | who may commit this *action*, in this capacity, now? | action envelope: principal + represented capacity · delegated capability · professional scope · treatment/contractual relationship · jurisdiction · decision kind · consent · scope/expiry · owning-domain commit authority |
-| **Execution admissibility** *(new)* | **may this action proceed at all**, given conditions that are not about authority? | a **composition over existing owners** — consent (D7) · legality/jurisdiction (Federation) · safety/clinical constraints (Care/CM) · resource and supply feasibility (Sourcing/OFC) · **acceptance by the executing principal** (C4.6 rung ladder, `C8`) · emergency/break-glass · mandatory audit |
+| **1. Decision admissibility** | may this stance be authorized? | subject/identity · clinical appropriateness · **patient authority** (§5a) · professional authority (role/license/scope/privilege) · legal/jurisdictional policy · evidence sufficiency + **action-critical freshness** → CM/Observation · RBAC · §5a · policy |
+| **2. Execution authorization** | may this actor/system **issue** the action? | action-type · role/scope/privilege/delegation · protocol · required co-approval → action-type contract (OPEN) · RBAC atoms · Polaris · P35 |
+| **3. Execution readiness** | **can it happen now, here?** | capacity · staff · room · device · inventory · location · transport · monitoring · technical/agent health · external endpoint → D5/operational · Inventory · Runtime health |
+| **4. Consequence + proof contract** | what must result / stay visible? | domain writes · occurrence evidence · communication · **coverage/payment (kept SEPARATE from clinical indication — firewall)** · monitoring · follow-up · compensation/retry · reassessment |
 
-**Nothing is minted.** Execution admissibility is a *named composition* over owners that already exist — the estate's preferred move, and the same discipline `GRD-026` applies to nouns. What it buys is the ability to say precisely why each of these is a distinct failure:
+**R1's three layers map onto this and lose a projection.** R1's "fact authority" ≈ §5b projection 1's evidence/appropriateness inputs; "action authority" = projection 2 exactly; "execution admissibility" collapses projections 3 and 4 into one. **Care's decomposition is strictly better**, because separating *readiness* from *consequence contract* is what makes `technically-unavailable-but-manually-feasible` a **reroute rather than a denial**.
 
-*A payer authorization does not create clinical appropriateness. A clinical order does not create inventory. Inventory does not create patient consent. A valid prescription does not create pharmacy acceptance. A powerful principal's command does not erase an independent professional or safety duty.*
+**The states Care §5b already enumerates — and every one of Nick's nuclear-launch scenarios lands on one of them:**
 
-**Generic authority physics above Insurance.** Routes to A-Q16 / C3.6C + RBAC + CNS + Care — **not** into Insurance, and not into a new domain.
+| Scenario as posed | Care §5b state |
+|---|---|
+| provider should act, and does | all four projections satisfied |
+| provider declines; someone else acts | projection 2 — role/scope/delegation; §9a *contributions ≠ votes* |
+| pharmacy removed the option **because it is dangerous** | projection 1 — professional/institutional prohibition, or `legally-prohibited` |
+| pharmacy would allow it but has none in stock | **`indicated+accepted-but-operationally-unavailable` — READINESS, NOT INADMISSIBILITY** |
+| provider does not know an attack occurred | **`unresolved-because-evidence-stale`** + *action-critical freshness* |
+| provider is right and OMNI disagrees | §5b.1's automation axes — and **`[INV]` AI is NOT a Care-validity condition** |
+| coverage denies it | **`appropriate-but-not-covered` — commercial, not clinical** |
 
-### §12.2 O-3 — conjunctive admission is the general form, and it is the physics of care
-The aviation import and the nuclear-command intuition are **the same mechanism seen from two sides**, and naming it once is better than importing it twice.
+**`[INV]` Do NOT collapse to one boolean; these compile into one transition VIEW but never one admissibility TRUTH-object.** Per plane: `satisfied · unsatisfied · unknown · not-applicable · authorized-exception` **plus who owns resolving it.** *"Coverage absence ≠ clinical inadmissibility; missing room ≠ inadmissible; unavailable AI ≠ inadmissible."*
 
-> **Conjunctive admission.** An execution proceeds only when **every** non-fungible predicate holds. **Any** predicate-holder may withhold. Withholding is not a contest of authority — it is the absence of a condition. No holder thereby acquires any other holder's authority.
+**Insurance's actual contribution is much smaller than R1 claimed, and it is the right size:** the mixed-financing profile is a **consumer of Care §5b projection 4's coverage/payment slot and projection 3's readiness signals** — it supplies inputs, it does not own the admissibility model, and **it must not create a second one.**
 
-14 CFR 121.663 and 121.533(c)(3) are one instance: **conjunctive commit** (both must believe) with a **disjunctive veto** (either opinion cancels). Care is the same shape with more predicates:
+### §12.2 Conjunctive admission — **R2: O-3 IS DEMOTED. It is one enum value in Care §5b.1, not a general law.**
 
-| Predicate | Holder | Withholding means |
-|---|---|---|
-| clinical intent and indication | treating clinician | not clinically indicated |
-| consent | patient | refused |
-| professional acceptance within scope | pharmacist / executing professional | not accepted for execution |
-| funding posture | payer / funder | not funded (**never** "not indicated") |
-| availability and custody | supply owner / pharmacy | not available |
-| money state | D6 | not settled |
+Knox is right that conjunctive admission is one topology and not the constitution. **The estate is more precise than either of us:** Care §5b.1 already decomposes approval into orthogonal axes and enumerates the topologies —
 
-**This is why no single principal — EHR, payer portal, pharmacy system, lender or clearinghouse — can legitimately own the interaction end to end: each holds one predicate.** It is also the precise reason Axis 2 exists: *something must compose the predicates without owning any of them.*
+> **`approval_requirement`** (approver cardinality + review topology): **`single_authority · cosign_required · dual_control · independent_verification · supervisory_review · committee/ethics_review`.**
 
-**The transfer limit, stated with the mechanism so it cannot be separated from it:** conjunctive admission must **never** be read as giving a payer a co-equal vote on a clinical act. The payer's predicate is *funding*, and its withholding produces *not funded* — which changes feasibility (Law 3) and never changes indication (Law 1). **A dual-concurrence model that let a payer's predicate speak to clinical merit would invert Law 2 while appearing to formalize it, and that is the most dangerous available misreading of the aviation import.**
+**R1's "conjunctive admission" is `dual_control`.** The aviation joint release is a real, well-evidenced instance of that one value — and Care already carries five siblings R1's "general form" would have flattened. Care §5b.1 also supplies what Knox's ad-hoc list reached for: **`authority_basis`** (`patient_consent · surrogate_authority · advance_directive · clinician_order · protocol_delegation · operator_policy · **emergency_authority** · **court/statutory_authority**`), **`authorization_evidence_form`**, and a versioned **`checkpoint_graph`** carrying blocking semantics, fallback, **reauthorization trigger**, and timeout/escalation — i.e. break-glass, non-waivable prohibition, default-on-silence and sequencing, already typed.
+
+**The defect R1 introduced, and Knox caught correctly.** R1's predicate table listed **payer funding** and **D6 money state** as predicates whose withholding prevents execution. **That is false and it contradicts inherited law in three places:** F1 (care does not entail a financing lifecycle), D6 §8.1 (`payment state ≠ care state`), and Care §5b's own `appropriate-but-not-covered` — *commercial, not clinical*. **A payer may withhold funding and D6 may report unsettled; neither renders execution inadmissible.** Funding belongs to projection 4's coverage/payment slot, explicitly firewalled from indication. **Withdrawn.**
+
+**What survives, narrowly and usefully.** Aviation supplies well-evidenced external confirmation for **one** value of an existing OMNI enum: `dual_control` between two non-fungible professional authorities, with a **disjunctive veto** (either may withhold) and an **exceptional-regime transition** rather than an override. That is worth carrying to Care §5b.1 as external corroboration of a value it already has — **not worth a new law, and it never gives a payer a vote on clinical merit.**
 
 ### §12.3 Multi-axis typing, the three branches, and the two anti-shadow failures
 **Typing axes:** GCE principal + represented capacity (**ratified, primary**) · C4.6 plane (**accepted L2, primary**) · speech-act kind (**OPEN**, typed at §4) · REV-184 stance + authority gate · `seam_kind` cross-loop effect (**candidate; admissible only where reuse is proven — used nowhere here, because no trace required it. Weak evidence against its necessity, not proof against its validity**).
@@ -557,9 +597,25 @@ Because the anti-shadow failure is *"preserves formal authority while allowing u
 - **R0's "inside one enrollment" is stale and is withdrawn.** **Peer Manager** establishes connections that "share data between distinct spaces across **two Foundry enrollments**," where the connection controls "the types of data that may peer, **the direction** the data will peer, and the set of classification and other markings that can peer." Peerable: "Foundry objects, object sets configured in Object Explorer, and Gotham files."
 - **Knox's "Palantir now federates typed operational ontologies including mapped objects/links" over-reads.** Palantir's own developer community answers the cross-ontology link question directly: **"At the moment, no there is no way to do this. But we are tracking this as a feature request,"** with a documented workaround of **duplicating the object into each ontology** and faking the link by foreign-key filtering. Peer Manager itself notes other resources (e.g. Workshop applications) do not yet peer.
 
-> **The corrected finding, and the wording proposed for the registry row:**
-> **Palantir peers *data* across enrollments; it does not peer the *ontology*.** Object data and object sets cross under a directional, marking-controlled connection, while the **semantic layer — link types, the relational structure that makes an ontology an ontology — does not cross**, and the documented workaround is duplication. Decisively, **peering presupposes platform symmetry and mutual configuration: both sides run Foundry and jointly agree the connection.**
-> **The OMNI non-transfer is therefore neither "Palantir cannot cross organizational boundaries" (stale) nor "Palantir federates ontologies, so the moat is gone" (unsupported).** It is that **peering solves federation between co-platformed, consenting enrollments, and OMNI's problem is asymmetric, non-consenting, non-co-platformed principals** — a payer, a pharmacy, a lender and a patient will not be co-enrolled in one vendor's platform by mutual configuration. **OMNI's differentiation is not that Palantir cannot federate; it is that OMNI supplies the healthcare-specific constitution — nonfungible authority, consent and refusal, clinical adoption, source sovereignty, care-versus-financing separation, decision-time rationale, correction-driven reopening, longitudinal care consequence — that must remain true whichever substrate realizes part of the implementation.**
+**R2 — the peering question is left OPEN, and the moat claim is re-anchored off it entirely.**
+
+R1 concluded *"data peers; the ontology does not."* Knox's R2 asserts current official documentation supports peering of object **and link** types with bidirectional action-data synchronization, and instructs me to delete R1's registry append. **The two readings are not yet reconcilable from what either of us has produced**, and the record is:
+
+| Reading | Exact support |
+|---|---|
+| **R1** | Peer Manager *Core concepts* — the canonical page for what peers — enumerates *"Foundry objects, object sets configured in Object Explorer, and Gotham files,"* and states other resources cannot yet peer. Palantir's developer community answers the cross-ontology link-type question *"no way to do this… tracking as a feature request,"* workaround = duplicate the object per ontology |
+| **Knox R2** | a distinct Ontology-peering surface said to synchronize object **and link** types, distinguishing source-data from action-data peering, action data bidirectional in real time |
+| **Agreed by both** | peering **requires counterpart configuration and mutual approval between two Foundry enrollments** — platform symmetry and mutual configuration are a real, undisputed limit |
+
+**Disposition: `OPEN — EXTERNAL_EVIDENCE_REQUIRED`.** Both readings and their exact sources are recorded here; **R1's proposed registry append is WITHDRAWN and must not land**; **no replacement wording is proposed either**, because a comparator fact under active dispute between two reviewers is exactly what the Evidence Plane gate exists for. Routed to the Evidence Plane and to the C3.8 comparator arc's owner, **not** resolved inside the Insurance gate.
+
+> **★ And the reason this is the right call rather than an evasion: the moat claim does not depend on the answer, and the estate settled it months ago on better ground.** Care capture §19 carries a ratified `[INV]`:
+>
+> ***"[INV] Moat framing (Palantir/SV lens — corrected: composition + enforcement, not any single concept): no single CARE-SPECIFIC row is a moat by itself… The differentiation is the native, enforced COMPOSITION — patient-as-represented-principal × scoped/revocable consent × multi-track ownership on one object × clinical adoption × non-fungible commit planes × longitudinal continuity × agent-influence lineage × proof — held as native normative operating law across care+ops+commerce+agents+operators+proof, which a generic ontology can configure toward but not supply. Defensibility = end-to-end enforcement + build + adoption + trusted relationships, not the markdown."***
+>
+> **`Configure toward but not supply` is the whole answer, and it is invariant to whether Palantir peers link types.** Whether the ontology crosses an enrollment boundary is a *capability* question; whether an ontology can *supply* enforced non-fungible authority, patient consent and refusal, clinical adoption and care-versus-financing separation is a *category* question. R0, R1 and Knox all spent this arc litigating the capability question — which is the wrong fight, and it was already won on the other axis. **Both R0's and Knox's proposed registry wordings are inferior to the `[INV]` that already exists.**
+
+**Consequence for kill condition 3.** Its differentiator is restated on the ratified ground: not *"incumbents cannot cross boundaries"* — which may well be false — but *"a generic ontology can be configured toward this composition and cannot supply it as native enforced law."* That is falsifiable, it survives the peering dispute, and it is the estate's own sentence rather than a fresh one.
 
 **A-Q15 pressure result:** the answer at §12.3 is unchanged and its justification is stronger. Three coexisting graphs is not an OMNI eccentricity to be tidied into one; it is the consequence of cross-sovereign truth. The single-graph alternative has a named owner, a real mechanism, and now a precisely-bounded reach. **Multiplicity is the price of sovereignty — and, per Knox, kill condition 3's differentiator must be restated on the corrected basis, which §10 does.**
 
@@ -643,7 +699,7 @@ Time from clinical recommendation to executable and funded plan · staff and cli
 
 ## §16 — Gate-2 verdict
 
-> ### BUILDER'S VERDICT (R1)
+> ### BUILDER'S VERDICT (R2)
 > ## `SURVIVES_WITH_NAMED_RECONCILIATIONS`
 > **Axis 1** survived a 23-row residual drive with **no row resolving to a new Insurance-owned truth object**, and survived an element-by-element composite incumbent attack for a **narrowed but structural** reason.
 > **Axis 2** stands at **6 of 10 anti-shadow criteria demonstrated, 4 conditional, 0 failed** — where **seven of the ten map onto existing accepted C4.6 conformance gates**, an eighth onto the Accountability threshold law, and only **two small financing-specific gates are owed**.
@@ -662,7 +718,19 @@ Time from clinical recommendation to executable and funded plan · staff and cli
 | **R-7** | **Portability: mark layer-3 applicability non-portable** | **new at R1 — from the EXIT trace** | criterion 10's first concrete mechanism |
 | **R-8** | **Dedup any profile dependency graph against `matter_graph`** | **new at R1 (O-7)** | obligation, not licence |
 
-**None of the eight is Insurance-owned.** R-1 is care economics, R-2 is Care, R-3/R-4 are clinical-authority physics, R-5 is temporal, R-6 is unowned, R-7 is portability, R-8 is Accountability. **Insurance keeps exposing general physics written down in several places under several names with nobody in the room at once** — and §6.3 is the sharpest instance yet, because the mechanism was not merely scattered, it was *finished* and unseen.
+### §16.2 "Not Insurance-owned" does NOT discharge Gate 2 (Knox R2-08, accepted — R1 conflated two things)
+R1 repeatedly wrote that none of the reconciliations is Insurance-owned, in a tone that implied they were therefore somebody else's problem. **That conflates truth ownership with gate responsibility, and if left standing it lets Axis 2 survive by exporting every obligation it cannot meet.** Four distinct roles, kept apart:
+
+| Role | Meaning | Example (R-1, Law 2) |
+|---|---|---|
+| **source-truth owner** | owns the fact | the interested principal owns its own economics |
+| **mechanism owner** | owns the rule and its enforcement | `REV-185` / row-P elevation — **unassigned today** |
+| **conformance-gate owner** | owns the runnable proof | C4.6 owns `C6`; the breadth extension is raised to C4.6's gate |
+| **reconciliation carrier** | owns *proving the composition respects it* | **Insurance Gate 2 — and this one is ours** |
+
+**Restated correctly:** Care owns its invariant, C4.5 owns the temporal law, Sourcing owns selection, D6 owns financial truth, Clinical Memory owns adoption — **and Gate 2 still owns demonstrating that the mixed-financing assembly violates none of them.** None of the eight reconciliations is Insurance's to *own*; **all eight are Insurance's to *satisfy* before Gate 2 can finally close.** *R1's phrasing is withdrawn.*
+
+**What remains true and worth keeping:** every one of the eight is general physics that already existed somewhere in the estate under some name — and §0.7 now shows the same is true of half of what R1 called discoveries. **That is the arc's most durable output and it is not an Insurance finding at all** (§20).
 
 ---
 
@@ -672,7 +740,9 @@ Time from clinical recommendation to executable and funded plan · staff and cli
 
 | Target | Verbatim-ready change | Part |
 |---|---|---|
-| **`comparator_analogy_registry.md`** — existing Palantir Lens-A row | **append**, do not create a new row or essay: *"★ 2026-08-09 (INS-G2 R1, evidence-grade): Peer Manager peers object data and object sets across two Foundry enrollments under a directional, marking-controlled connection; **cross-ontology / cross-enrollment LINK types do not exist** (Palantir developer community: 'no way to do this… tracking as a feature request'; documented workaround = duplicate the object per ontology). Peering presupposes **platform symmetry and mutual configuration**. Therefore 'Palantir cannot cross organizational boundaries' is STALE and withdrawn; 'Palantir federates ontologies' is UNSUPPORTED. The non-transfer is that peering solves federation between co-platformed consenting enrollments, while OMNI's principals are asymmetric, non-consenting and non-co-platformed."* | C |
+| **`comparator_analogy_registry.md`** — Palantir row | **NOTHING PROPOSED. R1's append is WITHDRAWN and must not land.** The peering fact is contested between two reviewers (§14.1) and belongs to the **Evidence Plane gate + the C3.8 comparator arc's owner**, not to an Insurance gate. Only the *withdrawal* of R0's stale "one enrollment" claim is carried | C |
+| **Care capture §19 homology matrix + §1b `U/C/A` crosswalk** | **the Homology Obligation** (§20.3): a new loop/profile/cousin arc cannot close without adding its column, its per-dimension verdict and its law-scope inheritance. Enforcement = Gate-1b §15.1 part E. **The matrix's home is an open question and is NOT Insurance's to move** — raised to the matrix's owner | B/C |
+| **C3.8 G4 + `EVRUN-000007 §02` + `EVRUN-000008`** | **inheritance debt** — required before Insurance's homology column and before the responsibility-continuity/liability material can be written (§20.3) | D |
 | `08` **`D0INS-REV-002`** | dispositions: **A-Q12 resolved-at-decomposition, contract/instance separated** · **A-Q15 role-reconciled, `T0-15`-conformant** · **A-Q18 resolved (`funding_condition`), ownership per §13(a)** · **A-Q14a/b/c, A-Q16, A-Q17 OPEN**; add **SEED-1's precondition** and **R-8's dedup** to closure criteria | B |
 | `08` **`REV-185`** | add: **`C4.6 C6` is an existing runnable proof shape for Law 2**; the breadth extension owed (any interested principal + presentation); administrative friction as a fourth economic-pressure pathway | B |
 | `08` — **new row** | **burden incidence has no owner** (R-6); native-home decomposition; `T-22` guardrail | B |
@@ -703,7 +773,50 @@ Time from clinical recommendation to executable and funded plan · staff and cli
 
 ---
 
-## §19 — STOP RECEIPT
+## §20 — Is Insurance a cousin? — the cross-cutting finding, and where it belongs (R2)
+
+**This section exists because the operator asked a question the arc could not answer from inside itself, and the estate had already answered it twice without either arc noticing.**
+
+### §20.1 The answer: yes, and the estate said so twice
+**C4.6 §0.5** answers the identical question form for pharmacy, verbatim: *"is pharmacy just another version of fulfillment? is it distinct? a cousin of ordinary vendor supply?"* — **"the answer is cousin: shared substrate, specialized profile — neither a silo nor a twin."** Its stack: GCE (shared, ratified) → counterparty participation/capability profiles → distinct native lifecycles → adapter family + connection instance → projection owning no truth. Its ruling: *"Pharmacy is NOT a new OMNI-owned unified lifecycle or truth-owning domain… OMNI composes a profile over the shared exchange and does not absorb it."*
+
+**Gate-1b's Axis 2 reached the same shape independently:** a **first-class composed operating profile** over source-native owners and generic GCE, owning no source truth. **Two arcs, no contact, identical verdict.**
+
+> **Insurance is a cousin of Pharmacy, and both are cousins of labs/diagnostics, vendor supply and any future external-counterparty loop. The shared substrate is GCE + native lifecycles + adapter/connection + projection. What differs is only the specialized profile: pharmacy's is prescriber authority, prescription lineage, pharmacist review and refusal, substitution envelope, licensure and controlled-substance regime; Insurance's is coverage relationship identity, funding conditions, benefit interpretation, determination and appeal, financing arrangement and patient responsibility.**
+
+**This raises confidence in Axis 2 rather than threatening it.** Convergence of two independent arcs on one shape is evidence the shape is physics rather than an Insurance-specific accommodation. **It also correctly shrinks Gate 2's job:** not *invent a mixed-financing architecture*, but *inherit the shared substrate and specify only the financing profile.* Most of §1's four strata are the cousin substrate, not Insurance's invention — which is why §5's row drive found no new truth-owning object. **It is not a reroute of the arc; it is the arc's own result, recognised.**
+
+### §20.2 Why the underlying physics is worth finding at all — the operator's existential question, answered without mysticism
+*Doesn't Palantir just ingest everything and link it up? Isn't that the pattern?*
+
+**That is genuinely the pattern for legibility, and it is not the pattern for law.** An ontology makes a domain *representable and operable*. It does not tell you that a payer's equivalence claim may never reach clinical adoption, that a stock-out is a readiness state and not an inadmissibility, or that a coverage denial must not erase a recommendation. **Those are not derivable from the data model — they are invariants that must be supplied.** Care §19's ratified `[INV]` is exactly this: a generic ontology can *configure toward* the composition and cannot *supply* it.
+
+So the physics buys three specific things, and they are the 1BN/10BN argument stated plainly:
+1. **Loop N gets cheap.** If Insurance is a cousin, the fifth and fortieth external loop inherit the substrate and specify only a profile. **That is the compounding**, and it is why "is this a cousin?" is a commercial question, not a taxonomic one.
+2. **Loop N gets safe.** A violation of a cross-loop invariant is *invisible in the schema* and *catastrophic in care*. Physics is what makes the violation detectable at build time — which is precisely what a conformance gate like `C6` or `C12` is for.
+3. **The substrate survives substitution.** Models, rails, vendors and even ontologies change. What must remain true across all of them is the constitution. **That is the moat sentence the estate already ratified, and it is the one claim that does not depend on any incumbent's current capability.**
+
+### §20.3 Where this gets recorded so it stops evaporating — the mechanism already exists and is under-scoped
+The operator's sharpest question is *where does a builder record that these are linked patterns, so we stop ping-ponging.* **The machine exists: Care §19's Homology Matrix, with the verdict vocabulary `SHARED-LAW · ANALOGOUS · CARE-SPECIFIC · OPEN`, plus §1b's law-scope crosswalk that propagates `U` laws, refuses to propagate `C` laws, and keeps `A` analogous.**
+
+**Its defect is scope, in two ways, and both are small to fix:**
+- **It has three columns — Care, Platform, Accountability.** Pharmacy (C4.6) and Insurance were both built afterwards and **neither was added**. Every shared law each of them needed was therefore re-derived. `C6` is the proof: pharmacy independently re-derived the recommendation-integrity firewall that Care already carries as a `U` law.
+- **It lives inside one loop's capture**, so it is found only by someone already reading Care — the identical discovery failure the Comparator Registry was created to fix for comparators, and the identical failure `D0CKPT-GRD-004` names for boot surfaces.
+
+**Proposed, not minted, and deliberately using only existing machinery:**
+
+> **The Homology Obligation.** A new loop, profile or cousin arc **cannot close** until it has (a) added its column to the homology matrix, (b) declared per dimension `SHARED-LAW | ANALOGOUS | SPECIFIC | OPEN`, and (c) declared its `U/C/A` law-scope inheritance. Enforcement is Gate-1b §15.1 **part E** — a named consuming gate that cannot pass without disposing of the finding — applied to *inheritance* rather than to *output*.
+
+Nothing new is invented: the matrix exists (Care §19), the vocabulary exists (§19 + §1b `U/C/A`), and the enforcement pattern exists (§15.1 part E). **The matrix's home is the open question** — it is cross-cutting and currently lives in Care. Candidate homes: promote to the doctrine spine beside the Comparator Registry, or hold it as a Reactor-class registry. **Not decided here — this is an Insurance gate and the matrix is not Insurance's to move.** Routed at §17.
+
+**Insurance's own column is owed and is NOT authored here.** Doing it properly requires the two carriers §0.7 records as unconsumed (C3.8 G4; `EVRUN-000007 §02` / `EVRUN-000008`). **Authoring a column from an arc that has not read its inputs is how this problem started.**
+
+### §20.4 What this does not license
+No new domain, no new object, no new registry minted, no Insurance ownership of Care's admissibility model, no reopening of C4.6, and no change to the Gate-2 verdict. **§20 changes what Gate 2 claims to have discovered, not what Gate 2 concluded.**
+
+---
+
+## §21 — STOP RECEIPT
 
 | Field | Value |
 |---|---|
