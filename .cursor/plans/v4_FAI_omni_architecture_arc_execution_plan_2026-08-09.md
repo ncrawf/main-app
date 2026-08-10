@@ -165,7 +165,7 @@ The operator, restated for the last time so it stops needing restating: *third-p
 ### PRE-0 — OPERATOR-AUTHORIZED ARCHITECTURE PREFLIGHT *(NOT a gate; runs before G0)*
 **Protocol, both briefs, drop files and the reconciliation obligation live in `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. This is a pointer — the protocol is not duplicated here.**
 
-**Three corrections from R4, all accepted:** **(a)** it is **not a gate** — an unaccepted plan may not authorize its own pre-gate; it runs on operator direction and the arc still begins at G0. **(b)** **A blind counter-design does NOT subsume a plan audit** — R4 said it did and that is withdrawn; they are different tests and both run, using **two** agents in **two stages** rather than two separate exercises. **(c)** the defect rule is narrowed: *the plan is defective only where it cannot express, evaluate, adopt, reject or disposition a **materially necessary** capability surfaced by the counter-design.* **Difference is evidence, not authority.**
+**Three corrections from R4, all accepted:** **(a)** it is **not a gate** — an unaccepted plan may not authorize its own pre-gate; it runs on operator direction and the arc still begins at G0. **(b)** **A blind counter-design does NOT subsume a plan audit** — R4 said it did and that is withdrawn. **The protocol implements two separate tests through THREE independent contexts: Agents A and B produce blind alternative designs only · Agent C performs an independent grounded audit of this plan only · C never sees A or B · reconciliation begins only after all three source objects are frozen.** **(c)** the defect rule is narrowed: *the plan is defective only where it cannot express, evaluate, adopt, reject or disposition a **materially necessary** capability surfaced by the counter-design.* **Difference is evidence, not authority.**
 
 **★ And the operator's structural correction, which is the important one:** the counter-design is **reconciled into the artifact, not consumed as an appetizer for G0.** Every finding becomes a row in the **PRE-0 reconciliation ledger**, and **G1 and G3 cannot close while any row is undisposed.** *(Gate-1b §15.1 part E applied to the preflight — the exact mechanism whose absence let the Insurance arc's findings evaporate in-thread.)*
 
@@ -241,6 +241,6 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 | Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **10 acceptance tests** replace routing-only · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** |
-| Next | Nick + Knox accept, amend or reject → integrator appointment → G1 |
+| Next | **PRE-0 execution → one reconciliation → at most one bounded amendment → G0 acceptance → bounded integrator appointment → G1** |
 
 **STOP: `execution_plan_R5_pending_pre0_then_g0`**

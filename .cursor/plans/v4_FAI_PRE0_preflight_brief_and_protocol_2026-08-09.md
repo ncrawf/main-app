@@ -115,6 +115,11 @@ implement, propagate, observe and repair changes to the system - without
 any single agent, vendor, deployment, ontology or control plane becoming
 sovereign.
 
+Treat the requested outputs below as CONCERNS THAT MUST BE COVERED, not as a
+prescribed decomposition. You may merge, split, rename, reorder or reject
+these categories if a materially better architecture requires it. If you do,
+show explicitly where every requested concern is handled.
+
 PRODUCE
  1. architecture artifact taxonomy (what document/resource classes exist,
     what each owns, what each forbids)
@@ -147,34 +152,68 @@ CONSTRAINTS
 
 ---
 
-## §6 — PROMPT 2 — PLAN AUDIT · for AGENT C *(with exact charter R6 + exact plan R5 + the handoff; NOT A's or B's work)*
+## §6 — PROMPT 2 — PLAN AUDIT · for AGENT C *(with exact charter R6 + exact plan R5 + this protocol + the handoff; NOT A's or B's work)*
 
 ```
- 1. What materially necessary capability or relationship did YOUR design
-    contain that this plan cannot express, evaluate, adopt, reject or
-    disposition?
- 2. What in this plan is unnecessary, ceremonial, premature, or better
-    deferred? Be specific and name what you would delete.
- 3. What sequencing, source, authority, ownership, dependency or acceptance
-    defect could block execution?
- 4. What decision is being treated as reversible that is actually expensive
-    to reverse?
- 5. What can be removed without damaging the four root requirements
-    (Explicit / Resolvable / Evolvable / Observable)?
- 6. Could a fresh agent execute this plan without redesigning it? If not,
-    what exactly is missing?
- 7. Verdict, one of:
-      PLAN_SURVIVES
-      PLAN_SURVIVES_WITH_EXACT_AMENDMENTS
-      PLAN_MATERIALLY_INCOMPLETE_<reason>
-      PLAN_MATERIALLY_OVERBUILT_<reason>
+You are the independent grounded auditor of the supplied FAI packet.
+
+INPUTS
+- exact Gate-0 charter R6
+- exact execution plan R5
+- this PRE-0 protocol
+- the foundational-arc handoff and failure record
+- the live repository at the supplied head, if repository access is available
+
+You must NOT inspect either Agent A or Agent B submission.
+
+Do not redesign OMNI from scratch. Audit whether THIS SPECIFIC PLAN is
+coherent, appropriately scoped, correctly sequenced, source-grounded,
+authorized, and executable.
+
+Verify load-bearing repository claims where access permits. Do not perform a
+broad corpus sweep. Cite every material finding to an exact file and section.
+If repository verification is unavailable, say so explicitly.
+
+ANSWER
+
+1. What materially necessary capability or relationship is ABSENT from the
+   plan, or cannot be expressed, evaluated, adopted, rejected or
+   dispositioned by it?
+
+2. What in this plan is unnecessary, ceremonial, premature, or better
+   deferred? Be specific and name what should be removed.
+
+3. What sequencing, source, authority, ownership, writable-object, dependency
+   or acceptance defect could block execution?
+
+4. What decision is being treated as reversible when it is actually expensive
+   to reverse?
+
+5. What can be removed without damaging the four root requirements -
+   Explicit, Resolvable, Evolvable, Observable?
+
+6. Could a fresh agent execute this plan without redesigning it? If not, what
+   exact instruction, source, artifact, authority, output or stop condition
+   is missing?
+
+7. Return BOTH:
+   - fatal or material omissions;
+   - removable or deferrable machinery.
+
+8. Verdict - choose exactly one:
+   PLAN_SURVIVES
+   PLAN_SURVIVES_WITH_EXACT_AMENDMENTS
+   PLAN_MATERIALLY_INCOMPLETE_<reason>
+   PLAN_MATERIALLY_OVERBUILT_<reason>
+
+Distinguish plan defects from source-evidence gaps and from later
+implementation debt. Do not promote a model preference into an architecture
+requirement.
 ```
 
 **Both "fatal omissions" AND "removable machinery" are required outputs.** An audit that can only add scope is not an audit.
 
 **Terminology, fixed:** A and B produce **model-generated alternative designs**. They are **NOT external comparators** — those are the primary-source mechanisms examined at G1 Lane 1 (ISO 42010 · FHIR/IHE · SEI · AUTOSAR · Palantir · Backstage · IBM · LangGraph · OPA · OpenTelemetry). **A model proposal acquires no evidentiary standing by being preserved verbatim.** Both are reconciled; they are not equivalent sources.
-
----
 
 ## §7 — Hard stop
 **One reconciliation. At most one bounded amendment cycle. Then G0.**

@@ -25,6 +25,7 @@ Review gate: `user_knox_required`
 | Name of the whole | **OMNI Architecture** — see §3 |
 | Arc state | `chartered_R6 · not_started` · **execution plan R5 authored — adds the ARCHITECTURE OPERATIONS half and makes the third-party tool decisions** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
 | What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
+| **PRE-0 preflight** | **runs BEFORE G0 and is NOT a gate.** Two blind alternative designs (A, B) + one independent grounded plan audit (C). Protocol: `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. **G0 cannot be accepted until PRE-0 has run and its ledger is reconciled** |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
 | Blocking obligation | **`PRESPINE-PHASEA-INTEGRATOR` VACANT.** No shared control-plane surface may land |
 
@@ -189,6 +190,6 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 | Corrected at R2 | taxonomy diagnosis (two taxonomies, not one absence) · Artifact Index added as baseline · Reactor classified · standards split from patterns · 42010 and FHIR demoted to lens and mechanism · part-count un-locked · **four additions at §6, all operator-raised** · sequencing answered at §2 |
 | Checkpoint tier | **3** |
 | Blocking | integrator **VACANT** |
-| Next | **Nick + Knox accept, amend or reject.** Nothing auto-starts |
+| Next | **PRE-0 → one reconciliation → at most one bounded amendment → then Nick + Knox accept, amend or reject at G0.** Nothing auto-starts |
 
 **STOP: `gate_0_charter_R6_and_execution_plan_R4_pending_acceptance`**
