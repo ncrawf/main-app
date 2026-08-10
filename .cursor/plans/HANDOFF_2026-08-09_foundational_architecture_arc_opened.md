@@ -2,7 +2,9 @@
 
 Document type: `handoff_or_readiness_gate` — **continuity artifact, NOT a checkpoint repoint**
 Authority: `derived_nonbinding`
-Status: `active · PRE-0_COMPLETE · reconciliation_R2_COMPLETE · amendment_cycle_applied · final_closure_verification_next · G0_NOT_ACCEPTED · insurance_frozen · checkpoint_repoint_OWED_and_BLOCKED`
+Status: **`HISTORICAL — SUPERSEDED AS CURRENT STATE 2026-08-10`** · `insurance_frozen`
+
+> **★ THIS IS NOT THE CURRENT CHECKPOINT.** FAI **Gate-0 was ACCEPTED 2026-08-10** and the `C-10` landing transaction executed. **Current state, holder receipt and next action live in `.cursor/plans/HANDOFF_2026-08-10_foundational_architecture_g1_startable.md`** (Tier-0, both boot surfaces point there). This file is retained as **arc-opening detail only** — its state rows describe the pre-acceptance packet and must not be read as current.
 Domain(s): `architecture_governance` · `portfolio_sequencing` · `insurance_payer_oop`
 Lifecycle role: carries the 2026-08-09 session across a context boundary.
 Source-of-truth relationship: **owns nothing.** Arc state → the Gate-0 charter. Insurance state → the Gate-2 brief and the frozen result. Program state → the current checkpoint, which this file does **not** repoint.
