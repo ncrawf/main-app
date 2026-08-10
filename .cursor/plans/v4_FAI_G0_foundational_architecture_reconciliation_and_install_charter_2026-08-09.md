@@ -1,8 +1,8 @@
-# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R8)
+# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R9)
 
 Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
-Status: **`gate_0_charter_R8 · pending_operator_and_independent_review_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
+Status: **`gate_0_charter_R9 · pending_operator_and_independent_review_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
 Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
@@ -23,7 +23,7 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R8 · not_started · PRE-0_complete · amendment_cycle_applied · G0_NOT_ACCEPTED` · **execution plan R7** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter** |
+| Arc state | `chartered_R9 · not_started · PRE-0_complete · amendment_cycle_applied · G0_NOT_ACCEPTED` · **execution plan R8** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter** |
 | What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
 | **PRE-0 preflight** | **runs BEFORE G0 and is NOT a gate.** Two blind alternative designs (A, B) + one independent grounded plan audit (C). Protocol: `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. **G0 cannot be accepted until PRE-0 has run and its ledger is reconciled** |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
@@ -92,7 +92,7 @@ R1 said the estate had no contract class. **Wrong.** There are **two** classific
 
 **Why this is a classification and not a demotion.** Its eight invariants — admissibility before consequence · domain-owned commitment · accepted custody · no silent orphaning · selective reopening · compensation/remedy/reconsideration/outcome separation · honest projection · bounded proof — are profound rules about **intent becoming real-world effect**. They do not define the domain/truth map, evidence-to-adoption, projection construction, connector architecture, profile inheritance, or the artifact taxonomy. **Classifying it as a standard is what makes it usable rather than mystical, and it is what gives it an address.**
 
-**R1's objection is withdrawn, and here is the honest reason.** R1 refused Knox's classification because the terminus describes *chartered scope*, not *concept scope*, and Reactor's own framing was "candidate constitutional center." **That refusal was right about the logic and wrong about the consequence.** Leaving the role floating "until reconciliation" is what kept it unfindable for three weeks and three arcs. **The correct move is to classify at evidenced scope now, and let Gate 2 broaden it by explicit decision with evidence.** A revisable classification beats an honest vacancy.
+**R1's objection is withdrawn, and here is the honest reason.** R1 refused Knox's classification because the terminus describes *chartered scope*, not *concept scope*, and Reactor's own framing was "candidate constitutional center." **That refusal was right about the logic and wrong about the consequence.** Leaving the role floating "until reconciliation" is what kept it unfindable for three weeks and three arcs. **The correct move is to classify at evidenced scope now, and let the execution plan's foundation-reconciliation gate broaden it by explicit decision with evidence.** A revisable classification beats an honest vacancy.
 
 **What the execution plan's foundation-reconciliation gate tests — and it is one table, not a gate.** *(Pointer only: the execution plan owns the gate sequence — §9. A hard-coded gate number here would be a second sequence copy.)* Lay the eight invariants beside Care's constitutional laws, GCE's crossing spine and the 05-17 three-layer pattern. **The questions are narrow:** does any invariant duplicate a law owned elsewhere · does any need narrowing · does any belong in a different standard · are there consequential-transition clauses scattered outside Reactor that should merge into it. **Not "what is Reactor." That is answered above.**
 
@@ -174,7 +174,7 @@ Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 rout
 ## §13 — The one operator authorization requested
 Opening this arc changes the program's next action — checkpoint-level — and the integrator seat is vacant:
 
-> **I appoint Opus as `PRESPINE-PHASEA-INTEGRATOR` for the bounded foundational-architecture arc-opening transaction — checkpoint repoint, catalog rows, read-graph route. This does not authorize substantive Gate-1 authorship until the Gate-0 charter is accepted by Nick and Knox.**
+> **REQUESTED: appointment of the `integration` holder** for the bounded foundational-architecture arc-opening transaction — checkpoint repoint, catalog rows, read-graph route. **This charter names the ROLE only. The actual holder is recorded in the operational G0 holder receipt when the operator executes the appointment** (plan `### G0`) — a persistent architecture document must never bind a named person or model. **This does not authorize substantive Gate-1 authorship until the Gate-0 charter is accepted.**
 
 ---
 
@@ -184,7 +184,7 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 
 | Field | Value |
 |---|---|
-| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R8** + execution plan **R7** |
+| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R9** + execution plan **R8** |
 | Branch | `cursor/fai-foundational-architecture-30f4`, from `main @ 9a6e7de` |
 | Files | **see §1 and the handoff for the current packet — this row is NOT a maintained inventory.** *(As authored: this charter · 2 verbatim preservations · 1 handoff. Both preservations are now `verbatim_preserved`, operator-populated 2026-08-10.)* |
 | Shared control-plane surfaces | **0 touched** |
@@ -194,4 +194,4 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 | Blocking | integrator **VACANT** |
 | Next | **see §1 / the handoff for current next state.** *(As authored: PRE-0 → one reconciliation → at most one bounded amendment → then G0 acceptance. **All three are now COMPLETE.**)* Nothing auto-starts |
 
-**STOP: `gate_0_charter_R8_and_execution_plan_R7_pending_acceptance`**
+**STOP: `gate_0_charter_R9_and_execution_plan_R8_pending_acceptance`**

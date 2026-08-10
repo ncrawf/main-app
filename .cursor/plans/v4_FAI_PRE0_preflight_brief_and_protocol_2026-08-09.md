@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate` (operator-authorized preflight; **NOT an arc gate**)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`pre0_EXECUTED · submissions_frozen · reconciliation_complete · amendment_cycle_applied`** — A/B/C ran and are frozen at `fac5881`; the reconciliation ledger is at **R4**; the amendment cycle is applied through charter **R8** / plan **R7**. **This protocol is now a PROVENANCE record of a completed preflight, not a pending instruction.**
+Status: **`pre0_EXECUTED · submissions_frozen · reconciliation_complete · amendment_cycle_applied`** — A/B/C ran and are frozen at `fac5881`; the reconciliation ledger is at **R5**; the amendment cycle is applied through charter **R9** / plan **R8**. **This protocol is now a PROVENANCE record of a completed preflight, not a pending instruction.**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: the read-only preflight that pressures the FAI plan **before** G0 accepts it.
 Manifest action: `add_tier2` **PROPOSED** — not landed.
@@ -51,7 +51,7 @@ The operator named three. **There are five, and the two additions are free.**
 |---|---|---|---|
 | **A** | blind alternative design | §5 brief only | the charter · the plan · the package shape · Reactor's classification · the content/operations split · the tool decisions · the eleven tests · the four root requirements · **the failure record** · B's or C's work |
 | **B** | blind alternative design | §5 brief only | same |
-| **C** | **independent grounded plan audit** | exact charter **R6** · exact plan **R5** · this protocol · the handoff and failure record — **the versions AS OF the pinned audit commit `185d473`; these are PROVENANCE and must never be updated to later revisions, or the record of what was actually audited is falsified. Current versions are charter R8 / plan R7** | **A's and B's submissions** |
+| **C** | **independent grounded plan audit** | exact charter **R6** · exact plan **R5** · this protocol · the handoff and failure record — **the versions AS OF the pinned audit commit `185d473`; these are PROVENANCE and must never be updated to later revisions, or the record of what was actually audited is falsified. Current versions are charter R9 / plan R8** | **A's and B's submissions** |
 
 **Distinct model families where possible. No voting. Agreement between models is not corroboration. No model authors the architecture.** A fourth is added **only** if a submission fails its brief or A and B expose a material unresolved contradiction.
 
@@ -154,7 +154,7 @@ CONSTRAINTS
 
 ## §6 — PROMPT 2 — PLAN AUDIT · for AGENT C *(with exact charter R6 + exact plan R5 + this protocol + the handoff; NOT A's or B's work)*
 
-> **PROVENANCE — DO NOT UPDATE.** The `charter R6` / `plan R5` references in this section are the **frozen prompt as actually sent**, at pinned commit `185d473`. Updating them to current revisions would **falsify the record of what Agent C audited.** Current revisions are **charter R8 · plan R7 · ledger R4** — see the handoff state row.
+> **PROVENANCE — DO NOT UPDATE.** The `charter R6` / `plan R5` references in this section are the **frozen prompt as actually sent**, at pinned commit `185d473`. Updating them to current revisions would **falsify the record of what Agent C audited.** Current revisions are **charter R9 · plan R8 · ledger R5** — see the handoff state row.
 
 ```
 You are the independent grounded auditor of the supplied FAI packet.
