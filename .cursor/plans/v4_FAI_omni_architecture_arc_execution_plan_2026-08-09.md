@@ -1,14 +1,14 @@
-# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R6)
+# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R7)
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R6 · pending_operator_and_independent_review_acceptance · nothing_started`**
+Status: **`execution_plan_R7 · pending_operator_and_independent_review_acceptance · nothing_started`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
 Manifest action: `add_tier2` **PROPOSED** — not landed.
 Review gate: `user_knox_required`
 
-**Companion:** the Gate-0 charter (**R7**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
+**Companion:** the Gate-0 charter (**R8**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
 
 ---
 
@@ -367,7 +367,7 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 
 ### G3 — RECONCILE THE FOUNDATION DEEPLY; CLASSIFY THE TAIL
 **Knox's split accepted.** **Deeply reconcile now** — because these define the container itself: artifact model · maps · **GCE** · **Reactor** · **Build OS** · **Agent Runtime** · **C4.4** · Care/Platform/Accountability cross-cutting laws · profile and deployment model · conformance.
-**Classify now, deep-reconcile on next substantive touch:** the 16 domain contracts and the long tail — unless a foundational conflict surfaces.
+**Classify now, deep-reconcile on next substantive touch:** **the current domain-contract set** *(resolved from the governing catalog / architecture inventory at the time of the pass — **deliberately NOT a maintained count here**; every duplicated count is a future staleness site, which is how `C-12` reopened twice)* and the long tail — unless a foundational conflict surfaces.
 **★ AMENDMENT 5 (C-05) — G3 DOES NOT LAND. G3 STAGES.** R5 landed here the exact transaction G4 exists to prove, which destroyed G4's proof object. G3 now **reconciles deeply, adjudicates, approves the target state, freezes the dispositions, and prepares an UNMERGED migration change set.**
 
 **Staged here, not landed:** two taxonomies reconciled *(decision made, change set staged)* · Reactor and GCE **assigned** their standard roles · 05-17 supersession/narrowing **decided** · `WI16` correction **drafted** · map migration/supersession **prepared, never duplicated**.
@@ -412,12 +412,14 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 ---
 
 ## §7 — STOP RECEIPT
+
+> **Current state only.** Rows that previously copied a count or a gate sequence are now **pointers** — the acceptance suite is counted in §5/G4, the gate sequence lives in §4, and the packet inventory lives in the handoff.
 | Field | Value |
 |---|---|
-| Artifact | arc execution plan **R6** |
-| Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **10 acceptance tests** replace routing-only · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
+| Artifact | arc execution plan **R7** |
+| Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **the §5/G4 acceptance suite** expands beyond routing-only *(count resolved there, not copied here)* · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** |
-| Next | **PRE-0 execution → one reconciliation → at most one bounded amendment → G0 acceptance → bounded integrator appointment → G1** |
+| Next | **operator accepts the provisional G0 transaction profile → `integration` appointment → `C-10` checkpoint transaction → G0 closes → G1 opens** *(PRE-0 execution, reconciliation and the amendment cycle are **COMPLETE** — see §1 / the handoff)* |
 
-**STOP: `execution_plan_R6_pending_final_closure_verification_then_g0`**
+**STOP: `execution_plan_R7_pending_final_closure_verification_then_g0`**
