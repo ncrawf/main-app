@@ -2,7 +2,7 @@
 
 Document type: `evidence_or_ingestion` — **immutable once pasted**
 Authority: **NONE.** Preservation confers no authority (`D0THES-GRD-036`). **No model authors the architecture.** Agreement between agents is not corroboration.
-Status: `awaiting_operator_population` · `never_default_loaded`
+Status: **`verbatim_frozen`** · `never_default_loaded` — populated and frozen at commit `fac5881`. Provenance normalized at `539a966`+; **unresolved fields below are marked `unknown`, never guessed.**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: **independent grounded audit of the FAI plan only.** This agent produces no architecture.
 Manifest action: `add_tier4` **PROPOSED** — not landed.
@@ -27,7 +27,7 @@ Review gate: `user_knox_required`
 | Who ran it                  | Nick (operator)                                             |
 | **Prompt used**             | **the block in §2 of THIS file, verbatim**                  |
 | Prompt source of record     | `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md` §6 |
-| Prompt modified in any way? | **yes / no** — if yes, quote the change                     |
+| Prompt modified in any way? | **`unknown`** — operator did not record. Response body is internally consistent with the §2 prompt (it answers all seven required sections in order), so no modification is evidenced; **absence of evidence is not recorded as "no"** |
 
 
 
@@ -44,10 +44,10 @@ Review gate: `user_knox_required`
 | given the exact **charter R6 + plan R5 + protocol + handoff**?               | yes     |
 | **blind to Agent A and Agent B submissions**?                                | yes     |
 | repository access available?                                                 | yes     |
-| repository ref inspected                                                     |         |
-| load-bearing source claims verified?                                         | no idea |
+| repository ref inspected                                                     | **`185d4732d5e803d651c0527f5be29ab52efc947c`** — **not operator-recorded; transcribed from the agent's own frozen response** ("Pinned commit inspected"), §3 line 1 |
+| load-bearing source claims verified?                                         | **YES — independently re-verified by Opus at `539a966`.** Every factual challenge C raised was checked against the repository and **all were correct**, including three that contradicted claims in our own packet. See ledger §0 |
 | Did it ask clarifying questions before answering?                            | no      |
-| Any tool calls made?                                                         | no idea |
+| Any tool calls made?                                                         | **`unknown` as operator-recorded** — but the response body evidences repository reads (it cites file contents, line-level facts and a pinned commit), so tool use **did** occur; the exact call set is unrecorded |
 
 
 **Why the repo and internet lines exist:** an agent with repository access is **not blind** — it can read our decomposition. An agent that searched the web for "OMNI architecture" is **not blind** either. **Neither invalidates the submission — but the reconciliation must know**, because a "convergence" produced by an agent that read our answer is not convergence.

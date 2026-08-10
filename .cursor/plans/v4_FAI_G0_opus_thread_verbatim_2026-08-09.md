@@ -10938,4 +10938,61 @@ Frozen and closed out. Head `2629099` on `main`.
 **Three caveats are recorded in the commit rather than left to surface later, because they scope how much the evidence is worth:**
 
 Neither A nor
+
+
+I'm seeing solid evidence across the estate now. The erasure and sealed records are definitely present with a substantial number of files, patient matching shows up too though it seems less developed, post-quantum crypto appears only in specific evidence clusters and looks fairly limited in scope, and robotics has a strong presence with many files. The thought cuts off mid-word on economics.
+
+Now I'm compiling the full ledger. I need to structure this carefully with one row per distinct architecture claim or defect, grouping duplicates and citing sources. I'm establishing clear rules: findings shouldn't be adopted just because multiple models agree, and they shouldn't be rejected just because they conflict with the plan. Each open item needs an owner and trigger, and I'm defining a disposition vocabulary to categorize findings—things like amending the plan now versus binding findings to specific gates.
+
+I'm organizing findings by classification: plan defects, architecture claims, evidence gaps, counterexamples, and implementation debt. I'll use a naming scheme to track which agent surfaced each finding, then start building out the actual rows, beginning with Agent C's plan defects that block G0.
+
+C1.3 through C1.4 capture missing reversibility semantics and the self-referential gap where PRE-0 doesn't yet bind Agent C's own findings. Then C2.1 through C2.4 list ceremony items—mandatory studies of deferred tools and duplicated state prose across the charter—that are non-blocking but still need resolution.
+
+C3.1 through C3.6 surface the critical blockers: the G3/G4 transaction collision, unclassified implementation lanes, repository write permissions, premature tool adoption before evidence gates, missing transaction contracts, and the G0 receipt gap for integrator checkpoints. C4 begins addressing expensive irreversible decisions.
+
+The remaining defects cluster around canonical ID/version precedence at G2, a fundamental taxonomy misalignment in the charter itself (12 vs 13 contracts creating mutual invisibility), acceptance test gaps around as-of and fail-closed semantics, and an overly narrow rollback test. C's own diagnosis points to the core pattern: missing authority definitions across §3.1, undefined cross-cutting governance, the G3/G4 collision recurring, and ambiguity in both G2 implementation boundaries and the C-ledger itself.
+
+Beyond those eight plan defects, there are source-evidence gaps—the taxonomy invisibility, conflicting role/contract counts, and unsubstantiated Build OS vendor claims—plus implementation debt across the impact engine, effective compiler, propagation engine, fleet reconciliation, observability, and real-world proof. Using C's own blocker list as authoritative, the exact set is those eight plan defects plus the evidence corrections needed. C's final verdict: the plan survives, but only with exact amendments.
+
+Now looking at A and B's converging architecture claims. They both point to authority structures—A frames it as locus-of-authority typing, B as principal cells and source of commitment—but this already exists in our law through source authority, GCE, and Insurance Axis 1. So this isn't new ground; it confirms what's already established. I'm binding it to G3 as external corroboration rather than treating it as a novel requirement.
+
+On joint assertions though, A and B genuinely diverge. A argues we need joint/collective assertions with multiple signers for things like tumor boards, while B insists on one issuer per statement with joint acts expressed as linked statements instead. This is a real architectural choice that needs adjudication—exactly the kind of decision Knox is looking for.
+
+The shared-mechanism sovereignty disclosure shows convergence between A's 7-component register with 5 tests and B's 8-row sovereignty ledger. The mechanism itself aligns, and OMNI already has partial coverage here. I'm adopting this as a required G1 form for any shared mechanism. A also introduces a loss test that's completely absent from our current estate—that's a sharp criterion worth adopting.
+
+Moving through the remaining points: the two-implementation rule is missing and marked for adjudication (though A notes it's likely to be abandoned anyway). Digital signature versus authorization shows convergence and partial OMNI coverage, so I'm binding that to G1. Machine agents can't hold warrants and the accountable principal must be non-nullable—both A and B agree, and OMNI's Agent Runtime already captures this, so binding to G1 and G3. Compelled forgetting versus append-only is present in 34 files across the estate but probably only shallow implementations, so I need to verify the depth at G3. Temporality and partial-order time is still being worked through.
+
+Continuing with the clock systems across four different implementations—that's present in C4.5, so I'm tying the G3 reconciliation to that. Identity linkage with reversible un-merge is there but shallow, needs deeper work at G3. The economic model and payment capture is present in the OPECON lane but hasn't started yet, so that's open with the OPECON owner. Key and crypto lifecycle over decades only shows up in the ingestion clusters, leaving that open for G1 or FWREG to handle.
+
+Brownfield and degraded attribution needs checking—likely only partial coverage, binding to G3. Robotics and physical safety is present across 87 files, which confirms the binding to G3. The refusal mechanism with directed speech acts and receipts, plus the override-by-law as a fourth state—that's only in A, and it's sharp enough to adopt as a law candidate for G1. Consent, refusal, silence, and override form a four-state system that never defaults, same family as the refusal mechanism. A's self-declared deepest error is the divergence asymmetry, which actually confirms OMNI's existing position—this is A correcting itself, and that's significant.
+
+A independently arrived at OMNI's source-authority law after initially getting it wrong, which is strong corroboration. Patients are the structurally weakest principal, so their rights must default to on—that's absent-ish in the estate, so I'm adopting it as a law candidate. The candour penalty and attribution reducing truth is absent from the estate and unresolvable from inside, making it an open falsifier. Adversarial principals are absent, leaving that open. Cognitive load and how a view becomes truth—OMNI has a projection law on this.
+
+The failure mode is that the view becomes de facto truth, which is the inverse risk I need to bind to G3 sharply. Conformance is an attributed claim with plural certifiers, and while OMNI has conformance gates C1-C16, they're self-run, so it's absent-ish and convergent—binding to G1. Local admission without forced adoption is directly relevant to OMNI's 1000-instance fleet question, so that's an adoption candidate for G1. Version skew being a normal operating state rather than an incident is the next consideration.
+
+Now looking at how B's change capsule and change classes feed directly into C's missing §3.1 and the change lifecycle, binding that to G1 as input. B's 17-class artifact taxonomy versus A's 5-tier approach creates a disagreement on granularity that needs adjudication at G1. On standards posture, A claims 42010-informed but not conformant, while B proposes FHIR Consent/Provenance/AuditEvent plus W3C PROV, NIST ZT, and IETF RATS/SCITT as adapters rather than substitutes—that feeds into the G1 comparator pass.
+
+Substrate independence and no vendor sole home for a rule converges with OMNI's existing test 11, which is a confirmation. A's minimality budget is sharp: a shared component should answer "did this happen, signed by this key" but never "is this allowed/correct/same/binding"—that's a critical law candidate that's currently absent as a stated rule. Emergency and degraded mode handling from A's runners-up and B's §8.9 needs an estate check, though it's likely only partial.
+
+Now I need to consolidate this into a manageable ledger aiming for around 45–55 rows total to capture the honest granularity. The requirement is one row per materially distinct architecture claim, omission, counterexample, or plan defect. A alone has multiple omissions and falsifiers to account for.
+
+
+
+Estate check complete. Four A/B findings are genuinely absent from the estate; the rest are present at varying depth. Writing the ledger.
+
+
+FAI branch is strictly behind main. Fast-forwarding it, then writing the ledger.
+
+Updating the stale status on both now-populated thread carriers.
+
+Now writing the ledger. Filling the existing shell's three tables against its pre-fixed vocabulary.
+
+
+
+
+
+
+
+
+
 <!-- END VERBATIM OPUS THREAD -->

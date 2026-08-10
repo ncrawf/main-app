@@ -69,18 +69,18 @@ Use it during this arc as a **completeness check**: what is the entity of intere
 
 ## §4 — The taxonomy defect, corrected: **two taxonomies, inconsistent, both incomplete**
 
-R1 said the estate had no contract class. **Wrong, and Knox is right.** Verified — there are **two** classification systems and they do not reference each other:
+R1 said the estate had no contract class. **Wrong.** There are **two** classification systems. **★ AMENDMENT 2 (C-12) — the R6 characterisation of their relationship was ALSO wrong, and the independent plan audit caught it.** They are **not** "mutually invisible": `00_architecture_artifact_index.md` **explicitly points to the document taxonomy and states it remains the binding authority**. The real defect is narrower and more accurate: **they are linked one-way, are not modelled as independent passport axes, and the role index is incomplete for the roles this arc needs.**
 
 | | `00_document_governance_and_taxonomy_2026-05-19.md` §2 | `00_architecture_artifact_index.md` |
 |---|---|---|
 | Answers | **how is this handled and routed?** | **what architectural job does it do?** |
 | Contents | 10 governance categories: `manifest_or_catalog · canon_digest · doctrine · adr · domain_rule_slice · audit_or_pressure_test · evidence_or_ingestion · narrative_or_postmortem · handoff_or_readiness_gate · future_or_parked_watch` | 12 artifact roles with ONE-job / FORBIDDEN / home per role: **System Map · Domain Contract · Seam/Event Contract · Doctrine · ADR · Open Decisions · Supersession · Guardrails · Field cases · Evidence/Workbench · Future arcs · Build OS · Catalog/Read-graph/Boot** |
 | Says of itself | *"Do not invent a new category unless explicitly approved"* | *"OMNI did not lack an artifact OS; it had one, but its System Map and doctrine layers had drifted out of conformance"* |
-| Missing | `contract`, though **16 contract files exist** | `standard` · `pattern` · **`operating profile`** · `conformance` · `controlled vocabulary` · `view` beyond the System Map |
+| Missing | `contract`, though **15 top-level contract files exist** *(★ Am-2: R6 said 16; the count did not reproduce — 15 top-level plus 5 seam contracts)* | `standard` · `pattern` · **`operating profile`** · `conformance` · `controlled vocabulary` · `view` beyond the System Map |
 
 **Verified: none of `profile`, `pattern`, `standard`, `conformance`, `vocabulary` or `view` appears as a role in the Artifact Index.**
 
-**Accurate diagnosis:** the governance-category axis and the architecture-role axis are **conflated in some places and mutually invisible in others**, and neither carries the roles this arc needs. **This is not "OMNI never understood contracts." It is a schema mismatch plus a stale role set.**
+**Accurate diagnosis (★ Am-2, corrected):** the governance-category axis and the architecture-role axis are **linked one-way — the role index defers to the governance taxonomy — but are not modelled as independent passport axes**, and the role index (**13 rows, not 12**) does not carry the roles this arc needs. **An arc founded on "OMNI mis-states its own state" mis-stated the estate in its own charter; that is recorded rather than quietly fixed.** **This is not "OMNI never understood contracts." It is a schema mismatch plus a stale role set.**
 
 **The repair is multi-axis, not one flat enum.** A passport should carry, independently: `governance_category` · `architecture_role` · `authority_maturity` · `scope` · `plane_or_view` · `build_evidence_maturity`. Reactor's honest current position is expressible only this way — `doctrine` / `cross_cutting_architecture_standard` / `candidate` / `cross_cutting` / `[seam, capability, projection]` / `fixture_tested_partial` — and **no single enum can say that**, which is precisely why it has been unclassifiable and therefore unfindable.
 
@@ -182,7 +182,7 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 
 | Field | Value |
 |---|---|
-| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R6** + execution plan **R4** |
+| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R7** + execution plan **R6** |
 | Branch | `cursor/fai-foundational-architecture-30f4`, from `main @ 9a6e7de` |
 | Files | this charter · 2 verbatim preservations (**empty, operator-populated**) · 1 handoff |
 | Shared control-plane surfaces | **0 touched** |
@@ -192,4 +192,4 @@ Opening this arc changes the program's next action — checkpoint-level — and 
 | Blocking | integrator **VACANT** |
 | Next | **PRE-0 → one reconciliation → at most one bounded amendment → then Nick + Knox accept, amend or reject at G0.** Nothing auto-starts |
 
-**STOP: `gate_0_charter_R6_and_execution_plan_R4_pending_acceptance`**
+**STOP: `gate_0_charter_R7_and_execution_plan_R6_pending_acceptance`**

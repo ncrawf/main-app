@@ -229,6 +229,6 @@ requirement.
 | `v4_FAI_PRE0_agent_a_verbatim_2026-08-09.md` | **operator-populated.** Agent A blind design ONLY |
 | `v4_FAI_PRE0_agent_b_verbatim_2026-08-09.md` | **operator-populated.** Agent B blind design ONLY |
 | `v4_FAI_PRE0_plan_auditor_verbatim_2026-08-09.md` | **operator-populated.** Agent C grounded plan audit ONLY |
-| `v4_FAI_PRE0_reconciliation_ledger_2026-08-09.md` | **every finding, every disposition. G1 and G3 cannot close with an undisposed row** |
+| `v4_FAI_PRE0_reconciliation_ledger_2026-08-09.md` | **★ AMENDMENT 8 (C-04): every material finding from Agent A, Agent B AND Agent C gets a ledger row and a disposition.** R5 guaranteed ledger entry for the Stage-A designs only; §8 preserved C's output, but **preservation is not disposition** — so a blocking plan defect found by C could have survived only in a verbatim file, recreating the exact anti-appetizer failure this protocol exists to prevent. **Agent C plan defects must be closed or explicitly rejected BEFORE G0.** A/B findings may flow into G1/G3 with a bounded disposition. **G1 and G3 cannot close with an undisposed row** |
 
 **STOP: `pre0_protocol_ready_awaiting_operator_run`**

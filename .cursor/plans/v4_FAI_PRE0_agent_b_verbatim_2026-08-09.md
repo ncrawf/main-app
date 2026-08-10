@@ -2,7 +2,7 @@
 
 Document type: `evidence_or_ingestion` — **immutable once pasted**
 Authority: **NONE.** Preservation confers no authority (`D0THES-GRD-036`). **No model authors the architecture.** Agreement between agents is not corroboration.
-Status: `awaiting_operator_population` · `never_default_loaded`
+Status: **`verbatim_frozen`** · `never_default_loaded` — populated and frozen at commit `fac5881`. Provenance normalized at `539a966`+; **unresolved fields below are marked `unknown`, never guessed.**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: **blind alternative design only.** This agent never audits our plan and never sees it.
 Manifest action: `add_tier4` **PROPOSED** — not landed.
@@ -45,7 +45,7 @@ Review gate: `user_knox_required`
 | blind to the **failure record / handoff**?                                   | **yes** |
 | blind to the **other agents' submissions**?                                  | **yes** |
 | Did it ask clarifying questions before answering?                            | no      |
-| Any tool calls made?                                                         | idk     |
+| Any tool calls made?                                                         | **`unknown` as operator-recorded** — but the response cites live external sources (HL7 FHIR R5 Consent/Provenance, NIST SP 800-207) with working URLs, so **retrieval did occur**. Consequence: **B's standards material is a model's reading, not a comparator study** — ledger AB-11 |
 
 
 **Why the repo and internet lines exist:** an agent with repository access is **not blind** — it can read our decomposition. An agent that searched the web for "OMNI architecture" is **not blind** either. **Neither invalidates the submission — but the reconciliation must know**, because a "convergence" produced by an agent that read our answer is not convergence.

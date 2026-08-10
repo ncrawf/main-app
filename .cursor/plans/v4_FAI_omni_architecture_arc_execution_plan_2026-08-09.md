@@ -100,18 +100,22 @@ external change · runtime drift · operator request · domain finding
 
 ---
 
-## §3 — The tool decision, made rather than hedged
+## §3 — The tool decision — **candidate defaults, ratified at G1**
 
 **The operator's instruction is explicit: stop naming these for the fifth time.** So this is a decision table, not prose. **Three of these already exist here in embryo — this is finishing something started, not greenfield adoption.**
 
+**★ AMENDMENT 7 (C-08) — these are CANDIDATE DEFAULTS, not ratified adoptions.** R5 fixed the selections here and then forbade G1's evidence pass from changing them: *select tools → run the comparison → forbid the comparison from changing the selection.* That inverts evidence and decision. The cited inheritance does not repair it — **Build OS Step 5 expressly calls its mechanism list a maturity target, "NOT final design," and makes no vendor selection.**
+
+**G1 must issue an explicit verdict on every row — `adopt` · `narrow` · `reject` · `defer` — with its reason.** The work still reaches a decision; it simply stops pretending the decision preceded the evidence. **A candidate default that survives G1 unchanged is a ratified decision; one that does not is evidence the gate worked.**
+
 | Build OS Step-5 target | Off-the-shelf | Decision | Why now / why not |
 |---|---|---|---|
-| machine-readable work-package manifest + validator | **JSON Schema + CI** | **ADOPT at G2** | **three DISTINCT objects, three schemas** — §3.1 |
-| approval + integration control | **`CODEOWNERS` + rulesets + required checks + merge queue** | **ADOPT at G2** | `.github/CODEOWNERS` exists but is **stale** — legacy map only, no `/architecture`. Rewrite it |
-| **ownership leases · active claims** | **thin OMNI resource-claim checker** (`change_id` · principal · owner · branch · base · `claimed_resources[]` + mode · `lease_expires_at` · reviewers · state) | **ADOPT at G2** | **CODEOWNERS does NOT implement leases** — no exclusivity, expiry, transfer or overlap detection. CI rejects overlapping exclusive claims, expired leases, and writes to undeclared resources |
-| shared-surface policy checks — *"a lane physically cannot land an edit to a protected control surface"* | **OPA / Conftest in CI** | **ADOPT at G2** | `check-checkpoint-pointer.mjs` + the `checkpoint-pointer` workflow **are already policy-as-code in embryo.** Generalize them |
-| architecture catalog / graph, owners, relationships | **Backstage-COMPATIBLE envelope with OMNI-defined kinds and relations** | **ADOPT the envelope at G2; DEFER the portal** | **OMNI descriptors stay canonical; Backstage entities are a GENERATED consumer. Backstage `spec.owner` is display/responsibility metadata and is NOT OMNI authority** |
-| runtime evidence transport | **OpenTelemetry semantic conventions** | **ADOPT the convention at G2** | **evidence vocabulary, NOT the conformance or drift authority.** Define `omni.architecture.version` · `omni.operating_profile.ids` · `omni.deployment_profile.id` · `omni.federation.id` · `omni.conformance.result`. **PHI and raw patient context are PROHIBITED in attributes** |
+| machine-readable work-package manifest + validator | **JSON Schema + CI** | **CANDIDATE → G1 ratifies** | **three DISTINCT objects, three schemas** — **§3.1 (added by Amendment 3)** |
+| approval + integration control | **`CODEOWNERS` + rulesets + required checks + merge queue** | **CANDIDATE → G1 ratifies** | `.github/CODEOWNERS` exists but is **stale** — legacy map only, no `/architecture`. Rewrite it |
+| **ownership leases · active claims** | **thin OMNI resource-claim checker** (`change_id` · principal · owner · branch · base · `claimed_resources[]` + mode · `lease_expires_at` · reviewers · state) | **CANDIDATE → G1 ratifies** | **CODEOWNERS does NOT implement leases** — no exclusivity, expiry, transfer or overlap detection. CI rejects overlapping exclusive claims, expired leases, and writes to undeclared resources |
+| shared-surface policy checks — *"a lane physically cannot land an edit to a protected control surface"* | **OPA / Conftest in CI** | **CANDIDATE → G1 ratifies** | `check-checkpoint-pointer.mjs` + the `checkpoint-pointer` workflow **are already policy-as-code in embryo.** Generalize them |
+| architecture catalog / graph, owners, relationships | **Backstage-COMPATIBLE envelope with OMNI-defined kinds and relations** | **CANDIDATE (envelope) → G1 ratifies; portal DEFERRED** | **OMNI descriptors stay canonical; Backstage entities are a GENERATED consumer. Backstage `spec.owner` is display/responsibility metadata and is NOT OMNI authority** |
+| runtime evidence transport | **OpenTelemetry semantic conventions** | **CANDIDATE → G1 ratifies** | **evidence vocabulary, NOT the conformance or drift authority.** Define `omni.architecture.version` · `omni.operating_profile.ids` · `omni.deployment_profile.id` · `omni.federation.id` · `omni.conformance.result`. **PHI and raw patient context are PROHIBITED in attributes** |
 | transformation recipes | **stack-native TypeScript codemods first**; OpenRewrite/Moderne later | **DEFER — trigger: a repeatable, mechanically specifiable semantic transformation WITH a decisive verifier** | **not an edit count** — a 2-file change can warrant a recipe and a 50-file change can be too ambiguous to automate. OpenRewrite's OSS core is Java-strongest; TS relies on Moderne CLI |
 | desired-vs-live reconciliation | **Argo CD / GitOps** | **DEFER — conditional on the eventual deployment substrate** | **the LOGICAL fleet exists before Kubernetes does.** Do not pick a K8s reconciler because the word 'fleet' appears |
 | durable multi-agent execution | **LangGraph / LangSmith** | **DEFER — owned by Agent Runtime, post-spine** | do not build the runtime pre-spine |
@@ -119,6 +123,35 @@ external change · runtime drift · operator request · domain finding
 **Boundary, stated once so it stops being restated:** these tools carry **mechanism, never authority**. A catalog format does not own OMNI's ownership model; a policy engine does not own the laws; a GitOps reconciler does not own what "conformant" means. **`GRD-033` — visible ≠ authorized — applies to every one of them.**
 
 **And what those tools do NOT supply, which is the whole reason OMNI exists:** the care-authority physics — clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity, multi-principal non-fungible authority. **Palantir is materially ahead in operationalizing a large semantic estate.** OMNI's differentiated work is making clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity and non-fungible multi-principal authority **first-class and portable across substrates**. **This arc has NOT established that Palantir fails to supply that constitution** — only that supplying an ontology platform does not, by itself, supply it. *(R5: the earlier categorical claim is withdrawn as more certainty than the work supports.)*
+
+---
+
+## §3.1 — The three objects *(★ ADDED BY AMENDMENT 3 — C-02)*
+
+**R5 committed to "three DISTINCT objects, three schemas — §3.1" and then never wrote §3.1.** That is not a broken cross-reference: it is the boundary between the architecture's declared model and the machine-readable objects G2 must build. A fresh agent would have had to invent what the objects are, which is canonical, their identity and version semantics, their reference rules, who may write each, and how they relate to catalog and read-graph state.
+
+**Three objects. Different lifecycles, different writers, different authority. Conflating any two is the defect this section exists to prevent.**
+
+| | **1 · Architecture Resource Descriptor** | **2 · Architecture Change Manifest** | **3 · Effective Architecture Snapshot** |
+|---|---|---|---|
+| **Purpose** | declares that an architecture resource **exists**, what it is, who owns it, what it relates to | proposes and carries a **change** through its lifecycle | records what was **actually in force**, as of a moment |
+| **Status** | **CANONICAL** — hand-authored, source of truth | **TRANSACTIONAL** — created per change, closed and retained | **GENERATED + IMMUTABLE** — derived, never hand-edited |
+| **Identity** | stable `resource_id`, **never reused**, survives renames and moves | `change_id` | `snapshot_id` + `as_of` timestamp |
+| **Version semantics** | semantic version; **`resource_id` + version is the citable unit** | monotonic revisions within the change | none — a snapshot is **immutable**; a new state is a new snapshot |
+| **Temporal** | `effective_from` / `effective_to`; supersession is explicit and never silent | proposed / reviewed / approved / staged / landed / reverted, each stamped | the **only** object that answers *"what was true on date X"* |
+| **Who may write** | the **`domain_owner_approval`** seat for owned resources; **`architecture_steward`** for cross-cutting (§3.5 of the ledger) | any **`proposal_authoring`** holder — **humans and agents alike** | **nobody.** Emitted by CI from 1 + 2 |
+| **Who may approve** | domain owner; cross-cutting acceptance seat for cross-cutting resources | per the change's impact set — **every affected owner** | n/a |
+| **Relationships** | `owns` · `depends_on` · `specializes` *(profile inheritance)* · `supersedes` · `conforms_to` · `implemented_by` | `changes[]` → resource ids + versions; `impacts[]` → computed closure | frozen resolution of every relation at `as_of` |
+| **Validation** | JSON Schema + CI: unknown relation targets **fail**; a claim on an unowned resource **fails**; a profile loosening an inherited rule **fails** | CI: undeclared-resource writes **fail**; overlapping exclusive claims **fail**; expired leases **fail** | regeneration must be **byte-reproducible** from 1 + 2 at `as_of`, or the pipeline **fails closed** |
+| **Generation / consumption** | authored; **generates** the Backstage-compatible entity set as a **downstream consumer, never an authority** | authored; drives CODEOWNERS routing and required checks | consumed by resolution, impact analysis, drift detection and **as-of** queries (test 2) |
+
+**Change classes — every Change Manifest declares exactly one** *(★ Amendment 9, C-03)*:
+
+`reversible` · `reversible_with_migration` · `forward_only` · `compensatable_not_reversible` · `externally_committed`
+
+**A change may not be approved without a declared class.** Canonical-identifier, version-semantics and profile-precedence changes are **presumed `forward_only`** and require an **irreversible-change review** before approval. "Evolvable" therefore means: *reversed where semantically safe — otherwise superseded, compensated, or advanced through an explicit forward migration.* **Prior effective snapshots are preserved in every case**, because they are the only record of what was in force.
+
+**Relationship to existing state.** These objects do **not** replace the catalog or the read graph. The catalog remains the governance-routing surface; the read graph remains the boot-loading surface; **descriptors are the machine-readable architecture layer beneath both**, and both should eventually be *generated from* descriptors rather than maintained beside them. **That migration is G4's transaction, not G2's** — and it is exactly the migration G3 stages.
 
 ---
 
@@ -174,6 +207,38 @@ The operator, restated for the last time so it stops needing restating: *third-p
 ### G0 — ACCEPT THE PROGRAM
 Charter · this plan · roles · authority · writable surfaces · stop conditions · **exact first G1 action**.
 **Blocked until accepted:** integrator appointment · checkpoint repoint · any shared-surface write.
+
+**★ AMENDMENT 4 (C-01, C-09, C-10) — the authority contract, expressed as SEATS.** R5 named every participant except the one that can accept or reject a cross-cutting architectural decision. G1 can produce an operating model and G3 can reconcile the foundation, but **neither becomes accepted architecture without an authority that can adjudicate cross-cutting content without appropriating domain-owned truth.**
+
+**The seat model is canonical in the PRE-0 ledger §3.5 and is installed here by reference.** Its governing property, which the first two drafts both violated: **the architecture names SEATS; a separate mutable register names HOLDERS.** No person, model or vendor name appears in any architecture document. Adding engineers, departments or a compliance function is a **register edit**, never an architecture amendment.
+
+| Seat | May | May **never** |
+|---|---|---|
+| `cross_cutting_architecture_acceptance` | accept/reject cross-cutting architecture; record override rationale | override a domain owner's truth or contract; accept a change it authored |
+| `domain_owner_approval` | approve changes to owned truth, lifecycle, contract, commit authority; **block promotion into owned truth** | bind another domain; accept cross-cutting alone |
+| `architecture_steward` | maintain coherence; prepare cross-cutting decisions; run impact + correspondence | override domain ownership; accept its own proposals |
+| `independent_review` | produce **required** review evidence; force **recorded disposition** | veto autonomously; commit; hold domain or repo authority |
+| `proposal_authoring` | research, propose, author, test — **humans and agents alike** | accept, approve or commit |
+| `integration` | land an **already-accepted** coherent change set | resolve substantive disagreement by merging; decide content |
+| `repository_administration` | apply hosted settings; issue the administration receipt | decide architecture content |
+
+**Rules:** many holders per seat and many seats per holder · the same actor may not hold `proposal_authoring` and `cross_cutting_architecture_acceptance` **for the same change**, nor co-exercise `integration` with acceptance on the same set · **a seat with zero holders makes every dependent gate fail closed, never default upward** · **agents may hold `proposal_authoring` only**, and every consequential agent act resolves to a **non-null accountable principal** with scoped capability, authority basis and commit ceiling.
+
+**Disagreement rule.** A `domain_owner_approval` objection **blocks** promotion into that owner's truth. An `independent_review` objection **requires recorded disposition but is not an autonomous veto.** `integration` never resolves substantive disagreement by merging. **Constrained by INV-30: a majority may not vote away an independently liable principal's refusal, a patient right, or a professional duty.**
+
+**★ G0 receipt (C-10) — required, because acceptance alone does not confer repository authority.** G0 records: holder bindings for every seat *(with vacancies named)* · integrator appointment · freshness + collision check · checkpoint repoint · exact catalog/read-graph changes · **the first authorised G1 write**. At the pinned state the live checkpoint still points at Insurance and `PRESPINE-PHASEA-INTEGRATOR` is **vacant**, so **no shared control-plane landing is authorised today.**
+
+**★ Gate-output transaction contract (C-09).** Every gate declares these seven fields before it opens:
+
+| Gate | Output carrier | Writable surfaces | Author seat | Approving seat | Evidence bundle | State on close | Stop condition |
+|---|---|---|---|---|---|---|---|
+| **PRE-0** | reconciliation ledger | 3 carriers + ledger | `proposal_authoring` | operator ratification | 3 frozen carriers | `analysis_nonbinding` | undisposed row |
+| **G0** | charter + plan + G0 receipt | charter · plan · protocol · handoff | `proposal_authoring` | `cross_cutting_architecture_acceptance` | ledger + closure matrix | `accepted` | any `blocks_G0` row open |
+| **G1** | operating-model carrier | new `/architecture` **proposals only** | `proposal_authoring` | `architecture_steward` + affected `domain_owner_approval` | comparator + inheritance evidence | `proposed` | undisposed ledger row |
+| **G2** | `/architecture` package + admin receipt | `/architecture` · CI · `CODEOWNERS` | `proposal_authoring` | `domain_owner_approval` + `repository_administration` | Build Entry verdict + admin receipt | `installed` \| `controls_unapplied` | Build Entry not admitted |
+| **G3** | reconciliation + **staged, unmerged** change set | analysis carriers only — **no `main` landing** | `proposal_authoring` | `architecture_steward` + `domain_owner_approval` | disposition freeze | `staged` | foundational conflict |
+| **G4** | landed migration + two receipts | the staged set, through the loop | `proposal_authoring` | `cross_cutting_architecture_acceptance` → `integration` | 11 acceptance tests | `installed` | any test fails |
+
 **Verdicts:** `READY_TO_EXECUTE` · `READY_WITH_EXACT_AMENDMENTS` · `NOT_READY_<reason>`.
 
 ### G1 — CONVERGE THE OPERATING MODEL *(external and internal IN PARALLEL, then reconcile)*
@@ -192,23 +257,41 @@ Charter · this plan · roles · authority · writable surfaces · stop conditio
 ### G2 — ERECT THE REAL OUTPOST
 Install the `/architecture` package **and its operations scaffold**: canonical metadata contract · **generated** catalog/graph path (never hand-maintained) · proposal + review contract · architecture versioning and change control · operating **and** deployment profile structures · variation points · effective-architecture snapshot structure · conformance-policy scaffold · **the §3 ADOPT tools wired** (JSON Schema validator · CODEOWNERS/branch protection · OPA in CI generalized from the existing pointer check · Backstage-format entities · OTel conventions) · **architecture-intake automation for the four source checks** (§4).
 **Guards from the first commit:** owns no truth · holds no commit authority · **C4.6 `C10`** applies to this package itself · no `constitution.md` · **no hand-maintained manifest duplicating the catalog**.
-**Verdicts:** `OUTPOST_INSTALLED` · `..._WITH_NAMED_DEBT` · `BLOCKED_<reason>`.
+**★ AMENDMENT 6 (C-06) — G2 IS AN IMPLEMENTATION LANE AND MUST BE ADMITTED AS ONE.** R5's charter listed "no implementation" among its non-actions while G2 required JSON Schema validation, CI policy checks, a resource-claim checker, generators, workflows and `CODEOWNERS` edits. Repository boot law requires **Build Entry admission** for implementation lanes, and the packet never said whether G0 acceptance substitutes for it. **It does not.** G2 is classified `architecture_operations_tooling` and **requires a Build Entry verdict before any executable schema, generator, workflow or policy code lands.** If that admission is not obtained, G2 is limited to canonical documents and **non-executable** schema prototypes, and all tooling moves to a later admitted lane.
+
+**★ AMENDMENT 6 (C-07) — repository writes and hosted settings are DIFFERENT ACTS with different authority.** R5 grouped them as though editing a file and configuring a ruleset were the same work.
+
+| Repository-authored *(ordinary file edits)* | Repository-administration *(hosted GitHub settings)* |
+|---|---|
+| `/architecture` descriptors · schemas · generators · workflow **files** · `CODEOWNERS` **content** | branch-protection rulesets · **marking a check required** · merge-queue enablement |
+| writer: `proposal_authoring` → owner approval → `integration` | actor: **`repository_administration` seat only** (§3.5 of the ledger) |
+| proof: the merged diff | proof: an **administration receipt** — requested settings · applied settings · evidence · **explicitly unapplied controls** |
+
+**No gate may claim a protection is active because a workflow file or `CODEOWNERS` entry exists.** The `checkpoint-pointer` workflow states this about itself: it becomes merge-blocking **only** when marked a required status check in branch protection, and **the workflow file cannot grant that setting.** Where a control cannot be enabled, G2 records it as **unapplied** and the dependent gate **fails closed**.
+
+**Verdicts:** `OUTPOST_INSTALLED` · `..._WITH_NAMED_DEBT` · `BLOCKED_<reason>` · **`BLOCKED_BUILD_ENTRY_NOT_ADMITTED`** · **`INSTALLED_CONTROLS_UNAPPLIED`**.
 
 ### G3 — RECONCILE THE FOUNDATION DEEPLY; CLASSIFY THE TAIL
 **Knox's split accepted.** **Deeply reconcile now** — because these define the container itself: artifact model · maps · **GCE** · **Reactor** · **Build OS** · **Agent Runtime** · **C4.4** · Care/Platform/Accountability cross-cutting laws · profile and deployment model · conformance.
 **Classify now, deep-reconcile on next substantive touch:** the 16 domain contracts and the long tail — unless a foundational conflict surfaces.
-**Landed here:** two taxonomies reconciled · Reactor and GCE installed **into their standard roles** · 05-17 superseded or narrowed · `WI16` corrected · maps migrated or superseded, **never duplicated**.
+**★ AMENDMENT 5 (C-05) — G3 DOES NOT LAND. G3 STAGES.** R5 landed here the exact transaction G4 exists to prove, which destroyed G4's proof object. G3 now **reconciles deeply, adjudicates, approves the target state, freezes the dispositions, and prepares an UNMERGED migration change set.**
+
+**Staged here, not landed:** two taxonomies reconciled *(decision made, change set staged)* · Reactor and GCE **assigned** their standard roles · 05-17 supersession/narrowing **decided** · `WI16` correction **drafted** · map migration/supersession **prepared, never duplicated**.
+
+**Nothing in this list reaches `main` at G3.** The staged change set is G4's input and G4's proof object.
 **Verdicts:** `FOUNDATION_RECONCILED` · `..._WITH_NAMED_GAPS` · `BLOCKED_<reason>`.
 
 ### G4 — OPERATE IT END TO END, THEN INSTALL
-**Run the real loop on a migration already owed** — installing Reactor and GCE into their standard roles and migrating the maps — **not a toy exercise.**
+**Run the real loop on a migration already owed** — **the change set G3 staged and did not land** (Reactor and GCE into their standard roles; maps migrated or superseded) — **not a toy exercise.**
 
-**Ten acceptance tests. Routing is the first, not the whole:**
+**★ AMENDMENT 5 (C-05) — G4 owns the transaction end to end.** G4 runs the staged set through **proposal → impact → ownership review → conformance → propagation → integration → post-change resolution**, and **only then lands it.** If the set were already landed, the loop would have nothing to prove and the arc's central claim — *that OMNI can operate its own architecture* — would be untested.
+
+**Eleven acceptance tests. Routing is the first, not the whole:**
 
 | # | Test |
 |---|---|
 | 1 | **Routing** — cold agent finds the right architecture with no historical filename |
-| 2 | **Applicability** — resolves exact standards, profile versions, deployment posture, active exceptions |
+| 2 | **Applicability** — resolves exact standards, profile versions, deployment posture, active exceptions. **★ Am-9 (C-13):** resolution must be **deterministic for an explicit `as_of` point**, and ambiguous or contradictory profile/variation/exception combinations must **FAIL CLOSED with a named owner and a reason** — never silently pick a winner |
 | 3 | **Impact** — one standard changes; system enumerates affected profiles, contracts, code, tests, deployments, owners |
 | 4 | **Parallel change** — two agents propose overlapping changes without silent overwrite or duplicated architecture |
 | 5 | **Authority** — agents may propose broadly; only rightful owners approve and commit |
@@ -216,7 +299,7 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 | 7 | **Conformance** — a profile loosening an inherited rule **fails**; unauthorized truth ownership **fails**; ≥1 negative control produces no defect; the deliberate non-cousin is **rejected** |
 | 8 | **Fleet** — small-operator, composed-enterprise and federated-node deployments resolve different effective snapshots **without forking the architecture** |
 | 9 | **Drift** — code, config or deployment that no longer conforms is detected |
-| 10 | **Upgrade / rollback** — versions move forward, coexist, deprecate and roll back under explicit rules |
+| 10 | **Upgrade / rollback / forward migration** — **★ Am-9 (C-03/C-14):** test **all five change classes**, not rollback alone. Must include a **`forward_only`** change that is **superseded, compensated or forward-migrated rather than rolled back**, and must prove prior effective snapshots still resolve afterwards. A repository rollback that breaks historical resolution or external consumers is a **FAIL**, not a pass |
 | **11** | **Substrate independence (the DNA test)** — with every adopted third-party tool removed, the architecture still resolves and every law is still stated and checkable |
 
 **Then install:** Build Entry enforces profile declaration · Build OS consumption rules · Agent Runtime bindings · read graph + catalog + checkpoint · **spine and thesis input-state receipts** (may-rely / must-not-assume / remains-open) · **then Insurance returns** — `C3.9` → consume → rerun affected traces → reconcile → **`E2` last**.
