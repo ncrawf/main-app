@@ -1,18 +1,18 @@
-# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R4)
+# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R5)
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R4 · pending_nick_knox_acceptance · nothing_started`**
+Status: **`execution_plan_R5 · pending_nick_knox_acceptance · nothing_started`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
 Manifest action: `add_tier2` **PROPOSED** — not landed.
 Review gate: `user_knox_required`
 
-**Companion:** the Gate-0 charter (**R5**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
+**Companion:** the Gate-0 charter (**R6**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
 
 ---
 
-## §0 — Correction receipt R1 → R2 → R3: two self-inflicted errors, both verified against the estate
+## §0 — Correction receipt R1 → R5: two self-inflicted errors, both verified against the estate
 
 **(1) I made an optional catalog mandatory.** R1 declared `omni_work_method_repertoire.md` a *"mandatory consult at every gate"* and required a Pressure Coverage Matrix row per uncertainty. **Its own header and passport say the opposite, verbatim:**
 
@@ -30,7 +30,7 @@ Review gate: `user_knox_required`
 
 **The operator's charge: we compressed to four requirements after an enormous spend, and they were sitting in a chat window.** Knox proposed preserving them as a *required G2 deliverable*. **That is still evaporation** — G2 is several gates away, inside a plan, inside an unaccepted PR. **So the text is written here, in full, now. G2 RELOCATES it to `/architecture/README.md`; G2 does not author it.**
 
-> ### Root requirements of OMNI Architecture
+> ### Root requirements of OMNI Architecture **as a maintained system**
 >
 > **1. EXPLICIT.** Every binding architectural requirement exists in an OMNI-owned, substrate-independent canonical form. **No vendor, tool, conversation, code path, or human recollection is the only place a rule lives.**
 >
@@ -42,7 +42,7 @@ Review gate: `user_knox_required`
 >
 > *State it. Resolve it. Change it safely. Know when reality diverges.*
 
-**Status: `candidate_architecture_system_requirements`.** Not doctrine, not care law, not Reactor invariants, not thesis prose. **Ratification only after G3 reconciliation and G4 proof.**
+**Status: `candidate_architecture_system_requirements`.** Not doctrine, not care law, not Reactor invariants, not thesis prose. **And explicitly NOT exhaustive of OMNI's substantive laws** — care, patient authority, clinical adoption, consent, source sovereignty, financial separation, safety, privacy and economic laws are all outside this block. **These four are the root properties required for the architecture to remain a living, usable system. Nothing more.** **Ratification only after G3 reconciliation and G4 proof. At G2 this block is relocated verbatim to `/architecture/README.md`; the copy here then becomes a historical pointer — never two maintained normative copies.**
 
 **Each maps to an existing acceptance test, so none is decorative:** Explicit → **test 11** (substrate independence) · Resolvable → **tests 1, 2, 8** · Evolvable → **tests 3, 4, 5, 6, 10** · Observable → **test 9**.
 
@@ -162,24 +162,14 @@ The operator, restated for the last time so it stops needing restating: *third-p
 
 ## §5 — Gates
 
-### G-PRE — FRESH-CONTEXT FRONTIER COUNTER-DESIGN *(runs BEFORE G0 acceptance)*
-**Knox placed this inside G1. Moved forward, and that is the substantive change in R6.** The highest-value moment for a blind counter-design is **before we commit to the plan**, not after the integrator is appointed and four gates are underway. If three fresh designs converge on a shape this plan cannot produce, **that is a plan defect and we want it now** — for the cost of three prompts.
+### PRE-0 — OPERATOR-AUTHORIZED ARCHITECTURE PREFLIGHT *(NOT a gate; runs before G0)*
+**Protocol, both briefs, drop files and the reconciliation obligation live in `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. This is a pointer — the protocol is not duplicated here.**
 
-**It also answers the operator's question directly: yes, pre-pressure the plan — but by attacking the PROBLEM blind, not by reviewing the plan.** A blind design subsumes a plan review: anything three independent designs produce that our arc cannot reach is a defect in our arc. **One exercise, not two.**
+**Three corrections from R4, all accepted:** **(a)** it is **not a gate** — an unaccepted plan may not authorize its own pre-gate; it runs on operator direction and the arc still begins at G0. **(b)** **A blind counter-design does NOT subsume a plan audit** — R4 said it did and that is withdrawn; they are different tests and both run, using **two** agents in **two stages** rather than two separate exercises. **(c)** the defect rule is narrowed: *the plan is defective only where it cannot express, evaluate, adopt, reject or disposition a **materially necessary** capability surfaced by the counter-design.* **Difference is evidence, not authority.**
 
-**Step 1 — recover prior blind work first (`M-106`).** The estate already contains blind runs: the **C4.4** fresh repo-connected Gemini adversary and fresh authorability angles · the **`EVRUN-000012`** frozen facts-only blind decomposition · the **C4.6** blind Gemini submission. **Reuse everything in scope. Run only the delta** — none of those asked the present question at this scope.
+**★ And the operator's structural correction, which is the important one:** the counter-design is **reconciled into the artifact, not consumed as an appetizer for G0.** Every finding becomes a row in the **PRE-0 reconciliation ledger**, and **G1 and G3 cannot close while any row is undisposed.** *(Gate-1b §15.1 part E applied to the preflight — the exact mechanism whose absence let the Insurance arc's findings evaporate in-thread.)*
 
-**Step 2 — three fresh instances, distinct model families, no cross-exposure.** They receive a **sanitized facts-only brief** and **none of**: this plan · the `/architecture` shape · Reactor's classification · the content/operations split · the eleven tests · the tool decisions · Knox's or my framing.
-
-**They are asked for:** architecture artifact taxonomy · content model · operations/change model · agent and fleet operating model · deployment and variation model · repository shape · conformance and observability model · **the ten most dangerous omissions** · falsifiers · **what must be correct at planting versus what may evolve later**.
-
-**And the inverse question, which is the half that actually matters:** *"Which parts of your proposal become wrong because healthcare contains legally and professionally independent principals whose truths, commitments, refusals and liabilities cannot be collapsed into one platform?"* **Without it, a frontier model will hand us one ontology, one workflow engine, one policy plane, one control plane, one event graph — the god-layer, in fashionable clothing.**
-
-**Honest limit, stated up front:** a blind instance given a facts-only brief produces **generic frontier architecture**. It is **strong at finding what we omitted** and **weak at judging what we got right that generic practice gets wrong**. **Its value is asymmetric and the exercise is scoped to the strong half.**
-
-**Handling:** all three preserved verbatim · **no voting** · **agreement between models is not corroboration** · **no model authors the architecture**. One unblinded comparison returns only: **convergent omissions · competing decompositions · assumptions unique to one model · what OMNI already has · what OMNI misses · false imports from generic software practice · questions requiring operator judgement.**
-
-**Verdicts:** `PLAN_SURVIVES` · `PLAN_SURVIVES_WITH_NAMED_ADDITIONS` · `PLAN_MATERIALLY_INCOMPLETE_<reason>`. **A third verdict amends the plan before G0. It does not reopen whether OMNI Architecture exists.**
+**Verdicts:** `PLAN_SURVIVES` · `PLAN_SURVIVES_WITH_EXACT_AMENDMENTS` · `PLAN_MATERIALLY_INCOMPLETE_<reason>` · `PLAN_MATERIALLY_OVERBUILT_<reason>`. **One reconciliation, at most one bounded amendment cycle, then G0.**
 
 ### G0 — ACCEPT THE PROGRAM
 Charter · this plan · roles · authority · writable surfaces · stop conditions · **exact first G1 action**.
@@ -193,7 +183,7 @@ Charter · this plan · roles · authority · writable surfaces · stop conditio
 
 **Lane 2 — internal foundation** (controlling termini): **Artifact Index** · governance taxonomy · **05-17 pattern (Tier-0 #14)** · System Map · Surface Map · **GCE** · Polaris · **Build OS `09`/`10`/`11` incl. the Step-5 target** · **Agent Runtime & Harness** · **C4.4 Source Estate / Knowledge Reservoir / Domain-Owned State / Evidence Workbench / Compiled Projection / Mission Context** · Reactor `EVRUN-000007/000008` termini · Care §1b/§5b/§5b.1/§18/§19 · Platform · Accountability · C4.6 §0.5/§12 · C3.8 G4 · Federation tenancy · pre-spine §5 deployment postures · conformance estate.
 
-**Lane 3 — prior OMNI inputs (mandatory, §3.9.1); the blind counter-design already ran at G-PRE and its comparison output enters here:** the six AI-corpus concept registries · the federation permeability arc · prior build arcs. **Inherit; do not re-derive.**
+**Lane 3 — prior OMNI inputs (mandatory, §3.9.1). The PRE-0 reconciliation ledger enters here as a standing input, and this gate cannot close with an undisposed row:** the six AI-corpus concept registries · the federation permeability arc · prior build arcs. **Inherit; do not re-derive.**
 
 **Reconcile into:** artifact metamodel · **architecture-operations loop** · architecture graph semantics · change lifecycle · profile/deployment resolution · conformance and observability model · **adopt/reject/transfer-limit matrix**.
 **No vendor adoption decision beyond §3. No market/moat study — that stays Task-D.**
@@ -247,10 +237,10 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 ## §7 — STOP RECEIPT
 | Field | Value |
 |---|---|
-| Artifact | arc execution plan **R2** |
+| Artifact | arc execution plan **R5** |
 | Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **10 acceptance tests** replace routing-only · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** |
 | Next | Nick + Knox accept, amend or reject → integrator appointment → G1 |
 
-**STOP: `execution_plan_R2_pending_acceptance`**
+**STOP: `execution_plan_R5_pending_pre0_then_g0`**
