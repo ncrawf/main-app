@@ -55,7 +55,7 @@ Traced to two mechanical defects, both verified: **route `9p`** (the Gate-2 read
 | Owed | Blocked on |
 |---|---|
 | checkpoint repoint (this arc becomes the program's next action) | **integrator VACANT** |
-| catalog rows for the **nine** new artifacts (charter · execution plan · 2 thread verbatim · handoff · PRE-0 protocol · 2 PRE-0 verbatim · PRE-0 ledger) | integrator |
+| catalog rows for the **ten** new artifacts (charter · execution plan · 2 thread verbatim · handoff · PRE-0 protocol · 3 PRE-0 verbatim · PRE-0 ledger) | integrator |
 | read-graph route for the arc — **and the load-bearing fix: an obligation that every loop/profile arc routes to the foundational system** | integrator |
 | `08` parent row for the arc's open questions | integrator |
 | `WI16` stale-state correction | integrator |
@@ -67,13 +67,13 @@ Traced to two mechanical defects, both verified: **route `9p`** (the Gate-2 read
 
 ## §5 — Next
 
-**Nick + Knox accept, amend, or reject the Gate-0 charter.** Nothing auto-starts. Gate 1 does not begin until the charter and the execution plan are accepted. **The single-law probe was deleted at R1. The current sequence is: G-PRE blind counter-design → G0 accept → G1 converge the operating model → G2 erect the outpost → G3 reconcile the foundation → G4 operate end-to-end and install. The execution plan is the ONLY place that sequence lives.**
+**Nick + Knox accept, amend, or reject the Gate-0 charter.** Nothing auto-starts. Gate 1 does not begin until the charter and the execution plan are accepted. **The single-law probe was deleted at R1. The current sequence is: PRE-0 preflight (operator-authorized, NOT a gate) → G0 accept → G1 converge the operating model → G2 erect the outpost → G3 reconcile the foundation → G4 operate end-to-end and install. The execution plan is the ONLY place that sequence lives.**
 
 **R1 rewrite (2026-08-09, post-Knox):** the existential test and the single-law probe are DELETED — the operator's "outpost" meant the first permanent structure at the real site, not a test cabin. `.cursor/plans/` is rejected as the final home. The FAI files were split onto their own branch; Insurance and FAI do not share closure. **R2 (post-Knox):** the whole is named **OMNI Architecture** — un-branded, no coinage, no `constitution`. **Reactor is classified: a candidate cross-cutting architecture STANDARD for consequential transitions — not dead, not the whole, not unsettled.** **Taxonomy diagnosis corrected: TWO taxonomies exist and are mutually invisible** — the governance-category enum (10 categories, no `contract`, while 16 contracts exist) and the ratified `00_architecture_artifact_index.md` (12 architecture roles, no `standard`/`pattern`/`profile`/`conformance`/`vocabulary`/`view`). Not an absence — a schema mismatch plus a stale role set. **Four additions, all operator-raised: two profile axes (operating-area vs deployment), variation points as the answer to enterprise customisation, instance and fleet views, and architecture change control.** Sequencing answered: **the taxonomy IS the stake; organize → state (spine) → explain (thesis).**
 
 **If the charter or plan is rejected: revise them.** The foundational arc itself is DECIDED and does not return to `WI16`, and Insurance does not unfreeze. *(This clause previously said rejection unfreezes Insurance — stale against the operator's decision, corrected at R3.)*
 
-**PRE-0 preflight (operator-authorized, runs BEFORE G0):** `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md` (protocol + both briefs) · `v4_FAI_PRE0_agent_a_verbatim_2026-08-09.md` and `..._agent_b_...` (**operator-populated**) · `v4_FAI_PRE0_reconciliation_ledger_2026-08-09.md` (**G1 and G3 cannot close with an undisposed row**).
+**PRE-0 preflight (operator-authorized, runs BEFORE G0):** `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md` (protocol + both briefs) · `v4_FAI_PRE0_agent_a_verbatim_…` · `…_agent_b_…` · `…_plan_auditor_verbatim_…` (**all operator-populated**) · `v4_FAI_PRE0_reconciliation_ledger_2026-08-09.md` (**G1 and G3 cannot close with an undisposed row**).
 
 **Artifacts from this session:** `v4_FAI_G0_foundational_architecture_reconciliation_and_install_charter_2026-08-09.md` (R6) · **`v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` (the plan the next agent runs)** · `v4_FAI_G0_opus_thread_verbatim_2026-08-09.md` (operator-populated) · `v4_FAI_G0_knox_thread_verbatim_2026-08-09.md` (operator-populated) · this handoff · the frozen Insurance result on PR #14.
 

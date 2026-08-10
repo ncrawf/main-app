@@ -27,32 +27,37 @@ R4 said a blind counter-design *subsumes* a plan review. **That was wrong and is
 
 ---
 
-## §2 — The five inputs a stable design needs *(answering "are there more inputs?")*
+## §2 — The minimum evidence lenses for this arc *(answering "are there more inputs?" — a floor, not a closed taxonomy)*
 
 The operator named three. **There are five, and the two additions are free.**
 
 | # | Input | Question it answers | Where it runs |
 |---|---|---|---|
-| 1 | **First-principles design** | what *should* this be, unanchored? | **PRE-0 Stage A** |
+| 1 | **Fresh alternative design** | what *should* this be, unanchored by our decomposition? | **PRE-0 agents A + B** |
 | 2 | **Estate inventory** | what is it already *trying* to be? | G1 Lane 2 + Lane 3 · G3 |
 | 3 | **External comparators** | how do mature systems solve this? | G1 Lane 1 |
-| 4 | **The failure record** ★ | what must it *survive*? | **PRE-0 Stage A brief + G1** |
-| 5 | **Consumer requirements** ★ | what does the thing that *uses* it need? | acceptance tests 1–11 |
+| 4 | **The failure record** ★ | what must it *survive*? | **PRE-0 agent C + reconciliation + G1 + G3 — deliberately NOT A/B** |
+| 5 | **Consumer requirements** ★ | what do its *users* need — cold builder · domain owner · integrator · operator/federation · release/fleet · runtime agent · auditor? **Routing is one consumer, not the lens.** | acceptance tests 1–11 |
 
 **Why 4 and 5 are not covered by 1–3.** Designing from first principles produces what is elegant; designing from comparators produces what is conventional; **neither produces what survives *our specific* failure modes.** We have an unusually rich failure record — nine named modes, six months of evaporation, four stale-duplicate incidents — and **it is the most OMNI-specific input available and it costs nothing.** And input 5 inverts the frame: architecture designed for its author is why the estate is unnavigable; **designing from the cold entrant is what makes routing testable.**
 
 ---
 
-## §3 — Protocol: two agents, two stages each
+## §3 — Protocol: THREE fresh contexts, one job each
 
-**Two fresh instances, distinct model families.** No third by default — add one **only** if a submission fails the brief, or the two expose a material unresolved contradiction. **No voting. Agreement between models is not corroboration. No model authors the architecture.**
+**R4/R5 gave both jobs to the same two agents. Withdrawn — an agent auditing the plan right after producing its own design is anchored to its own design.** Knox is right and the fix costs one prompt.
 
-### Stage A — BLIND (freeze before Stage B)
-Each receives **only** §5's brief. They receive **none of**: the charter · the execution plan · the `/architecture` shape · Reactor's classification · the content/operations split · the tool decisions · the eleven acceptance tests · the four root requirements · Knox's or Opus's framing · **each other's work**.
-**Submissions are frozen and preserved verbatim before Stage B begins.** Freezing is what makes Stage B honest.
+| Agent | Job | Sees | Never sees |
+|---|---|---|---|
+| **A** | blind alternative design | §5 brief only | the charter · the plan · the package shape · Reactor's classification · the content/operations split · the tool decisions · the eleven tests · the four root requirements · **the failure record** · B's or C's work |
+| **B** | blind alternative design | §5 brief only | same |
+| **C** | **independent grounded plan audit** | exact charter **R6** · exact plan **R5** · this protocol · the handoff and failure record | **A's and B's submissions** |
 
-### Stage B — UNBLINDED (each sees the real packet plus its own frozen answer)
-Each receives the exact charter (R6), the exact execution plan (R4), and **its own Stage-A submission**, then answers §6.
+**Distinct model families where possible. No voting. Agreement between models is not corroboration. No model authors the architecture.** A fourth is added **only** if a submission fails its brief or A and B expose a material unresolved contradiction.
+
+**Why C never sees A and B:** C's job is *"is THIS plan sane and executable,"* not *"is this plan as good as someone else's design."* Contaminating C turns an audit into a comparison, and the comparison is the reconciler's job, not C's.
+
+**Why A and B never see the failure record:** it would tell them our answer. **The failure record pressures C, the reconciliation, G1 and G3 — not the blind designers.** *(Knox's catch; R5 had it feeding the Stage-A brief, which was wrong.)*
 
 ---
 
@@ -74,7 +79,7 @@ R4 said *"anything the blind designs produce that our arc cannot reach is a plan
 
 ---
 
-## §5 — STAGE A BRIEF *(paste this verbatim; add nothing)*
+## §5 — PROMPT 1 — BLIND DESIGN BRIEF · for AGENTS A and B *(paste verbatim; add nothing)*
 
 ```
 Design the architecture and the architecture-management system for a
@@ -133,13 +138,16 @@ you would replace them with.
 CONSTRAINTS
 - No vendor product may be the only place a rule can live.
 - Do not assume a single source of truth across principals.
-- Do not assume one control plane, one ontology or one workflow engine.
+- If you propose ANY shared control plane, ontology, workflow engine, event
+  graph or semantic layer, state exactly: what it may own, what it may
+  NEVER own, how independent-principal authority survives it, its failure
+  boundary, and how it can be replaced.
 - State what you are uncertain about rather than resolving it silently.
 ```
 
 ---
 
-## §6 — STAGE B QUESTIONS *(unblinded; each agent gets charter R6 + plan R4 + its own frozen Stage-A answer)*
+## §6 — PROMPT 2 — PLAN AUDIT · for AGENT C *(with exact charter R6 + exact plan R5 + the handoff; NOT A's or B's work)*
 
 ```
  1. What materially necessary capability or relationship did YOUR design
@@ -164,6 +172,8 @@ CONSTRAINTS
 
 **Both "fatal omissions" AND "removable machinery" are required outputs.** An audit that can only add scope is not an audit.
 
+**Terminology, fixed:** A and B produce **model-generated alternative designs**. They are **NOT external comparators** — those are the primary-source mechanisms examined at G1 Lane 1 (ISO 42010 · FHIR/IHE · SEI · AUTOSAR · Palantir · Backstage · IBM · LangGraph · OPA · OpenTelemetry). **A model proposal acquires no evidentiary standing by being preserved verbatim.** Both are reconciled; they are not equivalent sources.
+
 ---
 
 ## §7 — Hard stop
@@ -177,8 +187,9 @@ CONSTRAINTS
 | File | Purpose |
 |---|---|
 | this file | protocol + both briefs + the reconciliation obligation |
-| `v4_FAI_PRE0_agent_a_verbatim_2026-08-09.md` | **operator-populated.** Stage A frozen, then Stage B |
-| `v4_FAI_PRE0_agent_b_verbatim_2026-08-09.md` | same |
+| `v4_FAI_PRE0_agent_a_verbatim_2026-08-09.md` | **operator-populated.** Agent A blind design ONLY |
+| `v4_FAI_PRE0_agent_b_verbatim_2026-08-09.md` | **operator-populated.** Agent B blind design ONLY |
+| `v4_FAI_PRE0_plan_auditor_verbatim_2026-08-09.md` | **operator-populated.** Agent C grounded plan audit ONLY |
 | `v4_FAI_PRE0_reconciliation_ledger_2026-08-09.md` | **every finding, every disposition. G1 and G3 cannot close with an undisposed row** |
 
 **STOP: `pre0_protocol_ready_awaiting_operator_run`**

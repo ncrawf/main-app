@@ -23,7 +23,7 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R6 · not_started` · **execution plan R4 authored — adds the ARCHITECTURE OPERATIONS half and makes the third-party tool decisions** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
+| Arc state | `chartered_R6 · not_started` · **execution plan R5 authored — adds the ARCHITECTURE OPERATIONS half and makes the third-party tool decisions** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
 | What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
 | Blocking obligation | **`PRESPINE-PHASEA-INTEGRATOR` VACANT.** No shared control-plane surface may land |
