@@ -1,8 +1,8 @@
-# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R6)
+# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R7)
 
 Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
-Status: **`gate_0_charter_R6 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
+Status: **`gate_0_charter_R7 · pending_operator_and_independent_review_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
 Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
@@ -23,7 +23,7 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R6 · not_started` · **execution plan R5 authored — adds the ARCHITECTURE OPERATIONS half and makes the third-party tool decisions** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
+| Arc state | `chartered_R7 · not_started · PRE-0_complete · amendment_cycle_applied · G0_NOT_ACCEPTED` · **execution plan R6** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter** |
 | What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
 | **PRE-0 preflight** | **runs BEFORE G0 and is NOT a gate.** Two blind alternative designs (A, B) + one independent grounded plan audit (C). Protocol: `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. **G0 cannot be accepted until PRE-0 has run and its ledger is reconciled** |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
@@ -74,7 +74,7 @@ R1 said the estate had no contract class. **Wrong.** There are **two** classific
 | | `00_document_governance_and_taxonomy_2026-05-19.md` §2 | `00_architecture_artifact_index.md` |
 |---|---|---|
 | Answers | **how is this handled and routed?** | **what architectural job does it do?** |
-| Contents | 10 governance categories: `manifest_or_catalog · canon_digest · doctrine · adr · domain_rule_slice · audit_or_pressure_test · evidence_or_ingestion · narrative_or_postmortem · handoff_or_readiness_gate · future_or_parked_watch` | 12 artifact roles with ONE-job / FORBIDDEN / home per role: **System Map · Domain Contract · Seam/Event Contract · Doctrine · ADR · Open Decisions · Supersession · Guardrails · Field cases · Evidence/Workbench · Future arcs · Build OS · Catalog/Read-graph/Boot** |
+| Contents | 10 governance categories: `manifest_or_catalog · canon_digest · doctrine · adr · domain_rule_slice · audit_or_pressure_test · evidence_or_ingestion · narrative_or_postmortem · handoff_or_readiness_gate · future_or_parked_watch` | **13** artifact roles *(★ Am-2: R6 said 12; the displayed table has 13 rows)* with ONE-job / FORBIDDEN / home per role: **System Map · Domain Contract · Seam/Event Contract · Doctrine · ADR · Open Decisions · Supersession · Guardrails · Field cases · Evidence/Workbench · Future arcs · Build OS · Catalog/Read-graph/Boot** |
 | Says of itself | *"Do not invent a new category unless explicitly approved"* | *"OMNI did not lack an artifact OS; it had one, but its System Map and doctrine layers had drifted out of conformance"* |
 | Missing | `contract`, though **15 top-level contract files exist** *(★ Am-2: R6 said 16; the count did not reproduce — 15 top-level plus 5 seam contracts)* | `standard` · `pattern` · **`operating profile`** · `conformance` · `controlled vocabulary` · `view` beyond the System Map |
 

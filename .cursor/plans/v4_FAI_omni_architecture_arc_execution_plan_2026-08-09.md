@@ -1,8 +1,8 @@
-# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R5)
+# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R6)
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R5 · pending_nick_knox_acceptance · nothing_started`**
+Status: **`execution_plan_R6 · pending_operator_and_independent_review_acceptance · nothing_started`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
 Manifest action: `add_tier2` **PROPOSED** — not landed.
@@ -12,7 +12,17 @@ Review gate: `user_knox_required`
 
 ---
 
-## §0 — Correction receipt R1 → R5: two self-inflicted errors, both verified against the estate
+## §0 — Correction receipts
+
+### R5 → R6 — the amendment cycle, and a third re-derivation caught in review
+
+**R6 applies the PRE-0 amendment cycle** (ledger §6, Amendments 1–11). **It also withdraws an R6-draft overreach:** the seven-seat authority model authored during the cycle **re-derived authority architecture the estate already holds** — `contracts/rbac_authority_contract.md` (`domain_contract`, `canonical` for the authority/capability substrate, `draft_for_ratification`, controlling spine **DL-18 LOCKED**), the Agent Runtime & Harness capture (*"the `agent_definition` authority ceiling … **never originates or overrides** authority; effective permission is an intersection"*), the thesis `delegated_authority_envelope` / `capability_envelope` split, `EVRUN-2026-000007`'s multi-principal/multi-actor/agent-mediated correction, and Care §5b.
+
+**That is the THIRD re-derivation in a single session** — after `C4.4 §R` twice (ledger §0.1 L-1). **The pattern is now the finding:** under current routing, re-derivation is the *default* behaviour, not an occasional lapse. It recurred inside the artifact written to stop it, by an agent that had just documented the first two instances.
+
+**Consequence:** the seat catalog is demoted to a **provisional change-governance profile for this arc's transaction only** (`§G0`), and **authority reconciliation becomes a required G1 work package** (`§G1-AUTH`). **No authority model is settled here.**
+
+### R1 → R5: two self-inflicted errors, both verified against the estate
 
 **(1) I made an optional catalog mandatory.** R1 declared `omni_work_method_repertoire.md` a *"mandatory consult at every gate"* and required a Pressure Coverage Matrix row per uncertainty. **Its own header and passport say the opposite, verbatim:**
 
@@ -208,11 +218,17 @@ The operator, restated for the last time so it stops needing restating: *third-p
 Charter · this plan · roles · authority · writable surfaces · stop conditions · **exact first G1 action**.
 **Blocked until accepted:** integrator appointment · checkpoint repoint · any shared-surface write.
 
-**★ AMENDMENT 4 (C-01, C-09, C-10) — the authority contract, expressed as SEATS.** R5 named every participant except the one that can accept or reject a cross-cutting architectural decision. G1 can produce an operating model and G3 can reconcile the foundation, but **neither becomes accepted architecture without an authority that can adjudicate cross-cutting content without appropriating domain-owned truth.**
+**★ AMENDMENT 4 (C-01, C-09, C-10) — a PROVISIONAL change-governance profile for THIS transaction. Not OMNI's authority model.** R5 named every participant except the one that can accept or reject a cross-cutting architectural decision. That gap is real and blocks G0. **But the R6 draft over-corrected**: it authored a seven-seat authority model and declared it *"canonical in the PRE-0 ledger §3.5"* — from an artifact whose own passport reads `analysis_nonbinding`. **A nonbinding ledger cannot mint canonical architecture by declaration**, and OMNI already holds substantial authority architecture across `rbac_authority_contract.md`, Agent Runtime & Harness, the thesis GCE chain, `EVRUN-2026-000007` and Care §5b.
 
-**The seat model is canonical in the PRE-0 ledger §3.5 and is installed here by reference.** Its governing property, which the first two drafts both violated: **the architecture names SEATS; a separate mutable register names HOLDERS.** No person, model or vendor name appears in any architecture document. Adding engineers, departments or a compliance function is a **register edit**, never an architecture amendment.
+> **Scope of this table — read before using it.**
+> **What it is:** a **provisional change-governance profile** answering exactly one question — *who may propose, review, accept, integrate and administer **this foundational-arc transaction**.*
+> **What it is NOT:** OMNI's authority architecture, a domain contract, a general seat ontology, or a replacement for `contracts/rbac_authority_contract.md`.
+> **Status:** `candidate_operational_profile` · scoped to `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` · **expires when `§G1-AUTH` delivers.**
+> **The durable principle it carries forward is one line:** *a stable role definition belongs in architecture; the current holder belongs in a mutable register.* **That principle survives G1. This table may not.**
 
-| Seat | May | May **never** |
+**One property is non-negotiable even provisionally: no person, model or vendor name appears in any architecture document.** Current holders live in the **G0 holder receipt** below. Adding engineers, departments or a compliance function is a **receipt edit**.
+
+| Role *(this transaction only)* | May | May **never** |
 |---|---|---|
 | `cross_cutting_architecture_acceptance` | accept/reject cross-cutting architecture; record override rationale | override a domain owner's truth or contract; accept a change it authored |
 | `domain_owner_approval` | approve changes to owned truth, lifecycle, contract, commit authority; **block promotion into owned truth** | bind another domain; accept cross-cutting alone |
@@ -222,11 +238,50 @@ Charter · this plan · roles · authority · writable surfaces · stop conditio
 | `integration` | land an **already-accepted** coherent change set | resolve substantive disagreement by merging; decide content |
 | `repository_administration` | apply hosted settings; issue the administration receipt | decide architecture content |
 
-**Rules:** many holders per seat and many seats per holder · the same actor may not hold `proposal_authoring` and `cross_cutting_architecture_acceptance` **for the same change**, nor co-exercise `integration` with acceptance on the same set · **a seat with zero holders makes every dependent gate fail closed, never default upward** · **agents may hold `proposal_authoring` only**, and every consequential agent act resolves to a **non-null accountable principal** with scoped capability, authority basis and commit ceiling.
+**Rules:** many holders per role and many roles per holder · the same actor may not hold `proposal_authoring` and `cross_cutting_architecture_acceptance` **for the same change**, nor co-exercise `integration` with acceptance on the same set · **a role with zero holders makes every dependent gate fail closed, never default upward.**
+
+**Agent grants — the arc profile and the inherited posture, kept separate.**
+
+> **For PRE-0 and G0 (this transaction):** agent grants are limited to **proposal authoring, research, verification and testing.** No agent holds cross-cutting acceptance, domain-owner approval, or independent repository authority here.
+>
+> **General OMNI posture (inherited, NOT authored here):** a software agent is a **nonhuman actor** operating under a versioned runtime profile and a delegated grant. It **does not become an accountable principal, domain owner or professional authority merely by acting.** Every consequential act resolves to a **non-null accountable principal · authority basis · capability/action envelope · purpose · scope · current validity · rightful commit owner.**
+
+**The R6 draft's "agents may hold `proposal_authoring` only" is DELETED as a universal rule** — it is an arc restriction, and stating it universally contradicts the estate, which already contemplates agents performing bounded operational actions, conformance work, ministerial execution and tool invocation under delegated capability with point-of-consequence reauthorization. **The durable law is not *"agents may only propose"* but *"an agent never self-authorizes."*** Its two metaphysical companions — *"agent = actor always"* and *"agent ≠ principal ever"* — are also deleted: they make eternal claims about future legal regimes that this arc has no standing to make. **Which action classes an agent may perform is a question of grant and action class, resolved at `§G1-AUTH` — not an identity claim.**
 
 **Disagreement rule.** A `domain_owner_approval` objection **blocks** promotion into that owner's truth. An `independent_review` objection **requires recorded disposition but is not an autonomous veto.** `integration` never resolves substantive disagreement by merging. **Constrained by INV-30: a majority may not vote away an independently liable principal's refusal, a patient right, or a professional duty.**
 
-**★ G0 receipt (C-10) — required, because acceptance alone does not confer repository authority.** G0 records: holder bindings for every seat *(with vacancies named)* · integrator appointment · freshness + collision check · checkpoint repoint · exact catalog/read-graph changes · **the first authorised G1 write**. At the pinned state the live checkpoint still points at Insurance and `PRESPINE-PHASEA-INTEGRATOR` is **vacant**, so **no shared control-plane landing is authorised today.**
+**★ G0 holder receipt (C-10) — required, because acceptance alone does not confer repository authority. This is the ONLY place names belong.**
+
+Recording that one person currently holds several functions is **honest current-state, not hardwiring**. The receipt is an **operational record with effective dates**, not an architecture document — which is precisely what makes adding engineers a receipt edit.
+
+```yaml
+# G0 holder receipt — operational record, NOT architecture
+# scope: OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL only
+transaction: OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL
+effective_from:            # date G0 is accepted
+effective_to:              # expires when §G1-AUTH delivers
+
+accountable_operator_principal:      # legal/accountable principal for this arc
+cross_cutting_acceptance_holder:     # who may accept/reject cross-cutting content
+domain_owner_approval_holders:       # per affected domain — list, may be many
+architecture_steward_holder:
+independent_review_holder:           # the review instance actually used, by name+version
+proposal_authoring_actors:           # humans AND agents, each with model+version if nonhuman
+integration_holder:                  # VACANT at G0 authoring — must be filled before any landing
+repository_administration_holder:
+
+vacancies:                           # every unfilled role, explicitly
+  - integration                      # PRESPINE-PHASEA-INTEGRATOR vacant
+fail_closed_gates:                   # gates blocked by each vacancy
+  - G4_landing                       # blocked while integration is vacant
+
+freshness_and_collision_check:       # result + timestamp
+checkpoint_repoint:                  # from -> to, or NOT_PERFORMED
+catalog_and_read_graph_changes:      # exact rows, or NONE
+first_authorised_G1_write:           # exact file/surface
+```
+
+**At the pinned state this receipt cannot be completed:** the live checkpoint still names the Insurance handoff and `PRESPINE-PHASEA-INTEGRATOR` is **vacant**, so **no shared control-plane landing is authorised.** `C-10` therefore closes at G0 execution, not in any agent-authored patch.
 
 **★ Gate-output transaction contract (C-09).** Every gate declares these seven fields before it opens:
 
@@ -252,7 +307,46 @@ Charter · this plan · roles · authority · writable surfaces · stop conditio
 
 **Reconcile into:** artifact metamodel · **architecture-operations loop** · architecture graph semantics · change lifecycle · profile/deployment resolution · conformance and observability model · **adopt/reject/transfer-limit matrix**.
 **No vendor adoption decision beyond §3. No market/moat study — that stays Task-D.**
-**Verdicts:** `MODEL_CONVERGED` · `MODEL_CONVERGED_WITH_NAMED_GAPS` · `NOT_CONVERGED_<reason>`.
+
+#### §G1-AUTH — Authority, Agency and Commit Grammar Reconciliation *(★ MANDATORY G1 work package; working label only)*
+
+**This is a RECONCILIATION, not an authoring exercise.** OMNI already holds substantial authority architecture at **mixed maturity across scattered carriers**; it has never been reconciled into one build-facing model. **Three separate re-derivations in one session** — `C4.4 §R` twice, and the seven-role table in the R6 draft — establish that this material is **structurally unreachable**, not merely overlooked. **G1 must not invent an authority taxonomy. It must reconcile the one that exists.**
+
+**Required source set** — read fully, or to the identified controlling sections:
+
+| Source | What it already settles |
+|---|---|
+| `contracts/rbac_authority_contract.md` + **DL-18 (LOCKED spine)** + `lib/auth/capabilities.ts` | permission atoms · grants · explicit + default deny · attestation tiers · dual approval · break-glass · consent gating · **nonhuman actor grants** · emission-time vs execution-time reauthorization. `domain_contract`, `canonical` for the authority substrate, `draft_for_ratification` |
+| Enterprise Posture + **GCE chain** (thesis) | authority is **decomposed, not domain-owned**: Identity · Federation · RBAC · D7 consent · CNS Meta enforcement · owning-domain commit. Carries **`delegated_authority_envelope`** vs **`capability_envelope`** |
+| `v4_C4_agent_runtime_and_harness_capture.md` | *"the `agent_definition` authority ceiling … **never originates or overrides** authority; effective permission is an **intersection**"* · agent definitions · runtime profiles · sessions/runs · **subagent delegation** · authority ceilings · **point-of-consequence authorization** |
+| Identity · Federation · **D7 consent** contracts | represented principal · boundary permeability · consent record |
+| `EVRUN-2026-000007` multi-principal carrier | the **multi-principal → multi-principal/multi-actor/agent-mediated** correction · subject · principal · actor · agent · role · capability · committer · three agent interaction modes |
+| `EVRUN-2026-000008` terminus + adjudication | `analysis_closed` · `adjudicated_nonbinding` — **read the terminus, not the index row** |
+| Care **§§5b · 5b.1 · 9a** | decision admissibility vs execution authorization vs readiness vs consequence · authority basis · evidence form · **approval cardinality/topology** · reauthorization · escalation · *contributions are not votes* |
+| Build OS + Agent Work Protocol | lane authority · gate admission · stop proof |
+| Operator context + collaboration model | **roles are model-agnostic working slots**, never permanent model identities or architecture authority |
+| **The R6 provisional role table** | **candidate input only — explicitly NOT controlling truth** |
+
+**Required output — G1 decides each, or names it open with an owner:**
+principal vs represented principal · actor vs agent · organizational role vs architecture seat · **holder binding** · `delegated_authority_envelope` vs `capability_envelope` · approval and attestation topology · domain ownership vs operational custody · **propose vs execute vs commit vs accept** · build-plane vs use-plane profiles · human and legal-entity accountability · point-of-consequence reauthorization · delegation, redelegation, expiry, revocation, suspension, transfer · multi-agent and multi-principal interaction · authority evidence and **as-of reconstruction** · **and which portions are binding standards, contracts, profiles or runtime configuration.**
+
+**Required pressure scenarios** — the model is not converged until each resolves without inventing new authority:
+
+| # | Scenario |
+|---|---|
+| 1 | **5 pharmacies × 50 agents** interacting with OMNI simultaneously |
+| 2 | **10 engineers + security + clinical + legal + compliance** working the repo concurrently |
+| 3 | one engineer temporarily holding **several roles** |
+| 4 | a role with **no holder** |
+| 5 | one agent proposes, **another agent tests** |
+| 6 | an agent performs an **already-approved mechanical integration** |
+| 7 | a human proposal author **also holds an approval seat** |
+| 8 | **external payer agent and operator agent disagree** |
+| 9 | **patient agent and provider agent disagree** |
+| 10 | **delegation revoked mid-run**, in flight |
+| 11 | **break-glass under partial network failure** |
+
+**Verdicts:** `MODEL_CONVERGED` · `MODEL_CONVERGED_WITH_NAMED_GAPS` · `NOT_CONVERGED_<reason>`. **G1 cannot close `MODEL_CONVERGED` while `§G1-AUTH` is unresolved.**
 
 ### G2 — ERECT THE REAL OUTPOST
 Install the `/architecture` package **and its operations scaffold**: canonical metadata contract · **generated** catalog/graph path (never hand-maintained) · proposal + review contract · architecture versioning and change control · operating **and** deployment profile structures · variation points · effective-architecture snapshot structure · conformance-policy scaffold · **the §3 ADOPT tools wired** (JSON Schema validator · CODEOWNERS/branch protection · OPA in CI generalized from the existing pointer check · Backstage-format entities · OTel conventions) · **architecture-intake automation for the four source checks** (§4).
