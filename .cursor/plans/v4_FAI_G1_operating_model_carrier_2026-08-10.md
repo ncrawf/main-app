@@ -595,4 +595,44 @@ The plan's §2 loop is **not redesigned here**; it is bound to §3's grammar so 
 | Recommended verdict | **`MODEL_CONVERGED_WITH_NAMED_GAPS`** |
 | Next | `architecture_steward` + affected `domain_owner_approval` review → accept / amend / reject. **G1 does not close by this file.** `G-06` (Tier-0 #14 unread) and `G-05` (Lane 1 incomplete) should be discharged before acceptance. |
 
+---
+
+## §15 — Handoff (this carrier IS the Tier-2+ preservation artifact)
+
+**Why there is no separate `HANDOFF_*` file.** AWP §8 requires a durable handoff artifact at Tier 2+. A separate file would be a **third** description of current state beside the checkpoint §1 and this carrier's §14 — the maintained-duplicate failure that reopened `C-11` and `C-12` twice each, whose stated root cause is *"correcting a copy leaves the copy."* This section supplies the §5 Handoff Minimum Contract fields the carrier did not already carry, so there is one carrier and no duplicate.
+
+**Changed artifacts, files and commits**
+
+| File | Change | Commit |
+|---|---|---|
+| `v4_FAI_G1_operating_model_carrier_2026-08-10.md` | **new** — this file | carrier commit |
+| `doctrine/01_master_corpus_catalog.md` | +1 row | governance commit *(separately revertible)* |
+| `doctrine/04_manifest_read_graph.md` | route `9v` read order extended | governance commit *(separately revertible)* |
+
+**Verification actually run**
+
+- `node scripts/check-checkpoint-pointer.mjs` → **pass**; both boot surfaces name the current checkpoint.
+- Ledger discharge **machine-verified, not asserted**: rows carrying `blocks G1` = **40**; rows named in §2.3 = **40**; set difference = **empty**. Given this arc withdrew every closure claim before R5 as *not byte-true*, the count is computed rather than counted by hand.
+- No TypeScript touched → `npm run typecheck` / `npm run lint` **not applicable to this change set**.
+
+**Settled here — do not relitigate without new evidence**
+
+The six-model reconciliation and its five-question structure (§3.2) · the three fall-out invariants (§3.2) · `AB-08`'s closure by multi-axis passport rather than by granularity count (§9.7) · the ministerial-integration four-condition boundary (§3.5) · the nine tool verdicts (§7) · the `M-106` result that **zero** capabilities are net-new (§6).
+
+**Source-of-truth load order for the next agent**
+
+`AGENTS.md` checkpoint-pointer → the named checkpoint → **route `9v`** (execution plan R8 → charter R9 → PRE-0 ledger R5 → **this carrier**). The gate sequence lives **only** in execution plan §5. Closure conditions live **only** in the ledger's per-row `blocking_scope` — **not** in the checkpoint's §4 summary (§2.2, `G1-FIND-01`).
+
+**Guardrail candidates — captured, NOT promoted** (`GRD-036`: capture broad, promotion gated). Writing to `06_guardrail_antipattern_digest.md` is a Tier-0.5 boot-visible rule change; `proposal_authoring` may not make it. Routed to `architecture_steward`:
+
+1. **Multiple statements at multiple maturities cause re-derivation.** When an estate holds several statements of one law at different maturity levels, agents re-derive rather than reconcile, because no single carrier is both complete and authoritative. **Before authoring any cross-cutting model, enumerate every existing statement of it *and its maturity*, and lay them side by side. Finding one carrier is not finding the model.** Evidence: §3.1 — six composition models, four maturity levels, three re-derivations.
+2. **A compressed restatement in a routing surface is a staleness site even when the surface is correct on its own terms.** The checkpoint §4 enumeration drifted from the ledger field it summarized (§2.2). This is `D0CKPT-GRD-004` recurring at a new layer, and it argues the existing guardrail should be widened from *boot surfaces* to *any surface that restates another surface's field*.
+3. **A precision/maturity inversion is a promotion signal.** The most precise statement of a law sitting at the estate's lowest maturity (`G1-FIND-03`) predicts that later arcs will re-derive the imprecise version.
+
+**Deliberately NOT done**
+
+No checkpoint repoint. G1 is **not closed**, and the Checkpoint Closeout Rule attaches to the commit *claiming the gate done*. Repointing now would tell the next agent a gate closed that did not.
+
+**Stop condition for this handoff:** superseded when the `architecture_steward` and affected `domain_owner_approval` seats accept, amend or reject this carrier — at which point the accepting transaction owns the checkpoint repoint.
+
 **STOP: `g1_carrier_R0_proposed · ledger_40_g1_rows_discharged · AB-08_closed · G1-AUTH_delivered · 10of11_scenarios_resolve · 7_named_gaps · awaiting_approving_seats`**
