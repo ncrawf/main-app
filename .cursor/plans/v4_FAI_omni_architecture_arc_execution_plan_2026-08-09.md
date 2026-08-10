@@ -1,8 +1,8 @@
-# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R3)
+# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R4)
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R3 · pending_nick_knox_acceptance · nothing_started`**
+Status: **`execution_plan_R4 · pending_nick_knox_acceptance · nothing_started`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
 Manifest action: `add_tier2` **PROPOSED** — not landed.
@@ -23,6 +23,32 @@ Review gate: `user_knox_required`
 **(2) "Most teams do considerably less — a docs folder, ADRs and a README is the whole gap" was false, and it contradicts OMNI's own landed doctrine.** Build OS `10` Rollout Step 5 already targets, verbatim: *"Automated registry, ownership leases, shared-surface locks, merge queue, semantic collision detection, parent/child scheduling, status projection and proof automation"*, plus a **declarative machine-readable work-package manifest**, a **manifest validator**, an **ownership claim/lease/transfer mechanism**, **shared-surface policy checks (policy-as-code)** — *"a lane physically **cannot** land an edit to a protected control surface"* — and a **cold-boot / replacement-agent eval suite**.
 
 **So OMNI accepted this target months ago and I benchmarked us against a modest app team.** Deleted. The correct comparator class is at §3.
+
+---
+
+## §0.5 — ROOT REQUIREMENTS OF OMNI ARCHITECTURE — written here NOW, relocated at G2
+
+**The operator's charge: we compressed to four requirements after an enormous spend, and they were sitting in a chat window.** Knox proposed preserving them as a *required G2 deliverable*. **That is still evaporation** — G2 is several gates away, inside a plan, inside an unaccepted PR. **So the text is written here, in full, now. G2 RELOCATES it to `/architecture/README.md`; G2 does not author it.**
+
+> ### Root requirements of OMNI Architecture
+>
+> **1. EXPLICIT.** Every binding architectural requirement exists in an OMNI-owned, substrate-independent canonical form. **No vendor, tool, conversation, code path, or human recollection is the only place a rule lives.**
+>
+> **2. RESOLVABLE.** For any mission, actor, operator, federation, tenant, deployment posture and as-of point in time, the exact applicable architecture — standards, profiles, variations, exceptions, owners and proof obligations — can be **deterministically resolved**.
+>
+> **3. EVOLVABLE.** An architectural change can be proposed, authority-checked, impact-analyzed, reviewed, versioned, propagated, migrated, coexisted, deprecated and **reversed** — without silently forking the architecture or losing history.
+>
+> **4. OBSERVABLE.** Divergence between the declared architecture and artifacts, code, configuration, effective deployment state and runtime evidence is **detected, attributed, and routed to a governed correction path**.
+>
+> *State it. Resolve it. Change it safely. Know when reality diverges.*
+
+**Status: `candidate_architecture_system_requirements`.** Not doctrine, not care law, not Reactor invariants, not thesis prose. **Ratification only after G3 reconciliation and G4 proof.**
+
+**Each maps to an existing acceptance test, so none is decorative:** Explicit → **test 11** (substrate independence) · Resolvable → **tests 1, 2, 8** · Evolvable → **tests 3, 4, 5, 6, 10** · Observable → **test 9**.
+
+**Ownership split, so this is not another homeless compression:** the architecture entrypoint owns the compact normative statement · the operations standard owns the detailed obligations · the conformance suite proves them · Build OS executes the change and proof mechanics · Agent Runtime applies them to runs · the spine locates them · the thesis explains why they matter · domain contracts and profiles compile them locally **without restating them**.
+
+**And the honest diagnosis of why this took so long:** we never lacked these four. **Explicit** is `GRD-033`/`GRD-034`. **Resolvable** is the question the effective-architecture compiler exists to answer. **Evolvable** is Build OS Step-5. **Observable** is drift detection. **All four existed as fragments in four different places and never once as a single statement with an owner** — which is this arc's thesis, applied to this arc's own output.
 
 ---
 
@@ -136,6 +162,25 @@ The operator, restated for the last time so it stops needing restating: *third-p
 
 ## §5 — Gates
 
+### G-PRE — FRESH-CONTEXT FRONTIER COUNTER-DESIGN *(runs BEFORE G0 acceptance)*
+**Knox placed this inside G1. Moved forward, and that is the substantive change in R6.** The highest-value moment for a blind counter-design is **before we commit to the plan**, not after the integrator is appointed and four gates are underway. If three fresh designs converge on a shape this plan cannot produce, **that is a plan defect and we want it now** — for the cost of three prompts.
+
+**It also answers the operator's question directly: yes, pre-pressure the plan — but by attacking the PROBLEM blind, not by reviewing the plan.** A blind design subsumes a plan review: anything three independent designs produce that our arc cannot reach is a defect in our arc. **One exercise, not two.**
+
+**Step 1 — recover prior blind work first (`M-106`).** The estate already contains blind runs: the **C4.4** fresh repo-connected Gemini adversary and fresh authorability angles · the **`EVRUN-000012`** frozen facts-only blind decomposition · the **C4.6** blind Gemini submission. **Reuse everything in scope. Run only the delta** — none of those asked the present question at this scope.
+
+**Step 2 — three fresh instances, distinct model families, no cross-exposure.** They receive a **sanitized facts-only brief** and **none of**: this plan · the `/architecture` shape · Reactor's classification · the content/operations split · the eleven tests · the tool decisions · Knox's or my framing.
+
+**They are asked for:** architecture artifact taxonomy · content model · operations/change model · agent and fleet operating model · deployment and variation model · repository shape · conformance and observability model · **the ten most dangerous omissions** · falsifiers · **what must be correct at planting versus what may evolve later**.
+
+**And the inverse question, which is the half that actually matters:** *"Which parts of your proposal become wrong because healthcare contains legally and professionally independent principals whose truths, commitments, refusals and liabilities cannot be collapsed into one platform?"* **Without it, a frontier model will hand us one ontology, one workflow engine, one policy plane, one control plane, one event graph — the god-layer, in fashionable clothing.**
+
+**Honest limit, stated up front:** a blind instance given a facts-only brief produces **generic frontier architecture**. It is **strong at finding what we omitted** and **weak at judging what we got right that generic practice gets wrong**. **Its value is asymmetric and the exercise is scoped to the strong half.**
+
+**Handling:** all three preserved verbatim · **no voting** · **agreement between models is not corroboration** · **no model authors the architecture**. One unblinded comparison returns only: **convergent omissions · competing decompositions · assumptions unique to one model · what OMNI already has · what OMNI misses · false imports from generic software practice · questions requiring operator judgement.**
+
+**Verdicts:** `PLAN_SURVIVES` · `PLAN_SURVIVES_WITH_NAMED_ADDITIONS` · `PLAN_MATERIALLY_INCOMPLETE_<reason>`. **A third verdict amends the plan before G0. It does not reopen whether OMNI Architecture exists.**
+
 ### G0 — ACCEPT THE PROGRAM
 Charter · this plan · roles · authority · writable surfaces · stop conditions · **exact first G1 action**.
 **Blocked until accepted:** integrator appointment · checkpoint repoint · any shared-surface write.
@@ -148,7 +193,7 @@ Charter · this plan · roles · authority · writable surfaces · stop conditio
 
 **Lane 2 — internal foundation** (controlling termini): **Artifact Index** · governance taxonomy · **05-17 pattern (Tier-0 #14)** · System Map · Surface Map · **GCE** · Polaris · **Build OS `09`/`10`/`11` incl. the Step-5 target** · **Agent Runtime & Harness** · **C4.4 Source Estate / Knowledge Reservoir / Domain-Owned State / Evidence Workbench / Compiled Projection / Mission Context** · Reactor `EVRUN-000007/000008` termini · Care §1b/§5b/§5b.1/§18/§19 · Platform · Accountability · C4.6 §0.5/§12 · C3.8 G4 · Federation tenancy · pre-spine §5 deployment postures · conformance estate.
 
-**Lane 3 — prior OMNI inputs (mandatory, §3.9.1):** the six AI-corpus concept registries · the federation permeability arc · prior build arcs. **Inherit; do not re-derive.**
+**Lane 3 — prior OMNI inputs (mandatory, §3.9.1); the blind counter-design already ran at G-PRE and its comparison output enters here:** the six AI-corpus concept registries · the federation permeability arc · prior build arcs. **Inherit; do not re-derive.**
 
 **Reconcile into:** artifact metamodel · **architecture-operations loop** · architecture graph semantics · change lifecycle · profile/deployment resolution · conformance and observability model · **adopt/reject/transfer-limit matrix**.
 **No vendor adoption decision beyond §3. No market/moat study — that stays Task-D.**
