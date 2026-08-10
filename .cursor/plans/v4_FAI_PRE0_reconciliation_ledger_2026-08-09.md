@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate` (disposition ledger)
 Authority: `analysis_nonbinding`. **This ledger disposes of findings; it does not adopt them by listing them.**
-Status: **`amended_r2_awaiting_final_review`** — R0 drafted 2026-08-10 from the three frozen carriers; **R1 applies the independent-review corrections and the operator's authority correction.** Amendment cycle applied to the plan in the same pass.
+Status: **`normalized_r3_awaiting_bounded_closure_verifier`** — R0 drafted from the three frozen carriers · **R1** applied the independent-review corrections and the operator's authority correction, and ran the amendment cycle against the plan · **R2** withdrew the re-derived authority model, demoted §3.5 to a provisional arc profile and added `§G1-AUTH` · **R3 is a pure mechanical normalization pass — no design change**: propagated the EVOLVABLE root requirement, fixed the plan's companion-charter reference and stale artifact/STOP version, arc-scoped the residual agent rule, and labelled every surviving false historical claim. **The amendment cycle is APPLIED, not owed.**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: **the anti-appetizer mechanism.** Every PRE-0 finding gets a row and a disposition.
 Manifest action: `add_tier2` **PROPOSED** — not landed.
@@ -230,7 +230,7 @@ This needs **no new architecture**. It is `AB-12` — *the governance plane is s
 - a seat may have **many** holders; a holder may hold **many** seats;
 - **separation of duties:** the same actor may not hold `proposal_authoring` and `cross_cutting_architecture_acceptance` **for the same change**; `integration` may never be co-exercised with acceptance on the same change set;
 - a seat with **zero** holders causes every gate depending on it to **fail closed** — never to silently default upward;
-- **agents may hold `proposal_authoring` only.**
+- **agent grants, for THIS transaction only:** proposal authoring, research, verification and testing. No agent holds cross-cutting acceptance, domain-owner approval or independent repository authority here. **This is an arc restriction, NOT a general OMNI rule** — the durable law is *"an agent never self-authorizes,"* and which action classes an agent may perform is a question of **grant and action class**, resolved at `§G1-AUTH`. *(R1 stated "agents may hold `proposal_authoring` only" as universal; **withdrawn at R2** — it contradicts the estate, which already contemplates agents performing bounded operational actions, conformance work and ministerial execution under delegated capability with point-of-consequence reauthorization.)*
 
 **Disagreement rule.** A `domain_owner_approval` objection **blocks** promotion of a change into that owner's truth or contract. An `independent_review` objection **requires recorded disposition** but is **not** an autonomous veto. `integration` never resolves substantive disagreement by merging.
 
@@ -298,13 +298,13 @@ The settled answer, in one line each:
 | **Patterns R0 re-derived that the estate already owned** | **TWO — AB-01 and AB-05, both in `C4.4 §R`.** Root cause is **routing, not diligence**: `C4.4 §R` is not reachable as a cross-cutting pattern source from the read graph. **This is now a G1 finding and the arc's best self-evidence** |
 | Amendment cycle used | **one — applied in this pass.** Ledger R1 + plan/charter/protocol/handoff patch |
 | Third agent required | **no.** A second round of blind design would produce diminishing returns and expand the plan. A fresh agent is useful only as a **bounded blocker-closure verifier**, never to redesign OMNI |
-| **G0 recommendation** | **`G0_NOT_YET_ACCEPTABLE — ONE BOUNDED AMENDMENT CYCLE OWED`** (see §7) |
+| **G0 recommendation** | **`G0_NOT_YET_ACCEPTABLE — FINAL CLOSURE VERIFICATION + C-10 TRANSACTION OWED`** (see §7). **The amendment cycle is applied through R2; what remains is verification and the operator-side transaction** |
 
 ---
 
-## §6 — Candidate amendments *(drafted, NOT applied)*
+## §6 — Amendment-cycle receipt — **applied through R2**
 
-C's nine amendments, plus two forced by A/B material that C could not see (C was blind to both submissions).
+C's nine amendments, plus two forced by A/B material C could not see (it was blind to both submissions). **All eleven are APPLIED — this is a receipt, not a proposal.** Amendments 10 and 11 were rewritten during R1 to *generalize* existing `C4.4 §R` material rather than mint new artifacts; Amendment 4 was **withdrawn and rescoped at R2** from an invented authority model to a provisional change-governance profile plus the mandatory `§G1-AUTH` reconciliation package.
 
 | # | Amendment | Source rows | Surface |
 |---|---|---|---|
@@ -330,7 +330,7 @@ C's nine amendments, plus two forced by A/B material that C could not see (C was
 
 ## §7 — G0 recommendation
 
-**`G0_NOT_YET_ACCEPTABLE — ONE BOUNDED AMENDMENT CYCLE OWED`**
+**`G0_NOT_YET_ACCEPTABLE — FINAL CLOSURE VERIFICATION + C-10 TRANSACTION OWED`**
 
 **Not a rejection.** C's own verdict is that the arc survives, and I agree: **no fatal conceptual omission was found, and no finding requires restarting or discarding the foundational arc.** The four root requirements (Explicit · Resolvable · Evolvable · Observable) survive intact, and C confirms the proposed removals do not damage them.
 
@@ -342,9 +342,11 @@ C's nine amendments, plus two forced by A/B material that C could not see (C was
 
 **What is now genuinely settled and should not be relitigated:** the arc's necessity, the four roots, the PRE-0 three-agent structure, the gate skeleton PRE-0 → G0 → G1 → G2 → G3 → G4, and the two-receipt split between `architecture_operations_v0_conformance` and `runtime_and_fleet_proof`. C tested all of these and did not break them.
 
-**Sequence recommended (R1):** ~~operator adjudicates the issuer fork and the two-implementation rule~~ — **both were resolvable architecturally and are resolved** (AB-15 two-level model; AB-04 independence ladder). What remains: **final independent review of this patch** → operator **ratifies** §3.5's seat model and the AB-15 model *(ratification, not a choice between incomplete alternatives)* → operator appoints the `integration` seat holder and repoints the checkpoint, producing the **C-10 receipt** → **G0 accepted** → G1 opens.
+**Sequence recommended (R2):** ~~operator adjudicates the issuer fork and the two-implementation rule~~ — **both were resolvable architecturally and are resolved** (AB-15 two-level model; AB-04 independence ladder). ~~operator ratifies §3.5's seat model~~ — **withdrawn at R2; there is no general seat or authority model to ratify at G0.** What remains:
 
-**R2 status — the R1 claim of "13 of 14 closed" is WITHDRAWN as not byte-true.** Independent review found the patch's own version state self-contradictory. Honest counts: **11 of 14 fully closed · `C-01` partially closed for the G0 transaction only · `C-10` specified but not executed · `C-11` and `C-12` were falsely claimed at R1 and close at R2.** **C-10 still cannot close here** — it requires an appointment and a checkpoint repoint that an agent holding only `proposal_authoring` may not perform, and the shared control-plane surfaces remain read-only with `PRESPINE-PHASEA-INTEGRATOR` vacant.
+**final bounded closure verification → exact byte corrections, if any → operator accepts the PROVISIONAL G0 transaction profile *(not a general authority model)* → operator appoints the `integration` holder → `C-10` checkpoint transaction → G0 closes → G1 opens, with `§G1-AUTH` mandatory.**
+
+**R2 status — the R1 claim of "13 of 14 closed" is WITHDRAWN as not byte-true.** Independent review found the patch's own version state self-contradictory. Honest counts **after the R3 normalization patch**: **12 of 14 fully closed · `C-01` partially closed for the G0 transaction only · `C-10` specified but not executed.** *(At R2 the count was lower because `C-03` and `C-11` still carried byte defects — the absolute EVOLVABLE root requirement and a stale companion-charter reference. Both land at R3, so the arithmetic now reconciles: 12 + 1 partial + 1 unexecuted = 14.)* **C-10 still cannot close here** — it requires an appointment and a checkpoint repoint that an agent holding only `proposal_authoring` may not perform, and the shared control-plane surfaces remain read-only with `PRESPINE-PHASEA-INTEGRATOR` vacant.
 
 **One caution against over-correction, and it held.** Eleven amendments on an unstarted arc is near the ceiling before repair becomes redesign — the pathology `D0CKPT-GRD-003` warns about. **The cycle produced no twelfth amendment.** Amendments 1, 2, 3, 5 and 8 correct defects; 4, 9, 10 and 11 add machinery; **10 and 11 were rewritten during R1 to GENERALIZE existing `C4.4 §R` material rather than mint new artifacts** — which *reduced* the new surface area rather than growing it. The seat model landed inside Amendment 4 rather than becoming a twelfth, because it is OMNI's own principal/actor primitive applied reflexively.
 
@@ -359,7 +361,7 @@ C's nine amendments, plus two forced by A/B material that C could not see (C was
 |---|---|---|---|---|
 | **C-01** cross-cutting decision authority | 4 | plan **G0** + ledger **§3.5** + plan **§G1-AUTH** | **`PARTIALLY_CLOSED_FOR_G0_TRANSACTION`** — the arc can now name who proposes/reviews/accepts/integrates/administers **this transaction**, which is enough to open G0. **`FOUNDATIONAL_AUTHORITY_MODEL_REMAINS_G1_REQUIRED`** — R1 claimed CLOSED on the strength of a re-derived table declared canonical from a nonbinding ledger. **Withdrawn** | plan `### G0` scope box; ledger §3.5 status box; plan `#### §G1-AUTH` |
 | **C-02** missing §3.1 | 3 | plan **§3.1** | **CLOSED** — three objects fully specified: identity · canonical-vs-generated · version/temporal semantics · relationships · **writer and approval seat** · validation · generation rules | plan `## §3.1 — The three objects` |
-| **C-03** no forward-only change class | 9 | plan **§3.1** | **CLOSED** — five change classes; declaration mandatory before approval; canonical-ID/version/profile-precedence presumed `forward_only` and gated by irreversible-change review; "Evolvable" restated | plan §3.1 → *"Change classes"* |
+| **C-03** no forward-only change class | 9 | plan **§3.1** + **root requirement 3** | **CLOSED AT R3 — WAS PARTIAL THROUGH R2.** §3.1 added the five change classes, but the **root EVOLVABLE requirement still said a change can be "reversed"** with no qualifier — the exact absolute the audit rejected, left unpropagated two hundred lines above its own correction. R3 restates the root: *reversed **where semantically safe**; otherwise superseded, compensated, or advanced through governed forward migration* | plan root requirement **3. EVOLVABLE**; plan §3.1 *"Change classes"* |
 | **C-04** C's findings not ledger-bound | 8 | protocol **§4** | **CLOSED** — A, B **and C** each require a row; C plan defects close or are explicitly rejected before G0. **This ledger discharges the instance; the protocol text now carries the rule** | protocol §4 ledger row |
 | **C-05** G3/G4 same transaction | 5 | plan **G3** + **G4** | **CLOSED** — G3 **stages an unmerged change set and lands nothing**; G4 runs it through the full loop and only then lands it. G4's proof object restored | plan `### G3` → *"G3 DOES NOT LAND. G3 STAGES."*; `### G4` |
 | **C-06** G2 unclassified implementation lane | 6 | plan **G2** | **CLOSED** — classified `architecture_operations_tooling`; **Build Entry verdict required** before executable code; documented fallback to non-executable prototypes; new verdict `BLOCKED_BUILD_ENTRY_NOT_ADMITTED` | plan `### G2` → Amendment 6 (C-06) |
@@ -374,6 +376,6 @@ C's nine amendments, plus two forced by A/B material that C could not see (C was
 | **C-19** *(aggregate)* "a fresh agent could not execute without redesigning" | 1–11 | all | **CLOSED BY CONSTRUCTION** — resolves iff C-01…C-14 resolve. **Final review is the arbiter, not this row** | the thirteen rows above |
 | **INV-30** majority cannot bind a liable principal | 4 | plan **G0** + ledger §3.5 | **CLOSED** — the disagreement rule makes a domain-owner objection **blocking**, an independent-review objection **recorded but non-vetoing**, and forbids `integration` from resolving substance by merging | plan `### G0` → *"Disagreement rule"* |
 
-**Honest exceptions — two, not one.** **`C-01` is only partially closed**: the arc has a provisional change-governance profile sufficient to open G0, but OMNI's foundational authority model is **explicitly deferred to `§G1-AUTH`**, because R1 re-derived it rather than reconciling it. **`C-10` is specified but not executed.** Every other blocker closes in this patch. C-10 closes when the operator appoints the `integration` seat holder and the checkpoint is repointed — **neither of which this pass may perform**, because the shared control-plane surfaces are read-only and the integrator seat is vacant. **That is the correct outcome, not a gap:** a blocker about repository authority cannot be discharged by an agent holding only `proposal_authoring`.
+**Honest exceptions — two, and only two after R3.** **`C-01` is only partially closed**: the arc has a provisional change-governance profile sufficient to open G0, but OMNI's foundational authority model is **explicitly deferred to `§G1-AUTH`**, because R1 re-derived it rather than reconciling it. **`C-10` is specified but not executed.** Every other blocker closes in this patch. C-10 closes when the operator appoints the `integration` seat holder and the checkpoint is repointed — **neither of which this pass may perform**, because the shared control-plane surfaces are read-only and the integrator seat is vacant. **That is the correct outcome, not a gap:** a blocker about repository authority cannot be discharged by an agent holding only `proposal_authoring`.
 
-**STOP: `ledger_r2_authority_demoted_g1auth_added_awaiting_final_review`**
+**STOP: `ledger_r3_normalized_awaiting_bounded_closure_verifier`**

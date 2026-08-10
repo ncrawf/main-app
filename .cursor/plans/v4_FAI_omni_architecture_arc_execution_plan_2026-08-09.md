@@ -8,7 +8,7 @@ Lifecycle role: converts the accepted Gate-0 charter into an executable program.
 Manifest action: `add_tier2` **PROPOSED** — not landed.
 Review gate: `user_knox_required`
 
-**Companion:** the Gate-0 charter (**R6**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
+**Companion:** the Gate-0 charter (**R7**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
 
 ---
 
@@ -46,7 +46,7 @@ Review gate: `user_knox_required`
 >
 > **2. RESOLVABLE.** For any mission, actor, operator, federation, tenant, deployment posture and as-of point in time, the exact applicable architecture — standards, profiles, variations, exceptions, owners and proof obligations — can be **deterministically resolved**.
 >
-> **3. EVOLVABLE.** An architectural change can be proposed, authority-checked, impact-analyzed, reviewed, versioned, propagated, migrated, coexisted, deprecated and **reversed** — without silently forking the architecture or losing history.
+> **3. EVOLVABLE.** An architectural change can be proposed, authority-checked, impact-analyzed, reviewed, versioned, propagated, migrated, coexisted, deprecated, and — **where semantically safe** — **reversed**. Where reversal is **not** safe, it can be explicitly **superseded, compensated, or advanced through a governed forward migration** — without silently forking the architecture or losing history.
 >
 > **4. OBSERVABLE.** Divergence between the declared architecture and artifacts, code, configuration, effective deployment state and runtime evidence is **detected, attributed, and routed to a governed correction path**.
 >
@@ -414,10 +414,10 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 ## §7 — STOP RECEIPT
 | Field | Value |
 |---|---|
-| Artifact | arc execution plan **R5** |
+| Artifact | arc execution plan **R6** |
 | Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **10 acceptance tests** replace routing-only · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** |
 | Next | **PRE-0 execution → one reconciliation → at most one bounded amendment → G0 acceptance → bounded integrator appointment → G1** |
 
-**STOP: `execution_plan_R5_pending_pre0_then_g0`**
+**STOP: `execution_plan_R6_pending_final_closure_verification_then_g0`**

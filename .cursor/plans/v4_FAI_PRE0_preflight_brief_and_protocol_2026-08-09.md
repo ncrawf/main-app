@@ -51,7 +51,7 @@ The operator named three. **There are five, and the two additions are free.**
 |---|---|---|---|
 | **A** | blind alternative design | §5 brief only | the charter · the plan · the package shape · Reactor's classification · the content/operations split · the tool decisions · the eleven tests · the four root requirements · **the failure record** · B's or C's work |
 | **B** | blind alternative design | §5 brief only | same |
-| **C** | **independent grounded plan audit** | exact charter **R6** · exact plan **R5** · this protocol · the handoff and failure record | **A's and B's submissions** |
+| **C** | **independent grounded plan audit** | exact charter **R6** · exact plan **R5** · this protocol · the handoff and failure record — **the versions AS OF the pinned audit commit `185d473`; these are PROVENANCE and must never be updated to later revisions, or the record of what was actually audited is falsified. Current versions are charter R7 / plan R6** | **A's and B's submissions** |
 
 **Distinct model families where possible. No voting. Agreement between models is not corroboration. No model authors the architecture.** A fourth is added **only** if a submission fails its brief or A and B expose a material unresolved contradiction.
 

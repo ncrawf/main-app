@@ -165,7 +165,7 @@ No architecture before G0 acceptance · no shared control-plane surface written 
 ---
 
 ## §12 — Failure modes, each with its receipt
-Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 route unread at boot (05-17)** · durable home carrying stale content (`WI16`) · arc-local routing (`9p` / `#9g`) · concept frozen without an address (Reactor) · re-derivation mistaken for discovery (O-2/O-3) · comparator consumed as content not method (FHIR) · **two governing taxonomies mutually invisible (§4)** · **R1 asserting absence without checking the sibling taxonomy** · patch accretion · **package-boundary violation (R0)**.
+Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 route unread at boot (05-17)** · durable home carrying stale content (`WI16`) · arc-local routing (`9p` / `#9g`) · concept frozen without an address (Reactor) · re-derivation mistaken for discovery (O-2/O-3) · comparator consumed as content not method (FHIR) · **two governing taxonomies not modelled as independent axes (§4)** *(★ Am-2: R6 said "mutually invisible" — **FALSE and SUPERSEDED**; they are linked one-way)* · **R1 asserting absence without checking the sibling taxonomy** · patch accretion · **package-boundary violation (R0)**.
 
 **Every gate re-proves a boot receipt for Tier-0 #14 and the Artifact Index.**
 
