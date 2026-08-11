@@ -1,18 +1,31 @@
-# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R5)
+# v4 — FAI — OMNI Architecture — ARC EXECUTION PLAN (R8)
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R5 · pending_nick_knox_acceptance · nothing_started`**
+Status: **`execution_plan_R8 · ACCEPTED_AT_G0_2026-08-10 · CURRENT_STATE_BY_CHECKPOINT`**
+> **State-normalization receipt (`B-1`, 2026-08-11).** This line previously read `pending_operator_and_independent_review_acceptance · nothing_started`, which was stale: G0 was accepted 2026-08-10, the `integration` holder was appointed, the `C-10` checkpoint transaction landed, and this file's catalog row already read `ACCEPTED_at_G0_g1_startable`.
+> **This line now carries artifact lifecycle status only.** A first draft of this repair asserted `G1_IN_PROGRESS` here — **withdrawn**: that would have made an accepted carrier a second progress tracker competing with the checkpoint, which is the defect being removed rather than a fix for it. **An accepted carrier may state its own lifecycle; it may not state program state.**
+> **Scope: state surfaces only** — no gate semantics, sequence, scope or content changed. This file continues to own **only** the gate sequence (§5).
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
-Manifest action: `add_tier2` **PROPOSED** — not landed.
+Manifest action: `add_tier2` — **LANDED** (catalog row + read-graph route `9v`, in the `C-10` transaction 2026-08-10).
 Review gate: `user_knox_required`
 
-**Companion:** the Gate-0 charter (**R6**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
+**Companion:** the Gate-0 charter (**R9**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
 
 ---
 
-## §0 — Correction receipt R1 → R5: two self-inflicted errors, both verified against the estate
+## §0 — Correction receipts
+
+### R5 → R6 — the amendment cycle, and a third re-derivation caught in review
+
+**R6 applies the PRE-0 amendment cycle** (ledger §6, Amendments 1–11). **It also withdraws an R6-draft overreach:** the seven-seat authority model authored during the cycle **re-derived authority architecture the estate already holds** — `contracts/rbac_authority_contract.md` (`domain_contract`, `canonical` for the authority/capability substrate, `draft_for_ratification`, controlling spine **DL-18 LOCKED**), the Agent Runtime & Harness capture (*"the `agent_definition` authority ceiling … **never originates or overrides** authority; effective permission is an intersection"*), the thesis `delegated_authority_envelope` / `capability_envelope` split, `EVRUN-2026-000007`'s multi-principal/multi-actor/agent-mediated correction, and Care §5b.
+
+**That is the THIRD re-derivation in a single session** — after `C4.4 §R` twice (ledger §0.1 L-1). **The pattern is now the finding:** under current routing, re-derivation is the *default* behaviour, not an occasional lapse. It recurred inside the artifact written to stop it, by an agent that had just documented the first two instances.
+
+**Consequence:** the seat catalog is demoted to a **provisional change-governance profile for this arc's transaction only** (`§G0`), and **authority reconciliation becomes a required G1 work package** (`§G1-AUTH`). **No authority model is settled here.**
+
+### R1 → R5: two self-inflicted errors, both verified against the estate
 
 **(1) I made an optional catalog mandatory.** R1 declared `omni_work_method_repertoire.md` a *"mandatory consult at every gate"* and required a Pressure Coverage Matrix row per uncertainty. **Its own header and passport say the opposite, verbatim:**
 
@@ -36,7 +49,7 @@ Review gate: `user_knox_required`
 >
 > **2. RESOLVABLE.** For any mission, actor, operator, federation, tenant, deployment posture and as-of point in time, the exact applicable architecture — standards, profiles, variations, exceptions, owners and proof obligations — can be **deterministically resolved**.
 >
-> **3. EVOLVABLE.** An architectural change can be proposed, authority-checked, impact-analyzed, reviewed, versioned, propagated, migrated, coexisted, deprecated and **reversed** — without silently forking the architecture or losing history.
+> **3. EVOLVABLE.** An architectural change can be proposed, authority-checked, impact-analyzed, reviewed, versioned, propagated, migrated, coexisted, deprecated, and — **where semantically safe** — **reversed**. Where reversal is **not** safe, it can be explicitly **superseded, compensated, or advanced through a governed forward migration** — without silently forking the architecture or losing history.
 >
 > **4. OBSERVABLE.** Divergence between the declared architecture and artifacts, code, configuration, effective deployment state and runtime evidence is **detected, attributed, and routed to a governed correction path**.
 >
@@ -100,18 +113,22 @@ external change · runtime drift · operator request · domain finding
 
 ---
 
-## §3 — The tool decision, made rather than hedged
+## §3 — The tool decision — **candidate defaults, ratified at G1**
 
 **The operator's instruction is explicit: stop naming these for the fifth time.** So this is a decision table, not prose. **Three of these already exist here in embryo — this is finishing something started, not greenfield adoption.**
 
+**★ AMENDMENT 7 (C-08) — these are CANDIDATE DEFAULTS, not ratified adoptions.** R5 fixed the selections here and then forbade G1's evidence pass from changing them: *select tools → run the comparison → forbid the comparison from changing the selection.* That inverts evidence and decision. The cited inheritance does not repair it — **Build OS Step 5 expressly calls its mechanism list a maturity target, "NOT final design," and makes no vendor selection.**
+
+**G1 must issue an explicit verdict on every row — `adopt` · `narrow` · `reject` · `defer` — with its reason.** The work still reaches a decision; it simply stops pretending the decision preceded the evidence. **A candidate default that survives G1 unchanged is a ratified decision; one that does not is evidence the gate worked.**
+
 | Build OS Step-5 target | Off-the-shelf | Decision | Why now / why not |
 |---|---|---|---|
-| machine-readable work-package manifest + validator | **JSON Schema + CI** | **ADOPT at G2** | **three DISTINCT objects, three schemas** — §3.1 |
-| approval + integration control | **`CODEOWNERS` + rulesets + required checks + merge queue** | **ADOPT at G2** | `.github/CODEOWNERS` exists but is **stale** — legacy map only, no `/architecture`. Rewrite it |
-| **ownership leases · active claims** | **thin OMNI resource-claim checker** (`change_id` · principal · owner · branch · base · `claimed_resources[]` + mode · `lease_expires_at` · reviewers · state) | **ADOPT at G2** | **CODEOWNERS does NOT implement leases** — no exclusivity, expiry, transfer or overlap detection. CI rejects overlapping exclusive claims, expired leases, and writes to undeclared resources |
-| shared-surface policy checks — *"a lane physically cannot land an edit to a protected control surface"* | **OPA / Conftest in CI** | **ADOPT at G2** | `check-checkpoint-pointer.mjs` + the `checkpoint-pointer` workflow **are already policy-as-code in embryo.** Generalize them |
-| architecture catalog / graph, owners, relationships | **Backstage-COMPATIBLE envelope with OMNI-defined kinds and relations** | **ADOPT the envelope at G2; DEFER the portal** | **OMNI descriptors stay canonical; Backstage entities are a GENERATED consumer. Backstage `spec.owner` is display/responsibility metadata and is NOT OMNI authority** |
-| runtime evidence transport | **OpenTelemetry semantic conventions** | **ADOPT the convention at G2** | **evidence vocabulary, NOT the conformance or drift authority.** Define `omni.architecture.version` · `omni.operating_profile.ids` · `omni.deployment_profile.id` · `omni.federation.id` · `omni.conformance.result`. **PHI and raw patient context are PROHIBITED in attributes** |
+| machine-readable work-package manifest + validator | **JSON Schema + CI** | **CANDIDATE → G1 ratifies** | **three DISTINCT objects, three schemas** — **§3.1 (added by Amendment 3)** |
+| approval + integration control | **`CODEOWNERS` + rulesets + required checks + merge queue** | **CANDIDATE → G1 ratifies** | `.github/CODEOWNERS` exists but is **stale** — legacy map only, no `/architecture`. Rewrite it |
+| **ownership leases · active claims** | **thin OMNI resource-claim checker** (`change_id` · principal · owner · branch · base · `claimed_resources[]` + mode · `lease_expires_at` · reviewers · state) | **CANDIDATE → G1 ratifies** | **CODEOWNERS does NOT implement leases** — no exclusivity, expiry, transfer or overlap detection. CI rejects overlapping exclusive claims, expired leases, and writes to undeclared resources |
+| shared-surface policy checks — *"a lane physically cannot land an edit to a protected control surface"* | **OPA / Conftest in CI** | **CANDIDATE → G1 ratifies** | `check-checkpoint-pointer.mjs` + the `checkpoint-pointer` workflow **are already policy-as-code in embryo.** Generalize them |
+| architecture catalog / graph, owners, relationships | **Backstage-COMPATIBLE envelope with OMNI-defined kinds and relations** | **CANDIDATE (envelope) → G1 ratifies; portal DEFERRED** | **OMNI descriptors stay canonical; Backstage entities are a GENERATED consumer. Backstage `spec.owner` is display/responsibility metadata and is NOT OMNI authority** |
+| runtime evidence transport | **OpenTelemetry semantic conventions** | **CANDIDATE → G1 ratifies** | **evidence vocabulary, NOT the conformance or drift authority.** Define `omni.architecture.version` · `omni.operating_profile.ids` · `omni.deployment_profile.id` · `omni.federation.id` · `omni.conformance.result`. **PHI and raw patient context are PROHIBITED in attributes** |
 | transformation recipes | **stack-native TypeScript codemods first**; OpenRewrite/Moderne later | **DEFER — trigger: a repeatable, mechanically specifiable semantic transformation WITH a decisive verifier** | **not an edit count** — a 2-file change can warrant a recipe and a 50-file change can be too ambiguous to automate. OpenRewrite's OSS core is Java-strongest; TS relies on Moderne CLI |
 | desired-vs-live reconciliation | **Argo CD / GitOps** | **DEFER — conditional on the eventual deployment substrate** | **the LOGICAL fleet exists before Kubernetes does.** Do not pick a K8s reconciler because the word 'fleet' appears |
 | durable multi-agent execution | **LangGraph / LangSmith** | **DEFER — owned by Agent Runtime, post-spine** | do not build the runtime pre-spine |
@@ -119,6 +136,35 @@ external change · runtime drift · operator request · domain finding
 **Boundary, stated once so it stops being restated:** these tools carry **mechanism, never authority**. A catalog format does not own OMNI's ownership model; a policy engine does not own the laws; a GitOps reconciler does not own what "conformant" means. **`GRD-033` — visible ≠ authorized — applies to every one of them.**
 
 **And what those tools do NOT supply, which is the whole reason OMNI exists:** the care-authority physics — clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity, multi-principal non-fungible authority. **Palantir is materially ahead in operationalizing a large semantic estate.** OMNI's differentiated work is making clinical adoption, patient authority and refusal, source sovereignty, payment-versus-care separation, correction and reopening, custody continuity and non-fungible multi-principal authority **first-class and portable across substrates**. **This arc has NOT established that Palantir fails to supply that constitution** — only that supplying an ontology platform does not, by itself, supply it. *(R5: the earlier categorical claim is withdrawn as more certainty than the work supports.)*
+
+---
+
+## §3.1 — The three objects *(★ ADDED BY AMENDMENT 3 — C-02)*
+
+**R5 committed to "three DISTINCT objects, three schemas — §3.1" and then never wrote §3.1.** That is not a broken cross-reference: it is the boundary between the architecture's declared model and the machine-readable objects G2 must build. A fresh agent would have had to invent what the objects are, which is canonical, their identity and version semantics, their reference rules, who may write each, and how they relate to catalog and read-graph state.
+
+**Three objects. Different lifecycles, different writers, different authority. Conflating any two is the defect this section exists to prevent.**
+
+| | **1 · Architecture Resource Descriptor** | **2 · Architecture Change Manifest** | **3 · Effective Architecture Snapshot** |
+|---|---|---|---|
+| **Purpose** | declares that an architecture resource **exists**, what it is, who owns it, what it relates to | proposes and carries a **change** through its lifecycle | records what was **actually in force**, as of a moment |
+| **Status** | **CANONICAL** — hand-authored, source of truth | **TRANSACTIONAL** — created per change, closed and retained | **GENERATED + IMMUTABLE** — derived, never hand-edited |
+| **Identity** | stable `resource_id`, **never reused**, survives renames and moves | `change_id` | `snapshot_id` + `as_of` timestamp |
+| **Version semantics** | semantic version; **`resource_id` + version is the citable unit** | monotonic revisions within the change | none — a snapshot is **immutable**; a new state is a new snapshot |
+| **Temporal** | `effective_from` / `effective_to`; supersession is explicit and never silent | proposed / reviewed / approved / staged / landed / reverted, each stamped | the **only** object that answers *"what was true on date X"* |
+| **Who may write** | the **`domain_owner_approval`** seat for owned resources; **`architecture_steward`** for cross-cutting (§3.5 of the ledger) | any **`proposal_authoring`** holder — **humans and agents alike** | **nobody.** Emitted by CI from 1 + 2 |
+| **Who may approve** | domain owner; cross-cutting acceptance seat for cross-cutting resources | per the change's impact set — **every affected owner** | n/a |
+| **Relationships** | `owns` · `depends_on` · `specializes` *(profile inheritance)* · `supersedes` · `conforms_to` · `implemented_by` | `changes[]` → resource ids + versions; `impacts[]` → computed closure | frozen resolution of every relation at `as_of` |
+| **Validation** | JSON Schema + CI: unknown relation targets **fail**; a claim on an unowned resource **fails**; a profile loosening an inherited rule **fails** | CI: undeclared-resource writes **fail**; overlapping exclusive claims **fail**; expired leases **fail** | regeneration must be **byte-reproducible** from 1 + 2 at `as_of`, or the pipeline **fails closed** |
+| **Generation / consumption** | authored; **generates** the Backstage-compatible entity set as a **downstream consumer, never an authority** | authored; drives CODEOWNERS routing and required checks | consumed by resolution, impact analysis, drift detection and **as-of** queries (test 2) |
+
+**Change classes — every Change Manifest declares exactly one** *(★ Amendment 9, C-03)*:
+
+`reversible` · `reversible_with_migration` · `forward_only` · `compensatable_not_reversible` · `externally_committed`
+
+**A change may not be approved without a declared class.** Canonical-identifier, version-semantics and profile-precedence changes are **presumed `forward_only`** and require an **irreversible-change review** before approval. "Evolvable" therefore means: *reversed where semantically safe — otherwise superseded, compensated, or advanced through an explicit forward migration.* **Prior effective snapshots are preserved in every case**, because they are the only record of what was in force.
+
+**Relationship to existing state.** These objects do **not** replace the catalog or the read graph. The catalog remains the governance-routing surface; the read graph remains the boot-loading surface; **descriptors are the machine-readable architecture layer beneath both**, and both should eventually be *generated from* descriptors rather than maintained beside them. **That migration is G4's transaction, not G2's** — and it is exactly the migration G3 stages.
 
 ---
 
@@ -174,6 +220,83 @@ The operator, restated for the last time so it stops needing restating: *third-p
 ### G0 — ACCEPT THE PROGRAM
 Charter · this plan · roles · authority · writable surfaces · stop conditions · **exact first G1 action**.
 **Blocked until accepted:** integrator appointment · checkpoint repoint · any shared-surface write.
+
+**★ AMENDMENT 4 (C-01, C-09, C-10) — a PROVISIONAL change-governance profile for THIS transaction. Not OMNI's authority model.** R5 named every participant except the one that can accept or reject a cross-cutting architectural decision. That gap is real and blocks G0. **But the R6 draft over-corrected**: it authored a seven-seat authority model and declared it *"canonical in the PRE-0 ledger §3.5"* — from an artifact whose own passport reads `analysis_nonbinding`. **A nonbinding ledger cannot mint canonical architecture by declaration**, and OMNI already holds substantial authority architecture across `rbac_authority_contract.md`, Agent Runtime & Harness, the thesis GCE chain, `EVRUN-2026-000007` and Care §5b.
+
+> **Scope of this table — read before using it.**
+> **What it is:** a **provisional change-governance profile** answering exactly one question — *who may propose, review, accept, integrate and administer **this foundational-arc transaction**.*
+> **What it is NOT:** OMNI's authority architecture, a domain contract, a general seat ontology, or a replacement for `contracts/rbac_authority_contract.md`.
+> **Status:** `candidate_operational_profile` · scoped to `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` · **expires when `§G1-AUTH` delivers.**
+> **The durable principle it carries forward is one line:** *a stable role definition belongs in architecture; the current holder belongs in a mutable register.* **That principle survives G1. This table may not.**
+
+**One property is non-negotiable even provisionally: no person, model or vendor name appears in any architecture document.** Current holders live in the **G0 holder receipt** below. Adding engineers, departments or a compliance function is a **receipt edit**.
+
+| Role *(this transaction only)* | May | May **never** |
+|---|---|---|
+| `cross_cutting_architecture_acceptance` | accept/reject cross-cutting architecture; record override rationale | override a domain owner's truth or contract; accept a change it authored |
+| `domain_owner_approval` | approve changes to owned truth, lifecycle, contract, commit authority; **block promotion into owned truth** | bind another domain; accept cross-cutting alone |
+| `architecture_steward` | maintain coherence; prepare cross-cutting decisions; run impact + correspondence | override domain ownership; accept its own proposals |
+| `independent_review` | produce **required** review evidence; force **recorded disposition** | veto autonomously; commit; hold domain or repo authority |
+| `proposal_authoring` | research, propose, author, test — **humans and agents alike** | accept, approve or commit |
+| `integration` | land an **already-accepted** coherent change set | resolve substantive disagreement by merging; decide content |
+| `repository_administration` | apply hosted settings; issue the administration receipt | decide architecture content |
+
+**Rules:** many holders per role and many roles per holder · the same actor may not hold `proposal_authoring` and `cross_cutting_architecture_acceptance` **for the same change**, nor co-exercise `integration` with acceptance on the same set · **a role with zero holders makes every dependent gate fail closed, never default upward.**
+
+**Agent grants — the arc profile and the inherited posture, kept separate.**
+
+> **For PRE-0 and G0 (this transaction):** agent grants are limited to **proposal authoring, research, verification and testing.** No agent holds cross-cutting acceptance, domain-owner approval, or independent repository authority here.
+>
+> **General OMNI posture (inherited, NOT authored here):** a software agent is a **nonhuman actor** operating under a versioned runtime profile and a delegated grant. It **does not become an accountable principal, domain owner or professional authority merely by acting.** Every consequential act resolves to a **non-null accountable principal · authority basis · capability/action envelope · purpose · scope · current validity · rightful commit owner.**
+
+**The R6 draft's "agents may hold `proposal_authoring` only" is DELETED as a universal rule** — it is an arc restriction, and stating it universally contradicts the estate, which already contemplates agents performing bounded operational actions, conformance work, ministerial execution and tool invocation under delegated capability with point-of-consequence reauthorization. **The durable law is not *"agents may only propose"* but *"an agent never self-authorizes."*** Its two metaphysical companions — *"agent = actor always"* and *"agent ≠ principal ever"* — are also deleted: they make eternal claims about future legal regimes that this arc has no standing to make. **Which action classes an agent may perform is a question of grant and action class, resolved at `§G1-AUTH` — not an identity claim.**
+
+**Disagreement rule.** A `domain_owner_approval` objection **blocks** promotion into that owner's truth. An `independent_review` objection **requires recorded disposition but is not an autonomous veto.** `integration` never resolves substantive disagreement by merging. **Constrained by INV-30: a majority may not vote away an independently liable principal's refusal, a patient right, or a professional duty.**
+
+**★ G0 holder receipt (C-10) — required, because acceptance alone does not confer repository authority. This is the ONLY place names belong.**
+
+Recording that one person currently holds several functions is **honest current-state, not hardwiring**. The receipt is an **operational record with effective dates**, not an architecture document — which is precisely what makes adding engineers a receipt edit.
+
+```yaml
+# G0 holder receipt — operational record, NOT architecture
+# scope: OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL only
+transaction: OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL
+effective_from:            # date G0 is accepted
+effective_to:              # expires when §G1-AUTH delivers
+
+accountable_operator_principal:      # legal/accountable principal for this arc
+cross_cutting_acceptance_holder:     # who may accept/reject cross-cutting content
+domain_owner_approval_holders:       # per affected domain — list, may be many
+architecture_steward_holder:
+independent_review_holder:           # the review instance actually used, by name+version
+proposal_authoring_actors:           # humans AND agents, each with model+version if nonhuman
+integration_holder:                  # VACANT at G0 authoring — must be filled before any landing
+repository_administration_holder:
+
+vacancies:                           # every unfilled role, explicitly
+  - integration                      # PRESPINE-PHASEA-INTEGRATOR vacant
+fail_closed_gates:                   # gates blocked by each vacancy
+  - G4_landing                       # blocked while integration is vacant
+
+freshness_and_collision_check:       # result + timestamp
+checkpoint_repoint:                  # from -> to, or NOT_PERFORMED
+catalog_and_read_graph_changes:      # exact rows, or NONE
+first_authorised_G1_write:           # exact file/surface
+```
+
+**At the pinned state this receipt cannot be completed:** the live checkpoint still names the Insurance handoff and `PRESPINE-PHASEA-INTEGRATOR` is **vacant**, so **no shared control-plane landing is authorised.** `C-10` therefore closes at G0 execution, not in any agent-authored patch.
+
+**★ Gate-output transaction contract (C-09).** Every gate declares these seven fields before it opens:
+
+| Gate | Output carrier | Writable surfaces | Author seat | Approving seat | Evidence bundle | State on close | Stop condition |
+|---|---|---|---|---|---|---|---|
+| **PRE-0** | reconciliation ledger | 3 carriers + ledger | `proposal_authoring` | operator ratification | 3 frozen carriers | `analysis_nonbinding` | undisposed row |
+| **G0** | charter + plan + G0 receipt | charter · plan · protocol · handoff | `proposal_authoring` | `cross_cutting_architecture_acceptance` | ledger + closure matrix | `accepted` | any `blocks_G0` row open |
+| **G1** | operating-model carrier | new `/architecture` **proposals only** | `proposal_authoring` | `architecture_steward` + affected `domain_owner_approval` | comparator + inheritance evidence | `proposed` | undisposed ledger row |
+| **G2** | `/architecture` package + admin receipt | `/architecture` · CI · `CODEOWNERS` | `proposal_authoring` | `domain_owner_approval` + `repository_administration` | Build Entry verdict + admin receipt | `installed` \| `controls_unapplied` | Build Entry not admitted |
+| **G3** | reconciliation + **staged, unmerged** change set | analysis carriers only — **no `main` landing** | `proposal_authoring` | `architecture_steward` + `domain_owner_approval` | disposition freeze | `staged` | foundational conflict |
+| **G4** | landed migration + two receipts | the staged set, through the loop | `proposal_authoring` | `cross_cutting_architecture_acceptance` → `integration` | 11 acceptance tests | `installed` | any test fails |
+
 **Verdicts:** `READY_TO_EXECUTE` · `READY_WITH_EXACT_AMENDMENTS` · `NOT_READY_<reason>`.
 
 ### G1 — CONVERGE THE OPERATING MODEL *(external and internal IN PARALLEL, then reconcile)*
@@ -187,28 +310,85 @@ Charter · this plan · roles · authority · writable surfaces · stop conditio
 
 **Reconcile into:** artifact metamodel · **architecture-operations loop** · architecture graph semantics · change lifecycle · profile/deployment resolution · conformance and observability model · **adopt/reject/transfer-limit matrix**.
 **No vendor adoption decision beyond §3. No market/moat study — that stays Task-D.**
-**Verdicts:** `MODEL_CONVERGED` · `MODEL_CONVERGED_WITH_NAMED_GAPS` · `NOT_CONVERGED_<reason>`.
+
+#### §G1-AUTH — Authority, Agency and Commit Grammar Reconciliation *(★ MANDATORY G1 work package; working label only)*
+
+**This is a RECONCILIATION, not an authoring exercise.** OMNI already holds substantial authority architecture at **mixed maturity across scattered carriers**; it has never been reconciled into one build-facing model. **Three separate re-derivations in one session** — `C4.4 §R` twice, and the seven-role table in the R6 draft — establish that this material is **structurally unreachable**, not merely overlooked. **G1 must not invent an authority taxonomy. It must reconcile the one that exists.**
+
+**Required source set** — read fully, or to the identified controlling sections:
+
+| Source | What it already settles |
+|---|---|
+| `contracts/rbac_authority_contract.md` + **DL-18 (LOCKED spine)** + `lib/auth/capabilities.ts` | permission atoms · grants · explicit + default deny · attestation tiers · dual approval · break-glass · consent gating · **nonhuman actor grants** · emission-time vs execution-time reauthorization. `domain_contract`, `canonical` for the authority substrate, `draft_for_ratification` |
+| Enterprise Posture + **GCE chain** (thesis) | authority is **decomposed, not domain-owned**: Identity · Federation · RBAC · D7 consent · CNS Meta enforcement · owning-domain commit. Carries **`delegated_authority_envelope`** vs **`capability_envelope`** |
+| `v4_C4_agent_runtime_and_harness_capture.md` | *"the `agent_definition` authority ceiling … **never originates or overrides** authority; effective permission is an **intersection**"* · agent definitions · runtime profiles · sessions/runs · **subagent delegation** · authority ceilings · **point-of-consequence authorization** |
+| Identity · Federation · **D7 consent** contracts | represented principal · boundary permeability · consent record |
+| `EVRUN-2026-000007` multi-principal carrier | the **multi-principal → multi-principal/multi-actor/agent-mediated** correction · subject · principal · actor · agent · role · capability · committer · three agent interaction modes |
+| `EVRUN-2026-000008` terminus + adjudication | `analysis_closed` · `adjudicated_nonbinding` — **read the terminus, not the index row** |
+| Care **§§5b · 5b.1 · 9a** | decision admissibility vs execution authorization vs readiness vs consequence · authority basis · evidence form · **approval cardinality/topology** · reauthorization · escalation · *contributions are not votes* |
+| Build OS + Agent Work Protocol | lane authority · gate admission · stop proof |
+| Operator context + collaboration model | **roles are model-agnostic working slots**, never permanent model identities or architecture authority |
+| **The R6 provisional role table** | **candidate input only — explicitly NOT controlling truth** |
+
+**Required output — G1 decides each, or names it open with an owner:**
+principal vs represented principal · actor vs agent · organizational role vs architecture seat · **holder binding** · `delegated_authority_envelope` vs `capability_envelope` · approval and attestation topology · domain ownership vs operational custody · **propose vs execute vs commit vs accept** · build-plane vs use-plane profiles · human and legal-entity accountability · point-of-consequence reauthorization · delegation, redelegation, expiry, revocation, suspension, transfer · multi-agent and multi-principal interaction · authority evidence and **as-of reconstruction** · **and which portions are binding standards, contracts, profiles or runtime configuration.**
+
+**Required pressure scenarios** — the model is not converged until each resolves without inventing new authority:
+
+| # | Scenario |
+|---|---|
+| 1 | **5 pharmacies × 50 agents** interacting with OMNI simultaneously |
+| 2 | **10 engineers + security + clinical + legal + compliance** working the repo concurrently |
+| 3 | one engineer temporarily holding **several roles** |
+| 4 | a role with **no holder** |
+| 5 | one agent proposes, **another agent tests** |
+| 6 | an agent performs an **already-approved mechanical integration** |
+| 7 | a human proposal author **also holds an approval seat** |
+| 8 | **external payer agent and operator agent disagree** |
+| 9 | **patient agent and provider agent disagree** |
+| 10 | **delegation revoked mid-run**, in flight |
+| 11 | **break-glass under partial network failure** |
+
+**Verdicts:** `MODEL_CONVERGED` · `MODEL_CONVERGED_WITH_NAMED_GAPS` · `NOT_CONVERGED_<reason>`. **G1 cannot close `MODEL_CONVERGED` while `§G1-AUTH` is unresolved.**
 
 ### G2 — ERECT THE REAL OUTPOST
 Install the `/architecture` package **and its operations scaffold**: canonical metadata contract · **generated** catalog/graph path (never hand-maintained) · proposal + review contract · architecture versioning and change control · operating **and** deployment profile structures · variation points · effective-architecture snapshot structure · conformance-policy scaffold · **the §3 ADOPT tools wired** (JSON Schema validator · CODEOWNERS/branch protection · OPA in CI generalized from the existing pointer check · Backstage-format entities · OTel conventions) · **architecture-intake automation for the four source checks** (§4).
 **Guards from the first commit:** owns no truth · holds no commit authority · **C4.6 `C10`** applies to this package itself · no `constitution.md` · **no hand-maintained manifest duplicating the catalog**.
-**Verdicts:** `OUTPOST_INSTALLED` · `..._WITH_NAMED_DEBT` · `BLOCKED_<reason>`.
+**★ AMENDMENT 6 (C-06) — G2 IS AN IMPLEMENTATION LANE AND MUST BE ADMITTED AS ONE.** R5's charter listed "no implementation" among its non-actions while G2 required JSON Schema validation, CI policy checks, a resource-claim checker, generators, workflows and `CODEOWNERS` edits. Repository boot law requires **Build Entry admission** for implementation lanes, and the packet never said whether G0 acceptance substitutes for it. **It does not.** G2 is classified `architecture_operations_tooling` and **requires a Build Entry verdict before any executable schema, generator, workflow or policy code lands.** If that admission is not obtained, G2 is limited to canonical documents and **non-executable** schema prototypes, and all tooling moves to a later admitted lane.
+
+**★ AMENDMENT 6 (C-07) — repository writes and hosted settings are DIFFERENT ACTS with different authority.** R5 grouped them as though editing a file and configuring a ruleset were the same work.
+
+| Repository-authored *(ordinary file edits)* | Repository-administration *(hosted GitHub settings)* |
+|---|---|
+| `/architecture` descriptors · schemas · generators · workflow **files** · `CODEOWNERS` **content** | branch-protection rulesets · **marking a check required** · merge-queue enablement |
+| writer: `proposal_authoring` → owner approval → `integration` | actor: **`repository_administration` seat only** (§3.5 of the ledger) |
+| proof: the merged diff | proof: an **administration receipt** — requested settings · applied settings · evidence · **explicitly unapplied controls** |
+
+**No gate may claim a protection is active because a workflow file or `CODEOWNERS` entry exists.** The `checkpoint-pointer` workflow states this about itself: it becomes merge-blocking **only** when marked a required status check in branch protection, and **the workflow file cannot grant that setting.** Where a control cannot be enabled, G2 records it as **unapplied** and the dependent gate **fails closed**.
+
+**Verdicts:** `OUTPOST_INSTALLED` · `..._WITH_NAMED_DEBT` · `BLOCKED_<reason>` · **`BLOCKED_BUILD_ENTRY_NOT_ADMITTED`** · **`INSTALLED_CONTROLS_UNAPPLIED`**.
 
 ### G3 — RECONCILE THE FOUNDATION DEEPLY; CLASSIFY THE TAIL
 **Knox's split accepted.** **Deeply reconcile now** — because these define the container itself: artifact model · maps · **GCE** · **Reactor** · **Build OS** · **Agent Runtime** · **C4.4** · Care/Platform/Accountability cross-cutting laws · profile and deployment model · conformance.
-**Classify now, deep-reconcile on next substantive touch:** the 16 domain contracts and the long tail — unless a foundational conflict surfaces.
-**Landed here:** two taxonomies reconciled · Reactor and GCE installed **into their standard roles** · 05-17 superseded or narrowed · `WI16` corrected · maps migrated or superseded, **never duplicated**.
+**Classify now, deep-reconcile on next substantive touch:** **the current domain-contract set** *(resolved from the governing catalog / architecture inventory at the time of the pass — **deliberately NOT a maintained count here**; every duplicated count is a future staleness site, which is how `C-12` reopened twice)* and the long tail — unless a foundational conflict surfaces.
+**★ AMENDMENT 5 (C-05) — G3 DOES NOT LAND. G3 STAGES.** R5 landed here the exact transaction G4 exists to prove, which destroyed G4's proof object. G3 now **reconciles deeply, adjudicates, approves the target state, freezes the dispositions, and prepares an UNMERGED migration change set.**
+
+**Staged here, not landed:** two taxonomies reconciled *(decision made, change set staged)* · Reactor and GCE **assigned** their standard roles · 05-17 supersession/narrowing **decided** · `WI16` correction **drafted** · map migration/supersession **prepared, never duplicated**.
+
+**Nothing in this list reaches `main` at G3.** The staged change set is G4's input and G4's proof object.
 **Verdicts:** `FOUNDATION_RECONCILED` · `..._WITH_NAMED_GAPS` · `BLOCKED_<reason>`.
 
 ### G4 — OPERATE IT END TO END, THEN INSTALL
-**Run the real loop on a migration already owed** — installing Reactor and GCE into their standard roles and migrating the maps — **not a toy exercise.**
+**Run the real loop on a migration already owed** — **the change set G3 staged and did not land** (Reactor and GCE into their standard roles; maps migrated or superseded) — **not a toy exercise.**
 
-**Ten acceptance tests. Routing is the first, not the whole:**
+**★ AMENDMENT 5 (C-05) — G4 owns the transaction end to end.** G4 runs the staged set through **proposal → impact → ownership review → conformance → propagation → integration → post-change resolution**, and **only then lands it.** If the set were already landed, the loop would have nothing to prove and the arc's central claim — *that OMNI can operate its own architecture* — would be untested.
+
+**Eleven acceptance tests. Routing is the first, not the whole:**
 
 | # | Test |
 |---|---|
 | 1 | **Routing** — cold agent finds the right architecture with no historical filename |
-| 2 | **Applicability** — resolves exact standards, profile versions, deployment posture, active exceptions |
+| 2 | **Applicability** — resolves exact standards, profile versions, deployment posture, active exceptions. **★ Am-9 (C-13):** resolution must be **deterministic for an explicit `as_of` point**, and ambiguous or contradictory profile/variation/exception combinations must **FAIL CLOSED with a named owner and a reason** — never silently pick a winner |
 | 3 | **Impact** — one standard changes; system enumerates affected profiles, contracts, code, tests, deployments, owners |
 | 4 | **Parallel change** — two agents propose overlapping changes without silent overwrite or duplicated architecture |
 | 5 | **Authority** — agents may propose broadly; only rightful owners approve and commit |
@@ -216,7 +396,7 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 | 7 | **Conformance** — a profile loosening an inherited rule **fails**; unauthorized truth ownership **fails**; ≥1 negative control produces no defect; the deliberate non-cousin is **rejected** |
 | 8 | **Fleet** — small-operator, composed-enterprise and federated-node deployments resolve different effective snapshots **without forking the architecture** |
 | 9 | **Drift** — code, config or deployment that no longer conforms is detected |
-| 10 | **Upgrade / rollback** — versions move forward, coexist, deprecate and roll back under explicit rules |
+| 10 | **Upgrade / rollback / forward migration** — **★ Am-9 (C-03/C-14):** test **all five change classes**, not rollback alone. Must include a **`forward_only`** change that is **superseded, compensated or forward-migrated rather than rolled back**, and must prove prior effective snapshots still resolve afterwards. A repository rollback that breaks historical resolution or external consumers is a **FAIL**, not a pass |
 | **11** | **Substrate independence (the DNA test)** — with every adopted third-party tool removed, the architecture still resolves and every law is still stated and checkable |
 
 **Then install:** Build Entry enforces profile declaration · Build OS consumption rules · Agent Runtime bindings · read graph + catalog + checkpoint · **spine and thesis input-state receipts** (may-rely / must-not-assume / remains-open) · **then Insurance returns** — `C3.9` → consume → rerun affected traces → reconcile → **`E2` last**.
@@ -235,12 +415,14 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 ---
 
 ## §7 — STOP RECEIPT
+
+> **Current state only.** Rows that previously copied a count or a gate sequence are now **pointers** — the acceptance suite is counted in §5/G4, the gate sequence lives in §5, and the packet inventory lives in the handoff.
 | Field | Value |
 |---|---|
-| Artifact | arc execution plan **R5** |
-| Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **10 acceptance tests** replace routing-only · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
+| Artifact | arc execution plan **R8** |
+| Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **the §5/G4 acceptance suite** expands beyond routing-only *(count resolved there, not copied here)* · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** |
-| Next | **PRE-0 execution → one reconciliation → at most one bounded amendment → G0 acceptance → bounded integrator appointment → G1** |
+| Next | **Resolve from the current checkpoint — this row is NOT a maintained current-state surface.** *(All four steps it previously named — operator acceptance, `integration` appointment, the `C-10` transaction and G0 closure — completed 2026-08-10.)* |
 
-**STOP: `execution_plan_R5_pending_pre0_then_g0`**
+**STOP: `execution_plan_R8_accepted_at_g0_2026-08-10 · gate_sequence_owned_here · current_state_owned_by_checkpoint`**

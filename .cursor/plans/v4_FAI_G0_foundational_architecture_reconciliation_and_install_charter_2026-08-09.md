@@ -1,13 +1,17 @@
-# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R6)
+# v4 — FAI — OMNI Architecture: Reconciliation & Installation — GATE-0 CHARTER (R9)
 
 Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
-Status: **`gate_0_charter_R6 · pending_nick_knox_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
+Status: **`gate_0_charter_R9 · ACCEPTED_2026-08-10 · CURRENT_STATE_BY_CHECKPOINT`**. Current state lives in §1 and nowhere else.
+> **State-normalization receipt (`B-1`, 2026-08-11).** This line previously read `pending_operator_and_independent_review_acceptance · nothing_started`, which was stale: Gate 0 was accepted 2026-08-10 and this file's catalog row already read `gate_0_ACCEPTED_2026-08-10`.
+> **This line now carries artifact lifecycle status only.** A first draft asserted `G1_IN_PROGRESS` here — **withdrawn**, because an accepted carrier may state its own lifecycle but may not become a second progress tracker competing with the checkpoint.
+> **§14 retains its ORIGINAL historical STOP string, deliberately.** A first draft of this repair rewrote it while the receipt claimed §14 was untouched — a false statement about its own diff, now corrected. §14 is a historical authoring receipt; its pending-acceptance state is accurate *as of authoring* and is not a freshness defect.
+> **Scope: state surfaces only** — no architecture, gate semantics, scope or content changed.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
 Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
 Supersedes: nothing. Superseded by: none.
-Manifest action: `add_tier2` **PROPOSED** — not landed (`PRESPINE-PHASEA-INTEGRATOR` VACANT).
+Manifest action: `add_tier2` — **LANDED** (catalog row + read-graph route `9v`, in the `C-10` transaction 2026-08-10).
 Review gate: `user_knox_required`
 
 > **Correction receipt R0 → R1 → R2.**
@@ -23,11 +27,11 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R6 · not_started` · **execution plan R5 authored — adds the ARCHITECTURE OPERATIONS half and makes the third-party tool decisions** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md` |
-| What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
+| Arc state | `chartered_R9 · PRE-0_complete · amendment_cycle_applied · **G0_ACCEPTED_2026-08-10**` · **execution plan R8** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter.** **Active gate, blocker state and next action resolve from the current checkpoint — not from this row.** |
+| What this file authorizes | **the arc, as accepted at G0 2026-08-10.** It authorizes no G1 content — G1 outputs are proposed under `proposal_authoring` and accepted by their own seats |
 | **PRE-0 preflight** | **runs BEFORE G0 and is NOT a gate.** Two blind alternative designs (A, B) + one independent grounded plan audit (C). Protocol: `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. **G0 cannot be accepted until PRE-0 has run and its ledger is reconciled** |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
-| Blocking obligation | **`PRESPINE-PHASEA-INTEGRATOR` VACANT.** No shared control-plane surface may land |
+| Blocking obligation | **Resolve from the current checkpoint — this row is NOT a maintained blocker surface.** *(It previously read `PRESPINE-PHASEA-INTEGRATOR` VACANT; the `integration` holder was appointed 2026-08-10, bounded to the arc-opening transaction, and that appointment has since expired by its own terms.)* |
 
 ---
 
@@ -69,18 +73,18 @@ Use it during this arc as a **completeness check**: what is the entity of intere
 
 ## §4 — The taxonomy defect, corrected: **two taxonomies, inconsistent, both incomplete**
 
-R1 said the estate had no contract class. **Wrong, and Knox is right.** Verified — there are **two** classification systems and they do not reference each other:
+R1 said the estate had no contract class. **Wrong.** There are **two** classification systems. **★ AMENDMENT 2 (C-12) — the R6 characterisation of their relationship was ALSO wrong, and the independent plan audit caught it.** They are **not** "mutually invisible": `00_architecture_artifact_index.md` **explicitly points to the document taxonomy and states it remains the binding authority**. The real defect is narrower and more accurate: **they are linked one-way, are not modelled as independent passport axes, and the role index is incomplete for the roles this arc needs.**
 
 | | `00_document_governance_and_taxonomy_2026-05-19.md` §2 | `00_architecture_artifact_index.md` |
 |---|---|---|
 | Answers | **how is this handled and routed?** | **what architectural job does it do?** |
-| Contents | 10 governance categories: `manifest_or_catalog · canon_digest · doctrine · adr · domain_rule_slice · audit_or_pressure_test · evidence_or_ingestion · narrative_or_postmortem · handoff_or_readiness_gate · future_or_parked_watch` | 12 artifact roles with ONE-job / FORBIDDEN / home per role: **System Map · Domain Contract · Seam/Event Contract · Doctrine · ADR · Open Decisions · Supersession · Guardrails · Field cases · Evidence/Workbench · Future arcs · Build OS · Catalog/Read-graph/Boot** |
+| Contents | 10 governance categories: `manifest_or_catalog · canon_digest · doctrine · adr · domain_rule_slice · audit_or_pressure_test · evidence_or_ingestion · narrative_or_postmortem · handoff_or_readiness_gate · future_or_parked_watch` | **13** artifact roles *(★ Am-2: R6 said 12; the displayed table has 13 rows)* with ONE-job / FORBIDDEN / home per role: **System Map · Domain Contract · Seam/Event Contract · Doctrine · ADR · Open Decisions · Supersession · Guardrails · Field cases · Evidence/Workbench · Future arcs · Build OS · Catalog/Read-graph/Boot** |
 | Says of itself | *"Do not invent a new category unless explicitly approved"* | *"OMNI did not lack an artifact OS; it had one, but its System Map and doctrine layers had drifted out of conformance"* |
-| Missing | `contract`, though **16 contract files exist** | `standard` · `pattern` · **`operating profile`** · `conformance` · `controlled vocabulary` · `view` beyond the System Map |
+| Missing | `contract`, though **15 top-level contract files exist** *(★ Am-2: R6 said 16; the count did not reproduce — 15 top-level plus 5 seam contracts)* | `standard` · `pattern` · **`operating profile`** · `conformance` · `controlled vocabulary` · `view` beyond the System Map |
 
 **Verified: none of `profile`, `pattern`, `standard`, `conformance`, `vocabulary` or `view` appears as a role in the Artifact Index.**
 
-**Accurate diagnosis:** the governance-category axis and the architecture-role axis are **conflated in some places and mutually invisible in others**, and neither carries the roles this arc needs. **This is not "OMNI never understood contracts." It is a schema mismatch plus a stale role set.**
+**Accurate diagnosis (★ Am-2, corrected):** the governance-category axis and the architecture-role axis are **linked one-way — the role index defers to the governance taxonomy — but are not modelled as independent passport axes**, and the role index (**13 rows, not 12**) does not carry the roles this arc needs. **An arc founded on "OMNI mis-states its own state" mis-stated the estate in its own charter; that is recorded rather than quietly fixed.** **This is not "OMNI never understood contracts." It is a schema mismatch plus a stale role set.**
 
 **The repair is multi-axis, not one flat enum.** A passport should carry, independently: `governance_category` · `architecture_role` · `authority_maturity` · `scope` · `plane_or_view` · `build_evidence_maturity`. Reactor's honest current position is expressible only this way — `doctrine` / `cross_cutting_architecture_standard` / `candidate` / `cross_cutting` / `[seam, capability, projection]` / `fixture_tested_partial` — and **no single enum can say that**, which is precisely why it has been unclassifiable and therefore unfindable.
 
@@ -92,15 +96,15 @@ R1 said the estate had no contract class. **Wrong, and Knox is right.** Verified
 
 **Why this is a classification and not a demotion.** Its eight invariants — admissibility before consequence · domain-owned commitment · accepted custody · no silent orphaning · selective reopening · compensation/remedy/reconsideration/outcome separation · honest projection · bounded proof — are profound rules about **intent becoming real-world effect**. They do not define the domain/truth map, evidence-to-adoption, projection construction, connector architecture, profile inheritance, or the artifact taxonomy. **Classifying it as a standard is what makes it usable rather than mystical, and it is what gives it an address.**
 
-**R1's objection is withdrawn, and here is the honest reason.** R1 refused Knox's classification because the terminus describes *chartered scope*, not *concept scope*, and Reactor's own framing was "candidate constitutional center." **That refusal was right about the logic and wrong about the consequence.** Leaving the role floating "until reconciliation" is what kept it unfindable for three weeks and three arcs. **The correct move is to classify at evidenced scope now, and let Gate 2 broaden it by explicit decision with evidence.** A revisable classification beats an honest vacancy.
+**R1's objection is withdrawn, and here is the honest reason.** R1 refused Knox's classification because the terminus describes *chartered scope*, not *concept scope*, and Reactor's own framing was "candidate constitutional center." **That refusal was right about the logic and wrong about the consequence.** Leaving the role floating "until reconciliation" is what kept it unfindable for three weeks and three arcs. **The correct move is to classify at evidenced scope now, and let the execution plan's foundation-reconciliation gate broaden it by explicit decision with evidence.** A revisable classification beats an honest vacancy.
 
-**What Gate 2 tests — and it is one table, not a gate.** Lay the eight invariants beside Care's constitutional laws, GCE's crossing spine and the 05-17 three-layer pattern. **The questions are narrow:** does any invariant duplicate a law owned elsewhere · does any need narrowing · does any belong in a different standard · are there consequential-transition clauses scattered outside Reactor that should merge into it. **Not "what is Reactor." That is answered above.**
+**What the execution plan's foundation-reconciliation gate tests — and it is one table, not a gate.** *(Pointer only: the execution plan owns the gate sequence — §9. A hard-coded gate number here would be a second sequence copy.)* Lay the eight invariants beside Care's constitutional laws, GCE's crossing spine and the 05-17 three-layer pattern. **The questions are narrow:** does any invariant duplicate a law owned elsewhere · does any need narrowing · does any belong in a different standard · are there consequential-transition clauses scattered outside Reactor that should merge into it. **Not "what is Reactor." That is answered above.**
 
 ---
 
 ## §6 — Four things neither reviewer's model contains, and all four are the operator's
 
-Knox proposes ten artifact roles; R1 proposed six parts. **Both omit the same four, and every one of them is load-bearing for a 1000-instance SaaS.** *(Do not pre-lock any count — Gate 2 decides the final set.)*
+Knox proposes ten artifact roles; R1 proposed six parts. **Both omit the same four, and every one of them is load-bearing for a 1000-instance SaaS.** *(Do not pre-lock any count — **the execution plan's foundation-reconciliation gate** decides the final set.)*
 
 ### §6.1 There are TWO profile axes, and conflating them would be fatal
 *"This isn't ONE version of Hims, this is 1000 versions of Hims."*
@@ -153,7 +157,7 @@ Direction: an `/architecture` root holding **standards · views · contracts (do
 
 
 ## §10 — Bounded source set — controlling termini, not a sweep
-**`doctrine/00_architecture_artifact_index.md` (added at R2 — the ratified baseline)** · `doctrine/00_document_governance_and_taxonomy_2026-05-19.md` · `coherent_omni_architecture_pattern_2026-05-17.md` (**Tier-0 #14, mandatory, unread at boot by this agent**) · `OMNI_System_Map_vNext.md` · `OMNI_Surface_Map_vNext.md` · `doctrine/omni_enterprise_posture_2026-06-03.md` (**GCE — the only ratified member**) · Polaris · Care capture §1b/§5b/§5b.1/§18/§19 · Platform capture · Accountability capture · `EVRUN-000007 _05 §I.13–§I.15` + `_06` · `EVRUN-000008 _03` + `_04` · `v4_C4_6_…` §0.5 + §12 · C3.8 G4 · **the 16 domain contracts** · `federation_contract.md` (tenancy for §6.1) · **pre-spine map §5 (deployment postures)** · Build OS `09`/`10`/`11` (**self-declared stale**) · the frozen Insurance Gate-2 result.
+**`doctrine/00_architecture_artifact_index.md` (added at R2 — the ratified baseline)** · `doctrine/00_document_governance_and_taxonomy_2026-05-19.md` · `coherent_omni_architecture_pattern_2026-05-17.md` (**Tier-0 #14, mandatory, unread at boot by this agent**) · `OMNI_System_Map_vNext.md` · `OMNI_Surface_Map_vNext.md` · `doctrine/omni_enterprise_posture_2026-06-03.md` (**GCE — the only ratified member**) · Polaris · Care capture §1b/§5b/§5b.1/§18/§19 · Platform capture · Accountability capture · `EVRUN-000007 _05 §I.13–§I.15` + `_06` · `EVRUN-000008 _03` + `_04` · `v4_C4_6_…` §0.5 + §12 · C3.8 G4 · **the current domain-contract set** *(resolved from the governing catalog — **not a maintained count here**)* · `federation_contract.md` (tenancy for §6.1) · **pre-spine map §5 (deployment postures)** · Build OS `09`/`10`/`11` (**self-declared stale**) · the frozen Insurance Gate-2 result.
 
 **Out of scope:** whole-estate sweep · 300-transcript rescan (concept registries first) · reopening Reactor's invariants for their own sake · any implementation lane.
 
@@ -165,31 +169,36 @@ No architecture before G0 acceptance · no shared control-plane surface written 
 ---
 
 ## §12 — Failure modes, each with its receipt
-Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 route unread at boot (05-17)** · durable home carrying stale content (`WI16`) · arc-local routing (`9p` / `#9g`) · concept frozen without an address (Reactor) · re-derivation mistaken for discovery (O-2/O-3) · comparator consumed as content not method (FHIR) · **two governing taxonomies mutually invisible (§4)** · **R1 asserting absence without checking the sibling taxonomy** · patch accretion · **package-boundary violation (R0)**.
+Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 route unread at boot (05-17)** · durable home carrying stale content (`WI16`) · arc-local routing (`9p` / `#9g`) · concept frozen without an address (Reactor) · re-derivation mistaken for discovery (O-2/O-3) · comparator consumed as content not method (FHIR) · **two governing taxonomies not modelled as independent axes (§4)** *(★ Am-2: R6 said "mutually invisible" — **FALSE and SUPERSEDED**; they are linked one-way)* · **R1 asserting absence without checking the sibling taxonomy** · patch accretion · **package-boundary violation (R0)**.
 
 **Every gate re-proves a boot receipt for Tier-0 #14 and the Artifact Index.**
 
 ---
 
-## §13 — The one operator authorization requested
-Opening this arc changes the program's next action — checkpoint-level — and the integrator seat is vacant:
+## §13 — The one operator authorization requested — **GRANTED 2026-08-10; this section is now historical**
 
-> **I appoint Opus as `PRESPINE-PHASEA-INTEGRATOR` for the bounded foundational-architecture arc-opening transaction — checkpoint repoint, catalog rows, read-graph route. This does not authorize substantive Gate-1 authorship until the Gate-0 charter is accepted by Nick and Knox.**
+> **Historical.** The appointment below was granted 2026-08-10, exercised for the `C-10` arc-opening transaction, and **expired by its own terms on completion.** Retained as lineage. **It is not a live request and confers no standing authority** — any later appointment is its own bounded transaction recorded in the checkpoint's holder receipt.
+
+*As requested at authoring time:*
+
+> **REQUESTED: appointment of the `integration` holder** for the bounded foundational-architecture arc-opening transaction — checkpoint repoint, catalog rows, read-graph route. **This charter names the ROLE only. The actual holder is recorded in the operational G0 holder receipt when the operator executes the appointment** (plan `### G0`) — a persistent architecture document must never bind a named person or model. **This does not authorize substantive Gate-1 authorship until the Gate-0 charter is accepted.**
 
 ---
 
-## §14 — STOP RECEIPT
+## §14 — STOP RECEIPT *(HISTORICAL AUTHORING RECEIPT — not current state)*
+
+> **This receipt records the state at which this charter was authored.** **Current state lives in §1 and the handoff, and nowhere else.** Rows below that named a packet inventory or a next sequence have been converted to pointers rather than re-copied — **a maintained duplicate is a future staleness site, which is how `C-11` and `C-12` each reopened twice.**
 
 | Field | Value |
 |---|---|
-| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R6** + execution plan **R4** |
+| Work package | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — Gate-0 charter **R9** + execution plan **R8** |
 | Branch | `cursor/fai-foundational-architecture-30f4`, from `main @ 9a6e7de` |
-| Files | this charter · 2 verbatim preservations (**empty, operator-populated**) · 1 handoff |
+| Files | **see §1 and the handoff for the current packet — this row is NOT a maintained inventory.** *(As authored: this charter · 2 verbatim preservations · 1 handoff. Both preservations are now `verbatim_preserved`, operator-populated 2026-08-10.)* |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** — `OMNI Architecture` is a description, not a coinage |
 | Corrected at R2 | taxonomy diagnosis (two taxonomies, not one absence) · Artifact Index added as baseline · Reactor classified · standards split from patterns · 42010 and FHIR demoted to lens and mechanism · part-count un-locked · **four additions at §6, all operator-raised** · sequencing answered at §2 |
 | Checkpoint tier | **3** |
 | Blocking | integrator **VACANT** |
-| Next | **PRE-0 → one reconciliation → at most one bounded amendment → then Nick + Knox accept, amend or reject at G0.** Nothing auto-starts |
+| Next | **see §1 / the handoff for current next state.** *(As authored: PRE-0 → one reconciliation → at most one bounded amendment → then G0 acceptance. **All three are now COMPLETE.**)* Nothing auto-starts |
 
-**STOP: `gate_0_charter_R6_and_execution_plan_R4_pending_acceptance`**
+**STOP: `gate_0_charter_R9_and_execution_plan_R8_pending_acceptance`**
