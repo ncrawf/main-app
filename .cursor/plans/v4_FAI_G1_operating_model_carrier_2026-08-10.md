@@ -77,7 +77,7 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 
 | # | R8-required G1 output | Carrier section | Required sources read? | Decision state | Residual | Acceptance condition |
 |---|---|---|---|---|---|---|
-| 1 | **artifact metamodel** | `§E1` `AB-08` + `§E-note B` | partial — Artifact Index ✔, governance taxonomy ✔ | **proposed, fixture-unproven** | the 12-artifact fixture set is unrun | fixture set classifies with no ad-hoc exception (`G-08`) — **and per the ledger this blocks G1, not G2** |
+| 1 | **artifact metamodel** | `§E-note B` + **`§E6` (fixture EXECUTED)** | Artifact Index ✔, governance taxonomy ✔, R8 §3.1 ✔ | **FIXTURE RUN — FAILED.** 1 clean · 6 fail · 4 untestable · 1 partial | five named repairs at `§E6`; four proposed roles have **no instance** to validate against | the five repairs land and the fixture re-runs clean (`G-08`) |
 | 2 | **architecture-operations loop** | `§6.3` roots↔functions matrix | ✘ System Map · Surface Map · Polaris · Platform · Accountability unread | **INCOMPLETE** — a capability matrix is not an operating transaction | the actual proposal → impact → review → conformance → propagation → integration → resolution transaction is not specified | the loop is specified as a transaction with actors, gates and artifacts |
 | 3 | **architecture graph semantics** | `§6.3` + plan §3.1 relations | partial | **INCOMPLETE** | no cardinalities, inheritance rules, applicability or conflict semantics | relation model complete enough for a validator to reject a bad edge |
 | 4 | **change lifecycle** | `§E1` `AB-07` + `§6.4` | partial | **INCOMPLETE** | field additions and release postures, not a state model | full state model incl. the five change classes |
@@ -255,7 +255,7 @@ R2 replaced *universal grant* with a single `authority_basis` enum mixing rights
 
 **Only axis 2's `grant` carries a `delegated_authority_envelope`.** A patient's own right (axis 1) is not something OMNI granted, and R1's diagram — a grant between every actor and every transition — made it look like one.
 
-**These axes are proposed, not settled.** Reconciling them against Care's own composition-field list is G3 work; Care is frozen and FAI may not author into it. `G-17`.
+**Gate split — G1 may not defer the generic grammar it is required to deliver.** **G1 settles the cross-cutting decomposition** — that these five are distinct kinds and must not collapse into one enum. **G3/Care reconciles the Care-specific values, storage shapes and domain application** against the frozen Care carrier. R3 assigned the whole thing to G3, which would have deferred a required G1 output. `G-17`.
 
 ### §4.3 — Four stages, two concurrent tracks
 
@@ -457,7 +457,44 @@ Four parts each — **required capability** (architecture) · **initial adapter*
 
 **9 represent (7 only after correction) · 2 PARTIAL.** The plan's criterion is that **each** must resolve without invented authority. **Two do not.**
 
-## §E5 — G4 adversarial fixtures — added to existing tests, no new gate
+## §E6 — `AB-08` fixture EXECUTED — the multi-axis passport does **not** pass
+
+**Run against the twelve-artifact set at `§E-note B`, six axes each. The value is in what broke.**
+
+| # | Artifact | Classifies? | Failure |
+|---|---|---|---|
+| 1 | **Reactor** | ✔ | `plane` had to take **a set** — `[seam, capability, projection]` — not a scalar |
+| 2 | **GCE** | ✘ | needs **`standard` AND `pattern` AND `seam` simultaneously** — normative guardrails (`GRD-033`/`034`) *and* a reusable spine shape *and* an exchange surface. One `architecture_role` cannot hold it |
+| 3 | **a domain contract** | ✘ | **no `contract` governance category exists** while 15 contract files do (`C-12`, known). Also `authority_maturity` had to hold **two values** — `canonical` for the substrate *and* `draft_for_ratification` |
+| 4 | **an operating profile** | — | **no instance exists.** A proposed role cannot be validated against nothing |
+| 5 | **a deployment profile** | — | no instance exists |
+| 6 | **a viewpoint + its view** | ✘ | System Map and Surface Map are **views with no declared viewpoint**. A 42010 gap, found by the fixture |
+| 7 | **a cross-cutting standard** | ✘ | **standards exist as clauses inside doctrine and guardrail files, not as addressable artifacts.** This is precisely why Reactor *"had no address"* |
+| 8 | **a reusable pattern** | — | no instance exists |
+| 9 | **a generated effective snapshot** | — | no instance (plan §3.1 object 3, unbuilt) |
+| 10 | **a conformance suite** | ✘ | `scripts/test-consequential-transition-conformance.ts` is **code**. The passport axes are document-centric — no governance category fits |
+| 11 | **implementation proof** | ✘ | `lib/auth/capabilities.ts`, migrations, CI checks — same: **code, not a document** |
+| 12 | **a proposed-but-unaccepted decision** | ✘ | this carrier. `governance_category` = `handoff_or_readiness_gate`, but **no `architecture_role` fits a gate output** |
+
+**Result: 1 clean · 6 fail · 4 untestable (no instance) · 1 partial.** **`AB-08` does NOT close.**
+
+**Five named repairs, each derived from a failure rather than proposed in advance:**
+
+1. `architecture_role` must be **multi-valued** (GCE) — or `standard`/`pattern`/`seam` must be separable facets.
+2. `plane` is **multi-valued** (Reactor).
+3. `authority_maturity` conflates **authority** with **ratification state**; split them.
+4. The passport is **document-centric** and cannot classify code artifacts — yet conformance suites and implementation proof are the two artifacts that carry the most proof. Either the passport extends to code, or code is classified by a different mechanism and the taxonomy says so.
+5. **Standards have no addressable artifact form.** Until they do, every cross-cutting law lives as a clause inside something else — which is the mechanism behind this arc's founding complaint.
+
+**What the fixture decides about artifact shape** — the question Knox and I were arguing from preference:
+
+The **working dossier** (evidence, provenance, correction history) and the **operating-model proposal** (prospective architecture) classify as **different `architecture_role` values with different lifecycles, authority and read rules.** R8 already separates *output carrier* from *evidence bundle*, so **two logical roles is settled, not a matter of taste.**
+
+**Physical packaging follows from failure 1:** one container can only carry both if the passport is multi-valued. **It is not, today.** So either the passport is repaired first, or the roles are packaged separately. **The decision is derived, and it is now a consequence of a fixture rather than a preference.**
+
+**`AB-08` stays OPEN with these five repairs as its closure condition** (`G-08`, `B-3`).
+
+## §E5 — G4 adversarial fixtures — routed forward, NOT a G1 output
 
 | Fixture | Existing test |
 |---|---|
@@ -491,7 +528,8 @@ R1's *"one bounded semantics away"* was false against its own register, and R2's
 
 | # | Blocker | Basis |
 |---|---|---|
-| **B-1** | **Boot state not normalized.** R8/R9 stale; catalog rows contradict them; no waiver exists (§0.2) | `AGENTS.md` boot rule |
+| **B-1** | **Boot state not normalized.** R8/R9 stale; catalog rows contradict them; no waiver exists (§0.2). **Must be repaired on the BASE branch, not here** — fixing the accepted G0 carriers inside the proposal they block is a circular dependency: the proposal cannot be accepted until state is consistent, and state becomes consistent only when the unaccepted proposal merges | `AGENTS.md` boot rule |
+| **B-13** | **`AB-01` generalized shared-mechanism form** — G1 decides and proposes it; the C4.4 owner participates in G1 approval; any edit to `C4.4 §R` itself is downstream (`G-07`) | ledger: `AB-01` blocks G1 |
 | **B-3** | **`AB-08` 12-artifact fixture unrun** — *moved back from G2* | **ledger `blocking_scope` = blocks G1** |
 | **B-8** | **Source floor incomplete** — Lane-1 architecture-management sources unread **and required Lane-2 carriers unread** (System Map · Surface Map · Polaris · Platform · Accountability · C4.6 · federation-permeability). *R3 understated this as Lane-1 + C3.8 intermediates; C3.8 G4 is the named terminus, so its intermediates are optional — the Lane-2 omission is the real one* | R8 Lane 2 + `AB-11` |
 | **B-15** | **`§G1-CONTRACT` outputs 2–7 incomplete** — the operations loop, graph semantics, change lifecycle, profile resolution, conformance model and transfer-limit matrix | R8 §5 `G1` |
@@ -590,7 +628,8 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 |---|---|
 | Artifact | FAI **G1 operating-model carrier R3** · seat `proposal_authoring` · state **`proposed`** · **BLOCKED on B-1** |
 | R2 → R3 | evidence restored (§E) · Build OS read · "three planes" withdrawn · four external correspondences downgraded · third-party rule corrected · blockers sorted by gate · G4 fixtures added |
-| Required outputs | **§E1** 40-row semantic receipt · **§E2** nine tool dispositions · **§E3** ten-row frontier matrix · **§E4** five traces + eleven scenarios · **§E5** ten G4 fixtures. **Fenced against compression** |
+| Required G1 evidence | **§E1** 40-row semantic receipt · **§E2** nine tool dispositions · **§E3** ten-row frontier matrix · **§E4/E4b** five traces + eleven scenarios · **§E6** `AB-08` fixture execution. **Fenced against compression** |
+| Routed forward, NOT a G1 output | **§E5** ten G4 adversarial fixtures — a G4 proof plan carried under G4's existing tests |
 | Ledger | 40 rows verdicted. **ZERO closed** |
 | Operator questions | **Q1** — the rule already existed in Build OS `09`; Care §19's U/C/A supplies the mechanism **as a frozen nonbinding candidate**, and applying it past Care is **this gate's synthesis** (`G-16`). The build-down/care-external binary is **withdrawn**; the rule is **per-act origin resolution**, and authority-origin direction is a **candidate descriptor field, not a profile axis**. **Q2** — internal-model equivalence not required, **boundary conformance mandatory**; GCE is the **home**, but the contract content **does not exist** (thesis §C paused), so the ten obligations are **new synthesis** (`G-18`) |
 | Boot | **VIOLATION, unresolved** |
