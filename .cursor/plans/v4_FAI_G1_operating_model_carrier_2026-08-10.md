@@ -77,7 +77,7 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 
 | # | R8-required G1 output | Carrier section | Required sources read? | Decision state | Residual | Acceptance condition |
 |---|---|---|---|---|---|---|
-| 1 | **artifact metamodel** | `§E-note B` + **`§E6` (fixture EXECUTED)** | Artifact Index ✔, governance taxonomy ✔, R8 §3.1 ✔ | **FIXTURE RUN — FAILED.** 1 clean · 6 fail · 4 untestable · 1 partial | five named repairs at `§E6`; four proposed roles have **no instance** to validate against | the five repairs land and the fixture re-runs clean (`G-08`) |
+| 1 | **artifact metamodel** | `§E-note B` + **`§E6` (exploratory probe — NOT a fixture result)** | Artifact Index ✔, governance taxonomy ✔, R8 §3.1 ✔ · **System/Surface Maps ✘, 42010 ✘** | **UNRUN.** The probe was invalid — it tested physical files where the model must classify logical resources, and used a `plane` axis whose taxonomy is unread (`§E6.1`) | six candidate findings at `§E6.2`; four proposed roles have **no instance**; the metamodel must first separate logical resource from physical carrier | the fixture specified at **`§E6.3`** runs with expected assertions and negative controls (`G-08`) |
 | 2 | **architecture-operations loop** | `§6.3` roots↔functions matrix | ✘ System Map · Surface Map · Polaris · Platform · Accountability unread | **INCOMPLETE** — a capability matrix is not an operating transaction | the actual proposal → impact → review → conformance → propagation → integration → resolution transaction is not specified | the loop is specified as a transaction with actors, gates and artifacts |
 | 3 | **architecture graph semantics** | `§6.3` + plan §3.1 relations | partial | **INCOMPLETE** | no cardinalities, inheritance rules, applicability or conflict semantics | relation model complete enough for a validator to reject a bad edge |
 | 4 | **change lifecycle** | `§E1` `AB-07` + `§6.4` | partial | **INCOMPLETE** | field additions and release postures, not a state model | full state model incl. the five change classes |
@@ -457,9 +457,54 @@ Four parts each — **required capability** (architecture) · **initial adapter*
 
 **9 represent (7 only after correction) · 2 PARTIAL.** The plan's criterion is that **each** must resolve without invented authority. **Two do not.**
 
-## §E6 — `AB-08` fixture EXECUTED — the multi-axis passport does **not** pass
+## §E6 — `AB-08` **exploratory classification probe** — NOT a valid fixture result
 
-**Run against the twelve-artifact set at `§E-note B`, six axes each. The value is in what broke.**
+> ### ★ WITHDRAWN CLAIMS
+> The previous pass titled this *"fixture EXECUTED"* and drew architectural conclusions from it. **All of the following are withdrawn:**
+> **(a)** that `AB-08`'s fixture was executed · **(b)** the tally *"1 clean · 6 fail · 4 untestable · 1 partial"* — **the table's own rows are 1 ✔ / 7 ✘ / 4 untestable, so the count did not follow from its evidence for the third time in this arc, in the section about fixture rigor** · **(c)** the five repairs as *settled closure conditions* · **(d)** that physical packaging *"follows from"* role cardinality · **(e)** that standards have no addressable form · **(f)** the `plane` and viewpoint conclusions.
+>
+> **`AB-08` remains OPEN and unrun.** No G1 output was completed by this pass.
+
+### §E6.1 — Why the probe was invalid
+
+| # | Defect |
+|---|---|
+| 1 | **It tested physical files where the architecture needs logical resources.** Three levels exist and were flattened into *one file × one passport*: the **physical carrier** (file, code module, test, generated artifact) · the **logical architecture resource** (standard, pattern, contract, profile, view, decision) · the **descriptor and its relations**. **R8 §3.1 already specifies a `resource_id` that "survives renames and moves"** — the separation was in a source this gate had read, and the probe designed past it. **This single error produced most of the apparent failures**: one carrier holding a pattern, several normative guardrails and a boundary mechanism looks like a multi-role artifact only if carrier and resource are the same thing. |
+| 2 | **Self-contradiction.** GCE was classified as needing `pattern`, while the *"reusable pattern"* row was declared untestable for want of a pattern instance. Both cannot hold in one test. |
+| 3 | **The `plane` conclusion used an uninspected taxonomy.** `[seam, capability, projection]` were treated as `plane` values, but the plane taxonomy lives in the System Map / Surface Map — **both still unread**. Those look like functions or concerns, not planes. A mismatch against an axis whose controlling source was never opened is not evidence the axis must be multi-valued. |
+| 4 | **The viewpoint result is a candidate question, not a finding.** 42010 is unread and the maps are uninspected. They may be 42010 views, a different role, composite descriptions, or views whose viewpoint is implicit. |
+| 5 | **The domain-contract leap.** *"Passport and index disagree"* → *"the metamodel needs a `contract` category"* skipped at least four live alternatives (keep `domain_rule_slice` as the document category with **Domain Contract** as the architecture role · amend the taxonomy · supersede `domain_rule_slice` · make contracts a logical resource on a conventionally-typed carrier). None was adjudicated. |
+| 6 | **Code did not prove the document passport failed.** It proves the **resource model cannot be document-only** — a different and smaller claim. A cleaner shape: resources carry descriptors; carriers carry carrier-specific metadata; Markdown uses the document passport; code, tests and generated artifacts use repository-native locators plus `implemented_by` / `verified_by` / `evidenced_by` relations. That is what R8 §3.1's relations were already reaching for. |
+| 7 | **"Standards have no address" is self-refuting.** The probe cited `GRD-033` and `GRD-034` — **addressable, named, normative guardrails** — while asserting normative rules exist only as unaddressable prose. The real requirement is **stable resource identity and locators independent of physical-file boundaries**, which is not the same as a file per rule. |
+| 8 | **The packaging conclusion does not follow.** One container can carry two separately identified logical resources; two files can be one resource. Packaging turns on independent lifecycle, authority, loading behaviour, update atomicity and supersession — **not** on whether `architecture_role` is scalar. R8 already distinguishes output carrier from evidence bundle, so that split was inherited, not discovered. |
+
+### §E6.2 — What the probe validly surfaced *(candidate findings, not results)*
+
+1. **The metamodel must explicitly separate logical resource from physical carrier** — the probe's most useful output, arrived at by failing.
+2. **Authority level and ratification/lifecycle state are independent** and must not share one `authority_maturity` axis. *(The soundest defect found.)*
+3. **Document taxonomy and the live contract passports conflict** — the taxonomy has `domain_rule_slice`; contracts declare `domain_contract`; the Artifact Index recognises **Domain Contract** as an architecture role. Real drift; resolution unadjudicated.
+4. **Non-document implementation and proof resources need first-class representation or first-class relations.**
+5. **Operating profiles, deployment profiles, patterns and generated snapshots have no instances** — the metamodel cannot be validated against roles with nothing in them. *"No instance" is a gap to fix with a marked synthetic exemplar, not a test result.*
+6. **View/viewpoint correspondence** and **cross-cutting-standard addressability** remain candidate gaps requiring the 42010 source and direct map inspection.
+
+### §E6.3 — What a valid `AB-08` fixture requires
+
+Recorded here so the next pass has the specification and does not need a separate planning artifact. **Exact source references sit beside each assertion — not in a source-map document.**
+
+**Candidate under test:** a metamodel distinguishing logical resource · physical carrier/locator · primary resource kind · authority level · lifecycle/decision state · scope and applicability · view/viewpoint relation · implementation and evidence relations · profile/deployment targeting.
+**Test cases:** the twelve required **logical resources** — not twelve filenames. Where a kind has no instance, **create a minimal synthetic exemplar explicitly marked as fixture material.**
+**Per-case assertions:** expected primary kind · expected carrier · required authority and status · required relations · **forbidden classifications** · whether the schema represents it **without ad-hoc extension**.
+**Negative controls, at minimum:** one carrier holding several logical resources · one logical resource implemented by several code/test files · one generated resource · one proposed-but-unaccepted resource · one carrier whose document type and architecture role legitimately differ · one invalid edge that **must** fail.
+
+**Only then can `AB-08` pass, fail, or yield a bounded amendment.**
+
+### §E6.4 — The process failure, recorded
+
+**This probe was substantive metamodel design performed under `B-1`** — the boot-state violation this same file declares blocking, in a document that says work under it *"may be preserved as work; it may not be accepted as compliant."* The previous pass announced it had *"stopped meta-working and built"* — and built past its own stop condition. **Preserved as exploratory evidence; it does not count as compliant G1 execution.** `F-06`.
+
+---
+
+*(Original probe table retained below as evidence of what was examined. Its ✔/✘ markers record the probe's own reading and are NOT fixture verdicts.)*
 
 | # | Artifact | Classifies? | Failure |
 |---|---|---|---|
@@ -476,23 +521,13 @@ Four parts each — **required capability** (architecture) · **initial adapter*
 | 11 | **implementation proof** | ✘ | `lib/auth/capabilities.ts`, migrations, CI checks — same: **code, not a document** |
 | 12 | **a proposed-but-unaccepted decision** | ✘ | this carrier. `governance_category` = `handoff_or_readiness_gate`, but **no `architecture_role` fits a gate output** |
 
-**Result: 1 clean · 6 fail · 4 untestable (no instance) · 1 partial.** **`AB-08` does NOT close.**
+**No tally is stated.** The probe's own rows are **1 ✔ / 7 ✘ / 4 untestable**; the previous pass reported *"1 clean · 6 fail · 4 untestable · 1 partial"*, which is **the third count in this arc that did not follow from its own evidence.** Per this arc's own rule the table speaks and no aggregate is restated.
 
-**Five named repairs, each derived from a failure rather than proposed in advance:**
+**The five "repairs" previously listed here are WITHDRAWN as settled conclusions** — see `§E6.1`. Two survive as candidate findings (authority vs ratification state; logical resource vs physical carrier); the rest rested on the carrier/resource conflation, an uninspected `plane` taxonomy, an unread 42010, and a self-refuting claim about addressability.
 
-1. `architecture_role` must be **multi-valued** (GCE) — or `standard`/`pattern`/`seam` must be separable facets.
-2. `plane` is **multi-valued** (Reactor).
-3. `authority_maturity` conflates **authority** with **ratification state**; split them.
-4. The passport is **document-centric** and cannot classify code artifacts — yet conformance suites and implementation proof are the two artifacts that carry the most proof. Either the passport extends to code, or code is classified by a different mechanism and the taxonomy says so.
-5. **Standards have no addressable artifact form.** Until they do, every cross-cutting law lives as a clause inside something else — which is the mechanism behind this arc's founding complaint.
+**On artifact shape:** the logical split between *output carrier* and *evidence bundle* is **inherited from R8, not discovered here**, and physical packaging does **not** follow from role cardinality (`§E6.1` defect 8). **Left open.**
 
-**What the fixture decides about artifact shape** — the question Knox and I were arguing from preference:
-
-The **working dossier** (evidence, provenance, correction history) and the **operating-model proposal** (prospective architecture) classify as **different `architecture_role` values with different lifecycles, authority and read rules.** R8 already separates *output carrier* from *evidence bundle*, so **two logical roles is settled, not a matter of taste.**
-
-**Physical packaging follows from failure 1:** one container can only carry both if the passport is multi-valued. **It is not, today.** So either the passport is repaired first, or the roles are packaged separately. **The decision is derived, and it is now a consequence of a fixture rather than a preference.**
-
-**`AB-08` stays OPEN with these five repairs as its closure condition** (`G-08`, `B-3`).
+**`AB-08` remains OPEN and unrun** (`G-08`, `B-3`). Its closure condition is the fixture specified at **`§E6.3`**.
 
 ## §E5 — G4 adversarial fixtures — routed forward, NOT a G1 output
 
@@ -594,6 +629,8 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 
 ### §7.1 — Standing falsifiers
 
+**F-06 (new) Counting my own evidence is a systematic failure, not bad luck.** Three times in this arc a stated aggregate did not follow from the table beneath it — R2's deleted-evidence totals, R3's tool tally, and the `AB-08` probe's *"1 clean · 6 fail"* against rows reading 1 ✔ / 7 ✘. **The third occurred inside the section about fixture rigor.** Mechanism: the aggregate is written from intent while the rows are written from work, and nothing recomputes one from the other. **Until a check does, no aggregate in this file may be trusted, and the standing remedy is to state no aggregate and let the table speak.**
+
 **F-01 Candour penalty** — rigorous attribution raises liability exposure, rationally reducing candid documentation. *No design response; any claim to have solved it is suspect.* · **F-02 The view becomes the truth** (`AB-27`) — falsifier of `D0THES-DEC-033`; G4 negative test · **F-03 Multiplicity is not corroboration** — PRE-0 demonstrated it on itself; R1 stated it and violated it in scenario 5 · **F-04 Gap-declaration masquerading as risk management** — this gate did it three times (Tier-0 #14, C3.8, Build OS) · **F-05 (new) Narrative revision destroys evidence** — R2 deleted three required tables while keeping their totals. **Prose is not a durable evidence carrier.**
 
 ### §7.2 — Gaps
@@ -628,7 +665,9 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 |---|---|
 | Artifact | FAI **G1 operating-model carrier R3** · seat `proposal_authoring` · state **`proposed`** · **BLOCKED on B-1** |
 | R2 → R3 | evidence restored (§E) · Build OS read · "three planes" withdrawn · four external correspondences downgraded · third-party rule corrected · blockers sorted by gate · G4 fixtures added |
-| Required G1 evidence | **§E1** 40-row semantic receipt · **§E2** nine tool dispositions · **§E3** ten-row frontier matrix · **§E4/E4b** five traces + eleven scenarios · **§E6** `AB-08` fixture execution. **Fenced against compression** |
+| Required G1 evidence | **§E1** 40-row semantic receipt · **§E2** nine tool dispositions · **§E3** ten-row frontier matrix · **§E4/E4b** five traces + eleven scenarios. **Fenced against compression** |
+| Exploratory, NOT a result | **§E6** `AB-08` classification probe — **invalid as a fixture**; conclusions withdrawn; six candidate findings and a valid-fixture spec retained |
+| Process failure this pass | **substantive metamodel design performed under the `B-1` boot violation** this file declares blocking. Preserved as evidence; **not compliant G1 execution** (`§E6.4`) |
 | Routed forward, NOT a G1 output | **§E5** ten G4 adversarial fixtures — a G4 proof plan carried under G4's existing tests |
 | Ledger | 40 rows verdicted. **ZERO closed** |
 | Operator questions | **Q1** — the rule already existed in Build OS `09`; Care §19's U/C/A supplies the mechanism **as a frozen nonbinding candidate**, and applying it past Care is **this gate's synthesis** (`G-16`). The build-down/care-external binary is **withdrawn**; the rule is **per-act origin resolution**, and authority-origin direction is a **candidate descriptor field, not a profile axis**. **Q2** — internal-model equivalence not required, **boundary conformance mandatory**; GCE is the **home**, but the contract content **does not exist** (thesis §C paused), so the ten obligations are **new synthesis** (`G-18`) |
