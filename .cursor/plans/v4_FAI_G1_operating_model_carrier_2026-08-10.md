@@ -4,7 +4,7 @@ Document type: `handoff_or_readiness_gate` (gate-output carrier — the G1 deliv
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Binds nothing. Mints nothing. Promotes nothing. Closes nothing.** Where this carrier and a controlling carrier differ, **the carrier controls and this file is corrected.**
 Status: **`g1_carrier_R3 · state=proposed · BLOCKED_ON_BOOT_STATE_NORMALIZATION`**
 Domain(s): `architecture_governance` · `cross_cutting`
-Lifecycle role: the G1 gate output — the authority model, the required gate evidence, and an honest record of what this gate got wrong three times.
+Lifecycle role: **working dossier for the G1 gate output — NOT yet an acceptance object.** It carries the model proposal, the required evidence (`§E`), and the completion matrix (`§G1-CONTRACT`) that says which R8-required outputs are still missing. **Read `§G1-CONTRACT` first: it is the only honest answer to "is G1 done."**
 Source-of-truth relationship: **owns nothing.** Gate sequence → plan §5. Rationale → charter R9. Finding disposition → PRE-0 ledger R5. Program state → the checkpoint. Authority truth → §4's carriers. External/enterprise correspondence → **C3.8 G2/G4**. Build-side operating model → **Build OS `09`/`10`** *(at their declared maturity — §1.3)*.
 Manifest action: `add_tier2` · Review gate: `user_knox_required`
 
@@ -34,7 +34,7 @@ Verified against the live file:
 **Root cause, and it generalizes.** Each revision rewrote the whole carrier as prose. In a narrative pass, evidence tables read as *detail* and get compressed. **Required gate outputs cannot survive inside a narrative that is re-authored every round.** Two consequences:
 
 1. **§E now fences them** with an explicit non-compression rule, and every total in this file points at its §E table instead of restating it.
-2. **This is the strongest argument available for what G2 exists to build.** Prose-carried evidence does not survive revision; machine-readable descriptors do. My own failure is the fixture.
+2. **A banner is a warning, not an architecture — and R3's *"machine-readable descriptors survive, prose does not"* is withdrawn as overstatement.** A YAML file is as deletable as a table. **Durability comes from stable identity · versioning · append-only or explicitly-superseding revision · protected writers · required completeness checks · source linkage · and automated failure when expected evidence disappears.** Machine-readability matters because it makes those *checkable*, not because it makes them true. §E's fence is an interim warning; the durable mechanism is a G2 requirement (`B-15`).
 
 ### §0.2 — The boot violation remains unresolved
 
@@ -64,6 +64,27 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 ### §0.4 — Source posture
 
 **Read fully:** plan R8 · charter R9 · PRE-0 ledger R5 · checkpoint · Tier-0 #14 · C3.8 G2 + G4 · **Build OS `09` and `10`** · Artifact Index · `rbac_authority_contract.md` · Agent Runtime capture. **Read to controlling sections:** Build OS `11` (status + stale-foundation warning) · `02_authority_routing_map.md` · GCE/enterprise posture · thesis §A/§B envelopes · `EVRUN-000007` `_05 §I.13–I.15` + `_06` · `EVRUN-000008` `_04`/`_03` · Care §§1b·4·5a·5b·5b.1·9·9a·13·18·**19** · Identity/Federation/D7 · `C4.4 §R`. **Searched:** six AI-corpus registries; estate external-pattern vocabulary. **Still not inspected — declared, not discharged:** C3.8 G1b/G3 · Lane-1 primary sources · System/Surface Maps · Polaris · Platform + Accountability captures · C4.6 · federation-permeability arc.
+
+---
+
+## §G1-CONTRACT — completion matrix against the R8 required outputs
+
+> **This is the acceptance instrument. It has never existed before, and its absence is why four revisions produced review dossiers instead of a gate result.** Plan §5 `G1` requires reconciliation into seven named outputs. **A cell is `COMPLETE` only when its sources are read, its decision is made or explicitly named open with an owner, and its evidence is in `§E`.**
+>
+> **Method rule for the next pass: close cells. Do not re-author the document.** Three of the four revisions to date rewrote the whole carrier, which is how required evidence got deleted (§0.1) and how the load-bearing model changed three times. **Full-document rewriting is hereby retired as the working method for this gate.**
+
+| # | R8-required G1 output | Carrier section | Required sources read? | Decision state | Residual | Acceptance condition |
+|---|---|---|---|---|---|---|
+| 1 | **artifact metamodel** | `§E1` `AB-08` + `§E-note B` | partial — Artifact Index ✔, governance taxonomy ✔ | **proposed, fixture-unproven** | the 12-artifact fixture set is unrun | fixture set classifies with no ad-hoc exception (`G-08`) — **and per the ledger this blocks G1, not G2** |
+| 2 | **architecture-operations loop** | `§6.3` roots↔functions matrix | ✘ System Map · Surface Map · Polaris · Platform · Accountability unread | **INCOMPLETE** — a capability matrix is not an operating transaction | the actual proposal → impact → review → conformance → propagation → integration → resolution transaction is not specified | the loop is specified as a transaction with actors, gates and artifacts |
+| 3 | **architecture graph semantics** | `§6.3` + plan §3.1 relations | partial | **INCOMPLETE** | no cardinalities, inheritance rules, applicability or conflict semantics | relation model complete enough for a validator to reject a bad edge |
+| 4 | **change lifecycle** | `§E1` `AB-07` + `§6.4` | partial | **INCOMPLETE** | field additions and release postures, not a state model | full state model incl. the five change classes |
+| 5 | **profile / deployment resolution** | `§2.4` axes + `§6.4` postures | ✘ pre-spine map §5 · Federation read; C4.6 unread | **INCOMPLETE** | proposed axes, no deterministic effective-resolution model | resolution deterministic for an explicit `as_of`, failing closed on contradiction |
+| 6 | **conformance + observability model** | `§E2` `§E3` + `§E1` `AB-04`/`AB-10` | partial — C4.6 unread | **INCOMPLETE** | tool and capability tables, not the conformance model | the model itself, incl. forbidden-loosening as a machine check |
+| 7 | **adopt / reject / transfer-limit matrix** | `§5` + `§E2` | ✘ Lane-1 primary sources unread | **INCOMPLETE** | transfer limits derived from C3.8 only; the architecture-management lane is unread | Lane-1 read; per-mechanism transfer limits stated |
+| — | **`§G1-AUTH`** *(mandatory work package)* | `§4` + `§E4` | partial — Build OS ✔, Care ✔, RBAC ✔, GCE ✔ | **partially converged** | authority-source decomposition (§4.2) unsettled; 2 of 11 scenarios PARTIAL | the decomposition settles and every scenario resolves without invented authority |
+
+**Honest reading: one of eight outputs is at "proposed"; none is complete.** The model work is real and the evidence is now restored, but **G1's contract is not close to satisfied**, and no amount of further prose in this file will change that — items 2 through 7 need the unread Lane-1 and Lane-2 sources, not more synthesis.
 
 ---
 
@@ -124,15 +145,19 @@ Care §19 carries a **law-scope propagation crosswalk** that is the estate's own
 - **C — care-specific**: **do NOT propagate.** Clinical adoption · patient/surrogate consent · care relationships · procedure authority · patient continuity · clinical non-action · treatment-outcome semantics · patient-facing explanation and appeal.
 - **A — analogous only**: shapes correspond, semantics differ. Effect-observation-contract ~ runtime-health · plan ~ change_set · care_obligation ~ response_obligation · degraded-care ~ runtime-failover · **participant-admission ~ tool/runtime-authorization**.
 
-**That is a better answer than "three planes", it is already law in its carrier, and it is finer-grained** — it says *which* laws cross and which must not, rather than declaring regions.
+**It is finer-grained than declaring regions** — it says *which* laws cross and which must not.
 
-### §2.4 — What survives from R2's analysis, as a claim about profiles
+**But its status must be stated honestly, because R3 got this wrong too.** R3 called the crosswalk *"already law in its carrier."* **It is not.** The Care capture is `analysis_nonbinding`, `REVIEW-DRAFT (NOT closed)`, **frozen** under forensic audit, and its `[INV]` marks denote *candidate* invariants. **Correct status: an inherited candidate crosswalk from a frozen carrier, proposed here for cross-context generalization, requiring G3 reconciliation.** Applying it from Care to the build side is itself a **cross-scope synthesis** — calling it settled law to avoid admitting authorship is the same laundering R3 accused R1 of. `G-16`.
 
-The one genuinely load-bearing observation survives, expressed with existing vocabulary and **not** as a new partition:
+### §2.4 — What survives from R2's analysis — and it is smaller than R3 claimed
 
-> **The direction of authority origin differs, and it is a profile axis, not a region.** Build-side authority is **granted downward** by the organization and is revocable by it. Care-side authority is **held externally** — licensure, patient right, statute — and OMNI **recognizes and gates it; it cannot confer or revoke it.** This is why Care §19 marks clinical adoption, patient authority and procedure authority as **C** (non-propagating): they are not organizational grants, so no organizational grant can produce them.
+R3 replaced "three planes" with *"build authority flows downward; care authority is externally held."* **Still too simple, and withdrawn as a binary.** An organization **can** grant and revoke local privileges, appointments, access, delegations and operational authority in a care context — what it cannot do is manufacture a licence or a patient right. Care itself enumerates origins that cut across any build/care line: statute and court order · licensure and professional scope · patient-held right and consent · surrogate representation · organizational appointment and clinical privileges · protocol delegation · operator policy · emergency authority.
 
-**Proposed profile axes** — the differences between contexts, expressed through the profile mechanism charter §6.1 already establishes rather than a new taxonomy: *authority-origin direction* · *what is delegable* · *what is non-transferable* · *reversibility class* · *liability bearer* · *proof obligation* · *degraded-operation rule* · *jurisdictional variance*.
+**The load-bearing rule is therefore per-act, not per-region:**
+
+> **Every consequential act resolves its authority origin and instrument independently.** The same context routinely mixes origins — an organizationally appointed clinician, exercising a licensure-held scope, under a patient-held consent, within an operator policy.
+
+**Consequence for R3's own claim:** *authority-origin direction* is at most a **descriptor field** on an authority record. **It has not earned the status of a profile axis**, and R3's promotion of it is withdrawn. The remaining candidate axes — delegability · non-transferability · reversibility class · liability bearer · proof obligation · degraded-operation rule · jurisdictional variance — are **proposed for G3 adjudication**, not settled here.
 
 **Clinical judgment is not a region either** — it is a **non-transferable authority basis** (`INV-10`: delegation may authorise execution without authorising professional judgment). Delegate the act, not the judgment.
 
@@ -150,7 +175,9 @@ C3.8 **G4 §2.4**, operator-ratified: *"Proof fabric extends to supply-chain pro
 
 > **Internal-model equivalence is not required. Boundary conformance is mandatory.**
 
-A third-party harness need not reproduce OMNI's ontology or run OMNI's authority engine internally. **It must conform to an OMNI-owned boundary contract** — and GCE already asserts exactly that: OMNI owns *the capability contract, authority envelope, context packet, trust-transfer record, domain-commit boundary, and audit/proof* even when the rail and counterparty are external.
+A third-party harness need not reproduce OMNI's ontology or run OMNI's authority engine internally. **It must conform to an OMNI-owned boundary contract.**
+
+**But R3's *"GCE already owns that contract"* is only half true and is corrected here.** The ratified enterprise posture establishes GCE as the operational capstone and states that OMNI owns *the capability contract, authority envelope, context packet, trust-transfer record, domain-commit boundary and audit/proof.* **That assigns the home. It does not supply the contract** — thesis **§C, GCE's body, is PAUSED and undrafted**, and no build-facing boundary contract has been authored or installed. **Accurate: GCE is the established architectural home and pattern; the boundary-contract content is incomplete.** The table below is therefore **new synthesis proposing that content**, not retrieval of an existing contract. `G-18`.
 
 **What the boundary contract must govern** — R2 listed three of these:
 
@@ -197,18 +224,23 @@ Authority contains standing structures that are not transitions; flattening them
 
 **A is queried; B is executed.** The inherited perspectives project onto A, B, or both. Reactor is a frozen, unpromoted **candidate arc law over B** — not one of the perspectives. **No count is stated;** R1 said *"seven views"* over an eight-row table and propagated it into three files, which is `C-11`/`C-12` again. The reconciliation follows the compositional precedent Tier-0 #14 §1.5.1 cites, resting on `D0THES-REV-045` — **a nonbinding routed finding, not a ratified universal method.**
 
-### §4.2 — `authority_basis`, not universal grant
+### §4.2 — Authority decomposed into five axes — **NOT one enum**
 
-```
-authority_basis =
-    direct right             (a patient's own right — not something OMNI granted)
-  | professional authority   (licensure; non-delegable as judgment)
-  | organizational authority (employment, appointment, seat occupancy)
-  | representation           (surrogate, guardian, DPOA, parent)
-  | delegated grant          (scoped, expiring — the ONLY one carrying a
-                              delegated_authority_envelope)
-  | consent | directive | statutory/court order | emergency | policy/protocol
-```
+R2 replaced *universal grant* with a single `authority_basis` enum mixing rights, licensure, appointments, consent, directives, court orders and policies. **Withdrawn.** Care §5a says this explicitly and R3 quoted it while violating it: *"These are related but semantically + legally DISTINCT — do NOT coerce into one consent object/state-machine… A DPOA is an authority basis; a directive is an instruction; a visibility grant is a permission; a purchase is a transaction authorization; a signature is evidence."*
+
+**One flat enum over unlike kinds is the malformed-enum defect Care §5b.1 already diagnosed and fixed once.** R3 recreated it under a wider noun. **G1's job is the decomposition, not the enum:**
+
+| Axis | What it answers | Values (illustrative, not closed) |
+|---|---|---|
+| **1 · Authority source / entitlement** | *what entitles anyone here at all* | right · licensure · appointment · relationship · statute · contract |
+| **2 · Authorization instrument** | *the act that authorizes this* | consent · order · grant · directive · policy/protocol · court order · emergency invocation |
+| **3 · Representation binding** | *who acts for whom, on what basis* | self · surrogate/guardian/DPOA · parent · delegated agent |
+| **4 · Evidence form** | *how it is recorded* | signature · attestation · witness · recorded order |
+| **5 · Scope + validity** | *bounds* | purpose · subject · action · time · jurisdiction · conditions · **revocation** |
+
+**Only axis 2's `grant` carries a `delegated_authority_envelope`.** A patient's own right (axis 1) is not something OMNI granted, and R1's diagram — a grant between every actor and every transition — made it look like one.
+
+**These axes are proposed, not settled.** Reconciling them against Care's own composition-field list is G3 work; Care is frozen and FAI may not author into it. `G-17`.
 
 ### §4.3 — Four stages, two concurrent tracks
 
@@ -338,17 +370,19 @@ Four parts each — **required capability** (architecture) · **initial adapter*
 
 | # | Required capability | Initial adapter | Portability boundary | Trigger | Verdict |
 |---|---|---|---|---|---|
-| 1 | machine-readable descriptors + **deterministic validation**; snapshot byte-reproducible or fail closed | **JSON Schema + CI**, if G2 confirms fit | a schema language may never be where a rule *lives* | schema insufficient for a declared rule | **ADOPT** *(capability)* |
+| 1 | machine-readable descriptors + **deterministic validation**; snapshot byte-reproducible or fail closed | **JSON Schema + CI**, if G2 confirms fit | a schema language may never be where a rule *lives* | schema insufficient for a declared rule | **ADOPT** |
 | 2 | approval routing + **protected serialized integration** | **CODEOWNERS + rulesets + required checks** | routing metadata is not authority | measured queueing pressure → add merge queue | **NARROW** — merge queue **deferred, not prohibited** |
-| 3 | **resource-claim semantics** — declared writes, overlap detection | thin OMNI checker | claims are coordination, never authorization | collision evidence → activate exclusivity leases | **ADOPT** *(claims)* / **DEFER** *(exclusivity)* |
+| 3 | **resource-claim semantics** — declared writes, overlap detection | thin OMNI checker | claims are coordination, never authorization | collision evidence → activate exclusivity leases | **NARROW** — claim semantics adopted, exclusivity deferred |
 | 4 | **policy-as-code** — a lane cannot land an edit to a protected surface | generalize `check-checkpoint-pointer.mjs` | **OPA must never become the constitutional policy language** | a policy inexpressible as a direct repository check | **NARROW** |
 | 5 | canonical resource graph with owners and relations | OMNI descriptors canonical; **Backstage entities generated downstream** | `spec.owner` is display metadata, **not** authority | real portal demand | **NARROW** |
-| 6 | architecture version · profile ids · conformance result emittable as **named declared evidence**; **PHI and raw patient context PROHIBITED in attributes** | OpenTelemetry conventions | a transport is not the conformance or drift authority | adapter after the model survives G3/G4 (`C-16`) | **ADOPT** *(requirement)* / **DEFER** *(mapping)* |
+| 6 | architecture version · profile ids · conformance result emittable as **named declared evidence**; **PHI and raw patient context PROHIBITED in attributes** | OpenTelemetry conventions | a transport is not the conformance or drift authority | adapter after the model survives G3/G4 (`C-16`) | **NARROW** — emission requirement adopted, OTel mapping deferred |
 | 7 | repeatable semantic transformation **with a decisive verifier** | TS codemods; **OpenRewrite** later | recipes are mechanism, never semantics | the trigger met — *not an edit count* | **DEFER** |
 | 8 | **logical** desired-vs-live reconciliation | none yet | *the logical fleet exists before Kubernetes does* | an actual deployment substrate | **DEFER** *(engine)*; the fleet **model** is required now (§6.4) |
 | 9 | durable multi-agent execution | none — Agent Runtime owns it | do not build the runtime pre-spine | `FWREG-010` closes | **DEFER** |
 
-**2 adopt · 3 narrow · 4 defer · 0 constitutional rejections.** R1's merge-queue rejection stays withdrawn — absent pressure justifies deferral, not prohibition, and Build OS `10` explicitly permits *"merge queue **or** serialized fast-forward."*
+**Tally, recomputed from the rows above — one top-level verdict each:** **1 ADOPT** (row 1) · **5 NARROW** (rows 2, 3, 4, 5, 6) · **3 DEFER** (rows 7, 8, 9) · **0 REJECT**.
+
+**R3's "2 adopt · 3 narrow · 4 defer" was not byte-true** — rows 3 and 6 carried two verdicts each and the tally did not follow from the table. `C-08` requires **one** explicit verdict per candidate; "adopt the capability, defer the engine" is a **NARROW**, not two verdicts. R1's merge-queue rejection stays withdrawn: absent pressure justifies deferral, not prohibition, and Build OS `10` permits *"merge queue **or** serialized fast-forward."*
 
 ## §E3 — Frontier double-evaluation — all ten capabilities
 
@@ -386,7 +420,25 @@ Four parts each — **required capability** (architecture) · **initial adapter*
 
 **One is precondition degradation; the other is post-dispatch causal control.** Both → `AB-29`.
 
-**The eleven pressure scenarios: 9 represent (7 only after correction) · 2 PARTIAL** (10 = problem B; 11 = problem A). Corrections carried: cardinality resolves **per contribution**, never from agent count or org label (1) · adding a compliance **authority** is an architecture change, adding a person is a register edit (2) · occupancy is configuration, **both SoD forms** are architecture (3) · two agents are not independent evidence — if test output supports acceptance the receipt carries an **evidentiary-independence class** (5) · **integration / release / activation / domain action** are four acts with four gates (6) · no tie-break between principals (8, 9). **The plan's criterion is that each must resolve. Two do not.**
+### §E4b — The eleven pressure scenarios — one row each
+
+*(R3 kept the total and left the rows in prose. Same defect, softer. Restored.)*
+
+| # | Scenario | Result | Inherited mechanism | Correction made | Residue | Owner / gate |
+|---|---|---|---|---|---|---|
+| 1 | 5 pharmacies × 50 agents | **represents (corrected)** | correlation classes; represented-principal grammar | R1 inferred *"5 pharmacies = 5 principals."* **Cardinality resolves per contribution and per action**, never from agent count or org label — one pharmacy may hold several legal entities, an independently accountable pharmacist, a fulfilment operator and payer principals | — | steward / G1 |
+| 2 | + a compliance function | **represents (corrected)** | seat/holder split | R1 flattened both acts to staffing. **Adding a person to an existing seat = register edit; creating a new compliance authority, veto or review stage = architecture or profile change** | — | steward / G1 |
+| 3 | one person, several seats | **represents (corrected)** | occupancy rules | R1 asserted only dynamic SoD. **Occupancy is configuration; both static and dynamic SoD are architecture**; per-transaction conflict constraints required | which seats need static vs dynamic | steward / G2 profile |
+| 4 | a seat with no holder | **represents** | fail-closed on vacancy | none — demonstrated live by the vacant integrator | — | — |
+| 5 | one agent proposes, another tests | **represents (corrected)** | correlation classes (`independent` … `shared_model_family`) | R1: *"two actors in one seat is unremarkable."* **Wrong where the test supports acceptance** — separate agents are not independent evidence. Receipt must carry an **evidentiary-independence class** | class taxonomy not bound to the acceptance receipt schema | steward / G2 |
+| 6 | agent performs approved mechanical integration | **represents (corrected)** | E&V → Release → Runtime chain | R1 conflated *the code governs something safety-sensitive* with *the byte transfer is a safety-sensitive act*. **Four acts, four gates: integration · release · activation · domain action** | which gate activation carries | steward / G2 |
+| 7 | proposal author also holds an approval seat | **represents** | dynamic SoD; seat prohibitions | none — live instance is this carrier | — | — |
+| 8 | payer agent vs operator agent disagree | **represents (corrected)** | non-fungible commit planes; vector of principal-local states | R1's *"the authorized Care owner commits"* recreated the single final decider Care §4 forbids | what OMNI's coordination state **is** constitutionally — Care §9a G2 `[OPEN_RECONCILIATION]` | Care owner / C5 |
+| 9 | patient agent vs provider agent disagree | **represents (corrected)** | *contributions are not votes*; `INV-30`; `INV-15` | same as 8, plus: **no tie-break rule exists and none may be invented** | as 8 | Care owner / C5 |
+| 10 | delegation revoked mid-run | **PARTIAL** | Reactor inv 3/4/6; invalidation propagation | R1 marked it RESOLVED | **problem B** — post-dispatch cancellation: effect emitted, acknowledgment uncertain | `AB-29` / G3 stage, G4 prove |
+| 11 | break-glass under partition | **PARTIAL** | RBAC §6 T3; Care §13 retrospective authorization | none | **problem A** — unavailable precondition: fail-safe vs fail-secure unstated | `AB-29` / G3 stage, G4 prove |
+
+**9 represent (7 only after correction) · 2 PARTIAL.** The plan's criterion is that **each** must resolve without invented authority. **Two do not.**
 
 ## §E5 — G4 adversarial fixtures — added to existing tests, no new gate
 
@@ -416,23 +468,32 @@ R1's *"one bounded semantics away"* was false against its own register, and R2's
 
 ### §6.2 — Blockers, sorted by rightful gate
 
+**Re-derived from the ledger's `blocking_scope` and the R8 contract — not from what felt appropriate to defer.** R3 moved `AB-08` to G2, which **overrode the binding ledger**: the ledger says `AB-08` is owned by the architecture steward, **decided at G1 artifact-metamodel authoring, and blocks G1 close.** That correction is the reason this table is re-cut.
+
 **True G1 acceptance blockers**
 
-| # | Blocker |
-|---|---|
-| **B-1** | **Boot state not normalized.** R8/R9 stale; catalog rows contradict them; no waiver exists (§0.2) |
-| **B-2** | Model boundaries not settled: how many authority contexts, and how a principal holding seats in two is represented (`G-12`) |
-| **B-6** | Scenario traces not user-stress-tested — Tier-0 #14 §4 |
-| **B-8** | Lane-1 architecture-management sources unread; C3.8 G1b/G3 unread (§5.3) |
+| # | Blocker | Basis |
+|---|---|---|
+| **B-1** | **Boot state not normalized.** R8/R9 stale; catalog rows contradict them; no waiver exists (§0.2) | `AGENTS.md` boot rule |
+| **B-3** | **`AB-08` 12-artifact fixture unrun** — *moved back from G2* | **ledger `blocking_scope` = blocks G1** |
+| **B-8** | **Source floor incomplete** — Lane-1 architecture-management sources unread **and required Lane-2 carriers unread** (System Map · Surface Map · Polaris · Platform · Accountability · C4.6 · federation-permeability). *R3 understated this as Lane-1 + C3.8 intermediates; C3.8 G4 is the named terminus, so its intermediates are optional — the Lane-2 omission is the real one* | R8 Lane 2 + `AB-11` |
+| **B-15** | **`§G1-CONTRACT` outputs 2–7 incomplete** — the operations loop, graph semantics, change lifecycle, profile resolution, conformance model and transfer-limit matrix | R8 §5 `G1` |
 
 **G2 installation requirements**
 
-| # | |
-|---|---|
-| **B-3** | `AB-08` 12-artifact fixture set unrun (`G-08`) |
-| **B-7** | **Build Entry Gate `11` is frozen against a stale foundation** and must be re-pointed before it can admit G2 |
-| **B-9** | Seat transfer/suspension undefined (`G-02`) |
-| **B-10** | Adversarial-principal assurance viewpoint has no home (`G-04`) |
+| # | | |
+|---|---|---|
+| **B-7** | Build Entry Gate `11` frozen against a stale foundation; must be re-pointed before it can admit G2 | `11` self-declared |
+| **B-9** | Seat transfer/suspension undefined (`G-02`) | — |
+| **B-10** | Adversarial-principal assurance viewpoint has no home (`G-04`) | — |
+
+**Reclassified out of G1 blocking, with reasons**
+
+| # | Was | Now | Why |
+|---|---|---|---|
+| **B-2** | G1 blocker | **G1 open item with an owner** | R8 permits G1 to *"decide each, or name it open with an owner."* How many authority contexts exist is named open, owner = `architecture_steward`, target G3 (`G-12`) |
+| **B-6** | G1 blocker | **G2/G4 proof obligation** | Tier-0 #14 §4's *"5 scenarios stress-tested by the user"* is a **substrate-slice readiness checklist for a next pillar**. R3 did not show it binds G1 acceptance. The binding G1 requirement is R8's eleven scenarios (`§E4b`) |
+| **B-13** | G3 debt | **G1 content obligation** | `AB-01`'s cross-arc extension and owner disposition are part of the G1 content model, not automatically G3 debt (`G-07`) |
 
 **G3 reconciliation debt**
 
