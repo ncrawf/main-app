@@ -52,7 +52,7 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 | 4 | **"NIST 800-207 isomorphic" downgraded** to *partial correspondence*; C3.8 itself says *"strongly ZTA-compatible in principle"*, and an owning-domain commit is **not** a NIST Policy Administrator (§5) |
 | 5 | **SPIFFE downgraded** — authenticated workload **identity**, which is an input to authorization, not authorization (§5) |
 | 6 | **in-toto/SLSA expanded** — the build-plane gap is not "attestation"; it is authorized functionaries, isolated execution, non-forgeable provenance, declared inputs, material/product rules, protected signing, and verification at admission **and** release (§5) |
-| 7 | **"Conformance is the wrong requirement" corrected** — *internal-model equivalence* is not required; **boundary conformance is mandatory**, and GCE already owns that contract (§3) |
+| 7 | **"Conformance is the wrong requirement" corrected** — *internal-model equivalence* is not required; **boundary conformance is mandatory**. GCE is the established **home** for that contract; **the contract content does not yet exist** (thesis §C paused) — §3, `G-18` |
 | 8 | **C3.8 does not moot Lane 1** — it answered security/enterprise questions, not architecture-description, variability, profile-composition or conformance practice (§5.3) |
 | 9 | **Blockers sorted by rightful gate** — G1 is not held hostage to G4 proof, and unfinished G1 semantics are not pushed downstream (§6.2) |
 | 10 | **G4 adversarial fixtures added to existing tests** — no new gate, no new arc (§E5) |
@@ -69,9 +69,11 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 
 ## §G1-CONTRACT — completion matrix against the R8 required outputs
 
-> **This is the acceptance instrument. It has never existed before, and its absence is why four revisions produced review dossiers instead of a gate result.** Plan §5 `G1` requires reconciliation into seven named outputs. **A cell is `COMPLETE` only when its sources are read, its decision is made or explicitly named open with an owner, and its evidence is in `§E`.**
+> **This is the readiness contract, NOT the acceptance object and NOT the architecture.** It answers one question — *what must exist before G1 can be accepted, and what is still missing.* **Accepting this matrix would be accepting a checklist instead of an operating model.** Its absence is nonetheless why four revisions produced review dossiers instead of a gate result. **A cell is `COMPLETE` only when its sources are read, its decision is made or explicitly named open with an owner, and its evidence is in `§E`.**
 >
-> **Method rule for the next pass: close cells. Do not re-author the document.** Three of the four revisions to date rewrote the whole carrier, which is how required evidence got deleted (§0.1) and how the load-bearing model changed three times. **Full-document rewriting is hereby retired as the working method for this gate.**
+> **Method rule: whole-dossier rewriting is retired as the *evidence-completion* method for this gate.** Three of four revisions re-authored the entire carrier, which is how required evidence got deleted (§0.1) and how the load-bearing model moved three times. **This retires uncontrolled reauthoring — it does NOT retire synthesis, architecture, or the eventual authoring of a clean carrier.** Closing cells 2–7 *requires* bounded authoring; source retrieval is the prerequisite, not the substitute.
+>
+> **Global completion rule:** *no output is complete while its model section, provenance table, blocker table, STOP receipt, catalog entry and route entry disagree.* The previous pass changed conclusions in the body and left six surfaces stale — which is why this rule exists.
 
 | # | R8-required G1 output | Carrier section | Required sources read? | Decision state | Residual | Acceptance condition |
 |---|---|---|---|---|---|---|
@@ -84,7 +86,18 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 | 7 | **adopt / reject / transfer-limit matrix** | `§5` + `§E2` | ✘ Lane-1 primary sources unread | **INCOMPLETE** | transfer limits derived from C3.8 only; the architecture-management lane is unread | Lane-1 read; per-mechanism transfer limits stated |
 | — | **`§G1-AUTH`** *(mandatory work package)* | `§4` + `§E4` | partial — Build OS ✔, Care ✔, RBAC ✔, GCE ✔ | **partially converged** | authority-source decomposition (§4.2) unsettled; 2 of 11 scenarios PARTIAL | the decomposition settles and every scenario resolves without invented authority |
 
-**Honest reading: one of eight outputs is at "proposed"; none is complete.** The model work is real and the evidence is now restored, but **G1's contract is not close to satisfied**, and no amount of further prose in this file will change that — items 2 through 7 need the unread Lane-1 and Lane-2 sources, not more synthesis.
+### §G1-CONTRACT.b — gate-compliance obligations *(not model outputs, but required for acceptance)*
+
+| Obligation | Evidence | Status | Acceptance condition |
+|---|---|---|---|
+| PRE-0 rows dispositioned | `§E1` | **proposed** (40/40 verdicted, 0 closed) | steward + affected owners accept |
+| One verdict per tool candidate | `§E2` | **complete as proposal** | nine unambiguous verdicts — met (1/5/3/0) |
+| Current-practice vs 2030/35 evaluation | `§E3` | **complete as proposal** | ten capabilities covered — met |
+| `M-106` inheritance / dedup | `§6` source map | **partial** | no unsupported novelty claim survives |
+| Eleven authority scenarios | `§E4b` | **partial** | each resolves, or is named open with an owner per R8 |
+| Boot / state integrity | `B-1` | **FAILED** | R8/R9 normalized, or the fields marked historical |
+
+**Honest reading: one of eight outputs is at "proposed"; none is complete; one gate obligation has failed.** The model work is real and the evidence is restored, but **G1's contract is not close to satisfied.** Items 2–7 need the unread Lane-1 and Lane-2 sources **and then bounded authoring** — reading alone will not produce an operations loop, graph semantics or a conformance model. **There is no path from unread sources to a completed architecture that contains no writing.**
 
 ---
 
@@ -207,11 +220,13 @@ A third-party harness need not reproduce OMNI's ontology or run OMNI's authority
 | Construct | Provenance |
 |---|---|
 | Reactor's eight invariants · Tier-0 #14 three-layer pattern · GCE composers · RBAC spine + six-layer resolution · Care's four projections · the nine-term meet · five-layer allocation · Build OS five layers | **INHERITED** (Reactor and Care frozen/unpromoted; the meet nonbinding; Build OS at §1.3 maturity) |
-| *"build-agent authority never becomes product authority"* · Care's U/C/A crosswalk · ZTA/ReBAC/SPIFFE/SLSA correspondences | **INHERITED** (Build OS `09`; Care §19; C3.8 G2/G4) |
+| *"build-agent authority never becomes product authority"* · ZTA/ReBAC/SPIFFE/SLSA correspondences | **INHERITED** (Build OS `09`; C3.8 G2/G4) |
+| Care's U/C/A crosswalk, applied beyond Care | **INHERITED CANDIDATE + SYNTHESIZED cross-scope generalization** — the crosswalk is `analysis_nonbinding`, `REVIEW-DRAFT`, frozen, `[INV]` = candidate; generalizing it past Care is this gate's synthesis (`G-16`) |
 | standing context ⟂ transition transaction · commitment/custody as concurrent tracks · six non-collapsing questions · seat/principal/actor/grant · durable-vs-profile agent split | **SYNTHESIZED** |
-| `authority_basis` typology | **RECONCILED** (Care §5b.1 enumerates the kinds) |
+| the **five-axis authority decomposition** (§4.2) | **SYNTHESIZED proposal**, grounded in Care §5a's anti-collapse distinctions. *(R3's single `authority_basis` enum was malformed and is withdrawn; it was never `RECONCILED`.)* `G-17` |
 | decision-condition predicate · the four effect classes (§3) · governance by attestation withdrawal (§6.4) | **NET-NEW** |
-| authority-origin direction as a profile axis (§2.4) | **SYNTHESIZED**; its proof consequence **INHERITED** (C3.8 §2.4) |
+| authority-origin direction | **CANDIDATE DESCRIPTOR FIELD — not a settled profile axis.** *(R3 promoted it to a profile axis; withdrawn at §2.4.)* Its proof consequence is **INHERITED** (C3.8 G4 §2.4) |
+| the GCE boundary-contract obligation set (§3) | **NET-NEW synthesis** — GCE is the home; the contract content does not exist (`G-18`) |
 | how many authority contexts exist | **OPEN** — G3 |
 
 ### §4.1 — Two structures
@@ -287,7 +302,7 @@ Reuses RBAC's existing assignment/grant separation plus `system_actor_atom_grant
 
 ### §4.9 — Classification
 
-**Standard:** the six durable invariants · required-positive-authority · no-scalar-authority · necessary-never-sufficient · point-of-consequence reauthorization · the six non-collapsing questions · both SoD forms. **Domain contract:** the composers, spine, resolution, attestation tiers, consent-gate; Care's projections and `approval_requirement` (Care-owned). **Operating profile:** seat catalogs · thresholds · today's agent constraints · the §2.4 profile axes. **Runtime configuration:** the registers. **Controlled vocabulary:** the three-envelope family; `authority_basis`. **Candidate standard pending promotion:** the nine-term meet (`G1-FIND-03`).
+**Standard:** the six durable invariants · required-positive-authority · no-scalar-authority · necessary-never-sufficient · point-of-consequence reauthorization · the six non-collapsing questions · both SoD forms. **Domain contract:** the composers, spine, resolution, attestation tiers, consent-gate; Care's projections and `approval_requirement` (Care-owned). **Operating profile:** seat catalogs · thresholds · today's agent constraints · the §2.4 **candidate** axes *(authority-origin direction is a descriptor field, not among them)*. **Runtime configuration:** the registers. **Controlled vocabulary:** the three-envelope family — **and only axes 1, 2 and 4** of §4.2 (source/entitlement · instrument · evidence form); **axis 3 is a relationship** and **axis 5 a structured object with temporal fields**, neither of which is a vocabulary. **Candidate standard pending promotion:** the nine-term meet (`G1-FIND-03`). **All §4.2 classifications are proposed** (`G-17`).
 
 ---
 
@@ -319,7 +334,9 @@ Build OS `10`: *"Record any newly used comparator in `comparator_analogy_registr
 # §E — REQUIRED GATE OUTPUTS
 
 > ## ★ DO NOT COMPRESS
-> **These four tables are G1's required deliverables. A future revision may correct a row; it may NOT replace any table with a total, a summary or a count.** R2 deleted three of them while keeping their totals (§0.1). Every aggregate elsewhere in this file points here.
+> **`§E1`–`§E4b` are G1's required evidence. `§E5` is NOT a G1 output** — it is a **routed G4 proof plan** produced here and carried forward under G4's existing tests.
+> **A future revision may correct a row; it may NOT replace any table with a total, a summary or a count.** R2 deleted three of them while keeping their totals (§0.1). Every aggregate elsewhere in this file points here.
+> **Vocabulary:** rows carry **proposed dispositions supported by evidence.** Nothing here is *discharged* or *closed* — this file is `analysis_nonbinding`, authored under `proposal_authoring`, and the ledger transition belongs to the accepting transaction.
 
 ## §E1 — Ledger semantic receipt — the 40 `blocks G1` rows
 
@@ -336,8 +353,8 @@ Grouped only where rows share one verdict and destination, per the ledger's gran
 | `AB-07` | change capsule | adopted narrowed as input to plan §3.1 | adds rationale · **refusals** · conditions · rollout. **A manifest recording approvals but not refusals silently converts a blocking domain-owner objection into an absent approval** (`INV-30`) | G2 change-manifest schema | steward at G2 |
 | `AB-08` | artifact taxonomy granularity | **PROPOSED, fixture-gated — NOT closed** | question is malformed; passport ⟂ descriptor; axes with `plane` ⟂ `viewpoint_or_view` split; role registry open | §E-note B | the 12-artifact fixture set passes (`G-08`) |
 | `AB-10` `INV-25` | conformance as attributed claim; conformance ≠ compliance ≠ acceptance | adopted narrowed | claim carries issuer · profile · version · environment · exceptions. **Plural certification NOT adopted** | conformance model | steward accepts |
-| `AB-11` | external mechanisms as named inputs | **partially discharged** | C3.8 covers security/enterprise; **architecture-management sources still owed** (§5.3) | Lane 1 | `B-8` discharged |
-| `AB-12` | governance self-hosted on OMNI's primitives | **discharged by trace, not assertion** | four-object seat model, corrected against the live C-10 transaction; reuses RBAC's assignment/grant split | §4.6 · §E4 trace 1 | steward accepts |
+| `AB-11` | external mechanisms as named inputs | **proposed disposition, partially supported** | C3.8 covers security/enterprise; **architecture-management sources still owed** (§5.3) | Lane 1 | `B-8` closed |
+| `AB-12` | governance self-hosted on OMNI's primitives | **proposed disposition supported by trace evidence** | four-object seat model, corrected against the live C-10 transaction; reuses RBAC's assignment/grant split | §4.6 · §E4 trace 1 | steward accepts |
 | `AB-14` `INV-12` `INV-13` | portability is relationship portability | adopted narrowed | **warrant re-anchoring + commitment novation**, proven by drills; a continuity bundle imports as **attributed evidence** and does not become the receiver's master record; fork rights → operator | G1 contract + G4 drill | steward; operator decides fork rights |
 | `AB-15` `INV-17` | one issuer vs collective assertion | adopted narrowed — fork dissolved | **atomic statement** = one issuing principal, many actors/signers/witnesses/dissents; **collective act** = composite with its own identity, named body, decision rule (§4.5), independently attributable constituents | information contract | steward accepts |
 | `AB-16` `AB-17` `INV-05` | consent state modelling | adopted narrowed; **routed, not applied** | four orthogonal axes — `choice` ⟂ `communication` ⟂ `legal_effect` ⟂ `authority/source`; **`overridden_by_law` is a legal-effect state over a separately preserved refusal**; silence is `choice = unknown` and never resolves to consent by timeout | **G3 Care** (frozen) | Care owner, post-forensic |
@@ -493,7 +510,7 @@ R1's *"one bounded semantics away"* was false against its own register, and R2's
 |---|---|---|---|
 | **B-2** | G1 blocker | **G1 open item with an owner** | R8 permits G1 to *"decide each, or name it open with an owner."* How many authority contexts exist is named open, owner = `architecture_steward`, target G3 (`G-12`) |
 | **B-6** | G1 blocker | **G2/G4 proof obligation** | Tier-0 #14 §4's *"5 scenarios stress-tested by the user"* is a **substrate-slice readiness checklist for a next pillar**. R3 did not show it binds G1 acceptance. The binding G1 requirement is R8's eleven scenarios (`§E4b`) |
-| **B-13** | G3 debt | **G1 content obligation** | `AB-01`'s cross-arc extension and owner disposition are part of the G1 content model, not automatically G3 debt (`G-07`) |
+| **B-13** | G3 debt | **G1 content obligation, resolved in three parts** | The ledger says `AB-01` blocks G1. So: **(a)** G1 must decide and propose the generalized shared-mechanism form — a **G1 obligation**; **(b)** the C4.4 owner's acceptance is a **required approving-seat action** at G1 acceptance; **(c)** any insertion into `C4.4 §R` itself is **downstream**. It is not "only G3 debt", and the previous pass listed it in two gates simultaneously (`G-07`) |
 
 **G3 reconciliation debt**
 
@@ -502,7 +519,7 @@ R1's *"one bounded semantics away"* was false against its own register, and R2's
 | **B-4** | Seat model untested against five harder cases (`G-10`) |
 | **B-11** | Fleet attestation-withdrawal semantics unstated (`G-09`) |
 | **B-12** | Third-party effects performed **outside** OMNI — the four effect classes (`G-13`) |
-| **B-13** | `C4.4 §R` cross-arc extension needs its domain owner (`G-07`) |
+*(`B-13` is **not** listed here — it is reclassified to G1 below. The previous pass listed it in both places at once.)*
 
 **G4 proof obligations**
 
@@ -543,7 +560,9 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 
 ### §7.2 — Gaps
 
-`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner · `G-08` `AB-08` fixture set · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15` (new)** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority.
+`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner · `G-08` `AB-08` fixture set · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15`** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority · **`G-16` (new)** Care's U/C/A crosswalk is a frozen nonbinding candidate; generalizing it past Care is unratified cross-scope synthesis → G3 Care reconciliation · **`G-17` (new)** the five-axis authority decomposition is a proposal requiring reconciliation against Care's own composition-field list → G3 · **`G-18` (new)** GCE is the established home but the build-facing boundary contract does not exist (thesis §C paused) → §C authoring / G3.
+
+*(`G-16`…`G-18` were minted in the body of the previous pass and never reached this register — the finding-evaporation defect this register exists to prevent. Recorded as a live instance under `F-04`.)*
 
 ### §7.3 — Findings routed
 
@@ -573,11 +592,12 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 | R2 → R3 | evidence restored (§E) · Build OS read · "three planes" withdrawn · four external correspondences downgraded · third-party rule corrected · blockers sorted by gate · G4 fixtures added |
 | Required outputs | **§E1** 40-row semantic receipt · **§E2** nine tool dispositions · **§E3** ten-row frontier matrix · **§E4** five traces + eleven scenarios · **§E5** ten G4 fixtures. **Fenced against compression** |
 | Ledger | 40 rows verdicted. **ZERO closed** |
-| Operator questions | **Q1** — the rule already existed in Build OS `09`; the mechanism already existed in Care §19 U/C/A; what survives is a **profile axis**, not a new partition (§2). **Q2** — internal-model equivalence not required, **boundary conformance mandatory**; ten obligations, four gaps, plus the out-of-band effect classes (§3) |
+| Operator questions | **Q1** — the rule already existed in Build OS `09`; Care §19's U/C/A supplies the mechanism **as a frozen nonbinding candidate**, and applying it past Care is **this gate's synthesis** (`G-16`). The build-down/care-external binary is **withdrawn**; the rule is **per-act origin resolution**, and authority-origin direction is a **candidate descriptor field, not a profile axis**. **Q2** — internal-model equivalence not required, **boundary conformance mandatory**; GCE is the **home**, but the contract content **does not exist** (thesis §C paused), so the ten obligations are **new synthesis** (`G-18`) |
 | Boot | **VIOLATION, unresolved** |
 | Minted | **nothing** |
 | Verdict | **`NOT_CONVERGED__REQUIRED_OUTPUTS_RESTORED_SOURCE_FLOOR_AND_MODEL_BOUNDARIES_INCOMPLETE`** |
-| Next | **B-1 first.** Then the three remaining G1 blockers (B-2, B-6, B-8). G2/G3/G4 blockers are listed at their own gates and **must not hold G1** |
+| G1 blockers | **B-1** boot state · **B-3** `AB-08` fixture *(ledger says it blocks G1)* · **B-8** source floor incl. unread **Lane-2** carriers · **B-13** `AB-01` generalized form + C4.4 owner acceptance · **B-15** `§G1-CONTRACT` outputs 2–7. *(B-2 → open item with owner; B-6 → G2/G4)* |
+| Next | **B-1 first — recommend NOT waiving it.** Then: map each incomplete cell to its exact source and controlling section **before** reading · read selectively · run the `AB-08` fixture · then **bounded authoring** to close cells 2–7. **A clean acceptance carrier is assembled only after the cells close** — earlier, it becomes another revision by another name. Whether that carrier is one artifact or two is decided by **output 1, the artifact metamodel** — not by preference |
 
 ## §9 — Handoff
 
@@ -591,4 +611,4 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 
 **Stop condition:** superseded when the steward and affected domain owners accept, amend or reject — after `B-1` clears.
 
-**STOP: `g1_carrier_R3_proposed · BLOCKED_boot_state · required_outputs_restored_and_fenced · 40_rows_verdicted_zero_closed · build_os_consumed · Q1_and_Q2_answered_from_existing_law · 4_G1_blockers_10_routed_downstream`**
+**STOP: `g1_working_dossier · BLOCKED_boot_state · evidence_restored_and_fenced · 40_rows_verdicted_zero_closed · G1_CONTRACT_0_of_8_outputs_complete · 5_G1_blockers · acceptance_carrier_not_yet_authored`**
