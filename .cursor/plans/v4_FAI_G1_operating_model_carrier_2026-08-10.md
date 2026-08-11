@@ -649,13 +649,31 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 
 ### §7.2 — Gaps
 
-`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner · `G-08` `AB-08` fixture set · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15`** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority · **`G-16` (new)** Care's U/C/A crosswalk is a frozen nonbinding candidate; generalizing it past Care is unratified cross-scope synthesis → G3 Care reconciliation · **`G-17` (new)** the five-axis authority decomposition is a proposal requiring reconciliation against Care's own composition-field list → G3 · **`G-18` (new)** GCE is the established home but the build-facing boundary contract does not exist (thesis §C paused) → §C authoring / G3.
+`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner · `G-08` `AB-08` fixture set · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15`** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority · **`G-19` (new)** no enumeration of standards **binding** on OMNI (IEC 62304 · ISO 14971 · ISO 13485 · ISO 27001 · HIPAA Security Rule all absent) versus **borrowable** mechanisms; `regulatory_compliance_evidence/` exists and is empty → steward + operator, **non-blocking for G1** (`G1-FIND-10`) · **`G-16` (new)** Care's U/C/A crosswalk is a frozen nonbinding candidate; generalizing it past Care is unratified cross-scope synthesis → G3 Care reconciliation · **`G-17` (new)** the five-axis authority decomposition is a proposal requiring reconciliation against Care's own composition-field list → G3 · **`G-18` (new)** GCE is the established home but the build-facing boundary contract does not exist (thesis §C paused) → §C authoring / G3.
 
 *(`G-16`…`G-18` were minted in the body of the previous pass and never reached this register — the finding-evaporation defect this register exists to prevent. Recorded as a live instance under `F-04`.)*
 
 ### §7.3 — Findings routed
 
 `G1-FIND-01` R8/R9 stale and contradicted by their own catalog rows; checkpoint §4 diverges from the ledger's `blocking_scope` · `G1-FIND-02` `rbac_authority_contract.md` §5 carries two different four-member lists · `G1-FIND-03` the most precise composition statement sits at the lowest maturity · `G1-FIND-04` G0 receipt normalization **proposed** · `G1-FIND-05` plan §1's *"nothing exists"* and R1's *"nothing is net-new"* are equal and opposite · `G1-FIND-06` operations mechanisms assume elastic review capacity · `G1-FIND-07` **C3.8's ratified posture and translation map were never connected to the authority model** though it was catalogued, routed and named in two required lists · **`G1-FIND-08` (new)** comparators used here need `comparator_analogy_registry.md` rows per Build OS `10`'s never-re-scatter rule · **`G1-FIND-09` (new)** **Build OS `09` already states *"build-agent authority never becomes product authority"*, and Care §19 already carries the U/C/A propagation crosswalk — this gate re-derived both as "three planes."**
+
+**`G1-FIND-10` (new) — the estate has no coverage of the standards that would actually bind a clinical substrate, and the lane built to hold them is empty.** Raised by the operator while scoping 42010; verified by search rather than assumed:
+
+| Standard | Estate presence | Relevance |
+|---|---|---|
+| **IEC 62304** software lifecycle for medical devices | **zero** | binding if any OMNI component is ever classified **SaMD** |
+| **ISO 14971** risk management for medical devices | **zero** | same |
+| **ISO 13485** medical-device QMS | **zero** | same |
+| **ISO 27001** · **HIPAA Security Rule** *(as a named control set)* | **zero** | security posture and enterprise procurement |
+| FDA **§524B** · NIST **800-207** · SLSA · OWASP-MCP | present, via **C3.8** | already mapped with named gaps |
+| ISO/IEC/IEEE **42010** | 6 mentions, **all from this arc's own withdrawn probe** | optional architecture-description comparator |
+| `ingestion/regulatory_compliance_evidence/` | **contains only `_lane.md`** | the home exists and is **unpopulated** |
+
+**The distinction that matters, and the estate does not currently draw it:** a standard is either **binding on OMNI** (regulatory or contractual — non-conformance is a legal or sales event) or a **borrowable mechanism** (take the idea, leave the standard). C3.8 mapped several of the second kind well. **Nothing enumerates the first kind.**
+
+**42010 is squarely the second kind and must stay fenced that way** — no major consumer or cloud software company conforms to it; it lives in defense, aerospace, automotive, rail, medical devices and enterprise-architecture practice. AWS "lenses" are viewpoints without the vocabulary. **Take the view/viewpoint/correspondence distinction if it survives contact with the actual maps; adopt no framework, mint no conformance obligation.**
+
+**Routed, not solved here.** Destination: `ingestion/regulatory_compliance_evidence/` for the binding set, `comparator_analogy_registry.md` for borrowable mechanisms, `future_work_registry.md` for the programme. Owner: `architecture_steward` + operator (a SaMD-classification question is a business and regulatory decision, not an architecture one). **Out of scope for G1 and explicitly not a G1 blocker** — recorded so it is not discovered late. `G-19`.
 
 **Guardrail candidates — captured, NOT promoted** (`GRD-036`; a `06` row is a Tier-0.5 rule change):
 
