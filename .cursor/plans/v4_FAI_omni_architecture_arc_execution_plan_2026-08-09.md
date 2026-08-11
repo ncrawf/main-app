@@ -2,10 +2,13 @@
 
 Document type: `handoff_or_readiness_gate` (the plan the next agent runs; **not** the architecture)
 Authority: `analysis_nonbinding`. Binds nothing. Mints nothing.
-Status: **`execution_plan_R8 · pending_operator_and_independent_review_acceptance · nothing_started`**
+Status: **`execution_plan_R8 · ACCEPTED_AT_G0_2026-08-10 · CURRENT_STATE_BY_CHECKPOINT`**
+> **State-normalization receipt (`B-1`, 2026-08-11).** This line previously read `pending_operator_and_independent_review_acceptance · nothing_started`, which was stale: G0 was accepted 2026-08-10, the `integration` holder was appointed, the `C-10` checkpoint transaction landed, and this file's catalog row already read `ACCEPTED_at_G0_g1_startable`.
+> **This line now carries artifact lifecycle status only.** A first draft of this repair asserted `G1_IN_PROGRESS` here — **withdrawn**: that would have made an accepted carrier a second progress tracker competing with the checkpoint, which is the defect being removed rather than a fix for it. **An accepted carrier may state its own lifecycle; it may not state program state.**
+> **Scope: state surfaces only** — no gate semantics, sequence, scope or content changed. This file continues to own **only** the gate sequence (§5).
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: converts the accepted Gate-0 charter into an executable program. **The next agent executes this. It does not redesign it.**
-Manifest action: `add_tier2` **PROPOSED** — not landed.
+Manifest action: `add_tier2` — **LANDED** (catalog row + read-graph route `9v`, in the `C-10` transaction 2026-08-10).
 Review gate: `user_knox_required`
 
 **Companion:** the Gate-0 charter (**R9**) — the *why*, and the ONLY current gate sequence lives **here**, not there.
@@ -420,6 +423,6 @@ Install the `/architecture` package **and its operations scaffold**: canonical m
 | Corrected from R1 | **method-repertoire ceremony deleted** (violated its own contract) · **"most teams do less" deleted** (contradicted Build OS Step-5) · **Operations half added** · external + internal now **parallel** · **the §5/G4 acceptance suite** expands beyond routing-only *(count resolved there, not copied here)* · foundation deep-reconciled, tail classified · **tool decisions made, not hedged** |
 | Shared control-plane surfaces | **0 touched** |
 | Minted | **nothing** |
-| Next | **operator accepts the provisional G0 transaction profile → `integration` appointment → `C-10` checkpoint transaction → G0 closes → G1 opens** *(PRE-0 execution, reconciliation and the amendment cycle are **COMPLETE** — see §1 / the handoff)* |
+| Next | **Resolve from the current checkpoint — this row is NOT a maintained current-state surface.** *(All four steps it previously named — operator acceptance, `integration` appointment, the `C-10` transaction and G0 closure — completed 2026-08-10.)* |
 
-**STOP: `execution_plan_R8_pending_final_closure_certification_then_g0`**
+**STOP: `execution_plan_R8_accepted_at_g0_2026-08-10 · gate_sequence_owned_here · current_state_owned_by_checkpoint`**

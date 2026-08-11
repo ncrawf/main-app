@@ -2,12 +2,16 @@
 
 Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
-Status: **`gate_0_charter_R9 · pending_operator_and_independent_review_acceptance · nothing_started`**. Current state lives in §1 and nowhere else.
+Status: **`gate_0_charter_R9 · ACCEPTED_2026-08-10 · CURRENT_STATE_BY_CHECKPOINT`**. Current state lives in §1 and nowhere else.
+> **State-normalization receipt (`B-1`, 2026-08-11).** This line previously read `pending_operator_and_independent_review_acceptance · nothing_started`, which was stale: Gate 0 was accepted 2026-08-10 and this file's catalog row already read `gate_0_ACCEPTED_2026-08-10`.
+> **This line now carries artifact lifecycle status only.** A first draft asserted `G1_IN_PROGRESS` here — **withdrawn**, because an accepted carrier may state its own lifecycle but may not become a second progress tracker competing with the checkpoint.
+> **§14 retains its ORIGINAL historical STOP string, deliberately.** A first draft of this repair rewrote it while the receipt claimed §14 was untouched — a false statement about its own diff, now corrected. §14 is a historical authoring receipt; its pending-acceptance state is accurate *as of authoring* and is not a freshness defect.
+> **Scope: state surfaces only** — no architecture, gate semantics, scope or content changed.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
 Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
 Supersedes: nothing. Superseded by: none.
-Manifest action: `add_tier2` **PROPOSED** — not landed (`PRESPINE-PHASEA-INTEGRATOR` VACANT).
+Manifest action: `add_tier2` — **LANDED** (catalog row + read-graph route `9v`, in the `C-10` transaction 2026-08-10).
 Review gate: `user_knox_required`
 
 > **Correction receipt R0 → R1 → R2.**
@@ -23,11 +27,11 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R9 · not_started · PRE-0_complete · amendment_cycle_applied · G0_NOT_ACCEPTED` · **execution plan R8** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter** |
-| What this file authorizes | **nothing** — a proposal for Nick + Knox acceptance |
+| Arc state | `chartered_R9 · PRE-0_complete · amendment_cycle_applied · **G0_ACCEPTED_2026-08-10**` · **execution plan R8** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter.** **Active gate, blocker state and next action resolve from the current checkpoint — not from this row.** |
+| What this file authorizes | **the arc, as accepted at G0 2026-08-10.** It authorizes no G1 content — G1 outputs are proposed under `proposal_authoring` and accepted by their own seats |
 | **PRE-0 preflight** | **runs BEFORE G0 and is NOT a gate.** Two blind alternative designs (A, B) + one independent grounded plan audit (C). Protocol: `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. **G0 cannot be accepted until PRE-0 has run and its ledger is reconciled** |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
-| Blocking obligation | **`PRESPINE-PHASEA-INTEGRATOR` VACANT.** No shared control-plane surface may land |
+| Blocking obligation | **Resolve from the current checkpoint — this row is NOT a maintained blocker surface.** *(It previously read `PRESPINE-PHASEA-INTEGRATOR` VACANT; the `integration` holder was appointed 2026-08-10, bounded to the arc-opening transaction, and that appointment has since expired by its own terms.)* |
 
 ---
 
@@ -171,8 +175,11 @@ Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 rout
 
 ---
 
-## §13 — The one operator authorization requested
-Opening this arc changes the program's next action — checkpoint-level — and the integrator seat is vacant:
+## §13 — The one operator authorization requested — **GRANTED 2026-08-10; this section is now historical**
+
+> **Historical.** The appointment below was granted 2026-08-10, exercised for the `C-10` arc-opening transaction, and **expired by its own terms on completion.** Retained as lineage. **It is not a live request and confers no standing authority** — any later appointment is its own bounded transaction recorded in the checkpoint's holder receipt.
+
+*As requested at authoring time:*
 
 > **REQUESTED: appointment of the `integration` holder** for the bounded foundational-architecture arc-opening transaction — checkpoint repoint, catalog rows, read-graph route. **This charter names the ROLE only. The actual holder is recorded in the operational G0 holder receipt when the operator executes the appointment** (plan `### G0`) — a persistent architecture document must never bind a named person or model. **This does not authorize substantive Gate-1 authorship until the Gate-0 charter is accepted.**
 
