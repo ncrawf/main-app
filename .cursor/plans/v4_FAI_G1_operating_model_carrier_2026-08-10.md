@@ -2,7 +2,7 @@
 
 Document type: `handoff_or_readiness_gate` (gate-output carrier — the G1 deliverable named in execution plan §5)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Binds nothing. Mints nothing. Promotes nothing. Closes nothing.** Where this carrier and a controlling carrier differ, **the carrier controls and this file is corrected.**
-Status: **`g1_carrier_R3 · state=proposed · BLOCKED_ON_BOOT_STATE_NORMALIZATION`**
+Status: **`g1_carrier_R3 · state=proposed · B-1_CLEARED · 0_of_8_outputs_complete`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: **working dossier for the G1 gate output — NOT yet an acceptance object.** It carries the model proposal, the required evidence (`§E`), and the completion matrix (`§G1-CONTRACT`) that says which R8-required outputs are still missing. **Read `§G1-CONTRACT` first: it is the only honest answer to "is G1 done."**
 Source-of-truth relationship: **owns nothing.** Gate sequence → plan §5. Rationale → charter R9. Finding disposition → PRE-0 ledger R5. Program state → the checkpoint. Authority truth → §4's carriers. External/enterprise correspondence → **C3.8 G2/G4**. Build-side operating model → **Build OS `09`/`10`** *(at their declared maturity — §1.3)*.
@@ -36,7 +36,19 @@ Verified against the live file:
 1. **§E now fences them** with an explicit non-compression rule, and every total in this file points at its §E table instead of restating it.
 2. **A banner is a warning, not an architecture — and R3's *"machine-readable descriptors survive, prose does not"* is withdrawn as overstatement.** A YAML file is as deletable as a table. **Durability comes from stable identity · versioning · append-only or explicitly-superseding revision · protected writers · required completeness checks · source linkage · and automated failure when expected evidence disappears.** Machine-readability matters because it makes those *checkable*, not because it makes them true. §E's fence is an interim warning; the durable mechanism is a G2 requirement (`B-15`).
 
-### §0.2 — The boot violation remains unresolved
+### §0.2 — The boot violation is **RESOLVED** *(2026-08-11)*
+
+**`B-1` is closed.** R8 and R9 were normalized in a bounded state-normalization transaction on the arc base (authored under `proposal_authoring`, independently reviewed, **operator-accepted at an exact head**, landed under the bounded `integration` seat, then verified **on the base branch rather than the PR head**). Both accepted carriers now state **artifact lifecycle only** — `ACCEPTED_AT_G0_2026-08-10 · CURRENT_STATE_BY_CHECKPOINT` — and their illegitimate current-state rows are checkpoint pointers.
+
+**Post-merge verification, all nine passing on the base:** `AGENTS.md` pointer · read-graph Tier-0 #15 · the checkpoint's gate banner · both catalog rows · R8 lifecycle · R9 lifecycle · no surviving stale claims outside receipts · no `G1_IN_PROGRESS` assertion outside withdrawal notes · `check-checkpoint-pointer` ✔.
+
+**The rule this transaction established, worth more than the repair:** *an accepted carrier may state its own lifecycle; it may never state program state.* Two attempts got this wrong before it landed — the first left the carriers stale, the second made them competing progress trackers asserting `G1_IN_PROGRESS` against a checkpoint reading `g1_startable`.
+
+**The bounded appointment expired on that verification.** No standing integration authority exists.
+
+> **Work produced under the violation is not retroactively validated.** `§E6` remains an exploratory probe; `B-1` clearing removes the blocker, it does not convert that probe into a fixture result.
+
+### §0.2.1 — Historical: the violation as it stood
 
 Verified: `AGENTS.md`, read-graph #15 and the checkpoint agree; **execution plan R8** still reads `pending_..._acceptance · nothing_started`, `Manifest action: PROPOSED — not landed`, and its §7 `Next` still names four things that already happened; **charter R9** matches and still declares the integrator **VACANT**; and **the catalog rows for both read `ACCEPTED`.**
 
@@ -95,9 +107,9 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 | Current-practice vs 2030/35 evaluation | `§E3` | **complete as proposal** | ten capabilities covered — met |
 | `M-106` inheritance / dedup | `§6` source map | **partial** | no unsupported novelty claim survives |
 | Eleven authority scenarios | `§E4b` | **partial** | each resolves, or is named open with an owner per R8 |
-| Boot / state integrity | `B-1` | **FAILED** | R8/R9 normalized, or the fields marked historical |
+| Boot / state integrity | `B-1` · §0.2 | **CLOSED 2026-08-11** | met — normalized on the base and verified there |
 
-**Honest reading: one of eight outputs is at "proposed"; none is complete; one gate obligation has failed.** The model work is real and the evidence is restored, but **G1's contract is not close to satisfied.** Items 2–7 need the unread Lane-1 and Lane-2 sources **and then bounded authoring** — reading alone will not produce an operations loop, graph semantics or a conformance model. **There is no path from unread sources to a completed architecture that contains no writing.**
+**Honest reading: ZERO of eight outputs are complete.** Output 1 returned to **unrun** when its probe was withdrawn; outputs 2–7 are incomplete; `§G1-AUTH` is partially converged. Of the six gate obligations, **`B-1` is now CLOSED** and the rest are proposed or partial. The model work is real and the evidence is restored, but **G1's contract is not close to satisfied.** Items 2–7 need the unread Lane-1 and Lane-2 sources **and then bounded authoring** — reading alone will not produce an operations loop, graph semantics or a conformance model. **There is no path from unread sources to a completed architecture that contains no writing.**
 
 ---
 
@@ -521,7 +533,9 @@ Recorded here so the next pass has the specification and does not need a separat
 | 11 | **implementation proof** | ✘ | `lib/auth/capabilities.ts`, migrations, CI checks — same: **code, not a document** |
 | 12 | **a proposed-but-unaccepted decision** | ✘ | this carrier. `governance_category` = `handoff_or_readiness_gate`, but **no `architecture_role` fits a gate output** |
 
-**No tally is stated.** The probe's own rows are **1 ✔ / 7 ✘ / 4 untestable**; the previous pass reported *"1 clean · 6 fail · 4 untestable · 1 partial"*, which is **the third count in this arc that did not follow from its own evidence.** Per this arc's own rule the table speaks and no aggregate is restated.
+**The probe's rows are 1 ✔ / 7 ✘ / 4 untestable**, recomputed from the table above. The previous pass reported *"1 clean · 6 fail · 4 untestable · 1 partial"* — **the third count in this arc that did not follow from its own evidence.**
+
+**The durable rule is not a ban on summaries** *(a prior draft said "no tally is stated" and then stated one — withdrawn)*: **no decision-bearing aggregate may be manually maintained without deterministic derivation or a validation check against its underlying rows.** Counts are useful; unchecked duplicated counts are dangerous. **After three occurrences the remedy is a check, not another sentence** — routed to G2 as a validator requirement (`B-15`), since writing one now would exceed this gate's scope.
 
 **The five "repairs" previously listed here are WITHDRAWN as settled conclusions** — see `§E6.1`. Two survive as candidate findings (authority vs ratification state; logical resource vs physical carrier); the rest rested on the carrier/resource conflation, an uninspected `plane` taxonomy, an unread 42010, and a self-refuting claim about addressability.
 
@@ -563,7 +577,7 @@ R1's *"one bounded semantics away"* was false against its own register, and R2's
 
 | # | Blocker | Basis |
 |---|---|---|
-| **B-1** | **Boot state not normalized.** R8/R9 stale; catalog rows contradict them; no waiver exists (§0.2). **Must be repaired on the BASE branch, not here** — fixing the accepted G0 carriers inside the proposal they block is a circular dependency: the proposal cannot be accepted until state is consistent, and state becomes consistent only when the unaccepted proposal merges | `AGENTS.md` boot rule |
+| ~~**B-1**~~ | **CLOSED 2026-08-11** — boot state normalized on the base branch and verified there (§0.2). Repaired outside this proposal, as required: fixing the accepted G0 carriers inside the proposal they block would have been circular | `AGENTS.md` boot rule |
 | **B-13** | **`AB-01` generalized shared-mechanism form** — G1 decides and proposes it; the C4.4 owner participates in G1 approval; any edit to `C4.4 §R` itself is downstream (`G-07`) | ledger: `AB-01` blocks G1 |
 | **B-3** | **`AB-08` 12-artifact fixture unrun** — *moved back from G2* | **ledger `blocking_scope` = blocks G1** |
 | **B-8** | **Source floor incomplete** — Lane-1 architecture-management sources unread **and required Lane-2 carriers unread** (System Map · Surface Map · Polaris · Platform · Accountability · C4.6 · federation-permeability). *R3 understated this as Lane-1 + C3.8 intermediates; C3.8 G4 is the named terminus, so its intermediates are optional — the Lane-2 omission is the real one* | R8 Lane 2 + `AB-11` |
@@ -689,4 +703,4 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 
 **Stop condition:** superseded when the steward and affected domain owners accept, amend or reject — after `B-1` clears.
 
-**STOP: `g1_working_dossier · BLOCKED_boot_state · evidence_restored_and_fenced · 40_rows_verdicted_zero_closed · G1_CONTRACT_0_of_8_outputs_complete · 5_G1_blockers · acceptance_carrier_not_yet_authored`**
+**STOP: `g1_working_dossier · B-1_CLOSED_2026-08-11 · evidence_restored_and_fenced · 40_rows_verdicted_zero_closed · G1_CONTRACT_0_of_8_outputs_complete · 5_G1_blockers · acceptance_carrier_not_yet_authored`**
