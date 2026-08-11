@@ -2,8 +2,11 @@
 
 Document type: `handoff_or_readiness_gate` (arc-opening packet — an **existing** governance category, used deliberately; §4)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). Binds nothing. Promotes nothing. **Mints no name, category or artifact class.**
-Status: **`gate_0_charter_R9 · ACCEPTED_2026-08-10 · G1_IN_PROGRESS`**. Current state lives in §1 and nowhere else.
-> **State-normalization receipt (`B-1`, 2026-08-11).** This line previously read `pending_operator_and_independent_review_acceptance · nothing_started`, which was stale: Gate 0 was accepted 2026-08-10 and the catalog row for this file already read `gate_0_ACCEPTED_2026-08-10`. **State surfaces only were corrected — no architecture, gate semantics, scope or content changed.** §14 remains, by its own declaration, a historical authoring receipt and was deliberately left untouched.
+Status: **`gate_0_charter_R9 · ACCEPTED_2026-08-10 · CURRENT_STATE_BY_CHECKPOINT`**. Current state lives in §1 and nowhere else.
+> **State-normalization receipt (`B-1`, 2026-08-11).** This line previously read `pending_operator_and_independent_review_acceptance · nothing_started`, which was stale: Gate 0 was accepted 2026-08-10 and this file's catalog row already read `gate_0_ACCEPTED_2026-08-10`.
+> **This line now carries artifact lifecycle status only.** A first draft asserted `G1_IN_PROGRESS` here — **withdrawn**, because an accepted carrier may state its own lifecycle but may not become a second progress tracker competing with the checkpoint.
+> **§14 retains its ORIGINAL historical STOP string, deliberately.** A first draft of this repair rewrote it while the receipt claimed §14 was untouched — a false statement about its own diff, now corrected. §14 is a historical authoring receipt; its pending-acceptance state is accurate *as of authoring* and is not a freshness defect.
+> **Scope: state surfaces only** — no architecture, gate semantics, scope or content changed.
 Domain(s): `architecture_governance` · `cross_cutting` — **no domain owns this arc's output.**
 Lifecycle role: opens the arc that reconciles and installs **OMNI Architecture**.
 Source-of-truth relationship: consumes the estate read-only. Where this charter and a carrier differ, **the carrier controls.**
@@ -24,7 +27,7 @@ Review gate: `user_knox_required`
 |---|---|
 | Existence question | **CLOSED. The thing exists.** Not reopened, not gated, not tested |
 | Name of the whole | **OMNI Architecture** — see §3 |
-| Arc state | `chartered_R9 · PRE-0_complete · amendment_cycle_applied · **G0_ACCEPTED_2026-08-10** · **G1_IN_PROGRESS**` · **execution plan R8** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter.** *(Live gate/blocker state is owned by the current checkpoint, not by this row.)* |
+| Arc state | `chartered_R9 · PRE-0_complete · amendment_cycle_applied · **G0_ACCEPTED_2026-08-10**` · **execution plan R8** — `v4_FAI_omni_architecture_arc_execution_plan_2026-08-09.md`. **Authority reconciliation is a REQUIRED G1 work package; no authority model is settled by this charter.** **Active gate, blocker state and next action resolve from the current checkpoint — not from this row.** |
 | What this file authorizes | **the arc, as accepted at G0 2026-08-10.** It authorizes no G1 content — G1 outputs are proposed under `proposal_authoring` and accepted by their own seats |
 | **PRE-0 preflight** | **runs BEFORE G0 and is NOT a gate.** Two blind alternative designs (A, B) + one independent grounded plan audit (C). Protocol: `v4_FAI_PRE0_preflight_brief_and_protocol_2026-08-09.md`. **G0 cannot be accepted until PRE-0 has run and its ledger is reconciled** |
 | Insurance | **FROZEN.** PR #14, separate branch, unmerged. `C3.9` and `E2` not started |
@@ -198,4 +201,4 @@ Stale-state read instead of terminus (`EVRUN-000008`) · **mandatory Tier-0 rout
 | Blocking | integrator **VACANT** |
 | Next | **see §1 / the handoff for current next state.** *(As authored: PRE-0 → one reconciliation → at most one bounded amendment → then G0 acceptance. **All three are now COMPLETE.**)* Nothing auto-starts |
 
-**STOP: `gate_0_charter_R9_accepted_2026-08-10 · execution_plan_R8_accepted · current_state_owned_by_checkpoint`**
+**STOP: `gate_0_charter_R9_and_execution_plan_R8_pending_acceptance`**
