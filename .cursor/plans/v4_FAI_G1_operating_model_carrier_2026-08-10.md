@@ -11,7 +11,7 @@ Manifest action: `add_tier2` · Review gate: `user_knox_required`
 > ## ★ POSTURE
 > Authored under **`proposal_authoring`** — may research, propose, author, test; may **never** accept, approve or commit. **Closes no ledger row. Does not close G1.**
 > **§E is the gate's required evidence and MUST NOT be compressed, summarized or replaced by totals in any future revision.** R2 deleted three required evidence tables while keeping their totals. See §0.1.
-> **Produced under an unresolved boot-compliance violation (§0.2).** Preservable as work; not acceptable as compliant until cleared.
+> **`B-1` is CLOSED (2026-08-11, §0.2).** Historical fact retained: everything in this carrier **up to that date** was produced under the then-unresolved boot violation — clearing it removes the blocker, it does not retroactively validate that work. `§E6` in particular remains an exploratory probe.
 
 ---
 
@@ -42,7 +42,7 @@ Verified against the live file:
 
 **Post-merge verification, all nine passing on the base:** `AGENTS.md` pointer · read-graph Tier-0 #15 · the checkpoint's gate banner · both catalog rows · R8 lifecycle · R9 lifecycle · no surviving stale claims outside receipts · no `G1_IN_PROGRESS` assertion outside withdrawal notes · `check-checkpoint-pointer` ✔.
 
-**The rule this transaction established, worth more than the repair:** *an accepted carrier may state its own lifecycle; it may never state program state.* Two attempts got this wrong before it landed — the first left the carriers stale, the second made them competing progress trackers asserting `G1_IN_PROGRESS` against a checkpoint reading `g1_startable`.
+**Rule observed:** *an accepted carrier may state its own lifecycle; it may never state program state.* Two drafts got it wrong before landing — one left the carriers stale, the next made them competing progress trackers. **Candidate for architecture-operations law if it survives G1/G3; the durable fix is the consistency validator at `§1.2` that makes the error impossible, not a paragraph about it.**
 
 **The bounded appointment expired on that verification.** No standing integration authority exists.
 
@@ -643,7 +643,7 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 
 ### §7.1 — Standing falsifiers
 
-**F-06 (new) Counting my own evidence is a systematic failure, not bad luck.** Three times in this arc a stated aggregate did not follow from the table beneath it — R2's deleted-evidence totals, R3's tool tally, and the `AB-08` probe's *"1 clean · 6 fail"* against rows reading 1 ✔ / 7 ✘. **The third occurred inside the section about fixture rigor.** Mechanism: the aggregate is written from intent while the rows are written from work, and nothing recomputes one from the other. **Until a check does, no aggregate in this file may be trusted, and the standing remedy is to state no aggregate and let the table speak.**
+**F-06 (new) Counting my own evidence is a systematic failure, not bad luck.** Three times in this arc a stated aggregate did not follow from the table beneath it — R2's deleted-evidence totals, R3's tool tally, and the `AB-08` probe's *"1 clean · 6 fail"* against rows reading 1 ✔ / 7 ✘. **The third occurred inside the section about fixture rigor.** Mechanism: the aggregate is written from intent while the rows are written from work, and nothing recomputes one from the other. **Summaries are allowed. The rule is that no decision-bearing aggregate may be manually maintained without deterministic derivation or a validation check against its rows** — and after three occurrences the remedy is the check, routed to G2 (`B-15`), not another prohibition. *(An earlier draft's "state no aggregate" is withdrawn as an over-correction.)*
 
 **F-01 Candour penalty** — rigorous attribution raises liability exposure, rationally reducing candid documentation. *No design response; any claim to have solved it is suspect.* · **F-02 The view becomes the truth** (`AB-27`) — falsifier of `D0THES-DEC-033`; G4 negative test · **F-03 Multiplicity is not corroboration** — PRE-0 demonstrated it on itself; R1 stated it and violated it in scenario 5 · **F-04 Gap-declaration masquerading as risk management** — this gate did it three times (Tier-0 #14, C3.8, Build OS) · **F-05 (new) Narrative revision destroys evidence** — R2 deleted three required tables while keeping their totals. **Prose is not a durable evidence carrier.**
 
@@ -669,7 +669,7 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 
 ### §7.4 — Scope
 
-Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care not edited. `C4.4 §R` not edited. **R8/R9 not normalized** (`B-1`). G0 receipt not edited. `06` not written. `comparator_analogy_registry.md` not written — rows proposed (`G1-FIND-08`). C3.8 and Build OS consumed as inputs. Insurance untouched. No checkpoint repoint.
+Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care not edited. `C4.4 §R` not edited. R8/R9 **were** normalized — but on the **base branch**, under a separate bounded transaction, not from this proposal (`B-1`, closed). G0 receipt not edited. `06` not written. `comparator_analogy_registry.md` not written — rows proposed (`G1-FIND-08`). C3.8 and Build OS consumed as inputs. Insurance untouched. No checkpoint repoint.
 
 ---
 
@@ -677,19 +677,19 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 
 | Field | Value |
 |---|---|
-| Artifact | FAI **G1 operating-model carrier R3** · seat `proposal_authoring` · state **`proposed`** · **BLOCKED on B-1** |
+| Artifact | FAI **G1 operating-model carrier R3** · seat `proposal_authoring` · state **`proposed`** · **`B-1` CLOSED 2026-08-11** |
 | R2 → R3 | evidence restored (§E) · Build OS read · "three planes" withdrawn · four external correspondences downgraded · third-party rule corrected · blockers sorted by gate · G4 fixtures added |
 | Required G1 evidence | **§E1** 40-row semantic receipt · **§E2** nine tool dispositions · **§E3** ten-row frontier matrix · **§E4/E4b** five traces + eleven scenarios. **Fenced against compression** |
 | Exploratory, NOT a result | **§E6** `AB-08` classification probe — **invalid as a fixture**; conclusions withdrawn; six candidate findings and a valid-fixture spec retained |
-| Process failure this pass | **substantive metamodel design performed under the `B-1` boot violation** this file declares blocking. Preserved as evidence; **not compliant G1 execution** (`§E6.4`) |
+| Process failure — **historical** | the `§E6` probe was **substantive metamodel design performed while `B-1` was still open.** Preserved as evidence; **not compliant G1 execution**, and `B-1`'s later closure does not convert it into one (`§E6.4`) |
 | Routed forward, NOT a G1 output | **§E5** ten G4 adversarial fixtures — a G4 proof plan carried under G4's existing tests |
 | Ledger | 40 rows verdicted. **ZERO closed** |
 | Operator questions | **Q1** — the rule already existed in Build OS `09`; Care §19's U/C/A supplies the mechanism **as a frozen nonbinding candidate**, and applying it past Care is **this gate's synthesis** (`G-16`). The build-down/care-external binary is **withdrawn**; the rule is **per-act origin resolution**, and authority-origin direction is a **candidate descriptor field, not a profile axis**. **Q2** — internal-model equivalence not required, **boundary conformance mandatory**; GCE is the **home**, but the contract content **does not exist** (thesis §C paused), so the ten obligations are **new synthesis** (`G-18`) |
-| Boot | **VIOLATION, unresolved** |
+| Boot | **RESOLVED** — normalized on the base and verified there, 2026-08-11 (§0.2) |
 | Minted | **nothing** |
 | Verdict | **`NOT_CONVERGED__REQUIRED_OUTPUTS_RESTORED_SOURCE_FLOOR_AND_MODEL_BOUNDARIES_INCOMPLETE`** |
-| G1 blockers | **B-1** boot state · **B-3** `AB-08` fixture *(ledger says it blocks G1)* · **B-8** source floor incl. unread **Lane-2** carriers · **B-13** `AB-01` generalized form + C4.4 owner acceptance · **B-15** `§G1-CONTRACT` outputs 2–7. *(B-2 → open item with owner; B-6 → G2/G4)* |
-| Next | **B-1 first — recommend NOT waiving it.** Then: map each incomplete cell to its exact source and controlling section **before** reading · read selectively · run the `AB-08` fixture · then **bounded authoring** to close cells 2–7. **A clean acceptance carrier is assembled only after the cells close** — earlier, it becomes another revision by another name. Whether that carrier is one artifact or two is decided by **output 1, the artifact metamodel** — not by preference |
+| G1 blockers | **four, and NOT peers.** **B-3** the `AB-08` fixture *(ledger: blocks G1)* · **B-8** source floor incl. unread **Lane-2** carriers · **B-13** `AB-01` generalized form + C4.4 owner acceptance · **B-15** = *outputs 2–7*, i.e. **the rest of G1** — not a task standing alongside the other three. *(B-2 → open item with owner; B-6 → G2/G4)* |
+| Next | **Finish output 1, then learn from it — not "attack four blockers."** `B-3`: read the **narrow** prerequisite floor for the `AB-08` fixture (the System/Surface Map material governing the axes it uses, and the relevant 42010 primary material), then test the candidate logical-resource / carrier / descriptor model per `§E6.3`. **No broad source sweep. No new planning artifact.** Only after output 1 has a reproducible result does output 2 begin. **A clean acceptance carrier is assembled after the cells close** — earlier it is another revision by another name; whether it is one artifact or two is a question for output 1 |
 
 ## §9 — Handoff
 
@@ -701,6 +701,6 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 
 **Load order:** `AGENTS.md` → checkpoint → route `9v` (plan R8 → charter R9 → ledger R5) → `9v-ii` this carrier. Gate sequence **only** in plan §5; closure conditions **only** in the ledger's `blocking_scope`. **For external/enterprise correspondence, C3.8 G2/G4 is the required read. For build-side operating model, Build OS `09`/`10` — at the maturity they declare, not as settled truth.**
 
-**Stop condition:** superseded when the steward and affected domain owners accept, amend or reject — after `B-1` clears.
+**Stop condition:** superseded when the steward and affected domain owners accept, amend or reject.
 
-**STOP: `g1_working_dossier · B-1_CLOSED_2026-08-11 · evidence_restored_and_fenced · 40_rows_verdicted_zero_closed · G1_CONTRACT_0_of_8_outputs_complete · 5_G1_blockers · acceptance_carrier_not_yet_authored`**
+**STOP: `g1_working_dossier · B-1_CLOSED_2026-08-11 · evidence_restored_and_fenced · 40_rows_verdicted_zero_closed · G1_CONTRACT_0_of_8_outputs_complete · 4_G1_blockers · acceptance_carrier_not_yet_authored`**
