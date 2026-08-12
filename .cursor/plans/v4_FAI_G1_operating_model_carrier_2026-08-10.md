@@ -98,6 +98,19 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 | 7 | **adopt / reject / transfer-limit matrix** | `§5` + `§E2` | ✘ Lane-1 primary sources unread | **INCOMPLETE** | transfer limits derived from C3.8 only; the architecture-management lane is unread | Lane-1 read; per-mechanism transfer limits stated |
 | — | **`§G1-AUTH`** *(mandatory work package)* | `§4` + `§E4` | partial — Build OS ✔, Care ✔, RBAC ✔, GCE ✔ | **partially converged** | authority-source decomposition (§4.2) unsettled; 2 of 11 scenarios PARTIAL | the decomposition settles and every scenario resolves without invented authority |
 
+### §G1-CONTRACT.b — gate-compliance obligations *(not model outputs, but required for acceptance)*
+
+| Obligation | Evidence | Status | Acceptance condition |
+|---|---|---|---|
+| PRE-0 rows dispositioned | `§E1` | **proposed** (40/40 verdicted, 0 closed) | steward + affected owners accept |
+| One verdict per tool candidate | `§E2` | **complete as proposal** | nine unambiguous verdicts — met (1/5/3/0) |
+| Current-practice vs 2030/35 evaluation | `§E3` | **complete as proposal** | ten capabilities covered — met |
+| `M-106` inheritance / dedup | `§6` source map | **partial** | no unsupported novelty claim survives |
+| Eleven authority scenarios | `§E4b` | **partial** | each resolves, or is named open with an owner per R8 |
+| Boot / state integrity | `B-1` · §0.2 | **CLOSED 2026-08-11** | met — normalized on the base and verified there |
+
+**Honest reading: ZERO of eight outputs are complete.** Output 1 returned to **unrun** when its probe was withdrawn; outputs 2–7 are incomplete; `§G1-AUTH` is partially converged. Of the six gate obligations, **`B-1` is now CLOSED** and the rest are proposed or partial. The model work is real and the evidence is restored, but **G1's contract is not close to satisfied.** Items 2–7 need the unread Lane-1 and Lane-2 sources **and then bounded authoring** — reading alone will not produce an operations loop, graph semantics or a conformance model. **There is no path from unread sources to a completed architecture that contains no writing.**
+
 ### §G1-CONTRACT.c — cross-output carry: the external-obligation / operator-variation thread
 
 **`G1-FIND-10` is not a §7 finding to be admired — it is a vertical thread that must force something in each output.** Recorded here so it cannot evaporate into prose, and so no single output tries to swallow it.
@@ -113,19 +126,6 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 | **7 · transfer limits** | what OMNI **adopts · narrows · rejects · defers · treats only as evidence** |
 
 **No new gate, registry or standards inventory.** One scenario, threaded through the contract that already exists.
-
-### §G1-CONTRACT.b — gate-compliance obligations *(not model outputs, but required for acceptance)*
-
-| Obligation | Evidence | Status | Acceptance condition |
-|---|---|---|---|
-| PRE-0 rows dispositioned | `§E1` | **proposed** (40/40 verdicted, 0 closed) | steward + affected owners accept |
-| One verdict per tool candidate | `§E2` | **complete as proposal** | nine unambiguous verdicts — met (1/5/3/0) |
-| Current-practice vs 2030/35 evaluation | `§E3` | **complete as proposal** | ten capabilities covered — met |
-| `M-106` inheritance / dedup | `§6` source map | **partial** | no unsupported novelty claim survives |
-| Eleven authority scenarios | `§E4b` | **partial** | each resolves, or is named open with an owner per R8 |
-| Boot / state integrity | `B-1` · §0.2 | **CLOSED 2026-08-11** | met — normalized on the base and verified there |
-
-**Honest reading: ZERO of eight outputs are complete.** Output 1 returned to **unrun** when its probe was withdrawn; outputs 2–7 are incomplete; `§G1-AUTH` is partially converged. Of the six gate obligations, **`B-1` is now CLOSED** and the rest are proposed or partial. The model work is real and the evidence is restored, but **G1's contract is not close to satisfied.** Items 2–7 need the unread Lane-1 and Lane-2 sources **and then bounded authoring** — reading alone will not produce an operations loop, graph semantics or a conformance model. **There is no path from unread sources to a completed architecture that contains no writing.**
 
 ---
 
@@ -522,6 +522,15 @@ Recorded here so the next pass has the specification and does not need a separat
 **Candidate under test:** a metamodel distinguishing logical resource · physical carrier/locator · primary resource kind · authority level · lifecycle/decision state · scope and applicability · view/viewpoint relation · implementation and evidence relations · profile/deployment targeting.
 **Test cases:** the twelve required **logical resources** — not twelve filenames. Where a kind has no instance, **create a minimal synthetic exemplar explicitly marked as fixture material.**
 **Per-case assertions:** expected primary kind · expected carrier · required authority and status · required relations · **forbidden classifications** · whether the schema represents it **without ad-hoc extension**.
+
+**★ TWO INDEPENDENT RESULT DIMENSIONS — do not collapse them.** *(An earlier correction established this and never landed; without it a fresh agent can manufacture a synthetic exemplar for every missing kind and declare the metamodel validated.)*
+
+| Dimension | Question | Values |
+|---|---|---|
+| **`representability`** | Can the candidate metamodel express this resource — carrier, status, authority, relations, constraints — **without an ad-hoc schema amendment?** | `PASS` · `FAIL` |
+| **`estate_validation`** | Does a **real OMNI instance** exist, at a known authority and lifecycle state, with a rightful owner and a usable home? | `PASS` · `FAIL` · **`NOT_INSTANTIATED`** |
+
+**A synthetic exemplar can only ever prove `representability`.** It cannot prove the kind is architecturally **necessary**, correctly **scoped**, rightfully **owned**, operationally **usable**, or **mature**. For operating profiles, deployment profiles, patterns and generated snapshots the expected result is `representability = PASS` with `estate_validation = NOT_INSTANTIATED` — **which is neither an overall pass nor a failure**, and must be reported as itself.
 **Negative controls, at minimum:** one carrier holding several logical resources · one logical resource implemented by several code/test files · one generated resource · one proposed-but-unaccepted resource · one carrier whose document type and architecture role legitimately differ · one invalid edge that **must** fail.
 
 **Added by `G1-FIND-10` — two representability cases and three negative controls. Output 1 tests REPRESENTATION ONLY.** It may not settle precedence, conflict resolution, applicability evaluation, source-change propagation, profile composition, conformance proof or adoption policy — those are outputs 3–7 (`§G1-CONTRACT.c`).
@@ -676,7 +685,7 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 
 ### §7.2 — Gaps
 
-`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner · `G-08` `AB-08` fixture set · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15`** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority · **`G-19` (new)** **no authoritative applicability-and-traceability mechanism was located** for resolving external obligations, operator policies, contractual requirements, adopted standards and informative comparators into effective OMNI architecture; **existing regulatory content across the estate remains unassessed** → steward + operator, **non-blocking for G1** (`G1-FIND-10`). *(An earlier wording claimed the named standards were "all absent" and used a binding/borrowable binary — both withdrawn at `G1-FIND-10`.)* · **`G-16` (new)** Care's U/C/A crosswalk is a frozen nonbinding candidate; generalizing it past Care is unratified cross-scope synthesis → G3 Care reconciliation · **`G-17` (new)** the five-axis authority decomposition is a proposal requiring reconciliation against Care's own composition-field list → G3 · **`G-18` (new)** GCE is the established home but the build-facing boundary contract does not exist (thesis §C paused) → §C authoring / G3.
+`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner · `G-08` `AB-08` fixture set · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15`** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority · **`G-19` (new)** **no authoritative applicability-and-traceability mechanism was located** for resolving external obligations, operator policies, contractual requirements, adopted standards and informative comparators into effective OMNI architecture; **existing regulatory content across the estate remains unassessed.** **Split by scope, and *"non-blocking for G1"* is withdrawn as imprecise:** the **cross-cutting semantics ARE part of G1** — carried by `§G1-CONTRACT.c` and closing through the existing Output 1–7 acceptance conditions, already inside `B-3` and `B-15`, so **no new blocker is minted**; the **population and operation of the regulatory programme** (full corpus · product-specific SaMD determinations · certifications · per-jurisdiction adjudication) is **later or parallel work and does not block Output 1** → steward + operator (`G1-FIND-10`). *(An earlier wording claimed the named standards were "all absent" and used a binding/borrowable binary — both withdrawn.)* · **`G-16` (new)** Care's U/C/A crosswalk is a frozen nonbinding candidate; generalizing it past Care is unratified cross-scope synthesis → G3 Care reconciliation · **`G-17` (new)** the five-axis authority decomposition is a proposal requiring reconciliation against Care's own composition-field list → G3 · **`G-18` (new)** GCE is the established home but the build-facing boundary contract does not exist (thesis §C paused) → §C authoring / G3.
 
 *(`G-16`…`G-18` were minted in the body of the previous pass and never reached this register — the finding-evaporation defect this register exists to prevent. Recorded as a live instance under `F-04`.)*
 
