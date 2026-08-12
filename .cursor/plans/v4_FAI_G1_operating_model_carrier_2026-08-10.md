@@ -1,8 +1,8 @@
-# v4 — FAI — G1 OPERATING-MODEL CARRIER (R5)
+# v4 — FAI — G1 OPERATING-MODEL CARRIER (R6)
 
 Document type: `handoff_or_readiness_gate` (gate-output carrier — the G1 deliverable named in execution plan §5)
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Binds nothing. Mints nothing. Promotes nothing. Closes nothing.** Where this carrier and a controlling carrier differ, **the carrier controls and this file is corrected.**
-Status: **`g1_carrier_R5 · state=proposed · B-1_CLEARED · output_1_AMM_C2_rerun_done_NOT_complete · 0_of_8_outputs_complete`**
+Status: **`g1_carrier_R6 · state=proposed · B-1_CLEARED · output_1_AMM_C3_rerun_and_holdouts_done_NOT_complete · 0_of_8_outputs_complete`**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: **working dossier for the G1 gate output — NOT yet an acceptance object.** It carries the model proposal, the required evidence (`§E`), and the completion matrix (`§G1-CONTRACT`) that says which R8-required outputs are still missing. **Read `§G1-CONTRACT` first: it is the only honest answer to "is G1 done."**
 Source-of-truth relationship: **owns nothing.** Gate sequence → plan §5. Rationale → charter R9. Finding disposition → PRE-0 ledger R5. Program state → the checkpoint. Authority truth → §4's carriers. External/enterprise correspondence → **C3.8 G2/G4**. Build-side operating model → **Build OS `09`/`10`** *(at their declared maturity — §1.3)*.
@@ -12,7 +12,7 @@ Manifest action: `add_tier2` · Review gate: `user_knox_required`
 > Authored under **`proposal_authoring`** — may research, propose, author, test; may **never** accept, approve or commit. **Closes no ledger row. Does not close G1.**
 > **§E is the gate's required evidence and MUST NOT be compressed, summarized or replaced by totals in any future revision.** R2 deleted three required evidence tables while keeping their totals. See §0.1.
 > **`B-1` is CLOSED (2026-08-11, §0.2).** Historical fact retained: everything in this carrier **up to that date** was produced under the then-unresolved boot violation — clearing it removes the blocker, it does not retroactively validate that work. **`§E6`–`§E6.4` in particular remains an exploratory probe and is NOT the Output-1 result.**
-> **Output 1 ran twice.** R4 (`§E6.5`–`§E6.12`) executed the `§E6.3` specification and was **independently reviewed and not accepted** — the review found three places where the candidate violated its own rules. **R5 (`§E7`) amends the model to `AMM-C2` and reruns the whole fixture.** Current result: `representability` **16/16 on `AMM-C2`** and explicitly provisional; `estate_validation` **3 PASS · 6 FAIL · 7 NOT_INSTANTIATED** of 16, derived from four declared conjuncts per row. **Output 1 is NOT complete and is NOT self-certified.** It closes no ledger row, accepts nothing, installs nothing, and starts no later output.
+> **Output 1 has run three times against three candidates and two independent reviews.** R4 (`§E6.5`–`§E6.12`) ran the `§E6.3` fixture on `AMM-C1`; **review found three rules the candidate violated.** R5 (`§E7`) produced `AMM-C2`; **review found the same class of defect one level down — the axes were decomposed and the values inside them were not — plus an aggregation that mixed resources, clusters and scenarios in one denominator.** R6 (`§E8`) produces **`AMM-C3`**: every facet answers one question, relation assertions are intervalled so `as_of` is answerable at all, the evidence is split into **three tables with one unit each**, and **three holdouts were predeclared before running**. Current result: T1 **22 of 22** non-holdout resources representable, holdouts **3 of 3 with zero amendments**; `estate_validation` **3 `PASS` · 11 `FAIL` · 11 `NOT_INSTANTIATED` of 25 tested logical resources**. **Output 1 is NOT complete and is NOT self-certified** — no candidate has yet survived a reader who did not build it. It closes no ledger row, accepts nothing, installs nothing, and starts no later output.
 
 ---
 
@@ -90,7 +90,7 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 
 | # | R8-required G1 output | Carrier section | Required sources read? | Decision state | Residual | Acceptance condition |
 |---|---|---|---|---|---|---|
-| 1 | **artifact metamodel** | **`§E7` (`AMM-C2` + full rerun)** · R4 first run `§E6.5`–`§E6.12` (preserved, superseded) · spec `§E6.3` · original probe `§E6`–`§E6.4` | Artifact Index ✔, governance taxonomy ✔, R8 §3.1 ✔, System Map ✔, Surface Map ✔ · **mechanism probes (not adopted): 42010 ✔, SEI ✔, FHIR ✔, IHE ✔, AUTOSAR ✔** | **`AMM_C2_RERUN_DONE · NOT_COMPLETE · AWAITING_INDEPENDENT_REVIEW`.** R4's `COMPLETE_AS_PROPOSAL` **withdrawn** — after a review found three self-contradictions in the candidate, self-certifying its replacement would repeat the error. `representability` **16/16 on `AMM-C2`**, provisional; controls **graded** 4 STRONG · 4 INHERITED · 1 mixed · 1 WEAK-declared; **`estate_validation` 3 PASS · 6 FAIL · 7 NOT_INSTANTIATED** of 16 (`§E7.5.1`) | 6 estate FAILs and 7 uninstantiated kinds — **governance gaps, not schema gaps** · `[CAN→3]`/`[CAN→6]` constraints recorded not settled (`§E7.1`) · `NC-8`'s prose-comparison residue → Output 6 · `NC-9` weak-by-construction · Artifact Index `admissible_kinds[]` **proposed, not landed** · one owner judgment call flagged (`§E7.5`) · catalog row `status` column two revisions stale | `architecture_steward` accepts, amends or rejects **`AMM-C2`** and disposes `AB-08` per `§E7.8`; descriptor-schema installation is **G2's** transaction against R8 §3.1 |
+| 1 | **artifact metamodel** | **`§E8` (`AMM-C3` + three-table rerun + predeclared holdouts)** · R5 `§E7` and R4 `§E6.5`–`§E6.12` preserved, superseded · spec `§E6.3` | Artifact Index ✔, governance taxonomy ✔, R8 §3.1 ✔, System Map ✔, Surface Map ✔, `03`/`05`/`06`/`08` schemas ✔ · **mechanism probes (not adopted): 42010 ✔, SEI ✔, FHIR ✔, IHE ✔, AUTOSAR ✔** | **`AMM_C3_RERUN_DONE · HOLDOUTS_RUN · NOT_COMPLETE · AWAITING_INDEPENDENT_REVIEW`.** Third candidate, second review. **T1 22/22** non-holdout resources representable · **holdouts 3/3, zero amendments** · **`estate_validation` 3 `PASS` · 11 `FAIL` · 11 `NOT_INSTANTIATED` of 25 tested logical resources** with the owner conjunct decomposed (`§E8.4`). R5's `16/16` and `3/6/7` **withdrawn — mixed units** | 11 estate FAILs · placement policy is a `[CAN→3]` predicate, not settled · relation bitemporality `[CAN→3]` · prose non-loosening `[CAN→6]` · 2 of 3 holdouts were pre-named kinds, so only H-1 was unseen structure · Artifact Index `admissible_kinds[]` **necessary but not sufficient**, not landed · catalog row `status` three revisions stale | `architecture_steward` accepts, amends or rejects **`AMM-C3`** and disposes `AB-08` per `§E8.8`; descriptor-schema installation is **G2's** transaction against R8 §3.1 |
 | 2 | **architecture-operations loop** | `§6.3` roots↔functions matrix | ✘ System Map · Surface Map · Polaris · Platform · Accountability unread | **INCOMPLETE** — a capability matrix is not an operating transaction | the actual proposal → impact → review → conformance → propagation → integration → resolution transaction is not specified | the loop is specified as a transaction with actors, gates and artifacts |
 | 3 | **architecture graph semantics** | `§6.3` + plan §3.1 relations | partial | **INCOMPLETE** | no cardinalities, inheritance rules, applicability or conflict semantics | relation model complete enough for a validator to reject a bad edge |
 | 4 | **change lifecycle** | `§E1` `AB-07` + `§6.4` | partial | **INCOMPLETE** | field additions and release postures, not a state model | full state model incl. the five change classes |
@@ -110,9 +110,9 @@ R1 graded this *"directional and benign"* and continued. Withdrawn in R2, and st
 | Eleven authority scenarios | `§E4b` | **partial** | each resolves, or is named open with an owner per R8 |
 | Boot / state integrity | `B-1` · §0.2 | **CLOSED 2026-08-11** | met — normalized on the base and verified there |
 
-**Honest reading: ZERO of eight outputs are complete.** Counted from the matrix rows above and manually verified against them (`F-06`): **row 1 `AMM_C2_RERUN_DONE · NOT_COMPLETE`** — the fixture has now run twice and the model is on its second candidate, but **R4's completion claim was withdrawn under review and R5 does not re-assert it** · **rows 2–7 `INCOMPLETE`** · **`§G1-AUTH` `partially converged`** · `0 complete + 6 incomplete + 1 partial + 1 not-complete = 8` ✔. Of the six gate obligations at `§G1-CONTRACT.b`, **`B-1` is CLOSED** and the rest are proposed or partial.
+**Honest reading: ZERO of eight outputs are complete.** Counted from the matrix rows above and manually verified against them (`F-06`): **row 1 `AMM_C3_RERUN_DONE · HOLDOUTS_RUN · NOT_COMPLETE`** — three fixture runs, three candidates, two independent reviews; **R4's completion claim was withdrawn and neither R5 nor R6 re-asserts it** · **rows 2–7 `INCOMPLETE`** · **`§G1-AUTH` `partially converged`** · `0 complete + 6 incomplete + 1 partial + 1 not-complete = 8` ✔. Of the six gate obligations at `§G1-CONTRACT.b`, **`B-1` is CLOSED** and the rest are proposed or partial.
 
-**Output 1's two runs change the shape of what remains and shrink none of it.** Its estate results are the sharpest evidence yet that **G1's contract is not close to satisfied**: of sixteen tested resource kinds, **seven have no located instance and six exist ungoverned — three are both instantiated and governed.** Items 2–7 still need the unread Lane-1 and Lane-2 sources **and then bounded authoring** — reading alone will not produce an operations loop, graph semantics or a conformance model. **There is no path from unread sources to a completed architecture that contains no writing.** And Output 1 deliberately did **not** settle precedence, conflict resolution, applicability evaluation, profile composition, source-change propagation, effective resolution or conformance proof — it tested **representation only**, so outputs 3–7 inherit every one of those obligations undischarged (`§G1-CONTRACT.c`).
+**Output 1's three runs change the shape of what remains and shrink none of it.** Its estate results are the sharpest evidence yet that **G1's contract is not close to satisfied**: of **25 tested logical resources**, eleven have no located instance and eleven exist ungoverned — **three satisfy the estate predicate.** *(A statement about the fixture, not a census of OMNI.)* Items 2–7 still need the unread Lane-1 and Lane-2 sources **and then bounded authoring** — reading alone will not produce an operations loop, graph semantics or a conformance model. **There is no path from unread sources to a completed architecture that contains no writing.** And Output 1 deliberately did **not** settle precedence, conflict resolution, applicability evaluation, profile composition, source-change propagation, effective resolution or conformance proof — it tested **representation only**, so outputs 3–7 inherit every one of those obligations undischarged (`§G1-CONTRACT.c`).
 
 ### §G1-CONTRACT.c — cross-output carry: the external-obligation / operator-variation thread
 
@@ -382,7 +382,7 @@ Grouped only where rows share one verdict and destination, per the ledger's gran
 | `AB-04` | two-implementation rule | **rejected as a universal mandate** + replaced | **independence-proof ladder**: second implementation · independent parser/validator · independently authored conformance suite · alternate consumer · portability/fork drill · standards-native comparison. **Strength rises with consequence and lock-in risk** | conformance model | steward accepts |
 | `AB-05` `AB-06` `INV-24` `INV-26` | local admission; version skew; fleet desired state; federation cannot adopt for a member | inherited + **corrected by trace 5** | three release postures + typed skew + attestation withdrawal | §6.4 | steward + Federation owner |
 | `AB-07` | change capsule | adopted narrowed as input to plan §3.1 | adds rationale · **refusals** · conditions · rollout. **A manifest recording approvals but not refusals silently converts a blocking domain-owner objection into an absent approval** (`INV-30`) | G2 change-manifest schema | steward at G2 |
-| `AB-08` | artifact taxonomy granularity | **REMAINS OPEN — fixture RUN TWICE; `AMM-C2` submitted for review; false single count REJECTED** | **the question is malformed as a single class count** — 10 governance categories classify *carriers*, 13 Artifact Index roles assign *homes*, `primary_kind` types *resources*, and finer granularity is `part_of` rather than more classes. Passport ⟂ descriptor survives; **`plane` ⟂ `viewpoint_or_view` is withdrawn as a single axis** (two kinds + one relation, plus `home_plane` ⟂ `constrains_planes[]`); **`authority_level` dissolved into four facets with NO ordering; lifecycle into four; naming into two (`§E7.1`)**; the kind registry is **steward-governed and open, not closed at seventeen (`§E7.2`)** | **§E7 (`§E7.8` = the current disposition)** · R4 first run §E6.5–§E6.12 · original probe §E6 · §E-note B | **steward accepts, amends or rejects `AMM-C2` (`§E7.1`) and reconciles the Artifact Index key (`§E7.2`). The R4 steward fork is WITHDRAWN** — `AB-08` is about taxonomy granularity, and the estate governance failures are separately routed, **not** closure criteria (`§E7.8`) |
+| `AB-08` | artifact taxonomy granularity | **REMAINS OPEN — fixture RUN THREE TIMES; `AMM-C3` + holdouts submitted for review; false single count REJECTED** | **the question is malformed as a single class count** — 10 governance categories classify *carriers*, 13 Artifact Index roles assign *homes*, `primary_kind` types *resources*, and finer granularity is `part_of` rather than more classes. Passport ⟂ descriptor survives; **`plane` ⟂ `viewpoint_or_view` is withdrawn as a single axis** (two kinds + one relation, plus `home_plane` ⟂ `constrains_planes[]`); **`authority_level` dissolved into four facets with NO ordering; lifecycle into four; naming into two (`§E7.1`)**; the kind registry is **steward-governed and open, not closed at seventeen (`§E7.2`)** | **§E7 (`§E7.8` = the current disposition)** · R4 first run §E6.5–§E6.12 · original probe §E6 · §E-note B | **steward accepts, amends or rejects `AMM-C3` (`§E8.1`) and settles the placement predicate (`§E8.2`, `[CAN→3]`).** Closure still blocked on the placement predicate and relation bitemporality. The estate governance failures are separately routed, **not** closure criteria (`§E8.8`) |
 | `AB-10` `INV-25` | conformance as attributed claim; conformance ≠ compliance ≠ acceptance | adopted narrowed | claim carries issuer · profile · version · environment · exceptions. **Plural certification NOT adopted** | conformance model | steward accepts |
 | `AB-11` | external mechanisms as named inputs | **proposed disposition, partially supported** | C3.8 covers security/enterprise; **architecture-management sources still owed** (§5.3) | Lane 1 | `B-8` closed |
 | `AB-12` | governance self-hosted on OMNI's primitives | **proposed disposition supported by trace evidence** | four-object seat model, corrected against the live C-10 transaction; reuses RBAC's assignment/grant split | §4.6 · §E4 trace 1 | steward accepts |
@@ -1028,6 +1028,11 @@ relations:
 > **`§E6.5`–`§E6.12` is preserved as the R4 first-run record and is NOT rewritten.** Where R4 made a claim this pass corrects, the R4 text carries an explicit in-place `★ CORRECTED IN R5` marker pointing here. **No R4 evidence is deleted** (`§0.1`, `F-05`).
 >
 > **Output 1 is NOT re-declared complete.** After a review round that found three self-contradictions in the candidate, self-certifying the replacement would be the same error one revision later. State: **`AMM_C2_RERUN_DONE · NOT_COMPLETE · AWAITING_INDEPENDENT_REVIEW`.**
+>
+> ## ★ R5 RECORD — SUPERSEDED BY `§E8`, PRESERVED IN FULL
+> **`AMM-C2` was independently reviewed and not accepted.** It reproduced the exact defect its own new falsifier `F-07` names: the top-level decomposition improved while incompatible meanings stayed fused **inside the values** — `normative_force`, `canonicality_role`, `authority_basis`, `lifecycle_state`, and the owner test. **`AMM-C3` is at `§E8`; the receipt is at `§E8.0`.**
+> **Withdrawn from this block:** `representability = 16/16` and `estate_validation = 3 PASS · 6 FAIL · 7 NOT_INSTANTIATED` — **their sixteen rows mixed single resources, clusters and scenarios**, violating fixture protocol `P-1` that R4 itself declared · the headline *“three of sixteen architecture resource **kinds** are both instantiated and governed”* (the rows were not kinds) · case 12's and case 6a's `PASS` (reviewer read as owner) · the *“all semantic relations are resource→resource”* claim · `part_of n:m` · the Artifact-Index placement evidence (partly drift read as design) · *“losening is structurally impossible”* · *“115 guardrails uncitable”* · the *“SEI declines the term”* generalization · `binding_time`'s `[KND]` label.
+> **Nothing here is deleted.**
 
 ## §E7.0 — Review receipt: what is accepted, what is refined, what is declined
 
@@ -1084,10 +1089,10 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 
 | Facet | Values | Note |
 |---|---|---|
-| `normative_force` | `binding` · `nonbinding` · `evidentiary` · `informative` | what force the resource carries `[KND]` |
-| `canonicality_role` | `canonical_global` · `canonical_domain` · `derived` · `projection` · `none` | source-of-truth role — **orthogonal to force** `[INH]` System Map *"one owner per fact"* |
+| `normative_force` | `binding` · `nonbinding` · `evidentiary` · `informative` | what force the resource carries `[KND]`. **★ CORRECTED IN R6 — still two questions in one field: `evidentiary` is an epistemic **use**, not a force. Splits into `normative_effect` ⟂ `epistemic_role[]` (`§E8.1.1`).** |
+| `canonicality_role` | `canonical_global` · `canonical_domain` · `derived` · `projection` · `none` | source-of-truth role — **orthogonal to force** `[INH]`. **★ CORRECTED IN R6 — three questions in one field (truth scope · provenance · architectural function), and `projection` duplicated `home_plane = P4`. Splits into `truth_authority` ⟂ `derivation_provenance` (`§E8.1.1`); holdout H-3 proved the value set incomplete — a seam contract is canonical for a *boundary*.** |
 | `declaration_completeness` | `declared` · `absent` | absence is recordable and never silently upgraded `[INH]` `D0-GRD-003` |
-| `authority_basis` | `{owner_seat, establishing_authority, review_gate}` | **who may establish or change the claim** — a reference, not a rank `[INH]` §4.6 |
+| `authority_basis` | `{owner_seat, establishing_authority, review_gate}` | **who may establish or change the claim** `[INH]` §4.6. **★ CORRECTED IN R6 — four distinct relations bundled as one, in the section that cites §4.6 for keeping them apart. Splits into `accountable_owner` ⟂ `authorized_maintainer[]` ⟂ `accepting_authority` ⟂ `review_requirement` (`§E8.1.1`).** |
 
 **`supersedes` becomes a typed transaction, not a comparison** — six conditions, each labelled:
 1. same `resource_id`, **or** an explicit cross-resource supersession decision `[KND]`;
@@ -1103,7 +1108,7 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 
 | Facet | Values | What it answers |
 |---|---|---|
-| `lifecycle_state` | `proposed` · `in_review` · `accepted` · `active` · `retired` · `superseded` · `withdrawn` · **`emitted`** · **`expired`** | where the resource is in its own life. `emitted`/`expired` are admissible **only** for derived/generated kinds `[KND]` |
+| `lifecycle_state` | `proposed` · `in_review` · `accepted` · `active` · `retired` · `superseded` · `withdrawn` · **`emitted`** · **`expired`** | where the resource is in its own life `[KND]`. **★ CORRECTED IN R6 — four state families in one field, with real cross-facet duplication: `accepted` duplicated `ratification_state`, `withdrawn` duplicated `disposition`. Splits into five facets, and **`superseded` is removed as assertable — it must be DERIVED from the supersession relation** (`§E8.1.1`, `G1-FIND-27`).** |
 | `ratification_state` | `unratified` · `ratified` · `not_applicable` | whether a deciding authority accepted it. **`not_applicable` for generated kinds** — a snapshot is not ratified, it is emitted |
 | `completeness_maturity` | `skeleton` · `partial` · `complete` · **`declared_unauthored`** | how much of the content exists `[INH]` `G-18` |
 | `disposition` | `none` · `demoted_to_evidence` · `frozen_pending_gate` · `parked_with_trigger` · `rejected` | an act performed **on** the resource |
@@ -1112,7 +1117,9 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 
 **Every collapsed R4 value decomposes cleanly, which is the evidence the split is right:** `active_skeleton` = `active` + `skeleton` · `declared_but_unauthored` = `accepted` + `declared_unauthored` · `demoted_to_evidence` = disposition · `frozen` = `frozen_pending_gate`. And **case 1 now holds both facts it always had:** `naming_status = naming_gate_open` **with** `naming_constraints = [name_prohibited_in_implementation]`.
 
-### §E7.1.4 — Relations normalized · semantic relations are resource→resource
+### §E7.1.4 — Relations normalized · semantic relations are resource→resource — **★ CORRECTED IN R6**
+
+> **The heading's claim is false and is withdrawn; the table below is not.** Four relations in it terminate at non-resources (`owns_canonical_truth → fact`, `owns_definition → definition`, `applies_to → context tuple`, `carries → revision`). `AMM-C3` declares **typed value objects** as legitimate endpoints instead of pretending otherwise (`§E8.1.4`). **And these edges carry no effective interval — revisioned nodes with timeless edges, which makes `as_of` unanswerable by construction** (`§E8.1.3`, `G1-FIND-28`). `part_of n:m` is over-generalized from one 42010 sentence and splits into five relations (`§E8.1.5`); the `1:n` cardinalities wrongly implied every resource must have an implementation or verifier.
 
 **AUTOSAR supplies the shape, independently of the review** (mechanism only): a software component is described by **three separate objects** — the **port interface** (the contract), the **internal behavior** (runnables, events, port-access mappings), and the **implementation** description (compiler, language, changelog). *"The component communicates with the outside world exclusively using ports."* One component, three descriptions, and the contract says nothing about internals.
 
@@ -1120,7 +1127,7 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 |---|---|---|---|
 | `carries` | `Carrier → ResourceRevision \| Descriptor` | n:m | `[KND]` the only carrier relation |
 | `describes` | `Descriptor → ResourceRevision` | 1:1 | `[KND]` |
-| `part_of` | `AR → AR` | **n:m** *(was `n:1` — corrected)* | `[KND]`; 42010 4.2.5: a model *"may be a part of more than one architecture view"* |
+| `part_of` | `AR → AR` | **n:m** *(was `n:1` — corrected)* | `[KND]`; 42010 4.2.5. **★ CORRECTED IN R6 — that sentence licenses **view participation**, not universal multi-parent containment. Splits into five relations (`§E8.1.5`).** |
 | `implemented_by` | `AR → AR(implementation)` | 1:n | `[KND]` AUTOSAR three-description split |
 | `realizes_interface` | `AR(implementation) → AR(interface_contract)` | n:m | `[KND]`; **AUTOSAR and IHE converge**: internals unspecified, boundary mandatory |
 | `verified_by` | `AR → AR(conformance_suite)` | 1:n | `[KND]` |
@@ -1157,7 +1164,7 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 **Consequences for `AMM-C2`, all bounded:**
 - **The OMNI name is kept** — charter §6.2 uses *variation point* and Build OS `09`'s vocabulary-discipline clause forbids minting a synonym. **SEI's caution is recorded, not obeyed.**
 - **The kind is modelled as SEI's container**, because that is what the charter's own description does: `variable_part_location` · `variation_mechanism` · `permitted_variants` · `prohibited_variants` · `owner_seat`.
-- **`binding_time` is added, and it was missing from `AMM-C1` entirely**: `design` · `authoring` · `install_or_deploy` · `activation` · `runtime_per_request` `[KND]`. It is load-bearing for OMNI specifically — a variation bound at deployment configuration is a different object from one bound per care decision, and conflating them is how a deployment value becomes a clinical policy.
+- **`binding_time` is added, and it was missing from `AMM-C1` entirely**: `design` · `authoring` · `install_or_deploy` · `activation` · `runtime_per_request` `[KND]`. **★ CORRECTED IN R6 — relabelled **`[CAN→3/5]`**. The variable-part / mechanism / binding-time separation is inherited; **where** binding occurs in OMNI's layers is synthesis. Labelling my own invention as inherited is worse than having no label.** It is load-bearing for OMNI specifically — a variation bound at deployment configuration is a different object from one bound per care decision, and conflating them is how a deployment value becomes a clinical policy.
 - **`binding_time` belongs to the mechanism, never to the rule.** Placing it on a profile constraint would have been a category error: *"AI never final-authors safety-sensitive atoms"* is checked at many moments and bound at none. SEI's separation of *variable part* / *mechanism* / *binding time* is what caught it (`G1-FIND-24`).
 
 ### §E7.1.7 — Multi-profile composition: IHE's union rule, represented not resolved
@@ -1194,6 +1201,8 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 ---
 
 ## §E7.3 — Full rerun · fourteen representability cases
+
+> **★ CORRECTED IN R6 — THE UNIT OF THIS TABLE IS INCONSISTENT AND ITS TOTAL IS WITHDRAWN.** Rows 2 (GCE), A and B are **clusters and scenarios**, not single logical resources — which violates fixture protocol `P-1`, declared in R4 by this same author. `16/16` is withdrawn. **`§E8.3` splits the evidence into three tables with one unit each: resource-level (25 rows) · scenario-composition (4) · kind-coverage (21), never summed.** The row-level analysis below stands as evidence; the aggregate does not.
 
 **All fourteen rerun, not just the amended ones, because the facet and relation changes are cross-cutting.** Pre-`AMM-C2` = the R4 result at `§E6.6`/`§E6.7`.
 
@@ -1245,6 +1254,8 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 
 ## §E7.5 — `estate_validation` recomputed from the four declared conjuncts
 
+> **★ CORRECTED IN R6 — THE OWNER TEST BELOW IS WITHDRAWN AND THE TOTAL WITH IT.** *“Is there a named party entitled to change this resource?”* is **not ownership** — it conflates accountable owner, authorized writer, accepting authority, reviewer and repository routing, which §4.6 of this carrier exists to keep apart. **Case 12's `PASS` is withdrawn** (`required_reviewer` is an accepting authority, and separation of duties may forbid the accepter from authoring) and **case 6a's with it**. Recomputed over a consistent unit with the owner conjunct decomposed at **`§E8.4`: 3 `PASS` · 11 `FAIL` · 11 `NOT_INSTANTIATED` of 25 tested logical resources.**
+
 **`§E6.3`'s criterion is a four-part conjunction** — *"a real OMNI instance… at a known authority and lifecycle state, with a rightful owner and a usable home."* R4 reported it as one scalar and let two verdicts float above defects its own rows recorded. **The three values are unchanged; the derivation is now shown.**
 
 **Rule:** all four ⇒ `PASS` · no instance ⇒ `NOT_INSTANTIATED` · instance exists and ≥1 conjunct fails ⇒ `FAIL`. **Owner test applied uniformly: is there a named party entitled to change THIS resource?**
@@ -1284,7 +1295,7 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 
 **R4's `4 PASS · 3 FAIL · 7 NOT_INSTANTIATED` is withdrawn.** The corrected picture is materially worse and materially more useful: **three of sixteen resource kinds are both instantiated and governed.** Six exist and are ungoverned — up from three, because the owner conjunct was applied instead of noted.
 
-> **This is the number that should reach the steward.** Not because it is discouraging, but because a substrate whose own architecture resources lack recorded owners cannot later prove who changed a rule, when, or under what authority — and that proof is the thing OMNI sells.
+> **★ CORRECTED IN R6 — the number was right in spirit and wrong in construction.** *“Three of sixteen architecture resource **kinds** are both instantiated and governed”* is false twice: the sixteen rows were **not kinds**, and three of them were **not single resources**. Corrected at `§E8.4.2`: **3 of 25 tested logical resources satisfy the predicate** — a statement about the fixture, **not a census of OMNI**. **The point survives intact and gets sharper:** a substrate whose own architecture resources lack recorded owners cannot later prove who changed a rule, when, or under what authority — and `§E8.4.1` now shows why, measured: **one of four governance ledgers records an owner at all.**
 
 ---
 
@@ -1345,6 +1356,302 @@ ExternalSourceDescriptor  OMNI's local characterization of that source — indep
 **Not inspected — declared, not discharged:** the remaining Lane-1 sources (Palantir · Backstage · IBM · LangGraph/LangSmith · OPA · OpenRewrite · Argo CD · OpenTelemetry · AWS lenses) · the full text of any of the five consulted standards beyond the sections named above · C3.8 G1b/G3 · Polaris · Platform + Accountability · C4.6 · federation-permeability · the six AI-corpus registries · the founding-thread verbatims · raw PRE-0 submissions · Insurance and Care history. **`B-8` is unchanged by this pass** — four targeted mechanism sections is not the source floor.
 **Live-repository verification:** entered at `e7b5ec8153feb0354eb664a0173c5193cbc78649`, the exact head the review named — **no advance to reconcile.** Boot Freshness Check **PASS** (`AGENTS.md` pointer = read-graph Tier-0 #15 = `HANDOFF_2026-08-10_foundational_architecture_g1_startable.md`; checkpoint `§1` banner agrees); `check-checkpoint-pointer.mjs` **PASS**; exactly one file modified.
 
+---
+
+# §E8 — Output 1 · R6 · `AMM-C3`, consistent fixture units, and three predeclared holdouts
+
+> **`§E7` (`AMM-C2`) is preserved as the R5 evidence-bearing candidate and is not rewritten.** Corrections are marked in place with `★ CORRECTED IN R6`.
+>
+> **The R5 review's central charge is upheld against the artifact: `AMM-C2` reproduced the exact defect its own new falsifier `F-07` describes.** The top-level decomposition improved and incompatible meanings stayed fused one level down — in `normative_force`, in `canonicality_role`, in `authority_basis`, in `lifecycle_state`, and in the owner test. **Twice in a row now, the decomposition was better than the values inside it.**
+>
+> **And the aggregation was invalid on its own protocol.** R4 declared fixture-protocol `P-1` — *a case naming a cluster must be decomposed to single logical resources before testing.* R5 decomposed GCE **inside its row block** and then counted it as **one row** under a dominance rule. `16/16` and `3 PASS · 6 FAIL · 7 NOT_INSTANTIATED` are **withdrawn**: their sixteen rows mixed single resources, clusters and scenarios, so the denominator was not a consistent unit and *"three of sixteen architecture resource **kinds** are both instantiated and governed"* was wrong twice over — the rows were not kinds, and several were not single resources.
+
+## §E8.0 — Review receipt
+
+| # | R5 review finding | Disposition | Basis |
+|---|---|---|---|
+| 1 | **The fixture aggregates unlike units;** withdraw `16/16` and `3/6/7`; split into resource-level · scenario-composition · kind-coverage tables | **ACCEPTED IN FULL** | Verified: of 16 rows, **13 were single resources, 3 were clusters or scenarios** (GCE, Case A, Case B). **This violated `P-1`, which R4 itself declared.** Three tables at `§E8.3`, never summed |
+| 2a | **`normative_force` still mixes force with epistemic use** (`evidentiary`, `informative` are roles, not force) | **ACCEPTED, with one value-set refinement** | Correct: a resource can be binding **and** evidence-bearing. But `binding \| nonbinding \| none` carries its own redundancy — `nonbinding` and `none` collapse. **A proposed guardrail states a norm that does not yet bind; an evidence capture states no norm at all.** `AMM-C3`: `normative_effect ∈ {binding, states_norm_unbound, no_norm}` ⟂ multi-valued `epistemic_role[]` |
+| 2b | **`canonicality_role` mixes source-of-truth scope, provenance and architectural function** | **ACCEPTED IN FULL** | Correct, and it was redundant too: `canonicality_role = projection` said the same thing as `home_plane = P4`. Splits into `truth_authority` ⟂ `derivation_provenance`, with scope supplied by the existing `scope` facet |
+| 2c | **`authority_basis` bundles four different relations** | **ACCEPTED IN FULL — and the estate explains why I made this error** | §4.6 of **this carrier** already separates seat / accountable principal / exercising actor / grant, and `AMM-C2` re-fused them one section later. **`§E8.4.1` shows the deeper cause: of the four governance ledgers, exactly one records an accountable owner** — `05` has an `owner` column, `03` has none, `06` records an *enforcer*, `08` records a *reviewer*. **The metamodel inherited the estate's own confusion by typing the fields it could see** |
+| 3 | **Lifecycle and naming still partly collapsed;** `accepted` duplicates `ratification_state`, `withdrawn` duplicates `disposition`, `superseded` should be derived | **ACCEPTED IN FULL, and generalized** | Verified — `AMM-C2` contained genuine cross-facet duplication. Five facets at `§E8.1.1`. **Generalized into a rule: any state derivable from a relation may not also be independently assertable, or the two will drift** — which is `C-11`/`C-12` and `F-06` (*a count outliving its table*) recurring in state rather than in prose (`G1-FIND-27`) |
+| 4 | **Revision semantics fuse technical revision, business version and content identity; and relations are timeless edges over revisioned nodes — a $10B blocker** | **ACCEPTED IN FULL — the most important correction in this pass** | Correct, and decisive: R8 §3.1 object 3 defines the snapshot as *"frozen resolution of every relation at `as_of`"*. **You cannot freeze what was never timestamped.** `AMM-C2` had revisioned nodes and timeless edges, so *"what was in force on date X"* was unanswerable **by construction** (`§E8.1.3`) |
+| 5 | **The relation table contradicts its own "resource → resource" claim** | **ACCEPTED IN FULL — the claim was wrong, the table was not** | Verified: `owns_canonical_truth → fact`, `applies_to → context tuple`, `carries → revision`, `promoted_by → decision`. `AMM-C3` takes the second option offered: **typed value-object endpoints declared explicitly**, rather than promoting *fact* and *context* to architecture resources, which would be a category expansion nothing justifies |
+| 5b | **`part_of n:m` overgeneralized from one 42010 sentence; cardinalities should be `0..n`** | **ACCEPTED IN FULL** | Correct — 42010 says a *model* may be part of more than one view; that licenses **view participation**, not universal multi-parent containment. Split into five relations at `§E8.1.5`. And `1:n` wrongly implied every resource must have ≥1 implementation or verifier; **most normative resources legitimately have zero** |
+| 6 | **The owner test conflates owner, writer, accepter, reviewer and enforcement; cases 12 and 6a are not proven `PASS`** | **ACCEPTED IN FULL** | R5's test — *"is there a named party entitled to change this resource?"* — is **not ownership**, and `AMM-C2`'s own §4.6 says so. **Case 12 is withdrawn from `PASS`**: `required_reviewer` names an accepting authority, and separation of duties may *prohibit* the accepter from authoring. R5 defended it with exactly the conflation under review. Four ownership sub-facts at `§E8.4` |
+| 7 | **The Artifact Index reconciliation is not established;** current placement may be the drift the Index exists to detect | **ACCEPTED IN FULL — and my R5 evidence was worse than the review suspected** | Two errors found on re-inspection. **(a) `06` is the *Guardrails* role, not the *Doctrine* role** — the Index lists them separately — so *"Doctrine holds `standard`"* was wrong. **(b) `D0THES-DEC-036` IS a row in `03`**; the posture document *references* it. So *"one kind in three homes"* was **partly reading drift as design**, exactly as charged. Placement is a **predicate over several facets**, not a lookup on `primary_kind` (`§E8.2`) |
+| 8 | **The FHIR transfer is overstated** — *"loosening is structurally impossible, not policed"* | **ACCEPTED IN FULL** | Correct, and it is the same error this carrier criticizes elsewhere: claiming a mechanism *discharges* an obligation. Corrected form at `§E8.6`: a `constraint` derivation makes non-loosening **validator-checkable against a pinned base**; it does not self-enforce because the field is present |
+| 9 | **Narrow the SEI claim to the 2005 report; `binding_time` placement is OMNI synthesis, not inherited law** | **ACCEPTED IN FULL** | Correct on both. *"SEI declines the term"* → **that report** declines it. And *"binding time belongs to the mechanism, never the rule"* was labelled `[KND]` when it is a **synthesis** — relabelled `[CAN→3/5]`. **A provenance-labelling scheme is worthless if its author mislabels his own inventions as inherited** |
+| 10 | IHE and AUTOSAR transfers hold | **NOTED** | Unchanged; comparator mechanisms, not OMNI authority |
+| 11 | **The R5 rerun is in-sample fitting; add three predeclared holdouts** | **ACCEPTED IN FULL, and strengthened** | Correct and important: `16/16` meant *"`AMM-C2` can represent the cases `AMM-C2` was built around."* Holdouts predeclared **before** running at `§E8.5`. **Strengthened by grading them:** two of the three are kinds `AMM-C2` had already *named* in its own registry, so I knew they were coming — **only the `05` conflict row is genuinely unseen structure**, and only its result carries full weight |
+| 12 | **"115 guardrails are uncitable" is too absolute** | **ACCEPTED IN FULL** | They are citable by id, path, commit and row. The precise gap is the absence of first-class resource revision and effective interval under R8's model — corrected wording at `§E8.6` |
+| 13 | *(added)* **Relation assertions are themselves architecture resources, and the review's own fix implies a recursion it did not state** | **ADDED** | If an assertion carries identity, interval, provenance and a governing decision, it has a lifecycle and an authority basis — **so the descriptor model must be able to describe an assertion, and the snapshot must freeze assertion-revisions, not only resource-revisions.** Otherwise the as-of graph is half-built (`§E8.1.3`, `G1-FIND-28`) |
+| 14 | *(added)* **The estate records reviewers and enforcers and systematically does not record owners** | **ADDED** | Measured across all four governance ledgers at `§E8.4.1`. This is why the metamodel kept substituting reviewer for owner, and it is a finding about **OMNI**, not about the metamodel (`G1-FIND-29`) |
+
+---
+
+## §E8.1 — `AMM-C3`
+
+> **Provenance labels retained and now applied honestly.** `[INH]` inherited law only represented · `[KND]` kind-definitional · `[CAN→n]` candidate routed to Output *n*, **recorded not settled**. **Two `AMM-C2` labels were wrong and are corrected:** `binding_time` placement `[KND]` → `[CAN→3/5]`, and FHIR non-loosening `[KND]` → `[KND]` for the *structural* half, `[CAN→6]` for the semantic half.
+
+### §E8.1.1 — Facets: every field answers exactly one question
+
+| `AMM-C2` field | Fused questions | `AMM-C3` |
+|---|---|---|
+| `normative_force` | force **+** epistemic use | **`normative_effect`** ∈ `binding` · `states_norm_unbound` · `no_norm` ⟂ **`epistemic_role[]`** ∈ `evidence` · `analysis` · `reference` · `implementation_proof` · `normative_statement`. **For an `external_source`, `normative_effect` is undefined** — force belongs to the applicability decision, per §7.3's own rule `[INH]` |
+| `canonicality_role` | truth scope **+** provenance **+** architectural function | **`truth_authority`** ∈ `canonical_for_scope` · `none` *(the scope comes from `scope`, which is why a seam contract can be `canonical` for one boundary — `§E8.5` H-3)* ⟂ **`derivation_provenance`** ∈ `authored` · `derived` · `generated`. **Projection-ness is dropped as redundant** — `home_plane = P4` already says it |
+| `authority_basis` | four different relations | **`accountable_owner`** (bears the consequence) ⟂ **`authorized_maintainer[]`** (may write) ⟂ **`accepting_authority`** (may accept/ratify) ⟂ **`review_requirement`** (what must occur before acceptance). §4.6's own split, finally honoured `[INH]` |
+| `lifecycle_state` | decision **+** effectivity **+** generation **+** disposition | **`governance_decision_state`** ∈ `proposed` · `in_review` · `accepted` · `rejected` ⟂ **`effectivity_state`** ∈ `not_yet_effective` · `active` · `expired` ⟂ **`generation_state`** ∈ `authored` · `emitted` · `stale` *(derived kinds only)* ⟂ **`completeness_state`** ∈ `skeleton` · `partial` · `complete` · `declared_unauthored` ⟂ **`disposition`** ∈ `none` · `withdrawn` · `demoted_to_evidence` · `frozen_pending_gate` · `parked_with_trigger` |
+| `ratification_state` | — | **absorbed into `governance_decision_state`**; `AMM-C2` carried the same fact twice |
+| `lifecycle_state = superseded` | asserted state duplicating a relation | **removed as an assertable value.** Supersession is **derived** from a `supersedes` assertion plus `effective_to` `[KND]` |
+| `naming_status` | name state **+** review state | **`name_status`** ∈ `named_accepted` · `named_provisional` · `unnamed` ⟂ **`naming_review_state`** ∈ `none` · `open` · `closed` ⟂ **`naming_constraints[]`** *(empty list means none; `none` removed as a member)* |
+
+> **`G1-FIND-27` — the derived-state rule, generalized.** `superseded` was assertable **and** derivable, so the two could disagree. **Any state derivable from a relation must not also be independently assertable.** This is `C-11`/`C-12` and `F-06` — *a count outliving its table* — recurring in **state** rather than in prose. The estate's oldest defect has now appeared in three forms: a count outliving its evidence, a claim outliving its source, and a state outliving its relation.
+
+### §E8.1.2 — Identity: four levels, not two
+
+```
+LogicalResource        resource_id        stable logical identity; survives rename, move, repackaging   [INH R8 §3.1]
+ResourceRevision       revision_id        immutable revision identity (monotonic within resource_id)    [KND]
+                       content_hash       immutable content identity, where the carrier permits it      [KND]
+                       omni_version       OPTIONAL human/business release version                       [KND]
+                       effective_from / effective_to
+Descriptor             descriptor_id + descriptor_revision   — descriptor metadata evolves independently of the resource
+ExternalSource         source_id + publisher_edition         — opaque, NEVER OMNI-written                [INH]
+ExternalSourceDescriptor  OMNI's characterization — its own identity and revisions                      [KND]
+```
+
+**Three levels where `AMM-C2` had one.** FHIR keeps a stable canonical URL, an author-managed business version, and a server-assigned technical version apart, and **several technical versions may share one business version** — mechanism only, but the shape is the point. **R8's *"`resource_id` + version is the citable unit"* is preserved:** the citable unit is `resource_id + revision_id`, and `omni_version` is a human label over it, never the citation key.
+
+### §E8.1.3 — Relation assertions are first-class, intervalled, and describable — **the `as_of` repair**
+
+**This is the correction that decides whether R8 §3.1 object 3 can exist at all.** That object is defined as the *"frozen resolution of every relation at `as_of`"* and as *"the **only** object that answers what was true on date X."* `AMM-C2` gave every **node** a revision and left every **edge** timeless — so the snapshot had nothing to freeze, and the question was unanswerable by construction, not by omission.
+
+```
+RelationAssertion
+  assertion_id                       stable identity
+  assertion_revision                 immutable
+  subject      → ResourceRevision                                   [KND]
+  predicate    → declared relation type
+  object       → ResourceRevision | declared TypedValue             [KND]  (see §E8.1.4)
+  effective_from / effective_to      the interval the assertion held
+  asserted_by  → seat                provenance
+  governed_by  → decision revision   where the assertion is authority-bearing
+  supersedes_assertion → assertion_revision
+```
+
+**`AR-1 rev 3 --verified_by--> Suite rev 7` is now a dated, attributed, supersedable fact.** When the suite moves to rev 8, the old assertion is closed with an `effective_to` and a new one opens; the graph as of any date is the set of assertions whose interval contains it. **Snapshot derivation becomes possible, and byte-reproducibility becomes checkable** — which is what R8 already required and could not have obtained.
+
+> **`G1-FIND-28` — the recursion the review implied and did not state.** An assertion with identity, revision, interval, provenance and a governing decision **is an architecture resource**. Therefore: **the descriptor model must be able to describe an assertion**, and **the snapshot must freeze assertion-revisions, not only resource-revisions.** Without both, the as-of graph is half-built — nodes reconstruct and edges do not. *(Bitemporality — assertion time versus effective time — is deliberately NOT settled here: `[CAN→3]`.)*
+
+### §E8.1.4 — Endpoint honesty: the "resource → resource" claim is withdrawn
+
+**The R5 table was right and its headline was wrong.** `AMM-C3` declares **typed value objects** as legitimate endpoints rather than pretending they are resources or promoting *fact* and *context* to architecture kinds:
+
+| Declared `TypedValue` | Used by | Why not a resource |
+|---|---|---|
+| `TruthFact` — a named fact a domain owns | `owns_canonical_truth` | facts are domain state, not architecture description |
+| `DefinitionArtifact` — a metric/rendering/lineage definition | `owns_definition` | belongs to the projection, which the System Map explicitly grants `[INH]` |
+| `ContextTuple` — context · profile · jurisdiction · product · actor · `as_of` | `applies_to` | a coordinate, not a thing with a lifecycle |
+| `ForceTransition` — a change in `normative_effect` or `governance_decision_state` | `promoted_by` | an event, captured as an assertion |
+
+**Rule:** every relation declares its object type as `ResourceRevision` **or** a named `TypedValue`. **No relation may have an undeclared endpoint** `[KND]`.
+
+### §E8.1.5 — `part_of` split; cardinalities normalized
+
+`AMM-C2`'s single `part_of n:m` was generalized from one 42010 sentence about **models in views**. Five distinct relations, each with honest cardinality:
+
+| Relation | Cardinality | Meaning |
+|---|---|---|
+| `contained_in` | `0..1` | structural containment — a clause inside its standard; **single-parent** |
+| `member_of` | `0..n` | collection membership — a guardrail row in the `06` digest |
+| `participates_in_view` | `0..n` | 42010 model-in-view; **the only relation the 42010 sentence licenses** `[INH]` |
+| `included_in_profile` | `0..n` | profile inclusion |
+| `decomposes_into` | `0..n` | inverse of `contained_in` |
+
+**All other cardinalities restated as `0..n` / `1..n`.** `AMM-C2`'s `implemented_by 1:n`, `verified_by 1:n` and `evidenced_by 1:n` wrongly implied **every** resource must have at least one implementation, verifier or evidence object. **Most normative resources legitimately have none** — and in this estate, almost all of them do (`§E8.4`). Corrected to `0..n`.
+
+---
+
+## §E8.2 — Placement: a predicate, not a key — and my R5 evidence re-examined
+
+**The R5 claim *"the Artifact Index is a placement policy and `primary_kind` is its key"* is narrowed, because the evidence for it was partly wrong.**
+
+| R5 evidence | On re-inspection |
+|---|---|
+| *"the Doctrine role holds `standard` (the `06` rows)"* | **False.** The Artifact Index lists **Guardrails** as its own role with home `06_guardrail_antipattern_digest.md`. `06` sits inside `doctrine/` on disk, but **the Index's roles are role-scoped, not directory-scoped** — I reasoned from the filesystem |
+| *"the Doctrine role holds `decision` (`DEC-036` in the posture document)"* | **Partly false.** `D0THES-DEC-036` **is a row in `03`** — the canonical Decisions home. The posture document *hosts the content and references the id*. That is plausibly **valid reference**, not a second home |
+| *"`decision` appears in `03`, Doctrine and `08`"* | **Weakened.** `03` is the home; `08` holds *unresolved* items, which the Index defines as a **different role**; the Doctrine appearance is a reference. **The review's charge lands: I read current placement as intended design without testing it against the binding Index** |
+
+**What survives, and it is enough for the narrower claim:** the Doctrine role does hold **more than one kind** — `pattern` (`coherent_omni_architecture_pattern_2026-05-17.md`, and the GCE spine inside the posture document) alongside constitutional invariants — so a one-role-one-kind mapping is still refuted. **But `primary_kind` alone cannot select a home**, and that is the real point:
+
+```
+placement_policy(
+    primary_kind,
+    governance_decision_state,     open decision → 08 · accepted choice + rationale → 03
+    normative_effect,              binding invariant → Doctrine or Guardrails
+    scope,
+    epistemic_role[]               historical proposal → Evidence
+) → canonical_home_role                                                    [CAN→3]
+```
+
+**`admissible_kinds[]` is therefore necessary and not sufficient**, and the R5 proposal is narrowed to match. **Nothing is written to the Artifact Index.** And the method rule this produced: **current placement is evidence of practice, never of policy — the Index exists precisely to detect the difference** (`G1-FIND-30`).
+
+---
+
+## §E8.3 — Three tables, one unit each, never summed
+
+### §E8.3.1 — T1 · resource-level representability · **one row per logical resource, no clusters, no scenarios**
+
+**25 logical resources.** `R` = real OMNI instance · `X` = external · `S` = `FIXTURE_ONLY` synthetic. **`representability` is the only dimension in this table**; estate validation is `§E8.4`.
+
+| # | Logical resource | `primary_kind` | src | `representability` on `AMM-C3` |
+|---|---|---|---|---|
+| 1 | OMNI Reactor invariant set | `standard` | R | PASS |
+| 2 | `D0THES-GRD-033` | `standard` | R | PASS |
+| 3 | `D0THES-GRD-034` | `standard` | R | PASS |
+| 4 | GCE governed-exchange spine | `pattern` | R | PASS |
+| 5 | three-layer substrate pattern (05-17) | `pattern` | R | PASS |
+| 6 | `D0THES-DEC-036` | `decision` | R | PASS |
+| 7 | `D0-REV-010` | `decision` *(proposed)* | R | PASS |
+| 8 | RBAC / Authority contract | `domain_contract` | R | PASS |
+| 9 | GCE build-facing boundary contract | `interface_contract` | *(named, unauthored)* | PASS *(`completeness_state = declared_unauthored`)* |
+| 10 | OMNI System Map | `architecture_map` | R | PASS |
+| 11 | consequential-transition conformance suite | `conformance_suite` | R | PASS |
+| 12 | `requireCapability` authority enforcement | `implementation` | R | PASS |
+| 13 | ISO/IEC/IEEE 42010 | `external_source` | X | PASS *(`normative_effect` undefined; force lives on the claim)* |
+| 14 | `FX-AC-04` regulated-product applicability claim | `applicability_claim` | S | PASS |
+| 15 | `FX-OP-01` | `operating_profile` | S | PASS |
+| 16 | `FX-DP-01` | `deployment_profile` | S | PASS |
+| 17 | `FX-VIEW-01` | `view` | S | PASS |
+| 18 | `FX-VP-VIEW-01` | `viewpoint` | S | PASS |
+| 19 | `FX-SNAP-01` | `generated_snapshot` | S | PASS *(`generation_state = emitted`; `governance_decision_state` n/a)* |
+| 20 | `FX-VP-01` | `variation_point` | S | PASS |
+| 21 | `FX-AD-01` | `applicability_decision` | S | PASS |
+| 22 | `FX-OR-01` operator requirement | `external_source` | S | PASS |
+| **23** | **`D0INS-CNF-001`** — holdout **H-1** | `conflict_assertion` | R | **see `§E8.5`** |
+| **24** | **taxonomy §2 fixed category set** — holdout **H-2** | `controlled_vocabulary` | R | **see `§E8.5`** |
+| **25** | **`SC-D3-D5-001`** — holdout **H-3** | `seam_contract` | R | **see `§E8.5`** |
+
+**Rows 1–22: 22 representable on `AMM-C3`.** Rows 23–25 are the holdouts and are reported separately **because a case the model was built around and a case it was not are not the same evidence.**
+
+### §E8.3.2 — T2 · scenario-composition controls *(not resources; not counted with them)*
+
+| # | Scenario | Composes | Result |
+|---|---|---|---|
+| S-1 | one source, five contextual determinations, no duplication | resource 13 + five `applicability_claim`s | **PASS** — force lives on each claim; `applicability_result` ⟂ `normative_effect` ⟂ `disposition` ⟂ decision; `publisher_edition` pinned per claim |
+| S-2 | Henry Ford operator variation | resources 22 → 14-shape claim → 21 → 20 → outcome decision | **PASS** — five distinct resources; the customer's statement and OMNI's claim about it never share a `resource_id` |
+| S-3 | GCE multi-resource composition | resources 4 + 2 + 3 + 6 + 9 | **PASS as composition** — and **`§E8.4` shows four of the five fail estate validation**, which the R5 dominance rule hid behind a single row |
+| S-4 | map / view / viewpoint assembly | resources 10 + 17 + 18 | **PASS** — the map `indexes` contracts and may `carry` views; **no map is typed as a view** |
+
+### §E8.3.3 — T3 · kind coverage *(the only table that speaks about kinds)*
+
+**21 kinds exercised.** **Real instance located: 11** — `standard` · `pattern` · `decision` · `domain_contract` · `architecture_map` · `conformance_suite` · `implementation` · `external_source` · `seam_contract` · `conflict_assertion` · `controlled_vocabulary`. **Synthetic only, no located instance: 9** — `interface_contract` · `view` · `viewpoint` · `operating_profile` · `deployment_profile` · `variation_point` · `applicability_claim` · `applicability_decision` · `generated_snapshot`. **Exercised through the negative controls: 1** — `proposal`. `11 + 9 + 1 = 21` ✔
+
+**Two kinds `AMM-C2` recorded as *"carried, not exercised"* are now exercised and both have real instances** (`§E8.5`). **`AMM-C2`'s coverage claim was therefore wrong in the direction that flatters the estate** — it under-counted what OMNI already has, while over-counting what is governed.
+
+---
+
+## §E8.4 — Estate validation, with ownership decomposed
+
+**R5's owner test — *"is there a named party entitled to change this resource?"* — is withdrawn.** It conflated accountable owner, authorized writer, accepting authority, reviewer and repository routing, which is the conflation §4.6 of this carrier exists to prevent.
+
+**`§E6.3`'s inherited predicate is unchanged** — known authority · known lifecycle · **rightful owner** · usable home. Only the **owner conjunct** is decomposed, into four sub-facts recorded separately: `accountable_owner` · `authorized_maintainer` · `accepting_authority` · `repository_routing`. **The conjunct is satisfied by `accountable_owner` alone.** A reviewer is not an owner; separation of duties may *forbid* the accepter from authoring.
+
+### §E8.4.1 — Why the metamodel kept making this error: the estate does too
+
+**Measured across all four governance ledgers:**
+
+| Ledger | Owner-ish column | What it actually records |
+|---|---|---|
+| `03` decisions | **none** | `needs_human_review`, `canonical_destination` — no owner at all |
+| `05` supersession/conflict | **`owner`** | an accountable owner — **the only one of the four** |
+| `06` guardrails | `enforced_by` | an **enforcement mechanism**, not a party |
+| `08` open review | `required_reviewer` | an **accepting authority**, not an owner |
+
+> **`G1-FIND-29` — OMNI systematically records reviewers and enforcers and systematically does not record owners.** One ledger in four names an accountable owner. **The metamodel inherited the confusion by typing the fields it could see** — which is how a substrate's gap becomes its description's gap, and then its successor's gap. **At $1B a disciplined operator bridges this by knowing who to ask. At $10B, across forty operators and a thousand agent-proposed changes, "who is accountable for this rule" has no answer and no way to acquire one.**
+
+### §E8.4.2 — Recomputed over T1's consistent unit
+
+| Result | Count | Resources |
+|---|---|---|
+| **`PASS`** | **3** | 8 RBAC contract *(domain seat by policy + G0 holder receipt)* · 10 System Map *(cross-cutting steward seat by R8 §3.1)* · **23 `D0INS-CNF-001`** — *the one row whose ledger has an `owner` column* |
+| **`FAIL`** | **11** | 1 Reactor *(run roles, no standing seat)* · 2 + 3 guardrails *(enforcer, not owner)* · 4 GCE spine *(review gate satisfied, owner unnamed)* · 5 05-17 pattern *(no passport at all)* · 6 `DEC-036` *(`03` has no owner column)* · 7 `D0-REV-010` *(`required_reviewer` is an accepting authority — **R5's `PASS` withdrawn**)* · 11 conformance suite · 12 `requireCapability` · **24 taxonomy category set** · **25 `SC-D3-D5-001`** |
+| **`NOT_INSTANTIATED`** | **11** | 9 GCE boundary contract · 13 42010 *(no OMNI-side descriptor exists)* · 14–22 the nine synthetics |
+| | `3 + 11 + 11 = 25` ✔ | |
+
+**Named correctly, and this matters as much as the number:** *"**3 of 25 tested logical resources satisfy the selected estate-validation predicate.**"* **NOT** *"3 of N architecture resource kinds are governed across OMNI"* — this fixture tested 25 resources chosen to exercise 21 kinds; it is **not** a census of the estate, and R5's headline claimed a survey it never ran.
+
+**R5's `3 PASS · 6 FAIL · 7 NOT_INSTANTIATED` is withdrawn.** The corrected picture is worse again — **eleven failures, not six** — because the ownership decomposition removed three verdicts that rested on reviewers, and because the consistent unit exposed resources the GCE dominance rule had hidden.
+
+---
+
+## §E8.5 — Three holdouts · **predeclared before running**
+
+> **Predeclaration, recorded before any result was computed and before `AMM-C3` was touched for these cases.** Expected `primary_kind`, expected estate verdict, and the **forbidden collapse** each holdout is designed to catch. **If a holdout requires an `AMM-C3` amendment, that is a FAIL and is recorded as one.**
+>
+> | | expected kind | expected estate | forbidden collapse |
+> |---|---|---|---|
+> | **H-1** `D0INS-CNF-001` | `conflict_assertion` — a **relation assertion** between two decision revisions | `FAIL` *(assumed no owner, like `03`/`06`/`08`)* | the conflict must not be typed as a `decision`; its two statements must not fuse into one resource |
+> | **H-2** `controlled_vocabulary` | `controlled_vocabulary` | **`NOT_INSTANTIATED`** — `AMM-C2` recorded this kind as carried with no instance | a value set must not be typed as a `standard` |
+> | **H-3** `SC-D3-D5-001` | `seam_contract` | `FAIL` | seam-level canonicality must not collapse into `canonical_domain`; `owner_of_commit` must not be read as the contract's owner |
+
+**H-1 — `D0INS-CNF-001` · the only genuinely unseen structure.** `05`'s schema is `conflict_id | statement_a | statement_b | domain | severity | resolution_status | owner | review_gate | notes`. **`representability = PASS`, and it is the strongest single result in the pass** — because a conflict row is *exactly* the `RelationAssertion` shape `§E8.1.3` had just been forced to invent: two subject revisions, a predicate (`conflicts_with`), a resolution state, an owner and a review gate. **`AMM-C3` was not adjusted for it.** **`estate_validation = PASS` — and the predeclaration was WRONG.** I predicted `FAIL` by generalizing from `03`/`06`/`08`; `05` carries an explicit `owner` column. **A predeclaration that fails in the direction of the estate being *better* than assumed is worth more than one that confirms.**
+
+**H-2 — `controlled_vocabulary` · predeclaration WRONG, and instructively.** A real instance exists: **`00_document_governance_and_taxonomy_2026-05-19.md` §2** is a closed ten-value set with a governance rule — *"Do not invent a new category unless explicitly approved"* — which is a controlled vocabulary by any definition the fixture could apply. **`representability = PASS`** (no amendment needed; `truth_authority = canonical_for_scope`, `scope = universal`, `normative_effect = binding`). **`estate_validation = FAIL`, and the reason is the finding: the document that *mandates* the ten-field passport does not have one.** It opens with `**Date:** / **Status:** / **Purpose:**`. So the passport rule, the `D0-GRD-003` guardrail that enforces it, and the vocabulary that defines its values are all carried by a document that fails its own rule. **`AMM-C2`'s "carried, not exercised, no instance" was wrong** — it under-counted what OMNI has.
+
+**H-3 — `SC-D3-D5-001` · predeclaration CORRECT, and it exercised the facet split.** Declares `Document type: seam_contract` — **a third live value outside the ten fixed categories**, joining `domain_contract` (15/15) and `system_map`/`architecture_map`, so the `A-3` carrier-classification facet holds. Declares `Authority: canonical for this cross-domain boundary` — **canonicality scoped to a seam, which `AMM-C2`'s `canonical_global | canonical_domain` could not express** and `AMM-C3`'s `truth_authority = canonical_for_scope` + `scope` does. **`representability = PASS` without amendment.** **`estate_validation = FAIL` as predicted:** the contract's `owner_of_commit` field names who commits the seam's **data** (D5) — **not who owns the contract resource** — and `contracts/seams/` has no repository routing.
+
+**Holdout result: 3 representable, 0 amendments required · 2 of 3 estate predeclarations wrong.** **Graded, because two of these were not blind:** `controlled_vocabulary` and `seam_contract` were kinds `AMM-C2` had **already named** in its own registry, so I knew they were coming — **only H-1 was unseen structure, and only H-1's `PASS` carries full weight.** Three holdouts do not establish generality; they establish that the model did not collapse on first contact outside its training set.
+
+---
+
+## §E8.6 — Narrowed language
+
+| Overstated | Corrected |
+|---|---|
+| *"loosening is structurally impossible, not policed"* | **A `constraint` derivation may only add restrictions or rules to inherited content, so a validator can reject structural loosening relative to a pinned base** `[KND]`. **It does not self-enforce because the field is present**, and semantic weakening expressed in prose still needs a computable rule representation or independent review `[CAN→6]` |
+| *"SEI's own report declines the term 'variation point'"* → read as SEI rejecting it | **The 2005 CMU/SEI report *Variability in Software Product Lines* declines the term**, preferring *variable part* because a variable part is more than a location — it is an organizing container. **Other SEI work uses "variation point." Do not generalize** |
+| *"binding time belongs to the mechanism, never the rule"* labelled `[KND]` | **OMNI synthesis, relabelled `[CAN→3/5]`.** The variable-part / mechanism / binding-time separation is inherited; **where binding occurs in OMNI's layers is G1-to-G5 work, not an inherited law.** *(A provenance scheme whose author mislabels his own inventions as inherited is worse than no scheme.)* |
+| *"under R8's citation rule, 115 guardrail resources are uncitable"* | **The 115 guardrails are citable today by guardrail id, carrier path, git commit and row.** What they lack is a **first-class resource revision and effective interval** under R8's proposed model, so **reproducible as-of conformance depends on repository commit history rather than architecture-resource revisions.** Serious and defensible; *"uncitable"* was not |
+
+---
+
+## §E8.7 — Findings added in R6
+
+**`G1-FIND-27` — a state derivable from a relation must not also be independently assertable.** `superseded` was both. Third form of the estate's oldest defect: a count outliving its table (`F-06`), a claim outliving its source (`L-5`), **a state outliving its relation.** → `[KND]` in `AMM-C3`; drift-check is `[CAN→6]`.
+
+**`G1-FIND-28` — versioned nodes with timeless edges make `as_of` unanswerable by construction.** R8 §3.1 object 3 is defined as the frozen resolution of every relation at `as_of`; `AMM-C2` gave edges no interval, so there was nothing to freeze. **And the fix recurses: a relation assertion with identity, interval, provenance and a governing decision is itself an architecture resource** — so descriptors must describe assertions and snapshots must freeze assertion-revisions. **This is the single largest structural change in `AMM-C3` and the one with the clearest $10B consequence:** without it, no conformance claim, no supersession history and no effective architecture can be reconstructed for a date. Bitemporality `[CAN→3]`.
+
+**`G1-FIND-29` — OMNI records reviewers and enforcers, not owners.** One of four governance ledgers (`05`) has an `owner` column; `03` has none, `06` names an enforcer, `08` names a reviewer. **The metamodel reproduced the estate's confusion by typing the fields it could see.** → `architecture_steward`, G2.
+
+**`G1-FIND-30` — current placement is evidence of practice, never of policy.** R5 used live file placement to prove an intended many-to-many mapping between Artifact Index roles and kinds; re-inspection showed one claim false (`06` is the Guardrails role) and one partly false (`DEC-036` is a `03` row that the posture document references). **The Artifact Index exists to detect drift; reading drift as design inverts it.** → method rule; placement is a predicate `[CAN→3]`.
+
+**`G1-FIND-31` — the two kinds recorded as having no instance both have real instances.** `controlled_vocabulary` (the taxonomy's own fixed category set) and `seam_contract` (five live contracts). **`AMM-C2`'s coverage claim under-counted what OMNI has while over-counting what OMNI governs** — both errors in the direction of the author's expectations. → coverage is now `§E8.3.3`.
+
+**`G1-FIND-32` — the document that mandates the passport does not have one.** `00_document_governance_and_taxonomy_2026-05-19.md` defines the ten required passport fields and `D0-GRD-003` enforces them; the file itself opens with `Date` / `Status` / `Purpose`. Second Tier-0-adjacent instance after the 05-17 pattern (`G1-FIND-13`). **Not repaired here** — writing passports onto governance files is not this seat's act. → `architecture_steward`.
+
+---
+
+## §E8.8 — Status · `AB-08` · what R6 does not claim
+
+| Field | Value |
+|---|---|
+| **Output 1** | **`AMM_C3_RERUN_DONE · HOLDOUTS_RUN · NOT_COMPLETE · AWAITING_INDEPENDENT_REVIEW`.** Third candidate, second independent review. **Not self-certified.** The pattern that would justify self-certification — a candidate surviving a reader who did not build it — **has not happened yet** |
+| **`representability`** | **T1: 22 of 22 non-holdout resources · holdouts: 3 of 3, zero amendments required.** Reported over **one consistent unit** and **never summed with T2 or T3.** R5's `16/16` withdrawn — mixed units |
+| **`estate_validation`** | **3 `PASS` · 11 `FAIL` · 11 `NOT_INSTANTIATED` of 25 tested logical resources**, with the owner conjunct decomposed into four sub-facts. R5's `3/6/7` withdrawn. **Stated as *"tested logical resources satisfying the predicate"*, not as a census of OMNI** |
+| **Holdouts** | 3 run, **predeclared before execution**; **2 of 3 estate predeclarations wrong** — both because the estate was *better* than assumed on one axis and *worse* on another. **Graded: only H-1 was unseen structure** |
+| **`AB-08`** | **`AB-08_REMAINS_OPEN__FALSE_SINGLE_COUNT_REJECTED__AMM_C3_AND_HOLDOUTS_SUBMITTED_FOR_REVIEW`**. The durable answer is unchanged and now three passes old: **reject both "17 classes" and "5 tiers"** — they compare different classification functions. **Closure still blocked**, on: placement policy is a `[CAN→3]` predicate, not settled; relation bitemporality is `[CAN→3]`; the estate-governance failures are separately routed and remain **not** closure criteria |
+| **Minted** | **nothing.** No route, catalog, gate, checkpoint, handoff, registry, lane, FWREG row, guardrail, artifact, branch or PR. **No new standards research** — no source was opened in R6 that R5 had not already read |
+| **Output 2** | **NOT STARTED** |
+
+## §E8.9 — Source posture for R6
+
+**Read fully:** the R5 review in full · `§E7` re-read against each of its twelve charges *(every blocking claim verified in the live file before `AMM-C3` was designed)*.
+**Consulted deeply — repository only, no new external material:** `03_decision_extraction_ledger.md` schema + the `D0THES-DEC-036` row *(which falsified part of my own R5 placement evidence)* · `05_supersession_conflict_ledger.md` schema + `D0INS-CNF-001` *(holdout H-1)* · `06` and `08` schemas re-read for the owner-column census · `00_document_governance_and_taxonomy_2026-05-19.md` §2 and its header *(holdout H-2)* · `contracts/seams/SC-D3-D5-001…` passport + the Artifact Index seam spec *(holdout H-3)* · `00_architecture_artifact_index.md` role list re-read *(which falsified my `06`-is-Doctrine claim)*.
+**Not inspected — declared, not discharged:** unchanged from R5. The remaining Lane-1 sources · full standards texts beyond the sections already read in R5 · C3.8 G1b/G3 · Polaris · Platform + Accountability · C4.6 · federation-permeability · the six AI-corpus registries · the founding-thread verbatims · raw PRE-0 submissions · Insurance and Care history. **`B-8` unchanged.**
+**Live-repository verification:** entered at `5b8645066fa8a096e00cc24f4b3e94d49caac792`, the exact head the review named — **no advance to reconcile.** Boot Freshness Check **PASS**; `check-checkpoint-pointer.mjs` **PASS**; exactly one file modified.
+
 ## §E5 — G4 adversarial fixtures — routed forward, NOT a G1 output
 
 | Fixture | Existing test |
@@ -1381,7 +1688,7 @@ R1's *"one bounded semantics away"* was false against its own register, and R2's
 |---|---|---|
 | ~~**B-1**~~ | **CLOSED 2026-08-11** — boot state normalized on the base branch and verified there (§0.2). Repaired outside this proposal, as required: fixing the accepted G0 carriers inside the proposal they block would have been circular | `AGENTS.md` boot rule |
 | **B-13** | **`AB-01` generalized shared-mechanism form** — G1 decides and proposes it; the C4.4 owner participates in G1 approval; any edit to `C4.4 §R` itself is downstream (`G-07`) | ledger: `AB-01` blocks G1 |
-| **B-3** | **`AB-08` fixture RUN TWICE (R4 `§E6.6`; R5 `§E7.3`–`§E7.5`) — the row REMAINS OPEN.** Running a fixture is not disposing a ledger row, and R4's proposed closure was withdrawn under review. **What remains: the steward accepts, amends or rejects `AMM-C2`, and reconciles the Artifact Index key.** The estate governance failures are **separately routed and are NOT `AB-08` closure criteria.** No new blocker minted | **ledger `blocking_scope` = blocks G1**; owner `architecture_steward` |
+| **B-3** | **`AB-08` fixture RUN THREE TIMES (R4 `§E6.6`; R5 `§E7.3`; R6 `§E8.3`–`§E8.5` incl. three predeclared holdouts) — the row REMAINS OPEN.** Running a fixture is not disposing a ledger row, and R4's proposed closure was withdrawn under review. **What remains: the steward accepts, amends or rejects `AMM-C3`, and settles the placement predicate.** The estate governance failures are **separately routed and are NOT `AB-08` closure criteria.** No new blocker minted | **ledger `blocking_scope` = blocks G1**; owner `architecture_steward` |
 | **B-8** | **Source floor incomplete** — Lane-1 architecture-management sources unread **and required Lane-2 carriers unread** (System Map · Surface Map · Polaris · Platform · Accountability · C4.6 · federation-permeability). *R3 understated this as Lane-1 + C3.8 intermediates; C3.8 G4 is the named terminus, so its intermediates are optional — the Lane-2 omission is the real one* | R8 Lane 2 + `AB-11` |
 | **B-15** | **`§G1-CONTRACT` outputs 2–7 incomplete** — the operations loop, graph semantics, change lifecycle, profile resolution, conformance model and transfer-limit matrix | R8 §5 `G1` |
 
@@ -1449,11 +1756,13 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 
 **F-07 (new) A correct decomposition does not protect its own values — and self-rerun does not substitute for independent review.** R4 decomposed thirteen distinctions and then re-collapsed four of them one level down, inside the enums (`G1-FIND-19`). It reran its own fixture, found six failures, amended generally, and still shipped **three rules that its own model violated** — all three found by the next reader, none by the author. **Mechanism: an author checks values against the intent that produced them, and a reviewer checks values against the stated rule.** Consequence for this arc: a fixture result is provisional until it survives a reader who did not build the model. *(This is `F-03` — multiplicity is not corroboration — read from the other side: a single author rerunning their own model is not two observations.)*
 
+**F-08 (new) An axis decomposition must be re-run against its own values, every time, and by someone else.** Twice consecutively the top-level decomposition improved and incompatible meanings stayed fused **inside the value sets** — `AMM-C1` in four places, `AMM-C2` in four more, the second time in the very pass that minted `F-07` to warn about it. **Mechanism: an author decomposes at the altitude he is thinking at, and the collapse hides one altitude down.** Companion to `F-07`, and the operational rule is the same: **a candidate is provisional until a reader who did not build it has attacked its values, not just its structure.**
+
 **F-01 Candour penalty** — rigorous attribution raises liability exposure, rationally reducing candid documentation. *No design response; any claim to have solved it is suspect.* · **F-02 The view becomes the truth** (`AB-27`) — falsifier of `D0THES-DEC-033`; G4 negative test · **F-03 Multiplicity is not corroboration** — PRE-0 demonstrated it on itself; R1 stated it and violated it in scenario 5 · **F-04 Gap-declaration masquerading as risk management** — this gate did it three times (Tier-0 #14, C3.8, Build OS) · **F-05 (new) Narrative revision destroys evidence** — R2 deleted three required tables while keeping their totals. **Prose is not a durable evidence carrier.**
 
 ### §7.2 — Gaps
 
-`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner  · `G-08` **`AB-08` fixture RUN TWICE** (R4 `§E6.6`; R5 `§E7.3`–`§E7.5`). The narrow gap *“the fixture has never been run”* is closed; **the gap is NOT closed** — R4's proposed disposition was withdrawn under independent review and `AMM-C2` awaits the steward · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15`** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority · **`G-19` (new)** **no authoritative applicability-and-traceability mechanism was located** for resolving external obligations, operator policies, contractual requirements, adopted standards and informative comparators into effective OMNI architecture; **existing regulatory content across the estate remains unassessed.** **Split by scope, and *"non-blocking for G1"* is withdrawn as imprecise:** the **cross-cutting semantics ARE part of G1** — carried by `§G1-CONTRACT.c` and closing through the existing Output 1–7 acceptance conditions, already inside `B-3` and `B-15`, so **no new blocker is minted**; the **population and operation of the regulatory programme** (full corpus · product-specific SaMD determinations · certifications · per-jurisdiction adjudication) is **later or parallel work and does not block Output 1** → steward + operator (`G1-FIND-10`). *(An earlier wording claimed the named standards were "all absent" and used a binding/borrowable binary — both withdrawn.)* · **`G-16` (new)** Care's U/C/A crosswalk is a frozen nonbinding candidate; generalizing it past Care is unratified cross-scope synthesis → G3 Care reconciliation · **`G-17` (new)** the five-axis authority decomposition is a proposal requiring reconciliation against Care's own composition-field list → G3 · **`G-18` (new)** GCE is the established home but the build-facing boundary contract does not exist (thesis §C paused) → §C authoring / G3.
+`G-02` seat transfer/suspension → G2 · `G-03` **split** into §E4 problems A and B → `AB-29` · `G-04` adversarial viewpoint → G2 · `G-05` **superseded** by `B-8` · ~~`G-06`~~ **CLOSED** (Tier-0 #14) · `G-07` `C4.4 §R` owner   · `G-08` **`AB-08` fixture RUN THREE TIMES** (R4 `§E6.6`; R5 `§E7.3`; R6 `§E8.3`–`§E8.5`). The narrow gap *“the fixture has never been run”* is closed; **the gap is NOT closed** — two candidates have been withdrawn under independent review and `AMM-C3` awaits the steward · `G-09` attestation withdrawal · `G-10` seat model untested · `G-11` no substrate translation · `G-12` how many authority contexts; dual-context principals · **`G-13` (new)** third-party effects outside OMNI · **`G-14` (new)** Build Entry Gate `11` frozen against a stale foundation · **`G-15`** `02_authority_routing_map.md` is a Phase-0 skeleton carrying binding routing authority · **`G-19` (new)** **no authoritative applicability-and-traceability mechanism was located** for resolving external obligations, operator policies, contractual requirements, adopted standards and informative comparators into effective OMNI architecture; **existing regulatory content across the estate remains unassessed.** **Split by scope, and *"non-blocking for G1"* is withdrawn as imprecise:** the **cross-cutting semantics ARE part of G1** — carried by `§G1-CONTRACT.c` and closing through the existing Output 1–7 acceptance conditions, already inside `B-3` and `B-15`, so **no new blocker is minted**; the **population and operation of the regulatory programme** (full corpus · product-specific SaMD determinations · certifications · per-jurisdiction adjudication) is **later or parallel work and does not block Output 1** → steward + operator (`G1-FIND-10`). *(An earlier wording claimed the named standards were "all absent" and used a binding/borrowable binary — both withdrawn.)* · **`G-16` (new)** Care's U/C/A crosswalk is a frozen nonbinding candidate; generalizing it past Care is unratified cross-scope synthesis → G3 Care reconciliation · **`G-17` (new)** the five-axis authority decomposition is a proposal requiring reconciliation against Care's own composition-field list → G3 · **`G-18` (new)** GCE is the established home but the build-facing boundary contract does not exist (thesis §C paused) → §C authoring / G3.
 
 *(`G-16`…`G-18` were minted in the body of the previous pass and never reached this register — the finding-evaporation defect this register exists to prevent. Recorded as a live instance under `F-04`.)*
 
@@ -1462,6 +1771,8 @@ Three postures, predicted by Tier-0 #14 §1.5.2's four operator abilities: **OMN
 `G1-FIND-01` R8/R9 stale and contradicted by their own catalog rows; checkpoint §4 diverges from the ledger's `blocking_scope` · `G1-FIND-02` `rbac_authority_contract.md` §5 carries two different four-member lists · `G1-FIND-03` the most precise composition statement sits at the lowest maturity · `G1-FIND-04` G0 receipt normalization **proposed** · `G1-FIND-05` plan §1's *"nothing exists"* and R1's *"nothing is net-new"* are equal and opposite · `G1-FIND-06` operations mechanisms assume elastic review capacity · `G1-FIND-07` **C3.8's ratified posture and translation map were never connected to the authority model** though it was catalogued, routed and named in two required lists · **`G1-FIND-08` (new)** comparators used here need `comparator_analogy_registry.md` rows per Build OS `10`'s never-re-scatter rule · **`G1-FIND-09` (new)** **Build OS `09` already states *"build-agent authority never becomes product authority"*, and Care §19 already carries the U/C/A propagation crosswalk — this gate re-derived both as "three planes."**
 
 **`G1-FIND-11` … `G1-FIND-18` (new, R4 — from running the `AB-08` fixture; each stated in full at `§E6.9` and summarized here so the register stays the index it exists to be).** `G1-FIND-11` the `plane` axis is real and closed (`D0THES-DEC-033`, seven planes + Evidence) and was mis-diagnosed in both directions — one field was answering *resides* and *constrains* → `A-1` · `G1-FIND-12` the governance-taxonomy drift is **universal and measured** (15/15 domain contracts declare `domain_contract`; System Map `system_map`; Surface Map `architecture_map`; one Tier-0 carrier has no passport) — representable via `A-3`, **ratification is the taxonomy owner's** → `architecture_steward` · `G1-FIND-13` a **boot-visible reusable pattern exists and is ungoverned** (`coherent_omni_architecture_pattern_2026-05-17.md`, read-graph Tier-0 #14; no passport, no authority, no owner) — corrects `§E6.2` item 5 → `architecture_steward` · `G1-FIND-14` **OMNI's non-document resources are governance-invisible** (`lib/auth/` and `scripts/` absent from `CODEOWNERS` while `lib/safety/` and the *demoted legacy* map are protected; one CI workflow estate-wide; the conformance suite runnable by nothing) → `architecture_steward` + `repository_administration`, G2 · `G1-FIND-15` **naming state is an axis independent of acceptance**, proven live (Reactor `analysis_closed` + `naming gate OPEN`, and its verifier forbidden to name it) → `A-2` · `G1-FIND-16` one `version` field cannot serve OMNI-authored resources and external editions (found by consulting 42010 `:2011` against the current `:2022`) → `A-4` · `G1-FIND-17` the fixture's own case list contained a **cluster** (GCE = five resources), which manufactured the probe's *"needs three roles at once"* → fixture-protocol amendment `P-1` · `G1-FIND-18` **42010's transferable content is bounded to four of the thirteen required distinctions** and is silent on authority, applicability, profile targeting, variation and non-loosening; its correspondences relate AD elements to AD elements, so OMNI's description→implementation relations are an OMNI extension. **Mechanism probe only — no conformance owed, none claimed, no standards programme opened** → registry rows **proposed** under `G1-FIND-08`.
+
+**`G1-FIND-27` … `G1-FIND-32` (new, R6 — from the second independent review and the `AMM-C3` rerun; stated in full at `§E8.7`).** `G1-FIND-27` **a state derivable from a relation may not also be independently assertable** — `superseded` was both; third form of the estate's oldest defect, after a count outliving its table and a claim outliving its source · `G1-FIND-28` **versioned nodes with timeless edges make `as_of` unanswerable by construction**, so R8 §3.1's snapshot had nothing to freeze; relation assertions become first-class and intervalled, **and they are themselves architecture resources**, so descriptors must describe assertions and snapshots must freeze assertion-revisions · `G1-FIND-29` **OMNI records reviewers and enforcers, not owners** — one of four governance ledgers (`05`) has an `owner` column; `03` none, `06` an enforcer, `08` a reviewer; **the metamodel inherited the confusion by typing the fields it could see** → steward, G2 · `G1-FIND-30` **current placement is evidence of practice, never of policy** — R5 read drift as design; the Artifact Index exists to detect the difference · `G1-FIND-31` **both kinds recorded as having no instance have real instances** (`controlled_vocabulary` = the taxonomy's own fixed category set; `seam_contract` = five live contracts) — R5 under-counted what OMNI has while over-counting what it governs · `G1-FIND-32` **the document that mandates the ten-field passport does not have one** — second Tier-0-adjacent instance after the 05-17 pattern → steward.
 
 **`G1-FIND-19` … `G1-FIND-26` (new, R5 — from the independent review of R4 and the `AMM-C2` rerun; stated in full at `§E7.7`).** `G1-FIND-19` **decomposing the axes does not protect the values** — `AMM-C1` separated thirteen distinctions and then re-collapsed four of them inside individual enums and one table row; guardrail candidate, captured not promoted · `G1-FIND-20` **a model that cannot represent the act validating it is not self-hosted** — `conforms_to`-only made this fixture unrepresentable in its own candidate; fixed by `evaluated_against` · `G1-FIND-21` **scalar authority was recreated on the one operation that changes OMNI's law**, and ranked permissively in the wrong direction · `G1-FIND-22` **under R8's own citation rule, 115 guardrail resources are uncitable** (no version, no effective interval) → steward, G2 · `G1-FIND-23` **non-loosening is better designed away than policed** (FHIR `derivation = constraint`); residue narrowed to prose-rule comparison → Output 6 · `G1-FIND-24` **`binding_time` was missing entirely and belongs to the mechanism, not the rule**; SEI's own report declines the term *“variation point”* · `G1-FIND-25` **AUTOSAR and IHE independently corroborate §3's boundary rule** — internals unspecified, boundary mandatory · `G1-FIND-26` **the Artifact Index needs a key, not a successor**; `admissible_kinds[]` proposed, registry reopened.
 
@@ -1521,29 +1832,33 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 
 | Field | Value |
 |---|---|
-| Artifact | FAI **G1 operating-model carrier R5** · seat `proposal_authoring` · state **`proposed`** · **`B-1` CLOSED 2026-08-11** |
+| Artifact | FAI **G1 operating-model carrier R6** · seat `proposal_authoring` · state **`proposed`** · **`B-1` CLOSED 2026-08-11** |
+| R5 → R6 | **Second independent review; `AMM-C2` not accepted; `AMM-C3` + consistent fixture units + three predeclared holdouts in response.** Receipt at **`§E8.0`** — **12 review items, all 12 accepted** (one with a value-set refinement), **2 defects added that the review did not find**. `AMM-C3` (`§E8.1`): every facet answers one question · four-level identity · **relation assertions first-class and intervalled, which is what makes `as_of` answerable at all** · typed value-object endpoints declared · `part_of` split into five relations · `0..n` cardinalities. Evidence split into **three tables, one unit each, never summed** (`§E8.3`). Ownership decomposed into four sub-facts (`§E8.4`). **Three holdouts predeclared before running** (`§E8.5`). **R5's `16/16`, its `3/6/7`, its owner test, its resource→resource claim and its Artifact-Index evidence are all withdrawn.** No new external source opened. **Output 2 still not started; one file changed** |
 | R4 → R5 | **Independent review of R4 was NOT accepted; `AMM-C2` + full rerun in response.** Receipt of every disposition — accepted / refined / declined — at **`§E7.0`** (13 review items, **11 accepted**, 2 declined with reasons, **2 defects added that the review did not find**). `AMM-C2` at `§E7.1`: `authority_level` dissolved into four facets with **no ordering anywhere** · lifecycle into four · naming into two · three-tier identity (resource / revision / descriptor) · semantic relations normalized to resource→resource · `evaluated_against` added · `binding_time` added · FHIR derivation kinds. Artifact Index reconciled as a **placement policy keyed by `primary_kind`** (`§E7.2`). **Full rerun of all cases and controls** (`§E7.3`–`§E7.5`). **R4's two aggregates, its Output-1 completion claim and its `AB-08` disposition are all withdrawn.** Four targeted mechanism sources read (SEI · FHIR · IHE · AUTOSAR), no adoption. **Output 2 still not started; one file changed** |
 | R3 → R4 | **Output 1 executed and nothing else.** `AMM-C1` defined (`§E6.5`) · the twelve-case fixture run (`§E6.6`) · the two `G1-FIND-10` representability cases run (`§E6.7`) · nine negative controls run (`§E6.8`) · eight findings (`§E6.9`) · four bounded amendments + one fixture-protocol amendment + the rerun (`§E6.10`) · aggregates and the `AB-08` disposition (`§E6.11`) · source posture (`§E6.12`). **Three R3 claims corrected in place by direct inspection:** `§E6.1` defect 3's `plane` guess · `§E6.2` item 5 on patterns · `§E-note B`'s single `viewpoint_or_view` axis. **Output 2 not started; no clean acceptance carrier authored; no other file touched** |
 | R2 → R3 | evidence restored (§E) · Build OS read · "three planes" withdrawn · four external correspondences downgraded · third-party rule corrected · blockers sorted by gate · G4 fixtures added |
 | Required G1 evidence | **§E1** 40-row semantic receipt · **§E2** nine tool dispositions · **§E3** ten-row frontier matrix · **§E4/E4b** five traces + eleven scenarios · **§E6.5–§E6.12** the Output-1 metamodel, fixture matrix, negative controls, amendments and rerun. **Fenced against compression** |
 | Exploratory, NOT a result | **§E6–§E6.4** the R3 `AB-08` classification probe — **invalid as a fixture**; conclusions withdrawn; retained as evidence of what was examined. **Superseded as the Output-1 answer by `§E6.5`–`§E6.12`, which is the run of the `§E6.3` specification** |
-| **Output 1 — the only output advanced** | **`AMM_C2_RERUN_DONE · NOT_COMPLETE · AWAITING_INDEPENDENT_REVIEW`.** `representability` **16/16 on `AMM-C2`** — and **explicitly provisional**, because R4's `14/14` was falsified within one review round and was **13/14 at best**. Controls **graded by evidential strength**: 4 STRONG · 4 INHERITED · 1 mixed · **1 WEAK-and-declared** — only the first two grades are evidence about the estate; the rest is evidence about the author's own consistency. **`estate_validation` 3 PASS · 6 FAIL · 7 NOT_INSTANTIATED** of 16, **derived from the four conjuncts of `§E6.3`'s own criterion** rather than asserted, with one owner judgment call flagged (if overturned: 2/7/7) |
-| **The two dimensions, not collapsed** | Seven cases are carried by `FIXTURE_ONLY` synthetics. **They prove representability and nothing else** — not necessity, not rightful ownership, not scoping, not maturity, not operational validity. **Six estate FAILs and seven uninstantiated kinds are governance gaps that no schema change can close**, and no amendment in either run moved an `estate_validation` value. **The headline: three of sixteen architecture resource kinds are both instantiated and governed** |
+| **Output 1 — the only output advanced** | **`AMM_C3_RERUN_DONE · HOLDOUTS_RUN · NOT_COMPLETE · AWAITING_INDEPENDENT_REVIEW`.** **T1 22 of 22** non-holdout logical resources representable · **holdouts 3 of 3 with zero amendments required**, but **graded**: two of three were kinds `AMM-C2` had already named, so **only H-1 (`D0INS-CNF-001`) was unseen structure.** **`estate_validation` 3 `PASS` · 11 `FAIL` · 11 `NOT_INSTANTIATED` of 25 tested logical resources.** Controls' R5 grading retained (4 STRONG · 4 INHERITED · 1 mixed · 1 WEAK-declared). **Every R5 aggregate withdrawn for mixed units; nothing is summed across the three tables** |
+| **The two dimensions, not collapsed** | Nine of 25 rows are `FIXTURE_ONLY` synthetics. **They prove representability and nothing else.** No amendment in any of the three runs moved an `estate_validation` value, and none could. **The headline, stated as what it is: 3 of 25 tested logical resources satisfy the estate predicate — a statement about the fixture, NOT a census of OMNI.** R5's *“three of sixteen **kinds**”* is withdrawn: the rows were not kinds and three were not single resources |
+| **Why the number is what it is** | **`G1-FIND-29`, measured:** of OMNI's four governance ledgers, **exactly one records an accountable owner.** `03` has no owner column, `06` names an enforcer, `08` names a reviewer, `05` names an owner — **and `05`'s row is the single cleanest estate result in the fixture.** The metamodel kept substituting reviewer for owner because **the estate does** |
 | Process failure — **historical** | the `§E6` probe was **substantive metamodel design performed while `B-1` was still open.** Preserved as evidence; **not compliant G1 execution**, and `B-1`'s later closure does not convert it into one (`§E6.4`) |
 | Routed forward, NOT a G1 output | **§E5** ten G4 adversarial fixtures — a G4 proof plan carried under G4's existing tests |
-| Ledger | 40 rows verdicted. **ZERO closed.** **`AB-08` REMAINS OPEN** — `AB-08_REMAINS_OPEN__FALSE_SINGLE_COUNT_REJECTED__AMM_C2_SUBMITTED_FOR_REVIEW` (`§E7.8`). R4's proposed closure and its steward fork are **withdrawn**. The surviving substantive conclusion — **adopt neither “17 classes” nor “5 tiers”** — stands |
+| Ledger | 40 rows verdicted. **ZERO closed.** **`AB-08` REMAINS OPEN** — `AB-08_REMAINS_OPEN__FALSE_SINGLE_COUNT_REJECTED__AMM_C3_AND_HOLDOUTS_SUBMITTED_FOR_REVIEW` (`§E8.8`). The surviving substantive conclusion — **adopt neither “17 classes” nor “5 tiers”** — is now three passes old and unchallenged. **Closure still blocked on the placement predicate `[CAN→3]` and relation bitemporality `[CAN→3]`** |
 | Operator questions | **Q1** — the rule already existed in Build OS `09`; Care §19's U/C/A supplies the mechanism **as a frozen nonbinding candidate**, and applying it past Care is **this gate's synthesis** (`G-16`). The build-down/care-external binary is **withdrawn**; the rule is **per-act origin resolution**, and authority-origin direction is a **candidate descriptor field, not a profile axis**. **Q2** — internal-model equivalence not required, **boundary conformance mandatory**; GCE is the **home**, but the contract content **does not exist** (thesis §C paused), so the ten obligations are **new synthesis** (`G-18`) |
 | Boot | **RESOLVED** — normalized on the base and verified there, 2026-08-11 (§0.2) |
 | Minted | **nothing.** No route, gate, checkpoint, handoff, registry, lane, FWREG row, guardrail or artifact. `AMM-C1`'s field and value names are **fixture vocabulary under test**, not installed schema — installation is G2's transaction against R8 §3.1 |
-| External mechanisms | **probes only — 42010 · SEI · FHIR · IHE · AUTOSAR.** **Nothing adopted, no conformance owed or claimed to any of them, no standards programme opened, no map asserted to be a 42010 view.** Highest-value transfers: FHIR's `derivation = constraint` makes **non-loosening structural rather than policed** · SEI's own report **declines the term *“variation point”*** and supplies the missing `binding_time` facet · **AUTOSAR and IHE independently corroborate §3's boundary rule** · IHE makes multi-profile composition an **obligation-union** and conformance an **attributed Integration Statement**, corroborating `AB-10` |
-| Verdict | **`NOT_CONVERGED__OUTPUT_1_ON_SECOND_CANDIDATE_AWAITING_REVIEW__OUTPUTS_2_TO_7_AND_SOURCE_FLOOR_INCOMPLETE`** *(R4's completion label is withdrawn; the source floor and model boundaries remain incomplete exactly as R3 stated)* |
+| External mechanisms | **probes only — 42010 · SEI · FHIR · IHE · AUTOSAR. R6 opened NO new external source.** Three R5 transfer claims narrowed at `§E8.6`: FHIR non-loosening is **validator-checkable against a pinned base**, not self-enforcing · the **2005 SEI report** declines *“variation point”*, which does not generalize to SEI · `binding_time` placement is **OMNI synthesis, relabelled `[CAN→3/5]`**. **Nothing adopted, no conformance owed or claimed to any of them, no standards programme opened, no map asserted to be a 42010 view.** Highest-value transfers: FHIR's `derivation = constraint` makes **non-loosening structural rather than policed** · SEI's own report **declines the term *“variation point”*** and supplies the missing `binding_time` facet · **AUTOSAR and IHE independently corroborate §3's boundary rule** · IHE makes multi-profile composition an **obligation-union** and conformance an **attributed Integration Statement**, corroborating `AB-10` |
+| Verdict | **`NOT_CONVERGED__OUTPUT_1_ON_THIRD_CANDIDATE_AWAITING_REVIEW__OUTPUTS_2_TO_7_AND_SOURCE_FLOOR_INCOMPLETE`** *(R4's completion label stays withdrawn; the source floor and model boundaries remain incomplete exactly as R3 stated)* |
 | G1 blockers | **still four, and still NOT peers.** **B-3** now reads *fixture RUN TWICE; `AB-08` REMAINS OPEN; `AMM-C2` awaiting the steward* — **running a fixture is not disposing a ledger row**, and R4's proposed closure was withdrawn under review. The estate governance failures are separately routed and are **not** closure criteria · **B-8** source floor incl. unread **Lane-2** carriers — **unchanged**; the narrow `AB-08` floor was read, the floor was not · **B-13** `AB-01` generalized form + C4.4 owner acceptance — **unchanged** · **B-15** = *outputs 2–7*, i.e. **the rest of G1**. *(B-2 → open item with owner; B-6 → G2/G4)* |
-| Owed and NOT done — declared | the **catalog row's `status` column** reads `g1_carrier_R3_PROPOSED_not_accepted_B1_cleared` and is now **two revisions stale**; repointing belongs to the accepting transaction and this pass may write only this carrier. **Route `9v-ii` needs NOTHING** — it carries path, trigger, read rule, authority, lifecycle and promotion condition and **no content description**; R4's claim that it needed repointing is **withdrawn**, and acting on it would have pushed Output-1 narrative into a routing surface |
-| Next | **Stop for Nick + Knox.** Then, in order: ① the steward accepts, amends or rejects **`AMM-C2`** and disposes `AB-08` per `§E7.8`, including the Artifact Index `admissible_kinds[]` proposal; ② **Output 2 — the architecture-operations loop as a transaction with actors, gates and artifacts** — begins only after that, and it inherits `AMM-C1`'s resource/carrier/descriptor split as its object model; ③ outputs 3–7 inherit the obligations Output 1 was forbidden to settle (precedence · conflict · non-loosening semantics · applicability evaluation · profile composition · source-change propagation · effective resolution · conformance proof) plus `NC-8`'s unresolved semantic check. **`G1-FIND-13` and `G1-FIND-14` are repairs to files this seat may not write; they belong to the steward and to G2, not to Output 2.** **A clean acceptance carrier is assembled after the cells close** — earlier it is another revision by another name |
+| Owed and NOT done — declared | the **catalog row's `status` column** reads `g1_carrier_R3_PROPOSED_not_accepted_B1_cleared` and is now **three revisions stale**; repointing belongs to the accepting transaction and this pass may write only this carrier. **Route `9v-ii` needs NOTHING** — it carries path, trigger, read rule, authority, lifecycle and promotion condition and **no content description**; R4's claim that it needed repointing is **withdrawn**, and acting on it would have pushed Output-1 narrative into a routing surface |
+| Next | **Stop for Nick + Knox.** Then, in order: ① the steward accepts, amends or rejects **`AMM-C3`** and disposes `AB-08` per `§E8.8`, including the placement predicate `[CAN→3]`; ② **Output 2 — the architecture-operations loop as a transaction with actors, gates and artifacts** — begins only after that, and it inherits `AMM-C1`'s resource/carrier/descriptor split as its object model; ③ outputs 3–7 inherit the obligations Output 1 was forbidden to settle (precedence · conflict · non-loosening semantics · applicability evaluation · profile composition · source-change propagation · effective resolution · conformance proof) plus `NC-8`'s unresolved semantic check. **`G1-FIND-13` and `G1-FIND-14` are repairs to files this seat may not write; they belong to the steward and to G2, not to Output 2.** **A clean acceptance carrier is assembled after the cells close** — earlier it is another revision by another name |
 
 ## §9 — Handoff
 
 **No separate `HANDOFF_*` file** — a third current-state description beside the checkpoint §1 and §8 is the maintained-duplicate failure that reopened `C-11`/`C-12`.
+
+**Changed in R6:** **this carrier only** — same scope as R4 and R5. `§E8` appended; R5's block marked in place with `★ CORRECTED IN R6` markers and **nothing deleted**; `§G1-CONTRACT`, the `AB-08` ledger row, `B-3`, `G-08`, `§7.1`–`§7.3`, the STOP receipt and this handoff repointed. **No new external source opened.** No catalog edit, no read-graph edit, no checkpoint, no R8/R9, no ledger, no registry, no FWREG, no evidence lane, no System or Surface Map, no Care, no domain contract, no new artifact, branch or PR.
 
 **Changed in R5:** **this carrier only** — same scope as R4. `§E7` appended; R4's block marked in place with **fourteen** `★ CORRECTED IN R5` markers plus a scoping banner at `§E6.5`, and **nothing deleted**; `§G1-CONTRACT`, the `AB-08` ledger row, `B-3`, `G-08`, `§7.1`–`§7.3`, the STOP receipt and this handoff repointed. No catalog edit, **no read-graph edit** (route `9v-ii` needs none), no checkpoint, no R8/R9, no ledger, no comparator registry, no FWREG, no evidence lane, no System or Surface Map, no Care, no domain contract, no new artifact, branch or PR.
 
@@ -1557,4 +1872,4 @@ Nothing minted, closed or promoted. Reactor stays frozen and unpromoted. Care no
 
 **Stop condition:** superseded when the steward and affected domain owners accept, amend or reject.
 
-**STOP: `g1_working_dossier_R5 · B-1_CLOSED_2026-08-11 · evidence_restored_and_fenced · 40_rows_verdicted_zero_closed · OUTPUT_1_AMM_C2_RERUN_DONE_NOT_COMPLETE_AWAITING_INDEPENDENT_REVIEW · R4_completion_claim_WITHDRAWN · AB-08_REMAINS_OPEN__FALSE_SINGLE_COUNT_REJECTED__AMM_C2_SUBMITTED_FOR_REVIEW · representability_16_of_16_on_AMM_C2_PROVISIONAL · estate_validation_3_PASS_6_FAIL_7_NOT_INSTANTIATED_of_16 · controls_graded_4_STRONG_4_INHERITED_1_MIXED_1_WEAK · G1_CONTRACT_0_of_8_outputs_complete · 4_G1_blockers · output_2_not_started · acceptance_carrier_not_yet_authored`**
+**STOP: `g1_working_dossier_R6 · B-1_CLOSED_2026-08-11 · evidence_restored_and_fenced · 40_rows_verdicted_zero_closed · OUTPUT_1_AMM_C3_RERUN_AND_HOLDOUTS_DONE_NOT_COMPLETE_AWAITING_INDEPENDENT_REVIEW · AB-08_REMAINS_OPEN__FALSE_SINGLE_COUNT_REJECTED__AMM_C3_AND_HOLDOUTS_SUBMITTED_FOR_REVIEW · T1_22_of_22_representable · holdouts_3_of_3_zero_amendments_but_only_H1_unseen · estate_validation_3_PASS_11_FAIL_11_NOT_INSTANTIATED_of_25_tested_logical_resources · R5_aggregates_WITHDRAWN_mixed_units · three_tables_never_summed · G1_CONTRACT_0_of_8_outputs_complete · 4_G1_blockers · output_2_not_started · acceptance_carrier_not_yet_authored`**
