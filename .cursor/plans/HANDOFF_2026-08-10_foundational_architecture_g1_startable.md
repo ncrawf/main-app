@@ -17,11 +17,11 @@ Review gate: `user_knox_required`
 |---|---|
 | **Gate** | **FAI Gate-0 ACCEPTED 2026-08-10.** **G1 is STARTABLE.** |
 | **Arc** | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — charter **R9** · execution plan **R8** · PRE-0 ledger **R5** |
-| **Next action** | **G1 — converge the operating model**, including the mandatory **`§G1-AUTH`** work package. **Read route `9v` first.** |
+| **Next action** | **G1 Output 2 — the architecture-operations loop.** Output 1 is **accepted as a G1 proposal**; the mandatory **`§G1-AUTH`** work package remains open. **Read route `9v` first**, then carrier `§7.5` / `§G1-CONTRACT`. |
 | **PRE-0** | **COMPLETE and CERTIFIED.** Blind counter-design (A, B) + independent grounded plan audit (C) → reconciliation → one bounded amendment cycle → five byte-verification rounds. Independent verdict: **`FAI_PRE0_AND_PLAN_CLOSURE = ACCEPTED_FOR_G0`** |
 | **Blockers** | **12 of 14 fully closed.** `C-01` **partial by design** — foundational authority is a G1 reconciliation (`§G1-AUTH`), not a G0 invention. `C-10` **EXECUTED in this transaction** |
 | **Insurance** | **FROZEN.** PR #14 open, draft, unmerged. `C3.9` NOT started · `E2` NOT started. **Does not unfreeze without an explicit operator decision.** |
-| **Ledger** | **BINDING on closure:** `v4_FAI_PRE0_reconciliation_ledger_2026-08-09.md` — 81 rows, **7 open**. **G1 and G3 cannot close with an undisposed row.** |
+| **Ledger** | **BINDING on closure:** `v4_FAI_PRE0_reconciliation_ledger_2026-08-09.md` — 81 rows, **6 open**. **G1 and G3 cannot close with an undisposed row.** |
 
 ---
 
@@ -85,7 +85,7 @@ first_authorised_G1_write: the G1 operating-model carrier (new file, G1-authored
 
 | Obligation | Where |
 |---|---|
-| **7 open ledger rows must be disposed before G1 closes** — AB-08, AB-19, AB-20, AB-22, AB-23, AB-29, AB-31 | ledger §1, each carrying owner · trigger · target gate · blocking status |
+| **6 open ledger rows must be disposed before G1 closes** — AB-19, AB-20, AB-22, AB-23, AB-29, AB-31 | ledger §1, each carrying owner · trigger · target gate · blocking status |
 | **`§G1-AUTH`** — Authority, Agency and Commit Grammar Reconciliation, with 11 pressure scenarios | plan `#### §G1-AUTH` |
 | **Closeout automation** — `FWREG-021 CLOSEOUT-AS-GRAPH`; the R1→R5 commit sequence is the fixture material | `doctrine/future_work_registry.md` |
 | **No manual repetition of derived state** — counts, gate sequences, packet inventories resolve by pointer or generated projection | the rule that closed `C-11`/`C-12` after three false claims |
@@ -100,4 +100,4 @@ first_authorised_G1_write: the G1 operating-model carrier (new file, G1-authored
 - **Historical arc-opening detail:** `HANDOFF_2026-08-09_foundational_architecture_arc_opened.md` — **not current state.**
 - **Insurance state:** `HANDOFF_2026-08-09_work_horizon_closed_insurance_gate2_startable.md` — still valid for Insurance, **no longer the Tier-0 pointer.**
 
-**STOP: `g0_accepted · c10_landed · g1_startable · ledger_7_rows_open · insurance_frozen`**
+**STOP: `g0_accepted · c10_landed · g1_startable · ledger_6_rows_open · insurance_frozen`**
