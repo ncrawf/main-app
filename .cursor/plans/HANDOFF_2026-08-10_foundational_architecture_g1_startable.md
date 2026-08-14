@@ -15,9 +15,9 @@ Review gate: `user_knox_required`
 
 | Item | State |
 |---|---|
-| **Gate** | **FAI Gate-0 ACCEPTED 2026-08-10.** **G1 is STARTABLE.** |
+| **Gate** | **FAI Gate-0 ACCEPTED 2026-08-10.** **G1 is OPEN and INCOMPLETE — 2 of 8 outputs accepted as proposals; `§G1-AUTH` partially converged.** |
 | **Arc** | `OMNI-FOUNDATIONAL-ARCHITECTURE-INSTALL` — charter **R9** · execution plan **R8** · PRE-0 ledger **R5** |
-| **Next action** | **G1 Output 2 — the architecture-operations loop.** Output 1 is **accepted as a G1 proposal**; the mandatory **`§G1-AUTH`** work package remains open. **Read route `9v` first**, then carrier `§7.5` / `§G1-CONTRACT`. |
+| **Next action** | **G1 Output 3 — architecture graph semantics.** Outputs 1 and 2 are **accepted as G1 proposals** — **2 of 8 complete** (Output 2 accepted 2026-08-14 at head `a37a3184`, receipt carrier `§7.6`). Acceptance as a *proposal* promotes no dossier to doctrine and closes no gate. **The mandatory `§G1-AUTH` work package remains OPEN and partially converged**, and the live holder receipt below stays effective until it delivers. **`B-15` is narrowed to Outputs 3–7.** **Read route `9v` first**, then carrier `§G1-CONTRACT` → `§7.5` (Output 1) → `§7.6` (Output 2) → `§E13`. **Separately owed and not part of that work:** the `ledger:287` correction — the PRE-0 ledger's `§5` prose says *"7 rows remain legitimately open"* against the canonical **6** one row below it. |
 | **PRE-0** | **COMPLETE and CERTIFIED.** Blind counter-design (A, B) + independent grounded plan audit (C) → reconciliation → one bounded amendment cycle → five byte-verification rounds. Independent verdict: **`FAI_PRE0_AND_PLAN_CLOSURE = ACCEPTED_FOR_G0`** |
 | **Blockers** | **12 of 14 fully closed.** `C-01` **partial by design** — foundational authority is a G1 reconciliation (`§G1-AUTH`), not a G0 invention. `C-10` **EXECUTED in this transaction** |
 | **Insurance** | **FROZEN.** PR #14 open, draft, unmerged. `C3.9` NOT started · `E2` NOT started. **Does not unfreeze without an explicit operator decision.** |
