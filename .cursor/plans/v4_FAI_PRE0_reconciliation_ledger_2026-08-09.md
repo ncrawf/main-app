@@ -284,12 +284,12 @@ The settled answer, in one line each:
 
 | Field | Value |
 |---|---|
-| Rows total | **81 classified** — 32 (§1 A+B) + 30 (§2 inverse) + 19 (§3 C). **R1 no longer claims "81/81 disposed."** Classification is complete; **closure is not**, because 7 rows remain legitimately open |
+| Rows total | **81 classified** — 32 (§1 A+B) + 30 (§2 inverse) + 19 (§3 C). **R1 no longer claims "81/81 disposed."** Classification is complete; **closure is not**, because the **`open` row below remains nonzero** — that row is the canonical source and this line does not restate its count |
 | `adopted` | **34** |
 | `adopted_narrowed` | **31** |
 | `already_present` family | **9** — 6 flat (AB-13, AB-21, INV-01, INV-22, C-18, AB-09) + **`_with_extension`** (AB-01 → `C4.4 §R`) + **`_with_scope_extension`** (AB-05 → `C4.4 §R.16`) + **`_with_correction`** (INV-08 → `C4.6` C6). Each names its carrier |
 | `rejected_with_reason` | **1** — **AB-04** universal two-implementation mandate, rejected and replaced by an independence-proof ladder |
-| `open` | **6** — AB-19, AB-20, AB-22, AB-23, AB-29, AB-31. **★ AB-08 CLOSED 2026-08-13 `adopted_narrowed`** at accepted head `480f3bb` (was 7). **R0 had 10; three resolved architecturally** (AB-04 ladder · AB-15/INV-17 two-level issuer model). **All 7 now carry an accountable role/seat owner** — R0 had 7 rows naming a gate, lane or registry as owner, which made "zero undisposed" **false under this ledger's own contract** |
+| `open` | **6** — AB-19, AB-20, AB-22, AB-23, AB-29, AB-31. **★ AB-08 CLOSED 2026-08-13 `adopted_narrowed`** at accepted head `480f3bb` (was 7). **R0 had 10; three resolved architecturally** (AB-04 ladder · AB-15/INV-17 two-level issuer model). **All currently open rows carry an accountable role/seat owner** — *historical:* **R0 had 7 rows naming a gate, lane or registry as owner**, which made "zero undisposed" **false under this ledger's own contract** |
 | `out_of_scope` | **0** — R0's single routing (AB-32 human factors) was **wrong** and is reversed: FAI retains the human-factors viewpoint and conformance hooks; only the full research programme routes to FWREG |
 | Material omissions found | **14 architecture omissions** (AB-19…AB-32) + **14 blocking C findings** = **13 plan defects** (C-01…C-11, C-13, C-14) + **1 evidence gap** (C-12). **C-19 is the aggregate verdict, not a 15th defect** — 15 rows carry `blocks_G0` |
 | Machinery removed or deferred | **C-15 · C-16 · C-17** — already-deferred tool study, G2 vendor adapters, mandatory merge queue. C confirms removal preserves all four roots |
