@@ -3347,9 +3347,28 @@ Six attributable facts, each with a rightful owner, all of them already the shap
 
 ### §E14.1.4 — `permits_effective_use` has exactly one owner, and it is not a stored boolean
 
-**The applicability function turns on `permits_effective_use`, so the record must guarantee the fact exists — and must not carry it twice** `[KND]`. An admission decision distinguishes four outcomes: **effective-use admission** · **evidence- or reference-only admission** · **denial** · **deferment or conditional admission**. Only the first satisfies the function.
+**The applicability function turns on `permits_effective_use`, so the record must guarantee the fact exists — and must not carry it twice** `[KND]`.
 
-> **The authoritative fact is the attributed decision outcome / use effect together with its declared conditions. `permits_effective_use` is a DERIVED predicate over that outcome, its conditions, its interval and the query's scope and `as_of` — never an independently stored flag.**
+> **The authoritative fact is the attributed decision effect together with its declared conditions. `permits_effective_use` is a DERIVED predicate over that effect, its conditions, its interval and the query's scope and `as_of` — never an independently stored flag.**
+
+**What the authoritative effect declares** `[KND]`: whether effective use is **authorized**, **authorized subject to conditions**, **forbidden**, **deferred**, or permitted **as evidence or reference only**. Value names remain `[CAN]`; the **distinction** is the law.
+
+> **`permits_effective_use` evaluates true only where the authoritative effect authorizes effective use AND all declared conditions, scopes, intervals and temporal predicates hold. Conditional effective-use authorization satisfies it exactly while its conditions hold. Evidence- or reference-only admission, denial and deferment never satisfy it.**
+
+**Conditionality is why this must be derived rather than stored, not a wrinkle in spite of it.** A conditional authorization is a genuine effective-use decision whose predicate is true for some scopes and `as_of` points and false for others — so no single recorded boolean can be correct for every query, and a stored flag beside the effect would be a second writable truth that drifts from it.
+
+**One helper carries this into the applicability function, so no branch reads like a stored field** `[KND]`:
+
+```
+active_effective_use_admission(N, target_kind, target_revision, scope, as_of) :=
+   ∃ decision_revision :
+        active_admission_decision(receiver=N, decision_revision,
+                                  target_kind, exact target_revision,
+                                  scope, as_of)
+    AND permits_effective_use(N, decision_revision, scope, as_of)
+```
+
+It is used wherever a foreign target must be effectively usable — `type_base_usable`, the foreign branch of `assertion_instance_usable`, and the foreign branch of `mapping_assertion_usable`. **The record carries the decision effect and its conditions; the function evaluates the predicate. Never both.**
 
 **This follows from law already accepted, not from preference** `[INH]`: `G1-FIND-27` — *a state derivable from a relation may not also be independently assertable, or the two will drift* · `G1-FIND-51` — invalidation is a predicate, not a stored flag · `§E13.10` — a materialized projection is permitted for latency and **forbidden as a second writable truth**. **And it is forced by the physics:** a conditional admission's effective use depends on whether its conditions hold **at a given scope and `as_of`**, so a single stored boolean cannot be correct for every query. Two independently editable facts here would be the duplicated-state defect at the exact point the whole model turns.
 
@@ -3487,8 +3506,9 @@ own_effective_type(N, type_rev, scope, as_of) :=
 
 type_base_usable(N, type_rev, scope, as_of) :=          -- DELIBERATELY NON-RECURSIVE
       own_effective_type(N, type_rev, scope, as_of)
-   OR active_type_admission(receiver=N, exact foreign type_rev,
-                            permits_effective_use, scope, as_of)
+   OR active_effective_use_admission(N, target_kind=relation_type_definition_revision,
+                                     target_revision=exact foreign type_rev,
+                                     scope, as_of)                    -- §E14.1.4
 
 predicate_semantics_usable(N, type_rev, scope, as_of) :=
       type_base_usable(N, type_rev, scope, as_of)
@@ -3502,8 +3522,9 @@ assertion_instance_usable(N, assertion_rev, scope, as_of) :=
         -- locally issued: no positive self-admission, and NO exemption either
    OR ( issuing_namespace(assertion_rev) ≠ N
         AND origin_valid(assertion_rev, scope, as_of)
-        AND active_assertion_admission(receiver=N, exact assertion_rev,
-                                       permits_effective_use=true, scope, as_of) )
+        AND active_effective_use_admission(N, target_kind=relation_assertion_revision,
+                                           target_revision=exact assertion_rev,
+                                           scope, as_of) )
 
 effective_relation(N, assertion_rev, scope, as_of) :=
       origin_valid(assertion_rev)
@@ -3514,7 +3535,7 @@ effective_relation(N, assertion_rev, scope, as_of) :=
   AND no applicable constraint or interim measure blocks use
 ```
 
-**`permits_effective_use` is a required property of the decision, not an inference** `[KND]`. **Admission solely as evidence does not satisfy it** — an assertion may be admitted to be *read, cited or analysed* without being admitted to *hold*, which is `§E13.13`'s observation-⟂-evidence-admission split at relation grain.
+**`permits_effective_use` is the derived predicate defined at `§E14.1.4`, evaluated over the admission's authoritative effect and conditions for this scope and `as_of` — never a stored field on the record** `[KND]`. **Admission solely as evidence or reference does not satisfy it** — an assertion may be admitted to be *read, cited or analysed* without being admitted to *hold*, which is `§E13.13`'s observation-⟂-evidence-admission split at relation grain.
 
 **Four non-implications, stated because the conjunction only implies them and a G2 implementer should not have to notice** `[KND]`:
 
@@ -3589,8 +3610,9 @@ mapping_assertion_usable(N, mapping_rev, scope, as_of) :=
         AND authority_basis(mapping_rev) resolves to N's authority to establish
             SEMANTIC APPLICABILITY, or to an explicitly authorized delegated
             mapping policy )
-   OR active_mapping_admission(receiver=N, exact mapping_rev,
-                               permits_effective_use, scope, as_of)
+   OR active_effective_use_admission(N, target_kind=relation_mapping_assertion_revision,
+                                     target_revision=exact mapping_rev,
+                                     scope, as_of)
 ```
 
 > **Ordinary authority to author relation assertions is insufficient.** A lower-authority mapper may still author a **candidate mapping**, **evidence**, or a **proposed translation** — none of which participates in `predicate_semantics_usable` until the required authority or an active admission exists. **A foreign mapping always requires active receiving-scope mapping admission permitting effective use.**
@@ -3863,7 +3885,7 @@ A `RelationTypeDefinition` **declares or references** enough cessation/successio
 | R33 | vacancy resolved by silent steward or operator fallback | authority resolution | `vacancy ≠ implied authority` | reject; block per decision condition |
 | R34 | ownership edge from a P4/P5 resource to canonical truth | the edge | `T0-15`, `D0THES-DEC-033` | reject — while **`owns_definition` remains permitted, read as the exact scoped semantic-authority / definition-ownership fact over a definition resource** (`§E9.3`), **never as generic `owns` returning through a side door** (`R42`) |
 | R35 | historically consequential object **lacks the temporal fields** the requested mode requires | the **query**, not the object | `§E14.5` matrix | fail — *unanswerable*, never a confident answer |
-| R36 | foreign assertion whose **predicate semantics** are neither locally admitted nor mapped | effective edge | `§E14.3.1` rule 2 | exclude — **distinct from R23**, which is instance-level |
+| R36 | foreign assertion whose governing **predicate semantics fail `predicate_semantics_usable`** for the receiving scope and declared temporal query — no base usability, no usable one-hop mapping, no authorized mapping path | effective edge | `§E14.3.2`–`§E14.3.4` | exclude as **unadmitted semantics** — **distinct from `R23`**, which is instance-level usability |
 | R37 | a **mapping treated as identity or equality** | the mapping claim | `§E14.3.1` rule 4 | reject |
 | R38 | a **stale or superseded mapping** used without required revalidation | effective edge | `§E14.3.1` rule 5 · `§E14.2.1` | exclude as stale |
 | R39 | an object's **structural field reified as an assertion** to bypass its authority, lifecycle or validation | the assertion | `§E14.1.3` | reject |
@@ -4005,7 +4027,7 @@ A `RelationTypeDefinition` **declares or references** enough cessation/successio
 
 ### §E14.9.5 — Acceptance boundary
 
-**Proposed as the Output-3 core; acceptance would settle** *(a proposal does not own an acceptance verb)*: the **six-object decomposition** and its five non-collapse laws · relation-type ownership **following the scope of the meaning**, with the catalog owning no semantics · the assertion's governing-type-revision and recorded-time additions · the `AB-15` **atomic assertion grain** · **admission as a separate attributed decision over an exact revision-pinned target of a declared class** — type-definition ⟂ mapping ⟂ assertion (`§E14.3.1`) — with its structural contract and **`permits_effective_use` as a derived predicate over the attributed decision effect, never a stored flag** (`§E14.1.4`) · the **origin-versus-receiver applicability function** and the **non-recursive `own_effective_type` / `type_base_usable`** base (`§E14.3.2`) · the **`RelationMappingAssertion`** discriminated form, **one-hop direct mapping to a base-usable target**, **authorized mapping paths only via a `CompositionRule`**, and the **mapped edge as a derived projection carrying origin + mapping + target-type lineage** (`§E14.3.3`) · the **mapping non-bypass law** — a mapping conferring applicability requires admission-equivalent authority (`§E14.3.4`) · the **meta-kernel termination and its structural authority references** (`§E14.1.3`) · the **object-physics temporal matrix** (`§E14.5`) · **cross-owner constraint and composition authority with no steward fallback** (`§E14.4.1`/`§E14.4.5`) · the **plan §3.1 reconciliation** with `owns` rejected as a type (`§E14.2.2`) · **constraint binding sites** · subject/object cardinality with the representational ⟂ conformance split · the **constraint surface** for set-level exclusivity · **typed composition over relation pairs** with the **authority non-propagation law** and the path-result preservation set · relation **bitemporality** · the temporal-mode binding and the re-anchored supersession prohibition · invalidation as a predicate over pinned constituents · **conflict as a first-class resource** with precedence as a reference · the **six resolvability classes** · `realizes` as one predicate with independent realization · scoped rights · operational-alias **conditional uniqueness** · the cessation/succession non-collapses · and the **rejection-ground matrix**.
+**Proposed as the Output-3 core; acceptance would settle** *(a proposal does not own an acceptance verb)*: the **six-object decomposition** and its five non-collapse laws · relation-type ownership **following the scope of the meaning**, with the catalog owning no semantics · the assertion's governing-type-revision and recorded-time additions · the **atomic-statement-versus-collective-act grain inherited from accepted Output 2 `§E13.16`/`§E13.27`** *(with `AB-15`/`INV-17` retained as provenance and candidate history, never as the grain's authority)* · **admission as a separate attributed decision over an exact revision-pinned target of a declared class** — type-definition ⟂ mapping ⟂ assertion (`§E14.3.1`) — with its structural contract and **`permits_effective_use` as a derived predicate over the attributed decision effect, never a stored flag** (`§E14.1.4`) · the **origin-versus-receiver applicability function** and the **non-recursive `own_effective_type` / `type_base_usable`** base (`§E14.3.2`) · the **`RelationMappingAssertion`** discriminated form, **one-hop direct mapping to a base-usable target**, **authorized mapping paths only via a `CompositionRule`**, and the **mapped edge as a derived projection carrying origin + mapping + target-type lineage** (`§E14.3.3`) · the **mapping non-bypass law** — a mapping conferring applicability requires admission-equivalent authority (`§E14.3.4`) · the **meta-kernel termination and its structural authority references** (`§E14.1.3`) · the **object-physics temporal matrix** (`§E14.5`) · **cross-owner constraint and composition authority with no steward fallback** (`§E14.4.1`/`§E14.4.5`) · the **plan §3.1 reconciliation** with `owns` rejected as a type (`§E14.2.2`) · **constraint binding sites** · subject/object cardinality with the representational ⟂ conformance split · the **constraint surface** for set-level exclusivity · **typed composition over relation pairs** with the **authority non-propagation law** and the path-result preservation set · relation **bitemporality** · the temporal-mode binding and the re-anchored supersession prohibition · invalidation as a predicate over pinned constituents · **conflict as a first-class resource** with precedence as a reference · the **six resolvability classes** · `realizes` as one predicate with independent realization · scoped rights · operational-alias **conditional uniqueness** · the cessation/succession non-collapses · and the **rejection-ground matrix**.
 
 **NOT settled, and no reader may treat this section as settling them:** every enumerated **value set** above `[CAN]` · the effective-resolution algorithm · lifecycle enums · conformance algorithms · transfer verdicts · the authority ontology · any schema, encoding, validator or graph technology · the L1 grammar · IP/licensing policy · and **G1 closure**.
 
@@ -4369,6 +4391,8 @@ The operator appointed a **bounded state-normalization writer + integration hold
 ## §9 — Handoff
 
 **No separate `HANDOFF_*` file** — a third current-state description beside the checkpoint §1 and §8 is the maintained-duplicate failure that reopened `C-11`/`C-12`.
+
+**Changed in the OUTPUT-3 R3.2 CURRENT-LAW SEAL (2026-08-15):** **this carrier only, no new architecture.** Four current-law corrections on reviewed head `50ae0eea87a12aad2b04ad10e41d236117adc5b0` (carrier blob `267454fd32863a7bc454bf887c685bc53291ecf9`): `permits_effective_use` given one meaning as the derived predicate, with the contradicting *"required property … not an inference"* sentence withdrawn and the three field-shaped call sites replaced by the `active_effective_use_admission` helper · the conditional-admission contradiction resolved — *"only the first satisfies the function"* withdrawn, and conditional effective-use authorization now satisfies the predicate exactly while its conditions hold · `§E14.9.5` re-anchored to accepted Output-2 `§E13.16`/`§E13.27` for assertion grain, with `AB-15`/`INV-17` as provenance only · `R36` retargeted to `predicate_semantics_usable`. **No new finding, no new rejection ground, no architecture change, no STOP additions.**
 
 **Changed in OUTPUT-3 R3.2 (2026-08-15):** **this carrier only.** Final semantic seal on reviewed head `cb4b5430a5bb66f943804ba438f16292e8d92139` (carrier blob `3ef632e574f4c8442157e688a32b578e264fbe92`), entered on `KNOX_OUTPUT3_R3_1 = NOT_ACCEPTED · CONSTITUTIONAL_SHAPE_HELD · SIX_OBJECT_MODEL_HELD · ONE_BOUNDED_R3_2_FINAL_SEMANTIC_SEAL`. **No architecture reopened; no new object family, registry, service or universal mapping predicate; no new finding ID.** Landed: `§E14.3.2` non-recursive base — `own_effective_type` pinned to defining-namespace identity with four explicit non-equivalences, and `type_base_usable` as own-or-directly-admitted · `§E14.3.3` one-hop `direct_mapping_usable` whose target is `type_base_usable` rather than the full predicate, plus `authorized_mapping_path_usable` gated on an explicit `CompositionRule` with bounded cycle-safe evaluation · **`§E14.3.4` the mapping non-bypass law** · `§E14.1.4` `permits_effective_use` as a derived predicate with a single owner, and the four admission outcomes · `AdmissionDecision` structural contract completed · non-collapse law 1, `§E14.3.1` rule 2, and the family-4 and family-5 table cells realigned to the governing function · rejection grounds `R44`–`R50` with mapped-as-direct pointing at `R10` · acceptance boundary at `§E14.9.5` extended to name the function, the mapping form and the non-bypass law as proposed core · proposal-state residues cleared in `§G1-CONTRACT` row 3 and `G1-FIND-84` · model-section repair narration moved to findings and history. **No checkpoint, catalog, read-graph, ledger, FWREG, contract, code, workflow or new artifact.**
 
