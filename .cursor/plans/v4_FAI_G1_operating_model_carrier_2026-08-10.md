@@ -4073,6 +4073,529 @@ A `RelationTypeDefinition` **declares or references** enough cessation/successio
 
 **R1 correction pass (2026-08-15), applied on review disposition `KNOX_OUTPUT3_PROPOSAL = NOT_ACCEPTED · ARCHITECTURE_CORE_HELD`.** Four blocking defects and five material corrections applied in place; **the architecture core is unchanged** — no sovereign graph, distributed relation-type ownership, assertion ⟂ admission, the six families, typed composition, no authority propagation through closure, cardinality binding sites, first-class conflict, resolvability classes, `realizes`, alias conditional uniqueness, cessation/succession and the Output-3 boundary all stand as authored. **Every blocking claim was verified against the live file before amending, and one reviewer characterization was verified partly wrong and is recorded rather than absorbed** (`§9`). Findings `-70`…`-74`.
 
+# §E15 — Output 4 · CHANGE LIFECYCLE — several governed lifecycles, one minimal algebra, no universal state machine
+
+> **This is the Output-4 proposal.** It is `proposed`, not accepted. It settles nothing by having been written. It does **not** settle relation semantics (accepted Output 3), the effective-resolution algorithm (Output 5), conformance computation (Output 6), the transfer-limit matrix (Output 7), the authority ontology (`§G1-AUTH`), any schema, validator, storage shape or generator (G2), or end-to-end proof (G4). Boundary at `§E15.17.2`. **Every enumerated value set below is `[CAN]`** — the decomposition is the proposal, the values are candidates, per the accepted `§E12.7` narrowing.
+>
+> **Method.** Current proposed law only. Correction narratives, rejected wording and failed candidates belong in `§8` and git history, per the method change the operator imposed at Output-2 R3 (`G1-FIND-75`). **Provenance labels are the `§E7.1` legend:** `[INH]` inherited law this pass only represents · `[KND]` kind-definitional — true of what the object *is* · `[CAN]` candidate · `[CAN→n]` candidate routed to Output *n*, recorded and **not settled**.
+>
+> **Reading order:** `§E15.0` (assignment, force classes, the two-level founding statement) → `§E15.1` (the subject register — read this before anything else) → `§E15.2` (the algebra) → `§E15.4` (the change-character vector) → `§E15.5` (the non-collapse laws) → the rest as needed → `§E15.17.2` (the boundary) **before treating anything here as settled.**
+
+## §E15.0 — Assignment, force classification and the founding statement
+
+**The assignment, from live state.** `§G1-CONTRACT` row 4 names the sources `§E1 AB-07` + `§6.4`, the decision state `INCOMPLETE`, the residual *"field additions and release postures, not a state model,"* and the acceptance condition *"full state model incl. the five change classes."* `§G1-CONTRACT.c` row 4 requires *"what happens when the source, contract, operator policy, product classification, or the applicability decision itself changes."* R9 `§6.4` states the diagnosis this output exists to answer: the estate has fragments — Build Entry, AWP `§5`, the supersession ledger, the catalog — and **nothing states how a proposed architecture change is raised, evaluated, accepted, rejected or superseded, nor who may.** Plan root requirement **3 · EVOLVABLE** supplies the nine required verbs; G4 **test 10** supplies the proof shape.
+
+**The founding statement has two halves at two different force levels. Bundling them is how a candidate construction acquires constitutional standing it was never granted** (`G1-FIND-73`, `G1-FIND-85`).
+
+> **① INHERITED CONSTITUTIONAL POSITION** `[INH]` — **there is no single architecture-change state machine, no single terminal state, no single writer and no single owner of historical truth.** Accepted Output 2 models an architecture change as **one correlated operation decomposed into owner-scoped commitments, deterministic derivations, attributed observations, durable obligations and continuous controllers** — explicitly *not* a globally atomic transaction and *never one writable lifecycle scalar* (`§E13.2`, `§E13.10`). Accepted Output 3 forbids stamping one field set across objects with different physics (`§E14.5`). `D0THES-GRD-035` forbids one domain owning a cross-cutting concern. `D0CKPT-GRD-003` forbids duplicated state.
+
+> **② CANDIDATE OUTPUT-4 CONSTRUCTION** `[KND]` — **that position is realized as a register of lifecycle-bearing subjects, each with its own typed lifecycle contract owned by the subject's rightful owner, joined by a minimal shared reference algebra; a change's *character* is a multi-dimensional vector rather than an exactly-one class; and a change's *progress* is a derived projection over separately owned facts rather than a stored status.**
+
+**Four provenance classes, at four different force levels** (`GRD-036`, `G1-FIND-40`, `F-11`):
+
+| Class | Content | Force |
+|---|---|---|
+| **A · GOVERNING OMNI SOURCES** | plan **root requirement 3** and **G4 test 10** · the R8 `§5` **G1 gate-output transaction contract** · binding PRE-0 rows `AB-05` (`already_present_with_scope_extension`, carrier `C4.4 §R.16`), `AB-06`, `AB-07`, `INV-24`, `INV-26` — **all `blocks G1`, all routed to "G1 change-model authoring"** · `C-03`/`C-14` **CLOSED** as requirements · **`C4.4 §R`'s 13-question mechanism template** and **`§R.15`**/**`§R.16`** at capture-level maturity · the **4-way authority composition** (`rbac_authority_contract.md §5`, `canonical`: Federation admits the cross-boundary possibility · RBAC decides actor capability · **the owning domain commits its own truth** · CNS Meta enforces and audits; *none replaces the others*) · **`T0-14` operator-neutrality** (`federation_contract.md` inv 29, `canonical`) · **D6 inv 29** *"sale immutable post-close; correction = additive adjustment, never edit-in-place"* (`canonical`) · Identity's namespace law · `D0THES-GRD-026`, `D0THES-GRD-035`, `D0CKPT-GRD-003`, `D0CKPT-GRD-005`, `D0-GRD-016` | **binding or canonical where the carrier says so, at the maturity the carrier declares.** The domain contracts named here are `Authority: canonical` with `Status: draft_for_ratification`; that is their declared maturity and this output does not upgrade it |
+| **B · ACCEPTED-AS-PROPOSAL PREDECESSOR STRUCTURE** | Output 1 (`§7.5`, boundary `§E12.7`) · Output 2 (`§7.6`, boundary `§E13.23`) · Output 3 (`§7.7`, boundary `§E14.9.5`) | **accepted as G1 *proposals*.** Binding on this output as predecessor structure it may not contradict; **not doctrine**; and **their excluded content — every enumerated value set — is not accepted** |
+| **C · CANDIDATE G1 MATERIAL — not accepted** | the **five change-class labels** and the **six-value Change Manifest state list**, both in plan `§3.1` · `§6.4`'s three release postures and eight skew values · `INV-11` (`adopted_narrowed`, `blocks G3`) · `INV-27` (`adopted_narrowed`, `blocks G3`) · `AB-20` (`open`, `blocks G3`) · `AB-29` (`open`, `blocks G3`) · `AB-21` (`already_present` in C4.5, `blocks G4`) | **proposed dispositions and candidate values.** `§3.1`'s content closed a G0 finding and is therefore a **governing obligation to disposition**, not a ratified vocabulary. Most C rows still block a later gate |
+| **D · NONBINDING CAPTURE + EXTERNAL CORROBORATION** | `v4_C4_platform_loop_capture.md` · `v4_C4_care_operating_model_capture.md` · `v4_C4_governed_reporting_resolution_capture.md` — **all three `Authority: analysis_nonbinding` (`GRD-036`), all three explicitly "not closed"** · `C4.5` (`gate_0_charter_accepted · full_pass_not_started · not_promoted`, *"binds NOTHING"*) · wave-5/6 `EVSRC` registries | **confers NO force.** These **defeat novelty** and supply candidate shapes; they establish nothing. **No surface in this section may state that an Output-4 law is inherited from a class-D capture** |
+
+**One classification the split makes necessary, because this output leans on class D harder than any predecessor did.** The Platform, Care and Accountability captures contain the estate's only existing per-object release/deployment/rollout/migration lifecycles, its only exposure-depth ladder, and its sharpest statements of `rollback ≠ recall` and *system fix ≠ individual remedy*. **All of it is `analysis_nonbinding` and none of it is closed.** It is cited below as **corroboration that defeats this output's novelty claims**, and every law it corroborates is stated over a class-A or class-B carrier or marked as candidate Output-4 synthesis. `G1-FIND-87`, `G1-FIND-91`.
+
+**What Output 4 proposes is bounded and is stated as such:** the subject register and its fact-ownership matrix · the minimal lifecycle algebra and the prohibition on universalizing it · the change-operation projection · the change-character vector and its legacy mapping · the treatment non-collapse laws · the commitment-frontier contract · the release→admission→adoption→deployment→activation→effective-use→support→conformance composition (`AB-05`'s scope extension) · the migration/coexistence/deprecation/withdrawal treatment contracts · the generic external-effect correction and compensation grammar · the source/applicability-change law · failure/partial/unknown behaviour · cessation and survival · the rejection-ground matrix. **Everything else is inheritance made explicit at change grain, or is routed.**
+
+**What Output 4 does NOT own.** Deterministic effective-profile and deployment resolution, precedence evaluation, contradiction handling, preferred-realization resolution and **origin-supersession observability mechanics** → **Output 5** (`§E14.9.4` routes the last of these to 5, not 4) · conformance computation, claim evidence sufficiency, drift detection, non-loosening as a machine check → **Output 6** · per-mechanism adopt/narrow/reject/defer verdicts → **Output 7** · who may decide, grant, execute, override, revoke, compensate, withdraw or accept → **`§G1-AUTH`** · schemas, validators, storage, encodings, generators, CI, materialized projections → **G2** · end-to-end proof → **G4** · substantive clinical, financial, legal, security, privacy, attestation and liability adequacy → **the owning domains and G3** · work custody, leases, run and attempt lifecycles → **Build OS + Agent Runtime** · cross-operator patient grant topology → **Federation** · temporal architecture → **C4.5** · **version-support policy, compatibility windows and deprecation *strategy*** → **Product / Architecture Governance**, which the Platform capture explicitly declares upstream of and not swallowed by the release plane. **No new plane, registry, queue, event engine, environment object or dependency-graph subsystem** (`D0CKPT-GRD-005`; and the Platform capture's *"do NOT introduce a 4th plane by fiat"* on `environment`/`deployment_target`, whose ownership is `OPEN`).
+
+## §E15.1 — The lifecycle-bearing subject register
+
+**The center of Output 4. This is a distinguishability and fact-ownership requirement, not an ownership claim** `[KND]`. Output 4 does not reauthor these subjects; it names which source owns each, and defines how its own contracts compose with them. Collapsing any two rows is the defect this register exists to prevent.
+
+| # | Lifecycle-bearing subject | Identity | Authoritative owner of the canonical fact | Decision source | Derived predicates (never stored) | Clocks required | Lifecycle-contract owner | What survives termination |
+|---|---|---|---|---|---|---|---|---|
+| **1** | **change case / manifest** — the intended correlated architecture change | `operation_id` (= `change_id`), **not an idempotency key** `[INH §E13.4]`; `manifest_revision_id` content-addressed, superseded never edited | Architecture Governance for the manifest artifact; **Architecture Operations** for the correlation | the manifest's own submission event; every substantive decision belongs to its deciding authority `[INH §E13.3]` | `impact_current` · `owner_set_complete` · `decision_condition_satisfied` · `accepted_historically` · `acceptance_currently_usable` · `landed` `[INH §E13.10]` | recorded time on every event; effective time only where a constituent act carries one | **Output 4** (`§E15.3`) | the manifest revisions, every decision including **refusals**, the impact claim, the landing receipt, and the correlation graph |
+| **2** | **architecture resource revision / release** — a versioned unit of declared architecture, and the packaged set offered for use | `resource_id` + revision `[INH §E12.7]`; a release is a **named, versioned set** of resource revisions | the resource's **rightful owner or steward** `[INH Output 1]`; the release set's publisher | supersession is a **typed transaction**, six conditions, no ordering `[INH §E7.1.2]`; `superseded` is **derived, never assertable** `[INH §E14.2.1]` | `current_for(scope, as_of)` · `superseded` · `release_eligible(target)` | recorded time + effective interval | Output 1 for the resource revision; **Output 4** for the release-set composition (`§E15.7`) | the revision, its interval, its provenance, and its lineage to successors — **identity is never replaced by supersession** |
+| **3** | **effective architecture snapshot** | `snapshot_id` + the **full input manifest**, including temporal mode and both time bounds `[INH §E13.5]` | **nobody writes it.** A materialized derivation over versioned owner-scoped sources `[INH §E13.5]` | n/a — a snapshot decides nothing | the whole object is derived; **invalidation is a predicate over pinned constituents** `[INH §E13.9`, `§E14.5]` | generation/recorded time + `effective_as_of` + `recorded_as_of` + mode | Output 5 for resolution; **Output 4** only for the requirement that prior snapshots stay resolvable (`§E15.11`) | **every prior snapshot remains resolvable.** This is the non-negotiable, and G4 test 10 makes breaking it a FAIL |
+| **4** | **decision / authority grant** | `decision_id` + `decision_revision_id`; grants carry their own identity and validity `[INH §E13.4]` | the **deciding authority**; grants belong to RBAC/authority history and are **never re-sourced** in architecture history `[INH §E13.5]` | itself — this row *is* the decision source | `decision_condition_satisfied` · `accepted_historically` ⟂ `acceptance_currently_usable` `[INH §E13.10]` | recorded time + effective interval | **`§G1-AUTH`** | the decision, **including a recorded refusal, which nothing later erases** `[INH G1-FIND-53]` |
+| **5** | **local admission / applicability decision** | an `applicability_decision` issued **by the receiving scope**, pinning the **exact** origin revision `[INH §E12.7.2]` | the **receiving namespace or principal** — never the publisher `[INH C4.4 §R.16`, `§E12.7.2]` | itself, under a named authority basis; for foreign relation types, over a declared `target_kind` `[INH §E14.3.1]` | `permits_effective_use` — **derived, never a stored flag** `[INH §E14.1.4]`; **absence is typed absence** (`absent`/`unknown`), projected as `not_determined`; `denied` requires an attributed decision that says no `[INH §E12.7.2]` | recorded time + effective interval | Output 1/3 for the decision family; **Output 4** for its release-scope extension (`§E15.7`) | the admission decision and its conditions; **non-admitted material is EXCLUDED, never deleted** `[INH §E12.7.2]` |
+| **6** | **adoption** — the local principal's commitment to *use* an admitted release | an adoption record of the adopting principal, referencing the exact release revision | the **adopting principal** `[INH AB-05`, `INV-24`, `INV-26]` | itself | `adopted(scope, as_of)`; **`desired_state` is a candidate, not activation** `[INH INV-24]` | recorded time + effective interval | **Output 4** (`§E15.7`) | the adoption record and the interval over which it held |
+| **7** | **deployment and activation** — the realization in an environment, and the separate fact that it is in force there | per-target deployment identity; activation is a **distinct fact from deployment completion** | the **operator or environment owner**; `environment`/`deployment_target` ownership is **`OPEN`** in the estate and this output does not settle it | operator/environment authority under the 4-way composition | `landed` ≠ `effective` ≠ `observed` ≠ `conforming` ≠ `reconciled` `[INH §E13.18]`; **`release_eligible(target)` is per-target, not global** | recorded time; effective interval where activation carries one | **Platform / Release + Runtime Operations**, at their declared nonbinding maturity; **Output 4 states only the composition and the non-collapses** | the deployment history and the activation intervals |
+| **8** | **migration / coexistence instance** | a migration-execution identity and a **declared coexistence envelope** identity | the **migration owner** named in the envelope | an authority-bearing decision that opens the envelope, and a separate one that closes it | `coexistence_within_envelope` · `migration_complete_for(scope)`; **partial application is a first-class state, never a projected success** | recorded time + envelope effective interval + an **expiry** | **Output 4** (`§E15.8`) | the envelope, its expiry treatment, the mapping used, and the per-scope completion record |
+| **9** | **external effect / commitment** — two related and non-identical subjects | `effect_id` + an **effect-scoped, never change-scoped** idempotency key `[INH §E13.4]`; a commitment carries its own frontier record | the **emitting boundary** for the effect; the **accountable principal** for the commitment | the commitment is authorized by a decision; **the effect is not a decision** `[INH §E13.2]` | `frontier_crossed(kind, scope)`; `external_consequence` | recorded time; effective time where the domain supplies one | **Output 4** for the generic grammar (`§E15.6`, `§E15.9`); **domain owners** for substantive adequacy | **the effect outcome, recorded and never revised in place** `[INH §E13.4`; corroborated by D6 inv 29] |
+| **10** | **support / compatibility / conformance claim** — OMNI's own statement about a target | a claim identity, scope and interval | the **claim issuer** | issuance, narrowing, suspension, expiry, withdrawal and replacement are each attributed acts | `supported(target, as_of)` · `claim_current`; conformance itself is **computed by Output 6** | recorded time + effective interval | **Output 4** for the claim lifecycle (`§E15.7`); **Output 6** for what conformance means | **that a claim was formerly issued.** Withdrawal is prospective and erases neither the claim nor its history `[INH §E14.5]` |
+| **11** | **observation / fleet evidence** | source-issued `observation_id` `[INH §E13.4]`; separate `delivery_attempt_id` | the **observer** | admission of the observation is a **separate** decision from the observation event `[INH §E13.13]` | `observed` — **unreachable or unknown is not observed** `[INH §E13.10]`; fleet posture is a **derived, source-attributed projection** | observed time **and** recorded time, plus freshness and coverage | Output 2 for the event contract; **Output 6** for sufficiency; **Output 4** only for its role in skew composition (`§E15.7`) | the observation event, which **survives even when evidence admission fails** `[INH G1-FIND-59]` |
+
+> **The register's law** `[KND]`: **each row's canonical fact has exactly one authoritative owner in scope** `[INH §E13.7]`, **each row declares its own admissible transitions and clocks**, and **no row's lifecycle value is readable as another row's.** A release being published says nothing about admission; admission says nothing about adoption; adoption says nothing about deployment; deployment says nothing about activation; activation says nothing about effective use; none of them says anything about conformance. **Nine of the eleven rows are owned outside Output 4.** Output 4 authors five lifecycle contracts and the joins between all eleven.
+
+## §E15.2 — The minimal lifecycle algebra, and what it may never impose
+
+**A shared reference layer exists so the eleven contracts can be joined, compared and reconstructed. It is a reference algebra, not a record shape** `[KND]`.
+
+**Every lifecycle-bearing transition, in every contract, resolves the following** — as a **semantic requirement**, not a mandatory column set:
+
+| Element | Requirement |
+|---|---|
+| subject identity + subject type | which register row, which instance, which revision |
+| scope | the exact scope the transition binds — operator · deployment · jurisdiction · profile · target · cohort · namespace. **A transition with no declared scope is not evaluable** |
+| authoritative owner or issuer | who owns the fact this transition creates |
+| **authority-basis reference** | a pointer to the law, contract, right, policy, role, prior commitment or attributed decision the transition rests on. **A reference, never an authority definition** (`§E15.0`, class A: `§G1-AUTH` owns the ontology) |
+| temporal interpretation | which clocks this transition carries, per the object's own physics `[INH §E14.5]` |
+| transition / effect identity | the transition's own identity, and where an effect is emitted, the **effect-scoped** idempotency key `[INH §E13.4]` |
+| causal + correlation references | parent, cause, correlation to the operation, and the **existing** architecture-semantic event vocabulary `[INH §E13.5]` — **Output 4 mints no second event engine** |
+| supersession · migration · compensation · correction links | typed relations to prior and successor acts |
+| evidence + uncertainty posture | what is known, what is unknown, what is unreachable, and what is merely claimed |
+
+**What the algebra may never impose** `[KND]` — each prohibition inherits a named accepted or governing source:
+
+- **one universal state enum** — `§E13.10`: the predicates are derived over separately owned facts and are *never one writable lifecycle scalar*;
+- **one universal terminal state** — `§E13.18`: at fleet scale there is no single moment when the architecture is uniformly deployed; corroborated by the class-D **four-horizons** finding that technical repair, clinical reassessment, party remedy and recurrence monitoring **close independently but linked**;
+- **one universal bitemporal storage shape** — `§E14.5`: temporal semantics are stated *by object physics*, and stamping one field set across objects with different physics is the `F-08` failure Output 1 spent four passes removing;
+- **one universal writer** — `§E13.7` one-authoritative-owner-per-fact-in-scope, and `D0THES-GRD-035`;
+- **one global event owner or history owner** — `§E15.11`;
+- **one global transition authority** — `§G1-AUTH`, and the canonical 4-way composition in which *none replaces the others*.
+
+> **This shape is inherited, not invented** `[INH]`. **`C4.4 §R`'s 13-question mechanism template already requires every mechanism to declare its own (6) authority/admission/commit boundary, (7) lifecycle states + closure, (8) partial-failure/degraded/unknown/quarantine/retry posture, and (9) temporal/as-of/correction/supersession/deletion/revocation semantics.** Output 4's per-subject contract is that template applied to the change plane. `G1-FIND-88` records the consequence: **`AB-01`/`B-13` is separately generalizing the same template as a G1 obligation, and no surface coordinates the two.**
+
+## §E15.3 — The change-operation lifecycle, and why `state` is a projection
+
+**Accepted Output 2 routes "the Change Manifest lifecycle enum" to Output 4 and simultaneously constrains it: `Output 2 owns the predicates and which object owns each fact — they are derived over separately owned facts and are never one writable lifecycle scalar`** `[INH §E13.10]`.
+
+**Therefore the proposal is a derived projection with a named source per phase, and not a stored status** `[KND]`:
+
+| Projected phase `[CAN]` | Derived from | Owner of the underlying fact |
+|---|---|---|
+| `intake_recorded` | a submission event exists for a manifest revision | Architecture Operations |
+| `impact_claimed` | `impact_current` holds over the exact manifest revision, base, graph, ruleset and coverage posture | the derivation's generator contract |
+| `owner_set_resolved` | `owner_set_complete` | the authority resolver |
+| `decided` | `decision_condition_satisfied` **and** no blocking refusal, stay, expired condition or invalid grant remains | each deciding authority, separately |
+| `accepted_historically` | an authority-bearing acceptance referencing the exact revision set — **a permanent historical fact** | the accepting authority |
+| `acceptance_usable_now` | that acceptance is still usable for a landing or effect **now** | derived over grants, policy, conformance basis |
+| `landed` | an integration receipt proves the exact accepted set was applied to the named target | the integration holder |
+| `effective(scope, …)` | origin validity ∧ local admission ∧ activation ∧ profile applicability ∧ interval ∧ non-revocation, **for that scope** | jointly origin and receiving scope `[INH §E13.18]` |
+
+**Three laws follow** `[KND]`:
+
+1. **`ChangeManifest.state`, if it exists at all, is an intake convenience, a derived projection, or a bounded workflow hint. It may never be the canonical truth from which acceptance, landing, effectiveness, conformance, reconciliation or authority is inferred.** A stored scalar duplicating these facts would be `D0CKPT-GRD-003` committed inside its own fix — the shape `G1-FIND-51` already forbade for staleness.
+2. **The nine functions are a functional map, not an ordering guarantee** `[INH §E13.3]`. Propagation re-enters review; observation runs throughout; correction restarts the shape as a **new** operation with its own `correction_id`.
+3. **Plan `§3.1`'s six-value list — `proposed / reviewed / approved / staged / landed / reverted` — is NOT adopted as canonical.** `§E15.4` records why, and `§E15.5` records what `reverted` actually is.
+
+## §E15.4 — The change-character vector, and the mapping that keeps G4 test 10 executable
+
+**`C-03` is CLOSED as a requirement and this output does not reopen it: irreversible and forward-only change must be representable, and "evolvable" means *reversed where semantically safe — otherwise superseded, compensated, or advanced through explicit forward migration*.** What remains open is the vocabulary that happened to close it. Plan `§3.1` states *"every Change Manifest declares exactly one"* of five labels; `§G1-CONTRACT` row 4's acceptance condition names *"the five change classes"*; `§E13.23`, `§E14.9.4`, `§7.6` and `§7.7` each place the classes and the lifecycle enum in Output 4's scope and outside their own. **The labels are a governing obligation to disposition, not a ratified enum.**
+
+**`G1-FIND-86` — the exactly-one field is not satisfiable, on the plan's own terms.** The five labels mix at least five independent facts, and the common healthcare cases satisfy two or three labels simultaneously: a forward-only public identifier that external consumers already rely on is **both** `forward_only` **and** `externally_committed`; a settled charge that can be credited but not un-charged is **both** `compensatable_not_reversible` **and** `externally_committed`; a schema change to an externally consumed contract is **both** `reversible_with_migration` **and** `externally_committed`. And the same `§3.1` cell places these five labels beside a state list terminating in `reverted`, **which three of the five forbid reaching.**
+
+**Proposed decomposition — five independent dimensions. The dimensional separation is the proposal; every value name is `[CAN]`:**
+
+| Dimension | Candidate values `[CAN]` | Kind |
+|---|---|---|
+| `semantic_reversibility` | `reversible` · `reversible_with_migration` · `not_semantically_reversible` | a **property of the subject and scope**, determined by physics, not chosen for convenience |
+| `commitment_frontier` | `none_crossed` · `internal_frontier_crossed` · `external_frontier_crossed` | a **fact about what has already happened** (`§E15.6`) |
+| `required_treatments[]` | **plural, and BOUND to accepted Output 3's axis, not duplicated**: `no_action` · `revalidate` · `remap_or_migrate` · `issue_new_assertions` `[INH §E14.2.1`, values `[CAN→4]`] | derived or decided per affected scope |
+| `external_consequence` | `none_observed` · `emitted` · `acknowledged` · `relied_upon` · `clinically_effective` · `financially_effective` · `legally_or_contractually_committed` · `unknown` | an **observed or attested** fact, with `unknown` first-class |
+| `compensation_posture` | `not_applicable` · `available` · `partial_only` · `required` · `completed` · `impossible_or_unknown` | a **capability-or-obligation** statement, owned substantively by the affected domain |
+
+**The binding on `required_treatments[]` is load-bearing and is stated to prevent a duplication defect across an output boundary** `[KND]`. Accepted Output 3 already owns *semantic compatibility ⟂ `required_treatment[]` ⟂ supersession-as-relation* as three independent axes, and left the final vocabularies `[CAN→4]`. **Output 4 supplies the vocabulary and does not mint a parallel one.** A change class of `reversible_with_migration` standing beside an independently authored `remap_or_migrate` treatment would be two hand-maintained truths for one fact — `G1-FIND-27`'s drift shape across two outputs instead of within one.
+
+**Legacy compatibility mapping, so G4 test 10 remains executable against "all five change classes"** `[CAN]`. The five labels survive as **named derived profiles and named G4 scenarios**, never as an exactly-one stored field:
+
+| Plan `§3.1` label | Derived when |
+|---|---|
+| `reversible` | `semantic_reversibility = reversible` ∧ `commitment_frontier = none_crossed` ∧ `required_treatments[] ⊆ {no_action}` ∧ `external_consequence = none_observed` |
+| `reversible_with_migration` | `semantic_reversibility = reversible_with_migration` ∧ `remap_or_migrate ∈ required_treatments[]` |
+| `forward_only` | `semantic_reversibility = not_semantically_reversible` ∧ `compensation_posture ∈ {not_applicable, impossible_or_unknown}` |
+| `compensatable_not_reversible` | `semantic_reversibility = not_semantically_reversible` ∧ `compensation_posture ∈ {available, partial_only, required, completed}` |
+| `externally_committed` | `commitment_frontier = external_frontier_crossed` ∧ `external_consequence ≠ none_observed` |
+
+**Two consequences recorded rather than left to drift** `[KND]`: **(a)** the profiles are **not mutually exclusive**, which is the finding, so any surface asserting "exactly one class" is asserting something the mapping falsifies; **(b)** plan `§3.1`'s presumption stands and is inherited — *canonical-identifier, version-semantics and profile-precedence changes are presumed `forward_only` and require an irreversible-change review before approval* — restated over the vector as **`semantic_reversibility` defaults to `not_semantically_reversible` for those subjects, and the default is overridden only by an attributed, authority-bearing determination.**
+
+**Corroboration, at nonbinding force and conferring none** `[class D]`: the Platform capture's risk-tier axes already separate **`reversibility`**, **`data irreversibility`** and **`rollback confidence`** as three distinct axes. That defeats this section's novelty on "reversibility is an axis, not a label." It establishes no law.
+
+## §E15.5 — Treatment non-collapse laws
+
+**Each of the following is a distinct act with a distinct authority basis, a distinct effect and a distinct record. Fusing any pair is the defect this section exists to prevent** `[KND]`.
+
+| Law | Statement | Source posture |
+|---|---|---|
+| **change class ≠ lifecycle state** | character describes *what kind of change this is*; lifecycle describes *where a subject has got to*. Neither derives the other | candidate Output-4 synthesis; the defect is live in plan `§3.1` (`G1-FIND-86`) |
+| **rollback ≠ semantic reversal** | a repository or artifact revert restores bytes. It is **one possible implementation action inside** a governed reversal, and a semantic reversal only when the subject is semantically reversible, the transition is authorized, external effects are accounted for, reverse migration is complete, affected claims and deployments are updated, **and historical resolution still holds**. Otherwise it is drift, unauthorized mutation, partial effect or incomplete treatment | candidate synthesis over G4 test 10's FAIL condition (class A) |
+| **rollback ≠ rollforward** | irreversible data or schema change may require **forward repair**, not reversal | class-D corroboration; stated here over root requirement 3's *"explicit forward migration"* (class A) |
+| **rollback ≠ recall** | rollback moves one deployment, environment or operator back a version; **recall prohibits or withdraws a release from eligible use across a defined scope** | class-D corroboration; **absent from this arc's prior non-collapse lists** (`G1-FIND-87`) |
+| **pause ≠ holdback** | pause stops an *active* rollout; holdback prevents a scope from *entering* one | class-D corroboration (`G1-FIND-87`) |
+| **migration ≠ reinterpretation** | a migration moves or transforms affected subjects under an explicit mapping. **It never changes what an earlier assertion meant**; prior assertions remain interpreted under their pinned revision | `[INH §E14.2.1]` |
+| **supersession ≠ mutation** | supersession is a typed transaction making a predecessor non-current **prospectively**, preserving its identity, interval and effect. `superseded` is derived from the relation, never independently assertable | `[INH §E7.1.2`, `§E14.2.1]` |
+| **retraction ≠ redaction ≠ supersession** | *"I no longer stand behind this"* ⟂ *compelled concealment with attested destruction and a tombstone* ⟂ *a newer claim*. **Relying parties carry an explicit propagation obligation** in all three | `INV-11` `adopted_narrowed`, **blocks G3** (class C). Output 4 supplies retraction and supersession; **redaction's substance is Security + Privacy/Legal at G3** (`G1-FIND-90`) |
+| **compensation ≠ reversal** | a compensating act does not make the original act un-happen | `[INH §E13.2]` commitment ⟂ effect; root requirement 3 (class A) |
+| **compensation ≠ restoration** | a compensating act may leave the world materially different from the pre-change world and still be complete. **A system fix or service restore does not discharge an individual remedy** | candidate synthesis; the second sentence is class-D corroboration and is the estate's sharpest existing statement of this law (`G1-FIND-91`) |
+| **coexistence ≠ unresolved drift** | coexistence is a **governed interval** with supported versions, compatibility constraints, a named owner, an end condition and an expiry treatment. A difference with no envelope is drift | candidate synthesis over accepted `§E13.10`'s `reconciled` ⟂ `accounted_for` split |
+| **deprecation ≠ withdrawal** | deprecation announces a future end of support while use remains permitted; withdrawal ends eligibility | candidate synthesis `[CAN]` |
+| **support withdrawal ≠ deployment mutation** | ceasing to support, or ceasing to claim conformance, changes OMNI's own statement. **It does not change the deployment** | `§6.4`'s attestation-withdrawal principle (class C) + `T0-14` (class A) |
+| **conformance-claim withdrawal ≠ local uninstallation** | withdrawing a claim removes OMNI's assertion, not the operator's software | as above |
+| **cessation ≠ deletion** | ending a relation closes its interval; it deletes no assertion, rewrites no history and removes no recorded refusal | `[INH §E14.5`, `§E14.7.4]` |
+| **deployment success ≠ release safety** | a technically completed deployment proves neither capability health nor acceptable effects nor that rollout should continue | class-D corroboration (`G1-FIND-87`) |
+| **historical resolution ≠ current preferred state** | an as-of query resolves under the law that governed **then** | `[INH §E14.2.1`, `§E13.5]` |
+| **state transition ≠ authority to perform it** | a lifecycle value never confers, implies or manufactures the authority to move it | `[INH]` the canonical 4-way composition; `§G1-AUTH` owns the ontology |
+
+## §E15.6 — The commitment frontier
+
+**`externally_committed` and `forward_only` are prose labels until a frontier is a record. A commitment frontier is the point past which the world outside the changing subject has already been affected in a way the subject cannot unilaterally undo** `[KND]`.
+
+**`externally committed ≠ merely difficult to reverse`** `[KND]`. Difficulty is an engineering cost estimate. A crossed frontier is **a fact about another party's position** — an identifier they resolve, a schema they parse, a record they hold, an act performed on a patient, money that settled, a contract accepted. **A change with an enormous but purely internal cost has crossed no external frontier; a one-line change that published an identifier has.**
+
+**Minimum frontier record** `[CAN]` — every `forward_only` or `externally_committed` determination identifies:
+
+`frontier_kind` · subject + scope · **effective time** and **recorded time** · accountable principal · acting actor · external recipient or relying party (or the declared cohort where individuals are not enumerable) · acknowledgement or reliance evidence, **or the explicit absence of it** · consequence class · **authority basis** · correction and compensation links.
+
+**Frontier kinds are subject- and domain-specific, and the list is deliberately open** `[CAN]`: public identifier publication · externally consumed contract or schema emission · external delivery · acknowledgement or demonstrated reliance · clinical signing or performance · financial settlement · contractual acceptance · regulatory submission · any other domain-owned irreversible effect. **The owning domain determines whether its frontier has been crossed. Output 4 owns only the grammar in which the answer is recorded.**
+
+**Two structural distinctions the estate already supplies, cited at their own force** `[KND]`:
+
+- **Authorization is not a crossed frontier.** D6's `authorization_for_future_charge` is an authorization with *no charge until eligibility is satisfied* (`canonical`) — an internal commitment that has emitted no external effect. `emitted` and `acknowledged` and `relied_upon` are therefore three positions, not one.
+- **Exposure has depth, and depth is load-bearing.** The Platform and Care captures already ladder exposure — `generated → retrieved → displayed → communicated → reviewed → adopted → committed → acted_upon → occurrence_created → outcome_linked` — and state that `generated`/`displayed`-only versus `adopted → committed → acted-upon` are **materially different**. **This is class D: `analysis_nonbinding`, not closed, confers no force.** It is the corroborated candidate shape for `external_consequence`'s ordering and is recorded as such, not as inherited law.
+
+**The frontier is evaluated per scope, and a partial crossing is not a full one** `[KND]`. A release adopted by three operators and declined by forty has crossed an external frontier **for three scopes**. Projecting that as a global crossing overstates irreversibility and blocks reversals that remain lawful for the other forty.
+
+## §E15.7 — Release · admission · adoption · deployment · activation · effective use · support · conformance
+
+**This section discharges nothing and proposes the `AB-05` scope extension.** `AB-05` is `already_present_with_scope_extension` with carrier **`C4.4 §R.16`**, and its instruction is exact: extend the **existing** local-admission law to **architecture-package releases · operator/deployment profiles · fleet desired state · version skew**. `AB-06` folds in — *"do not mint a second law."* `INV-24` and `INV-26` fold in as constraints. **Each of those rows carries `blocking_scope` = G1 in the binding ledger; the ledger's own rows are the enumeration and no count is maintained here** (`F-06`).
+
+**The inherited law, restated at release grain and not duplicated** `[INH C4.4 §R.16]`: `publish → (recipient) admit → use-under-grant → revoke`, with *federated publication ≠ universal trust (locally admitted)*, *inbound is admitted locally and never auto-trusted*, and the publisher's four revocation-family events reaching a sovereign recipient as **governed event + affected-set evidence + acknowledgement obligation + future-use constraint** — **never as authority to rewrite the recipient's locally admitted state.**
+
+**The proposed chain. Each arrow is a separate attributed fact with its own owner, and no arrow implies the next** `[KND]`:
+
+```
+publish (publisher)
+  ≠ local admission        (receiving principal — an applicability_decision pinning the exact release revision)
+  ≠ adoption               (adopting principal — commitment to use)
+  ≠ deployment             (operator / environment owner — realization in a target)
+  ≠ activation             (the separate fact that it is in force there)
+  ≠ effective use          (derived: permits_effective_use ∧ interval ∧ non-revocation, per scope)
+  ≠ support                (claim issuer — OMNI's statement that it supports this)
+  ≠ conformance            (computed by Output 6 over admitted observations)
+```
+
+**Six laws over the chain** `[KND]`:
+
+1. **A publisher, federation body or fleet controller may not record local admission or adoption on a member's behalf** — `INV-26` (*federation governance may publish and may restrict its own services; it cannot record adoption for a member*), and `AB-05`'s local-admission law.
+2. **Desired fleet state is a candidate, never activation** — `INV-24`. Where a resolved desired state exists it is a **derived, lineage-bearing projection** over each source's own declared intent, and it owns no truth.
+3. **Eligibility is resolved per target scope, not globally** `[CAN]`. "Approved" is an entry condition; *eligible-for-this-target* is a separate gate computed from artifact compatibility, evidence, operator policy, jurisdiction, dependency health, migration state, safety floors and current target posture. This is the same origin-versus-receiver shape accepted Output 1 established at `§E12.7.2` and accepted Output 3 formalized as the applicability function — **a further instance of an already-established law, not a new one.** *(`§E12.7.2` maintains the ingress shape's instance enumeration; this surface does not restate it — `F-06`.)* Corroborated at class D by the Platform capture's `release_eligibility(target)`.
+4. **Absence of adoption is typed absence, not refusal** `[INH §E12.7.2]`. An operator that has not adopted is `absent` or `unknown`, projected as `not_determined`. **`declined` requires an attributed decision that says no.** The common case is a member adjudicating nothing.
+5. **`cannot recall → cannot deploy`** `[CAN]`, corroborated at class D: a release is deploy-eligible only if it can be recalled or withdrawn across its scope. **Recall reach is a precondition, not an afterthought** — and it is the mechanism that lets `§E15.8`'s withdrawal and the security case operate without asserting remote mutation authority.
+6. **`G1-FIND-89` — `T0-14` operator-neutrality constrains the `OMNI-managed` posture, and `§6.4` does not say so.** Federation inv 29 (`canonical`) rejects any grant giving an OMNI-operated operator what a peer could not obtain under equivalent consent. **"OMNI-managed" may therefore describe a contractual support posture with mandatory-change obligations; it may not describe a privileged substrate capability.** Where a change is mandatory, the mandate is a **requirement plus deadline plus consequence** — issue the requirement · withdraw support · withdraw OMNI's own conformance claim · deny unsafe federation interactions · restrict interaction · fail closed. **None of those is authority to mutate a sovereign member's deployment.** `INV-27` (`adopted_narrowed`, blocks G3) supplies the other half: **scoped revocation plus hazard statements, and non-enforcement must be visible.**
+
+**Skew and posture — reconciled explicitly, with a non-regression statement, as `O4-L14` requires** `[CAN]`.
+
+**Accepted Output 2 `§E13.18` is the inherited baseline** and its seven values are consumed unchanged as the starting set: `supported_older_version · authorized_variation · transition_skew · incompatible · unsupported · security_revoked · attestation_withdrawn`. `§6.4`'s eight-value list is candidate carrier prose in the unaccepted range and is reconciled **to** the accepted set, not the reverse:
+
+| `§6.4` value | Disposition |
+|---|---|
+| `authorized_variation` · `supported_older_version` · `security_revoked` · `unsupported` | **retained** — identical to the accepted set |
+| `tolerated_transition_skew` | **reconciles to `transition_skew`** (accepted Output-2 name) |
+| `incompatible_skew` | **reconciles to `incompatible`** (accepted Output-2 name) |
+| `policy_violation` | **NOT a skew value.** A judgment about a target, on a separate axis with its own issuer, evidence and appeal path. Smuggling it into a skew enum would let a compliance judgment masquerade as a version fact |
+| `quarantined` | **NOT a skew value.** A **treatment or interaction restriction** — what OMNI does about a target — on a separate axis. `C4.4 §R.16 §8` already uses `quarantine` for unknown counterparties, which is a different subject again |
+| — | **`attestation_withdrawn` is inherited from accepted Output 2 and retained, with its mechanics explicitly unresolved** (`B-11`/`G-09`, G3) |
+
+> **Non-regression statement, required because an accepted predicate consumes this vocabulary** `[KND]`: accepted `§E13.10`'s **`reconciled`** predicate holds only where every remaining difference is a *current, valid, explicitly authorized variation / transition-skew / degraded posture within its permitted envelope*, and its R2 correction forbids laundering unresolved work through degraded authorization. **This reconciliation renames two values to their accepted forms and moves two non-skew concepts off the axis. It narrows nothing that `reconciled` admitted and admits nothing `reconciled` excluded**, and `accounted_for` continues to carry known-attributed-owned divergence independently. **A well-run estate may be fully accounted-for and not reconciled** `[INH §E13.10]`.
+
+## §E15.8 — Migration, coexistence, deprecation, withdrawal
+
+**Root requirement 3 requires that change be *migrated, coexisted and deprecated*. The estate has no contract for any of the three** `[KND]`.
+
+**The coexistence envelope** `[CAN]` — a declared, authority-bearing object, not a tolerance:
+
+`envelope_id` · subject + affected scopes · **supported versions** · compatibility constraints · **named owner** · opening decision + authority basis · **end condition** · **expiry** · **expiry treatment** (what happens to scopes still inside at expiry) · residual-risk statement where one is accepted · per-scope completion record.
+
+**Five laws** `[KND]`:
+
+1. **A difference inside a current, valid envelope is coexistence. The same difference outside one is drift** — and the envelope is what `§E13.10`'s *"within its permitted envelope"* refers to.
+2. **An envelope without an expiry is not an envelope.** Indefinite coexistence is drift with paperwork, and it is the shape that makes a degrading estate look healthy to exactly the people who would otherwise intervene (`§E13.10`'s `reconciled` correction).
+3. **Migration operates under an explicit mapping and never reinterprets** `[INH §E14.2.1]`. Where the mapping is a representation change, it is `remap_or_migrate` in the accepted treatment axis — the same fact, not a second one.
+4. **Partial application is a first-class, recoverable, separately visible state — never a projected success and never a silent half-migrated live system** `[CAN]`, corroborated at class D. A migration produces its own replayable proof; a failed or partial migration resolves to reverse migration, forward repair, parallel run, or an explicitly authorized exception with a named owner.
+5. **Deprecation and withdrawal are separate acts** (`§E15.5`), and **withdrawal is prospective**: it ends future eligibility and erases neither the released revision, the prior adoptions, the deployments that ran, nor the claims formerly issued `[INH §E14.5]`.
+
+**Where the deprecation *strategy* lives, stated because this output must not swallow it** `[KND]`: **version-support policy, compatibility windows and deprecation strategy belong to Product / Architecture Governance** — the Platform capture explicitly declares them upstream of the release plane. Output 4 supplies the **lifecycle contract** in which such a policy is expressed and enforced per scope; it does not set the policy.
+
+## §E15.9 — External effect, correction and compensation grammar
+
+**Accepted Output 2 reserves this to Output 4 by name: *"Full effect-lifecycle vocabulary is Output 4's; the commitment-versus-effect distinction is Output 2's and cannot be deferred"*** `[INH §E13.2]`.
+
+**The generic grammar. Output 4 owns this shape; domain owners own substantive adequacy** `[KND]`:
+
+> **A compensation, correction, reversal, amendment, remediation or retraction is a NEW act** with its own identity, its own authority basis, its own effective and recorded times, its own effect, and an **explicit typed relation to the original**. **It never overwrites the original effect, and the original effect's outcome is recorded and never revised in place** `[INH §E13.4]`.
+
+**This is inherited from canonical domain law, not invented** `[INH]`: **D6 inv 29 — *"sale immutable post-close; correction = additive adjustment, never edit-in-place"*** (`canonical`), with the rail-agnostic money-state vocabulary already separating `authorized · captured · voided · refund_full · refund_partial · dispute_open · dispute_lost · write_off` as distinct additive facts. **`voided` and `refund_partial` are not the same act and neither restores the pre-sale world.**
+
+**Four consequences** `[KND]`:
+
+1. **A correction is a new correlated operation** with its own `correction_id` `[INH §E13.4]`, evaluated under the **currently effective predecessor ruleset** `[INH §E13.15]`.
+2. **Compensation adequacy is not Output 4's to judge.** Whether a credit compensates a settlement, whether a clinical amendment compensates an act performed, and whether a remedy discharges a duty are **Commerce, Care and Accountability decisions**. Output 4 records the posture, the links and the open obligations.
+3. **A change in one plane does not propagate to another merely because they are linked** `[INH]`. D6: *payment state ≠ care state* — a payment failure or dispute never by itself ends a care program (`canonical`). The class-D Care capture states the same shape from the other side: a fulfillment exception reopens a **clinical** resolution only when the clinical picture changes; an operational reroute is not a clinical reopen. **Propagation is determined by the affected owner, never by adjacency.**
+4. **Reopening is append-only and belongs to the subject's own authority** `[CAN`, class-D corroborated]. The Care capture states that Care authority commits a clinical reopen and Accountability may only request one; the Accountability capture states that a later correction *links a new state* and does not rewrite the earlier report, decision context, exposure or obligation, and that an earlier reasonable decision is **not retroactively branded negligent** by a later outcome. **Both are `analysis_nonbinding` and confer no force**; they corroborate the architecture-plane law that a reopen is a new attributed act under the subject owner's authority.
+
+## §E15.10 — When the source, contract, policy, classification or applicability decision changes
+
+**This is `§G1-CONTRACT.c` row 4 — the `G1-FIND-10` vertical thread's Output-4 leg — and it is the obligation, not a side case.**
+
+> **A later source revision, normative-force determination, applicability decision, product classification or operator policy creates a NEW attributable fact. It does not mutate the prior basis, the prior decision, or the effects already produced under it** `[KND]`.
+
+**Seven required steps** `[CAN]`:
+
+1. **Preserve** the prior basis, the prior decisions including refusals, and every effect already produced.
+2. **Record** the change as a new attributable source or decision revision, with its own authority basis and both clocks.
+3. **Resolve current usability separately from historical validity** — `accepted_historically` is permanent; `acceptance_currently_usable` is a separate present-tense question `[INH §E13.10]`.
+4. **Identify the affected downstream commitments** by impact evaluation over the pinned constituents, producing a completeness **claim** with a declared coverage posture, never a set asserted as complete `[INH §E13.8]`.
+5. **Generate owner-scoped obligations** — to revalidate, notify, migrate, supersede, quarantine, stop future use, correct, compensate, or record a lawful exception. Each obligation carries `owed_to`, an obligor, a trigger, a clock, an authority basis, required proof and a waiver authority. **Each is instantiated only after admission and owner-set resolution; a hostile or malformed intake must not place duties on owners** `[INH §E13.3]`.
+6. **Preserve unresolved, partial and exception states as separately visible**, including the bidirectional lawful-retention exception where a recipient lawfully refuses or partially executes — completeness honestly includes `reached-but-lawfully-retained-with-exception` and never a false `verified-complete` `[INH C4.4 §R.15]`.
+7. **Prohibit projecting the affected area as fully reconciled** until those obligations are accounted for `[INH §E13.10]`.
+
+**Two boundaries** `[KND]`: **origin supersession does not automatically propagate to a receiving scope whose admission pinned the exact prior revision** — that is correct local sovereignty `[INH §E12.7.2]` — and **making that supersession observable to admitters is Output 5's**, per `§E14.9.4`'s routing of origin-supersession observability mechanics. Output 4 states the obligation-generating law; it does not build the observability mechanism.
+
+## §E15.11 — Temporal reconstruction, and why no one surface owns history
+
+**The four temporal questions are inherited and Output 4 adds none** `[INH §E13.5]`: `historical_as_now_reconstructed(effective_as_of)` may use later-recorded, earlier-effective facts; `known_as_of(recorded_as_of)`, `decision_context_replay` and `evaluation_against_the_knowledge_horizon_then` may not. **No-hindsight binds the last three and not the first.**
+
+**Semantic query interface** `[CAN]` — a **semantic requirement, not a storage schema**:
+
+```
+resolve(subject, scope, effective_as_of, recorded_as_of, temporal_mode)
+```
+
+**Every lifecycle query and every generated snapshot declares** temporal question/mode · `effective_as_of` · `recorded_as_of` or knowledge cutoff · resolver scope and profile · whether later evidence is admissible. Because a snapshot is content-addressed, **mode and both bounds sit inside its input manifest** `[INH §E13.5]`. Where an object cannot supply the semantics a declared mode requires, **the request fails rather than returning a confident wrong answer** `[INH §E14.5`, `R35]`.
+
+**No one log, graph, registry, snapshot, projection or dashboard owns historical truth** `[KND]`. Historical reconstruction **composes** owner-scoped facts: immutable source and resource revisions · decision and grant records · admission and adoption records · deployment and activation records · migration checkpoints · external effect and commitment records · compensation and correction acts · support and conformance claims · admitted observations · repository history · and reproducible materialized snapshots. **The architecture-operation history carries correlation and causal structure. It is not the exclusive owner of what was true.** This follows from accepted `§E13.7` (one authoritative owner per fact in scope), accepted `§E13.5` (the snapshot demoted from historical truth to a materialized derivation), `T0-15`/`DEC-033` (projections own no truth) and `D0THES-GRD-035`.
+
+**Therefore the rollback case resolves as follows** `[KND]`: **a byte revert of a carrier or descriptor is not, by itself, a semantic reversal.** It may participate in an authorized reversal when the subject is semantically reversible, the transition is authorized, external effects are accounted for, migration or reverse migration is complete, affected claims and deployments are updated, and **every prior effective snapshot still resolves.** A byte revert that leaves the operation history, the admissions, the adoptions or the claims asserting a state the bytes no longer produce is **drift, unauthorized mutation, partial effect or incomplete treatment** — and under G4 test 10 it is a **FAIL, not a pass.**
+
+## §E15.12 — Failure, interruption, partial application and unknown
+
+**Each typed contract declares its own posture for these; they are not one enum, and this section says where each lives** `[KND]`. `C4.4 §R`'s template question 8 already requires exactly this declaration per mechanism.
+
+| Outcome | Where it lives |
+|---|---|
+| `rejected` · `withdrawn` | the deciding authority's decision record — an attributed act, retained as history `[INH §E12.7.2]` |
+| `expired` | the grant, condition or envelope that carried the interval. **An expired grant does not erase a decision; it may block a later effect and require reauthorization at the point of consequence** `[INH §E13.10]` |
+| `stayed` | a separate authority-bearing stay. **A challenge or dispute alone changes no effective force** `[INH §E12.7.2]` |
+| `partially_applied` · `applied_with_exceptions` | the transition's own record, with the exception explicitly named and owned. **Partial or unknown effect is never projected as fully landed** `[INH §E13.10]` |
+| `failed` · `abandoned` | the execution record — **Agent Runtime's for runs and attempts, Build OS's for work custody** `[INH §E13.5]`. Architecture Operations references these causally and never re-sources them |
+| `disputed` | an **orthogonal attributed challenge resource**, not a lifecycle value `[INH §E12.7.2]`; conflict as a first-class resource `[INH §E14.6]` |
+| `unknown` · `unreachable` | **first-class results.** `observed` does not hold for an unreachable target `[INH §E13.10]`; local admission absence is typed absence `[INH §E12.7.2]` |
+| `awaiting_evidence` | a durable obligation with a clock and an obligor, **not a lifecycle state of the subject** `[INH §E13.2]` |
+
+**Degraded operation is authorized, bounded and separately visible** `[INH §E13.11]`: degraded-mode authority carries bounded, expiring verification debt whose expiry action is conditioned on authority, custody, reversibility and safety; the always-available minimum is stop-what-is-still-controlled, withdraw-unevidenced-claims, preserve-the-debt, escalate. It may never waive a non-derogable authority, patient-safety floor, professional duty, consent requirement or independently borne duty. **`AB-29` (emergency and degraded-mode regime) is `open`, owned by the Reactor/Care/Agent-Runtime reconciliation owner, and blocks G3** — Output 4 provides the lifecycle slot and does not settle the regime.
+
+## §E15.13 — Cessation and survival
+
+**The five non-collapses are inherited and not restated as new law** `[INH §E14.7.4]`: `cessation ≠ deletion` · `succession ≠ sameness` · `replacement ≠ transfer` · `transfer ≠ inheritance of all relations` · `vacancy ≠ implied authority`. Accepted Output 3 **deliberately froze no universal survival enum** and routed it here `[CAN→4]`.
+
+**Proposed resolution: survival is declared per subject contract, not by a universal enum** `[CAN]`. Each of the eleven register rows states what **terminates**, what becomes **non-current**, what **survives**, what may **coexist**, what is **superseded**, what remains **legally retained**, what becomes **unsupported**, and **which obligations remain open**. The register's final column carries the first pass at this.
+
+**Two absolute laws** `[KND]`:
+
+1. **No terminal state authorizes erasure of provenance, prior effect, prior authority basis, or a recorded refusal.** Revocation is prospective and erases nothing `[INH §E14.5]`.
+2. **A vacancy blocks; it never defaults upward.** Where a transition's decision condition requires a current eligible holder and none resolves, the transition **fails closed** — `owner_set_complete` does not hold `[INH §E13.8]`, and R8 `§5` states that a role with zero holders makes every dependent gate fail closed. **The authority for a given transition may arise from domain ownership, a local principal's admission authority, cross-cutting acceptance, a bounded integration grant, a claim issuer, a clinical or financial owner, or a non-overridable legal or professional duty** — resolved through the canonical 4-way composition per ownership dimension (`T0-13`), **not from a single steward seat.**
+
+## §E15.14 — Rejection and blocking grounds
+
+**The deliverable a cold implementer can execute against. Each ground names what is rejected and the law it rests on** `[CAN]`. Prefixed `CL-` to avoid collision with accepted Output 3's `R1`–`R50`.
+
+| # | Rejected | Basis |
+|---|---|---|
+| `CL-1` | a stored lifecycle scalar from which acceptance, landing, effectiveness, conformance, reconciliation or authority is inferred | `§E13.10` · `D0CKPT-GRD-003` |
+| `CL-2` | a change record asserting exactly one class where the character vector resolves two or more profiles | `§E15.4` · `G1-FIND-86` |
+| `CL-3` | a `forward_only` or `externally_committed` determination with no frontier record | `§E15.6` |
+| `CL-4` | a reversal of a subject whose `semantic_reversibility` is `not_semantically_reversible` | root requirement 3 · `C-03` |
+| `CL-5` | a byte revert presented as a governed reversal without authorization, external-effect accounting, migration completion, claim/deployment update and preserved historical resolution | G4 test 10 · `§E15.11` |
+| `CL-6` | a migration or type revision that reinterprets prior assertions | `§E14.2.1` |
+| `CL-7` | an independently asserted `superseded` value | `§E14.2.1` · `G1-FIND-27` |
+| `CL-8` | a coexistence difference with no envelope, no owner, no end condition or no expiry | `§E15.8` · `§E13.10` |
+| `CL-9` | a publisher, federation body or fleet controller recording local admission or adoption for a member | `INV-26` · `AB-05` · `C4.4 §R.16` |
+| `CL-10` | treating a resolved desired fleet state as activation | `INV-24` |
+| `CL-11` | a global "approved release" used as per-target eligibility | `§E15.7` · `§E12.7.2` |
+| `CL-12` | absence of adoption recorded or projected as `declined` | `§E12.7.2` typed absence |
+| `CL-13` | an `OMNI-managed` posture exercising a substrate capability a peer operator could not obtain under equivalent terms | `T0-14` · Federation inv 29 · `G1-FIND-89` |
+| `CL-14` | support or conformance-claim withdrawal represented as a change to the deployment | `§E15.5` |
+| `CL-15` | `policy_violation` or `quarantined` carried as skew values | `§E15.7` |
+| `CL-16` | a skew or posture reconciliation that silently changes what `reconciled` admits | `§E13.10` · `§E15.7` non-regression |
+| `CL-17` | a compensation, correction or amendment that overwrites the original effect | `§E15.9` · D6 inv 29 · `§E13.4` |
+| `CL-18` | a system fix or service restore treated as discharging an individual remedy | `§E15.5` · `G1-FIND-91` |
+| `CL-19` | propagation of a change across a plane boundary by adjacency rather than by the affected owner's determination | `§E15.9` · D6 *payment state ≠ care state* |
+| `CL-20` | an upstream source change that mutates the prior basis, prior decision, or effects already produced | `§E15.10` |
+| `CL-21` | projecting an area as fully reconciled while obligations from an upstream change remain unaccounted | `§E13.10` · `§E15.10` |
+| `CL-22` | a lifecycle query or snapshot without a declared temporal mode and both bounds | `§E13.5` · `§E14.5` |
+| `CL-23` | later evidence appearing in a `known_as_of`, `decision_context_replay` or knowledge-horizon answer | `§E13.5` |
+| `CL-24` | any single log, registry, graph or snapshot asserted as the owner of historical truth | `§E15.11` · `T0-15` · `D0THES-GRD-035` |
+| `CL-25` | a prior effective snapshot that no longer resolves after reversal, migration, supersession, correction or withdrawal | G4 test 10 · plan `§3.1` |
+| `CL-26` | partial application, partial migration or unknown effect projected as success | `§E13.10` · `§E15.12` |
+| `CL-27` | a transition executed without an authority-basis reference | `§E15.2` · the 4-way composition |
+| `CL-28` | a lifecycle value used as the authority to move it | `§E15.5` |
+| `CL-29` | a transition proceeding through a vacancy by defaulting upward | `§E15.13` · R8 `§5` |
+| `CL-30` | a terminal state erasing provenance, prior effect, prior authority basis or a recorded refusal | `§E14.5` · `G1-FIND-53` |
+| `CL-31` | a retried submission manufacturing a second decision, or a genuinely changed position collapsed into a duplicate | `G1-FIND-47` `[CAN→4]` |
+| `CL-32` | change-scoped idempotency applied to an external effect | `§E13.4` effect-scoped keys |
+| `CL-33` | an architecture-operation record re-sourcing a grant, lease, run or attempt fact owned elsewhere | `§E13.5` · `§E13.7` |
+| `CL-34` | a reduction in review, proof, authority or protection processed as an ordinary change | `§E13.15` self-application guard |
+
+## §E15.15 — Machine volume: idempotency, concurrency and duplicate transitions
+
+**At 10⁹–10¹⁰ subject scale the lifecycle must compose with accepted Output 2's identity and idempotency law rather than build a second engine** `[INH §E13.4]`.
+
+- **Submission is idempotent; judgment is not.** A retried submission after a timeout produces **one** decision — otherwise a network failure manufactures consent. A genuinely changed position produces a **new decision revision that supersedes**, with both surviving in history. `G1-FIND-47`, tagged `[CAN→4 · lifecycle]`, is proposed as resolved here **in the lifecycle grammar** and remains open while this output is `PROPOSED · NOT_ACCEPTED`.
+- **Effect idempotency is effect-scoped, never change-scoped** `[INH §E13.4]`. `operation_id` is not an idempotency key for anything.
+- **Deterministic derivations are identified by `result_digest` over pinned inputs and a declared determinism contract; digest equality *is* the idempotency** `[INH §E13.4]`. Claiming digest equality for a nondeterministic function is the same defect as hand-authoring a derived value.
+- **Concurrent owner-scoped transitions on different facts are normal and non-conflicting** — that is the point of one-authoritative-owner-per-fact. **Two transitions claiming the same fact in the same scope collide and one must fail.**
+- **Stale-base rejection** `[CAN]`: a transition evaluated against a base whose pinned constituents no longer match what it required is rejected by the **invalidation predicate**, which requires no write anywhere `[INH §E13.9`, `§E14.5]`.
+- **Retry without double effect** `[CAN]`: retry is permitted where the effect key is stable and the boundary is idempotent; where it is not, the transition resolves to `unknown` and a durable obligation, never an optimistic success.
+- **Causation is explicit, never inferred from time order** `[INH §E13.5]` — receipt presence cannot establish causal order.
+
+## §E15.16 — G4 fixture map — proof obligations, routed forward and NOT executed here
+
+**Nothing below is run in this pass.** G4 owns proof; this map exists so test 10 can be authored against a stated model rather than reverse-engineered from prose `[CAN]`.
+
+| # | Fixture | Expected derived result |
+|---|---|---|
+| 1 | ordinary reversible documentation correction | `reversible` profile; no frontier; `no_action`; reversal available; prior snapshots resolve |
+| 2 | reversal requiring reverse migration | `reversible_with_migration`; `remap_or_migrate`; reversal blocked until reverse migration completes per scope |
+| 3 | forward-only public identifier | `not_semantically_reversible` by the `§3.1` presumption; frontier = identifier publication; irreversible-change review required before approval |
+| 4 | externally consumed schema | external frontier crossed for consuming scopes only; coexistence envelope with expiry; `CL-11` blocks a global eligibility claim |
+| 5 | external reliance without acknowledgement | `external_consequence = relied_upon` with acknowledgement evidence explicitly absent — **not `none_observed`** |
+| 6 | clinical effect performed | frontier = clinical performance; `compensation_posture` decided by Care, not by Output 4; reopen is a new append-only act under Care authority |
+| 7 | financial settlement | frontier = settlement; correction is an additive adjustment (D6 inv 29); `voided` ≠ `refund_partial` ≠ restoration |
+| 8 | complete · partial · impossible compensation | three distinct `compensation_posture` values; `partial_only` and `impossible_or_unknown` leave obligations open and block `reconciled` |
+| 9 | local decline of a published release | attributed `declined` decision; publisher records nothing on the member's behalf (`CL-9`); posture resolves to `authorized_variation` or `supported_older_version`, not drift |
+| 10 | admission without adoption | admitted ∧ not adopted; `permits_effective_use` false; no `declined` value written |
+| 11 | deployment without activation | `landed` ∧ ¬`effective`; no conformance claim implied |
+| 12 | supported old-version coexistence | `supported_older_version` inside a current envelope; `reconciled` may hold; `accounted_for` holds independently |
+| 13 | incompatible skew | `incompatible`; `reconciled` false; obligations owned and visible |
+| 14 | quarantine | interaction restriction on its own axis; skew value unchanged (`CL-15`) |
+| 15 | offline member | `observed` false; posture `unknown`; **not** normalized to conforming or to violation |
+| 16 | claim withdrawal without deployment mutation | claim ends prospectively; deployment unchanged; the former claim survives as history (`CL-14`) |
+| 17 | repository byte revert after downstream effect | **FAIL** unless every `§E15.11` condition holds; otherwise classified drift or partial effect (`CL-5`) |
+| 18 | late evidence with no-hindsight reconstruction | admissible in `historical_as_now_reconstructed`; **rejected** in the other three modes (`CL-23`) |
+| 19 | source or applicability change after downstream commitment | prior basis preserved; new revision recorded; owner-scoped obligations generated; area not projected reconciled (`CL-20`, `CL-21`) |
+| 20 | security revocation against a sovereign member | scoped revocation + hazard statement + support/claim withdrawal + interaction restriction; **no remote mutation**; non-enforcement visible (`INV-27`, `CL-13`) |
+| 21 | mandatory change under an `OMNI-managed` posture | requirement + deadline + consequence; `T0-14` neutrality preserved (`CL-13`) |
+| 22 | retried approval after timeout, then a changed position | one decision from the retry; a new superseding revision for the change of position; both survive (`CL-31`) |
+| 23 | two concurrent transitions on one fact in one scope | one succeeds, one fails on stale base; no silent overwrite (parallel-change test 4's change-lifecycle half) |
+
+## §E15.17 — Carries, boundary, non-regression, locks, findings and STOP
+
+### §E15.17.1 — Downstream carries
+
+| Carry | Home |
+|---|---|
+| deterministic effective-profile and deployment resolution · precedence evaluation · contradiction handling · preferred-realization resolution · **origin-supersession observability mechanics** | **Output 5** |
+| conformance computation · claim evidence sufficiency · observability adequacy · drift detection · forbidden-loosening as a machine check · independence assessment | **Output 6** |
+| per-mechanism adopt/narrow/reject/defer and transfer-limit verdicts, including any release/deployment tooling | **Output 7** |
+| who may decide, grant, execute, override, revoke, compensate, withdraw or accept; delegation, appointment, expiry, authority succession; approval-policy content | **`§G1-AUTH`** |
+| schemas, validators, storage, encodings, generators, CI, materialized projections, identifier encoding, coverage instrumentation | **G2** (`FWREG-021`, parked on G2 admission) |
+| end-to-end proof, including test 10 and the `§E15.16` map | **G4** |
+| **attestation-withdrawal mechanics** (`B-11`/`G-09`) · **the four external-effect classes** (`B-12`/`G-13`) · **compelled forgetting and redaction substance** (`AB-20`, `INV-11`'s redaction limb) · **emergency and degraded-mode regime** (`AB-29`) · **`INV-27`'s scoped-revocation and visible-non-enforcement detail** | **G3 + the named domain owners.** Output 4 supplies the generic lifecycle slot and consequence relation only |
+| substantive adequacy of clinical, financial, legal, security, privacy and liability compensation | **Care · Commerce/D6 · Accountability · Security + Privacy/Legal** |
+| version-support policy · compatibility windows · deprecation **strategy** · technical-debt posture | **Product / Architecture Governance** |
+| release/deployment/rollout/migration **execution** lifecycles and their operating tooling | **Platform — E&V · Release Operations · Runtime Operations**, at their declared `analysis_nonbinding` maturity |
+| `environment` / `deployment_target` ownership, explicitly **`OPEN`** in the estate | **not settled here; no fourth plane minted** |
+| work custody, leases, run/attempt lifecycles, replacement, handoff | **Build OS + Agent Runtime** |
+| cross-operator patient grant topology, permeability, mode transition | **Federation** (`FWREG-001` carries mode-transition tooling) |
+| full temporal-model reconciliation | **C4.5**, `full_pass_not_started` |
+| the `§G1-CONTRACT` row 4 source-pointer defect (`G1-FIND-92`) | **a later bounded acceptance or state-normalization transaction — NOT this pass** |
+
+### §E15.17.2 — Acceptance boundary
+
+**Proposed as the Output-4 core; acceptance would settle** *(a proposal does not own an acceptance verb)*: the **lifecycle-bearing subject register** and its fact-ownership matrix (`§E15.1`) · the **minimal lifecycle algebra** and the six things it may never impose (`§E15.2`) · the **change-operation lifecycle as a derived projection**, with `ChangeManifest.state` demoted to intake convenience, projection or workflow hint (`§E15.3`) · the **five-dimensional change-character vector**, its binding to accepted Output 3's `required_treatment[]` axis rather than a parallel vocabulary, and the **legacy compatibility mapping** that keeps G4 test 10 executable (`§E15.4`) · the **treatment non-collapse laws** (`§E15.5`) · the **commitment-frontier contract** and `externally committed ≠ merely difficult to reverse` (`§E15.6`) · the **publish → local admission → adoption → deployment → activation → effective use → support → conformance** composition as `AB-05`'s scope extension of `C4.4 §R.16`, with per-target eligibility, typed absence, and the `T0-14` constraint on the `OMNI-managed` posture (`§E15.7`) · the **skew reconciliation to accepted Output-2's baseline** with its non-regression statement, and the removal of `policy_violation` and `quarantined` from the skew axis (`§E15.7`) · the **coexistence envelope** with owner, end condition, expiry and expiry treatment, and partial migration as a first-class recoverable state (`§E15.8`) · the **generic external-effect correction and compensation grammar** in which a compensating act is always a new linked act (`§E15.9`) · the **source/applicability-change law** and its seven steps (`§E15.10`) · the **semantic `resolve(...)` interface**, the no-hindsight binding, **distributed historical truth**, and the byte-revert resolution (`§E15.11`) · **failure, partial, unknown and degraded placement** (`§E15.12`) · **survival declared per subject contract** with the two absolute laws (`§E15.13`) · the **`CL-1`…`CL-34` rejection matrix** (`§E15.14`) · the **machine-volume composition** with accepted Output-2 idempotency (`§E15.15`).
+
+**NOT settled, and no reader may treat this section as settling them:** **every enumerated value set above, all `[CAN]`** — including the five vector dimensions' values, the frontier kinds, the skew reconciliation's final names, the envelope fields and the projected phase names · the effective-resolution algorithm (**Output 5**) · conformance and independence algorithms (**Output 6**) · transfer verdicts (**Output 7**) · the authority ontology (**`§G1-AUTH`**) · any schema, storage shape, encoding, validator, generator or projection (**G2**) · end-to-end proof (**G4**) · attestation-withdrawal mechanics · the four external-effect classes · compelled forgetting and redaction substance · the emergency/degraded regime · domain adequacy of clinical and financial compensation · `environment`/`deployment_target` ownership · version-support and deprecation **policy** · **any ledger row** — `AB-05`, `AB-06`, `AB-07`, `INV-24`, `INV-26`, `INV-11`, `INV-27`, `AB-20`, `AB-29` all retain their recorded dispositions and blocking scope, because closing a ledger row belongs to the ledger's rightful writer in its own transaction · **the `§G1-CONTRACT` row 4 correction** · and **G1 closure**.
+
+**Who may accept.** Resolves through `§G1-CONTRACT`, the R8 `§5` G1 gate-output transaction contract (`proposal_authoring` authors; `architecture_steward` accepts; every affected `domain_owner_approval` is additionally required), and the live holder receipt in the current Tier-0 checkpoint. **Landing requires a separately bounded `integration` grant. Not self-accepted.**
+
+**Affected-owner note, stated with more specificity than prior outputs required because this output sits closer to Federation, Platform, Care, Commerce and Accountability than Outputs 1–3 did** `[KND]`: `§E15.7` **extends the scope** of `C4.4 §R.16`'s law to a new class of object rather than merely inheriting it, which is the `B-13`/`AB-01` shape — so **the C4.4 owner's participation is a required approving-seat action at Output-4 acceptance, and any edit to `C4.4 §R` itself is downstream** (`G-07`). `§E15.7` and `§E15.13` **read** Federation's canonical `T0-14`/inv-29 and permeability boundary and **amend no Federation clause**. `§E15.9` **cites** D6 inv 29 and **amends no Commerce clause**. Care, Accountability and Platform material is consumed as **class-D corroboration only**. **No canonical contract, native lifecycle, owned truth or commit authority of any of those domains is modified by this proposal** — but the affected-owner determination is the steward's to make, not the author's.
+
+### §E15.17.3 — Non-regression for Outputs 1, 2 and 3
+
+**No accepted proposal is reopened, amended or contradicted, and Output 4 discharges nothing by having been authored.** Stated as one conditional receipt rather than a list of verbs, because the verb was the defect (`G1-FIND-72`).
+
+**What `§E15` consumes unchanged** `[INH]`. **From Output 1:** the resource/revision/descriptor/carrier decomposition · the eight-case cross-namespace identity table · `resource identity ≠ carrier location ≠ preferred name ≠ content equality ≠ local custody ≠ local adoption ≠ local authority` · the six-condition supersession transaction with no ordering · the five-value governance-decision family with dispute as an orthogonal challenge resource · **typed absence and `not_determined` as derived** · the facet decomposition, and the rule that every enumerated value set is not accepted. **From Output 2:** the correlated-operation thesis · the three-level operating signatures · the identity hierarchy including effect-scoped idempotency and `change_id` not being an idempotency key · the eighteen architecture-semantic events and the prohibition on a second event engine · the four temporal questions and no-hindsight · **the fourteen predicates, including `accepted_historically` ⟂ `acceptance_currently_usable` and `reconciled` ⟂ `accounted_for` ⟂ `remediation_active`** · invalidation as a predicate · one authoritative owner per fact in scope · joint origin-receiver effectiveness and the seven-value posture baseline · `landed ≠ effective ≠ observed ≠ conforming ≠ reconciled` · no single fleet-wide deployment moment · **no writable lifecycle scalar** · degraded-mode authority with expiring verification debt · the self-application guard · Build OS owning how work is carried and not why it is owed. **From Output 3:** the six-object decomposition and its non-collapse laws · exact type-revision pinning and the non-reinterpretation law · supersession derived and never assertable · **semantic compatibility ⟂ `required_treatment[]` ⟂ supersession-as-relation** · the object-physics temporal matrix and the prohibition on a universal bitemporal field set · revocation prospective and non-erasing · the five cessation non-collapses · `permits_effective_use` as derived · the applicability function and the mapping non-bypass law · authority non-propagation.
+
+**What Output 4 proposes a resolution of — every one still OPEN.** Output 2's `Change Manifest lifecycle enum` · Output 2's `full effect-lifecycle vocabulary` (`§E13.2`) · Output 2's `G1-FIND-47` `[CAN→4 · lifecycle]` · Output 2's `§E13.15` self-application carry, Output-4 leg `[CAN→3/4/6 · G2]` · Output 3's `change classes` and `relation/endpoint lifecycle state models` (`§E14.9.4`) · Output 3's `required_treatment[]` and semantic-compatibility **final vocabularies** `[CAN→4]` · Output 3's **survival enum** `[CAN→4]` (`§E14.7.4`) · Output 1's `§E12.7.3` third-carry limbs **withdrawal and deprecation** (redaction, tombstone and legal retention are **routed onward**, not resolved).
+
+> **Each of these carries remains open while Output 4 is `PROPOSED · NOT_ACCEPTED`. Acceptance of Output 4 would discharge them within the accepted boundary at `§E15.17.2` — and only within it, checked term by term rather than flipped as a block. Authorship supplies a proposed answer and cannot discharge a carry by writing one.**
+
+**Byte-level proof.** `§E15` is inserted between `§E14.9.8` and `§E5` and touches no accepted range. **Output-1 accepted range `§E10`–`§E12`: SHA256 `d2c531b7553bbf0f8dd2b924d2bfcfc4e7e19161a5ef2fc8fd15c7fa41e3f87a`** · **Output-2 accepted range `§E13`: SHA256 `2f89bb4184c47b3d49d1e71f3a5097216aadefc791d4eb71e8711ef9289b5b45`** · **Output-3 accepted range `§E14.0`–`§E14.9.7`: SHA256 `495ab2821c39427eab2630be3a0573d66c7436a48b2be01885181eddeda01833`** — each recomputed by the same section-bounded extraction before and after this write, **identical, and identical to the value its own acceptance receipt recorded at landing** (`§7.5`/`§7.6`/`§7.7`), so the proof closes against the receipts rather than against a fresh baseline.
+
+### §E15.17.4 — Entry-lock disposition
+
+**Every lock imposed at entry is recorded with its disposition. No lock was silently absorbed, and no lock was defeated by a live repository fact — three were EXTENDED by one, and the extensions are named** `[KND]`.
+
+| Lock | Disposition | Where |
+|---|---|---|
+| `O4-L01` force-level | **APPLIED** — four provenance classes, with class D split to name the three `analysis_nonbinding` internal captures explicitly | `§E15.0` |
+| `O4-L02` typed contract | **APPLIED** — and **EXTENDED**: the per-contract declaration shape is `C4.4 §R`'s template questions 6–9, so the shape is inherited rather than invented | `§E15.2`, `G1-FIND-88` |
+| `O4-L03` subject register | **APPLIED** — all eleven subjects, nine columns each | `§E15.1` |
+| `O4-L04` direct scope | **APPLIED** — five contract families authored; nine of eleven subjects owned elsewhere | `§E15.1`, `§E15.0` |
+| `O4-L05` no lifecycle scalar | **APPLIED** — `ChangeManifest.state` demoted to projection/convenience/hint | `§E15.3`, `CL-1` |
+| `O4-L06` fact/decision/predicate | **APPLIED** — register columns 4, 5 and 6 separate them per subject | `§E15.1` |
+| `O4-L07` authority | **APPLIED** — authority-basis **reference** in the algebra; ontology left to `§G1-AUTH`; vacancy fails closed | `§E15.2`, `§E15.13`, `CL-27`/`CL-28` |
+| `O4-L08` five-class decomposition | **APPLIED** — the five dimensions as specified, plus the legacy mapping; **EXTENDED** by binding `required_treatments[]` to Output 3's accepted axis rather than restating it | `§E15.4` |
+| `O4-L09` `reverted` | **APPLIED** — the six-value list is not adopted; `reverted` is a treatment result claim, not a reachable terminal state | `§E15.3`, `§E15.4` |
+| `O4-L10` treatment non-collapse | **APPLIED** — and **EXTENDED** by five laws found in the live estate that neither the entry packet nor the review listed: `rollback ≠ recall` · `pause ≠ holdback` · `rollback ≠ rollforward` · `retraction ≠ redaction ≠ supersession` · `deployment success ≠ release safety` | `§E15.5`, `G1-FIND-87`, `G1-FIND-90` |
+| `O4-L11` commitment frontier | **APPLIED** — minimum record as specified; frontier kinds open and domain-owned | `§E15.6` |
+| `O4-L12` external effect | **APPLIED** — new act, own identity, own authority, explicit relation, never an overwrite | `§E15.9` |
+| `O4-L13` local sovereignty | **APPLIED** — the eight-position chain; `C4.4 §R.16` extended, not duplicated | `§E15.7` |
+| `O4-L14` skew vocabulary | **APPLIED** — accepted Output-2's seven as baseline, two renames, two removals, explicit non-regression statement for `reconciled` | `§E15.7` |
+| `O4-L15` temporal / no-hindsight | **APPLIED** — `resolve(...)` as a semantic interface, not a storage schema | `§E15.11` |
+| `O4-L16` distributed history | **APPLIED** — no god log; eleven composing sources named; **the entry packet's contrary position is not carried** | `§E15.11` |
+| `O4-L17` source/applicability change | **APPLIED** — all seven steps | `§E15.10` |
+| `O4-L18` cessation/survival | **APPLIED** — per-contract declaration; register column 9; two absolute laws | `§E15.13` |
+| `O4-L19` fleet observation | **APPLIED** — derived projection; `offline`/`unknown`/`unreachable`/partial as first-class | `§E15.1` row 11, `§E15.7`, `§E15.12` |
+| `O4-L20` later routing | **APPLIED** — six named, each with owner and destination | `§E15.17.1` |
+| `O4-L21` output boundary | **APPLIED** — verbatim destinations, plus Product/Architecture Governance and Platform, which the boundary table did not name | `§E15.0`, `§E15.17.1` |
+| `O4-L22` proof | **APPLIED** — every named fixture obligation is present, plus four this output adds (security revocation against a sovereign member · mandatory change under an `OMNI-managed` posture · retry-then-changed-position · concurrent transitions on one fact). **Count-light by design** (`F-06`): the table is the authoritative enumeration and no total is maintained here | `§E15.16` |
+| entry ruling: no `§G1-CONTRACT` edit during authoring | **APPLIED** — the row-4 defect is recorded as `G1-FIND-92` and routed; **not repaired here** | `§E15.17.1`, `§E15.17.5` |
+| entry ruling: `§E15` is the write location | **APPLIED after verification** — `§E` identities 1–14 are in use, `§E15` is unused, and `§E14`'s own insertion point before `§E5` is the precedent followed | `§9` |
+
+**One departure from precedent, declared rather than absorbed** `[KND]`: Output-2 R0 and Output-3 authoring each synchronized `§G1-CONTRACT`, `§7.3`, `§8` and `§9` inside the authoring pass. **This pass is bounded to `§E15` alone**, so those surfaces — and the checkpoint, catalog row and PR metadata — remain stale against this proposal until a separate ministerial state-sync. **That staleness is a known, declared, owed delta, not an oversight**, and it is exactly the `G1-FIND-42` propagation class; `§E15.17.5` records it as an obligation with a named next action.
+
+### §E15.17.5 — Findings registered
+
+**Allocated from the whole-file `G1-FIND` population, not from the `§7.3` register projection** (`G1-FIND-74`: allocating a stable identity from an index rather than the authoritative population is how two findings came to share one identity). The population at the authoring head is `G1-FIND-01`…`G1-FIND-85`, 85 distinct, verified by command; Output 4 therefore begins at `-86`.
+
+**`G1-FIND-86` — the accepted G0 plan requires a change to declare *exactly one* of five classes, and the requirement is not satisfiable on its own terms.** The five labels mix semantic reversibility, commitment-frontier status, required treatment, external consequence and compensation availability; the ordinary healthcare cases satisfy two or three simultaneously — `forward_only` ∧ `externally_committed` for a published identifier, `compensatable_not_reversible` ∧ `externally_committed` for a settled charge, `reversible_with_migration` ∧ `externally_committed` for an externally consumed schema. **And the same `§3.1` cell places the five labels beside a manifest state list terminating in `reverted`, which three of the five forbid reaching.** Resolved by decomposition plus a legacy mapping (`§E15.4`) so G4 test 10 stays executable; **the plan is not amended here**. → `architecture_steward`.
+
+**`G1-FIND-87` — the estate already owned per-object release lifecycles and four treatment non-collapses, at nonbinding force, and no arc had consumed them.** `v4_C4_platform_loop_capture.md §9` declares `release{draft→published→superseded→recalled}` · `deployment{planned→in_progress→completed→failed→rolled_back}` · `rollout{pending→canary→paused→promoting→promoted→halted}` · `release_channel_membership{included→held→removed}` · `migration_execution{planned→running→verified→failed→reverted}` under the explicit heading *"each object owns its own state"* — which is the typed-contract position, already written down. It also states `rollback ≠ recall`, `pause ≠ holdback`, `rollback ≠ rollforward` and `deployment success ≠ release safety`, **none of which appeared in this arc's entry reconstruction or in the review's non-collapse list**, and separates `reversibility`, `data irreversibility` and `rollback confidence` as three risk axes. **This defeats the novelty of `§E15.2` and `§E15.5` and confers no force** — the carrier is `analysis_nonbinding` and not closed. **`L-1` again, and in its most instructive form: the pattern was not missing, it was unreachable from the routes this arc follows** — the same routing defect PRE-0 `L-1` recorded for `C4.4 §R`. → `architecture_steward`.
+
+**`G1-FIND-88` — two G1 obligations are generalizing one mechanism template with no coordination surface.** `C4.4 §R`'s 13-question template already requires each mechanism to declare its authority/admission/commit boundary (q6), lifecycle states and closure (q7), partial-failure/degraded/unknown/quarantine/retry posture (q8) and temporal/correction/supersession/revocation semantics (q9) — so Output 4's per-subject contract shape is **inherited**. But `B-13`/`AB-01` is a live G1 obligation to *generalize that same template* into a universal shared-mechanism profile. **Two outputs extending one template, with no surface naming the dependency, is how two divergent generalizations of one mechanism get accepted separately.** Recorded, not resolved: the sequencing is the steward's. → `architecture_steward`.
+
+**`G1-FIND-89` — `§6.4`'s `OMNI-managed` posture is stated without the neutrality constraint that governs it.** `§6.4` says some security, legal and compatibility changes are *mandatory* under that posture. Federation inv 29 (`canonical`, `T0-14`) rejects any arrangement giving an OMNI-operated operator what a peer could not obtain under equivalent consent. **The two are compatible only if "mandatory" means a contractual requirement with consequences — requirement, deadline, support withdrawal, claim withdrawal, interaction restriction, fail-closed — and never a privileged substrate capability to mutate a member.** `§6.4` does not say this, and a reader could take `OMNI-managed` as substrate privilege. Resolved in `§E15.7` law 6 and `CL-13`. → `architecture_steward`.
+
+**`G1-FIND-90` — the correct decomposition of the withdrawal family was already in the binding ledger, and both the entry reconstruction and the review missed it while disputing where redaction belongs.** `INV-11` (`adopted_narrowed`, `blocks G3`) separates **retraction** (*I no longer stand behind this*) ⟂ **redaction** (*compelled concealment with attested destruction and a tombstone*) ⟂ **supersession** (*a newer claim*), and adds that **relying parties carry an explicit propagation obligation** in all three. **That resolves the routing conflict the entry pass recorded as unresolved:** `§E12.7.3` routed redaction and tombstone to Outputs 3–5 while `AB-20` routes compelled forgetting to Security + Privacy/Legal at G3 — and `INV-11` shows they are **different limbs of one family**, so Output 4 takes retraction and supersession and routes redaction's substance onward. **A three-way non-collapse sat in the ledger this arc reads every pass, and two independent reconstructions of the same subject both missed it.** → `architecture_steward`.
+
+**`G1-FIND-91` — the estate's sharpest statement of `compensation ≠ restoration` is one sentence in a nonbinding capture, and it is stronger than anything this output could derive.** `v4_C4_governed_reporting_resolution_capture.md §17`: *"Individual remedy is first-class; a system fix / service restore does NOT discharge it."* Its sibling laws are equally on-point — the **version-at-time law** (a later correction *links a new state* and does not rewrite the earlier report, decision context, exposure or obligation), **four horizons closing independently but linked** (technical repair · clinical reassessment · party remedy · recurrence monitoring), and *an earlier reasonable decision is not retroactively branded negligent*. **All `analysis_nonbinding`, none closed, no force.** The four-horizons law is the strongest available corroboration that a change has no single terminal state; recorded as corroboration so no later surface can promote it by provenance tag (`G1-FIND-73`). → `architecture_steward`.
+
+**`G1-FIND-92` — `§G1-CONTRACT` row 4 omits the source that contains both of Output 4's central defects.** The row names `§E1 AB-07` + `§6.4` and does **not** name plan `§3.1`, which is where the five change classes and the `proposed/reviewed/approved/staged/landed/reverted` state list both live, and where `G1-FIND-86`'s collision sits. The row's *"required sources read?"* cell therefore reads `partial` against an incomplete source list. **This is `FWREG-021`'s broken-pointer class — the same class that required repointing row 3 during Output 3 — and the required correction is: add plan `§3.1` to row 4's source cell.** **Declared and NOT performed here:** repairing a current-state row during proposal authoring is outside this bounded write, and the row is corrected only in a later authorized acceptance or state-normalization transaction. → `architecture_steward`.
+
+**`G1-FIND-93` — a bounded authoring pass that may not touch its own current-state surfaces creates a known-stale window, and naming it is the only available mitigation.** This pass writes `§E15` only. On commit, `§G1-CONTRACT` row 4 still reads `INCOMPLETE` with no carrier section, `§6.1`/`§6.2` `B-15` still read outputs 4–7, `§7.3` does not index findings `-86`…`-93`, `§8` and `§9` do not record this pass, and the Tier-0 checkpoint, catalog row and PR metadata still say Output 4 is **not started**. **Every one of those is true-as-of-the-accepted-state and false-as-of-this-head.** Prior passes avoided this by synchronizing in the authoring commit; this pass is bounded not to. **The mitigation is a separate ministerial state-sync before independent proposal review**, updating the existing checkpoint, catalog row and PR metadata and the carrier's own current-state surfaces, creating no handoff and changing no `§E15` semantic byte. Recorded as an **owed obligation with a named next action**, because an unnamed stale window is `G1-FIND-42` and a named one is a transaction boundary. → `architecture_steward` + the next `integration` holder.
+
+### §E15.17.6 — Source posture for Output 4
+
+**Read fully or to controlling sections this pass:** `§G1-CONTRACT` + `.b` + `.c` · `§E1` rows for `AB-05`/`AB-06`/`AB-07`/`AB-15`/`INV-17` · `§6.1` · `§6.2` all four blocker tables · `§6.4` · `§7.5`/`§7.6`/`§7.7` · `§8` · `§9` · `§E12.7` incl. `.1`/`.2`/`.3` · `§E13.2`, `§E13.3`, `§E13.4`, `§E13.5`, `§E13.9`, `§E13.10`, `§E13.15`, `§E13.18`, `§E13.23` · `§E14.0`, `§E14.2.1`, `§E14.5`, `§E14.7.4`, `§E14.9.1`–`§E14.9.8` · R8 root requirements, `§3.1`, `§5` gates + the gate-output transaction contract + the G1 three-lane structure, the eleven-test table · R9 `§6.2`/`§6.3`/`§6.4` · PRE-0 rows `AB-05`, `AB-06`, `AB-07`, `AB-20`, `AB-21`, `AB-27`, `AB-29`, `INV-11`, `INV-24`, `INV-26`, `INV-27`, `C-02`, `C-03`, `C-14`, `L-1`, `L-3`, `§6` amendment table, `§8` closure rows · **`C4.4`'s `§R` 13-question mechanism template, `§R.15` and `§R.16` in full** · `rbac_authority_contract.md` `§5` 4-way composition + `§9` invariants · `federation_contract.md` `§1.5`/`§1`/`§3`/`§4`/`§5` + inv 29 · `D6_commerce_contract.md` `§5`/`§7`/`§9` · `identity_contract.md` `§4`/`§9` · `v4_C4_platform_loop_capture.md` `§0`/`§1`/`§9`/`§9a` + the object-ownership table · `v4_C4_care_operating_model_capture.md` controlling sections on correction, reopen, exposure depth, completion and seam kinds · `v4_C4_governed_reporting_resolution_capture.md` `§0`/`§5`/`§6`/`§9a`/`§17` · `C4.5` passport + `§0.0` + `§0` · read-graph route `9v`/`9v-i`/`9v-ii` · the Tier-0 checkpoint state rows.
+
+**Verified live before writing** (`F-06` discipline): entered at `a28439de54c1ad6ea6ce08ca06aac05302fd245c` on `cursor/fai-g1-operating-model-4933`, working tree clean; carrier blob `d9340fe8`; both boot pointers agree and `check-checkpoint-pointer.mjs` **PASS**; **`§E` identities 1–14 enumerated by command and `§E15` confirmed unused**; the `G1-FIND` population enumerated by command as `-01`…`-85`; **all three accepted-range digests reproduced by section-bounded extraction and matched against the values their own acceptance receipts recorded**, before any write.
+
+**Derived values are recorded as commands, never as maintained figures** (`F-06`): `§E` identity set — `grep -o "§E[0-9]\+" <carrier> | sort -u`; finding population — `grep -o "G1-FIND-[0-9]\+" <carrier> | sed 's/G1-FIND-//' | sort -n -u`; accepted ranges — `sed -n '1868,2417p'`, `sed -n '2418,3253p'`, `sed -n '3258,4061p'`, each piped to `sha256sum`.
+
+**Not inspected — declared, not discharged. `B-8` is UNCHANGED and this pass closes none of it.** Lane-1 primaries beyond prior probes — and for this output the material ones are **SEI variability/variation points** and **FHIR versioning + constrain-never-loosen**, which bear directly on `§E15.4` and `§E15.8` · **the remaining fourteen `C4.4 §R` sections** · **Polaris** · **C4.6** · the **federation-permeability arc** (`FWREG-001`) · the **C4.5 body** · Care `§1b`/`§5b`/`§18`/`§19` and Accountability at full depth beyond the controlling sections named above · GCE / thesis `§C` · the raw ingest corpus · application code · hosted settings.
+
+**One negative result, recorded rather than dropped.** The entry reconstruction reported that a sovereign federation member declining an architecture release *"has no owner anywhere."* **Narrowed on inspection:** `federation_contract.md`'s `§3` ownership set and `§5` permeability mechanism were read directly and contain **no** release, version, adoption, upgrade or skew object — so the correct statement is **not located in the inspected architecture-plane sources, with the federation-permeability arc and `FWREG-001`'s mode-transition tooling still uninspected.** An estate-wide absence claim is not supported by this floor and is not made. **No subagents were used; every estate claim in `§E15` was verified directly against bytes at the authoring head.**
+
+### §E15.17.7 — STOP
+
+**`OUTPUT_4_PROPOSED · NOT_ACCEPTED`.** Output 4 moves from `INCOMPLETE` to `PROPOSED`. It does **not** move to complete. **G1 remains OPEN and INCOMPLETE**; `§G1-AUTH` remains a mandatory work package, partially converged; **`B-15` is unchanged and still spans outputs 4–7** — only acceptance narrows it, which is the distinction Output 2 established and Output 3 observed. **No carry is discharged.** **Every enumerated value set remains `[CAN]`.** **No ledger row is closed** — `AB-05`, `AB-06`, `AB-07`, `INV-11`, `INV-24`, `INV-26`, `INV-27`, `AB-20`, `AB-29` retain their recorded dispositions and blocking scope. **Nothing is installed; no schema, registry, validator, route, gate, checkpoint, lane, FWREG row, contract, workflow, code or artifact is created; no plane is minted; no vendor or technology is named; Output 5 is not started.**
+
+**Acceptance requires** independent proposal review and steward acceptance on the standard Outputs 1–3 met, plus every affected `domain_owner_approval` — including, per `§E15.17.2`, the **C4.4 owner's participation** on the `AB-05` scope extension. **A proposal cannot fire its own acceptance condition.**
+
+**Owed immediately and deliberately outside this transaction** (`G1-FIND-93`): a **separate ministerial state-sync** repointing this carrier's current-state surfaces (`§G1-CONTRACT` row 4 with the `§3.1` source correction from `G1-FIND-92`, the honest-reading count, `§6.1` scope, `§7.3` indexing of findings `-86`…`-93`, `§8`, `§9`), the **Tier-0 checkpoint**, the **catalog row** and **PR #17 metadata** — creating no handoff, repointing no route, and changing no `§E15` semantic byte.
+
+---
+
 ## §E5 — G4 adversarial fixtures — routed forward, NOT a G1 output
 
 | Fixture | Existing test |
