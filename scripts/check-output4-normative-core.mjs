@@ -13,8 +13,8 @@
  * §E15.18 is a DERIVED projection over the authored prose sections. It owns no truth: where
  * the index and the section disagree, the section governs and this checker has found a defect.
  *
- * It checks six things and nothing else:
- *   1. the §E15.18 table exists and parses, with the exact seven columns
+ * It checks the following and nothing else:
+ *   1. the §E15.18 table exists and parses, with the exact declared columns
  *   2. every row has all seven fields non-empty — no law without an owner, home, source
  *      or fixture posture, because a law with no owner is how the estate loses one
  *   3. ids are O4-L-nn, unique, and contiguous from 01 — no gaps, no reuse
@@ -55,7 +55,10 @@ const LEGAL_HOME = new Set([
 const LEGAL_STATUS = new Set(['active', 'superseded', 'retired']);
 // A bare letter is not evidence. LETTER:OUTCOME@trace, or the honest `none`.
 const OUTCOME = '(SUPPORTS_SHARED|REQUIRES_SPECIALIZATION|CONTRADICTS|NOT_APPLICABLE|UNRESOLVED)';
-const ENTRY = `[A-H]:${OUTCOME}@\\S+`;
+// Consumer codes are the System Map's domain codes plus SELF (architecture self-application).
+// Derived from OMNI_System_Map_vNext.md, not invented here.
+const CONSUMER = '(D3|D5|ID|CNS|MSG|INT|CM|D7|OBS|D6|RBAC|SET|FED|AI|BIZOPS|OFC|SELF)';
+const ENTRY = `${CONSUMER}:${OUTCOME}@\\S+`;
 const LEGAL_FIXTURE = new RegExp(`^(none|${ENTRY}(\\s*·\\s*${ENTRY})*)$`);
 
 const problems = [];
@@ -139,7 +142,7 @@ for (const { n, cells } of laws) {
     fail(`${where} (${id}): output home "${home}" is outside the legal set — ${[...LEGAL_HOME].join(', ')}`);
   }
   if (fixtures && !LEGAL_FIXTURE.test(fixtures)) {
-    fail(`${where} (${id}): fixtures "${fixtures}" must be "none" or a subset of A,B,C,D`);
+    fail(`${where} (${id}): fixtures "${fixtures}" must be "none" or LETTER:OUTCOME@trace entries`);
   }
   // `binds` is normative: the bound section's qualifications are part of the law.
   const bound = source.match(/§E15(?:\.\d+)*/g) ?? [];
@@ -156,7 +159,12 @@ let appendOnlyRan = true;
 // Append-only against the parent commit: a law may be retired, never deleted or renumbered,
 // and its semantics may not change without the status or a visible revision saying so.
 try {
-  const parent = execSync(`git show HEAD:${CARRIER}`, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024 });
+  // NOT `HEAD:` — in CI the checkout IS the commit under test, so HEAD:file == the working
+  // tree and the comparison silently passes against itself. Verified: identical sha256 on a
+  // clean tree. Compare against the previous commit that TOUCHED this file instead.
+  const revs = execSync(`git log -2 --format=%H -- ${CARRIER}`, { encoding: 'utf8' }).trim().split('\n');
+  if (revs.length < 2) throw new Error('no prior revision of the carrier is reachable (shallow clone? set fetch-depth: 0)');
+  const parent = execSync(`git show ${revs[1]}:${CARRIER}`, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024 });
   const prior = new Map();
   let priorHeader = null;
   for (const line of parent.split('\n')) {
@@ -183,7 +191,7 @@ try {
     const pStatus = pF('status') ?? 'active';
     const nStatus = nF('status') ?? 'active';
     const drift = [];
-    for (const field of ['force', 'law', 'owner of the underlying fact', 'output home']) {
+    for (const field of ['force', 'law', 'owner of the underlying fact', 'output home', 'binds']) {
       const a = pF(field); const b = nF(field);
       if (a !== undefined && b !== undefined && a !== b) drift.push(`${field} ${a}→${b}`);
     }
