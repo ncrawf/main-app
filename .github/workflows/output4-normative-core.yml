@@ -1,0 +1,34 @@
+name: output4-normative-core
+
+# Structural check for the Output-4 normative-core law index (FAI G1 §E15.18).
+#
+# Nine correction passes produced real change-lifecycle law and buried it in a 1.1 MB prose
+# dossier. Every prior arc that did that had its law re-derived by the next agent. Narrative
+# discipline in this carrier had already failed twice, so the law index is structural.
+#
+# §E15.18 is a derived projection over the authored prose sections and owns no truth: where
+# the index and a section disagree, the section governs and this check has found a defect.
+#
+# Dependency-free on purpose, so an unrelated install failure cannot skip it.
+#
+# This becomes merge-blocking ONLY if it is marked a required status check in branch
+# protection. That is a repository setting; this file cannot grant it.
+
+on:
+  pull_request:
+    paths:
+      - ".cursor/plans/v4_FAI_G1_operating_model_carrier_2026-08-10.md"
+      - "scripts/check-output4-normative-core.mjs"
+      - ".github/workflows/output4-normative-core.yml"
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: node scripts/check-output4-normative-core.mjs

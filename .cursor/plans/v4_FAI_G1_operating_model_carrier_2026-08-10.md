@@ -5368,6 +5368,63 @@ resolve(subject, scope, effective_as_of, recorded_as_of, temporal_mode)
 
 ---
 
+## §E15.18 — OUTPUT-4 NORMATIVE CORE — the machine-checked law index
+
+> **Why this exists, and it is the answer to the only complaint that has been right every single time** `[KND]`. **This arc could not get from thread prose to a durable object.** Nine correction passes produced real law and buried it in a 1.1 MB dossier where the next agent will not find it, cannot diff it, and is free to re-derive it — *which is exactly what every prior arc did, and exactly why this arc exists.* **Narrative discipline has already failed here twice** (`§0.1` deleted its own evidence and kept the totals; `F-06`'s maintained figures broke three times in this correction arc alone, twice by the pass installing the rule against them). **So this is structural, not another paragraph.**
+>
+> **What it is:** every load-bearing Output-4 law, with a **stable identity**, its **force**, the **owner of the underlying fact**, its **output home**, its **source**, and its **fixture coverage** — **machine-validated by `scripts/check-output4-normative-core.mjs`, which fails nonzero when a law loses its id, force, owner, home, source, or coverage field, when an id duplicates or breaks contiguity, when a force or home is outside the legal set, or when a `§E15.x` reference does not resolve to a real heading.** *Same class as `check-checkpoint-pointer.mjs`, for the same reason: prose discipline had already failed.*
+>
+> **What it is NOT:** not a new artifact class · not a registry · not a plane · not a second copy of the law. **The prose sections remain the authored law; this index is a DERIVED, VALIDATED PROJECTION over them** (`T0-15`, `DEC-033` — a projection owns no truth). **If the index and the section disagree, the section governs and the checker has found a defect.** **No count of laws is maintained** (`F-06`) — the rows are the enumeration.
+>
+> **Fixture coverage is recorded HONESTLY, and it is mostly `none`** `[KND]`. `A` Care · `B` Vendor/Demand/Commerce/Fulfillment · `C` Insurance/mixed financing · `D` architecture self-application. **A law marked `none` has been authored and never run against a materially different consumer** — which is the true state of this output and the reason it is not acceptable yet. *A shared law is earned by surviving unlike consumers, not by being well written.*
+
+| id | force | law | owner of the underlying fact | output home | source | fixtures |
+|---|---|---|---|---|---|---|
+| `O4-L-01` | KND | Independently owned lifecycle fact families exist and are separately attributable; the splitting rule governs membership | subject owners | O4 | §E15.1 | none |
+| `O4-L-02` | KND | The register is a declared-open minimum with a coverage posture, never a census; a model gap is not an evidence unknown and out-of-scope is an attributed exclusion | subject owners | O4 | §E15.1 | none |
+| `O4-L-03` | KND | A minimal shared reference algebra joins the contracts and may never impose one state enum, terminal state, temporal schema, writer, history owner or transition authority | O4 | O4 | §E15.2 | none |
+| `O4-L-04` | INH | Lifecycle condition is a set of concurrently evaluable predicates over separately owned facts, never a stored selected value | fact owners | O2 | §E13.10 | none |
+| `O4-L-05` | KND | Prospective assessment and observed consequence are separate records; the assessment issuer is not the deciding authority; the decision pins an exact immutable assessment basis | assessment issuers | O4 | §E15.4.1 | none |
+| `O4-L-06` | CAN | Simulated consequence is a third provenance class, discriminated by the ABSENCE of frontier events; it is never substituted for observed consequence | simulator owner | O4 | §E15.4.1 | none |
+| `O4-L-07` | CAN | Simulation is a family of unequal evidentiary force; a canary is not simulation because it crosses a real frontier for a bounded population | evaluation owners | O6 | §E15.4.1 | none |
+| `O4-L-08` | KND | Characterization records are independently owned at record grain; semantic compatibility, reversibility and treatment are three facts | record owners | O4 | §E15.4.2 | none |
+| `O4-L-09` | CAN | The five plan labels are non-exclusive derived profiles under a proposed compatibility mapping, not a discovered ontology | O4 | O4 | §E15.4.3 | none |
+| `O4-L-10` | CAN | Absence of a usable correction path is derived over existing fields with a reason vector, never a label; it is re-derived per execution mode | subject owners | O4 | §E15.4.3 | none |
+| `O4-L-11` | KND | Coverage is claimed across five separately claimed kinds; incompleteness declared blocks by consequence policy, never by a threshold this output sets | claim owners | O4 | §E15.4.4 | none |
+| `O4-L-12` | CAN | The characterization denominator is the population admitted as proposed architecture changes; drift, configuration, out-of-scope, exception and unresolved are not in it | O4 | O4 | §E15.4.4 | none |
+| `O4-L-13` | CAN | A coarser-scope assessment never silently binds a finer or overlapping scope; reuse requires direct applicability authority or local admission, and there is no third path through silence | scope owners | O5 | §E15.4.5 | none |
+| `O4-L-14` | CAN | Output 4 owns the ADMISSION CONTRACT — the typed result, the fail-closed default, the blocking unresolved state — and owns no classifier, authority or method | classifying authorities | G1-AUTH | §E15.3 | none |
+| `O4-L-15` | CAN | Every classification result is attributable to a determining authority or authorized generator under a named basis; routed is not ownerless | determining authority | O4 | §E15.3 | none |
+| `O4-L-16` | CAN | The admission law applies only to architecture-owned subjects or established architecture relevance; everything else resolves to attributed out-of-scope | scope authority | O4 | §E15.3 | none |
+| `O4-L-17` | CAN | Absence is not permission AND absence does not establish architecture-change identity; absence routes to governed classification and may block | classifying authorities | O4 | §E15.3 | none |
+| `O4-L-18` | CAN | Selection inside an open variation point is configuration; new-variant creation is configuration only under an open point and resolved new-variant authority | variation-point owner | O5 | §E15.3 | none |
+| `O4-L-19` | KND | The treatment non-collapse laws | O4 | O4 | §E15.5 | none |
+| `O4-L-20` | CAN | PCCP, post-market monitoring, recall/corrective action and rollback are four lifecycles with four owners; monitoring detects and authorizes nothing | respective owners | O4 | §E15.5 | none |
+| `O4-L-21` | KND | Commitment frontiers are discrete events, never a scalar; externally committed is not merely difficult to reverse | accountable principal | O4 | §E15.6 | none |
+| `O4-L-22` | KND | Publication, admission, adoption, deployment, activation, effective use, support and conformance are separately owned facts under a partial order, not a pipeline | respective owners | O4 | §E15.7 | none |
+| `O4-L-23` | CAN | `landed` implies nothing about whether AFFECTED subjects were realized; propagation is a separate authority-bearing decision with its own actor | propagation actor | O4 | §E15.7 | none |
+| `O4-L-24` | INH | A publisher, federation body or fleet controller may not record local admission or adoption on a member behalf | receiving scope | O4 | INV-24 INV-26 | none |
+| `O4-L-25` | CAN | `authorized_variation` requires a current, resolvable, authority-bearing basis whose TYPE is an open externally owned set | basis authorities | G1-AUTH | §E15.7 | none |
+| `O4-L-26` | KND | Posture and skew decompose into independently owned dimensions with the accepted Output-2 vocabulary preserved as derived profiles | dimension owners | O4 | §E15.7 | none |
+| `O4-L-27` | CAN | Compatibility direction is dimension-qualified over the admissible instance set; other dimensions are separate facts referenced, never restated | determining authority | O4 | §E15.1 | none |
+| `O4-L-28` | CAN | No general safety conclusion follows from a widening direction; consumer compatibility moves oppositely and is assessed on its own ground | consumer owners | O6 | §E15.8 | none |
+| `O4-L-29` | CAN | A change whose consequence an uninformed consumer cannot safely ignore must be visible in the artifact, not only in the governing declaration | emitting boundary | O4 | §E15.8 | none |
+| `O4-L-30` | CAN | Coexistence is a governed envelope with an owner and a declared termination condition; partial application is first-class and can destroy the correction path | envelope owner | O4 | §E15.8 | none |
+| `O4-L-31` | CAN | Deprecation is reversible by the claim issuer; withdrawal is terminal | claim issuer | O4 | §E15.8 | none |
+| `O4-L-32` | INH | Correction, compensation, reversal, amendment and retraction are always new linked acts, never overwrites | acting owners | O2 | §E13.4 | none |
+| `O4-L-33` | KND | Obligations are recognized from a pre-existing basis and never manufactured; the source/applicability-change law | recognizing authority | O4 | §E15.10 | none |
+| `O4-L-34` | CAN | An external-normative revision is an ordinary register subject; its members differ by force, derogability and exception authority and may not be flattened | source authorities | O4 | §E15.10 | none |
+| `O4-L-35` | INH | The semantic `resolve(...)` interface with no-hindsight binding, distributed historical truth, and the byte-revert resolution | history owners | O2 | §E13.5 | none |
+| `O4-L-36` | CAN | Historical reconstruction is a read; execution replay is a new attempt inheriting no identity or authority; forked continuation preserves original history | attempt owners | O4 | §E15.11 | none |
+| `O4-L-37` | KND | Failure, partial application, unknown and degraded outcomes have declared homes and are never projected as success | outcome owners | O4 | §E15.12 | none |
+| `O4-L-38` | KND | Survival is declared per subject contract; no terminal state by itself authorizes erasure; vacancy blocks and never defaults upward | subject owners | O4 | §E15.13 | none |
+| `O4-L-39` | KND | The rejection-ground matrix as a decidability requirement | O4 | O4 | §E15.14 | none |
+| `O4-L-40` | INH | Concurrency composes with accepted Output-2 identity and semantic-collision law; distinct fact ownership is not proof of non-conflict | identity owners | O2 | §E13.4 | none |
+| `O4-L-41` | CAN | Output 4 is a SLICE of R8 §1 Architecture Operations, not Architecture Operations; it owns the change-proposal lifecycle and the exception envelope grammar and seams to the rest | composition owners | O2 | §E15.10 | none |
+| `O4-L-42` | CAN | Self-application is bounded: the effective control version governs its successor, amendment authority is separate from exercised authority, and the successor is effective only on explicit admission | G1-AUTH | G1-AUTH | §E15.10 | none |
+
+> **Every row reading `none` is the honest state, and the blockers at `§E15.17.1` are what change it** `[KND]`. **The four-fixture composition proof — Care · Vendor/Demand/Commerce · Insurance/mixed financing · self-application, with time mandatory across all four — is what turns a `none` into earned common law**, and a law that survives only one fixture belongs to that domain and not here. *This index makes that gap countable by a machine instead of arguable in a thread, which is the only reason it is worth writing.*
+
 ## §E5 — G4 adversarial fixtures — routed forward, NOT a G1 output
 
 | Fixture | Existing test |
