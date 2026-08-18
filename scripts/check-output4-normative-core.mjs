@@ -24,7 +24,12 @@
  *      inherited law, which is the defect this arc corrected four separate times
  *   5. output home is in the legal set — Output 4 absorbing another output's home is the
  *      cross-cutting god-object D0THES-GRD-035 forbids
- *   6. every §E15.x source reference resolves to a real heading in the carrier
+ *   6. every §E15.x `binds` reference resolves to a real heading — `binds` is NORMATIVE:
+ *      a law is the row PLUS the qualifications its bound section states
+ *   7. status is active|superseded|retired — a law is never deleted, only retired
+ *   8. fixtures are LETTER:OUTCOME@trace — a bare letter is not evidence
+ *   9. append-only against the parent commit: no id disappears, no id is renumbered,
+ *      and force/owner/home/law-text cannot change while status stays "active"
  *
  * It deliberately does NOT check: whether a law is correct, whether its force is the right
  * force, whether the fixture posture is honest, or how many laws there are. No count is
@@ -34,10 +39,11 @@
  */
 
 import { readFileSync } from 'node:fs';
+import { execSync } from 'node:child_process';
 
 const CARRIER = '.cursor/plans/v4_FAI_G1_operating_model_carrier_2026-08-10.md';
 const SECTION = '## §E15.18';
-const HEADER_CELLS = ['id', 'force', 'law', 'owner of the underlying fact', 'output home', 'source', 'fixtures'];
+const HEADER_CELLS = ['id', 'status', 'force', 'law', 'owner of the underlying fact', 'output home', 'binds', 'fixtures'];
 
 // [CAN→n] is a candidate routed to output n and is legal; a bare label is not.
 const LEGAL_FORCE = /^(INH|KND|CAN|CAN→[1-7])$/;
@@ -46,8 +52,11 @@ const LEGAL_HOME = new Set([
   'G1-AUTH', 'G2', 'G3', 'G4',
   'DOMAIN', 'PLATFORM', 'BUILD-OS', 'EVIDENCE-PLANE',
 ]);
-// A law authored and never run against a materially different consumer is `none`, honestly.
-const LEGAL_FIXTURE = /^(none|[ABCD](\s*[,·]\s*[ABCD])*)$/;
+const LEGAL_STATUS = new Set(['active', 'superseded', 'retired']);
+// A bare letter is not evidence. LETTER:OUTCOME@trace, or the honest `none`.
+const OUTCOME = '(SUPPORTS_SHARED|REQUIRES_SPECIALIZATION|CONTRADICTS|NOT_APPLICABLE|UNRESOLVED)';
+const ENTRY = `[A-H]:${OUTCOME}@\\S+`;
+const LEGAL_FIXTURE = new RegExp(`^(none|${ENTRY}(\\s*·\\s*${ENTRY})*)$`);
 
 const problems = [];
 const fail = (msg) => problems.push(msg);
@@ -103,7 +112,7 @@ for (const { n, cells } of laws) {
     fail(`${where}: has ${cells.length} columns, expected ${HEADER_CELLS.length}`);
     continue;
   }
-  const [rawId, force, law, owner, home, source, fixtures] = cells;
+  const [rawId, status, force, law, owner, home, source, fixtures] = cells;
   const id = rawId.replace(/`/g, '').trim();
 
   HEADER_CELLS.forEach((name, i) => {
@@ -120,6 +129,9 @@ for (const { n, cells } of laws) {
     ordinals.push(ord);
   }
 
+  if (status && !LEGAL_STATUS.has(status)) {
+    fail(`${where} (${id}): status "${status}" is outside {active, superseded, retired} — a law is never deleted, only retired with a reason`);
+  }
   if (force && !LEGAL_FORCE.test(force)) {
     fail(`${where} (${id}): force "${force}" is outside {INH, KND, CAN, CAN→1..7} — an unlabelled law becomes inherited law by accident`);
   }
@@ -129,12 +141,62 @@ for (const { n, cells } of laws) {
   if (fixtures && !LEGAL_FIXTURE.test(fixtures)) {
     fail(`${where} (${id}): fixtures "${fixtures}" must be "none" or a subset of A,B,C,D`);
   }
-  for (const ref of source.match(/§E15(?:\.\d+)*/g) ?? []) {
-    if (!headings.has(ref)) fail(`${where} (${id}): source references ${ref}, which is not a heading in the carrier`);
+  // `binds` is normative: the bound section's qualifications are part of the law.
+  const bound = source.match(/§E15(?:\.\d+)*/g) ?? [];
+  if (/§E15/.test(source) && bound.length === 0) fail(`${where} (${id}): binds "${source}" is malformed`);
+  for (const ref of bound) {
+    if (!headings.has(ref)) fail(`${where} (${id}): binds ${ref}, which is not a heading in the carrier`);
   }
   if (law && law.length < 20) {
     fail(`${where} (${id}): law text is ${law.length} chars — too short to be a defensible statement`);
   }
+}
+
+let appendOnlyRan = true;
+// Append-only against the parent commit: a law may be retired, never deleted or renumbered,
+// and its semantics may not change without the status or a visible revision saying so.
+try {
+  const parent = execSync(`git show HEAD:${CARRIER}`, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024 });
+  const prior = new Map();
+  let priorHeader = null;
+  for (const line of parent.split('\n')) {
+    if (!line.startsWith('|')) continue;
+    const c = line.split('|').slice(1, -1).map((x) => x.trim());
+    if (c[0]?.toLowerCase() === 'id') { priorHeader = c.map((x) => x.toLowerCase()); continue; }
+    if ((c[0] ?? '').replace(/`/g, '').match(/^O4-L-\d{2}$/)) prior.set(c[0].replace(/`/g, ''), c);
+  }
+  // Field lookup by COLUMN NAME, so restructuring the header cannot silently disable this check.
+  const pick = (cells, header, name) => {
+    const i = header?.indexOf(name) ?? -1;
+    return i === -1 ? undefined : cells[i];
+  };
+  const nowHeader = header.cells.map((x) => x.toLowerCase());
+  for (const [pid, pcells] of prior) {
+    if (!seen.has(pid)) {
+      fail(`append-only: ${pid} existed in the parent commit and is GONE — retire it with a reason, never delete it`);
+      continue;
+    }
+    const now = laws.find(({ cells }) => cells[0].replace(/`/g, '').trim() === pid)?.cells;
+    if (!now || !priorHeader) continue;
+    const pF = (n) => pick(pcells, priorHeader, n);
+    const nF = (n) => pick(now, nowHeader, n);
+    const pStatus = pF('status') ?? 'active';
+    const nStatus = nF('status') ?? 'active';
+    const drift = [];
+    for (const field of ['force', 'law', 'owner of the underlying fact', 'output home']) {
+      const a = pF(field); const b = nF(field);
+      if (a !== undefined && b !== undefined && a !== b) drift.push(`${field} ${a}→${b}`);
+    }
+    if (drift.length && pStatus === nStatus && nStatus === 'active') {
+      fail(`silent mutation: ${pid} changed [${drift.join(', ')}] while status stayed "active" — mark it superseded, or state the revision basis in the law cell`);
+    }
+  }
+} catch (e) {
+  // A silently skipped integrity check is worse than no check. Say so loudly.
+  // (The 1.1 MB carrier once blew execSync's default 1 MB buffer and this skipped silently.)
+  console.error(`WARN: append-only comparison against the parent commit did NOT run — ${e?.message ?? e}`);
+  console.error('WARN: id disappearance, renumbering and silent mutation were NOT checked in this run.');
+  appendOnlyRan = false;
 }
 
 ordinals.sort((a, b) => a - b);
@@ -151,5 +213,6 @@ if (problems.length) {
   process.exit(1);
 }
 
-console.log(`PASS: ${SECTION} normative core is structurally sound (${laws.length} laws, ids contiguous, all forces/homes/sources/fixtures valid).`);
+const activeCount = laws.filter(({ cells }) => cells[1] === 'active').length;
+console.log(`PASS: ${SECTION} normative core is structurally sound (${laws.length} rows, ${activeCount} active, ids contiguous, forces/homes/binds/fixtures valid${appendOnlyRan ? ', append-only vs parent verified' : ', APPEND-ONLY NOT VERIFIED'}).`);
 console.log('Note: this checks STRUCTURE only. Whether each law is correct, correctly forced, or honestly scored is the reviewing seat\'s.');
