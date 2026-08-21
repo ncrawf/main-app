@@ -69,7 +69,7 @@ Review gate: `user_knox_required`
 
 **Same failure as `§0.5`, same remedy.** The package shape was proposed, contested and re-proposed repeatedly across relay threads under at least a dozen competing vocabularies and was never once written into a governed file — so every replacement agent re-derived it, renamed it, and spent the gate arguing about containers instead of filling them. **The selection is therefore written here, in full, now.** G2 **installs** it; G2 does not author it.
 
-**Status: `selected_g1_structural_and_planting_decision`.** Not installed architecture doctrine · not a ratified taxonomy for the repository · not an acceptance of any output · not a migration instruction. **It selects the container, the ownership boundaries, the canonicality law and the transition method. It supplies no architecture semantics** — those are the remaining G1 outputs' work.
+**Status: `selected_g1_structural_and_planting_decision`.** Not installed architecture doctrine · not a ratified taxonomy for the repository · not an acceptance of any output · not a migration instruction. **It supplies no substantive system-, domain- or seam-rule bodies and accepts no G1 output. It selects the package, ownership boundaries, resource roles, canonicality law and transition method into which accepted G1 semantics will compile** — the rule bodies themselves are the remaining G1 outputs' work. *(Earlier wording claimed this section "supplies no architecture semantics." That was false: ownership categories, resource roles, canonicality law, Contract placement, the Profile boundary and GCE's structural relation are all architecture semantics — architecture-of-architecture semantics. The accurate distinction is the one stated above.)*
 
 ### The package
 
@@ -91,7 +91,7 @@ Review gate: `user_knox_required`
 | Group | Part | Owns | May not hold |
 |---|---|---|---|
 | **Architecture content** | `system/` | OMNI-wide architecture — structure, rules, mechanisms, topology, composition, constitutional constraints | domain-native truth · any single domain's lifecycle |
-| | `domains/` | domain-owned architecture — facts, meanings, lifecycles, authority, internal commitments — **after governed cutover** | restated system rules · another domain's truth |
+| | `domains/` | canonical architecture **declarations** for a domain's owned fact **types**, meanings, lifecycles, authority boundaries, commitments and internal invariants — **after governed cutover** | **operational records · runtime state** · restated system rules · another domain's truth |
 | | `seams/` | jointly governed crossings between independent owners, meanings, authorities and commitments | either side's underlying truth |
 | **Effective architecture** | `profiles/` | versioned declarations of **which** architecture applies to a scope, operator, deployment, jurisdiction, purpose and effective interval, and what specialization is permitted there | domain truth · ordinary configuration · a waiver from a rule that still applies |
 | **Architecture management** | `model/` | architecture-resource identity, type, version, relation, ownership, applicability, supersession | domain or business ontology |
@@ -107,7 +107,7 @@ Review gate: `user_knox_required`
 
 **One maintained canonical source per architecture-resource identity AND version.** Multiple versions may legitimately coexist for different profiles, scopes or effective intervals — that is `§0.5` requirement 2 working as designed, not a defect to be eliminated. **What is forbidden is the same resource-version independently maintained in two normative homes.**
 
-**At canonical cutover, every applicable resolution surface moves in the same transaction** — catalog · read graph · boot pointer · redirect · dependency reference, as applicable to that artifact. **Content relocated without its resolution surfaces is not a migration; it is a fork with a stale entry point**, and the next agent boots to the superseded copy without ever learning a successor exists.
+**At accepted canonical cutover — which is the G4 landing transaction — every applicable resolution surface moves with the canonical source in that same transaction** — catalog · read graph · boot pointer · redirect · dependency reference, as applicable to that artifact. **Content relocated without its resolution surfaces is not a migration; it is a fork with a stale entry point**, and the next agent boots to the superseded copy without ever learning a successor exists.
 
 ### Transition law
 
@@ -121,7 +121,7 @@ Review gate: `user_knox_required`
 
 **One old file does not map to one new file.** An artifact may transform into several, merge with others, shed material already owned elsewhere, or be rejected outright — while its accepted semantics, ownership and history survive.
 
-**G2 plants the clean package; G3 classifies and reconciles the existing estate artifact by artifact and prepares the cutover.** `§5` G3 already stages rather than lands, and already scopes the current domain-contract set to classification at that gate. **A generated pointer from `/architecture/` to a current path is legitimate transition scaffolding with a named cutover, and illegitimate as an outcome.**
+**G2 plants the clean package · G3 classifies, reconciles, transforms and STAGES the existing estate artifact by artifact · G4 runs the staged change set through the operating loop and performs the accepted canonical cutover and landing.** `§5` is explicit and this section does not vary it: G3 produces a **staged, unmerged** change set with **no `main` landing** — Amendment 5 (`C-05`), *"G3 DOES NOT LAND. G3 STAGES"* — and that staged set is **G4's input and G4's proof object**. `§5` G3 also already scopes the current domain-contract set to classification at that gate. **A generated pointer from `/architecture/` to a current path is legitimate transition scaffolding with a named cutover, and illegitimate as an outcome.**
 
 ### No whole-directory inheritance
 
@@ -131,23 +131,33 @@ Review gate: `user_knox_required`
 
 ### Profiles are a required first-class architecture resource
 
-**Selected — and deliberately not contingent on the current estate already containing clean instances.** `§5` G2 already requires operating and deployment profile structures, variation points and an effective-architecture snapshot structure; **this ratifies that requirement and names its home.** Applicability is already being decided today across schema scoping, the settings catalog, the federation contract and a draft topology file — with no owner, no effective interval and no non-loosening rule. **That scatter is the failure a Profile resource exists to end; waiting for the estate to produce clean instances first would be waiting for the disease to cure itself.**
+**Selected — and deliberately not contingent on the current estate already containing clean instances.** `§5` G2 already requires operating and deployment profile structures, variation points and an effective-architecture snapshot structure; **this ratifies that requirement and names its home.** Applicability is already being decided today across schema scoping, the settings catalog, the federation contract and a draft topology file — with no owner, no effective interval and no non-loosening rule. **That scatter is the failure a Profile resource exists to end. The absence of clean Profile instances does not negate the need for a Profile resource when applicability is already being decided across several artifact types without one declared owner, effective interval or non-loosening boundary.**
 
 **A Profile** selects or specializes effective architecture for a defined scope · names its base architecture and version · has an owner and acceptance authority · has an effective interval · declares permitted additions, restrictions or selections · **cannot silently loosen a non-derogable rule** · supports legitimate version coexistence.
 
 **A Profile is not** ordinary customer configuration · a miscellaneous settings document · domain-owned specialization that changes no cross-owner assumption · a temporary waiver from a rule that still applies · an architecture change wearing configuration's clothes.
 
-**Discriminator — who must agree:** nobody outside the operator → **configuration** · the domain owner → **domain specialization** · the scope owner, within limits the rule owner set → **Profile** · the rule owner, against their own rule, temporarily and with expiry → **waiver** · every affected owner, permanently → **architecture change, through the change lifecycle**.
+**Classification discriminator — semantic effect and scope, ordered by increasing architectural consequence:**
+
+- **Configuration** — selects a value or behaviour wholly within an already-authorized range; **it does not change which architecture applies.**
+- **Domain specialization** — changes or strengthens architecture wholly within one domain's ownership, and changes **no** system, seam, Profile or other-domain assumption.
+- **Profile** — selects, restricts or specializes **which accepted architecture applies** for a defined scope and effective interval, within declared variation bounds.
+- **Waiver / authorized exception** — temporarily authorizes nonconformance **while the underlying rule remains applicable**; requires explicit scope, authority basis, expiry and remediation. *That the rule remains applicable is the exact test separating a waiver from a Profile: a Profile says which architecture applies here; a waiver says the applicable architecture is not being met, temporarily and on the record.*
+- **Architecture change** — changes a rule, a permitted variation envelope, an ownership boundary, a cross-owner assumption or an architectural meaning; once admitted it enters the change lifecycle.
+
+**Who may classify, approve, waive, accept risk, commit or integrate each outcome is NOT decided here.** It remains owned by **`§G1-AUTH`** and by the applicable system, domain, seam and Profile authority. `§5` assigns `§G1-AUTH` holder bindings, approval and attestation topology, and the propose ⟂ execute ⟂ commit ⟂ accept distinction, and **G1 cannot close while that package is unresolved** — so a classifier that assigned approvers would pre-decide a mandatory open work package. *An earlier formulation of this discriminator did exactly that and is withdrawn: classification tests what a variation **does**, never who may authorize it.*
 
 **The Profile role and admission boundary are selected. The subtype taxonomy and full schema are not** — those belong to the profile/deployment-resolution output.
 
 ### Selected here · open elsewhere
 
-**SELECTED — reopening requires an exact governing contradiction, quoted:** the package and its folder roles · `system/` over `laws/` · **Seam** retained as the term, `seams/` as its home, no `Junction` rename · Profiles first-class · `model/` ⟂ `operations/` · `decisions/` ⟂ `generated/` roles · Contract as artifact form · **GCE = Governed Capability Exchange**, a system-level composition mechanism operating under and through domain and seam contracts, with **no top-level folder** · one-canonical-resource-version · legitimate version coexistence · authority-and-semantics preservation without topology preservation · G2 plants, G3 reconciles and cuts over · **this is the architecture package, not the repository taxonomy**.
+**SELECTED — closed to casual relitigation:** the package and its folder roles · `system/` over `laws/` · **Seam** retained as the term, `seams/` as its home, no `Junction` rename · Profiles first-class · `model/` ⟂ `operations/` · `decisions/` ⟂ `generated/` roles · Contract as artifact form · **GCE = Governed Capability Exchange**, a system-level composition mechanism operating under and through domain and seam contracts, with **no top-level folder** · one-canonical-resource-version · legitimate version coexistence · preservation of accepted semantics, authority, ownership, provenance and history **without preservation of path topology** · **G2 plants · G3 stages · G4 lands** · **this is the architecture package, not the repository taxonomy**.
+
+**Reopening a selected item requires an explicit governed change proposal grounded in either ① an exact governing contradiction, quoted, or ② material new evidence, an accepted requirement change, or implementation proof that the selection cannot satisfy its intended role.** The proposal must identify the affected decisions, the migration consequence and the rightful decision authority. **Terminology preference, novelty, or a later agent's alternative taste is not sufficient.** *Ground ② is not a loophole — it is required by `§0.5` requirement 3. A rule admitting only pre-existing contradictions would bar the architecture from learning anything from G3 reconciliation, a pressure case, a changed legal or safety obligation, or an open decision resolving in a way the structure cannot represent — none of which begins life as a contradiction with an already-governing source. Closing that door would make the architecture unevolvable, which is the exact failure `§0.5` forbids.*
 
 **EXPLICITLY OPEN — selecting the package decided none of these:** exact file grain and initial inventory beneath each folder · stable rule and resource identifier syntax · profile subtype taxonomy and schema · the disposition of every current doctrine, contract, domain and seam artifact · which change-lifecycle claims promote to `system/` · erasure ⟂ retention resolution · the clinical-financial translation seam · sovereign, offline and fleet evidence · checker and enforcement design · acceptance of any G1 output · the estate-wide repository taxonomy · the final implementation composition of architecture management.
 
-**Naming a folder does not complete an architecture.** The remaining G1 outputs supply the semantics · G2 compiles them into files · G3 reconciles the estate against them · G4 proves it.
+**Naming a folder does not complete an architecture.** The remaining G1 outputs supply the rule bodies · G2 compiles them into files · G3 reconciles and **stages** the estate against them · G4 **lands and proves** it.
 
 ### Scope, and what becomes of this block
 
