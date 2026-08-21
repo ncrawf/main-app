@@ -65,6 +65,98 @@ Review gate: `user_knox_required`
 
 ---
 
+## §0.6 — THE ARCHITECTURE PACKAGE AND TRANSITION CONTRACT — selected here NOW, installed at G2
+
+**Same failure as `§0.5`, same remedy.** The package shape was proposed, contested and re-proposed repeatedly across relay threads under at least a dozen competing vocabularies and was never once written into a governed file — so every replacement agent re-derived it, renamed it, and spent the gate arguing about containers instead of filling them. **The selection is therefore written here, in full, now.** G2 **installs** it; G2 does not author it.
+
+**Status: `selected_g1_structural_and_planting_decision`.** Not installed architecture doctrine · not a ratified taxonomy for the repository · not an acceptance of any output · not a migration instruction. **It selects the container, the ownership boundaries, the canonicality law and the transition method. It supplies no architecture semantics** — those are the remaining G1 outputs' work.
+
+### The package
+
+```text
+/architecture/
+  README.md
+  system/
+  domains/
+  seams/
+  profiles/
+  model/
+  operations/
+  decisions/
+  generated/
+```
+
+### What each part owns, and what it may never hold
+
+| Group | Part | Owns | May not hold |
+|---|---|---|---|
+| **Architecture content** | `system/` | OMNI-wide architecture — structure, rules, mechanisms, topology, composition, constitutional constraints | domain-native truth · any single domain's lifecycle |
+| | `domains/` | domain-owned architecture — facts, meanings, lifecycles, authority, internal commitments — **after governed cutover** | restated system rules · another domain's truth |
+| | `seams/` | jointly governed crossings between independent owners, meanings, authorities and commitments | either side's underlying truth |
+| **Effective architecture** | `profiles/` | versioned declarations of **which** architecture applies to a scope, operator, deployment, jurisdiction, purpose and effective interval, and what specialization is permitted there | domain truth · ordinary configuration · a waiver from a rule that still applies |
+| **Architecture management** | `model/` | architecture-resource identity, type, version, relation, ownership, applicability, supersession | domain or business ontology |
+| | `operations/` | admission, decision, change, resolution, propagation, assurance, observation, correction and retirement **of architecture** | domain runtime operations |
+| **Supporting surfaces** | `decisions/` | decision state, rationale, supersession, retired experiments | duplicate normative restatement of the rules it produced |
+| | `generated/` | derived catalogs, indexes, graphs, snapshots and views — **non-normative** | any maintained source; it may never become a competing canon |
+
+**A Contract is an artifact form, not a top-level category.** A contract lives under the subject and ownership category it governs — domain contracts under `domains/`, seam contracts under `seams/`, profile declarations under `profiles/`. **There is no `contracts/` peer folder in the package**, and that artifact-form ⟂ ownership-category distinction is precisely why the current `contracts/` directory is not simply relocated wholesale.
+
+**`system/` — not `laws/`, `bedrock/`, `kernel/` or `constitution.md`.** OMNI-wide architecture includes topology, deployment posture, federation posture, composition and shared mechanisms, none of which are laws; a `laws/` folder would become the junk drawer inside one gate. **Consistent with `§5` G2, which already forbids a `constitution.md`.**
+
+### Canonicality and legitimate coexistence
+
+**One maintained canonical source per architecture-resource identity AND version.** Multiple versions may legitimately coexist for different profiles, scopes or effective intervals — that is `§0.5` requirement 2 working as designed, not a defect to be eliminated. **What is forbidden is the same resource-version independently maintained in two normative homes.**
+
+**At canonical cutover, every applicable resolution surface moves in the same transaction** — catalog · read graph · boot pointer · redirect · dependency reference, as applicable to that artifact. **Content relocated without its resolution surfaces is not a migration; it is a fork with a stale entry point**, and the next agent boots to the superseded copy without ever learning a successor exists.
+
+### Transition law
+
+**Current authority does not grant permanent canonical location.**
+
+| Preserved through transition | NOT automatically preserved |
+|---|---|
+| accepted semantics · authority · ownership · provenance · history · supersession lineage · **current authority until superseded** | path · directory · file grain · current decomposition · narrative format · duplicate restatements · a name retained merely because it is populated |
+
+**Transition verbs:** `REMAIN TEMPORARILY` · `TRANSFORM` · `SPLIT` · `MERGE` · `MIGRATE` · `SUPERSEDE` · `HISTORICAL` · `REJECT`.
+
+**One old file does not map to one new file.** An artifact may transform into several, merge with others, shed material already owned elsewhere, or be rejected outright — while its accepted semantics, ownership and history survive.
+
+**G2 plants the clean package; G3 classifies and reconciles the existing estate artifact by artifact and prepares the cutover.** `§5` G3 already stages rather than lands, and already scopes the current domain-contract set to classification at that gate. **A generated pointer from `/architecture/` to a current path is legitimate transition scaffolding with a named cutover, and illegitimate as an outcome.**
+
+### No whole-directory inheritance
+
+**`/architecture/system/` is the future canonical home for accepted OMNI-wide architecture content, wherever that content currently resides.**
+
+**No blanket disposition is recorded here for `.cursor/plans/doctrine/` or `.cursor/plans/contracts/`.** Neither is declared permanently canonical; neither is wholesale migrated, superseded or made historical. **Every existing artifact receives an explicit G3 treatment on its own subject, role, authority and status.** The current `doctrine/` directory in particular holds several distinct artifact roles — OMNI-wide invariants, architecture-memory governance, catalogs and routing, ledgers, Build OS and agent-work material, drafts, comparator and pressure material, historical rationale — and **only the first of those is a `system/` candidate.** The rest route to their own accepted homes under the artifact index, which for most of them means they do not move at all.
+
+### Profiles are a required first-class architecture resource
+
+**Selected — and deliberately not contingent on the current estate already containing clean instances.** `§5` G2 already requires operating and deployment profile structures, variation points and an effective-architecture snapshot structure; **this ratifies that requirement and names its home.** Applicability is already being decided today across schema scoping, the settings catalog, the federation contract and a draft topology file — with no owner, no effective interval and no non-loosening rule. **That scatter is the failure a Profile resource exists to end; waiting for the estate to produce clean instances first would be waiting for the disease to cure itself.**
+
+**A Profile** selects or specializes effective architecture for a defined scope · names its base architecture and version · has an owner and acceptance authority · has an effective interval · declares permitted additions, restrictions or selections · **cannot silently loosen a non-derogable rule** · supports legitimate version coexistence.
+
+**A Profile is not** ordinary customer configuration · a miscellaneous settings document · domain-owned specialization that changes no cross-owner assumption · a temporary waiver from a rule that still applies · an architecture change wearing configuration's clothes.
+
+**Discriminator — who must agree:** nobody outside the operator → **configuration** · the domain owner → **domain specialization** · the scope owner, within limits the rule owner set → **Profile** · the rule owner, against their own rule, temporarily and with expiry → **waiver** · every affected owner, permanently → **architecture change, through the change lifecycle**.
+
+**The Profile role and admission boundary are selected. The subtype taxonomy and full schema are not** — those belong to the profile/deployment-resolution output.
+
+### Selected here · open elsewhere
+
+**SELECTED — reopening requires an exact governing contradiction, quoted:** the package and its folder roles · `system/` over `laws/` · **Seam** retained as the term, `seams/` as its home, no `Junction` rename · Profiles first-class · `model/` ⟂ `operations/` · `decisions/` ⟂ `generated/` roles · Contract as artifact form · **GCE = Governed Capability Exchange**, a system-level composition mechanism operating under and through domain and seam contracts, with **no top-level folder** · one-canonical-resource-version · legitimate version coexistence · authority-and-semantics preservation without topology preservation · G2 plants, G3 reconciles and cuts over · **this is the architecture package, not the repository taxonomy**.
+
+**EXPLICITLY OPEN — selecting the package decided none of these:** exact file grain and initial inventory beneath each folder · stable rule and resource identifier syntax · profile subtype taxonomy and schema · the disposition of every current doctrine, contract, domain and seam artifact · which change-lifecycle claims promote to `system/` · erasure ⟂ retention resolution · the clinical-financial translation seam · sovereign, offline and fleet evidence · checker and enforcement design · acceptance of any G1 output · the estate-wide repository taxonomy · the final implementation composition of architecture management.
+
+**Naming a folder does not complete an architecture.** The remaining G1 outputs supply the semantics · G2 compiles them into files · G3 reconciles the estate against them · G4 proves it.
+
+### Scope, and what becomes of this block
+
+**This is the architecture package — not a taxonomy for the repository.** Source code, Build OS work, Agent Runtime state, evidence source packets, product specifications, operating plans, research, deployment infrastructure and commercial material are **outside** it, and their homes are a separate estate-normalization question this section does not decide and must not be read as deciding.
+
+**At G2 the selected package declaration is installed into `/architecture/README.md` alongside the `§0.5` root requirements; the copy here then becomes historical execution provenance and a pointer — never two maintained normative copies.**
+
+---
+
 ## §1 — The two halves. R1 designed one of them.
 
 | | | R1 status |
