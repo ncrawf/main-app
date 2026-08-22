@@ -348,7 +348,9 @@ The operator, restated for the last time so it stops needing restating: *third-p
 
 ### §4.1 — Reading depth, provenance layer, and promotion hold
 
-**Execution method, not architecture. These bind how an estate source is consumed. They fix no count.**
+**Execution method, not architecture. These bind how ANY source is consumed — estate or external. They fix no count.**
+
+**One reading method; different entitlements** `[KND]`. ①–⑤ govern **how** a source is read, and they apply identically to an estate contract, a vendor's documentation, a standard, a regulator's report or a forum thread: a title misdescribes a product page as readily as a doctrine file, and ② is the same defect whether the layers are OMNI carriers or a blog citing a whitepaper nobody opened. What differs is **what a read entitles you to conclude**, and `§4.2` governs that — an estate source may carry OMNI authority, an external source never does and is taken as mechanism with its ownership assumptions stripped (`GRD-033`). **The internal/external distinction in this arc is a coverage obligation — which floors are closed and which campaigns may open — never a reading standard.** ⑤ applies externally with one honest difference: an external terminus frequently **cannot** be established, and recording that is the result, not licence to accept whatever a search returned first.
 
 **① A label is not a disposition, and it is never a reason to stop reading.** A document's title, banner, folder, section headings, catalog row, registry entry, prior summary and a grep hit are all **claims by someone else about its contents** — and this is the estate where those claims are demonstrably unreliable: a draft domain spine carrying payload fields currently sits inside the doctrine directory. **Source access is not source understanding, a search hit is not a full read, and a search miss is not proof of absence.**
 
