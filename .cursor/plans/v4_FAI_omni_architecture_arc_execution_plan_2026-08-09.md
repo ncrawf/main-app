@@ -149,9 +149,49 @@ Review gate: `user_knox_required`
 
 **The Profile role and admission boundary are selected. The subtype taxonomy and full schema are not** — those belong to the profile/deployment-resolution output.
 
+### Domain evidence, scope promotion and architecture-subject specialization
+
+**The keystone: discovery location does not determine architectural home.** The domain a rule was found in, the file it was noticed in, the output that recorded it and the search that surfaced it are facts about **how it was reached** — never about **where it belongs**. Home is determined by **subject and rightful ownership**, and by nothing else.
+
+**Two movements are possible out of one domain source, and they are independent.** Collapsing them is what produced the recurring *"are we deriving Care into architecture?"* impasse. Separating them dissolves it.
+
+**Movement 1 — scope placement.** Where does the recovered finding belong?
+
+| When the finding… | Home |
+|---|---|
+| is domain-native meaning, authority, lifecycle or workflow | **Domain Architecture** |
+| changes a crossing, or another owner's assumptions | **Seam** |
+| determines legitimate applicability or permitted specialization by scope | **Profile** |
+| has failure physics that **survives removal of the domain nouns** *and* recurs across **materially unlike owners or subjects** | **candidate System Architecture** |
+| has no architectural consequence | **evidence only — no transfer** |
+
+**Domain truth does not move upward.** Patient facts, clinical judgment, professional authority, native liability, domain commitments and domain workflow **remain domain-owned**, however much reusable law their examination revealed. **A domain is a proving ground, never a donor of its own contents.**
+
+**Movement 2 — architecture-subject specialization.** A distinction *learned* through domain work may be deliberately **re-grounded over architecture itself as a different subject**. This is not promotion, and it is not a mirror of the domain model: the architecture version must independently establish its own **object · owner · authority · authoritative record · clocks · commitments · execution vehicle · consequences · failure boundary · correction or remedy**. **Where any of those differs from the domain instance, the difference is the point, not an inconsistency to be reconciled away.**
+
+```text
+SHARED FAILURE PHYSICS        candidate ≠ commitment
+        │
+        ├─ Care specialization           recommendation ≠ committed order
+        ├─ Pharmacy specialization       prescribed ≠ dispensed
+        └─ Architecture Operations       proposal ≠ accepted architecture
+```
+
+**Same physics; different subjects, owners, clocks, commitments, execution vehicles and remedies.** Care did not become Architecture Operations — Architecture Operations applied a shared distinction to its own subject.
+
+**The two movements are independent.** One finding may yield a candidate system law, an architecture specialization, **both, or neither**. A finding that fails the noun-stripping test may still legitimately specialize to architecture; one that passes it may carry no architecture-management consequence at all.
+
+**Deficiency tests — the guard against architecture management drifting on every domain edit.** A **Resource Model** change is proposed only when the current model **cannot represent** a required architecture object, relation, owner, authority, applicability, version or time. An **Architecture Operations** change is proposed only when current operations **cannot safely govern** architecture proposal, resolution, change, migration, conformance, proof or correction. **A normal domain change modifies neither, merely because a domain changed.**
+
+**Applicable consumption, not wholesale inheritance.** Architecture management consumes only the System Architecture rules **applicable to architecture as its subject**, and separately owns architecture-management rules that are not System Architecture at all. **It does not inherit System Architecture wholesale, and a system rule does not become architecture-management law by proximity.**
+
+**Downward, and across.** Accepted System, Seam and Profile resources become locally meaningful through **versioned reference, applicability resolution, local admission and domain specialization — never copied prose** — and they do not automatically rewrite every domain. Cross-owner and cross-meaning effects route **through the relevant Seam**, not by collapse into one system law or one global transaction.
+
+**Scope.** This transfer law governs Outputs 1–7 and `§G1-AUTH`, G2 compilation and G3 reconciliation, and installs at G2 with the rest of `§0.6`.
+
 ### Selected here · open elsewhere
 
-**SELECTED — closed to casual relitigation:** the package and its folder roles · `system/` over `laws/` · **Seam** retained as the term, `seams/` as its home, no `Junction` rename · Profiles first-class · `model/` ⟂ `operations/` · `decisions/` ⟂ `generated/` roles · Contract as artifact form · **GCE = Governed Capability Exchange**, a system-level composition mechanism operating under and through domain and seam contracts, with **no top-level folder** · one-canonical-resource-version · legitimate version coexistence · preservation of accepted semantics, authority, ownership, provenance and history **without preservation of path topology** · **G2 plants · G3 stages · G4 lands** · **this is the architecture package, not the repository taxonomy**.
+**SELECTED — closed to casual relitigation:** the package and its folder roles · `system/` over `laws/` · **Seam** retained as the term, `seams/` as its home, no `Junction` rename · Profiles first-class · `model/` ⟂ `operations/` · `decisions/` ⟂ `generated/` roles · Contract as artifact form · **GCE = Governed Capability Exchange**, a system-level composition mechanism operating under and through domain and seam contracts, with **no top-level folder** · one-canonical-resource-version · legitimate version coexistence · preservation of accepted semantics, authority, ownership, provenance and history **without preservation of path topology** · **G2 plants · G3 stages · G4 lands** · **the domain-evidence transfer law — discovery location never determines home, scope placement and architecture-subject specialization are independent movements, domain truth does not move upward, and architecture management consumes only what applies to it** · **this is the architecture package, not the repository taxonomy**.
 
 **Reopening a selected item requires an explicit governed change proposal grounded in either ① an exact governing contradiction, quoted, or ② material new evidence, an accepted requirement change, or implementation proof that the selection cannot satisfy its intended role.** The proposal must identify the affected decisions, the migration consequence and the rightful decision authority. **Terminology preference, novelty, or a later agent's alternative taste is not sufficient.** *Ground ② is not a loophole — it is required by `§0.5` requirement 3. A rule admitting only pre-existing contradictions would bar the architecture from learning anything from G3 reconciliation, a pressure case, a changed legal or safety obligation, or an open decision resolving in a way the structure cannot represent — none of which begins life as a contradiction with an already-governing source. Closing that door would make the architecture unevolvable, which is the exact failure `§0.5` forbids.*
 
@@ -305,6 +345,29 @@ The operator, restated for the last time so it stops needing restating: *third-p
 **One pointer. `doctrine/omni_work_method_repertoire.md` is an optional catalog. `METHOD-000` — read the controlling sources and answer — is the default and is valid.** Consult it only when a **named material uncertainty** would be better answered by a specialized method; record the choice **only when it changes scope, independence, cost or acceptance.** **No per-gate matrix. No mandatory consult. No buffet proof.**
 
 **The four recurring source checks — terminus · authority/maturity · EXISTS-AS dedup · decision-state — become architecture-intake automation at G2, not four instructions every agent rereads forever.** That is the difference between building a system and writing another protocol.
+
+### §4.1 — Reading depth, provenance layer, and promotion hold
+
+**Execution method, not architecture. These bind how an estate source is consumed. They fix no count.**
+
+**① A label is not a disposition, and it is never a reason to stop reading.** A document's title, banner, folder, section headings, catalog row, registry entry, prior summary and a grep hit are all **claims by someone else about its contents** — and this is the estate where those claims are demonstrably unreliable: a draft domain spine carrying payload fields currently sits inside the doctrine directory. **Source access is not source understanding, a search hit is not a full read, and a search miss is not proof of absence.**
+
+**So the default is the whole source, and reduced depth is a claim that carries its own basis.**
+
+| Admissible basis for reading less | Inadmissible basis |
+|---|---|
+| something established **inside the source** — it was opened, its coverage established, and the reason the remainder cannot change the conclusion can be named | title · banner · folder · section heading · catalog or registry row · grep hit · a prior agent's summary · *"it looked like X"* |
+| the source is **genuinely derivative** of material already consumed, named as such | anything that **describes** the source rather than **reading** it |
+
+*This is not formality. In one recovery pass, reading a temporal charter in full overturned this arc's own recorded claim that an interface was uncorroborated; reopening two raw packets found that a registry-level authority claim is **absent from its speaker source**, and that another anchor's native mechanism is a positional-encoding scheme rather than the care concept attributed to it. **Every one of those was invisible at the depth the estate's own indexing advertised.***
+
+**② A claim's authority is the layer it appears in, not the layer that cites it.** Layered sources — raw packet · reviewer layer · registry entry · carrier citation — each may add interpretation, and interpretation travels downstream wearing the source's authority. **Before a load-bearing claim rests on a layered source, name the layer that actually contains it.** An interpolation found this way is a **source-authority defect**, recorded as one; it does not silently become a defect in the law that cited it, and it does not silently remain support for it.
+
+**③ The control variable is unresolved semantic load, not file count.** Sources may be read together when they answer **one named question**. But a **discovery cohort establishes relevance, routing, dependency and candidate questions — it may never, by itself, promote an architecture law.** Before an architecture-changing finding is retained, the pass establishes **source identity and exact sections · authority, maturity and supersession posture · the native mechanism without OMNI adaptation · existing architecture coverage · rightful destination · material uninspected scope.** When findings begin **interacting**, or when source authority, output ownership or promotion status is uncertain, the author **stops acquiring sources and records a synthesis checkpoint** before opening another substantial cohort.
+
+**④ Promotion hold.** **Recovery-stage classifications are provisional routing judgments** until normative consolidation, affected-owner composition and review. *Reading a source · recovering its native mechanism · routing the finding · promoting architecture · accepting architecture are **five distinct acts**, and a recovery pass performs the first three.* Durable language — *missing shared law · contradiction · deficiency* — is earned after the checks above, not while the interpretation is still moving.
+
+**No file count, batch size, coverage percentage or closed denominator is fixed here, and no method registry, source ledger, schema, enum, column, checker or artifact is created.** This clarifies `METHOD-000`; it does not replace it.
 
 ---
 
