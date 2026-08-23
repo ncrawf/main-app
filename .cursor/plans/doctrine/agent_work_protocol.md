@@ -160,76 +160,6 @@ That is the whole obligation for `coordinated_bounded`. **No parent key, no pack
 
 **Integrator-transfer law (applies only where an integrator role exists).** The integrator is a **transferable ROLE, not a permanent chat thread** — the same "session is replaceable compute" law that governs lane writers governs it. Where the role exists, its carrier MUST record: role key · current holder · explicit transfer · freshness/collision check on assumption · shared-surface ownership receipt · parent blockers while vacant. A retired, exhausted or replaced holder **MUST NOT strand its lanes**. Where no integrator role exists, this law is inapplicable — do not mint one to satisfy it.
 
-### Acceptance-boundary integrity *(CANDIDATE — `review_required`)*
-
-> **A branch or change set is a physical carrier and a proposed diff. It is NOT proof that every work object it contains shares one authority, review gate, lifecycle or acceptance.**
-
-**This is not "one branch, one object"** — that would be the next overcorrection. A branch may legitimately carry several work objects, a change set may legitimately combine changes, and a coordinated package may intentionally reconcile several lanes into one landing. **The law is about acceptance coupling, not object count.**
-
-**Side work may remain in the parent change set only where it serves the same declared parent outcome *and* has an intentionally shared or explicitly coordinated:** acceptance holder · review gate · landing and integration path · closure condition · compatible rollback or supersession posture.
-
-**Where the side work carries independent normative force, a different acceptance holder, a different review obligation, or independently selectable merge timing, it is isolated into its own review object — normally its own branch and change set.** The parent may carry a pointer, an evidence reference, or an accepted dependency; **it may not silently land the side object.**
-
-**Different files, a clean rebase and the absence of textual merge conflicts do not establish acceptance compatibility** `[KND]`. File collision and writer collision are not the only collisions — **acceptance, review-scope, merge-timing, lifecycle and branch-purpose collision are all real, and none of them produces a conflict marker.** *"Different files, therefore no collision" is the defective test this clause exists to retire.*
-
-**Five things routinely collapsed, and not inherently one-to-one:**
-
-| term | what it is |
-|---|---|
-| **work object** | the substantive thing being changed or judged |
-| **work package** | the bounded intended outcome and closure path |
-| **branch** | a writable repository carrier |
-| **change set** | a proposed diff and review/merge bundle |
-| **acceptance transaction** | the authority-bearing act that gives specified work its accepted state |
-
-A branch does not define the work package · a change set does not define the rightful acceptance authority · **a merge does not promote every claim it contains** · and **write access to a branch is not authority to broaden that change set's acceptance scope.**
-
-**A force label is an emergency brake, not the separation** `[KND]`. Marking contained work `candidate` or `review_required` prevents *semantic activation*; it does not discharge *change-set separation*, because the bytes still travel inside the accepting merge and a later reader meets them as part of the estate. **Both are owed where the objects are separately governed.**
-
-*Machine-enforceable form, for Layer 3 / `10` Step 5 — stated as an obligation, not designed here: `09` Layer 3.*
-
-### Bounded interrupt — when a discovery arrives inside active work *(CANDIDATE — `review_required`, NOT active law)*
-
-> **Force.** This subsection is a **candidate amendment under `D0CKPT-DEC-010`, `status: review_required`.** It is **not** active execution law, it binds nothing, and **merging the branch that carries it does not activate it** — activation requires its own accepted review transaction, separate from any object-work acceptance on the same branch. *Recorded at candidate force because the pass that wrote it did not itself satisfy `I4`; see `06` `D0CKPT-GRD-006`.*
-
-The two questions above decide how to partition work you have **already decided to partition**. This addresses the transition they do not cover: a material discovery appears *inside* an active object and may invalidate the act that object was about to perform.
-
-**The whole of it, before the mechanics:** *a material discovery inside active work is assessed against the parent's **current next act** and **completion condition**. If the next act remains valid, the finding is recorded or routed and work continues. If it is invalid or materially uncertain, the parent goes on an **exact hold with a named re-entry condition**. The existing continuity × coordination test then determines the topology of any resulting work. No returned candidate is normatively integrated into the parent until it has had **consequence-proportionate independent review** and **rightful acceptance**.*
-
-**I1 — assess impact before acting, and answer only what the situation raises.** *Local defect · non-blocking · gate-blocking* survive as **human shorthand**, not as a closed classification whose single value carries every answer. The questions below are **independent**; a discovery that fails the first is finished at the first. **If adopted, this procedure is applied proportionately** — requiring all of the questions on every discovery would be the ceremony overreach `06` `D0CKPT-GRD-003` names.
-
-| question | determines |
-|---|---|
-| does this materially affect the active object? | **relevance** — if no, record or route and continue; stop here |
-| is the currently named next act still valid? | **continue vs hold** |
-| does it alter a completion or acceptance condition? | **gate impact** |
-| is it inside the current owner and writable scope? | **local vs routed** |
-| does it need semantic separation from the parent? | **candidate isolation** |
-| must it survive pause or replacement? | **continuity posture** (→ §2.1 test above) |
-| does it need multiple writers, owners or reconciliation? | **coordination posture** (→ §2.1 test above) |
-| **does it share the parent's acceptance holder, review gate, intended landing and closure path?** | **acceptance coupling** (→ *Acceptance-boundary integrity* below) |
-| what review and acceptance are required before the parent consumes it? | **integration gate** |
-
-**Route on consequence, never on interest.** *"This is important and fascinating"* is not a trigger; *"the parent's next act is no longer valid"* is. Equally, **a genuine gate-blocking discovery may not be demoted to future work for convenience** — that ships an object whose completion condition is known to be wrong.
-
-**Who answers what — no seat becomes a universal interrupt authority.** The **method owner** owns the *assessment procedure* and this discipline. The **object or gate holder** owns whether the discovery actually invalidates the next act, narrows the object, or changes its completion condition — that is an object judgment, not a method one. The **work-package steward** selects and authorizes the resulting execution topology. The **rightful acceptance holder** decides whether a returned candidate may be consumed. *If "method decided it is gate-blocking" could stand alone, method would become a hidden meta-authority over every domain, object and build package.*
-
-**I2 — hold the parent precisely, before opening anything.** Record: exact object and head · current state · completed work · **the blocked next act** · untouched accepted boundaries · re-entry condition. **A hold with no recorded next act is abandonment, not a hold** — the side inquiry silently becomes the assignment. This is **operational state**, and it belongs in an operational surface — the current checkpoint, work-package state, a designated cross-lane record, or an explicitly operational section of the carrier. **Saying a model is parked must never require editing the model.**
-
-**I3 — resulting side work has no pre-decided topology.** A discovery does not create a lane. It may create **bounded side work**, whose shape is then decided by the **existing** two-question test: neither need → *ordinary bounded work* · continuity → *durable lane* · coordination → *coordinated bounded work* · both → *coordinated package*. A separate agent, thread or branch is often wise because **semantic independence** is needed for `I4` — that is a consequence of the review need, never the definition of an interrupt. Where the work is more than trivial, the **return contract** is: one complete candidate statement · source posture · rightful semantic owner · current decision holder · impact on the parent's next act · downstream obligations · one or two worked fixtures · explicit non-goals · stop condition.
-
-**I4 — independent semantic review before *normative* consumption. This is the load-bearing clause.**
-
-> **A side discovery may be recorded as evidence, as a blocker, and as work-state in an operational surface at any time. It may NOT be integrated into the parent's normative model, accepted boundary, or completion claim until it has survived review independent of the authoring pass.**
-
-The distinction is *operational recording* versus *normative integration*, which is what reconciles this with `I2`. Review is **consequence-proportionate** — a narrow correction does not owe what a cross-cutting boundary owes. The reviewer must be **independent of the authoring pass**; the same seat re-reading its own candidate does not discharge it (`06` `D0CKPT-GRD-006`). **Where the parent is large, this clause does double duty** — stale neighbouring cells are invisible from inside a hot loop, so an unstable candidate seeds defects into surfaces that merely *describe* it.
-
-**I5 — return: one effect on the parent, plus whatever else is true.** A return states **one** thing about the parent — *next act valid, resumed* · *next act changed* · *completion condition changed* · *rejected, no effect* — and **zero or more** independently routed consequences: accepted dependency · routed domain / seam / system obligation · estate or control-plane repair · candidate method change · defect finding · deferred future work. **A single closed status cannot carry this**: the originating case produced an accepted dependency, a proposed system obligation, two output carries, a method candidate, an estate-routing consequence and a pointer defect *simultaneously*. Then: the rightful owner records each disposition · the parent runs a **freshness check** · **only accepted dependencies are inherited** · the parent resumes at its named next act · the side work closes. Work that never closes is a second programme.
-
-**What this does not create.** No interrupt registry · no permanent interrupt lane · no interrupt agent type · no standalone protocol artifact · no second control plane · no new gate · no closed classification enum · no obligation on ordinary work that met none of these questions. **An interrupt is an event affecting active work, not a kind of work** — the resulting work is ordinary work under the tests already in this section. Instance state lives in the **active work package or checkpoint**, under the single-source law below.
-
-Decision: `D0CKPT-DEC-010` (`review_required`). Guardrail: `06` `D0CKPT-GRD-006` (`review_required`).
-
 ### Conditional mechanics — use when the stated condition is true, not by default
 
 - **Base identification (the ordinary case — no extra commit).** A lane's inherited base is normally recoverable from **branch ancestry**, an **immutable source ref**, or an **existing durable carrier**. That is sufficient. **Do not generate a state-only commit, a pin ceremony, or a receipt for a base that is already recoverable.**
@@ -246,6 +176,93 @@ Do not manufacture, for work that has not earned them: a launch envelope documen
 **Clause-reference map (prior numbering → current home; existing citations still resolve).** old 1 → *Immutable base pin* / *Common base* · old 2 → **L1** · old 3 → **L2** · old 4 → **C1** (protected surfaces) / **L4** (general scope) · old 5 → **C2** · old 6 → **L5** (standalone) / **C5** (package) · old 7 → **L7** · old 8 → **L8** (escalation) / **C3** (sibling + parent close) · old 9 → **L6** · old 10 → **C4** · old 11 → the Layer-3 pointer above.
 
 Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKPT-DEC-007`). Supersession: `D0CKPT-SUP-001`. Guardrails: `06` `D0CKPT-GRD-002`, `D0CKPT-GRD-003`.
+
+---
+
+## 2.2) Acceptance-boundary integrity *(CANDIDATE — `review_required`)*
+
+> **Force.** Candidate under `D0CKPT-DEC-010`, `status: review_required`. **This is not active law. If adopted, the following governs.** Merging a change set containing these bytes does not activate them; activation is a separate accepted review transaction.
+
+**Applicability — deliberately wider than §2.1.** This governs **any proposed repository change set**, explicitly **including ordinary bounded work** that owes nothing under §2.1. An ordinary bounded task can broaden a change set's acceptance scope exactly as easily as a coordinated package can; §2.1's *"nothing in this section"* exemption does not reach here.
+
+> **A branch is a mutable ref and commit-history carrier. A change set is a selected difference proposed to move together. A review object is the vehicle through which that change set is reviewed. None of them is proof that the work objects inside share one authority, review gate, lifecycle or acceptance.**
+
+**This is not "one branch, one object"** — that would be the next overcorrection. A branch may legitimately carry several work objects, and a coordinated package may intentionally reconcile several lanes into one landing. **The law is acceptance coupling, not object count.**
+
+**The decisive test, applied first:**
+
+> **Can either work object be accepted, rejected, deferred, superseded, landed or rolled back independently of the other?**
+
+**If yes, they are distinct acceptance units.** They may still be coordinated within one programme, but they then require **distinct review disposition · explicit landing-group treatment · and normally separate review objects or independently selectable change sets.**
+
+**Side work may remain in the parent change set only where it serves the same declared parent outcome *and* shares or explicitly coordinates:** acceptance holder · review gate · landing and integration path · closure condition · compatible rollback, supersession or migration posture.
+
+**Where the side work proposes a separately governed normative change, has a distinct acceptance holder or review obligation, or can be accepted or landed independently, it is isolated into its own review object.** The parent may carry a pointer, an evidence reference or an accepted dependency; **it may not silently land the side object.**
+
+**Different files, a clean rebase and the absence of textual merge conflicts do not establish acceptance compatibility.** File collision and writer collision are not the only collisions — **acceptance, review-scope, merge-timing, lifecycle and branch-purpose collision are all real, and none of them produces a conflict marker.** *"Different files, therefore no collision" is the defective test this clause exists to retire.*
+
+**Six terms routinely collapsed, and not inherently one-to-one:**
+
+| term | what it is |
+|---|---|
+| **work object** | the substantive thing being changed or judged |
+| **work package** | the bounded intended outcome and closure path |
+| **branch / ref** | the writable version-control carrier |
+| **change set / landing group** | the selected changes proposed to move together |
+| **review object** | the pull request, proposal or other vehicle through which a change set is reviewed |
+| **acceptance transaction** | the authority-bearing act accepting specified work at a specified force and scope |
+
+**`branch ≠ change set ≠ review object ≠ acceptance transaction`.** These may align one-to-one; **OMNI must not presume they do.** A merge does not promote every claim it contains, and **write access to a branch confers neither authority to broaden the change set nor authority to broaden the review object's acceptance scope.**
+
+**A force label is an emergency brake, not the separation.** Marking contained work `candidate` or `review_required` prevents *semantic activation*; it does not discharge *change-set separation*, because the bytes still travel inside the accepting merge and a later reader meets them as part of the estate. **Where the objects are separately governed, both are owed.**
+
+Machine-enforceable form is recorded as a named Layer-3 obligation and is deliberately not designed here: `09` Layer 3.
+
+---
+
+## 2.3) Mid-work discovery — bounded interrupt *(CANDIDATE — `review_required`)*
+
+> **Force.** Candidate under `D0CKPT-DEC-010`, `status: review_required`. **This is not active law. If adopted, the following governs.** *Recorded at candidate force because the pass that first wrote it did not itself satisfy `I4` — `06` `D0CKPT-GRD-006`.*
+
+**Applicability — deliberately wider than §2.1.** This governs a material discovery arriving during active work, **including ordinary bounded work** that owes nothing under §2.1. §2.1 governs how to operate a partition once one exists; this governs the transition it does not cover — a discovery appearing *inside* an active object that may invalidate the act that object was about to perform.
+
+**The whole of it, before the mechanics:** *a material discovery inside active work is assessed against the parent's **current next act** and **completion condition**. If the next act remains valid, the finding is recorded or routed and work continues. If it is invalid or materially uncertain, the parent goes on an **exact hold with a named re-entry condition**. The existing §2.1 continuity × coordination test then determines the topology of any resulting work. No returned candidate is normatively integrated into the parent until it has had **consequence-proportionate independent review** and **rightful acceptance**.*
+
+**I1 — assess impact before acting, and answer only what the situation raises.** *Local defect · non-blocking · gate-blocking* survive as **human shorthand**, not as a closed classification whose single value carries every answer. The questions below are **independent**; a discovery that fails the first is finished at the first. **If adopted, this procedure is applied proportionately** — requiring all of the questions on every discovery would be the ceremony overreach `06` `D0CKPT-GRD-003` names.
+
+| question | determines |
+|---|---|
+| does this materially affect the active object? | **relevance** — if no, record or route and continue; stop here |
+| is the currently named next act still valid? | **continue vs hold** |
+| does it alter a completion or acceptance condition? | **gate impact** |
+| is it inside the current owner and writable scope? | **local vs routed** |
+| does it need semantic separation from the parent? | **candidate isolation** |
+| must it survive pause or replacement? | **continuity posture** (→ §2.1) |
+| does it need multiple writers, owners or reconciliation? | **coordination posture** (→ §2.1) |
+| can it be accepted, landed or rolled back independently of the parent? | **acceptance coupling** (→ §2.2) |
+| what review and acceptance are required before the parent consumes it? | **integration gate** |
+
+**Route on consequence, never on interest.** *"This is important and fascinating"* is not a trigger; *"the parent's next act is no longer valid"* is. Equally, **a genuine gate-blocking discovery may not be demoted to future work for convenience** — that ships an object whose completion condition is known to be wrong.
+
+**Who answers what — no seat becomes a universal interrupt authority.** The **method owner** owns the *assessment procedure*. The **object or gate holder** owns whether the discovery actually invalidates the next act, narrows the object, or changes its completion condition — an object judgment, not a method one. The **work-package steward** selects and authorizes the resulting execution topology. The **rightful acceptance holder** decides whether a returned candidate may be consumed. *If "method decided it is gate-blocking" could stand alone, method would become a hidden meta-authority over every domain, object and build package.*
+
+**I2 — hold the parent precisely, before opening anything.** Record: exact object and head · current state · completed work · **the blocked next act** · untouched accepted boundaries · re-entry condition. **A hold with no recorded next act is abandonment, not a hold** — the side inquiry silently becomes the assignment. This is **operational state** and belongs in an operational surface: the current checkpoint, work-package state, a designated cross-lane record, or an explicitly operational section of the carrier. **Saying a model is parked must never require editing the model.**
+
+**I3 — resulting side work has no pre-decided topology.** A discovery does not create a lane. It may create **bounded side work**, whose shape is then decided by the **existing §2.1 test**: neither need → *ordinary bounded work* · continuity → *durable lane* · coordination → *coordinated bounded work* · both → *coordinated package*. A separate agent, thread or branch is often wise because **semantic independence** is needed for `I4` — a consequence of the review need, never the definition of an interrupt.
+
+**The return is proportionate to consequence, not a fixed bundle.** The governing standard: *sufficient for rightful independent review, disposition and parent re-entry.* **Minimum universal content is small** — exact effect on the parent's next act or completion condition · the exact candidate or finding being returned · source and authority posture sufficient for the claim · disposition and rightful acceptance path · re-entry state. **Everything else is conditional**, including worked fixtures, non-goals and downstream obligation maps: a pointer correction owes none of them, a safety-critical authority change may owe considerably more.
+
+**I4 — independent semantic review before *normative* consumption. This is the load-bearing clause.**
+
+> **A side discovery may be recorded as evidence, as a blocker, and as work-state in an operational surface at any time. It may NOT be integrated into the parent's normative model, accepted boundary, or completion claim until it has survived review independent of the authoring pass.**
+
+The distinction is *operational recording* versus *normative integration*, which is what reconciles this with `I2`. **`I4` is a review boundary, not an acceptance or promotion gate** — rightful acceptance is a separate act, and architecture promotion may be another act again. Review is **consequence-proportionate**: a narrow correction does not owe what a cross-cutting boundary owes. The reviewer must be **independent of the authoring pass**; the same seat re-reading its own candidate does not discharge it (`06` `D0CKPT-GRD-006`). **Where the parent is large, this clause does double duty** — stale neighbouring cells are invisible from inside a hot loop, so an unstable candidate seeds defects into surfaces that merely *describe* it.
+
+**I5 — return: one effect on the parent, plus whatever else is true.** A return states **one** thing about the parent — *next act valid, resumed* · *next act changed* · *completion condition changed* · *rejected, no effect* — and **zero or more** independently routed consequences: accepted dependency · routed domain / seam / system obligation · estate or control-plane repair · candidate method change · defect finding · deferred future work. **A single closed status cannot carry this**: the originating case produced an accepted dependency, a proposed system obligation, two output carries, a method candidate, an estate-routing consequence and a pointer defect *simultaneously*. Then: the rightful owner records each disposition · the parent runs a **freshness check** · **only accepted dependencies are inherited** · the parent resumes at its named next act · the side work closes. Work that never closes is a second programme.
+
+**What this does not create.** No interrupt registry · no permanent interrupt lane · no interrupt agent type · no standalone protocol artifact · no second control plane · no new gate · no closed classification enum · no obligation on work that met none of these questions. **An interrupt is an event affecting active work, not a kind of work** — the resulting work is ordinary work under §2.1's tests. Instance state lives in the **active work package or checkpoint**, under §2.1's single-source law.
+
+Decision: `D0CKPT-DEC-010` (`review_required`). Guardrail: `06` `D0CKPT-GRD-006` (`review_required`). Concepts: `09` Layer 2.
 
 ---
 

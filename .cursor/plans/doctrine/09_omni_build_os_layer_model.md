@@ -116,36 +116,22 @@ Mechanistically this composes established **integration-manager**, **orchestrato
 
 ### Bounded interrupt — the interchange rule, not another road *(CANDIDATE — `review_required`)*
 
-> **Force.** Candidate concept under `D0CKPT-DEC-010`, `status: review_required`. **Not accepted Build OS doctrine**, and merging the branch carrying it does not accept it.
+> **Force.** Candidate concept under `D0CKPT-DEC-010`, `status: review_required`. **Not accepted Build OS doctrine.**
 
-**The Blueprint above governs work you have already decided to partition. This governs the discovery that arrives *inside* active work** — the moment an author finds something that may not belong to the object they were sent to do. **It is the interchange rule: it decides when work temporarily leaves one road and how it gets back on.**
+**The Blueprint above governs work already partitioned. This governs the discovery that arrives *inside* active work.** Six conceptual points; **mechanics live in `agent_work_protocol.md` §2.3, and are not restated here.**
 
-**An interrupt is an EVENT affecting active work — not a kind of work** `[KND]`. It is not a lane type, an agent type, a permanent workstream, a new programme, or necessarily a separately registered package. **It pre-decides no topology.** A discovery may produce bounded side work, and the *existing* continuity × coordination test then decides whether that work is ordinary bounded work, a durable lane, coordinated bounded work, or a coordinated package. A separate agent or branch is often wise because **semantic independence** is needed for the review boundary below — a consequence of the review need, never the definition of an interrupt.
+1. **An interrupt is an EVENT affecting active work, not a work type** — not a lane, agent type, permanent workstream or registered package.
+2. **It pre-decides no topology.** Any resulting side work takes the existing continuity × coordination test like any other work.
+3. **Operational recording is not normative integration** — a discovery may be recorded as evidence, blocker and work-state at any time; entering the parent's normative model is a separate, gated act.
+4. **Independent review precedes normative consumption**, proportionate to consequence, and by a reviewer independent of the authoring pass.
+5. **Authority is distributed** — method owns the assessment procedure, the object or gate holder owns parent impact, the steward authorizes topology, the rightful acceptance holder decides consumption. **No seat holds universal interrupt power.**
+6. **Nothing new is created** — no registry, permanent lane, agent type, standalone artifact, second control plane or gate.
 
-**The load-bearing law is the review boundary, not the classification:** *a side discovery may be recorded as evidence, blocker and work-state in an operational surface at any time, but may not be integrated into the parent's normative model, accepted boundary or completion claim until it has survived review independent of the authoring pass.* Authoring, normalizing, integrating and reviewing in one motion yields a candidate that reads finished and collapses under the first cold read — then the correction lands hot too (`D0CKPT-GRD-006`).
+**Non-collapse laws this arc earned, kept here because they outlive the mechanism** `[KND]`: *a method correction does not accept the object · a side-work result does not change estate truth · a repository commit does not promote architecture · an accepted architecture decision does not prove implementation · a successful build does not prove the governing model was rightful.*
 
-**Authority is distributed; no seat holds a universal interrupt power.** The **method owner** owns the assessment procedure · the **object or gate holder** owns whether the parent's next act or completion condition is actually affected · the **work-package steward** authorizes the resulting topology · the **rightful acceptance holder** decides whether a returned candidate may be consumed. *A method surface that could unilaterally declare any discovery gate-blocking would be a hidden meta-authority over every domain and build package.*
+**And one vocabulary correction:** ***object*, *method* and *estate repair* are work OBJECTS, never lane types** — a lane is the provisional execution boundary around whichever object is currently being worked, exactly as the solo/parallel/coupled rule above already establishes for a lane's other properties.
 
-**Where each part lives — none of it is a new artifact.** Concepts here · runtime mechanics at `agent_work_protocol.md` **§2.1 (Bounded interrupt)** · instance state in the **active work package or checkpoint** · resulting decisions, conflicts, supersession and open questions route to the **Architecture Memory Control Plane**, which does not own the protocol · architecture-specific admission compiles into `/architecture/operations/` at **G2** · **Build Entry** (`11`) invokes the build-time form, where a build-discovered issue changing authority, ownership, commitment, custody or proof cannot be absorbed by a local adapter. **No interrupt registry, no permanent interrupt lane, no interrupt agent type, no standalone protocol document, no second control plane, no new gate.**
-
-### Six motions — a working view of what moves independently *(CANDIDATE — `review_required`)*
-
-**Not a closed ontology and not six permanent axes** — a current, non-exhaustive set of **concerns** that helps explain why an arc can feel productive and lost at once. More may emerge; some contexts decompose them differently.
-
-| motion | the question it answers |
-|---|---|
-| **object** | what should this architecture, domain, seam or build object actually say? |
-| **method** | how are sources recovered, claims derived, reviews conducted and conclusions accepted? |
-| **work topology** | who is working, in which partition, on which writable surface, with what hold and re-entry path? |
-| **estate truth** | what is current, authoritative, unresolved, conflicted, superseded or accepted? |
-| **architecture operations** | how does an accepted change get admitted, versioned, propagated, installed, corrected, retired? |
-| **realization + proof** | what code, contract, migration, test, conformance and observation prove it exists? |
-
-**Ownership is per-motion and owner-relative — do NOT read a universal owner off this table** `[KND]`. Each object has its own rightful owner; **not every object is jointly owned by an architecture steward.** And **method destinations are owner-relative**: `/architecture/operations/` will own the methods that govern *architecture*, **not every method used anywhere in OMNI** — an evidence-intake method belongs to the Evidence Plane, a domain's own review method to that domain (R8 `§4.4`). Work topology is this layer plus `agent_work_protocol.md` §2.1; estate truth is the Architecture Memory Control Plane; realization is the owning build/runtime surfaces plus Layer 4.
-
-**The independence laws — these are the durable part, and each pair has been collapsed at real cost:** a method correction does not accept the object · a side-lane result does not change estate truth · a repository commit does not promote architecture · an accepted architecture decision does not prove implementation · a successful build does not prove the governing model was rightful.
-
-**These are motions, not lanes** `[KND]`. ***Object*, *method* and *estate repair* are work OBJECTS, never lane types** — a lane is the provisional execution boundary around whichever object is currently being worked, exactly as the solo/parallel/coupled rule above already establishes for a lane's other properties. A bounded interrupt is *assessed* through **method**, *adjudicated for impact* by the **object or gate holder**, *executed* in **work topology**, *routes consequences* into **estate truth**, and — only if accepted — feeds **architecture operations** or **realization**. It crosses the motions; it owns none of them. *That is why it appeared to belong everywhere at once.*
+*A broader decomposition of what moves independently during an arc was drafted alongside this candidate and is **deliberately not installed here** — it overlaps this file's own five-layer model and belongs with the open team-shape work at `FWREG-022`. It survives as review evidence on the method review object, not as a second organizing map in Layer 2.*
 
 ---
 
@@ -169,11 +155,13 @@ Mechanistically this composes established **integration-manager**, **orchestrato
 
 **`agent_work_protocol.md` §2.1 *Acceptance-boundary integrity* is a human discipline today and a tooling requirement tomorrow.** Recorded here so Layer-3 work does not re-derive it — the property is stated; **the manifest fields are deliberately not designed in this pass.**
 
-The eventual work-package and merge tooling should be able to determine: **which work objects a change set claims to carry** · which parent outcome each serves · **which acceptance holder and review gate govern each** · whether those objects share a landing group or require separate ones · whether changed files fall inside the declared writable **and acceptance** scope · and **whether an unaccepted global doctrine change is attempting to ride inside an unrelated object's change set.**
+The eventual work-package and merge tooling should be able to determine: **which work objects a change set claims to carry** · which parent outcome each serves · **which acceptance holder and review gate govern each** · whether those objects share a landing group or require separate ones · and **whether a separately governed change is riding inside an unrelated object's change set.**
 
 > **The machine-enforceable property: a proposed change set cannot silently expand beyond its declared acceptance boundary.**
 
-That sits beside the Step-5 properties already named — **one authorized writer · protected surfaces · merge serialization · package membership · parent integration criteria** (`10` Step 5, `D0THES-REV-158`). **It is not another registry, lane, agent type or control plane**, and it must not be built before the `§3.1` descriptors exist (same constraint as `FWREG-021`). *Today the control is a review question; the point of recording it is that the depth is not re-derived when the control becomes code.*
+**Validation must be SEMANTIC, not file-based** `[KND]`. The tooling validates **declared work objects, architecture resources, claims and landing groups** against the acceptance boundary. **File and path scope is supporting evidence and an enforcement surface — never the semantic boundary itself.** One file can carry several independently governed claims, and several files can implement one acceptance unit. *A path allowlist alone is a polished control that still cannot see a global semantic change hidden inside an allowed file.*
+
+That sits beside the Step-5 properties already named — **one authorized writer · protected surfaces · merge serialization · package membership · parent integration criteria** (`10` Step 5, `D0THES-REV-158`). **It is not another registry, lane, agent type or control plane**, and it must not be built before the canonical metadata objects exist — the **architecture resource descriptor · change manifest · effective snapshot** (same constraint as `FWREG-021`). *Today the control is a review question; recording it now is what stops Layer 3 from later rediscovering only a flattened "check the changed files" version.*
 
 ---
 
