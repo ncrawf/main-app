@@ -201,9 +201,32 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 **A shared landing group coordinates application; it never merges acceptance units, holders or authority.** *Landing and sequencing can be coordinated; **authority holders do not become shared by coordinating them.** "Coordinated acceptance holder" is the next polite phrase for hidden authority collapse, and it is refused here.*
 
-**An acceptance unit is version-bound** — without this, independent acceptance inside one changing carrier is only theoretical. **Review and disposition apply to an exact unit revision, identified by its immutable carrier or version plus its claim scope.** A material change to a unit's **claims, scope, authority, conditions or dependencies invalidates that unit's prior review or disposition.** **A change to a *different* unit does not invalidate it**, provided the accepted unit's pinned content and declared dependencies are proven unchanged. *Use the existing snapshot machinery — collaboration model §2.6's Review Object Posture and Bounded Diff Receipt. **No new registry, ledger or identity artifact is created here**, and the exact physical representation (path plus section plus blob, semantic digest, or another accepted snapshot form) is a Layer-3 question, not this transaction's.*
+**An acceptance unit is version-bound** — without this, independent acceptance inside one changing carrier is only theoretical. **Review and disposition apply to an exact unit revision.**
 
-**Shared material must declare its dependency.** Where one section, definition or control is relied on by several units, **a material change to that shared material invalidates every dependent unit's prior disposition.** Undeclared shared material is the silent version of the collapse this section forbids.
+**A review is immutable evidence about the revision reviewed; what a later change ends is CARRY-FORWARD, not the review** `[KND]`:
+
+> **A review or disposition remains valid historical evidence about the exact unit revision it addressed. A material successor change terminates its applicability to the successor revision; it does not erase, falsify, or retroactively invalidate the historical review event. The successor revision carries NO inherited disposition unless a fresh review occurs, or an explicit unchanged-scope and unchanged-dependency proof permits carry-forward.**
+
+**`historically valid ≠ currently applicable ≠ carried forward to successor ≠ superseded ≠ erased`.** *These five are distinct states and collapsing any pair is a temporal error. The same physics governs consent revisions, professional-authority changes, policy versions, delegated-authority envelopes, clinical recommendations, migrations, deployment approvals and external counterparty commitments — this clause is the build-time instance of it, not a special case.*
+
+**Material change is change to a unit's claims, scope, authority, conditions or dependencies.** **A change to a *different* unit terminates nothing here**, provided the accepted unit's pinned scope and declared dependencies are proven unchanged.
+
+**Shared support must be declared, clause by clause, and CO-LOCATION IS NOT SUPPORT** `[KND]`. Shared support means a **particular definition, rule or control semantically relied on by more than one unit** — *living in the same file is not shared support, a file blob is not a semantic dependency, and a reference from one unit to another is not reciprocal support.* **A material change to declared shared support terminates carry-forward for every dependent unit**; their earlier dispositions remain valid as historical dispositions of the pinned earlier revisions. **Undeclared shared support is the silent form of the collapse this section forbids.**
+
+**Four things a reviewable unit revision must separate:**
+
+| element | what it proves |
+|---|---|
+| **carrier snapshot** | which immutable file or object revision was inspected (whole-file blob) |
+| **unit scope** | the exact semantic region — section, row, clause — constituting the unit |
+| **directional dependency** | what this unit relies on that it does not own, and in which direction |
+| **declared shared support** | the exact clauses relied on by more than one unit |
+
+`carrier snapshot + unit scope + directional dependencies + declared shared support = reviewable unit revision`
+
+**Use the machinery that already exists.** Collaboration model §2.6's **Review Object Posture** and **Bounded Diff Receipt** supply this today: pin the review head · pin the carrier blob · name the exact section or row · name the shared-support clauses and directional dependencies · **use the bounded diff to prove whether the unit scope or its dependencies actually changed.** Consequently **an unrelated edit elsewhere in the same file does not manufacture a semantic reopening**, a shared-definition change reopens every dependent unit, and **a materially changed unit never inherits approval merely because its path is unchanged.** ***No new registry, ledger, identity scheme or semantic-digest subsystem is created here***; Layer 3 may add descriptors later.
+
+**The authority-bearing pin is the acceptance transaction, never the review surface** `[KND]`. A review object's description is **mutable review metadata** and cannot be the sole durable proof of what was accepted. The sequence is: **review surface** = current posture · **independent review** = a result on exact unit revisions · **acceptance transaction** = the rightful force-conferring act carrying durable exact pins (accepted head · unit scopes · carrier blobs · decision-row identities · dependencies and shared support · each independent verdict · the resulting landing group) · **landing receipt** = proof the landed revisions equal the accepted revisions. *An already-governed acceptance receipt or the decision rows carry this; no new artifact is owed.*
 
 **Review disposition is not acceptance.** **Reject, defer and return confer no force.** **A condition or narrowing does not silently accept the original unit** — it produces an **explicit revised claim-and-scope unit or delta**, which must receive the review and disposition required at its *resulting* scope. **Only an acceptance transaction confers accepted force.** *A reviewer's prose condition must never become an invisible part of the accepted architecture.*
 
@@ -264,7 +287,11 @@ Machine-enforceable form is recorded as a named Layer-3 obligation and is delibe
 
 **I3 — resulting side work has no pre-decided topology.** A discovery does not create a lane. It may create **bounded side work**, whose shape is then decided by the **existing §2.1 test**: neither need → *ordinary bounded work* · continuity → *durable lane* · coordination → *coordinated bounded work* · both → *coordinated package*.
 
-**Carrier separation is not independence.** A separate **branch** isolates bytes · a separate **review object** isolates acceptance · a separate **thread** isolates context · a separate **agent instance** supplies another sample. **None of them, by itself, establishes independent review.** The same seat in a fresh thread may reproduce the same assumptions, and the same model on another branch may still be the authoring function. **Independent review is a property of the review relationship, role, authority and vantage — never of branch, thread or model-instance count.** *This matters most before automation starts treating "spawn another agent" as proof of independence.*
+**Carrier separation is not independence.** A separate **branch** isolates bytes · a separate **review object** isolates acceptance · a separate **thread** isolates context · a separate **agent instance** supplies another sample. **None of them, by itself, establishes independent review.**
+
+> **Independent review is consequence-proportionate FUNCTIONAL independence from the authoring act.** The reviewer **must not be the authoring pass**, **must hold authority to challenge, return or reject** the candidate, and **must have sufficient separation of context or role to produce a materially distinct assessment.** **Branch, thread, model-instance or prompt separation is never sufficient by itself.** Relevant conflicts and shared provenance are **disclosed**.
+
+*All three conditions are required — a same authoring function under a slightly different prompt can claim a changed vantage while remaining functionally non-independent, which is why "different vantage" alone does not qualify.* This does **not** require a different vendor, a different model, a human for every correction, or ritual blind review — it requires a genuinely distinct review **function**. *Stated now, before automation begins treating "spawn another agent" as proof of independence.*
 
 **The return is proportionate to consequence, not a fixed bundle.** The governing standard: *sufficient for rightful independent review, disposition and re-entry of the originating work.* **Minimum universal content is small** — exact effect on the originating work's next act or completion condition · the exact candidate or finding being returned · source and authority posture sufficient for the claim · disposition and rightful disposition path · re-entry state. **Everything else is conditional**, including worked fixtures, non-goals and downstream obligation maps: a pointer correction owes none of them, a safety-critical authority change may owe considerably more.
 
