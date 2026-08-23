@@ -114,6 +114,33 @@ Mechanistically this composes established **integration-manager**, **orchestrato
 - `Agent Work Protocol §2.1` is the **human-supervised, proportional** operationalization of the lane / work-package / handoff capability: a two-question applicability test (continuity · coordination), a lane continuity contract (one writer per branch · stale-branch fresh re-entry · environment-local worktrees · provisional-until-its-own-gate · tracked state · proportional receipts), and a coordination overlay applied only where collision, dependency or reconciliation is real (protected shared surfaces · single authorized writer · integrator role where one exists · parent integration transaction). Base pinning, two-reference boot and state-only base binding are **conditional mechanics**, not universal core. Decisions `D0CKPT-DEC-005` (narrowed by `D0CKPT-DEC-007`); supersession `D0CKPT-SUP-001`; guardrails `D0CKPT-GRD-002`, `D0CKPT-GRD-003`.
 - **Automated lane registry, ownership services/leases, shared-surface locks, merge queue, semantic collision detection, and lane tooling remain FUTURE** (`D0THES-REV-158`). This note records partial progress only; it does not duplicate §2.1 and does not make this layer complete.
 
+### Bounded interrupt — the interchange rule, not another road
+
+**The Blueprint above governs work you have already decided to partition. This governs the discovery that arrives *inside* active work** — the moment an object author finds something that may not belong to the object they were sent to do. **It is not a new lane type and not a parallel programme.** It is the **interchange**: it decides when work temporarily leaves one road, and how it gets back on. The road it may create is an ordinary bounded side lane under the machinery already described.
+
+**Three dispositions, and only one of them partitions:** *local defect* → repair in place · *valuable but non-blocking* → route to the rightful owner and return immediately · *gate-blocking and cross-cutting* → park the object, open a bounded side lane. **The trigger is consequence to the active object, never interest.** A discovery that merely enriches the object is non-blocking by definition.
+
+**The load-bearing law is the review boundary, not the classification:** *a side discovery does not edit the parent carrier until it has survived an independent semantic review.* Authoring, normalizing, integrating and reviewing in one motion produces a candidate that reads finished and collapses under the first cold read — then the correction lands hot too, and the loop repeats (`D0CKPT-GRD-006`).
+
+**Where each part lives — no part of this is a new artifact.** Concepts and vocabulary here · binding runtime mechanics at `agent_work_protocol.md` **§2.1 (Bounded interrupt)** · the classification judgment is a **method** call, not an execution one · a particular interruption's live state in the **active work package or checkpoint**, like any other lane state · resulting decisions, conflicts, supersession and open questions route to the **Architecture Memory Control Plane**, which does not own the protocol · architecture-specific admission and consumption compile into `/architecture/operations/` at **G2** · and **Build Entry** (`11`) invokes the build-time form, where a build-discovered issue that changes authority, ownership, commitment, custody or proof cannot be absorbed by a local adapter. **No interrupt registry, no permanent interrupt lane, no standalone protocol document, no second control plane, no new gate.**
+
+### Six motions — independently varying, routinely collapsed
+
+Work on OMNI moves along **six axes at once**, and treating them as one progress axis is why an arc can feel simultaneously productive and lost.
+
+| motion | the question it answers | where it is owned |
+|---|---|---|
+| **object** | what should this architecture, domain, seam or build object actually say? | the object's rightful owner + architecture steward |
+| **method** | how are sources recovered, claims derived, reviews conducted and conclusions accepted? | the architecture-method surface (arc-local while an arc runs; `operations/` permanently) |
+| **work topology** | who is working, in which partition, on which writable surface, with what park and re-entry path? | **this layer** + `agent_work_protocol.md` §2.1 |
+| **estate truth** | what is current, authoritative, unresolved, conflicted, superseded or accepted? | Architecture Memory Control Plane |
+| **architecture operations** | how does an accepted change get admitted, versioned, propagated, installed, corrected, retired? | future `/architecture/operations/` (G2) |
+| **realization + proof** | what code, contract, migration, test, conformance and observation prove it exists? | owning build/runtime surfaces + Layer 4 |
+
+**The independence laws — each pair has been collapsed at real cost:** a method correction does not accept the object · a side-lane result does not change estate truth · a repository commit does not promote architecture · an accepted architecture decision does not prove implementation · a successful build does not prove the governing model was rightful.
+
+**These are motions, not lanes** `[KND]`. ***Object*, *method* and *estate repair* are work OBJECTS, never lane types** — a lane is the provisional execution boundary around whichever object is currently being worked, exactly as the solo/parallel/coupled rule above already establishes for a lane's other properties. A bounded interrupt is triggered by a **method** judgment, executes in **work topology**, routes its consequences into **estate truth**, and — only if accepted — feeds **architecture operations** or **realization**. It crosses the motions; it owns none of them. *That is why it appeared to belong everywhere at once.*
+
 ---
 
 ## Layer 3: Command/Tool Layer

@@ -160,6 +160,36 @@ That is the whole obligation for `coordinated_bounded`. **No parent key, no pack
 
 **Integrator-transfer law (applies only where an integrator role exists).** The integrator is a **transferable ROLE, not a permanent chat thread** — the same "session is replaceable compute" law that governs lane writers governs it. Where the role exists, its carrier MUST record: role key · current holder · explicit transfer · freshness/collision check on assumption · shared-surface ownership receipt · parent blockers while vacant. A retired, exhausted or replaced holder **MUST NOT strand its lanes**. Where no integrator role exists, this law is inapplicable — do not mint one to satisfy it.
 
+### Bounded interrupt — when a discovery arrives inside active work
+
+The two questions above decide how to partition work you have **already decided to partition**. This decides whether a discovery arriving *inside* an active object warrants a partition at all, and how the object gets back. **The classification is a method judgment; the park / open / return mechanics are here.** Concepts and routing live in `09_omni_build_os_layer_model.md` Layer 2.
+
+**I1 — classify before acting. Three dispositions; only the third partitions.**
+
+| disposition | test | action |
+|---|---|---|
+| **local defect** | already governed by an existing rule **and** safely fixable inside the declared writable scope | repair in place, continue. **No side lane.** |
+| **valuable, non-blocking** | real, but the active object stays coherent and its next act stays valid without resolving it | route to the rightful owner or future-work mechanism with an explicit obligation, and **return immediately** |
+| **gate-blocking, cross-cutting** | changes a load-bearing boundary, a completion condition, an owner, the authority model, or a downstream obligation **of the active object** | park the object, open a bounded side lane |
+
+**Route on consequence, never on interest.** *"This is important and fascinating"* is not a trigger; *"the active object's next act is no longer valid"* is. A discovery that only **enriches** the object is non-blocking by definition, however good it is. Equally, **a genuine gate-blocking discovery may not be deferred to future work merely because it is inconvenient** — parking it would ship an object whose own completion condition is known to be wrong.
+
+**I2 — park the object precisely, before opening anything.** In the object's **existing** carrier record: exact object and head · current state · what is complete · **the blocked next act** · which accepted boundaries remain untouched · the re-entry condition. **A parked object with no recorded next act has been abandoned, not parked** — and the side inquiry silently becomes the assignment.
+
+**I3 — the side lane is ordinary bounded work unless it earns more.** It takes the same two-question test as anything else; most side lanes need neither durability nor coordination. Its **return contract** is fixed: one complete candidate statement · source posture · rightful semantic owner · current decision holder · acceptance impact on the parked object · downstream obligations · one or two worked fixtures · explicit non-goals · stop condition.
+
+**I4 — cold semantic review before integration. This is the load-bearing clause.**
+
+> **A side discovery does not edit the parent carrier until it has survived an independent semantic review.**
+
+Authoring and normalizing in one motion yields a candidate that reads finished and collapses on the first cold read — after which the correction lands hot as well, and the loop repeats. The reviewer must be **independent of the authoring pass**; the same seat re-reading its own candidate does not discharge this (`06` `D0CKPT-GRD-006`). **Where the parent carrier is large, this clause is doing double duty** — stale neighbouring cells are invisible from inside a hot loop, so an unstable candidate propagates defects into surfaces that merely *describe* it.
+
+**I5 — disposition, then return.** The side lane returns **exactly one**: `rejected` · `local correction` · `accepted dependency for the parked object` · `routed obligation` (domain · seam · system) · `estate or control-plane repair` · `candidate method change` · `deferred future work`. Then: the rightful owner records the disposition · the parked object runs a **freshness check** · **only accepted dependencies are inherited** · the object resumes at its **named next act** · the side lane closes. An interrupt that never closes is a second programme.
+
+**What this does not create.** No interrupt registry · no permanent interrupt lane · no standalone protocol artifact · no second control plane · no new gate · no classification enum beyond the three dispositions above · no obligation on ordinary work that met none of them. A particular interruption's live state lives in the **active work package or checkpoint**, under the single-source law below, like any other lane state.
+
+Decision: `D0CKPT-DEC-010`. Guardrail: `06` `D0CKPT-GRD-006`.
+
 ### Conditional mechanics — use when the stated condition is true, not by default
 
 - **Base identification (the ordinary case — no extra commit).** A lane's inherited base is normally recoverable from **branch ancestry**, an **immutable source ref**, or an **existing durable carrier**. That is sufficient. **Do not generate a state-only commit, a pin ceremony, or a receipt for a base that is already recoverable.**
