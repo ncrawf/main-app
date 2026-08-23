@@ -2,7 +2,8 @@
 
 Document type: `handoff_or_readiness_gate` — **the current Tier-0 gate-setting checkpoint**
 Authority: `derived_nonbinding`. **This checkpoint routes and records state. It hosts no schema and originates no doctrine.**
-Status: **`CURRENT_TIER0_CHECKPOINT · g0_accepted · g1_startable · insurance_frozen`**
+Status: **`HISTORICAL · superseded_as_tier0_pointer_2026-08-23 · g0_accepted · g1_startable · insurance_frozen`**
+> **★ NO LONGER THE CURRENT CHECKPOINT (2026-08-23).** Superseded **as the Tier-0 pointer only** by `HANDOFF_2026-08-23_fai_g1_paused_by_operator.md`. Its G0-acceptance and G1-startability content remains valid history — G1 has since run and is now **paused by operator**, so "startable" is no longer current state. Do not boot from this file.
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: the checkpoint the next agent boots to. **Supersedes `HANDOFF_2026-08-09_foundational_architecture_arc_opened.md` as current state** — that file is retained as historical arc-opening detail.
 Supersedes: `HANDOFF_2026-08-09_work_horizon_closed_insurance_gate2_startable.md` **as the Tier-0 pointer only** (its Insurance content remains valid and frozen).
