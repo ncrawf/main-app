@@ -72,6 +72,12 @@ The three-unit split and their dependency directions · acceptance coupling rath
 
 **The landing transaction, and it is Tier 4** — binding doctrine activation. It requires: explicit operator authorization to merge · normalization of the change set to only the accepted unit revisions · a landing receipt proving landed revisions equal accepted revisions · `status` moved off `review_required` and `already_landed` moved to `yes` in the same transaction · supersession/conflict treatment where an accepted interpretation is replaced · catalog and read-graph evaluation.
 
+**Carried into that transaction — a known wording residue, recorded so it is not rediscovered.** Identified at review closeout 2026-08-23 and deliberately **not** patched then, because the rows are draft, unmerged and nonbinding and another correction pass was not warranted. At landing, normalize the three rows so they stop pinning acceptance to a moving head and stop reading as self-contradictory:
+
+- The rows say *"Accepted unit revision … at PR #19 head."* **Too dynamic** — accepted substantive content is pinned to `0fc47f1`, the branch head has since advanced, and later state-only receipt commits legitimately changed `03`.
+- `D0CKPT-DEC-010` says both *"no rightful acceptance transaction has occurred"* and *"the authority-bearing pin is the acceptance transaction recorded here."* The intended distinction is recoverable but should be stated directly: **review acceptance occurred; binding doctrine acceptance, landing and activation have not.**
+- Target wording: *Accepted substantive unit revision: exact content at `0fc47f1`. Subsequent `03` changes are state-only review receipts. Review acceptance occurred; binding doctrine acceptance, landing and activation remain pending.*
+
 **Stop condition.** This handoff is superseded when the landing transaction completes, or when an accepted change materially alters `§2.2`/`§2.3` and the accepted unit revisions lose carry-forward under `§2.2`'s own rule.
 
 **Prohibited without fresh authorization:** merging PR #19 · marking any unit `active` · beginning Layer-3 implementation · reopening the accepted units absent a concrete contradiction · touching the Authority object.
