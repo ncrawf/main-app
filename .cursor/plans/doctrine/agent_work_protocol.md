@@ -160,35 +160,46 @@ That is the whole obligation for `coordinated_bounded`. **No parent key, no pack
 
 **Integrator-transfer law (applies only where an integrator role exists).** The integrator is a **transferable ROLE, not a permanent chat thread** — the same "session is replaceable compute" law that governs lane writers governs it. Where the role exists, its carrier MUST record: role key · current holder · explicit transfer · freshness/collision check on assumption · shared-surface ownership receipt · parent blockers while vacant. A retired, exhausted or replaced holder **MUST NOT strand its lanes**. Where no integrator role exists, this law is inapplicable — do not mint one to satisfy it.
 
-### Bounded interrupt — when a discovery arrives inside active work
+### Bounded interrupt — when a discovery arrives inside active work *(CANDIDATE — `review_required`, NOT active law)*
 
-The two questions above decide how to partition work you have **already decided to partition**. This decides whether a discovery arriving *inside* an active object warrants a partition at all, and how the object gets back. **The classification is a method judgment; the park / open / return mechanics are here.** Concepts and routing live in `09_omni_build_os_layer_model.md` Layer 2.
+> **Force.** This subsection is a **candidate amendment under `D0CKPT-DEC-010`, `status: review_required`.** It is **not** active execution law, it binds nothing, and **merging the branch that carries it does not activate it** — activation requires its own accepted review transaction, separate from any object-work acceptance on the same branch. *Recorded at candidate force because the pass that wrote it did not itself satisfy `I4`; see `06` `D0CKPT-GRD-006`.*
 
-**I1 — classify before acting. Three dispositions; only the third partitions.**
+The two questions above decide how to partition work you have **already decided to partition**. This addresses the transition they do not cover: a material discovery appears *inside* an active object and may invalidate the act that object was about to perform.
 
-| disposition | test | action |
-|---|---|---|
-| **local defect** | already governed by an existing rule **and** safely fixable inside the declared writable scope | repair in place, continue. **No side lane.** |
-| **valuable, non-blocking** | real, but the active object stays coherent and its next act stays valid without resolving it | route to the rightful owner or future-work mechanism with an explicit obligation, and **return immediately** |
-| **gate-blocking, cross-cutting** | changes a load-bearing boundary, a completion condition, an owner, the authority model, or a downstream obligation **of the active object** | park the object, open a bounded side lane |
+**The whole of it, before the mechanics:** *a material discovery inside active work is assessed against the parent's **current next act** and **completion condition**. If the next act remains valid, the finding is recorded or routed and work continues. If it is invalid or materially uncertain, the parent goes on an **exact hold with a named re-entry condition**. The existing continuity × coordination test then determines the topology of any resulting work. No returned candidate is normatively integrated into the parent until it has had **consequence-proportionate independent review** and **rightful acceptance**.*
 
-**Route on consequence, never on interest.** *"This is important and fascinating"* is not a trigger; *"the active object's next act is no longer valid"* is. A discovery that only **enriches** the object is non-blocking by definition, however good it is. Equally, **a genuine gate-blocking discovery may not be deferred to future work merely because it is inconvenient** — parking it would ship an object whose own completion condition is known to be wrong.
+**I1 — assess impact before acting, and answer only what the situation raises.** *Local defect · non-blocking · gate-blocking* survive as **human shorthand**, not as a closed classification whose single value carries every answer. The questions below are **independent**; a discovery that fails the first is finished at the first. **Proportionality is binding here** — requiring all of them on every discovery is the ceremony overreach `06` `D0CKPT-GRD-003` names.
 
-**I2 — park the object precisely, before opening anything.** In the object's **existing** carrier record: exact object and head · current state · what is complete · **the blocked next act** · which accepted boundaries remain untouched · the re-entry condition. **A parked object with no recorded next act has been abandoned, not parked** — and the side inquiry silently becomes the assignment.
+| question | determines |
+|---|---|
+| does this materially affect the active object? | **relevance** — if no, record or route and continue; stop here |
+| is the currently named next act still valid? | **continue vs hold** |
+| does it alter a completion or acceptance condition? | **gate impact** |
+| is it inside the current owner and writable scope? | **local vs routed** |
+| does it need semantic separation from the parent? | **candidate isolation** |
+| must it survive pause or replacement? | **continuity posture** (→ §2.1 test above) |
+| does it need multiple writers, owners or reconciliation? | **coordination posture** (→ §2.1 test above) |
+| what review and acceptance are required before the parent consumes it? | **integration gate** |
 
-**I3 — the side lane is ordinary bounded work unless it earns more.** It takes the same two-question test as anything else; most side lanes need neither durability nor coordination. Its **return contract** is fixed: one complete candidate statement · source posture · rightful semantic owner · current decision holder · acceptance impact on the parked object · downstream obligations · one or two worked fixtures · explicit non-goals · stop condition.
+**Route on consequence, never on interest.** *"This is important and fascinating"* is not a trigger; *"the parent's next act is no longer valid"* is. Equally, **a genuine gate-blocking discovery may not be demoted to future work for convenience** — that ships an object whose completion condition is known to be wrong.
 
-**I4 — cold semantic review before integration. This is the load-bearing clause.**
+**Who answers what — no seat becomes a universal interrupt authority.** The **method owner** owns the *assessment procedure* and this discipline. The **object or gate holder** owns whether the discovery actually invalidates the next act, narrows the object, or changes its completion condition — that is an object judgment, not a method one. The **work-package steward** selects and authorizes the resulting execution topology. The **rightful acceptance holder** decides whether a returned candidate may be consumed. *If "method decided it is gate-blocking" could stand alone, method would become a hidden meta-authority over every domain, object and build package.*
 
-> **A side discovery does not edit the parent carrier until it has survived an independent semantic review.**
+**I2 — hold the parent precisely, before opening anything.** Record: exact object and head · current state · completed work · **the blocked next act** · untouched accepted boundaries · re-entry condition. **A hold with no recorded next act is abandonment, not a hold** — the side inquiry silently becomes the assignment. This is **operational state**, and it belongs in an operational surface — the current checkpoint, work-package state, a designated cross-lane record, or an explicitly operational section of the carrier. **Saying a model is parked must never require editing the model.**
 
-Authoring and normalizing in one motion yields a candidate that reads finished and collapses on the first cold read — after which the correction lands hot as well, and the loop repeats. The reviewer must be **independent of the authoring pass**; the same seat re-reading its own candidate does not discharge this (`06` `D0CKPT-GRD-006`). **Where the parent carrier is large, this clause is doing double duty** — stale neighbouring cells are invisible from inside a hot loop, so an unstable candidate propagates defects into surfaces that merely *describe* it.
+**I3 — resulting side work has no pre-decided topology.** A discovery does not create a lane. It may create **bounded side work**, whose shape is then decided by the **existing** two-question test: neither need → *ordinary bounded work* · continuity → *durable lane* · coordination → *coordinated bounded work* · both → *coordinated package*. A separate agent, thread or branch is often wise because **semantic independence** is needed for `I4` — that is a consequence of the review need, never the definition of an interrupt. Where the work is more than trivial, the **return contract** is: one complete candidate statement · source posture · rightful semantic owner · current decision holder · impact on the parent's next act · downstream obligations · one or two worked fixtures · explicit non-goals · stop condition.
 
-**I5 — disposition, then return.** The side lane returns **exactly one**: `rejected` · `local correction` · `accepted dependency for the parked object` · `routed obligation` (domain · seam · system) · `estate or control-plane repair` · `candidate method change` · `deferred future work`. Then: the rightful owner records the disposition · the parked object runs a **freshness check** · **only accepted dependencies are inherited** · the object resumes at its **named next act** · the side lane closes. An interrupt that never closes is a second programme.
+**I4 — independent semantic review before *normative* consumption. This is the load-bearing clause.**
 
-**What this does not create.** No interrupt registry · no permanent interrupt lane · no standalone protocol artifact · no second control plane · no new gate · no classification enum beyond the three dispositions above · no obligation on ordinary work that met none of them. A particular interruption's live state lives in the **active work package or checkpoint**, under the single-source law below, like any other lane state.
+> **A side discovery may be recorded as evidence, as a blocker, and as work-state in an operational surface at any time. It may NOT be integrated into the parent's normative model, accepted boundary, or completion claim until it has survived review independent of the authoring pass.**
 
-Decision: `D0CKPT-DEC-010`. Guardrail: `06` `D0CKPT-GRD-006`.
+The distinction is *operational recording* versus *normative integration*, which is what reconciles this with `I2`. Review is **consequence-proportionate** — a narrow correction does not owe what a cross-cutting boundary owes. The reviewer must be **independent of the authoring pass**; the same seat re-reading its own candidate does not discharge it (`06` `D0CKPT-GRD-006`). **Where the parent is large, this clause does double duty** — stale neighbouring cells are invisible from inside a hot loop, so an unstable candidate seeds defects into surfaces that merely *describe* it.
+
+**I5 — return: one effect on the parent, plus whatever else is true.** A return states **one** thing about the parent — *next act valid, resumed* · *next act changed* · *completion condition changed* · *rejected, no effect* — and **zero or more** independently routed consequences: accepted dependency · routed domain / seam / system obligation · estate or control-plane repair · candidate method change · defect finding · deferred future work. **A single closed status cannot carry this**: the originating case produced an accepted dependency, a proposed system obligation, two output carries, a method candidate, an estate-routing consequence and a pointer defect *simultaneously*. Then: the rightful owner records each disposition · the parent runs a **freshness check** · **only accepted dependencies are inherited** · the parent resumes at its named next act · the side work closes. Work that never closes is a second programme.
+
+**What this does not create.** No interrupt registry · no permanent interrupt lane · no interrupt agent type · no standalone protocol artifact · no second control plane · no new gate · no closed classification enum · no obligation on ordinary work that met none of these questions. **An interrupt is an event affecting active work, not a kind of work** — the resulting work is ordinary work under the tests already in this section. Instance state lives in the **active work package or checkpoint**, under the single-source law below.
+
+Decision: `D0CKPT-DEC-010` (`review_required`). Guardrail: `06` `D0CKPT-GRD-006` (`review_required`).
 
 ### Conditional mechanics — use when the stated condition is true, not by default
 
