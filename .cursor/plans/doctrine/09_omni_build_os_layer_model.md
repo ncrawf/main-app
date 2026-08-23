@@ -114,39 +114,6 @@ Mechanistically this composes established **integration-manager**, **orchestrato
 - `Agent Work Protocol §2.1` is the **human-supervised, proportional** operationalization of the lane / work-package / handoff capability: a two-question applicability test (continuity · coordination), a lane continuity contract (one writer per branch · stale-branch fresh re-entry · environment-local worktrees · provisional-until-its-own-gate · tracked state · proportional receipts), and a coordination overlay applied only where collision, dependency or reconciliation is real (protected shared surfaces · single authorized writer · integrator role where one exists · parent integration transaction). Base pinning, two-reference boot and state-only base binding are **conditional mechanics**, not universal core. Decisions `D0CKPT-DEC-005` (narrowed by `D0CKPT-DEC-007`); supersession `D0CKPT-SUP-001`; guardrails `D0CKPT-GRD-002`, `D0CKPT-GRD-003`.
 - **Automated lane registry, ownership services/leases, shared-surface locks, merge queue, semantic collision detection, and lane tooling remain FUTURE** (`D0THES-REV-158`). This note records partial progress only; it does not duplicate §2.1 and does not make this layer complete.
 
-### Bounded interrupt — the interchange rule, not another road *(CANDIDATE — `review_required`)*
-
-> **Force.** Candidate concept under `D0CKPT-DEC-010`, `status: review_required`. **Not accepted Build OS doctrine**, and merging the branch carrying it does not accept it.
-
-**The Blueprint above governs work you have already decided to partition. This governs the discovery that arrives *inside* active work** — the moment an author finds something that may not belong to the object they were sent to do. **It is the interchange rule: it decides when work temporarily leaves one road and how it gets back on.**
-
-**An interrupt is an EVENT affecting active work — not a kind of work** `[KND]`. It is not a lane type, an agent type, a permanent workstream, a new programme, or necessarily a separately registered package. **It pre-decides no topology.** A discovery may produce bounded side work, and the *existing* continuity × coordination test then decides whether that work is ordinary bounded work, a durable lane, coordinated bounded work, or a coordinated package. A separate agent or branch is often wise because **semantic independence** is needed for the review boundary below — a consequence of the review need, never the definition of an interrupt.
-
-**The load-bearing law is the review boundary, not the classification:** *a side discovery may be recorded as evidence, blocker and work-state in an operational surface at any time, but may not be integrated into the parent's normative model, accepted boundary or completion claim until it has survived review independent of the authoring pass.* Authoring, normalizing, integrating and reviewing in one motion yields a candidate that reads finished and collapses under the first cold read — then the correction lands hot too (`D0CKPT-GRD-006`).
-
-**Authority is distributed; no seat holds a universal interrupt power.** The **method owner** owns the assessment procedure · the **object or gate holder** owns whether the parent's next act or completion condition is actually affected · the **work-package steward** authorizes the resulting topology · the **rightful acceptance holder** decides whether a returned candidate may be consumed. *A method surface that could unilaterally declare any discovery gate-blocking would be a hidden meta-authority over every domain and build package.*
-
-**Where each part lives — none of it is a new artifact.** Concepts here · runtime mechanics at `agent_work_protocol.md` **§2.1 (Bounded interrupt)** · instance state in the **active work package or checkpoint** · resulting decisions, conflicts, supersession and open questions route to the **Architecture Memory Control Plane**, which does not own the protocol · architecture-specific admission compiles into `/architecture/operations/` at **G2** · **Build Entry** (`11`) invokes the build-time form, where a build-discovered issue changing authority, ownership, commitment, custody or proof cannot be absorbed by a local adapter. **No interrupt registry, no permanent interrupt lane, no interrupt agent type, no standalone protocol document, no second control plane, no new gate.**
-
-### Six motions — a working view of what moves independently *(CANDIDATE — `review_required`)*
-
-**Not a closed ontology and not six permanent axes** — a current, non-exhaustive set of **concerns** that helps explain why an arc can feel productive and lost at once. More may emerge; some contexts decompose them differently.
-
-| motion | the question it answers |
-|---|---|
-| **object** | what should this architecture, domain, seam or build object actually say? |
-| **method** | how are sources recovered, claims derived, reviews conducted and conclusions accepted? |
-| **work topology** | who is working, in which partition, on which writable surface, with what hold and re-entry path? |
-| **estate truth** | what is current, authoritative, unresolved, conflicted, superseded or accepted? |
-| **architecture operations** | how does an accepted change get admitted, versioned, propagated, installed, corrected, retired? |
-| **realization + proof** | what code, contract, migration, test, conformance and observation prove it exists? |
-
-**Ownership is per-motion and owner-relative — do NOT read a universal owner off this table** `[KND]`. Each object has its own rightful owner; **not every object is jointly owned by an architecture steward.** And **method destinations are owner-relative**: `/architecture/operations/` will own the methods that govern *architecture*, **not every method used anywhere in OMNI** — an evidence-intake method belongs to the Evidence Plane, a domain's own review method to that domain (R8 `§4.4`). Work topology is this layer plus `agent_work_protocol.md` §2.1; estate truth is the Architecture Memory Control Plane; realization is the owning build/runtime surfaces plus Layer 4.
-
-**The independence laws — these are the durable part, and each pair has been collapsed at real cost:** a method correction does not accept the object · a side-lane result does not change estate truth · a repository commit does not promote architecture · an accepted architecture decision does not prove implementation · a successful build does not prove the governing model was rightful.
-
-**These are motions, not lanes** `[KND]`. ***Object*, *method* and *estate repair* are work OBJECTS, never lane types** — a lane is the provisional execution boundary around whichever object is currently being worked, exactly as the solo/parallel/coupled rule above already establishes for a lane's other properties. A bounded interrupt is *assessed* through **method**, *adjudicated for impact* by the **object or gate holder**, *executed* in **work topology**, *routes consequences* into **estate truth**, and — only if accepted — feeds **architecture operations** or **realization**. It crosses the motions; it owns none of them. *That is why it appeared to belong everywhere at once.*
-
 ---
 
 ## Layer 3: Command/Tool Layer
