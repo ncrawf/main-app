@@ -31,13 +31,20 @@ Resume trigger:               explicit operator activation
 
 **Authority object (PR #17, branch `cursor/fai-g1-operating-model-4933`)**
 
-| | |
-|---|---|
-| Authority content pin | `75dcfbd6f9fbd8ed8bfd859118aa22dd2e8c73a9` |
-| Carrier blob | `9835715ed8795a14df395d9f85c8b44fa3af88ea` |
-| Branch head at pause | `817b0fe0460c2e239588a493f80df4a932cc0f57` |
+**Three distinct references. Do not read any one of them as another** — conflating them is how a future agent reports false drift.
 
-The head is **later than** the content pin because a method excursion was written onto this branch and then removed by **additive revert commits — no amend, no force push**. The carrier blob is byte-identical at both, which is what proves the Authority object was never altered by that excursion. The failed method commits (`8ec1d82`, `bab7227`, `19084eb`) remain in history as immutable evidence.
+| reference | what it is |
+|---|---|
+| `75dcfbd6f9fbd8ed8bfd859118aa22dd2e8c73a9` | **frozen Authority-content revision** — the substantive object |
+| `817b0fe0460c2e239588a493f80df4a932cc0f57` | **post-revert Authority-state head immediately before the pause closeout** |
+| `594af947d5d35e4f704b342b82e98d81afa8eab0` | **the state-only pause-checkpoint closeout receipt** — where this file and the boot surfaces landed |
+| `9835715ed8795a14df395d9f85c8b44fa3af88ea` | **carrier blob** — identical at all three heads |
+
+**The carrier blob being identical across all of them is the proof the Authority object was never altered.** The heads differ because a method excursion was written onto this branch and removed by **additive revert commits — no amend, no force push**; the failed commits (`8ec1d82`, `bab7227`, `19084eb`) remain in history as immutable evidence.
+
+**Later state-only corrections may advance the branch head past `594af94` without touching frozen Authority content.** Verify by carrier blob, never by head equality — a state receipt cannot stamp its own commit, so the head recorded here is the closeout, not necessarily the newest commit. **Authority content has drifted only if `9835715e` has changed.**
+
+The method object distinguishes the same two things: **accepted method-content head `0fc47f1`** versus **method review-closeout receipt head** (later, state-only).
 
 **`§G1-AUTH` state:** MANDATORY and PARTIALLY CONVERGED · Selection Accountability frozen as a completed candidate dependency under its acceptance hold · `Q-DL18-4` **not started** · `§E4b` scenarios 10 and 11 remain `PARTIAL` · Output 4 proposed, not accepted · Output 5 not started · the G0 holder receipt remains EFFECTIVE.
 
@@ -52,7 +59,9 @@ The head is **later than** the content pin because a method excursion was writte
 
 **Do not reconstruct the Selection Accountability correction history.** It is in git and in the carrier's `§4.17`; re-anchoring a fresh seat on it wastes context and re-litigates settled corrections.
 
-## §4 — Settled; do not re-litigate on resumption
+## §4 — Stabilized for inheritance in this work package; not promoted architecture
+
+**Do not re-litigate on resumption — and do not read this as accepted System Architecture law.** Selection Accountability is a **completed candidate dependency under an acceptance hold**, not promoted architecture.
 
 Selection Accountability's six settled boundaries and its three-layer non-collapse (`policy/mechanism ≠ applied shaping act ≠ burden incidence/material effect`) · the `§E4c` derivation-rule correction · the four-kind decomposition at `§4.11` · that `§G1-AUTH` is recovery rather than authoring · the physical separation of the method object from this change set.
 
@@ -68,4 +77,6 @@ Selection Accountability's six settled boundaries and its three-layer non-collap
 
 ## §6 — Work admitted during the pause
 
-Unrelated exploration (for example the robotics probe the operator has flagged) proceeds as its **own evidence, comparator or bounded strategic object**. It does not reopen FAI, alter the Authority object, or become an architecture dependency by being interesting. Should it surface something consequential, the accepted-at-review mid-work rule describes the handling: **capture it, assess whether it actually invalidates FAI's next act or completion condition, and only then classify it** — nonblocking evidence, a routed obligation, or a genuine interrupt. No fascination-driven reopening; no suppression of a real contradiction either.
+**By the operator's pause instruction**, unrelated exploration (for example the robotics probe the operator has flagged) remains its **own evidence, comparator or bounded strategic object**. It does not reopen FAI, alter the Authority object, or become an architecture dependency **merely by being interesting**. **Any proposed impact on FAI requires explicit operator adjudication.**
+
+**PR #19 may be consulted as an accepted-at-review, NONBINDING method candidate** for handling a consequential discovery — capture it, assess whether it actually invalidates FAI's next act or completion condition, then classify it as nonblocking evidence, a routed obligation, or a genuine interrupt. **It does not govern this checkpoint until landed**, and nothing in this checkpoint activates it. No fascination-driven reopening; no suppression of a real contradiction either.
