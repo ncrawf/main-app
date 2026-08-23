@@ -181,25 +181,27 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ## 2.2) Acceptance-boundary integrity *(CANDIDATE — `review_required`)*
 
-> **Force.** Candidate under `D0CKPT-DEC-010`, `status: review_required`. **This is not active law. If adopted, the following governs.** Merging a change set containing these bytes does not activate them; activation is a separate accepted review transaction.
+> **Force.** **Acceptance unit A** — candidate under `D0CKPT-DEC-010`, `status: review_required`. **This is not active law. If adopted, the following governs.** Merging a change set containing these bytes does not activate them; activation is a separate accepted review transaction.
 
 **Applicability — deliberately wider than §2.1.** This governs **any proposed change bundle**, explicitly **including ordinary bounded work** that owes nothing under §2.1. An ordinary bounded task can broaden a bundle's acceptance scope exactly as easily as a coordinated package can; §2.1's *"nothing in this section"* exemption does not reach here.
 
-> **The general law: a physical carrier, a review bundle and a landing bundle are not proof of shared acceptance.** Co-location establishes neither shared authority, nor shared review gate, nor shared lifecycle, nor shared acceptance, nor compatible reversal posture.
+> **The general law: co-location in one physical carrier, presentation through one review object, or application through one landing group does not prove shared acceptance.** None of them establishes shared authority, shared review gate, shared lifecycle, shared acceptance, or compatible reversal posture.
 
 **Repository specialization** — the same law where the carrier is Git: **branch/ref, change set, review object, landing group and acceptance transaction remain distinct.** *Stated at the general level first because OMNI also works through supplied packets, non-branch durable carriers, deployment and configuration bundles, evidence-promotion packets, migration packages and architecture acceptance objects — the mechanism must survive Git ceasing to be the only adapter.*
 
 **This is not "one carrier, one object"** — that would be the next overcorrection. A branch may legitimately carry several work objects, and a coordinated package may intentionally reconcile several lanes into one landing. **The law is acceptance coupling, not object count.**
 
-**The decisive test, applied first:**
+**The decisive test, applied at claim-and-scope grain — not at work-object grain, because one work object routinely contains several acceptance units:**
 
-> **Can either work object be accepted, rejected, deferred, superseded, landed or rolled back independently of the other?**
+> **Can any material claim or scope slice be dispositioned or landed without deciding the rest?**
 
-**If yes, they are distinct acceptance units.**
+**If yes, those are distinct acceptance units.** This catches one document carrying several decisions · one architecture object with separately governed subsections · one review object carrying independently acceptable laws · one migration containing distinct semantic changes.
 
-**Side work may remain in one review object where it shares the same acceptance unit — or where distinct acceptance units and their distinct holders remain explicit, receive independent dispositions, and are combined only through a declared landing group.** *Landing and sequencing can be coordinated; **authority holders do not become shared by coordinating them.** "Coordinated acceptance holder" is the next polite phrase for hidden authority collapse, and it is refused here.*
+**Distinct acceptance units require independent addressability and rightful disposition.** They may share **one** review object **only where that review object explicitly preserves each unit's scope, holder, gate, disposition and landing relationship.** Where the review vehicle cannot preserve that independence — **or where one unit must land, reverse, or remain pending independently** — separate review objects or change sets are required.
 
-**Where the side work proposes a separately governed normative change, has a distinct acceptance holder or review obligation, or can be accepted or landed independently, it is isolated into its own review object.** The parent may carry a pointer, an evidence reference or an accepted dependency; **it may not silently land the side object.**
+**A shared landing group coordinates application; it never merges acceptance units, holders or authority.** *Landing and sequencing can be coordinated; **authority holders do not become shared by coordinating them.** "Coordinated acceptance holder" is the next polite phrase for hidden authority collapse, and it is refused here.*
+
+**The originating work may carry a pointer, an evidence reference or an accepted dependency to a unit it does not hold; it may never silently land that unit.**
 
 **Different files, a clean rebase and the absence of textual merge conflicts do not establish acceptance compatibility.** File collision and writer collision are not the only collisions — **acceptance, review-scope, merge-timing, lifecycle and branch-purpose collision are all real, and none of them produces a conflict marker.** *"Different files, therefore no collision" is the defective test this clause exists to retire.*
 
@@ -212,13 +214,13 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 | **branch / ref** | a mutable version-control carrier |
 | **change set** | a selected difference proposed for review |
 | **review object** | the pull request, proposal or other vehicle in which review occurs |
-| **acceptance unit** | **the exact claims and scope that one rightful disposition can accept or reject as a whole** |
+| **acceptance unit** | **the exact claim-and-scope bundle intentionally subjected to ONE indivisible rightful disposition — accept · reject · defer · condition · narrow · return — without deciding another unit by implication** |
 | **landing group** | one or more accepted units applied atomically or in a governed sequence |
 | **acceptance transaction** | the authority-bearing act accepting a specified unit at a specified force and scope |
 
 **`branch ≠ change set ≠ review object ≠ acceptance unit ≠ landing group ≠ acceptance transaction`.** These may align one-to-one; **OMNI must not presume they do.** **Several acceptance units may share one technically atomic landing group without acquiring one authority or one acceptance** — and conversely **one work object may contain claims requiring separate acceptance.** A merge does not promote every claim it contains, and **write access to a branch confers neither authority to broaden the change set nor authority to broaden the review object's acceptance scope.**
 
-**A force label is a semantic guard, not enforcement and not separation.** Marking contained work `candidate` or `review_required` **records that no legitimate normative force has yet been conferred** — it makes a legitimate activation claim unavailable and supports review enforcement. **It does not mechanically prevent merge, misuse, stale citation, or an agent treating the bytes as operative.** *That is precisely why physical separation is owed in addition, and not satisfied by labelling.*
+**A force label is a semantic guard, not enforcement and not separation.** Marking contained work `candidate` or `review_required` **records that no legitimate normative force has yet been conferred** — it makes a legitimate activation claim unavailable and supports review enforcement. **It does not mechanically prevent merge, misuse, stale citation, or an agent treating the bytes as operative.** **A force label never substitutes for physical separation where separation is required** — which is not the same as saying separation is always required.
 
 Machine-enforceable form is recorded as a named Layer-3 obligation and is deliberately not designed here: `09` Layer 3.
 
@@ -226,7 +228,7 @@ Machine-enforceable form is recorded as a named Layer-3 obligation and is delibe
 
 ## 2.3) Mid-work discovery — bounded interrupt *(CANDIDATE — `review_required`)*
 
-> **Force.** Candidate under `D0CKPT-DEC-010`, `status: review_required`. **This is not active law. If adopted, the following governs.** *It is a candidate because **no rightful acceptance transaction has occurred** — not because of how it was authored. The authoring pass's own `I4` violation is provenance and risk evidence (`06` `D0CKPT-GRD-006`), never the source of candidate status.*
+> **Force.** **Acceptance unit B** — candidate under `D0CKPT-DEC-011`, `status: review_required`. **This is not active law. If adopted, the following governs.** *Candidate status follows from the absence of a rightful acceptance transaction — nothing else confers or withholds it.*
 
 **Applicability — deliberately wider than §2.1.** This governs a material discovery arriving during active work, **including ordinary bounded work** that owes nothing under §2.1. §2.1 governs how to operate a partition once one exists; this governs the transition it does not cover — a discovery appearing *inside* active work that may invalidate the act that work was about to perform. **"Originating work" is used throughout**; *parent* appears only where an actual parent package exists, because ordinary bounded work may have no parent, no package and no branch.
 
@@ -240,13 +242,13 @@ Machine-enforceable form is recorded as a named Layer-3 obligation and is delibe
 | is the currently named next act still valid? | **continue vs hold** |
 | does it alter a completion or acceptance condition? | **gate impact** |
 | is it inside the current owner and writable scope? | **local vs routed** |
-| does it need semantic separation from the parent? | **candidate isolation** |
+| does it need semantic separation from the originating work? | **candidate isolation** |
 | must it survive pause or replacement? | **continuity posture** (→ §2.1) |
 | does it need multiple writers, owners or reconciliation? | **coordination posture** (→ §2.1) |
-| can it be accepted, landed or rolled back independently of the parent? | **acceptance coupling** (→ §2.2) |
-| what review and acceptance are required before the parent consumes it? | **integration gate** |
+| can any of its claims be dispositioned or landed without deciding the originating work? | **acceptance coupling** (→ §2.2) |
+| what review and disposition are required before the originating work may use it? | **integration gate** |
 
-**Route on consequence, never on interest.** *"This is important and fascinating"* is not a trigger; *"the parent's next act is no longer valid"* is. Equally, **a genuine gate-blocking discovery may not be demoted to future work for convenience** — that ships an object whose completion condition is known to be wrong.
+**Route on consequence, never on interest.** *"This is important and fascinating"* is not a trigger; *"the originating work's next act is no longer valid"* is. Equally, **a genuine gate-blocking discovery may not be demoted to future work for convenience** — that ships an object whose completion condition is known to be wrong.
 
 **Who answers what — no seat becomes a universal interrupt authority.** The **method owner** owns the *assessment procedure*, never substantive disposition. The **object or gate holder** owns whether the discovery actually invalidates the next act, narrows the work, or changes its completion condition — an object judgment, not a method one — **and owns permissible consumption of existing governing law, accepted dependencies, evidence and blockers according to their resolved reliance posture.** The **work-package steward** selects and authorizes the resulting execution topology. The **rightful acceptance holder** accepts or rejects **normative candidates**. *If "method decided it is gate-blocking" could stand alone, method would become a hidden meta-authority over every domain, object and build package. And note the split: **evidence can inform without becoming law, existing law can constrain without new acceptance, and a blocker can hold work without becoming architecture** — only a normative candidate needs an acceptance act.*
 
@@ -256,23 +258,25 @@ Machine-enforceable form is recorded as a named Layer-3 obligation and is delibe
 
 **Carrier separation is not independence.** A separate **branch** isolates bytes · a separate **review object** isolates acceptance · a separate **thread** isolates context · a separate **agent instance** supplies another sample. **None of them, by itself, establishes independent review.** The same seat in a fresh thread may reproduce the same assumptions, and the same model on another branch may still be the authoring function. **Independent review is a property of the review relationship, role, authority and vantage — never of branch, thread or model-instance count.** *This matters most before automation starts treating "spawn another agent" as proof of independence.*
 
-**The return is proportionate to consequence, not a fixed bundle.** The governing standard: *sufficient for rightful independent review, disposition and parent re-entry.* **Minimum universal content is small** — exact effect on the parent's next act or completion condition · the exact candidate or finding being returned · source and authority posture sufficient for the claim · disposition and rightful acceptance path · re-entry state. **Everything else is conditional**, including worked fixtures, non-goals and downstream obligation maps: a pointer correction owes none of them, a safety-critical authority change may owe considerably more.
+**The return is proportionate to consequence, not a fixed bundle.** The governing standard: *sufficient for rightful independent review, disposition and re-entry of the originating work.* **Minimum universal content is small** — exact effect on the originating work's next act or completion condition · the exact candidate or finding being returned · source and authority posture sufficient for the claim · disposition and rightful disposition path · re-entry state. **Everything else is conditional**, including worked fixtures, non-goals and downstream obligation maps: a pointer correction owes none of them, a safety-critical authority change may owe considerably more.
 
 **I4 — independent semantic review before *normative* consumption. This is the load-bearing clause.**
 
 > **A new or materially synthesized normative candidate, boundary change, or cross-cutting interpretation may NOT be integrated into the originating work's normative model, accepted boundary, or completion claim until it has survived review independent of the authoring pass. A side discovery may be recorded as evidence, as a blocker, and as work-state in an operational surface at any time.**
 
-**Scope is deliberately narrow, so this does not become ceremony for ordinary corrections.** An **object-local correction already prescribed by governing law** follows the originating work's ordinary review and landing gate — it creates no side candidate and owes no additional method ceremony. Likewise, **discovering an already-governing contract does not require re-accepting that contract**; it requires verifying its effective reliance posture.
+**Scope is deliberately narrow, so this does not become ceremony for ordinary corrections.** An **object-local correction already prescribed by governing law** follows the originating work's ordinary review and landing gate — it creates no side candidate and owes no additional method ceremony. Likewise, **discovering an already-governing contract does not require re-accepting that contract**; it requires resolving its **applicability and current force** for the intended use.
 
 The distinction is *operational recording* versus *normative integration*, which is what reconciles this with `I2`. **`I4` is a review boundary, not an acceptance or promotion gate** — rightful acceptance is a separate act, and architecture promotion may be another act again. Review is **consequence-proportionate**: a narrow correction does not owe what a cross-cutting boundary owes. The reviewer must be **independent of the authoring pass** in relationship, role, authority or vantage; the same seat re-reading its own candidate does not discharge it (`06` `D0CKPT-GRD-006`). **Where the originating carrier is large, this clause does double duty** — stale neighbouring cells are invisible from inside a hot loop, so an unstable candidate seeds defects into surfaces that merely *describe* it.
 
-**I5 — return: the complete effect on the originating work, plus whatever else is true.** A return states the **full effect vector**, because these are **not mutually exclusive** — next act · scope · hold state · completion condition · acceptance path · re-entry condition · or explicitly no effect. *The originating case changed both the next act **and** the G1 completion condition; forcing that into one value is the closed-status mistake at a smaller grain.* It also carries **zero or more** independently routed consequences: accepted dependency · routed domain / seam / system obligation · estate or control-plane repair · candidate method change · defect finding · deferred future work.
+**I5 — return: the complete effect on the originating work, plus whatever else is true.** A return states the **full effect vector**, because these are **not mutually exclusive** — next act · scope · hold state · completion condition · acceptance path · re-entry condition · or explicitly no effect. *These co-occur routinely; forcing them into one value is the closed-status mistake at a smaller grain.* It also carries **zero or more** independently routed consequences: accepted dependency · routed domain / seam / system obligation · estate or control-plane repair · candidate method change · defect finding · deferred future work.
 
-**Inheritance is governed by effective reliance posture, not by acceptance alone.** The originating work inherits **only material whose effective reliance posture permits the intended use** — which includes **existing governing law** (constraining without new acceptance), **newly accepted candidates**, and **evidence at its declared evidentiary force** (informing without becoming law). **Unresolved material may bind only as an unresolved blocker or open condition.** Then: the rightful owner records each disposition · the originating work runs a **freshness check** · it resumes at its named next act · the side work closes. Work that never closes is a second programme.
+**Inheritance is bounded by resolved authority, scope, currency and evidentiary role — not by acceptance alone.** The originating work may use material **only at the authority, scope, currency and evidentiary role currently resolved for the intended use.** Existing governing law may **constrain without new acceptance**; accepted decisions may be inherited **at their accepted scope**; evidence may **inform only at its declared evidentiary force**. **Unresolved material is never inherited as law** — and it acquires no binding force merely by being unresolved: **the rightful object or gate authority may impose a blocker or open condition *because of* it.** Then: the rightful owner records each disposition · the originating work runs a **freshness check** · it resumes at its named next act · the side work closes. Work that never closes is a second programme.
 
-**What this does not create.** No interrupt registry · no permanent interrupt lane · no interrupt agent type · no standalone protocol artifact · no second control plane · no new gate · no closed classification enum · no obligation on work that met none of these questions. **An interrupt is an event affecting active work, not a kind of work** — the resulting work is ordinary work under §2.1's tests. Instance state lives in the **active work package or checkpoint**, under §2.1's single-source law.
+**Where the transient state lives, without minting anything.** **If the hold or resulting side work must survive pause, replacement or delayed re-entry, continuity is material and §2.1 applies.** Otherwise **the current operational or review carrier holds the transient state** — and **no work package, checkpoint or durable lane is minted merely to record an interruption.** *Ordinary bounded work may have no package, no checkpoint and no §2.1 obligation; requiring one here would recreate the applicability contradiction this section was moved out of §2.1 to escape.*
 
-Decision: `D0CKPT-DEC-010` (`review_required`). Guardrail: `06` `D0CKPT-GRD-006` (`review_required`). Concepts: `09` Layer 2.
+**What this does not create.** No interrupt registry · no permanent interrupt lane · no interrupt agent type · no standalone protocol artifact · no second control plane · no new gate · no closed classification enum · no obligation on work that met none of these questions. **An interrupt is an event affecting active work, not a kind of work** — the resulting work is ordinary work under §2.1's tests.
+
+Decision: `D0CKPT-DEC-011` (`review_required`). Guardrail: `06` `D0CKPT-GRD-006` (`D0CKPT-DEC-012`, `review_required`). Concepts: `09` Layer 2. **Related but independently disposable:** `§2.2` / `D0CKPT-DEC-010`.
 
 ---
 

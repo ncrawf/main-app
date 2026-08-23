@@ -116,15 +116,15 @@ Mechanistically this composes established **integration-manager**, **orchestrato
 
 ### Bounded interrupt — the interchange rule, not another road *(CANDIDATE — `review_required`)*
 
-> **Force.** Candidate concept under `D0CKPT-DEC-010`, `status: review_required`. **Not accepted Build OS doctrine.**
+> **Force.** Candidate concept under `D0CKPT-DEC-011` (**acceptance unit B**), `status: review_required`. **Not accepted Build OS doctrine.**
 
 **The Blueprint above governs work already partitioned. This governs the discovery that arrives *inside* active work.** Six conceptual points; **mechanics live in `agent_work_protocol.md` §2.3, and are not restated here.**
 
 1. **An interrupt is an EVENT affecting active work, not a work type** — not a lane, agent type, permanent workstream or registered package.
 2. **It pre-decides no topology.** Any resulting side work takes the existing continuity × coordination test like any other work.
-3. **Operational recording is not normative integration** — a discovery may be recorded as evidence, blocker and work-state at any time; entering the parent's normative model is a separate, gated act.
+3. **Operational recording is not normative integration** — a discovery may be recorded as evidence, blocker and work-state at any time; entering the originating work's normative model is a separate, gated act.
 4. **Independent review precedes normative consumption**, proportionate to consequence, and by a reviewer independent of the authoring pass.
-5. **Authority is distributed** — method owns the assessment procedure, the object or gate holder owns parent impact, the steward authorizes topology, the rightful acceptance holder decides consumption. **No seat holds universal interrupt power.**
+5. **Authority is distributed** — **method** owns the assessment procedure; the **object or gate holder** determines impact and permissible use of material within its resolved authority and evidentiary posture; the **steward** authorizes topology; the **rightful acceptance holder** disposes normative candidates. **No seat holds universal interrupt power**, and evidence consumption is not normative acceptance.
 6. **Nothing new is created** — no registry, permanent lane, agent type, standalone artifact, second control plane or gate.
 
 **Non-collapse laws this arc earned, kept here because they outlive the mechanism.** **No one of these, *by itself*, produces the adjacent state** — each requires its own rightful transaction, and the qualifier matters because the later transaction through which accepted side work legitimately *does* update estate truth must remain available: *a method correction does not by itself accept the object · a side-work result does not by itself change estate truth · a repository commit does not by itself promote architecture · an accepted architecture decision does not by itself prove implementation · a successful build does not by itself establish that the governing model was rightful.*
@@ -153,6 +153,8 @@ Mechanistically this composes established **integration-manager**, **orchestrato
 
 ### Acceptance-boundary enforcement — a named requirement for the future merge tooling *(CANDIDATE — `review_required`)*
 
+> **Force.** Candidate under `D0CKPT-DEC-010` (**acceptance unit A**), `status: review_required`. **Not accepted Build OS doctrine.**
+
 **`agent_work_protocol.md` §2.2 *Acceptance-boundary integrity* is a human discipline today and a tooling requirement tomorrow.** Recorded here so Layer-3 work does not re-derive it — the property is stated; **the manifest fields are deliberately not designed in this pass.**
 
 The eventual work-package and merge tooling should be able to determine: **which work objects a change set claims to carry** · which parent outcome each serves · **which acceptance holder and review gate govern each** · whether those objects share a landing group or require separate ones · and **whether a separately governed change is riding inside an unrelated object's change set.**
@@ -161,7 +163,7 @@ The eventual work-package and merge tooling should be able to determine: **which
 
 **Validation must be SEMANTIC, not file-based.** The tooling validates **declared work objects, architecture resources, claims, acceptance units and landing groups** against the acceptance boundary. **File and path scope is supporting evidence and an enforcement surface — never the semantic boundary itself.** One file can carry several independently governed claims, and several files can realize one acceptance unit. *A path allowlist alone is a polished control that still cannot see a global semantic change hidden inside an allowed file.*
 
-**Interim and full enforcement are staged — do not block every control on the full descriptor set.** A **thin control can operate now** from declared work-package and review-object metadata, asking only: *what acceptance units does this change bundle claim · who may accept each · which can be disposed independently · what landing group is proposed · are separately governed doctrine changes present.* **Full semantic enforcement must compile from the canonical descriptors once they exist** — architecture resource descriptor · change manifest · effective snapshot · work-package declaration · acceptance unit · review object · landing group — **and must not hard-code today's file layout as architecture** (the `FWREG-021` constraint). *That gives a runway rather than "no control until G2."*
+**Interim and full enforcement are staged — do not block every control on the full descriptor set.** A **thin control can operate now** from declared work-package and review-object metadata, asking only: *what acceptance units does this change bundle claim · who may accept each · which can be disposed independently · what landing group is proposed · are separately governed doctrine changes present.* **Full enforcement should compile from the canonical architecture metadata objects once they exist** — architecture resource descriptor · change manifest · effective snapshot — **together with accepted Build OS work-package, review, acceptance-unit and landing-group metadata.** *Those latter terms are **candidate Build OS concepts** under `D0CKPT-DEC-010`/`D0CKPT-DEC-011`, not selected architecture mechanisms: **this transaction defines none of those schemas and promotes no candidate term into an architecture resource descriptor.*** Enforcement **must not hard-code today's file layout as architecture** (the `FWREG-021` constraint). *That gives a runway rather than "no control until G2."*
 
 That sits beside the Step-5 properties already named — **one authorized writer · protected surfaces · merge serialization · package membership · parent integration criteria** (`10` Step 5, `D0THES-REV-158`). **It is not another registry, lane, agent type or control plane.** *Today the control is a review question; recording it now is what stops Layer 3 from later rediscovering only a flattened "check the changed files" version.*
 
