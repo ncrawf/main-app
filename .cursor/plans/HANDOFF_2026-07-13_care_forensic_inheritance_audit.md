@@ -12,6 +12,8 @@ Created 2026-07-13. **This is the BOOT PACKAGE for the Care inheritance audit.**
 ## A. Mission (and the non-authoring boundary)
 **Recover and adjudicate the INHERITED Care architecture — from opened sources — BEFORE any edit to the Care capture.** This is **forensic reconciliation, NOT architecture authoring.** Deliverable = a source-grounded evidence ledger + a proposed correction list for `v4_C4_care_operating_model_capture.md`, reviewed by Nick + Knox *before* any capture edit. The Care capture stays **FROZEN**.
 
+**Frozen is a mutation control, not a no-read rule.** It bars editing the capture and bars promoting it to authoring authority before the correction transaction is accepted. Another governed workstream that materially depends on Care still **reads** it — for integrated structure and relationships — and resolves material claims through this audit's evidence ledger and the rightful native carriers. Where capture, forensic disposition and native source disagree, it preserves the disagreement and names the authority needed to settle it rather than choosing one. (General rule: R8 `§4.1` ⑤.)
+
 ## B. Controlling artifacts (exact read order)
 1. **THIS handoff** (boot package).
 2. **`v4_C4_care_inheritance_evidence_ledger.md`** (frozen workbench — detailed evidence, tables, dispositions). Read its top banner + the lane it assigns; do NOT re-derive it.
