@@ -32,7 +32,7 @@ The interruption was legitimate. **What followed was not.**
 
 ## Why the pivot happened
 
-Each sharpening of the finding was integrated into the main carrier before the candidate was semantically stable. Discover → integrate → cold review finds a collapse *inside the previous correction* → patch → new collapse. Every round was individually justified; needing that many of them was the defect.
+Each sharpening of the finding was integrated into the main carrier before the candidate was semantically stable. Discover → integrate → cold review finds a collapse *inside the previous correction* → patch → new collapse. **Every round addressed a real issue.** The anti-pattern was not the count or depth of review; it was **the repeated reappearance of the same collapse class immediately after each candidate was reintegrated into the main carrier, before an independent semantic boundary had stabilized it.**
 
 That produced the first durable question: **when a discovery arrives inside active work, what actually happens to the work you were doing?** The estate had no answer. `§2.1` governed how to operate a partition once one existed; nothing governed the transition into one.
 

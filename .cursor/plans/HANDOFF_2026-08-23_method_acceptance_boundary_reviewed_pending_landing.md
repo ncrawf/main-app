@@ -5,7 +5,7 @@ Authority: `state_and_continuity_nonbinding` — records state and routes; origi
 Status: `active` — current terminus of the FAI G1 **method** side lane.
 Domain(s): `architecture_governance`, `build_operations`, `governance_lifecycle`
 Lifecycle role: Tier-3 continuity record for the method arc; hands the **landing** transaction to a successor.
-Source-of-truth relationship: The proposed law lives ONLY in `agent_work_protocol.md` §2.2/§2.3 and `09_omni_build_os_layer_model.md` Layer 2/Layer 3. This handoff points; it never restates.
+Source-of-truth relationship: Proposed mechanics live in `agent_work_protocol.md` §2.2/§2.3 and `09_omni_build_os_layer_model.md` Layer 2/Layer 3; the hot-loop anti-pattern lives in `06_guardrail_antipattern_digest.md` `D0CKPT-GRD-006`; review state and landing conditions live in `03_decision_extraction_ledger.md` `D0CKPT-DEC-010/011/012`. **This handoff routes among them and originates none of them.**
 Supersedes: `none`
 Superseded by: `none`
 Manifest action: `add_tier2 · consult_if_routed`
