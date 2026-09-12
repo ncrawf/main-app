@@ -2,8 +2,8 @@
 
 Document type: `plan_or_roadmap` — **Gate-0 investigation charter**
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Originates no doctrine, mints no name, accepts no architecture, promotes nothing.**
-Status: `G0_R12_PLAN_REPAIRED_PENDING_ACCEPTANCE · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
-Revision: **R12** — amends R11 (`b859131b`). **Bounded integrity correction (I1/I2/I3): version binding, source identity, receipt fidelity.** Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
+Status: `G0_R13_EXECUTION_CONTRACT_INSTALLED_PENDING_ACCEPTANCE · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
+Revision: **R13** — amends R12 (`3c84cf9e`). **Installs the execution contract at `§12.9`: entry obligations, work units, the first specified unit, evaluation method, two prepared specs, durable homes, replacement readiness.** Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
 Domain(s): `cross_domain` · `architecture_governance` · `federation` · `rbac_authority` · `cns_orchestration` · `ordered_fulfillment` · `d6_commerce` · `d3_scheduling` · `business_ops_workforce` · `d7_documents_consent` · `observation_measurement` · `clinical_memory` · `trials_research`
 Lifecycle role: defines the investigation — its question, its inherited candidates, its ambition, its bounded mechanism, and the four outputs it must produce — **without deciding its answer.**
 Source-of-truth relationship: **owns nothing.** Arc state belongs to `§1`.
@@ -19,9 +19,18 @@ Arc key:                 ECB  (work identifier only)
 Inherited candidate:     EVRUN-2026-000012_02 §15 — ARCHITECTURE_CANDIDATE,
                          scoped to its run, explicitly NOT the only coherent
                          architecture. A candidate to test, not an answer.
-Arc state:               GATE_0_R12_PLAN_REPAIRED — NOT ACCEPTED, G1 NOT ACTIVATED
+Arc state:               GATE_0_R13_PLAN_REPAIRED — NOT ACCEPTED, G1 NOT ACTIVATED
 Gate 0 verdict:          none issued
-Acceptance vs activation: two separate operator acts (§15)
+Acceptance vs activation: two separate operator acts (§15.0)
+
+OPERATIONAL STATE (§12.9.1 — a successor reads this, not the chat)
+  Active writer:         none — no pass activated
+  Phase:                 pre-G1
+  Bounded work item:     none active. First unit is SPECIFIED at §12.9.3
+                         and awaits Nick's activation
+  Working head/blob:     the review receipt of the current revision
+  Accepted baseline:     NONE — G0 not accepted
+  Next permitted action: Nick + Knox review of this revision
 Architecture accepted:   none
 Name minted:             none
 FAI relationship:        separate bounded object; FAI G1 untouched
@@ -388,6 +397,23 @@ R5 reduced the frontier to shortened precondition lifetimes. **Too narrow — a 
 
 **§11.5 Negative controls — predicates, not labels.** **The illegal substitution is the failure; the first state in each pair is not wrong.** An ACK as an ACK is valid — as accepted custody it is not. A simulation labelled as such is valid — presented as observed response it is not. A refusal recorded as refusal is valid — as an intervention performed it is not. Likewise: **an availability observation vs a held reservation** · approved candidate vs actual exposure · manufacturer's release vs clinical adoption · stale authorization recognised vs relied upon · one event deduplicated vs double-counted or double-executed · affected party reached vs missed, unaffected notified as exposed · evidence in purpose vs secondary use · an attributed clinical statement vs a device command · an OMNI-operated participant on identical terms vs privileged · a real operating difference represented vs flattened. **A written trace is design evidence — not proof of a deployed system, counterparty agreement, or clinical safety.**
 
+**§11.6 Required scenario families, and the home for evaluation specifications and results.** *(Created empty here; populated at TRACE preparation per `§12.9.6`.)* **These are required families, not a case-count target, and they are conditional operating pressures — not predictions about any named vendor's products.**
+
+| Family | What it must discriminate |
+|---|---|
+| one provider, one patient, external peptide/Rx fulfillment | whether OMNI enables **ordinary work without imposing enterprise machinery**, while preserving independent acceptance, substitution, money and follow-up boundaries |
+| personal wearable/glasses interface + independently chosen AI | influence **without an integration** · partial or stale context · private reasoning · patient-returned disagreement · false corroboration · **authority that does not follow the screenshot** |
+| patient-specific mRNA, cell-based or analogous generated intervention | a capability **formed from patient inputs** · design and version change · material identity and irreversible work · **release versus adoption** · later monitoring and correction |
+| multiple physical systems acting during one procedure | coupled effects · supervision · timing · local versus remote control · missing communication · responsibility after partial execution — **without assuming one owner of the body or one universal coordinator** |
+| shared operations with **no identified patient** | resources, capacity, lots, facilities, supplier obligations and operating economics **that cannot be forced beneath a patient episode** |
+| population/network learning and long-horizon change | opportunity discovery · purpose-limited use · corrected evidence · affected-case uncertainty · participant exit · continuing obligations across organizations |
+
+**Extension test — required within this coverage.** After an account is formed, **introduce a materially different participant or capability** and show which existing semantics survive, which need a profile or contract change, and whether an architectural change is genuinely required. ***"Everything fits without change" is not the required answer; an explicit governed path for necessary change is.*** **Do not run a futuristic payload through today's workflow and call it a frontier test — the change must be to the arrangement itself.**
+
+**Credible competing whole arrangement — required.** Do not protect OMNI by defining a competitor as records-only, integration-only, or incapable of employing clinicians and contracting with delivery organizations. Keep ECB's operating-model comparison distinct from Task D's wider verdict (`§12.8`).
+
+**The result must be capable of saying: reuse this · simplify that · change this boundary · defer this pending specific evidence · do not undertake this responsibility.**
+
 ---
 
 ## §12 — The four required outputs
@@ -480,6 +506,108 @@ INSUFFICIENT_EVIDENCE
 
 **Where an ECB result addresses a Task-D obligation, record the correspondence** — requirement or fixture · assumptions · candidate version · evaluation method · result · evidence level · remaining limitation — so Task D can accept the work rather than rerun it. **Reuse crosses the boundary; acceptance authority does not.** **The relationship must be resolved against** `v4_pre_spine_sufficiency_and_task_d_reentry_map_2026-08-04.md` and the interim terminus `v4_C4_2A_task_d_interim_closeout_and_pause.md` rather than invented — **and it has not been: this seat has not read either beyond confirming they exist** (`§13.2`). The map separates readiness and sequence from the scoring method and checkpoint state; **naming it does not reconcile it**, and that reconciliation is a Pass-1 obligation.
 
+## §12.9 — THE EXECUTION CONTRACT *(binds every agent entering or continuing ECB)*
+
+**This section exists because the FAI arc reached Output 4 before it had a working method, and reinvented roughly a quarter of its machinery mid-arc.** The inheritance below is taken from mechanisms that already exist and were paid for; ECB adopts their behaviour without promoting FAI's architecture conclusions.
+
+### §12.9.1 — Who this binds, and what a successor inherits
+
+**This contract applies to every author and reviewer entering or continuing ECB — including replacement, restarted and compacted contexts.** A successor inherits the work object and its obligations, **not the predecessor's claimed familiarity, confidence, or unrecorded reading.** *(Agent Work Protocol `§2.1`: replacement assumes the same lane after explicit ownership transfer and freshness check; it creates no new lane and no new authority.)*
+
+At fresh entry, or on loss of reliable working context, the agent recovers these facts **from the carrier, never from chat**:
+
+| Required entry fact | Durable home |
+|---|---|
+| Accepted plan baseline, or that G0 remains unaccepted | `§15.0` acceptance receipt + `§1` |
+| Current head/blob, active writer, phase, bounded work item | `§1` operational state |
+| Applicable execution and evaluation rules | `§§11`–`§13` |
+| Current integrated account, and its proposal-vs-acceptance boundary | the G1 output sections at `§12.9.6` |
+| Sources actually consumed, at what depth, with what remaining | `§13.2` live control |
+| Unresolved findings, review instructions, exact next permitted action | current review/stop receipt |
+
+**Baseline versus working carrier.** Ordinary authorized authoring moves the working head; **it does not silently move the accepted method.** A material change to scope, evaluation rules, acceptance conditions or authority limits requires explicit review. Unrelated settled content is not reopened for it.
+
+**Proportionality.** A continuing agent with intact context need not reread the packet before every message. **A replacement, or a materially stale context, re-establishes the contract and current state before asserting anything.** Each agent reads the native sources for the source-derived claims **it personally asserts**; a predecessor's receipt is attributable evidence, not personal consumption (`§13.0` ①/②).
+
+**Stale-pointer exception, stated so it is not rediscovered every entry.** `main`'s boot pointer names the pre-FAI checkpoint. **ECB's assignment and the pinned FAI pause context govern this work. The older pointer does not redirect the agent to Insurance, and no pointer-cleanup project is authorized.**
+
+### §12.9.2 — Work units: a phase label is not authority to finish the phase
+
+`RECONCILE → TRACE → EXTRACT` are phases, **not three agent responses.**
+
+> **Each authorized work unit names one substantive question, its required source packet, the carrier sections it may update, its expected result, and its review stop. It ends when that result is ready — or earlier, when unresolved semantic load requires a checkpoint (`§13.0` ③). No agent may treat a phase label as blanket authority to complete the phase.**
+
+| Phase | Work | Required result before release |
+|---|---|---|
+| **RECONCILE — unit 1** | recover the inherited joint care/business account at its actual scope | attributed account; accepted-vs-candidate distinctions; contradictions; reusable evidence; named proof debt |
+| **RECONCILE — later units** | reconcile remaining decision-relevant source families incl. native owners and forensic corrections; develop alternatives where the question needs them | a coherent **comparative candidate account**, not a source list; **no undisclosed material source gap behind a retained claim** |
+| **TRACE — preparation** | instantiate `§12.9.4` against recovered candidates and selected inherited/new cases | reviewable case inputs, candidate versions, expected predicates, evidence basis, coverage and known limits — **before scoring** |
+| **TRACE — evaluation units** | run declared traces, apply controls, challenge coverage, revise candidates where warranted | recorded results and counterexamples; **materially affected tests rerun after any candidate change**; independent challenge dispositioned |
+| **EXTRACT** | consolidate the operating account; produce A–D | authorable downstream package; evidence-backed decision dispositions |
+| **G2** | adjudicate the assembled result and its limits | acceptance, amendment, rejection, or bounded insufficiency **at the evidence level actually earned** |
+
+**No unit completion is self-acceptance.** Nick releases the next bounded work after review. **Inside its scope the author reads, reasons, invents alternatives, challenges sources and repairs the artifact without asking permission for each step.**
+
+### §12.9.3 — The first activated work unit, specified now
+
+**Question.** What does the inherited joint care/business account already say about how **care resolution, sourcing, fulfillment, settlement and independently governed participation** compose — and which parts are accepted at scope, which are candidate, and which are still owed?
+
+**Entry packet.** The `EVRUN-2026-000012` directory, entering through **`_07`** as the disposition and consumption endpoint, reading **`_02 §15`** as the operative structural account and **`_04`** as its structural adjudication. **Follow `_07` into any further native section this unit's claims materially rely on; do not substitute `_07` for those bodies.**
+
+**Write result.** The initial inherited account in `§12.9.6`'s designated section; source-to-consequence rows in `§13.2`; named proof debts and the next source cohort. **No architecture acceptance. No claim the source floor is complete. No frontier-sufficiency verdict.**
+
+**Stop.** Return for review before opening the next substantial cohort — **or earlier if source or relationship conflicts cannot be responsibly synthesized in the current context.**
+
+**This is the first unit. It is not the reconciliation phase, and it is not an instruction to rebuild `EVRUN-000012`.**
+
+### §12.9.4 — What running a test means
+
+**Default: a source-grounded, stepwise design trace.** Any use of an executable model or observed evidence is labelled distinctly. **Prose execution, simulation, implementation and deployed proof are four different things and are never reported as one.**
+
+Each scored case carries: **question and competing accounts** (which decision it tests; exact candidate versions; the strongest applicable inherited or simpler alternative) · **initial conditions** (participants, responsibilities, authority assumptions, resources, evidence, versions, timing, **and what each participant can actually observe**) · **event sequence** (requests, responses, delays, changes, refusals, partial effects, failures, in explicit order) · **expected behaviour** (predicates fixed **before** scoring, each with the source or declared design requirement supporting it; assumed clinical or scientific conditions separated from verified ones) · **trace** (per consequential step: responsible owner, information used, permission, state change, external effect, uncertainty, continuing obligation) · **result and limitation** (satisfied · concrete violation · underspecified · unsupported assumption · insufficient evidence) · **consequence** (which candidate clause or downstream obligation changes; which prior tests are affected; what needs independent checking).
+
+**The evaluator may not repair an underspecified candidate mid-trace and then score the repaired behaviour as if it had been specified.**
+
+**Expected behaviour needs an attributable basis. Reviewer agreement establishes no biological efficacy, no control-system safety, and no institutional acceptance.** Where those facts are unavailable the test may examine whether the arrangement **preserves the uncertainty and routes the decision correctly** — it cannot award the missing external proof.
+
+**Comparison uses the same demanded outcome, operating span and material conditions.** A whole OMNI arrangement is never compared against a competitor artificially stopped at storage, publication or messaging. **Value evaluation counts work shifted onto patients, clinicians, counterparties and operators**; analytical estimates and synthetic traces stay labelled and produce no measured benefit.
+
+**A method defect discovered mid-evaluation is recorded and reviewed before affected scoring continues; unaffected work does not automatically stop.**
+
+### §12.9.5 — Two test specifications, prepared now and deliberately unscored
+
+**These exist to prove the method is usable before G1 begins. Candidate-specific results stay empty until the declared evaluation stage.**
+
+**SPEC-ORD — ordinary care.** A valid authorized prescription; an independently governed pharmacy. The request is received, **substantive acceptance is delayed, an acknowledgment is duplicated, and a later response proposes a material substitution.** The spec must distinguish **receipt from acceptance, acceptance from fulfillment, and a proposed substitution from an adopted clinical change**; must test **both** avoidance of duplicate action **and** legitimate progress once the required decisions occur; and must state what the pharmacy controls, what OMNI records, and which owner makes the resulting OMNI-side decision.
+
+**SPEC-GEN — generated intervention.** A patient-specific intervention with a versioned design basis, a manufacturing commitment and **an irreversible preparation step.** A material patient-context change arrives **after preparation begins and before administration.** The spec must distinguish **manufacturing completion from current suitability**, preserve both the old decision basis and the new evidence, account for **consumed material**, and route reconsideration to the responsible authority. **It must not assume that every change restarts everything, that an old approval remains sufficient, or that physical work can be rolled back.**
+
+Both declare inputs, event sequence, expected predicates, **the provenance of those predicates**, a counterexample, a positive path, and limits.
+
+### §12.9.6 — Durable homes, so nothing dies in a thread
+
+| Content | Home |
+|---|---|
+| current integrated operating account | `§7.4` *(created on first RECONCILE unit)* |
+| evaluation specifications and results | `§11.6` *(created at TRACE preparation)* |
+| value claim and evidence contract | Output C, `§12` |
+| downstream dispositions | Output D, `§12` |
+| live source-to-consequence control | `§13.2` |
+| current remaining-work and review record | `§15.4` |
+| historical lineage | `§16` — **and nothing current lives there** |
+
+**A meaningful correction discovered inside a unit enters the relevant current section and its evidence record before that unit is returned. *"Discussed with Nick"* is not a preservation state.** Do not rewrite the whole dossier each round; update the affected account and preserve its lineage. **Do not leave a withdrawn assertion live because a correction appears elsewhere** — that failure has now occurred four times in this carrier.
+
+### §12.9.7 — Replacement readiness, and the four review responsibilities
+
+**Before the plan is called startable, the carrier must answer these without chat history:** what exact object am I working on · which method applies · what has been accepted · what is my next bounded question · what must I read · where do I write · what remains unresolved · what evidence do I return · where must I stop.
+
+**Interrupted-work case, which the contract must survive.** A unit has consumed part of its source packet, recorded a provisional contradiction, and stopped before resolving it. **The replacement preserves that state, resumes at the named remaining read, and converts the partial result into neither an accepted finding nor a reason to start over.**
+
+**A reconstruction performed by the sitting author is a self-check, not a cold-agent test.** A bounded read-only continuation rehearsal can supply the stronger evidence; it stays a G0 readiness check and **authorizes no G1 execution.**
+
+**Review, adopted as behaviour rather than headcount** *(Output-4 convention, not promoted doctrine)*: **source adequacy** · **relationship integrity** · **cold artifact coherence** · **fidelity of the reported working state** — the last asking whether the artifact, diff, source record, remaining work and reported next step actually agree.
+
 ---
 
 ## §13 — Method, sources, preservation
@@ -506,7 +634,29 @@ INSUFFICIENT_EVIDENCE
 
 **§13.1 Method law** *(arc-local, subordinate to `§13.0`)*. `1` Inheritance verification precedes assertion, not capture — capture provisionally, verify before asserting anything as new, settled or authoritative. `2` **A comparator claim is a novelty claim** and owes the same check. `3` **Before proposing a structural decomposition, consume the operative structural account of the most recent joint/cross-domain run — not its closeout.** `4` Source floor declared and discharged per output; delegated scans labelled as evidence, not an authored read. `5` One carrier. `6` No parallel lanes before G0 acceptance. `7` `METHOD-000` default; one current-state surface (`§1`). `8` **External sources captured with provenance and maturity before any conclusion depends on them** — `research_demonstration` · `clinical_investigation` · `authorized_bounded_use` · `established_operational_capability` · `speculative_future_assumption`. A statute or specification is authoritative about its own content without proving a deployed capability. `9` No absence claim without its coverage; no history claim from a current-state search; **no causal claim about a past omission without evidence for the cause.** **`9a` — An absence claim must be produced by a verified-working search.** Repeated `rg --glob '*.md' .` invocations in this session returned **silently empty** on terms that demonstrably exist (`delegated_authority_envelope`, `capability_envelope`, `ai_participation_policy`). **Several R5/R6 absence claims were therefore artifacts of a failing tool call, not findings about the estate** — a mechanical contributor to this arc's repeated under-inheritance that is independent of routing. **Cross-check every absence with a second, differently-shaped query before asserting it.** → `D0ECB-REV-007`. `10` **Expose the basis of a load-bearing claim (`§4`) — without forcing a box.** `11` **Stop framing each recovered passage as the biggest discovery yet.** `12` **Preserve the ambition and the contract together (`§2.1`); neither may be deleted in favour of the other.**
 
-**§13.2 Source register and coverage receipt.** Per `§13.0` ①/⑤ each entry carries **path · section · status · controlling terminus**, because a path alone invites the label-as-disposition error this arc has already made.
+**§13.2 Live source-to-consequence control.** Per `§13.0` ①/⑤ each entry carries **path · section · status · controlling terminus**, because a path alone invites the label-as-disposition error this arc has already made.
+
+**This is working state, not a retrospective receipt** *(FAI Output-4 `§E15.17.8`, adopted as behaviour)*. From the first activated unit it is **maintained as reads occur**, so that *what was inspected · exact sections · by whom · at what depth · source authority and relevant adjudication · native mechanism recovered · the ECB claim, decision or output affected · semantic consequence · what was explicitly NOT inspected · what remains next* is answerable **at any moment**, not only at a pass boundary. Five columns:
+
+`Source · ref · exact sections · reader · depth` | `Authority, maturity, supersession, relevant adjudication` | `Native mechanism or finding` | `ECB claim / decision / output affected` | `Disposition · uninspected scope · next required action`
+
+**Rules, inherited verbatim in substance:** **no row may terminate at "read," and no row owes an empty field** · **depth follows consequence** — a source with no material consequence earns a compact semantic receipt, one that merely confirms earns only the consequence, one that sharpens, contradicts, splits, relocates or exposes missing law earns full relational treatment · **a read is triggered by an exact retained claim, not by breadth** · **admitting a new source mid-unit is normal and resets nothing** · **no coverage percentage and no closed denominator may be published** — we do not possess the denominator, and a percentage asserts one. **The available completion claim is: no known material source gap behind a retained claim.** **No second table, ledger, registry, schema or tracker is created for this** — the five columns are the mechanism, and a parallel tracker becomes the competing copy `§13.5` already refuses.
+
+**Every retained load-bearing claim must be adequately supported, narrowed, or carry an explicit unresolved dependency with its acceptance effect. "Listed under remaining work" does not discharge it.** A bounded open-world search for omitted mechanisms and contrary evidence is permitted and expected: **an unknown source is not automatically irrelevant, an inaccessible source is not a passing result, and a missing peripheral read does not block unrelated work.**
+
+**Decision-territory coverage — the map must reach past the sources whose vocabulary already resembles the hypotheses.**
+
+| Decision territory | Necessary recovery coverage |
+|---|---|
+| whole operating arrangement (`D1`,`D2`) | joint care/business synthesis and its adjudication · Care and its **applicable forensic dispositions** · relevant system/surface and native lifecycle boundaries |
+| authority, context, participation (`D1`,`D3`) | Trust/GCE lineage · capability **versus** delegation · Identity · Federation · RBAC · D7 · CNS · Agent Runtime · **paused Authority dependencies stated, not resolved here** |
+| readiness and supporting business work (`D2`,`D5`) | scheduling · resources · workforce · settings/configuration · sourcing · inventory · fulfillment · commerce, including recorded ownership residuals |
+| generated interventions and research (`D2`,`D3`) | trial/research · observation · material and identity lineage · consent-purpose · clinical memory · translational evidence |
+| change, exposure, continuing responsibility (`D5`) | temporal · correction-impact · Care/Platform/Accountability · exposure · containment · transfer · obligation survival |
+| comparative value and execution burden (`D6`) | `EVRUN` product/burden and fixture work · Task-D's scoped requirements · primary external evidence the actual comparisons need |
+| prior routed learning | the existing AI-corpus routes, **with native anchors reopened when a transfer becomes load-bearing** |
+
+**Resolve these through live routes and termini. This is a coverage obligation, not permission to invent ownership and not a requirement for an indiscriminate sweep.**
 
 **What R10 actually consumed** *(this repair only — separate from the G1 floor below)*. **Read in full:** the R9 carrier; **FAI R8 `§§4.1–4.3`** at `65f310e0`; both fresh reviews. **Verified verbatim at specific passages:** `_06` `§§6.1`/`6.4`/`6.5`/`6.6` and its A–J family list · `omni_thesis_v3_integrated_2026-06-05.md` passport L1–22 and L2973/L3028/L3032 · the `EVRUN-000012` and Task-D directory inventories · `AGENTS.md` and read-graph `#15` pointers · `§11.2`'s family count. **NOT read by this seat:** `EVRUN-000012` `_00`–`_05`/`_07` · thesis `§B` body beyond the cited lines · Care capture · C4.5 and C4.3 beyond their cited rules · residual/moat · the six registries · the Task-D carriers beyond existence · C3.8 `G3`/`G4`. **`_02 §15` was read by the predecessor, not by this seat** — its characterisation at `§7` is inherited, not re-verified.
 
@@ -521,7 +671,9 @@ INSUFFICIENT_EVIDENCE
 | `.cursor/plans/ingestion/user_operator_research/analysis/EVRUN-2026-000012_joint-care-commerce-operating-substrate-hardening/EVRUN-2026-000012_07_final_closeout_depth_preservation_and_downstream_consumption.md` | full | **owns the run's final disposition and downstream-consumption contract**; explicitly **not** a substitute for `_02 §15` | itself — the run's consumption endpoint |
 | `.cursor/plans/omni_thesis_v3_integrated_2026-06-05.md` | `§B` (from L2985) | **`draft_authoring`, `derived_nonbinding`; NOT the ratified replacement until all parts land + sign-off.** ⚠ **Passport says Parts II–VIII "to follow" yet §B is present — resolve the passport/content discrepancy before citing §B as settled** | unresolved; do **not** assume this file supersedes `omni_thesis_v3_2026-06-03.md` |
 | `.cursor/plans/v4_C4_care_operating_model_capture.md` | **in full** — R9's requirement, **restored**. R10 had silently narrowed it to six sections with no source-internal basis, which is the exact defect `§13.0` ① forbids, committed in the same pass that installed `§13.0` | REVIEW-DRAFT, `analysis_nonbinding`; **frozen against edit, readable** | — |
-| `.cursor/plans/v4_C4_care_inheritance_evidence_ledger.md` | `C38-G3-006` | **extractor-cited, parent-verification pending** | follow to `G4` below |
+| `.cursor/plans/v4_C4_care_inheritance_evidence_ledger.md` | **not limited to `C38-G3-006`** — identify and consume the **accepted source-work dispositions and outstanding corrections** bearing on every Care claim ECB retains. ⚠ R10–R12 carried a single row against a ledger of **566 table rows**; that is under-inheritance | `analysis_nonbinding`; individual rows **extractor-cited, parent-verification pending** | follow each to its native carrier and to `G4` below |
+| `.cursor/plans/HANDOFF_2026-07-13_care_forensic_inheritance_audit.md` | **in full** — omitted from the floor until now | `analysis_nonbinding`; **Lanes 1–6 ALL ACCEPTED** (Nick + Knox 2026-07-14); capture FROZEN. **Its method binds any Care read**: *chronology proves lineage, not authority* · the two-axis present-authority scale · *search is navigation* · **subagents locate, the parent reads every verdict-changing source** · `§F`'s **INVALIDATED conclusions** list · `§G`'s proven findings | itself. **Reading the Care capture while skipping the accepted adjudication OF that capture is still under-inheritance** |
+| `.cursor/plans/v4_C4_6_rx_build_doctrine_standards_and_2035_conformance.md` | applicable external-counterparty, native-lifecycle, profile and conformance sections | **`L2_build_doctrine_v3_ACCEPTED` · Knox final content verdict PASS 2026-07-31** · `analysis_nonbinding`, pre-spine; a **resolved-decision register and conformance instrument**, not a build spec, contract, schema or authority host | itself — **route applicable external-pharmacy/counterparty claims through this later reviewed engineering object and its consumption chain, not only a parent charter or the residual/moat document** |
 | `.cursor/plans/v4_C3_8_G3_doctrine_breakers.md` → `.cursor/plans/v4_C3_8_G4_disposition_ledger_and_handoff.md` | `§1` → **`§2.2`** | question → **operator-ratified layered ownership direction**; contract mechanics downstream | **`G4`** — read as question→direction, neither "unanswered" nor "implemented" |
 | `.cursor/plans/v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md` | `T-11`–`T-22` | Gate-0 charter accepted; **pass not started** | itself |
 | `.cursor/plans/v4_C4_3_care_response_seam_correction_continuity_test.md` | `§10.1` + coverage/oracle | design-validation candidate; runtime and external acceptance unproven | itself |
@@ -647,7 +799,25 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 **R1** `60619c4f` initial · **R2** `3b9db0c2` nine Knox amendments; *"2035 comes free"* withdrawn · **R3** `88e65c07` maturity ladder dissolved; governance made a constraint plane · **R4** `93dab6aa` scope de-clinicalized from Care `§1a`; naming deferred per `GRD-026`; Palantir withdrawn · **R5** `0bbfa91c` `EVRUN-000012 §15` recovered and installed as inherited structure; lattice demoted; speed thesis introduced.
 
-**R12** (this revision) — **bounded integrity correction on a pinned entry object** (head `b859131b`, blob `d56cc398`, verified before editing). Three corrections, no reopening of R11's substantive repairs.
+**R13** (this revision) — **installs the execution contract.** R12's I1/I2/I3 are closed and not reopened. The question, corrected premises, decisions, three phases, Outputs A–D and boundaries are retained. **Nothing in G1 was performed and no architectural verdict was populated.**
+
+**`§12.9` added — the contract binds every agent, not a kickoff prompt.** The failure it answers is the one the operator named: FAI reached Output 4 before it had a working method and reinvented roughly a quarter of its machinery mid-arc, and a G1-wide control written inside Output 4 would have been invisible to Output 5. **`§12.9.1`** gives a successor six entry facts with a durable home each, separates the **accepted baseline** from the working carrier, makes reading proportional to context freshness, holds each agent to reading the natives for claims **it personally asserts** (Agent Work Protocol `§2.1`, verified at L66/L105 — eight durable facts; replacement assumes the same lane after explicit transfer and freshness check), and states the stale-`main` exception once so it is not rediscovered every entry.
+
+**`§12.9.2` — a phase label is not authority to finish the phase.** Work units name one question, a source packet, the sections they may update, an expected result and a review stop; they end on the result **or earlier at a semantic-load checkpoint**. **`§12.9.3` specifies the first unit now** — the inherited joint care/business account, entering through `_07` as the consumption endpoint with `_02 §15` operative and `_04` adjudicating, writing to `§7.4` and `§13.2`, stopping before the next cohort. **Not the phase, and not an instruction to rebuild `EVRUN-000012`.**
+
+**`§12.9.4` — what running a test means**, so nobody designs the method mid-arc: default is a source-grounded stepwise design trace; **prose execution, simulation, implementation and deployed proof are never reported as one thing**; seven required elements per scored case; **the evaluator may not repair an underspecified candidate mid-trace and score the repair**; reviewer agreement establishes no efficacy, no control-system safety and no institutional acceptance; comparison holds the demanded outcome and operating span constant; value counts work shifted onto patients and counterparties. **`§12.9.5`** prepares **SPEC-ORD** (delayed acceptance, duplicated acknowledgment, proposed substitution — receipt ≠ acceptance ≠ fulfillment ≠ adopted clinical change) and **SPEC-GEN** (irreversible preparation, then a material context change — manufacturing completion ≠ current suitability, consumed material accounted, no assumption that physical work rolls back), **both deliberately unscored.**
+
+**`§12.9.6` gives every output a home** — `§7.4` account · `§11.6` specs and results · Output C · Output D · `§13.2` source control · `§15.4` remaining work · `§16` lineage only. **A correction enters its section before its unit is returned; *"discussed with Nick"* is not a preservation state.** **`§12.9.7`** sets replacement readiness with the **interrupted-unit case** a successor must survive, distinguishes an author self-check from a cold-agent test, and adopts Output-4's four review responsibilities as behaviour rather than headcount.
+
+**`§13.2` upgraded from a reading list to a live working control** on FAI `§E15.17.8`'s pattern (verified at carrier L6015): five columns, maintained **as reads occur**, answerable at any moment; **no row terminates at "read" and no row owes an empty field**; depth follows consequence; a read is triggered by an exact retained claim, not by breadth; a new source mid-unit resets nothing; **no coverage percentage and no closed denominator** — the only available completion claim is *no known material source gap behind a retained claim*. A **decision-territory coverage map** forces the floor past the sources whose vocabulary already matches the hypotheses.
+
+**Two floor corrections.** The Care evidence ledger was carried as a **single row against 566**; it now requires the accepted dispositions and outstanding corrections bearing on every retained Care claim, and **`HANDOFF_2026-07-13_care_forensic_inheritance_audit.md` is added in full** — Lanes 1–6 accepted, its method binding on any Care read, including *chronology proves lineage not authority* and *subagents locate, the parent reads every verdict-changing source*. **Reading the capture while skipping the accepted adjudication of that capture is still under-inheritance.** And **C4.6 Rx L2** is added as the later reviewed engineering/conformance object through which external-counterparty claims route — not a parent charter, not the residual/moat document.
+
+**`§11.6` added** — six required scenario families as conditional pressures rather than vendor predictions, plus the **extension test** (introduce a materially different participant *after* the account is formed; *"everything fits"* is not the required answer) and the **credible competing whole arrangement** rule. **`§1` gains an operational-state block** so a successor reads active writer, phase, bounded work item and next permitted action from the carrier.
+
+**One boundary held against the operator's wording:** the plan does **not** promise that no new test will be designed after kickoff — that would reward failing to discover anything. What is settled before kickoff is the **method, initial specifications, coverage obligations, result meanings, revision rules and decision authority**; a later case instantiates or extends that method for an actual finding rather than reopening what a test is.
+
+**R12** `3c84cf9e` — **bounded integrity correction on a pinned entry object** (head `b859131b`, blob `d56cc398`, verified before editing). Three corrections, no reopening of R11's substantive repairs.
 
 **I1 — version binding.** `§15.0`'s live acceptance checklist still asked Nick and Knox to **accept R10 inside an R11 document**, with a matching *"Produced by R10"* and a stop condition naming R10 as the next candidate. **Acceptance now binds to the reviewed content revision identified by head and primary blob**, not to a revision name, so a later patch cannot inherit an earlier revision's acceptance. Both boxes unchecked; no activation recorded.
 
