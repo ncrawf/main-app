@@ -1,76 +1,14 @@
-# ECB Gate 0 — the intent-to-consequence constitution: recovering it, and testing it against 2035
+# ECB Gate 0 — the operating model for timely, safe, accountable action across independently governed participants
 
-Document type: `plan_or_roadmap` — **Gate-0 estate-reconnaissance and question-definition carrier**
+Document type: `plan_or_roadmap` — **Gate-0 investigation charter**
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Originates no doctrine, mints no name, accepts no architecture, promotes nothing.**
-Status: `G0_R5_AUTHORED_PENDING_NICK_KNOX_REVIEW · arc_not_started · fai_untouched · structural_inheritance_RECOVERED · catalog_registration_OWED`
-Revision: **R5** — amends R4 (`93dab6aa`) against the Knox structural review. Log at `§22`.
+Status: `G0_R6_AUTHORED_PENDING_NICK_KNOX_REVIEW · arc_not_started · fai_untouched · catalog_registration_OWED`
+Revision: **R6** — amends R5 (`0bbfa91c`). Log at `§16`. **Section numbering and question IDs are stable from R6; the R5→R6 map is at `§15.3`.**
 Domain(s): `cross_domain` · `architecture_governance` · `federation` · `rbac_authority` · `cns_orchestration` · `ordered_fulfillment` · `d6_commerce` · `d3_scheduling` · `business_ops_workforce` · `d7_documents_consent` · `observation_measurement` · `clinical_memory` · `trials_research`
-Lifecycle role: recovers the operative structural account the estate already produced, records what it does and does not settle, and defines how it must be tested across the individual, operational and network regimes before any architecture is proposed.
+Lifecycle role: defines the investigation — its question, its inherited candidates, its ambition, its bounded mechanism, and the four outputs it must produce — **without deciding its answer.**
 Source-of-truth relationship: **owns nothing.** Arc state belongs to `§1`.
-Manifest action: `add_tier2` — **PROPOSED, registration OWED** (`§20`).
+Manifest action: `add_tier2` — **PROPOSED, registration OWED** (`§14`).
 Review gate: `user_knox_required`
-
----
-
-## §0 — R5: the structural account already existed, and this arc missed it three times
-
-### §0.1 The organism was named on 2026-07-19
-
-The operator has asked *"what is the organism"* repeatedly. **It was written down two months ago** — in `EVRUN-2026-000012_02_gate3_full_spectrum_synthesis.md` `§15`, the sole operative Gate-3 result, after a blind Gemini pass and a Knox adjudication. Verbatim:
-
-```383:383:.cursor/plans/ingestion/user_operator_research/analysis/EVRUN-2026-000012_joint-care-commerce-operating-substrate-hardening/EVRUN-2026-000012_02_gate3_full_spectrum_synthesis.md
-> *OMNI is a risk-adaptive intent-to-consequence constitution compiled across multiple native lifecycle families and decision grammars. Each retains domain-owned authoritative records, non-fungible authority, native controllers, custody semantics, terminal states, selective-reopening rules, and independent closure horizons. Typed and evidenced cross-lifecycle relations propagate dependencies, custody offers and acceptances, exceptions, compensation/remedy signals, and reconsideration without transferring truth or authority. Governed matter/consequence projections make the composite state legible but own and execute nothing.*
-```
-
-And the definitional statement, from `§15.9`:
-
-> *the constitutional, relational, and continuity substrate through which multiple authoritative lifecycles become one coherent patient and operating reality **without collapsing their truth, authority, custody, control, or closure*** — it **defines and enforces, within managed scope, the rules by which consequential state can cross, remain coherent, reopen correctly, and stay provable.** *(Not omnipotent over nodes; not merely present at seams.)*
-
-**The four-revision naming saga is therefore over, and not by minting a fifth label.** The subject is **recovered**, at its actual authority: `ARCHITECTURE_CANDIDATE` inside a nonbinding analysis run, `GATE_3_ACCEPTED_WITH_ADJUDICATED_LIFECYCLE_CORRECTION`, **not promoted system architecture and not runtime proof.** `ECB` remains the work identifier.
-
-### §0.2 The lattice is demoted. Knox is right, and `§15.2` had already solved its central defect
-
-R4 proposed nine tracks × seven ownership dimensions × four admissibility projections as the decomposition and made it Gate-1's first output. **Withdrawn as a metamodel.** Knox's three counterexamples hold:
-
-1. **An empty cell is not automatically missing architecture.** A bulk purchase before any patient exists correctly has no `clinical_owner`. The real question is whether an *applicable consequential responsibility* lacks an owner.
-2. **One principal in two roles is not automatically a collapse.** A clinician who also owns the business acts in distinguishable **capacities**; the architecture must separate capacities, not require different people. Conversely one act may legitimately require several authorities for different aspects.
-3. **Correct classification does not establish correct combined behaviour.** Two procedure plans can each be properly classified, authorized and apparently ready while both depend on the last sterile tray at the same moment. Classification resolves none of reservation exclusivity, stale readiness, competing priority, or what happens once one procedure starts.
-
-**And the estate had already replaced population-of-cells with a better mechanism** — `§15.2`, activation rather than counting:
-
-```357:357:.cursor/plans/ingestion/user_operator_research/analysis/EVRUN-2026-000012_joint-care-commerce-operating-substrate-hardening/EVRUN-2026-000012_02_gate3_full_spectrum_synthesis.md
-**A transition does NOT leave the constitutional family because one invariant has no activation condition in that instance.** A draft spelling-correction may activate neither custody nor remedy; a config rollout affecting ten thousand patients absolutely may.
-```
-
-Each lifecycle declares, **per invariant**: `applicability · activation_condition · profile-specific meaning · enforcement owner · required evidence · failure consequence`. That is strictly better than a Cartesian grid, and it was adjudicated two months ago.
-
-**Care `§1a` keeps its real job** — it is a **routing rule for classifying a contribution** (*"is everything Care?" = NO*), which is genuinely load-bearing and genuinely answers the operator's clinical-scope question (`§3.4`). It is not a metamodel of the organism, and R4 promoted it beyond its remit. R4's knee-replacement table also assigned authority its evidence did not earn: a care coordinator does not thereby own sterile-processing release, inventory truth or implant compatibility, and Care `§5b` already maps readiness onto operational state, Inventory and Runtime/capability health while `§14` distinguishes `service_work_order` from `care_obligation` from a blocker projection. **The narrower surviving claim: no integrated, owned readiness *composition* has been located — not that readiness has no ownership basis.**
-
-### §0.3 Three misses, one documented mechanism — and the irony is exact
-
-This arc has now failed to inherit an operative prior account **three times**: C3.7 `§12` (the super-frame), the residual/moat Palantir observation, and now `EVRUN-000012 §15` — which is the most developed structural work in the estate and the closest thing to an answer to the operator's actual question.
-
-**The mechanism is documented inside the artifact itself:**
-
-```410:410:.cursor/plans/ingestion/user_operator_research/analysis/EVRUN-2026-000012_joint-care-commerce-operating-substrate-hardening/EVRUN-2026-000012_02_gate3_full_spectrum_synthesis.md
-Discoverable via run folder + lane index; catalog run-row points to folder + `_00`; no global read-graph route.
-```
-
-**No global read-graph route.** The catalog row points at `_00`, not at `_02 §15`. And `_07`, the closeout, explicitly warns a substantive consumer **not to substitute itself** for `_02 §15` — so even an agent who finds the run and reads the closeout lands on the wrong file unless it obeys that one sentence. **This is the `#9g` Reactor mechanism at a deeper level: the estate's best structural thinking is reachable only by someone who already knows it exists.** That is a routing defect with a concrete, high-value fix (`§20.3`), and it is the single change most likely to prevent the tenth re-derivation.
-
-**The irony, recorded rather than laundered.** `§15.9` is titled *"Opus note (own the correction, don't launder it)"* and records a prior Opus accepting exactly this error class: *"invariant-counting is not genus-classification, and I compared unequal spans."* **R4's lattice is the same error — classification promoted to structure — committed by the same seat, against the same reviewer, two months later, because the correction had no route.** Candidate guardrail at `D0ECB-REV-006`: **before proposing a structural decomposition, an agent must consume the operative structural account of the most recent joint/cross-domain run, not its closeout.**
-
-### §0.4 "One patient" is a required lens, not the root
-
-Accepted. Patient-centred **purpose** does not imply a patient-rooted **data model**. A sterilizer serves many procedures; a lot supplies many clinics; a model version informs thousands of decisions; a supplier agreement precedes the next patient; a procurement event may have **no identified patient at all**; a donor and recipient hold different relationships to one intervention. `§15.4` Layer 3 already forbids the collapse: *"no central Reactor table · no universal action-episode truth · no universal obligation ledger · no projection that commits."*
-
-**R4's title framing is withdrawn.** Three scale regimes must be exercised directly and the first cannot prove the others (`§9`, `§16`).
-
-### §0.5 Scenario authorship — R4 over-applied a local arrangement
-
-R4 adopted C3.7's *"Opus does NOT author the rows"* as law. **Knox is right that this was a local work arrangement, not the constitution of every arc**, and the operator should not be assigned manual authorship of hundreds of rows by an inherited sentence. Corrected at `§16`: **Opus proposes cases from the generator; Knox or another independent reviewer challenges the coverage model, supplies held-out cases and rejects incorrect expected behaviour; Nick adjudicates.** Independence is placed where it changes confidence, not as a rule about which model may type a row.
-
-**And R4's test set was all breakers.** Knox: *"A system that only knows how to stop is not an adequate operating model."* Positive capability tests are now mandatory (`§16.4`).
 
 ---
 
@@ -78,353 +16,313 @@ R4 adopted C3.7's *"Opus does NOT author the rows"* as law. **Knox is right that
 
 ```
 Arc key:                 ECB  (work identifier only)
-Subject:                 RECOVERED — EVRUN-000012 §15.6 / §15.9
-                         status: ARCHITECTURE_CANDIDATE, nonbinding run,
-                         Gate-3 accepted with correction; NOT promoted
-Arc state:               GATE_0_R5_AUTHORED — NOT STARTED, NOT ACCEPTED
+Inherited candidate:     EVRUN-2026-000012_02 §15 — ARCHITECTURE_CANDIDATE,
+                         scoped to its run, explicitly NOT the only coherent
+                         architecture. A candidate to test, not an answer.
+Arc state:               GATE_0_R6_AUTHORED — NOT STARTED, NOT ACCEPTED
 Gate 0 verdict:          none issued
 Architecture accepted:   none
 Name minted:             none
-Scenario library:        not authored here — generator only (§16)
 FAI relationship:        separate bounded object; FAI G1 untouched
 Next act:                Nick + Knox accept / amend / reject
 ```
 
 ---
 
-## §2 — Repository, base and review-object posture
+## §2 — The question
 
-| Field | Value |
-|---|---|
-| Repository / branch | `ncrawf/main-app` · `cursor/ecb-g0-reconnaissance-6a09` |
-| Base | `main` @ `2629099e0a611510e52a34c6479f6353bf11a0d5` |
-| R1 / R2 / R3 / R4 heads | `60619c4f…` / `3b9db0c2…` / `88e65c07…` / `93dab6aa…` |
-| Branch inheritance | **NONE** — based on `main`, not the FAI branch |
+> **What operating model must OMNI realize so that people and independently governed systems can turn changing, incomplete context into timely, safe, accountable care and supporting business action — across individual, shared-operational, and population/network settings, including generated therapies and adaptive physical systems — and which existing, revised, or new mechanisms make that possible?**
 
-**FAI pins (read-only):** branch head `65f310e0…` · pause checkpoint blob `46c0e003…` · plan R8 blob `ba4c967a…` · G1 carrier blob `9835715e…`. **Receipt:** the carrier blob is `9835715e`, exactly what the pause checkpoint `§2` pins as identical across its three recorded heads. **Frozen Authority content has not drifted.**
+**A valid result may conclude that the inherited candidate is sufficient, needs named extensions, needs a different decomposition, or is more elaborate than a requirement warrants. All four must remain reachable.** The arc is not a recovery exercise, a `REV-188` ticket closure, a universal industry-ontology project, or a rewrite of native domain lifecycles.
+
+### §2.1 Two statements that must both survive, and must not be merged
+
+The operator's instruction: *"if we derived the actual ambition, celebrated it, then diluted it down with the guardrail framing and discarded the ambition... then future us drifts, future us doesn't see the ambition."* **Correct, and the fix is not to choose between them.** Both are recorded, separately labelled, with an explicit rule that the second bounds *how* we pursue the first and **does not replace it**.
+
+**THE AMBITION** — a declared strategic intention (`strategic hypothesis` basis, `§4`):
+
+> **OMNI exists to make care act at the speed of the decision and the safety of the best available evidence — simultaneously — from a moisturizer sale to a trauma suite. Not a faster chart. Not a safer chart. An operating substrate on which a commitment can be made the moment it is warranted, and reconsidered the moment it should be, without anyone re-assembling the world by conversation first.** If OMNI cannot eventually stand behind *"we decomposed the physics, built the relationships, and built it for speed and safety"*, it has not earned its position.
+
+**THE CONTRACT** — the bounded mechanism by which the ambition is pursued, and the only thing this arc may test:
+
+> **OMNI is designed to reduce avoidable delay and preventable error by maintaining trustworthy, source-attributed context and explicit conditions for action; reusing what remains valid; rechecking what may invalidate the next act; coordinating resources and independent commitments; and carrying material changes to the authorities responsible for responding. It must remain honest about what is unknown and preserve necessary judgment, consent, verification, and continuing responsibility.**
+
+**The relationship, stated so neither erodes the other:** the ambition names what we are reaching for and may be quoted by the company. The contract names what we will actually build and be measured on. **A guardrail that deletes the reach is a governance failure; a reach that hides the guardrail is a safety failure.** Both go to their homes in `§13.4`.
+
+**And the target is timely *appropriate* action, not transaction velocity.** A faster unnecessary intervention is not an improvement. Sometimes the correct output is immediate action; sometimes fresh evidence, deliberation, refusal, or preparing adjacent work while one condition stays open.
 
 ---
 
-## §3 — The subject, recovered — and what it does and does not settle
+## §3 — The speed mechanism, corrected: observation is not commitment
 
-### §3.1 Inherited structure (`§15.4`, five layers)
+R5 claimed speed comes from preconditions being *"continuously known"* so a commitment can be made *"without re-verification,"* and that a change reaches *"exactly"* the dependent decisions. **All three are withdrawn.** The correction produces a sharper thesis than either R5 or the review.
 
-| Layer | Content | Status |
+### §3.1 What the tray example proves
+
+Two procedures both read *"one sterile tray available."* **Both satisfy a precondition check. Neither can safely proceed.** A more frequently refreshed indicator does not help — this is time-of-check/time-of-use, and the fix is not a fresher check. **The fix is that one of them must be able to HOLD the tray.**
+
+Generalising: **speed does not come from knowing a precondition is satisfied. It comes from being able to convert it into a held commitment.** *"One tray available"* is an observation and is worthless for making a promise. *"This tray is reserved for this case until T"* is a commitment and is the only thing a promise can rest on.
+
+**This is what the industrial comparators actually do, and R5 mis-stated it.** Amazon is not fast because it knows inventory; it is fast because it can **reserve** inventory and therefore promise a date it can keep. An airline sells a seat, not a seat count. Stripe's idempotency key does not tell you a charge succeeded — it lets you **retry safely**, which is what permits speed under uncertainty. **In every case the speed comes from a commitment primitive, not from a fresher read.**
+
+### §3.2 The corrected mechanism
+
+`EVRUN-000012 §15`'s Layer-4 relations already separate the two kinds, and R5 lumped them:
+
+| Kind | Relations | What it buys |
 |---|---|---|
-| **1** | **One risk-adaptive consequence constitution** — invariants **activate**, never counted: `admissibility-before-consequence` (every consequential transition; depth varies with risk) · `domain-owned commitment` · `accepted custody` · `no silent orphaning` · `selective reopening` · `compensation ≠ remedy ≠ reconsideration ≠ outcome` · `honest projection` · `bounded proof` | candidate |
-| **2** | **Native lifecycle families, each with its own decision grammar:** Care Resolution · Operator Configuration · Sourcing Selection · Fulfillment (OFC Act loop) · Financial Settlement · Platform Change · Accountability Response. **`Care Resolution ≠ Sourcing Selection ≠ Fulfillment Execution` — one consequential episode, NOT one lifecycle family** | candidate; Fulfillment `CONFIRM_EXISTING`; the configuration lifecycle's **name is explicitly not minted** |
-| **3** | **Domain-owned authoritative records** — *"no central Reactor table · no universal action-episode truth · no universal obligation ledger · no projection that commits"* | non-negotiable in the account |
-| **4** | **Typed, evidenced cross-lifecycle relations:** `requires · permits · depends_on · constrains · offered_to · accepted_by · actualizes · blocks · supersedes · invalidates · signals_reconsideration · compensates · remediates · exposes` — each carrying `source · authority · purpose · effective-time · visibility · evidence · challenge/supersession · proof` | candidate |
-| **5** | **Governed projections** — *"owns no truth, owns no obligations, commits nothing, routes nothing, reopens nothing, remedies nothing."* **No universal CNS executive.** Flow: distributed records/events → governed projection/context assembly → **profile-specific controller** evaluates under its own authority → typed candidate/trigger/control-request → **owning authority commits** → proof returns to the projection | candidate |
+| **Evaluation** — is this condition supported by available evidence? | `requires` · `depends_on` · `permits` · `constrains` | knowing whether to proceed; **never a guarantee about the world** |
+| **Commitment** — is this thing *held* for this act? | `offered_to` · `accepted_by` · `actualizes` · `blocks` | the ability to **promise**; exclusivity; the basis of speed |
+| **Consequence** — what changes when something a decision rested on changes? | `invalidates` · `signals_reconsideration` · `supersedes` · `compensates` · `remediates` | the ability to **reconsider correctly**; the basis of safety |
 
-**Typed custody (`§15.5`), three distinct meanings:** **change custody** (who carries an approved change into effective operation) · **execution custody** (who accepted responsibility to perform) · **consequence custody** (who owns the unresolved patient/operator/financial/response consequence). *"The accepted-custody law applies only when one of these actually transfers — it does not force every transaction to invent a custody event."*
+> **Speed comes from holding commitments, not from fresher observation. Safety comes from knowing what to reconsider when a held commitment breaks or a relied-upon fact changes. Efficiency comes from discovering infeasibility at planning time rather than at execution time.**
 
-### §3.2 What `§15` explicitly leaves open — the arc's actual work surface
+**Why healthcare is slow, restated correctly:** healthcare mostly **cannot make commitments** across organizational boundaries — it can only make observations and conversations. Nobody can reserve the tray, hold the OR minute, bind the supplier, lock the pre-auth, or pin the result's applicability. So every step is renegotiated verbally at the moment of need. **The delay is not missing information; it is missing commitment primitives.** `H-SPEED`.
 
-From `§15.6` and `§15.8`, verbatim scope: *"Exact counterparty-offer, equivalence, sourcing-selection, procurement-cost, and projection homes remain architecture candidates pending **C5 deduplication, Task-D falsification, runtime proof, external acceptance, and market validation**."*
+### §3.3 What is bounded, and what is inherited
 
-Component status: Reactor consequence-generality `ARCHITECTURE_CANDIDATE` · operator operating-change lifecycle `ARCHITECTURE_CANDIDATE` (needs C5/spine dedup) · sourcing selection `ARCHITECTURE_CANDIDATE` · Fulfillment `CONFIRM_EXISTING` · counterparty offer `REQUIRES_C5_DEDUP` · equivalence/substitution `REQUIRES_C5_DEDUP + REQUIRES_RUNTIME_PROOF` · matter/consequence projection `SEMANTICALLY_SUPPORTED_AS_PROJECTION` (no authority) · **external capability-exchange protocol `REQUIRES_TASK_D + REQUIRES_EXTERNAL_ACCEPTANCE`** · grid/network/economic model `REQUIRES_MARKET_VALIDATION`.
+R5's overclaims are replaced by the estate's own already-correct formulations, which R5 under-inherited — the fourth such failure this arc:
 
-**Note the last-but-one: P35 / external capability exchange already has a disposition here that R1–R4 did not carry.** And nothing in `§15` was tested against **multi-subject scale, fleets and batches, population and cross-federation effects, machine-to-machine coordination, capability formation from patient context, or post-deployment adaptation.** That untested span is this arc.
-
-### §3.3 Four kinds of constraint — stop calling all of them physics
-
-Adopted from the Knox review and installed as a **standing discipline**, because conflating these conceals which assumptions can be changed:
-
-| Kind | Examples | Can it be changed? |
-|---|---|---|
-| **Reality** | incomplete observation · irreversible physical action · consumed material · elapsed time | No. Design around it. |
-| **Institutional / legal** | professional authority · licensure · data-use obligation · research/practice distinction | Only by an external authority. Represent it; do not assume it. |
-| **OMNI's chosen commitment** | portability · neutrality · non-privilege of OMNI operators · refusal to broker | Yes — we chose it and can be held to it. **State it as a commitment, not a law of nature.** |
-| **Strategic hypothesis** | defensibility · adoption · reliance accruing to OMNI · moat durability | Unproven. **Must be tested in the market, never assumed in architecture.** |
-
-**Every `[INV]` this arc proposes or inherits must carry its kind.** An architecture that labels a commercial hope as physics cannot be falsified.
-
-### §3.4 What is actually healthcare-specific
-
-**Not** identity, typed relations, temporal state, commitments, permissions, custody, resource planning, version lineage, distributed controllers, failure handling, or governed feedback. **None of those is a healthcare invention** — they are general socio-technical, cyber-physical system-of-systems machinery.
-
-**The specificity is the operating contract, and the estate already verdicted it dimension by dimension.** Care `§19` is a homology matrix across Care / Platform / Accountability with verdicts `SHARED-LAW · ANALOGOUS · CARE-SPECIFIC · OPEN`, and its two `CARE-SPECIFIC` rows are exactly the right ones — **Principal/beneficiary** and **Consent/represented authority** — with a caution this arc must carry forward: *"differentiation = enforced **composition**, NOT patient-authority alone."* Care `§1b` separately splits universal-OMNI law · care-specific semantics · analogous sibling disciplines · implementation concerns.
-
-The load-bearing distinctions, stated so they survive:
-
-- **The patient is simultaneously beneficiary and rights-holder** — not an asset whose owner may set the optimization objective. Patient preference, refusal, representation and relationship choice remain distinguishable from the organization's goals. *(This is the one dimension Care `§19` marks `CARE-SPECIFIC` on both rows — and it is why an Amazon or a fleet-management mapping cannot be lifted wholesale.)*
-- **Clinical appropriateness ≠ availability ≠ affordability ≠ coverage ≠ operational readiness ≠ willingness to purchase.** They interact; **none may silently impersonate another.**
-- **A delivered intervention is not proof of benefit. An observed response is not automatically evidence of causation. Experimental model evidence is not automatically sufficient for an individual treatment decision.**
-- **Research and care may occur together while pursuing distinguishable purposes** — individual-directed practice versus the production of generalizable knowledge.
-- **These difficulties are not exclusive to medicine.** Other sectors have vulnerable people, irreversible harm, independent authorities, uncertain evidence, public-interest duties and conflicts of interest. **Healthcare specificity means the particular operating contract we must realize — not a claim that nobody else has hard coordination.**
-
-**Posture: care-centred, not clinically exclusive.** Broad operational semantics do not demote care from the centre of gravity, and they do not require every stock movement to have a clinical owner.
-
-### §3.5 Non-goals
-
-Not a new domain (`GRD-026`) · not a god-object or new control plane (`GRD-035`) · **not clinical-only and not clinical-first** · **not a claim that OMNI invented the organism** · **not a claim that OMNI's software could run a refinery or a franchise** — cross-industry comparison is a **falsifier of the abstraction, not a product market** (`§17.1`) · not a reopening of FAI (`§3.6`) · not a promotion of `§15`, Care capture, C3.7 or the residual/moat frame · not a patient marketplace · not a literature corpus (`FWREG-006`) · not a roadmap, GTM plan or wedge selection · not a scenario library.
-
-### §3.6 FAI contact — one rule, five postures
-
-**Consult** (cite hold status) · **test against** (binds nothing) · **declared reliance** on unaccepted semantics (**the conclusion inherits the hold**) · **propose a change** (to Nick; a proposal is not an edit) · **blocking contradiction** (`FAI_INTERRUPT_CANDIDATE`; stops **that conclusion**, not the arc). **Mere relevance is never an interrupt.** No Selection Accountability amendment or promotion, no `Q-DL18-4` adjudication, no Output-4 consolidation, no FAI write, no PR #17/#19 merge.
-
----
-
-## §4 — Source and authority posture
-
-**Read fully by this author:** this carrier; all four Knox reviews; **`EVRUN-2026-000012_02 §15` in full (`§15.1`–`§15.10`)**; the FAI pause checkpoint; `HANDOFF_2026-08-09` ×2; `06_guardrail_antipattern_digest.md`; FAI R8 `§3.9.1`–`§3.9.3`; governance/taxonomy `§3`; read-graph Route Entry Contract + Major-Arc Intake routing.
-
-**Read at specific passages, verbatim-verified by this author:** **Care `§1a`** (keystone routing rule), **`§19`** (homology matrix, verdicts + the composition caution), `§1CP`, `§5a`, `§5b`, `§5b.1`, `§9a` · `v4_C4_residual_moat_and_network_formation_doctrine.md` Palantir passage + revision history · `v4_C3_7` plan `§11`/`§12` + scenario-library spec · `v4_C3_5F5` P35 rename · `federation_contract.md` inv 29 / `T0-14` · `GRD-032` · `08_open_review_queue.md` `REV-188`/`189`/`190` · `manifest_action_enum` · read-graph routes `9a`/`10` · C4.6 Rx L2 · FWREG inventory **and history** · `AGENTS.md` standalone-lane clause · the `EVRUN-000012` run inventory.
-
-**Recovered via three delegated EXISTS-AS scans** — marked `[D]`. **Delegated scans are evidence, not an authored read.**
-
-**NOT inspected — declared:** `EVRUN-000012` `_00`/`_01`/`_03`/`_04`/`_05`/`_06`/`_07` and the run's concept registry and coverage matrix (**Gate-1 obligation** — `_04` is the controlling adjudication and `_05` the Gate-4 business operating model) · Care capture in full (`§2`–`§7a`, `§8`–`§18`, `§20`–`§22`) · the residual/moat frame in full · the six AI-corpus registries · thesis `§C` · `v4_C3_7G` · the Demand/counterparty disposition · full C3.5–C3.7 scenario rows · the implementation estate · **the NIST CPS, IEEE SoS, ISA-95/OPC, GS1 EPCIS, Siemens fleet, Palantir peering, Belmont and NIST combinatorial-testing sources relayed by Knox — unverified here** (`§17`, `§19.2.8`).
-
-**Forbidden inferences:** inventory presence ≠ full read · chronology ≠ authority · a search miss is not proof of absence · a current-state grep cannot establish history · a delegated scan's absence claim is weaker than an authored one · an inspection limit is not an estate verdict · **a comparator claim is a novelty claim and owes the same check** · **a closeout is not its run's operative result** (`§0.3`).
-
----
-
-## §5 — Evidence dimensions
-
-For each relied-upon claim state four things independently — **none implies another, and they are not ordered:** **specified** (what semantics exist) · **accepted** (by whom, **at what scope**) · **implementation inspected** (what was verified, or unverified) · **composition evidence** (desk trace / executable fixture / observed operation / none).
-
-**Across everything recovered in four revisions, no row carries observed-operation composition evidence and only two carry any fixture.** The vocabulary and much of the semantics exist, are unaccepted beyond their runs, unbuilt, and have never been shown to hold together **at more than one scale**. That is the arc.
-
-**Principal inheritance, by authority:**
-
-| Source | Authority | What it settles |
-|---|---|---|
-| **`EVRUN-000012 §15`** | Gate-3 accepted **within a nonbinding run**; `ARCHITECTURE_CANDIDATE` | the five-layer composition · activation-not-counting · seven native lifecycle families · fourteen typed relations · three custodies · no universal executive |
-| **Care `§1a`** | `analysis_nonbinding`, REVIEW-DRAFT, frozen against edit, readable | the **routing rule**: classification unit is the contribution; nine tracks; seven ownership dimensions; payload-noun ≠ domain; one referent across five record types without duplication |
-| **Care `§19` / `§1b`** | same | universal vs care-specific verdicts per dimension; **patient-as-principal is the differentiator, via enforced composition** |
-| **Care `§5b` / `§5b.1` / `§9a`** | same | four admissibility projections incl. readiness→operational/Inventory/Runtime · authorization axes · participation topology and per-contribution semantics |
-| **GCE** (`D0THES-DEC-036`) | **RATIFIED `governance_binding`** | the governed exchange spine; returns classified before they count; external systems never own OMNI truth |
-| **`T0-14` / inv 29 / `GRD-032`** | ratified guardrail; contract draft | operator non-privilege — **affiliation grants nothing; real operating differences remain represented** (`§3.3` "chosen commitment") |
-| **`GRD-030` · `D0W3B-GRD-002` · `D0OL-GRD-008/013/017` · `GRD-026/032/034/035/036/041`** | ratified/active guardrails | trust relocation · ACK ≠ custody · delegation ≠ call topology · depth ≠ independence · narration ≠ explainability · payload ≠ domain · no thin broker · no god-domain · gated promotion · no literature corpus |
-| C3.7 `§11`/`§12`; `REV-189`/`190` | `analysis_nonbinding`; open review | super-frame; third supply side; capability-formation chain + *"NEVER 'mouse responded → patient gets drug'"*; option preservation |
-| P35 (C3.5 F5/G4); `REV-188` | frame accepted C3.8 `§1A`; **owner OPEN** | eight posture modes; *"OMNI does **not assume** it owns the mechanics or the native UI — a per-system, per-context governed decision, not a thesis assumption"* |
-| C4.6 Rx L2 | accepted, **pharmacy scope** | acceptance ladder; `as_of` regulatory status; **post-delivery obligations survive episode closure** |
-| `REV-141` · `REV-163` · `REV-174` · `REV-184` | OPEN / draft / OPEN / signed-off | `care_commitment` · OFC · outcome-RWE · outcome reads frozen context, never rewrites |
-
----
-
-## §6 — The speed-and-safety thesis *(new synthesis — HYPOTHESIS, not inherited)*
-
-The operator's question is not only *does it hold together* but *how does this change healthcare — mach speed, highest safety, highest efficiency, at the moisturizer level and at the open-heart suite.* `§15` is a **coherence and correctness** account. It does not state why that produces speed. This section proposes the link and marks itself as a hypothesis to be tested, not a recovered finding.
-
-**Observation.** Healthcare is slow because the **preconditions of a consequential act are held in people's heads and re-verified by conversation at every step.** "Does the vendor know to send it." "Is this result still current." "Did pre-auth clear." "Is the tray back from sterile processing." "Is the rep coming." Every one is a human re-verifying a fact that **someone else owns**. That re-verification is the cost, the delay, and — when it is skipped — the harm.
-
-**The proposal.** `§15`'s Layer-4 typed relations are precisely the machine-checkable form of a precondition, and they split cleanly into the three things a fast, safe operation needs:
-
-| Need | Mechanism | Relations |
-|---|---|---|
-| **Speed** | a commitment can be made **without re-verification**, because the preconditions are already continuously evaluable | `requires` · `permits` · `depends_on` · `offered_to` · `accepted_by` |
-| **Safety** | a change reaches **exactly** the decisions that depended on it — no more, no less | `invalidates` · `signals_reconsideration` · `supersedes` · `constrains` |
-| **Efficiency** | contention and infeasibility are known **before** the resource is committed, not discovered at the moment of execution | `blocks` · `actualizes` · `exposes` |
-
-**Two corollaries that make it testable.**
-
-**(1) It is the same mechanism at both ends of the operator's range.** A moisturizer sale has two or three preconditions, trivially satisfied. An open-heart case has hundreds, spanning a dozen organizations. **The scale of the arrangement changes; the machinery does not.** That is why the subject cannot be clinical-only, and why one substrate can serve both — and it is a claim that can fail.
-
-**(2) The 2035 burden is not more actors. It is shorter-lived preconditions across more owners.** When participants are machines and the intervention is designed from the patient's own context, the count of preconditions per act rises **and their half-life collapses** — from "the implant is in the cabinet" (stable for weeks) to "the scene still matches the authorization," "the design assumption still holds," "the model version is still the released one" (valid for minutes, or once). **Human re-verification cannot scale to that.** This is the precise form of *"we are not equipped for the 2035 tsunami,"* and it is falsifiable: if the preconditions of frontier acts turn out to be long-lived, the thesis is wrong.
-
-**The failure mode to design against, stated now.** A naive consequence graph propagates every change to everything connected, producing alarm fatigue and a system nobody can use. **Over-propagation and under-propagation are both failures**, which is why `§15.2`'s `selective reopening` activates only *"when a later event materially changes an owning lifecycle's semantics."* The discriminating test is therefore not "did it notify" but **"did it reach exactly the dependent decisions."** → `H18`.
-
----
-
-## §7 — Composition map — the inherited shape, not a new one
-
-> **This is `§15.4`'s five layers, not a fresh diagram.** It is a composition of interacting lifecycles — **not an execution sequence, authorization order, or universal lifecycle.** Applicable identity, authority, purpose/use basis, permission, participant posture and **context validity for this act** constrain every governed act **from the first query or material use onward**. **Later consent or clinical adoption never retroactively authorizes earlier disclosure, research, model training or experimentation.** Revalidation, refusal, revision and termination are available throughout.
-
-```
-  L1  RISK-ADAPTIVE CONSEQUENCE CONSTITUTION
-      invariants ACTIVATE per transition (applicability · activation condition ·
-      profile meaning · enforcement owner · required evidence · failure consequence)
-        │
-  L2  NATIVE LIFECYCLE FAMILIES, each with its own decision grammar
-      Care Resolution · Operator Configuration · Sourcing Selection ·
-      Fulfillment (OFC Act loop) · Financial Settlement · Platform Change ·
-      Accountability Response
-        │        one consequential episode ≠ one lifecycle family
-  L3  DOMAIN-OWNED AUTHORITATIVE RECORDS
-      no central table · no universal episode truth · no universal obligation
-      ledger · no projection that commits
-        │
-  L4  TYPED, EVIDENCED CROSS-LIFECYCLE RELATIONS
-      requires · permits · depends_on · constrains · offered_to · accepted_by ·
-      actualizes · blocks · supersedes · invalidates · signals_reconsideration ·
-      compensates · remediates · exposes
-      each carrying source · authority · purpose · effective-time · visibility ·
-      evidence · challenge/supersession · proof
-        │
-  L5  GOVERNED PROJECTIONS — own no truth, commit nothing, route nothing,
-      reopen nothing, remedy nothing.  NO UNIVERSAL CNS EXECUTIVE.
-        │
-      distributed records/events → projection/context assembly →
-      profile-specific controller evaluates under its OWN authority →
-      typed candidate/trigger/control-request → owning authority commits →
-      proof returns to the projection
-
-  CUSTODY, three meanings, activated only on a real transfer:
-      change custody · execution custody · consequence custody
+```92:92:.cursor/plans/v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md
+T-15 — Execution revalidates the minimum-sufficient mutable reality + authority.** *(Knox-patched.)* At execution, revalidate the minimum declared action-critical facts + authority bases required by the governing contract (not a full world reread).
 ```
 
-**What the arc must add to this, because `§15` did not test it:** multi-subject and shared-resource contention · fleet, lot and release scope · population and cross-federation propagation · machine-to-machine coordination where people previously reconciled tacitly · capability formation from patient context · post-deployment adaptation of a participant · **and the untested spans named in `§15.6`/`§15.8`** (counterparty offer, equivalence/substitution, sourcing-selection and projection homes; external capability exchange awaiting Task-D and external acceptance).
+```81:81:.cursor/plans/v4_C4_5_temporal_integrity_and_asof_reconstruction_pass_plan.md
+T-04 — "Current" is a defensible computation** over validity, freshness, source authority, adoption, contradiction, supersession, instrumentation health, external unknowns, purpose — NOT the newest-timestamp row.
+```
 
-**Must never collapse:** information exchange ≠ interpretation ≠ command authority · acceptance ≠ execution ≠ demonstrated effect · scientific evidence ≠ manufacturing release ≠ clinical adoption ≠ actual use · sample time ≠ analysis time ≠ receipt time · a link ≠ a stated consequence of change · a projection ≠ a controller ≠ an owner · **independently valid participants ≠ a safe assembled system** · recording an action ≠ the action occurring.
+**So the goal is less unnecessary reconstruction, never no verification.** Some repeated checking is waste; some is defence in depth, independent verification, current identity assurance, current patient preference, or protection against changed circumstance. **Repetition alone does not tell you which.**
+
+**And "continuously evaluable" is not "continuously known."** A system maintains an assessment of declared conditions against available information; it cannot know reality across independent organizations, humans, devices and scientific processes. `REV-184` already holds the world model to be a **partial, time-stamped projection** with autonomy bounded by a trust horizon and out-of-band action preserved. **An observation being older than now does not make it false or unusable — freshness is action-relative.** A collection time stays a valid historical fact; an availability assertion stops being usable the moment someone else reserves the resource; an interpretation can change while the material does not. **No universal evidence half-life.** `§6` lists the temporal dimensions to test per profile rather than as required columns.
+
+### §3.4 "Exactly the dependent decisions" is withdrawn
+
+```20:20:.cursor/plans/v4_C4_3_care_response_seam_correction_continuity_test.md
+10.1 — Correction impact is a governed, versioned assessment over distributed lineage and explicit uncertainty; it is not a correction authority.
+```
+
+**A reverse traversal cannot recover an edge that was never recorded.** A miscalibrated monitor may have failed to produce the very observation that would have created the dependency. A clinician may have relied on something outside the instrumented system. An external party may have used a returned result without reporting the use.
+
+**Replacement:** identify the **confirmed** affected set, expose the **potentially affected / not-ruled-out** set and the **indeterminate** scope under declared coverage, initiate **proportionate action under the appropriate authority**, and narrow or widen as evidence improves. Exact reach is a property to test **inside a fully specified fixture with a declared coverage contract** — never a promise about the world. **Avoidable over-propagation and unsafe under-propagation are different errors with different costs; neither is axiomatically worse.** Graph reachability is neither authority nor causation.
+
+---
+
+## §4 — Exposing the basis of a claim *(softened from R5)*
+
+R5 turned four useful distinctions into a mandatory exclusive box. **Withdrawn as an enum.** A requirement may legitimately combine physical limitation, institutional obligation, local policy, ethical commitment and empirical assumption — **mixed basis is not a defect.** Internal policy can be changed by its authorized owner; a model of reality can simply be wrong.
+
+**The discipline is to expose the basis, not to file the claim.** When a claim is load-bearing, say which of these it rests on and in what proportion: **reality** (incomplete observation, irreversible action, consumed material, elapsed time) · **institutional/legal** (professional authority, licensure, data-use obligation, research/practice distinction) · **chosen commitment** (portability, neutrality, non-privilege, refusal to broker) · **empirical/strategic** (defensibility, adoption, burden reduction, measured benefit).
+
+**The failure this prevents:** carrying a commercial hope as though it were a law of nature, which makes it unfalsifiable. **The failure it must not create:** ceremony that forces a box onto every invariant.
+
+---
+
+## §5 — Reality, and OMNI's relation to it
+
+The operator asked whether we have ever declared this. **Not as one statement; the pieces exist in `REV-184` and C4.5.** Proposed integration — **not a new domain, plane or service:**
+
+> **Reality includes people, physical processes, independent institutions, and events that may occur outside OMNI's knowledge or control.** OMNI maintains source-attributed observations, claims, adopted meanings, commitments, occurrences and derived views; **each view has a scope, a time basis, an authority basis, and stated limits.** Authorized humans and systems act through **bounded control relationships**; resulting evidence updates those views and may create, fulfil, revise or transfer obligations. **OMNI must distinguish the world, its representation of the world, its permitted influence on the world, and its evidence of what actually happened.**
+
+The operator's *"stale microseconds later"* intuition needs one refinement: **the question is never whether a representation is current, but whether it still supports this particular use.** Perfect knowledge is not a prerequisite for bounded action, and uncertainty is not permission to act without an adequate basis.
+
+### §5.1 The snapshot question — three objects are being conflated, and one does not exist
+
+The operator: *"what are these reality packets or whatever that OMNI is or isn't delivering... here you go robot... here is the pre-op snapshot... is that a thing? do other companies do that?"* **This is a real architectural gap and neither review answered it.** Three distinct objects are being called "snapshot":
+
+| Object | Direction | Job | Estate status |
+|---|---|---|---|
+| **Frozen decision context** | backward | what was known and relied on when the decision was made; **outcome reads it, never rewrites it** | `REV-184`, **signed off**; field-set deferred |
+| **`as_of` reconstruction** | backward | what we can defensibly say we knew as of T, computed over versioned sources | C4.5 charter accepted; **pass not started** |
+| **An action brief** *(no name in the estate)* | **forward** | what a specific actor needs for a specific authorized act | **does not exist** |
+
+**The third is what a robot needs, and a copy of state is exactly the wrong shape for it** — a copy is stale on arrival, which is the operator's own intuition. What the act needs is a **standing condition set with a validity contract**, carrying: the minimum sufficient facts and their time basis (`T-15`) · **what must remain true throughout execution, not merely at authorization** · the authority under which the act proceeds and its scope · the **held commitments** it rests on (`§3.2`) · the fallback if a condition fails mid-act · an expiry, and who may revoke it early.
+
+**Do other industries have this? Yes, and it is not called a snapshot.** A **takeoff clearance** is actor-specific, time-bounded, condition-bearing, revocable, and contains none of the airspace. A **permit-to-work** names the task, the isolations that must hold for its duration, the authorizing person, the expiry and the conditions that void it. **The mechanism is a clearance, not a data extract** — and OMNI has no equivalent. `Q-BRIEF`.
+
+**The estate's nearest relative is CNS `§9.1`'s layered context packet, which already *references rather than copies* and preserves authority — the right instinct, but assembled for orchestration, not issued as a bounded permission to act.** Whether an action brief is a profile of that object or a distinct one is `Q-BRIEF-2`, and whether it is the same object as GCE's boundary exchange is `Q-BOUNDARY-2`.
+
+---
+
+## §6 — The six-robot trauma case: where does OMNI sit?
+
+The operator's escalation is the right one and it must be answered concretely: a trauma suite with a vascular robot, an ortho hip robot, a lab-draw robot, a ventilator, a VTE prophylaxis device and continuous imaging — **three vendors and operating systems, five humans with their own AI agents, a device rep, backend vendors, the lab, the pre-op note, PACU status.** Six actuators on one body at once.
+
+### §6.1 What actually couples them — and it is not their software
+
+**The patient's body, the shared room, the shared resources, and the clock.** The vascular repair changes hemodynamics the ventilator is compensating. The ortho robot's positioning changes the vascular robot's working geometry. Imaging demands a room-wide hold and adds exposure to everyone present. VTE prophylaxis interacts with the bleeding being controlled. The lab result is stale before it is read. **None of that coupling runs through an integration.** Connecting their software makes the coupling visible and manageable — and also lets mistakes propagate faster.
+
+**So the problem is not message routing. It is: who holds the right to change a shared physical variable at a given moment, and how does that right move at trauma speed?** That is mutual exclusion and arbitration over physical state — the same shape as the tray (`§3.1`), at seconds instead of days, with a body instead of an instrument set.
+
+**And the protocol already exists, unrepresented, in the room.** Aviation has positive transfer of control — *"you have control" / "I have control."* The OR has the surgeon's authority and the anesthesiologist's veto, executed verbally. **That verbal arbitration is the mechanism, and nothing in OMNI models it.** `Q-ARB`.
+
+### §6.2 Three answers, one of which is a real competitive threat
+
+**(a) OMNI in the control loop — rejected.** OMNI must never be a hop in a device's immediate safety response. Device-local control and immediate safety sit at the device or a qualified local controller with its own timing and failure contract. **No unexamined remote round trip inside a safety loop**, and a device's safe local completion must not silently close broader clinical or business obligations.
+
+**(b) The god robot — named, not dismissed.** The operator's own alternative: a single vendor performs the imaging, organizes the draw, coordinates the vent, and permits the vascular repair. **This is a genuine competitive path and a plausible one.** Its structural limit is exactly stated: **it works only while one vendor owns every actuator.** The moment the hip robot is one manufacturer and the vascular robot is another, someone must arbitrate — and **neither vendor can be trusted to arbitrate for its competitor.** A vendor arbitrating a rival's actuator is a conflict no hospital should accept.
+
+**(c) OMNI holds the arbitration record and the authority model, never the actuation.** Who currently holds the right to change which variable · who may take it and under what conditions · what the transfer evidence is · what happens on loss of communication · and **what each participant was told, when, and whether it acted on information already superseded.** In the example: *the vascular team holds hemodynamic control from T1 to T2; the ortho robot holds positional control except during an imaging hold; imaging holds the room; and every transfer is recorded.* **That is `§15`'s custody model — change, execution, consequence — applied to a physical variable in real time, plus the black box.**
+
+**The honest limit, stated rather than hidden: OMNI cannot arbitrate against a participant that does not accept the arbitration.** This is why `§15.8` already gates external capability exchange behind `REQUIRES_EXTERNAL_ACCEPTANCE`, and why the institutional-resistance test is mandatory (`§12`). **If a vendor refuses a protocol it does not own, OMNI records rather than arbitrates — and that degraded posture must be explicit, not silently assumed away.**
+
+**Strategic hypothesis, labelled as such (`§4`):** the incumbent record system is in the room but models orders and documentation, not rights over physical state, and is not in the control path. A vendor is in the control path but cannot arbitrate a competitor. **Whoever holds the arbitration record holds the seat, and neither is structurally positioned to.** That is a hypothesis to be tested against institutional resistance, not an architectural claim.
+
+---
+
+## §7 — Inherited candidates, at their actual authority
+
+**`EVRUN-2026-000012_02 §15`** — `ARCHITECTURE_CANDIDATE`, Gate-3 accepted **within its run**, binding nothing outside it, with the *"only possible coherent architecture"* claim **explicitly rejected** and some named lifecycle families possibly later proving to be **profiles** of existing lifecycles. Its five-layer account: **one risk-adaptive consequence constitution** where invariants **activate** per transition rather than being counted (*"a transition does NOT leave the constitutional family because one invariant has no activation condition in that instance"*) · **native lifecycle families** with `Care Resolution ≠ Sourcing Selection ≠ Fulfillment Execution` · **domain-owned authoritative records** — no central table, no universal episode truth, no universal obligation ledger, no projection that commits · **fourteen typed cross-lifecycle relations** each carrying source, authority, purpose, effective-time, visibility, evidence, supersession, proof · **governed projections that own and execute nothing, with no universal CNS executive.** Plus **three typed custodies** — change, execution, consequence — activating only on a real transfer.
+
+**Its own open spans are the arc's work surface:** `REQUIRES_C5_DEDUP` (counterparty offer; equivalence/substitution) · `REQUIRES_RUNTIME_PROOF` · `REQUIRES_TASK_D + REQUIRES_EXTERNAL_ACCEPTANCE` (**external capability exchange**) · `REQUIRES_MARKET_VALIDATION`. **What it does not specify:** how predicates are evaluated under incomplete or conflicting evidence · how concurrent commitments are made safely (`§3.1`) · how ongoing physical constraints are maintained during execution · how biological design assumptions remain applicable · **or how any of it reduces burden.**
+
+**Other principal inheritance:** `REV-184` (partial time-stamped world model; trust horizon; outcome reads frozen context) · **C4.5 `T-04`/`T-15`** (defensible "current"; minimum-sufficient revalidation) · **C4.3 `10.1`** (versioned impact assessment with explicit uncertainty; not a correction authority) · **`EVRUN-000012 _05 §5.4`** (policy-committable paths, exception-only human attention, avoided unnecessary reopening, **total-ecosystem burden including irreducible safeguards**) · **Care `§1a`** (the routing rule: classification unit is the contribution; nine tracks; seven ownership dimensions; payload-noun ≠ domain) · **Care `§1b`/`§19`** (universal vs care-specific, verdicted per dimension) · Care `§5b`/`§5b.1`/`§9a` · **GCE** (`D0THES-DEC-036`, **ratified**) · **`T0-14`/inv 29/`GRD-032`** (operator non-privilege) · P35 + `REV-188` (eight postures; owner **open**) · C3.7 `§11`/`§12` + `REV-189`/`REV-190` · C4.6 Rx L2 · `REV-141`/`163`/`174`.
+
+**Evidence dimensions, per relied-upon claim, independently and unordered:** what is **specified** · what was **accepted and at what scope** · what **implementation was inspected** (or is unverified) · what **composition evidence** exists and of what kind (desk trace / executable fixture / observed operation). **Nothing recovered in six revisions carries observed-operation evidence.**
+
+### §7.1 What is actually healthcare-specific
+
+**Not** identity, typed relations, temporal state, commitments, permissions, custody, resource planning, version lineage, distributed controllers, failure handling or governed feedback — **none is a healthcare invention.** The ecosystem class is a socio-technical, cyber-physical system of systems, and OMNI is not that whole ecosystem; it is the governed care-and-business substrate designed to participate in one class of it within a managed scope.
+
+**The specificity is the operating contract.** Care `§19` verdicts it per dimension across Care / Platform / Accountability as `SHARED-LAW · ANALOGOUS · CARE-SPECIFIC · OPEN` — **and `CARE-SPECIFIC` appears in ten places, not two as R5 claimed** — carrying its own caution that differentiation is *"enforced **composition**, NOT patient-authority alone."* The load-bearing distinctions: **the patient is simultaneously beneficiary and rights-holder**, not an asset whose owner sets the objective — preference, refusal, representation and relationship choice stay distinguishable from the organization's goals · **appropriateness ≠ permission ≠ availability ≠ affordability ≠ coverage ≠ readiness ≠ execution ≠ exposure ≠ benefit**, and none may silently impersonate another · **a delivered intervention is not proof of benefit; an observed response is not automatically causation; experimental model evidence is not automatically sufficient for an individual decision** · research and care may coexist with distinguishable purposes. **These difficulties are not exclusive to medicine.** Other sectors have vulnerable people, irreversible harm, independent authorities, uncertain evidence and conflicts of interest. **Healthcare specificity is the particular contract we must realize — not a claim that nobody else has hard coordination.**
+
+**Posture: care-centred.** *"Not every operation is clinical"* is a routing fact; it does **not** demote care from the centre of gravity. R5's *"not clinical-first"* is withdrawn as contradicting that.
+
+### §7.2 Cross-industry comparison — falsifiers, not product markets
+
+Amazon-like fulfillment (offers, inventory, **reservations**, suppliers, shipment, custody, returns — but a customer order is not a clinical commitment) · oil operations (assets, contractors, permits, shared resources, maintenance — **a well is a focal entity, not the root of every crew or reservoir**) · scanner fleets (equipment identity, configuration, qualification, service — **readiness establishes no patient suitability**) · franchise plus food suppliers (corporate standards, independent sites, lots, **distributed recall** — but franchise authority and healthcare authority are not substitutable). **Reportedly** ISA-95/OPC already distinguishes materials, equipment, physical assets and personnel with roles and qualifications, and material definition from lot; GS1 EPCIS handles cross-enterprise event visibility; NIST CPS and IEEE system-of-systems frame the class. **Relayed, unverified here.** **Portability of modelling principles does not mean OMNI's software could run a refinery.**
+
+**Palantir.** *"One ontology they control"* was withdrawn in R4 and stays withdrawn — the estate already verified cross-org ontologies and governed write-back, and **submission criteria combining user, object, relation and execution-context conditions mean "we make preconditions machine-checkable" is not a differentiator.** The useful comparison is mechanical: for one consequential operation ask both designs **what is authoritative · what may be stale · what is retried · what can execute twice · what cannot be rolled back · who accepts responsibility · what happens if the other organization refuses · which individual cases a later correction affects.** Keep **native, hosted and hybrid** realizations alive with identical invariant requirements — a realization choice settles neither semantics nor authority. **Representability does not deliver a care product; neither does native vocabulary.** An incumbent or entrant does not need a novel ontology to compete — only to make a valuable part of this arrangement work better.
 
 ---
 
 ## §8 — Hypotheses
 
-`resolved` / `open` / `insufficient_evidence` are all permitted outcomes.
+`resolved` / `open` / `insufficient_evidence` are all permitted.
 
-| ID | Hypothesis | Counter | Falsifier |
-|---|---|---|---|
-| **`H19`** | **`§15`'s composition holds at the individual regime and has never been tested at the shared-resource or population regime; the untested spans are where it breaks** | it generalises; the open items are naming and dedup, not structure | run the three regimes (`§16.3`). Local correctness cannot establish global resource consistency, population privacy or network stability |
-| **`H18`** | **Change propagation is unspecified in both directions** — `invalidates`/`signals_reconsideration` name the relation but not the reach; over-propagation (alarm fatigue) and under-propagation (harm) are both unhandled | `selective reopening` activation covers it | for each typed relation, state what a change **does**: update a view · invalidate a candidate · block an unstarted act · demand reassessment of a completed act · create a notification duty · leave the act but alter follow-up. **A graph link alone does none of these** |
-| **`H15`** | **Individually admitted participants issuing individually permitted commands can produce a collectively unsafe assembly** — and the coupling can be through **shared resources, physical effects, deadlines or competing objectives**, not only two controllers on one physiological variable | `§9a`'s three gates plus per-participant posture suffice | the two-plans-one-tray case, and a two-controller case. Name composed responsibility, interaction constraints, timing, conflicting objectives, and who resolves |
-| **`H17`** | **No integrated, owned readiness composition has been located** — `§5b` maps readiness onto operational state, Inventory and Runtime health, and `§14` separates work order, obligation and blocker projection, but nothing composes them against a scheduled act | D3 + Settings + OFC + D6 + Inventory already compose it | trace the 30-item case end to end through existing owners |
-| **`H16`** | **The physics apply to tracks with no clinical owner at all** | clinical tracks are the only ones with hard coordination | run Care `§1a`'s routing rule on the readiness case. **Corrected from R4: the test is whether an applicable consequential responsibility lacks an owner — not whether every cell is populated** |
-| **`H20`** | **The four constraint kinds (`§3.3`) are conflated throughout the estate**, so commercial hopes are carried as physics and cannot be falsified | the distinction is already observed in practice | sample inherited `[INV]`s and classify each. Any that cannot be classified is a finding |
-| **`H21`** | **The speed thesis (`§6`) is wrong** — frontier act preconditions are long-lived, so continuous evaluability buys little | preconditions shorten and multiply as `§6` claims | measure precondition count and half-life across the regimes |
-| `H0` | The care↔biology↔evidence↔research↔outcomes account is not adequately represented, reconciled or routed | `§15` + `REV-189` + `REV-190` + GCE + P35 + Care `§1a`/`§9a` compose it | attempt the composition. **No claim about history or about why prior arcs omitted it** |
-| `H2` | GCE's boundary-contract **content** is absent | spine + `GRD-034` suffice | `§15.8` already says external capability exchange `REQUIRES_TASK_D + REQUIRES_EXTERNAL_ACCEPTANCE` — establish what that discharges |
-| `H3` | Exposure cannot be reliably reached from a recall | derivable by source-preserving composition; no new object needed | attempt the derivation. **Both directions count** |
-| `H4` | No general privacy-preserving discovery mechanism is located | C3.7's stack generalises | trace on C3.7 primitives only. **A repository gap is an architectural finding, not a legal conclusion — and legal/institutional constraints remain in scope as operating constraints (`§3.3`)** |
-| `H5` | The episode anchor survives clinician departure but not operator exit, producer insolvency or consent expiry — **an episode identifier is not a successor undertaking** | the anchor solves all four | name who retains or accepts the duty, how refusal is represented, what happens when no successor exists |
-| `H6` | P35's eight modes are an adequate vocabulary but not an adequate model; **Care `§5b.1` already factors four of the missing dimensions** | eight modes plus context binding suffice | express a supervised-autonomous posture in one mode without ambiguity |
-| `H7` | Producer selection is not covered by existing neutrality law | `GRD-032/034` + inv 29 + Care `§4` + C4.6 `C6` + `§9a` `sponsor/incentive` cover it | construct a case none constrains |
-| `H9` | **Action-relative context validity is unmodelled** | Care `§4` action-critical freshness covers it | changed-scene and changed-during-manufacture cases; name which facts must be current, how currency is established, tolerated uncertainty, who may pause or reject |
-| `H10` | Control timescales are conflated | already separated | detect both failures: OMNI as a remote dependency inside immediate device safety, and local completion falsely closing broader obligations |
-| `H11` | Option preservation is recognised (`REV-189`) but not actionable | adequately routed to general care | trace an option-foreclosure case |
-| `H12` | **`[INV-NP]` is untested in both directions** — unearned privilege, **and** flattening a real operating difference | `T0-14` + inv 29 + `GRD-032` bind it | **affiliation test** (vary affiliation only → no privilege) and **substantive-difference test** (vary delegation/credentialing/custody/jurisdiction/network placement/contractual responsibility → the difference must be represented) |
-| `H13` | Participation postures are **assigned, never earned** | assignment plus revocation suffices | `§17.3` |
-| `H14` | **Reliance on an opaque-but-attested claim is unmodelled** | `externally_committed_truth` + `GRD-030` cover it | `§17.3` |
-
----
-
-## §9 — Question set *(compressed; `Q-ECB-*` numbering preserved)*
-
-**Meaning and identity** — `Q-1` what kinds of things exist and what do the relations mean: person · organization · role · device · model · product definition · offer · lot · physical unit · specimen · aliquot · dataset · derived model · design · dose · observation · plan · reservation · exposure — **not freely substitutable** · `Q-1a` the same moisturizer: catalog definition, vendor offer, physical unit, lot, purchase, aftercare instruction and recorded use are **distinct entities**; avoiding duplication ≠ forcing one master object · `Q-1b` in biological care, **material derivation and information derivation are not successive statuses of one patient record**
-
-**State, commitment, dependency, authority, projection, controller, runtime** — `Q-2` valid creation/correction/transition/closure per authoritative record (a payment, order, result, permission and treatment relationship do **not** share one lifecycle because each has a status field) · `Q-3` what a request, offer, acceptance, refusal, delegation, acknowledgment or handoff **means between parties**, and what may be inferred from silence, duplication, timeout, rejection or partial fulfillment · `Q-4` **what each typed relation does on change** (`H18`) · `Q-4a` physical and scientific effects need a causal model — **an ontology recording that two controllers influence one variable does not prove their interaction safe** · `Q-5` who may assert, adopt, accept a duty, release a resource, execute, revise or grant use — data ownership ≠ corporate ownership ≠ custody ≠ execution ≠ professional accountability · `Q-6` projection vs controller remit vs owner · `Q-7` where state lives, which component checks authority, what happens on delay or failure, which decisions need **current local** facts
-
-**Posture and command** — `Q-8` **`REV-188`** ownership (distribute · create one owner · or explicitly re-defer with a reason) · `Q-9` binding grain · `Q-10` separate dimensions vs one enum, reconciled against Care `§5b.1` · `Q-11` what positively constitutes an execution **receipt** · `Q-12` the `Q-DL18-4` dependency (described, never chosen) · `Q-13` composed control responsibility, interaction constraints, timing, conflict resolution, escalation (`H15`) · `Q-14` validated local behaviour on connectivity loss — **no universal stop-everything or continue-everything fallback**
-
-**Readiness and assembly** — `Q-15` who owns assembling resources, items, instruments, implants, consumables, suppliers, facility capacity, sterile-processing turnaround and on-site personnel for a scheduled act · `Q-16` how a supplier or consignment holder learns what is needed, when, and on whose authority · `Q-17` what readiness state must exist before execution authorization, and who may refuse on readiness grounds · `Q-18` reservation exclusivity, contention and **stale readiness** — readiness is **time-sensitive evidence and commitments over actual resources, never a stored green flag** · `Q-19` is `care_coordination_owner` the owner of readiness or a distinct role
-
-**Discovery, privacy, population** — `Q-20` are aggregate opportunity · cohort feasibility · anonymous eligibility · notification · re-contact · clinical qualification · identity release · enrolment · lead generation · executable case constitutionally distinct · `Q-21` does C3.7's stack generalise (cheaper hypothesis; test first) · `Q-22` disclosure risk over time — repeated queries, rare cohorts, overlapping populations, deduplication, changing permissions · `Q-23` **the A→B propagation path**: an attributed observation enters an authorized safety/research process; evidence is evaluated under an applicable basis; a **bounded** finding, advisory or revised model is produced; potentially affected cases and organizations are identified; B's team receives it under appropriate terms and makes the decision that belongs to that care relationship. **Data use ≠ scientific inference ≠ publication ≠ deployment ≠ clinical adoption at every step** · `Q-24` **the reverse**: a source observation is corrected — which analyses, outputs, recommendations and prior decisions relied on it, what should be reconsidered, and what remains a valid historical fact
-
-**Selection, exposure, containment, obligation** — `Q-25` is producer selection already constrained or is there a hole (burden on finding the hole) · `Q-26` separability of trusted integration · admitted capability · preferred partner · clinically recommended option · payer-mandated option · patient-selected option · OMNI-owned product · `Q-27` **HARD** Selection Accountability: consult and test only; declared reliance inherits the hold · `Q-28` institutional resistance, **mandatory** · `Q-29` the two `[INV-NP]` tests · `Q-30` unified exposure record **or** source-preserving composition — **test the composition first** · `Q-31` which lineage axes are mandatory, per-modality, or never OMNI's · `Q-32` does layered containment generalise past pharmacy scope · `Q-33` mandatory-action-with-compliance-tracking · `Q-34` staging observation → adjudicated concern → containment → accountability · `Q-35` which anchor makes an obligation survive · `Q-36` `REV-174` prerequisite or consumer (**default consumer**) · `Q-37` option preservation as a capability
-
----
-
-## §10 — Scenario generator
-
-**Not a library.** This carrier specifies the generator; **Opus proposes cases; an independent reviewer challenges the coverage model, supplies held-out cases and rejects incorrect expected behaviour; Nick adjudicates.** Coverage is measured by **breaker-family × axis-extreme × regime**, never by row count — and **the coverage model itself must be attacked**, because a finite factor model can still omit the relevant actor, sequence, physical effect or institutional behaviour.
-
-### §10.1 Axes
-`track_mix` · `owner_spread` (dimensions × organizations) · `regime` (individual / shared-resource-fleet-batch / population-network) · `production_locus` · `patient_specificity` · `capability_existence` · `execution_agency` · `concurrency` · `precondition_count` · `precondition_half_life` · `adaptivity` · `control_timescale_spread` · `irreversibility` · `obligation_horizon` · `principal_count` · `regulatory_settledness` · `producer_permanence` · `institutional_willingness` · `disclosure_openness` · `initiating_principal` · `participant_ownership` · `connectivity`.
-
-### §10.2 Breaker families
-Track and ownership misrouting · **readiness, contention and stale readiness** · time and validity (sample ≠ analysis ≠ receipt; stale authorization; changed scene; changed-during-manufacture) · duplication and routing (one event two paths treated as corroboration; repeated delivery causing repeated action; route mistaken for authority) · **concurrency and coupling through shared resources, physical effects, deadlines or competing objectives** · authority and impersonation (statement→command; extraction→authority; ACK→custody; acceptance→execution; execution→effect; release→adoption; model evidence→observed response; a charting requirement blocking acknowledgement of an authorized bedside act) · participation change (join, leave, revoke, mute, re-enter, unknown-at-start, refusal, withdrawal with work in flight) · affiliation and topology (the two `[INV-NP]` tests) · degradation (connectivity loss; remote dependency inside a safety loop; partial execution; unknown state; degraded rail presented as reliable) · continuity and disappearance (insolvency, operator exit, clinician departure, cross-federation transfer, no successor) · **population and propagation (A→B, source correction, lot, fleet, model release, cohort learning)** · capability formation (patient-specific design, irreversible material, limited specimen, patient-initiated discovery, a query shaping development) · neutrality and incentive · **honest-null** (no intervention, no capability, no eligibility, refusal — represented as a valid outcome, not a failure).
-
-### §10.3 The three regimes — all mandatory
-**Individual** care arrangement with changing participants · **shared operational structure** (lots, equipment, facilities, capacity, protocols, model releases, supplier arrangements, **operations with zero identified patients**) · **cross-organization and population** (learning, collective hazards, propagation, privacy at scale). **Running the first repeatedly cannot prove the other two.**
-
-### §10.4 Positive capability tests — mandatory, not optional
-A framework that only prevents action is not an operating model. At minimum: **a patient discovers a legitimate opportunity** · **a supplier receives enough information to fulfil a real need** · **an operator reserves resources correctly and the commitment holds** · **a commitment is made instantly because the preconditions are already known** (`§6`) · **care continues under an acceptable alternative** · **coordination happens without unnecessary gates.**
-
-### §10.5 Negative controls — predicates, not state labels
-**The illegal substitution is the failure; the first state in each pair is not inherently wrong.** An ACK recorded as an ACK is valid — recorded as accepted custody it is not. A simulation labelled as simulation is valid — presented as an observed response it is not. A refusal recorded as a refusal is valid — recorded as an intervention performed it is not. Likewise: approved candidate vs actual exposure · manufacturer's release vs clinical adoption · stale authorization recognised vs relied upon · one event deduplicated vs double-counted or double-executed · affected party reached vs missed, unaffected party notified as exposed · evidence in purpose vs secondary use · an attributed clinical statement vs a device command · an OMNI-operated participant on identical terms vs privileged · a real operating difference represented vs flattened. **A written trace is design evidence — not proof of a deployed system, counterparty agreement, or clinical safety.**
-
----
-
-## §11 — Comparators
-
-### §11.1 Cross-industry — falsifiers of the abstraction, not product markets
-The ecosystem class is a **socio-technical, cyber-physical system of systems**: people, organizations, software, equipment, materials and institutions interact while constituents retain different purposes, management, authority and lifecycles. **OMNI is not that whole ecosystem** — it is the governed care-and-business substrate designed to participate in, model, coordinate and preserve continuity across one class of it, within a managed scope.
-
-| Comparator | Carries across structurally | Does **not** transfer |
+| ID | Hypothesis | Falsifier |
 |---|---|---|
-| Amazon-like fulfillment | offers, inventory, reservations, suppliers, payment, shipment, custody, returns, obligations, exceptions; shared inventory and carrier capacity linking many orders | a customer order is not a clinical commitment; fulfillment success is not evidence of benefit |
-| Oil operations, 100 wells | assets, sensors, contractors, permits, shared resources, maintenance, production, logistics, operating constraints, feedback; **a well is a focal entity, not the root of every crew, reservoir or decision** | physical model, operating objectives, safety constraints, environmental duty, decision authority |
-| Scanner fleet | equipment identity, configuration, maintenance, qualification, availability, service contracts, software versions, downstream operational impact | equipment readiness establishes no patient suitability, interpretation or treatment authority |
-| Franchise + food suppliers | corporate standards, independently operated sites, recipes, offers, material lots, staff, facilities, capacity, transactions, **distributed recall** | franchise authority, food-safety obligation, customer relationship and healthcare authority are not substitutable |
-
-**Prior engineering exists and OMNI did not invent these needs** — reportedly ISA-95/OPC distinguishing materials, equipment, physical assets and personnel with roles and qualifications (and **material definition vs lot**, **asset identity vs operational role**), GS1 EPCIS for cross-enterprise event visibility, NIST's CPS framework, IEEE's system-of-systems framing, and commercial equipment-fleet products. **Relayed and unverified here — Gate-1 capture obligation** (`§13.8`). **Use them to test the abstraction; portability of modeling principles does not mean OMNI's software could run a refinery or a restaurant.**
-
-### §11.2 Palantir — at the level of precision OMNI must reach
-R3's *"one ontology they control"* is **withdrawn**; the estate already verified cross-org ontologies and governed write-back, and that overreach had been corrected twice before (`D0ECB-REV-005`). **Do not defend OMNI by reducing the comparator to a read-only data platform, and do not assume it cannot expand into adjacent businesses.**
-
-The useful comparison is mechanical. Reportedly, action-data peering documents **eventual consistency with retries** and warns that peered updates can trigger **duplicate or unintended automation side effects when similar logic runs on both sides**. That is a specific mechanism and limit — and it is the granularity OMNI's own contract must reach. **For the same consequential operation, ask both designs:** what is authoritative · what may be stale · what is retried · what can execute twice · what cannot be rolled back · who accepts responsibility · what happens if the other organization refuses · which individual cases are affected by a later correction.
-
-**Keep three alternatives alive with identical invariant requirements:** native OMNI implementation · a general operational platform carrying selected OMNI semantics · a hybrid. Compare burden, authority enforcement, performance, portability, workflow fit and external-participation assumptions. **Representability does not establish a delivered care product — and neither does native vocabulary.** The prospective advantage is a **useful, enforced, adopted operating environment with accumulated trusted operation** — a `strategic hypothesis` under `§3.3`, not an architectural claim.
-
-### §11.3 Frontier mechanisms — hypotheses with non-transfers
-**Earned posture, not assigned** *(Tesla shadow mode / staged rollout)* — P35 modes are assigned; nothing lets a participant earn a more permissive posture on evidence or be demoted on signal. *Non-transfer: Tesla owns the fleet and promotes unilaterally; OMNI owns neither the participant nor the only stopping power.* → `H13` · **Evaluator independence for a posture change** — **already named**: `D0OL-GRD-013` plus Care `§9a`'s `correlation/independence class` and `sponsor/incentive`; the mechanism is missing. **Performance evidence never independently confers professional authority or another organization's delegation.** · **Reliance on a verifiable-but-opaque assertion** — what may OMNI rely on from a participant that returns a valid answer and never exposes its model, data or intermediates? `GRD-017` forbids narration as explainability, so a candidate shape is an **attested claim** carrying provenance, evaluator identity and independence class, error characteristics, scope of validity and expiry — without internals. *Non-transfer: a shared ontology is an agreement between parties who chose to share one; it supplies no authority where nobody consented to a common one.* → `H14` · **Mandatory action against a configuration with per-instance compliance** *(aviation airworthiness directive; in the comparator registry, never drawn on)* — mandatory, grounds the instance until complied with, tracked per tail number in a ledger outliving the manufacturer. *Non-transfer: one regulator with grounding authority vs layered, non-interchangeable stopping powers.* · **Patient-initiated capability formation** — C3.7 carries a patient/family front door, **which must not be conflated with a completed patient-commissioned development model**. *Non-transfer: a marketplace framing imports the broker posture `GRD-032` forbids.* · **Medical-device interoperability engineering** *(FDA's definition reportedly covering acting on or controlling another product; ICE / MD PnP / OpenICE with safety interlocks and closed-loop control; IEEE 11073 SDC / IHE SDPi — the inspected publication reportedly leaving external control **outside** its specified capabilities)* — the closest real antecedent to the coupled-execution problem. *Non-transfer: mechanisms and vocabulary, not OMNI's authority model.* **Architectural direction ≠ published specification ≠ implemented interoperability ≠ authorized clinical system.** **Relayed, unverified here.** → `H15` · **Three responsibilities, placement unresolved** — device-local control and immediate safety (at the device or a qualified local controller, **no unexamined remote round trip**) · live case coordination (OMNI may supply, host, or interoperate with another qualified local platform — **an explicit allocation decision**) · longitudinal care and business operation (**connected without becoming a synchronous input to every device act**). **Declares no new planes.** Consequence: **OMNI can be central to coordination and continuity without being a transport hop for every signal, and receiving every signal confers neither authority nor operational importance. It must declare, per arrangement, whether it observes, advises, coordinates or commands.** → `H10`
-
----
-
-## §12 — Verdicts
-
-```
-EXISTING_ARCHITECTURE_SUFFICIENT_WITH_ROUTING
-EXISTING_ARCHITECTURE_REQUIRES_NAMED_EXTENSIONS
-NEW_CROSS_DOMAIN_CONTRACT_OR_CONTROL_SURFACE_REQUIRED
-NEW_DOMAIN_REQUIRED
-FAI_INTERRUPT_CANDIDATE
-STRATEGIC_ONLY_NO_ARCHITECTURE_CHANGE
-INSUFFICIENT_EVIDENCE
-```
-
-`NEW_DOMAIN_REQUIRED` must survive `GRD-026` and `GRD-035`. **Symmetrically, a new universal record may not be required before source-preserving alternatives are tested.** **Prior expectation, recorded so it can be wrong:** `REQUIRES_NAMED_EXTENSIONS` + `NEW_CROSS_DOMAIN_CONTRACT_OR_CONTROL_SURFACE_REQUIRED`, most likely as **change-propagation semantics on `§15`'s Layer-4 relations plus a readiness composition** — neither of which is a domain.
-
-**Three conclusions, never substituted:** present-wedge leverage · frontier adequacy · implementation readiness. **An architecture result does not imply counterparties agreed, a device is authorized for the envisioned use, or OMNI deployed anything.** Every conclusion additionally carries its **constraint kind** (`§3.3`).
+| **`H-SPEED`** | Healthcare is slow because **commitment primitives are missing across organizational boundaries**, not because information is missing; speed comes from holding commitments, not fresher observation (`§3`) | For tested operations, separate avoidable coordination wait from capacity queues, actual work, scientific/biological/manufacturing time, necessary deliberation, patient choice and institutional constraint. **If the wait is dominated by anything other than renegotiated commitments, the thesis is wrong.** *(R5's falsifier — "if frontier preconditions are long-lived" — was poorly formed and is withdrawn: the value could still come from reduced reconstruction, earlier preparation or less rework.)* |
+| **`H-CONC`** | **Concurrent commitment is unspecified** — the inherited candidate names `requires` but no authoritative reservation, contention, expiry/revocation or execution-evidence semantics (`§3.1`, CWE-367) | the tray case: two actors, one resource, both checks pass. Name the owning transition, contention behaviour, expiry, evidence and recovery |
+| **`H-ARB`** | **Arbitration of rights over a shared physical variable is unmodelled**, though it exists as verbal protocol in every OR (`§6`) | the six-robot case. Name who holds which right, transfer conditions and evidence, behaviour on comms loss, and the record of who acted on superseded information |
+| **`H-BRIEF`** | **The forward-looking action brief does not exist** — the estate has frozen decision context and `as_of` reconstruction, both backward-looking (`§5.1`) | attempt to issue a bounded permission-to-act from CNS `§9.1` + `REV-184` + C4.5. If it composes, `H-BRIEF` narrows to a profile question |
+| **`H-DUR`** | **Conditions that must hold *throughout* execution are unhandled** — initial authorization is treated as settling the act | an act whose conditions change mid-execution; name what is monitored, by whom, with what fallback and stopping capability |
+| **`H-IMPACT`** | Impact reach is **bounded and uncertain**, not exact; some consequential relationships are unrecorded, unobservable or discovered afterward (`§3.4`, C4.3 `10.1`) | the miscalibrated-instrument case where outputs were used outside the instrumented system. **A complete reliance graph does not exist to traverse** |
+| **`H-SCALE`** | The inherited candidate holds at the individual regime and has **never been tested** at shared-resource or population regime | run all three regimes (`§11.3`). Local correctness cannot establish global resource consistency, population privacy or network stability. **R5's blanket "never tested at wider scope" is softened: the prior adjudication discusses configuration reaching many patients and C4.3 contains cohort and cross-operator cases — what is unestablished is the full ECB scope** |
+| **`H-BURDEN`** | The value chain — maintained evidence → less reconstruction → earlier dependency resolution → less rework → more timely appropriate action — **holds for some operations and not others, and the cost of the mechanism itself is unmeasured** | measure per `§12.2`, including **total ecosystem burden** on patients and counterparties, not only OMNI users |
+| `H-READY` | No integrated, owned **readiness composition** has been located — Care `§5b` maps readiness onto operational state, Inventory and Runtime health, and `§14` separates work order, obligation and blocker projection, but nothing composes them against a scheduled act | trace the 30-item case through existing owners |
+| `H-TRACK` | The physics apply to tracks with **no clinical owner at all** | run Care `§1a`'s routing rule on the readiness case. **The test is whether an applicable consequential responsibility lacks an owner — not whether every cell is populated** |
+| `H-CAP` | **Capability formation from patient context** is unhandled — the candidate may not exist until specimens, experimentation and design produce it, and the process changes what is being evaluated | trace a patient-specific design with a material context change mid-manufacture; name what is revisable, what consumed scarce material, what needs a new commitment |
+| `H-OPAQUE` | **Reliance on a valid-but-opaque assertion is unmodelled**; `GRD-017` forbids narration as explainability, so a candidate shape is an attested claim carrying provenance, evaluator independence, error characteristics, scope and expiry — without internals | a participant returns a valid answer and will never expose intermediates |
+| `H-POSTURE` | Participation postures are **assigned, never earned**; nothing lets a participant earn a more permissive posture on evidence or be demoted on signal. **Performance evidence never independently confers professional authority or another organization's delegation** | attempt an evidence-driven posture change; name the evaluator and its independence (`D0OL-GRD-013`; Care `§9a` `correlation/independence class`) |
+| `H-NP` | **Operator non-privilege is untested in both directions** | **affiliation test** — vary affiliation only, no privilege may appear. **Substantive-difference test** — vary delegation, credentialing, custody, jurisdiction, network placement or contractual responsibility; the difference must be **represented, not erased** |
+| `H-SURV` | An episode identifier **is not a successor undertaking**; obligations may not survive operator exit, producer insolvency or consent expiry | name who retains or accepts the duty, how refusal is represented, what happens when no successor exists |
+| `H-FRAME` | The care↔biology↔evidence↔research↔outcomes frame is not adequately reconciled or routed | attempt the composition from `§15` + `REV-189`/`REV-190` + GCE + P35 + Care `§1a`/`§9a`. **No claim about history or about why prior arcs omitted it** |
 
 ---
 
-## §13 — Gates and method
+## §9 — Frontier pressures *(not reducible to one axis)*
 
-| Gate | Purpose | Acceptance contract |
-|---|---|---|
-| **G0** *(this file)* | Recover the operative structural account; state what it settles and leaves open; install the constraint-kind discipline; specify the generator and the three regimes | Nick + Knox accept / amend / reject |
-| **G1** | **Output #1: reconcile `§15` (plus Care `§1b`/`§19`) against the wider problem** — distinguishing inherited fact · accepted-at-scope direction · new synthesis · unresolved ownership · unverified implementation. Then: the three regimes traced with negative **and positive** controls; bounded frontier reality captured with maturity labels; unresolved findings recorded honestly | the reconciliation answers `§9`'s meaning/state/commitment/dependency/authority/projection/controller/runtime questions rather than listing them; coverage satisfied **and attacked**; every `H` resolved or explicitly open; institutional-resistance test run; both `[INV-NP]` tests run |
-| **G2** | Deliver the integrated operating account, adjudicated consequences, destination map, conformance seeds, current-build constraints — **and only then whether any new name or object is needed** | one verdict + three conclusions + constraint kinds; **every conclusion has an accepted home OR a governed downstream consumption obligation naming consumer, trigger and acceptance condition** — no "C5 later" graveyard; `REV-188` answered or explicitly re-deferred |
+R5 reduced the frontier to shortened precondition lifetimes. **Too narrow — a stable fact can be expensive to obtain, reconcile or apply, and a fast-changing fact can be irrelevant to the next act.** The pressures to preserve together: **generated interventions** (the capability may not exist until context, specimens, experimentation and design produce it) · **adaptive execution** (conditions change during an action; admission and initial authorization settle nothing ongoing) · **coupled participants** (independently acceptable actions interacting through physiology, resources, deadlines or objectives) · **multiple scales** (a local observation, batch, model release or policy change affecting many people and organizations) · **independent authority and incomplete visibility** (participants refuse terms, withhold intermediates, change posture, disappear) · **long-lived consequences** (exposure, monitoring, correction and responsibility surviving the original episode and its participants) · **and shortened validity where it genuinely occurs.** These are proof obligations, not predictions that every capability arrives by a date.
 
-**G2 acceptance test:** *can a fresh reader explain how the assembled arrangement behaves — not merely identify its participants, permissions and records?* **More named fields and more gate prose will not satisfy it.** Scenario counts, a catalog entry, or P35 closure alone are **not** adequate success criteria.
+---
 
-**Method law.** `1` Inheritance verification precedes assertion, not capture — capture provisionally, verify before asserting anything as new, settled or authoritative. `2` **A comparator claim is a novelty claim** and owes the same registry check. `3` **Before proposing a structural decomposition, consume the operative structural account of the most recent joint/cross-domain run — not its closeout** (`D0ECB-REV-006`). `4` Source floor declared and discharged per output; delegated scans labelled as evidence. `5` One carrier. `6` No parallel lanes before G0 acceptance. `7` `METHOD-000` default; one current-state surface (`§1`). `8` **Gate 1 must open** `EVRUN-000012` `_04` (controlling adjudication) and `_05` (Gate-4 business operating model), Care capture in full, the residual/moat frame in full, the six AI-corpus registries, the C3.7 `G` terminus and the Demand/counterparty disposition — or record why not applicable. `9` **External sources captured with provenance and maturity before any conclusion depends on them**; the `§11` sources are relayed and unverified. `10` No absence claim without coverage; no history claim from a current-state search. `11` **Every `[INV]` carries its constraint kind** (`§3.3`). `12` **Stop framing each recovered passage as the biggest discovery yet** — report the finding, its authority, its maturity, and move on.
+## §10 — Question set *(stable IDs from R6; R5 map at `§15.3`)*
 
-**Build consequences to preserve without preempting design:** do not put every supplier, lot, model, resource or operational change beneath a patient parent · do not replace native lifecycle states with one universal case status · do not infer custody or authority from transport, acknowledgment, corporate affiliation or record possession · preserve class-vs-instance and specification-vs-execution · **treat readiness as time-sensitive evidence and commitments over actual resources, never a stored green flag** · separate a demand forecast from a committed procurement instruction · keep possible impact, demonstrated exposure and demonstrated outcome distinct · **define the consequence of each dependency change rather than assuming every link triggers a global reopen** · no unexamined cloud round trip inside immediate physical safety · do not let a device's local completion silently close broader clinical or business obligations.
+**Meaning and identity** — `Q-ENT` what kinds of things exist and what the relations mean: person · organization · role · device · model · product definition · offer · lot · physical unit · specimen · aliquot · dataset · derived model · design · dose · observation · plan · reservation · exposure — **not freely substitutable** · `Q-ENT-2` the same moisturizer: catalog definition, vendor offer, physical unit, lot, purchase, aftercare instruction and recorded use are **distinct**; avoiding duplication ≠ one master object · `Q-ENT-3` **material derivation and information derivation are not successive statuses of one patient record**
+
+**State, commitment, dependency, authority, projection, controller, runtime** — `Q-LIFE` valid creation/correction/transition/closure per authoritative record (a payment, order, result, permission and treatment relationship do **not** share one lifecycle because each has a status field) · `Q-PROTO` what a request, offer, acceptance, refusal, delegation, acknowledgment or handoff **means between parties**, and what may be inferred from silence, duplication, timeout, rejection or partial fulfilment · `Q-DEP` **what each typed relation does on change** — update a view · invalidate a candidate · block an unstarted act · demand reassessment of a completed act · create a notification duty · leave the act but alter follow-up. **A graph link alone does none of these**, and `supersedes`/`accepted_by`/`remediates` are not preconditions · `Q-CAUSE` physical and scientific effects need a causal model — **an ontology recording that two controllers influence one variable does not prove the interaction safe** · `Q-AUTH` who may assert, adopt, accept a duty, release a resource, execute, revise or grant use — data ownership ≠ corporate ownership ≠ custody ≠ execution ≠ professional accountability · `Q-PROJ` projection vs controller remit vs owner; **a derived artifact may still have identity, version and a governed lifecycle without owning authoritative state** · `Q-RUNTIME` where state lives, which component checks authority, what happens on delay or failure, which decisions need **current local** facts
+
+**Commitment and concurrency** *(new — `H-CONC`)* — `Q-COMMIT` what makes a commitment **holdable**: authoritative reservation, exclusivity, expiry, revocation, contention behaviour, evidence, recovery · `Q-COMMIT-2` which preconditions **can** be converted into commitments and which can only ever be evaluated · `Q-COMMIT-3` cross-organization commitment where no party has delegated command
+
+**The action brief** *(new — `H-BRIEF`)* — `Q-BRIEF` what a specific actor needs for a specific authorized act: minimum sufficient facts and their time basis · **what must remain true during execution** · authority and scope · held commitments · mid-act fallback · expiry and early revocation · `Q-BRIEF-2` is it a profile of CNS `§9.1`'s context packet or a distinct object · `Q-BOUNDARY-2` is it the same object as GCE's boundary exchange
+
+**Arbitration and physical coupling** *(new — `H-ARB`)* — `Q-ARB` who holds the right to change a shared physical variable, how it transfers, with what evidence, and what happens on comms loss · `Q-ARB-2` composed control responsibility, interaction constraints, timing, conflicting objectives, conflict resolver · `Q-ARB-3` the record of what each participant was told, when, and whether it acted on superseded information · `Q-ARB-4` what OMNI does when a participant **refuses** the arbitration (`§6.2`)
+
+**Posture and command** — `Q-P35` **`REV-188`** ownership (distribute · one owner · or explicitly re-defer with a reason) · `Q-P35-2` binding grain · `Q-P35-3` are supervision, delivery mode, emergency authority, execution delegation and autonomy degree separate dimensions, reconciled against Care `§5b.1`'s existing factoring · `Q-RECEIPT` what positively constitutes an execution receipt · `Q-DL18` the `Q-DL18-4` delegated-authority-grain dependency — **described, never chosen** · `Q-FED` Federation's missing non-human/agent modelling (**default: route**) · `Q-TIME` control-timescale separation · `Q-DEGRADE` validated local behaviour on connectivity loss — **no universal stop-everything or continue-everything fallback**
+
+**Readiness** — `Q-READY` who owns assembling resources, items, instruments, implants, consumables, suppliers, facility capacity, sterile-processing turnaround and on-site personnel · `Q-READY-2` how a supplier or consignment holder learns what is needed, when, on whose authority · `Q-READY-3` what readiness state must exist before execution authorization, and who may refuse on readiness grounds · `Q-READY-4` **readiness is time-sensitive evidence and held commitments over actual resources — never a stored green flag** · `Q-READY-5` is `care_coordination_owner` the owner of readiness or a distinct role
+
+**Discovery, privacy, population** — `Q-DISC` are aggregate opportunity · cohort feasibility · anonymous eligibility · notification · re-contact · clinical qualification · identity release · enrolment · lead generation · executable case constitutionally distinct · `Q-DISC-2` does C3.7's `research_permission_stack` generalise beyond research (cheaper hypothesis; test first) · `Q-DISC-3` disclosure risk over time — repeated queries, rare cohorts, overlapping populations, deduplication, changing permissions · `Q-PROP` **the A→B path**: an attributed observation enters an authorized safety/research process; evidence is evaluated under an applicable basis; a **bounded** finding or revised model is produced; potentially affected cases and organizations are identified; B's team receives it under appropriate terms and makes the decision belonging to that care relationship. **Data use ≠ scientific inference ≠ publication ≠ deployment ≠ clinical adoption** · `Q-PROP-2` **the reverse** — a source observation is corrected: which analyses, outputs, recommendations and prior decisions relied on it, what should be reconsidered, and what remains a valid historical fact
+
+**Selection, exposure, containment, obligation** — `Q-SEL` is producer selection already constrained by `GRD-032`/`034` + inv 29 + Care `§4` + C4.6 `C6` + Care `§9a` `sponsor/incentive`, or is there a hole (burden on finding the hole) · `Q-SEL-2` separability of trusted integration · admitted capability · preferred partner · clinically recommended option · payer-mandated option · patient-selected option · OMNI-owned product · `Q-SA` **HARD** Selection Accountability: consult and test only; declared reliance inherits the hold; never extend or promote · `Q-RESIST` **institutional resistance, mandatory** · `Q-EXP` unified exposure record **or** source-preserving composition — **test the composition first** · `Q-LIN` which lineage axes are mandatory, per-modality, or never OMNI's · `Q-CONTAIN` does layered containment generalise past pharmacy scope, and can a mandatory action against a configuration be tracked to per-instance compliance · `Q-STAGE` staging observation → adjudicated concern → containment → accountability · `Q-SURV` which anchor makes an obligation survive · `Q-OUT` `REV-174` prerequisite or consumer (**default: consumer**) · `Q-OPT` option preservation as a positive capability
+
+---
+
+## §11 — Scenario generation
+
+**Not a library.** **Opus proposes cases; an independent reviewer challenges the coverage model, supplies held-out cases and rejects incorrect expected behaviour; Nick adjudicates.** Coverage is measured by **breaker-family × axis-extreme × regime**, never row count — **and the coverage model itself must be attacked**, because a finite factor model can omit the relevant actor, sequence, physical effect or institutional behaviour. Not every case deserves equal depth or its own artifact.
+
+**§11.1 Axes** — `track_mix` · `owner_spread` · `regime` · `production_locus` · `patient_specificity` · `capability_existence` · `execution_agency` · **`concurrency_on_a_shared_variable`** · **`commitment_availability`** · `adaptivity` · `control_timescale_spread` · `irreversibility` · `obligation_horizon` · `principal_count` · `regulatory_settledness` · `producer_permanence` · `institutional_willingness` · `disclosure_openness` · `initiating_principal` · `participant_ownership` · `connectivity`.
+
+**§11.2 Breaker families** — **commitment and contention** (two actors one resource; check-then-use; expiry; revocation; stale hold) · **arbitration** (concurrent rights over one physical variable; transfer at speed; comms loss; acting on superseded information) · **duration** (a condition that must hold throughout execution fails mid-act) · track and ownership misrouting · readiness and stale readiness · time and validity (sample ≠ analysis ≠ receipt; stale authorization; changed scene; changed-during-manufacture) · duplication and routing (one event two paths treated as corroboration; repeated delivery causing repeated action; route mistaken for authority) · authority and impersonation (statement→command; extraction→authority; ACK→custody; acceptance→execution; execution→effect; release→adoption; model evidence→observed response) · participation change (join, leave, revoke, unknown-at-start, refusal, withdrawal with work in flight) · affiliation and topology · degradation · continuity and disappearance · **population and propagation, including unrecorded reliance** · capability formation · neutrality and incentive · **honest-null** (no intervention, no eligibility, refusal — a valid outcome, not a failure).
+
+**§11.3 Regimes — all three mandatory** — **individual** arrangement with changing participants · **shared operational** (lots, equipment, facilities, capacity, protocols, model releases, supplier arrangements, **operations with zero identified patients**) · **cross-organization and population** (learning, collective hazards, propagation, privacy at scale). **Running the first repeatedly cannot prove the other two.**
+
+**§11.4 Positive capability tests — mandatory** — a patient discovers a legitimate opportunity · a supplier receives enough to fulfil a real need · **an operator reserves resources and the commitment holds** · **a commitment is made immediately because it is held, not because the world is known** · care continues under an acceptable alternative · coordination happens without unnecessary gates. **A framework that only prevents action is not an operating model.**
+
+**§11.5 Negative controls — predicates, not labels.** **The illegal substitution is the failure; the first state in each pair is not wrong.** An ACK as an ACK is valid — as accepted custody it is not. A simulation labelled as such is valid — presented as observed response it is not. A refusal recorded as refusal is valid — as an intervention performed it is not. Likewise: **an availability observation vs a held reservation** · approved candidate vs actual exposure · manufacturer's release vs clinical adoption · stale authorization recognised vs relied upon · one event deduplicated vs double-counted or double-executed · affected party reached vs missed, unaffected notified as exposed · evidence in purpose vs secondary use · an attributed clinical statement vs a device command · an OMNI-operated participant on identical terms vs privileged · a real operating difference represented vs flattened. **A written trace is design evidence — not proof of a deployed system, counterparty agreement, or clinical safety.**
+
+---
+
+## §12 — The four required outputs
+
+**Content obligations, not four new gates, files or teams.** Adopted from the review.
+
+| Output | What the next team must be able to do with it |
+|---|---|
+| **A — integrated operating-model decision** | Explain what participates, what each owns and may decide, how the lifecycles interact, and what changes when the arrangement changes. **State which inherited assumptions survived, changed or remain unverified.** Compare plausible **structural alternatives** — native lifecycles with typed integration contracts · bounded shared episode/process agreements over local lifecycles · different controller or dependency-evaluation allocations — instantiated only where a real question demands it, never to satisfy a count. **Physical realization (native / hosted / hybrid) is a separate axis and settles neither semantics nor authority.** |
+| **B — mechanism and frontier-adequacy evidence** | Explain how conditions are specified and evaluated, evidence reused, action-critical facts revalidated at execution and **during** it, resources and commitments coordinated and **held**, physical control bounded, uncertainty handled, and consequences propagated. Exercise all three regimes, routine and high-consequence, partial and unwilling counterparties, generated interventions, adaptive execution. **Separate design evidence from implementation and clinical proof.** |
+| **C — speed/safety/efficiency thesis + evidence contract** | Preserve **both** `§2.1` statements. Explain the causal mechanism, its limits, its empirical assumptions, its counterexamples and how the claim can be tested **without mistaking speed for benefit.** Distinguish intended property · designed mechanism · design-test evidence · implementation proof · external acceptance · observed benefit. **Required even if the architecture mostly reuses earlier work.** |
+| **D — downstream consumption package** | For each accepted finding: source status, destination, consumer, acceptance condition, later build test. **A concrete entry packet for the next architecture/thesis/contract/build author — not a reading list and not a "C5 later" queue.** |
+
+**§12.1 Gate fit.** **G0** approves this investigation contract and its boundaries, **not its architecture.** **G1** formulates comparatively with primary evidence and pressure, iterating freely, delivering a coherent candidate plus named unresolved conditions — **not another source summary.** **G2** adjudicates the operating model and its value claims **at their actual evidence level** and records destinations and downstream obligations. **Mandatory inside G1:** the institutional-resistance test (`Q-RESIST`) and both `H-NP` tests. **Separate and optional:** wedge selection, market sizing, financing, GTM.
+
+**§12.2 Measuring the value claim.** For each tested arrangement, separate **avoidable coordination delay** from capacity queues, actual work, scientific/biological/manufacturing time, necessary deliberation, patient choice and institutional constraint. **Better information improves some and abolishes none.** Compare the same demanded outcome under comparable resources and safety requirements: time to an appropriate disposition and, when indicated, execution · tail delays and time to detect material change · repeated work and **total burden on staff, counterparties and patients — not only OMNI users** · unsafe proceed, false-ready, missed impact, unjustified escalation or denial · accuracy of resource commitments and accepted responsibility · remaining-obligation visibility · **confidence and coverage limits, not only successful cases.** **The strongest test is not "did the happy path get faster" but "did it get more timely without concealing uncertainty, suppressing legitimate refusal, shifting unreconciled work onto someone else, or increasing unsafe action."** When a safeguard creates work, the system-level benefit must justify it. Fewer recorded incidents is not fewer actual incidents.
+
+**§12.3 G2 acceptance test.** *Can a fresh reader explain how the assembled arrangement behaves — not merely identify its participants, permissions and records?* **More named fields and more gate prose will not satisfy it.** Scenario counts, a catalog entry, a new route, or `REV-188` closure are **not** adequate success criteria.
+
+---
+
+## §13 — Method, sources, preservation
+
+**§13.1 Method law.** `1` Inheritance verification precedes assertion, not capture — capture provisionally, verify before asserting anything as new, settled or authoritative. `2` **A comparator claim is a novelty claim** and owes the same check. `3` **Before proposing a structural decomposition, consume the operative structural account of the most recent joint/cross-domain run — not its closeout.** `4` Source floor declared and discharged per output; delegated scans labelled as evidence, not an authored read. `5` One carrier. `6` No parallel lanes before G0 acceptance. `7` `METHOD-000` default; one current-state surface (`§1`). `8` **External sources captured with provenance and maturity before any conclusion depends on them** — `research_demonstration` · `clinical_investigation` · `authorized_bounded_use` · `established_operational_capability` · `speculative_future_assumption`. A statute or specification is authoritative about its own content without proving a deployed capability. `9` No absence claim without its coverage; no history claim from a current-state search; **no causal claim about a past omission without evidence for the cause.** `10` **Expose the basis of a load-bearing claim (`§4`) — without forcing a box.** `11` **Stop framing each recovered passage as the biggest discovery yet.** `12` **Preserve the ambition and the contract together (`§2.1`); neither may be deleted in favour of the other.**
+
+**§13.2 Source posture.** **Read fully by this author:** this carrier; all five Knox reviews; **`EVRUN-000012_02 §15` in full**; the FAI pause checkpoint; the guardrail digest; FAI R8 `§3.9`; the read-graph Route Entry Contract and Major-Arc Intake routing. **Verbatim-verified at specific passages:** **C4.5 `T-04` and `T-15`** · **C4.3 `10.1`** · Care `§1a`, `§19` (incl. the ten `CARE-SPECIFIC` occurrences), `§1CP`, `§5a`, `§5b`, `§5b.1`, `§9a` · residual/moat Palantir passage + revision history · C3.7 `§11`/`§12` + scenario-library spec · C3.5 F5 P35 rename · `federation_contract.md` inv 29 / `T0-14` · `GRD-032` · `08` `REV-188`/`189`/`190` · `manifest_action_enum` · read-graph routes `9a`/`9i`/`9m`/`10` · C4.6 Rx L2 · FWREG inventory and history · `AGENTS.md` standalone-lane clause. **Recovered via delegated scans** — marked as evidence. **NOT inspected:** `EVRUN-000012` `_00`/`_01`/`_03`/`_04`/`_05`/`_06`/`_07` (**`_04` controlling adjudication and `_05 §5.0`–`§5.6.1` burden model are bounded G1 additions**) · `REV-184` beyond its cited rule · C4.5 and C4.3 beyond the cited rules · Care capture in full · residual/moat in full · the six AI registries · thesis `§C` · `v4_C3_7G` · the Demand/counterparty disposition · full scenario libraries · the implementation estate · **every external source in `§7.2` and `§9`.**
+
+**§13.3 Routing, corrected.** R5's causal story is **withdrawn**. Verified: the read graph **does** reference `EVRUN-000012` (three mentions, via routes `9i` and `9m`), and the run carries an index plus explicit deep-consumption pointers. **So there was a retrieval path.** The accurate finding is narrower: **there is no direct task-entry route, the catalog run-row points at `_00`, and `_07` warns against being substituted for `_02 §15` — a discoverability weakness worth fixing.** It cannot explain missing a C3.7 passage in a source already consulted, or a Palantir passage in an already-routed source. **Those were reading failures.** A route is a useful improvement and **is not this arc's achievement.**
+
+**§13.4 Preservation homes — part of acceptance, not a closeout chore.** **Thesis/spine:** `§2.1`'s ambition **and** contract, with mechanism, limits and evidence maturity. **Architecture capture / reference model:** the execution, authority, semantic-dependency, temporal, uncertainty and control relationships. **Domain / seam / profile contracts:** applicable conditions, responsible owners, validity and refresh rules, **reservation and commitment semantics**, response requirements, evidence contracts. **Build and evaluation:** fixtures, fault injection, observability, burden measurement, external validation. **Different homes for different responsibilities — not four maintained copies of the same prose.** Exact paths and accepted successors resolve before any write; `/architecture` installation and FAI remain separately controlled. **This carrier is the review home until a destination accepts a finding — not a licence to mark everything C5-later.**
 
 ---
 
 ## §14 — Governance receipts
 
-**Read-graph evaluation complete; catalog registration OWED.** `AGENTS.md` confirms a standalone lane needs no integrator; the reason to serialize is the **verified overlap** — the FAI branch has modified `01_master_corpus_catalog.md`, `04_manifest_read_graph.md` and `future_work_registry.md`. **Overlap is collision risk, not proof of conflict.** **Requested: one bounded intake transaction** — this carrier's catalog row plus the routes below, with a recorded freshness/collision check, returning exact head/blob and per-file stats. **Not requested:** unrestricted governance write, a FAI merge, additional rows by default, or a governance cleanup.
+**Read-graph evaluation complete; catalog registration OWED.** `AGENTS.md` confirms a standalone lane needs no integrator; the reason to serialize is the **verified overlap** — the FAI branch has modified `01_master_corpus_catalog.md`, `04_manifest_read_graph.md` and `future_work_registry.md`. **Overlap is collision risk, not proof of conflict.** **Requested: one bounded intake transaction** — this carrier's catalog row plus route `#9w` (ECB task entry, also naming `EVRUN-000012_02 §15` and `_04`, the P35 carriers, C3.7 `§11`/`§12`, Care `§1a`/`§1b`/`§5b`/`§9a`/`§19`, C4.5, C4.3, `REV-184`, Federation inv 29, and `REV-188`/`189`/`190`/`141`/`174`) — with a recorded freshness/collision check, returning exact head/blob and per-file stats. **Not requested:** unrestricted governance write, a FAI merge, extra rows by default, or a governance cleanup. **Route key `#9w` verified free on both refs; arc state resolves from `§1` and the route carries none.**
 
-**Route `#9w` — ECB.** Triggers on: participation posture of an external or OMNI-operated capability · command or execution authority over a non-human actor · **readiness and resource assembly for a scheduled act** · capability formation from patient context · lineage, released configuration or exposure · recall-to-exposed-person reach · privacy-preserving discovery or opportunity/demand separation · obligation survival past producer/operator/consent disappearance · **cross-lifecycle change propagation**. Also loads the P35 carriers, C3.7 `§11`/`§12`, **Care `§1a`/`§1b`/`§5b`/`§5b.1`/`§9a`/`§19`**, `federation_contract.md` inv 29, the residual/moat frame, and `REV-188/189/190/141/174`. `consult_if_routed`. Arc state resolves from `§1`; the route carries none.
+**Open-review rows — PROPOSED, land only if authorized:** `D0ECB-REV-001` P35 has no task-entry route (`10`/`9a` reference it but fire on v4-spine authoring or C3.8 convergence) · `D0ECB-REV-002` the C3.7 super-frame has a source carrier but no accepted whole-frame disposition and no task-entry route; its promised registry entry was never written (history-verified); **no claim about why prior arcs omitted it** · `D0ECB-REV-003` `add_tier3` invalid enum in the FAI arc-opened handoff · `D0ECB-REV-005` comparator re-derivation (Palantir, third instance) · `D0ECB-REV-006` **`EVRUN-000012_02 §15` discoverability** — routed only indirectly via `9i`/`9m`, catalog row points at `_00`, closeout warns against itself; **recorded as a discoverability weakness, not a proven cause.** **No FWREG row proposed.**
 
-**★ Route `#9x` — the highest-value routing fix in this arc.** `EVRUN-2026-000012_02 §15` — the estate's operative cross-domain structural account — has **no global read-graph route**, its catalog run-row points at `_00`, and `_07` warns readers not to substitute itself for `§15`. **A route must name `_02 §15` as the operative result and `_04` as the controlling adjudication**, triggering on any cross-lifecycle, cross-domain, consequence-propagation, custody or composition work. *Three consecutive failures in this arc trace to its absence.* → `D0ECB-REV-006`.
-
-**Open-review rows — PROPOSED, land only if authorized:** `D0ECB-REV-001` P35 has no task-entry route (routes `10`/`9a` reference it but fire on v4-spine authoring or C3.8 convergence) · `D0ECB-REV-002` super-frame has a source carrier but no accepted disposition and no route; its promised registry entry was never written (history-verified); no claim about why prior arcs omitted it · `D0ECB-REV-003` `add_tier3` invalid enum in the FAI arc-opened handoff · `D0ECB-REV-005` comparator re-derivation (Palantir, third instance) · **`D0ECB-REV-006` the operative-account routing defect + the candidate guardrail.** **No FWREG row proposed** — a registry entry must not be created to make a loss narrative true after the fact.
-
-**Collision check:** FAI G1 read-only and pinned · Selection Accountability consult-and-test only · **Care capture** frozen against edit, readable, strongest read dependency, **no edit or promotion** · **`EVRUN-000012`** nonbinding run, **cite at its stated status, promote nothing** · C3.7, residual/moat, C4.6 — cite, do not promote · Federation inv 29 — cite, no contract edit · Insurance Gate 2 / Method PR #19 — no overlap / non-binding.
+**Collision check.** FAI G1 read-only, pinned — carrier blob `9835715e` matches the pause checkpoint's pin across its three recorded heads; **frozen Authority content has not drifted.** Selection Accountability: consult and test only; **declared reliance inherits the hold**; a proposal to Nick is not an edit; only a **blocking contradiction** stops that conclusion, never the arc. **Care capture** frozen against edit, readable, strongest read dependency — **no edit, no promotion.** **`EVRUN-000012`, C4.5, C4.3, `REV-184`, C3.7, residual/moat, C4.6** — cite at stated status, **promote nothing.** Federation inv 29 — cite, no contract edit. Insurance Gate 2 / Method PR #19 — no overlap / non-binding. **`main`'s stale boot pointer remains separately reported and is not this arc's subject.**
 
 ---
 
 ## §15 — Gate-0 stop receipt
 
-**Produced:** this carrier, revision R5. **No architecture. No name minted. No scenario library. No promotion.**
+**Produced:** this carrier, revision R6. **No architecture. No name minted. No scenario library. No promotion.**
 
-**Discharged this pass:** the organism **recovered** from `EVRUN-000012 §15.6`/`§15.9` at its actual authority, ending the naming saga without a fifth label · the five-layer composition, activation-not-counting, seven native lifecycle families, fourteen typed relations and three custodies installed as **inherited structure** · the R4 lattice **demoted** to Care `§1a`'s real job as a routing rule, with Knox's three counterexamples accepted and `§15.2` shown to have already solved the first · **three misses traced to one documented mechanism** — no read-graph route, a catalog row pointing at `_00`, and a closeout that warns against itself — with the highest-value fix specified at `§14` · the exact irony recorded rather than laundered: `§15.9` is a prior Opus owning the same error class · *"one patient"* rejected as root, three regimes installed · the **four constraint kinds** installed as a standing discipline so a commercial hope cannot be carried as physics · the **healthcare-specificity** account preserved with Care `§19`'s per-dimension verdicts and its *"enforced composition, not patient-authority alone"* caution · **the speed-and-safety thesis** proposed as a falsifiable hypothesis linking `§15`'s typed relations to the operator's mach-speed/highest-safety question, with the 2035 burden restated as **shorter-lived preconditions across more owners** · scenario authorship corrected · **positive capability tests made mandatory** · cross-industry comparison framed as a falsifier with its non-transfers.
+**§15.1 Discharged.** The **ambition and the contract preserved separately** with an explicit non-substitution rule (`§2.1`) — the operator's first correction · the **speed mechanism corrected from observation to commitment** (`§3`), which answers the tray case, restates why healthcare is slow, and is grounded in `§15`'s own relation vocabulary · three R5 overclaims withdrawn — *continuously known*, *without re-verification*, *exactly the dependent decisions* — against C4.5 `T-04`/`T-15` and C4.3 `10.1`, the **fourth** under-inheritance this arc · the **snapshot question answered**: three objects conflated, the forward-looking **action brief** absent, and the real comparator is a **clearance or permit-to-work**, not a data extract (`§5.1`) · the **six-robot case answered**: the coupling is the body, the room, the resources and the clock; OMNI holds **arbitration of rights over shared physical state plus the black box**, never the control loop; the **god-robot alternative named as a real threat with its structural limit**; and the honest limit that OMNI records rather than arbitrates where a participant refuses (`§6`) · constraint kinds **softened from enum to basis-exposure** (`§4`) · **two false R5 claims corrected** — the read graph **does** reference `EVRUN-000012` via `9i`/`9m`, and Care `§19` has **ten** `CARE-SPECIFIC` occurrences, not two · *"not clinical-first"* withdrawn as contradicting care-centred posture · the **four required outputs** and the **value-measurement contract** adopted · **reference integrity repaired** — section numbering now matches the header, and question IDs are stable with the R5 map below.
 
-**Open and owed:** the G1 reconciliation of `§15` against the wider regimes · `Q-1` … `Q-37` · the scenario bank (Opus proposes · independent reviewer challenges · Nick adjudicates) · `D0ECB-REV-001`/`-002`/`-003`/`-005`/`-006` · catalog row + routes `#9w`/`#9x` — **bounded intake authorization requested** · `EVRUN-000012` `_04`/`_05`, Care capture in full, residual/moat in full, the six registries, C3.7 `G`, Demand disposition (`§13` method `8`) · all `§11` external sources unverified · `main` boot-pointer hazard.
+**§15.2 NOT done, by design.** No architecture decided · no name minted · no scenario executed · no external source verified · no lane or agent launched · no contract touched · no FAI mutation · no promotion of `EVRUN-000012`, Care, C4.5, C4.3, `REV-184`, C3.7 or residual/moat · no registry or queue write · no shared control-plane surface landed.
 
-**Stop condition.** Superseded only when Nick + Knox accept, amend or reject R5. **On acceptance the next authorized act is G1 beginning with the `§15` reconciliation — nothing else.**
+**§15.3 R5→R6 question-ID map** *(R5 compressed numbering without preserving meaning; stable IDs replace digits)*. R5 `Q-1`→`Q-ENT` · `Q-1a`→`Q-ENT-2` · `Q-1b`→`Q-ENT-3` · `Q-2`→`Q-LIFE` · `Q-3`→`Q-PROTO` · `Q-4`→`Q-DEP` · `Q-4a`→`Q-CAUSE` · `Q-5`→`Q-AUTH` · `Q-6`→`Q-PROJ` · `Q-7`→`Q-RUNTIME` · `Q-8`→`Q-P35` · `Q-9`→`Q-P35-2` · `Q-10`→`Q-P35-3` · `Q-11`→`Q-RECEIPT` · `Q-12`→`Q-DL18` · `Q-13`→`Q-ARB-2` · `Q-14`→`Q-DEGRADE` · `Q-15`…`Q-19`→`Q-READY`…`Q-READY-5` · `Q-20`…`Q-24`→`Q-DISC`…`Q-PROP-2` · `Q-25`…`Q-37`→`Q-SEL`…`Q-OPT`. **New in R6:** `Q-COMMIT`(×3) · `Q-BRIEF`(×2) · `Q-BOUNDARY-2` · `Q-ARB`, `-3`, `-4` · `Q-FED` · `Q-TIME`. **Retired:** R4's `Q-ECB-*` digits — superseded by these.
+
+**§15.4 Open and owed.** Output A–D (`§12`) · the `Q-*` set (`§10`) · the scenario bank (Opus proposes · independent reviewer attacks · Nick adjudicates) · `D0ECB-REV-001`/`-002`/`-003`/`-005`/`-006` · catalog row + route `#9w` — **bounded intake authorization requested** · bounded G1 source additions: `EVRUN-000012 _04` and `_05 §5.0`–`§5.6.1`, `REV-184 §0`, C4.5 applicable temporal requirements, C4.3 impact/coverage semantics · wider source and external-evidence completion **in G1 before conclusions depend on it** · `main` boot-pointer hazard (Nick).
+
+**Stop condition.** Superseded only when Nick + Knox accept, amend or reject R6. **On acceptance the next authorized act is G1 per `§12.1` — nothing else.**
 
 ---
 
 ## §16 — Amendment log
 
-**R1** `60619c4f` initial authoring · **R2** `3b9db0c2` nine Knox amendments; *"2035 comes free"* withdrawn; super-frame recovered · **R3** `88e65c07` BC-1…BC-4; renamed *Care Participation*; Care `§9a` recovered; maturity ladder dissolved; governance made a constraint plane · **R4** `93dab6aa` scope de-clinicalized from Care `§1a`; naming deferred per `GRD-026`; scenario generator introduced; Palantir withdrawn.
+**R1** `60619c4f` initial · **R2** `3b9db0c2` nine Knox amendments; *"2035 comes free"* withdrawn · **R3** `88e65c07` maturity ladder dissolved; governance made a constraint plane · **R4** `93dab6aa` scope de-clinicalized from Care `§1a`; naming deferred per `GRD-026`; Palantir withdrawn · **R5** `0bbfa91c` `EVRUN-000012 §15` recovered and installed as inherited structure; lattice demoted; speed thesis introduced.
 
-**R5** (this revision) — **the operative structural account recovered.** `EVRUN-000012_02 §15` read in full and installed as inherited structure: five-layer composition · **activation, not counting** · seven native lifecycle families (`Care Resolution ≠ Sourcing Selection ≠ Fulfillment Execution`) · fourteen typed cross-lifecycle relations · three typed custodies · **no universal CNS executive** · plus its own open spans (`REQUIRES_C5_DEDUP`, `REQUIRES_TASK_D`, `REQUIRES_RUNTIME_PROOF`, `REQUIRES_EXTERNAL_ACCEPTANCE`, `REQUIRES_MARKET_VALIDATION`) — which are the arc's real work surface. **Organism recovered, not renamed** — `§15.6`/`§15.9` end the naming saga at their actual authority. **R4's lattice demoted** to Care `§1a`'s routing-rule remit; Knox's three counterexamples accepted; the knee-replacement authority over-assignment corrected against Care `§5b`/`§14`. **Three misses traced to one documented mechanism** (no route · catalog points at `_00` · closeout warns against itself) with route `#9x` proposed as the fix and `D0ECB-REV-006` recording the guardrail; the `§15.9` irony recorded. **"One patient" rejected as root**; three mandatory regimes. **Four constraint kinds installed** (reality · institutional-legal · OMNI's chosen commitment · strategic hypothesis) with every `[INV]` required to carry its kind. **Healthcare specificity preserved** via Care `§19`'s per-dimension verdicts and the *"enforced composition"* caution. **Speed-and-safety thesis added** as `§6` — a falsifiable hypothesis that speed comes from not re-verifying preconditions, safety from propagating a change to exactly the dependent decisions, and that the 2035 burden is shorter-lived preconditions across more owners; new `H18`–`H21`. **Scenario authorship corrected** (Opus proposes; independent reviewer challenges and supplies held-out cases; the coverage model itself must be attacked). **Positive capability tests made mandatory.** Cross-industry comparators added as falsifiers with non-transfers; Palantir comparison moved to mechanism-level precision with three implementation alternatives kept alive.
+**R6** (this revision) — **ambition and contract both preserved, separately labelled, with a non-substitution rule** (`§2.1`), answering the operator's objection that a guardrail reformulation silently deletes the reach. **Speed mechanism corrected: observation is not commitment.** The tray case proves a precondition check cannot make two actors safe; speed comes from **holding** a commitment, and `§15`'s Layer-4 relations already separate evaluation from commitment from consequence. Healthcare is slow because **commitment primitives are missing across organizational boundaries**, not because information is missing. Three R5 overclaims withdrawn against **C4.5 `T-04`/`T-15`** and **C4.3 `10.1`** — the fourth under-inheritance this arc. **Snapshot question answered** — frozen decision context and `as_of` reconstruction are backward-looking and exist; the forward-looking **action brief** does not, and its comparator is a **clearance / permit-to-work**, not a data extract. **Six-robot case answered** — coupling is physical, not software; OMNI holds arbitration of rights over shared physical state plus the black box, never the control loop; the god-robot path named as a real threat whose limit is that no vendor can arbitrate a competitor; and the refusal case made explicit. Constraint kinds **softened from an enum to basis-exposure**. **Two false R5 claims corrected** (read graph does reference `EVRUN-000012` via `9i`/`9m`; Care `§19` has ten `CARE-SPECIFIC` rows). Route causation **withdrawn** — a discoverability weakness, not a proven cause, and not this arc's achievement. *"Not clinical-first"* withdrawn. **Four required outputs and the value-measurement contract adopted**, including total ecosystem burden and the rule that speed is not benefit. New hypotheses `H-SPEED`, `H-CONC`, `H-ARB`, `H-BRIEF`, `H-DUR`, `H-IMPACT`, `H-BURDEN`; `H-SCALE` softened. **Reference integrity repaired and question IDs made stable** with an explicit R5→R6 map.
