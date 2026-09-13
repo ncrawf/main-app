@@ -2,7 +2,7 @@
 
 Document type: `plan_or_roadmap` — **Gate-0 investigation charter**
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Originates no doctrine, mints no name, accepts no architecture, promotes nothing.**
-Status: `G0_R24_PENDING_ACCEPTANCE · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
+Status: `G0_ACCEPTED_R24 · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
 Revision: **R24** — amends R23 (`1701cc9c`). **SOURCE-STATUS CORRECTION ONLY — the investigation contract is unchanged.** One routing row repaired: line counts removed as evidence of substance, the federation arc's split-object status and its `DL-21` companion named, and non-re-derivation stated explicitly as **not** non-challenge. **No decision, hypothesis, output, coverage obligation, specification or execution rule is touched.** *(Prior revision note — R23 amends R22 `50f37f8a`:* **Completes `B-01`, which R22 applied by APPENDING a correction beneath the premise it was replacing** · states participation and repeatability as an Output C obligation · **routes the existing competitive estate with a non-re-derivation rule** · replaces the last categorical FAI diagnosis. **No new gate, decision, case quota or planning round; `§12.4`'s arithmetic and the first RECONCILE unit are untouched.**)* **The accepted baseline remains NONE.** Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
 Domain(s): `cross_domain` · `architecture_governance` · `federation` · `rbac_authority` · `cns_orchestration` · `ordered_fulfillment` · `d6_commerce` · `d3_scheduling` · `business_ops_workforce` · `d7_documents_consent` · `observation_measurement` · `clinical_memory` · `trials_research`
 Lifecycle role: defines the investigation — its question, its inherited candidates, its ambition, its bounded mechanism, and the four outputs it must produce — **without deciding its answer.**
@@ -19,8 +19,8 @@ Arc key:                 ECB  (work identifier only)
 Inherited candidate:     EVRUN-2026-000012_02 §15 — ARCHITECTURE_CANDIDATE,
                          scoped to its run, explicitly NOT the only coherent
                          architecture. A candidate to test, not an answer.
-Arc state:               GATE_0_R24 — NOT ACCEPTED, G1 NOT ACTIVATED
-Gate 0 verdict:          none issued
+Arc state:               GATE_0 ACCEPTED (R24) — G1 NOT ACTIVATED
+Gate 0 verdict:          ACCEPTED by Nick, 2026-09-13
 Acceptance vs activation: two separate operator acts (§15.0)
 
 OBJECT IDENTITY (static — the working object is recovered from these)
@@ -36,23 +36,27 @@ OPERATIONAL STATE (§12.9.1 — a successor reads this, not the chat)
   Working head/blob:     recovered from the Branch + Primary in OBJECT
                          IDENTITY above. A file cannot carry the blob that
                          describes it, so this row stamps no identifiers.
-  Accepted baseline:     NONE — G0 not accepted. THIS IS THE SOLE OWNING
-                         ROW; §15.0 points here and holds no second copy.
-                         On acceptance the authorized writer records the
-                         accepted content head + blob, acceptance scope and
-                         decision attribution here, in a state-only commit.
-                         Frozen review receipts stay separately identifiable.
-  Next permitted action: Nick's G0 acceptance decision. The Knox seat
-                         returned ACCEPT_AS_G0_PLAN on R23 with no further
-                         amendment required (§15.7 RV-9). R24 is a
-                         source-status correction only and changes no
-                         investigation instruction, so that reasoning
-                         carries. TWO SEPARATE OPERATOR ACTS remain and
-                         neither has occurred: (1) accept the plan at G0
-                         scope, recording the accepted content ref and
-                         attribution in this section; (2) separately
-                         activate RECONCILE unit 1 only (§12.9.3) — not
-                         the phase, not the gate.
+  Accepted baseline:     ACCEPTED. THIS IS THE SOLE OWNING ROW; §15.0
+                         points here and holds no second copy.
+                           accepted content head: 00e2e97cea48bed69e93ca957fc59e8843dbdab6
+                           accepted primary blob: 44ae518fad258e1addfd83e9107c6c0694422deb
+                           revision:              R24
+                           decided by:            Nick, 2026-09-13
+                           scope:                 the INVESTIGATION PLAN only
+                         NOT accepted by this act: any architecture, any
+                         answer, any operating-model decision, any contract,
+                         implementation, promotion, merge, or frontier
+                         sufficiency. Reversible: a later state-only commit
+                         may withdraw it. Frozen review receipts stay
+                         separately identifiable.
+  G1 activation:         NOT GIVEN. Acceptance is not activation. No work
+                         unit is authorized to start. The operator activates
+                         RECONCILE unit 1 (§12.9.3) as a separate act.
+  Next permitted action: Nick's decision on whether to activate RECONCILE
+                         unit 1 (§12.9.3). Act 1 of 2 (acceptance) is DONE
+                         and recorded above. Act 2 has NOT been given: the
+                         operator asked what the unit is before authorizing
+                         it, and no work has begun.
 Architecture accepted:   none
 Name minted:             none
 FAI relationship:        separate bounded object; FAI G1 untouched
@@ -855,7 +859,7 @@ Each scored case carries: **question and competing accounts** (which decision it
                           basis
 ```
 
-**Both unchecked.**
+**Box 1 CHECKED — plan accepted at R24 by Nick, 2026-09-13 (`§1` owns the record). Box 2 UNCHECKED — G1 not activated.**
 
 **How acceptance is recorded, because the previous mechanism was unusable.** R12–R15 bound acceptance to *"head and primary blob in the return receipt"* — a chat artifact. **Agent Work Protocol `§2.1` (L168) forbids exactly that: *"no agent may be required to recover a base SHA from a chat transcript,"*** and requires a base to be **bound after acceptance, never asserted inside the content commit it describes**. Checking a box here is itself a write, so the accepted bytes and the bytes recording acceptance can never be one object.
 
