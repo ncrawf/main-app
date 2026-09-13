@@ -2,8 +2,8 @@
 
 Document type: `plan_or_roadmap` — **Gate-0 investigation charter**
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Originates no doctrine, mints no name, accepts no architecture, promotes nothing.**
-Status: `G0_R13_EXECUTION_CONTRACT_INSTALLED_PENDING_ACCEPTANCE · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
-Revision: **R13** — amends R12 (`3c84cf9e`). **Installs the execution contract at `§12.9`: entry obligations, work units, the first specified unit, evaluation method, two prepared specs, durable homes, replacement readiness.** Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
+Status: `G0_R14_PENDING_ACCEPTANCE · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
+Revision: **R14** — amends R13 (`6f1321f6`). **Three verified defects fixed: the discovery trigger, the two specs, the entry route. One review item declined with reason (`§16`).** Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
 Domain(s): `cross_domain` · `architecture_governance` · `federation` · `rbac_authority` · `cns_orchestration` · `ordered_fulfillment` · `d6_commerce` · `d3_scheduling` · `business_ops_workforce` · `d7_documents_consent` · `observation_measurement` · `clinical_memory` · `trials_research`
 Lifecycle role: defines the investigation — its question, its inherited candidates, its ambition, its bounded mechanism, and the four outputs it must produce — **without deciding its answer.**
 Source-of-truth relationship: **owns nothing.** Arc state belongs to `§1`.
@@ -19,7 +19,7 @@ Arc key:                 ECB  (work identifier only)
 Inherited candidate:     EVRUN-2026-000012_02 §15 — ARCHITECTURE_CANDIDATE,
                          scoped to its run, explicitly NOT the only coherent
                          architecture. A candidate to test, not an answer.
-Arc state:               GATE_0_R13_PLAN_REPAIRED — NOT ACCEPTED, G1 NOT ACTIVATED
+Arc state:               GATE_0_R14 — NOT ACCEPTED, G1 NOT ACTIVATED
 Gate 0 verdict:          none issued
 Acceptance vs activation: two separate operator acts (§15.0)
 
@@ -423,7 +423,7 @@ R5 reduced the frontier to shortened precondition lifetimes. **Too narrow — a 
 | Output | What the next team must be able to do with it |
 |---|---|
 | **A — integrated operating-model decision** | Explain what participates, what each owns and may decide, how the lifecycles interact, and what changes when the arrangement changes. **State which inherited assumptions survived, changed or remain unverified.** Compare plausible **structural alternatives** — native lifecycles with typed integration contracts · bounded shared episode/process agreements over local lifecycles · different controller or dependency-evaluation allocations — instantiated only where a real question demands it, never to satisfy a count. **Physical realization (native / hosted / hybrid) is a separate axis and settles neither semantics nor authority.** |
-| **B — mechanism and frontier-adequacy evidence** | Explain how conditions are specified and evaluated, evidence reused, action-critical facts revalidated at execution and **during** it, resources and commitments coordinated and **held**, physical control bounded, uncertainty handled, and consequences propagated. Exercise all three regimes, routine and high-consequence, partial and unwilling counterparties, generated interventions, adaptive execution. **Separate design evidence from implementation and clinical proof.** |
+| **B — mechanism and frontier-adequacy evidence** | Explain how conditions are specified and evaluated, evidence reused, action-critical facts revalidated at execution and **during** it, resources and commitments coordinated and **held**, physical control bounded, uncertainty handled, and consequences propagated. Exercise all three regimes, routine and high-consequence, partial and unwilling counterparties, generated interventions, adaptive execution. **Separate design evidence from implementation and clinical proof.** **Carry the coverage argument itself**: which requirement, which operating differences could change the answer, which mechanisms and alternatives address it, which trace distinguishes them, **and what bounded generalization the result supports — plus what independent challenge exposed.** *"Held-out cases supplied" is an activity; "the generalization survived this challenge within these limits" is the result.* **The named scenarios at `§11.6` are witnesses to structural claims, not the territory.** |
 | **C — speed/safety/efficiency thesis + evidence contract** | Preserve **both** `§2.1` statements. Explain the causal mechanism, its limits, its empirical assumptions, its counterexamples and how the claim can be tested **without mistaking speed for benefit.** Distinguish intended property · designed mechanism · design-test evidence · implementation proof · external acceptance · observed benefit. **Required even if the architecture mostly reuses earlier work.** |
 | **D — downstream consumption package** | For each accepted finding: source status, destination, consumer, acceptance condition, later build test. **A concrete entry packet for the next architecture/thesis/contract/build author — not a reading list and not a "C5 later" queue.** |
 
@@ -475,6 +475,10 @@ FAI_INTERRUPT_CANDIDATE                            (concrete contradiction only)
 STRATEGIC_ONLY_NO_ARCHITECTURE_CHANGE
 INSUFFICIENT_EVIDENCE
 ```
+
+**Each accepted conclusion additionally carries its result type** — **settled design choice** · **conditional design** (holds given a stated condition) · **blocking semantic question** (the account cannot be called complete without it) · **later empirical proof** (analytically closed, externally owed).
+
+**And an unresolved dependency is not a way to declare an unanswered model complete.** *"Clinical validation of this declared configuration is still required"* is an honest downstream condition. *"We still do not know who may make the consequential decision, but we assigned that question to an owner"* is **not** — **a named owner prevents abandonment; it does not supply the missing answer.** The result states which conclusions remain usable despite a dependency and which cannot be accepted until it resolves.
 
 **Plus the three non-substitutable conclusions** — present-wedge leverage · frontier adequacy · implementation readiness — **and, separately, external acceptance and observed benefit, which a paper exercise cannot award at all.**
 
@@ -578,11 +582,37 @@ Each scored case carries: **question and competing accounts** (which decision it
 
 **These exist to prove the method is usable before G1 begins. Candidate-specific results stay empty until the declared evaluation stage.**
 
-**SPEC-ORD — ordinary care.** A valid authorized prescription; an independently governed pharmacy. The request is received, **substantive acceptance is delayed, an acknowledgment is duplicated, and a later response proposes a material substitution.** The spec must distinguish **receipt from acceptance, acceptance from fulfillment, and a proposed substitution from an adopted clinical change**; must test **both** avoidance of duplicate action **and** legitimate progress once the required decisions occur; and must state what the pharmacy controls, what OMNI records, and which owner makes the resulting OMNI-side decision.
+#### SPEC-ORD — ordinary care, external fulfillment
 
-**SPEC-GEN — generated intervention.** A patient-specific intervention with a versioned design basis, a manufacturing commitment and **an irreversible preparation step.** A material patient-context change arrives **after preparation begins and before administration.** The spec must distinguish **manufacturing completion from current suitability**, preserve both the old decision basis and the new evidence, account for **consumed material**, and route reconsideration to the responsible authority. **It must not assume that every change restarts everything, that an old approval remains sufficient, or that physical work can be rolled back.**
+**Inputs.** Patient `P`; valid authorized prescription `Rx-1` with a recorded prescriber authority basis effective from `T0`; independently governed pharmacy `Y` — a counterparty with **no delegated command to OMNI** and its own native record. **Observable to OMNI:** only what `Y` transmits. **Observable to `Y`:** what OMNI transmits, plus its own stock.
 
-Both declare inputs, event sequence, expected predicates, **the provenance of those predicates**, a counterexample, a positive path, and limits.
+**Event sequence.** `T1` OMNI transmits the order · `T2` `Y` returns a transport-level acknowledgment · `T3` silence — no substantive acceptance · `T4` a **duplicate** acknowledgment arrives carrying the **same source event identity** as `T2` · `T5` `Y` responds proposing substitution of product `B` for `A`, citing stock · `T6` the prescriber reviews and adopts or declines.
+
+**Expected predicates, each with its provenance.** **P1** the `T2` acknowledgment does not set accepted-custody state *(`D0W3B-GRD-002`; C4.3 ten-state ladder)*. **P2** `T4` resolves as a **redelivery of the `T2` source event, not a second independent assertion** — **decidable rule: same source event identity ⇒ deduplicate; a distinct source assertion ⇒ two events**, and the case states which it is *(Care `§9a` multiplicity ≠ independence)*. **P3** between `T2` and `T5` a candidate may advance readiness and logistics state but **may not** set fulfillment-accepted or close the care obligation *(release is state, not authority — Care forensic `§G`)*. **P4** the `T5` substitution is a **counterparty assertion, not an adopted clinical change**; adoption requires the `T6` decision *(Observation `§4` three levels; release ≠ adoption)*. **P5** after `T6` adoption, work progresses **without re-running the whole authorization** *(C4.5 `T-15` minimum-sufficient revalidation)*.
+
+**Positive path.** The order completes without unnecessary gates once `T6` occurs. **A candidate that can only block is a failure here.**
+
+**Counterexample — must fail.** Any candidate that sets accepted state at `T2`, counts `T4` as corroboration, or treats `T5` as adopted.
+
+**Question each candidate must answer.** Which OMNI-side owner makes the decision consequent on `T6`.
+
+**Limits.** No claim about `Y`'s internal correctness; no legal determination; **design trace only** (`§12.9.4`).
+
+#### SPEC-GEN — generated intervention, irreversible preparation
+
+**Inputs.** Patient `P`; design `D-v1` with a versioned basis `{specimen S drawn T0, interpretation I-v1, patient state Q-v1}`; manufacturing commitment `M` holding a slot; **an irreversible preparation step consuming specimen material**; administration planned for `T6`. **`D-v1` carries a stated prerequisite set** — declared in the case, so `P4` is decidable rather than invented during the trace.
+
+**Event sequence.** `T1` `D-v1` released to manufacture on that basis · `T2` `M` accepts, slot held · `T3` irreversible preparation begins; material consumed · `T4` a material context change arrives — result `R` moves interpretation to `I-v2` *(variant: patient state to `Q-v2`)* · `T5` reconsideration · `T6` administer, withhold, or revise.
+
+**Expected predicates, each with its provenance.** **P1** `M`'s completion establishes **manufacturing release, not current clinical suitability** *(release ≠ adoption)*. **P2** the `T1` decision basis is preserved unaltered and `R` enters as new evidence *(`REV-184` — outcome reads the frozen context, never rewrites it)*. **P3** consumed material is accounted as consumed; **no candidate may assume rollback of physical work**. **P4** **decidable rule: does `R` invalidate a stated prerequisite of `D-v1`, or merely trigger review?** The declared prerequisite set decides it. **P5** reconsideration routes to the authority named at `T1`, **not to whoever detected `R`**. **P6** a **no-change** outcome is valid and must be representable.
+
+**Positive path.** Where `R` does not invalidate a prerequisite, the intervention proceeds with the reconsideration recorded — **not restarted.**
+
+**Counterexample — must fail.** Any candidate that restarts everything on any change, treats the `T1` approval as sufficient at `T6`, or silently rewrites `I-v1`.
+
+**Limits.** No clinical or scientific claim about the intervention; **the suitability judgment belongs to a human authority, not to the trace** (`§12.9.4`).
+
+**Both remain unscored. Candidate-specific results stay empty until the declared evaluation stage.**
 
 ### §12.9.6 — Durable homes, so nothing dies in a thread
 
@@ -640,7 +670,7 @@ Both declare inputs, event sequence, expected predicates, **the provenance of th
 
 `Source · ref · exact sections · reader · depth` | `Authority, maturity, supersession, relevant adjudication` | `Native mechanism or finding` | `ECB claim / decision / output affected` | `Disposition · uninspected scope · next required action`
 
-**Rules, inherited verbatim in substance:** **no row may terminate at "read," and no row owes an empty field** · **depth follows consequence** — a source with no material consequence earns a compact semantic receipt, one that merely confirms earns only the consequence, one that sharpens, contradicts, splits, relocates or exposes missing law earns full relational treatment · **a read is triggered by an exact retained claim, not by breadth** · **admitting a new source mid-unit is normal and resets nothing** · **no coverage percentage and no closed denominator may be published** — we do not possess the denominator, and a percentage asserts one. **The available completion claim is: no known material source gap behind a retained claim.** **No second table, ledger, registry, schema or tracker is created for this** — the five columns are the mechanism, and a parallel tracker becomes the competing copy `§13.5` already refuses.
+**Rules, inherited verbatim in substance:** **no row may terminate at "read," and no row owes an empty field** · **depth follows consequence** — a source with no material consequence earns a compact semantic receipt, one that merely confirms earns only the consequence, one that sharpens, contradicts, splits, relocates or exposes missing law earns full relational treatment · **a read has TWO triggers, and the second is what stops this arc needing the operator to supply breadth** — **(a) claim verification:** inspect what supports or contradicts a claim the account retains; **(b) requirement discovery:** inspect material likely to expose something the account has **not** represented, prompted by the assignment, a native owner's boundary, prior unresolved work, an external mechanism, a changed assumption, or independent challenge. **An agent may NOT conclude that nothing material remains merely because every sentence it chose to write carries a citation.** Neither trigger is breadth-for-its-own-sake · **admitting a new source mid-unit is normal and resets nothing** · **no coverage percentage and no closed denominator may be published** — we do not possess the denominator, and a percentage asserts one. **The available completion claim has two halves and both must be stated: *no known material source gap behind a retained claim*, AND *this is the discovery work performed to look beyond the current account, with what it found*.** The first alone is the failure mode above. **No second table, ledger, registry, schema or tracker is created for this** — the five columns are the mechanism, and a parallel tracker becomes the competing copy `§13.5` already refuses.
 
 **Every retained load-bearing claim must be adequately supported, narrowed, or carry an explicit unresolved dependency with its acceptance effect. "Listed under remaining work" does not discharge it.** A bounded open-world search for omitted mechanisms and contrary evidence is permitted and expected: **an unknown source is not automatically irrelevant, an inaccessible source is not a passing result, and a missing peripheral read does not block unrelated work.**
 
@@ -775,7 +805,7 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 ## §15.5 — CUSTODY TRANSFER — outgoing author's receipt *(HISTORICAL — R9, superseded as re-entry guidance)*
 
-> **⚠ This section is a record of the R9→R10 seat transfer. It is NOT the current re-entry instruction and its reading order is superseded.** Current entry: `§1` (arc state) → `§2` (question) → `§12.7` (decisions) → `§12.4`–`§12.6` (passes, reuse test, verdicts) → `§13.0` (method) → `§13.2` (source register) → `§15.0` (acceptance vs activation). Its failure inventory below remains accurate and worth reading; **its "five load-bearing reads never done" list is still live and is now the `§13.2` floor.**
+> **⚠ This section is a record of the R9→R10 seat transfer. It is NOT the current re-entry instruction and its reading order is superseded.** Current entry: **`§12.9` (the execution contract — read this first; it binds you)** → `§1` (arc state and operational state) → `§2` (question) → `§12.7` (decisions) → `§12.4`–`§12.6` (passes, reuse test, verdicts) → `§13.0` (method) → `§13.2` (live source control) → `§15.0` (acceptance vs activation). Its failure inventory below remains accurate and worth reading; **its "five load-bearing reads never done" list is still live and is now the `§13.2` floor.**
 
 **What it recorded at the time of transfer:**
 
@@ -799,7 +829,19 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 **R1** `60619c4f` initial · **R2** `3b9db0c2` nine Knox amendments; *"2035 comes free"* withdrawn · **R3** `88e65c07` maturity ladder dissolved; governance made a constraint plane · **R4** `93dab6aa` scope de-clinicalized from Care `§1a`; naming deferred per `GRD-026`; Palantir withdrawn · **R5** `0bbfa91c` `EVRUN-000012 §15` recovered and installed as inherited structure; lattice demoted; speed thesis introduced.
 
-**R13** (this revision) — **installs the execution contract.** R12's I1/I2/I3 are closed and not reopened. The question, corrected premises, decisions, three phases, Outputs A–D and boundaries are retained. **Nothing in G1 was performed and no architectural verdict was populated.**
+**R14** (this revision) — **three verified defects fixed; one item declined.**
+
+**Fixed — the discovery trigger, which is the mechanism behind the operator having to supply breadth.** `§13.2` inherited FAI's *"a read is triggered by an exact retained claim, not by breadth"* verbatim. Alone, that protects claims already written and protects nothing against an **omitted requirement** — an agent can conclude nothing material remains because every sentence it chose to write carries a citation. **Now two triggers: claim verification AND requirement discovery**, with the completion claim requiring both halves — no known material gap behind a retained claim, *and* the discovery work performed to look beyond the account, with what it found.
+
+**Fixed — the two specifications were instructions for writing specifications, not specifications.** Fifth overclaim of this kind by this seat. `SPEC-ORD` and `SPEC-GEN` now carry declared inputs, stepwise event sequences with timestamps, expected predicates each with provenance, positive paths, must-fail counterexamples and limits — including the two **decidable rules** that stop an evaluator inventing a convenient reading mid-trace: same source event identity ⇒ deduplicate, and a declared prerequisite set deciding whether new evidence invalidates or merely triggers review. **Still unscored.**
+
+**Fixed — the `§15.5` entry route led around `§12.9`**, the contract a replacement most needs. It now enters there first.
+
+**Added, small:** Output B carries the **coverage argument** and what independent challenge exposed — *"held-out cases supplied"* is an activity, *"the generalization survived within these limits"* is a result. Every accepted conclusion carries a **result type** (settled · conditional · blocking semantic question · later empirical proof), and **a named owner prevents abandonment but does not supply a missing answer** — an unresolved dependency may not stand in for an unanswered part of the operating account.
+
+**Declined:** a new eight-row table of analytical questions. `§§9`–`§11` already carry those distinctions, `§13.0` forbids a competing taxonomy, and the review itself said the repair was to make the existing questions select the evidence — which is what the Output-B change does. **Adding the table would have been the fourth vocabulary in one carrier.**
+
+**R13** `6f1321f6` — **installs the execution contract.** R12's I1/I2/I3 are closed and not reopened. The question, corrected premises, decisions, three phases, Outputs A–D and boundaries are retained. **Nothing in G1 was performed and no architectural verdict was populated.**
 
 **`§12.9` added — the contract binds every agent, not a kickoff prompt.** The failure it answers is the one the operator named: FAI reached Output 4 before it had a working method and reinvented roughly a quarter of its machinery mid-arc, and a G1-wide control written inside Output 4 would have been invisible to Output 5. **`§12.9.1`** gives a successor six entry facts with a durable home each, separates the **accepted baseline** from the working carrier, makes reading proportional to context freshness, holds each agent to reading the natives for claims **it personally asserts** (Agent Work Protocol `§2.1`, verified at L66/L105 — eight durable facts; replacement assumes the same lane after explicit transfer and freshness check), and states the stale-`main` exception once so it is not rediscovered every entry.
 
