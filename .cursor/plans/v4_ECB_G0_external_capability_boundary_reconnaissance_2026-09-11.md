@@ -2,8 +2,8 @@
 
 Document type: `plan_or_roadmap` — **Gate-0 investigation charter**
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Originates no doctrine, mints no name, accepts no architecture, promotes nothing.**
-Status: `G0_R17_PENDING_ACCEPTANCE · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
-Revision: **R17** — amends R16 (`f591723e`). **Completes the integration of the two commissioned G0 reviews: coverage contradiction resolved, `SPEC-ORD`'s minimum restored as a floor, authorability independence moved to the performer, source scope and independence claims corrected, review evidence preserved with dispositions.** Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
+Status: `G0_R18_PENDING_ACCEPTANCE · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
+Revision: **R18** — amends R17 (`50b04f0e`). **RECORD NORMALIZATION ONLY — no substantive plan change.** Single owning `Accepted baseline` row in `§1`, static object identity supplied, `D0ECB-REV-006`'s stale route attribution reconciled, `§15.7`'s digest scope stated honestly, `RV-4` recorded. **The accepted baseline remains NONE.** Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
 Domain(s): `cross_domain` · `architecture_governance` · `federation` · `rbac_authority` · `cns_orchestration` · `ordered_fulfillment` · `d6_commerce` · `d3_scheduling` · `business_ops_workforce` · `d7_documents_consent` · `observation_measurement` · `clinical_memory` · `trials_research`
 Lifecycle role: defines the investigation — its question, its inherited candidates, its ambition, its bounded mechanism, and the four outputs it must produce — **without deciding its answer.**
 Source-of-truth relationship: **owns nothing.** Arc state belongs to `§1`.
@@ -19,25 +19,33 @@ Arc key:                 ECB  (work identifier only)
 Inherited candidate:     EVRUN-2026-000012_02 §15 — ARCHITECTURE_CANDIDATE,
                          scoped to its run, explicitly NOT the only coherent
                          architecture. A candidate to test, not an answer.
-Arc state:               GATE_0_R17 — NOT ACCEPTED, G1 NOT ACTIVATED
+Arc state:               GATE_0_R18 — NOT ACCEPTED, G1 NOT ACTIVATED
 Gate 0 verdict:          none issued
 Acceptance vs activation: two separate operator acts (§15.0)
+
+OBJECT IDENTITY (static — the working object is recovered from these)
+  Repository:            ncrawf/main-app
+  Branch:                cursor/ecb-g0-reconnaissance-6a09
+  Primary:               .cursor/plans/v4_ECB_G0_external_capability_boundary_reconnaissance_2026-09-11.md
 
 OPERATIONAL STATE (§12.9.1 — a successor reads this, not the chat)
   Active writer:         none — no pass activated
   Phase:                 pre-G1
   Bounded work item:     none active. First unit is SPECIFIED at §12.9.3
                          and awaits Nick's activation
-  Working head/blob:     recovered from the branch + primary path below.
-                       A file cannot carry the blob that describes it, so
-                       this row does not stamp its own identifiers.
-Accepted baseline:     NONE — and THIS ROW OWNS IT. On acceptance the
-                       authorized writer records the then-known accepted
-                       content head + blob here, in a state-only commit.
-                       §15.0 points HERE; it holds no second copy. Frozen
-                       review receipts remain separately identifiable.
-  Accepted baseline:     NONE — G0 not accepted
-  Next permitted action: Nick + Knox review of this revision
+  Working head/blob:     recovered from the Branch + Primary in OBJECT
+                         IDENTITY above. A file cannot carry the blob that
+                         describes it, so this row stamps no identifiers.
+  Accepted baseline:     NONE — G0 not accepted. THIS IS THE SOLE OWNING
+                         ROW; §15.0 points here and holds no second copy.
+                         On acceptance the authorized writer records the
+                         accepted content head + blob, acceptance scope and
+                         decision attribution here, in a state-only commit.
+                         Frozen review receipts stay separately identifiable.
+  Next permitted action: Nick's G0 acceptance decision. The Knox review seat
+                         approved the investigation design at R17 (§15.7
+                         RV-4); that is a review disposition, NOT acceptance
+                         and NOT G1 activation.
 Architecture accepted:   none
 Name minted:             none
 FAI relationship:        separate bounded object; FAI G1 untouched
@@ -770,7 +778,7 @@ Each scored case carries: **question and competing accounts** (which decision it
 
 **Read-graph evaluation complete; catalog registration OWED.** `AGENTS.md` confirms a standalone lane needs no integrator; the reason to serialize is the **verified overlap** — the FAI branch has modified `01_master_corpus_catalog.md`, `04_manifest_read_graph.md` and `future_work_registry.md`. **Overlap is collision risk, not proof of conflict.** **Requested: one bounded intake transaction** — this carrier's catalog row plus route `#9w` (ECB task entry, also naming `EVRUN-000012_02 §15` and `_04`, the P35 carriers, C3.7 `§11`/`§12`, Care `§1a`/`§1b`/`§5b`/`§9a`/`§19`, C4.5, C4.3, `REV-184`, Federation inv 29, and `REV-188`/`189`/`190`/`141`/`174`) — with a recorded freshness/collision check, returning exact head/blob and per-file stats. **Not requested:** unrestricted governance write, a FAI merge, extra rows by default, or a governance cleanup. **Route key `#9w` verified free on both refs; arc state resolves from `§1` and the route carries none.**
 
-**Open-review rows — PROPOSED, land only if authorized:** `D0ECB-REV-001` P35 has no task-entry route (`10`/`9a` reference it but fire on v4-spine authoring or C3.8 convergence) · `D0ECB-REV-002` the C3.7 super-frame has a source carrier but no accepted whole-frame disposition and no task-entry route; its promised registry entry was never written (history-verified); **no claim about why prior arcs omitted it** · `D0ECB-REV-003` `add_tier3` invalid enum in the FAI arc-opened handoff · `D0ECB-REV-005` comparator re-derivation (Palantir, third instance) · `D0ECB-REV-006` **`EVRUN-000012_02 §15` discoverability** — routed only indirectly via `9i`/`9m`, catalog row points at `_00`, closeout warns against itself; **recorded as a discoverability weakness, not a proven cause.** **No FWREG row proposed.**
+**Open-review rows — PROPOSED, land only if authorized:** `D0ECB-REV-001` P35 has no task-entry route (`10`/`9a` reference it but fire on v4-spine authoring or C3.8 convergence) · `D0ECB-REV-002` the C3.7 super-frame has a source carrier but no accepted whole-frame disposition and no task-entry route; its promised registry entry was never written (history-verified); **no claim about why prior arcs omitted it** · `D0ECB-REV-003` `add_tier3` invalid enum in the FAI arc-opened handoff · `D0ECB-REV-005` comparator re-derivation (Palantir, third instance) · `D0ECB-REV-006` **`EVRUN-000012_02 §15` discoverability** — routed only indirectly via `9i`/`9k`/`9m` *(corrected R18 from `9i`/`9m` to match `§13.3`; reconciled here so an incorrect route list cannot land, which is NOT authorization to write the route)*, catalog row points at `_00`, closeout warns against itself; **recorded as a discoverability weakness, not a proven cause.** **No FWREG row proposed.**
 
 **Collision check.** FAI G1 read-only, pinned — carrier blob `9835715e` matches the pause checkpoint's pin across its three recorded heads; **frozen Authority content has not drifted.** Selection Accountability: consult and test only; **declared reliance inherits the hold**; a proposal to Nick is not an edit; only a **blocking contradiction** stops that conclusion, never the arc. **Care capture** frozen against edit, readable, strongest read dependency — **no edit, no promotion.** **`EVRUN-000012`, C4.5, C4.3, `REV-184`, C3.7, residual/moat, C4.6** — cite at stated status, **promote nothing.** Federation inv 29 — cite, no contract edit. Insurance Gate 2 / Method PR #19 — no overlap / non-binding. **`main`'s stale boot pointer remains separately reported and is not this arc's subject.**
 
@@ -871,7 +879,7 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 ### §15.7 — Review evidence receipts *(G0 readiness round; added R17)*
 
-**Why this section exists.** R16 recorded numbered defect adoptions and nothing else. **Numbered defect adoption is not the whole review result** — the reviewers' qualifications, declared limits and execution obligations were left in the supplied reports for the operator to remember. This section gives the review round a **durable, retrievable identity** following the `_07 §7.4` pattern (claim · challenge · adjudication · operative state · residual · pointer). **It is review EVIDENCE, not a second maintained operating account** (`§13.5`), it carries no deliberation streams, and nothing here is a current instruction.
+**Why this section exists.** R16 recorded numbered defect adoptions and nothing else. **Numbered defect adoption is not the whole review result** — the reviewers' qualifications, declared limits and execution obligations were left in the supplied reports for the operator to remember. This section gives the review round a **durable, retrievable identity** following the `_07 §7.4` pattern (claim · challenge · adjudication · operative state · residual · pointer). **It is review EVIDENCE, not a second maintained operating account** (`§13.5`), it carries no deliberation streams, and nothing here is a current instruction. **Stated honestly, because a receipt that overstates itself is the defect it exists to prevent: this is an attributed DIGEST — operative requirements, findings, rationale, limits and dispositions — NOT a complete transcript archive and not every byte of the original reports.** The supplied review packets contain more detail than this table. Where a report has no stable retrievable location, its material passages are preserved above as attributed evidence rather than behind a pointer that would not resolve.
 
 | field | `RV-1` | `RV-2` | `RV-3` |
 |---|---|---|---|
@@ -885,6 +893,8 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 | **residual after adjudication** | The business-formation span and the population-regime rule are **execution** obligations, now carried at `§11.6` — **not discharged by this plan** | `E1`'s probe, rubric and assignments are **authored at EXTRACT**, not here. `P3` presentation defects stand | **G0 acceptance itself remains the operator's separate act** (`§15.0`); this round does not confer it |
 | **pointer** | Supplied in relay; **material passages preserved above as attributed review evidence** rather than by a filename that would not resolve | as `RV-1` | as `RV-1` |
 
+**`RV-4` — incumbent Knox, R17 integration verification.** Reviewed head `50b04f0e…` / blob `d729795a…`. **Declared limits:** read R17 in full and the complete R16→R17 patch against the six correction conditions, and rechecked the work protocol's continuity/base-binding rules, `T-15`, and the C4.4 authorability adjudication rule. **Not** another G1 source-recovery pass, implementation audit, or clinical/market validation; local worktree not inspected. **Disposition: all six R16 correction conditions verified closed in the OPERATIVE instructions, not merely in the log** — coverage, `SPEC-ORD`, authorability, source fidelity, preservation, and state integrity. **The investigation design is approved from the Knox review seat for operator acceptance.** **Residual at the time of that review:** a duplicate `Accepted baseline` entry in `§1` and a working-object instruction referring to a branch and primary path `§1` did not supply — **both normalized in R18** — plus the stale `9i`/`9m` attribution on the proposed `D0ECB-REV-006` row, reconciled at `§14`. **What `RV-4` is NOT:** Nick's acceptance, and not G1 activation.
+
 **Two results from this round worth more than the repairs, recorded so they are not re-litigated.** `§7`'s characterisation of the inherited candidate was independently verified accurate **on five named elements** (scope stated at `§13.2` — not a blanket verification of `§7`). And the evaluator design was confirmed to carry all three required result capabilities including the hardest, **reporting that a result cannot be decided** — so the defects found were in two instances, not in the design.
 
 **One lesson explicitly refused.** Recovering `_01`, `_03` and `_00` does **not** mean the operating model is already solved. It means more prior reasoning must now inform — and remain challengeable within — the investigation. Generated therapies, changing authorities, adaptive physical activity, shared business operations and long-lived consequences still have to be examined at their actual scope.
@@ -893,7 +903,21 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 **R1** `60619c4f` initial · **R2** `3b9db0c2` nine Knox amendments; *"2035 comes free"* withdrawn · **R3** `88e65c07` maturity ladder dissolved; governance made a constraint plane · **R4** `93dab6aa` scope de-clinicalized from Care `§1a`; naming deferred per `GRD-026`; Palantir withdrawn · **R5** `0bbfa91c` `EVRUN-000012 §15` recovered and installed as inherited structure; lattice demoted; speed thesis introduced.
 
-**R17** (this revision) — **completes the integration of the G0 review round. R16 recorded "adopted" in the log while leaving several operative instructions incomplete, contradictory, or stronger than the source supports.** All six corrections adopted; none rejected. **The arc's question, gates, decision structure and Outputs A–D are unchanged, and no fresh review was commissioned** — this finishes the reviews already run.
+**R18** (this revision) — **record normalization closing the R17 review. No substantive plan change: the question, gates, decisions, specifications, coverage contract and Outputs A–D are byte-identical in effect.**
+
+The Knox review seat verified that all six R16 correction conditions landed in the **operative instructions** rather than only in this log, and **approved the investigation design for operator acceptance** (`§15.7` `RV-4`). One record-integrity defect remained, and it was mine: **R17's `§1` edit broke out of the `OPERATIONAL STATE` indent and left the pre-existing `Accepted baseline` line standing beneath the new one** — two baseline entries, both `NONE`, so no unauthorized acceptance occurred, but the moment one was updated the survivor would contradict it. R17's replacement text also pointed at *"the branch + primary path below"* when `§1` supplied neither.
+
+| defect | repair |
+|---|---|
+| two `Accepted baseline` entries | **one owning row**, correctly indented; `§15.0` points there and holds no second copy |
+| working-object instruction referenced identity `§1` did not carry | **`OBJECT IDENTITY` block added** — repository, branch, primary path |
+| `Next permitted action` still said *"Nick + Knox review of this revision"* | now **Nick's G0 acceptance decision**, with the Knox seat's approval recorded as a review disposition and explicitly **not** acceptance or activation |
+| proposed `D0ECB-REV-006` carried the stale `9i`/`9m` attribution while `§13.3` had `9i`/`9k`/`9m` | reconciled at `§14` so an incorrect route list cannot land — **not authorization to write route `#9w`** |
+| `§15.7` implied a fuller archive than it is | stated plainly as an **attributed digest, not a transcript archive**; the supplied packets hold more detail |
+
+**The file still stamps no identifiers of its own** — a file cannot carry the blob that describes it. **The accepted baseline remains `NONE` until Nick records the decision** in a state-only receipt at `§1`, which may carry this normalization and may carry no substantive change.
+
+**R17** — **completes the integration of the G0 review round. R16 recorded "adopted" in the log while leaving several operative instructions incomplete, contradictory, or stronger than the source supports.** All six corrections adopted; none rejected. **The arc's question, gates, decision structure and Outputs A–D are unchanged, and no fresh review was commissioned** — this finishes the reviews already run.
 
 **The charge was accurate and is the carrier's own catalogued failure class turned on the integration itself.** Verified before repair: `§11` still said coverage is *measured by* `breaker-family × axis-extreme × regime` while `§12.4` said axes do not multiply — so R16's claim to state coverage once was **not supported by the committed text**, and it gates the Pass-2 release. The header still read **R15** while `§1` and `§16` read R16. `§3.5`, cited in R16's own new text, **does not exist**. Each confirmed by inspection rather than accepted.
 
