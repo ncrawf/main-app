@@ -2,7 +2,7 @@
 
 Document type: `evidence_or_ingestion` — **immutable once pasted**
 Authority: **NONE.** Preservation confers no authority (`D0THES-GRD-036`). **No model authors the architecture.** Agreement between agents is not corroboration.
-Status: `awaiting_operator_population` · `never_default_loaded`
+Status: **`verbatim_frozen`** · `never_default_loaded` — populated and frozen at commit `fac5881`. Provenance normalized at `539a966`+; **unresolved fields below are marked `unknown`, never guessed.**
 Domain(s): `architecture_governance` · `cross_cutting`
 Lifecycle role: **blind alternative design only.** This agent never audits our plan and never sees it.
 Manifest action: `add_tier4` **PROPOSED** — not landed.
@@ -45,7 +45,7 @@ Review gate: `user_knox_required`
 | blind to the **failure record / handoff**?                                   | **YES**                                           |
 | blind to the **other agents' submissions**?                                  | **YES**                                           |
 | Did it ask clarifying questions before answering?                            | NO                                                |
-| Any tool calls made?                                                         | none / list them - it tried to use a canvas first |
+| Any tool calls made?                                                         | **YES — canvas/artifact tooling only.** The frozen response records reading a canvas SDK surface, writing the design to a canvas, and running a type check. **No repository or web retrieval is evidenced.** Exact call set unrecorded (`unknown`) |
 
 
 **Why the repo and internet lines exist:** an agent with repository access is **not blind** — it can read our decomposition. An agent that searched the web for "OMNI architecture" is **not blind** either. **Neither invalidates the submission — but the reconciliation must know**, because a "convergence" produced by an agent that read our answer is not convergence.

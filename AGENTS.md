@@ -80,7 +80,7 @@ No architecture / doctrine / build / work-package stops without a Protocol §9 s
 - Build Entry Gate v0 — `.cursor/plans/doctrine/11_build_entry_gate_v0.md`
 - Future Work Registry — `.cursor/plans/doctrine/future_work_registry.md`
 <!-- CHECKPOINT-POINTER:START -->
-- Current checkpoint: `.cursor/plans/HANDOFF_2026-08-09_work_horizon_closed_insurance_gate2_startable.md`
+- Current checkpoint: `.cursor/plans/HANDOFF_2026-08-10_foundational_architecture_g1_startable.md`
 <!-- CHECKPOINT-POINTER:END -->
 - **Active nonbinding forensic workstream:** current Care-forensic state is resolved through **`04_manifest_read_graph.md` #15 and its named handoff** (`HANDOFF_2026-07-13_care_forensic_inheritance_audit.md`) — **do not infer forensic lane state from this static AGENTS description.** The audit is nested + propose-only (`GRD-036`), Care capture frozen; it **does not supersede the current gate checkpoint** (the checkpoint named in this file's checkpoint-pointer block, mirrored at read-graph Tier-0 #15, is the sole current Tier-0 gate-setting checkpoint; the 07-19 / 07-12 handoffs are historical detail).
 - **Agent-boot activation (2026-07-18, subordinate — does NOT change the gate):** collaboration/boot profiles ACTIVE per `D0OPER-DEC-004`; continuity in `.cursor/plans/HANDOFF_2026-07-18_agent_boot_profiles_activated.md`. Default Nick↔Opus↔Knox trifecta preserved; Gemini = optional additional collaborator. Deep profiles: `.cursor/rules/00_omni_opus_boot.mdc` (Opus/Cursor) · `GEMINI.md` (Gemini/Antigravity); thin hooks `CLAUDE.md` + `.agents/rules/00_omni_gemini_boot.md`. This is a parallel collaboration-governance workstream; it changes no gate state — resolve the current gate checkpoint from the checkpoint-pointer block (read-graph Tier-0 #15).
