@@ -179,6 +179,142 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ---
 
+## 2.2) Acceptance-boundary integrity *(CANDIDATE — `review_required`)*
+
+> **Force.** **Acceptance unit A** — candidate under `D0CKPT-DEC-010`, `status: review_required`. **This is not active law. If adopted, the following governs.** Merging a change set containing these bytes does not activate them; activation is a separate accepted review transaction.
+
+**Applicability — deliberately wider than §2.1.** This governs **any proposed change bundle**, explicitly **including ordinary bounded work** that owes nothing under §2.1. An ordinary bounded task can broaden a bundle's acceptance scope exactly as easily as a coordinated package can; §2.1's *"nothing in this section"* exemption does not reach here.
+
+> **The general law: co-location in one physical carrier, presentation through one review object, or application through one landing group does not prove shared acceptance.** None of them establishes shared authority, shared review gate, shared lifecycle, shared acceptance, or compatible reversal posture.
+
+**Repository specialization** — the same law where the carrier is Git: **branch/ref, change set, review object, landing group and acceptance transaction remain distinct.** *Stated at the general level first because OMNI also works through supplied packets, non-branch durable carriers, deployment and configuration bundles, evidence-promotion packets, migration packages and architecture acceptance objects — the mechanism must survive Git ceasing to be the only adapter.*
+
+**This is not "one carrier, one object"** — that would be the next overcorrection. A branch may legitimately carry several work objects, and a coordinated package may intentionally reconcile several lanes into one landing. **The law is acceptance coupling, not object count.**
+
+**The decisive test, applied at claim-and-scope grain — not at work-object grain, because one work object routinely contains several acceptance units:**
+
+> **Can any material claim or scope slice be dispositioned or landed without deciding the rest?**
+
+**If yes, those are distinct acceptance units.** This catches one document carrying several decisions · one architecture object with separately governed subsections · one review object carrying independently acceptable laws · one migration containing distinct semantic changes.
+
+**Distinct acceptance units require independent addressability and rightful disposition.** They may share **one** review object **only where that review object explicitly preserves each unit's scope, holder, gate, disposition and landing relationship.** Where the review vehicle cannot preserve that independence — **or where one unit must land, reverse, or remain pending independently** — separate review objects or change sets are required.
+
+**A shared landing group coordinates application; it never merges acceptance units, holders or authority.** *Landing and sequencing can be coordinated; **authority holders do not become shared by coordinating them.** "Coordinated acceptance holder" is the next polite phrase for hidden authority collapse, and it is refused here.*
+
+**An acceptance unit is version-bound** — without this, independent acceptance inside one changing carrier is only theoretical. **Review and disposition apply to an exact unit revision.**
+
+**A review is immutable evidence about the revision reviewed; what a later change ends is CARRY-FORWARD, not the review:**
+
+> **A review or disposition remains valid historical evidence about the exact unit revision it addressed. A material successor change terminates its applicability to the successor revision; it does not erase, falsify, or retroactively invalidate the historical review event. The successor revision carries NO inherited disposition unless a fresh review occurs, or an explicit unchanged-scope and unchanged-dependency proof permits carry-forward.**
+
+**`historically valid ≠ currently applicable ≠ carried forward to successor ≠ superseded ≠ erased`.** *These five are distinct states and collapsing any pair is a temporal error. The same physics governs consent revisions, professional-authority changes, policy versions, delegated-authority envelopes, clinical recommendations, migrations, deployment approvals and external counterparty commitments — this clause is the build-time instance of it, not a special case.*
+
+**Material change is change to a unit's claims, scope, authority, conditions or dependencies.** **A change to a *different* unit terminates nothing here**, provided the accepted unit's pinned scope and declared dependencies are proven unchanged.
+
+**Shared support must be declared, clause by clause, and CO-LOCATION IS NOT SUPPORT.** Shared support means a **particular definition, rule or control semantically relied on by more than one unit** — *living in the same file is not shared support, a file blob is not a semantic dependency, and a reference from one unit to another is not reciprocal support.* **A material change to declared shared support terminates carry-forward for every dependent unit**; their earlier dispositions remain valid as historical dispositions of the pinned earlier revisions. **Undeclared shared support is the silent form of the collapse this section forbids.**
+
+**Four things a reviewable unit revision must separate:**
+
+| element | what it proves |
+|---|---|
+| **carrier snapshot** | which immutable file or object revision was inspected (whole-file blob) |
+| **unit scope** | the exact semantic region — section, row, clause — constituting the unit |
+| **directional dependency** | what this unit relies on that it does not own, and in which direction |
+| **declared shared support** | the exact clauses relied on by more than one unit |
+
+`carrier snapshot + unit scope + directional dependencies + declared shared support = reviewable unit revision`
+
+**Use the machinery that already exists.** Collaboration model §2.6's **Review Object Posture** and **Bounded Diff Receipt** supply this today: pin the review head · pin the carrier blob · name the exact section or row · name the shared-support clauses and directional dependencies · **use the bounded diff to prove whether the unit scope or its dependencies actually changed.** Consequently **an unrelated edit elsewhere in the same file does not manufacture a semantic reopening**, a shared-definition change reopens every dependent unit, and **a materially changed unit never inherits approval merely because its path is unchanged.** ***No new registry, ledger, identity scheme or semantic-digest subsystem is created here***; Layer 3 may add descriptors later.
+
+**The authority-bearing pin is the acceptance transaction, never the review surface.** A review object's description is **mutable review metadata** and cannot be the sole durable proof of what was accepted. The sequence is: **review surface** = current posture · **independent review** = a result on exact unit revisions · **acceptance transaction** = the rightful force-conferring act carrying durable exact pins (accepted head · unit scopes · carrier blobs · decision-row identities · dependencies and shared support · each independent verdict · the resulting landing group) · **landing receipt** = proof the landed revisions equal the accepted revisions. *An already-governed acceptance receipt or the decision rows carry this; no new artifact is owed.*
+
+**Review disposition is not acceptance.** **Reject, defer and return confer no force.** **A condition or narrowing does not silently accept the original unit** — it produces an **explicit revised claim-and-scope unit or delta**, which must receive the review and disposition required at its *resulting* scope. **Only an acceptance transaction confers accepted force.** *A reviewer's prose condition must never become an invisible part of the accepted architecture.*
+
+**A proposed landing group is conditional on compatible dispositions.** Before landing, the change set is **normalized to contain only the exact accepted unit revisions**: rejected, returned and deferred units are removed or isolated; narrowed or conditioned units are represented as revised units carrying their own review and disposition; and the landing receipt proves the landed revisions match the accepted revisions. **Merge is never a substitute for unit-level disposition.**
+
+**The originating work may carry a pointer, an evidence reference or an accepted dependency to a unit it does not hold; it may never silently land that unit.**
+
+**Different files, a clean rebase and the absence of textual merge conflicts do not establish acceptance compatibility.** File collision and writer collision are not the only collisions — **acceptance, review-scope, merge-timing, lifecycle and branch-purpose collision are all real, and none of them produces a conflict marker.** *"Different files, therefore no collision" is the defective test this clause exists to retire.*
+
+**Eight terms routinely collapsed, and not inherently one-to-one:**
+
+| term | what it is |
+|---|---|
+| **work object** | the substantive thing being changed or judged |
+| **work package** | the bounded intended outcome and closure path |
+| **branch / ref** | a mutable version-control carrier |
+| **change set** | a selected difference proposed for review |
+| **review object** | the pull request, proposal or other vehicle in which review occurs |
+| **acceptance unit** | **the exact claim-and-scope bundle intentionally subjected to ONE indivisible rightful disposition — accept · reject · defer · condition · narrow · return — without deciding another unit by implication** |
+| **landing group** | one or more accepted units applied atomically or in a governed sequence |
+| **acceptance transaction** | the authority-bearing act accepting a specified unit at a specified force and scope |
+
+**`branch ≠ change set ≠ review object ≠ acceptance unit ≠ landing group ≠ acceptance transaction`.** These may align one-to-one; **OMNI must not presume they do.** **Several acceptance units may share one technically atomic landing group without acquiring one authority or one acceptance** — and conversely **one work object may contain claims requiring separate acceptance.** A merge does not promote every claim it contains, and **write access to a branch confers neither authority to broaden the change set nor authority to broaden the review object's acceptance scope.**
+
+**A force label is a semantic guard, not enforcement and not separation.** Marking contained work `candidate` or `review_required` **records that no legitimate normative force has yet been conferred** — it makes a legitimate activation claim unavailable and supports review enforcement. **It does not mechanically prevent merge, misuse, stale citation, or an agent treating the bytes as operative.** **A force label never substitutes for physical separation where separation is required** — which is not the same as saying separation is always required.
+
+Machine-enforceable form is recorded as a named Layer-3 obligation and is deliberately not designed here: `09` Layer 3.
+
+---
+
+## 2.3) Mid-work discovery — bounded interrupt *(CANDIDATE — `review_required`)*
+
+> **Force.** **Acceptance unit B** — candidate under `D0CKPT-DEC-011`, `status: review_required`. **This is not active law. If adopted, the following governs.** *Candidate status follows from the absence of a rightful acceptance transaction — nothing else confers or withholds it.*
+
+**Applicability — deliberately wider than §2.1.** This governs a material discovery arriving during active work, **including ordinary bounded work** that owes nothing under §2.1. §2.1 governs how to operate a partition once one exists; this governs the transition it does not cover — a discovery appearing *inside* active work that may invalidate the act that work was about to perform. **"Originating work" is used throughout**; *parent* appears only where an actual parent package exists, because ordinary bounded work may have no parent, no package and no branch.
+
+**The whole of it, before the mechanics:** *a material discovery inside active work is assessed against the originating work's **current next act** and **completion condition**. If the next act remains valid, the finding is recorded or routed and work continues. If it is invalid or materially uncertain, **the minimum affected next act, scope or landing path** goes on an **exact hold with a named re-entry condition**. The existing §2.1 continuity × coordination test then determines the topology of any resulting work. No returned candidate is normatively integrated until it has had **consequence-proportionate independent review** and, where it is a normative candidate, **rightful acceptance**.*
+
+**I1 — assess impact before acting, and answer only what the situation raises.** *Local defect · non-blocking · gate-blocking* survive as **human shorthand**, not as a closed classification whose single value carries every answer. The questions below are **independent**; a discovery that fails the first is finished at the first. **If adopted, this procedure is applied proportionately** — requiring all of the questions on every discovery would be the ceremony overreach `06` `D0CKPT-GRD-003` names.
+
+| question | determines |
+|---|---|
+| does this materially affect the active object? | **relevance** — if no, record or route and continue; stop here |
+| is the currently named next act still valid? | **continue vs hold** |
+| does it alter a completion or acceptance condition? | **gate impact** |
+| is it inside the current owner and writable scope? | **local vs routed** |
+| does it need semantic separation from the originating work? | **candidate isolation** |
+| must it survive pause or replacement? | **continuity posture** (→ §2.1) |
+| does it need multiple writers, owners or reconciliation? | **coordination posture** (→ §2.1) |
+| can any of its claims be dispositioned or landed without deciding the originating work? | **acceptance coupling** (→ §2.2) |
+| what review and disposition are required before the originating work may use it? | **integration gate** |
+
+**Interrupt on consequence, not fascination.** *"This is important and fascinating"* is not an interrupt trigger; *"the originating work's next act is no longer valid"* is. **Independent value or novelty may fully justify capture and routing to the appropriate owner or evidence surface — it simply does not, by itself, invalidate or hold the originating work.** Equally, **a genuine gate-blocking discovery may not be demoted to future work for convenience** — that ships an object whose completion condition is known to be wrong.
+
+**Who answers what — no seat becomes a universal interrupt authority.** The **method owner** owns the *assessment procedure*, never substantive disposition. The **object or gate holder** owns whether the discovery actually invalidates the next act, narrows the work, or changes its completion condition — an object judgment, not a method one — **and owns permissible USE of existing governing law, accepted dependencies, evidence and blockers — according to each material's resolved authority, scope, currency and evidentiary role.** *It does **not** unilaterally determine source force: authority, scope, currency and evidentiary posture are resolved through the rightful source, owner and control-plane mechanisms first; the object or gate holder then decides permissible use within them.* The **work-package steward** selects and authorizes the resulting execution topology. The **rightful acceptance holder** accepts or rejects **normative candidates**. *If "method decided it is gate-blocking" could stand alone, method would become a hidden meta-authority over every domain, object and build package. And note the split: **evidence can inform without becoming law, existing law can constrain without new acceptance, and a blocker can hold work without becoming architecture** — only a normative candidate needs an acceptance act.*
+
+**I2 — hold the minimum affected scope precisely, before opening anything.** **Hold the minimum affected next act, scope or landing path — not the whole originating work by default.** The whole is held only where the affected portion **cannot be safely separated**; unaffected work continues where its independence, writable scope and completion path remain explicit. *At scale one discovered problem must not halt an entire programme by default.* Record: the exact active object or work package · current ref, version or head **as applicable** · current state · completed work · **the blocked next act** · preserved boundaries · **what remains unheld and why** · re-entry condition. **A hold with no recorded next act is abandonment, not a hold** — the side inquiry silently becomes the assignment. This is **operational state** and belongs in an operational surface: the current checkpoint, work-package state, a designated cross-lane record, or an explicitly operational section of the carrier. **Saying a model is parked must never require editing the model.**
+
+**I3 — resulting side work has no pre-decided topology.** A discovery does not create a lane. It may create **bounded side work**, whose shape is then decided by the **existing §2.1 test**: neither need → *ordinary bounded work* · continuity → *durable lane* · coordination → *coordinated bounded work* · both → *coordinated package*.
+
+**Carrier separation is not independence.** A separate **branch** isolates bytes · a separate **review object** isolates acceptance · a separate **thread** isolates context · a separate **agent instance** supplies another sample. **None of them, by itself, establishes independent review.**
+
+> **Independent review is consequence-proportionate FUNCTIONAL independence from the authoring act.** The reviewer **must not be the authoring pass**, **must hold authority to challenge, return or reject** the candidate, and **must have sufficient separation of context or role to produce a materially distinct assessment.** **Branch, thread, model-instance or prompt separation is never sufficient by itself.** Relevant conflicts and shared provenance are **disclosed**.
+
+*All three conditions are required — a same authoring function under a slightly different prompt can claim a changed vantage while remaining functionally non-independent, which is why "different vantage" alone does not qualify.* This does **not** require a different vendor, a different model, a human for every correction, or ritual blind review — it requires a genuinely distinct review **function**. *Stated now, before automation begins treating "spawn another agent" as proof of independence.*
+
+**The return is proportionate to consequence, not a fixed bundle.** The governing standard: *sufficient for rightful independent review, disposition and re-entry of the originating work.* **Minimum universal content is small** — exact effect on the originating work's next act or completion condition · the exact candidate or finding being returned · source and authority posture sufficient for the claim · disposition and rightful disposition path · re-entry state. **Everything else is conditional**, including worked fixtures, non-goals and downstream obligation maps: a pointer correction owes none of them, a safety-critical authority change may owe considerably more.
+
+**I4 — independent semantic review before *normative* consumption. This is the load-bearing clause.**
+
+> **A new or materially synthesized normative candidate, boundary change, or cross-cutting interpretation may NOT be integrated into the originating work's normative model, accepted boundary, or completion claim until it has survived review independent of the authoring pass. A side discovery may be recorded as evidence, as a blocker, and as work-state in an operational surface at any time.**
+
+**Scope is deliberately narrow, so this does not become ceremony for ordinary corrections.** An **object-local correction already prescribed by governing law** follows the originating work's ordinary review and landing gate — it creates no side candidate and owes no additional method ceremony. Likewise, **discovering an already-governing contract does not require re-accepting that contract**; it requires resolving its **applicability and current force** for the intended use.
+
+The distinction is *operational recording* versus *normative integration*, which is what reconciles this with `I2`. **`I4` is a review boundary, not an acceptance or promotion gate** — rightful acceptance is a separate act, and architecture promotion may be another act again. Review is **consequence-proportionate**: a narrow correction does not owe what a cross-cutting boundary owes. **The reviewer must satisfy the functional-independence test stated at `I3` above** — the same seat re-reading its own candidate does not discharge it (`06` `D0CKPT-GRD-006`). *One definition only; this clause points at it rather than restating it.* **Where the originating carrier is large, this clause does double duty** — stale neighbouring cells are invisible from inside a hot loop, so an unstable candidate seeds defects into surfaces that merely *describe* it.
+
+**I5 — return: the complete effect on the originating work, plus whatever else is true.** A return states the **full effect vector**, because these are **not mutually exclusive** — next act · scope · hold state · completion condition · acceptance path · re-entry condition · or explicitly no effect. *These co-occur routinely; forcing them into one value is the closed-status mistake at a smaller grain.* It also carries **zero or more** independently routed consequences: accepted dependency · routed domain / seam / system obligation · estate or control-plane repair · candidate method change · defect finding · deferred future work.
+
+**Inheritance is bounded by resolved authority, scope, currency and evidentiary role — not by acceptance alone.** The originating work may use material **only at the authority, scope, currency and evidentiary role currently resolved for the intended use.** Existing governing law may **constrain without new acceptance**; accepted decisions may be inherited **at their accepted scope**; evidence may **inform only at its declared evidentiary force**. **Unresolved material is never inherited as law** — and it acquires no binding force merely by being unresolved: **the rightful object or gate authority may impose a blocker or open condition *because of* it.** Then: the rightful owner records each disposition · the originating work runs a **freshness check** · it resumes at its named next act · the side work closes. Work that never closes is a second programme.
+
+**Where the transient state lives, without minting anything.** **If the hold or resulting side work must survive pause, replacement or delayed re-entry, continuity is material and §2.1 applies.** Otherwise **the current operational or review carrier holds the transient state** — and **no work package, checkpoint or durable lane is minted merely to record an interruption.** *Ordinary bounded work may have no package, no checkpoint and no §2.1 obligation; requiring one here would recreate the applicability contradiction this section was moved out of §2.1 to escape.*
+
+**What this does not create.** No interrupt registry · no permanent interrupt lane · no interrupt agent type · no standalone protocol artifact · no second control plane · no new gate · no closed classification enum · no obligation on work that met none of these questions. **An interrupt is an event affecting active work, not a kind of work** — the resulting work is ordinary work under §2.1's tests.
+
+Decision: `D0CKPT-DEC-011` (`review_required`). Guardrail: `06` `D0CKPT-GRD-006` (`D0CKPT-DEC-012`, `review_required`). Concepts: `09` Layer 2. **Related but independently disposable:** `§2.2` / `D0CKPT-DEC-010`.
+
+---
+
 ## 3) Work Classification
 
 Classify payload into one or more classes:
