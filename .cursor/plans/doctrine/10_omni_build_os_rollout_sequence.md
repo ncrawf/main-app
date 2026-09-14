@@ -150,6 +150,7 @@ No lane is implementation-authorized until it proves:
 - domain contract template,
 - no-orphan-change rule,
 - PR/agent merge gate checklist.
+- **delegation-capture pack (PROPOSED 2026-08-08, pending AWP §2.2 acceptance):** a reusable verbatim-capture template · the arc-local packet-index pattern (index routes by question; raws are not read by default) · a receipt validator (non-empty regions, recorded hashes, no residual placeholders, consumer binding present).
 
 **Rule**
 - Add only what reduces ambiguity, prevents authority drift, or improves execution clarity.
@@ -166,7 +167,8 @@ No lane is implementation-authorized until it proves:
 - command layer expansion,
 - CI policy gates mapped to doctrine invariants,
 - de-scaffolding lifecycle enforcement,
-- recurring governance cadence.
+- recurring governance cadence,
+- **delegation-capture automation (PROPOSED 2026-08-08; target only — the law lives in `agent_work_protocol.md` §2.2 and `v4_C4_agent_runtime_and_harness_capture.md` §6, NOT here):** capture posture carried as a field in the delegation / work-package manifest · pre-created capture slot or guaranteed platform export · immutable, content-addressed run artifact · automatic prompt/response hashing · parent-pointer injection so the child's returned pointer resolves by construction · staged packet-index, catalog and read-route entries · fresh-environment retrieval proof. **Vendor thread and run stores are retrieval rails, never sole custody** — the durable identity, hash, passport, lineage and routing stay in the repository even when the body eventually lives in object storage.
 
 **Rule**
 - Do not expand complexity unless it improves correctness and clarity.

@@ -179,6 +179,66 @@ Decision ledger: `D0CKPT-DEC-005` (materially narrowed 2026-08-05 — see `D0CKP
 
 ---
 
+## 2.2) Delegation Admission — posture, authorization, and capture
+
+**PROPOSED 2026-08-08 · `review_ready_pending_separate_governance_landing` · not yet accepted.** **This is a global Tier-4 change and is deliberately NOT part of the Insurance parent carry** — it is not required for Insurance Phase-A closure and lands in its own transaction afterwards (AWP §2.1: package membership follows a shared intended outcome and coordinated closure, **not co-occurrence in one conversation**). **This section is self-sufficient and carries its own complete contract.** Cross-context conceptual cross-reference — **not an authority dependency** — is `v4_C4_agent_runtime_and_harness_capture.md` §6, which is an **`active_map` with `agent_runtime_formulation_OPEN`**, not ratified doctrine; a dedicated runtime pressure/ratification arc remains owed under `FWREG-010`. §6 (build-agent · internal-operations · user/care-facing — *same harness laws, different authority and exposure*). **This section is the current build/architecture-agent operationalization only.** Decision row proposed as `D0CKPT-DEC-008`.
+
+§2.1 asks how work is partitioned across **lanes**. This asks how work is partitioned across **contexts** — the same moment, one question later. **Trigger on the act of delegating, not on an arc, a work package, or a phase.** It applies identically inside an arc, in a one-off thread, and to any future agent that delegates.
+
+**Proportionality first.** A deterministic microhelper — extraction, mechanical verification, a disposable search or navigation lookup — needs **no ceremony**. It also **cannot originate architecture and cannot count as independent corroboration.** Everything below applies to *substantive* delegation only.
+
+### Four launch facts — declare them, keep them orthogonal
+
+**Do not collapse these into named "agent types."** Blind is not the opposite of supervised: a child can be supervised *and* fresh-context, or unsupervised *and* not independent.
+
+| Fact | Values |
+|---|---|
+| `execution_posture` | `primary_collaborative` · `delegated_supervised` · `delegated_unsupervised` |
+| `capture_posture` | `structured_return_only` · `exact_submission_source_object` |
+| `acceptance_topology` | `parent_review` · `named_independent_review` · `owning_authority_gate` |
+
+`owning_authority_gate` is abstract by design; for current architecture/build work it instantiates as Nick, Knox, the trifecta, a domain owner, or another explicitly named reviewer.
+
+**Independence is a composable contract, not an enum** — declare only where materially claimed: `fresh_context` (`yes`/`no`) · `incumbent_answer_exposure` (`withheld`/`partial`/`full`) · `repository_access` (`none`/`bounded`/`full`) · `external_source_access` (`forbidden`/`bounded`/`allowed`) · `continuity_with_prior_phase` (`same_context`/`new_context`/`not_applicable`). Gate-1a was simultaneously fresh-context, answer-blind, repo-denied, research-denied **and** same-thread across phases; no single enum value describes that.
+
+**`primary_collaborative` remains the default for central architecture work** — tightly coupled problems, consequential judgment, weak evaluators, or where the operator needs to participate in the reasoning rather than receive a result. Delegate only where bounded decomposition, specialty, parallel breadth, or independence *materially* helps.
+
+### Declare at launch
+
+`reason_for_delegation` · **the three posture fields above plus any materially claimed independence contract** · `expected_output` · `evaluator_or_acceptance_gate` · `authority_and_tools` · `capture_destination` (required when `capture_posture: exact_submission_source_object`) · `stop_condition`.
+
+**One capture field, not two.** `capture_posture` is the single source of that state — a separate `raw_capture_required` flag would duplicate it and drift.
+
+**Operator authorization (D1) — not merely visibility.** A **consequential independent, adversarial, or unsupervised** delegation **may not launch** until **either** the operator explicitly acknowledges or authorizes that delegation, **or** an accepted work package has **pre-authorized that delegation class, scope, evaluator and capture posture**. Visibility alone is too weak for the observed failure: the problem was not that the operator could not watch, it was that consequential agents launched **without their understanding or approval**. **Routine deterministic microhelpers remain exempt** — pre-authorization exists so this does not become approval-per-helper.
+
+### Raw capture — when it is required
+
+`exact_submission_source_object` is **required** when any of these holds: the work is **blind, fresh-independent, or adversarial** · **substantive unsupervised analysis** · **expensive or difficult to reproduce** · **expected to shape a decision** · it **uniquely preserves disagreement, reasoning, uncertainty, or rejected branches** · it has a **delayed or replacement-context consumer**.
+
+**Do not manufacture a duplicate.** A child's **native durable output satisfies the requirement** when that object contains the complete submitted result at an immutable ref — do not create a second verbatim copy merely because delegation occurred. Exact capture applies when the submission **would otherwise exist only in transient thread or run context**, and *"expected to shape a decision"* triggers it only when reasoning, uncertainty, rejected alternatives or independence conditions are **not already fully durable in that native output**.
+
+It is **not** required for deterministic extraction, mechanical verification, disposable search helpers, or supervised routine work whose complete durable result already lands in the parent artifact. In that case a **structured return is sufficient and no preservation debt is created.**
+
+**When required, preserve:** the exact assignment · the exact **user-visible final response** · explicitly returned attachments or source ledger · provenance, independence conditions, source cutoff, byte count and content hash · **a named consumer, or an explicit no-consumer disposition.**
+
+> **Never require, request, or preserve hidden chain-of-thought, private scratchpads, every tool event, or the whole platform transcript.** Visible reasoning the author actually returned is part of the returned submission and is preserved with it. **This is not "save every chat."**
+
+### The pointer must have a referent (D2 — the failure this section exists to prevent)
+
+The runtime capture §6 already requires the child to return *"a structured result + evidence pointers, NOT its whole transcript."* **It never assigned ownership of creating the object the pointer points at.** Consequence, observed: three commissioned subagents returned, the parent synthesized, and no object existed to point at.
+
+**The commissioning parent owns** the posture decision, the capture declaration, the destination or guaranteed export route **established before adjudicating the result**, operator visibility, and ensuring the returned pointer resolves. **The child owns** the bounded assignment and the structured return. **The reviewer or operator owns adoption.**
+
+### Adoption and review legs
+
+**Child output is `candidate` until adopted by the owning authority.** Preservation proves what a child *said* — never that it was correct, and never that its external claims are promotion-grade. A **separate review or second-trifecta leg receives its own review object and acceptance gate**; it does not silently become parent truth.
+
+### Completion proof
+
+Exact regions non-empty · hashes recorded · no placeholder text remaining · retrievable from a fresh environment · passport/catalog/read-route disposition present or explicitly proposed (§5) · consumer binding present.
+
+---
+
 ## 3) Work Classification
 
 Classify payload into one or more classes:
@@ -223,6 +283,8 @@ Do not use narrative/handoff/evidence as binding authority unless explicitly pro
 ---
 
 ## 5) Artifact Intake and Routing
+
+> **Delegation-capture hook (§2.2, PROPOSED).** Where §2.2 sets `capture_posture: exact_submission_source_object`, the preserved submission is an artifact and routes through this section like any other — passport, catalog disposition, read-graph evaluation — with the source-object posture (`preserved_verbatim` · `source_object_not_interpretation` · `not_promoted`) and its own named consumer. **§2.2 decides whether the object exists; §5 routes it once it does.**
 
 ### Row-First, Document-Second
 - Update existing registry row/section by default.
