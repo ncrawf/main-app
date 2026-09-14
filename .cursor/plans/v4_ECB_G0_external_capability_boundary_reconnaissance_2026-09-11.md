@@ -2,8 +2,8 @@
 
 Document type: `plan_or_roadmap` — **Gate-0 investigation charter**
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Originates no doctrine, mints no name, accepts no architecture, promotes nothing.**
-Status: `G0_ACCEPTED_R24_method_inheritance_R28 · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
-Revision: **R28** — amends R27 (`058f2618`). **Corrects three defects in R27: an overbroad reliance instruction now scoped to its use, with the reuse half landed · a FABRICATED FAI causal claim withdrawn · a tally that contradicted its own table removed. Redundant narration in the R27 entry compacted.** *(Prior note — R27 amends R26 `45ac0183`:* **Integrates the recovered FAI mid-arc method lessons (`P1`–`P6`) and dispositions all twelve operator concerns (`N1`–`N12`) at `§15.7`.** **This changes execution obligations — it is not hygiene.** The accepted **investigation design** is unchanged at R24.)* *(Prior note — R26 amends R25 `f5dff77c`:* **Corrects R25's entry control in place and withdraws its routing overclaim.**)* *(Prior note — R25 amends R24 `00e2e97c`:* **Adds the `§0` ENTRY GATE · adds ECB-local links to the already-routed estate-accounting exemplars · normalizes the stale acceptance state.** **This IS an execution-rule amendment** *(corrected at R26: R25 claimed no execution rule was altered while introducing entry-evidence and progression-blocking conditions — that was inaccurate)*. **The accepted INVESTIGATION DESIGN is unchanged and remains accepted at R24**: no decision, hypothesis, output, coverage obligation or specification is altered. **The entry/continuation amendment is operator-requested and subject to bounded review.**)* *(Prior note — R24 amends R23 `1701cc9c`:* **SOURCE-STATUS CORRECTION ONLY — the investigation contract is unchanged.** **`R24` IS THE ACCEPTED CONTENT REVISION** *(accepted by Nick 2026-09-13; `§1` owns the record; a later state-only receipt commit carries the reference)*. One routing row repaired: line counts removed as evidence of substance, the federation arc's split-object status and its `DL-21` companion named, and non-re-derivation stated explicitly as **not** non-challenge. **No decision, hypothesis, output, coverage obligation, specification or execution rule is touched.**)* *(Prior revision note — R23 amends R22 `50f37f8a`:* **Completes `B-01`, which R22 applied by APPENDING a correction beneath the premise it was replacing** · states participation and repeatability as an Output C obligation · **routes the existing competitive estate with a non-re-derivation rule** · replaces the last categorical FAI diagnosis. **No new gate, decision, case quota or planning round; `§12.4`'s arithmetic and the first RECONCILE unit are untouched.**)*  Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
+Status: `G0_CLOSED · design_accepted_R24 · method_accepted_R28 · g1_not_activated · arc_not_started · fai_untouched · catalog_registration_OWED`
+Revision: **R29** — amends R28 (`aeaec5f0`). **CLOSURE RECORD ONLY — no instruction changes.** Registers Knox's `PASS` (`§15.7` `RV-11`), the closed planning loop, and the accepted method snapshot **recorded separately from the R24 design baseline.** *(Prior note — R28 amends R27 `058f2618`:* **Corrects three defects in R27: an overbroad reliance instruction now scoped to its use, with the reuse half landed · a FABRICATED FAI causal claim withdrawn · a tally that contradicted its own table removed. Redundant narration in the R27 entry compacted.**)* *(Prior note — R27 amends R26 `45ac0183`:* **Integrates the recovered FAI mid-arc method lessons (`P1`–`P6`) and dispositions all twelve operator concerns (`N1`–`N12`) at `§15.7`.** **This changes execution obligations — it is not hygiene.** The accepted **investigation design** is unchanged at R24.)* *(Prior note — R26 amends R25 `f5dff77c`:* **Corrects R25's entry control in place and withdraws its routing overclaim.**)* *(Prior note — R25 amends R24 `00e2e97c`:* **Adds the `§0` ENTRY GATE · adds ECB-local links to the already-routed estate-accounting exemplars · normalizes the stale acceptance state.** **This IS an execution-rule amendment** *(corrected at R26: R25 claimed no execution rule was altered while introducing entry-evidence and progression-blocking conditions — that was inaccurate)*. **The accepted INVESTIGATION DESIGN is unchanged and remains accepted at R24**: no decision, hypothesis, output, coverage obligation or specification is altered. **The entry/continuation amendment is operator-requested and subject to bounded review.**)* *(Prior note — R24 amends R23 `1701cc9c`:* **SOURCE-STATUS CORRECTION ONLY — the investigation contract is unchanged.** **`R24` IS THE ACCEPTED CONTENT REVISION** *(accepted by Nick 2026-09-13; `§1` owns the record; a later state-only receipt commit carries the reference)*. One routing row repaired: line counts removed as evidence of substance, the federation arc's split-object status and its `DL-21` companion named, and non-re-derivation stated explicitly as **not** non-challenge. **No decision, hypothesis, output, coverage obligation, specification or execution rule is touched.**)* *(Prior revision note — R23 amends R22 `50f37f8a`:* **Completes `B-01`, which R22 applied by APPENDING a correction beneath the premise it was replacing** · states participation and repeatability as an Output C obligation · **routes the existing competitive estate with a non-re-derivation rule** · replaces the last categorical FAI diagnosis. **No new gate, decision, case quota or planning round; `§12.4`'s arithmetic and the first RECONCILE unit are untouched.**)*  Plan repair only; plan acceptance is NOT G1 activation (`§15.0`). Log at `§16`. **Section numbering and question IDs stable since R6; R5→R6 map at `§15.3`.**
 Domain(s): `cross_domain` · `architecture_governance` · `federation` · `rbac_authority` · `cns_orchestration` · `ordered_fulfillment` · `d6_commerce` · `d3_scheduling` · `business_ops_workforce` · `d7_documents_consent` · `observation_measurement` · `clinical_memory` · `trials_research`
 Lifecycle role: defines the investigation — its question, its inherited candidates, its ambition, its bounded mechanism, and the four outputs it must produce — **without deciding its answer.**
 Source-of-truth relationship: **owns nothing.** Arc state belongs to `§1`.
@@ -43,9 +43,10 @@ Arc key:                 ECB  (work identifier only)
 Inherited candidate:     EVRUN-2026-000012_02 §15 — ARCHITECTURE_CANDIDATE,
                          scoped to its run, explicitly NOT the only coherent
                          architecture. A candidate to test, not an answer.
-Arc state:               GATE_0 ACCEPTED (R24) — G1 NOT ACTIVATED
-                         Carrier at R28 (FAI method inheritance, corrected;
-                         accepted INVESTIGATION DESIGN is still R24)
+Arc state:               GATE_0 PLANNING CLOSED 2026-09-14.
+                         Design accepted R24 · method accepted R28.
+                         G1 NOT ACTIVATED. Awaiting activation of the
+                         first bounded unit and its named writer.
 Gate 0 verdict:          ACCEPTED by Nick, 2026-09-13
 Acceptance vs activation: two separate operator acts (§15.0)
 
@@ -75,14 +76,29 @@ OPERATIONAL STATE (§12.9.1 — a successor reads this, not the chat)
                          sufficiency. Reversible: a later state-only commit
                          may withdraw it. Frozen review receipts stay
                          separately identifiable.
-  G1 activation:         NOT GIVEN. Acceptance is not activation. No work
-                         unit is authorized to start. The operator activates
-                         RECONCILE unit 1 (§12.9.3) as a separate act.
-  Next permitted action: Nick's decision on whether to activate RECONCILE
-                         unit 1 (§12.9.3). Act 1 of 2 (acceptance) is DONE
-                         and recorded above. Act 2 has NOT been given: the
-                         operator asked what the unit is before authorizing
-                         it, and no work has begun.
+  Accepted METHOD:       R28 content — head aeaec5f06425d6639aa9c4a38757caf1e913bd3d
+                         blob 6dbb44e13246f1f3cc5de04b3196f50065fc3b85
+                         Knox review PASS (§15.7 RV-11); planning loop
+                         CLOSED by Nick 2026-09-14.
+                         RECORDED SEPARATELY FROM THE DESIGN ON PURPOSE:
+                         R24 is the accepted investigation design and does
+                         NOT contain the R25–R28 method amendments. A
+                         successor must not read R24 as carrying them.
+                         (§12.9.7a object→method rule, applied to itself.)
+  G1 activation:         NOT GIVEN. Neither acceptance is activation. No
+                         work unit is authorized to start and no writer is
+                         active. The operator activates RECONCILE unit 1
+                         (§12.9.3) as a separate act naming the actual
+                         first writer — that act authorizes ONE bounded
+                         unit, not the phase, the gate, or a fleet.
+  Next permitted action: activation of RECONCILE unit 1 (§12.9.3) by the
+                         operator, naming the first writer. Design and
+                         method acceptance are both DONE and recorded
+                         above. GATE-0 PLANNING IS CLOSED — a fresh agent
+                         does NOT reopen charter design; it executes the
+                         named unit and returns at the declared stop.
+                         Reopening requires a NEW material reason, not
+                         reviewer freshness.
 Architecture accepted:   none
 Name minted:             none
 FAI relationship:        separate bounded object; FAI G1 untouched
@@ -896,9 +912,11 @@ Each scored case carries: **question and competing accounts** (which decision it
 **Accepting this plan does not start the investigation.** No sentence in this carrier may combine them.
 
 ```
-[x] PLAN ACCEPTED       — DONE. Nick accepted R24 on 2026-09-13; the
-                          accepted content head + primary blob are recorded
-                          in §1, which owns this record
+[x] PLAN ACCEPTED       — DONE. Design accepted R24 (2026-09-13); corrected
+                          execution method accepted R28 (2026-09-14) after
+                          Knox PASS. Both heads/blobs recorded in §1, which
+                          owns this record. They are SEPARATE facts: R24
+                          does not contain the R25–R28 method amendments
 [ ] G1 PASS 1 ACTIVATED — Nick separately authorizes the first bounded pass
                           against that accepted plan and its declared source
                           basis
@@ -1050,6 +1068,10 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 **Standing preserved, not laundered:** FAI's six-facet reliance model and its per-output source control are **candidate / object-local in FAI**. ECB adopts their **behaviour** as its own execution rule; **nothing here promotes FAI wholesale**, activates its paused method candidates or PR #17, or annuls its accepted Outputs 1–3 — those are *not demonstrated against a later control*, which is not the same as failed.
 
+**`RV-11` — Knox seat, R28 correction review. Verdict: `PASS`. Gate-0 planning-review loop CLOSED.** Reviewed head `aeaec5f0…` / blob `6dbb44e1…`; R27→R28 one commit, +14/−22. **All three conditions closed** — authority inquiry scoped to governing use with evidentiary and candidate use freed from any acceptance act · reusable reliance resolutions preserved in `§13.2` with currency check and attribution · the fabricated FAI acceptance history withdrawn, surviving only as a quoted withdrawal · the false tally removed with no substitute count · duplicated narration compacted without losing operative counterparts. **Verdict based on the patch and receiving text, not on the author's account of it.** **Declared limits:** a continuing delta-and-integration review carrying forward the full R27 read — **not** a new cold review, a fresh FAI reconstruction, G1 source recovery, worktree observation, or an observed replacement-agent trial; the behavioural checks are checks **against written instructions**, not observed agent performance.
+
+**Four execution risks recorded rather than converted into new gates** *(no tracker, headcount, quota, campaign or object is added for them)*: **recovery displacing construction** — the first unit owes the inherited operating account with its disagreements and proof debt, and an impeccable source receipt must not purchase acceptance of an underdeveloped explanation · **prohibitions displacing useful behaviour** — *a system that accurately explains why it cannot act is not the operating substrate this is for*; enabling behaviour must survive consolidation · **a hard responsibility mistaken for a defensible business** — do not assume counterparties participate or that difficulty confers value, **and equally do not let "a competitor may win" become a default retreat: `D1`–`D4` keep a larger OMNI responsibility reachable on evidence** · **continuity rules mistaken for demonstrated continuity** — the next evidence comes from real bounded work, not another charter soundcheck.
+
 **Two results from this round worth more than the repairs, recorded so they are not re-litigated.** `§7`'s characterisation of the inherited candidate was independently verified accurate **on five named elements** (scope stated at `§13.2` — not a blanket verification of `§7`). And the evaluator design was confirmed to carry all three required result capabilities including the hardest, **reporting that a result cannot be decided** — so the defects found were in two instances, not in the design.
 
 **One lesson explicitly refused.** Recovering `_01`, `_03` and `_00` does **not** mean the operating model is already solved. It means more prior reasoning must now inform — and remain challengeable within — the investigation. Generated therapies, changing authorities, adaptive physical activity, shared business operations and long-lived consequences still have to be examined at their actual scope.
@@ -1057,6 +1079,15 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 ## §16 — Amendment log
 
 **R1** `60619c4f` initial · **R2** `3b9db0c2` nine Knox amendments; *"2035 comes free"* withdrawn · **R3** `88e65c07` maturity ladder dissolved; governance made a constraint plane · **R4** `93dab6aa` scope de-clinicalized from Care `§1a`; naming deferred per `GRD-026`; Palantir withdrawn · **R5** `0bbfa91c` `EVRUN-000012 §15` recovered and installed as inherited structure; lattice demoted; speed thesis introduced.
+
+**R29** (this revision) — **closure record. No instruction changed; nothing was added to the method. Gate-0 planning is CLOSED.**
+
+Knox returned **`PASS`** on the R28 corrections with **no further substantive Gate-0 amendment requested** (`§15.7` `RV-11`), and the operator closed the planning loop on 2026-09-14. **Two acceptances are now recorded as SEPARATE facts in `§1`, deliberately** — the **investigation design** at R24 and the **corrected execution method** at R28 — because R24's bytes do not contain the R25–R28 amendments and **a successor must not read them as if they did.** That is `§12.9.7a`'s object→method rule applied to this carrier's own state, which is the first place it should have been applied.
+
+**Unchanged by this closure:** **G1 is not activated** and no writer is active — activation is a separate operator act naming the first writer, authorizing **one bounded unit**, not the phase, the gate or a fleet. Catalog registration, route `#9w` and evidence-lane filing under `GRD-037` **remain owed at their recorded status**; this closure discharges none of them. And the standing that matters most for whoever arrives next: **Gate-0 design is closed to reopening on reviewer freshness alone.** A new seat executes the named unit and returns at the declared stop; **reopening requires a new material reason.**
+
+**R28** — **three defects in R27's reporting corrected; net −8 lines.** A **fabricated FAI causal history** withdrawn *(R27 claimed swapping the materiality and adequacy axes produced "three FAI passes reached acceptance on unassessed families"; the source says "three passes went into the corpus and none into the diff" — misdirected effort, and FAI preserves Outputs 1–3 as accepted with revalidation debt, not failures)* · the **reliance instruction scoped** to governing versus evidentiary use, with the reuse half landed in `§13.2` · the **false unchanged/changed tally** removed rather than recounted · and R27's duplicated quotation recital and eight-row table compacted without losing their operative counterparts. **The lesson recorded with it: verifying several quotations does not verify the explanation written between them** — six citations checked out and the invented sentence sat in the gap between two of them.
+
 
 **R27** — **integrates the recovered FAI mid-arc method lessons. The substantive instructions live in their working homes (`§13.0` ⑥⑦⑧ · `§13.2` · `§12.9.7` · `§12.9.7a` · Output D); the per-concern dispositions live at `§15.7` `RV-10`. This entry records what changed and its review status — it does not restate the lessons a third time.**
 
