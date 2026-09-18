@@ -2,8 +2,8 @@
 
 Document type: `plan_or_roadmap` — **Gate-0 investigation charter**
 Authority: `analysis_nonbinding` (`D0THES-GRD-036`). **Originates no doctrine, mints no name, accepts no architecture, promotes nothing.**
-Status: `G0_CLOSED · design_accepted_R24 · method_accepted_R28 · registered_and_MERGED_to_main_PR20 · g1_reconcile_unit_1_RETURNED_at_review · no_later_unit_activated · fai_untouched`
-Revision: **R40** — completes the in-place consistency pass over RECONCILE unit 1's corrections. **One unit throughout; no later unit is activated.**
+Status: `G0_CLOSED · design_accepted_R24 · method_accepted_R28 · registered_and_MERGED_to_main_PR20 · g1_reconcile_unit_1_review_gate_DISCHARGED_knox_PASS_at_R40 · unit_1_closure_NOT_RECORDED_operator_act_pending · no_later_unit_activated · fai_untouched`
+Revision: **R41** — state-and-receipt only. Records the Knox seat's `PASS` on RECONCILE unit 1 at `§15.7` `RV-12` and the discharged review gate at `§1`. **No instruction, decision, output, source obligation or substantive content changes. Unit-1 closure and any activation remain the operator's separate acts.**
 > **Where to look, so this header stops growing** *(compacted at R39 — the sixteen nested revision narratives that had accumulated here are unchanged and retained in `§16`, which is their home; nothing was deleted)*:
 > **current state → `§1`** (it owns arc state, the accepted baselines, the active writer and the next permitted action) · **current operating account → `§7.4`** · **live recovery record → `§13.2a`** · **remaining work and proof debt → `§15.4`** · **full revision history → `§16`.**
 >
@@ -119,13 +119,32 @@ OPERATIONAL STATE (§12.9.1 — a successor reads this, not the chat)
                          accepted · NO name minted · NO source floor
                          declared complete · NO frontier-sufficiency
                          verdict · nothing promoted · FAI untouched.
-  Next permitted action: Nick + Knox review of RECONCILE unit 1, then the
-                         operator's separate activation of the next bounded
-                         unit against a cohort of his choosing (§15.4b is a
-                         PROPOSAL, not a claim on the next activation).
-                         No agent may open the next cohort, TRACE
-                         preparation, EXTRACT, G2 or a Task-D act on the
-                         strength of unit 1 completing. GATE-0 PLANNING
+  Unit 1 review gate:    DISCHARGED from the Knox seat. Six rounds against
+                         the returned unit; terminal verdict PASS at R40
+                         (head c678a471, blob a9663f87) with no further
+                         correction required. Receipt at §15.7 RV-12.
+                         SCOPE OF THAT PASS, per the reviewing seat: it
+                         accepts unit 1's BOUNDED RECONCILIATION RESULT
+                         and does NOT declare Care inheritance complete,
+                         settle the open architectural choices, or
+                         establish operating sufficiency. Not a merge
+                         receipt. Performs no activation.
+  Unit 1 closure:        NOT RECORDED. A reviewer's PASS discharges the
+                         review gate; it is not the operator's act
+                         (§12.9.2 — no unit completion is self-acceptance).
+                         Closure is recorded the way acceptance is (§15.0):
+                         the authorized writer lands a STATE-ONLY receipt
+                         naming the operator's decision and its date. Until
+                         that exists, this row reads NOT RECORDED.
+  Next permitted action: Nick's closure of RECONCILE unit 1, and — as a
+                         SEPARATE act — activation of the next bounded unit
+                         against a cohort of his choosing (§15.4b is a
+                         PROPOSAL, not a claim on the next activation, and
+                         its reading obligations are not waived by
+                         "remaining work"). No agent may open the next
+                         cohort, TRACE preparation, EXTRACT, G2 or a Task-D
+                         act on the strength of unit 1 completing or of a
+                         reviewer recommending release. GATE-0 PLANNING
                          REMAINS CLOSED — reopening charter design requires
                          a NEW material reason, not reviewer freshness.
 Architecture accepted:   none
@@ -1388,6 +1407,16 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 **One lesson explicitly refused.** Recovering `_01`, `_03` and `_00` does **not** mean the operating model is already solved. It means more prior reasoning must now inform — and remain challengeable within — the investigation. Generated therapies, changing authorities, adaptive physical activity, shared business operations and long-lived consequences still have to be examined at their actual scope.
 
+**`RV-12` — Knox seat, RECONCILE unit 1. Six review rounds against the returned unit; verdict `PASS` at R40.** *(First review round on substantive G1 work. `§15.7` now carries two rounds: the G0 readiness round above, and this one.)* **Reviewed, in sequence:** R34 `12bcf613` → `PASS_WITH_BOUNDED_CORRECTIONS` · R35 `b5c07077` → same · R36 `7f31737c` → same · R37 `2d5269c3` → same · R38 `929101df` → same · **R39 `684ce380` → `PASS_WITH_BOUNDED_CORRECTIONS`, two edits** · **R40 `c678a471` / blob `a9663f87…` → `PASS`, no further correction required.**
+
+**What the `PASS` is, in the reviewer's own scoping:** acceptance of **unit 1's bounded reconciliation result.** **It does NOT declare Care inheritance complete, settle the open architectural choices, or establish operating sufficiency** — and the reviewer states plainly that it is **not a merge receipt** and performs no activation.
+
+**Declared limits of the terminal round:** read the R40 relay and the full R39→R40 patch, then checked the resulting Care recovery row, the composition-hypothesis passage, the next-unit obligations and the owning state section at the R40 snapshot, **carrying the earlier substantive review forward rather than restarting it.** **Did NOT** re-audit the Care or FAI source families, rerun CI, or test implementation.
+
+**What the rounds actually yielded, without re-narrating them** *(round detail is at `§16` R34–R40; this row records identity and disposition only)*: the recovered operating account survived all six rounds; **every round found a defect in this seat's own new conclusions or their propagation**, moving over the sequence from reasoning → reading → propagation; and the terminal two rounds were consistency rather than substance. **Findings and corrections required at R40: none.**
+
+**Residual carried past the `PASS`, stated because a `PASS` on a bounded result is not a discharge of its obligations:** `§13.2`'s **full Care-capture read** is still owed, `§F`'s INVALIDATED list is unread and every Care-derived statement remains conditional on it, `§15.4a`'s nine proof debts stand, and `§15.4b`'s dependencies are unconsumed. **`RV-12` is a review disposition — NOT the operator's closure of unit 1 and NOT activation of any successor** (`§12.9.2`: *no unit completion is self-acceptance*).
+
 ## §16 — Amendment log
 
 > **Registration status, stated once so it is not rediscovered — UPDATED AT R33:** both ECB documents are **catalogued, routed and ON `main`** — `9w` takes ECB execution work to this carrier, `9x` takes later arc-design work to the rationale record. **PR #20 was merged in `c54f53dc`; unit 1 verified both catalog rows and both routes present on the default branch. The registration debt that stood open from R1 to R30 is fully discharged, including publication.** *(Historical: R31 and R32 correctly stated the change was branch-only at the time they were written. That is no longer the state, and the R31/R32 entries below are lineage — read them as such.)*
@@ -1397,6 +1426,16 @@ Each subsequent pass is activated the same way. The author returns **carrier cha
 
 
 **R1** `60619c4f` initial · **R2** `3b9db0c2` nine Knox amendments; *"2035 comes free"* withdrawn · **R3** `88e65c07` maturity ladder dissolved; governance made a constraint plane · **R4** `93dab6aa` scope de-clinicalized from Care `§1a`; naming deferred per `GRD-026`; Palantir withdrawn · **R5** `0bbfa91c` `EVRUN-000012 §15` recovered and installed as inherited structure; lattice demoted; speed thesis introduced.
+
+**R41** — **state and receipt only. The unit-1 review gate is discharged; the unit is not closed by this revision.**
+
+The Knox seat returned **`PASS` on RECONCILE unit 1 at R40**, after six rounds, with **no further correction required.** Recorded as review evidence at **`§15.7` `RV-12`** — reviewed heads and blobs in sequence, the reviewer's own scoping of what the `PASS` does and does not cover, its declared limits, and the residual that survives it. **`§1` gains two rows: the discharged review gate, and `Unit 1 closure: NOT RECORDED`.**
+
+**Why closure is not recorded here.** `§12.9.2` is explicit — *no unit completion is self-acceptance; Nick releases the next bounded work after review.* A reviewer's `PASS` discharges the **review** gate; the **closure** is the operator's act, and this carrier already has the mechanism for exactly that shape: `§15.0`'s state-only receipt naming the decision and its date, under the rule that *the commit **records** an acceptance decision; it does not create one.* **Writing "unit 1 CLOSED" on the strength of a reviewer's recommendation would repeat the R24→R25 defect where the acceptance record and the state disagreed** — so the row reads `NOT RECORDED` until the operator's act exists.
+
+**What the `PASS` does not do, carried into `§1` so a successor cannot misread it:** it does **not** declare Care inheritance complete, settle the open architectural choices, or establish operating sufficiency; it is **not** a merge receipt; and it performs **no** activation. **The residual stands unchanged:** `§13.2`'s full Care-capture read is owed, `§F`'s INVALIDATED list is unread with every Care-derived statement conditional on it, `§15.4a`'s nine proof debts are open, and `§15.4b`'s dependencies are unconsumed and **not waived by "remaining work."**
+
+**Nothing else changed.** No section, rule, hypothesis, case, framework or cleanup; `§7.4` and `§13.2a` are byte-untouched; `§7.4.8` still six items; `§11.6` still empty.
 
 **R40** — **finishes R39's consistency pass, which had missed two cells inside the row it was correcting, and stops a relay from narrowing the next unit's reading obligations.**
 
