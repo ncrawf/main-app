@@ -65,12 +65,27 @@ OBJECT IDENTITY (static — the working object is recovered from these)
   Primary:               .cursor/plans/v4_ECB_G0_external_capability_boundary_reconnaissance_2026-09-11.md
 
 OPERATIONAL STATE (§12.9.1 — a successor reads this, not the chat)
-  Active writer:         none — RECONCILE unit 1 returned and released the
-                         seat. The unit-1 writer was a fresh Cursor/Opus
-                         instance under THREAD LOCK ECB-G1-RECONCILE-OPUS,
-                         sole writer for that unit (§12.9.7a: identify the
-                         writer by instance and bounded work item)
-  Phase:                 G1 · RECONCILE — unit 1 COMPLETE, at review
+  Active writer:         a FRESH Cursor/Opus instance, seated 2026-09-19
+                         under THREAD LOCK ECB-G1-RECONCILE-OPUS and relay
+                         lock ECB-G1-RECONCILE-U1 / TAKE_OVER_EXISTING_
+                         UNIT_1_REWORK. Sole writer.
+  Writer transfer:       RECORDED. The R33–R44 unit-1 writer was replaced by
+                         operator decision after review found its returns
+                         "becoming better at describing the failure without
+                         completing the work that would resolve it." SAME
+                         LANE, same bounded work item — not a new unit, not
+                         a new authority, and not a restart of Gate 0
+                         (Agent Work Protocol §2.1: replacement assumes the
+                         same lane after explicit transfer + freshness
+                         check). The predecessor's recorded reads stay
+                         attributable evidence and are NOT this seat's
+                         consumption (§12.9.7).
+                         Transfer input: head f166c31439545dbc509be7c53d9c
+                         e6a45fe37ced · primary blob 799ba0f7ea961ceeebbff
+                         64fef605e74f64ef90d (R44) — both verified against
+                         the relay by direct query at entry, and the
+                         carrier read in full once before any write.
+  Phase:                 G1 · RECONCILE — unit 1 IN REWORK, not complete
   Bounded work item:     none active. RECONCILE unit 1 (§12.9.3) is
                          returned; §12.9.3 specifies unit 1 ONLY and is not
                          the address for later units. The next cohort is
